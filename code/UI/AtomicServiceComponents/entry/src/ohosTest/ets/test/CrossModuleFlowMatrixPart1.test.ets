@@ -424,9 +424,9 @@ export default function CrossModuleFlowMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 0; i++) {
-        logs = appendLog(logs, new LogItem('device', 't', 'd' + i, LogLevel.INFO), 20);
+        logs = appendLog(logs, new LogItem('device', 't', 'record-' + i, LogLevel.INFO), 20);
       }
-      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'd', 0);
+      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'record', 0);
       expect(hits.length).assertEqual(0);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLogCountLimit0017 end');
     })
@@ -444,9 +444,9 @@ export default function CrossModuleFlowMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 0; i++) {
-        logs = appendLog(logs, new LogItem('device', 't', 'd' + i, LogLevel.INFO), 20);
+        logs = appendLog(logs, new LogItem('device', 't', 'record-' + i, LogLevel.INFO), 20);
       }
-      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'd', 1);
+      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'record', 1);
       expect(hits.length).assertEqual(0);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLogCountLimit0018 end');
     })
@@ -464,9 +464,9 @@ export default function CrossModuleFlowMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 0; i++) {
-        logs = appendLog(logs, new LogItem('device', 't', 'd' + i, LogLevel.INFO), 20);
+        logs = appendLog(logs, new LogItem('device', 't', 'record-' + i, LogLevel.INFO), 20);
       }
-      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'd', 3);
+      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'record', 3);
       expect(hits.length).assertEqual(0);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLogCountLimit0019 end');
     })
@@ -484,9 +484,9 @@ export default function CrossModuleFlowMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 1; i++) {
-        logs = appendLog(logs, new LogItem('device', 't', 'd' + i, LogLevel.INFO), 20);
+        logs = appendLog(logs, new LogItem('device', 't', 'record-' + i, LogLevel.INFO), 20);
       }
-      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'd', 0);
+      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'record', 0);
       expect(hits.length).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLogCountLimit0020 end');
     })
@@ -504,9 +504,9 @@ export default function CrossModuleFlowMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 1; i++) {
-        logs = appendLog(logs, new LogItem('device', 't', 'd' + i, LogLevel.INFO), 20);
+        logs = appendLog(logs, new LogItem('device', 't', 'record-' + i, LogLevel.INFO), 20);
       }
-      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'd', 1);
+      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'record', 1);
       expect(hits.length).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLogCountLimit0021 end');
     })
@@ -524,9 +524,9 @@ export default function CrossModuleFlowMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 1; i++) {
-        logs = appendLog(logs, new LogItem('device', 't', 'd' + i, LogLevel.INFO), 20);
+        logs = appendLog(logs, new LogItem('device', 't', 'record-' + i, LogLevel.INFO), 20);
       }
-      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'd', 3);
+      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'record', 3);
       expect(hits.length).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLogCountLimit0022 end');
     })
@@ -544,9 +544,9 @@ export default function CrossModuleFlowMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 3; i++) {
-        logs = appendLog(logs, new LogItem('device', 't', 'd' + i, LogLevel.INFO), 20);
+        logs = appendLog(logs, new LogItem('device', 't', 'record-' + i, LogLevel.INFO), 20);
       }
-      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'd', 0);
+      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'record', 0);
       expect(hits.length).assertEqual(3);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLogCountLimit0023 end');
     })
@@ -564,9 +564,9 @@ export default function CrossModuleFlowMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 3; i++) {
-        logs = appendLog(logs, new LogItem('device', 't', 'd' + i, LogLevel.INFO), 20);
+        logs = appendLog(logs, new LogItem('device', 't', 'record-' + i, LogLevel.INFO), 20);
       }
-      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'd', 1);
+      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'record', 1);
       expect(hits.length).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLogCountLimit0024 end');
     })
@@ -584,9 +584,9 @@ export default function CrossModuleFlowMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 3; i++) {
-        logs = appendLog(logs, new LogItem('device', 't', 'd' + i, LogLevel.INFO), 20);
+        logs = appendLog(logs, new LogItem('device', 't', 'record-' + i, LogLevel.INFO), 20);
       }
-      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'd', 3);
+      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'record', 3);
       expect(hits.length).assertEqual(3);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLogCountLimit0025 end');
     })
@@ -604,9 +604,9 @@ export default function CrossModuleFlowMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 5; i++) {
-        logs = appendLog(logs, new LogItem('device', 't', 'd' + i, LogLevel.INFO), 20);
+        logs = appendLog(logs, new LogItem('device', 't', 'record-' + i, LogLevel.INFO), 20);
       }
-      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'd', 0);
+      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'record', 0);
       expect(hits.length).assertEqual(5);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLogCountLimit0026 end');
     })
@@ -624,9 +624,9 @@ export default function CrossModuleFlowMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 5; i++) {
-        logs = appendLog(logs, new LogItem('device', 't', 'd' + i, LogLevel.INFO), 20);
+        logs = appendLog(logs, new LogItem('device', 't', 'record-' + i, LogLevel.INFO), 20);
       }
-      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'd', 1);
+      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'record', 1);
       expect(hits.length).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLogCountLimit0027 end');
     })
@@ -644,9 +644,9 @@ export default function CrossModuleFlowMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 5; i++) {
-        logs = appendLog(logs, new LogItem('device', 't', 'd' + i, LogLevel.INFO), 20);
+        logs = appendLog(logs, new LogItem('device', 't', 'record-' + i, LogLevel.INFO), 20);
       }
-      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'd', 3);
+      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'record', 3);
       expect(hits.length).assertEqual(3);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLogCountLimit0028 end');
     })
@@ -664,9 +664,9 @@ export default function CrossModuleFlowMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 10; i++) {
-        logs = appendLog(logs, new LogItem('device', 't', 'd' + i, LogLevel.INFO), 20);
+        logs = appendLog(logs, new LogItem('device', 't', 'record-' + i, LogLevel.INFO), 20);
       }
-      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'd', 0);
+      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'record', 0);
       expect(hits.length).assertEqual(10);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLogCountLimit0029 end');
     })
@@ -684,9 +684,9 @@ export default function CrossModuleFlowMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 10; i++) {
-        logs = appendLog(logs, new LogItem('device', 't', 'd' + i, LogLevel.INFO), 20);
+        logs = appendLog(logs, new LogItem('device', 't', 'record-' + i, LogLevel.INFO), 20);
       }
-      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'd', 1);
+      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'record', 1);
       expect(hits.length).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLogCountLimit0030 end');
     })
@@ -704,9 +704,9 @@ export default function CrossModuleFlowMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 10; i++) {
-        logs = appendLog(logs, new LogItem('device', 't', 'd' + i, LogLevel.INFO), 20);
+        logs = appendLog(logs, new LogItem('device', 't', 'record-' + i, LogLevel.INFO), 20);
       }
-      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'd', 3);
+      const hits = queryLogs(logs, 'device', LogLevel.DEBUG, 'record', 3);
       expect(hits.length).assertEqual(3);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLogCountLimit0031 end');
     })

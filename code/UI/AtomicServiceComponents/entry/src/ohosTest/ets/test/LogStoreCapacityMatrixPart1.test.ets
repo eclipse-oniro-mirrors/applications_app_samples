@@ -38,11 +38,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 1; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 1);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 1);
       }
       expect(logs.length).assertEqual(1);
-      expect(logs[0].detail).assertEqual('d0');
-      expect(logs[logs.length - 1].detail).assertEqual('d0');
+      expect(logs[0].detail).assertEqual('record-0');
+      expect(logs[logs.length - 1].detail).assertEqual('record-0');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0001 end');
     })
 
@@ -59,11 +59,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 2; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 1);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 1);
       }
       expect(logs.length).assertEqual(1);
-      expect(logs[0].detail).assertEqual('d1');
-      expect(logs[logs.length - 1].detail).assertEqual('d1');
+      expect(logs[0].detail).assertEqual('record-1');
+      expect(logs[logs.length - 1].detail).assertEqual('record-1');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0002 end');
     })
 
@@ -80,11 +80,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 3; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 1);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 1);
       }
       expect(logs.length).assertEqual(1);
-      expect(logs[0].detail).assertEqual('d2');
-      expect(logs[logs.length - 1].detail).assertEqual('d2');
+      expect(logs[0].detail).assertEqual('record-2');
+      expect(logs[logs.length - 1].detail).assertEqual('record-2');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0003 end');
     })
 
@@ -101,11 +101,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 6; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 1);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 1);
       }
       expect(logs.length).assertEqual(1);
-      expect(logs[0].detail).assertEqual('d5');
-      expect(logs[logs.length - 1].detail).assertEqual('d5');
+      expect(logs[0].detail).assertEqual('record-5');
+      expect(logs[logs.length - 1].detail).assertEqual('record-5');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0004 end');
     })
 
@@ -122,11 +122,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 10; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 1);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 1);
       }
       expect(logs.length).assertEqual(1);
-      expect(logs[0].detail).assertEqual('d9');
-      expect(logs[logs.length - 1].detail).assertEqual('d9');
+      expect(logs[0].detail).assertEqual('record-9');
+      expect(logs[logs.length - 1].detail).assertEqual('record-9');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0005 end');
     })
 
@@ -143,11 +143,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 1; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 2);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 2);
       }
       expect(logs.length).assertEqual(1);
-      expect(logs[0].detail).assertEqual('d0');
-      expect(logs[logs.length - 1].detail).assertEqual('d0');
+      expect(logs[0].detail).assertEqual('record-0');
+      expect(logs[logs.length - 1].detail).assertEqual('record-0');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0006 end');
     })
 
@@ -164,11 +164,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 2; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 2);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 2);
       }
       expect(logs.length).assertEqual(2);
-      expect(logs[0].detail).assertEqual('d1');
-      expect(logs[logs.length - 1].detail).assertEqual('d0');
+      expect(logs[0].detail).assertEqual('record-1');
+      expect(logs[logs.length - 1].detail).assertEqual('record-0');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0007 end');
     })
 
@@ -185,11 +185,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 3; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 2);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 2);
       }
       expect(logs.length).assertEqual(2);
-      expect(logs[0].detail).assertEqual('d2');
-      expect(logs[logs.length - 1].detail).assertEqual('d1');
+      expect(logs[0].detail).assertEqual('record-2');
+      expect(logs[logs.length - 1].detail).assertEqual('record-1');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0008 end');
     })
 
@@ -206,11 +206,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 6; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 2);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 2);
       }
       expect(logs.length).assertEqual(2);
-      expect(logs[0].detail).assertEqual('d5');
-      expect(logs[logs.length - 1].detail).assertEqual('d4');
+      expect(logs[0].detail).assertEqual('record-5');
+      expect(logs[logs.length - 1].detail).assertEqual('record-4');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0009 end');
     })
 
@@ -227,11 +227,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 10; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 2);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 2);
       }
       expect(logs.length).assertEqual(2);
-      expect(logs[0].detail).assertEqual('d9');
-      expect(logs[logs.length - 1].detail).assertEqual('d8');
+      expect(logs[0].detail).assertEqual('record-9');
+      expect(logs[logs.length - 1].detail).assertEqual('record-8');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0010 end');
     })
 
@@ -248,11 +248,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 1; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 3);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 3);
       }
       expect(logs.length).assertEqual(1);
-      expect(logs[0].detail).assertEqual('d0');
-      expect(logs[logs.length - 1].detail).assertEqual('d0');
+      expect(logs[0].detail).assertEqual('record-0');
+      expect(logs[logs.length - 1].detail).assertEqual('record-0');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0011 end');
     })
 
@@ -269,11 +269,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 2; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 3);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 3);
       }
       expect(logs.length).assertEqual(2);
-      expect(logs[0].detail).assertEqual('d1');
-      expect(logs[logs.length - 1].detail).assertEqual('d0');
+      expect(logs[0].detail).assertEqual('record-1');
+      expect(logs[logs.length - 1].detail).assertEqual('record-0');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0012 end');
     })
 
@@ -290,11 +290,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 3; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 3);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 3);
       }
       expect(logs.length).assertEqual(3);
-      expect(logs[0].detail).assertEqual('d2');
-      expect(logs[logs.length - 1].detail).assertEqual('d0');
+      expect(logs[0].detail).assertEqual('record-2');
+      expect(logs[logs.length - 1].detail).assertEqual('record-0');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0013 end');
     })
 
@@ -311,11 +311,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 6; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 3);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 3);
       }
       expect(logs.length).assertEqual(3);
-      expect(logs[0].detail).assertEqual('d5');
-      expect(logs[logs.length - 1].detail).assertEqual('d3');
+      expect(logs[0].detail).assertEqual('record-5');
+      expect(logs[logs.length - 1].detail).assertEqual('record-3');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0014 end');
     })
 
@@ -332,11 +332,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 10; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 3);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 3);
       }
       expect(logs.length).assertEqual(3);
-      expect(logs[0].detail).assertEqual('d9');
-      expect(logs[logs.length - 1].detail).assertEqual('d7');
+      expect(logs[0].detail).assertEqual('record-9');
+      expect(logs[logs.length - 1].detail).assertEqual('record-7');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0015 end');
     })
 
@@ -353,11 +353,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 1; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 5);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 5);
       }
       expect(logs.length).assertEqual(1);
-      expect(logs[0].detail).assertEqual('d0');
-      expect(logs[logs.length - 1].detail).assertEqual('d0');
+      expect(logs[0].detail).assertEqual('record-0');
+      expect(logs[logs.length - 1].detail).assertEqual('record-0');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0016 end');
     })
 
@@ -374,11 +374,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 2; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 5);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 5);
       }
       expect(logs.length).assertEqual(2);
-      expect(logs[0].detail).assertEqual('d1');
-      expect(logs[logs.length - 1].detail).assertEqual('d0');
+      expect(logs[0].detail).assertEqual('record-1');
+      expect(logs[logs.length - 1].detail).assertEqual('record-0');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0017 end');
     })
 
@@ -395,11 +395,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 3; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 5);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 5);
       }
       expect(logs.length).assertEqual(3);
-      expect(logs[0].detail).assertEqual('d2');
-      expect(logs[logs.length - 1].detail).assertEqual('d0');
+      expect(logs[0].detail).assertEqual('record-2');
+      expect(logs[logs.length - 1].detail).assertEqual('record-0');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0018 end');
     })
 
@@ -416,11 +416,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 6; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 5);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 5);
       }
       expect(logs.length).assertEqual(5);
-      expect(logs[0].detail).assertEqual('d5');
-      expect(logs[logs.length - 1].detail).assertEqual('d1');
+      expect(logs[0].detail).assertEqual('record-5');
+      expect(logs[logs.length - 1].detail).assertEqual('record-1');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0019 end');
     })
 
@@ -437,11 +437,11 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 10; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 5);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 5);
       }
       expect(logs.length).assertEqual(5);
-      expect(logs[0].detail).assertEqual('d9');
-      expect(logs[logs.length - 1].detail).assertEqual('d5');
+      expect(logs[0].detail).assertEqual('record-9');
+      expect(logs[logs.length - 1].detail).assertEqual('record-5');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCapacity0020 end');
     })
 
@@ -458,7 +458,7 @@ export default function LogStoreCapacityMatrixPart1Test(): void {
       await delayTick();
       let logs: LogItem[] = [];
       for (let i: number = 0; i < 5; i++) {
-        logs = appendLog(logs, new LogItem('device', 'download', 'd' + i, LogLevel.INFO), 0);
+        logs = appendLog(logs, new LogItem('device', 'download', 'record-' + i, LogLevel.INFO), 0);
       }
       expect(logs.length).assertEqual(5);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testDefaultCapacity0021 end');
