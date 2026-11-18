@@ -17,7 +17,7 @@
   "module": {
     "name": "entry",
     "type": "entry",
-    "srcEntrance": "./ets/Application/MyAbilityStage.ts",
+    "srcEntry": "./ets/Application/MyAbilityStage.ts",
     "description": "$string:entry_desc",
     "mainElement": "MainAbility",
     "deviceTypes": [
@@ -37,47 +37,47 @@
     "abilities": [
       {
         "name": "SpecifiedAbility",
-        "srcEntrance": "./ets/SpecifiedAbility/SpecifiedAbility.ts",
+        "srcEntry": "./ets/SpecifiedAbility/SpecifiedAbility.ts",
         "description": "$string:specifiedAbility_desc",
         "icon": "$media:icon",
         "label": "$string:specifiedAbility_label",
         "startWindowIcon": "$media:icon",
         "startWindowBackground": "$color:white",
-        "visible": true,
+        "exported": true,
         "launchType": "specified",
         "continuable": true,
       },
       {
         "name": "StandardAbility",
-        "srcEntrance": "./ets/StandardAbility/StandardAbility.ts",
+        "srcEntry": "./ets/StandardAbility/StandardAbility.ts",
         "description": "$string:standardAbility_desc",
         "icon": "$media:icon",
         "label": "$string:standardAbility_label",
         "startWindowIcon": "$media:icon",
         "startWindowBackground": "$color:white",
-        "visible": true,
+        "exported": true,
         "launchType": "standard"
       },
       {
         "name": "SingletonAbility",
-        "srcEntrance": "./ets/SingletonAbility/SingletonAbility.ts",
+        "srcEntry": "./ets/SingletonAbility/SingletonAbility.ts",
         "description": "$string:singletonAbility_desc",
         "icon": "$media:icon",
         "label": "$string:singletonAbility_label",
         "startWindowIcon": "$media:icon",
         "startWindowBackground": "$color:white",
-        "visible": true,
+        "exported": true,
         "launchType": "singleton"
       },
       {
         "name": "MainAbility",
-        "srcEntrance": "./ets/MainAbility/MainAbility.ts",
+        "srcEntry": "./ets/MainAbility/MainAbility.ts",
         "description": "$string:mainAbility_desc",
         "icon": "$media:icon",
         "label": "$string:mainAbility_label",
         "startWindowIcon": "$media:icon",
         "startWindowBackground": "$color:white",
-        "visible": true,
+        "exported": true,
         "skills": [
           {
             "entities": [

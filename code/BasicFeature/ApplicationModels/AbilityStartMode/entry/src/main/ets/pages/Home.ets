@@ -32,7 +32,7 @@ struct Home {
         .fontSize(22)
       Column() {
         List() {
-          ForEach(this.foodList, (item, index) => {
+          ForEach(this.foodList, (item: Array<FoodInfo>, index: number) => {
             ListItem() {
               Column() {
                 if (index == 0) {
@@ -68,10 +68,10 @@ struct Home {
 
 @Component
 struct FoodListComp {
-  private modeIntro: Resource
-  private foodsList: Array<FoodInfo>
-  private modeName: string
-  private foodListIndex: number
+  private modeIntro: Resource = $r('app.string.standardMode_title')
+  private foodsList: Array<FoodInfo> = []
+  private modeName: string = ''
+  private foodListIndex: number = 0
 
   build() {
     Column() {
@@ -90,7 +90,7 @@ struct FoodListComp {
       .height(46)
       .padding({ left: 10, top: 10 })
 
-      ForEach(this.foodsList, (item, index) => {
+      ForEach(this.foodsList, (item: FoodInfo, index: number) => {
         FoodListItem({
           foodItem: item,
           foodItemIndex: index,

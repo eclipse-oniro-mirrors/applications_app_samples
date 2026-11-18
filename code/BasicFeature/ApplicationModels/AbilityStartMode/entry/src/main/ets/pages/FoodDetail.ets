@@ -21,7 +21,18 @@ import { getFoodsData } from '../model/DataUtil'
 
 const TAG = '[Sample_StartMode]'
 const eventId = 1 // 设置一个Id，用来emitter传输
-let abilityWant = getContextData()['want']
+
+interface WantParameters {
+  foodItemId: number
+  modeName: string
+  foodListIndex: number
+}
+
+interface LaunchWant {
+  parameters: WantParameters
+}
+
+let abilityWant: LaunchWant = getContextData()['want'] as LaunchWant
 
 interface EventHub {
   emit(event: string, ...args: Object[]): void
@@ -40,8 +51,8 @@ interface GetFoodItemId {
 
 @Component
 struct CardTitle {
-  private title: Resource
-  private subtitle: Resource
+  private title: Resource = $r('app.string.title_food_detail')
+  private subtitle: Resource = $r('app.string.unit_weight')
 
   build() {
     Row() {
@@ -107,7 +118,7 @@ struct FoodImageDisplay {
 struct ContentTable {
   @Link foodInfo: FoodInfo
 
-  @Builder IngredientItem(title: Resource, colorValue: string, name: Resource, value: Resource) {
+  @Builder IngredientItem(title: ResourceStr, colorValue: string, name: Resource, value: ResourceStr) {
     Row() {
       Text(title)
         .fontSize(18)
@@ -136,9 +147,9 @@ struct ContentTable {
       this.IngredientItem($r('app.string.diet_record_calorie'), '#F54040', $r('app.string.diet_record_calorie'), $r('app.string.calorie_with_kcal_unit', this.foodInfo.calories.toString()))
       Row().height(20)
       this.IngredientItem($r('app.string.nutrition_element'), '#CCC', $r('app.string.nutrition_element'), $r('app.string.weight_with_gram_unit', this.foodInfo.protein.toString()))
-      this.IngredientItem(null, '#F5D640', $r('app.string.diet_record_fat'), $r('app.string.weight_with_gram_unit', this.foodInfo.fat.toString()))
-      this.IngredientItem(null, '#9E9EFF', $r('app.string.diet_record_carbohydrates'), $r('app.string.weight_with_gram_unit', this.foodInfo.carbohydrates.toString()))
-      this.IngredientItem(null, '#53F540', $r('app.string.diet_record_vitaminC'), $r('app.string.weight_with_milligram_unit', this.foodInfo.vitaminC.toString()))
+      this.IngredientItem('', '#F5D640', $r('app.string.diet_record_fat'), $r('app.string.weight_with_gram_unit', this.foodInfo.fat.toString()))
+      this.IngredientItem('', '#9E9EFF', $r('app.string.diet_record_carbohydrates'), $r('app.string.weight_with_gram_unit', this.foodInfo.carbohydrates.toString()))
+      this.IngredientItem('', '#53F540', $r('app.string.diet_record_vitaminC'), $r('app.string.weight_with_milligram_unit', this.foodInfo.vitaminC.toString()))
     }.cardStyle()
   }
 }
@@ -209,8 +220,8 @@ struct StartModeCard {
   @Link foodData: FoodInfo[]
   @Link foodItemId: number
   @Link foodInfo: FoodInfo
-  private modeName: string
-  private foodListIndex: number
+  private modeName: string = ''
+  private foodListIndex: number = 0
 
   async cateMode(foodItemId: number) {
     Logger.info(TAG, 'StartModeCard startMode start')
@@ -229,11 +240,11 @@ struct StartModeCard {
       }, 'SpecifiedAbility')
     } else {
       startMode({ foodItemId, modeName: this.modeName, foodListIndex: this.foodListIndex }, 'SingletonAbility')
-      let innerEvent = {
-        eventId
+      const innerEvent: emitter.InnerEvent = {
+        eventId: eventId
       }
-      emitter.on(innerEvent, (eventData) => {
-        this.foodItemId = eventData.data.foodItemId
+      emitter.on(innerEvent, (eventData: emitter.EventData) => {
+        this.foodItemId = (eventData.data?.foodItemId ?? 0) as number
         // 判断数据的id值是否为0
         if (this.foodItemId == 0) {
           this.foodInfo = getFoodsData()[this.foodListIndex][this.foodItemId+1] // 这里的1指的是下一条数据
@@ -297,14 +308,25 @@ struct StartModeCard {
 @Entry
 @Component
 export struct FoodDetail {
-  @State foodInfo: any = {}
+  @State foodInfo: FoodInfo = {
+    id: 0,
+    letter: '',
+    name: '',
+    image: $r('app.media.tomato'),
+    categoryId: CategoryId.Vegetable,
+    calories: 0,
+    protein: 0,
+    fat: 0,
+    carbohydrates: 0,
+    vitaminC: 0
+  }
   @State standardFoodData: FoodInfo[] = []
   @State specifiedFoodData: FoodInfo[] = []
   @State singletonFoodData: FoodInfo[] = []
   @State foodItemId: number = 0 // 接受want传过来的foodItemId,并根据此Id去筛选数据，初始值为0
   private foodData: Array<FoodInfo>[] = getFoodsData()
-  private modeName: string
-  private foodListIndex: number
+  private modeName: string = ''
+  private foodListIndex: number = 0
 
   async aboutToAppear() {
     Logger.info(TAG, 'FoodDetail aboutToAppear start')
