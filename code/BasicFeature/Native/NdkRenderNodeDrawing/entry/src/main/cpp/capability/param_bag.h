@@ -20,6 +20,8 @@
 #include "capability_type.h"
 
 namespace ndr {
+// 开关取值的判定阈值：外层传入 0 或 1，超过阈值即视为开启。
+constexpr double FLAG_THRESHOLD = 0.5;
 // 参数包：ArkTS 侧以定长 number[] 传入，这里按下标读取并按场景声明的区间裁剪。
 // 下标即协议，顺序必须与 ets/schema/*.ets 中 ParamSpec 的声明顺序严格一致。
 class ParamBag {
@@ -86,10 +88,10 @@ public:
         return result > max ? max : result;
     }
 
-    // 开关取值：大于 0.5 视为开启。
+    // 开关取值：大于阈值视为开启。
     bool Flag(uint32_t index, bool fallback) const
     {
-        return Raw(index, fallback ? 1.0 : 0.0) > 0.5;
+        return Raw(index, fallback ? 1.0 : 0.0) > FLAG_THRESHOLD;
     }
 
     // 下拉取值：上限由选项个数决定，越界回退到 fallback。

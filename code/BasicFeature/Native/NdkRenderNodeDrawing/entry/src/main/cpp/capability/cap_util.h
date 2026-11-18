@@ -34,6 +34,24 @@ constexpr uint32_t PALETTE[] = {0xFF1F6FEB, 0xFFF59E0B, 0xFF10B981, 0xFFEF4444, 
 constexpr int32_t PALETTE_COUNT = 6;
 constexpr float PI = 3.14159265F;
 
+// 调色板槽位名称，与 PALETTE 的顺序一一对应，绘制代码按语义取色而不是写死下标。
+enum PaletteSlot : int32_t {
+    SLOT_BLUE = 0,
+    SLOT_ORANGE = 1,
+    SLOT_GREEN = 2,
+    SLOT_RED = 3,
+    SLOT_PURPLE = 4,
+    SLOT_CYAN = 5,
+};
+
+// 坐标成对存放时的步长与分量下标，用于把单点写入顶点缓冲区。
+constexpr int32_t COORD_STRIDE = 2;
+constexpr int32_t COORD_OFFSET_X = 0;
+constexpr int32_t COORD_OFFSET_Y = 1;
+// 三色与八色循环取色时的循环长度。
+constexpr int32_t COLOR_CYCLE_TRIPLE = 3;
+constexpr int32_t COLOR_CYCLE_OCTET = 8;
+
 // ARGB 通道布局：每通道 8 位，蓝、绿、红、透明度的移位量依次为 0、8、16、24。
 constexpr int32_t CHANNEL_BITS = 8;
 constexpr int32_t CHANNEL_COUNT = 4;

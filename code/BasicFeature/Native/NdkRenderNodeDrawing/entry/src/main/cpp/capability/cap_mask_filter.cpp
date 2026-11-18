@@ -38,6 +38,9 @@ constexpr int32_t PARAM_PEN_WIDTH = 2;
 constexpr int32_t PARAM_FONT_SIZE = 2;
 // 第 4 位为模糊类型下拉序号。
 constexpr int32_t PARAM_BLUR_TYPE = 3;
+// 模糊类型的下拉下标：外发光与内发光。
+constexpr int32_t BLUR_TYPE_OPTION_OUTER = 2;
+constexpr int32_t BLUR_TYPE_OPTION_INNER = 3;
 
 // 把下拉序号映射到模糊类型；NORMAL 之外的类型在 Skia 中只支持不跟随 CTM。
 OH_Drawing_BlurType ToBlurType(int32_t index)
@@ -45,9 +48,9 @@ OH_Drawing_BlurType ToBlurType(int32_t index)
     switch (index) {
         case 1:
             return SOLID;
-        case 2:
+        case BLUR_TYPE_OPTION_OUTER:
             return OUTER;
-        case 3:
+        case BLUR_TYPE_OPTION_INNER:
             return INNER;
         default:
             return NORMAL;
@@ -153,21 +156,21 @@ void SceneBlurNormal(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const P
 // 1. 实心模糊：模糊只在图形外部产生，内部保持原色，适合做“硬边发光”。
 void SceneBlurSolid(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBag &params)
 {
-    DrawBlurTypeDemo(canvas, frame, SOLID, params.Choice(0, cap::PALETTE_COUNT, 2),
+    DrawBlurTypeDemo(canvas, frame, SOLID, params.Choice(0, cap::PALETTE_COUNT, cap::SLOT_GREEN),
         params.Range(1, 16.0F, 0.0F, MAX_SIGMA), params.Percent(PARAM_ALPHA, 0.9F));
 }
 
 // 2. 外发光：只保留图形外侧的模糊，图形本体被裁掉。
 void SceneBlurOuter(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBag &params)
 {
-    DrawBlurTypeDemo(canvas, frame, OUTER, params.Choice(0, cap::PALETTE_COUNT, 3),
+    DrawBlurTypeDemo(canvas, frame, OUTER, params.Choice(0, cap::PALETTE_COUNT, cap::SLOT_RED),
         params.Range(1, 20.0F, 0.0F, MAX_SIGMA), params.Percent(PARAM_ALPHA, 0.95F));
 }
 
 // 3. 内发光：模糊只向内扩散，图形外侧保持干净。
 void SceneBlurInner(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBag &params)
 {
-    DrawBlurTypeDemo(canvas, frame, INNER, params.Choice(0, cap::PALETTE_COUNT, 4),
+    DrawBlurTypeDemo(canvas, frame, INNER, params.Choice(0, cap::PALETTE_COUNT, cap::SLOT_PURPLE),
         params.Range(1, 20.0F, 0.0F, MAX_SIGMA), params.Percent(PARAM_ALPHA, 0.95F));
 }
 

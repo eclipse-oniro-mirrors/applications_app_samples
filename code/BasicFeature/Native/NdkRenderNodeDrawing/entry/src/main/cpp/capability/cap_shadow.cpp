@@ -108,7 +108,7 @@ void SceneBlur(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBa
             continue;
         }
         DrawPathShadow(canvas, path, frame, level, 0.0F, frame.Y(3.0F),
-            cap::WithAlpha(cap::PaletteColor(palette + 4), 0.55F));
+            cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_PURPLE), 0.55F));
         cap::FillCircleArea(canvas, cap::PaletteColor(palette + index), cx, frame.centerY, radius);
         OH_Drawing_PathDestroy(path);
     }
@@ -132,7 +132,7 @@ void SceneOffset(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
         return;
     }
     DrawPathShadow(canvas, path, frame, frame.Span(7.0F), offsetX, offsetY,
-        cap::WithAlpha(cap::PaletteColor(palette + 3), 0.7F));
+        cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_RED), 0.7F));
     cap::FillRectArea(canvas, cap::PaletteColor(palette), left, top, right, bottom);
     OH_Drawing_PathDestroy(path);
     // 图形轮廓用描边标出，便于区分阴影本体与来源图形的边界。
@@ -174,7 +174,7 @@ void SceneOnPen(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamB
         return;
     }
     DrawPathShadow(canvas, path, frame, blur, frame.X(3.0F), frame.Y(3.0F),
-        cap::WithAlpha(cap::PaletteColor(palette + 4), 0.65F));
+        cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_PURPLE), 0.65F));
     // 路径再用描边画一次，保证图形本身轮廓清晰可见。
     cap::StrokePathArea(canvas, cap::PaletteColor(palette + 1), width, path);
     OH_Drawing_PathDestroy(path);
@@ -192,7 +192,7 @@ void SceneOnBrush(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Para
         return;
     }
     DrawPathShadow(canvas, path, frame, blur, frame.X(2.0F), frame.Y(4.0F),
-        cap::WithAlpha(cap::PaletteColor(palette + 3), 0.6F));
+        cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_RED), 0.6F));
     cap::FillCircleArea(canvas, cap::PaletteColor(palette), frame.centerX, frame.centerY, radius);
     OH_Drawing_PathDestroy(path);
 }
@@ -234,7 +234,7 @@ void SceneText(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBa
     }
     ShadowBrush shadow;
     if (PrepareShadowBrush(shadow, blur, frame.X(3.0F), frame.Y(4.0F),
-        cap::WithAlpha(cap::PaletteColor(palette + 4), 0.7F), cap::PaletteColor(palette))) {
+        cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_PURPLE), 0.7F), cap::PaletteColor(palette))) {
         OH_Drawing_CanvasAttachBrush(canvas, shadow.brush);
         OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, frame.X(12.0F), frame.centerY);
         OH_Drawing_CanvasDetachBrush(canvas);
@@ -256,7 +256,7 @@ void SceneLayer(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamB
         return;
     }
     // 先画图层边界，便于观察阴影是否被裁剪在图层范围内。
-    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + 5), 1.0F, frame.X(14.0F) + inset,
+    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_CYAN), 1.0F, frame.X(14.0F) + inset,
         frame.Y(20.0F) + inset, frame.X(86.0F) - inset, frame.Y(80.0F) - inset);
     OH_Drawing_CanvasSaveLayer(canvas, bounds, nullptr);
     for (int32_t index = 0; index < STACK_COUNT; ++index) {
@@ -267,7 +267,7 @@ void SceneLayer(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamB
             continue;
         }
         DrawPathShadow(canvas, path, frame, frame.Span(9.0F), frame.X(2.0F), frame.Y(3.0F),
-            cap::WithAlpha(cap::PaletteColor(palette + 3), 0.6F));
+            cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_RED), 0.6F));
         cap::FillCircleArea(canvas, cap::PaletteColor(palette + index), cx, frame.centerY, radius);
         OH_Drawing_PathDestroy(path);
     }

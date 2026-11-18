@@ -43,6 +43,8 @@ constexpr double FONT_SCALE = 16.0;
 constexpr double MIN_FONT_SIZE = 12.0;
 constexpr double MAX_FONT_SIZE = 96.0;
 constexpr float DASH_INTERVALS[] = {12.0F, 8.0F};
+// 文字落笔点相对画布宽度的左边距比例，两种绘制方式保持一致。
+constexpr double TEXT_ORIGIN_RATIO = 0.05;
 
 struct TypographyBundle {
     OH_Drawing_TypographyStyle *typoStyle = nullptr;
@@ -148,7 +150,7 @@ void DrawTypography(OH_Drawing_Canvas *canvas, int32_t width, int32_t height)
     TypographyBundle bundle;
     const double maxWidth = static_cast<double>(width) * 0.9;
     if (BuildTypography(bundle, TEXT_CONTENT, fontSize, maxWidth, fontCollection)) {
-        OH_Drawing_TypographyPaint(bundle.typography, canvas, width * 0.05, height * 0.3);
+        OH_Drawing_TypographyPaint(bundle.typography, canvas, width * TEXT_ORIGIN_RATIO, height * 0.3);
     }
     DestroyTypography(bundle);
     OH_Drawing_DestroyFontCollection(fontCollection);
@@ -187,7 +189,7 @@ void DrawTextBlob(OH_Drawing_Canvas *canvas, int32_t width, int32_t height)
         OH_Drawing_CanvasAttachBrush(canvas, brush);
     }
     // TextBlob 只支持单行绘制，按画布中心线定位。
-    OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, width * 0.05, height * 0.5);
+    OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, width * TEXT_ORIGIN_RATIO, height * 0.5);
     if (brush != nullptr) {
         OH_Drawing_CanvasDetachBrush(canvas);
         OH_Drawing_BrushDestroy(brush);

@@ -39,6 +39,22 @@ constexpr int32_t PARAM_MODAL = 2;
 constexpr int32_t PARAM_WORD_SPACING = 2;
 constexpr int32_t PARAM_STYLE = 2;
 constexpr int32_t PARAM_OFFSET = 2;
+// 对齐方式、装饰线样式与断行策略的选项下标，与各场景的下拉顺序一致。
+constexpr int32_t ALIGN_OPTION_CENTER = 2;
+constexpr int32_t ALIGN_OPTION_JUSTIFY = 3;
+constexpr int32_t ALIGN_OPTION_START = 4;
+constexpr int32_t ALIGN_OPTION_END = 5;
+constexpr int32_t DECORATION_OPTION_UNDERLINE_THROUGH = 2;
+constexpr int32_t DECORATION_STYLE_OPTION_DOTTED = 2;
+constexpr int32_t DECORATION_STYLE_OPTION_DASHED = 3;
+constexpr int32_t DECORATION_STYLE_OPTION_WAVY = 4;
+constexpr int32_t BREAK_STRATEGY_OPTION_BALANCED = 2;
+// 三种断行策略、五档字重与五个方向指示色块各自并排展示。
+constexpr int32_t BREAK_STRATEGY_COUNT = 3;
+constexpr int32_t FONT_WEIGHT_LEVEL_COUNT = 5;
+constexpr int32_t DIRECTION_BLOCK_COUNT = 5;
+// 装饰线粗细倍率，稍粗于默认值以便观察。
+constexpr double DECORATION_THICKNESS_SCALE = 1.5;
 
 // 排版对象集合：样式、文本样式、Handler 与 Typography，统一创建与销毁。
 struct TypographyHolder {
@@ -134,8 +150,8 @@ void DrawCountBars(OH_Drawing_Canvas *canvas, const cap::Frame &frame, int32_t c
     const int32_t limited = count > MAX_DRAWN_LINES ? MAX_DRAWN_LINES : (count < 0 ? 0 : count);
     for (int32_t index = 0; index < limited; ++index) {
         const float top = frame.Y(20.0F) + static_cast<float>(index) * frame.Y(6.0F);
-        cap::FillRectArea(canvas, cap::PaletteColor(palette + index % 3), frame.X(4.0F), top, frame.X(9.0F),
-            top + frame.Y(4.0F));
+        const uint32_t color = cap::PaletteColor(palette + index % cap::COLOR_CYCLE_TRIPLE);
+        cap::FillRectArea(canvas, color, frame.X(4.0F), top, frame.X(9.0F), top + frame.Y(4.0F));
     }
 }
 
@@ -164,16 +180,16 @@ void SceneAlign(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamB
         case 1:
             align = TEXT_ALIGN_RIGHT;
             break;
-        case 2:
+        case ALIGN_OPTION_CENTER:
             align = TEXT_ALIGN_CENTER;
             break;
-        case 3:
+        case ALIGN_OPTION_JUSTIFY:
             align = TEXT_ALIGN_JUSTIFY;
             break;
-        case 4:
+        case ALIGN_OPTION_START:
             align = TEXT_ALIGN_START;
             break;
-        case 5:
+        case ALIGN_OPTION_END:
             align = TEXT_ALIGN_END;
             break;
         default:
@@ -188,7 +204,7 @@ void SceneAlign(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamB
     OH_Drawing_SetTypographyTextAlign(holder.style, align);
     LayoutHolder(holder, frame.X(80.0F));
     // 布局区域用描边框标出，便于观察不同对齐方式下文字靠左/靠右/居中的差异。
-    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + 3), 1.0F, frame.X(10.0F), frame.Y(6.0F),
+    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_RED), 1.0F, frame.X(10.0F), frame.Y(6.0F),
         frame.X(90.0F), frame.Y(94.0F));
     PaintHolder(canvas, holder, frame.X(10.0F), frame.Y(10.0F));
     DestroyHolder(holder);
@@ -210,8 +226,8 @@ void SceneMaxLines(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Par
     DrawCountBars(canvas, frame, maxLines, palette);
     // 超出最大行数时在右下角画一个提示色块，与参数面板的“是否截断”信息对应。
     if (OH_Drawing_TypographyDidExceedMaxLines(holder.typography)) {
-        cap::FillRectArea(canvas, cap::PaletteColor(palette + 4), frame.X(84.0F), frame.Y(88.0F), frame.X(94.0F),
-            frame.Y(94.0F));
+        cap::FillRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_PURPLE), frame.X(84.0F), frame.Y(88.0F),
+            frame.X(94.0F), frame.Y(94.0F));
     }
     DestroyHolder(holder);
 }
@@ -232,7 +248,7 @@ void SceneEllipsis(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Par
     OH_Drawing_SetTypographyTextEllipsisModal(holder.style, modalIndex == 0 ? ELLIPSIS_MODAL_HEAD :
         ELLIPSIS_MODAL_TAIL);
     LayoutHolder(holder, frame.X(78.0F));
-    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + 2), 1.0F, frame.X(10.0F), frame.Y(10.0F),
+    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_GREEN), 1.0F, frame.X(10.0F), frame.Y(10.0F),
         frame.X(88.0F), frame.Y(90.0F));
     PaintHolder(canvas, holder, frame.X(12.0F), frame.Y(14.0F));
     DestroyHolder(holder);
@@ -257,7 +273,7 @@ void SceneSpacing(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Para
     cap::FillRectArea(canvas, cap::PaletteColor(palette + 1), frame.X(6.0F), frame.Y(86.0F),
         frame.X(6.0F) + frame.X(30.0F) * cap::ClampFloat(static_cast<float>(letterSpacing) / 12.0F, 0.05F, 1.0F),
         frame.Y(89.0F));
-    cap::FillRectArea(canvas, cap::PaletteColor(palette + 2), frame.X(6.0F), frame.Y(91.0F),
+    cap::FillRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_GREEN), frame.X(6.0F), frame.Y(91.0F),
         frame.X(6.0F) + frame.X(30.0F) * cap::ClampFloat(static_cast<float>(wordSpacing) / 24.0F, 0.05F, 1.0F),
         frame.Y(94.0F));
     DestroyHolder(holder);
@@ -272,7 +288,7 @@ void SceneDecoration(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const P
     int32_t decoration = TEXT_DECORATION_UNDERLINE;
     if (decorationIndex == 1) {
         decoration = TEXT_DECORATION_OVERLINE;
-    } else if (decorationIndex == 2) {
+    } else if (decorationIndex == DECORATION_OPTION_UNDERLINE_THROUGH) {
         decoration = TEXT_DECORATION_UNDERLINE | TEXT_DECORATION_LINE_THROUGH;
     }
     int32_t decorationStyle = TEXT_DECORATION_STYLE_SOLID;
@@ -280,13 +296,13 @@ void SceneDecoration(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const P
         case 1:
             decorationStyle = TEXT_DECORATION_STYLE_DOUBLE;
             break;
-        case 2:
+        case DECORATION_STYLE_OPTION_DOTTED:
             decorationStyle = TEXT_DECORATION_STYLE_DOTTED;
             break;
-        case 3:
+        case DECORATION_STYLE_OPTION_DASHED:
             decorationStyle = TEXT_DECORATION_STYLE_DASHED;
             break;
-        case 4:
+        case DECORATION_STYLE_OPTION_WAVY:
             decorationStyle = TEXT_DECORATION_STYLE_WAVY;
             break;
         default:
@@ -300,8 +316,8 @@ void SceneDecoration(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const P
     }
     OH_Drawing_SetTextStyleDecoration(holder.textStyle, decoration);
     OH_Drawing_SetTextStyleDecorationStyle(holder.textStyle, decorationStyle);
-    OH_Drawing_SetTextStyleDecorationColor(holder.textStyle, cap::PaletteColor(palette + 3));
-    OH_Drawing_SetTextStyleDecorationThicknessScale(holder.textStyle, 1.5);
+    OH_Drawing_SetTextStyleDecorationColor(holder.textStyle, cap::PaletteColor(palette + cap::SLOT_RED));
+    OH_Drawing_SetTextStyleDecorationThicknessScale(holder.textStyle, DECORATION_THICKNESS_SCALE);
     LayoutHolder(holder, frame.X(88.0F));
     PaintHolder(canvas, holder, frame.X(6.0F), frame.Y(14.0F));
     DestroyHolder(holder);
@@ -321,7 +337,7 @@ void SceneShadow(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
     OH_Drawing_TextShadow *shadow = OH_Drawing_CreateTextShadow();
     OH_Drawing_Point *shadowOffset = OH_Drawing_PointCreate(offset, offset);
     if (shadow != nullptr && shadowOffset != nullptr) {
-        OH_Drawing_SetTextShadow(shadow, cap::PaletteColor(palette + 4), shadowOffset, blurRadius);
+        OH_Drawing_SetTextShadow(shadow, cap::PaletteColor(palette + cap::SLOT_PURPLE), shadowOffset, blurRadius);
         OH_Drawing_TextStyleAddShadow(holder.textStyle, shadow);
     }
     LayoutHolder(holder, frame.X(84.0F));
@@ -354,8 +370,8 @@ void SceneOnPath(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
         OH_Drawing_PathDestroy(path);
     }
     // 路径参考圆：文字与圆环对照，确认排版确实沿路径进行。
-    cap::StrokeCircleArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + 4), 0.4F), 1.0F, frame.centerX,
-        frame.centerY, radius);
+    cap::StrokeCircleArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_PURPLE), 0.4F), 1.0F,
+        frame.centerX, frame.centerY, radius);
     DestroyHolder(holder);
 }
 
@@ -400,7 +416,8 @@ void SceneLineMetrics(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const 
         const float height = static_cast<float>(lineHeight);
         const float width = static_cast<float>(lineWidth);
         // 行高决定矩形高度，行宽决定矩形宽度，右侧留白即该行未占满的部分。
-        cap::StrokeRectArea(canvas, cap::PaletteColor(palette + line % 3), 1.0F, frame.X(6.0F), top,
+        const uint32_t color = cap::PaletteColor(palette + line % cap::COLOR_CYCLE_TRIPLE);
+        cap::StrokeRectArea(canvas, color, 1.0F, frame.X(6.0F), top,
             frame.X(6.0F) + (width > 0.0F ? width : frame.X(10.0F)), top + height);
         top += height;
     }
@@ -416,7 +433,7 @@ void SceneBreakStrategy(OH_Drawing_Canvas *canvas, const cap::Frame &frame, cons
     int32_t strategy = BREAK_STRATEGY_HIGH_QUALITY;
     if (strategyIndex == 0) {
         strategy = BREAK_STRATEGY_GREEDY;
-    } else if (strategyIndex == 2) {
+    } else if (strategyIndex == BREAK_STRATEGY_OPTION_BALANCED) {
         strategy = BREAK_STRATEGY_BALANCED;
     }
     TypographyHolder holder;
@@ -428,7 +445,7 @@ void SceneBreakStrategy(OH_Drawing_Canvas *canvas, const cap::Frame &frame, cons
     LayoutHolder(holder, frame.X(70.0F));
     PaintHolder(canvas, holder, frame.X(6.0F), frame.Y(12.0F));
     // 三种策略用三段色块标注当前选择。
-    for (int32_t index = 0; index < 3; ++index) {
+    for (int32_t index = 0; index < BREAK_STRATEGY_COUNT; ++index) {
         const float top = frame.Y(88.0F) + static_cast<float>(index) * frame.Y(3.0F);
         if (index == strategyIndex) {
             cap::FillRectArea(canvas, cap::PaletteColor(palette + index), frame.X(6.0F), top, frame.X(20.0F),
@@ -457,11 +474,11 @@ void SceneFontWeight(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const P
     LayoutHolder(holder, frame.X(84.0F));
     PaintHolder(canvas, holder, frame.X(8.0F), frame.Y(14.0F));
     // 五段色条表示五档字重，选中的一档最高。
-    for (int32_t index = 0; index < 5; ++index) {
+    for (int32_t index = 0; index < FONT_WEIGHT_LEVEL_COUNT; ++index) {
         const float left = frame.X(8.0F) + static_cast<float>(index) * frame.X(17.0F);
         const float height = index == weightIndex ? frame.Y(10.0F) : frame.Y(4.0F);
-        cap::FillRectArea(canvas, cap::PaletteColor(palette + index % 3), left, frame.Y(88.0F) - height,
-            left + frame.X(14.0F), frame.Y(88.0F));
+        const uint32_t color = cap::PaletteColor(palette + index % cap::COLOR_CYCLE_TRIPLE);
+        cap::FillRectArea(canvas, color, left, frame.Y(88.0F) - height, left + frame.X(14.0F), frame.Y(88.0F));
     }
     DestroyHolder(holder);
 }
@@ -481,11 +498,12 @@ void SceneDirection(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Pa
     LayoutHolder(holder, frame.X(80.0F));
     PaintHolder(canvas, holder, frame.X(10.0F), frame.Y(12.0F));
     // 方向指示：从左向右或从右向左的一组渐隐色块。
-    for (int32_t index = 0; index < 5; ++index) {
-        const int32_t position = isRtl ? 4 - index : index;
+    for (int32_t index = 0; index < DIRECTION_BLOCK_COUNT; ++index) {
+        const int32_t position = isRtl ? DIRECTION_BLOCK_COUNT - 1 - index : index;
         const float left = frame.X(10.0F) + static_cast<float>(position) * frame.X(16.0F);
-        cap::FillRectArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + index % 3), 1.0F - 0.15F * index),
-            left, frame.Y(88.0F), left + frame.X(12.0F), frame.Y(93.0F));
+        const uint32_t color = cap::WithAlpha(
+            cap::PaletteColor(palette + index % cap::COLOR_CYCLE_TRIPLE), 1.0F - 0.15F * static_cast<float>(index));
+        cap::FillRectArea(canvas, color, left, frame.Y(88.0F), left + frame.X(12.0F), frame.Y(93.0F));
     }
     DestroyHolder(holder);
 }
@@ -519,7 +537,8 @@ void SceneLines(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamB
         const double lineWidth = OH_Drawing_TextLineGetTypographicBounds(line, &ascent, &descent, &leading);
         const float height = static_cast<float>(ascent + descent + leading);
         // 每行先铺一条浅色底纹，再叠加行内文字，行宽即该行实际内容宽度。
-        cap::FillRectArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + index % 3), 0.25F), frame.X(6.0F), top,
+        const uint32_t color = cap::WithAlpha(cap::PaletteColor(palette + index % cap::COLOR_CYCLE_TRIPLE), 0.25F);
+        cap::FillRectArea(canvas, color, frame.X(6.0F), top,
             frame.X(6.0F) + (lineWidth > 0.0 ? static_cast<float>(lineWidth) : frame.X(10.0F)), top + height);
         OH_Drawing_TextLinePaint(line, canvas, frame.X(8.0F), top + static_cast<float>(ascent));
         top += height;

@@ -34,6 +34,8 @@ constexpr int32_t MAX_TILE_COUNT = 6;
 // 参数面板下标：第 2 位在各像素图场景分别为采样模式与目标矩形约束。
 constexpr int32_t PARAM_FILTER_MODE = 2;
 constexpr int32_t PARAM_CONSTRAINT = 2;
+// 采样对比场景默认从调色板第 3 个槽位取色，与相邻场景的色相错开。
+constexpr int32_t SAMPLING_PALETTE_PICK = 2;
 
 // 可绘制的源图：除句柄外带上原图像素尺寸，源矩形一律在源图坐标系构建。
 struct PixelSource {
@@ -141,6 +143,7 @@ void SceneSampling(OH_Drawing_Canvas *canvas, OH_Drawing_PixelMap *pixelMap, con
     const ParamBag &params, OH_Drawing_FilterMode filterMode)
 {
     const float zoom = params.Percent(1, 0.8F) * 2.0F + 1.0F;
+    const int32_t palette = params.Choice(0, cap::PALETTE_COUNT, SAMPLING_PALETTE_PICK);
     OH_Drawing_Rect *dst = nullptr;
     MakeCenteredRect(frame, zoom * 0.3F, 80.0F, 80.0F, dst);
     if (dst == nullptr) {
@@ -148,7 +151,7 @@ void SceneSampling(OH_Drawing_Canvas *canvas, OH_Drawing_PixelMap *pixelMap, con
     }
     DrawSourceRect(canvas, pixelMap, nullptr, dst, filterMode);
     // 用细网格标出目标区域，放大后网格间距即缩放倍数。
-    cap::StrokeRectArea(canvas, cap::PaletteColor(params.Choice(0, cap::PALETTE_COUNT, 2)), 1.0F,
+    cap::StrokeRectArea(canvas, cap::PaletteColor(palette), 1.0F,
         OH_Drawing_RectGetLeft(dst), OH_Drawing_RectGetTop(dst), OH_Drawing_RectGetRight(dst),
         OH_Drawing_RectGetBottom(dst));
     OH_Drawing_RectDestroy(dst);
@@ -237,21 +240,21 @@ void SceneMesh(OH_Drawing_Canvas *canvas, OH_Drawing_PixelMap *pixelMap, const c
     const float originX = frame.centerX - width * 0.5F;
     const float originY = frame.centerY - height * 0.5F;
     constexpr int32_t vertexCount = (MESH_COLUMNS + 1) * (MESH_ROWS + 1);
-    float vertices[vertexCount * 2] = {0.0F};
+    float vertices[vertexCount * cap::COORD_STRIDE] = {0.0F};
     for (int32_t row = 0; row <= MESH_ROWS; ++row) {
         for (int32_t column = 0; column <= MESH_COLUMNS; ++column) {
             const int32_t index = row * (MESH_COLUMNS + 1) + column;
             const float ratioX = static_cast<float>(column) / static_cast<float>(MESH_COLUMNS);
             const float ratioY = static_cast<float>(row) / static_cast<float>(MESH_ROWS);
-            vertices[index * 2] = originX + width * ratioX;
+            vertices[index * cap::COORD_STRIDE] = originX + width * ratioX;
             // 中间一行整体上抬，形成一条正弦波形状，直观体现顶点可控。
-            vertices[index * 2 + 1] = originY + height * ratioY - amplitude * (ratioY > 0.3F && ratioY < 0.7F ?
-                1.0F : 0.0F);
+            vertices[index * cap::COORD_STRIDE + cap::COORD_OFFSET_Y] = originY + height * ratioY - amplitude *
+                (ratioY > 0.3F && ratioY < 0.7F ? 1.0F : 0.0F);
         }
     }
     const OH_Drawing_ErrorCode result = OH_Drawing_CanvasDrawPixelMapMesh(canvas, pixelMap,
         static_cast<uint32_t>(MESH_COLUMNS), static_cast<uint32_t>(MESH_ROWS), vertices,
-        static_cast<uint32_t>(vertexCount * 2), 0, nullptr, 0, 0);
+        static_cast<uint32_t>(vertexCount * cap::COORD_STRIDE), 0, nullptr, 0, 0);
     if (result != OH_DRAWING_SUCCESS) {
         DRAWING_LOGW("SceneMesh draw failed, result=%{public}d", static_cast<int32_t>(result));
     }

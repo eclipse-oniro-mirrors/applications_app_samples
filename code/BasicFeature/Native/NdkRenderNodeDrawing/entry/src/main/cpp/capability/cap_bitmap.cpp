@@ -29,6 +29,16 @@ constexpr uint32_t BYTES_PER_PIXEL = 4;
 constexpr int32_t SAMPLE_SIZE = 16;
 constexpr int32_t TILE_GRID_COUNT = 6;
 constexpr int32_t MAX_BITMAP_SIDE = 256;
+// 棋盘格单元边长及其参数范围，cell 参与除法前需保证非零。
+constexpr uint32_t CHECKER_CELL_SIZE = 4;
+constexpr int32_t CELL_SIZE_DEFAULT = 4;
+constexpr int32_t MIN_CELL_SIZE = 1;
+constexpr int32_t MAX_CELL_SIZE = 8;
+// 回读像素时抽样的点位个数。
+constexpr int32_t READ_PIXEL_SAMPLE_COUNT = 4;
+// 透明度格式与颜色格式各展示两份，数量与格式数组长度一致。
+constexpr int32_t ALPHA_FORMAT_COUNT = 2;
+constexpr int32_t COLOR_FORMAT_COUNT = 2;
 // 行字节数场景固定用 32 行高，条纹跨度由 rowBytes 决定。
 constexpr int32_t ROW_BYTES_BITMAP_HEIGHT = 32;
 // 参数面板第 3 位为位图高度。
@@ -69,7 +79,7 @@ void DrawIntoBitmap(OH_Drawing_Bitmap *bitmap, int32_t width, int32_t height, in
     OH_Drawing_CanvasClear(offscreen, cap::WithAlpha(cap::PaletteColor(palette), 1.0F));
     cap::FillCircleArea(offscreen, cap::PaletteColor(palette + 1), static_cast<float>(width) * 0.5F,
         static_cast<float>(height) * 0.5F, static_cast<float>(width) * 0.32F);
-    cap::FillRectArea(offscreen, cap::WithAlpha(cap::PaletteColor(palette + 2), 0.7F),
+    cap::FillRectArea(offscreen, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_GREEN), 0.7F),
         static_cast<float>(width) * 0.1F, static_cast<float>(height) * 0.1F, static_cast<float>(width) * 0.5F,
         static_cast<float>(height) * 0.4F);
     // 画布先于位图销毁，避免位图被仍在使用中的画布引用。
@@ -120,7 +130,7 @@ OH_Drawing_Bitmap *CreateBitmapFromPixels(uint32_t width, uint32_t height, OH_Dr
 // 生成棋盘格像素：两色交替，便于观察缩放与采样差异。
 void FillCheckerPixels(uint32_t *pixels, uint32_t width, uint32_t height, uint32_t first, uint32_t second)
 {
-    const uint32_t cell = 4;
+    const uint32_t cell = CHECKER_CELL_SIZE;
     for (uint32_t row = 0; row < height; ++row) {
         for (uint32_t column = 0; column < width; ++column) {
             const bool even = ((row / cell) + (column / cell)) % 2 == 0;
@@ -209,7 +219,7 @@ void SceneReadPixels(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const P
     // 取四个采样点的颜色画成色块，回读成功时与原始位图配色一致。
     const int32_t sampleIndex[] = {0, SAMPLE_SIZE / 2, SAMPLE_SIZE * SAMPLE_SIZE / 2,
         SAMPLE_SIZE * SAMPLE_SIZE - 1};
-    for (int32_t index = 0; index < 4; ++index) {
+    for (int32_t index = 0; index < READ_PIXEL_SAMPLE_COUNT; ++index) {
         const float left = frame.X(8.0F + static_cast<float>(index) * 21.0F);
         cap::FillRectArea(canvas, pixels[sampleIndex[index]], left, frame.Y(30.0F), left + frame.X(17.0F),
             frame.Y(70.0F));
@@ -221,14 +231,17 @@ void SceneReadPixels(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const P
 void SceneFromPixels(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBag &params)
 {
     const int32_t palette = params.Choice(0, cap::PALETTE_COUNT, 5);
-    const uint32_t cell = params.Int(1, 4, 1, 8);
+    const uint32_t cell = params.Int(1, CELL_SIZE_DEFAULT, MIN_CELL_SIZE, MAX_CELL_SIZE);
+    // 除零保护：参数裁剪后仍按 1 兜底，保证棋盘格至少一个像素一格。
+    const uint32_t cellSize = cell == 0 ? MIN_CELL_SIZE : cell;
     const uint32_t side = 24;
     uint32_t pixels[side * side] = {0};
     // cell 参数改变棋盘格密度，直接按参数生成像素，避免先填一次再覆盖。
     for (uint32_t row = 0; row < side; ++row) {
         for (uint32_t column = 0; column < side; ++column) {
-            const bool even = ((row / cell) + (column / cell)) % 2 == 0;
-            pixels[row * side + column] = even ? cap::PaletteColor(palette) : cap::PaletteColor(palette + 2);
+            const bool even = ((row / cellSize) + (column / cellSize)) % 2 == 0;
+            pixels[row * side + column] = even ? cap::PaletteColor(palette) :
+                cap::PaletteColor(palette + cap::SLOT_GREEN);
         }
     }
     OH_Drawing_Bitmap *bitmap = CreateBitmapFromPixels(side, side, COLOR_FORMAT_RGBA_8888,
@@ -258,7 +271,7 @@ void SceneImageInfo(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Pa
     const float boxHeight = boxWidth / (aspect > 0.1F ? aspect : 1.0F);
     cap::FillRectArea(canvas, cap::PaletteColor(palette), frame.centerX - boxWidth * 0.5F,
         frame.centerY - boxHeight * 0.5F, frame.centerX + boxWidth * 0.5F, frame.centerY + boxHeight * 0.5F);
-    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + 3), 2.0F, frame.centerX - boxWidth * 0.5F,
+    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_RED), 2.0F, frame.centerX - boxWidth * 0.5F,
         frame.centerY - boxHeight * 0.5F, frame.centerX + boxWidth * 0.5F, frame.centerY + boxHeight * 0.5F);
     // 色块高度对应 alphaType：不透明与预乘各占一半高度，便于从画面读出格式。
     const float swatchTop = info.alphaType == ALPHA_FORMAT_OPAQUE ? frame.Y(6.0F) : frame.Y(12.0F);
@@ -274,7 +287,7 @@ void SceneAlphaFormat(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const 
     const float alpha = params.Percent(1, 0.5F);
     const uint32_t side = 80;
     const OH_Drawing_AlphaFormat formats[] = {ALPHA_FORMAT_PREMUL, ALPHA_FORMAT_UNPREMUL};
-    for (int32_t index = 0; index < 2; ++index) {
+    for (int32_t index = 0; index < ALPHA_FORMAT_COUNT; ++index) {
         OH_Drawing_Bitmap *bitmap = CreateBitmap(side, side, COLOR_FORMAT_RGBA_8888, formats[index]);
         if (bitmap == nullptr) {
             continue;
@@ -292,7 +305,7 @@ void SceneAlphaFormat(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const 
         DrawBitmapIntoRect(canvas, bitmap, left, frame.Y(20.0F), left + frame.X(38.0F), frame.Y(80.0F));
         OH_Drawing_BitmapDestroy(bitmap);
     }
-    cap::StrokeLineArea(canvas, cap::PaletteColor(palette + 4), 1.0F, frame.centerX, frame.Y(10.0F),
+    cap::StrokeLineArea(canvas, cap::PaletteColor(palette + cap::SLOT_PURPLE), 1.0F, frame.centerX, frame.Y(10.0F),
         frame.centerX, frame.Y(90.0F));
 }
 
@@ -304,7 +317,7 @@ void SceneColorFormat(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const 
     uint32_t pixels[side * side] = {0};
     FillCheckerPixels(pixels, side, side, cap::PaletteColor(palette), cap::PaletteColor(palette + 1));
     const OH_Drawing_ColorFormat formats[] = {COLOR_FORMAT_RGBA_8888, COLOR_FORMAT_BGRA_8888};
-    for (int32_t index = 0; index < 2; ++index) {
+    for (int32_t index = 0; index < COLOR_FORMAT_COUNT; ++index) {
         OH_Drawing_Bitmap *bitmap = CreateBitmapFromPixels(side, side, formats[index], ALPHA_FORMAT_PREMUL,
             pixels);
         if (bitmap == nullptr) {
@@ -335,7 +348,7 @@ void SceneRowBytes(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Par
     const int32_t stripeCount = static_cast<int32_t>(rowBytes / BYTES_PER_PIXEL / 4);
     for (int32_t index = 0; index < stripeCount; ++index) {
         const float left = frame.X(6.0F) + static_cast<float>(index) * frame.X(1.4F);
-        cap::FillRectArea(canvas, cap::PaletteColor(palette + index % 3), left, frame.Y(30.0F),
+        cap::FillRectArea(canvas, cap::PaletteColor(palette + index % cap::COLOR_CYCLE_TRIPLE), left, frame.Y(30.0F),
             left + frame.X(0.7F), frame.Y(70.0F));
     }
     OH_Drawing_BitmapDestroy(bitmap);
@@ -348,7 +361,7 @@ void SceneTileGrid(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Par
     const int32_t count = params.Int(1, 4, 1, TILE_GRID_COUNT);
     const uint32_t side = 8;
     uint32_t pixels[side * side] = {0};
-    FillCheckerPixels(pixels, side, side, cap::PaletteColor(palette), cap::PaletteColor(palette + 2));
+    FillCheckerPixels(pixels, side, side, cap::PaletteColor(palette), cap::PaletteColor(palette + cap::SLOT_GREEN));
     OH_Drawing_Bitmap *bitmap = CreateBitmapFromPixels(side, side, COLOR_FORMAT_RGBA_8888, ALPHA_FORMAT_PREMUL,
         pixels);
     if (bitmap == nullptr) {

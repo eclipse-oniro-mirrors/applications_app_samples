@@ -31,6 +31,9 @@ namespace {
 constexpr float MAX_SIGMA = 40.0F;
 constexpr int32_t TILE_MODE_COUNT = 4;
 constexpr int32_t LATTICE_MAX_COUNT = 5;
+// 平铺模式的选项下标，与参数面板下拉顺序一致。
+constexpr int32_t TILE_MODE_OPTION_MIRROR = 2;
+constexpr int32_t TILE_MODE_OPTION_DECAL = 3;
 // 参数面板下标：模糊场景的第 2、3 位为纵向 sigma 与平铺模式。
 constexpr int32_t PARAM_SIGMA_Y = 2;
 constexpr int32_t PARAM_TILE_MODE = 3;
@@ -45,9 +48,9 @@ OH_Drawing_TileMode ToTileMode(int32_t index)
     switch (index) {
         case 1:
             return REPEAT;
-        case 2:
+        case TILE_MODE_OPTION_MIRROR:
             return MIRROR;
-        case 3:
+        case TILE_MODE_OPTION_DECAL:
             return DECAL;
         default:
             return CLAMP;
@@ -240,7 +243,7 @@ void SceneShader(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
         OH_Drawing_ShaderEffectCreateLinearGradientWithLocalMatrix(&start, &end, colors, pos, 2, CLAMP, nullptr);
     OH_Drawing_ImageFilter *imageFilter = OH_Drawing_ImageFilterCreateFromShaderEffect(shader);
     FilterBrush bundle;
-    if (PrepareFilterBrush(bundle, imageFilter, cap::PaletteColor(palette + 2))) {
+    if (PrepareFilterBrush(bundle, imageFilter, cap::PaletteColor(palette + cap::SLOT_GREEN))) {
         DrawFilteredContent(canvas, bundle.brush, frame.X(10.0F), frame.Y(16.0F), frame.X(90.0F), frame.Y(84.0F));
     }
     ReleaseFilterBrush(bundle);

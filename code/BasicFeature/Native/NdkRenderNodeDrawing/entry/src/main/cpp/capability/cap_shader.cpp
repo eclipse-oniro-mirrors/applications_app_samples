@@ -30,15 +30,21 @@
 namespace ndr {
 namespace {
 constexpr uint32_t MAX_GRADIENT_STOPS = 8;
+// 平铺模式与混合模式下拉框的选项下标，与转换函数的分支一一对应。
+constexpr int32_t TILE_MODE_OPTION_MIRROR = 2;
+constexpr int32_t TILE_MODE_OPTION_DECAL = 3;
+constexpr int32_t SHADER_BLEND_OPTION_MULTIPLY = 2;
+constexpr int32_t SHADER_BLEND_OPTION_OVERLAY = 3;
+constexpr int32_t SHADER_BLEND_OPTION_DIFFERENCE = 4;
 
 OH_Drawing_TileMode ToTileMode(int32_t index)
 {
     switch (index) {
         case 1:
             return REPEAT;
-        case 2:
+        case TILE_MODE_OPTION_MIRROR:
             return MIRROR;
-        case 3:
+        case TILE_MODE_OPTION_DECAL:
             return DECAL;
         default:
             return CLAMP;
@@ -50,11 +56,11 @@ OH_Drawing_BlendMode ToShaderBlendMode(int32_t index)
     switch (index) {
         case 1:
             return BLEND_MODE_SCREEN;
-        case 2:
+        case SHADER_BLEND_OPTION_MULTIPLY:
             return BLEND_MODE_MULTIPLY;
-        case 3:
+        case SHADER_BLEND_OPTION_OVERLAY:
             return BLEND_MODE_OVERLAY;
-        case 4:
+        case SHADER_BLEND_OPTION_DIFFERENCE:
             return BLEND_MODE_DIFFERENCE;
         default:
             return BLEND_MODE_SRC_OVER;
@@ -143,7 +149,8 @@ void SceneLinearMulti(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const 
     const float last = static_cast<float>(stops - 1);
     for (int32_t index = 0; index < stops; index++) {
         const float weight = last <= 0.0F ? 0.0F : static_cast<float>(index) / last;
-        colors[index] = cap::MixColor(cap::PaletteColor(0), cap::PaletteColor(4), weight);
+        colors[index] = cap::MixColor(cap::PaletteColor(cap::SLOT_BLUE), cap::PaletteColor(cap::SLOT_PURPLE),
+            weight);
         pos[index] = weight;
     }
     OH_Drawing_Point2D start;
@@ -161,7 +168,8 @@ void SceneRadial(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
     const float radiusPercent = params.Range(0, 35.0F, 10.0F, 60.0F);
     const float centerPercent = params.Range(1, 50.0F, 10.0F, 90.0F);
     OH_Drawing_Point *center = OH_Drawing_PointCreate(frame.X(centerPercent), frame.centerY);
-    const uint32_t colors[] = {0xFFFFFFFFU, cap::PaletteColor(0), cap::PaletteColor(4)};
+    const uint32_t colors[] = {0xFFFFFFFFU, cap::PaletteColor(cap::SLOT_BLUE),
+        cap::PaletteColor(cap::SLOT_PURPLE)};
     const float pos[] = {0.0F, 0.55F, 1.0F};
     OH_Drawing_ShaderEffect *shader = OH_Drawing_ShaderEffectCreateRadialGradient(center, frame.Span(radiusPercent),
         colors, pos, 3, CLAMP);
@@ -323,7 +331,8 @@ void SceneGradientAlpha(OH_Drawing_Canvas *canvas, const cap::Frame &frame, cons
 {
     const float startAlpha = params.Percent(0, 1.0F);
     const float endAlpha = params.Percent(1, 0.2F);
-    cap::FillRectArea(canvas, cap::PaletteColor(3), frame.X(4.0F), frame.Y(15.0F), frame.X(96.0F), frame.Y(85.0F));
+    cap::FillRectArea(canvas, cap::PaletteColor(cap::SLOT_RED), frame.X(4.0F), frame.Y(15.0F), frame.X(96.0F),
+        frame.Y(85.0F));
     const uint32_t colors[] = {cap::WithAlpha(cap::PaletteColor(0), startAlpha),
         cap::WithAlpha(cap::PaletteColor(0), endAlpha)};
     const float pos[] = {0.0F, 1.0F};

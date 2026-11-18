@@ -27,6 +27,13 @@ namespace ndr {
 namespace {
 // 参数面板第 3 位为是否用中心点连线结圆弧。
 constexpr int32_t PARAM_USE_CENTER = 2;
+// 路径布尔运算的选项下标，与参数面板的下拉顺序一致。
+constexpr int32_t PATH_OP_OPTION_XOR = 3;
+constexpr int32_t PATH_OP_OPTION_REVERSE_DIFFERENCE = 4;
+// 区域布尔运算的选项下标。
+constexpr int32_t REGION_OP_OPTION_DIFFERENCE = 2;
+// 直线场景并排绘制的条数。
+constexpr int32_t LINE_STRIP_COUNT = 3;
 
 // 描边圆弧：Canvas 只提供填充式圆弧，描边需先挂载画笔。
 void StrokeArc(OH_Drawing_Canvas *canvas, uint32_t color, float width, const OH_Drawing_Rect *rect,
@@ -56,9 +63,9 @@ OH_Drawing_PathOpMode ToPathOpMode(int32_t mode)
             return PATH_OP_MODE_DIFFERENCE;
         case 1:
             return PATH_OP_MODE_INTERSECT;
-        case 3:
+        case PATH_OP_OPTION_XOR:
             return PATH_OP_MODE_XOR;
-        case 4:
+        case PATH_OP_OPTION_REVERSE_DIFFERENCE:
             return PATH_OP_MODE_REVERSE_DIFFERENCE;
         default:
             return PATH_OP_MODE_UNION;
@@ -70,7 +77,7 @@ OH_Drawing_RegionOpMode ToRegionOpMode(int32_t mode)
     switch (mode) {
         case 1:
             return REGION_OP_MODE_INTERSECT;
-        case 2:
+        case REGION_OP_OPTION_DIFFERENCE:
             return REGION_OP_MODE_DIFFERENCE;
         default:
             return REGION_OP_MODE_UNION;
@@ -168,7 +175,7 @@ void SceneOval(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBa
     const float radiusYPercent = params.Range(1, 25.0F, 10.0F, 50.0F);
     const float radiusX = frame.X(radiusXPercent);
     const float radiusY = frame.Y(radiusYPercent);
-    cap::FillOvalArea(canvas, cap::WithAlpha(cap::PaletteColor(3), 0.5F), frame.centerX - radiusX,
+    cap::FillOvalArea(canvas, cap::WithAlpha(cap::PaletteColor(cap::SLOT_RED), 0.5F), frame.centerX - radiusX,
         frame.centerY - radiusY, frame.centerX + radiusX, frame.centerY + radiusY);
 }
 
@@ -192,9 +199,9 @@ void SceneArcWithCenter(OH_Drawing_Canvas *canvas, const cap::Frame &frame, cons
     const bool useCenter = params.Flag(PARAM_USE_CENTER, true);
     OH_Drawing_Rect *rect = OH_Drawing_RectCreate(frame.X(15.0F), frame.Y(15.0F), frame.X(85.0F), frame.Y(85.0F));
     if (rect != nullptr) {
-        cap::FillArcArea(canvas, cap::WithAlpha(cap::PaletteColor(4), 0.55F), frame.X(15.0F), frame.Y(15.0F),
-            frame.X(85.0F), frame.Y(85.0F), startAngle, sweepAngle, useCenter);
-        StrokeArc(canvas, cap::PaletteColor(4), 4.0F, rect, startAngle, sweepAngle, useCenter);
+        cap::FillArcArea(canvas, cap::WithAlpha(cap::PaletteColor(cap::SLOT_PURPLE), 0.55F), frame.X(15.0F),
+            frame.Y(15.0F), frame.X(85.0F), frame.Y(85.0F), startAngle, sweepAngle, useCenter);
+        StrokeArc(canvas, cap::PaletteColor(cap::SLOT_PURPLE), 4.0F, rect, startAngle, sweepAngle, useCenter);
         OH_Drawing_RectDestroy(rect);
     }
 }
@@ -204,7 +211,7 @@ void SceneLine(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBa
 {
     const float thickness = params.Range(0, 8.0F, 1.0F, 24.0F);
     const float offset = frame.Span(params.Range(1, 20.0F, 0.0F, 40.0F));
-    for (int32_t index = 0; index < 3; index++) {
+    for (int32_t index = 0; index < LINE_STRIP_COUNT; index++) {
         const float shift = offset * static_cast<float>(index);
         cap::StrokeLineArea(canvas, cap::PaletteColor(index), thickness, frame.X(12.0F) + shift,
             frame.Y(30.0F) + shift, frame.X(88.0F) - shift, frame.Y(70.0F) - shift);
@@ -234,9 +241,9 @@ void ScenePolygon(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Para
         }
         OH_Drawing_PathAddPolygon(path, points, static_cast<uint32_t>(count), false);
     } else {
-        cap::FillPathArea(canvas, cap::WithAlpha(cap::PaletteColor(2), 0.45F), path);
+        cap::FillPathArea(canvas, cap::WithAlpha(cap::PaletteColor(cap::SLOT_GREEN), 0.45F), path);
     }
-    cap::StrokePathArea(canvas, cap::PaletteColor(2), 5.0F, path);
+    cap::StrokePathArea(canvas, cap::PaletteColor(cap::SLOT_GREEN), 5.0F, path);
     OH_Drawing_PathDestroy(path);
 }
 
@@ -287,8 +294,8 @@ void ScenePathOp(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
         return;
     }
     // 先画出两个输入圆的轮廓，便于观察运算结果的来源。
-    cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(3), 0.45F), 2.0F, left);
-    cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(3), 0.45F), 2.0F, right);
+    cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(cap::SLOT_RED), 0.45F), 2.0F, left);
+    cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(cap::SLOT_RED), 0.45F), 2.0F, right);
     if (OH_Drawing_PathOp(left, right, ToPathOpMode(mode))) {
         cap::FillPathArea(canvas, cap::WithAlpha(cap::PaletteColor(0), 0.55F), left);
         cap::StrokePathArea(canvas, cap::PaletteColor(0), 4.0F, left);
@@ -315,10 +322,10 @@ void SceneRegionOp(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Par
         (void)OH_Drawing_RegionSetRect(base, baseRect);
         (void)OH_Drawing_RegionSetRect(other, otherRect);
         (void)OH_Drawing_RegionOp(base, other, ToRegionOpMode(mode));
-        cap::FillRegionArea(canvas, cap::WithAlpha(cap::PaletteColor(4), 0.5F), base);
+        cap::FillRegionArea(canvas, cap::WithAlpha(cap::PaletteColor(cap::SLOT_PURPLE), 0.5F), base);
         OH_Drawing_Path *boundary = OH_Drawing_PathCreate();
         if (boundary != nullptr && OH_Drawing_RegionGetBoundaryPath(base, boundary) == OH_DRAWING_SUCCESS) {
-            cap::StrokePathArea(canvas, cap::PaletteColor(4), 4.0F, boundary);
+            cap::StrokePathArea(canvas, cap::PaletteColor(cap::SLOT_PURPLE), 4.0F, boundary);
         }
         OH_Drawing_PathDestroy(boundary);
     }

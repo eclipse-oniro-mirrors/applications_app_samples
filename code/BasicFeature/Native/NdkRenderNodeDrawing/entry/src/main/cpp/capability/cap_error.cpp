@@ -37,6 +37,15 @@ constexpr int32_t RECORD_CANVAS_SIDE = 16;
 constexpr int32_t CODE_SCALE = 100;
 // 汇总检查的网格列数，行数由总数自动推导。
 constexpr int32_t SUMMARY_COLUMNS = 3;
+// 各场景内置的检查项数，与 DrawStatusRow 的 doneCount 入参一一对应。
+constexpr int32_t RESET_CHECK_COUNT = 2;
+constexpr int32_t NULL_PARAM_CHECK_COUNT = 2;
+constexpr int32_t INVALID_SIZE_CHECK_COUNT = 2;
+constexpr int32_t AFTER_SUCCESS_CHECK_COUNT = 3;
+constexpr int32_t AFTER_FAIL_CHECK_COUNT = 2;
+constexpr int32_t RECOVER_CHECK_COUNT = 3;
+constexpr int32_t GUARDED_RECT_CHECK_COUNT = 2;
+constexpr int32_t GUARDED_MATRIX_CHECK_COUNT = 4;
 
 // 读取当前错误码：OH_DRAWING_SUCCESS 为 0，其余为具体错误编号。
 int32_t PeekCode()
@@ -84,11 +93,11 @@ void DrawStatusRow(OH_Drawing_Canvas *canvas, const cap::Frame &frame, int32_t o
     int32_t total)
 {
     for (int32_t index = 0; index < total; ++index) {
-        uint32_t color = cap::PaletteColor(5);
+        uint32_t color = cap::PaletteColor(cap::SLOT_CYAN);
         if (index < okCount) {
-            color = cap::PaletteColor(2);
+            color = cap::PaletteColor(cap::SLOT_GREEN);
         } else if (index < doneCount) {
-            color = cap::PaletteColor(3);
+            color = cap::PaletteColor(cap::SLOT_RED);
         }
         const float cx = frame.X(10.0F) + frame.X(10.0F) * static_cast<float>(index);
         cap::FillCircleArea(canvas, color, cx, frame.Y(90.0F), STATUS_DOT_RADIUS);
@@ -103,8 +112,8 @@ void DrawCodeBar(OH_Drawing_Canvas *canvas, const cap::Frame &frame, int32_t ind
         0.1F, 1.0F);
     const float top = frame.Y(88.0F) - frame.Y(60.0F) * ratio;
     cap::FillRectArea(canvas, cap::PaletteColor(palette + index), left, top, left + frame.X(11.0F), frame.Y(88.0F));
-    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + 5), 1.0F, left, frame.Y(20.0F), left + frame.X(11.0F),
-        frame.Y(88.0F));
+    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_CYAN), 1.0F, left, frame.Y(20.0F),
+        left + frame.X(11.0F), frame.Y(88.0F));
 }
 
 // 守卫式绘制矩形：先校验尺寸再调用接口，任何一步失败都不继续绘制。
@@ -215,7 +224,7 @@ void SceneReset(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamB
     }
     cap::FillRoundRectArea(canvas, cap::WithAlpha(cap::PaletteColor(palette), 0.3F), frame.X(10.0F), frame.Y(20.0F),
         frame.X(90.0F), frame.Y(70.0F), frame.Span(8.0F));
-    DrawStatusRow(canvas, frame, okCount, 2, STATUS_DOT_COUNT);
+    DrawStatusRow(canvas, frame, okCount, RESET_CHECK_COUNT, STATUS_DOT_COUNT);
 }
 
 // 1. 空参数：对空对象调用接口，返回非法参数错误码。
@@ -234,7 +243,7 @@ void SceneNullParam(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Pa
         ++okCount;
     }
     DrawCodeBar(canvas, frame, 0, direct, palette);
-    DrawStatusRow(canvas, frame, okCount, 2, STATUS_DOT_COUNT);
+    DrawStatusRow(canvas, frame, okCount, NULL_PARAM_CHECK_COUNT, STATUS_DOT_COUNT);
     DRAWING_LOGI("SceneNullParam direct=%{public}d recorded=%{public}d", direct, recorded);
 }
 
@@ -253,7 +262,7 @@ void SceneInvalidSize(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const 
         ++okCount;
     }
     DrawCodeBar(canvas, frame, 0, code, palette);
-    DrawStatusRow(canvas, frame, okCount, 2, STATUS_DOT_COUNT);
+    DrawStatusRow(canvas, frame, okCount, INVALID_SIZE_CHECK_COUNT, STATUS_DOT_COUNT);
     DRAWING_LOGI("SceneInvalidSize code=%{public}d recorded=%{public}d", code, recorded);
 }
 
@@ -275,7 +284,7 @@ void SceneAfterSuccess(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const
         // 把矩阵真正作用到画布上，角度参数才会体现在画面里，而不是构造后立即释放。
         OH_Drawing_CanvasSave(canvas);
         OH_Drawing_CanvasConcatMatrix(canvas, matrix);
-        cap::StrokeRectArea(canvas, cap::PaletteColor(palette + 1), 2.0F, frame.centerX - frame.X(22.0F),
+        cap::StrokeRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_ORANGE), 2.0F, frame.centerX - frame.X(22.0F),
             frame.centerY - frame.Y(13.0F), frame.centerX + frame.X(22.0F), frame.centerY + frame.Y(13.0F));
         OH_Drawing_CanvasRestore(canvas);
         OH_Drawing_MatrixDestroy(matrix);
@@ -284,7 +293,7 @@ void SceneAfterSuccess(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const
     if (IsSuccess(PeekCode())) {
         ++okCount;
     }
-    DrawStatusRow(canvas, frame, okCount, 3, STATUS_DOT_COUNT);
+    DrawStatusRow(canvas, frame, okCount, AFTER_SUCCESS_CHECK_COUNT, STATUS_DOT_COUNT);
 }
 
 // 4. 失败之后：错误码会保持到被读取或复位，后续成功调用不会自动清零。
@@ -303,7 +312,7 @@ void SceneAfterFail(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Pa
         ++okCount;
     }
     DrawCodeBar(canvas, frame, 0, failCode, palette);
-    DrawStatusRow(canvas, frame, okCount, 2, STATUS_DOT_COUNT);
+    DrawStatusRow(canvas, frame, okCount, AFTER_FAIL_CHECK_COUNT, STATUS_DOT_COUNT);
 }
 
 // 5. 恢复：失败后复位即可继续正常工作。
@@ -331,8 +340,8 @@ void SceneRecover(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Para
         ++okCount;
     }
     // 恢复后的矩形绘制在画面中央，表示调用链已可用。
-    (void)DrawGuardedRect(canvas, frame, cap::PaletteColor(palette + 2));
-    DrawStatusRow(canvas, frame, okCount, 3, STATUS_DOT_COUNT);
+    (void)DrawGuardedRect(canvas, frame, cap::PaletteColor(palette + cap::SLOT_GREEN));
+    DrawStatusRow(canvas, frame, okCount, RECOVER_CHECK_COUNT, STATUS_DOT_COUNT);
 }
 
 // 6. 错误码表：把常用错误码画成柱状图，柱高按编号缩放。
@@ -351,7 +360,7 @@ void SceneCodeTable(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Pa
         DrawCodeBar(canvas, frame, index, codes[index], palette);
     }
     // 底部基准线对应错误码 0，柱高即相对大小。
-    cap::StrokeLineArea(canvas, cap::PaletteColor(palette + 5), 1.0F, frame.X(6.0F), frame.Y(88.0F),
+    cap::StrokeLineArea(canvas, cap::PaletteColor(palette + cap::SLOT_CYAN), 1.0F, frame.X(6.0F), frame.Y(88.0F),
         frame.X(96.0F), frame.Y(88.0F));
     DrawStatusRow(canvas, frame, CODE_TABLE_COUNT, CODE_TABLE_COUNT, STATUS_DOT_COUNT);
 }
@@ -363,7 +372,7 @@ void SceneGuardedRect(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const 
     const float ratio = params.Range(1, 0.6F, 0.1F, 1.0F);
     // 传入 0 尺寸模拟非法入参，守卫函数应直接拒绝且不产生错误码。
     const bool rejected = !DrawGuardedRect(nullptr, frame, cap::PaletteColor(palette));
-    const bool accepted = DrawGuardedRect(canvas, frame, cap::PaletteColor(palette + 1));
+    const bool accepted = DrawGuardedRect(canvas, frame, cap::PaletteColor(palette + cap::SLOT_ORANGE));
     int32_t okCount = 0;
     if (rejected) {
         ++okCount;
@@ -373,9 +382,9 @@ void SceneGuardedRect(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const 
     }
     // 守卫通过后叠加一层按比例缩放的矩形，展示实际绘制结果。
     const float side = frame.Span(40.0F) * cap::ClampFloat(ratio, 0.1F, 1.0F);
-    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + 4), 2.0F, frame.centerX - side * 0.5F,
+    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_PURPLE), 2.0F, frame.centerX - side * 0.5F,
         frame.centerY - side * 0.5F, frame.centerX + side * 0.5F, frame.centerY + side * 0.5F);
-    DrawStatusRow(canvas, frame, okCount, 2, STATUS_DOT_COUNT);
+    DrawStatusRow(canvas, frame, okCount, GUARDED_RECT_CHECK_COUNT, STATUS_DOT_COUNT);
 }
 
 // 8. 矩阵守卫：每一步都检查返回值，任一失败即停止后续操作。
@@ -413,9 +422,9 @@ void SceneGuardedMatrix(OH_Drawing_Canvas *canvas, const cap::Frame &frame, cons
         cap::FillRectArea(canvas, cap::PaletteColor(palette + index), left, frame.Y(50.0F) - barHeight,
             left + frame.X(12.0F), frame.Y(50.0F) + barHeight);
     }
-    cap::StrokeLineArea(canvas, cap::PaletteColor(palette + 5), 1.0F, frame.X(8.0F), frame.Y(50.0F),
+    cap::StrokeLineArea(canvas, cap::PaletteColor(palette + cap::SLOT_CYAN), 1.0F, frame.X(8.0F), frame.Y(50.0F),
         frame.X(92.0F), frame.Y(50.0F));
-    DrawStatusRow(canvas, frame, okCount, 4, STATUS_DOT_COUNT);
+    DrawStatusRow(canvas, frame, okCount, GUARDED_MATRIX_CHECK_COUNT, STATUS_DOT_COUNT);
     OH_Drawing_MatrixDestroy(matrix);
 }
 
@@ -439,7 +448,8 @@ void SceneSummary(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Para
         const int32_t row = index / SUMMARY_COLUMNS;
         const float left = frame.X(18.0F) + frame.X(24.0F) * static_cast<float>(column);
         const float top = frame.Y(28.0F) + frame.Y(24.0F) * static_cast<float>(row);
-        const uint32_t color = results[index] ? cap::PaletteColor(palette + 2) : cap::PaletteColor(palette + 3);
+        const uint32_t color = results[index] ? cap::PaletteColor(palette + cap::SLOT_GREEN) :
+            cap::PaletteColor(palette + cap::SLOT_RED);
         cap::FillRoundRectArea(canvas, color, left, top, left + frame.X(18.0F), top + frame.Y(18.0F),
             frame.Span(4.0F));
         if (results[index]) {

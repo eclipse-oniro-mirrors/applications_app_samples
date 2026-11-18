@@ -38,6 +38,17 @@ constexpr int32_t EDGING_COUNT = 3;
 constexpr int32_t MAX_FAMILY_BARS = 12;
 // 参数面板第 3 位为字间距步长。
 constexpr int32_t PARAM_LETTER_STEP = 2;
+// 字号梯度场景展示的行数，每行字号递增一个步长。
+constexpr int32_t SIZE_GRADIENT_ROWS = 3;
+// 字体度量参考线条数：top / ascent / descent / bottom。
+constexpr int32_t METRIC_LINE_COUNT = 4;
+// 字族竖条的循环用色个数与高度循环档数。
+constexpr int32_t FAMILY_BAR_COLOR_CYCLE = 3;
+constexpr int32_t FAMILY_BAR_HEIGHT_STEPS = 8;
+// Hinting 档位下标，完全对齐为最高档。
+constexpr int32_t HINTING_OPTION_FULL = 3;
+// Edging 档位下标，次像素对应第 3 项。
+constexpr int32_t EDGING_OPTION_SUBPIXEL = 2;
 
 // 汉字与英文混排的文本块绘制，统一走 TextBlob，避免每个场景重复写创建与释放。
 void DrawTextAt(OH_Drawing_Canvas *canvas, OH_Drawing_Font *font, const char *text, float x, float y,
@@ -80,7 +91,7 @@ void SceneSize(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBa
     const int32_t palette = params.Choice(0, cap::PALETTE_COUNT, 2);
     const float baseSize = params.Range(1, 14.0F, 8.0F, 40.0F);
     const float step = params.Range(PARAM_LETTER_STEP, 10.0F, 0.0F, 30.0F);
-    for (int32_t index = 0; index < 3; ++index) {
+    for (int32_t index = 0; index < SIZE_GRADIENT_ROWS; ++index) {
         const float fontSize = baseSize + step * static_cast<float>(index);
         OH_Drawing_Font *font = cap::CreateSampleFont(fontSize);
         if (font == nullptr) {
@@ -141,17 +152,17 @@ void SceneMetrics(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Para
     // 四条参考线分别对应 top / ascent / descent / bottom，线条颜色区分。
     const float positions[] = {baseline + metrics.ascent * scale, baseline, baseline + metrics.descent * scale,
         baseline + metrics.bottom * scale};
-    for (int32_t index = 0; index < 4; ++index) {
+    for (int32_t index = 0; index < METRIC_LINE_COUNT; ++index) {
         cap::StrokeLineArea(canvas, cap::PaletteColor(palette + index), index == 1 ? 3.0F : 1.0F,
             frame.X(6.0F), positions[index], frame.X(94.0F), positions[index]);
     }
-    DrawTextAt(canvas, font, SAMPLE_TEXT, frame.X(10.0F), baseline, cap::PaletteColor(palette + 5));
+    DrawTextAt(canvas, font, SAMPLE_TEXT, frame.X(10.0F), baseline, cap::PaletteColor(palette + cap::SLOT_CYAN));
     // 行距用一组小方块的高度表示，方块越多行距越大。
     const int32_t blockCount = lineSpacing > 0.0F ? static_cast<int32_t>(lineSpacing / 4.0F) : 0;
     for (int32_t index = 0; index < blockCount && index < MAX_FAMILY_BARS; ++index) {
         const float left = frame.X(6.0F + static_cast<float>(index) * 3.0F);
-        cap::FillRectArea(canvas, cap::PaletteColor(palette + 2), left, frame.Y(6.0F), left + frame.X(2.0F),
-            frame.Y(10.0F));
+        cap::FillRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_GREEN), left, frame.Y(6.0F),
+            left + frame.X(2.0F), frame.Y(10.0F));
     }
     OH_Drawing_FontDestroy(font);
 }
@@ -168,7 +179,7 @@ void SceneSkew(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBa
     OH_Drawing_FontSetTextSkewX(font, skew);
     DrawTextAt(canvas, font, SAMPLE_TEXT, frame.X(12.0F), frame.Y(40.0F), cap::PaletteColor(palette));
     // 参考竖线标示 skew 为 0 时的竖直方向。
-    cap::StrokeLineArea(canvas, cap::PaletteColor(palette + 2), 1.0F, frame.X(12.0F), frame.Y(20.0F),
+    cap::StrokeLineArea(canvas, cap::PaletteColor(palette + cap::SLOT_GREEN), 1.0F, frame.X(12.0F), frame.Y(20.0F),
         frame.X(12.0F), frame.Y(70.0F));
     OH_Drawing_FontDestroy(font);
 }
@@ -202,7 +213,7 @@ void SceneScaleX(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
     OH_Drawing_FontSetScaleX(font, scaleX);
     DrawTextAt(canvas, font, SAMPLE_TEXT, frame.X(8.0F), frame.Y(45.0F), cap::PaletteColor(palette));
     // 底部横条长度与 scaleX 成正比，便于直接读出当前缩放倍数。
-    cap::FillRectArea(canvas, cap::PaletteColor(palette + 2), frame.X(8.0F), frame.Y(60.0F),
+    cap::FillRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_GREEN), frame.X(8.0F), frame.Y(60.0F),
         frame.X(8.0F) + frame.X(80.0F) * (scaleX / 4.0F), frame.Y(64.0F));
     OH_Drawing_FontDestroy(font);
 }
@@ -224,7 +235,7 @@ void SceneHinting(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Para
         case 1:
             hinting = FONT_HINTING_SLIGHT;
             break;
-        case 3:
+        case HINTING_OPTION_FULL:
             hinting = FONT_HINTING_FULL;
             break;
         default:
@@ -255,7 +266,7 @@ void SceneEdging(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
         case 0:
             edging = FONT_EDGING_ALIAS;
             break;
-        case 2:
+        case EDGING_OPTION_SUBPIXEL:
             edging = FONT_EDGING_SUBPIXEL_ANTI_ALIAS;
             break;
         default:
@@ -300,7 +311,7 @@ void SceneTextPath(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Par
         DRAWING_LOGW("SceneTextPath get text path failed, result=%{public}d", static_cast<int32_t>(result));
     }
     cap::FillPathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette), 0.85F), path);
-    cap::StrokePathArea(canvas, cap::PaletteColor(palette + 3), 1.0F, path);
+    cap::StrokePathArea(canvas, cap::PaletteColor(palette + cap::SLOT_RED), 1.0F, path);
     OH_Drawing_PathDestroy(path);
     OH_Drawing_FontDestroy(font);
 }
@@ -318,14 +329,15 @@ void SceneFontMgrFamily(OH_Drawing_Canvas *canvas, const cap::Frame &frame, cons
     char *firstName = OH_Drawing_FontMgrGetFamilyName(fontMgr, 0);
     for (int32_t index = 0; index < familyCount && index < MAX_FAMILY_BARS; ++index) {
         const float left = frame.X(8.0F) + static_cast<float>(index) * frame.X(7.0F);
-        cap::FillRectArea(canvas, cap::PaletteColor(palette + index % 3), left, frame.Y(30.0F),
-            left + frame.X(5.0F), frame.Y(30.0F) + frame.Y(4.0F) * static_cast<float>(index % 8 + 1));
+        cap::FillRectArea(canvas, cap::PaletteColor(palette + index % FAMILY_BAR_COLOR_CYCLE), left, frame.Y(30.0F),
+            left + frame.X(5.0F), frame.Y(30.0F) +
+            frame.Y(4.0F) * static_cast<float>(index % FAMILY_BAR_HEIGHT_STEPS + 1));
     }
     // 第一个字体族名称直接绘制，验证枚举结果可用于实际绘制。
     OH_Drawing_Font *font = cap::CreateSampleFont(frame.Span(10.0F));
     if (font != nullptr) {
         DrawTextAt(canvas, font, firstName == nullptr ? "default" : firstName, frame.X(8.0F), frame.Y(80.0F),
-            cap::PaletteColor(palette + 4));
+            cap::PaletteColor(palette + cap::SLOT_PURPLE));
         OH_Drawing_FontDestroy(font);
     }
     if (firstName != nullptr) {
@@ -354,7 +366,8 @@ void SceneTypefaceDefault(OH_Drawing_Canvas *canvas, const cap::Frame &frame, co
     DrawTextAt(canvas, font, SAMPLE_TEXT, frame.X(10.0F), frame.Y(40.0F), cap::PaletteColor(palette));
     // 第二行去掉显式字形，仅保留字号，用于对比默认行为是否一致。
     OH_Drawing_FontSetTypeface(font, nullptr);
-    DrawTextAt(canvas, font, SAMPLE_TEXT, frame.X(10.0F), frame.Y(62.0F), cap::PaletteColor(palette + 2));
+    DrawTextAt(canvas, font, SAMPLE_TEXT, frame.X(10.0F), frame.Y(62.0F),
+        cap::PaletteColor(palette + cap::SLOT_GREEN));
     OH_Drawing_FontDestroy(font);
     OH_Drawing_TypefaceDestroy(typeface);
 }

@@ -84,8 +84,8 @@ void DrawMatrixBars(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const fl
         }
     }
     // 零基准线，区分正负元素。
-    cap::StrokeLineArea(canvas, cap::PaletteColor(5), 1.0F, frame.X(3.0F), frame.Y(88.0F), frame.X(97.0F),
-        frame.Y(88.0F));
+    cap::StrokeLineArea(canvas, cap::PaletteColor(cap::SLOT_CYAN), 1.0F, frame.X(3.0F), frame.Y(88.0F),
+        frame.X(97.0F), frame.Y(88.0F));
 }
 
 // 画一组点，用同色小圆标记，便于比较映射前后的位置关系。
@@ -126,7 +126,8 @@ void SceneIdentity(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Par
     OH_Drawing_Path *path = CreateMarkerPath(frame, 18.0F);
     if (path != nullptr) {
         // 参照图形：不使用矩阵直接绘制，与单位矩阵绘制的图形应完全重合。
-        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + 4), 0.35F), 5.0F, path);
+        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_PURPLE), 0.35F), 5.0F,
+            path);
         DrawWithMatrix(canvas, matrix, path, cap::PaletteColor(palette), 2.0F);
         OH_Drawing_PathDestroy(path);
     }
@@ -137,8 +138,8 @@ void SceneIdentity(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Par
     }
     // 单位矩阵下图形保持不变，右上角的色块作为“未变换”的视觉标记。
     if (isIdentity) {
-        cap::FillRectArea(canvas, cap::PaletteColor(palette + 2), frame.X(86.0F), frame.Y(6.0F), frame.X(94.0F),
-            frame.Y(12.0F));
+        cap::FillRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_GREEN), frame.X(86.0F), frame.Y(6.0F),
+            frame.X(94.0F), frame.Y(12.0F));
     }
     OH_Drawing_MatrixDestroy(matrix);
 }
@@ -152,13 +153,13 @@ void SceneTranslate(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Pa
     OH_Drawing_Matrix *matrix = OH_Drawing_MatrixCreateTranslation(dx, dy);
     OH_Drawing_Path *path = CreateMarkerPath(frame, 16.0F);
     if (matrix != nullptr && path != nullptr) {
-        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + 4), 0.3F), 1.0F, path);
+        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_PURPLE), 0.3F), 1.0F, path);
         DrawWithMatrix(canvas, matrix, path, cap::PaletteColor(palette), 2.0F);
         // 位移向量用带端点的直线标出，方向与变换矩阵一致。
-        cap::StrokeLineArea(canvas, cap::PaletteColor(palette + 3), 2.0F, frame.centerX, frame.centerY,
+        cap::StrokeLineArea(canvas, cap::PaletteColor(palette + cap::SLOT_RED), 2.0F, frame.centerX, frame.centerY,
             frame.centerX + dx, frame.centerY + dy);
         const OH_Drawing_Point2D target = {frame.centerX + dx, frame.centerY + dy};
-        DrawPoints(canvas, &target, 1, palette + 3, 4.0F);
+        DrawPoints(canvas, &target, 1, palette + cap::SLOT_RED, 4.0F);
     }
     if (path != nullptr) {
         OH_Drawing_PathDestroy(path);
@@ -178,7 +179,7 @@ void SceneScale(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamB
     OH_Drawing_Matrix *matrix = OH_Drawing_MatrixCreateScale(scale, scale, pivotX, pivotY);
     OH_Drawing_Path *path = CreateMarkerPath(frame, 16.0F);
     if (matrix != nullptr && path != nullptr) {
-        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + 4), 0.3F), 1.0F, path);
+        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_PURPLE), 0.3F), 1.0F, path);
         DrawWithMatrix(canvas, matrix, path, cap::PaletteColor(palette), 2.0F);
         // 缩放中心用十字标记，帮助理解固定点的作用。
         cap::StrokeLineArea(canvas, cap::PaletteColor(palette + 1), 1.0F, pivotX - frame.X(4.0F), pivotY,
@@ -202,11 +203,11 @@ void SceneRotate(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
     OH_Drawing_Matrix *matrix = OH_Drawing_MatrixCreateRotation(degree, frame.centerX, frame.centerY);
     OH_Drawing_Path *path = CreateMarkerPath(frame, 18.0F);
     if (matrix != nullptr && path != nullptr) {
-        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + 4), 0.3F), 1.0F, path);
+        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_PURPLE), 0.3F), 1.0F, path);
         DrawWithMatrix(canvas, matrix, path, cap::PaletteColor(palette), 2.0F);
         // 画一条从中心指向原始朝向的射线，便于观察旋转角度。
         const float radian = degree * cap::PI / 180.0F;
-        cap::StrokeLineArea(canvas, cap::PaletteColor(palette + 2), 2.0F, frame.centerX, frame.centerY,
+        cap::StrokeLineArea(canvas, cap::PaletteColor(palette + cap::SLOT_GREEN), 2.0F, frame.centerX, frame.centerY,
             frame.centerX + frame.Span(26.0F) * std::cos(radian),
             frame.centerY + frame.Span(26.0F) * std::sin(radian));
     }
@@ -236,7 +237,7 @@ void SceneSkew(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBa
         }
     }
     if (matrix != nullptr && path != nullptr) {
-        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + 4), 0.3F), 1.0F, path);
+        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_PURPLE), 0.3F), 1.0F, path);
         DrawWithMatrix(canvas, matrix, path, cap::PaletteColor(palette), 2.0F);
     }
     if (path != nullptr) {
@@ -260,13 +261,13 @@ void SceneConcat(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
     if (translate != nullptr && rotate != nullptr && total != nullptr && path != nullptr) {
         // Concat 依次叠加两个矩阵，等价于把两个变换合并成一个再使用。
         OH_Drawing_MatrixConcat(total, translate, rotate);
-        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + 4), 0.3F), 1.0F, path);
+        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_PURPLE), 0.3F), 1.0F, path);
         DrawWithMatrix(canvas, total, path, cap::PaletteColor(palette), 2.0F);
         // 对照结果：分别应用两个矩阵，用于验证合成顺序。
         OH_Drawing_CanvasSave(canvas);
         OH_Drawing_CanvasConcatMatrix(canvas, translate);
         OH_Drawing_CanvasConcatMatrix(canvas, rotate);
-        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + 2), 0.8F), 1.0F, path);
+        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_GREEN), 0.8F), 1.0F, path);
         OH_Drawing_CanvasRestore(canvas);
     }
     if (path != nullptr) {
@@ -302,7 +303,7 @@ void ScenePrePost(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Para
             OH_Drawing_MatrixPostScale(merged, scale, scale, frame.centerX, frame.centerY);
             OH_Drawing_MatrixPostTranslate(merged, dx, 0.0F);
         }
-        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + 4), 0.3F), 1.0F, path);
+        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_PURPLE), 0.3F), 1.0F, path);
         DrawWithMatrix(canvas, merged, path, cap::PaletteColor(palette), 2.0F);
     }
     if (path != nullptr) {
@@ -341,9 +342,9 @@ void SceneInvert(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
     }
     // 原始点与还原点用不同颜色叠加，重合说明逆矩阵正确。
     DrawPoints(canvas, source, SAMPLE_POINT_COUNT, palette, 6.0F);
-    DrawPoints(canvas, mapped, SAMPLE_POINT_COUNT, palette + 2, 4.0F);
+    DrawPoints(canvas, mapped, SAMPLE_POINT_COUNT, palette + cap::SLOT_GREEN, 4.0F);
     if (inverted) {
-        DrawPoints(canvas, restored, SAMPLE_POINT_COUNT, palette + 5, 2.0F);
+        DrawPoints(canvas, restored, SAMPLE_POINT_COUNT, palette + cap::SLOT_CYAN, 2.0F);
     } else {
         DRAWING_LOGW("SceneInvert invert failed, matrix is singular");
     }
@@ -369,11 +370,11 @@ void SceneMapPoints(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Pa
     OH_Drawing_MatrixMapPoints(matrix, source, mapped, SAMPLE_POINT_COUNT);
     // 原始点到映射点的连线，长度体现变换带来的位移。
     for (int32_t index = 0; index < SAMPLE_POINT_COUNT; ++index) {
-        cap::StrokeLineArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + 4), 0.5F), 1.0F, source[index].x,
-            source[index].y, mapped[index].x, mapped[index].y);
+        cap::StrokeLineArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_PURPLE), 0.5F), 1.0F,
+            source[index].x, source[index].y, mapped[index].x, mapped[index].y);
     }
     DrawPoints(canvas, source, SAMPLE_POINT_COUNT, palette, 4.0F);
-    DrawPoints(canvas, mapped, SAMPLE_POINT_COUNT, palette + 2, 5.0F);
+    DrawPoints(canvas, mapped, SAMPLE_POINT_COUNT, palette + cap::SLOT_GREEN, 5.0F);
     OH_Drawing_MatrixDestroy(matrix);
 }
 
@@ -403,9 +404,10 @@ void ScenePolyToPoly(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const P
     if (sourcePath != nullptr && targetPath != nullptr) {
         OH_Drawing_PathAddPolygon(targetPath, target, SAMPLE_POINT_COUNT, true);
         // 源矩形用描边标出，目标四边形用填充显示，二者共用同一组角点。
-        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + 4), 0.6F), 1.0F, sourcePath);
+        cap::StrokePathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_PURPLE), 0.6F), 1.0F,
+            sourcePath);
         cap::FillPathArea(canvas, cap::WithAlpha(cap::PaletteColor(palette), 0.35F), targetPath);
-        cap::StrokePathArea(canvas, cap::PaletteColor(palette + 2), 2.0F, targetPath);
+        cap::StrokePathArea(canvas, cap::PaletteColor(palette + cap::SLOT_GREEN), 2.0F, targetPath);
     }
     const bool mapped = OH_Drawing_MatrixSetPolyToPoly(matrix, source, target, SAMPLE_POINT_COUNT);
     if (!mapped) {

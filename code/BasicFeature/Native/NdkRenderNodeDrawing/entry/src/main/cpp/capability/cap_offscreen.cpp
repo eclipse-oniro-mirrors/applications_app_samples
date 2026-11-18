@@ -29,6 +29,8 @@ namespace {
 constexpr int32_t STATUS_STEP_COUNT = 3;
 constexpr int32_t MAX_FLUSH_COUNT = 5;
 constexpr int32_t FALLBACK_SIDE = 96;
+// 阶段计数：表面已打开为 1，内容已绘制为 2，刷新成功后才记到 STATUS_STEP_COUNT。
+constexpr int32_t STEPS_AFTER_PAINT = 2;
 // 表面内容不会直接出现在渲染节点画布上，场景统一用示意图与状态点表达执行结果。
 constexpr float STATUS_DOT_RADIUS = 4.0F;
 
@@ -97,7 +99,7 @@ void PaintOffscreenContent(OH_Drawing_Canvas *offscreenCanvas, int32_t width, in
     const cap::Frame inner = cap::MakeFrame(width, height);
     cap::FillRectArea(offscreenCanvas, cap::PaletteColor(palette), inner.X(10.0F), inner.Y(10.0F), inner.X(60.0F),
         inner.Y(50.0F));
-    cap::FillCircleArea(offscreenCanvas, cap::PaletteColor(palette + 2), inner.centerX, inner.centerY,
+    cap::FillCircleArea(offscreenCanvas, cap::PaletteColor(palette + cap::SLOT_GREEN), inner.centerX, inner.centerY,
         inner.Span(18.0F));
 }
 
@@ -107,8 +109,8 @@ void DrawStatusColumn(OH_Drawing_Canvas *canvas, const cap::Frame &frame, int32_
     for (int32_t index = 0; index < STATUS_STEP_COUNT; ++index) {
         const float cy = frame.Y(8.0F) + frame.Y(7.0F) * static_cast<float>(index);
         const bool ok = index < okCount;
-        cap::FillCircleArea(canvas, ok ? cap::PaletteColor(2) : cap::PaletteColor(3), frame.X(94.0F), cy,
-            STATUS_DOT_RADIUS);
+        cap::FillCircleArea(canvas, ok ? cap::PaletteColor(cap::SLOT_GREEN) : cap::PaletteColor(cap::SLOT_RED),
+            frame.X(94.0F), cy, STATUS_DOT_RADIUS);
     }
 }
 
@@ -119,7 +121,8 @@ void DrawOffscreenSchematic(OH_Drawing_Canvas *canvas, const cap::Frame &frame, 
     const float top = frame.Y(12.0F);
     const float right = frame.X(86.0F);
     const float bottom = frame.Y(88.0F);
-    cap::StrokeRectArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + 4), 0.6F), 1.0F, left, top, right, bottom);
+    cap::StrokeRectArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_PURPLE), 0.6F), 1.0F, left, top,
+        right, bottom);
     const float offscreenWidth = (right - left) * cap::ClampFloat(ratio, 0.05F, 1.0F);
     const float offscreenHeight = (bottom - top) * cap::ClampFloat(ratio, 0.05F, 1.0F);
     const float offscreenLeft = left + (right - left - offscreenWidth) * 0.5F;
@@ -128,7 +131,7 @@ void DrawOffscreenSchematic(OH_Drawing_Canvas *canvas, const cap::Frame &frame, 
         offscreenLeft + offscreenWidth, offscreenTop + offscreenHeight);
     cap::StrokeRectArea(canvas, cap::PaletteColor(palette + 1), 2.0F, offscreenLeft, offscreenTop,
         offscreenLeft + offscreenWidth, offscreenTop + offscreenHeight);
-    cap::FillCircleArea(canvas, cap::PaletteColor(palette + 2),
+    cap::FillCircleArea(canvas, cap::PaletteColor(palette + cap::SLOT_GREEN),
         offscreenLeft + offscreenWidth * 0.5F, offscreenTop + offscreenHeight * 0.5F, frame.Span(6.0F));
 }
 
@@ -143,7 +146,7 @@ void SceneCreate(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
     if (OpenOffscreen(unit, width, height)) {
         okCount = 1;
         PaintOffscreenContent(unit.canvas, width, height, palette);
-        okCount = 2;
+        okCount = STEPS_AFTER_PAINT;
         if (OH_Drawing_SurfaceFlush(unit.layer) == OH_DRAWING_SUCCESS) {
             okCount = STATUS_STEP_COUNT;
         }
@@ -164,7 +167,7 @@ void SceneSize(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBa
     int32_t okCount = 0;
     if (OpenOffscreen(unit, width, height)) {
         PaintOffscreenContent(unit.canvas, width, height, palette);
-        okCount = 2;
+        okCount = STEPS_AFTER_PAINT;
         if (OH_Drawing_SurfaceFlush(unit.layer) == OH_DRAWING_SUCCESS) {
             okCount = STATUS_STEP_COUNT;
         }
@@ -234,7 +237,8 @@ void SceneFlush(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamB
     for (int32_t index = 0; index < flushCount; ++index) {
         const float left = frame.X(10.0F) + frame.X(16.0F) * static_cast<float>(index);
         const bool flushed = index < successCount;
-        cap::FillRectArea(canvas, flushed ? cap::PaletteColor(palette + 2) : cap::PaletteColor(palette + 5), left,
+        cap::FillRectArea(canvas, flushed ? cap::PaletteColor(palette + cap::SLOT_GREEN) :
+            cap::PaletteColor(palette + cap::SLOT_CYAN), left,
             frame.Y(80.0F) - frame.Y(8.0F) * static_cast<float>(index + 1), left + frame.X(10.0F), frame.Y(80.0F));
     }
     DrawStatusColumn(canvas, frame, successCount > 0 ? STATUS_STEP_COUNT : 0);
@@ -260,7 +264,7 @@ void SceneNested(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
     const int32_t innerWidth = static_cast<int32_t>(frame.width * shrink);
     const int32_t innerHeight = static_cast<int32_t>(frame.height * shrink);
     if (OpenOffscreen(inner, innerWidth, innerHeight)) {
-        PaintOffscreenContent(inner.canvas, innerWidth, innerHeight, palette + 2);
+        PaintOffscreenContent(inner.canvas, innerWidth, innerHeight, palette + cap::SLOT_GREEN);
         if (OH_Drawing_SurfaceFlush(inner.layer) == OH_DRAWING_SUCCESS) {
             okCount += 1;
         }
@@ -269,7 +273,7 @@ void SceneNested(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
     CloseOffscreen(inner);
     // 两层矩形表示先后创建的两块表面，尺寸差异由参数控制。
     DrawOffscreenSchematic(canvas, frame, palette, 1.0F);
-    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + 3), 2.0F, frame.X(30.0F), frame.Y(32.0F),
+    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_RED), 2.0F, frame.X(30.0F), frame.Y(32.0F),
         frame.X(70.0F), frame.Y(68.0F));
     DrawStatusColumn(canvas, frame, okCount > 0 ? STATUS_STEP_COUNT : 0);
 }
@@ -291,7 +295,7 @@ void SceneClip(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBa
             PaintOffscreenContent(unit.canvas, static_cast<int32_t>(frame.width), static_cast<int32_t>(frame.height),
                 palette);
             OH_Drawing_RectDestroy(clipRect);
-            okCount = 2;
+            okCount = STEPS_AFTER_PAINT;
         }
         if (OH_Drawing_SurfaceFlush(unit.layer) == OH_DRAWING_SUCCESS) {
             okCount = STATUS_STEP_COUNT;
@@ -300,7 +304,7 @@ void SceneClip(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBa
     // 主画布同样画出裁剪区域，比例与表面上的裁剪保持一致。
     cap::FillRectArea(canvas, cap::WithAlpha(cap::PaletteColor(palette), 0.3F), frame.X(10.0F), frame.Y(10.0F),
         frame.X(10.0F) + frame.X(80.0F) * clipRatio, frame.Y(90.0F));
-    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + 2), 2.0F, frame.X(10.0F), frame.Y(10.0F),
+    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_GREEN), 2.0F, frame.X(10.0F), frame.Y(10.0F),
         frame.X(10.0F) + frame.X(80.0F) * clipRatio, frame.Y(90.0F));
     DrawStatusColumn(canvas, frame, okCount);
     CloseOffscreen(unit);
@@ -321,7 +325,7 @@ void SceneBlend(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamB
                 frame.X(20.0F) + offset, frame.Y(30.0F) + offset, frame.X(20.0F) + offset + side,
                 frame.Y(30.0F) + offset + side);
         }
-        okCount = 2;
+        okCount = STEPS_AFTER_PAINT;
         if (OH_Drawing_SurfaceFlush(unit.layer) == OH_DRAWING_SUCCESS) {
             okCount = STATUS_STEP_COUNT;
         }
@@ -365,7 +369,7 @@ void SceneInfo(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBa
         frame.X(70.0F) * cap::ClampFloat(static_cast<float>(canvasHeight) / frame.height, 0.0F, 1.0F);
     cap::FillRectArea(canvas, cap::PaletteColor(palette), frame.X(10.0F), frame.Y(70.0F), frame.X(10.0F) + widthBar,
         frame.Y(78.0F));
-    cap::FillRectArea(canvas, cap::PaletteColor(palette + 2), frame.X(10.0F), frame.Y(82.0F),
+    cap::FillRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_GREEN), frame.X(10.0F), frame.Y(82.0F),
         frame.X(10.0F) + heightBar, frame.Y(90.0F));
     // 右上角色块的颜色格式由图像信息中的 colorType 决定，这里仅用其索引选色。
     cap::FillRectArea(canvas, cap::PaletteColor(palette + static_cast<int32_t>(info.colorType)), frame.X(80.0F),

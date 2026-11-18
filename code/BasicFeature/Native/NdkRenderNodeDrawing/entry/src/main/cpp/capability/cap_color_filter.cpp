@@ -29,17 +29,26 @@ namespace {
 constexpr float LUMA_RED = 0.2126F;
 constexpr float LUMA_GREEN = 0.7152F;
 constexpr float LUMA_BLUE = 0.0722F;
+// 混合模式选项下标，与参数面板的下拉顺序一致。
+constexpr int32_t BLEND_OPTION_SCREEN = 1;
+constexpr int32_t BLEND_OPTION_OVERLAY = 2;
+constexpr int32_t BLEND_OPTION_DARKEN = 3;
+constexpr int32_t BLEND_OPTION_DIFFERENCE = 4;
+// 组合场景可选滤波器下标。
+constexpr int32_t FILTER_OPTION_GRAY = 1;
+constexpr int32_t FILTER_OPTION_INVERT = 2;
+constexpr int32_t FILTER_OPTION_SEPIA = 3;
 
 OH_Drawing_BlendMode ToFilterBlendMode(int32_t index)
 {
     switch (index) {
-        case 1:
+        case BLEND_OPTION_SCREEN:
             return BLEND_MODE_SCREEN;
-        case 2:
+        case BLEND_OPTION_OVERLAY:
             return BLEND_MODE_OVERLAY;
-        case 3:
+        case BLEND_OPTION_DARKEN:
             return BLEND_MODE_DARKEN;
-        case 4:
+        case BLEND_OPTION_DIFFERENCE:
             return BLEND_MODE_DIFFERENCE;
         default:
             return BLEND_MODE_MULTIPLY;
@@ -144,11 +153,11 @@ OH_Drawing_ColorFilter *CreateContrastFilter(float contrast, float alpha)
 OH_Drawing_ColorFilter *CreateFilterByIndex(int32_t index, float alpha)
 {
     switch (index) {
-        case 1:
+        case FILTER_OPTION_GRAY:
             return CreateGrayFilter(0.0F, alpha);
-        case 2:
+        case FILTER_OPTION_INVERT:
             return CreateInvertFilter(1.0F, alpha);
-        case 3:
+        case FILTER_OPTION_SEPIA:
             return CreateSepiaFilter(1.0F, alpha);
         default:
             return OH_Drawing_ColorFilterCreateLuma();

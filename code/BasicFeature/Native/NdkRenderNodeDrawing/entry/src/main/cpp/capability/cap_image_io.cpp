@@ -62,7 +62,7 @@ OH_Drawing_Bitmap *CreateSampleBitmap(int32_t side, int32_t palette)
         OH_Drawing_CanvasClear(offscreen, cap::PaletteColor(palette));
         cap::FillCircleArea(offscreen, cap::PaletteColor(palette + 1), static_cast<float>(side) * 0.5F,
             static_cast<float>(side) * 0.5F, static_cast<float>(side) * 0.35F);
-        cap::FillRectArea(offscreen, cap::WithAlpha(cap::PaletteColor(palette + 2), 0.8F), 0.0F, 0.0F,
+        cap::FillRectArea(offscreen, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_GREEN), 0.8F), 0.0F, 0.0F,
             static_cast<float>(side) * 0.4F, static_cast<float>(side) * 0.4F);
         OH_Drawing_CanvasDestroy(offscreen);
     }
@@ -138,7 +138,7 @@ void SceneBuild(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamB
     }
     DrawImageRect(canvas, bundle.image, frame.centerX - side * 0.5F, frame.centerY - side * 0.5F,
         frame.centerX + side * 0.5F, frame.centerY + side * 0.5F, FILTER_MODE_LINEAR);
-    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + 3), 2.0F, frame.centerX - side * 0.5F,
+    cap::StrokeRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_RED), 2.0F, frame.centerX - side * 0.5F,
         frame.centerY - side * 0.5F, frame.centerX + side * 0.5F, frame.centerY + side * 0.5F);
     ReleaseImageBundle(bundle);
 }
@@ -213,7 +213,7 @@ void SceneInfo(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBa
             frame.Y(12.0F));
     }
     if (info.alphaType != ALPHA_FORMAT_OPAQUE) {
-        cap::FillRectArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + 5), 0.4F), frame.X(86.0F),
+        cap::FillRectArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_CYAN), 0.4F), frame.X(86.0F),
             frame.Y(88.0F), frame.X(94.0F), frame.Y(94.0F));
     }
     ReleaseImageBundle(bundle);
@@ -254,8 +254,9 @@ void SceneAlphaCopy(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Pa
             const bool even = (row + column) % 2 == 0;
             const float left = frame.X(static_cast<float>(column) * 100.0F / static_cast<float>(columns));
             const float top = frame.Y(static_cast<float>(row) * 100.0F / static_cast<float>(rows));
-            cap::FillRectArea(canvas, even ? cap::PaletteColor(palette + 4) : cap::PaletteColor(palette + 5), left,
-                top, left + frame.X(100.0F / static_cast<float>(columns)),
+            cap::FillRectArea(canvas, even ? cap::PaletteColor(palette + cap::SLOT_PURPLE) :
+                cap::PaletteColor(palette + cap::SLOT_CYAN), left, top,
+                left + frame.X(100.0F / static_cast<float>(columns)),
                 top + frame.Y(100.0F / static_cast<float>(rows)));
         }
     }
@@ -291,10 +292,18 @@ void SceneMemoryStream(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const
     const float cellWidth = frame.X(80.0F) / static_cast<float>(blockCount);
     for (int32_t index = 0; index < blockCount; ++index) {
         const float left = frame.X(10.0F) + cellWidth * static_cast<float>(index);
-        cap::FillRectArea(canvas, cap::PaletteColor(palette + index % 3), left, frame.Y(35.0F),
+        cap::FillRectArea(canvas, cap::PaletteColor(palette + index % cap::COLOR_CYCLE_TRIPLE), left, frame.Y(35.0F),
             left + cellWidth - 3.0F, frame.Y(65.0F));
     }
     OH_Drawing_MemoryStreamDestroy(stream);
+}
+
+// 统一的字体文件关闭：关闭失败说明缓冲刷盘异常，需记录到日志。
+void CloseFontFile(FILE *file)
+{
+    if (fclose(file) != 0) {
+        DRAWING_LOGW("ReadFontFile close font file failed");
+    }
 }
 
 // 读取字体文件的全部字节，供 TypefaceCreateFromStream 使用；失败返回空。
@@ -307,22 +316,23 @@ uint8_t *ReadFontFile(size_t &length)
             continue;
         }
         if (fseek(file, 0, SEEK_END) != 0) {
-            fclose(file);
+            CloseFontFile(file);
             continue;
         }
         const long size = ftell(file);
         if (size <= 0 || static_cast<size_t>(size) > MAX_FONT_BYTES) {
-            fclose(file);
+            CloseFontFile(file);
             continue;
         }
         rewind(file);
         uint8_t *buffer = static_cast<uint8_t *>(malloc(static_cast<size_t>(size)));
         if (buffer == nullptr) {
-            fclose(file);
+            CloseFontFile(file);
             continue;
         }
         const size_t readBytes = fread(buffer, 1, static_cast<size_t>(size), file);
-        fclose(file);
+        // 读取结束后立即关闭文件；关闭失败由 CloseFontFile 统一记录日志。
+        CloseFontFile(file);
         if (readBytes != static_cast<size_t>(size)) {
             free(buffer);
             continue;
@@ -386,7 +396,7 @@ void SceneTypefaceStream(OH_Drawing_Canvas *canvas, const cap::Frame &frame, con
     DrawStreamText(canvas, frame, typeface, cap::PaletteColor(palette));
     // 下方画一条粗细随长度变化的横条，体现流长度参与了构图。
     const float ratio = length == 0 ? 0.2F : cap::ClampFloat(static_cast<float>(length) / 1024.0F, 0.2F, 1.0F);
-    cap::FillRectArea(canvas, cap::PaletteColor(palette + 2), frame.X(16.0F), frame.Y(72.0F),
+    cap::FillRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_GREEN), frame.X(16.0F), frame.Y(72.0F),
         frame.X(16.0F) + frame.X(68.0F) * ratio, frame.Y(76.0F));
     if (typeface != nullptr) {
         OH_Drawing_TypefaceDestroy(typeface);

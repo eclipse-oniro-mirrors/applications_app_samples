@@ -26,6 +26,12 @@
 
 namespace ndr {
 namespace {
+// 比例计算时的高度兜底值，避免除数为 0。
+constexpr float MIN_FIT_SIDE = 1.0F;
+
+// 比例兜底下限：图片极扁时比例会趋近 0，作除数前必须再兜一次底。
+constexpr float MIN_FIT_RATIO = 0.001F;
+
 struct ImageSource {
     OH_Drawing_PixelMap *pixelMap = nullptr;
     float width = 0.0F;
@@ -39,14 +45,18 @@ bool FitSize(float canvasWidth, float canvasHeight, float srcWidth, float srcHei
     if (srcWidth <= 0.0F || srcHeight <= 0.0F || canvasWidth <= 0.0F || canvasHeight <= 0.0F) {
         return false;
     }
-    const float canvasRatio = canvasWidth / canvasHeight;
-    const float srcRatio = srcWidth / srcHeight;
+    const float safeCanvasHeight = canvasHeight < MIN_FIT_SIDE ? MIN_FIT_SIDE : canvasHeight;
+    const float safeSrcHeight = srcHeight < MIN_FIT_SIDE ? MIN_FIT_SIDE : srcHeight;
+    const float canvasRatio = canvasWidth / safeCanvasHeight;
+    const float srcRatio = srcWidth / safeSrcHeight;
+    // 除零保护：宽高比过小时按最小正数兜底，避免用作除数时被零除。
+    const float safeSrcRatio = srcRatio < MIN_FIT_RATIO ? MIN_FIT_RATIO : srcRatio;
     dstWidth = canvasWidth;
     dstHeight = canvasHeight;
-    if (srcRatio > canvasRatio) {
-        dstHeight = canvasWidth / srcRatio;
+    if (safeSrcRatio > canvasRatio) {
+        dstHeight = canvasWidth / safeSrcRatio;
     } else {
-        dstWidth = canvasHeight * srcRatio;
+        dstWidth = canvasHeight * safeSrcRatio;
     }
     dstWidth *= ratio;
     dstHeight *= ratio;

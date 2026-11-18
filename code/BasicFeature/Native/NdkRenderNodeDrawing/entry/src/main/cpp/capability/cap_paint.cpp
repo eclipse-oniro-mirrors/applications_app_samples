@@ -26,6 +26,13 @@
 
 namespace ndr {
 namespace {
+// 混合模式下拉框中的选项下标，与 ToBlendMode 的分支一一对应。
+constexpr int32_t BLEND_OPTION_OVERLAY = 2;
+constexpr int32_t BLEND_OPTION_DIFFERENCE = 3;
+// 端点与拐角各演示三种样式，线宽场景并排画四条不同倍率的线。
+constexpr int32_t PEN_CAP_STYLE_COUNT = 3;
+constexpr int32_t PEN_JOIN_STYLE_COUNT = 3;
+constexpr int32_t PEN_WIDTH_LAYER_COUNT = 4;
 
 OH_Drawing_PenLineCapStyle ToCapStyle(int32_t index)
 {
@@ -56,9 +63,9 @@ OH_Drawing_BlendMode ToBlendMode(int32_t index)
     switch (index) {
         case 1:
             return BLEND_MODE_SCREEN;
-        case 2:
+        case BLEND_OPTION_OVERLAY:
             return BLEND_MODE_OVERLAY;
-        case 3:
+        case BLEND_OPTION_DIFFERENCE:
             return BLEND_MODE_DIFFERENCE;
         default:
             return BLEND_MODE_MULTIPLY;
@@ -79,7 +86,7 @@ void ScenePenCap(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
 {
     const int32_t selected = params.Choice(0, 3, 2);
     const float width = params.Range(1, 16.0F, 2.0F, 30.0F);
-    for (int32_t index = 0; index < 3; index++) {
+    for (int32_t index = 0; index < PEN_CAP_STYLE_COUNT; index++) {
         OH_Drawing_Pen *pen = cap::NewPen(OptionColor(index, selected, 0), width);
         if (pen == nullptr) {
             continue;
@@ -98,7 +105,7 @@ void ScenePenJoin(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Para
 {
     const int32_t selected = params.Choice(0, 3, 1);
     const float width = params.Range(1, 18.0F, 2.0F, 30.0F);
-    for (int32_t index = 0; index < 3; index++) {
+    for (int32_t index = 0; index < PEN_JOIN_STYLE_COUNT; index++) {
         OH_Drawing_Path *path = OH_Drawing_PathCreate();
         OH_Drawing_Pen *pen = cap::NewPen(OptionColor(index, selected, 0), width);
         if (path == nullptr || pen == nullptr) {
@@ -149,7 +156,7 @@ void ScenePenWidth(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Par
 {
     const float width = params.Range(0, 12.0F, 1.0F, 40.0F);
     const float alpha = params.Percent(1, 1.0F);
-    for (int32_t index = 0; index < 4; index++) {
+    for (int32_t index = 0; index < PEN_WIDTH_LAYER_COUNT; index++) {
         const float scale = 0.5F + static_cast<float>(index) * 0.5F;
         OH_Drawing_Pen *pen = cap::NewPen(cap::WithAlpha(cap::PaletteColor(index), alpha), width * scale);
         if (pen == nullptr) {

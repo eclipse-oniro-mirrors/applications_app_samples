@@ -150,8 +150,8 @@ void SceneBuilder(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Para
             for (int32_t index = 0; index < count; ++index) {
                 runBuffer->glyphs[index] = index < static_cast<int32_t>(glyphCount) ? glyphs[index] : glyphs[0];
                 // 坐标按对齐步长排列，形成字距可调的横向文字。
-                runBuffer->pos[index * 2] = frame.X(10.0F) + spacing * static_cast<float>(index) * 8.0F;
-                runBuffer->pos[index * 2 + 1] = frame.centerY;
+                runBuffer->pos[index * cap::COORD_STRIDE] = frame.X(10.0F) + spacing * static_cast<float>(index) * 8.0F;
+                runBuffer->pos[index * cap::COORD_STRIDE + cap::COORD_OFFSET_Y] = frame.centerY;
             }
         }
         OH_Drawing_TextBlob *textBlob = OH_Drawing_TextBlobBuilderMake(builder);
@@ -187,7 +187,7 @@ void SceneBounds(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
     if (bounds != nullptr) {
         OH_Drawing_TextBlobGetBounds(textBlob, bounds);
         // 包围盒以文字块自身坐标系给出，绘制时平移到落笔位置。
-        cap::StrokeRectArea(canvas, cap::PaletteColor(palette + 2), 2.0F,
+        cap::StrokeRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_GREEN), 2.0F,
             originX + OH_Drawing_RectGetLeft(bounds), originY + OH_Drawing_RectGetTop(bounds),
             originX + OH_Drawing_RectGetRight(bounds), originY + OH_Drawing_RectGetBottom(bounds));
         OH_Drawing_RectDestroy(bounds);
@@ -213,9 +213,10 @@ void SceneUniqueId(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Par
             const float left = frame.X(8.0F) + static_cast<float>(index) * frame.X(10.0F);
             const bool firstBit = (firstId >> index) & 0x1U;
             const bool secondBit = (secondId >> index) & 0x1U;
-            cap::FillRectArea(canvas, cap::PaletteColor(palette + index % 3), left, frame.Y(30.0F),
+            const uint32_t firstColor = cap::PaletteColor(palette + index % cap::COLOR_CYCLE_TRIPLE);
+            cap::FillRectArea(canvas, firstColor, left, frame.Y(30.0F),
                 left + frame.X(7.0F), frame.Y(firstBit ? 44.0F : 41.0F));
-            cap::FillRectArea(canvas, cap::PaletteColor(palette + 4), left, frame.Y(52.0F),
+            cap::FillRectArea(canvas, cap::PaletteColor(palette + cap::SLOT_PURPLE), left, frame.Y(52.0F),
                 left + frame.X(7.0F), frame.Y(secondBit ? 66.0F : 63.0F));
         }
         DrawBlobAt(canvas, first, frame.X(8.0F), frame.Y(84.0F), cap::PaletteColor(palette));
@@ -256,7 +257,8 @@ void SceneCircle(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Param
         OH_Drawing_TextBlobDestroy(textBlob);
     }
     // 圆环参考线与中心点，突出“文字沿圆周分布”的结构。
-    cap::StrokeCircleArea(canvas, cap::PaletteColor(palette + 3), 1.0F, frame.centerX, frame.centerY, radius);
+    cap::StrokeCircleArea(canvas, cap::PaletteColor(palette + cap::SLOT_RED), 1.0F, frame.centerX, frame.centerY,
+        radius);
     cap::FillCircleArea(canvas, cap::PaletteColor(palette + 1), frame.centerX, frame.centerY, 3.0F);
     OH_Drawing_FontDestroy(font);
 }

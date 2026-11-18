@@ -62,6 +62,30 @@ constexpr int32_t SCENE_COUNTS[] = {
     ERROR_SCENE_COUNT,
 };
 constexpr int32_t SCENE_COUNT_TABLE_SIZE = static_cast<int32_t>(sizeof(SCENE_COUNTS) / sizeof(SCENE_COUNTS[0]));
+// 分组名称表，下标同样为 group - GROUP_CANVAS，新增分组时需同步补齐。
+constexpr const char *GROUP_NAMES[] = {
+    "canvas",
+    "geometry",
+    "paint",
+    "color",
+    "color-filter",
+    "shader",
+    "mask-filter",
+    "image-filter",
+    "bitmap",
+    "pixelmap",
+    "image-io",
+    "font",
+    "textblob",
+    "typography",
+    "shadow",
+    "matrix",
+    "record",
+    "offscreen",
+    "error",
+};
+constexpr int32_t GROUP_NAME_TABLE_SIZE = static_cast<int32_t>(sizeof(GROUP_NAMES) / sizeof(GROUP_NAMES[0]));
+static_assert(sizeof(GROUP_NAMES) / sizeof(GROUP_NAMES[0]) == GROUP_COUNT, "group name table size mismatch");
 
 // 图形与样式域分派：画布、几何、画笔、颜色、滤波器与位图，返回 true 表示已处理。
 bool DispatchStyleGroup(OH_Drawing_Canvas *canvas, int32_t width, int32_t height, int32_t group, int32_t scene,
@@ -140,48 +164,11 @@ bool DispatchContentGroup(OH_Drawing_Canvas *canvas, int32_t width, int32_t heig
 
 const char *CapabilityGroupName(int32_t group)
 {
-    switch (group) {
-        case GROUP_CANVAS:
-            return "canvas";
-        case GROUP_GEOMETRY:
-            return "geometry";
-        case GROUP_PAINT:
-            return "paint";
-        case GROUP_COLOR:
-            return "color";
-        case GROUP_COLOR_FILTER:
-            return "color-filter";
-        case GROUP_SHADER:
-            return "shader";
-        case GROUP_MASK_FILTER:
-            return "mask-filter";
-        case GROUP_IMAGE_FILTER:
-            return "image-filter";
-        case GROUP_BITMAP:
-            return "bitmap";
-        case GROUP_PIXELMAP:
-            return "pixelmap";
-        case GROUP_IMAGE_IO:
-            return "image-io";
-        case GROUP_FONT:
-            return "font";
-        case GROUP_TEXTBLOB:
-            return "textblob";
-        case GROUP_TYPOGRAPHY:
-            return "typography";
-        case GROUP_SHADOW:
-            return "shadow";
-        case GROUP_MATRIX:
-            return "matrix";
-        case GROUP_RECORD:
-            return "record";
-        case GROUP_OFFSCREEN:
-            return "offscreen";
-        case GROUP_ERROR:
-            return "error";
-        default:
-            return "unknown";
+    const int32_t index = group - GROUP_CANVAS;
+    if (index < 0 || index >= GROUP_NAME_TABLE_SIZE) {
+        return "unknown";
     }
+    return GROUP_NAMES[index];
 }
 
 bool IsCapabilitySupported(int32_t group, int32_t scene)

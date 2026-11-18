@@ -27,6 +27,14 @@
 namespace ndr {
 namespace {
 constexpr uint32_t MAX_POINT_COUNT = 512;
+// 裁剪条纹向中心两侧延伸的格数，2 * STRIPE_SPAN_COUNT + 1 条条纹盖满整屏。
+constexpr int32_t STRIPE_SPAN_COUNT = 8;
+// 圆角矩形裁剪内叠的同心圆个数，与调色板前四色一一对应。
+constexpr int32_t CONCENTRIC_RING_COUNT = 4;
+// 路径裁剪内横向色带的条数。
+constexpr int32_t STRIPE_BAND_COUNT = 6;
+// 平移场景连续平移的次数。
+constexpr int32_t TRANSLATE_STEP_COUNT = 3;
 
 // 0. 清屏与整幅填充：先清成底色，再叠加半透明色块，对比 alpha 的作用。
 void SceneClear(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamBag &params)
@@ -34,7 +42,7 @@ void SceneClear(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamB
     const int32_t palette = params.Choice(0, cap::PALETTE_COUNT, 1);
     const float alpha = params.Percent(1, 1.0F);
     OH_Drawing_CanvasClear(canvas, cap::PaletteColor(palette));
-    cap::FillRectArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + 3), alpha),
+    cap::FillRectArea(canvas, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_RED), alpha),
         frame.X(10.0F), frame.Y(15.0F), frame.X(90.0F), frame.Y(85.0F));
     cap::FillCircleArea(canvas, cap::WithAlpha(0xFFFFFFFFU, alpha), frame.centerX, frame.centerY,
         frame.Span(22.0F));
@@ -100,7 +108,7 @@ void SceneClipRect(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Par
     OH_Drawing_CanvasSave(canvas);
     OH_Drawing_CanvasClipRect(canvas, clip, INTERSECT, true);
     OH_Drawing_CanvasRotate(canvas, angle, frame.centerX, frame.centerY);
-    for (int32_t index = -8; index <= 8; index++) {
+    for (int32_t index = -STRIPE_SPAN_COUNT; index <= STRIPE_SPAN_COUNT; index++) {
         const float x = frame.centerX + static_cast<float>(index) * frame.Span(8.0F);
         cap::FillRectArea(canvas, cap::PaletteColor(index), x - frame.Span(2.0F), -frame.height,
             x + frame.Span(2.0F), frame.height * 2.0F);
@@ -122,7 +130,7 @@ void SceneClipRoundRect(OH_Drawing_Canvas *canvas, const cap::Frame &frame, cons
     if (roundRect != nullptr) {
         OH_Drawing_CanvasSave(canvas);
         OH_Drawing_CanvasClipRoundRect(canvas, roundRect, INTERSECT, true);
-        for (int32_t index = 0; index < 4; index++) {
+        for (int32_t index = 0; index < CONCENTRIC_RING_COUNT; index++) {
             cap::FillCircleArea(canvas, cap::PaletteColor(index), frame.centerX, frame.centerY,
                 frame.Span(60.0F - static_cast<float>(index) * 12.0F));
         }
@@ -146,7 +154,7 @@ void SceneClipPath(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Par
     }
     OH_Drawing_CanvasSave(canvas);
     OH_Drawing_CanvasClipPath(canvas, path, INTERSECT, true);
-    for (int32_t index = 0; index < 6; index++) {
+    for (int32_t index = 0; index < STRIPE_BAND_COUNT; index++) {
         cap::FillRectArea(canvas, cap::PaletteColor(index), 0.0F,
             frame.Y(static_cast<float>(index) * 16.0F), frame.width, frame.Y(static_cast<float>(index + 1) * 16.0F));
     }
@@ -173,7 +181,7 @@ void SceneClipRegion(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const P
         OH_Drawing_CanvasSave(canvas);
         (void)OH_Drawing_CanvasClipRegion(canvas, region, INTERSECT);
         cap::FillRectArea(canvas, cap::PaletteColor(0), 0.0F, 0.0F, frame.width, frame.height);
-        cap::FillRectArea(canvas, cap::WithAlpha(cap::PaletteColor(4), 0.5F), 0.0F, frame.Y(40.0F),
+        cap::FillRectArea(canvas, cap::WithAlpha(cap::PaletteColor(cap::SLOT_PURPLE), 0.5F), 0.0F, frame.Y(40.0F),
             frame.width, frame.Y(60.0F));
         OH_Drawing_CanvasRestore(canvas);
     }
@@ -188,15 +196,15 @@ void SceneTranslate(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Pa
 {
     const float dx = frame.width * params.Range(0, 20.0F, -40.0F, 40.0F) * 0.01F;
     const float dy = frame.height * params.Range(1, 15.0F, -40.0F, 40.0F) * 0.01F;
-    for (int32_t index = 0; index < 3; index++) {
+    for (int32_t index = 0; index < TRANSLATE_STEP_COUNT; index++) {
         OH_Drawing_CanvasSave(canvas);
         OH_Drawing_CanvasTranslate(canvas, dx * static_cast<float>(index + 1), dy * static_cast<float>(index + 1));
         cap::FillRectArea(canvas, cap::WithAlpha(cap::PaletteColor(index), 0.45F), frame.X(20.0F), frame.Y(25.0F),
             frame.X(70.0F), frame.Y(70.0F));
         OH_Drawing_CanvasRestore(canvas);
     }
-    cap::StrokeRectArea(canvas, cap::PaletteColor(4), 2.0F, frame.X(20.0F), frame.Y(25.0F), frame.X(70.0F),
-        frame.Y(70.0F));
+    cap::StrokeRectArea(canvas, cap::PaletteColor(cap::SLOT_PURPLE), 2.0F, frame.X(20.0F), frame.Y(25.0F),
+        frame.X(70.0F), frame.Y(70.0F));
 }
 
 // 8. 坐标倾斜：Skew 接收正切值，这里按角度换算。

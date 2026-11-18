@@ -25,6 +25,10 @@ namespace ndr {
 namespace {
 constexpr int32_t OVERLAY_COUNT = 3;
 constexpr float OVERLAY_ALPHA = 0.45F;
+// 录制未完成时状态条只点亮前两步：开始录制与绘制内容。
+constexpr int32_t STAGE_AFTER_PAINT = 2;
+// 尺寸换算的缩放系数兜底值，避免分母为 0。
+constexpr float MIN_RECORD_SCALE = 0.1F;
 
 // 录制工具与录制结果成对出现，释放顺序与创建顺序相反。
 struct RecordUnit {
@@ -101,12 +105,12 @@ void PaintDemoContent(OH_Drawing_Canvas *recordCanvas, int32_t width, int32_t he
     const cap::Frame frame = cap::MakeFrame(width, height);
     cap::FillRoundRectArea(recordCanvas, cap::PaletteColor(palette), frame.X(10.0F), frame.Y(14.0F),
         frame.X(48.0F), frame.Y(44.0F), frame.Span(6.0F));
-    cap::FillCircleArea(recordCanvas, cap::PaletteColor(palette + 2), frame.X(70.0F), frame.Y(30.0F),
+    cap::FillCircleArea(recordCanvas, cap::PaletteColor(palette + cap::SLOT_GREEN), frame.X(70.0F), frame.Y(30.0F),
         frame.Span(14.0F));
-    cap::StrokeRectArea(recordCanvas, cap::PaletteColor(palette + 3), 2.0F, frame.X(14.0F), frame.Y(58.0F),
-        frame.X(86.0F), frame.Y(84.0F));
-    cap::StrokeLineArea(recordCanvas, cap::PaletteColor(palette + 4), 2.0F, frame.X(14.0F), frame.Y(84.0F),
-        frame.X(86.0F), frame.Y(58.0F));
+    cap::StrokeRectArea(recordCanvas, cap::PaletteColor(palette + cap::SLOT_RED), 2.0F, frame.X(14.0F),
+        frame.Y(58.0F), frame.X(86.0F), frame.Y(84.0F));
+    cap::StrokeLineArea(recordCanvas, cap::PaletteColor(palette + cap::SLOT_PURPLE), 2.0F, frame.X(14.0F),
+        frame.Y(84.0F), frame.X(86.0F), frame.Y(58.0F));
 }
 
 // 在画布左上角画一条状态条，长度随进度递增，用于表示录制流程走到了哪一步。
@@ -115,7 +119,8 @@ void DrawStageBar(OH_Drawing_Canvas *canvas, const cap::Frame &frame, int32_t st
     const int32_t limited = stage < 0 ? 0 : (stage > total ? total : stage);
     for (int32_t index = 0; index < total; ++index) {
         const float left = frame.X(6.0F) + frame.X(10.0F) * static_cast<float>(index);
-        const uint32_t color = index < limited ? cap::PaletteColor(palette + 2) : cap::PaletteColor(palette + 5);
+        const uint32_t color = index < limited ? cap::PaletteColor(palette + cap::SLOT_GREEN) :
+            cap::PaletteColor(palette + cap::SLOT_CYAN);
         cap::FillRectArea(canvas, color, left, frame.Y(4.0F), left + frame.X(7.0F), frame.Y(7.0F));
     }
 }
@@ -222,7 +227,7 @@ void SceneNesting(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Para
     if (finished) {
         (void)ReplayRecord(canvas, outer.recordCmd);
     }
-    DrawStageBar(canvas, frame, finished ? OVERLAY_COUNT : 2, OVERLAY_COUNT, palette);
+    DrawStageBar(canvas, frame, finished ? OVERLAY_COUNT : STAGE_AFTER_PAINT, OVERLAY_COUNT, palette);
     ReleaseRecord(outer);
     ReleaseRecord(inner);
 }
@@ -232,8 +237,10 @@ void SceneResized(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const Para
 {
     const int32_t palette = params.Choice(0, cap::PALETTE_COUNT, 5);
     const float scale = params.Range(1, 2.0F, 1.2F, 3.0F);
-    const int32_t recordWidth = static_cast<int32_t>(frame.width / scale);
-    const int32_t recordHeight = static_cast<int32_t>(frame.height / scale);
+    // 除零保护：缩放系数在参数裁剪后仍按最小正数兜底，再做尺寸换算。
+    const float safeScale = scale < MIN_RECORD_SCALE ? MIN_RECORD_SCALE : scale;
+    const int32_t recordWidth = static_cast<int32_t>(frame.width / safeScale);
+    const int32_t recordHeight = static_cast<int32_t>(frame.height / safeScale);
     if (recordWidth <= 0 || recordHeight <= 0) {
         DRAWING_LOGW("SceneResized invalid record size, scale=%{public}f", scale);
         return;
@@ -273,8 +280,8 @@ void SceneLayer(OH_Drawing_Canvas *canvas, const cap::Frame &frame, const ParamB
         OH_Drawing_CanvasSaveLayer(recordCanvas, bounds, nullptr);
         cap::FillRectArea(recordCanvas, cap::WithAlpha(cap::PaletteColor(palette), alpha), frame.X(12.0F),
             frame.Y(16.0F), frame.X(60.0F), frame.Y(54.0F));
-        cap::FillRectArea(recordCanvas, cap::WithAlpha(cap::PaletteColor(palette + 2), alpha), frame.X(36.0F),
-            frame.Y(40.0F), frame.X(86.0F), frame.Y(84.0F));
+        cap::FillRectArea(recordCanvas, cap::WithAlpha(cap::PaletteColor(palette + cap::SLOT_GREEN), alpha),
+            frame.X(36.0F), frame.Y(40.0F), frame.X(86.0F), frame.Y(84.0F));
         OH_Drawing_CanvasRestore(recordCanvas);
         OH_Drawing_RectDestroy(bounds);
     }
