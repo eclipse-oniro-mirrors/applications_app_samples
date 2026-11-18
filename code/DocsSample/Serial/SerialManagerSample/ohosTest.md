@@ -180,27 +180,28 @@ PerformanceStability 当前用例断言功能和顺序，不包含吞吐量、�
 
 先在 DevEco Studio 中完成主应用与 ohosTest 的签名、编译及安装。主应用和测试模块的 deviceTypes 均需与目标设备类型匹配，同时满足应用 API 版本要求。当前测试模块配置支持 default、2in1；已有回归设备为 default、API 26。
 
-下列命令中的 `aa` 是 OpenHarmony 官方 Ability assistant 工具的命令名，`test` 是启动测试框架的子命令。工具名称和子命令必须按原样输入；可通过 `hdc shell aa help` 查看设备支持的命令。
+使用 DevEco Studio 的 ohosTest 运行配置执行测试。先重新扫描当前测试目录，再选择当前工程的测试模块和运行器。
 
-默认设备回归命令如下；多设备连接时，在 hdc 后补充 -t 和目标设备编号。
+1. 连接目标设备，在运行配置中选择该设备及 `entry_test` 测试模块。
+2. 确认被测应用包名为 `com.samples.serialmanagersample`，测试运行器为 `/ets/testrunner/OpenHarmonyTestRunner`。
+3. 清除旧配置中 AbilityTest、SerialButtonInteractionTest、SerialUIRenderingTest 的选择，并取消遗留的测试类过滤条件。
+4. 默认回归不设置 `serialHardware=true`，也不使用 `serialUi` 参数；运行全部已注册的业务用例，预期执行 1,800 个。
 
-~~~shell
-hdc shell aa test -b com.samples.serialmanagersample -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000
-~~~
+各运行场景使用独立的运行配置，参数名称、取值及预期结果如下。
 
-请求覆盖率的独立回归：
+| 运行场景 | 测试运行参数 | 预期用例数 | 说明 |
+| --- | --- | ---: | --- |
+| 默认业务回归 | `timeout=15000`，不启用硬件参数 | 1,800 | 执行全部默认注册的业务用例 |
+| 请求覆盖率的独立回归 | `timeout=15000`、`coverage=true`，不启用硬件参数 | 1,800 | 请求覆盖率；以实际生成的覆盖率报告为准 |
+| 真实串口硬件回归 | `timeout=15000`、`serialHardware=true` | 1,803 | 保留默认业务用例，并额外注册 3 个硬件用例 |
 
-~~~shell
-hdc shell aa test -b com.samples.serialmanagersample -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000 -s coverage true
-~~~
+`timeout` 的单位为毫秒。参数通过测试运行配置传入；`serialHardware` 的启用值为字符串 `true`，由测试注册入口读取并判断。
 
-满足真实串口硬件条件后，使用以下命令额外注册 3 个硬件用例；该命令同时保留默认的 1,800 个业务用例，预期总数为 1,803：
+执行默认业务回归时，应清除 `SerialHardwareTest` 类过滤条件，避免只选择未注册的硬件套件。覆盖率回归也执行默认的 1,800 个业务用例，结果应与默认回归分别记录。
 
-~~~shell
-hdc shell aa test -b com.samples.serialmanagersample -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000 -s serialHardware true
-~~~
+启用硬件回归前，需满足本文所列的真实串口设备及外设条件。未满足条件时不要启用硬件参数，也不要将未执行的 3 个硬件用例计入通过数量。
 
-在 DevEco Studio 中运行时，重新扫描当前 ohosTest，并清除旧配置中 AbilityTest、SerialButtonInteractionTest、SerialUIRenderingTest 的选择。默认运行也不要保留 SerialHardwareTest 的类过滤条件；不再使用 serialUi 参数。
+运行后核对测试窗口中的执行数量、失败数量和停止数量，并保留运行器结束信息。仅完成编译或部署不能判定用例通过。
 
 ## 已归档验证结果
 
