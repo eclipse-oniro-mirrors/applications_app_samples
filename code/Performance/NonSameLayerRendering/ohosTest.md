@@ -14,7 +14,7 @@
 - **测试文件数**：80 个包含用例的 `.test.ets`，另有入口 `List.test.ets`。
 - **测试套件数**：80。
 - **测试用例数**：1395。
-- **模型测试**：79 个套件、1388 条用例，验证生产代码 `ProductDataModel` 的字段赋值、其他字段保持及实例隔离。
+- **模型测试**：79 个套件、1388 条用例，验证生产代码 `ProductDataModel` 的字段赋值、未修改字段保持及实例隔离。
 - **资源与页面集成测试**：1 个套件、7 条用例。
 - **已有全量结果**：Pass 1395 / Failure 0 / Error 0 / Ignore 0。
 
@@ -238,10 +238,10 @@ docs/device-test-results/
 
 | 测试功能 | 用例数 | 输入 | 预期输出 | 测试结果 |
 |---|---:|---|---|---|
-| 修改商品 ID | 347 | 各用例指定的 `initialId`、`initialUri`、`initialTitle`、`initialPrice`；将 `subject.id` 改为 `initialId + 1` | 构造字段与输入一致；subject.id 为新值，其他字段保持原值；independent 四字段保持初始值；共享目录与快照一致 | Pass（已有全量记录） |
-| 修改商品图片地址 | 347 | 各用例指定的四个初始字段；将 `subject.uri` 改为 `'replacement-' + initialId.toString()` | subject.uri 为新值，其他字段保持原值；independent 四字段保持初始值；共享目录与快照一致 | Pass（已有全量记录） |
-| 修改商品标题 | 347 | 各用例指定的四个初始字段；将 `subject.title` 改为 `'replacement-' + initialId.toString()` | subject.title 为新值，其他字段保持原值；independent 四字段保持初始值；共享目录与快照一致 | Pass（已有全量记录） |
-| 修改商品价格 | 347 | 各用例指定的四个初始字段；将 `subject.price` 改为 `'replacement-' + initialId.toString()` | subject.price 为新值，其他字段保持原值；independent 四字段保持初始值；共享目录与快照一致 | Pass（已有全量记录） |
+| 修改商品 ID | 347 | 各用例指定的 `initialId`、`initialUri`、`initialTitle`、`initialPrice`；将 `subject.id` 改为 `initialId + 1` | 构造字段与输入一致；subject.id 为新值，uri、title、price 字段保持原值；independent 四字段保持初始值；共享目录与快照一致 | Pass（已有全量记录） |
+| 修改商品图片地址 | 347 | 各用例指定的四个初始字段；将 `subject.uri` 改为 `'replacement-' + initialId.toString()` | subject.uri 为新值，id、title、price 字段保持原值；independent 四字段保持初始值；共享目录与快照一致 | Pass（已有全量记录） |
+| 修改商品标题 | 347 | 各用例指定的四个初始字段；将 `subject.title` 改为 `'replacement-' + initialId.toString()` | subject.title 为新值，id、uri、price 字段保持原值；independent 四字段保持初始值；共享目录与快照一致 | Pass（已有全量记录） |
+| 修改商品价格 | 347 | 各用例指定的四个初始字段；将 `subject.price` 改为 `'replacement-' + initialId.toString()` | subject.price 为新值，id、uri、title 字段保持原值；independent 四字段保持初始值；共享目录与快照一致 | Pass（已有全量记录） |
 
 例如，`RenderingAbility.test.ets` 中 `renderingAbility001`～`renderingAbility004` 分别验证 ID、图片地址、标题、价格修改，对应编号 `SUB_ARKWEB_NON_SAME_LAYER_000001`～`SUB_ARKWEB_NON_SAME_LAYER_000004`。
 
