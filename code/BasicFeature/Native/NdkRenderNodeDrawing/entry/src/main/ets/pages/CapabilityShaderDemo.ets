@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,11 +12,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-const NativeMock: Record<string, Object> = {
-  'add': (a: number, b: number) => {
-    return a + b;
-  },
-};
 
-export default NativeMock;
+import { SHADER_GROUP } from '../schema/CapabilityShader';
+import { GroupHost } from '../widgets/GroupHost';
+
+// 着色器能力域页面：线性、径向、扫描、锥形渐变与平铺模式。
+@Entry
+@Component
+struct CapabilityShaderDemo {
+  build() {
+    Column() {
+      GroupHost({ group: SHADER_GROUP })
+    }
+    .width('100%')
+    .height('100%')
+  }
+}
