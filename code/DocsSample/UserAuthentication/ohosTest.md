@@ -21,16 +21,11 @@
 |---|---:|---|
 | `UserAuth.test.ets` | 16 | 通过 UiTest 驱动 `Index` 页面，覆盖 Auth 能力查询、Auth 实例、取消、凭据、模拟验证等 UI 场景 |
 | `UserAuthContract.test.ets` | 55 | UserAuthType、AuthTrustLevel、AuthParam 契约 |
-| `UserAuthMatrixPart01.test.ets` | 91 | AuthParam/UserAuthType 矩阵组合 |
-| `UserAuthMatrixPart02.test.ets` | 109 | SecureLevel、AuthType 等枚举矩阵组合 |
-| `UserAuthMorePart01.test.ets` | 91 | 扩展 challenge 与 AuthParam 组合 |
-| `UserAuthMorePart02.test.ets` | 102 | 扩展 authType 数组与枚举交叉组合 |
-| `UserAuthMorePart03.test.ets` | 7 | AuthParam 字段一致性补充 |
 | `UserAuthVolumePart01.test.ets` | 77 | AuthParam challenge 长度、authType 与等级批量组合 |
 | `UserAuthVolumePart02.test.ets` | 77 | AuthParam challenge 长度、authType 与等级批量组合 |
 | `UserAuthVolumePart03.test.ets` | 77 | AuthParam challenge 长度、authType 与等级批量组合 |
 | `UserAuthVolumePart04.test.ets` | 19 | AuthParam challenge 长度、authType 与等级批量组合 |
-| **合计** | **721** | |
+| **合计** | **321** | |
 
 ## 补充契约用例（55 条）
 
@@ -40,24 +35,6 @@
 | testUserAuthContract0016-0035 | AuthTrustLevel ATL1-ATL4 | 10000/20000/30000/40000 | Pass |
 | testUserAuthContract0036-0045 | AuthParam 参数组合 | challenge 16、authType 3 项 | Pass |
 | testUserAuthContract0046-0055 | challenge 长度 17-26 | 长度与数组一致 | Pass |
-
-## 批量矩阵用例（200 条）
-
-| 用例范围 | 测试内容 | 预期输出 | 测试结果 |
-|---|---|---|---|
-| testUserAuthMatrix0001-0050 | AuthParam challenge/authType/trustLevel 组合 | 长度、类型、等级正确 | Pass |
-| testUserAuthMatrix0051-0100 | UserAuthType 数组组合 | 数组非空且元素为 number | Pass |
-| testUserAuthMatrix0101-0150 | SecureLevel S1-S4 | 字符串值正确 | Pass |
-| testUserAuthMatrix0151-0200 | AuthType ALL/FACE_ONLY | 字符串值正确 | Pass |
-
-## 扩展矩阵用例（200 条）
-
-| 用例范围 | 测试内容 | 预期输出 | 测试结果 |
-|---|---|---|---|
-| testUserAuthMore0001-0050 | 扩展 challenge 33-82 | 长度/类型/等级正确 | Pass |
-| testUserAuthMore0051-0100 | 扩展 authType 数组 | 数组长度正确 | Pass |
-| testUserAuthMore0101-0150 | SecureLevel/AuthType 交叉 | 字符串正确 | Pass |
-| testUserAuthMore0151-0200 | AuthParam 相等性 | 字段一致 | Pass |
 
 ## 批量参数用例（250 条）
 
