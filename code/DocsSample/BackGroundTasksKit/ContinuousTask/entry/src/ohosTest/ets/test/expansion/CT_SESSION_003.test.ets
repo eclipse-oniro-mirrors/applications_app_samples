@@ -1,0 +1,47 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { expect } from '@ohos/hypium';
+import { ContinuousFixture, model, drain } from './ContinuousFixture';
+
+/**
+ * @tc.number EXP_CT_SESSION_003
+ * @tc.name 真实AVSession封装参数、替换和销毁异常 CT_SESSION_003
+ * @tc.desc Catalog oracle: {"storedSession":"A","handled":true}
+ * @tc.level Level 1
+ */
+const runExpansionCase: () => Promise<void> = async (): Promise<void> => {
+    const f = await ContinuousFixture.open();
+    let primaryFailed: boolean = false;
+    try {
+      f.sessionThrows = true;
+      model.createAVSession(f.context);
+      expect(f.calls.join('|')).assertEqual('createSession');
+      expect(f.sessionContexts[0] === f.context).assertTrue();
+      expect(f.sessionNames.join('|')).assertEqual('player');
+      expect(f.sessionTypes.join('|')).assertEqual('audio');
+      expect(model.avSession === f.sessionA.asSdk()).assertTrue();
+      await drain();
+      expect(model.avSession === f.sessionA.asSdk()).assertTrue();
+      expect(f.errors.length).assertEqual(1);
+      expect(f.errors[0].includes('createAVSession exception: controlled createSession failure')).assertTrue();
+    } catch (error) {
+      primaryFailed = true;
+      throw error as Error;
+    } finally {
+      await f.close(primaryFailed);
+    }
+  };
+
+export default runExpansionCase;
