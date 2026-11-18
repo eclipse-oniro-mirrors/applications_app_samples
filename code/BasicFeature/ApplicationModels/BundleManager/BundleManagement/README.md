@@ -97,7 +97,7 @@ N/A
 
 ### Testing
 
-This project provides Hypium-based automated tests in `entry/src/ohosTest`, with 833 test cases in 31 suites in total,
+This project provides Hypium-based automated tests in `entry/src/ohosTest`, with 836 test cases in 32 suites in total,
 covering bundle information queries, ExtensionAbility, BundleFlag, UID/icon/launchWant, and other bundle management capabilities.
 See [ohosTest.md](ohosTest.md) for detailed suite descriptions and execution commands.
 

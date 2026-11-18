@@ -12,8 +12,8 @@
 
 ## 自动化测试
 
-本工程在 `entry/src/ohosTest/ets/test` 下提供基于 Hypium 的自动化用例，共 920 条、32 个套件：
-847 条覆盖通用系统 API，73 条覆盖 Ability 启动模式等专属能力。
+本工程在 `entry/src/ohosTest/ets/test` 下提供基于 Hypium 的自动化用例，共 923 条、33 个套件：
+847 条覆盖通用系统 API，76 条覆盖 Ability 启动模式等专属能力（含 Ability 冒烟 3 条）。
 
 ### 启动模式专属套件
 
@@ -25,6 +25,7 @@
 | StartModeAbilitySkillMatrix | Ability 的 skills（action/entities/uris）配置 | 8 |
 | StartModeDelegatorMatrix | `abilityDelegatorRegistry` 取 Ability 与上下文 | 7 |
 | StartModeCategoryMatrix | 应用与 Ability 分类字段 | 6 |
+| Ability（ActsAbilityTest） | 应用上下文、BundleInfo、模块信息的启动冒烟 | 3 |
 
 ### 通用系统 API 套件
 

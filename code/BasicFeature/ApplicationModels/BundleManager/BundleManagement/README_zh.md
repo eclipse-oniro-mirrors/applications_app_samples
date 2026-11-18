@@ -98,7 +98,7 @@ hdc_std install 本地路径\entry-default-signed.hap 本地路径\libraryRuntim
 
 ### 测试
 
-本工程提供基于 Hypium 的自动化测试，位于 `entry/src/ohosTest`，共 833 条用例、31 个套件，
+本工程提供基于 Hypium 的自动化测试，位于 `entry/src/ohosTest`，共 836 条用例、32 个套件，
 覆盖包信息查询、ExtensionAbility、BundleFlag、UID/图标/launchWant 等包管理能力，
 详细套件说明与执行命令见 [ohosTest.md](ohosTest.md)。
 

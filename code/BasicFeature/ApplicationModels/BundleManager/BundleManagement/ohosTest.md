@@ -17,8 +17,8 @@
 
 ## 自动化测试
 
-本工程在 `entry/src/ohosTest/ets/test` 下提供基于 Hypium 的自动化用例，共 833 条、31 个套件：
-802 条覆盖通用系统 API，31 条覆盖包管理专属能力。
+本工程在 `entry/src/ohosTest/ets/test` 下提供基于 Hypium 的自动化用例，共 836 条、32 个套件：
+802 条覆盖通用系统 API，34 条覆盖包管理专属能力（含 Ability 冒烟 3 条）。
 
 ### 包管理专属套件
 

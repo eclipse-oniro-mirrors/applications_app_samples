@@ -77,7 +77,7 @@ N/A
 
 ### Testing
 
-This project provides Hypium-based automated tests in `entry/src/ohosTest`, with 803 test cases in 28 suites in total,
+This project provides Hypium-based automated tests in `entry/src/ohosTest`, with 806 test cases in 29 suites in total,
 covering the NavPathStack page stack, the RouterModule dynamic route name table, and routing URL conventions.
 See [ohosTest.md](ohosTest.md) for detailed suite descriptions and execution commands.
 

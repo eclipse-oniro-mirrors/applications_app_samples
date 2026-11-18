@@ -78,7 +78,7 @@
 
 ### 测试
 
-本工程提供基于 Hypium 的自动化测试，位于 `entry/src/ohosTest`，共 822 条用例、29 个套件，
+本工程提供基于 Hypium 的自动化测试，位于 `entry/src/ohosTest`，共 825 条用例、30 个套件，
 覆盖系统路由表（routerMap）、路由命名约定、NavPathStack 页面栈与跨 HSP 调用，
 详细套件说明与执行命令见 [ohosTest.md](ohosTest.md)。
 

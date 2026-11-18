@@ -86,7 +86,7 @@ N/A
 
 ### Testing
 
-This project provides Hypium-based automated tests in `entry/src/ohosTest`, with 920 test cases in 32 suites in total,
+This project provides Hypium-based automated tests in `entry/src/ohosTest`, with 923 test cases in 33 suites in total,
 covering launch modes, ability skills, categories, Want parameters, and emitter events.
 See [ohosTest.md](ohosTest.md) for detailed suite descriptions and execution commands.
 
