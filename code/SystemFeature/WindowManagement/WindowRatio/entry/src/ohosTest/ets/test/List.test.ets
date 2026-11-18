@@ -42,6 +42,7 @@ import ratioPageStateSelect2Test from './logic/RatioPageStateSelect2.test';
 import ratioPageStateOnSizeChangeTest from './logic/RatioPageStateOnSizeChange.test';
 import ratioPageStateOnSizeChange2Test from './logic/RatioPageStateOnSizeChange2.test';
 import ratioPageStateOnSizeChange3Test from './logic/RatioPageStateOnSizeChange3.test';
+import ratioPageStateOnSizeChange4Test from './logic/RatioPageStateOnSizeChange4.test';
 import ratioPageStateOnSizeChange5Test from './logic/RatioPageStateOnSizeChange5.test';
 import ratioPageStateApplyTest from './logic/RatioPageStateApply.test';
 
@@ -78,6 +79,7 @@ export default function testsuite() {
   ratioPageStateOnSizeChangeTest();
   ratioPageStateOnSizeChange2Test();
   ratioPageStateOnSizeChange3Test();
+  ratioPageStateOnSizeChange4Test();
   ratioPageStateOnSizeChange5Test();
   ratioPageStateApplyTest();
 }
