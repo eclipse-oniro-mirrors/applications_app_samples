@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "注入手势命令示例"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "注入手势命令示例"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "NdkUiEventInjection"
+    }
+  ]
+}
