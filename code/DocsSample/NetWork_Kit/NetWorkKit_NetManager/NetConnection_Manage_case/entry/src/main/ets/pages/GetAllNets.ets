@@ -17,6 +17,7 @@
 // 从@kit.NetworkKit中导入connection命名空间。
 import { connection } from '@kit.NetworkKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude get_all_registered_networks]
 const BUTTON_HEIGHT = 50; // 按钮的高度
 const BUTTON_FONT_SIZE = 20; // 按钮的字体大小
@@ -68,7 +69,6 @@ export default struct AllNetworksBtn {
         .id('Get_Connected_Network')
     }
   }
-
   // 获取所有注册的网络
   getAllNetworks() {
     // [EndExclude get_all_registered_networks]
@@ -87,16 +87,23 @@ export default struct AllNetworksBtn {
           // 循环获取网络列表每个netHandle对应网络的能力信息
           connection.getNetCapabilities(item).then((data: connection.NetCapabilities) => {
             hilog.info(0x0000, 'testTag', 'getNetCapabilities get data: ' + JSON.stringify(data));
+          }).catch((error: BusinessError) => {
+            hilog.error(0x0000, 'testTag', 'getNetCapabilities error: ' + JSON.stringify(error));
           });
 
           // 循环获取网络列表每个netHandle对应的网络的连接信息
           connection.getConnectionProperties(item).then((data: connection.ConnectionProperties) => {
             hilog.info(0x0000, 'testTag', 'getConnectionProperties get data: ' + JSON.stringify(data));
+          }).catch((error: BusinessError) => {
+            hilog.error(0x0000, 'testTag', 'getConnectionProperties error: ' + JSON.stringify(error));
           });
         }
         // [EndExclude get_all_registered_networks]
       }
+    }).catch((error: BusinessError) => {
+      hilog.error(0x0000, 'testTag', 'getAllNets error: ' + JSON.stringify(error));
     });
     // [End get_all_registered_networks]
+  }
   }
 }
