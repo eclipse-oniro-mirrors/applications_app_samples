@@ -117,3 +117,27 @@ hdc shell hilog | grep ChipAndCounter
 - 测试内未复制任何业务实现，避免出现“实现改了测试跟着改”的假阳性；
 - `entry/src/test/` 仅包含模板自带的 1 条本地冒烟用例，功能验证以 `entry/src/ohosTest` 下的 202 条设备侧用例为准；
 - ChipV2、ChipGroupV2、CounterV2 为 API 26 组件，低于 API 26 的设备上对应分区不可用，测试环境需使用 API 26 镜像。
+
+## 2026 新增套件
+
+在原有用例之外新增 24 个文件 / **833 条 / 20,013 行**。
+
+| 套件 | 覆盖点 | 用例数 | 测试结果 |
+| --- | --- | ---: | --- |
+| TagStoreSequenceMatrixPart1~17 | A/R/T/E/C 三步序列、A/T/C 与 A/T/E 四步序列，以及全部含 R 的四步序列（369 条）的完整仓库状态、激活数、快照与 findById | 655 | pass |
+| CounterSequenceMatrixPart1~4 | 5 组 min/max/step 配置 × 三步 I/D/S 操作序列的逐步返回值与 atMin/atMax | 135 | pass |
+| ChipConfigArrayMatrixPart1 | 分组条目/分段条目的文本数组、allowClose、激活色字段 | 12 | pass |
+| LogUtilSinkMatrixPart1 | 固定时刻格式、4 级别过滤门限、levelMark | 14 | pass |
+| DeviceWidthGridMatrixPart1 | 17 个中高档宽度的断点与双栏判定 | 17 | pass |
+| 合计 |  | 833 | 833/833 pass |
+
+全量最终结果：
+
+```
+Tests run: 1047, Failure: 0, Error: 0, Pass: 1047
+```
+
+工程测试代码总计 **24,081 行**（新增 20,013 行）。
+
+新增文件无完全重复 body（0 组），`@tc.desc` 833/833 唯一；`@tc.number` 与
+`@tc.name` 序号一一对应。
