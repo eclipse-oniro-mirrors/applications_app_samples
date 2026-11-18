@@ -13,8 +13,64 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test';
+import coldStartTest from './ColdStart.test';
+import bundleConfigMatrixTest from './BundleConfigMatrix.test';
+import resourceLocaleMatrixTest from './ResourceLocaleMatrix.test';
+import startupManagerMatrixCoreTest from './StartupManagerMatrixCore.test';
+import startupManagerMatrixTailTest from './StartupManagerMatrixTail.test';
+import startupDataMatrixTest from './StartupDataMatrix.test';
+import bundleManagerFlagMatrixTest from './BundleManagerFlagMatrix.test';
+import startupRunSubsetMatrixTest from './StartupRunSubsetMatrix.test';
+import startupInvalidNameMatrixTest from './StartupInvalidNameMatrix.test';
+import startupListenerMatrixTest from './StartupListenerMatrix.test';
+import resourceLocaleExtendedTest from './ResourceLocaleExtended.test';
+import startupDataExtendedTest from './StartupDataExtended.test';
+import resourceLocaleHugeMatrixCoreTest from './ResourceLocaleHugeMatrixCore.test';
+import resourceLocaleHugeMatrixTailTest from './ResourceLocaleHugeMatrixTail.test';
+import resourceLocaleMoreMatrixTest from './ResourceLocaleMoreMatrix.test';
+import bundleInfoExtendedMatrixCoreTest from './BundleInfoExtendedMatrixCore.test';
+import bundleInfoExtendedMatrixExtendedTest from './BundleInfoExtendedMatrixExtended.test';
+import bundleInfoExtendedMatrixTailTest from './BundleInfoExtendedMatrixTail.test';
+import startupRunPermutationMatrixCoreTest from './StartupRunPermutationMatrixCore.test';
+import startupRunPermutationMatrixExtendedTest from './StartupRunPermutationMatrixExtended.test';
+import startupRunPermutationMatrixAdvancedTest from './StartupRunPermutationMatrixAdvanced.test';
+import startupRunPermutationMatrixTailTest from './StartupRunPermutationMatrixTail.test';
+import startupRunPermutationMatrixExtraTest from './StartupRunPermutationMatrixExtra.test';
+import startupRunPermutationMatrixMoreTest from './StartupRunPermutationMatrixMore.test';
+import startupRunPermutationMatrixFinalTest from './StartupRunPermutationMatrixFinal.test';
+import startupRunPermutationMatrixLastTest from './StartupRunPermutationMatrixLast.test';
+import uiSmokeTest from './UiSmoke.test';
 
+/**
+ * 注册顺序即执行顺序：ColdStart 必须第一个跑，它断言 EntryAbility 拉起前 entry 的启动配置尚未加载；
+ * 随后是不依赖页面的配置与资源矩阵、startupManager 接口矩阵、启动任务产出的业务数据，最后点击页面做 UI 冒烟。
+ */
 export default function testsuite() {
-  abilityTest();
+  coldStartTest();
+  bundleConfigMatrixTest();
+  resourceLocaleMatrixTest();
+  startupManagerMatrixCoreTest();
+  startupManagerMatrixTailTest();
+  startupDataMatrixTest();
+  bundleManagerFlagMatrixTest();
+  startupRunSubsetMatrixTest();
+  startupInvalidNameMatrixTest();
+  startupListenerMatrixTest();
+  resourceLocaleExtendedTest();
+  startupDataExtendedTest();
+  resourceLocaleHugeMatrixCoreTest();
+  resourceLocaleHugeMatrixTailTest();
+  resourceLocaleMoreMatrixTest();
+  bundleInfoExtendedMatrixCoreTest();
+  bundleInfoExtendedMatrixExtendedTest();
+  bundleInfoExtendedMatrixTailTest();
+  startupRunPermutationMatrixCoreTest();
+  startupRunPermutationMatrixExtendedTest();
+  startupRunPermutationMatrixAdvancedTest();
+  startupRunPermutationMatrixTailTest();
+  startupRunPermutationMatrixExtraTest();
+  startupRunPermutationMatrixMoreTest();
+  startupRunPermutationMatrixFinalTest();
+  startupRunPermutationMatrixLastTest();
+  uiSmokeTest();
 }

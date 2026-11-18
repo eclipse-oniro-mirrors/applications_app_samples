@@ -17,8 +17,8 @@ import { wantAgent } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { promptAction } from '@kit.ArkUI';
 
-const TAG: string = 'WantAgent';
-const DOMAIN: number = 0xFF00;
+const TAG: string = '[Sample_AbilityRuntime]';
+const DOMAIN: number = 0xF811;
 
 @Entry
 @Component
@@ -46,7 +46,7 @@ struct WantAgentClass {
           duration: this.promptDuration
         })
       })
-      console.info(`${TAG} getWantAgent  success: ${JSON.stringify(dataBase)}`)
+      hilog.info(DOMAIN, TAG, `getWantAgent success: ${JSON.stringify(dataBase)}`);
     })
   }
 
@@ -60,7 +60,7 @@ struct WantAgentClass {
           duration: this.promptDuration
         })
       })
-      console.info(`${TAG} getWantAgent  success: ${JSON.stringify(dataBase)}`)
+      hilog.info(DOMAIN, TAG, `getWantAgent success: ${JSON.stringify(dataBase)}`);
     })
   }
 
@@ -74,7 +74,7 @@ struct WantAgentClass {
           duration: this.promptDuration
         })
       })
-      console.info(`${TAG} getWantAgent  success: ${JSON.stringify(dataBase)}`)
+      hilog.info(DOMAIN, TAG, `getWantAgent success: ${JSON.stringify(dataBase)}`);
     })
   }
 
@@ -88,7 +88,7 @@ struct WantAgentClass {
           duration: this.promptDuration
         })
       })
-      console.info(`${TAG} getWantAgent  success: ${JSON.stringify(dataBase)}`)
+      hilog.info(DOMAIN, TAG, `getWantAgent success: ${JSON.stringify(dataBase)}`);
     })
   }
 
@@ -102,7 +102,7 @@ struct WantAgentClass {
           duration: this.promptDuration
         })
       })
-      console.info(`${TAG} getWantAgent  success: ${JSON.stringify(dataBase)}`)
+      hilog.info(DOMAIN, TAG, `getWantAgent success: ${JSON.stringify(dataBase)}`);
     })
   }
 
@@ -116,7 +116,7 @@ struct WantAgentClass {
           duration: this.promptDuration
         })
       })
-      console.info(`${TAG} getWantAgent  success: ${JSON.stringify(dataBase)}`)
+      hilog.info(DOMAIN, TAG, `getWantAgent success: ${JSON.stringify(dataBase)}`);
     })
   }
 
@@ -130,7 +130,7 @@ struct WantAgentClass {
           duration: this.promptDuration
         })
       })
-      console.info(`${TAG} getWantAgent  success: ${JSON.stringify(dataBase)}`)
+      hilog.info(DOMAIN, TAG, `getWantAgent success: ${JSON.stringify(dataBase)}`);
     })
   }
 
@@ -144,7 +144,7 @@ struct WantAgentClass {
           duration: this.promptDuration
         })
       })
-      console.info(`${TAG} getWantAgent  success: ${JSON.stringify(dataBase)}`)
+      hilog.info(DOMAIN, TAG, `getWantAgent success: ${JSON.stringify(dataBase)}`);
     })
   }
 
@@ -158,7 +158,7 @@ struct WantAgentClass {
           duration: this.promptDuration
         })
       })
-      console.info(`${TAG} getWantAgent  success: ${JSON.stringify(dataBase)}`)
+      hilog.info(DOMAIN, TAG, `getWantAgent success: ${JSON.stringify(dataBase)}`);
     })
   }
 
@@ -172,7 +172,7 @@ struct WantAgentClass {
           duration: this.promptDuration
         })
       })
-      console.info(`${TAG} getWantAgent  success: ${JSON.stringify(dataBase)}`)
+      hilog.info(DOMAIN, TAG, `getWantAgent success: ${JSON.stringify(dataBase)}`);
     })
   }
 
@@ -198,7 +198,7 @@ struct WantAgentClass {
           duration: this.promptDuration
         })
       })
-      console.info(`${TAG} getWantAgent  success: ${JSON.stringify(dataBase)}`)
+      hilog.info(DOMAIN, TAG, `getWantAgent success: ${JSON.stringify(dataBase)}`);
     })
   }
 
