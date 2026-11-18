@@ -1,0 +1,237 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { MyDataSource } from '../../../main/ets/common/DataSource';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
+class ReloadListener implements DataChangeListener {
+  r: number = 0;
+    a: number = 0;
+  onDataReloaded(): void {
+    this.r++;
+    }
+  onDataAdded(index: number): void {
+    this.a++;
+    }
+  onDataAdd(index: number): void {
+    this.a++;
+    }
+  onDataMoved(from: number, to: number): void {
+    }
+  onDataMove(from: number, to: number): void {
+    }
+  onDataDeleted(index: number): void {
+    }
+  onDataDelete(index: number): void {
+    }
+  onDataChanged(index: number): void {
+    }
+  onDataChange(index: number): void {
+    }
+  onDatasetChange(dataOperations: DataOperation[]): void {
+    this.r++;
+    }
+}
+
+export default function flipClockListenerReloadSequenceTest() {
+  describe('FlipClockListenerReloadSequenceTest', () => {
+
+    /**
+     * @tc.name   ohos.samples.flipclock_ListenerReloadSequence_0001
+     * @tc.number SUB_FLIP_CLOCK_MORE5_REL_0000
+     * @tc.desc   Notify reload 1 times.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('ohos.samples.flipclock_ListenerReloadSequence_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0001 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: ReloadListener = new ReloadListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 1; index++) {
+        source.notifyDataReload();
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(1));
+      expect(l.r).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
+        expect(l.a).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0001 end');
+    })
+
+    /**
+     * @tc.name   ohos.samples.flipclock_ListenerReloadSequence_0002
+     * @tc.number SUB_FLIP_CLOCK_MORE5_REL_0001
+     * @tc.desc   Notify reload 2 times.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('ohos.samples.flipclock_ListenerReloadSequence_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0002 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: ReloadListener = new ReloadListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 2; index++) {
+        source.notifyDataReload();
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(2));
+      expect(l.r).assertEqual(2);
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
+        expect(l.a).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0002 end');
+    })
+
+    /**
+     * @tc.name   ohos.samples.flipclock_ListenerReloadSequence_0003
+     * @tc.number SUB_FLIP_CLOCK_MORE5_REL_0002
+     * @tc.desc   Notify reload 3 times.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('ohos.samples.flipclock_ListenerReloadSequence_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0003 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: ReloadListener = new ReloadListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 3; index++) {
+        source.notifyDataReload();
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(3));
+      expect(l.r).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
+        expect(l.a).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0003 end');
+    })
+
+    /**
+     * @tc.name   ohos.samples.flipclock_ListenerReloadSequence_0004
+     * @tc.number SUB_FLIP_CLOCK_MORE5_REL_0003
+     * @tc.desc   Notify reload 4 times.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('ohos.samples.flipclock_ListenerReloadSequence_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0004 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: ReloadListener = new ReloadListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 4; index++) {
+        source.notifyDataReload();
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(4));
+      expect(l.r).assertEqual(4);
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
+        expect(l.a).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0004 end');
+    })
+
+    /**
+     * @tc.name   ohos.samples.flipclock_ListenerReloadSequence_0005
+     * @tc.number SUB_FLIP_CLOCK_MORE5_REL_0004
+     * @tc.desc   Notify reload 5 times.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('ohos.samples.flipclock_ListenerReloadSequence_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0005 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: ReloadListener = new ReloadListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 5; index++) {
+        source.notifyDataReload();
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(5));
+      expect(l.r).assertEqual(5);
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
+        expect(l.a).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0005 end');
+    })
+
+    /**
+     * @tc.name   ohos.samples.flipclock_ListenerReloadSequence_0006
+     * @tc.number SUB_FLIP_CLOCK_MORE5_REL_0005
+     * @tc.desc   Notify reload 6 times.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('ohos.samples.flipclock_ListenerReloadSequence_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0006 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: ReloadListener = new ReloadListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 6; index++) {
+        source.notifyDataReload();
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(6));
+      expect(l.r).assertEqual(6);
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
+        expect(l.a).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0006 end');
+    })
+
+    /**
+     * @tc.name   ohos.samples.flipclock_ListenerReloadSequence_0007
+     * @tc.number SUB_FLIP_CLOCK_MORE5_REL_0006
+     * @tc.desc   Notify reload 7 times.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('ohos.samples.flipclock_ListenerReloadSequence_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0007 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: ReloadListener = new ReloadListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 7; index++) {
+        source.notifyDataReload();
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(7));
+      expect(l.r).assertEqual(7);
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
+        expect(l.a).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0007 end');
+    })
+
+    /**
+     * @tc.name   ohos.samples.flipclock_ListenerReloadSequence_0008
+     * @tc.number SUB_FLIP_CLOCK_MORE5_REL_0007
+     * @tc.desc   Notify reload 8 times.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('ohos.samples.flipclock_ListenerReloadSequence_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0008 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: ReloadListener = new ReloadListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 8; index++) {
+        source.notifyDataReload();
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(8));
+      expect(l.r).assertEqual(8);
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
+        expect(l.a).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerReloadSequence_0008 end');
+    })
+  })
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 @Entry
 @Component
@@ -38,12 +38,14 @@ struct Index {
         .type(ButtonType.Capsule)
         .margin({
           top: 20
-        })
+        }
+          )
         .backgroundColor('#0D9FFB')
         .width('35%')
         .height('5%')
         .onClick(() => {
-        })
+        }
+          )
       }
       .width('100%')
     }
