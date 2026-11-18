@@ -10,7 +10,7 @@
 
 当前共有 **80 个测试套件、1838 条用例**：业务测试 79 个套件、1829 条，页面测试 1 个套件、9 条。数量按源码中的 `describe` 和 `it` 统计；`List.test.ets` 与公共辅助文件不计为独立用例。
 
-业务用例使用 Fake 服务，不要求 SIM 卡、运营商网络或真实通话。文件名中的 Integration、Security 和 PerformanceStability 分别对应控制器与 Fake 的组合验证、实例及过期回调隔离、有限次数请求与资源稳定性验证；不代表真实运营商联调、安全认证或性能基准测试。
+业务用例使用 Fake 服务，不要求 SIM 卡、运营商网络或真实通话。文件名中的 Integration、Security 和 PerformanceStability 分别对应控制器与 Fake 的组合验证、实例及过期回调隔离、有限次数请求与资源稳定性验证。这些测试的结论限于控制器在模拟输入下的行为，真实运营商网络、系统安全机制和性能基准需要另行验证。
 
 ## 目录与测试职责
 
@@ -60,7 +60,7 @@
 | 同步完成与失败通知 | 配置同步完成或延迟失败，注入错误对象 | 结果计数与完成时机一致；失败操作为 makeCall，错误码和消息保持一致 | Yes |
 | 无语音能力 | supported=false，单次或连续 start | 逐次检查能力；请求、完成回调、订阅及退订次数均为 0 | Yes |
 | 能力或请求抛错 | 注入 capabilityFailure 或 makeFailure | 记录 start 失败及指定错误字段；后续请求或订阅不越过失败位置执行 | Yes |
-| 订阅失败与恢复 | 首次订阅抛错，清除异常后重新 start | 记录 subscribe 失败；请求完成仍可报告成功；重试后建立有效监听 | Yes |
+| 订阅失败与恢复 | 注入订阅异常，清除异常后重新 start | 记录 subscribe 失败；请求完成仍可报告成功；重试后建立有效监听 | Yes |
 | 状态事件透传 | 建立监听，发送状态码和号码载荷 | Logger 中状态码、号码、事件顺序及数量与发送值一致 | Yes |
 | 连续请求与监听复用 | 同一控制器多次 start | 请求逐次记录、完成结果可核对；已有监听不会因重复启动而重复订阅 | Yes |
 | 回调逆序完成 | 创建多个请求，按反向索引完成 | 每个请求的结果按实际完成顺序计入，成功失败计数符合输入 | Yes |
@@ -183,19 +183,21 @@
 
 先构建并安装同一工程版本的主 HAP 与 ohosTest HAP。设备应支持应用实际声明的系统能力，应用签名、SDK 与设备版本应匹配；出现安装错误 00401004 时先核对设备 rpcid 与 HAP 要求的能力，安装失败不属于测试断言失败。
 
-在 DevEco Studio 中运行 `entry/src/ohosTest/ets/test` 下已注册的测试，或在已配置 hdc 的终端中执行：
+在 DevEco Studio 中连接目标设备，并按回归范围选择测试：
 
-```text
-hdc shell aa test -b com.samples.MakeCall -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000 -s coverage true -w 600000
-```
+1. 全量回归：运行 `entry/src/ohosTest/ets/test` 下已注册的测试。注册入口为 `List.test.ets`，应执行 80 个套件、1838 条用例。
+2. 页面专项：选择 `entry/src/ohosTest/ets/test/Index.test.ets` 中的 `MakeCallPageTest` 套件运行，应执行 9 条用例。
 
-只回归页面套件时，增加 class 过滤：
+已保存的终端回归记录使用以下执行参数，复现时应核对测试范围与等待设置：
 
-```text
-hdc shell aa test -b com.samples.MakeCall -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s class MakeCallPageTest -s timeout 15000 -w 600000
-```
+| 参数 | 全量回归 | 页面专项 | 含义 |
+| --- | --- | --- | --- |
+| `class` | 不设置套件过滤 | `MakeCallPageTest` | 按套件名限定测试范围 |
+| `timeout` | `15000` | `15000` | 单条用例的等待参数，单位为 ms |
+| `-w` | `600000` | `600000` | 整次测试命令的等待上限，单位为 ms |
+| `coverage` | `true` | 未设置 | 全量回归启用覆盖率采集 |
 
-`timeout=15000` 是单条用例的等待参数，`-w 600000` 是整次测试命令的等待上限。全量运行时应核对实际完成数为 1838，并分别核对失败、错误、通过和忽略计数；页面专项应完成 9 条。命令被断开或缺少最终汇总时，不能仅根据已打印的通过用例判为全量通过。
+全量运行时应核对实际完成数为 1838，并分别核对失败、错误、通过和忽略计数；页面专项应完成 9 条。执行中断或缺少最终汇总时，不能仅根据已打印的通过用例判为全量通过。
 
 测试日志使用 `@ohos.hilog` 输出英文内容，不使用 `console.log`。排查页面启动问题时关注 `MakeCallTest` 与 `testTag` 等相关日志、前台 Ability、锁屏状态和最终用例状态码。
 
