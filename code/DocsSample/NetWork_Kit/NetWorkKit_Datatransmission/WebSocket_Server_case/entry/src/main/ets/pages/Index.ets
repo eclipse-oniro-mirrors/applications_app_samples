@@ -197,7 +197,7 @@ function localServerStop() {
       }
     }).catch((err: BusinessError) => {
       hilog.error(0x0000, 'testTag', 'errCode: ' + err.code + 'errMessage: ' + err.message);
-    });    
+    });
     // [End WebSocket_server_stop]
   } catch (err) {
     hilog.error(0x0000, 'testTag', 'errCode: ' + err.code + 'errMessage: ' + err.message);
