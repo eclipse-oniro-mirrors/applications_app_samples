@@ -13,7 +13,11 @@
  * limitations under the License.
  */
 import abilityTest from './Ability.test';
+import startOptionsApiTest from './StartOptionsWindowLimits.test';
+import startOptionsUiTest from './StartOptionsWindowLimitsUi.test';
 
 export default function testsuite() {
   abilityTest();
+  startOptionsApiTest();
+  startOptionsUiTest();
 }

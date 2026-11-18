@@ -15,6 +15,7 @@
 // ets/pages/Index.ets
 // 示例应用的主页面，用于创建按钮调用接口启动目标Ability
 import { common, StartOptions, Want } from '@kit.AbilityKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 @Entry
 @Component
 struct Index {
