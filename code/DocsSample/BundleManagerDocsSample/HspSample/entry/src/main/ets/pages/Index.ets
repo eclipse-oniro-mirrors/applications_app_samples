@@ -14,9 +14,9 @@
  */
 
 import { Log, add, MyTitleBar, ResManager, nativeMulti } from 'library';
-import { BusinessError } from '@ohos.base';
+import { BusinessError } from '@kit.BasicServicesKit';
 import Logger from '../logger/Logger';
-import router from '@ohos.router';
+import { router } from '@kit.ArkUI';
 
 const TAG = 'Index';
 

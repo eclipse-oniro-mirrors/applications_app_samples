@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <rect width="960" height="540" rx="18" fill="#1b1b1b"/>
+  <text x="40" y="52" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="26" fill="#ffffff">英文键盘（ABC）</text>
+  <text x="920" y="52" text-anchor="end" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="18" fill="#9aa0a6">09:26</text>
+
+  <rect x="40" y="86" width="880" height="176" rx="14" fill="#ffffff"/>
+  <text x="68" y="140" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="22" fill="#9aa0a6">输入文本</text>
+  <rect x="68" y="160" width="3" height="26" fill="#0a59f7"/>
+  <text x="68" y="230" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="16" fill="#b8bec6">支持遥控器方向键移动焦点，OK 键上屏</text>
+
+  <rect x="0" y="292" width="960" height="248" fill="#eef1f5"/>
+
+  <g font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="24" fill="#1f2329" text-anchor="middle">
+    <g>
+      <rect x="24" y="308" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="64" y="342">q</text>
+      <rect x="112" y="308" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="152" y="342">w</text>
+      <rect x="200" y="308" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="240" y="342">e</text>
+      <rect x="288" y="308" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="328" y="342">r</text>
+      <rect x="376" y="308" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="416" y="342">t</text>
+      <rect x="464" y="308" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="504" y="342">y</text>
+      <rect x="552" y="308" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="592" y="342">u</text>
+      <rect x="640" y="308" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="680" y="342">i</text>
+      <rect x="728" y="308" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="768" y="342">o</text>
+      <rect x="816" y="308" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="856" y="342">p</text>
+      <rect x="904" y="308" width="32" height="52" rx="8" fill="#d5dae1"/>
+      <text x="920" y="342" font-size="18">del</text>
+    </g>
+    <g>
+      <rect x="64" y="368" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="104" y="402">a</text>
+      <rect x="152" y="368" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="192" y="402">s</text>
+      <rect x="240" y="368" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="280" y="402">d</text>
+      <rect x="328" y="368" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="368" y="402">f</text>
+      <rect x="416" y="368" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="456" y="402">g</text>
+      <rect x="504" y="368" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="544" y="402">h</text>
+      <rect x="592" y="368" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="632" y="402">j</text>
+      <rect x="680" y="368" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="720" y="402">k</text>
+      <rect x="768" y="368" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="808" y="402">l</text>
+      <rect x="856" y="368" width="80" height="52" rx="8" fill="#d5dae1"/>
+      <text x="896" y="402" font-size="20">enter</text>
+    </g>
+    <g>
+      <rect x="24" y="428" width="96" height="52" rx="8" fill="#d5dae1"/>
+      <text x="72" y="462" font-size="20">shift</text>
+      <rect x="128" y="428" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="168" y="462">z</text>
+      <rect x="216" y="428" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="256" y="462">x</text>
+      <rect x="304" y="428" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="344" y="462">c</text>
+      <rect x="392" y="428" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="432" y="462">v</text>
+      <rect x="480" y="428" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="520" y="462">b</text>
+      <rect x="568" y="428" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="608" y="462">n</text>
+      <rect x="656" y="428" width="80" height="52" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="696" y="462">m</text>
+      <rect x="744" y="428" width="80" height="52" rx="8" fill="#d5dae1"/>
+      <text x="784" y="462" font-size="18">comma</text>
+      <rect x="832" y="428" width="104" height="52" rx="8" fill="#d5dae1"/>
+      <text x="884" y="462" font-size="18">period</text>
+    </g>
+    <g>
+      <rect x="24" y="488" width="104" height="44" rx="8" fill="#d5dae1"/>
+      <text x="76" y="516" font-size="20">?123</text>
+      <rect x="136" y="488" width="104" height="44" rx="8" fill="#d5dae1"/>
+      <text x="188" y="516" font-size="20">PY</text>
+      <rect x="248" y="488" width="464" height="44" rx="8" fill="#ffffff" stroke="#c9ced6"/>
+      <text x="480" y="516" font-size="20" fill="#5b6168">space</text>
+      <rect x="720" y="488" width="104" height="44" rx="8" fill="#d5dae1"/>
+      <text x="772" y="516" font-size="20">NEXT</text>
+      <rect x="832" y="488" width="104" height="44" rx="8" fill="#0a59f7" stroke="#0a59f7"/>
+      <text x="884" y="516" font-size="20" fill="#ffffff">enter</text>
+    </g>
+  </g>
+</svg>

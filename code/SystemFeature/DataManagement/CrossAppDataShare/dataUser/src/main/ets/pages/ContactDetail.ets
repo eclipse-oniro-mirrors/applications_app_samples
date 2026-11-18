@@ -17,11 +17,15 @@ import router from '@ohos.router'
 import ContactStore from '../feature/ContactStore'
 import { Contact, ContactDetailInfo, dialogUtil, OPERATE_STATUS } from '@ohos/common'
 
+interface ContactDetailParams {
+  contact: Contact
+}
+
 @Entry
 @Component
 struct ContactDetail {
   @StorageLink('isRefresh') isRefresh: boolean = false
-  @State contact: Contact = undefined
+  @State contact: Contact | undefined = undefined
 
   build() {
     Column() {
@@ -43,7 +47,6 @@ struct ContactDetail {
       }
       Row() {
         this.ToolBar($r('app.media.edit'), $r('app.string.edit'), () => {
-          // edit the contact info
           router.push({
             url: 'pages/ContactEdit',
             params: {
@@ -53,11 +56,12 @@ struct ContactDetail {
           })
         })
         this.ToolBar($r('app.media.delete'), $r('app.string.delete'), async () => {
-          // show delete dailog
           dialogUtil.showAlertDialog($r('app.string.delete_alert_message'),
           $r('app.string.delete'), async () => {
               await ContactStore.getRdbStore(getContext(this));
-              await ContactStore.delete(this.contact.id);
+              if (this.contact !== undefined) {
+                await ContactStore.delete(this.contact.id);
+              }
               AppStorage.SetOrCreate('isRefresh', true);
               router.back();
             }, $r('app.string.cancel'), () => {
@@ -87,9 +91,11 @@ struct ContactDetail {
   }
 
   onPageShow() {
-    if (router.getParams()) {
-      if (router.getParams()['contact']) {
-        this.contact = <Contact> router.getParams()['contact']
+    let params = router.getParams() as ContactDetailParams
+    if (params !== undefined) {
+      let contactParam = params.contact
+      if (contactParam !== undefined) {
+        this.contact = contactParam
       }
     }
   }

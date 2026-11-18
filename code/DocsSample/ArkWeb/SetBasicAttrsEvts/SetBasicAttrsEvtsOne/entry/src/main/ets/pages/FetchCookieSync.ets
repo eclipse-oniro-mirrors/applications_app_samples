@@ -28,11 +28,11 @@ struct WebComponent {
         .onClick(() => {
           try {
             // fetchCookieSync第二个参数表示获取隐私模式（true）或非隐私模式（false）下，webview的内存cookies。
-            let value = webview.WebCookieManager.fetchCookieSync('www.example.com', true);
-            console.log('fetchCookieSync cookie = ' + value);
+            let value = webview.WebCookieManager.fetchCookieSync('https://www.example.com', true);
+            console.info('fetchCookieSync cookie = ' + value);
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       Web({ src: 'www.example.com', controller: this.controller, incognitoMode: true });

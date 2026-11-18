@@ -15,6 +15,8 @@
 
 #include "NativeImageAdaptor.h"
 #include "logger_common.h"
+#include "IPCKit/ipc_cparcel.h"
+#include "cmath"
 #include "cstdint"
 
 namespace NativeWindowSample {
@@ -28,6 +30,7 @@ constexpr const char *EGL_GET_PLATFORM_DISPLAY_EXT = "eglGetPlatformDisplayEXT";
 constexpr int32_t NATIVE_CACHE_BUFFER = 3;
 constexpr int32_t GSERROR_OK = 0;
 constexpr int32_t GSERROR_FAILD = 1;
+constexpr float ANGLE_COMPARE_EPSILON = 0.001f;
 NativeImageAdaptor *NativeImageAdaptor::GetInstance()
 {
     static NativeImageAdaptor imageAdaptor;
@@ -132,6 +135,10 @@ bool NativeImageAdaptor::Export(napi_env env, napi_value exports)
          nullptr},
         {"ChangeIsAutoConsumer", nullptr, NativeImageAdaptor::NapiOnChangeIsAutoConsumer, nullptr, nullptr, nullptr,
          napi_default, nullptr},
+        {"AcquireLatestBuffer", nullptr, NativeImageAdaptor::NapiOnAcquireLatestBuffer, nullptr, nullptr, nullptr,
+         napi_default, nullptr},
+        {"PreAllocBuffer", nullptr, NativeImageAdaptor::NapiOnPreAllocBuffer, nullptr, nullptr, nullptr,
+         napi_default, nullptr},
     };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
 
@@ -153,7 +160,7 @@ bool NativeImageAdaptor::InitNativeWindow()
     GLuint textureId;
     glGenTextures(1, &textureId);
     // Create a NativeImage instance and associate it with OpenGL textures
-    image_ = OH_NativeImage_Create(textureId, GL_TEXTURE_2D);
+    image_ = OH_NativeImage_CreateWithSingleBufferMode(textureId, GL_TEXTURE_EXTERNAL_OES, isSingleBufferMode_);
 
     int32_t ret = OH_ConsumerSurface_SetDefaultSize(image_, width_, height_);
     if (ret != 0) {
@@ -207,7 +214,7 @@ bool NativeImageAdaptor::InitNativeWindowCache()
 {
     GLuint textureId;
     glGenTextures(1, &textureId);
-    imageCache_ = OH_NativeImage_Create(textureId, GL_TEXTURE_2D);
+    imageCache_ = OH_NativeImage_CreateWithSingleBufferMode(textureId, GL_TEXTURE_EXTERNAL_OES, isSingleBufferMode_);
     nativeWindowCache_ = OH_NativeImage_AcquireNativeWindow(imageCache_);
 
     int code = SET_BUFFER_GEOMETRY;
@@ -221,8 +228,8 @@ bool NativeImageAdaptor::InitNativeWindowCache()
     code = SET_USAGE;
     int32_t usage = NATIVEBUFFER_USAGE_CPU_READ | NATIVEBUFFER_USAGE_CPU_WRITE | NATIVEBUFFER_USAGE_MEM_DMA;
     ret = OH_NativeWindow_NativeWindowHandleOpt(nativeWindowCache_, code, usage);
-
-    for (int i = 0; i < NATIVE_CACHE_BUFFER; i++) {
+    int32_t bufferSize = isSingleBufferMode_ ? 1 : NATIVE_CACHE_BUFFER;
+    for (int i = 0; i < bufferSize; i++) {
         ProduceBuffer(0x00, nativeWindowCache_);
     }
 
@@ -317,7 +324,7 @@ void NativeImageAdaptor::SetConfigAndGetValue()
         LOGE("SetConfigAndGetValue GET_COLOR_GAMUT fail");
     }
     code = SET_FORMAT;
-    if (g_cnt % 2 == 0) {  // 2 : 每次执行使用不同的format类型
+    if (g_cnt++ % 2 == 0) {  // 2 : 每次执行使用不同的format类型
         OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, NATIVEBUFFER_PIXEL_FMT_RGBA_8888);
     } else {
         OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, NATIVEBUFFER_PIXEL_FMT_YCBCR_420_SP);
@@ -326,7 +333,34 @@ void NativeImageAdaptor::SetConfigAndGetValue()
     OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, NATIVEBUFFER_ROTATE_NONE);
     code = SET_COLOR_GAMUT;
     OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, NATIVEBUFFER_COLOR_GAMUT_SRGB);
-    g_cnt++;
+    SetAndGetScreenInfo();
+}
+
+void NativeImageAdaptor::SetAndGetScreenInfo()
+{
+    int32_t code = OH_NATIVEWINDOW_SET_SCREEN_INFO;
+    OH_NativeWindow_ScreenInfoRect currentFrameRectSrc = { .x = 10, .y = 10, .w = 100, .h = 100};
+    OH_NativeWindow_ScreenInfoRect originalRectSrc = { .x = 20, .y = 20, .w = 200, .h = 200};
+    float angleSrc = 90.0;
+    int32_t ret = OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code,
+                                                        &currentFrameRectSrc, &originalRectSrc, angleSrc);
+    if (ret != 0) {
+        LOGE("NativeWindowSetScreenInfo fail, ret: %{public}d", ret);
+    }
+    code = OH_NATIVEWINDOW_GET_SCREEN_INFO;
+    OH_NativeWindow_ScreenInfoRect currentFrameRectDst = { 0 };
+    OH_NativeWindow_ScreenInfoRect originalRectDst = { 0 };
+    float angleDst = 0;
+    ret = OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, code, &currentFrameRectDst, &originalRectDst, &angleDst);
+    bool isCurrentFrameRectEqual = currentFrameRectSrc.x == currentFrameRectDst.x &&
+        currentFrameRectSrc.y == currentFrameRectDst.y && currentFrameRectSrc.w == currentFrameRectDst.w &&
+        currentFrameRectSrc.h == currentFrameRectDst.h;
+    bool isOriginalRectEqual = originalRectSrc.x == originalRectDst.x && originalRectSrc.y == originalRectDst.y &&
+        originalRectSrc.w == originalRectDst.w && originalRectSrc.h == originalRectDst.h;
+    bool isAngleEqual = std::fabs(angleSrc - angleDst) < ANGLE_COMPARE_EPSILON;
+    if (ret != 0 || !isCurrentFrameRectEqual || !isOriginalRectEqual || !isAngleEqual) {
+        LOGE("NativeWindowGetScreenInfo ret: %{public}d", ret);
+    }
 }
 
 void NativeImageAdaptor::GetBufferMapPlanes(NativeWindowBuffer *buffer)
@@ -349,6 +383,26 @@ void NativeImageAdaptor::GetBufferMapPlanes(NativeWindowBuffer *buffer)
     for (int32_t i = 0; i < outPlanes.planeCount; i++) {
         LOGD("Get offset: %{public}lu rowStride: %{public}d columnStride: %{public}d", outPlanes.planes[i].offset,
              outPlanes.planes[i].rowStride, outPlanes.planes[i].columnStride);
+    }
+}
+
+void NativeImageAdaptor::SetBufferColorSpace(NativeWindowBuffer *buffer)
+{
+    OH_NativeBuffer* nativeBuffer = nullptr;
+    OH_NativeBuffer_FromNativeWindowBuffer(buffer, &nativeBuffer);
+    OH_NativeBuffer_ColorSpace colorSpace = OH_COLORSPACE_BT601_EBU_FULL;
+    auto setRet = OH_NativeBuffer_SetColorSpace(nativeBuffer, colorSpace);
+    if (setRet != 0) {
+        LOGE("set colorSpace fail.");
+    }
+    parcel_ = OH_IPCParcel_Create();
+    if (parcel_ == nullptr) {
+        LOGE("OH_IPCParcel_Create fail");
+        return;
+    }
+    setRet = OH_NativeBuffer_WriteToParcel(nativeBuffer, parcel_);
+    if (setRet != 0) {
+        LOGE("OH_NativeBuffer_WriteToParcel fail, ret: %{public}d", setRet);
     }
 }
 
@@ -393,6 +447,7 @@ int32_t NativeImageAdaptor::ProduceBuffer(uint32_t value, OHNativeWindow *InNati
     if (result == -1) {
         LOGE("munmap fail");
     }
+    SetBufferColorSpace(buffer);
 
     struct Region *region = new Region();
     struct Region::Rect *rect = new Region::Rect();
@@ -414,6 +469,25 @@ int32_t NativeImageAdaptor::ProduceBuffer(uint32_t value, OHNativeWindow *InNati
 int32_t NativeImageAdaptor::ConsumerBuffer(uint32_t value, OHNativeWindow *InNativeWindow)
 {
     std::lock_guard<std::mutex> lockGuard(opMutex_);
+    if (isSingleBufferMode_) {
+        int32_t retVal = OH_NativeImage_UpdateSurfaceImage(image_);
+        if (retVal != 0) {
+            LOGE("OH_NativeImage_UpdateSurfaceImage fail.");
+            return GSERROR_FAILD;
+        }
+        OH_NativeBuffer_ColorSpace colorSpace;
+        retVal = OH_NativeImage_GetColorSpace(image_, &colorSpace);
+        if (retVal != 0) {
+            LOGE("get colorSpace fail.");
+        }
+        retVal = OH_NativeImage_ReleaseTextImage(image_);
+        if (retVal != 0) {
+            LOGE("OH_NativeImage_ReleaseTextImage fail.");
+            return GSERROR_FAILD;
+        }
+        availableBufferCount_--;
+        return GSERROR_OK;
+    }
     NativeWindowBuffer *buffer = nullptr;
     int fenceFd = -1;
     int ret = OH_NativeImage_AcquireNativeWindowBuffer(image_, &buffer, &fenceFd);
@@ -421,12 +495,53 @@ int32_t NativeImageAdaptor::ConsumerBuffer(uint32_t value, OHNativeWindow *InNat
         LOGE("OH_NativeImage_AcquireNativeWindowBuffer fail, ret:%{public}d", ret);
         return GSERROR_FAILD;
     }
+    OH_NativeBuffer* nativeBuffer = nullptr;
+    ret = OH_NativeBuffer_ReadFromParcel(parcel_, &nativeBuffer);
+    if (ret != 0) {
+        LOGE("OH_NativeBuffer_ReadFromParcel fail, ret:%{public}d", ret);
+    } else {
+        OH_NativeBuffer_Config checkConfig = {};
+        void* virAddr = nullptr;
+        OH_NativeBuffer_MapAndGetConfig(nativeBuffer, &virAddr, &checkConfig);
+        LOGI("width(%{public}d), height(%{public}d), format(%{public}d), usage(%{public}d), stride(%{public}d)",
+            checkConfig.width, checkConfig.height, checkConfig.format, checkConfig.usage, checkConfig.stride);
+    }
     ret = OH_NativeImage_ReleaseNativeWindowBuffer(image_, buffer, fenceFd);
     if (ret != 0) {
         LOGE("OH_NativeImage_ReleaseNativeWindowBuffer fail, ret:%{public}d", ret);
         return GSERROR_FAILD;
     }
     availableBufferCount_--;
+    return GSERROR_OK;
+}
+
+int32_t NativeImageAdaptor::AcquireLatestBuffer(uint32_t value, OHNativeWindow *InNativeWindow)
+{
+    std::lock_guard<std::mutex> lockGuard(opMutex_);
+    NativeWindowBuffer *buffer = nullptr;
+    int fenceFd = -1;
+    int ret = OH_NativeImage_AcquireLatestNativeWindowBuffer(image_, &buffer, &fenceFd);
+    if (ret != 0) {
+        LOGE("OH_NativeImage_AcquireLatestNativeWindowBuffer fail, ret:%{public}d", ret);
+        return GSERROR_FAILD;
+    }
+    ret = OH_NativeImage_ReleaseNativeWindowBuffer(image_, buffer, fenceFd);
+    if (ret != 0) {
+        LOGE("OH_NativeImage_AcquireLatestNativeWindowBuffer fail, ret:%{public}d", ret);
+        return GSERROR_FAILD;
+    }
+    availableBufferCount_--;
+    return GSERROR_OK;
+}
+
+int32_t NativeImageAdaptor::PreAllocBuffer(uint32_t value, OHNativeWindow *InNativeWindow)
+{
+    std::lock_guard<std::mutex> lockGuard(opMutex_);
+    int ret = OH_NativeWindow_PreAllocBuffers(InNativeWindow, 3);
+    if (ret != 0) {
+        LOGE("OH_NativeWindow_PreAllocBuffers fail, ret:%{public}d", ret);
+        return GSERROR_FAILD;
+    }
     return GSERROR_OK;
 }
 
@@ -537,6 +652,24 @@ napi_value NativeImageAdaptor::NapiOnConsumerBuffer(napi_env env, napi_callback_
     napi_value val = nullptr;
     int32_t ret = NativeImageAdaptor::GetInstance()->
         ConsumerBuffer(0x00, NativeImageAdaptor::GetInstance()->nativeWindow_);
+    (void)napi_create_int32(env, ret, &val);
+    return val;
+}
+
+napi_value NativeImageAdaptor::NapiOnAcquireLatestBuffer(napi_env env, napi_callback_info info)
+{
+    napi_value val = nullptr;
+    int32_t ret = NativeImageAdaptor::GetInstance()->
+        AcquireLatestBuffer(0x00, NativeImageAdaptor::GetInstance()->nativeWindow_);
+    (void)napi_create_int32(env, ret, &val);
+    return val;
+}
+
+napi_value NativeImageAdaptor::NapiOnPreAllocBuffer(napi_env env, napi_callback_info info)
+{
+    napi_value val = nullptr;
+    int32_t ret = NativeImageAdaptor::GetInstance()->
+        PreAllocBuffer(0x00, NativeImageAdaptor::GetInstance()->nativeWindow_);
     (void)napi_create_int32(env, ret, &val);
     return val;
 }

@@ -14,6 +14,7 @@
  */
 
 // [Start widget_callee_entry_ability]
+// entry/src/main/ets/widgetcalleeentryability/WidgetCalleeEntryAbility.ts
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
@@ -50,21 +51,25 @@ class MyParcelable implements rpc.Parcelable {
 
 // 在收到call事件后会触发callee监听的方法
 let funACall = (data: rpc.MessageSequence): MyParcelable => {
-  // 获取call事件中传递的所有参数
-  let params: Record<string, string> = JSON.parse(data.readString());
-  if (params.formId !== undefined) {
-    let curFormId: string = params.formId;
-    let message: string = params.calleeDetail;
-    hilog.info(DOMAIN_NUMBER, TAG, `UpdateForm formId: ${curFormId}, message: ${message}`);
-    let formData: Record<string, string> = {
-      'calleeDetail': message
-    };
-    let formMsg: formBindingData.FormBindingData = formBindingData.createFormBindingData(formData);
-    formProvider.updateForm(curFormId, formMsg).then((data) => {
-      hilog.info(DOMAIN_NUMBER, TAG, `updateForm success. ${JSON.stringify(data)}`);
-    }).catch((error: BusinessError) => {
-      hilog.error(DOMAIN_NUMBER, TAG, `updateForm failed: ${JSON.stringify(error)}`);
-    });
+  try {
+    // 获取call事件中传递的所有参数
+    let params: Record<string, string> = JSON.parse(data.readString());
+    if (params.formId !== undefined) {
+      let curFormId: string = params.formId;
+      let message: string = params.calleeDetail;
+      hilog.info(DOMAIN_NUMBER, TAG, `UpdateForm formId: ${curFormId}, message: ${message}`);
+      let formData: Record<string, string> = {
+        'calleeDetail': message
+      };
+      let formMsg: formBindingData.FormBindingData = formBindingData.createFormBindingData(formData);
+      formProvider.updateForm(curFormId, formMsg).then(() => {
+        hilog.info(DOMAIN_NUMBER, TAG, `updateForm success.`);
+      }).catch((err: BusinessError) => {
+        hilog.error(DOMAIN_NUMBER, TAG, `updateForm failed, error code: ${err.code}, error message: ${err.message}`);
+      });
+    }
+  } catch (err) {
+    hilog.error(DOMAIN_NUMBER, TAG, `funACall catch error, code: ${err.code}, message: ${err.message}`);
   }
   return new MyParcelable(CONST_NUMBER_1, 'aaa');
 };
@@ -74,23 +79,23 @@ export default class WidgetCalleeEntryAbility extends UIAbility {
     try {
       // 监听call事件所需的方法
       this.callee.on(MSG_SEND_METHOD, funACall);
-    } catch (error) {
-      hilog.error(DOMAIN_NUMBER, TAG, `${MSG_SEND_METHOD} register failed with error ${JSON.stringify(error)}`);
+    } catch (err) {
+      hilog.error(DOMAIN_NUMBER, TAG, `${MSG_SEND_METHOD} register failed, error code: ${err.code}, error message: ${err.message}`);
     }
-    ;
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', 'Ability onWindowStageCreate');
 
-    windowStage.loadContent('pages/Index', (err, data) => {
+    windowStage.loadContent('pages/Index', (err) => {
       if (err.code) {
-        hilog.error(DOMAIN_NUMBER, TAG, 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
+        hilog.error(DOMAIN_NUMBER, TAG, `Failed to load the content.error code: ${err.code}, error message: ${err.message}`);
         return;
       }
-      hilog.info(DOMAIN_NUMBER, TAG, 'Succeeded in loading the content. Data: %{public}s', JSON.stringify(data) ?? '');
+      hilog.info(DOMAIN_NUMBER, TAG, 'Succeeded in loading the content.');
     });
   }
 }
+
 // [End widget_callee_entry_ability]

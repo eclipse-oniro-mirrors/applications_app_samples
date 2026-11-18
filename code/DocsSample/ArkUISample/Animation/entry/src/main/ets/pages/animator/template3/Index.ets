@@ -12,18 +12,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start animator_template3_start]
 import { AnimatorOptions, AnimatorResult } from '@kit.ArkUI';
-import resource from '../../../common/resource';
+import { common } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN = 0x0000;
+const TAG: string = '[AnimatorTest]';
 
 @Entry
 @Component
 struct Index {
-  @State animatorOptions: AnimatorResult | undefined = undefined;
-  @State animatorStatus: Resource = $r('app.string.create');
+  private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+  private manager = this.context.resourceManager;
+  @State animatorResult: AnimatorResult | undefined = undefined;
+  // 'create'资源文件中的value值为'创建'
+  @State animatorStatus: string = 'create';
   begin: number = 0;
   end: number = 300;
   topWidth: number = 150;
   bottomHeight: number = 100;
+  // 自由落体运动的加速度系数
   g: number = 0.18;
   animatorOption: AnimatorOptions = {
     duration: 4000,
@@ -39,42 +48,50 @@ struct Index {
   @State translateY: number = 0;
 
   onPageShow(): void {
-    this.animatorOptions = this.getUIContext().createAnimator(this.animatorOption);
-    this.animatorOptions.onFrame = (progress: number) => {
+    this.animatorResult = this.getUIContext().createAnimator(this.animatorOption);
+    this.animatorResult.onFrame = (progress: number) => {
       this.translateX = progress;
       if (progress > this.topWidth && this.translateY < this.bottomHeight) {
         this.translateY = Math.pow(progress - this.topWidth, 2) * this.g;
       }
     }
-    this.animatorOptions.onCancel = () => {
-      this.animatorStatus = $r('app.string.cancel');
+    this.animatorResult.onCancel = () => {
+      // 'cancel'资源文件中的value值为'取消'
+      this.animatorStatus = 'cancel';
     }
-    this.animatorOptions.onFinish = () => {
-      this.animatorStatus = $r('app.string.complete');
+    this.animatorResult.onFinish = () => {
+      // 'complete'资源文件中的value值为'完成'
+      this.animatorStatus = 'complete';
     }
-    this.animatorOptions.onRepeat = () => {
-      console.log('repeat play');
+    this.animatorResult.onRepeat = () => {
+      // 'repeat'资源文件中的value值为'动画重复播放'
+      hilog.info(DOMAIN, TAG, this.manager.getStringByNameSync('repeat'));
     }
   }
 
   onPageHide(): void {
-    this.animatorOptions = undefined;
+    this.animatorResult = undefined;
   }
 
   build() {
     Column() {
       Column({ space: 30 }) {
+        // 请将$r('app.string.play')替换为实际资源文件，在本示例中该资源文件的value值为"播放"
         Button($r('app.string.play')).onClick(() => {
-          this.animatorOptions?.play();
-          this.animatorStatus = $r('app.string.playing');
+          this.animatorResult?.play();
+          // 'playing'资源文件中的value值为'播放中'
+          this.animatorStatus = 'playing';
         }).width(80).height(35)
+        // 请将$r('app.string.reset')替换为实际资源文件，在本示例中该资源文件的value值为"重置"
         Button($r('app.string.reset')).onClick(() => {
           this.translateX = 0;
           this.translateY = 0;
         }).width(80).height(35)
+        // 请将$r('app.string.pause')替换为实际资源文件，在本示例中该资源文件的value值为"暂停"
         Button($r('app.string.pause')).onClick(() => {
-          this.animatorOptions?.pause();
-          this.animatorStatus = $r('app.string.pause');
+          this.animatorResult?.pause();
+          // 'pause'资源文件中的value值为'暂停'
+          this.animatorStatus = 'pause';
         }).width(80).height(35)
       }.width('100%').height('25%')
 
@@ -87,8 +104,9 @@ struct Index {
       .width('100%')
       .height('45%')
       .align(Alignment.Start)
-
-      Text(resource.resourceToString($r('app.string.animatorStatus')) + resource.resourceToString(this.animatorStatus))
+      // 'animatorStatus'资源文件中的value值为'当前动画状态为:'
+      Text(this.manager.getStringByNameSync('animatorStatus') + this.manager.getStringByNameSync(this.animatorStatus))
     }.width('100%').height('100%')
   }
 }
+// [End animator_template3_start]

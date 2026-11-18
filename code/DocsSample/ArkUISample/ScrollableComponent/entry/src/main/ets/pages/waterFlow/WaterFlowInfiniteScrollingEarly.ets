@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -99,7 +99,8 @@ export struct WaterFlowInfiniteScrollingEarly {
     Row() {
       LoadingProgress()
         .color(Color.Blue).height(50).aspectRatio(1).width('20%')
-      Text(`正在加载`)
+      // 请将$r('app.string.waterFlow_text1')替换为实际资源文件，在本示例中该资源文件的value值为"正在加载 "
+      Text($r('app.string.waterFlow_text1'))
         .fontSize(20)
         .width('30%')
         .height(50)
@@ -107,11 +108,14 @@ export struct WaterFlowInfiniteScrollingEarly {
         .margin({ top: 2 })
     }.width('100%').justifyContent(FlexAlign.Center)
   }
-
+  // [Start waterFlowInfiniteScrollingEarly_start]
   build() {
     NavDestination() {
       Column({ space: 12 }) {
+        // [StartExclude waterFlowInfiniteScrollingEarly_start]
+        // 请将$r('app.string.WaterFlowInfiniteScrollingEarly_title')替换为实际资源文件，在本示例中该资源文件的value值为"无限滚动（提前新增数据）"
         ComponentCard({ title: $r('app.string.WaterFlowInfiniteScrollingEarly_title') }) {
+          // [EndExclude waterFlowInfiniteScrollingEarly_start]
           WaterFlow({ layoutMode: WaterFlowLayoutMode.SLIDING_WINDOW }) {
             LazyForEach(this.dataSource, (item: number) => {
               FlowItem() {
@@ -120,7 +124,7 @@ export struct WaterFlowInfiniteScrollingEarly {
               .width('100%')
               .aspectRatio(this.itemHeightArray[item % 100] / this.itemWidthArray[item%100])
               .backgroundColor(this.colors[item % 5])
-            }, (item: string) => item)
+            }, (item: number) => item.toString())
           }
           .columnsTemplate('1fr '.repeat(this.columns))
           .backgroundColor(0xFAEEE0)
@@ -136,12 +140,16 @@ export struct WaterFlowInfiniteScrollingEarly {
             }
           })
         }
+        // [StartExclude waterFlowInfiniteScrollingEarly_start]
       }
       .width('100%')
       .height('100%')
       .padding({ left: 12, right: 12 })
+      // [EndExclude waterFlowInfiniteScrollingEarly_start]
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.WaterFlowInfiniteScrollingEarly_title')替换为实际资源文件，在本示例中该资源文件的value值为"无限滚动（提前新增数据）"
     .title($r('app.string.WaterFlowInfiniteScrollingEarly_title'))
   }
+  // [End waterFlowInfiniteScrollingEarly_start]
 }

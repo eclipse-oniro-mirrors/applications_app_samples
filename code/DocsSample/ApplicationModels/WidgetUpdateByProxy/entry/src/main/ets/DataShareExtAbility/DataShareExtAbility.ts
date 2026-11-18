@@ -37,13 +37,13 @@ export default class DataShareExtAbility extends Extension {
   // 重写onCreate接口
   async onCreate(want: Want, callback: AsyncCallback<void>): Promise<void> {
     result = this.context.cacheDir + '/datashare.txt';
-    hilog.info(DOMAIN_NUMBER, TAG, `result : ${result}`);
+    hilog.info(DOMAIN_NUMBER, TAG, `result : ${JSON.stringify(result)}`);
     // 业务实现使用RDB
     rdb.getRdbStore(this.context, {
       name: DB_NAME,
       securityLevel: rdb.SecurityLevel.S1
     }, function (err, data) {
-      hilog.info(DOMAIN_NUMBER, TAG, `getRdbStore done, data : ${data}`);
+      hilog.info(DOMAIN_NUMBER, TAG, `getRdbStore done, data : ${JSON.stringify(data)}`);
       rdbStore = data;
       rdbStore.executeSql(DDL_TBL_CREATE, [], (err) => {
         hilog.info(DOMAIN_NUMBER, TAG, `DataShareExtAbility onCreate, executeSql done err: ${JSON.stringify(err)}`);
@@ -60,7 +60,7 @@ export default class DataShareExtAbility extends Extension {
     }
 
     rdbStore.insert(TBL_NAME, valueBucket, (err, ret) => {
-      hilog.info(DOMAIN_NUMBER, TAG, `callback ret: ${ret}`, JSON.stringify(err));
+      hilog.error(DOMAIN_NUMBER, TAG, `callback ret: ${ret}`, JSON.stringify(err));
       if (callback !== undefined) {
         callback(err, ret);
       }

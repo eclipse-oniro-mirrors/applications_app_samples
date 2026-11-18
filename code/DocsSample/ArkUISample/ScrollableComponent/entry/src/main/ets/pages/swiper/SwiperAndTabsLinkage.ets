@@ -13,8 +13,10 @@
  * limitations under the License.
  */
 
-import { ComponentCard } from "../../common/Card";
+import { ComponentCard } from '../../common/Card';
+import { common } from '@kit.AbilityKit';
 
+// [Start swiper_tabs_linkage]
 // xxx.ets
 class MyDataSource implements IDataSource {
   private list: number[] = [];
@@ -38,7 +40,8 @@ class MyDataSource implements IDataSource {
   }
 }
 
-@Entry
+// 如需作为页面入口，请取消@Entry的注释并删除export关键字
+// @Entry
 @Component
 export struct SwiperAndTabsLinkage {
   @State fontColor: string = '#182431';
@@ -48,6 +51,7 @@ export struct SwiperAndTabsLinkage {
   private tabsController: TabsController = new TabsController();
   private swiperController: SwiperController = new SwiperController();
   private swiperData: MyDataSource = new MyDataSource([]);
+  private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
   aboutToAppear(): void {
     for (let i = 0; i <= 9; i++) {
@@ -72,13 +76,17 @@ export struct SwiperAndTabsLinkage {
   }
 
   build() {
+    // [StartExclude swiper_tabs_linkage]
     NavDestination() {
       Column({ space: 12 }) {
         ComponentCard({ title: $r('app.string.SwiperAndTabsLinkage_title') }) {
+          // [EndExclude swiper_tabs_linkage]
           Column() {
             Tabs({ barPosition: BarPosition.Start, controller: this.tabsController }) {
               ForEach(this.list, (index: number) =>{
-                TabContent().tabBar(this.tabBuilder(index, '页签 ' + this.list[index]))
+                // 请在resources\base\element\string.json文件中配置name为'swiper_text1' ，value为非空字符串的资源
+                TabContent().tabBar(this.tabBuilder(index,
+                  this.context.resourceManager.getStringByNameSync('swiper_text1') + this.list[index]))
               })
             }
             .onTabBarClick((index: number) => {
@@ -91,7 +99,7 @@ export struct SwiperAndTabsLinkage {
             .width('100%')
 
             Swiper(this.swiperController) {
-              LazyForEach(this.swiperData, (item: string) => {
+              LazyForEach(this.swiperData, (item: number) => {
                 Text(item.toString())
                   .onAppear(()=>{
                     console.info('onAppear ' + item.toString());
@@ -104,15 +112,16 @@ export struct SwiperAndTabsLinkage {
                   .backgroundColor(0xAFEEEE)
                   .textAlign(TextAlign.Center)
                   .fontSize(30)
-              }, (item: string) => item)
+              }, (item: number) => item.toString())
             }
             .loop(false)
             .onSelected((index: number) => {
-              console.info("onSelected:" + index);
+              console.info('onSelected:' + index);
               this.currentIndex = index;
               this.tabsController.changeIndex(index);
             })
           }
+          // [StartExclude swiper_tabs_linkage]
         }
       }
       .width('100%')
@@ -121,5 +130,7 @@ export struct SwiperAndTabsLinkage {
     }
     .backgroundColor('#f1f2f3')
     .title($r('app.string.SwiperAndTabsLinkage_title'))
+    // [EndExclude swiper_tabs_linkage]
   }
 }
+// [End swiper_tabs_linkage]

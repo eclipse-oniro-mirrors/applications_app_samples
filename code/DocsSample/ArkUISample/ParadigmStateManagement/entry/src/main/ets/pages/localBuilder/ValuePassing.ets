@@ -1,0 +1,55 @@
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@Component
+export struct LocalBuilderValuePassing {
+  @State egLanes: LengthConstrain = { minLength: 200, maxLength: 300 };
+  @Consume pathStack: NavPathStack;
+
+  build() {
+    NavDestination() {
+      Parent()
+    }
+    .backgroundColor('#f1f2f3')
+    .title($r('app.string.value_passing'))
+  }
+}
+
+// [Start pass_by_value]
+@Entry
+@Component
+struct Parent {
+  @State label: string = 'Hello';
+
+  @LocalBuilder
+  citeLocalBuilder(paramA1: string) {
+    Row() {
+      Text(`UseStateVarByValue: ${paramA1}`)
+        .fontSize(20)
+        .margin(10)
+    }
+    .height('100%')
+  }
+
+  build() {
+    Column() {
+      // 按值传递参数
+      // 改变@State修饰的label值时，@LocalBuilder函数内的值不会发生改变
+      this.citeLocalBuilder(this.label)
+    }
+    .width('100%')
+  }
+}
+// [End pass_by_value]

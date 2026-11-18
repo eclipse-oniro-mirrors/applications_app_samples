@@ -4,6 +4,7 @@
     "pages/UploadFiles",
     "pages/ListenForPageDown",
     "pages/InitiatingADownloadTask",
-    "pages/ResumeDownload"
+    "pages/ResumeDownload",
+    "pages/SelectDownloadDir"
   ]
 }

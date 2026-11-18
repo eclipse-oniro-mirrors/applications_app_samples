@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -28,24 +28,65 @@ namespace NativeXComponentSample {
 constexpr uint32_t LOG_PRINT_DOMAIN = 0xFF00;
 PluginManager PluginManager::pluginManager_;
 
+PluginManager::PluginWindowLease::PluginWindowLease(OHNativeWindow *window, int32_t width, int32_t height,
+    uint64_t generation)
+    : window_(window), width_(width), height_(height), generation_(generation)
+{
+}
+
+PluginManager::PluginWindowLease::~PluginWindowLease()
+{
+    Reset();
+}
+
+PluginManager::PluginWindowLease::PluginWindowLease(PluginWindowLease &&other) noexcept
+    : window_(other.window_), width_(other.width_), height_(other.height_), generation_(other.generation_)
+{
+    other.window_ = nullptr;
+    other.width_ = 0;
+    other.height_ = 0;
+    other.generation_ = 0;
+}
+
+PluginManager::PluginWindowLease &PluginManager::PluginWindowLease::operator=(PluginWindowLease &&other) noexcept
+{
+    if (this == &other) {
+        return *this;
+    }
+    Reset();
+    window_ = other.window_;
+    width_ = other.width_;
+    height_ = other.height_;
+    generation_ = other.generation_;
+    other.window_ = nullptr;
+    other.width_ = 0;
+    other.height_ = 0;
+    other.generation_ = 0;
+    return *this;
+}
+
+void PluginManager::PluginWindowLease::Reset()
+{
+    if (window_ != nullptr) {
+        // NativeWindow 的引用计数操作不是线程安全的。这里只与窗口替换、销毁串行化解除引用；
+        // 租约在送显期间保持有效，不会因等待栅栏或 CPU 拷贝而阻塞 UI 线程。
+        auto *manager = PluginManager::GetInstance();
+        std::unique_lock<std::shared_mutex> lock(manager->mutex_);
+        (void)OH_NativeWindow_NativeObjectUnreference(window_);
+        window_ = nullptr;
+    }
+    width_ = 0;
+    height_ = 0;
+    generation_ = 0;
+}
+
 PluginManager::~PluginManager()
 {
     OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "Callback", "~PluginManager");
-    for (auto iter = nativeXComponentMap_.begin(); iter != nativeXComponentMap_.end(); ++iter) {
-        if (iter->second != nullptr) {
-            delete iter->second;
-            iter->second = nullptr;
-        }
-    }
+    std::unique_lock<std::shared_mutex> lock(mutex_);
     nativeXComponentMap_.clear();
-
-    for (auto iter = pluginRenderMap_.begin(); iter != pluginRenderMap_.end(); ++iter) {
-        if (iter->second != nullptr) {
-            delete iter->second;
-            iter->second = nullptr;
-        }
-    }
     pluginRenderMap_.clear();
+    pluginWindow_ = nullptr;
 }
 
 napi_value PluginManager::GetContext(napi_env env, napi_callback_info info)
@@ -131,33 +172,68 @@ void PluginManager::Export(napi_env env, napi_value exports)
     }
 }
 
-void PluginManager::SetNativeXComponent(std::string& id, OH_NativeXComponent* nativeXComponent)
+void PluginManager::SetNativeXComponent(const std::string& id, OH_NativeXComponent* nativeXComponent)
 {
     if (nativeXComponent == nullptr) {
         return;
     }
 
-    if (nativeXComponentMap_.find(id) == nativeXComponentMap_.end()) {
-        nativeXComponentMap_[id] = nativeXComponent;
+    std::unique_lock<std::shared_mutex> lock(mutex_);
+    // XComponent 从 ArkUI 解包得到，所有权仍归框架；这里只记录其地址，不能销毁或长期跨线程使用。
+    nativeXComponentMap_[id] = nativeXComponent;
+}
+
+std::shared_ptr<PluginRender> PluginManager::GetRender(const std::string& id)
+{
+    std::unique_lock<std::shared_mutex> lock(mutex_);
+    auto iter = pluginRenderMap_.find(id);
+    if (iter == pluginRenderMap_.end()) {
+        auto render = std::make_shared<PluginRender>(id);
+        pluginRenderMap_.emplace(id, render);
+        return render;
+    }
+    return iter->second;
+}
+
+void PluginManager::ReleaseRender(const std::string& id)
+{
+    std::unique_lock<std::shared_mutex> lock(mutex_);
+    pluginRenderMap_.erase(id);
+    nativeXComponentMap_.erase(id);
+}
+
+void PluginManager::SetPluginWindow(OHNativeWindow *window, int32_t width, int32_t height)
+{
+    std::unique_lock<std::shared_mutex> lock(mutex_);
+    if (pluginWindow_ == window && pluginWindowWidth_ == width && pluginWindowHeight_ == height) {
         return;
     }
-
-    if (nativeXComponentMap_[id] != nativeXComponent) {
-        OH_NativeXComponent* tmp = nativeXComponentMap_[id];
-        delete tmp;
-        tmp = nullptr;
-        nativeXComponentMap_[id] = nativeXComponent;
-    }
+    // 该地址来自 XComponent 生命周期回调，所有权仍归框架。异步送显必须通过 AcquirePluginWindow() 增加引用。
+    pluginWindow_ = window;
+    pluginWindowWidth_ = width;
+    pluginWindowHeight_ = height;
+    pluginWindowGeneration_++;
 }
 
-PluginRender* PluginManager::GetRender(std::string& id)
+PluginManager::PluginWindowLease PluginManager::AcquirePluginWindow()
 {
-    if (pluginRenderMap_.find(id) == pluginRenderMap_.end()) {
-        PluginRender* instance = PluginRender::GetInstance(id);
-        pluginRenderMap_[id] = instance;
-        return instance;
+    std::unique_lock<std::shared_mutex> lock(mutex_);
+    // 在锁内增加 NativeWindow 引用，确保窗口不会在租约使用期间被 Surface 销毁回调释放。
+    if (pluginWindow_ == nullptr || OH_NativeWindow_NativeObjectReference(pluginWindow_) != 0) {
+        return {};
     }
-
-    return pluginRenderMap_[id];
+    return PluginWindowLease(pluginWindow_, pluginWindowWidth_, pluginWindowHeight_, pluginWindowGeneration_);
 }
-} // namespace NativeXComponentSample
+
+void PluginManager::ClearPluginWindow(OHNativeWindow *window)
+{
+    std::unique_lock<std::shared_mutex> lock(mutex_);
+    // 销毁回调可能不携带窗口句柄；Surface 一旦销毁，当前句柄仍然失效，必须一并清除。
+    if (window == nullptr || pluginWindow_ == window) {
+        pluginWindow_ = nullptr;
+        pluginWindowWidth_ = 0;
+        pluginWindowHeight_ = 0;
+        pluginWindowGeneration_++;
+    }
+}
+} // NativeXComponentSample 命名空间

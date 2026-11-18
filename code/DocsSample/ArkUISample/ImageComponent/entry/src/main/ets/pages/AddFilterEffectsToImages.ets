@@ -13,25 +13,31 @@
  * limitations under the License.
  */
 
+// 图片添加滤镜效果页面
+// [Start image_filtereffect]
 @Entry
 @Component
-struct MyComponent1 {
+struct AddFilterEffectsToImages {
   build() {
     Column() {
       Row() {
+        // 请将$r('app.media.example')替换为实际资源文件
         Image($r('app.media.example'))
           .width('40%')
           .margin(10)
+        // 请将$r('app.media.example')替换为实际资源文件
         Image($r('app.media.example'))
           .width('40%')
+          // 通过colorFilter调整图片的像素颜色，为图片添加滤镜
           .colorFilter(
             [1, 1, 0, 0, 0,
-              0, 1, 0, 0, 0,
-              0, 0, 1, 0, 0,
-              0, 0, 0, 1, 0])
+             0, 1, 0, 0, 0,
+             0, 0, 1, 0, 0,
+             0, 0, 0, 1, 0])
           .margin(10)
       }.width('100%')
       .justifyContent(FlexAlign.Center)
     }
   }
 }
+// [End image_filtereffect]

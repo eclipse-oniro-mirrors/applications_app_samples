@@ -19,18 +19,18 @@
 3. 在主界面，点击GetFullDirectoryUri接口按钮获取代码里指定文件uri所在路径的uri，并输出到文本框里。
 4. 在主界面，点击IsValidUri接口按钮判断代码里指定文件uri是否正确，并判断结果输出到文本框里。
 5. 在主界面，点击GetFileName接口按钮获取uri中的文件名称，并输出到文本框里。
-6. 切换到Deveco日志页面，搜索”HiAppEvent eventInfo“，出现以下日志。
+6. 切换到Deveco日志页面，搜索“Sample_fileUri”，出现以下日志。
 
 ```
-HiAppEvent eventInfo.WatcherType=OnTrigger: /data/storage/el2/base/haps/entry/files/test.txt
-HiAppEvent eventInfo.WatcherType=OnTrigger: file://com.samples.fileuridevelopment_c/data/storage/el2/base/haps/entry/files/test.txt
-HiAppEvent eventInfo.WatcherType=OnTrigger: file://com.samples.fileuridevelopment_c/data/storage/el2/base/haps/entry/files/test.txt
-HiAppEvent eventInfo.WatcherType=OnTrigger: /data/storage/el2/base/haps/entry/files/test.txt
-HiAppEvent eventInfo.WatcherType=OnTrigger: file://com.samples.fileuridevelopment_c/data/storage/el2/base/haps/entry/files/test.txt
-HiAppEvent eventInfo.WatcherType=OnTrigger: file://com.samples.fileuridevelopment_c/data/storage/el2/base/haps/entry/files
-HiAppEvent eventInfo.WatcherType=OnTrigger: file://com.samples.fileuridevelopment_c/data/storage/el2/base/haps/entry/files/test.txt
-HiAppEvent eventInfo.WatcherType=OnTrigger: file://com.samples.fileuridevelopment_c/data/storage/el2/base/haps/entry/files/test.txt
-HiAppEvent eventInfo.WatcherType=OnTrigger: test.txt
+OH_FileUri_GetUriFromPath input path: /data/storage/el2/base/haps/entry/files/test.txt
+OH_FileUri_GetUriFromPath output URI: file://com.samples.fileuridevelopment_c/data/storage/el2/base/haps/entry/files/test.txt
+OH_FileUri_GetPathFromUri input URI: file://com.samples.fileuridevelopment_c/data/storage/el2/base/haps/entry/files/test.txt
+OH_FileUri_GetPathFromUri output path: /data/storage/el2/base/haps/entry/files/test.txt
+OH_FileUri_GetFullDirectoryUri input URI: file://com.samples.fileuridevelopment_c/data/storage/el2/base/haps/entry/files/test.txt
+OH_FileUri_GetFullDirectoryUri output directory URI: file://com.samples.fileuridevelopment_c/data/storage/el2/base/haps/entry/files
+OH_FileUri_IsValidUri input URI: file://com.samples.fileuridevelopment_c/data/storage/el2/base/haps/entry/files/test.txt
+OH_FileUri_GetFileName input URI: file://com.samples.fileuridevelopment_c/data/storage/el2/base/haps/entry/files/test.txt
+OH_FileUri_GetFileName output file name: test.txt
 ```
 
 

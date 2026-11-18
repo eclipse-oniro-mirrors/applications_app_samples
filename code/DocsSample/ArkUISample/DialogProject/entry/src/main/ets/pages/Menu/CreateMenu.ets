@@ -16,8 +16,11 @@
 import { PromptAction } from '@kit.ArkUI';
 
 // [Start builder_menu_content]
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
 class Tmp {
-  private iconStr2: ResourceStr = $r('app.media.app_icon')
+  // 请将$r('app.media.view_list_filled')替换为实际资源文件
+  private iconStr2: ResourceStr = $r('app.media.view_list_filled')
 
   set(val: Resource) {
     this.iconStr2 = val;
@@ -28,50 +31,64 @@ class Tmp {
 @Component
 export struct menuExample  {
   @State select: boolean = true;
-  private iconStr: ResourceStr = $r('app.media.app_icon');
-  private iconStr2: ResourceStr = $r('app.media.app_icon');
+  // 请将$r('app.media.view_list_filled')替换为实际资源文件
+  private iconStr: ResourceStr = $r('app.media.view_list_filled');
+  private iconStr2: ResourceStr = $r('app.media.view_list_filled');
+  // 请将$r('app.string.copy')替换为实际资源文件，在本示例中该资源文件的value值为"复制"
+  private copy: ResourceStr = $r('app.string.copy');
+  // 请将$r('app.string.paste')替换为实际资源文件，在本示例中该资源文件的value值为"粘贴"
+  private paste: ResourceStr = $r('app.string.paste');
 
   @Builder
   SubMenu() {
     Menu() {
-      MenuItem({ content: 'copy', labelInfo: 'Ctrl+C' })
-      MenuItem({ content: 'paste', labelInfo: 'Ctrl+V' })
+      MenuItem({ content: this.copy, labelInfo: 'Ctrl+C' })
+      MenuItem({ content: this.paste, labelInfo: 'Ctrl+V' })
     }
   }
 
   @Builder
   MyMenu() {
     Menu() {
-      MenuItem({ startIcon: $r('app.media.app_icon'), content: $r('app.string.menu_single') })
-      MenuItem({ startIcon: $r('app.media.app_icon'), content: $r('app.string.menu_forbid') }).enabled(false)
+      // 请将$r('app.string.menu_selection')替换为实际资源文件，在本示例中该资源文件的value值为"菜单选项"
+      // 请将$r('app.media.icon')替换为实际资源文件
+      // 请将$r('app.media.arrow_right_filled')替换为实际资源文件
+      MenuItem({ startIcon: $r('app.media.icon'), content: $r('app.string.menu_selection') })
+      MenuItem({ startIcon: $r('app.media.icon'), content: $r('app.string.menu_selection') }).enabled(false)
       MenuItem({
         startIcon: this.iconStr,
-        content: $r('app.string.menu_more'),
-        endIcon: $r('app.media.app_icon'),
+        content: $r('app.string.menu_selection'),
+        endIcon: $r('app.media.arrow_right_filled'),
         // 当builder参数进行配置时，表示与menuItem项绑定了子菜单。鼠标hover在该菜单项时，会显示子菜单。
         builder: this.SubMenu
       })
+      // 请将$r('app.string.menu_subtitle')替换为实际资源文件，在本示例中该资源文件的value值为"小标题"
       MenuItemGroup({ header: $r('app.string.menu_subtitle') }) {
+        // 请将$r('app.string.menu_selection')替换为实际资源文件，在本示例中该资源文件的value值为"菜单选项"
         MenuItem({ content: $r('app.string.menu_selection') })
           .selectIcon(true)
           .selected(this.select)
           .onChange((selected) => {
-            console.info('menuItem select' + selected);
+            hilog.info(0xFF00, 'DialogProject', 'menuItem select' + selected);
             let str: Tmp = new Tmp();
-            str.set($r('app.media.app_icon'));
+            str.set($r('app.media.icon'));
           })
+        // 请将$r('app.string.menu_selection')替换为实际资源文件，在本示例中该资源文件的value值为"菜单选项"
+        // 请将$r('app.media.view_list_filled')替换为实际资源文件
+        // 请将$r('app.media.arrow_right_filled')替换为实际资源文件
         MenuItem({
-          startIcon: $r('app.media.app_icon'),
-          content: $r('app.string.menu_more'),
-          endIcon: $r('app.media.foreground'),
+          startIcon: $r('app.media.view_list_filled'),
+          content: $r('app.string.menu_selection'),
+          endIcon: $r('app.media.arrow_right_filled'),
           builder: this.SubMenu
         })
       }
-
+      // 请将$r('app.string.menu_selection')替换为实际资源文件，在本示例中该资源文件的value值为"菜单选项"
+      // 请将$r('app.media.arrow_right_filled')替换为实际资源文件
       MenuItem({
         startIcon: this.iconStr2,
-        content: $r('app.string.menu_single'),
-        endIcon: $r('app.media.app_icon')
+        content: $r('app.string.menu_selection'),
+        endIcon: $r('app.media.arrow_right_filled')
       })
     }
   }
@@ -81,12 +98,12 @@ export struct menuExample  {
       Column({ space: 12 }) {
 
         // [Start call_bind_menu]
-        Button($r('app.string.menu_default'))
+        Button('click for Menu')
           .bindMenu([
             {
               value: 'Menu1',
               action: () => {
-                console.info('handle Menu1 select');
+                hilog.info(0xFF00, 'DialogProject', 'handle Menu1 select');
               }
             }
           ])
@@ -95,14 +112,15 @@ export struct menuExample  {
           .height(50)
 
         // [Start bind_menu_property]
-        Button($r('app.string.menu_bind'))
+        Button('click for Menu')
           .bindMenu(this.MyMenu)
           // [End bind_menu_property]
+          .id('click for Menu One')
           .width(160)
           .height(50)
 
         // [Start create_right_click_menu]
-        Button($r('app.string.menu_rightClick'))
+        Button('Right-click for Menu')
           .bindContextMenu(this.MyMenu, ResponseType.RightClick)
           // [End create_right_click_menu]
           .width(160)
@@ -113,7 +131,7 @@ export struct menuExample  {
       .height('100%')
       .padding({ left: 12, right: 12 })
     }
-    .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.create_menu')替换为实际资源文件，在本示例中该资源文件的value值为"创建菜单"
     .title($r('app.string.create_menu'))
   }
   // [EndExclude builder_menu_content]

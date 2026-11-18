@@ -30,11 +30,11 @@ async function createX509CRL(): Promise<cert.X509CRL> {
     'eavsH0Q3\n' +
     '-----END X509 CRL-----\n';
 
-  // 证书吊销列表二进制数据，需业务自行赋值
+  // 证书吊销列表二进制数据，需业务自行赋值。
   let textEncoder = new util.TextEncoder();
   let encodingBlob: cert.EncodingBlob = {
     data: textEncoder.encodeInto(crlData),
-    // 根据encodingData的格式进行赋值，支持FORMAT_PEM和FORMAT_DER
+    // 根据encodingData的格式进行赋值，支持FORMAT_PEM和FORMAT_DER。
     encodingFormat: cert.EncodingFormat.FORMAT_PEM
   };
   let x509CRL: cert.X509CRL = {} as cert.X509CRL;
@@ -61,7 +61,7 @@ async function createX509Cert(): Promise<cert.X509Cert> {
   let textEncoder = new util.TextEncoder();
   let encodingBlob: cert.EncodingBlob = {
     data: textEncoder.encodeInto(certData),
-    // 根据encodingData的格式进行赋值，支持FORMAT_PEM和FORMAT_DER
+    // 根据encodingData的格式进行赋值，支持FORMAT_PEM和FORMAT_DER。
     encodingFormat: cert.EncodingFormat.FORMAT_PEM
   };
 
@@ -81,9 +81,9 @@ async function sample() {
   let collection: cert.CertCRLCollection = {} as cert.CertCRLCollection;
   try {
     collection = cert.createCertCRLCollection([x509Cert], [x509CRL]);
-    console.log('createCertCRLCollection success');
+    console.info('createCertCRLCollection result: success.');
   } catch (err) {
-    console.error('createCertCRLCollection failed');
+    console.error(`createCertCRLCollection failed: errCode: ${err.code}, message: ${err.message}`);
   }
 
   const certParam: cert.X509CertMatchParameters = {
@@ -92,7 +92,7 @@ async function sample() {
   try {
     let certs: cert.X509Cert[] = await collection.selectCerts(certParam);
   } catch (err) {
-    console.error('selectCerts failed');
+    console.error(`selectCerts failed: errCode: ${err.code}, message: ${err.message}`);
   }
 
   const crlParam: cert.X509CRLMatchParameters = {
@@ -100,9 +100,9 @@ async function sample() {
   }
   try {
     let crls: cert.X509CRL[] = await collection.selectCRLs(crlParam);
-    console.error('selectCRLs success');
+    console.info('selectCRLs result: success.');
   } catch (err) {
-    console.error('selectCRLs failed');
+    console.error(`selectCRLs failed: errCode: ${err.code}, message: ${err.message}`);
   }
 }
 

@@ -1,0 +1,24 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "长列表占位与预加载示例" },
+    { "name": "EntryAbility_desc", "value": "长列表性能示例" },
+    { "name": "EntryAbility_label", "value": "长列表性能" },
+    { "name": "page_title", "value": "长列表性能" },
+    { "name": "breakpoint_label", "value": "当前布局" },
+    { "name": "hub_placeholder_title", "value": "占位列表" },
+    { "name": "hub_placeholder_desc", "value": "数据加载前展示骨架占位" },
+    { "name": "hub_prefetch_title", "value": "预取列表" },
+    { "name": "hub_prefetch_desc", "value": "BasicPrefetcher 提前加载列表项" },
+    { "name": "placeholder_title", "value": "占位列表示例" },
+    { "name": "prefetch_title", "value": "预取列表示例" },
+    { "name": "back", "value": "返回" },
+    { "name": "load_more", "value": "加载更多" },
+    { "name": "reset", "value": "重置" },
+    { "name": "placeholder_hint", "value": "未加载的行显示骨架占位，加载更多后替换为内容。" },
+    { "name": "prefetch_hint", "value": "滚动列表，BasicPrefetcher 会预取即将进入可视区的条目。" },
+    { "name": "prefetch_one", "value": "预取一条" },
+    { "name": "prefetch_clear", "value": "清空统计" },
+    { "name": "placeholder_row", "value": "加载中" },
+    { "name": "prefetch_status", "value": "prefetched=0, loaded=20" }
+  ]
+}

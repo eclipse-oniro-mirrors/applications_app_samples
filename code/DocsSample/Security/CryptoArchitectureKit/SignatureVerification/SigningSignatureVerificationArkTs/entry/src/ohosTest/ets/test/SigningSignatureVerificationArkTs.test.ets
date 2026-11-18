@@ -44,8 +44,8 @@ export default function signingSignatureVerificationArkTsTest() {
     /**
      * 点击按钮，使用RSA密钥对（PKCS1模式）签名验签(异步)
      */
-    it('signingSignatureVerificationArkTsTest001', 0, async () => {
-      console.info('uitest: signingSignatureVerificationArkTsTest001 begin');
+    it('testSigningSignatureVerificationArkTsTest001', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationArkTsTest001 begin');
       const driver = Driver.create();
       const button1 = await driver.findComponent(ON.text('rsa_pkcs1_signature_validator_asynchronous'));
       await driver.delayMs(1000);
@@ -55,7 +55,7 @@ export default function signingSignatureVerificationArkTsTest() {
       await button2.click();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('SignatureVerifySuccess'));
-      console.info('uitest: signingSignatureVerificationArkTsTest001 end');
+      console.info('uitest: testSigningSignatureVerificationArkTsTest001 end');
       await driver.pressBack();
     })
 
@@ -254,6 +254,220 @@ export default function signingSignatureVerificationArkTsTest() {
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('SM2SignatureSuccess'));
       console.info('uitest: testSigningSignatureVerificationArkTsTest012 end');
+      await driver.pressBack();
     })
+    /**
+     * 点击按钮，使用SM2密钥对签名数据R,S格式转换为DER格式
+     */
+    it('testSigningSignatureVerificationArkTsTest013', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationArkTsTest013 begin');
+      const driver = Driver.create();
+      const button1 = await driver.findComponent(ON.text('SM2 Sign Data RS to DER'));
+      await driver.delayMs(1000);
+      await button1.click();
+      await driver.delayMs(1000);
+      const button2 = await driver.findComponent(ON.text('Call SM2 Sign Data RS to DER'));
+      await button2.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('SM2SignDataRsToDERSuccess'));
+      console.info('uitest: testSigningSignatureVerificationArkTsTest013 end');
+      await driver.pressBack();
+    })
+    /**
+     * 点击按钮，使用SM2密钥对签名数据DER格式转换为R,S格式
+     */
+    it('testSigningSignatureVerificationArkTsTest014', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationArkTsTest014 begin');
+      const driver = Driver.create();
+      const button1 = await driver.findComponent(ON.text('SM2 Sign Data DER to RS'));
+      await driver.delayMs(1000);
+      await button1.click();
+      await driver.delayMs(1000);
+      const button2 = await driver.findComponent(ON.text('Call SM2 Sign Data DER to RS'));
+      await button2.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('SM2SignDataDerToRSSuccess'));
+      console.info('uitest: testSigningSignatureVerificationArkTsTest014 end');
+      await driver.pressBack();
+    })
+    /**
+     * 点击按钮，使用ECC密钥对摘要数据进行签名验签(异步)
+     */
+    it('testSigningSignatureVerificationArkTsTest015', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationArkTsTest015 begin');
+      const driver = Driver.create();
+      const button1 = await driver.findComponent(ON.text('onlysign_onlyverify_signature_validator'));
+      await driver.delayMs(1000);
+      await button1.click();
+      await driver.delayMs(1000);
+      const button2 = await driver.findComponent(ON.text('ecc_onlysign_onlyverify_signature_verification_asynchronous'));
+      await driver.delayMs(1000);
+      await button2.click();
+      await driver.delayMs(1000);
+      const button3 = await driver.findComponent(ON.text('ecc_onlysign_onlyverify_signature_verification_asynchronous'));
+      await driver.delayMs(1000);
+      await button3.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('SignatureVerifySuccess'));
+      console.info('uitest: testSigningSignatureVerificationArkTsTest015 end');
+      await driver.pressBack();
+      await driver.pressBack();
+    })
+
+    /**
+     * 点击按钮，使用ECC密钥对摘要数据进行签名验签(同步)
+     */
+    it('testSigningSignatureVerificationArkTsTest016', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationArkTsTest016 begin');
+      const driver = Driver.create();
+      const button1 = await driver.findComponent(ON.text('onlysign_onlyverify_signature_validator'));
+      await driver.delayMs(1000);
+      await button1.click();
+      await driver.delayMs(1000);
+      const button2 = await driver.findComponent(ON.text('ecc_onlysign_onlyverify_signature_verification_synchronous'));
+      await driver.delayMs(1000);
+      await button2.click();
+      await driver.delayMs(1000);
+      const button3 = await driver.findComponent(ON.text('ecc_onlysign_onlyverify_signature_verification_synchronous'));
+      await driver.delayMs(1000);
+      await button3.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('SignatureVerifySuccess'));
+      console.info('uitest: testSigningSignatureVerificationArkTsTest016 end');
+      await driver.pressBack();
+      await driver.pressBack();
+    })
+
+    /**
+     * 点击按钮，使用RSA PKCS1密钥对摘要数据进行签名验签(异步)
+     */
+    it('testSigningSignatureVerificationArkTsTest017', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationArkTsTest017 begin');
+      const driver = Driver.create();
+      const button1 = await driver.findComponent(ON.text('onlysign_onlyverify_signature_validator'));
+      await driver.delayMs(1000);
+      await button1.click();
+      await driver.delayMs(1000);
+      const button2 = await driver.findComponent(ON.text('rsa_pkcs1_onlysign_onlyverify_signature_validator_asynchronous'));
+      await driver.delayMs(1000);
+      await button2.click();
+      await driver.delayMs(1000);
+      const button3 = await driver.findComponent(ON.text('rsa_pkcs1_onlysign_onlyverify_signature_validator_asynchronous'));
+      await driver.delayMs(1000);
+      await button3.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('SignatureVerifySuccess'));
+      console.info('uitest: testSigningSignatureVerificationArkTsTest017 end');
+      await driver.pressBack();
+      await driver.pressBack();
+    })
+
+    /**
+     * 点击按钮，使用RSA PKCS1密钥对摘要数据进行签名验签(同步)
+     */
+    it('testSigningSignatureVerificationArkTsTest018', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationArkTsTest018 begin');
+      const driver = Driver.create();
+      const button1 = await driver.findComponent(ON.text('onlysign_onlyverify_signature_validator'));
+      await driver.delayMs(1000);
+      await button1.click();
+      await driver.delayMs(1000);
+      const button2 = await driver.findComponent(ON.text('rsa_pkcs1_onlysign_onlyverify_signature_validator_synchronous'));
+      await driver.delayMs(1000);
+      await button2.click();
+      await driver.delayMs(1000);
+      const button3 = await driver.findComponent(ON.text('rsa_pkcs1_onlysign_onlyverify_signature_validator_synchronous'));
+      await driver.delayMs(1000);
+      await button3.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('SignatureVerifySuccess'));
+      console.info('uitest: testSigningSignatureVerificationArkTsTest018 end');
+      await driver.pressBack();
+      await driver.pressBack();
+    })
+
+    /**
+     * 点击按钮，使用RSA PSS密钥对摘要数据进行签名验签(异步)
+     */
+    it('testSigningSignatureVerificationArkTsTest019', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationArkTsTest019 begin');
+      const driver = Driver.create();
+      const button1 = await driver.findComponent(ON.text('onlysign_onlyverify_signature_validator'));
+      await driver.delayMs(1000);
+      await button1.click();
+      await driver.delayMs(1000);
+      const button2 = await driver.findComponent(ON.text('rsa_pss_onlysign_onlyverify_signature_verification_asynchronous'));
+      await driver.delayMs(1000);
+      await button2.click();
+      await driver.delayMs(1000);
+      const button3 = await driver.findComponent(ON.text('rsa_pss_onlysign_onlyverify_signature_verification_asynchronous'));
+      await driver.delayMs(1000);
+      await button3.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('SignatureVerifySuccess'));
+      console.info('uitest: testSigningSignatureVerificationArkTsTest019 end');
+      await driver.pressBack();
+      await driver.pressBack();
+    })
+
+    /**
+     * 点击按钮，使用RSA PSS密钥对摘要数据进行签名验签(同步)
+     */
+    it('testSigningSignatureVerificationArkTsTest020', 0, async () => {
+      console.info('uitest: testSigningSignatureVerificationArkTsTest020 begin');
+      const driver = Driver.create();
+      const button1 = await driver.findComponent(ON.text('onlysign_onlyverify_signature_validator'));
+      await driver.delayMs(1000);
+      await button1.click();
+      await driver.delayMs(1000);
+      const button2 = await driver.findComponent(ON.text('rsa_pss_onlysign_onlyverify_signature_verification_synchronous'));
+      await driver.delayMs(1000);
+      await button2.click();
+      await driver.delayMs(1000);
+      const button3 = await driver.findComponent(ON.text('rsa_pss_onlysign_onlyverify_signature_verification_synchronous'));
+      await driver.delayMs(1000);
+      await button3.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('SignatureVerifySuccess'));
+      console.info('uitest: testSigningSignatureVerificationArkTsTest020 end');
+      await driver.pressBack();
+      await driver.pressBack();
+    })
+
+    /**
+    * 点击按钮，使用ML-DSA密钥对签名验签(异步)
+    */
+   it('testSigningSignatureVerificationArkTsTest021', 0, async () => {
+     console.info('uitest: testSigningSignatureVerificationArkTsTest021 begin');
+     const driver = Driver.create();
+     const button1 = await driver.findComponent(ON.text('ml_dsa_signature_verification_asynchronous'));
+     await driver.delayMs(1000);
+     await button1.click();
+     await driver.delayMs(1000);
+     const button2 = await driver.findComponent(ON.text('Call ML-DSASignature Asynchronous'));
+     await button2.click();
+     await driver.delayMs(1000);
+     await driver.assertComponentExist(ON.text('ML-DSASignatureSuccess'));
+     console.info('uitest: testSigningSignatureVerificationArkTsTest021 end');
+     await driver.pressBack();
+   })
+
+   /**
+    * 点击按钮，使用ML-DSA密钥对签名验签(同步)
+    */
+   it('testSigningSignatureVerificationArkTsTest022', 0, async () => {
+     console.info('uitest: testSigningSignatureVerificationArkTsTest022 begin');
+     const driver = Driver.create();
+     const button1 = await driver.findComponent(ON.text('ml_dsa_signature_verification_synchronous'));
+     await driver.delayMs(1000);
+     await button1.click();
+     await driver.delayMs(1000);
+     const button2 = await driver.findComponent(ON.text('Call ML-DSASignature Synchronous'));
+     await button2.click();
+     await driver.delayMs(1000);
+     await driver.assertComponentExist(ON.text('ML-DSASignatureSuccess'));
+     console.info('uitest: testSigningSignatureVerificationArkTsTest022 end');
+     await driver.pressBack();
+   })
   })
 }

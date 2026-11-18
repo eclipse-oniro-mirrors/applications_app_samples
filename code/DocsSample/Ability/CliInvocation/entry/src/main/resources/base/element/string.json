@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "button_start_target_app",
+      "value": "启动目标应用 (ohos-aa)"
+    },
+    {
+      "name": "message_start_success",
+      "value": "ohos-aa 启动成功"
+    },
+    {
+      "name": "message_start_failed",
+      "value": "ohos-aa 启动失败, ret=%d"
+    }
+  ]
+}

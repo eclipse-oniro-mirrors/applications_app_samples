@@ -14,6 +14,7 @@
  */
 
 // [Start handles_javascript_calls_from_webview]
+// entry4/src/main/cpp/jsbridge_object.cpp
 #include "jsbridge_object.h"
 
 #include "hilog/log.h"
@@ -34,7 +35,7 @@ void JSBridgeObject::StaticRunJavaScriptCallback(
         "JSBridgeObject StaticRunJavaScriptCallback webTag:%{public}s", webTag);
     if (!userData) {
         OH_LOG_Print(
-            LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
+            LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ArkWeb",
             "JSBridgeObject StaticRunJavaScriptCallback userData is nullptr");
         return;
     }
@@ -44,7 +45,7 @@ void JSBridgeObject::StaticRunJavaScriptCallback(
         jsb_ptr->RunJavaScriptCallback(result.c_str());
     } else {
         OH_LOG_Print(
-            LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
+            LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ArkWeb",
             "JSBridgeObject StaticRunJavaScriptCallback jsb_weak_ptr lock failed");
     }
 }

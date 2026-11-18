@@ -13,5 +13,9 @@
  * limitations under the License.
  */
 
-// Script for compiling build behavior. It is built in the build plug-in and cannot be modified currently.
-export { hapTasks } from '@ohos/hvigor-ohos-plugin';
+import { hapTasks } from '@ohos/hvigor-ohos-plugin';
+
+export default {
+  system: hapTasks,
+  plugins: []
+}

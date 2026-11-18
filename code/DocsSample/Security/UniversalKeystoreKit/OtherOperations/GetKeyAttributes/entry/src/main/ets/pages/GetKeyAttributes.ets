@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [Start obtaining_key_attribute]
+// [Start obtaining_key_attribute_ets]
 import { huks } from '@kit.UniversalKeystoreKit';
 
 /* 1. 设置密钥别名 */
@@ -47,11 +47,11 @@ let huksOptions: huks.HuksOptions = {
 function generateKeyItem(keyAlias: string, huksOptions: huks.HuksOptions) {
   return new Promise<void>((resolve, reject) => {
     try {
-      huks.generateKeyItem(keyAlias, huksOptions, (error, data) => {
+      huks.generateKeyItem(keyAlias, huksOptions, (error) => {
         if (error) {
           reject(error);
         } else {
-          resolve(data);
+          resolve();
         }
       });
     } catch (error) {
@@ -64,8 +64,8 @@ async function publicGenKeyFunc(keyAlias: string, huksOptions: huks.HuksOptions)
   console.info(`enter promise generateKeyItem`);
   try {
     await generateKeyItem(keyAlias, huksOptions)
-      .then((data) => {
-        console.info(`promise: generateKeyItem success, data = ${JSON.stringify(data)}`);
+      .then(() => {
+        console.info(`promise: generateKeyItem success`);
       })
       .catch((error: Error) => {
         console.error(`promise: generateKeyItem failed, ${JSON.stringify(error)}`);
@@ -83,7 +83,6 @@ async function testGenKey(): Promise<string> {
 }
 
 function check(): string {
-// [EndExclude obtaining_key_attribute]
   try {
     /* 1. 生成密钥 */
     testGenKey();
@@ -100,8 +99,8 @@ function check(): string {
     console.error(`callback: getKeyItemProperties input arg invalid, ${JSON.stringify(error)}`);
     return 'Failed';
   }
-// [End obtaining_key_attribute]
 }
+// [End obtaining_key_attribute_ets]
 
 @Entry
 @Component

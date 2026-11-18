@@ -14,15 +14,10 @@
  */
 
 // [Start the_node_api_layer_code_for_the_data_channel_between_the_application_side_and_the_frontend_page]
-#include "napi/native_api.h"
-#include <bits/alltypes.h>
-#include <memory>
-#include <string>
-#include <sys/types.h>
-#include <iostream>
-#include <map>
 #include "hilog/log.h"
+#include "napi/native_api.h"
 #include "web/arkweb_interface.h"
+#include <string>
 #include <thread>
 
 constexpr unsigned int LOG_PRINT_DOMAIN = 0xFF00;
@@ -38,18 +33,18 @@ static void WebMessagePortCallback(
 {
     OH_LOG_Print(
         LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
-        "Native Development Kit WebMesagePortCallback webTag:%{public}s,messageType:%{public}d",
+        "Native Development Kit WebMessagePortCallback webTag:%{public}s,messageType:%{public}d",
         webTag, webMessage->getType(message));
     size_t len = 0;
     void *back = webMessage->getData(message, &len);
     if (webMessage->getType(message) == ArkWeb_WebMessageType::ARKWEB_STRING) {
         OH_LOG_Print(
             LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
-            "Native Development Kit WebMesagePortCallback message:%{public}s,messageSize:%{public}d", back, len);
+            "Native Development Kit WebMessagePortCallback message:%{public}s,messageSize:%{public}d", back, len);
     } else if (webMessage->getType(message) == ArkWeb_WebMessageType::ARKWEB_BUFFER) {
         OH_LOG_Print(
             LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
-            "Native Development Kit WebMesagePortCallback messageSize:%{public}d", len);
+            "Native Development Kit WebMessagePortCallback messageSize:%{public}d", len);
     }
 }
 
@@ -66,24 +61,24 @@ static napi_value NativeWebInit(napi_env env, napi_callback_info info)
     size_t webTagLength = 0;
     napi_get_value_string_utf8(env, args[0], webTagValue, webTagSize + 1, &webTagLength);
     OH_LOG_Print(
-        LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ArkWeb",
+        LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
         "Native Development Kit NativeWebInit webTag:%{public}s", webTagValue);
 
     controller = reinterpret_cast<ArkWeb_ControllerAPI *>(OH_ArkWeb_GetNativeAPI(ARKWEB_NATIVE_CONTROLLER));
     if (controller)
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ArkWeb", "get ArkWeb_ControllerAPI success");
+        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "get ArkWeb_ControllerAPI success");
 
     webMessagePort =
         reinterpret_cast<ArkWeb_WebMessagePortAPI *>(OH_ArkWeb_GetNativeAPI(ARKWEB_NATIVE_WEB_MESSAGE_PORT));
     if (webMessagePort)
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ArkWeb", "get ArkWeb_WebMessagePortAPI success");
+        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "get ArkWeb_WebMessagePortAPI success");
 
     webMessage = reinterpret_cast<ArkWeb_WebMessageAPI *>(OH_ArkWeb_GetNativeAPI(ARKWEB_NATIVE_WEB_MESSAGE));
     if (webMessage)
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ArkWeb", "get ArkWeb_WebMessageAPI success");
+        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "get ArkWeb_WebMessageAPI success");
 
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "Native Development Kit NativeWebInit end");
-
+    delete[] webTagValue;
     return nullptr;
 }
 
@@ -115,6 +110,7 @@ static napi_value createWebMessagePorts(napi_env env, napi_callback_info info)
     OH_LOG_Print(
         LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
         "Native Development Kit createWebMessagePorts end, web message port size:%{public}d", g_webMessagePortSize);
+    delete[] webTagValue;
     return nullptr;
 }
 
@@ -153,6 +149,7 @@ static napi_value postMessage(napi_env env, napi_callback_info info)
     OH_LOG_Print(
         LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
         "Native Development Kit postMessage end, web message port size:%{public}d", g_webMessagePortSize);
+    delete[] webTagValue;
     return nullptr;
 }
 
@@ -205,8 +202,9 @@ static napi_value postMessageThread(napi_env env, napi_callback_info info)
 
     // 等待所有线程完成
     for (int i = 0; i < numThreads; ++i) {
-        threads[i].detach();
+        threads[i].join();
     }
+    delete[] webTagValue;
     return nullptr;
 }
 
@@ -236,7 +234,7 @@ static napi_value setMessageEventHandlerThread(napi_env env, napi_callback_info 
     // 注册回调
     OH_LOG_Print(
         LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
-        "Native Development Kit SetMessageEventHandler begin");
+        "Native Development Kit setMessageEventHandlerThread begin");
     if (g_web_message_port_arr == nullptr) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ArkWeb", "webMessagePort is nullptr");
         return nullptr;
@@ -246,7 +244,9 @@ static napi_value setMessageEventHandlerThread(napi_env env, napi_callback_info 
     webMessagePort->setMessageEventHandler(g_web_message_port_arr[1], webTagValue, WebMessagePortCallback, NULL);
     OH_LOG_Print(
         LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
-        "Native Development Kit SetMessageEventHandler end, web message port size:%{public}d", g_webMessagePortSize);
+        "Native Development Kit setMessageEventHandlerThread end, web message port size:%{public}d",
+        g_webMessagePortSize);
+    delete[] webTagValue;
     return nullptr;
 }
 static napi_value postNoneMessage(napi_env env, napi_callback_info info)
@@ -281,6 +281,7 @@ static napi_value postNoneMessage(napi_env env, napi_callback_info info)
     OH_LOG_Print(
         LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
         "Native Development Kit postMessage end, web message port size:%{public}d", g_webMessagePortSize);
+    delete[] webTagValue;
     return nullptr;
 }
 
@@ -310,12 +311,13 @@ static napi_value postBufferMessage(napi_env env, napi_callback_info info)
     ArkWeb_WebMessagePtr message1 = webMessage->createWebMessage();
     webMessage->setType(message1, ArkWeb_WebMessageType::ARKWEB_BUFFER);
     std::string str1 = "send buffer from native";
-    webMessage->setData(message1, (void *)str1.c_str(), str1.length());
+    webMessage->setData(message1, (void *)str1.c_str(), str1.length()+1);
     webMessagePort->postMessage(g_web_message_port_arr[1], webTagValue, message1);
     webMessage->destroyWebMessage(&message1);
     OH_LOG_Print(
         LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
         "Native Development Kit postMessage end, web message port size:%{public}d", g_webMessagePortSize);
+    delete[] webTagValue;
     return nullptr;
 }
 
@@ -345,6 +347,7 @@ static napi_value setMessageEventHandler(napi_env env, napi_callback_info info)
     OH_LOG_Print(
         LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
         "Native Development Kit SetMessageEventHandler end, web message port size:%{public}d", g_webMessagePortSize);
+    delete[] webTagValue;
     return nullptr;
 }
 
@@ -365,15 +368,16 @@ static napi_value closeMessagePort(napi_env env, napi_callback_info info)
         "Native Development Kit Refresh webTag:%{public}s", webTagValue);
 
     // 关闭端口，先调用close，再调用destroyWebMessagePorts
-    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "Native Development Kit SetMessageEventHandler begin");
+    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "Native Development Kit closeMessagePort begin");
     if (g_web_message_port_arr == nullptr) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ArkWeb", "webMessagePort is nullptr");
         return nullptr;
     }
     webMessagePort->close(g_web_message_port_arr[0], webTagValue);
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
-        "Native Development Kit SetMessageEventHandler end, web message port size:%{public}d", g_webMessagePortSize);
+        "Native Development Kit closeMessagePort end, web message port size:%{public}d", g_webMessagePortSize);
     controller->refresh(webTagValue);
+    delete[] webTagValue;
     return nullptr;
 }
 
@@ -394,7 +398,7 @@ static napi_value destroyMessagePort(napi_env env, napi_callback_info info)
         "Native Development Kit Refresh webTag:%{public}s", webTagValue);
 
     // 释放内存，先调用close，再调用destroyWebMessagePorts
-    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "Native Development Kit SetMessageEventHandler begin");
+    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "Native Development Kit destroyMessagePort begin");
     if (g_web_message_port_arr == nullptr) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "ArkWeb", "webMessagePort is nullptr");
         return nullptr;
@@ -402,7 +406,8 @@ static napi_value destroyMessagePort(napi_env env, napi_callback_info info)
     controller->destroyWebMessagePorts(&g_web_message_port_arr, g_webMessagePortSize);
     OH_LOG_Print(
         LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
-        "Native Development Kit SetMessageEventHandler end, web message port size:%{public}d", g_webMessagePortSize);
+        "Native Development Kit destroyMessagePort end, web message port size:%{public}d", g_webMessagePortSize);
+    delete[] webTagValue;
     return nullptr;
 }
 
@@ -423,13 +428,14 @@ static napi_value destroyNullMessagePort(napi_env env, napi_callback_info info)
         "Native Development Kit Refresh webTag:%{public}s", webTagValue);
 
     // 释放内存，先调用close，再调用destroyWebMessagePorts
-    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "Native Development Kit SetMessageEventHandler begin");
+    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb", "Native Development Kit destroyNullMessagePort begin");
 
     controller->destroyWebMessagePorts(&g_web_message_port_arr, g_webMessagePortSize);
 
     OH_LOG_Print(
         LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "ArkWeb",
-        "Native Development Kit SetMessageEventHandler end, web message port size:%{public}d", g_webMessagePortSize);
+        "Native Development Kit destroyNullMessagePort end, web message port size:%{public}d", g_webMessagePortSize);
+    delete[] webTagValue;
     return nullptr;
 }
 
@@ -460,7 +466,7 @@ static napi_module demoModule = {
     .nm_flags = 0,
     .nm_filename = nullptr,
     .nm_register_func = Init,
-    .nm_modname = "entry",
+    .nm_modname = "entry5",
     .nm_priv = ((void *)0),
     .reserved = {0},
 };

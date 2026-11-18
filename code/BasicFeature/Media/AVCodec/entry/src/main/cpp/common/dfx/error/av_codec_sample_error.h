@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,6 +19,9 @@
 enum AVCodecSampleError : int {
     AVCODEC_SAMPLE_ERR_OK = 0,
     AVCODEC_SAMPLE_ERR_ERROR = -1,
+    AVCODEC_SAMPLE_ERR_AGAIN = -2,
+    AVCODEC_SAMPLE_ERR_CHANGED = -3,
+    AVCODEC_SAMPLE_ERR_END = -4,
 };
 
-#endif // AVCODEC_SAMPLE_ERROE_H
+#endif

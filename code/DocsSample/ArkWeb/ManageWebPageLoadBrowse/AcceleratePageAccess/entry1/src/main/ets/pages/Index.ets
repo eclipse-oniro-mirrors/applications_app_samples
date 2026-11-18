@@ -14,11 +14,6 @@
  */
 // [Start previously_connect_in_onAppear_to_pages_being_loaded]
 import { webview } from '@kit.ArkWeb';
-// [StartExclude previously_connect_in_onAppear_to_pages_being_loaded]
-function resourceToString(resource: Resource) {
-  return getContext().resourceManager.getStringSync(resource);
-}
-// [EndExclude previously_connect_in_onAppear_to_pages_being_loaded]
 
 @Entry
 @Component
@@ -27,17 +22,11 @@ struct WebComponent {
 
   build() {
     Column() {
-      Button('loadData')
-        .onClick(() => {
-          if (this.webviewController.accessBackward()) {
-            this.webviewController.backward();
-          }
-        })
-      Web({ src: $r('app.string.web_path_one'), controller: this.webviewController })
+      Web({ src: 'https://www.example.com/', controller: this.webviewController })
         .onAppear(() => {
           // 指定第二个参数为true，代表要进行预连接，如果为false该接口只会对网址进行dns预解析
           // 第三个参数为要预连接socket的个数。最多允许6个。
-          webview.WebviewController.prepareForPageLoad(resourceToString($r('app.string.web_path_one')), true, 2);
+          webview.WebviewController.prepareForPageLoad('https://www.example.com/', true, 2);
         })
     }
   }

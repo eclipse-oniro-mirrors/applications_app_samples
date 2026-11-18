@@ -14,9 +14,10 @@
  */
 @Entry
 @Component
-struct pageBExample {
+struct PageBExample {
   build() {
     Stack() {
+      // 请将$r('app.media.ic_health_heart')替换为实际资源文件
       Image($r('app.media.ic_health_heart')).width(150).height(150)
         .sharedTransition('sharedImage', { duration: 800, curve: Curve.Linear, delay: 100 })
     }.width('100%').height('100%')

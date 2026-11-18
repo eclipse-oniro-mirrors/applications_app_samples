@@ -1,0 +1,136 @@
+{
+  "string": [
+    {
+      "name": "resend",
+      "value": "Resend"
+    },
+    {
+      "name": "correct",
+      "value": "Correct"
+    },
+    {
+      "name": "retry_failed",
+      "value": "Retry Failed Only"
+    },
+    {
+      "name": "executing",
+      "value": "Running"
+    },
+    {
+      "name": "no_logs",
+      "value": "No send records"
+    },
+    {
+      "name": "read_only_hint",
+      "value": "This device cannot emit infrared; sending is unavailable"
+    },
+    {
+      "name": "send_success",
+      "value": "Sent successfully"
+    },
+    {
+      "name": "send_failed",
+      "value": "Send failed"
+    },
+    {
+      "name": "expected_on",
+      "value": "Expected On"
+    },
+    {
+      "name": "expected_off",
+      "value": "Expected Off"
+    },
+    {
+      "name": "expected_unknown",
+      "value": "Unknown state"
+    },
+    {
+      "name": "status_pending",
+      "value": "Pending"
+    },
+    {
+      "name": "status_sending",
+      "value": "Sending"
+    },
+    {
+      "name": "status_success",
+      "value": "Success"
+    },
+    {
+      "name": "status_failed",
+      "value": "Failed"
+    },
+    {
+      "name": "step_label",
+      "value": "Step %d"
+    },
+    {
+      "name": "step_dash",
+      "value": "—"
+    },
+    {
+      "name": "duration_ms",
+      "value": "%d ms"
+    },
+    {
+      "name": "msg_read_only_send",
+      "value": "This device cannot emit infrared; sending is unavailable"
+    },
+    {
+      "name": "msg_busy_running",
+      "value": "A scene is running"
+    },
+    {
+      "name": "msg_busy",
+      "value": "Busy"
+    },
+    {
+      "name": "msg_no_retry",
+      "value": "No failed steps to retry"
+    },
+    {
+      "name": "msg_invalid_scene",
+      "value": "Scene configuration is invalid"
+    },
+    {
+      "name": "msg_scene_key_missing",
+      "value": "Scene key does not exist"
+    },
+    {
+      "name": "msg_ir_code_missing",
+      "value": "IR code does not exist"
+    },
+    {
+      "name": "msg_ir_compile_failed",
+      "value": "Failed to compile IR code"
+    },
+    {
+      "name": "msg_scene_no_steps",
+      "value": "The scene has no steps to send"
+    },
+    {
+      "name": "msg_scene_done",
+      "value": "Scene finished"
+    },
+    {
+      "name": "msg_scene_partial",
+      "value": "Some steps failed"
+    },
+    {
+      "name": "msg_device_missing",
+      "value": "Device does not exist"
+    },
+    {
+      "name": "msg_device_no_keys",
+      "value": "This device has no available keys"
+    },
+    {
+      "name": "msg_key_missing",
+      "value": "Key does not exist"
+    },
+    {
+      "name": "msg_run_summary",
+      "value": "Succeeded %d/%d steps"
+    }
+  ]
+}

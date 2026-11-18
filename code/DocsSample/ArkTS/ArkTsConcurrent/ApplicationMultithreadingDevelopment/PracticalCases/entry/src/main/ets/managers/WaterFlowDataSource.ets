@@ -65,7 +65,7 @@ export class WaterFlowDataSource implements IDataSource {
     })
   }
 
-  //通知控制器数据批量修改
+  // 通知控制器数据批量修改
   notifyDatasetChange(operations: DataOperation[]): void {
     this.listeners.forEach(listener => {
       listener.onDatasetChange(operations);
@@ -136,8 +136,8 @@ export class WaterFlowDataSource implements IDataSource {
 
   // 重新加载数据
   public reload(): void {
-    this.dataArray.splice(1, 1);
     this.dataArray.splice(3, 2);
+    this.dataArray.splice(1, 1);
     this.notifyDataReload();
   }
 }

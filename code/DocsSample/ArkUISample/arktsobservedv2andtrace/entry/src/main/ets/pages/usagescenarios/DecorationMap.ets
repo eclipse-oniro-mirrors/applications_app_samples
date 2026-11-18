@@ -1,0 +1,77 @@
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+// [Start Decoration_Map]
+@ObservedV2
+class Info {
+  @Trace public memberMap: Map<number, string> = new Map([[0, 'a'], [1, 'b'], [3, 'c']]);
+}
+
+@Entry
+@ComponentV2
+struct MapSample {
+  info: Info = new Info();
+
+  build() {
+    Row() {
+      Column() {
+        ForEach(Array.from(this.info.memberMap.entries()), (item: [number, string]) => {
+          Text(`${item[0]}`)
+            .fontSize(30)
+            .margin(10)
+          Text(`${item[1]}`)
+            .fontSize(30)
+            .margin(10)
+          Divider()
+        })
+        // 被@Trace装饰的Map类型属性可以观测到调用API带来的变化
+        Button('init map')
+          .width(300)
+          .margin(10)
+          .onClick(() => {
+            this.info.memberMap = new Map([[0, 'a'], [1, 'b'], [3, 'c']]);
+          })
+        Button('set new one')
+          .width(300)
+          .margin(10)
+          .onClick(() => {
+            this.info.memberMap.set(4, 'd');
+          })
+        Button('clear')
+          .width(300)
+          .margin(10)
+          .onClick(() => {
+            this.info.memberMap.clear();
+          })
+        Button('set the key: 0')
+          .width(300)
+          .margin(10)
+          .onClick(() => {
+            this.info.memberMap.set(0, 'aa');
+          })
+        Button('delete the first one')
+          .width(300)
+          .margin(10)
+          .onClick(() => {
+            this.info.memberMap.delete(0);
+          })
+      }
+      .width('100%')
+    }
+    .height('100%')
+  }
+}
+
+// [End Decoration_Map]
+export default MapSample;

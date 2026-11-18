@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,10 +22,15 @@ import { AnimationPopupExample } from './PopupAnimation';
 import { StatePopupExample } from './PopupStateChange';
 import { StylePopupExample } from './PopupStyle';
 import { TextPopupExample } from './TextPrompts';
-
+import { AvoidSoftKeyboardPopupExample } from './PopupAvoidSoftKeyboard';
+import { PolymorphicEffectPopupExample } from './PopupPolymorphicEffect';
+import { SupportedAvoidAxisPopupExample } from './PopupSupportedAvoidAxis';
+import { OpenPopup } from './globalpopupsindependentofuicomponents/OpenPopup';
+import { OpenPopupWithTargetIdString } from './globalpopupsindependentofuicomponents/OpenPopupWithTargetIdString';
 
 export const Popup_ROUTE_PREFIX: string = 'Popup_ROUTE_PREFIX';
 
+// $r('app.string.xxx')需要替换为开发者所需的资源文件
 const routes: Route[] = [
   {
     name: `${Popup_ROUTE_PREFIX}/TextPopupExample`,
@@ -56,6 +61,31 @@ const routes: Route[] = [
     name: `${Popup_ROUTE_PREFIX}/StylePopupExample`,
     title: resource.resourceToString($r('app.string.StylePopup_title')),
     description: $r('app.string.StylePopup_des'),
+  },
+  {
+    name: `${Popup_ROUTE_PREFIX}/AvoidSoftKeyboardPopupExample`,
+    title: resource.resourceToString($r('app.string.AvoidSoftKeyboardPopupExample_title')),
+    description: $r('app.string.AvoidSoftKeyboardPopupExample_des'),
+  },
+  {
+    name: `${Popup_ROUTE_PREFIX}/PolymorphicEffectPopupExample`,
+    title: resource.resourceToString($r('app.string.PolymorphicEffectPopupExample_title')),
+    description: $r('app.string.PolymorphicEffectPopupExample_des'),
+  },
+  {
+    name: `${Popup_ROUTE_PREFIX}/SupportedAvoidAxisPopupExample`,
+    title: resource.resourceToString($r('app.string.SupportedAvoidAxisPopupExample_title')),
+    description: $r('app.string.SupportedAvoidAxisPopupExample_des'),
+  },
+  {
+    name: `${Popup_ROUTE_PREFIX}/OpenPopupExample`,
+    title: resource.resourceToString($r('app.string.StylePopup_global')),
+    description: $r('app.string.StylePopup_global_des'),
+  },
+  {
+    name: `${Popup_ROUTE_PREFIX}/OpenPopupWithTargetIdString`,
+    title: resource.resourceToString($r('app.string.OpenPopupWithTargetIdString')),
+    description: $r('app.string.StylePopup_global_des'),
   }
 ]
 
@@ -75,6 +105,16 @@ export function PopupDestination(name: string) {
     CustomPopupExample();
   } else if (name === routes[5].name) {
     StylePopupExample();
+  } else if (name === routes[6].name) {
+    AvoidSoftKeyboardPopupExample();
+  } else if (name === routes[7].name) {
+    PolymorphicEffectPopupExample();
+  } else if (name === routes[8].name) {
+    SupportedAvoidAxisPopupExample();
+  } else if (name === routes[9].name) {
+    OpenPopup();
+  } else if (name === routes[10].name) {
+    OpenPopupWithTargetIdString();
   }
 }
 
@@ -104,6 +144,7 @@ struct PopupExample {
       backgroundBlurStyle: BlurStyle.COMPONENT_THICK,
       barStyle: BarStyle.STACK
     })
+    // 请将$r('app.string.popup')替换为实际资源文件，在本示例中该资源文件的value值为"气泡提示"
     .title($r('app.string.popup'))
   }
 }

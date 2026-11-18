@@ -12,18 +12,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start includeHeaderFile]
 import { ErrorEvent, MessageEvents, worker } from '@kit.ArkTS'
 import { SendableObject } from '../util/SendableObject';
 import { common, sendableContextManager } from '@kit.AbilityKit';
+// [End includeHeaderFile]
 
-
+// [Start workerCallback]
+// [StartExclude workerCallback]
 @Entry
 @Component
 struct Index {
+// [EndExclude workerCallback]
   private workerInstance?: worker.ThreadWorker;
+  // [StartExclude workerCallback]
+  // [Start logicSendingParameters]
   private context: Context | undefined;
+  // [StartExclude logicSendingParameters]
+  // [EndExclude workerCallback]
   @State currentProgress: number = 0;
-
+  // [StartExclude workerCallback]
   build() {
     RelativeContainer() {
       Column() {
@@ -49,11 +57,13 @@ struct Index {
 
   async startWorker() {
     // 创建Worker对象
+    // [EndExclude workerCallback]
     this.workerInstance = new worker.ThreadWorker('entry/ets/workers/task.ets');
 
 
+    // [Start DestroyWorkerThread]
     // 注册onmessage回调，当宿主线程接收到来自其创建的Worker通过workerPort.postMessage接口发送的消息时被调用，
-    // 在宿主线程执行
+    // 在宿主线程执行。
     this.workerInstance.onmessage = (e: MessageEvents) => {
       let data: string | number = e.data;
       if (typeof data === 'string') {
@@ -66,29 +76,32 @@ struct Index {
         this.currentProgress = data;
       }
     }
+    // [End DestroyWorkerThread]
 
 
     // 注册onErrors回调，可以捕获Worker线程的onmessage回调、timer回调以及文件执行等流程产生的全局异常，
-    // 在宿主线程执行
+    // 在宿主线程执行。
     this.workerInstance.onerror = (err: ErrorEvent) => {
       console.error('workerInstance onerror message is: ' + err.message);
     }
 
 
-    // 注册onmessageerror回调，当Worker对象接收到一条无法被序列化的消息时被调用，在宿主线程执行
+    // 注册onmessageerror回调，当Worker对象接收到一条无法被序列化的消息时被调用，在宿主线程执行。
     this.workerInstance.onmessageerror = () => {
       console.error('workerInstance onmessageerror');
     }
 
 
-    // 注册onexit回调，当Worker销毁时被调用，在宿主线程执行
+    // 注册onexit回调，当Worker销毁时被调用，在宿主线程执行。
     this.workerInstance.onexit = (e: number) => {
-      // 当Worker正常退出时code为0，异常退出时code为1
+      // 当Worker正常退出时code为0，异常退出时code为1。
       console.info('workerInstance onexit code is: ', e);
     }
+    // [End workerCallback]
 
 
-    // 向Worker线程发送消息
+    // [EndExclude logicSendingParameters]
+    // 向Worker线程发送消息。
     this.context = this.getUIContext().getHostContext();
     if (this.context != undefined) {
       const sendableContext: sendableContextManager.SendableContext =sendableContextManager.convertFromContext(
@@ -96,5 +109,6 @@ struct Index {
       const sendableObject: SendableObject = new SendableObject(sendableContext, 'some information');
       this.workerInstance.postMessageWithSharedSendable(sendableObject);
     }
+    // [End logicSendingParameters]
   }
 }

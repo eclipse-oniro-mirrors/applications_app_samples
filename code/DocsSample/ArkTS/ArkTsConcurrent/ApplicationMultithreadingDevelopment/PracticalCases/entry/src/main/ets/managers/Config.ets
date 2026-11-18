@@ -20,7 +20,7 @@ import { ArkTSUtils } from '@kit.ArkTS';
 
 @Sendable
 class Config {
-  public lock: ArkTSUtils.locks.AsyncLock = new ArkTSUtils.locks.AsyncLock;
+  public lock: ArkTSUtils.locks.AsyncLock = new ArkTSUtils.locks.AsyncLock();
   public isLogin: boolean = false;
   public loginUser?: string;
   public wifiOn: boolean = false;
@@ -32,7 +32,7 @@ class Config {
     }, ArkTSUtils.locks.AsyncLockMode.EXCLUSIVE)
   }
 
-  async logout(user?: string) {
+  async logout() {
     return this.lock.lockAsync(() => {
       this.isLogin = false;
       this.loginUser = '';

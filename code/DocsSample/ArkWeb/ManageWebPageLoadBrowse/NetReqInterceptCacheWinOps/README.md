@@ -1,9 +1,3 @@
-
-
-
-
-
-
 ## entry:
 
 ### 拦截Web组件发起的网络请求
@@ -46,6 +40,12 @@ entry/src/main/
 |---|---|---|---Ability.test.ets            // 自动化测试用例
 ```
 
+##### 具体实现
+* 本示例通过使用SchemeHandler相关API实现对Web组件发出的请求进行拦截，并为被拦截的请求提供自定义的响应头以及响应体。
+  * 为Web组件设置SchemeHandler：通过SchemeHandler拦截Web组件或者ServiceWorker发出的HTTP(s)或者自定义协议的请求。源码参考[hello.cpp](./entry/src/main/cpp/hello.cpp)
+  * 获取被拦截请求的信息：在请求开始的回调中，应用可以获取请求的基本信息。源码参考[rawfile_request.cpp](./entry/src/main/cpp/rawfile_request.cpp)
+  * 拦截Web内核的请求，并为被拦截的请求提供自定义的响应体：网络拦截支持在worker线程以流方式为被拦截的请求提供自定义的响应体。源码参考[rawfile_request.cpp](./entry/src/main/cpp/rawfile_request.cpp)
+
 
 ##### 相关权限
 
@@ -82,8 +82,8 @@ entry/src/main/
 ```
 entry2/src/main/
 |---ets
-|---|---entry2ability
-|---|---|---Entry2Ability.ets
+|---|---entryability
+|---|---|---EntryAbility.ets
 |---|---pages
 |---|---|---Index.ets						// 首页
 |---resources								// 静态资源
@@ -93,6 +93,9 @@ entry2/src/main/
 |---|---|---|---Ability.test.ets            // 自动化测试用例
 ```
 
+##### 具体实现
+* 在调用initializeWebEngine初始化ArkWeb内核之前调用enableBackForwardCache来开启BFCache。源码参考[EntryAbility.ets](./entry2/src/main/ets/entryability/EntryAbility.ets)
+* 调用setBackForwardCacheOptions设置每个Web实例的前进后退缓存策略。源码参考[Index.ets](./entry2/src/main/ets/pages/Index.ets)
 
 ##### 相关权限
 
@@ -140,6 +143,8 @@ entry3/src/main/
 |---|---|---|---Ability.test.ets            // 自动化测试用例
 ```
 
+#### 具体实现
+通过[BuilderNode](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-user-defined-arktsNode-builderNode.md)，开发者可创建Web组件的离线节点，并结合[自定义占位节点](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev//ui/arkts-user-defined-place-holder.md)控制Web节点的挂载与移除。当从一个窗口上移除Web节点，并挂载到另一个窗口中，即完成Web组件在窗口间的迁移。参考源码：[Index.ets](./entry3/src/main/ets/pages/Index.ets)
 
 ##### 相关权限
 

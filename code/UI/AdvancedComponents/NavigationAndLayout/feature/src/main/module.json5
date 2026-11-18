@@ -1,0 +1,15 @@
+{
+  "module": {
+    "name": "feature",
+    "type": "shared",
+    "description": "$string:module_desc",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+    "routerMap": "$profile:route_map"
+  }
+}

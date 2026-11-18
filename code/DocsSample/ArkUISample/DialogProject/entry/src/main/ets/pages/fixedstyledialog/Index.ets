@@ -18,7 +18,9 @@ import { Route } from '../../common/Route';
 import { showActionSheetExample } from './ActionSheet';
 import { CalendarDialog } from './CalendarPickerDialog';
 import { DatePickerDialogExample } from './DatePickerDialog';
+import { DatePickerCustomDialogExample } from './DatePickerCustomDialog';
 import { TextPickerDialogExample } from './TextPickerDialog';
+import {TextPickerCNDialogExample} from './TextPickerCNDialog'
 import { TimePickerDialogExample } from './TimePickerDialog';
 import { showAlertDialogExample } from './AlertDialog';
 import { ShowActionMenuExample } from './ShowActionMenu';
@@ -28,6 +30,7 @@ import resource from '../../common/resource';
 
 export const Fixed_ROUTE_PREFIX: string = 'Fixed_ROUTE_PREFIX';
 
+// $r('app.string.xxx')需要替换为开发者所需的资源文件
 const routes: Route[] = [
   {
     name: `${Fixed_ROUTE_PREFIX}/CalendarPickerDialog`,
@@ -40,6 +43,11 @@ const routes: Route[] = [
     description: $r('app.string.DatePicker_des'),
   },
   {
+    name: `${Fixed_ROUTE_PREFIX}/DatePickerCustomDialogExample`,
+    title: resource.resourceToString($r('app.string.DatePickerCustom_title')),
+    description: $r('app.string.DatePickerCustom_des'),
+  },
+  {
     name: `${Fixed_ROUTE_PREFIX}/TimePickerDialog`,
     title: resource.resourceToString($r('app.string.TimePicker_title')),
     description: $r('app.string.TimePicker_des'),
@@ -48,6 +56,11 @@ const routes: Route[] = [
     name: `${Fixed_ROUTE_PREFIX}/TextPickerDialog`,
     title: resource.resourceToString($r('app.string.TextPicker_title')),
     description: $r('app.string.TextPicker_des'),
+  },
+  {
+    name: `${Fixed_ROUTE_PREFIX}/TextPickerCNDialog`,
+    title: resource.resourceToString($r('app.string.TextPicker_cn_title')),
+    description: $r('app.string.TextPicker_cn_des'),
   },
   {
     name: `${Fixed_ROUTE_PREFIX}/ActionSheet`,
@@ -80,16 +93,20 @@ export function FixedDialogDestination(name: string) {
   } else if (name === routes[1].name) {
     DatePickerDialogExample();
   } else if (name === routes[2].name) {
-    TimePickerDialogExample();
+    DatePickerCustomDialogExample();
   } else if (name === routes[3].name) {
-    TextPickerDialogExample();
+    TimePickerDialogExample();
   } else if (name === routes[4].name) {
-    showActionSheetExample();
+    TextPickerDialogExample();
   } else if (name === routes[5].name) {
-    showAlertDialogExample();
+    TextPickerCNDialogExample();
   } else if (name === routes[6].name) {
-    ShowActionMenuExample();
+    showActionSheetExample();
   } else if (name === routes[7].name) {
+    showAlertDialogExample();
+  } else if (name === routes[8].name) {
+    ShowActionMenuExample();
+  } else if (name === routes[9].name) {
     ShowDialogExample();
   }
 }
@@ -120,6 +137,7 @@ struct FixedDialogExample {
       backgroundBlurStyle: BlurStyle.COMPONENT_THICK,
       barStyle: BarStyle.STACK
     })
+    // 请将$r('app.string.fixed_dialog')替换为实际资源文件，在本示例中该资源文件的value值为"固定样式弹出框"
     .title($r('app.string.fixed_dialog'))
   }
 }

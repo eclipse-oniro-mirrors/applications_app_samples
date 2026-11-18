@@ -1,0 +1,13 @@
+{
+  "src": [
+    "pages/Index",
+    "Component/CustomGestures/CustomGestureDetermination",
+    "Component/GestureAndMotionControl/GestureAndMotionControl",
+    "Component/PreventGestureRecognition/PreventGestureRecognition",
+    "Component/CustomGestures/CustomGestures",
+    "Component/GestureAndMotionControl/GestureControl",
+    "Component/PreventGestureRecognition/PreventIdentification",
+    "Component/CustomGestureAndMotionControl/GestureControl",
+    "Component/InterceptGestureCollection/InterceptGestureCollection"
+  ]
+}

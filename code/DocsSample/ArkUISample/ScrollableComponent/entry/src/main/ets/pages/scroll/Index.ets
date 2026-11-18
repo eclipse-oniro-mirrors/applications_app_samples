@@ -1,0 +1,85 @@
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { CompletedRoutableCard } from '../../common/Card';
+import { ScrollModifierDestination } from './ScrollModifier/Index';
+import { ScrollSnapDestination } from './ScrollSnap/Index';
+import { ScrollLazyDemoDestination } from './ScrollLazyDemo/Index';
+import { Route } from '../../common/Route';
+import resource from '../../common/resource';
+
+export const ScrollSnap_ROUTE_PREFIX: string = 'ScrollSnap';
+export const ScrollModifier_ROUTE_PREFIX: string = 'ScrollModifier';
+export const ScrollLazyDemo_ROUTE_PREFIX: string = 'ScrollLazyDemo';
+export const Scroll_ROUTE_PREFIX: string = 'scroll';
+
+const routes: Route[] = [
+  {
+    name: `${Scroll_ROUTE_PREFIX}/${ScrollSnap_ROUTE_PREFIX}/Index`,
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.Scroll_Title'))},
+  },
+  {
+    name: `${Scroll_ROUTE_PREFIX}/${ScrollModifier_ROUTE_PREFIX}/Index`,
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.ScrollModifier_Title'))},
+  },
+  {
+    name: `${Scroll_ROUTE_PREFIX}/${ScrollLazyDemo_ROUTE_PREFIX}/Index`,
+    title: (context: Context) => { return 'Scroll+LazyVGridLayout'},
+  }
+];
+
+@Builder
+export function scrollDestination(name: string) {
+  if (name === Scroll_ROUTE_PREFIX) {
+    ScrollExample();
+  } else if (name === routes[0].name) {
+    ScrollSnapDestination();
+  } else if (name.startsWith(routes[1].name)) {
+    ScrollModifierDestination();
+  } else if (name.startsWith(routes[2].name)) {
+    ScrollLazyDemoDestination();
+  }
+}
+
+@Entry
+@Component
+struct ScrollExample {
+  @Consume pathStack: NavPathStack;
+
+  build() {
+    NavDestination() {
+      List({ space: 12 }) {
+        ForEach(routes, (route: Route) => {
+          ListItem() {
+            CompletedRoutableCard({ title: route.title(this.getUIContext().getHostContext()!),
+            description: route.description })
+          }
+          .width('100%')
+          .onClick(() => {
+            this.pathStack.pushPath({ name: route.name });
+            console.log(route.name +'点击滑动离手事件')
+          })
+        })
+      }
+      .contentStartOffset(56)
+      .padding({ left: 16, right: 16 })
+    }
+    .backgroundColor($r('app.color.navigation_background'))
+    .title('Scroll', {
+      backgroundColor: $r('app.color.navigation_background'),
+      barStyle: BarStyle.STACK
+    })
+  }
+}

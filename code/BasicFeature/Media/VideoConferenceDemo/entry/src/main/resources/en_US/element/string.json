@@ -1,0 +1,12 @@
+{
+  "string": [
+    {
+      "name": "microphone_reason",
+      "value": "For recording audio"
+    },
+    {
+      "name": "record_audio_base_on_avscreencapture",
+      "value": "Record Audio Base On AVScreenCapture"
+    }
+  ]
+}

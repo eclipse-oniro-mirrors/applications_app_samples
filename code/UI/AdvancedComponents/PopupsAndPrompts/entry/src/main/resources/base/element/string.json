@@ -1,0 +1,108 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Popup, exception prompt and selection menu sample"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Popups and prompts sample"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "PopupsAndPrompts"
+    },
+    {
+      "name": "page_title",
+      "value": "Popups and Prompts"
+    },
+    {
+      "name": "breakpoint_label",
+      "value": "Current layout"
+    },
+    {
+      "name": "hub_popup_title",
+      "value": "PopupV2"
+    },
+    {
+      "name": "hub_popup_desc",
+      "value": "Bubble popup with buttons and close action"
+    },
+    {
+      "name": "hub_exception_title",
+      "value": "ExceptionPrompt"
+    },
+    {
+      "name": "hub_exception_desc",
+      "value": "Exception tip with action text"
+    },
+    {
+      "name": "hub_exception_v2_title",
+      "value": "ExceptionPromptV2"
+    },
+    {
+      "name": "hub_exception_v2_desc",
+      "value": "Exception tip based on state management V2"
+    },
+    {
+      "name": "hub_selection_title",
+      "value": "SelectionMenu"
+    },
+    {
+      "name": "hub_selection_desc",
+      "value": "Custom text selection menu for RichEditor"
+    },
+    {
+      "name": "popup_title",
+      "value": "PopupV2 demo"
+    },
+    {
+      "name": "exception_title",
+      "value": "ExceptionPrompt demo"
+    },
+    {
+      "name": "exception_v2_title",
+      "value": "ExceptionPromptV2 demo"
+    },
+    {
+      "name": "selection_title",
+      "value": "SelectionMenu demo"
+    },
+    {
+      "name": "back",
+      "value": "Back"
+    },
+    {
+      "name": "confirm",
+      "value": "Confirm"
+    },
+    {
+      "name": "cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "show",
+      "value": "Show again"
+    },
+    {
+      "name": "action",
+      "value": "Settings"
+    },
+    {
+      "name": "set_selection",
+      "value": "Set selection"
+    },
+    {
+      "name": "selected_label",
+      "value": "Selected"
+    },
+    {
+      "name": "menu_action",
+      "value": "Menu action"
+    },
+    {
+      "name": "hide",
+      "value": "Hide"
+    }
+  ]
+}

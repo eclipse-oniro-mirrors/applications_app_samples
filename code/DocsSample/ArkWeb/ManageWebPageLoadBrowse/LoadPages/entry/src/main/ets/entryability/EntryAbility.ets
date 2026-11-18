@@ -13,15 +13,19 @@
  * limitations under the License.
  */
  
+// [Start EntryAbility]
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
+import { GlobalContext } from '../pages/GlobalContext';
 
 export default class EntryAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
-  }
-
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {	
+       // 通过在GlobalContext对象上绑定filesDir，可以实现UIAbility组件与UI之间的数据同步。	
+       GlobalContext.getContext().setObject('filesDir', this.context.filesDir);	
+       console.info('Sandbox path is ' + GlobalContext.getContext().getObject('filesDir'));	
+     }
+  // [StartExclude EntryAbility]
   onDestroy(): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
   }
@@ -53,4 +57,6 @@ export default class EntryAbility extends UIAbility {
     // Ability has back to background
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
   }
+  // [EndExclude EntryAbility]
 }
+// [End EntryAbility]

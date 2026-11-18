@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start particle_example3]
 @Entry
 @Component
 struct ParticleExample3 {
@@ -24,28 +25,28 @@ struct ParticleExample3 {
           {
             emitter: {
               particle: {
-                type: ParticleType.POINT, //粒子类型
+                type: ParticleType.POINT, // 粒子类型
                 config: {
-                  radius: 10//圆点半径
+                  radius: 10 // 圆点半径
                 },
-                count: 500, //粒子总数
-                lifetime: 10000//粒子生命周期，单位ms
+                count: 500, // 粒子总数
+                lifetime: 10000 // 粒子生命周期，单位ms
               },
-              emitRate: 10, //每秒发射粒子数
+              emitRate: 10, // 每秒发射粒子数
               position: [0, 0],
-              shape: ParticleEmitterShape.RECTANGLE//发射器形状
+              shape: ParticleEmitterShape.RECTANGLE // 发射器形状
             },
             color: {
-              range: [Color.Red, Color.Yellow], //初始颜色范围
+              range: [Color.Red, Color.Yellow], // 初始颜色范围
               updater: {
-                type: ParticleUpdater.CURVE, //变化方式为曲线变化
+                type: ParticleUpdater.CURVE, // 变化方式为曲线变化
                 config: [
                   {
-                    from: Color.White, //变化起始值
-                    to: Color.Pink, //变化终点值
-                    startMillis: 0, //开始时间
-                    endMillis: 3000, //结束时间
-                    curve: Curve.EaseIn//变化曲线
+                    from: Color.White, // 变化起始值
+                    to: Color.Pink, // 变化终点值
+                    startMillis: 0, // 开始时间
+                    endMillis: 3000, // 结束时间
+                    curve: Curve.EaseIn // 变化曲线
                   },
                   {
                     from: Color.Pink,
@@ -65,7 +66,7 @@ struct ParticleExample3 {
               }
             },
             opacity: {
-              range: [0.0, 1.0], //粒子透明度的初始值从[0.0,1.0]随机产生
+              range: [0.0, 1.0], // 粒子透明度的初始值从[0.0,1.0]随机产生
               updater: {
                 type: ParticleUpdater.CURVE,
                 config: [
@@ -102,7 +103,7 @@ struct ParticleExample3 {
               }
             },
             acceleration: {
-              //加速度的配置，从大小和方向两个维度变化，speed表示加速度大小，angle表示加速度方向
+              // 加速度的配置，从大小和方向两个维度变化，speed表示加速度大小，angle表示加速度方向
               speed: {
                 range: [3, 9],
                 updater: {
@@ -117,16 +118,18 @@ struct ParticleExample3 {
 
           }
         ]
+      // 设置粒子扰动场，干扰粒子运动轨迹
       }).width(300).height(300).disturbanceFields([{
-        strength: 10,
-        shape: DisturbanceFieldShape.RECT,
-        size: { width: 100, height: 100 },
-        position: { x: 100, y: 100 },
-        feather: 15,
-        noiseScale: 10,
-        noiseFrequency: 15,
-        noiseAmplitude: 5
+        strength: 10, // 场强，表示排斥力或吸引力的强度
+        shape: DisturbanceFieldShape.RECT, // 扰动场形状为矩形
+        size: { width: 100, height: 100 }, // 扰动场大小
+        position: { x: 100, y: 100 }, // 扰动场位置
+        feather: 15, // 羽化值，表示场从中心点到场边缘的衰减程度
+        noiseScale: 10, // 噪声尺度
+        noiseFrequency: 15, // 噪声频率
+        noiseAmplitude: 5 // 噪声振幅
       }])
     }.width('100%').height('100%').align(Alignment.Center)
   }
 }
+// [End particle_example3]

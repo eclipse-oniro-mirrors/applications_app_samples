@@ -1,0 +1,10 @@
+{
+  "src": [
+    "pages/Index",
+    "View/GetTargetObject",
+    "View/GetTargetNoChange",
+    "View/GetTargetAgent",
+    "View/GetAgentObject",
+    "View/GetBeforeAgent"
+  ]
+}

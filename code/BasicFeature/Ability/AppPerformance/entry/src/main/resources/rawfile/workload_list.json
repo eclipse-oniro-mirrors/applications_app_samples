@@ -1,0 +1,1 @@
+{"schema":1,"rows":[{"id":"resource","title":"资源读取实验","asset":"sample.txt"},{"id":"list","title":"列表恢复实验","asset":"workload_list.json"},{"id":"images","title":"图片索引实验","asset":"workload_images.json"},{"id":"form","title":"表单草稿实验","asset":"workload_form.json"}]}

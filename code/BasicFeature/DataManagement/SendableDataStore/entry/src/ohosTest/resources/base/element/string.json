@@ -1,0 +1,19 @@
+{
+  "string": [
+    {
+      "name": "module_test_desc",
+      "value": "SendableDataStore test module",
+      "description": "Test module description"
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "SendableDataStore test ability",
+      "description": "Test ability description"
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "SendableDataStore TestAbility",
+      "description": "Test ability label"
+    }
+  ]
+}

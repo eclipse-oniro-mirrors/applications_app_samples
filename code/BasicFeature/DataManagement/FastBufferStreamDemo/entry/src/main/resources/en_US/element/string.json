@@ -1,0 +1,80 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "FastBuffer and Stream demo module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "FastBuffer and Stream demo"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "FastBufferStreamDemo"
+    },
+    {
+      "name": "page_title",
+      "value": "FastBuffer and Stream data processing"
+    },
+    {
+      "name": "page_subtitle",
+      "value": "FastBuffer (API 20+) for efficient binary buffers ¡¤ Stream (API 12+) for chunked read/write"
+    },
+    {
+      "name": "btn_scene_1",
+      "value": "Scene 1: FastBuffer basics (create/read-write/encode/concat/slice)"
+    },
+    {
+      "name": "btn_scene_2",
+      "value": "Scene 2: FastBuffer vs Buffer benchmark"
+    },
+    {
+      "name": "btn_scene_3",
+      "value": "Scene 3: Writable streaming write (highWaterMark backpressure)"
+    },
+    {
+      "name": "btn_scene_4",
+      "value": "Scene 4: Readable streaming read (chunked consumption)"
+    },
+    {
+      "name": "btn_scene_5",
+      "value": "Scene 5: Three-stage pipeline Readable¡úTransform¡úWritable"
+    },
+    {
+      "name": "btn_scene_6",
+      "value": "Scene 6: Utilities in action (packet/CRC/hexDump)"
+    },
+    {
+      "name": "btn_scene_7",
+      "value": "Scene 7: TLV stream parsing (noise/CRC/truncation)"
+    },
+    {
+      "name": "btn_scene_8",
+      "value": "Scene 8: One-line pipe (Readable¡úTransform¡úWritable)"
+    },
+    {
+      "name": "btn_scene_9",
+      "value": "Scene 9: Duplex echo (write side echoes to read side)"
+    },
+    {
+      "name": "log_title",
+      "value": "Event log"
+    },
+    {
+      "name": "log_running",
+      "value": "(streaming¡­)"
+    },
+    {
+      "name": "breakpoint_prefix",
+      "value": "Breakpoint: %s"
+    },
+    {
+      "name": "device_prefix",
+      "value": "Device: %s"
+    },
+    {
+      "name": "api_prefix",
+      "value": "API: %d"
+    }
+  ]
+}

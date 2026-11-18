@@ -15,13 +15,15 @@
 
 import hilog from '@ohos.hilog';
 import Ability from '@ohos.app.ability.UIAbility';
+import AbilityConstant from '@ohos.app.ability.AbilityConstant';
+import Want from '@ohos.app.ability.Want';
 import AbilityDelegatorRegistry from '@ohos.application.abilityDelegatorRegistry'
 import { Hypium } from '@ohos/hypium'
 import testsuite from '../test/List.test'
 import Window from '@ohos.window'
 
 export default class TestAbility extends Ability {
-  onCreate(want, launchParam) {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onCreate');
     hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
@@ -30,7 +32,12 @@ export default class TestAbility extends Ability {
     let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
+    // 2899 条用例的注册是同步 JS（约 4s），在 onCreate 内直接执行会顶穿 5s 前台
+    // 生命周期超时（LIFECYCLE_TIMEOUT），延迟到当前 AbilityTransaction 之后执行；
+    // 回调触发时 TestAbility 须保持前台存活、abilityDelegator 可用，否则用例注册失败
+    setTimeout(() => {
+      Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
+    }, 0)
   }
 
   onDestroy() {

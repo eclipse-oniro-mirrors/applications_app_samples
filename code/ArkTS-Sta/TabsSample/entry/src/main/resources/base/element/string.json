@@ -1,0 +1,84 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "TabsSample"
+    },
+    {
+      "name": "functional_scenes_difficulty",
+      "value": "难度 "
+    },
+    {
+      "name": "functional_scenes_readme",
+      "value": "查看源码"
+    },
+    {
+      "name": "custom_tab_home",
+      "value": "首页"
+    },
+    {
+      "name": "custom_tab_friend",
+      "value": "商城"
+    },
+    {
+      "name": "custom_news",
+      "value": "新闻"
+    },
+    {
+      "name": "custom_friend",
+      "value": "朋友圈"
+    },
+    {
+      "name": "custom_video",
+      "value": "视频"
+    },
+    {
+      "name": "custom_tab_mine",
+      "value": "我的"
+    },
+    {
+      "name": "custom_return",
+      "value": " ← 返回"
+    },
+    {
+      "name": "custom_detail",
+      "value": "详情内容"
+    },
+	{
+      "name": "background_blur_discover",
+      "value": "折叠面板案例"
+    },
+    {
+      "name": "background_blur_hot",
+      "value": "主页瀑布流实现案例"
+    },
+    {
+      "name": "custom_tab_bar",
+      "value": "自定义TabBar页签案例"
+    },
+    {
+      "name": "custom_tab_Content",
+      "value": "tabContent内容可以在tabBar上显示并响应滑动事件案例"
+    },
+    {
+      "name": "custom_store",
+      "value": "商城界面，仅供Tabs展示。"
+    },
+    {
+      "name": "custom_my",
+      "value": "我的界面，仅供Tabs展示。"
+    },
+    {
+      "name": "custom_home",
+      "value": "我的首页，仅供Tabs展示。"
+    }
+  ]
+}

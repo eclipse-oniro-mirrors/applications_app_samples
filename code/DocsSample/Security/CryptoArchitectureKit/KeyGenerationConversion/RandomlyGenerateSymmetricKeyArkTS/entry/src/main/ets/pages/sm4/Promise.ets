@@ -15,6 +15,7 @@
 
 // [Start generate_sm4_key]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function testGenerateSM4Key() {
   // 创建SymKeyGenerator实例
@@ -24,7 +25,9 @@ function testGenerateSM4Key() {
   promiseSymKey.then(key => {
     // 获取对称密钥的二进制数据，输出128位字节流。长度为16字节
     let encodedKey = key.getEncoded();
-    console.info('key hex:' + encodedKey.data);
+    console.info('key hex: ' + encodedKey.data);
+  }).catch((error: BusinessError) => {
+    console.error(`testGenerateSM4Key failed: errCode: ${error.code}, message: ${error.message}`);
   });
 }
 // [End generate_sm4_key]

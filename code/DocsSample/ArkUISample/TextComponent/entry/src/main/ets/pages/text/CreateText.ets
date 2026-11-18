@@ -17,13 +17,13 @@ import { ComponentCard } from '../../common/Card';
 
 @Entry
 @Component
-export struct CreateText {
+struct CreateText {
   build() {
     NavDestination() {
       Column({ space: 12 }) {
         ComponentCard({ title: $r('app.string.CreatText_title_1') }) {
           // [Start create_a_text_in_one_way]
-          Text($r('app.string.CreateText_Text_1'))
+          Text('我是一段文本')
           // [End create_a_text_in_one_way]
         }
 
@@ -32,6 +32,7 @@ export struct CreateText {
           description: $r('app.string.CreatText_description_1')
         }) {
           // [Start create_a_text_in_another_way]
+          // 请将$r('app.string.module_desc')替换为实际资源文件，在本示例中该资源文件的value值为"模块描述"
           Text($r('app.string.module_desc'))
             .baselineOffset(0)
             .fontSize(30)
@@ -46,6 +47,9 @@ export struct CreateText {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.CreatText_title')替换为实际资源文件，在本示例中该资源文件的value值为"创建文本"
     .title($r('app.string.CreatText_title'))
   }
 }
+
+export { CreateText };

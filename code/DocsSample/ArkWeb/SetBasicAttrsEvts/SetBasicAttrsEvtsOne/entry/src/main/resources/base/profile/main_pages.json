@@ -3,6 +3,7 @@
     "pages/Index",
     "pages/DarkMode_one",
     "pages/DarkMode_two",
+    "pages/DarkMode_three",
     "pages/AllowGeolocation",
     "pages/ClearAllCookiesSync",
     "pages/ConfigCookieSync",
@@ -14,6 +15,7 @@
     "pages/IncognitoMode_one",
     "pages/IncognitoMode_two",
     "pages/OpenPageNewWin",
-    "pages/ManageLocPerms"
+    "pages/ManageLocPerms",
+    "pages/GeolocationPermissions"
   ]
 }

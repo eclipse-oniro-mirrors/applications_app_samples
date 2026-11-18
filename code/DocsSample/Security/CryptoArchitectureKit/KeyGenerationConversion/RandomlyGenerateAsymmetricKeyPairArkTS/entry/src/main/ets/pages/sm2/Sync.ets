@@ -18,23 +18,23 @@ import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 
 function generateSM2KeySync() {
   // 创建一个AsyKeyGenerator实例
-  let rsaGenerator = cryptoFramework.createAsyKeyGenerator('SM2_256');
+  let sm2Generator = cryptoFramework.createAsyKeyGenerator('SM2_256');
   // 使用密钥生成器随机生成非对称密钥对
   try {
-    let keyPair = rsaGenerator.generateKeyPairSync();
+    let keyPair = sm2Generator.generateKeyPairSync();
     if (keyPair != null) {
       let pubKey = keyPair.pubKey;
       let priKey = keyPair.priKey;
       // 获取非对称密钥对的二进制数据
       let pkBlob = pubKey.getEncoded();
       let skBlob = priKey.getEncoded();
-      console.info('pk bin data' + pkBlob.data);
-      console.info('sk bin data' + skBlob.data);
+      console.info('pk bin data: ' + pkBlob.data);
+      console.info('sk bin data: ' + skBlob.data);
     } else {
-      console.error('[Sync]: get key pair result fail!');
+      console.error('[Sync]: get key pair result: fail!');
     }
   } catch (e) {
-    console.error(`get key pair failed, ${e.code}, ${e.message}`);
+    console.error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
   }
 }
 // [End generate_sm2_keypair_sync]

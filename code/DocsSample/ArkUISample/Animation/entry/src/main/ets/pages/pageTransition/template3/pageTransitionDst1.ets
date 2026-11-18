@@ -12,11 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start pageTransition_template3_pageTransitionDst1_start]
+// PageTransitionDst1
 @Entry
 @Component
 struct PageTransitionDst1 {
   build() {
     Column() {
+      // 请将$r('app.media.forest')替换为实际资源文件
       Image($r('app.media.forest'))
         .width('90%')
         .height('80%')
@@ -25,12 +28,12 @@ struct PageTransitionDst1 {
         .margin(30)
 
       Row({ space: 10 }) {
-        Button("pushUrl")
+        Button('pushUrl')
           .onClick(() => {
             // 路由到下一页面，push操作
             this.getUIContext().getRouter().pushUrl({ url: 'pages/pageTransition/template3/pageTransitionSrc1' });
           })
-        Button("back")
+        Button('back')
           .onClick(() => {
             // 返回到上一页面，相当于pop操作
             this.getUIContext().getRouter().back();
@@ -56,3 +59,4 @@ struct PageTransitionDst1 {
       .slide(SlideEffect.Right)
   }
 }
+// [End pageTransition_template3_pageTransitionDst1_start]

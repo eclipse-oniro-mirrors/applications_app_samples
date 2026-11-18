@@ -1,0 +1,8 @@
+{
+  "src": [
+    "pages/Index",
+    "restore/RestoreIndex",
+    "restore/RouterPage",
+    "restore/AdvertPage"
+  ]
+}

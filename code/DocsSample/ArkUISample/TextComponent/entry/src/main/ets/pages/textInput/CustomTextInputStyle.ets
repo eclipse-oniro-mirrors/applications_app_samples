@@ -17,30 +17,39 @@ import { ComponentCard } from '../../common/Card';
 
 @Entry
 @Component
-export struct CustomTextInputStyle {
+struct CustomTextInputStyle {
   build() {
     NavDestination() {
       Column({ space: 12 }) {
+        // 请将$r('app.string.CustomTextInputStyle_title_1')替换为实际资源文件，在本示例中该资源文件的value值为"设置无输入时的提示文本"
         ComponentCard({ title: $r('app.string.CustomTextInputStyle_title_1') }) {
           // [Start custom_text_input_with_place_holder]
-          TextInput({ placeholder: $r('app.string.CustomTextInputStyle_textContent_1') })
+          // 请将$r('app.string.i_am_placeholder')替换为实际资源文件，在本示例中该资源文件的value值为"我是提示文本"
+          TextInput({ placeholder: $r('app.string.i_am_placeholder') })
           // [End custom_text_input_with_place_holder]
         }
 
+        
+        // 请将$r('app.string.CustomTextInputStyle_title_2')替换为实际资源文件，在本示例中该资源文件的value值为"我设置输入框当前的文本内容"
         ComponentCard({ title: $r('app.string.CustomTextInputStyle_title_2') }) {
           // [Start custom_text_input_with_place_holder_and_text]
           TextInput({
-            placeholder: $r('app.string.CustomTextInputStyle_textContent_1'),
-            text: $r('app.string.CustomTextInputStyle_textContent_2')
+            // 请将$r('app.string.i_am_placeholder')替换为实际资源文件，在本示例中该资源文件的value值为"我是提示文本"
+            placeholder: $r('app.string.i_am_placeholder'),
+            // 请将$r('app.string.i_am_current_text_content')替换为实际资源文件，在本示例中该资源文件的value值为"我是当前文本内容"
+            text: $r('app.string.i_am_current_text_content')
           })
           // [End custom_text_input_with_place_holder_and_text]
         }
 
+        // 请将$r('app.string.CustomTextInputStyle_title_3')替换为实际资源文件，在本示例中该资源文件的value值为"添加backgroundColor改变输入框的背景颜色"
         ComponentCard({ title: $r('app.string.CustomTextInputStyle_title_3') }) {
           // [Start custom_text_input_background_color]
           TextInput({
-            placeholder: $r('app.string.CustomTextInputStyle_textContent_1'),
-            text: $r('app.string.CustomTextInputStyle_textContent_2')
+            // 请将$r('app.string.i_am_placeholder')替换为实际资源文件，在本示例中该资源文件的value值为"我是提示文本"
+            placeholder: $r('app.string.i_am_placeholder'),
+            // 请将$r('app.string.i_am_current_text_content')替换为实际资源文件，在本示例中该资源文件的value值为"我是当前文本内容"
+            text: $r('app.string.i_am_current_text_content')
           })
             .backgroundColor(Color.Pink)
           // [End custom_text_input_background_color]
@@ -51,6 +60,9 @@ export struct CustomTextInputStyle {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.CustomTextInputStyle_title')替换为实际资源文件，在本示例中该资源文件的value值为"自定义样式"
     .title($r('app.string.CustomTextInputStyle_title'))
   }
 }
+
+export { CustomTextInputStyle };

@@ -1,0 +1,9 @@
+{
+    "routerMap":  [
+                      {
+                          "name":  "FeatureDetail",
+                          "pageSourceFile":  "src/main/ets/pages/FeatureDetail.ets",
+                          "buildFunction":  "FeatureDetailBuilder"
+                      }
+                  ]
+}

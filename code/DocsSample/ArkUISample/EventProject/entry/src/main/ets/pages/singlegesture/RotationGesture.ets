@@ -37,7 +37,7 @@ export struct Rotation {
                   if(event){
                     this.angle = this.rotateValue + event.angle;
                   }
-                  console.info('RotationGesture is onActionEnd');
+                  console.info('RotationGesture is onActionUpdate');
                 })
                   // 当旋转结束抬手时，固定组件在旋转结束时的角度
                 .onActionEnd(() => {
@@ -60,6 +60,7 @@ export struct Rotation {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.singlegesture_RotationGesture_title')替换为实际资源文件，在本示例中该资源文件的value值为"旋转手势"
     .title($r('app.string.singlegesture_RotationGesture_title'))
   }
 }

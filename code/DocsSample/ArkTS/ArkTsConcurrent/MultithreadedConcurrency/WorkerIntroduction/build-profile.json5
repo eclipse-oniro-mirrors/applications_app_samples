@@ -20,9 +20,9 @@
       {
         "name": "default",
         "signingConfig": "default",
-        "compileSdkVersion": 14,
-        "compatibleSdkVersion": 14,
-        "targetSdkVersion": 14,
+        "compileSdkVersion": "26.1.0",
+        "compatibleSdkVersion": "26.0.0",
+        "targetSdkVersion": 20,
         "runtimeOS": "OpenHarmony",
         "buildOption": {
           "strictMode": {
@@ -57,6 +57,30 @@
     {
       "name": "har",
       "srcPath": "./har",
+    },
+    {
+      "name": "testworkers",
+      "srcPath": "./testworkers",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mainAbility",
+      "srcPath": "./mainAbility",
+    },
+    {
+      "name": "business",
+      "srcPath": "./business",
+    },
+    {
+      "name": "businessWorker",
+      "srcPath": "./businessWorker"
     }
   ]
 }

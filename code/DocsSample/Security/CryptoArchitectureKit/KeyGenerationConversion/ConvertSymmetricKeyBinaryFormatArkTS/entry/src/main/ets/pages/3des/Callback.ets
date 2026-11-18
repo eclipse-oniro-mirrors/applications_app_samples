@@ -35,17 +35,17 @@ function testConvertSymKey() {
     symKeyGenerator.convertKey(keyMaterialBlob, (error, key) => {
       if (error) { // 如果业务逻辑执行失败，则callback的第一个参数返回错误信息，即异步抛出异常
         let e: BusinessError = error as BusinessError;
-        console.error(`convertKey error, ${e.code}, ${e.message}`);
+        console.error(`convertKey failed: errCode: ${e.code}, message: ${e.message}`);
         return;
       }
-      console.info('key algName：' + key.algName);
-      console.info('key format：' + key.format);
+      console.info('key algName: ' + key.algName);
+      console.info('key format: ' + key.format);
       let encodedKey = key.getEncoded(); // 获取对称密钥的二进制数据，并以字节数组形式输出。长度为24字节
       console.info('key getEncoded hex: ' + encodedKey.data);
     })
   } catch (error) { // 参数检查发现错误立即抛出异常
     let e: BusinessError = error as BusinessError;
-    console.error(`convertKey failed, ${e.code}, ${e.message}`);
+    console.error(`convertKey failed: errCode: ${e.code}, message: ${e.message}`);
   }
 }
 // [End generate_3des_key]

@@ -1,0 +1,16 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "comment_color",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "comment_background_color",
+      "value": "#33000000"
+    }
+  ]
+}

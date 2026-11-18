@@ -28,15 +28,17 @@ let uri = ('datashareproxy://ohos.samples.formextability');
 let conditionCity = '';
 let conditionID = '110000';
 let conditionData = '-30 ℃';
-let formInstanceFilter: formInfo.FormProviderFilter = {
+const formInstanceFilter: formInfo.FormProviderFilter = {
   bundleName: 'ohos.samples.formextability',
+  abilityName: 'processEntryFormAbility',
+  formName: 'processWidget',
   moduleName: 'processProxyForm'
 };
 
 function updateCardDisplayContent(runningFormInfo: formInfo.RunningFormInfo): void {
   Logger.info(TAG, `updateCardDisplayContent bundle: ${runningFormInfo.bundleName}`);
   dataShare.createDataShareHelper(context, uri, { isProxy: true }, (err, dataHelper) => {
-    Logger.info(TAG, `dataShareHelper err: ${err}`, `data: ${dataShareHelper}`);
+    Logger.info(TAG, `dataShareHelper err: ${err}`, `data: ${JSON.stringify(dataShareHelper)}`);
     dataShareHelper = dataHelper;
     if (err !== undefined) {
       Logger.error(TAG, `createDataShareHelper error code: ${err.code}`, `message: ${err.message} `);
@@ -46,7 +48,7 @@ function updateCardDisplayContent(runningFormInfo: formInfo.RunningFormInfo): vo
         { key: 'cityName', data: JSON.stringify(conditionCity), subscriberId: conditionID },
         { key: 'cityTemperature', data: JSON.stringify(conditionData), subscriberId: conditionID }
       ];
-      dataShareHelper.publish(publishedItemData, 'ohos.samples.formextability').then((data: Object) => {
+      dataShareHelper.publish(publishedItemData, 'ohos.samples.formextability').then((data: Array<dataShare.OperationResult>) => {
         Logger.info(TAG, `publish success, data is ${JSON.stringify(data)}`);
         prompt.showToast(
           { message: `publish success ${conditionCity} ${conditionData}`, duration: 5000 });

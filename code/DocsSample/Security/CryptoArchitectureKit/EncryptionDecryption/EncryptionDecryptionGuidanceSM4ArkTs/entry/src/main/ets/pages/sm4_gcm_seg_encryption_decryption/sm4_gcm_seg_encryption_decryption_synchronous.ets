@@ -32,7 +32,7 @@ function genGcmParamsSpec() {
   let dataTag = new Uint8Array(arr);
   let tagBlob: cryptoFramework.DataBlob = {
     data: dataTag
-  }; // The GCM authTag is obtained by doFinal() in encryption and passed in params of init() in decryption.
+  };
   let gcmParamsSpec: cryptoFramework.GcmParamsSpec = {
     iv: ivBlob,
     aad: aadBlob,
@@ -46,7 +46,7 @@ let gcmParams = genGcmParamsSpec();
 
 // 分段加密消息
 function encryptMessageUpdateBySegment(symKey: cryptoFramework.SymKey, plainText: cryptoFramework.DataBlob) {
-  let cipher = cryptoFramework.createCipher('SM4_128|GCM|PKCS7');
+  let cipher = cryptoFramework.createCipher('SM4_128|GCM');
   cipher.initSync(cryptoFramework.CryptoMode.ENCRYPT_MODE, symKey, gcmParams);
   let updateLength = 20; // 假设以20字节为单位进行分段update，实际并无要求
   let cipherText = new Uint8Array();
@@ -69,7 +69,7 @@ function encryptMessageUpdateBySegment(symKey: cryptoFramework.SymKey, plainText
 
 // 分段解密消息
 function decryptMessage(symKey: cryptoFramework.SymKey, cipherText: cryptoFramework.DataBlob) {
-  let decoder = cryptoFramework.createCipher('SM4_128|GCM|PKCS7');
+  let decoder = cryptoFramework.createCipher('SM4_128|GCM');
   decoder.initSync(cryptoFramework.CryptoMode.DECRYPT_MODE, symKey, gcmParams);
   let updateLength = 20; // 假设以20字节为单位进行分段update，实际并无要求
   let decryptText = new Uint8Array();
@@ -86,7 +86,7 @@ function decryptMessage(symKey: cryptoFramework.SymKey, cipherText: cryptoFramew
   }
   let decryptData = decoder.doFinalSync(null);
   if (decryptData == null) {
-    console.info('GCM decrypt success, decryptData is null');
+    console.info('GCM decrypt result: success, decryptData is null.');
   }
   let decryptBlob: cryptoFramework.DataBlob = { data: decryptText };
   return decryptBlob;
@@ -96,7 +96,7 @@ function genSymKeyByData(symKeyData: Uint8Array) {
   let symKeyBlob: cryptoFramework.DataBlob = { data: symKeyData };
   let sm4Generator = cryptoFramework.createSymKeyGenerator('SM4_128');
   let symKey = sm4Generator.convertKeySync(symKeyBlob);
-  console.info('convertKeySync success');
+  console.info('convertKeySync result: success.');
   return symKey;
 }
 
@@ -108,10 +108,10 @@ function main() {
   let encryptText = encryptMessageUpdateBySegment(symKey, plainText);
   let decryptText = decryptMessage(symKey, encryptText);
   if (plainText.data.toString() === decryptText.data.toString()) {
-    console.info('decrypt ok');
+    console.info('decrypt ok.');
     console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
   } else {
-    console.error('decrypt failed');
+    console.error('decrypt failed.');
   }
 }
 // [End sync_symmetry_encrypt_decrypt_sm4_gcm_seg]

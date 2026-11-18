@@ -1,0 +1,116 @@
+{
+  "string": [
+    {
+      "name": "device_type_projector",
+      "value": "投影仪"
+    },
+    {
+      "name": "device_type_screen",
+      "value": "幕布"
+    },
+    {
+      "name": "device_type_light",
+      "value": "灯光"
+    },
+    {
+      "name": "device_type_ac",
+      "value": "空调"
+    },
+    {
+      "name": "device_type_tv",
+      "value": "电视"
+    },
+    {
+      "name": "device_type_audio",
+      "value": "音响"
+    },
+    {
+      "name": "device_type_unknown",
+      "value": "设备"
+    },
+    {
+      "name": "key_semantic_power_on",
+      "value": "开机"
+    },
+    {
+      "name": "key_semantic_power_off",
+      "value": "关机"
+    },
+    {
+      "name": "key_semantic_power_toggle",
+      "value": "电源切换"
+    },
+    {
+      "name": "key_semantic_hdmi_1",
+      "value": "HDMI1"
+    },
+    {
+      "name": "key_semantic_hdmi_2",
+      "value": "HDMI2"
+    },
+    {
+      "name": "key_semantic_volume_up",
+      "value": "音量加"
+    },
+    {
+      "name": "key_semantic_volume_down",
+      "value": "音量减"
+    },
+    {
+      "name": "key_semantic_temperature_up",
+      "value": "温度加"
+    },
+    {
+      "name": "key_semantic_temperature_down",
+      "value": "温度减"
+    },
+    {
+      "name": "key_semantic_fan_speed",
+      "value": "风速"
+    },
+    {
+      "name": "key_semantic_screen_up",
+      "value": "幕布升"
+    },
+    {
+      "name": "key_semantic_screen_down",
+      "value": "幕布降"
+    },
+    {
+      "name": "key_semantic_unknown",
+      "value": "按键"
+    },
+    {
+      "name": "template_default_suffix",
+      "value": "%s默认模板"
+    },
+    {
+      "name": "demo_room_name",
+      "value": "3 楼大会议室"
+    },
+    {
+      "name": "demo_room_note",
+      "value": "默认会议室"
+    },
+    {
+      "name": "demo_device_projector",
+      "value": "主投影"
+    },
+    {
+      "name": "demo_device_screen",
+      "value": "幕布"
+    },
+    {
+      "name": "demo_device_light",
+      "value": "灯光"
+    },
+    {
+      "name": "demo_device_ac",
+      "value": "空调"
+    },
+    {
+      "name": "demo_scene_meeting",
+      "value": "开会"
+    }
+  ]
+}

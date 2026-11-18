@@ -1,0 +1,42 @@
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start animatable_extend_text]
+@AnimatableExtend(Text)
+function animatableWidth(width: number) {
+  // 在逐帧回调中将width写入Text的width属性
+  .width(width)
+}
+
+@Entry
+@Component
+struct AnimatablePropertyText {
+  @State textWidth: number = 80;
+
+  build() {
+    Column() {
+      Text('AnimatableProperty')
+        .animatableWidth(this.textWidth)
+        .animation({ duration: 2000, curve: Curve.Ease })
+      // 点击按钮切换textWidth，触发Text逐帧更新宽度并产生动画效果
+      Button('Play')
+        .onClick(() => {
+          this.textWidth = this.textWidth == 80 ? 160 : 80;
+        })
+    }.width('100%')
+    .padding(10)
+  }
+}
+// [End animatable_extend_text]

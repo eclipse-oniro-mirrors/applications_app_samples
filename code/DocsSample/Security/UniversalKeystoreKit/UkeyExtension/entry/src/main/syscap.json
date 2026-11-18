@@ -1,0 +1,23 @@
+{
+  "devices": {
+    "general": ["default","tablet"]
+  },
+  "development": {
+    "addedSysCaps": [
+      "SystemCapability.Security.Huks.CryptoExtension"
+    ]
+  },
+  "production": {
+    "addedSysCaps": [
+      "SystemCapability.Security.Huks.CryptoExtension"
+    ],
+    "removedSysCaps": [
+      "SystemCapability.Security.DeviceSecurityLevel",
+      "SystemCapability.UserIAM.UserAuth.PinAuth",
+      "SystemCapability.PowerManager.BatteryManager.Extension",
+      "SystemCapability.PowerManager.PowerManager.Extension",
+      "SystemCapability.Security.DataTransitManager",
+      "SystemCapability.Window.SessionManager"
+    ]
+  }
+}

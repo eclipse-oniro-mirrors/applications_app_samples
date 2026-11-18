@@ -72,6 +72,7 @@ export class Decode {
     // [Start pixelmap_create_image_source_by_fd]
     const imageSource: image.ImageSource = image.createImageSource(fd);
     // [End pixelmap_create_image_source_by_fd]
+    fs.closeSync(file);
     return imageSource;
   }
 
