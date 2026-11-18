@@ -16,7 +16,6 @@
 #ifndef VIDEO_CODEC_PLAYER_H
 #define VIDEO_CODEC_PLAYER_H
 
-#include <bits/alltypes.h>
 #include <cstdint>
 #include <chrono>
 #include <mutex>
@@ -52,6 +51,7 @@ class AudioOutputPump;
 
 struct PlaybackInfo {
     OperationFailureInfo failure;
+    OperationFailureInfo cleanupFailure;
     PlayerState state = PLAYER_STATE_IDLE;
     float speed = 1.0f;
     int64_t durationUs = 0;
@@ -109,7 +109,7 @@ public:
     Player() = default;
     ~Player();
 
-    int32_t Init(SampleInfo &sampleInfo);
+    int32_t Init(SampleInfo &sampleInfo, bool *completionOwned = nullptr);
     int32_t Start();
     int32_t Stop();
     int32_t Pause();
@@ -140,6 +140,7 @@ private:
     void AudioDecInputSyncThread();
     void AudioDecOutputSyncThread();
     void Release();
+    void RecordCleanup(const char *stage, int32_t result);
     void StartRelease();
     void ReleaseWorker();
     void JoinReleaseThread();
@@ -240,6 +241,7 @@ private:
     std::unique_ptr<Demuxer> demuxer_ = nullptr;
 
     OperationFailure failure_;
+    OperationFailure cleanupFailure_;
     mutable std::mutex mutex_;
     PlaybackInfo completedPlaybackInfo_;
     // 切换音轨会暂时释放mutex_ 并等待音频线程退出。

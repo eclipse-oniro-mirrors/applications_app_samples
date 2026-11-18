@@ -264,6 +264,7 @@ void Player::ResetPlaybackState()
 {
     mediaInfo_ = {};
     completedPlaybackInfo_ = {};
+    cleanupFailure_.Reset("", "", 0);
     dumpLayoutKey_ = 0;
     failure_.Reset(sampleInfo_.video.videoCodecMime, sampleInfo_.codec.codecName, sampleInfo_.codec.codecRunMode);
     diagnostics_.Reset();
@@ -494,8 +495,9 @@ int32_t Player::InitializePlaybackResources(std::unique_lock<std::mutex> &lock)
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
-int32_t Player::Init(SampleInfo &sampleInfo)
+int32_t Player::Init(SampleInfo &sampleInfo, bool *completionOwned)
 {
+    if (completionOwned != nullptr) { *completionOwned = false; }
     JoinReleaseThread();
     const PlayerState previousState = stateMachine_.GetState();
     CHECK_AND_RETURN_RET_LOG(stateMachine_.BeginInitialization(), AVCODEC_SAMPLE_ERR_ERROR,
@@ -507,6 +509,7 @@ int32_t Player::Init(SampleInfo &sampleInfo)
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
     PrepareForInitialization(sampleInfo);
+    if (completionOwned != nullptr) { *completionOwned = true; }
     AVCODEC_SAMPLE_LOGI("Smart fluency supported: %{public}d", isSmartFluencySupported_);
     return InitializePlaybackResources(lock);
 }
@@ -544,8 +547,7 @@ int32_t Player::StartAudioDecoder()
         "Audio threads already running");
     {
         std::lock_guard<std::mutex> lock(audioDecContext_->outputMutex);
-        std::queue<unsigned char> emptyQueue;
-        audioDecContext_->renderQueue.swap(emptyQueue);
+        audioDecContext_->renderQueue.Clear();
     }
     audioWorkerRunning_ = true;
     int32_t ret = audioDecoder_->Start();

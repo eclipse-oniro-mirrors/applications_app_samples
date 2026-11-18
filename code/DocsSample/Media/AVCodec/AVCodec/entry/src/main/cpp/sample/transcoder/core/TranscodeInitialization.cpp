@@ -141,11 +141,12 @@ bool TranscodeJob::ConnectSurface()
             options_.longEdge != 0)) {
             return Fail("Surface transcode requires original dimensions and no CPU filter");
         }
-        if (!Check(OH_VideoEncoder_GetSurface(encoder_, &encoderWindow_), "Get encoder input Surface")) {
+        if (!Check(OH_VideoEncoder_GetSurface(encoder_, encoderWindow_.Put()), "Get encoder input Surface")) {
             return false;
         }
         if (options_.gpu) {
             gpu_ = std::make_unique<TranscodeGpuProcessor>();
+            gpu_->SetWakeSignal(&wakeSignal_);
             if (!gpu_->Initialize(encoderWindow_, sourceWidth_, sourceHeight_, targetWidth_, targetHeight_,
                 options_.resizeMode, options_.grayscale, options_.scalingFilter)) {
                 return Fail("Initialize SDR OpenGL transcode processing");
@@ -258,6 +259,7 @@ bool TranscodeJob::InitializeDemuxer()
         if (options_.audioMode == AUDIO_MODE_AAC) {
             audioPipeline_ = std::make_unique<TranscodeAudioPipeline>(
                 [this](const char *operation, int32_t result) { return Fail(operation, result); });
+            audioPipeline_->SetWakeSignal(&wakeSignal_);
             if (!audioPipeline_->Configure(audioFormat_.get(), demuxer_, audioTrack_, rangeStartUs_, rangeEndUs_,
                 options_.audioSampleRate, options_.audioChannels, options_.audioBitrate,
                 options_.audioResampler == 1, options_.codecMode == 1, options_.audioSourceLayout)) {

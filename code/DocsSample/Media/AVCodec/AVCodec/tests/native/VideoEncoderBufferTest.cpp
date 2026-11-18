@@ -203,7 +203,7 @@ void TestAudioTailPosition()
     std::atomic<int64_t> positionUs {INITIAL_AUDIO_POSITION_US};
     context.playbackPositionUs = &positionUs;
     for (uint8_t value : AUDIO_TAIL_PCM) {
-        context.renderQueue.push(value);
+        Require(context.renderQueue.Write(&value, 1), "Queue tail PCM");
     }
     std::array<uint8_t, AUDIO_CALLBACK_BYTES> output {};
     Require(SampleCallback::OnRenderWriteData(nullptr, &context, output.data(), output.size()) == 0 &&

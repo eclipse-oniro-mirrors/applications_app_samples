@@ -24,6 +24,7 @@
 #include <shared_mutex>
 #include <vector>
 #include "codec_buffer.h"
+#include "PcmQueue.h"
 #include "sample_config.h"
 #include "OperationFailure.h"
 
@@ -54,14 +55,14 @@ struct CodecUserData {
     std::condition_variable inputCond;
     CodecBufferQueue inputBufferQueue;
 
-    uint32_t outputFrameCount = 0;
+    std::atomic<uint32_t> outputFrameCount { 0 };
     std::atomic<bool> isFirstVideoSyncFrame{true};
     int64_t firstVideoSyncFramePts = 0;
     std::mutex outputMutex;
     std::condition_variable renderCond;
     CodecBufferQueue outputBufferQueue;
     // 音频解码线程写入、AudioRenderer回调读取，两个方向均须持有outputMutex。
-    std::queue<unsigned char> renderQueue;
+    PcmQueue renderQueue;
 
     int64_t audioFramesWritten = 0;
     int64_t endPosAudioBufferPts = 0;
@@ -126,7 +127,7 @@ struct CodecUserData {
             sampleInfo->audio.audioChannelCount <= 0 || sampleInfo->audio.audioSampleRate <= 0) {
             return;
         }
-        const int64_t queuedFrames = static_cast<int64_t>(renderQueue.size()) /
+        const int64_t queuedFrames = static_cast<int64_t>(renderQueue.Size()) /
             sampleInfo->audio.audioChannelCount / s16BytesPerSample;
         audioQueueDurationUs->store(queuedFrames * usPerSecond / sampleInfo->audio.audioSampleRate);
     }

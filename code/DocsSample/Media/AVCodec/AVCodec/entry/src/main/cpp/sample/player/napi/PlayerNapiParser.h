@@ -25,6 +25,12 @@ bool ParseLegacyPlayArguments(napi_env env, napi_callback_info info, SampleInfo 
 bool ParseStructuredPlayArguments(napi_env env, napi_callback_info info, SampleInfo &sampleInfo,
     napi_value &callback);
 bool ParseSeekPosition(napi_env env, napi_callback_info info, int64_t &positionUs);
+bool ParseSpeed(napi_env env, napi_callback_info info, double &speed);
+bool ParseVolume(napi_env env, napi_callback_info info, double &volume);
+bool ParseTransform(napi_env env, napi_callback_info info, int32_t &transform);
+bool ParseEnabled(napi_env env, napi_callback_info info, bool &enabled);
+bool ParseThermalRatio(napi_env env, napi_callback_info info, double &ratio);
+bool ParseTrackIndex(napi_env env, napi_callback_info info, int32_t &index);
 } // namespace PlayerNapiParser
 
 #endif // VIDEO_CODEC_PLAYER_NAPI_PARSER_H

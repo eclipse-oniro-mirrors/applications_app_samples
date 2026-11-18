@@ -57,13 +57,7 @@ void SetRendererVolume(OH_AudioRenderer *renderer, float volume, const char *rea
 size_t DrainRenderQueue(CodecUserData *codecUserData, uint8_t *destination, int32_t length)
 {
     // 调用方已持有outputMutex。destination属于AudioRenderer，仅在本次回调内可写。
-    size_t index = 0;
-    while (!codecUserData->renderQueue.empty() && index < static_cast<size_t>(length)) {
-        destination[index] = codecUserData->renderQueue.front();
-        ++index;
-        codecUserData->renderQueue.pop();
-    }
-    return index;
+    return codecUserData->renderQueue.Read(destination, static_cast<size_t>(length));
 }
 
 void UpdateAudioPlaybackPosition(CodecUserData *codecUserData, size_t writtenBytes)
@@ -83,7 +77,7 @@ void UpdateAudioPlaybackPosition(CodecUserData *codecUserData, size_t writtenByt
     }
     codecUserData->audioFramesWritten += static_cast<int64_t>(writtenBytes / bytesPerFrame);
     codecUserData->currentPosAudioBufferPts = codecUserData->endPosAudioBufferPts -
-        GetQueuedAudioDurationUs(codecUserData->renderQueue.size(), *codecUserData->sampleInfo);
+        GetQueuedAudioDurationUs(codecUserData->renderQueue.Size(), *codecUserData->sampleInfo);
     codecUserData->UpdateAudioQueueDuration();
     if (codecUserData->playbackPositionUs != nullptr) {
         codecUserData->playbackPositionUs->store(codecUserData->currentPosAudioBufferPts);
@@ -211,15 +205,10 @@ int32_t SampleCallback::OnRenderWriteData(OH_AudioRenderer *renderer, void *user
             codecUserData->audioUnderruns->fetch_add(1);
         }
     }
-    AVCODEC_SAMPLE_LOGD_LIMIT(LIMIT_LOGD_FREQUENCY,
-        "render BufferLength:%{public}d Out buffer count: %{public}u, renderQueue.size: %{public}u "
-        "renderReadSize: %{public}u",
-        length, codecUserData->outputFrameCount,
-        static_cast<uint32_t>(codecUserData->renderQueue.size()), static_cast<uint32_t>(index));
 
     UpdateAudioPlaybackPosition(codecUserData, index);
 
-    if (codecUserData->renderQueue.size() < length) {
+    if (codecUserData->renderQueue.Size() < static_cast<size_t>(length)) {
         codecUserData->renderCond.notify_all();
     }
     return 0;

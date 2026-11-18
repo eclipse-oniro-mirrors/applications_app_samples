@@ -84,9 +84,11 @@ bool AudioOutputPump::EnqueueOutput(CodecBufferInfo &bufferInfo)
 
     // renderQueue由解码输出线程写入、音频渲染回调读取；复制期间加锁，防止读取半个PCM Buffer。
     std::unique_lock<std::mutex> lock(context_.outputMutex);
-    for (int32_t i = 0; i < bufferInfo.attr.size; i++) {
-        context_.renderQueue.push(source[i]);
+    if (!context_.renderQueue.Write(source, static_cast<size_t>(bufferInfo.attr.size))) {
+        MarkPlaybackFailed("PCM queue rejected the audio buffer");
+        return false;
     }
+    context_.endPosAudioBufferPts = bufferInfo.attr.pts;
     context_.UpdateAudioQueueDuration();
     return true;
 }
@@ -94,8 +96,6 @@ bool AudioOutputPump::EnqueueOutput(CodecBufferInfo &bufferInfo)
 bool AudioOutputPump::HandleOutputBuffer(CodecBufferInfo &bufferInfo, bool dumpOutput)
 {
     context_.outputFrameCount++;
-    AVCODEC_SAMPLE_LOGW("Output count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
-        context_.outputFrameCount, bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
     if (outputPrepareCallback_ && !outputPrepareCallback_(bufferInfo)) {
         // 当前帧不送往渲染器时也必须归还codec Buffer，否则后续输出回调会停住。
         return ReleaseOutputBuffer(bufferInfo, "discard audio output") && running_ && !playbackFailed_;

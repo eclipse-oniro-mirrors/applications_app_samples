@@ -16,7 +16,6 @@
 #ifndef DEMUXER_H
 #define DEMUXER_H
 
-#include <bits/alltypes.h>
 #include <algorithm>
 #include <mutex>
 #include "napi/native_api.h"

@@ -162,7 +162,7 @@ void Recorder::FinishVideoOutputThread(CodecUserData *context, bool isPrimary)
     sessionReport_.Event(isPrimary ? "primary.thread_end" : "secondary.thread_end");
     (isPrimary ? primaryStats_ : secondaryStats_).Stop();
     RefreshStreamStorage(isPrimary, true);
-    AVCODEC_SAMPLE_LOGI("Exit, frame count: %{public}u", context->outputFrameCount);
+    AVCODEC_SAMPLE_LOGI("Exit, frame count: %{public}u", context->outputFrameCount.load());
     {
         std::lock_guard<std::mutex> lock(outputDoneMutex_);
         (isPrimary ? videoOutputDone_ : secondaryVideoOutputDone_).store(true);

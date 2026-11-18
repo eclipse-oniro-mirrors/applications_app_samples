@@ -260,10 +260,11 @@ void TestPlaybackEos(bool asynchronous, int32_t eosSize)
     Require(g_codec.frees == PCM_AND_EOS_FREE_CALLS && prepareCalls == 1 && outputCalls == 1 &&
         dumpCalls == (asynchronous ? 1 : 0) && context.outputFrameCount == 1,
         "EOS is returned once and bypasses PCM preparation, rendering and dumping");
-    Require(context.renderQueue.size() == FRAME_BYTES, "EOS preserves queued tail audio without adding bytes");
+    Require(context.renderQueue.Size() == FRAME_BYTES, "EOS preserves queued tail audio without adding bytes");
     for (int32_t i = 0; i < FRAME_BYTES; ++i) {
-        Require(context.renderQueue.front() == static_cast<uint8_t>(i), "Tail PCM order is preserved");
-        context.renderQueue.pop();
+        uint8_t value = 0;
+        Require(context.renderQueue.Read(&value, 1) == 1 && value == static_cast<uint8_t>(i),
+            "Tail PCM order is preserved");
     }
 }
 
@@ -297,7 +298,7 @@ void TestPlaybackEosFreeContract(bool asynchronous)
     g_codec.freeStatus = AV_ERR_UNKNOWN;
     Require(!ProcessPlaybackOutput(pump, context, asynchronous) && playbackFailed == asynchronous &&
         running != asynchronous &&
-        g_codec.frees == 1 && context.renderQueue.empty(),
+        g_codec.frees == 1 && context.renderQueue.Empty(),
         "EOS Free is attempted once; async reports failure while sync preserves the decoder END contract");
 }
 
@@ -319,7 +320,7 @@ void TestPlaybackStoppedDuringQuery(OH_AVErrCode queryStatus, bool eos, bool fre
         "Stop returns acquired PCM and END Buffers once, and never frees a timeout result");
     const bool queryFailed = queryStatus != AV_ERR_OK && queryStatus != AV_ERR_TRY_AGAIN_LATER;
     Require(playbackFailed == (queryFailed || (queryStatus == AV_ERR_OK && freeFails && !eos)) &&
-        context.renderQueue.empty(),
+        context.renderQueue.Empty(),
         "Stop bypasses PCM callbacks and preserves query and PCM return errors");
 }
 

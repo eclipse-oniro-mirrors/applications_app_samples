@@ -14,6 +14,7 @@
  */
 
 #include "PlayerNapiParser.h"
+#include <cmath>
 
 namespace {
 constexpr size_t LEGACY_PLAY_ARG_COUNT = 9;
@@ -168,7 +169,7 @@ bool ParsePlayOptions(napi_env env, napi_value options, SampleInfo &sampleInfo)
         ReadOptionalInt32Property(env, options, "audioTrackIndex", sampleInfo.codec.audioTrackIndex) &&
         ReadOptionalDoubleProperty(env, options, "audioVolume", audioVolume) &&
         ReadOptionalBoolProperty(env, options, "enableAudioLowLatency", sampleInfo.audioPlayback.enableLowLatency);
-    if (!parsed || audioVolume < 0.0 || audioVolume > 1.0) {
+    if (!parsed || !std::isfinite(audioVolume) || audioVolume < 0.0 || audioVolume > 1.0) {
         if (parsed) {
             napi_throw_range_error(env, nullptr, "audioVolume must be in the range [0, 1]");
         }
@@ -222,17 +223,5 @@ bool PlayerNapiParser::ParseStructuredPlayArguments(napi_env env, napi_callback_
         return false;
     }
     callback = args[1];
-    return true;
-}
-
-bool PlayerNapiParser::ParseSeekPosition(napi_env env, napi_callback_info info, int64_t &positionUs)
-{
-    size_t argc = 1;
-    napi_value args[1] = {nullptr};
-    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc != 1 ||
-        napi_get_value_int64(env, args[0], &positionUs) != napi_ok) {
-        napi_throw_type_error(env, nullptr, "seekTo requires a position in microseconds");
-        return false;
-    }
     return true;
 }

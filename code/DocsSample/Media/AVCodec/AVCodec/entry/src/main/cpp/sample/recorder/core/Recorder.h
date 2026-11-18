@@ -127,8 +127,8 @@ private:
     int32_t SendAudioEndOfStreamSync();
     int32_t SendAudioEndOfStreamAsync();
     int32_t WaitForEncoderEndOfStream();
-    int32_t WaitForVideoEndOfStream();
-    int32_t WaitForAudioEndOfStream();
+    int32_t WaitForVideoEndOfStream(std::chrono::steady_clock::time_point deadline);
+    int32_t WaitForAudioEndOfStream(std::chrono::steady_clock::time_point deadline);
     void CancelWorkerWaits();
     void FinishAudioOutputThread();
     int32_t AbortAndWait(int32_t errorCode, const char *reason);

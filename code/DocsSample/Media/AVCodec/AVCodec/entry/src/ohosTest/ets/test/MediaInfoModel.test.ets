@@ -20,13 +20,14 @@ import { buildMediaInfoSections, MediaInfoSection } from '../../../main/ets/mode
 import { runTestCase } from './TestCaseLogger';
 
 function buildTestSections(info: MediaInfo, sourceTitle: string = ''): MediaInfoSection[] {
-  const context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+  const context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext().createModuleContext('entry_test');
   return buildMediaInfoSections(info, context.resourceManager, sourceTitle);
 }
 
 function getTestText(resource: Resource): string {
   try {
-    return abilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager.getStringSync(resource.id);
+    const context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext().createModuleContext('entry_test');
+    return context.resourceManager.getStringSync(resource.id);
   } catch (error) {
     expect(false).assertTrue();
     return '';

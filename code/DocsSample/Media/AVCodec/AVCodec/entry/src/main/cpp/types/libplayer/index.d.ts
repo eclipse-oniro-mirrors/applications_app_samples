@@ -61,6 +61,15 @@ export const play: (
   cbFn: (result: PlaybackResult) => void
 ) => boolean
 
+export interface PlaybackStartResult {
+  started: boolean;
+  /** 为true时，输入资源须保留至完成回调。 */
+  completionOwned: boolean;
+}
+
+/** 工作线程初始化和启动；完成通知仍在资源释放后到达。 */
+export const playAsync: (options: PlayOptions, cbFn: (result: PlaybackResult) => void) => Promise<PlaybackStartResult>
+
 export const playNative: (
   inputFileFd: number,
   inputFileOffset: number,
@@ -87,6 +96,8 @@ export const seekTo: (positionUs: number) => boolean
 export const seekToAsync: (positionUs: number) => Promise<boolean>
 
 export const selectAudioTrack: (trackIndex: number) => boolean
+
+export const selectAudioTrackAsync: (trackIndex: number) => Promise<boolean>
 
 export const getState: () => PlayerState
 
@@ -123,6 +134,12 @@ export interface PlaybackDiagnostics {
   backgroundPaused: boolean;
 }
 
+export interface NativeCleanupFailure {
+  stage: string;
+  code: number;
+  message: string;
+}
+
 export interface PlaybackFailure {
   stage: string;
   code: number;
@@ -153,6 +170,7 @@ export const checkVideoCapability: (request: VideoCapabilityRequest) => VideoCap
 
 export interface PlaybackInfo {
   failure: PlaybackFailure;
+  cleanupFailure?: NativeCleanupFailure;
   state: PlayerState;
   speed: number;
   durationUs: number;

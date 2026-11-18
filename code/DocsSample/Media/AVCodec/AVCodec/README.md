@@ -599,9 +599,11 @@ Automated tests are located in `entry/src/ohosTest/ets/test` and use Hypium to c
 
 In DevEco Studio, select the `entry > ohosTest` target and run the test suite. Its entry point registers 13 suites with 49 test cases.
 
-The Host suites in `tests/host` use the SDK TypeScript loader and system API mocks to check recording, transcoding, history persistence, and media-session races. A separate runner test checks process failures, logs, and timeout cleanup. The 15 C++ test entry points in `tests/native` check codec-wrapper error handling, Buffer layouts, geometry, frame processing, PCM conversion, callback queues, statistics, and lifecycle components. Some Native tests replace system APIs with test doubles. Host tests do not replace an ArkTS build, and Native test doubles do not verify device codecs or graphics drivers.
+The Host suites in `tests/host` use the SDK TypeScript loader and system API mocks to check recording, transcoding, history persistence, and media-session races. A separate runner test checks process failures, logs, and timeout cleanup. The 20 C++ test entry points in `tests/native` check codec-wrapper error handling, Buffer layouts, geometry, frame processing, PCM conversion, callback queues, statistics, and lifecycle components. Some Native tests replace system APIs with test doubles. Host tests do not replace an ArkTS build, and Native test doubles do not verify device codecs or graphics drivers.
 
-Demuxing, device codecs, graphics, permissions, camera streams and file providers require device checks. The [test guide](./ohosTest.md) records 256 passing manual cases, including 12 playback, timing, recording and output-validation regressions. Results apply to the tested environment; repeat device-dependent cases on each target configuration.
+Demuxing, device codecs, graphics, permissions, camera streams and file providers require device checks. The [test guide](./ohosTest.md) records 324 passing manual cases, including playback, timing, recording and output-validation regressions. Results apply to the tested environment; repeat device-dependent cases on each target configuration.
+
+Run `node scripts/verify.mjs --only device --studio <DevEco installation>` to build, install and execute the default device tests, then validate all 49 case results from the current report. Missing, stale, empty or failed reports fail the command. The structured result is saved to `.validation/device-result.json`; see [verification instructions](tests/README.md#设备报告校验) for scope and expected-count options.
 
 The test HAPs can also be built and run from the command line:
 
@@ -635,6 +637,8 @@ AVCodec/
     │   │   ├── common                       # Shared Native utilities
     │   │   │   ├── dfx                      # Logging and error codes
     │   │   │   ├── codec_buffer.h           # Codec buffer description and thread-safe queue
+    │   │   │   ├── NativeHandle.h           # Move-only owner for Native SDK handles
+    │   │   │   ├── PcmQueue.h               # Byte ring buffer used by audio playback
     │   │   │   ├── codec_user_data.h        # Runtime context shared by callbacks and workers
     │   │   │   ├── sample_callback.cpp      # Codec and AudioRenderer callbacks
     │   │   │   ├── sample_callback.h        # Shared callback declarations
@@ -680,6 +684,7 @@ AVCodec/
     │   │   │   │   └── napi/                # ArkTS-to-Native boundary
     │   │   │   │       ├── PlayerNative.cpp/.h
     │   │   │   │       ├── NativePlayerContext.h, PlayerAsyncSeek.cpp
+    │   │   │   │       ├── PlayerControlParser.cpp, PlayerStartup.cpp
     │   │   │   │       ├── PlayerNapiParser.cpp/.h
     │   │   │   │       └── PlayerNapiSerializer.cpp/.h
     │   │   │   ├── transcoder/
@@ -828,6 +833,10 @@ The Native layer revolves around these data structures:
 
 `CodecBufferInfo` keeps a borrowed `OH_AVBuffer*`, its return index and attributes; it neither owns the SDK Buffer nor caches pixel addresses. Queues pass these descriptions. Input access ends at submission; output is handed back to its codec after processing. See [ownership and release order](#buffer-ownership) for each mode's resources, threads and handoff points.
 
+The playback PCM path uses `PcmQueue`, a byte ring buffer. The decode worker writes each output block while holding `outputMutex`; the AudioRenderer callback drains available bytes in one read and fills any underrun with silence. The queue starts with 64 KiB and grows on the producer side when needed, so the render callback does not allocate. `tests/native/PcmQueueBenchmark.cpp` compares this path with the previous `std::queue` byte operations; its Host result measures queue work only, not device codec, AudioRenderer or GPU performance.
+
+`NativeHandle` provides move-only ownership for Native SDK handles in `TranscodeJob`. Callers use `Close()` to observe destroy results; the destructor is a fallback for handles left during early returns. `TranscodeJob` also owns a revisioned wake signal shared with codec callbacks and GPU processing, so the worker sleeps until work or a state change arrives.
+
 #### Playback, Recording and Transcoding Flow
 
 The later sections describe individual modules and APIs. This section follows one user operation from the page to Native processing and back again. The page prepares input and renders results; Native creates media objects, schedules workers, and releases resources. On failure, the page becomes usable again and Native does not keep a partially initialized codec or worker.
@@ -835,7 +844,7 @@ The later sections describe individual modules and APIs. This section follows on
 | Feature | Trigger and input | Main processing | Completion, failure, and state boundary |
 |---|---|---|---|
 | Transcode or remux | Select source/options or execute a queued item | `TranscodeModel` → `TranscoderNative::StartWork()` → `TranscodeJob::Run()`, using codecs or compressed-sample copy by mode | Rename `.part` only after output drain and MP4 validation; cancellation waits for Native cleanup; see [transcode flow](#transcode-call-flow) |
-| Open media | The user selects a File Manager or Gallery item | The UI validates its size, opens an fd, builds `PlayOptions` from `PlayerSettingsModel`, and `PlayerNative` parses it before `Player::Init()` | Cancelling only dismisses the picker; an empty file is reported by the UI; source creation, demuxing, capability, or decoder failures return `error` without leaving playback workers half initialized |
+| Open media | The user selects a File Manager or Gallery item | The UI validates its size, opens an fd, builds `PlayOptions`, then calls `playAsync`; NAPI validates the fields and queues `Player::Init()` / `Player::Start()` on a worker | Cancelling only dismisses the picker; an empty file is reported by the UI; source creation, demuxing, capability, or decoder failures return `error` without leaving playback workers half initialized |
 | Demuxing and media information | Native receives the fd, offset, and size | `OH_AVSource` reads the source format, `OH_AVDemuxer` enumerates tracks, and the sample stores structured fields plus copied raw Format text | The panel reads an immutable snapshot instead of rereading the file during playback; initialization fails cleanly if no playable audio or video track exists |
 | Video decoding | A video track and playback settings are selected | The player creates an automatic, hardware, or software decoder, writes capability-validated fields, and continuously moves compressed input and decoded output through Sync or Async workers | Automatic mode tries software once only after its initial create/capability/configure failure; an explicit hardware failure remains visible and is not silently changed to software |
 | Video presentation | A decoder produces an output buffer | `AvSyncController` decides whether to wait, present now, or drop; `VideoSink` then uses a Surface or Buffer copy path | Every codec output buffer is returned whether it is presented, dropped, or fails to present; a destroyed Surface clears its non-owning window reference before later frames are released |
@@ -850,24 +859,20 @@ The later sections describe individual modules and APIs. This section follows on
 | Diagnostics, state, and release | Polling, EOS, Stop, or error | Native atomics build a read-only snapshot, the state machine validates transitions, and `ReleaseWorker` stops workers and releases renderer/codecs in a fixed order | Diagnostics never affect scheduling; repeated Stop is safe; the completion callback is invoked outside the Player mutex to avoid re-entrant UI deadlocks |
 | Camera recording and muxing | The user confirms recording settings and permissions | The UI creates a media-library fd; preview and encoder Surfaces split camera output; audio/video encoder output is serialized through the Muxer | Camera and codec capability checks happen before recording; Stop waits for both EOS paths and muxer finalization before closing the fd |
 
-**Playback initialization.** After a file is selected, the UI opens an fd and sends the valid byte range as offset and size. Gallery and File Manager sources therefore share the same Native input path. `PlayerNapiParser` validates each field before filling the responsibility-oriented `SampleInfo` members. `Player::Init()` accepts only `IDLE`: it creates the source and demuxer, freezes the media snapshot, chooses tracks, creates decoders/AudioRenderer/output policy, and enters `READY` after the required steps succeed. Any earlier failure follows the same cleanup path and returns a reason to ArkTS, so the next task cannot reuse partial objects.
+**Playback startup.** After a file is selected, the UI opens an fd and sends the valid byte range as offset and size. Gallery and File Manager sources therefore share the same Native input path. `PlayerNapiParser` validates each field before filling the responsibility-oriented `SampleInfo` members. The page calls `playAsync`; `PlayerNative` queues `Player::Init()` and `Player::Start()` on an NAPI worker. `Init()` accepts only `IDLE`: it creates the source and demuxer, freezes the media snapshot, chooses tracks, creates decoders/AudioRenderer/output policy, and enters `READY` after the required steps succeed. Any earlier failure follows the same cleanup path and returns a reason to ArkTS, so the next task cannot reuse partial objects.
 
-Initialization prepares the pipeline but does not read frames. `Start()` first seeks the Demuxer to zero, starts each decoder that exists, creates its input/output workers, starts the AudioRenderer when audio is present, and enters `PLAYING` only after startup succeeds. A video-only file has no audio renderer or audio workers; an audio-only file has no video decoder or video workers. If starting one side fails after the other side has started, startup rollback stops the active workers and delegates cleanup to the same release path used by Stop.
+Initialization prepares the pipeline but does not read frames. `Start()` first seeks the Demuxer to zero, starts each decoder that exists, creates its input/output workers, starts the AudioRenderer when audio is present, and enters `PLAYING` only after startup succeeds. A video-only file has no audio renderer or audio workers; an audio-only file has no video decoder or video workers. If starting one side fails after the other side has started, startup rollback stops the active workers and delegates cleanup to the same release path used by Stop. `playAsync()` resolves with whether startup succeeded; its completion callback arrives separately after release. When `completionOwned` is true, the input fd remains open until that callback.
+
+`NativePlayerSession` serializes asynchronous start, seek, and audio-track operations for one NAPI environment. A Stop received during one of these operations marks it pending; the session calls `Player::Stop()` when the active operation reaches its safe boundary. The `stop()` return only confirms that the request was accepted. The completion callback confirms that playback cleanup has finished.
 
 At playback start, the audio output clock may not yet have a valid hardware timestamp. Video then follows its nominal frame interval until the AudioRenderer timestamp and consumed-frame position stabilize; it does not interpret a zero timestamp as permission to drop a run of frames. Once valid, the audio clock drives video wait/drop decisions. For video-only media, successful video presentation PTS advances the visible position. Decoder output count and playback position are tracked separately; audio progress follows PCM consumed by AudioRenderer.
 
 ```text
-File selection -> fd + PlayOptions -> Init / demux / validation -> READY
-                                                        |
-                                                        v
-                           Seek to 0 -> decoder workers -> PLAYING
-                                                        |
-                    ┌───────────────────────────────────┴──────────────────┐
-                    v                                                      v
-             Both active outputs drain                              Stop or error
-                    └─────────────────────────┬───────────────────────────┘
-                                              v
-                             ReleaseWorker -> completion callback -> IDLE
+File selection -> fd + PlayOptions -> playAsync -> NAPI worker
+                                                -> Init / demux / validation -> READY
+                                                -> Start / decoder workers -> PLAYING
+Stop during start/seek/track change -> pending Stop -> Player::Stop()
+PLAYING -> EOS / Stop / error -> ReleaseWorker -> completion callback -> IDLE
 ```
 
 **Decoder and queue flow.** In Async mode, framework callbacks only enqueue buffer indexes and pointers. They never perform file I/O, sleep, or graphics work on a codec callback thread. In Sync mode, workers query buffers themselves. Both paths converge on the same input, output, and release routines. An input worker reads a compressed Demuxer sample, preserves its PTS, flags, and EOS marker, then pushes it to the codec. An output worker recognizes EOS, seek preroll, and normal frames before it schedules or presents them. EOS on the input side only tells the codec that no more compressed samples follow; delayed decoded frames can still arrive. The track is complete only when its output worker handles EOS. Queue closure, errors, Stop, and Surface destruction wake waiting workers so no thread waits indefinitely for a buffer that can no longer arrive.
@@ -976,10 +981,7 @@ The structured `PlayOptions` object has the following shape:
 
 Audio playback settings also expose volume (0–100%), applied immediately through `OH_AudioRenderer_SetVolume()`, and Normal/Low output latency, applied with `OH_AudioStreamBuilder_SetLatencyMode()` when the next `AudioRenderer` is created. Low latency reduces buffering but may increase underrun risk. Track-derived sample rate, channel count, channel layout, and sample format are not overridden by the UI.
 
-`PlayerNapiParser` reads named fields and fills `SampleInfo`. `PlayerNative` retains NAPI registration,
-completion-callback dispatch, and the calls to `Player::Init()` / `Player::Start()`. `PlayerNapiSerializer` converts
-playback results, playback state, and media information into ArkTS objects. This keeps parsing, serialization, and
-playback orchestration independent while preserving the existing NAPI contract.
+`PlayerNapiParser` reads named fields and fills `SampleInfo`; `PlayerControlParser` validates control arguments. `PlayerStartup` coordinates `Player::Init()` and `Player::Start()` on the asynchronous worker used by `playAsync`. `NativePlayerSession` serializes start, seek and track changes, and defers a pending Stop until the active operation exits. `PlayerNative` retains NAPI registration and completion-callback dispatch, while `PlayerNapiSerializer` converts playback results, state and media information into ArkTS objects. The synchronous `play(options, callback)` and positional `playNative(...)` entry points remain available for compatibility; the page uses `playAsync`.
 
 <a id="recording-entry"></a>
 
@@ -1311,6 +1313,8 @@ The Picture in picture action uses `@ohos.PiPWindow` to create a `VIDEO_PLAY` sy
 
 The Background playback switch controls the PiP controller's `setAutoStartEnabled()` setting and the Native background policy. When enabled, returning home may automatically move the current video into PiP and the Native workers continue running. When disabled, PiP is not entered automatically and entering the background pauses audio, video scheduling, and synchronization until the app returns to the foreground. Manual PiP remains available in either mode.
 
+`PlayerPictureInPictureController` owns the background policy and reports success after the current window is usable and automatic entry is enabled. Turning the switch off during creation or startup cancels the request. A window retained for cleanup cannot report success. Stopping playback clears the policy. Page, PiP and AVSession pause/resume commands use Native state to handle repeated target commands.
+
 <a id="av-session"></a>
 
 #### System media controls
@@ -1353,20 +1357,20 @@ Video presentation is isolated behind `VideoSink`. `SurfaceVideoSink` uses the d
 The player uses an explicit state machine:
 
 ```text
-IDLE -> INITIALIZING -> READY -> PLAYING <-> PAUSED -> STOPPING -> IDLE
-                                  |                  ^
-                                  v                  |
-                                SEEKING -------------+
+IDLE -> INITIALIZING -> READY -> PLAYING <-> PAUSED
+                         |        |          |
+                         +--------+----------+-> STOPPING -> IDLE
+PLAYING/PAUSED <-> SEEKING; seek failure -> STOPPING
 ```
 
 - `Init()` accepts only `IDLE` and enters `INITIALIZING`.
 - `Start()` accepts only `READY` and enters `PLAYING` after worker startup.
-- `Stop()` accepts `PLAYING` or `PAUSED`; a repeated call while stopping is treated idempotently.
+- `Stop()` accepts `READY`, `PLAYING` or `PAUSED`; a repeated call while stopping is treated idempotently.
 - `pause()` accepts `PLAYING` and `resume()` accepts `PAUSED`; neither destroys the active decoders.
 - `seekTo()` accepts `PLAYING` or `PAUSED`, temporarily enters `SEEKING`, and restores the state active before seek or transitions to `STOPPING` on failure.
 - Natural EOS, explicit Stop, and errors converge on the same release path.
 
-The structured NAPI surface includes `play(options, callback)`, `stop()`, `pause()`, `resume()`, `seekTo(positionUs)`, `getState()`, `getPlaybackInfo()`, and `getMediaInfo()`. The older positional `playNative(...)` API remains for compatibility, while the page uses the structured API.
+The NAPI surface exposes `playAsync(options, callback)` for page startup, plus `stop()`, `pause()`, `resume()`, `seekTo(positionUs)`, `seekToAsync(positionUs)`, `selectAudioTrackAsync(trackIndex)`, `getState()`, `getPlaybackInfo()`, and `getMediaInfo()`. `play(options, callback)` and the positional `playNative(...)` remain synchronous compatibility entry points. `NativePlayerSession` serializes start, seek, and track changes per environment; Stop marks an in-flight operation pending and is applied after that operation exits. The `stop()` return acknowledges the request, while the completion callback reports finished cleanup.
 
 `ReleaseWorker` waits until active audio and video outputs are complete. Missing tracks are marked complete before startup. The worker then:
 
@@ -1380,7 +1384,7 @@ The structured NAPI surface includes `play(options, callback)`, `stop()`, `pause
 
 Worker threads are joined rather than detached. `CodecUserData` is owned by `unique_ptr`, callback entry points check destruction/running state, and `renderQueue` access is consistently protected by its mutex.
 
-`PlayerStateMachine` defines the only legal transitions: `IDLE -> INITIALIZING -> READY -> PLAYING <-> PAUSED -> STOPPING -> IDLE` and `PLAYING/PAUSED <-> SEEKING`. `Player` is no longer a global singleton. The NAPI module owns one `Player` through environment instance data, and environment cleanup destroys it; every NAPI call resolves the player associated with its current environment.
+`PlayerStateMachine` defines the only legal transitions: `IDLE -> INITIALIZING -> READY`, `READY -> PLAYING`, `READY/PLAYING/PAUSED -> STOPPING -> IDLE`, and `PLAYING/PAUSED <-> SEEKING`. `Player` is no longer a global singleton. The NAPI module owns one `Player` through environment instance data, and environment cleanup destroys it; every NAPI call resolves the player associated with its current environment.
 
 Window resources follow the same release boundary. XComponent and `OHNativeWindow` belong to ArkUI; the player borrows the active window through a generation-aware lease. Surface destruction first withdraws that borrowable reference, and an asynchronous presentation worker releases its lease after the current frame. A rebuilt Surface, Stop, or late graphics callback therefore cannot keep using an old window, while the player never destroys an object owned by the framework.
 
@@ -1981,7 +1985,7 @@ The previous sections describe the modules separately. The notes below collect t
 
 #### Playback initialization and failure cleanup
 
-After a file is selected, the page does not pass the URI directly to a decoder. `Index.ets` opens the file and obtains its fd, offset, and size. The structured NAPI call passes those values to `PlayerNative::Play()`, which builds the task in this order:
+After a file is selected, the page does not pass the URI directly to a decoder. `Index.ets` opens the file and obtains its fd, offset, and size. The page calls `playAsync` with those values; `PlayerNapiParser` validates them and the NAPI worker runs `Player::Init()` followed by `Player::Start()`:
 
 ```text
 fd / offset / size
@@ -2325,10 +2329,22 @@ Unknown ranges remain `?`, not zero or unsupported. These snapshots record syste
 
 ### Where to Make Changes
 
+Queue changes go through business operations on `PlaybackQueueController`; path snapshots are independent copies. Each switch request carries a queue version, selection number and target path. Appending preserves valid requests; clearing or replacing invalidates them. `PlaybackCommandController` owns Seek, desired speed and pause exclusion. Seek completion applies the current speed and thermal state; stale results cannot restore controls or display feedback.
+
+`PlaybackFlowState` distinguishes `idle`, `preparing`, `active`, `stopping`, `releasing` and `close_pending`. Only `idle` allows startup and only `active` allows playback commands. New tasks wait for Native release; an unconfirmed close keeps the restart notice available. Page capabilities derive from these phases, while Native retains codec state ownership.
+
+Playback entry points call [PlaybackFlowController](entry/src/main/ets/controller/PlaybackFlowController.ets). It owns URI preparation cancellation, stop ordering, completion dispatch, queue continuation, one-shot runtime recovery, resume Seek. `PlaybackFlowState` exposes observable playback state; `Index.ets` supplies snapshots and handles UI events. `PlaybackStartupController` retains file and Native lease ownership. [PlaybackHistoryCoordinator](entry/src/main/ets/controller/PlaybackHistoryCoordinator.ets) owns the active history source, progress throttling, completion marks and final flush. Source selection only selects inputs and loads recent entries. `PlaybackFlowRuntime` supplies URI preparation, Native operations and timers. Add or change flow rules in the controller and [its direct Host tests](tests/host/PlaybackFlow.test.cjs). Core tests provide business inputs and inspect requests, state and events; page adapter tests check UI fields, resources and page hooks.
+
+The existing `entry/controller` directory remains the scene-business location for this migration. Codec interfaces and Native code keep their current locations. This change does not reorganize the full Sample into Library and scene directories. Device regression for this migration is tracked separately in [ohosTest.md](ohosTest.md#playback-flow-migration).
+
 Playback settings, Native configuration, and page feedback form one data path. Adding a control to the settings panel is only the first step. Confirm when it takes effect, whether it belongs in media information or diagnostics, and whether applying it requires rebuilding an active codec.
 
 | Change | Layers to update | Boundary to preserve |
 |---|---|---|
+| Change queue or pending-target rules | `PlaybackQueueController` → `PlaybackQueueState.test.cjs`, `PlaybackOrdering.test.cjs` | Use queue operations; validate request identity after asynchronous waits. Appending and replacing have different invalidation rules. |
+| Change Seek, speed or pause rules | `PlaybackCommandController` → `PlaybackCommand.test.cjs`; page adapters forward inputs and map resources | Stop, leave and replay invalidate old Seek results. Retain the latest speed during Seek and restore the current thermal policy afterward. |
+| Change history saving policy | `PlaybackHistoryCoordinator` → `PlaybackHistoryCoordinator.test.cjs` | Bind progress to the launched source. Old save results cannot change throttling for a replay of the same URI. Reuse model backoff; forced saves and final flush can retry immediately. |
+| Add a playback entry or change stop rules | `PlaybackFlowController` → `PlaybackFlow.test.cjs`; entry points delegate to `play`, `stop`, `leave` or `switchQueue` | Keep cancellation generations, late-result checks and continuation decisions in the flow. The page handles UI events; the startup controller releases the input and lease after Native completion. |
 | Add a transcode option | `TranscodeModel`/`TranscodeQualityModel` → `TranscodeRequest` type → `TranscoderNative::ReadOptions()` → `TranscodeOptions` → Native processing stage | Update queue snapshots/validation, preflight, actual results and preview. State Buffer/Surface/remux applicability; a label change alone is insufficient. |
 | Add recovery/report fields | Model snapshot → `MediaStateFiles` and report validation → queue restore/device panel | Update version/range checks and share filtering. Recovery does not reuse an old fd; one-file replacement is not a multi-file transaction. |
 | Add a playback setting | `PlayerSettingsModel` validates and creates `PlayOptions` → `PlayerNapiParser` parses it → `SampleInfo` stores it → `Player` or decoder applies it | Distinguish immediate changes from next-playback settings. Volume can update the current renderer; Surface, decoder type, and low-latency configuration must be decided when the relevant object is created. The settings sheet edits draft values, so Cancel must not modify saved settings. |
@@ -2468,7 +2484,7 @@ $env:AVCODEC_WSL_DISTRO = '<distribution name from wsl --list>'
 node scripts/verify.mjs
 ```
 
-The script runs the Host suites and runner checks, all 15 Native tests, CodeLinter and the HAP build. Each command has a timeout and writes a log under `.validation/logs/`; any failed stage returns a nonzero exit code. Use `--only host|native|lint|build` to run one stage. Use the Node version bundled with DevEco Studio, or add it to PATH first. See [verification details](tests/README.md) for timeout options, dependencies, scope, existing findings and PR requirements. CI can call this script; repository maintainers must configure required remote checks.
+The script runs the Host suites and runner checks, all 20 Native tests, CodeLinter and the HAP build. Each command has a timeout and writes a log under `.validation/logs/`; any failed stage returns a nonzero exit code. Use `--only host|native|lint|build` to run one stage. Use the Node version bundled with DevEco Studio, or add it to PATH first. See [verification details](tests/README.md) for timeout options, dependencies, scope, existing findings and PR requirements. CI can call this script; repository maintainers must configure required remote checks.
 
 The foreground app keeps the screen on during video playback or active recording. Pause, stop, page exit and background transitions restore the system timeout policy. Audio-only playback and idle pages do not keep the screen on. Media asset queries attempt to release PhotoAccessHelper on success, lookup failure and result-close failure. Recording initialization retains the original error object so its stage, code and message remain available.
 
@@ -2486,13 +2502,19 @@ The save sheet close button, Back action and dismiss gesture cancel recording st
 
 ### Verification results
 
+PiP startup is tied to the playback generation. Duplicate starts share one request; stop invalidates callbacks before waiting for creation or startup to finish. Cleanup attempts all listener removals and retains a controller when system closure fails so it can retry. PiP controls and frame stepping use `PlaybackCommandController`, including its Seek exclusion and target pause state. Startup now returns an explicit `started`, `releasing`, `rejected` or `close_pending` result with a reason, while the startup attempt retains file and lease cleanup responsibility.
+
+The 17 Host suites include tests combining the production Flow, Command and Seek controllers, plus PiP races and cleanup failures. Three device polling runs passed all nine checks on SGT-AL10. Mean full model updates measured 0.581ms idle, 0.862ms playing and 0.914ms paused. The existing 250ms polling interval remains; the measurements cover audio and an unmounted view model, excluding ArkUI rendering and video/GPU load. Commands, raw log paths and limits are in [verification details](tests/README.md). System PiP and the migrated page flow still require the device regressions listed in [the test guide](ohosTest.md#playback-flow-migration).
+
 | Check | Result |
 |---|---|
 | 324 functional, compatibility, stability and added regression cases | Pass |
-| Host suites and verification runner checks | Pass |
-| 15 Native host tests | Pass |
-| CodeLinter | Pass: 252 existing findings, zero new findings |
+| 17 Host suites and two verification runner groups | Pass |
+| 20 Native host tests | Pass |
+| CodeLinter | Pass: 250 existing findings, zero new findings |
 | HAP build and signing | Pass |
+| Default Hypium device suite: 49 cases | Pass |
+| Audio polling samples: three runs, nine checks | Pass |
 
 See [test cases and results](ohosTest.md) and [verification instructions](tests/README.md) for scope and commands. The build still reports existing warnings.
 

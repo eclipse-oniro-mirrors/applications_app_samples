@@ -269,7 +269,7 @@ void Recorder::FinishAudioOutputThread()
 {
     audioStats_.Stop();
     sessionReport_.Event("audio.thread_end");
-    AVCODEC_SAMPLE_LOGI("Audio output finished, output frames: %{public}u", audioEncContext_->outputFrameCount);
+    AVCODEC_SAMPLE_LOGI("Audio output finished, output frames: %{public}u", audioEncContext_->outputFrameCount.load());
     std::lock_guard<std::mutex> lock(outputDoneMutex_);
     audioOutputDone_.store(true);
     outputDoneCond_.notify_all();

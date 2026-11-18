@@ -45,7 +45,8 @@ function audioFixture() {
     audioSampleRate: 48000, audioChannelCount: 2, bitrate: 128000 }));
   const { PlaybackAudioController } = load('controller/PlaybackAudioController.ets', {
     'libplayer.so': { default: { getMediaInfo: () => ({ tracks }),
-      selectAudioTrack(index) { f.selections.push(index); return true; }, setVolume() {} } },
+      selectAudioTrackAsync: async index => { f.selections.push(index); return true; },
+      getState: () => 3, PlayerState: { PLAYING: 3, PAUSED: 5 }, setVolume() {} } },
     '../common/CommonConstants': { CommonConstants: { DURATION: 1, BOTTOM: 1 } },
     '../common/utils/MediaUtils': { getPickerSelectedIndex: index => index },
   }, { $r: key => key });

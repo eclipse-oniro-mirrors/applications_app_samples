@@ -178,8 +178,7 @@ void Player::ResetPlaybackClockForSeek(int64_t positionUs)
         return;
     }
     std::lock_guard<std::mutex> lock(audioDecContext_->outputMutex);
-    std::queue<unsigned char> emptyQueue;
-    audioDecContext_->renderQueue.swap(emptyQueue);
+    audioDecContext_->renderQueue.Clear();
     audioDecContext_->audioFramesWritten = 0;
     audioDecContext_->currentPosAudioBufferPts = positionUs;
     audioDecContext_->endPosAudioBufferPts = positionUs;

@@ -71,6 +71,13 @@ void Player::JoinWorkerThreads()
     videoPipeline_.Join();
     audioPipeline_.Join();
 }
+
+void Player::RecordCleanup(const char *stage, int32_t result)
+{
+    if (result == 0) { return; }
+    cleanupFailure_.Record(stage, result, "Native resource cleanup failed");
+    AVCODEC_SAMPLE_LOGW("Playback cleanup failed: %{public}s, ret: %{public}d", stage, result);
+}
 // [Start player_release]
 void Player::ReleaseVideoDecoder()
 {
@@ -78,10 +85,11 @@ void Player::ReleaseVideoDecoder()
     if (videoDecoder_ != nullptr) {
         // [StartExclude player_release]
         if (videoSink_ != nullptr && !videoSink_->Quiesce()) {
+            RecordCleanup("sink.quiesce", AVCODEC_SAMPLE_ERR_ERROR);
             AVCODEC_SAMPLE_LOGW("Wait video presentation before decoder release failed");
         }
         // [EndExclude player_release]
-        videoDecoder_->Release();
+        RecordCleanup("video.decoder.destroy", videoDecoder_->Release());
         videoDecoder_.reset();
     }
     if (sampleInfo_.video.window == decoderWindow) {
@@ -101,7 +109,7 @@ void Player::ReleaseVideoDecoder()
 void Player::ReleaseAudioDecoder()
 {
     if (audioDecoder_ != nullptr) {
-        audioDecoder_->Release();
+        RecordCleanup("audio.decoder.destroy", audioDecoder_->Release());
         audioDecoder_.reset();
     }
     if (audioDecContext_ != nullptr) {
@@ -140,7 +148,7 @@ void Player::ReleasePlaybackResources()
     {
         std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
         if (audioRenderer_ != nullptr) {
-            OH_AudioRenderer_Release(audioRenderer_);
+            RecordCleanup("audio.renderer.release", OH_AudioRenderer_Release(audioRenderer_));
             audioRenderer_ = nullptr;
         }
     }
@@ -150,7 +158,7 @@ void Player::ReleasePlaybackResources()
     }
 #endif
     if (demuxer_ != nullptr) {
-        demuxer_->Release();
+        RecordCleanup("demuxer.release", demuxer_->Release());
         demuxer_.reset();
     }
     // 先销毁codec。OpenGL的NativeImage和直连XComponent surface仍是其输出端，
@@ -166,11 +174,12 @@ void Player::ReleasePlaybackResources()
     ReleaseAudioDecoder();
     if (outputFile_ != nullptr && outputFile_->is_open()) {
         outputFile_->close();
+        if (outputFile_->fail()) { RecordCleanup("dump.close", AVCODEC_SAMPLE_ERR_ERROR); }
         dumpSession_.Stop(outputFile_->fail() ? "write_failed" : "completed");
     }
     outputFile_ = nullptr;
     if (builder_ != nullptr) {
-        OH_AudioStreamBuilder_Destroy(builder_);
+        RecordCleanup("audio.builder.destroy", OH_AudioStreamBuilder_Destroy(builder_));
         builder_ = nullptr;
     }
     doneCond_.notify_all();
@@ -202,6 +211,7 @@ void Player::Release()
     // 完成回调在资源释放后到达ArkTS；先保存计数，避免结束报告读取到重置后的零值。
     completedPlaybackInfo_ = GetPlaybackInfo();
     ReleasePlaybackResources();
+    completedPlaybackInfo_.cleanupFailure = cleanupFailure_.Snapshot();
     auto playDoneCallback = sampleInfo_.playback.playDoneCallback;
     void *playDoneCallbackData = sampleInfo_.playback.playDoneCallbackData;
     sampleInfo_.playback.playDoneCallback = nullptr;

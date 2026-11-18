@@ -102,22 +102,32 @@ export class PlaybackAudioController {
         if (selected < 0 || selected >= tracks.length || this.rejectWhileSeeking()) {
           return;
         }
-        if (!player.selectAudioTrack(tracks[selected].index)) {
-          this.ui().getPromptAction().showToast({
-            message: $r('app.string.playback_audio_track_unsupported'),
-            duration: Const.DURATION,
-            bottom: Const.BOTTOM
-          });
-          return;
-        }
-        this.settings.audioTrackIndex = tracks[selected].index;
-        this.onTrackChanged();
-        this.ui().getPromptAction().showToast({
-          message: labels[selected] + this.getText($r('app.string.playback_audio_track_switched')),
-          duration: Const.DURATION,
-          bottom: Const.BOTTOM
-        });
+        void this.changeTrack(tracks[selected].index, labels[selected], session);
       }
+    });
+  }
+
+  private async changeTrack(index: number, label: string, session: number): Promise<void> {
+    let switched: boolean = false;
+    try {
+      const operation: Promise<boolean> = player.selectAudioTrackAsync(index);
+      switched = await operation;
+    } catch (error) { switched = false; }
+    if (session !== this.getSession()) { return; }
+    const state: number = player.getState();
+    if (state !== player.PlayerState.PLAYING && state !== player.PlayerState.PAUSED) { return; }
+    if (!switched) {
+      this.ui().getPromptAction().showToast({
+        message: $r('app.string.playback_audio_track_unsupported'), duration: Const.DURATION, bottom: Const.BOTTOM
+      });
+      return;
+    }
+    this.settings.audioTrackIndex = index;
+    this.onTrackChanged();
+    this.ui().getPromptAction().showToast({
+      message: label + this.getText($r('app.string.playback_audio_track_switched')),
+      duration: Const.DURATION,
+      bottom: Const.BOTTOM
     });
   }
 

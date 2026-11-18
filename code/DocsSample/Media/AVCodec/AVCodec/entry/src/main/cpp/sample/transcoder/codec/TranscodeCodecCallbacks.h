@@ -21,11 +21,32 @@
 #include <cstdint>
 #include <deque>
 #include <mutex>
+#include <atomic>
 #include <multimedia/player_framework/native_avcodec_base.h>
 
 struct TranscodeCodecBuffer {
     uint32_t index = 0;
     OH_AVBuffer *buffer = nullptr;
+};
+
+class TranscodeWakeSignal {
+public:
+    uint64_t Revision() const { return revision_.load(); }
+    void Notify()
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        revision_.fetch_add(1);
+        changed_.notify_all();
+    }
+    void Wait(uint64_t revision, std::chrono::milliseconds timeout)
+    {
+        std::unique_lock<std::mutex> lock(mutex_);
+        changed_.wait_for(lock, timeout, [this, revision]() { return revision_.load() != revision; });
+    }
+private:
+    std::atomic<uint64_t> revision_ { 0 };
+    std::mutex mutex_;
+    std::condition_variable changed_;
 };
 
 // Callback queues borrow codec buffers. Only the job worker submits or returns their indices.
@@ -40,6 +61,8 @@ public:
     uint64_t Revision() const;
     void Wait(uint64_t revision, std::chrono::milliseconds timeout);
     void Close();
+    // 配置阶段赋值；唤醒源由Job持有，晚于codec销毁。
+    void SetWakeSignal(TranscodeWakeSignal *signal) { wake_ = signal; }
 
 private:
     struct Event {
@@ -68,5 +91,6 @@ private:
     int32_t error_ = 0;
     bool encoderError_ = false;
     bool closed_ = false;
+    TranscodeWakeSignal *wake_ = nullptr;
 };
 #endif

@@ -157,6 +157,10 @@ export class MediaReports {
       { name: 'sink.frame', amount: info.videoSinkDiagnostics.averageFrameUs / 1000, unit: 'ms' }];
     report.events = info.diagnostics.events.map((event: PlaybackTimelineEvent): MediaSessionEvent =>
       ({ elapsedMs: event.elapsedUs / 1000, stage: event.stage }));
+    if (info.cleanupFailure !== undefined && info.cleanupFailure.stage.length > 0) {
+      report.events.push({ elapsedMs: 0,
+        stage: 'cleanup.failed: ' + info.cleanupFailure.stage + ' / ' + info.cleanupFailure.code });
+    }
     return report;
   }
 
@@ -182,6 +186,10 @@ export class MediaReports {
       report.metrics.push({ name: metric.name + '.p95', amount: metric.p95Ms, unit: 'ms' });
     });
     report.events = [{ elapsedMs: status.elapsedMs, stage: status.stage }];
+    if (status.cleanupStage !== undefined && status.cleanupStage.length > 0) {
+      report.events.push({ elapsedMs: status.elapsedMs,
+        stage: 'cleanup.failed: ' + status.cleanupStage + ' / ' + (status.cleanupCode ?? 0) });
+    }
     return report;
   }
 

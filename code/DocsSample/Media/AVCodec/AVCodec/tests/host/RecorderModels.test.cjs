@@ -917,12 +917,14 @@ async function testPlaybackStartup() {
   io.openSync = () => ({ fd: 81 });
   io.statSync = () => ({ size });
   io.closeSync = () => { closes++; };
-  api.play = (_options, cb) => { completion = cb; playbackState = 4; return false; };
+  api.playAsync = async (_options, cb) => {
+    completion = cb; playbackState = 4; return { started: false, completionOwned: true };
+  };
   try {
-    const result = PlaybackStartupController.launch(undefined, 'file', new PlayerSettingsModel(), false,
+    const result = await PlaybackStartupController.launch(undefined, 'file', new PlayerSettingsModel(), false,
       () => {}, () => {});
-    assert.equal(result.started, false);
-    assert.equal(result.nativeOwnsLease, true);
+    assert.equal(result.kind, 'releasing');
+    assert.equal(result.kind, 'releasing');
     assert.equal(closes, 0, 'Failed Native startup keeps the descriptor until the completion callback');
     assert.equal(MediaTaskCoordinator.busy(), true);
     completion({ success: false, reason: 'error' });
@@ -930,14 +932,14 @@ async function testPlaybackStartup() {
     assert.equal(MediaTaskCoordinator.busy(), false);
     playbackState = 0;
     size = 0;
-    assert.equal(PlaybackStartupController.launch(undefined, 'empty', new PlayerSettingsModel(), false,
-      () => { throw new Error('Empty file must not start'); }, () => {}).error, 'empty');
+    assert.equal((await PlaybackStartupController.launch(undefined, 'empty', new PlayerSettingsModel(), false,
+      () => { throw new Error('Empty file must not start'); }, () => {})).reason, 'empty');
     assert.equal(closes, 2);
     assert.equal(MediaTaskCoordinator.busy(), false);
     size = 100;
-    api.play = () => false;
-    assert.equal(PlaybackStartupController.launch(undefined, 'invalid', new PlayerSettingsModel(), false,
-      () => {}, () => {}).nativeOwnsLease, false);
+    api.playAsync = async () => ({ started: false, completionOwned: false });
+    assert.equal((await PlaybackStartupController.launch(undefined, 'invalid', new PlayerSettingsModel(), false,
+      () => {}, () => {})).kind, 'rejected');
     assert.equal(closes, 3);
     assert.equal(MediaTaskCoordinator.busy(), false);
   } finally { Object.assign(api, originalApi); Object.assign(io, originalIo); playbackState = 0; }

@@ -1,5 +1,34 @@
 # AVCodecSample测试指南
 
+<a id="playback-flow-migration"></a>
+
+## 播放流程模块迁移回归
+
+启动、停止、离页、完成、队列续播和恢复规则迁入`PlaybackFlowController`。历史保存独立到`PlaybackHistoryCoordinator`，Seek、倍速和暂停规则由`PlaybackCommandController`处理，队列通过封装操作维护版本和待播请求，平台操作通过`PlaybackFlowRuntime`注入。编排阶段区分准备、播放、停止、释放和关闭结果不明，权限由阶段推导。核心流程、历史保存、来源集成和页面适配分别测试；14套Host回归及验证入口检查、15项Native测试、CodeLinter和HAP构建签名均通过。CodeLinter为252条存量结果、0条新增，构建仍有存量ArkTS警告。日志见`tests/README.md`的迁移说明。设备回归尚未执行，既有用例的Pass不代表本次迁移已完成设备验证。
+
+| 检查范围 | 设备操作与预期 | 本次结果 |
+|---|---|---|
+| 播放入口与停止 | 分别从文档、媒体库、最近历史和录制成品启动；准备期间停止或离页，再进入后只响应新请求。 | 待执行 |
+| 队列切换 | 播放中选择上一项、下一项或队列条目；停止期间改选、追加或清空队列，仅最后有效目标起播。 | 待执行 |
+| Seek与控制命令 | 连续拖动并修改倍速；Seek期间尝试暂停，在温控状态变化后结束Seek，再执行暂停和继续。只应用最新倍速和当前温控策略，Seek期间暂停提示忙碌，结束后控制和AVSession状态一致。 | 待执行 |
+| 过期结果与阶段 | Seek未返回时停止、离页或重播；准备和释放期间反复选源，关闭结果不明时再次点击播放。旧结果不改新任务，不重复起播；关闭结果不明时提示重启。 | 待执行 |
+| 自然结束与保存 | 顺序和循环模式下自然结束；历史保存延迟或失败时界面及时清理，续播正常，恢复保存后完成位置为0；同URI重播、快速切换及离页后，历史归属和最近记录显示正确。 | 待执行 |
+| 恢复与关闭异常 | 输出后注入一次运行时错误，核对单次恢复、位置、暂停、倍速及静音；主动停止或关闭结果不明时不自动恢复。 | 待执行 |
+| 页面状态 | 检查播放按钮、进度、字幕、音轨、PiP和AVSession；重播后不出现旧Seek或字幕提示。 | 待执行 |
+| PiP异步取消 | 在系统窗口创建或启动尚未完成时停止、离页或切换播放；旧窗口返回后自动关闭，不恢复后台策略，不显示旧播放失败提示。 | 待执行 |
+| PiP控制与重入 | 当前播放进入PiP，重复暂停或继续；Seek期间控制并逐帧跳转；窗口关闭后同一播放自动重入。状态与页面、AVSession一致，不重复切换。 | 待执行 |
+| PiP清理故障 | 调试版本分别注入监听注册、解绑、禁用自动启动或关闭失败，再停止重试。其余清理仍执行，旧事件无效；未完成清理前不创建新窗口。 | 待执行 |
+| 后台策略与目标控制 | 播放视频后连续开关后台播放，在创建或启动期间关闭、停止或切换文件；失败后重试。开启提示只对应当前成功请求，清理失败不显示成功。分别从页面、PiP和系统会话重复暂停、继续，再停止重播。 | 待执行 |
+| 后台播放基本路径 | 文档选择已有AVCodec录制文件，起播后暂停；开启后台播放，确认系统PiP窗口与开启提示，再关闭后台开关并停止。页面显示暂停后的继续入口、后台开关状态及停止后的重播入口。 | Pass |
+
+上述新增PiP与控制组合已通过Host替身回归；实际系统窗口、页面与送显验证仍为待执行。`PlaybackPollingBenchmark`在SGT-AL10、OpenHarmony-7.0.0.33、SDK 26.0.0上执行3轮，每轮空闲、播放、暂停3项，9项全部Pass。它测量NAPI与未挂载ArkUI的模型同步更新，不覆盖PiP或页面渲染。完整方法、均值和最大值见[轮询真机采样](tests/README.md#轮询真机采样)，原始报告位于`.bundle-flow/pip-commands/device-polling-run1.log`至`run3.log`。
+
+默认Hypium设备回归另执行13套、49条，全部Pass，未启动性能采样。高级录制用例改用60fps输入验证30fps输出；媒体信息用例使用`entry_test`模块上下文读取资源。报告位于`entry/.test/default/intermediates/ohosTest/coverage_data/test_result.txt`，运行日志为`.bundle-flow/pip-commands/device-default-final.log`。这49条结果不替代上表的页面与系统PiP场景。
+
+新增的`verify.mjs --only device`已完成默认49条真机回归，逐项结果与汇总均通过校验，结构化结果见`.validation/device-result.json`。该入口先移除旧报告，缺报告、过期、条数不符、失败或错误均返回失败；具体命令见[设备报告校验](tests/README.md#设备报告校验)。系统PiP和完整页面操作仍按上表分别验证。
+
+后台播放基本路径已在连接设备执行，系统布局中出现`SCBPipSceneOverlay`，开启和关闭提示与开关状态一致，停止后恢复播放及重播入口。证据为本地忽略目录`.bundle-flow/device-recording/`中的`policy-started.json`、`policy-pause-confirmed.json`、`policy-background-state.json`、`policy-background-off-menu.json`和`policy-stopped.json`。这项检查不覆盖系统媒体面板命令、快速请求组合或系统故障注入，上表对应项目仍待执行。
+
 ## 1. 文档说明
 
 本文说明自动化测试的范围和运行方法，并列出真机功能、兼容性与稳定性用例。测试覆盖播放、媒体库、录制、转码和设备五个页面，以及编解码、送显、文件导出、配置保存和任务恢复。
@@ -69,7 +98,7 @@
 
 | 层级与入口 | 覆盖范围 | 需要另做的真机检查 |
 |---|---|---|
-| Hypium：`entry/src/ohosTest/ets/test/List.test.ets` | 注册13个测试套件、49个用例，检查默认配置、索引、格式化、字幕、播放历史、恢复策略和Seek合并 | ArkUI刷新、系统音频中断、权限和真实媒体输入输出 |
+| Hypium：`entry/src/ohosTest/ets/test/List.test.ets` | 默认注册13个测试套件、49个用例，检查默认配置、索引、格式化、字幕、播放历史、恢复策略和Seek合并；显式指定`PlaybackPollingBenchmark`另注册3项音频轮询采样 | 默认套件不覆盖ArkUI刷新、系统音频中断、权限和真实媒体输入输出；采样不覆盖页面渲染或视频负载 |
 | Host：`tests/host/RecorderModels.test.cjs` | 录制设置、配置持久化、播放 URI 授权准备、文件部分写入与失败、导出、Dump、存储、暂停与收尾、分段和成品校验 | 相机流组合、编码输出、图库和文件提供方 |
 | Host：`tests/host/TranscodeModels.test.cjs` | 会话互斥、任务恢复、报告脱敏、能力快照、预览取消、队列策略和批量导出 | Native转码结果、GPU处理、URI授权与进程重启 |
 | Host：`tests/host/RecordingPersistence.test.cjs` | 录制历史并发保存、失败重试、读取恢复、预览取消、关闭错误与fd归属 | Preferences与文件关闭的设备故障注入、真实相机与编码输出 |
@@ -533,7 +562,7 @@ node tests/host/TranscodeModels.test.cjs $avcodecTypeScript
 | 历史恢复与文件关闭回归 | 16 | 16 | 0 | 0 | 0 | 0 |
 | 合计 | 324 | 324 | 0 | 0 | 0 | 0 |
 
-自动化与构建：8套Host回归及验证入口检查、15项Native宿主测试均为Pass；CodeLinter为252条存量结果、0条新增；HAP构建及签名为Pass。
+自动化与构建：17套Host回归及2项验证入口检查、20项Native宿主测试均通过；CodeLinter记录250条存量结果、0条新增；HAP构建及签名通过。默认Hypium回归13套、49条全部通过，详细报告见[验证说明](tests/README.md)。
 
 ## 17. 时钟、通知取帧与录制成品回归
 

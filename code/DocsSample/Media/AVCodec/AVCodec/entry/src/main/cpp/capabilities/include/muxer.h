@@ -16,7 +16,6 @@
 #ifndef MUXER_H
 #define MUXER_H
 
-#include <bits/alltypes.h>
 #include "multimedia/player_framework/native_avmuxer.h"
 #include "sample_info.h"
 #include "dfx/error/av_codec_sample_error.h"

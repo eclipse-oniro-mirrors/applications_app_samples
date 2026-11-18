@@ -21,6 +21,13 @@
 namespace {
 constexpr auto CAMERA_DRAIN_GRACE = std::chrono::milliseconds(50);
 constexpr auto ENCODER_DRAIN_TIMEOUT = std::chrono::seconds(5);
+constexpr auto RELEASE_WARNING_INTERVAL = std::chrono::seconds(5);
+
+std::string ElapsedMilliseconds(std::chrono::steady_clock::time_point started)
+{
+    return std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::steady_clock::now() - started).count()) + " ms";
+}
 }
 
 void Recorder::StartRelease()
@@ -38,6 +45,7 @@ void Recorder::StartRelease()
 
 void Recorder::ReleaseThread()
 {
+    const auto started = std::chrono::steady_clock::now();
     {
         // 错误释放与停止后的EOS提交串行，输入线程join后才允许Destroy。
         std::lock_guard<std::mutex> inputLock(videoInputMutex_);
@@ -48,6 +56,7 @@ void Recorder::ReleaseThread()
     secondaryVideoOutputWorker_.Join();
     audioInputWorker_.Join();
     audioOutputWorker_.Join();
+    sessionReport_.Event("workers.joined", ElapsedMilliseconds(started));
 }
 
 // [Start recorder_release]
@@ -143,9 +152,15 @@ void Recorder::Release()
 
     {
         std::lock_guard<std::mutex> lock(mutex_);
+        const auto muxerStarted = std::chrono::steady_clock::now();
         ReleaseMuxers();
+        sessionReport_.Event("muxers.released", ElapsedMilliseconds(muxerStarted));
+        const auto videoStarted = std::chrono::steady_clock::now();
         ReleaseVideoEncoder();
+        sessionReport_.Event("video.codec.released", ElapsedMilliseconds(videoStarted));
+        const auto audioStarted = std::chrono::steady_clock::now();
         ReleaseAudioEncoder();
+        sessionReport_.Event("audio.codec.released", ElapsedMilliseconds(audioStarted));
         audioStats_.Stop();
         CloseVideoDumpFiles();
         primaryStats_.Stop();
@@ -200,7 +215,10 @@ int32_t Recorder::WaitForDone()
 {
     AVCODEC_SAMPLE_LOGI("Wait called");
     std::unique_lock<std::mutex> lock(mutex_);
-    doneCond_.wait(lock, [this]() { return releaseCompleted_; });
+    while (!doneCond_.wait_for(lock, RELEASE_WARNING_INTERVAL, [this]() { return releaseCompleted_; })) {
+        sessionReport_.Event("release.pending", "Resources remain owned until release completes");
+        AVCODEC_SAMPLE_LOGW("Recorder cleanup is still pending; retain session resources");
+    }
     const int32_t result = releaseResult_ != AVCODEC_SAMPLE_ERR_OK ? releaseResult_ :
         (failure_.Snapshot().stage.empty() ? AVCODEC_SAMPLE_ERR_OK : AVCODEC_SAMPLE_ERR_ERROR);
     std::unique_ptr<std::thread> releaseThread = std::move(releaseThread_);
@@ -268,12 +286,14 @@ int32_t Recorder::SendVideoEndOfStream()
 
 int32_t Recorder::SendAudioEndOfStream()
 {
+    const auto started = std::chrono::steady_clock::now();
     // 先结束并join AAC输入线程，再发EOS；输出线程会排空剩余编码数据。
     audioInputStopping_.store(true);
     if (audioEncContext_ != nullptr) {
         audioEncContext_->inputCond.notify_all();
     }
     audioInputWorker_.Join();
+    sessionReport_.Event("audio.input.joined", ElapsedMilliseconds(started));
     if (audioEncoder_ == nullptr) {
         return AVCODEC_SAMPLE_ERR_OK;
     }
@@ -282,17 +302,20 @@ int32_t Recorder::SendAudioEndOfStream()
 
 int32_t Recorder::WaitForEncoderEndOfStream()
 {
-    const int32_t videoRet = WaitForVideoEndOfStream();
-    const int32_t audioRet = WaitForAudioEndOfStream();
+    const auto deadline = std::chrono::steady_clock::now() + ENCODER_DRAIN_TIMEOUT;
+    const int32_t videoRet = WaitForVideoEndOfStream(deadline);
+    const int32_t audioRet = WaitForAudioEndOfStream(deadline);
     return videoRet == AVCODEC_SAMPLE_ERR_OK ? audioRet : videoRet;
 }
 
-int32_t Recorder::WaitForVideoEndOfStream()
+int32_t Recorder::WaitForVideoEndOfStream(std::chrono::steady_clock::time_point deadline)
 {
+    const auto started = std::chrono::steady_clock::now();
     std::unique_lock<std::mutex> lock(outputDoneMutex_);
-    const bool done = outputDoneCond_.wait_for(lock, ENCODER_DRAIN_TIMEOUT, [this]() {
+    const bool done = outputDoneCond_.wait_until(lock, deadline, [this]() {
         return !isStarted_ || (videoOutputDone_ && (secondaryVideoEncoder_ == nullptr || secondaryVideoOutputDone_));
     });
+    sessionReport_.Event("video.drain.wait", ElapsedMilliseconds(started));
     if (!done || !videoOutputEosReceived_ ||
         (sampleInfo_.output.enableDualOutput && !secondaryVideoOutputEosReceived_)) {
         sessionReport_.Event("video.drain", done ? "ended_without_eos" : "timeout");
@@ -305,15 +328,17 @@ int32_t Recorder::WaitForVideoEndOfStream()
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
-int32_t Recorder::WaitForAudioEndOfStream()
+int32_t Recorder::WaitForAudioEndOfStream(std::chrono::steady_clock::time_point deadline)
 {
     if (audioEncoder_ == nullptr) {
         return AVCODEC_SAMPLE_ERR_OK;
     }
     std::unique_lock<std::mutex> lock(outputDoneMutex_);
-    const bool done = outputDoneCond_.wait_for(lock, ENCODER_DRAIN_TIMEOUT, [this]() {
+    const auto started = std::chrono::steady_clock::now();
+    const bool done = outputDoneCond_.wait_until(lock, deadline, [this]() {
         return !isStarted_ || audioOutputDone_.load();
     });
+    sessionReport_.Event("audio.drain.wait", ElapsedMilliseconds(started));
     if (!done || !audioOutputEosReceived_) {
         sessionReport_.Event("audio.drain", done ? "ended_without_eos" : "timeout");
         sessionReport_.End(done ? "audio_eos_missing" : "audio_eos_timeout");

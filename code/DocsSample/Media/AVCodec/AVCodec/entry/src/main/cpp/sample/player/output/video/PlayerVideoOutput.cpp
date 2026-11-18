@@ -449,7 +449,7 @@ void Player::VideoDecOutputSyncThread()
         videoDecContext_->outputFrameCount++;
         AVCODEC_SAMPLE_LOGD_LIMIT(PLAYBACK_LOG_FREQUENCY,
             "Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
-            videoDecContext_->outputFrameCount, bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
+            videoDecContext_->outputFrameCount.load(), bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
         const bool success = audioDecContext_ == nullptr ? ProcessVideoWithoutAudio(bufferInfo, pacer) :
             ProcessVideoWithAudio(bufferInfo, pacer);
         if (!success) {
@@ -492,7 +492,7 @@ void Player::VideoDecOutputAsyncThread()
         videoDecContext_->outputFrameCount++;
         AVCODEC_SAMPLE_LOGD_LIMIT(PLAYBACK_LOG_FREQUENCY,
             "Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
-            videoDecContext_->outputFrameCount, bufferInfo->attr.size, bufferInfo->attr.flags, bufferInfo->attr.pts);
+            videoDecContext_->outputFrameCount.load(), bufferInfo->attr.size, bufferInfo->attr.flags, bufferInfo->attr.pts);
         const bool success = audioDecContext_ == nullptr ?
             ProcessVideoWithoutAudio(*bufferInfo, pacer) : ProcessVideoWithAudio(*bufferInfo, pacer);
         if (!success) {

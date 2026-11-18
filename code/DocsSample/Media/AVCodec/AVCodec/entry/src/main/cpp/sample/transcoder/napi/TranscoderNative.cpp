@@ -69,6 +69,8 @@ bool SetString(napi_env env, napi_value object, const char *key, const std::stri
 
 bool SetSnapshotFields(napi_env env, napi_value result, const TranscodeSnapshot &snapshot)
 {
+    if (!SetString(env, result, "cleanupStage", snapshot.cleanupFailure.stage) ||
+        !SetNumber(env, result, "cleanupCode", snapshot.cleanupFailure.code)) { return false; }
     const std::pair<const char *, double> numbers[] = {
         {"state", snapshot.state}, {"progress", snapshot.progress}, {"frames", snapshot.frames},
         {"bytes", snapshot.bytes}, {"errorCode", snapshot.errorCode},

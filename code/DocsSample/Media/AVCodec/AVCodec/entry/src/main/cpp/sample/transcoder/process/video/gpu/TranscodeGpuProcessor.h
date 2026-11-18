@@ -20,6 +20,7 @@
 #include <native_image/native_image.h>
 #include "../../../../../common/graphics/EglWindowContext.h"
 #include "../TranscodeFrameProcessor.h"
+#include "../../../codec/TranscodeCodecCallbacks.h"
 
 // Independent of player VideoSink. All GL calls stay on the Native transcode worker.
 class TranscodeGpuProcessor {
@@ -29,6 +30,7 @@ public:
         int32_t targetWidth, int32_t targetHeight, int32_t resizeMode, bool grayscale, int32_t filter);
     OHNativeWindow *DecoderWindow() const { return window_; }
     bool Available() const { return available_.load() > 0; }
+    void SetWakeSignal(TranscodeWakeSignal *signal) { wakeSignal_ = signal; }
     bool Draw(int64_t timestampUs);
 private:
     static void OnFrame(void *context);
@@ -46,5 +48,6 @@ private:
     int32_t targetHeight_ = 0;
     bool grayscale_ = false;
     std::atomic<uint32_t> available_ { 0 };
+    TranscodeWakeSignal *wakeSignal_ = nullptr;
 };
 #endif

@@ -136,10 +136,35 @@ void TestWakeAndClose()
 }
 }
 
+void TestSharedAudioWake()
+{
+    TranscodeWakeSignal wake;
+    TranscodeCodecCallbacks audio;
+    TranscodeCodecCallbacks video;
+    audio.SetWakeSignal(&wake);
+    video.SetWakeSignal(&wake);
+    const auto callback = TranscodeCodecCallbacks::Callbacks();
+    OH_AVBuffer frame;
+    const auto revision = wake.Revision();
+    callback.onNewOutputBuffer(nullptr, 1, &frame, audio.DecoderContext());
+    const auto started = std::chrono::steady_clock::now();
+    wake.Wait(revision, CALLBACK_WAIT_TIMEOUT);
+    Require(std::chrono::steady_clock::now() - started < WAKEUP_LIMIT, "Audio event wakes the shared wait");
+    const auto cancelRevision = wake.Revision();
+    video.Close();
+    wake.Wait(cancelRevision, CALLBACK_WAIT_TIMEOUT);
+    Require(wake.Revision() != cancelRevision, "Cancel changes the shared revision");
+    const auto idle = std::chrono::steady_clock::now();
+    wake.Wait(wake.Revision(), std::chrono::milliseconds(25));
+    Require(std::chrono::steady_clock::now() - idle >= std::chrono::milliseconds(20),
+        "Idle wait does not poll repeatedly");
+}
+
 int main()
 {
     TestOrderingAndOwnership();
     TestErrorsAndBounds();
     TestWakeAndClose();
+    TestSharedAudioWake();
     std::cout << "Transcode callbacks: channels, ownership, EOS, format order, bounds, errors and shutdown passed\n";
 }

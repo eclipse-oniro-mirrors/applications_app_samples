@@ -18,6 +18,7 @@ import { existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runVerification } from './VerificationRunner.mjs';
+import { verifyDeviceRun } from './DeviceVerification.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -65,7 +66,8 @@ async function native() {
   const targets = JSON.parse(readFileSync(path.join(root, 'tests/native/targets.json'), 'utf8'));
   const compiler = option('--cxx', process.env.CXX || 'clang++');
   const source = path.join(root, 'entry/src/main/cpp');
-  const includes = ['', 'common', 'common/dfx/log', 'capabilities/include'].map(part =>
+  const includes = ['', 'common', 'common/dfx/log', 'capabilities/include', 'render/include',
+    'sample/player', 'sample/player/core', 'sample/player/sync', 'sample/recorder/core'].map(part =>
     '-I' + linuxPath(path.join(source, part)));
   const flags = ['-std=c++17', '-pthread', '-ferror-limit=5', '-ffunction-sections', '-fdata-sections',
     '-Wl,--gc-sections', '-Wno-ignored-attributes',
@@ -94,11 +96,15 @@ async function native() {
 async function host() {
   const compiler = path.join(required(sdk, '--sdk or OHOS_SDK_HOME'),
     'ets/build-tools/ets-loader/node_modules/typescript/lib/typescript.js');
-  for (const file of ['RecorderModels', 'TranscodeModels', 'PlaybackConcurrency', 'PlaybackStartup', 'PlaybackPageLifecycle',
+  for (const file of ['RecorderModels', 'TranscodeModels', 'PlaybackConcurrency', 'PlaybackStartup',
+    'PlaybackFlow', 'PlaybackQueueState', 'PlaybackCommand', 'PlaybackOrdering', 'PlaybackHistoryCoordinator',
+    'PlaybackSourceFlow', 'PlaybackPageLifecycle', 'PlaybackPictureInPicture', 'PlaybackControlFlow',
+    'PlaybackContracts',
     'RecordingPageLifecycle', 'RecordingPersistence', 'PlaybackReview']) {
     await run(process.execPath, ['tests/host/' + file + '.test.cjs', compiler], 'host-' + file, testTimeoutMs);
   }
   await run(process.execPath, ['tests/host/VerificationRunner.test.mjs'], 'host-VerificationRunner', testTimeoutMs);
+  await run(process.execPath, ['tests/host/DeviceVerification.test.mjs'], 'host-DeviceVerification', testTimeoutMs);
 }
 async function lint() {
   const entry = path.join(required(studio, '--studio or DEVECO_STUDIO_HOME'), 'plugins/codelinter/run/index.js');
@@ -111,7 +117,10 @@ async function lint() {
   const baseline = JSON.parse(readFileSync(path.join(root, 'tests/lint-baseline.json'), 'utf8'));
   const signature = item => JSON.stringify([item.file, item.rule, item.severity, item.message, item.source]);
   const remaining = new Map();
-  for (const item of baseline) { const key = signature(item); remaining.set(key, (remaining.get(key) || 0) + item.count); }
+  for (const item of baseline) {
+    const key = signature(item);
+    remaining.set(key, (remaining.get(key) || 0) + item.count);
+  }
   let existing = 0;
   const added = [];
   for (const file of findings) {
@@ -124,7 +133,7 @@ async function lint() {
       else { added.push(relative + ':' + message.line + ' ' + message.rule + ' ' + message.message); }
     }
   }
-  console.log('CodeLinter: ' + existing + ' existing findings; ' + added.length + ' new findings (.validation/lint.json)');
+  console.info(`CodeLinter: ${existing} existing findings; ${added.length} new findings (.validation/lint.json)`);
   if (added.length) { throw new Error(added.join('\n')); }
 }
 async function build() {
@@ -134,12 +143,35 @@ async function build() {
   const pathKey = Object.keys(env).find(key => key.toLowerCase() === 'path') || 'PATH';
   env[pathKey] = path.join(javaHome, 'bin') + path.delimiter + (env[pathKey] || '');
   await run(process.execPath, [path.join(studioRoot, 'tools/hvigor/bin/hvigorw.js'), '--mode', 'module',
-    '-p', 'product=default', '-p', 'module=entry@default', 'assembleHap', '--no-daemon'], 'build', buildTimeoutMs, { env });
+    '-p', 'product=default', '-p', 'module=entry@default', 'assembleHap', '--no-daemon'],
+  'build', buildTimeoutMs, { env });
+}
+async function device() {
+  const studioRoot = required(studio, '--studio or DEVECO_STUDIO_HOME');
+  const javaHome = path.join(studioRoot, 'jbr');
+  const env = { ...process.env, JAVA_HOME: javaHome };
+  const pathKey = Object.keys(env).find(key => key.toLowerCase() === 'path') || 'PATH';
+  env[pathKey] = path.join(javaHome, 'bin') + path.delimiter + (env[pathKey] || '');
+  const scope = option('--device-scope', '');
+  const expectedCount = Number(option('--expected-device-tests', scope ? '' : '49'));
+  if (!Number.isSafeInteger(expectedCount) || expectedCount <= 0) {
+    throw new Error('Set --expected-device-tests to the expected positive case count for the selected scope');
+  }
+  const values = [path.join(studioRoot, 'tools/hvigor/bin/hvigorw.js'), '--mode', 'module',
+    '-p', 'product=default', '-p', 'module=entry', '-p', 'coverage=true'];
+  if (scope) { values.push('-p', 'scope=' + scope); }
+  values.push('onDeviceTest', '--no-daemon');
+  const result = await verifyDeviceRun({ expectedCount, scope,
+    reportPath: path.join(root, 'entry/.test/default/intermediates/ohosTest/coverage_data/test_result.txt'),
+    resultPath: path.join(output, 'device-result.json'),
+    execute: () => run(process.execPath, values, 'device', buildTimeoutMs, { env }) });
+  console.info(`Device: ${result.pass}/${result.run} passed; report: ${result.reportPath}`);
 }
 try {
   const stage = option('--only', 'all');
   const stages = { host, native, lint, build };
-  if (stage === 'all') { for (const action of Object.values(stages)) { await action(); } }
+  if (stage === 'device') { await device(); }
+  else if (stage === 'all') { for (const action of Object.values(stages)) { await action(); } }
   else if (stages[stage]) { await stages[stage](); }
   else { throw new Error('Unknown --only stage: ' + stage); }
   console.log('Verification passed: ' + stage);

@@ -1,4 +1,30 @@
 {
+  "PcmQueueTest": [],
+  "NativeHandleTest": [],
+  "RecorderLifecycleIntegrationTest": [
+    "sample/recorder/core/Recorder.cpp",
+    "sample/recorder/core/RecorderRelease.cpp",
+    "sample/recorder/core/RecorderVideoSession.cpp",
+    "common/SessionReport.cpp"
+  ],
+  "PlayerLifecycleIntegrationTest": [
+    "sample/player/napi/PlayerStartup.cpp",
+    "sample/player/output/audio/PlayerAudioOutput.cpp",
+    "sample/player/output/audio/AudioOutputPump.cpp",
+    "sample/player/sync/SeekController.cpp",
+    "sample/player/core/Player.cpp",
+    "sample/player/core/PlayerLifecycle.cpp",
+    "sample/player/core/PlayerRelease.cpp",
+    "sample/player/core/PlayerSeek.cpp",
+    "sample/player/sync/PlayerStateMachine.cpp",
+    "sample/player/sync/PlaybackClock.cpp",
+    "sample/player/sync/PlaybackDiagnostics.cpp",
+    "sample/player/output/pipeline/VideoPipeline.cpp",
+    "common/SessionReport.cpp"
+  ],
+  "PlayerControlParserTest": [
+    "sample/player/napi/PlayerControlParser.cpp"
+  ],
   "AudioCapturerInitTest": [
     "capabilities/audio_capturer.cpp"
   ],
