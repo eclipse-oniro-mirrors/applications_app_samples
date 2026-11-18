@@ -20,13 +20,9 @@
 #include <arkui/native_node_napi.h>
 #include <arkui/ui_event_injection.h>
 #include <arkui/ui_json_wrapper.h>
-#include <hilog/log.h>
 #include <napi/native_api.h>
 
 #include "NativeEntry.h"
-
-#define LOG_DOMAIN 0x0000
-#define LOG_TAG "NdkInject"
 
 namespace NativeEntry {
 
@@ -37,7 +33,6 @@ static void OnInjectionResult(OH_ArkUI_NativeModule_UIEventInjection_ResultCode 
     if (finished != nullptr) {
         *finished = 1;
     }
-    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_DOMAIN, LOG_TAG, "injection result: %{public}d", static_cast<int>(result));
 }
 
 // 通过ArkUI_ContextHandle注入一次点击手势命令。
