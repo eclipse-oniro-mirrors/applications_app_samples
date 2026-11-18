@@ -72,9 +72,15 @@
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568。
 
-2. 本示例仅支持API12版本SDK，版本号：5.0.0.26，镜像版本号：OpenHarmony 5.0.0.26。
+2. 本示例已适配 API 26 版本 SDK（compileSdkVersion 26.0.0），编译目标为 OpenHarmony。
 
-3. 本示例需要使用DevEco Studio NEXT Developer Beta5 (Build Version: 5.0.3.700)才可编译运行；
+3. 本示例需要使用 DevEco Studio 7.0 及以上版本才可编译运行。
+
+### 测试
+
+本工程提供基于 Hypium 的自动化测试，位于 `entry/src/ohosTest`，共 822 条用例、29 个套件，
+覆盖系统路由表（routerMap）、路由命名约定、NavPathStack 页面栈与跨 HSP 调用，
+详细套件说明与执行命令见 [ohosTest.md](ohosTest.md)。
 
 ### 下载
 
