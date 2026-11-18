@@ -78,9 +78,15 @@ entry/src/main/ets/
 
 1.本示例仅支持标准系统上运行,支持设备:RK3568。
 
-2.本示例已适配API version 9版本SDK，版本号：3.2.11.9。
+2.本示例已适配 API 26 版本 SDK（compileSdkVersion 26.0.0），编译目标为 OpenHarmony。
 
-3.本示例需要使用DevEco Studio 3.1 Beta2 (Build Version: 3.1.0.400 构建 2023年4月7日)及以上版本才可编译运行。
+3.本示例需要使用 DevEco Studio 7.0 及以上版本才可编译运行。
+
+### 测试
+
+本工程提供基于 Hypium 的自动化测试，位于 `entry/src/ohosTest`，共 920 条用例、32 个套件，
+覆盖启动模式、AbilitySkill、Category、Want 参数与 Emitter 事件等能力，
+详细套件说明与执行命令见 [ohosTest.md](ohosTest.md)。
 
 ### 下载
 
