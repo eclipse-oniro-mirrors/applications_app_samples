@@ -271,8 +271,8 @@ export function logSuite(name: string, event: string): void {
 }
 
 export { downloadFilesData };
-export const DOWNLOAD_TAB: string = '涓嬭浇鍒楄〃';
-export const HISTORY_TAB: string = '涓嬭浇鍘嗗彶';
+export const DOWNLOAD_TAB: string = '下载列表';
+export const HISTORY_TAB: string = '下载历史';
 
 export async function prepareCase(): Promise<void> {
   await launchSampleApp();
