@@ -1898,3 +1898,1903 @@ const LIMIT_CASES: LimitCase[] = [
   {
     name: 'testSetCornerGrid0721', number: '0721',
     limits: { minWidth: 1500, minHeight: 1000, maxWidth: 1500, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0722', number: '0722',
+    limits: { minWidth: 600, minHeight: 1000, maxWidth: 600, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0723', number: '0723',
+    limits: { minWidth: 1500, minHeight: 500, maxWidth: 1500, maxHeight: 500 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0724', number: '0724',
+    limits: { minWidth: 600, minHeight: 500, maxWidth: 1500, maxHeight: 500 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0725', number: '0725',
+    limits: { minWidth: 600, minHeight: 500, maxWidth: 600, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0726', number: '0726',
+    limits: { minWidth: 1500, minHeight: 500, maxWidth: 1500, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0727', number: '0727',
+    limits: { minWidth: 600, minHeight: 1000, maxWidth: 1500, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0728', number: '0728',
+    limits: { minWidth: 601, minHeight: 501, maxWidth: 601, maxHeight: 501 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0729', number: '0729',
+    limits: { minWidth: 1499, minHeight: 999, maxWidth: 1499, maxHeight: 999 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0730', number: '0730',
+    limits: { minWidth: 599, minHeight: 499, maxWidth: 1501, maxHeight: 1001 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0731', number: '0731',
+    limits: { minWidth: 1501, minHeight: 1001, maxWidth: 599, maxHeight: 499 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0732', number: '0732',
+    limits: { minWidth: 600, minHeight: 750, maxWidth: 1500, maxHeight: 750 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0733', number: '0733',
+    limits: { minWidth: 1050, minHeight: 500, maxWidth: 1050, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0734', number: '0734',
+    limits: { minWidth: 750, minHeight: 500, maxWidth: 1350, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0735', number: '0735',
+    limits: { minWidth: 600, minHeight: 600, maxWidth: 1500, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0736', number: '0736',
+    limits: { minWidth: 900, minHeight: 500, maxWidth: 900, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0737', number: '0737',
+    limits: { minWidth: 1000, minHeight: 600, maxWidth: 1400, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0738', number: '0738',
+    limits: { minWidth: 700, minHeight: 900, maxWidth: 1500, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetCornerGrid0739', number: '0739',
+    limits: { minWidth: 600, minHeight: 500, maxWidth: 800, maxHeight: 600 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0740', number: '0740',
+    limits: { minWidth: 600, minHeight: 500, maxWidth: 800, maxHeight: 600 }, forcible: true
+  },
+  {
+    name: 'testSetBulk0741', number: '0741',
+    limits: { minWidth: 690, minHeight: 500, maxWidth: 990, maxHeight: 650 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0742', number: '0742',
+    limits: { minWidth: 780, minHeight: 500, maxWidth: 1180, maxHeight: 700 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0743', number: '0743',
+    limits: { minWidth: 870, minHeight: 500, maxWidth: 1370, maxHeight: 750 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0744', number: '0744',
+    limits: { minWidth: 960, minHeight: 500, maxWidth: 1560, maxHeight: 800 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0745', number: '0745',
+    limits: { minWidth: 1050, minHeight: 500, maxWidth: 1250, maxHeight: 850 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0746', number: '0746',
+    limits: { minWidth: 1140, minHeight: 500, maxWidth: 1440, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0747', number: '0747',
+    limits: { minWidth: 1230, minHeight: 500, maxWidth: 1630, maxHeight: 600 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0748', number: '0748',
+    limits: { minWidth: 1320, minHeight: 500, maxWidth: 1820, maxHeight: 650 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0749', number: '0749',
+    limits: { minWidth: 1410, minHeight: 500, maxWidth: 2010, maxHeight: 700 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0750', number: '0750',
+    limits: { minWidth: 600, minHeight: 550, maxWidth: 800, maxHeight: 800 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0751', number: '0751',
+    limits: { minWidth: 690, minHeight: 550, maxWidth: 990, maxHeight: 850 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0752', number: '0752',
+    limits: { minWidth: 780, minHeight: 550, maxWidth: 1180, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0753', number: '0753',
+    limits: { minWidth: 870, minHeight: 550, maxWidth: 1370, maxHeight: 950 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0754', number: '0754',
+    limits: { minWidth: 960, minHeight: 550, maxWidth: 1560, maxHeight: 650 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0755', number: '0755',
+    limits: { minWidth: 1050, minHeight: 550, maxWidth: 1250, maxHeight: 700 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0756', number: '0756',
+    limits: { minWidth: 1140, minHeight: 550, maxWidth: 1440, maxHeight: 750 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0757', number: '0757',
+    limits: { minWidth: 1230, minHeight: 550, maxWidth: 1630, maxHeight: 800 }, forcible: true
+  },
+  {
+    name: 'testSetBulk0758', number: '0758',
+    limits: { minWidth: 1320, minHeight: 550, maxWidth: 1820, maxHeight: 850 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0759', number: '0759',
+    limits: { minWidth: 1410, minHeight: 550, maxWidth: 2010, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0760', number: '0760',
+    limits: { minWidth: 600, minHeight: 600, maxWidth: 800, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0761', number: '0761',
+    limits: { minWidth: 690, minHeight: 600, maxWidth: 990, maxHeight: 700 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0762', number: '0762',
+    limits: { minWidth: 780, minHeight: 600, maxWidth: 1180, maxHeight: 750 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0763', number: '0763',
+    limits: { minWidth: 870, minHeight: 600, maxWidth: 1370, maxHeight: 800 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0764', number: '0764',
+    limits: { minWidth: 960, minHeight: 600, maxWidth: 1560, maxHeight: 850 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0765', number: '0765',
+    limits: { minWidth: 1050, minHeight: 600, maxWidth: 1250, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0766', number: '0766',
+    limits: { minWidth: 1140, minHeight: 600, maxWidth: 1440, maxHeight: 950 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0767', number: '0767',
+    limits: { minWidth: 1230, minHeight: 600, maxWidth: 1630, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0768', number: '0768',
+    limits: { minWidth: 1320, minHeight: 600, maxWidth: 1820, maxHeight: 700 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0769', number: '0769',
+    limits: { minWidth: 1410, minHeight: 600, maxWidth: 2010, maxHeight: 750 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0770', number: '0770',
+    limits: { minWidth: 600, minHeight: 650, maxWidth: 800, maxHeight: 850 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0771', number: '0771',
+    limits: { minWidth: 690, minHeight: 650, maxWidth: 990, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0772', number: '0772',
+    limits: { minWidth: 780, minHeight: 650, maxWidth: 1180, maxHeight: 950 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0773', number: '0773',
+    limits: { minWidth: 870, minHeight: 650, maxWidth: 1370, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0774', number: '0774',
+    limits: { minWidth: 960, minHeight: 650, maxWidth: 1560, maxHeight: 1050 }, forcible: true
+  },
+  {
+    name: 'testSetBulk0775', number: '0775',
+    limits: { minWidth: 1050, minHeight: 650, maxWidth: 1250, maxHeight: 750 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0776', number: '0776',
+    limits: { minWidth: 1140, minHeight: 650, maxWidth: 1440, maxHeight: 800 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0777', number: '0777',
+    limits: { minWidth: 1230, minHeight: 650, maxWidth: 1630, maxHeight: 850 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0778', number: '0778',
+    limits: { minWidth: 1320, minHeight: 650, maxWidth: 1820, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0779', number: '0779',
+    limits: { minWidth: 1410, minHeight: 650, maxWidth: 2010, maxHeight: 950 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0780', number: '0780',
+    limits: { minWidth: 600, minHeight: 700, maxWidth: 800, maxHeight: 1050 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0781', number: '0781',
+    limits: { minWidth: 690, minHeight: 700, maxWidth: 990, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0782', number: '0782',
+    limits: { minWidth: 780, minHeight: 700, maxWidth: 1180, maxHeight: 800 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0783', number: '0783',
+    limits: { minWidth: 870, minHeight: 700, maxWidth: 1370, maxHeight: 850 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0784', number: '0784',
+    limits: { minWidth: 960, minHeight: 700, maxWidth: 1560, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0785', number: '0785',
+    limits: { minWidth: 1050, minHeight: 700, maxWidth: 1250, maxHeight: 950 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0786', number: '0786',
+    limits: { minWidth: 1140, minHeight: 700, maxWidth: 1440, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0787', number: '0787',
+    limits: { minWidth: 1230, minHeight: 700, maxWidth: 1630, maxHeight: 1050 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0788', number: '0788',
+    limits: { minWidth: 1320, minHeight: 700, maxWidth: 1820, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0789', number: '0789',
+    limits: { minWidth: 1410, minHeight: 700, maxWidth: 2010, maxHeight: 800 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0790', number: '0790',
+    limits: { minWidth: 600, minHeight: 750, maxWidth: 800, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0791', number: '0791',
+    limits: { minWidth: 690, minHeight: 750, maxWidth: 990, maxHeight: 950 }, forcible: true
+  },
+  {
+    name: 'testSetBulk0792', number: '0792',
+    limits: { minWidth: 780, minHeight: 750, maxWidth: 1180, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0793', number: '0793',
+    limits: { minWidth: 870, minHeight: 750, maxWidth: 1370, maxHeight: 1050 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0794', number: '0794',
+    limits: { minWidth: 960, minHeight: 750, maxWidth: 1560, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0795', number: '0795',
+    limits: { minWidth: 1050, minHeight: 750, maxWidth: 1250, maxHeight: 1150 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0796', number: '0796',
+    limits: { minWidth: 1140, minHeight: 750, maxWidth: 1440, maxHeight: 850 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0797', number: '0797',
+    limits: { minWidth: 1230, minHeight: 750, maxWidth: 1630, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0798', number: '0798',
+    limits: { minWidth: 1320, minHeight: 750, maxWidth: 1820, maxHeight: 950 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0799', number: '0799',
+    limits: { minWidth: 1410, minHeight: 750, maxWidth: 2010, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0800', number: '0800',
+    limits: { minWidth: 600, minHeight: 800, maxWidth: 800, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0801', number: '0801',
+    limits: { minWidth: 690, minHeight: 800, maxWidth: 990, maxHeight: 1150 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0802', number: '0802',
+    limits: { minWidth: 780, minHeight: 800, maxWidth: 1180, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0803', number: '0803',
+    limits: { minWidth: 870, minHeight: 800, maxWidth: 1370, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0804', number: '0804',
+    limits: { minWidth: 960, minHeight: 800, maxWidth: 1560, maxHeight: 950 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0805', number: '0805',
+    limits: { minWidth: 1050, minHeight: 800, maxWidth: 1250, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0806', number: '0806',
+    limits: { minWidth: 1140, minHeight: 800, maxWidth: 1440, maxHeight: 1050 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0807', number: '0807',
+    limits: { minWidth: 1230, minHeight: 800, maxWidth: 1630, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0808', number: '0808',
+    limits: { minWidth: 1320, minHeight: 800, maxWidth: 1820, maxHeight: 1150 }, forcible: true
+  },
+  {
+    name: 'testSetBulk0809', number: '0809',
+    limits: { minWidth: 1410, minHeight: 800, maxWidth: 2010, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0810', number: '0810',
+    limits: { minWidth: 600, minHeight: 850, maxWidth: 800, maxHeight: 950 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0811', number: '0811',
+    limits: { minWidth: 690, minHeight: 850, maxWidth: 990, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0812', number: '0812',
+    limits: { minWidth: 780, minHeight: 850, maxWidth: 1180, maxHeight: 1050 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0813', number: '0813',
+    limits: { minWidth: 870, minHeight: 850, maxWidth: 1370, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0814', number: '0814',
+    limits: { minWidth: 960, minHeight: 850, maxWidth: 1560, maxHeight: 1150 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0815', number: '0815',
+    limits: { minWidth: 1050, minHeight: 850, maxWidth: 1250, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0816', number: '0816',
+    limits: { minWidth: 1140, minHeight: 850, maxWidth: 1440, maxHeight: 1250 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0817', number: '0817',
+    limits: { minWidth: 1230, minHeight: 850, maxWidth: 1630, maxHeight: 950 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0818', number: '0818',
+    limits: { minWidth: 1320, minHeight: 850, maxWidth: 1820, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0819', number: '0819',
+    limits: { minWidth: 1410, minHeight: 850, maxWidth: 2010, maxHeight: 1050 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0820', number: '0820',
+    limits: { minWidth: 600, minHeight: 900, maxWidth: 800, maxHeight: 1150 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0821', number: '0821',
+    limits: { minWidth: 690, minHeight: 900, maxWidth: 990, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0822', number: '0822',
+    limits: { minWidth: 780, minHeight: 900, maxWidth: 1180, maxHeight: 1250 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0823', number: '0823',
+    limits: { minWidth: 870, minHeight: 900, maxWidth: 1370, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0824', number: '0824',
+    limits: { minWidth: 960, minHeight: 900, maxWidth: 1560, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0825', number: '0825',
+    limits: { minWidth: 1050, minHeight: 900, maxWidth: 1250, maxHeight: 1050 }, forcible: true
+  },
+  {
+    name: 'testSetBulk0826', number: '0826',
+    limits: { minWidth: 1140, minHeight: 900, maxWidth: 1440, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0827', number: '0827',
+    limits: { minWidth: 1230, minHeight: 900, maxWidth: 1630, maxHeight: 1150 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0828', number: '0828',
+    limits: { minWidth: 1320, minHeight: 900, maxWidth: 1820, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0829', number: '0829',
+    limits: { minWidth: 1410, minHeight: 900, maxWidth: 2010, maxHeight: 1250 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0830', number: '0830',
+    limits: { minWidth: 600, minHeight: 950, maxWidth: 800, maxHeight: 1350 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0831', number: '0831',
+    limits: { minWidth: 690, minHeight: 950, maxWidth: 990, maxHeight: 1050 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0832', number: '0832',
+    limits: { minWidth: 780, minHeight: 950, maxWidth: 1180, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0833', number: '0833',
+    limits: { minWidth: 870, minHeight: 950, maxWidth: 1370, maxHeight: 1150 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0834', number: '0834',
+    limits: { minWidth: 960, minHeight: 950, maxWidth: 1560, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0835', number: '0835',
+    limits: { minWidth: 1050, minHeight: 950, maxWidth: 1250, maxHeight: 1250 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0836', number: '0836',
+    limits: { minWidth: 1140, minHeight: 950, maxWidth: 1440, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0837', number: '0837',
+    limits: { minWidth: 1230, minHeight: 950, maxWidth: 1630, maxHeight: 1350 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0838', number: '0838',
+    limits: { minWidth: 1320, minHeight: 950, maxWidth: 1820, maxHeight: 1050 }, forcible: false
+  },
+  {
+    name: 'testSetBulk0839', number: '0839',
+    limits: { minWidth: 1410, minHeight: 950, maxWidth: 2010, maxHeight: 1100 }, forcible: false
+  }
+];
+
+let testWindow: window.Window | undefined = undefined;
+let originalLimits: window.WindowLimits | undefined = undefined;
+let limitsSupported: boolean = false;
+
+function isUsableLimits(limits: window.WindowLimits | undefined): boolean {
+  if (!limits) {
+    return false;
+  }
+  const minWidth: number = limits.minWidth ?? 0;
+  const minHeight: number = limits.minHeight ?? 0;
+  const maxWidth: number = limits.maxWidth ?? 0;
+  const maxHeight: number = limits.maxHeight ?? 0;
+  return minWidth > 0 && minHeight > 0 && maxWidth >= minWidth && maxHeight >= minHeight;
+}
+
+async function applyLimits(limits: window.WindowLimits, forcible: boolean = false): Promise<SetLimitsResult> {
+  if (!testWindow) {
+    return { ok: false, code: -1 };
+  }
+  try {
+    const finalLimits: window.WindowLimits = forcible
+      ? await testWindow.setWindowLimits(limits, true)
+      : await testWindow.setWindowLimits(limits);
+    return { ok: true, code: 0, limits: finalLimits };
+  } catch (error) {
+    const err: BusinessError = error as BusinessError;
+    hilog.info(LOG_DOMAIN, LOG_TAG, 'setWindowLimits failed code=%{public}d message=%{public}s',
+      err.code, err.message);
+    return { ok: false, code: err.code };
+  }
+}
+
+function isAccepted(result: SetLimitsResult): boolean {
+  return result.ok || UNSUPPORTED_CODES.includes(result.code);
+}
+
+export default function windowLimitsApiTest(): void {
+  describe('SetWindowLimitsApiTest', () => {
+    beforeAll(async () => {
+      const storedWindow: window.Window | undefined = getTestWindow();
+      if (storedWindow) {
+        testWindow = storedWindow;
+      } else {
+        const context = getTestAbilityContext() ?? abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+        testWindow = await window.getLastWindow(context);
+      }
+      try {
+        originalLimits = testWindow!.getWindowLimits();
+        limitsSupported = true;
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'window limits supported: %{public}s', JSON.stringify(originalLimits));
+      } catch (error) {
+        const err: BusinessError = error as BusinessError;
+        originalLimits = undefined;
+        limitsSupported = false;
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'getWindowLimits not supported, code=%{public}d', err.code);
+      }
+    });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0001
+     * @tc.name      testGetWindowLimits0001
+     * @tc.desc      Get the current window limits; accept the unsupported result on non-freeform devices.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testGetWindowLimits0001',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testGetWindowLimits0001 begin');
+        expect(testWindow !== undefined).assertTrue();
+        if (limitsSupported) {
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'limits=%{public}s', JSON.stringify(originalLimits));
+          expect(isUsableLimits(originalLimits)).assertTrue();
+        } else {
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'device does not support window limits');
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testGetWindowLimits0001 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0002
+     * @tc.name      testSetAndGetLimits0002
+     * @tc.desc      Set valid limits and verify the result can be read back when supported.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testSetAndGetLimits0002',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetAndGetLimits0002 begin');
+        const limits: window.WindowLimits = { minWidth: 600, minHeight: 500, maxWidth: 1500, maxHeight: 1000 };
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'request=%{public}s', JSON.stringify(limits));
+        const result: SetLimitsResult = await applyLimits(limits);
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok) {
+          expect(isUsableLimits(result.limits)).assertTrue();
+          if (limitsSupported) {
+            const current: window.WindowLimits = testWindow!.getWindowLimits();
+            hilog.info(LOG_DOMAIN, LOG_TAG, 'current=%{public}s', JSON.stringify(current));
+            expect(isUsableLimits(current)).assertTrue();
+          }
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetAndGetLimits0002 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0003
+     * @tc.name      testSetLimitsRepeat0003
+     * @tc.desc      Set the same limits twice and verify the result is stable.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsRepeat0003',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsRepeat0003 begin');
+        const limits: window.WindowLimits = { minWidth: 600, minHeight: 500, maxWidth: 1500, maxHeight: 1000 };
+        const first: SetLimitsResult = await applyLimits(limits);
+        const second: SetLimitsResult = await applyLimits(limits);
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'first=%{public}s second=%{public}s',
+          JSON.stringify(first), JSON.stringify(second));
+        if (first.ok && second.ok) {
+          expect(JSON.stringify(second.limits)).assertEqual(JSON.stringify(first.limits));
+        } else {
+          expect(isAccepted(second)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsRepeat0003 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0004
+     * @tc.name      testSetLimitsForcible0004
+     * @tc.desc      Set valid limits with the forcible flag.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsForcible0004',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsForcible0004 begin');
+        const limits: window.WindowLimits = { minWidth: 600, minHeight: 500, maxWidth: 1500, maxHeight: 1000 };
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'request=%{public}s', JSON.stringify(limits));
+        const result: SetLimitsResult = await applyLimits(limits, true);
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok) {
+          expect(isUsableLimits(result.limits)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsForcible0004 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0005
+     * @tc.name      testSetLimitsGrowth0005
+     * @tc.desc      Increase the limits step by step and verify each step is accepted.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsGrowth0005',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsGrowth0005 begin');
+        const steps: window.WindowLimits[] = [
+          { minWidth: 700, minHeight: 600, maxWidth: 1200, maxHeight: 900 },
+          { minWidth: 900, minHeight: 700, maxWidth: 1400, maxHeight: 950 },
+          { minWidth: 1100, minHeight: 800, maxWidth: 1500, maxHeight: 1000 }
+        ];
+        for (let index: number = 0; index < steps.length; index++) {
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'step=%{public}d request=%{public}s', index, JSON.stringify(steps[index]));
+          const result: SetLimitsResult = await applyLimits(steps[index]);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsGrowth0005 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0006
+     * @tc.name      testSetLimitsShrink0006
+     * @tc.desc      Decrease the limits step by step and verify each step is accepted.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsShrink0006',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsShrink0006 begin');
+        const steps: window.WindowLimits[] = [
+          { minWidth: 1100, minHeight: 800, maxWidth: 1500, maxHeight: 1000 },
+          { minWidth: 900, minHeight: 700, maxWidth: 1400, maxHeight: 950 },
+          { minWidth: 700, minHeight: 600, maxWidth: 1200, maxHeight: 900 }
+        ];
+        for (let index: number = 0; index < steps.length; index++) {
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'step=%{public}d request=%{public}s', index, JSON.stringify(steps[index]));
+          const result: SetLimitsResult = await applyLimits(steps[index]);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsShrink0006 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0007
+     * @tc.name      testSetLimitsAlternating0007
+     * @tc.desc      Alternate valid and invalid limits and verify each request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsAlternating0007',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsAlternating0007 begin');
+        const valid: window.WindowLimits = { minWidth: 600, minHeight: 500, maxWidth: 1500, maxHeight: 1000 };
+        const invalid: window.WindowLimits = { minWidth: -1, maxWidth: -2 };
+        const first: SetLimitsResult = await applyLimits(valid);
+        const second: SetLimitsResult = await applyLimits(invalid);
+        const third: SetLimitsResult = await applyLimits(valid);
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'first=%{public}s second=%{public}s third=%{public}s',
+          JSON.stringify(first), JSON.stringify(second), JSON.stringify(third));
+        expect(isAccepted(first)).assertTrue();
+        expect(isAccepted(second)).assertTrue();
+        expect(isAccepted(third)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsAlternating0007 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0008
+     * @tc.name      testSetMaxOnlyAndGet0008
+     * @tc.desc      Set only max limits and verify getWindowLimits when supported.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetMaxOnlyAndGet0008',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetMaxOnlyAndGet0008 begin');
+        const limits: window.WindowLimits = { maxWidth: 1500, maxHeight: 1000 };
+        const result: SetLimitsResult = await applyLimits(limits);
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          const current: window.WindowLimits = testWindow!.getWindowLimits();
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'current=%{public}s', JSON.stringify(current));
+          expect(isUsableLimits(current)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetMaxOnlyAndGet0008 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0009
+     * @tc.name      testSetLimitsEmptyObject0009
+     * @tc.desc      Set an empty limits object and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testSetLimitsEmptyObject0009',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsEmptyObject0009 begin');
+        const limits: window.WindowLimits = {};
+        const result: SetLimitsResult = await applyLimits(limits);
+        expect(isAccepted(result)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsEmptyObject0009 end');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0091
+     * @tc.name      testSetLimitsPresenceSubsets0091
+     * @tc.desc      Set all fifteen non-empty combinations of limit fields and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsPresenceSubsets0091',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsPresenceSubsets0091 begin');
+        const subsets: window.WindowLimits[] = [
+          { minWidth: 600 }, { minHeight: 500 }, { maxWidth: 1500 }, { maxHeight: 1000 },
+          { minWidth: 600, minHeight: 500 }, { minWidth: 600, maxWidth: 1500 },
+          { minWidth: 600, maxHeight: 1000 }, { minHeight: 500, maxWidth: 1500 },
+          { minHeight: 500, maxHeight: 1000 }, { maxWidth: 1500, maxHeight: 1000 },
+          { minWidth: 600, minHeight: 500, maxWidth: 1500 },
+          { minWidth: 600, minHeight: 500, maxHeight: 1000 },
+          { minWidth: 600, maxWidth: 1500, maxHeight: 1000 },
+          { minHeight: 500, maxWidth: 1500, maxHeight: 1000 },
+          { minWidth: 600, minHeight: 500, maxWidth: 1500, maxHeight: 1000 }
+        ];
+        for (let index: number = 0; index < subsets.length; index++) {
+          const result: SetLimitsResult = await applyLimits(subsets[index]);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsPresenceSubsets0091 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0092
+     * @tc.name      testSetLimitsFullRamp0092
+     * @tc.desc      Grow to the maximum and shrink back in five steps; verify every step is accepted.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsFullRamp0092',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsFullRamp0092 begin');
+        const steps: window.WindowLimits[] = [
+          { minWidth: 600, minHeight: 500, maxWidth: 900, maxHeight: 700 },
+          { minWidth: 650, minHeight: 550, maxWidth: 1200, maxHeight: 850 },
+          { minWidth: 700, minHeight: 600, maxWidth: 1500, maxHeight: 1000 },
+          { minWidth: 650, minHeight: 550, maxWidth: 1200, maxHeight: 850 },
+          { minWidth: 600, minHeight: 500, maxWidth: 900, maxHeight: 700 }
+        ];
+        for (let index: number = 0; index < steps.length; index++) {
+          const result: SetLimitsResult = await applyLimits(steps[index]);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsFullRamp0092 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0093
+     * @tc.name      testSetLimitsRapidTen0093
+     * @tc.desc      Set ten different limits rapidly and verify the last readback is usable.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testSetLimitsRapidTen0093',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsRapidTen0093 begin');
+        for (let index: number = 0; index < 10; index++) {
+          const result: SetLimitsResult = await applyLimits({ minWidth: 600 + index * 50, maxWidth: 1200 });
+          expect(isAccepted(result)).assertTrue();
+        }
+        if (limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsRapidTen0093 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0094
+     * @tc.name      testSetLimitsConcurrentTen0094
+     * @tc.desc      Issue ten setWindowLimits requests concurrently and verify all are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testSetLimitsConcurrentTen0094',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsConcurrentTen0094 begin');
+        const tasks: Promise<SetLimitsResult>[] = [];
+        for (let index: number = 0; index < 10; index++) {
+          tasks.push(applyLimits({ maxWidth: 900 + index * 60, maxHeight: 600 + index * 40 }));
+        }
+        const results: SetLimitsResult[] = await Promise.all(tasks);
+        expect(results.length).assertEqual(10);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsConcurrentTen0094 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0095
+     * @tc.name      testSetGetInterleavedTen0095
+     * @tc.desc      Interleave set and get ten times and verify every readback is usable.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testSetGetInterleavedTen0095',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetGetInterleavedTen0095 begin');
+        for (let index: number = 0; index < 10; index++) {
+          const result: SetLimitsResult = await applyLimits({ minHeight: 500 + index * 30, maxHeight: 1000 });
+          expect(isAccepted(result)).assertTrue();
+          if (result.ok && limitsSupported) {
+            expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+          }
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetGetInterleavedTen0095 end');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0072
+     * @tc.name      testSetLimitsReadbackEquality0072
+     * @tc.desc      Set valid limits and verify the accepted readback matches the request when supported.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsReadbackEquality0072',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const limits: window.WindowLimits = { minWidth: 700, minHeight: 600, maxWidth: 1400, maxHeight: 900 };
+        const result: SetLimitsResult = await applyLimits(limits);
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          const current: window.WindowLimits = testWindow!.getWindowLimits();
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'request=%{public}s current=%{public}s',
+            JSON.stringify(limits), JSON.stringify(current));
+          expect(isUsableLimits(current)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsReadbackEquality0072 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0073
+     * @tc.name      testSetLimitsSameTwice0073
+     * @tc.desc      Set the same limits twice and verify the readback is identical when supported.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsSameTwice0073',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const limits: window.WindowLimits = { minWidth: 650, minHeight: 550, maxWidth: 1350, maxHeight: 950 };
+        const first: SetLimitsResult = await applyLimits(limits);
+        const second: SetLimitsResult = await applyLimits(limits);
+        expect(isAccepted(first)).assertTrue();
+        expect(isAccepted(second)).assertTrue();
+        if (first.ok && second.ok) {
+          expect(JSON.stringify(second.limits)).assertEqual(JSON.stringify(first.limits));
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsSameTwice0073 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0074
+     * @tc.name      testSetLimitsForcibleInvalidOnly0074
+     * @tc.desc      Apply only invalid forcible limits and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testSetLimitsForcibleInvalidOnly0074',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: -600, maxWidth: -1500 }, true);
+        expect(isAccepted(result)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsForcibleInvalidOnly0074 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0075
+     * @tc.name      testGetLimitsThreeTimes0075
+     * @tc.desc      Call getWindowLimits three times and verify the results stay identical when supported.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testGetLimitsThreeTimes0075',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        expect(testWindow !== undefined).assertTrue();
+        if (limitsSupported) {
+          const first: string = JSON.stringify(testWindow!.getWindowLimits());
+          const second: string = JSON.stringify(testWindow!.getWindowLimits());
+          const third: string = JSON.stringify(testWindow!.getWindowLimits());
+          expect(second).assertEqual(first);
+          expect(third).assertEqual(first);
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testGetLimitsThreeTimes0075 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0076
+     * @tc.name      testSetEmptyAfterValid0076
+     * @tc.desc      Set valid limits then an empty object and verify both requests are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testSetEmptyAfterValid0076',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        const first: SetLimitsResult = await applyLimits({ minWidth: 600, minHeight: 500, maxWidth: 1500, maxHeight: 1000 });
+        const second: SetLimitsResult = await applyLimits({});
+        expect(isAccepted(first)).assertTrue();
+        expect(isAccepted(second)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetEmptyAfterValid0076 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0077
+     * @tc.name      testSetLimitsZeros0077
+     * @tc.desc      Set all-zero limits and verify the request is handled before restoring.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testSetLimitsZeros0077',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 0, minHeight: 0, maxWidth: 0, maxHeight: 0 });
+        expect(isAccepted(result)).assertTrue();
+        if (originalLimits !== undefined) {
+          expect(isAccepted(await applyLimits(originalLimits as window.WindowLimits))).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsZeros0077 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0078
+     * @tc.name      testSetLimitsMaxSafe0078
+     * @tc.desc      Set MAX_SAFE_INTEGER limits and verify the request is handled before restoring.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testSetLimitsMaxSafe0078',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        const result: SetLimitsResult = await applyLimits({
+          minWidth: 1, minHeight: 1, maxWidth: Number.MAX_SAFE_INTEGER, maxHeight: Number.MAX_SAFE_INTEGER
+        });
+        expect(isAccepted(result)).assertTrue();
+        if (originalLimits !== undefined) {
+          expect(isAccepted(await applyLimits(originalLimits as window.WindowLimits))).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSetLimitsMaxSafe0078 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0079
+     * @tc.name      testRestoreLoop0079
+     * @tc.desc      Restore the original limits three times and verify each restore is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testRestoreLoop0079',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        expect(testWindow !== undefined).assertTrue();
+        if (originalLimits !== undefined) {
+          for (let index: number = 0; index < 3; index++) {
+            const result: SetLimitsResult = await applyLimits(originalLimits as window.WindowLimits);
+            expect(isAccepted(result)).assertTrue();
+          }
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testRestoreLoop0079 end');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0096
+     * @tc.name      testSetLimitsReadbackLoop0096
+     * @tc.desc      Set five limits and verify a usable readback after every accepted request.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testSetLimitsReadbackLoop0096',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        for (let index: number = 0; index < 5; index++) {
+          const result: SetLimitsResult = await applyLimits({ minWidth: 600 + index * 100, maxWidth: 1500 });
+          expect(isAccepted(result)).assertTrue();
+          if (result.ok && limitsSupported) {
+            expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+          }
+        }
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0097
+     * @tc.name      testSetLimitsForcibleZeros0097
+     * @tc.desc      Apply forcible zero limits and verify the request is handled before restoring.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testSetLimitsForcibleZeros0097',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        const result: SetLimitsResult = await applyLimits(
+          { minWidth: 0, minHeight: 0, maxWidth: 0, maxHeight: 0 }, true);
+        expect(isAccepted(result)).assertTrue();
+        if (originalLimits !== undefined) {
+          expect(isAccepted(await applyLimits(originalLimits as window.WindowLimits))).assertTrue();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0098
+     * @tc.name      testSetLimitsMaxBounds0098
+     * @tc.desc      Set the configured maximum bounds and verify the result.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsMaxBounds0098',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ maxWidth: 1500, maxHeight: 1000 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok) {
+          expect(isUsableLimits(result.limits)).assertTrue();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0099
+     * @tc.name      testSetLimitsEqualBounds0099
+     * @tc.desc      Set equal minimum and maximum bounds and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsEqualBounds0099',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits(
+          { minWidth: 900, minHeight: 700, maxWidth: 900, maxHeight: 700 });
+        expect(isAccepted(result)).assertTrue();
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0100
+     * @tc.name      testSetLimitsBackToBack0100
+     * @tc.desc      Set limits back to back three times and verify each request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsBackToBack0100',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        for (let index: number = 0; index < 3; index++) {
+          const result: SetLimitsResult = await applyLimits({ minWidth: 600, maxWidth: 1500 });
+          expect(isAccepted(result)).assertTrue();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0101
+     * @tc.name      testSetLimitsMaxHeightOnly0101
+     * @tc.desc      Set only the maximum height and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsMaxHeightOnly0101',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ maxHeight: 1000 });
+        expect(isAccepted(result)).assertTrue();
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0102
+     * @tc.name      testSetLimitsMinHeightOnly0102
+     * @tc.desc      Set only the minimum height and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsMinHeightOnly0102',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minHeight: 500 });
+        expect(isAccepted(result)).assertTrue();
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0103
+     * @tc.name      testRestoreAfterSweeps0103
+     * @tc.desc      Restore the original limits after several sweeps and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testRestoreAfterSweeps0103',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        expect(testWindow !== undefined).assertTrue();
+        if (originalLimits !== undefined) {
+          const result: SetLimitsResult = await applyLimits(originalLimits as window.WindowLimits);
+          expect(isAccepted(result)).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0104
+     * @tc.name      testSetLimitsCornerLoop0104
+     * @tc.desc      Apply the four corners of the configured range and verify each request.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsCornerLoop0104',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const corners: window.WindowLimits[] = [
+          { minWidth: 600, minHeight: 500, maxWidth: 1500, maxHeight: 1000 },
+          { minWidth: 600, minHeight: 1000, maxWidth: 600, maxHeight: 1000 },
+          { minWidth: 1500, minHeight: 500, maxWidth: 1500, maxHeight: 500 },
+          { minWidth: 900, minHeight: 750, maxWidth: 900, maxHeight: 750 }
+        ];
+        for (let index: number = 0; index < corners.length; index++) {
+          const result: SetLimitsResult = await applyLimits(corners[index]);
+          expect(isAccepted(result)).assertTrue();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0105
+     * @tc.name      testSetLimitsCenterRange0105
+     * @tc.desc      Apply a centered range and verify the result is usable.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsCenterRange0105',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits(
+          { minWidth: 800, minHeight: 600, maxWidth: 1300, maxHeight: 900 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok) {
+          expect(isUsableLimits(result.limits)).assertTrue();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0106
+     * @tc.name      testSetLimitsMinEqualsMax0106
+     * @tc.desc      Apply equal bounds for both dimensions and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetLimitsMinEqualsMax0106',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits(
+          { minWidth: 1000, minHeight: 800, maxWidth: 1000, maxHeight: 800 });
+        expect(isAccepted(result)).assertTrue();
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0107
+     * @tc.name      testSetLimitsSweepWidths0107
+     * @tc.desc      Sweep the width options four times and verify each request.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testSetLimitsSweepWidths0107',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        for (let index: number = 0; index < 4; index++) {
+          const result: SetLimitsResult = await applyLimits({ minWidth: 600 + index * 100, maxWidth: 1500 });
+          expect(isAccepted(result)).assertTrue();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0108
+     * @tc.name      testSetLimitsSweepHeights0108
+     * @tc.desc      Sweep the height options four times and verify each request.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testSetLimitsSweepHeights0108',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        for (let index: number = 0; index < 4; index++) {
+          const result: SetLimitsResult = await applyLimits({ minHeight: 500 + index * 50, maxHeight: 1000 });
+          expect(isAccepted(result)).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_900
+     * @tc.name      testSetBulkCase900
+     * @tc.desc      Set bulk limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase900',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase900');
+        const result: SetLimitsResult = await applyLimits({ minWidth: 600, maxWidth: 1400 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase900');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_901
+     * @tc.name      testSetBulkCase901
+     * @tc.desc      Apply a three step sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase901',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase901');
+        for (let index: number = 0; index < 3; index++) {
+          const result: SetLimitsResult = await applyLimits({ minHeight: 700, maxHeight: 1000 });
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase901');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_902
+     * @tc.name      testSetBulkCase902
+     * @tc.desc      Apply forcible and non forcible limits alternately.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase902',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase902');
+        const first: SetLimitsResult = await applyLimits({ minWidth: 800, maxWidth: 1500 }, true);
+        const second: SetLimitsResult = await applyLimits({ minWidth: 800, maxWidth: 1500 });
+        expect(isAccepted(first)).assertTrue();
+        expect(isAccepted(second)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase902');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_903
+     * @tc.name      testSetBulkCase903
+     * @tc.desc      Issue three concurrent requests and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase903',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase903');
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 1550 }),
+          applyLimits({ maxWidth: 1600 }),
+          applyLimits({ maxWidth: 1650 })
+        ]);
+        expect(results.length).assertEqual(3);
+        expect(isAccepted(results[0])).assertTrue();
+        expect(isAccepted(results[1])).assertTrue();
+        expect(isAccepted(results[2])).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase903');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_904
+     * @tc.name      testSetBulkCase904
+     * @tc.desc      Set bulk limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase904',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase904');
+        const result: SetLimitsResult = await applyLimits({ minWidth: 1000, maxWidth: 1400 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase904');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_905
+     * @tc.name      testSetBulkCase905
+     * @tc.desc      Apply a three step sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase905',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase905');
+        for (let index: number = 0; index < 3; index++) {
+          const result: SetLimitsResult = await applyLimits({ minHeight: 1100, maxHeight: 1000 });
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase905');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_906
+     * @tc.name      testSetBulkCase906
+     * @tc.desc      Apply forcible and non forcible limits alternately.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase906',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase906');
+        const first: SetLimitsResult = await applyLimits({ minWidth: 1200, maxWidth: 1500 }, true);
+        const second: SetLimitsResult = await applyLimits({ minWidth: 1200, maxWidth: 1500 });
+        expect(isAccepted(first)).assertTrue();
+        expect(isAccepted(second)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase906');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_907
+     * @tc.name      testSetBulkCase907
+     * @tc.desc      Issue three concurrent requests and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase907',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase907');
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 1550 }),
+          applyLimits({ maxWidth: 1600 }),
+          applyLimits({ maxWidth: 1650 })
+        ]);
+        expect(results.length).assertEqual(3);
+        expect(isAccepted(results[0])).assertTrue();
+        expect(isAccepted(results[1])).assertTrue();
+        expect(isAccepted(results[2])).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase907');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_908
+     * @tc.name      testSetBulkCase908
+     * @tc.desc      Set bulk limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase908',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase908');
+        const result: SetLimitsResult = await applyLimits({ minWidth: 600, maxWidth: 1400 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase908');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_909
+     * @tc.name      testSetBulkCase909
+     * @tc.desc      Apply a three step sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase909',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase909');
+        for (let index: number = 0; index < 3; index++) {
+          const result: SetLimitsResult = await applyLimits({ minHeight: 700, maxHeight: 1000 });
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase909');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_910
+     * @tc.name      testSetBulkCase910
+     * @tc.desc      Apply forcible and non forcible limits alternately.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase910',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase910');
+        const first: SetLimitsResult = await applyLimits({ minWidth: 800, maxWidth: 1500 }, true);
+        const second: SetLimitsResult = await applyLimits({ minWidth: 800, maxWidth: 1500 });
+        expect(isAccepted(first)).assertTrue();
+        expect(isAccepted(second)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase910');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_911
+     * @tc.name      testSetBulkCase911
+     * @tc.desc      Issue three concurrent requests and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase911',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase911');
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 1550 }),
+          applyLimits({ maxWidth: 1600 }),
+          applyLimits({ maxWidth: 1650 })
+        ]);
+        expect(results.length).assertEqual(3);
+        expect(isAccepted(results[0])).assertTrue();
+        expect(isAccepted(results[1])).assertTrue();
+        expect(isAccepted(results[2])).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase911');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_912
+     * @tc.name      testSetBulkCase912
+     * @tc.desc      Set bulk limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase912',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase912');
+        const result: SetLimitsResult = await applyLimits({ minWidth: 1000, maxWidth: 1400 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase912');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_913
+     * @tc.name      testSetBulkCase913
+     * @tc.desc      Apply a three step sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase913',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase913');
+        for (let index: number = 0; index < 3; index++) {
+          const result: SetLimitsResult = await applyLimits({ minHeight: 1100, maxHeight: 1000 });
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase913');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_914
+     * @tc.name      testSetBulkCase914
+     * @tc.desc      Apply forcible and non forcible limits alternately.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase914',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase914');
+        const first: SetLimitsResult = await applyLimits({ minWidth: 1200, maxWidth: 1500 }, true);
+        const second: SetLimitsResult = await applyLimits({ minWidth: 1200, maxWidth: 1500 });
+        expect(isAccepted(first)).assertTrue();
+        expect(isAccepted(second)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase914');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_915
+     * @tc.name      testSetBulkCase915
+     * @tc.desc      Issue three concurrent requests and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase915',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase915');
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 1550 }),
+          applyLimits({ maxWidth: 1600 }),
+          applyLimits({ maxWidth: 1650 })
+        ]);
+        expect(results.length).assertEqual(3);
+        expect(isAccepted(results[0])).assertTrue();
+        expect(isAccepted(results[1])).assertTrue();
+        expect(isAccepted(results[2])).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase915');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_916
+     * @tc.name      testSetBulkCase916
+     * @tc.desc      Set bulk limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase916',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase916');
+        const result: SetLimitsResult = await applyLimits({ minWidth: 600, maxWidth: 1400 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase916');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_917
+     * @tc.name      testSetBulkCase917
+     * @tc.desc      Apply a three step sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase917',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase917');
+        for (let index: number = 0; index < 3; index++) {
+          const result: SetLimitsResult = await applyLimits({ minHeight: 700, maxHeight: 1000 });
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase917');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_918
+     * @tc.name      testSetBulkCase918
+     * @tc.desc      Apply forcible and non forcible limits alternately.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase918',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase918');
+        const first: SetLimitsResult = await applyLimits({ minWidth: 800, maxWidth: 1500 }, true);
+        const second: SetLimitsResult = await applyLimits({ minWidth: 800, maxWidth: 1500 });
+        expect(isAccepted(first)).assertTrue();
+        expect(isAccepted(second)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase918');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_919
+     * @tc.name      testSetBulkCase919
+     * @tc.desc      Issue three concurrent requests and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase919',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase919');
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 1550 }),
+          applyLimits({ maxWidth: 1600 }),
+          applyLimits({ maxWidth: 1650 })
+        ]);
+        expect(results.length).assertEqual(3);
+        expect(isAccepted(results[0])).assertTrue();
+        expect(isAccepted(results[1])).assertTrue();
+        expect(isAccepted(results[2])).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase919');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_920
+     * @tc.name      testSetBulkCase920
+     * @tc.desc      Set bulk limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase920',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase920');
+        const result: SetLimitsResult = await applyLimits({ minWidth: 1000, maxWidth: 1400 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase920');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_921
+     * @tc.name      testSetBulkCase921
+     * @tc.desc      Apply a three step sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase921',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase921');
+        for (let index: number = 0; index < 3; index++) {
+          const result: SetLimitsResult = await applyLimits({ minHeight: 1100, maxHeight: 1000 });
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase921');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_922
+     * @tc.name      testSetBulkCase922
+     * @tc.desc      Apply forcible and non forcible limits alternately.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase922',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase922');
+        const first: SetLimitsResult = await applyLimits({ minWidth: 1200, maxWidth: 1500 }, true);
+        const second: SetLimitsResult = await applyLimits({ minWidth: 1200, maxWidth: 1500 });
+        expect(isAccepted(first)).assertTrue();
+        expect(isAccepted(second)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase922');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_923
+     * @tc.name      testSetBulkCase923
+     * @tc.desc      Issue three concurrent requests and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase923',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase923');
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 1550 }),
+          applyLimits({ maxWidth: 1600 }),
+          applyLimits({ maxWidth: 1650 })
+        ]);
+        expect(results.length).assertEqual(3);
+        expect(isAccepted(results[0])).assertTrue();
+        expect(isAccepted(results[1])).assertTrue();
+        expect(isAccepted(results[2])).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase923');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_924
+     * @tc.name      testSetBulkCase924
+     * @tc.desc      Set bulk limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase924',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase924');
+        const result: SetLimitsResult = await applyLimits({ minWidth: 600, maxWidth: 1400 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase924');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_925
+     * @tc.name      testSetBulkCase925
+     * @tc.desc      Apply a three step sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase925',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase925');
+        for (let index: number = 0; index < 3; index++) {
+          const result: SetLimitsResult = await applyLimits({ minHeight: 700, maxHeight: 1000 });
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase925');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_926
+     * @tc.name      testSetBulkCase926
+     * @tc.desc      Apply forcible and non forcible limits alternately.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase926',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase926');
+        const first: SetLimitsResult = await applyLimits({ minWidth: 800, maxWidth: 1500 }, true);
+        const second: SetLimitsResult = await applyLimits({ minWidth: 800, maxWidth: 1500 });
+        expect(isAccepted(first)).assertTrue();
+        expect(isAccepted(second)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase926');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_927
+     * @tc.name      testSetBulkCase927
+     * @tc.desc      Issue three concurrent requests and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase927',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase927');
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 1550 }),
+          applyLimits({ maxWidth: 1600 }),
+          applyLimits({ maxWidth: 1650 })
+        ]);
+        expect(results.length).assertEqual(3);
+        expect(isAccepted(results[0])).assertTrue();
+        expect(isAccepted(results[1])).assertTrue();
+        expect(isAccepted(results[2])).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase927');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_928
+     * @tc.name      testSetBulkCase928
+     * @tc.desc      Set bulk limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase928',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase928');
+        const result: SetLimitsResult = await applyLimits({ minWidth: 1000, maxWidth: 1400 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase928');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_929
+     * @tc.name      testSetBulkCase929
+     * @tc.desc      Apply a three step sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase929',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase929');
+        for (let index: number = 0; index < 3; index++) {
+          const result: SetLimitsResult = await applyLimits({ minHeight: 1100, maxHeight: 1000 });
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase929');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_930
+     * @tc.name      testSetBulkCase930
+     * @tc.desc      Apply forcible and non forcible limits alternately.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase930',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase930');
+        const first: SetLimitsResult = await applyLimits({ minWidth: 1200, maxWidth: 1500 }, true);
+        const second: SetLimitsResult = await applyLimits({ minWidth: 1200, maxWidth: 1500 });
+        expect(isAccepted(first)).assertTrue();
+        expect(isAccepted(second)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase930');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_931
+     * @tc.name      testSetBulkCase931
+     * @tc.desc      Issue three concurrent requests and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase931',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase931');
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 1550 }),
+          applyLimits({ maxWidth: 1600 }),
+          applyLimits({ maxWidth: 1650 })
+        ]);
+        expect(results.length).assertEqual(3);
+        expect(isAccepted(results[0])).assertTrue();
+        expect(isAccepted(results[1])).assertTrue();
+        expect(isAccepted(results[2])).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase931');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_932
+     * @tc.name      testSetBulkCase932
+     * @tc.desc      Set bulk limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase932',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase932');
+        const result: SetLimitsResult = await applyLimits({ minWidth: 600, maxWidth: 1400 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase932');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_933
+     * @tc.name      testSetBulkCase933
+     * @tc.desc      Apply a three step sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase933',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase933');
+        for (let index: number = 0; index < 3; index++) {
+          const result: SetLimitsResult = await applyLimits({ minHeight: 700, maxHeight: 1000 });
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase933');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_934
+     * @tc.name      testSetBulkCase934
+     * @tc.desc      Apply forcible and non forcible limits alternately.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase934',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase934');
+        const first: SetLimitsResult = await applyLimits({ minWidth: 800, maxWidth: 1500 }, true);
+        const second: SetLimitsResult = await applyLimits({ minWidth: 800, maxWidth: 1500 });
+        expect(isAccepted(first)).assertTrue();
+        expect(isAccepted(second)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase934');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_935
+     * @tc.name      testSetBulkCase935
+     * @tc.desc      Issue three concurrent requests and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase935',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase935');
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 1550 }),
+          applyLimits({ maxWidth: 1600 }),
+          applyLimits({ maxWidth: 1650 })
+        ]);
+        expect(results.length).assertEqual(3);
+        expect(isAccepted(results[0])).assertTrue();
+        expect(isAccepted(results[1])).assertTrue();
+        expect(isAccepted(results[2])).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase935');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_936
+     * @tc.name      testSetBulkCase936
+     * @tc.desc      Set bulk limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testSetBulkCase936',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin', 'testSetBulkCase936');
+        const result: SetLimitsResult = await applyLimits({ minWidth: 1000, maxWidth: 1400 });
+        expect(isAccepted(result)).assertTrue();
