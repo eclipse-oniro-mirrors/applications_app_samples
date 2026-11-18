@@ -15,7 +15,7 @@
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { delayTick } from './shared/AsyncYield';
-import { JumpState, SELF_BUNDLE_NAME, jumpTargetByKey, jumpStateName, jumpErrorHint, describeJumpResult, beginAttempt, isActiveAttempt } from '../../../main/ets/model/AbilityJump';
+import { isActiveAttempt } from '../../../main/ets/model/AbilityJump';
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 

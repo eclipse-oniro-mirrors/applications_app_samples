@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { delayTick } from './shared/AsyncYield';
 import {
   DownloadState, DownloadTarget, supportsDocumentPicker, resolveDownloadTarget,
   beginAttempt, isStaleAttempt, shouldFallbackOnTimeout, nextDownloadState
@@ -20,23 +21,29 @@ import {
 import { LogLevel, LogItem, appendLog, queryLogs, countByTag, clearLogs } from '../../../main/ets/model/LogStore';
 import { LOG_STORE_CAPACITY } from '../../../main/ets/common/AppConstants';
 
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0xF816;
+const TAG: string = '[Sample_AtomicService]';
+
 /**
- * 下载令牌与日志仓库的规模 / 多步模拟 / 性能维度
- *
- * 与既有逐函数矩阵互补：用上千次令牌推进、200 步超时模拟、5000 次追加，
- * 验证单调性、过期判定、容量截断、查询属性不变量与宽松耗时上界。
+ * Download token and log-store scale / multi-step / performance invariants.
+ * The counts are 100 token advances, a 20-step timeout simulation and 200 appends,
+ * covering monotonicity, stale detection, capacity truncation, query filters and loose time bounds.
  */
 export default function atomicFlowStabilityTest() {
   describe('atomicFlowStabilityTest', () => {
     /**
      * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_FLOW_STABILITY_0100
-     * @tc.name attemptChainThousandIsMonotonic
-     * @tc.desc Verify one thousand token advances are strictly increasing by one each step
+     * @tc.name attemptChainHundredIsMonotonic
+     * @tc.desc Verify one hundred token advances are strictly increasing by one each step
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
      */
-    it('attemptChainThousandIsMonotonic', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+    it('attemptChainHundredIsMonotonic', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'attemptChainHundredIsMonotonic begin');
+      await delayTick();
       let token: number = 0;
       let monotonic: boolean = true;
       for (let i = 0; i < 100; i++) {
@@ -46,27 +53,40 @@ export default function atomicFlowStabilityTest() {
           break;
         }
         token = next;
+        if (i % 100 === 99) {
+          await delayTick();
+        }
       }
+      hilog.info(DOMAIN, TAG, 'monotonic=%{public}d token=%{public}d', monotonic ? 1 : 0, token);
       expect(monotonic).assertTrue();
       expect(token).assertEqual(100);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'attemptChainHundredIsMonotonic end');
     });
 
     /**
      * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_FLOW_STABILITY_0200
      * @tc.name attemptSimulationOnlyLatestFresh
-     * @tc.desc Verify in a two-hundred step simulation only the latest token is fresh and fallback-eligible
+     * @tc.desc Verify in a twenty-step simulation only the latest token is fresh and fallback-eligible
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
      */
-    it('attemptSimulationOnlyLatestFresh', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      for (let active = 1; active <= 20; active++) {
+    it('attemptSimulationOnlyLatestFresh', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'attemptSimulationOnlyLatestFresh begin');
+      await delayTick();
+      const steps: number = 20;
+      hilog.info(DOMAIN, TAG, 'steps=%{public}d', steps);
+      for (let active = 1; active <= steps; active++) {
         expect(isStaleAttempt(active, active)).assertFalse();
         expect(isStaleAttempt(active - 1, active)).assertTrue();
         expect(shouldFallbackOnTimeout(false, active, active)).assertTrue();
         expect(shouldFallbackOnTimeout(false, active - 1, active)).assertFalse();
         expect(shouldFallbackOnTimeout(true, active, active)).assertFalse();
+        if (active % 50 === 0) {
+          await delayTick();
+        }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'attemptSimulationOnlyLatestFresh end');
     });
 
     /**
@@ -77,13 +97,17 @@ export default function atomicFlowStabilityTest() {
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('nextStateIndependentOfCurrent', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+    it('nextStateIndependentOfCurrent', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'nextStateIndependentOfCurrent begin');
+      await delayTick();
       const states: DownloadState[] = [DownloadState.IDLE, DownloadState.PICKING, DownloadState.SUCCESS,
         DownloadState.FALLBACK, DownloadState.FAILED];
+      hilog.info(DOMAIN, TAG, 'states=%{public}d', states.length);
       for (const state of states) {
         expect(nextDownloadState(state, true)).assertEqual(DownloadState.SUCCESS);
         expect(nextDownloadState(state, false)).assertEqual(DownloadState.FALLBACK);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'nextStateIndependentOfCurrent end');
     });
 
     /**
@@ -94,7 +118,9 @@ export default function atomicFlowStabilityTest() {
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('targetResolutionRepeatedStable', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+    it('targetResolutionRepeatedStable', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'targetResolutionRepeatedStable begin');
+      await delayTick();
       const pickers: string[] = ['phone', 'tablet', '2in1'];
       const sandboxes: string[] = ['watch', 'tv', 'car', '', 'unknown'];
       for (let round = 0; round < 5; round++) {
@@ -107,27 +133,37 @@ export default function atomicFlowStabilityTest() {
           expect(resolveDownloadTarget(device)).assertEqual(DownloadTarget.SANDBOX);
         }
       }
+      hilog.info(DOMAIN, TAG, 'rounds=%{public}d pickers=%{public}d sandboxes=%{public}d',
+        5, pickers.length, sandboxes.length);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'targetResolutionRepeatedStable end');
     });
 
     /**
      * @tc.number SUB_ATOMIC_SERVICE_COMPONENTS_FLOW_STABILITY_0500
      * @tc.name appendManyCappedNewestFirst
-     * @tc.desc Verify two thousand appends stay capped at one hundred with the newest entry first
+     * @tc.desc Verify two hundred appends stay capped at one hundred with the newest entry first
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
      */
-    it('appendManyCappedNewestFirst', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+    it('appendManyCappedNewestFirst', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'appendManyCappedNewestFirst begin');
+      await delayTick();
       let logs: LogItem[] = [];
       let lastId: number = 0;
       for (let i = 0; i < 200; i++) {
         const item: LogItem = new LogItem('src', `t${i % 3}`, `detail-${i}`, LogLevel.INFO);
         lastId = item.id;
         logs = appendLog(logs, item, 100);
+        if (i % 100 === 99) {
+          await delayTick();
+        }
       }
+      hilog.info(DOMAIN, TAG, 'logs.length=%{public}d lastId=%{public}d', logs.length, lastId);
       expect(logs.length).assertEqual(100);
       expect(logs[0].id).assertEqual(lastId);
       expect(logs[0].detail).assertEqual('detail-199');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'appendManyCappedNewestFirst end');
     });
 
     /**
@@ -138,14 +174,22 @@ export default function atomicFlowStabilityTest() {
      * @tc.type Function
      * @tc.level LEVEL1
      */
-    it('zeroCapacityUsesDefaultCap', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+    it('zeroCapacityUsesDefaultCap', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'zeroCapacityUsesDefaultCap begin');
+      await delayTick();
       let logs: LogItem[] = [];
       const total: number = LOG_STORE_CAPACITY + 20;
+      hilog.info(DOMAIN, TAG, 'total=%{public}d', total);
       for (let i = 0; i < total; i++) {
         logs = appendLog(logs, new LogItem('src', 'tag', `d${i}`), 0);
+        if (i % 50 === 49) {
+          await delayTick();
+        }
       }
+      hilog.info(DOMAIN, TAG, 'logs.length=%{public}d', logs.length);
       expect(logs.length).assertEqual(LOG_STORE_CAPACITY);
       expect(logs[0].detail).assertEqual(`d${total - 1}`);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'zeroCapacityUsesDefaultCap end');
     });
 
     /**
@@ -156,7 +200,9 @@ export default function atomicFlowStabilityTest() {
      * @tc.type Function
      * @tc.level LEVEL2
      */
-    it('queryResultsSatisfyFilters', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+    it('queryResultsSatisfyFilters', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'queryResultsSatisfyFilters begin');
+      await delayTick();
       let logs: LogItem[] = [];
       const levels: LogLevel[] = [LogLevel.DEBUG, LogLevel.INFO, LogLevel.WARN, LogLevel.ERROR];
       for (let i = 0; i < 20; i++) {
@@ -167,6 +213,8 @@ export default function atomicFlowStabilityTest() {
       for (const source of sources) {
         for (const minLevel of levels) {
           const hit: LogItem[] = queryLogs(logs, source, minLevel, '', 0);
+          hilog.info(DOMAIN, TAG, 'source=%{public}s minLevel=%{public}d hits=%{public}d',
+            source, minLevel, hit.length);
           expect(hit.length <= logs.length).assertTrue();
           for (const item of hit) {
             if (source !== '') {
@@ -176,6 +224,7 @@ export default function atomicFlowStabilityTest() {
           }
         }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'queryResultsSatisfyFilters end');
     });
 
     /**
@@ -187,14 +236,17 @@ export default function atomicFlowStabilityTest() {
      * @tc.level LEVEL2
      */
     it('queryLimitZeroReturnsAllMatches', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'queryLimitZeroReturnsAllMatches begin');
       let logs: LogItem[] = [];
       for (let i = 0; i < 20; i++) {
         logs = appendLog(logs, new LogItem('src', 'tag', `match-${i}`), 100);
       }
       const all: LogItem[] = queryLogs(logs, '', LogLevel.DEBUG, 'match', 0);
-      expect(all.length).assertEqual(20);
       const limited: LogItem[] = queryLogs(logs, '', LogLevel.DEBUG, 'match', 7);
+      hilog.info(DOMAIN, TAG, 'all=%{public}d limited=%{public}d', all.length, limited.length);
+      expect(all.length).assertEqual(20);
       expect(limited.length).assertEqual(7);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'queryLimitZeroReturnsAllMatches end');
     });
 
     /**
@@ -206,6 +258,7 @@ export default function atomicFlowStabilityTest() {
      * @tc.level LEVEL2
      */
     it('countByTagPartitionsPopulation', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'countByTagPartitionsPopulation begin');
       let logs: LogItem[] = [];
       let xCount: number = 0;
       for (let i = 0; i < 20; i++) {
@@ -215,9 +268,11 @@ export default function atomicFlowStabilityTest() {
         }
         logs = appendLog(logs, new LogItem('src', tag, `d${i}`), 200);
       }
+      hilog.info(DOMAIN, TAG, 'x=%{public}d total=%{public}d', countByTag(logs, 'x'), logs.length);
       expect(countByTag(logs, 'x')).assertEqual(xCount);
       expect(countByTag(logs, 'x') + countByTag(logs, 'y')).assertEqual(logs.length);
       expect(countByTag(logs, 'missing')).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'countByTagPartitionsPopulation end');
     });
 
     /**
@@ -229,6 +284,7 @@ export default function atomicFlowStabilityTest() {
      * @tc.level LEVEL1
      */
     it('clearAndRebuildLogStore', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'clearAndRebuildLogStore begin');
       let logs: LogItem[] = [];
       for (let i = 0; i < 10; i++) {
         logs = appendLog(logs, new LogItem('src', 'tag', `d${i}`), 20);
@@ -237,8 +293,10 @@ export default function atomicFlowStabilityTest() {
       logs = clearLogs();
       expect(logs.length).assertEqual(0);
       logs = appendLog(logs, new LogItem('src', 'tag', 'fresh'), 20);
+      hilog.info(DOMAIN, TAG, 'logs.length=%{public}d detail=%{public}s', logs.length, logs[0].detail);
       expect(logs.length).assertEqual(1);
       expect(logs[0].detail).assertEqual('fresh');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'clearAndRebuildLogStore end');
     });
   });
 }
