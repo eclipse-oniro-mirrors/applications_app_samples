@@ -105,5 +105,4 @@ export default struct AllNetworksBtn {
     });
     // [End get_all_registered_networks]
   }
-  }
 }
