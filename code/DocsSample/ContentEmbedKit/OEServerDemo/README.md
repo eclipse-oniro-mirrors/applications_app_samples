@@ -99,7 +99,7 @@ UIAbility侧的编辑逻辑在ArkTS模块实现，源码参考：[Index.ets](ent
 3. 本示例需要使用DevEco Studio 5.0.5及以上版本才可编译运行。
 4. 本示例涉及`ohos.permission.REGISTER_OBJECTEDITOR_EXTENSION`权限为system_basic级别，需配置高权限签名才能安装运行，可参考[声明权限](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/declare-permissions.md)。
 5. 本示例使用的`OH_ContentEmbed_*`接口属于Content Embed Kit，为系统级SysCap，需确认设备已预置对应系统能力。
-6. 需与OE客户端应用配合使用。
+6. 需与[OE客户端应用](../OEClientDemo/README.md)配合使用。
 
 ### 下载
 

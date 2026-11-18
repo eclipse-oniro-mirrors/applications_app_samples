@@ -1,0 +1,200 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Object Editor client demo"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "OEClientDemo"
+    },
+    {
+      "name": "btn_open_file",
+      "value": "Open File"
+    },
+    {
+      "name": "btn_save_file",
+      "value": "Save File"
+    },
+    {
+      "name": "btn_insert_file",
+      "value": "Insert File"
+    },
+    {
+      "name": "btn_insert_existing",
+      "value": "Insert Existing File"
+    },
+    {
+      "name": "btn_query_format",
+      "value": "Query Embed Format"
+    },
+    {
+      "name": "title_object",
+      "value": "Object"
+    },
+    {
+      "name": "title_success",
+      "value": "Success"
+    },
+    {
+      "name": "title_failed",
+      "value": "Failed"
+    },
+    {
+      "name": "title_open_failed",
+      "value": "Open Failed"
+    },
+    {
+      "name": "btn_ok",
+      "value": "OK"
+    },
+    {
+      "name": "btn_browse",
+      "value": "Browse"
+    },
+    {
+      "name": "btn_confirm",
+      "value": "Confirm"
+    },
+    {
+      "name": "btn_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "btn_query",
+      "value": "Query"
+    },
+    {
+      "name": "label_file_path",
+      "value": "File path: "
+    },
+    {
+      "name": "label_insert_method",
+      "value": "Insert method: "
+    },
+    {
+      "name": "label_oeid",
+      "value": "oeid: "
+    },
+    {
+      "name": "label_locale",
+      "value": "locale: "
+    },
+    {
+      "name": "radio_copy",
+      "value": "Copy"
+    },
+    {
+      "name": "radio_link",
+      "value": "Link"
+    },
+    {
+      "name": "no_data",
+      "value": "No data"
+    },
+    {
+      "name": "query_header_oeid",
+      "value": "OEID"
+    },
+    {
+      "name": "query_header_name",
+      "value": "Name"
+    },
+    {
+      "name": "query_header_description",
+      "value": "Description"
+    },
+    {
+      "name": "query_header_extensions",
+      "value": "Extensions"
+    },
+    {
+      "name": "query_header_icon",
+      "value": "Icon"
+    },
+    {
+      "name": "ce_err_msg_0",
+      "value": "Operation succeeded"
+    },
+    {
+      "name": "ce_err_msg_201",
+      "value": "Permission verification failed"
+    },
+    {
+      "name": "ce_err_msg_401",
+      "value": "Invalid parameter. Check the parameter type and value range."
+    },
+    {
+      "name": "ce_err_msg_801",
+      "value": "The current device does not support this feature."
+    },
+    {
+      "name": "ce_err_msg_35300001",
+      "value": "Null pointer error. Possible memory allocation failure or internal error."
+    },
+    {
+      "name": "ce_err_msg_35300002",
+      "value": "The client has not registered the corresponding callback function."
+    },
+    {
+      "name": "ce_err_msg_35300003",
+      "value": "The OE Extension encountered an unknown error."
+    },
+    {
+      "name": "ce_err_msg_35300004",
+      "value": "System service abnormal."
+    },
+    {
+      "name": "ce_err_msg_35300005",
+      "value": "OE document Storage object operation failed."
+    },
+    {
+      "name": "ce_err_msg_35300006",
+      "value": "OE document Stream object operation failed."
+    },
+    {
+      "name": "ce_err_msg_35300007",
+      "value": "File operation failed."
+    },
+    {
+      "name": "ce_err_msg_35300008",
+      "value": "The application is running in a DLP sandbox environment. This feature is not supported."
+    },
+    {
+      "name": "ce_err_msg_35300009",
+      "value": "ImagePacker operation failed."
+    },
+    {
+      "name": "ce_err_msg_35300010",
+      "value": "The client-registered callback function threw an exception during execution."
+    },
+    {
+      "name": "ce_err_msg_35300011",
+      "value": "The OE Extension exited unexpectedly."
+    },
+    {
+      "name": "ce_err_msg_35300012",
+      "value": "A file in a non-linkable directory (such as the app sandbox directory) was linked."
+    },
+    {
+      "name": "ce_err_msg_35300013",
+      "value": "The OE Extension connection limit has been exceeded."
+    },
+    {
+      "name": "ce_err_msg_35300014",
+      "value": "The current file is not authorized."
+    },
+    {
+      "name": "ce_err_msg_35300015",
+      "value": "The current disk space is insufficient."
+    },
+    {
+      "name": "ce_err_msg_35300016",
+      "value": "The current OE Extension does not support this capability."
+    }
+  ]
+}
