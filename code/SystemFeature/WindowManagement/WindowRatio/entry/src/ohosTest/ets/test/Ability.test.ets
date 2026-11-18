@@ -25,8 +25,14 @@ export default function abilityTest() {
   describe('ActsAbilityTest', () => {
     /**
      * 打开应用
+     * @tc.number    SUB_WINDOWRATIO_ABILITYSMOKE_0401
+     * @tc.name      testAbilitySmoke0401
+     * @tc.desc      Verify the MainAbility can be started by the delegator.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
      */
-    it(BUNDLE + 'StartAbility_001', 0, async (done) => {
+    it(BUNDLE + 'StartAbility_001', 0, async () => {
       Logger.info(TAG, BUNDLE + 'StartAbility_001 begin');
       let driver = Driver.create();
       let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
@@ -41,11 +47,16 @@ export default function abilityTest() {
       }
       Logger.info(TAG, BUNDLE + 'StartAbility_001 end');
       await driver.delayMs(1000);
-      done();
     })
 
     /**
      * 设置悬浮窗大小
+     * @tc.number    SUB_WINDOWRATIO_ABILITYSMOKE_0402
+     * @tc.name      testAbilitySmoke0402
+     * @tc.desc      Verify the confirm button exists and stays clickable on the main page.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
      */
     it(BUNDLE + 'SetWindowRatio_001', 1, async () => {
       Logger.info(TAG, BUNDLE + 'OpenVideoPage_001 begin');
