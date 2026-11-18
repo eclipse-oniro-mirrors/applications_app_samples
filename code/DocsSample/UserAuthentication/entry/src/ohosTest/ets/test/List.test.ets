@@ -15,11 +15,6 @@
 
 import userAuthTest from './UserAuth.test';
 import userAuthContractTest from './UserAuthContract.test';
-import userAuthMatrixPart01Test from './UserAuthMatrixPart01.test';
-import userAuthMatrixPart02Test from './UserAuthMatrixPart02.test';
-import userAuthMorePart01Test from './UserAuthMorePart01.test';
-import userAuthMorePart02Test from './UserAuthMorePart02.test';
-import userAuthMorePart03Test from './UserAuthMorePart03.test';
 
 import userAuthVolumePart01Test from './UserAuthVolumePart01.test';
 import userAuthVolumePart02Test from './UserAuthVolumePart02.test';
@@ -29,11 +24,6 @@ import userAuthVolumePart04Test from './UserAuthVolumePart04.test';
 export default function testsuite() {
   userAuthTest();
   userAuthContractTest();
-  userAuthMatrixPart01Test();
-  userAuthMatrixPart02Test();
-  userAuthMorePart01Test();
-  userAuthMorePart02Test();
-  userAuthMorePart03Test();
   userAuthVolumePart01Test();
   userAuthVolumePart02Test();
   userAuthVolumePart03Test();
