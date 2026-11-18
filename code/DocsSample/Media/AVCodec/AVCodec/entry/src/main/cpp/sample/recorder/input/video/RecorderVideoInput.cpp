@@ -227,7 +227,7 @@ void Recorder::VideoEncInputAsyncThread()
          * if (setBufferRet != AV_ERR_OK) {
          *     // 异常处理。
          * }
-         * // 配置buffer 随帧信息。
+         * // 配置buffer随帧信息。
          * // 值由开发者决定。
          * int32_t isIFrame;
          * auto parameter =
