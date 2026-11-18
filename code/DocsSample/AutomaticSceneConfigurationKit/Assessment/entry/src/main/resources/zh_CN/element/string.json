@@ -223,6 +223,18 @@
     {
       "name": "hardening_title",
       "value": "评估加固"
+    },
+    {
+      "name": "question_stem_4",
+      "value": "HarmonyOS分布式软总线的英文名称是____"
+    },
+    {
+      "name": "question_stem_5",
+      "value": "ArkUI状态管理V2中，用于深度观测类属性变化的装饰器是____"
+    },
+    {
+      "name": "question_fill_placeholder",
+      "value": "请输入答案"
     }
   ]
 }

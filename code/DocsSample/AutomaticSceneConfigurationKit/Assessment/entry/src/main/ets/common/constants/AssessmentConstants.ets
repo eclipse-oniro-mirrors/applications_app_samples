@@ -66,5 +66,5 @@ export class AssessmentConstants {
   public static readonly KEY_EVENT_SEQ: string = 'assessmentEventSeq';
 
   // Page routes declared in main_pages.json.
-  public static readonly PAGE_EXAM: string = 'exam/pages/ExamPage';
+  public static readonly PAGE_EXAM: string = 'pages/ExamPage';
 }

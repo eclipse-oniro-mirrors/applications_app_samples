@@ -223,6 +223,18 @@
     {
       "name": "hardening_title",
       "value": "Assessment hardening"
+    },
+    {
+      "name": "question_stem_4",
+      "value": "The English name of the HarmonyOS distributed soft bus is ____"
+    },
+    {
+      "name": "question_stem_5",
+      "value": "In ArkUI state management V2, the decorator for deep observation of class property changes is ____"
+    },
+    {
+      "name": "question_fill_placeholder",
+      "value": "Type your answer"
     }
   ]
 }

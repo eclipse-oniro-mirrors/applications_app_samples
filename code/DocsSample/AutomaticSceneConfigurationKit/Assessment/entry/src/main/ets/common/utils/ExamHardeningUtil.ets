@@ -12,43 +12,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { common } from '@kit.AbilityKit';
+import { bundleManager, common } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
-import { BusinessError, pasteboard } from '@kit.BasicServicesKit';
+import { BusinessError, deviceInfo, pasteboard, systemParameterEnhance } from '@kit.BasicServicesKit';
 import { inputMethod } from '@kit.IMEKit';
-import Logger from '../../common/utils/Logger';
+import SettingModel from '../../model/SettingModel';
+import Logger from './Logger';
 
-/**
- * Application side hardening of the assessment scenario.
- *
- * The assessment service restricts part of the system capabilities, while the window form,
- * the capture of the application window, the pasteboard and the input method panel are not
- * covered by the service. The exam application hardens them by itself when the exam page
- * appears, and restores them when the exam page disappears.
- */
 export class ExamHardeningUtil {
-  /**
-   * Applies every hardening measure, it is called when the exam page appears.
-   *
-   * @param context context of the UIAbility that enters assessment mode.
-   * @returns the promise that is resolved after every measure has been attempted.
-   */
-  public static async applyHardening(context: common.UIAbilityContext): Promise<void> {
-    await ExamHardeningUtil.setWindowHardening(context, true);
-    ExamHardeningUtil.setSimpleKeyboard(true);
-    await ExamHardeningUtil.clearPasteboard();
+  public static async applyHardening(context: common.UIAbilityContext, setting: SettingModel): Promise<void> {
+    if (setting.privacyMode) {
+      await ExamHardeningUtil.setWindowHardening(context, true);
+    }
+    if (setting.simpleKeyboard) {
+      ExamHardeningUtil.setSimpleKeyboard(true);
+    }
+    if (setting.clearClipboard) {
+      await ExamHardeningUtil.clearPasteboard();
+    }
+    await ExamHardeningUtil.setWindowMaximize(context, true);
   }
 
-  /**
-   * Restores the window form and the input method, it is called when the exam page disappears.
-   *
-   * @param context context of the UIAbility that exits assessment mode.
-   * @returns the promise that is resolved after every measure has been attempted.
-   */
-  public static async releaseHardening(context: common.UIAbilityContext): Promise<void> {
-    await ExamHardeningUtil.setWindowHardening(context, false);
-    ExamHardeningUtil.setSimpleKeyboard(false);
-    await ExamHardeningUtil.clearPasteboard();
+  public static async releaseHardening(context: common.UIAbilityContext, setting: SettingModel): Promise<void> {
+    if (setting.privacyMode) {
+      await ExamHardeningUtil.setWindowHardening(context, false);
+    }
+    if (setting.simpleKeyboard) {
+      ExamHardeningUtil.setSimpleKeyboard(false);
+    }
+    await ExamHardeningUtil.setWindowMaximize(context, false);
+  }
+
+  private static async setWindowMaximize(context: common.UIAbilityContext, enable: boolean): Promise<void> {
+    let currentWindow: window.Window | undefined = undefined;
+    try {
+      currentWindow = await window.getLastWindow(context);
+      if (enable) {
+        currentWindow.maximize(window.MaximizePresentation.ENTER_IMMERSIVE_DISABLE_TITLE_AND_DOCK_HOVER)
+      } else {
+        currentWindow.maximize(window.MaximizePresentation.EXIT_IMMERSIVE)
+      }
+      Logger.info('setupImmersiveWindow: setSupportedWindowModes done');
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.info(`setupImmersiveWindow: setSupportedWindowModes not supported on this device, code: ${err.code}`);
+    }
   }
 
   // Sets the immersive layout and the privacy mode of the current window, every measure is
@@ -63,13 +71,6 @@ export class ExamHardeningUtil {
     }
     if (currentWindow === undefined) {
       return;
-    }
-    try {
-      await currentWindow.setWindowLayoutFullScreen(enable);
-      Logger.info(`setWindowLayoutFullScreen done, enable: ${enable}`);
-    } catch (error) {
-      const err: BusinessError = error as BusinessError;
-      Logger.error(`setWindowLayoutFullScreen failed, code: ${err.code}, message: ${err.message}`);
     }
     try {
       await currentWindow.setWindowPrivacyMode(enable);
@@ -100,5 +101,20 @@ export class ExamHardeningUtil {
       const err: BusinessError = error as BusinessError;
       Logger.error(`clearData failed, code: ${err.code}, message: ${err.message}`);
     }
+  }
+
+  // Determine whether it is currently in developer mode
+  public static isDeveloperModeEnabled(): boolean {
+    try {
+      let status = systemParameterEnhance.getSync('const.security.developermode.state', '0');
+      return status === '1' || status === 'true';
+    } catch (err) {
+      return false;
+    }
+  }
+
+  // Determine whether the current environment is a simulator or not
+  public static isEmulator(): boolean {
+    return deviceInfo.productModel === 'emulator';
   }
 }

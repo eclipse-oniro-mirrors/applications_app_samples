@@ -1,17 +1,3 @@
-/*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
@@ -34,13 +20,39 @@ export default class EntryAbility extends UIAbility {
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     Logger.info('Ability onWindowStageCreate');
-    windowStage.loadContent('pages/Index', (error: BusinessError) => {
+    windowStage.loadContent('pages/IndexPage', (error: BusinessError) => {
       if (error !== undefined && error.code !== 0) {
         Logger.error(`onWindowStageCreate, failed to load content, code: ${error.code}`);
         return;
       }
       Logger.info('onWindowStageCreate, content loaded');
+      this.setupImmersiveWindow(windowStage);
     });
+  }
+
+  private async setupImmersiveWindow(windowStage: window.WindowStage): Promise<void> {
+    try {
+      const mainWindow: window.Window = await windowStage.getMainWindow();
+
+      try {
+        await mainWindow.setWindowMode(window.WindowMode.FULLSCREEN);
+        Logger.info('setupImmersiveWindow: setWindowMode FULLSCREEN done');
+      } catch (error) {
+        const err: BusinessError = error as BusinessError;
+        Logger.info(`setupImmersiveWindow: setWindowMode not supported on this device, code: ${err.code}`);
+      }
+
+      try {
+        mainWindow.setWindowDecorVisible(false);
+        Logger.info('setupImmersiveWindow: setWindowDecorVisible done');
+      } catch (error) {
+        const err: BusinessError = error as BusinessError;
+        Logger.info(`setupImmersiveWindow: setWindowDecorVisible not supported on this device, code: ${err.code}`);
+      }
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(`setupImmersiveWindow failed, code: ${err.code}, message: ${err.message}`);
+    }
   }
 
   onWindowStageDestroy(): void {

@@ -1,7 +1,7 @@
 {
   "src": [
-    "pages/Index",
-    "exam/pages/ExamPage",
+    "pages/IndexPage",
+    "pages/ExamPage",
     "pages/BeginAssessment",
     "pages/EndAssessment",
     "pages/ExamPageLifecycle"
