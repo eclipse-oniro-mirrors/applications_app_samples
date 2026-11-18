@@ -6,4 +6,5 @@
 **/package-lock.json
 **/oh-package-lock.json5
 **/.preview
-/oh_modules
+**/oh_modules
+**/BuildProfile.ets
