@@ -1,6 +1,6 @@
 # 注入手势命令（NdkUiEventInjection）
 
-本示例对应《注入手势命令》开发指南，展示通过NDK接口向UI实例注入手势命令（点击、滚动、内容切换、返回、按键）的方法。示例通过[OH_ArkUI_NativeModule_UIEventInjectRelaxedInteraction](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/capi-ui-event-injection-h.md)接口注入一条点击命令，命令以JSON描述，执行结果通过完成回调返回。
+本示例对应《注入手势命令》开发指南，展示通过NDK接口向UI实例注入手势命令（点击、滚动、内容切换、返回、按键）的方法。
 
 ### 使用说明
 
