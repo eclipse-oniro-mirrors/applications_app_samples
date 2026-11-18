@@ -141,33 +141,32 @@ export default struct allNetworksBtn {
     // 使用上述配置创建 VPN 配置对象
     let vpnConfig = new Config(tunIp, blockedAppName);
 
-// [Start vpn_config_parameters]
-let context = this.getUIContext().getHostContext() as common.VpnExtensionContext;
-let vpnConnection: vpnExtension.VpnConnection = vpnExtension.createVpnConnection(context);
-// 创建 VPN 连接并应用配置
-vpnConnection.create(vpnConfig).then((data) => {
-  hilog.info(0x0000, 'testTag', 'vpn create ' + JSON.stringify(data));
-  // [StartExclude vpn_config_parameters]
-  gTunFd = data;  // 获取到的虚拟网络接口文件描述符
-  hilog.info(0x0000, 'testTag', 'tunfd: %{public}s', JSON.stringify(data) ?? '');
+    // [Start vpn_config_parameters]
+    let context = this.getUIContext().getHostContext() as common.VpnExtensionContext;
+    let vpnConnection: vpnExtension.VpnConnection = vpnExtension.createVpnConnection(context);
+    // 创建 VPN 连接并应用配置
+    vpnConnection.create(vpnConfig).then((data) => {
+      hilog.info(0x0000, 'testTag', 'vpn create ' + JSON.stringify(data));
+      // [StartExclude vpn_config_parameters]
+      gTunFd = data;  // 获取到的虚拟网络接口文件描述符
+      hilog.info(0x0000, 'testTag', 'tunfd: %{public}s', JSON.stringify(data) ?? '');
 
-  // 启动 VPN 连接，传入隧道文件描述符和虚拟网络接口文件描述符
-  vpn_client.startVpn(gTunFd, gTunnelFd);
-  showToast('VPN started successfully', 4000);
-  hilog.info(0x0000, 'testTag',  'vpn start Success');
-  this.flag = 'Pass';  // 设置状态为成功
+      // 启动 VPN 连接，传入隧道文件描述符和虚拟网络接口文件描述符
+      vpn_client.startVpn(gTunFd, gTunnelFd);
+      showToast('VPN started successfully', 4000);
+      hilog.info(0x0000, 'testTag', 'developTag', '%{public}s', 'vpn start Success');
+      this.flag = 'Pass';  // 设置状态为成功
 
-  this.notificationOperations.publishNotificationWithWantAgent();
-  // [EndExclude vpn_config_parameters]
-}).catch((err: BusinessError) => {
-  // 如果 VPN 创建失败，捕获异常并处理
-  hilog.error(0x0000, 'testTag', 'developTag', 'vpn start Fail %{public}s', JSON.stringify(err) ?? '');
-  // [StartExclude vpn_config_parameters]
-  showToast('VPN start failed: ' + JSON.stringify(err), 4000);
-  this.flag = 'Error';  // 设置状态为失败
-  // [EndExclude vpn_config_parameters]
-});
-// [End vpn_config_parameters]
-
+      this.notificationOperations.publishNotificationWithWantAgent();
+      // [EndExclude vpn_config_parameters]
+    }).catch((err: BusinessError) => {
+      // 如果 VPN 创建失败，捕获异常并处理
+      hilog.error(0x0000, 'testTag', 'developTag', 'vpn start Fail %{public}s', JSON.stringify(err) ?? '');
+      // [StartExclude vpn_config_parameters]
+      showToast('VPN start failed: ' + JSON.stringify(err), 4000);
+      this.flag = 'Error';  // 设置状态为失败
+      // [EndExclude vpn_config_parameters]
+    });
+    // [End vpn_config_parameters]
   }
 }
