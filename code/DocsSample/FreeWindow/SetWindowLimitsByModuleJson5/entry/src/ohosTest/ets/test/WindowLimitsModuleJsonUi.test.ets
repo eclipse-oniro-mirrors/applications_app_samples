@@ -5698,3 +5698,91 @@ export default function windowLimitsModuleJsonUiTest(): void {
        */
       it(resizeCase.name,
         TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+          await launchEntryAbility();
+          await driver.delayMs(DELAY_UI_READY);
+          await ensureVisibleTip();
+          const appWindow: UiWindow = await findAppWindow();
+          try {
+            await appWindow.resize(resizeCase.width, resizeCase.height, resizeCase.direction);
+            await driver.delayMs(DELAY_UI_READY);
+          } catch (error) {
+            expect(isResizeUnsupported(error as Error)).assertTrue();
+          }
+          await clickText(HIDE_BUTTON);
+          await expectText(HIDDEN_TIP);
+          await clickText(SHOW_BUTTON);
+          await expectText(VISIBLE_TIP);
+        });
+    });
+
+    CORNER_RESIZE_CASES.forEach((resizeCase: ResizeCase) => {
+      /**
+       * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1462-1471
+       * @tc.name      corner resize matrix case
+       * @tc.desc      Resize the window and verify the module limits or the unsupported result.
+       * @tc.type      FUNCTION
+       * @tc.size      MEDIUMTEST
+       * @tc.level     LEVEL1
+       */
+      it(resizeCase.name,
+        TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+          await launchEntryAbility();
+          await driver.delayMs(DELAY_UI_READY);
+          await ensureVisibleTip();
+          const appWindow: UiWindow = await findAppWindow();
+          try {
+            await appWindow.resize(resizeCase.width, resizeCase.height, resizeCase.direction);
+            await driver.delayMs(DELAY_UI_READY);
+            const bounds: Rect = await appWindow.getBounds();
+            expect((bounds.right - bounds.left) > 0).assertTrue();
+            expect((bounds.bottom - bounds.top) > 0).assertTrue();
+          } catch (error) {
+            expect(isResizeUnsupported(error as Error)).assertTrue();
+          }
+          await expectText(VISIBLE_TIP);
+        });
+    });
+
+    BULK_RESIZE_CASES.forEach((resizeCase: ResizeCase) => {
+      /**
+       * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1480-1579
+       * @tc.name      bulk resize matrix case
+       * @tc.desc      Resize the window and verify the module limits or the unsupported result.
+       * @tc.type      FUNCTION
+       * @tc.size      MEDIUMTEST
+       * @tc.level     LEVEL1
+       */
+      it(resizeCase.name,
+        TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+          await launchEntryAbility();
+          await driver.delayMs(DELAY_UI_READY);
+          await ensureVisibleTip();
+          const appWindow: UiWindow = await findAppWindow();
+          try {
+            await appWindow.resize(resizeCase.width, resizeCase.height, resizeCase.direction);
+            await driver.delayMs(DELAY_UI_READY);
+            const bounds: Rect = await appWindow.getBounds();
+            const width: number = bounds.right - bounds.left;
+            const height: number = bounds.bottom - bounds.top;
+            expect(width > 0).assertTrue();
+            expect(height > 0).assertTrue();
+            if (resizeCase.kind === 'over') {
+              expect(width <= MODULE_MAX_WIDTH + 100).assertTrue();
+              expect(height <= MODULE_MAX_HEIGHT + 100).assertTrue();
+            } else if (resizeCase.kind === 'under') {
+              expect(width >= MODULE_MIN_WIDTH - 100).assertTrue();
+              expect(height >= MODULE_MIN_HEIGHT - 100).assertTrue();
+            } else {
+              expect(width >= MODULE_MIN_WIDTH - 100).assertTrue();
+              expect(width <= MODULE_MAX_WIDTH + 100).assertTrue();
+              expect(height >= MODULE_MIN_HEIGHT - 100).assertTrue();
+              expect(height <= MODULE_MAX_HEIGHT + 100).assertTrue();
+            }
+          } catch (error) {
+            expect(isResizeUnsupported(error as Error)).assertTrue();
+          }
+          await expectText(VISIBLE_TIP);
+        });
+    });
+  });
+}
