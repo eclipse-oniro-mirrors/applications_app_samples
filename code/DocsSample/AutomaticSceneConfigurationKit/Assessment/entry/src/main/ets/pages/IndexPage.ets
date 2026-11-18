@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { common } from '@kit.AbilityKit';
 import { AppStorageV2, router, window } from '@kit.ArkUI';
 import { assessment } from '@kit.AutomaticSceneConfigurationKit';
@@ -109,7 +123,7 @@ struct IndexPage {
     }
     .width('100%')
     .height('100%')
-    .padding({ top: this.statusBarHeight + 16, bottom: 16, left: 16, right: 16 })
+    .padding({ top: this.statusBarHeight + 16, bottom: $r('app.float.page_padding'), left: $r('app.float.page_padding'), right: $r('app.float.page_padding') })
     .backgroundColor($r('app.color.page_background'))
     .scrollBar(BarState.Off)
     .edgeEffect(EdgeEffect.Spring)
@@ -164,16 +178,16 @@ struct IndexPage {
     if (context === undefined) {
       return;
     }
-    if (!this.setting.allowDeveloperMode && ExamHardeningUtil.isDeveloperModeEnabled()) {
+    if (!this.setting.allowDeveloperMode && ExamHardeningUtil.isDeveloperModeEnabled(context)) {
       this.getUIContext().getPromptAction().showToast({
-        message: '当前处于开发者模式，不允许进入考试',
+        message: $r('app.string.toast_developer_mode_blocked'),
         duration: AssessmentConstants.TOAST_DURATION
       });
       return;
     }
     if (!this.setting.allowEmulator && ExamHardeningUtil.isEmulator()) {
       this.getUIContext().getPromptAction().showToast({
-        message: '当前为模拟器环境，不允许进入考试',
+        message: $r('app.string.toast_emulator_blocked'),
         duration: AssessmentConstants.TOAST_DURATION
       });
       return;
@@ -214,7 +228,7 @@ struct IndexPage {
   private showToast(code: number): void {
     try {
       this.getUIContext().getPromptAction().showToast({
-        message: `${AssessmentConstants.TAG} error code: ${code}`,
+        message: $r('app.string.toast_error_code', AssessmentConstants.TAG, code),
         duration: AssessmentConstants.TOAST_DURATION
       });
     } catch (error) {

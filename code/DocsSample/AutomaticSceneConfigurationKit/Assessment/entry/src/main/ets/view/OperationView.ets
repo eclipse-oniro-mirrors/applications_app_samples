@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 @ComponentV2
 export default struct OperationView {
   @Param isActive: boolean = false;
@@ -16,7 +30,7 @@ export default struct OperationView {
       Row({ space: 12 }) {
         Button($r('app.string.begin_button'))
           .layoutWeight(1)
-          .height(44)
+          .height($r('app.float.button_height'))
           .fontSize($r('app.float.font_size_caption'))
           .enabled(!this.isActive)
           .id('assessment_begin_button')
@@ -25,7 +39,7 @@ export default struct OperationView {
           })
         Button($r('app.string.end_button'))
           .layoutWeight(1)
-          .height(44)
+          .height($r('app.float.button_height'))
           .fontSize($r('app.float.font_size_caption'))
           .backgroundColor($r('app.color.warning'))
           .enabled(this.isActive)
@@ -39,7 +53,7 @@ export default struct OperationView {
       Row({ space: 12 }) {
         Button($r('app.string.query_state_button'))
           .layoutWeight(1)
-          .height(44)
+          .height($r('app.float.button_height'))
           .fontSize($r('app.float.font_size_caption'))
           .backgroundColor($r('app.color.page_background'))
           .fontColor($r('app.color.body_font'))
@@ -49,7 +63,7 @@ export default struct OperationView {
           })
         Button($r('app.string.query_config_button'))
           .layoutWeight(1)
-          .height(44)
+          .height($r('app.float.button_height'))
           .fontSize($r('app.float.font_size_caption'))
           .backgroundColor($r('app.color.page_background'))
           .fontColor($r('app.color.body_font'))

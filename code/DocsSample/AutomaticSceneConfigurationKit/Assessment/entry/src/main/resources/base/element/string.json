@@ -235,6 +235,70 @@
     {
       "name": "question_fill_placeholder",
       "value": "Type your answer"
+    },
+    {
+      "name": "setting_clear_clipboard",
+      "value": "Clear clipboard when entering exam"
+    },
+    {
+      "name": "setting_privacy_mode",
+      "value": "Enable privacy mode when entering exam"
+    },
+    {
+      "name": "setting_simple_keyboard",
+      "value": "Use simple keyboard when entering exam"
+    },
+    {
+      "name": "setting_allow_developer_mode",
+      "value": "Allow entering exam in USB debug mode"
+    },
+    {
+      "name": "setting_allow_emulator",
+      "value": "Allow entering exam on emulator"
+    },
+    {
+      "name": "debug_panel_title",
+      "value": "API Calls & Status Info"
+    },
+    {
+      "name": "debug_panel_arrow",
+      "value": "▲"
+    },
+    {
+      "name": "whitelist_help_icon",
+      "value": "?"
+    },
+    {
+      "name": "whitelist_popup_description",
+      "value": "Apps in the whitelist can still run during assessment mode. Apps not in the whitelist will be restricted."
+    },
+    {
+      "name": "whitelist_default_apps_label",
+      "value": "Default whitelist apps:"
+    },
+    {
+      "name": "whitelist_app_self",
+      "value": "com.samples.assessment: This app"
+    },
+    {
+      "name": "whitelist_app_emergency",
+      "value": "com.huawei.hmos.emergency…: Emergency alert"
+    },
+    {
+      "name": "whitelist_app_screenreader",
+      "value": "com.huawei.hmos.screenreader: Screen reader"
+    },
+    {
+      "name": "toast_developer_mode_blocked",
+      "value": "Developer mode is active, exam entry is not allowed"
+    },
+    {
+      "name": "toast_emulator_blocked",
+      "value": "Emulator environment detected, exam entry is not allowed"
+    },
+    {
+      "name": "toast_error_code",
+      "value": "%s error code: %d"
     }
   ]
 }

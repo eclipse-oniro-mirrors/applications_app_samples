@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { AssessmentConstants } from '../common/constants/AssessmentConstants';
 import Logger from '../common/utils/Logger';
 
@@ -39,9 +53,9 @@ export default struct ConfigView {
               $r('app.color.card_background') : $r('app.color.body_font'))
               .backgroundColor(this.durationIndex === obj.index ?
               $r('app.color.brand') : $r('app.color.page_background'))
-              .padding({ left: 12, right: 12, top: 6, bottom: 6 })
-              .borderRadius(16)
-              .margin({ right: 8, bottom: 8 })
+              .padding({ left: $r('app.float.chip_padding_h'), right: $r('app.float.chip_padding_h'), top: $r('app.float.chip_padding_v'), bottom: $r('app.float.chip_padding_v') })
+              .borderRadius($r('app.float.card_radius'))
+              .margin({ right: $r('app.float.space_medium'), bottom: $r('app.float.space_medium') })
               .onClick(() => {
                 this.onDurationChange(obj.index);
               })
@@ -52,17 +66,17 @@ export default struct ConfigView {
       Divider()
         .color($r('app.color.divider'))
 
-      Row({ space: 6 }) {
+      Row({ space: 8 }) {
         Text($r('app.string.allowed_apps_label'))
           .fontSize($r('app.float.font_size_caption'))
           .fontColor($r('app.color.secondary_font'))
-        Text('?')
-          .fontSize(10)
+        Text($r('app.string.whitelist_help_icon'))
+          .fontSize($r('app.float.icon_font_size'))
           .fontColor($r('app.color.secondary_font'))
-          .width(18)
-          .height(18)
+          .width($r('app.float.icon_size'))
+          .height($r('app.float.icon_size'))
           .textAlign(TextAlign.Center)
-          .borderRadius(9)
+          .borderRadius($r('app.float.icon_radius'))
           .backgroundColor($r('app.color.page_background'))
           .onClick(() => {
             this.showWhitelistPopup = !this.showWhitelistPopup;
@@ -82,13 +96,13 @@ export default struct ConfigView {
       Row({ space: 8 }) {
         TextInput({ placeholder: $r('app.string.allowed_apps_placeholder'), text: this.inputBundle })
           .layoutWeight(1)
-          .height(40)
+          .height($r('app.float.input_height'))
           .id('assessment_bundle_input')
           .onChange((value: string) => {
             this.onInputChange(value);
           })
         Button($r('app.string.allowed_apps_add'))
-          .height(40)
+          .height($r('app.float.input_height'))
           .fontSize($r('app.float.font_size_caption'))
           .id('assessment_add_button')
           .onClick(() => {
@@ -112,7 +126,7 @@ export default struct ConfigView {
                 .maxLines(1)
                 .textOverflow({ overflow: TextOverflow.Ellipsis })
               Button($r('app.string.allowed_apps_remove'))
-                .height(28)
+                .height($r('app.float.small_button_height'))
                 .fontSize($r('app.float.font_size_caption'))
                 .backgroundColor($r('app.color.page_background'))
                 .fontColor($r('app.color.warning'))
@@ -121,7 +135,7 @@ export default struct ConfigView {
                 })
             }
             .width('100%')
-            .padding({ top: 4, bottom: 4 })
+            .padding({ top: $r('app.float.space_small'), bottom: $r('app.float.space_small') })
           })
       }
     }
@@ -135,7 +149,7 @@ export default struct ConfigView {
   @Builder
   whitelistPopupBuilder() {
     Column({ space: 8 }) {
-      Text('白名单中的应用在评估模式期间仍可正常运行，未加入白名单的应用将被限制使用。')
+      Text($r('app.string.whitelist_popup_description'))
         .fontSize($r('app.float.font_size_caption'))
         .fontColor($r('app.color.body_font'))
         .width('100%')
@@ -143,17 +157,17 @@ export default struct ConfigView {
       Divider()
         .color($r('app.color.divider'))
 
-      Text('默认白名单应用：')
+      Text($r('app.string.whitelist_default_apps_label'))
         .fontSize($r('app.float.font_size_caption'))
         .fontWeight(FontWeight.Medium)
         .fontColor($r('app.color.title_font'))
 
       Column({ space: 4 }) {
         Row({ space: 6 }) {
-          Text('•')
+          Text($r('app.string.whitelist_help_icon'))
             .fontSize($r('app.float.font_size_caption'))
             .fontColor($r('app.color.secondary_font'))
-          Text('com.samples.assessment：本应用')
+          Text($r('app.string.whitelist_app_self'))
             .fontSize($r('app.float.font_size_caption'))
             .fontColor($r('app.color.body_font'))
             .maxLines(1)
@@ -162,10 +176,10 @@ export default struct ConfigView {
         .width('100%')
 
         Row({ space: 6 }) {
-          Text('•')
+          Text($r('app.string.whitelist_help_icon'))
             .fontSize($r('app.float.font_size_caption'))
             .fontColor($r('app.color.secondary_font'))
-          Text('com.huawei.hmos.emergency…：地震预警')
+          Text($r('app.string.whitelist_app_emergency'))
             .fontSize($r('app.float.font_size_caption'))
             .fontColor($r('app.color.body_font'))
             .maxLines(1)
@@ -174,10 +188,10 @@ export default struct ConfigView {
         .width('100%')
 
         Row({ space: 6 }) {
-          Text('•')
+          Text($r('app.string.whitelist_help_icon'))
             .fontSize($r('app.float.font_size_caption'))
             .fontColor($r('app.color.secondary_font'))
-          Text('com.huawei.hmos.screenreader：屏幕朗读')
+          Text($r('app.string.whitelist_app_screenreader'))
             .fontSize($r('app.float.font_size_caption'))
             .fontColor($r('app.color.body_font'))
             .maxLines(1)
@@ -187,8 +201,8 @@ export default struct ConfigView {
       }
       .width('100%')
     }
-    .width(340)
-    .padding(12)
+    .width($r('app.float.popup_width'))
+    .padding($r('app.float.component_space'))
     .backgroundColor($r('app.color.card_background'))
     .borderRadius($r('app.float.card_radius'))
     .alignItems(HorizontalAlign.Start)

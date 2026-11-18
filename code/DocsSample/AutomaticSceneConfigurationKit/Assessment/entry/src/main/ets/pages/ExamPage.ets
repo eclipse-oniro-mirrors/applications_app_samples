@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { common } from '@kit.AbilityKit';
 import { AppStorageV2, window } from '@kit.ArkUI';
 import { assessment } from '@kit.AutomaticSceneConfigurationKit';
@@ -94,9 +108,9 @@ struct ExamPage {
     .height('100%')
     .padding({
       top: this.statusBarHeight + 16,
-      bottom: 16,
-      left: 16,
-      right: 16
+      bottom: $r('app.float.page_padding'),
+      left: $r('app.float.page_padding'),
+      right: $r('app.float.page_padding')
     })
     .backgroundColor($r('app.color.page_background'))
     .justifyContent(FlexAlign.Start)
@@ -113,20 +127,20 @@ struct ExamPage {
   @Builder
   DebugPanel() {
     Row() {
-      Text('接口调用与状态信息')
+      Text($r('app.string.debug_panel_title'))
         .fontSize($r('app.float.font_size_caption'))
         .fontColor($r('app.color.body_font'))
         .layoutWeight(1)
-      Text('▲')
+      Text($r('app.string.debug_panel_arrow'))
         .fontSize($r('app.float.font_size_caption'))
         .fontColor($r('app.color.secondary_font'))
     }
     .width('100%')
     .padding({
-      left: 12,
-      right: 12,
-      top: 8,
-      bottom: 8
+      left: $r('app.float.component_space'),
+      right: $r('app.float.component_space'),
+      top: $r('app.float.space_medium'),
+      bottom: $r('app.float.space_medium')
     })
     .backgroundColor($r('app.color.card_background'))
     .borderRadius($r('app.float.card_radius'))
@@ -163,7 +177,7 @@ struct ExamPage {
       StatusView({ viewModel: this.assessmentVM })
     }
     .width('100%')
-    .padding({ top: 48, bottom: 16, left: 16, right: 16 })
+    .padding({ top: $r('app.float.sheet_top_padding'), bottom: $r('app.float.page_padding'), left: $r('app.float.page_padding'), right: $r('app.float.page_padding') })
   }
 
   private onSubmitClick(): void {

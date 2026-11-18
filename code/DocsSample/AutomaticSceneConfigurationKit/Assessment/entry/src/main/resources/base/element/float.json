@@ -17,6 +17,10 @@
       "value": "14fp"
     },
     {
+      "name": "icon_font_size",
+      "value": "10fp"
+    },
+    {
       "name": "page_padding",
       "value": "16vp"
     },
@@ -31,6 +35,50 @@
     {
       "name": "component_space",
       "value": "12vp"
+    },
+    {
+      "name": "space_medium",
+      "value": "8vp"
+    },
+    {
+      "name": "space_small",
+      "value": "4vp"
+    },
+    {
+      "name": "button_height",
+      "value": "44vp"
+    },
+    {
+      "name": "input_height",
+      "value": "40vp"
+    },
+    {
+      "name": "small_button_height",
+      "value": "28vp"
+    },
+    {
+      "name": "icon_size",
+      "value": "18vp"
+    },
+    {
+      "name": "icon_radius",
+      "value": "9vp"
+    },
+    {
+      "name": "chip_padding_h",
+      "value": "12vp"
+    },
+    {
+      "name": "chip_padding_v",
+      "value": "6vp"
+    },
+    {
+      "name": "popup_width",
+      "value": "340vp"
+    },
+    {
+      "name": "sheet_top_padding",
+      "value": "48vp"
     }
   ]
 }

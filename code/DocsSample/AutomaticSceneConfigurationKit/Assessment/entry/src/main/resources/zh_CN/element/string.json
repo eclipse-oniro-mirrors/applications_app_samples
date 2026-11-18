@@ -235,6 +235,70 @@
     {
       "name": "question_fill_placeholder",
       "value": "请输入答案"
+    },
+    {
+      "name": "setting_clear_clipboard",
+      "value": "进入考试后清空剪贴板"
+    },
+    {
+      "name": "setting_privacy_mode",
+      "value": "进入考试后开启隐私模式"
+    },
+    {
+      "name": "setting_simple_keyboard",
+      "value": "进入考试后使用简单键盘"
+    },
+    {
+      "name": "setting_allow_developer_mode",
+      "value": "USB调试模式允许进入考试"
+    },
+    {
+      "name": "setting_allow_emulator",
+      "value": "模拟器允许进入考试"
+    },
+    {
+      "name": "debug_panel_title",
+      "value": "接口调用与状态信息"
+    },
+    {
+      "name": "debug_panel_arrow",
+      "value": "▲"
+    },
+    {
+      "name": "whitelist_help_icon",
+      "value": "?"
+    },
+    {
+      "name": "whitelist_popup_description",
+      "value": "白名单中的应用在评估模式期间仍可正常运行，未加入白名单的应用将被限制使用。"
+    },
+    {
+      "name": "whitelist_default_apps_label",
+      "value": "默认白名单应用："
+    },
+    {
+      "name": "whitelist_app_self",
+      "value": "com.samples.assessment：本应用"
+    },
+    {
+      "name": "whitelist_app_emergency",
+      "value": "com.huawei.hmos.emergency…：地震预警"
+    },
+    {
+      "name": "whitelist_app_screenreader",
+      "value": "com.huawei.hmos.screenreader：屏幕朗读"
+    },
+    {
+      "name": "toast_developer_mode_blocked",
+      "value": "当前处于开发者模式，不允许进入考试"
+    },
+    {
+      "name": "toast_emulator_blocked",
+      "value": "当前为模拟器环境，不允许进入考试"
+    },
+    {
+      "name": "toast_error_code",
+      "value": "%s error code: %d"
     }
   ]
 }

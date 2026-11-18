@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import SettingModel from '../model/SettingModel';
 
 @ComponentV2
@@ -6,13 +20,13 @@ export default struct SettingView {
 
   build() {
     Column({ space: 12 }) {
-      Text('加固配置')
+      Text($r('app.string.hardening_title'))
         .fontSize($r('app.float.font_size_section'))
         .fontWeight(FontWeight.Medium)
         .fontColor($r('app.color.title_font'))
 
       Row() {
-        Text('进入考试后清空剪贴板')
+        Text($r('app.string.setting_clear_clipboard'))
           .fontSize($r('app.float.font_size_body'))
           .fontColor($r('app.color.body_font'))
           .layoutWeight(1)
@@ -24,7 +38,7 @@ export default struct SettingView {
       .width('100%')
 
       Row() {
-        Text('进入考试后开启隐私模式')
+        Text($r('app.string.setting_privacy_mode'))
           .fontSize($r('app.float.font_size_body'))
           .fontColor($r('app.color.body_font'))
           .layoutWeight(1)
@@ -36,7 +50,7 @@ export default struct SettingView {
       .width('100%')
 
       Row() {
-        Text('进入考试后使用简单键盘')
+        Text($r('app.string.setting_simple_keyboard'))
           .fontSize($r('app.float.font_size_body'))
           .fontColor($r('app.color.body_font'))
           .layoutWeight(1)
@@ -50,20 +64,20 @@ export default struct SettingView {
       Divider()
         .color($r('app.color.divider'))
 
-      // Row() {
-      //   Text('开发者模式允许进入考试')
-      //     .fontSize($r('app.float.font_size_body'))
-      //     .fontColor($r('app.color.body_font'))
-      //     .layoutWeight(1)
-      //   Toggle({ type: ToggleType.Switch, isOn: this.setting.allowDeveloperMode })
-      //     .onChange((isOn: boolean) => {
-      //       this.setting.allowDeveloperMode = isOn;
-      //     })
-      // }
-      // .width('100%')
+      Row() {
+        Text($r('app.string.setting_allow_developer_mode'))
+          .fontSize($r('app.float.font_size_body'))
+          .fontColor($r('app.color.body_font'))
+          .layoutWeight(1)
+        Toggle({ type: ToggleType.Switch, isOn: this.setting.allowDeveloperMode })
+          .onChange((isOn: boolean) => {
+            this.setting.allowDeveloperMode = isOn;
+          })
+      }
+      .width('100%')
 
       Row() {
-        Text('模拟器允许进入考试')
+        Text($r('app.string.setting_allow_emulator'))
           .fontSize($r('app.float.font_size_body'))
           .fontColor($r('app.color.body_font'))
           .layoutWeight(1)
