@@ -96,7 +96,7 @@ export default function abilityTest() {
       });
       hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_017 assert card count increased, ' +
         'cardArkTsCountSecond:' + cardArkTsCountSecond);
-      expect(cardArkTsCountSecond > cardArkTsCount).assertTrue();
+      expect(cardArkTsCountSecond).assertEqual(cardArkTsCount + 1);
       hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_017 ' + (cardArkTsCountSecond - cardArkTsCount) + ' ArkTs card be added');
 
       await driver.delayMs(1000);
@@ -160,7 +160,7 @@ export default function abilityTest() {
       });
       hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_018 assert card count increased, ' +
         'formJsCountSecond:' + formJsCountSecond);
-      expect(formJsCountSecond > cardJsCount).assertTrue();
+      expect(formJsCountSecond).assertEqual(cardJsCount + 1);
       hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_018 ' + (formJsCountSecond - cardJsCount) + ' Js card be added');
 
       await driver.delayMs(1000);
