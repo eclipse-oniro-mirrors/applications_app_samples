@@ -3798,3 +3798,348 @@ export default function startOptionsWindowLimitsTest(): void {
      */
     it('testStartBulkCase448',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 960, maxWindowWidth: 1300 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_449
+     * @tc.name      testStartBulkCase449
+     * @tc.desc      Start with a height sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase449',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        for (let index: number = 0; index < 2; index++) {
+          const code: number = await startTarget({ minWindowHeight: 1050, maxWindowHeight: 1000 });
+          expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+          await closeTarget();
+        }
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_450
+     * @tc.name      testStartBulkCase450
+     * @tc.desc      Start with displayId and limits and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase450',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ displayId: 0, minWindowWidth: 1140, maxWindowWidth: 1460 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_451
+     * @tc.name      testStartBulkCase451
+     * @tc.desc      Start twice with different limits and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase451',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const first: number = await startTarget({ minWindowWidth: 1230, maxWindowWidth: 1540 });
+        const second: number = await startTarget({ minWindowWidth: 1280, maxWindowWidth: 1590 });
+        expect(first === 0 || ACCEPTABLE_START_CODES.includes(first)).assertTrue();
+        expect(second === 0 || ACCEPTABLE_START_CODES.includes(second)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_452
+     * @tc.name      testStartBulkCase452
+     * @tc.desc      Start with bulk limits and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase452',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 600, maxWindowWidth: 1300 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_453
+     * @tc.name      testStartBulkCase453
+     * @tc.desc      Start with a height sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase453',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        for (let index: number = 0; index < 2; index++) {
+          const code: number = await startTarget({ minWindowHeight: 690, maxWindowHeight: 1000 });
+          expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+          await closeTarget();
+        }
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_454
+     * @tc.name      testStartBulkCase454
+     * @tc.desc      Start with displayId and limits and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase454',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ displayId: 0, minWindowWidth: 780, maxWindowWidth: 1460 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_455
+     * @tc.name      testStartBulkCase455
+     * @tc.desc      Start twice with different limits and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase455',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const first: number = await startTarget({ minWindowWidth: 870, maxWindowWidth: 1540 });
+        const second: number = await startTarget({ minWindowWidth: 920, maxWindowWidth: 1590 });
+        expect(first === 0 || ACCEPTABLE_START_CODES.includes(first)).assertTrue();
+        expect(second === 0 || ACCEPTABLE_START_CODES.includes(second)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_456
+     * @tc.name      testStartBulkCase456
+     * @tc.desc      Start with bulk limits and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase456',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 960, maxWindowWidth: 1300 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_457
+     * @tc.name      testStartBulkCase457
+     * @tc.desc      Start with a height sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase457',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        for (let index: number = 0; index < 2; index++) {
+          const code: number = await startTarget({ minWindowHeight: 1050, maxWindowHeight: 1000 });
+          expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+          await closeTarget();
+        }
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_458
+     * @tc.name      testStartBulkCase458
+     * @tc.desc      Start with displayId and limits and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase458',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ displayId: 0, minWindowWidth: 1140, maxWindowWidth: 1460 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_459
+     * @tc.name      testStartBulkCase459
+     * @tc.desc      Start twice with different limits and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase459',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const first: number = await startTarget({ minWindowWidth: 1230, maxWindowWidth: 1540 });
+        const second: number = await startTarget({ minWindowWidth: 1280, maxWindowWidth: 1590 });
+        expect(first === 0 || ACCEPTABLE_START_CODES.includes(first)).assertTrue();
+        expect(second === 0 || ACCEPTABLE_START_CODES.includes(second)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_460
+     * @tc.name      testStartBulkCase460
+     * @tc.desc      Start with bulk limits and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase460',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 600, maxWindowWidth: 1300 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_461
+     * @tc.name      testStartBulkCase461
+     * @tc.desc      Start with a height sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase461',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        for (let index: number = 0; index < 2; index++) {
+          const code: number = await startTarget({ minWindowHeight: 690, maxWindowHeight: 1000 });
+          expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+          await closeTarget();
+        }
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_462
+     * @tc.name      testStartBulkCase462
+     * @tc.desc      Start with displayId and limits and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase462',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ displayId: 0, minWindowWidth: 780, maxWindowWidth: 1460 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_463
+     * @tc.name      testStartBulkCase463
+     * @tc.desc      Start twice with different limits and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase463',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const first: number = await startTarget({ minWindowWidth: 870, maxWindowWidth: 1540 });
+        const second: number = await startTarget({ minWindowWidth: 920, maxWindowWidth: 1590 });
+        expect(first === 0 || ACCEPTABLE_START_CODES.includes(first)).assertTrue();
+        expect(second === 0 || ACCEPTABLE_START_CODES.includes(second)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_464
+     * @tc.name      testStartBulkCase464
+     * @tc.desc      Start with bulk limits and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase464',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 960, maxWindowWidth: 1300 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_465
+     * @tc.name      testStartBulkCase465
+     * @tc.desc      Start with a height sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase465',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        for (let index: number = 0; index < 2; index++) {
+          const code: number = await startTarget({ minWindowHeight: 1050, maxWindowHeight: 1000 });
+          expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+          await closeTarget();
+        }
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_466
+     * @tc.name      testStartBulkCase466
+     * @tc.desc      Start with displayId and limits and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase466',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ displayId: 0, minWindowWidth: 1140, maxWindowWidth: 1460 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_467
+     * @tc.name      testStartBulkCase467
+     * @tc.desc      Start twice with different limits and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase467',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const first: number = await startTarget({ minWindowWidth: 1230, maxWindowWidth: 1540 });
+        const second: number = await startTarget({ minWindowWidth: 1280, maxWindowWidth: 1590 });
+        expect(first === 0 || ACCEPTABLE_START_CODES.includes(first)).assertTrue();
+        expect(second === 0 || ACCEPTABLE_START_CODES.includes(second)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_468
+     * @tc.name      testStartBulkCase468
+     * @tc.desc      Start with bulk limits and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase468',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 600, maxWindowWidth: 1300 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_469
+     * @tc.name      testStartBulkCase469
+     * @tc.desc      Start with a height sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testStartBulkCase469',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        for (let index: number = 0; index < 2; index++) {
+          const code: number = await startTarget({ minWindowHeight: 690, maxWindowHeight: 1000 });
+          expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+          await closeTarget();
+        }
+      });
+    START_CASES.forEach((startCase: StartCase) => {
+      /**
+       * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_0600-0699
+       * @tc.name      StartOptions matrix case
+       * @tc.desc      Start the target ability with a boundary or special StartOptions combination.
+       * @tc.type      FUNCTION
+       * @tc.size      MEDIUMTEST
+       * @tc.level     LEVEL1
+       */
+      it(startCase.name,
+        TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s begin options=%{public}s',
+            startCase.name, JSON.stringify(startCase.options));
+          const code: number = await startTarget(startCase.options);
+          expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+          if (code === 0) {
+            const ability: UIAbility = await abilityDelegatorRegistry.getAbilityDelegator().getCurrentTopAbility();
+            expect(ability.context.abilityInfo.name).assertEqual(TARGET_ABILITY);
+          }
+          await closeTarget();
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', startCase.name);
+        });
+    });
+  });
+}
