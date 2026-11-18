@@ -24,6 +24,7 @@ import ratioOfIndexTest from './logic/RatioOfIndex.test';
 import ratioLabelOfIndexTest from './logic/RatioLabelOfIndex.test';
 import sizeTextOfTest from './logic/SizeTextOf.test';
 import heightForWidthTest from './logic/HeightForWidth.test';
+import heightForWidth2Test from './logic/HeightForWidth2.test';
 
 export default function testsuite() {
   // Yield between cases so the main EventHandler can service watchdog tasks.
@@ -40,4 +41,5 @@ export default function testsuite() {
   ratioLabelOfIndexTest();
   sizeTextOfTest();
   heightForWidthTest();
+  heightForWidth2Test();
 }
