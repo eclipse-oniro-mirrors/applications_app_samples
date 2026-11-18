@@ -23,6 +23,7 @@ import windowRatioPageUiTest from './PageUi.test';
 import ratioOfIndexTest from './logic/RatioOfIndex.test';
 import ratioLabelOfIndexTest from './logic/RatioLabelOfIndex.test';
 import sizeTextOfTest from './logic/SizeTextOf.test';
+import heightForWidthTest from './logic/HeightForWidth.test';
 
 export default function testsuite() {
   // Yield between cases so the main EventHandler can service watchdog tasks.
@@ -38,4 +39,5 @@ export default function testsuite() {
   ratioOfIndexTest();
   ratioLabelOfIndexTest();
   sizeTextOfTest();
+  heightForWidthTest();
 }
