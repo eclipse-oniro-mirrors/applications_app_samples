@@ -309,8 +309,8 @@
       "value": "LTR随帧回调注册（Buffer输入模式）"
     },
     {
-      "name": "item_ltr_callback_surface_input_mode",
-      "value": "LTR随帧回调注册（Surface输入模式）"
+      "name": "item_ltr_callback_native_window_input_mode",
+      "value": "LTR随帧回调注册（NativeWindow输入模式）"
     },
     {
       "name": "category_video_decoder",

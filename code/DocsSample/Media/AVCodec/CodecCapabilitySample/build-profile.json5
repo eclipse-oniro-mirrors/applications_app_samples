@@ -36,14 +36,15 @@
     "signingConfigs": [
       {
         "name": "default",
+        "type": "HarmonyOS",
         "material": {
-          "certpath": "C:/Users/chenchunming/.ohos/config/openharmony/default_CodecCapabilitySample_kHHY4nMt24PNGLJm2MKRuwqwwVL64FQIcKHk6e63PXY=.cer",
+          "certpath": "C:\\Users\\chenchunming\\.ohos\\config\\default_CodecCapabilitySample_kHHY4nMt24PNGLJm2MKRuwqwwVL64FQIcKHk6e63PXY=.cer",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001B812902423D6CA479A8714EF65F0CB70ADC45674D3B84A303AF48562CE7D77D29EF3DA1C1EB3B05",
-          "profile": "C:/Users/chenchunming/.ohos/config/openharmony/default_CodecCapabilitySample_kHHY4nMt24PNGLJm2MKRuwqwwVL64FQIcKHk6e63PXY=.p7b",
+          "keyPassword": "0000001B83AB68208DC55CBD3755A7DD235BAFDB21494A6F2999B9296A6CF7A2AA1C37249C5B6B727F6F18",
+          "profile": "C:\\Users\\chenchunming\\.ohos\\config\\default_CodecCapabilitySample_kHHY4nMt24PNGLJm2MKRuwqwwVL64FQIcKHk6e63PXY=.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/chenchunming/.ohos/config/openharmony/default_CodecCapabilitySample_kHHY4nMt24PNGLJm2MKRuwqwwVL64FQIcKHk6e63PXY=.p12",
-          "storePassword": "0000001BEE4C86D4FA2E42AD29DDB98A0EB9AC8092549432314D8965243B4C9DF52B9405BCFDFE01FE1EFF"
+          "storeFile": "C:\\Users\\chenchunming\\.ohos\\config\\default_CodecCapabilitySample_kHHY4nMt24PNGLJm2MKRuwqwwVL64FQIcKHk6e63PXY=.p12",
+          "storePassword": "0000001BB0A9690A2CF123151A2906FA2753F0F4B92A0A6BDEDCAA9D4DFA8789845971908C11E745FC4EDA"
         }
       },
       {
