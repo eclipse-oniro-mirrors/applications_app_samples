@@ -91,9 +91,15 @@ entry/src/main/ets/
 
 1.本示例仅支持标准系统上运行。
 
-2.本示例为Stage模型，已适配API10版本SDK，SDK版本号(API Version 10 Release),镜像版本号(4.0 Release)。
+2.本示例为Stage模型，已适配 API 26 版本 SDK（compileSdkVersion 26.0.0）。
 
-3.本工程示例需要使用DevEco Studio 版本号(4.0Release)及以上版本才可编译运行。
+3.本工程示例需要使用 DevEco Studio 7.0 及以上版本才可编译运行。
+
+### 测试
+
+本工程提供基于 Hypium 的自动化测试，位于 `entry/src/ohosTest`，共 899 条用例、27 个套件，
+覆盖 OAID 接口能力与 Want/BundleFlag/资源等通用系统 API 矩阵，
+详细套件说明与执行命令见 [ohosTest.md](ohosTest.md)。
 
 ### 下载
 
