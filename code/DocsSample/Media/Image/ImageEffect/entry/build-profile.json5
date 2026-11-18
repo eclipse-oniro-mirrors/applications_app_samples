@@ -50,6 +50,13 @@
     },
     {
       "name": "ohosTest",
+      "config": {
+        "buildOption": {
+          "externalNativeOptions": {
+            "path": "./src/ohosTest/cpp/CMakeLists.txt"
+          }
+        }
+      }
     }
   ]
 }

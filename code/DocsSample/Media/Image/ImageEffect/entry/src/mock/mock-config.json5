@@ -13,8 +13,4 @@
  * limitations under the License.
  */
 
-{
-  "libentry.so": {
-    "source": "src/mock/libentry.mock.ets"
-  }
-}
+{}
