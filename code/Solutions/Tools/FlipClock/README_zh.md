@@ -5,7 +5,7 @@
 本示例集中展示了时钟、闹钟、倒计时、设置屏幕亮度相关的场景，  
 1、使用[@ohos.reminderAgentManager](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-backgroundtasks-kit/js-apis-reminderAgentManager.md )完成闹钟的相关功能，  
 2、使用animateTo完成翻页时钟动画，使用[@ohos.runningLock](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-runninglock.md )完成屏幕常亮功能，  
-3、设置屏幕亮度，使用[@ohos.brightness](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-brightness-sys.md )系统能力调节屏幕亮度，  
+3、设置应用窗口亮度，使用 `window.setWindowBrightness` 调节本应用窗口亮度，不需要系统亮度权限，  
 4、后台消息提醒，使用[@ohos.notificationManager](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-notification-kit/js-apis-notificationManager.md )系统能力做后台代理提醒。  
 5、需要系统存储信息，使用用户首选项接口[@ohos.data.preferences](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkdata/js-apis-data-preferences.md )。
 
@@ -104,11 +104,17 @@ entry/src/main/ets/
 
 ### 约束与限制
 
-1.本示例仅支持在标准系统上运行。
+1.本示例仅支持在标准系统上运行，已在 deviceType 为 `default` 的 32 位 OpenHarmony 开发板上验证。
 
-2.本示例需要使用DevEco Studio NEXT Developer Preview2 (Build Version: 4.1.3.700, built on March 19, 2024)版本才可编译运行。
+2.本示例需要使用 DevEco Studio 26.0.0 Release 及以上版本编译运行。
 
-3.本示例已适配API version 12版本SDK，版本号：5.0.0.70；
+3.本示例已适配 API version 26.0.0（`compileSdkVersion` / `targetSdkVersion` / `compatibleSdkVersion` 均为 `"26.0.0"`，`runtimeOS: OpenHarmony`，OpenHarmony 26.0.0.38 SDK）。
+
+4.已移除未使用的系统级权限 `ohos.permission.NOTIFICATION_CONTROLLER`、`ohos.permission.RUNNING_LOCK`，避免调试签名安装失败；保留 `PUBLISH_AGENT_REMINDER` 与日历读写权限。
+
+5.设置页已改为应用内页面：全屏、屏幕常亮、亮度滑条均由应用窗口 API 实现；不再依赖外部 `com.samples.brightness`。
+
+6.`ohosTest` 包含 16 条用例（时钟数字、闹钟增删/取消、倒计时 0 秒负向/暂停恢复/运行中重置/到 0 自动结束、设置页全屏/常亮/亮度、DataSource/ContactSource 逻辑），运行命令见 `ohosTest.md`。
 
 ### 下载
 
