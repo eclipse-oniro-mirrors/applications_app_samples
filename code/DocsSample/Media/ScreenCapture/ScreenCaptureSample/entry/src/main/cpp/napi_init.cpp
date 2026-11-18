@@ -166,7 +166,6 @@ void HandleVideoBuffer(OH_AVBuffer *buffer)
     OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable inner audio");
 }
 
-// [Start screenCapture_surface_HandleAudioBuffer]
 void HandleAudioBuffer(OH_AVBuffer *buffer, FILE *file, const char *logMsg)
 {
     int bufferLen = OH_AVBuffer_GetCapacity(buffer);
@@ -174,8 +173,8 @@ void HandleAudioBuffer(OH_AVBuffer *buffer, FILE *file, const char *logMsg)
     if (buf == nullptr) {
         return;
     }
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== %{public}s", logMsg);
-    size_t written = fwrite(buf, 1, bufferLen, file);
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== %{public}s", ScreenCapture OnBufferAvailable inner audio);
+    size_t written = fwrite(buf, 1, bufferLen, g_innerFile);
     if (written != bufferLen) {
         OH_LOG_ERROR(LOG_APP, "fwrite failed");
     }
@@ -190,7 +189,7 @@ void OnBufferAvailable(OH_AVScreenCapture *capture, OH_AVBuffer *buffer, OH_AVSc
     OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable bufferType is %{public}d",
         bufferType);
     if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_VIDEO) {
-        // 处理视频buffer，Surface 模式下不处理 VIDEO，视频 buffer 由编码器 Surface 直接消费。
+        // 处理视频buffer。
         HandleVideoBuffer(buffer);
     } else if (bufferType == OH_SCREEN_CAPTURE_BUFFERTYPE_AUDIO_INNER) {
         // 处理内录buffer。
@@ -201,7 +200,6 @@ void OnBufferAvailable(OH_AVScreenCapture *capture, OH_AVBuffer *buffer, OH_AVSc
     }
     return;
 }
-// [End screenCapture_surface_HandleAudioBuffer]
 // [End screenCapture_config_buffer_OnBufferAvailable]
 // 设置获取录屏屏幕ID的回调函数OnDisplaySelected()。
 void OnDisplaySelected(struct OH_AVScreenCapture *capture, uint64_t displayId, void *userData)
@@ -748,9 +746,7 @@ static napi_value StartScreenCapture_02(napi_env env, napi_callback_info info)
     return res;
 }
 
-// [Start screenCapture_surface_ThreadVideoRun]
 // 开始录屏原始码流SurfaceMode。
-// 从编码器输出队列取 buffer，写入封装器后释放。
 void ThreadVideoRunMethod()
 {
     while (g_scSurfaceIsRunning) {
@@ -789,7 +785,6 @@ void ThreadVideoRunMethod()
         OH_VideoEncoder_FreeOutputBuffer(g_videoEnc, bufferInfo.bufferIndex);
     }
 }
-// [End screenCapture_surface_ThreadVideoRun]
 // [Start screenCapture_surface_SetFormat]
 int SetFormat()
 {
