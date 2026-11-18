@@ -51,13 +51,15 @@ entry/src/main/cpp/
 
 1. 本示例仅支持标准系统上运行。
 
-2. 本示例可在API23及其以上版本的SDK上运行。
+2. 本示例已适配API 26版本SDK，SDK版本号(API Version 26 Release)。
 
-3. 在将项目克隆下来后，需要配置签名。点击如下图所示“打开签名配置”，完成签名配置。
+3. 本示例需要使用DevEco Studio 版本号(DevEco Studio 6.0.0 Release)及以上版本才可编译运行。
+
+4. 在将项目克隆下来后，需要配置签名。点击如下图所示“打开签名配置”，完成签名配置。
 
 ![signature](screenshots/signature.png)
 
-4. 在完成签名配置后，需要点击运行（绿色小三角）。
+5. 在完成签名配置后，需要点击运行（绿色小三角）。
 
 ![Index](screenshots/operations.png)
 
