@@ -35,6 +35,7 @@ add_library(nativerender SHARED
             napi_manager.cpp
             napi_util.cpp
             opengl_draw.cpp
+            pixel_probe.cpp
             algorithm/Vector3.cpp
             algorithm/Matrix4x4.cpp
             algorithm/Quaternion.cpp

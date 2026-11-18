@@ -18,48 +18,54 @@
 #include "app_napi.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-/*
- * function for module exports
- */
-EXTERN_C_START
-static napi_value Init(napi_env env, napi_value exports)
-{
-    LOGE("Init");
-    napi_property_descriptor desc[] = {DECLARE_NAPI_FUNCTION("GetContext", NapiManager::GetContext),
-                                       DECLARE_NAPI_STATIC_FUNCTION("animate", AppNapi::Animate),
-                                       DECLARE_NAPI_STATIC_FUNCTION("changeShape", AppNapi::ChangeShape)};
+    /*
+     * function for module exports
+     */
+    EXTERN_C_START
+    static napi_value Init(napi_env env, napi_value exports)
+    {
+        LOGE("Init");
+        napi_property_descriptor desc[] = {DECLARE_NAPI_FUNCTION("GetContext", NapiManager::GetContext),
+                                           DECLARE_NAPI_STATIC_FUNCTION("animate", AppNapi::Animate),
+                                           DECLARE_NAPI_STATIC_FUNCTION("changeShape", AppNapi::ChangeShape)};
 
-    NAPI_CALL(env, napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc));
+        NAPI_CALL(env, napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc));
 
-    bool ret = NapiManager::GetInstance()->Export(env, exports);
-    if (!ret) {
-        LOGE("Init failed");
+        // xts 回读函数不依赖 XComponent 上下文，直接注册到模块导出对象，
+        // 使导入侧不再只能拿到 GetContext、animate、changeShape 三个符号。
+        AppNapi::RegisterXtsFunctions(env, exports);
+
+        bool ret = NapiManager::GetInstance()->Export(env, exports);
+        if (!ret)
+        {
+            LOGE("Init failed");
+        }
+
+        return exports;
     }
+    EXTERN_C_END
 
-    return exports;
-}
-EXTERN_C_END
+    /*
+     * Napi Module define
+     */
+    static napi_module appNapiModule = {
+        .nm_version = 1,
+        .nm_flags = 0,
+        .nm_filename = nullptr,
+        .nm_register_func = Init,
+        .nm_modname = "cube",
+        .nm_priv = ((void *)0),
+        .reserved = {0},
+    };
 
-/*
- * Napi Module define
- */
-static napi_module appNapiModule = {
-    .nm_version = 1,
-    .nm_flags = 0,
-    .nm_filename = nullptr,
-    .nm_register_func = Init,
-    .nm_modname = "cube",
-    .nm_priv = ((void *)0),
-    .reserved = {0},
-};
-
-/*
- * Module register function
- */
-extern "C" __attribute__((constructor)) void RegisterModule(void) { napi_module_register(&appNapiModule); }
+    /*
+     * Module register function
+     */
+    extern "C" __attribute__((constructor)) void RegisterModule(void) { napi_module_register(&appNapiModule); }
 
 #ifdef __cplusplus
 }
