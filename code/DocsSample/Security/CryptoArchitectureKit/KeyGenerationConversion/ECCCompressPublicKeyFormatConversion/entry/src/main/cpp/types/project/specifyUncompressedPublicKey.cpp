@@ -17,7 +17,7 @@
 #include "CryptoArchitectureKit/crypto_common.h"
 #include "CryptoArchitectureKit/crypto_asym_key.h"
 
-OH_Crypto_ErrCode doTestEccDataCovert()
+OH_Crypto_ErrCode doTestEccDataConvert()
 {
     OH_CryptoAsymKeyGenerator *generator = nullptr;
     OH_CryptoKeyPair *keyPair = nullptr;
@@ -53,6 +53,7 @@ OH_Crypto_ErrCode doTestEccDataCovert()
         OH_CryptoKeyPair_Destroy(keyPair);
         return ret;
     }
+    OH_Crypto_FreeDataBlob(&returnBlob);
     OH_CryptoAsymKeyGenerator_Destroy(generator);
     OH_CryptoKeyPair_Destroy(keyPair);
     return ret;

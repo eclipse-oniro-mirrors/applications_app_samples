@@ -1,0 +1,5 @@
+-keepclassmembers class * {
+  public <methods>;
+}
+# For more details about keeping app symbols, see:
+# https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/hapsigntool-overview.md

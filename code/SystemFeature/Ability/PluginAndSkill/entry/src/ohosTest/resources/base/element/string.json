@@ -1,0 +1,74 @@
+{
+  "string": [
+    {
+      "name": "module_test_desc",
+      "value": "PluginAndSkill test module",
+      "description": "Test module description"
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "PluginAndSkill test ability",
+      "description": "Test ability description"
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "PluginAndSkill TestAbility",
+      "description": "Test ability label"
+    },
+    {
+      "name": "test_plugin_page",
+      "value": "Plugins",
+      "description": "Plugin page navigation text"
+    },
+    {
+      "name": "test_select_hsp",
+      "value": "Select HSP",
+      "description": "HSP selection button text"
+    },
+    {
+      "name": "test_install_plugin",
+      "value": "Install plugin",
+      "description": "Plugin installation button text"
+    },
+    {
+      "name": "test_select_hsp_first",
+      "value": "Select an HSP file.",
+      "description": "Empty HSP validation message"
+    },
+    {
+      "name": "test_back",
+      "value": "Back",
+      "description": "Back button text"
+    },
+    {
+      "name": "test_skill_page",
+      "value": "Skills",
+      "description": "Skill page navigation text"
+    },
+    {
+      "name": "test_get_all_skills_self",
+      "value": "Get all skills (self)",
+      "description": "Own skills query button text"
+    },
+    {
+      "name": "test_query_success",
+      "value": "Query succeeded.",
+      "description": "Successful query message"
+    },
+    {
+      "name": "test_clear_result",
+      "value": "Clear result",
+      "description": "Result clearing button text"
+    },
+    {
+      "name": "test_get_skill_self",
+      "value": "Get skill info (self)",
+      "description": "Single skill query button text"
+    },
+    {
+      "name": "test_enter_skill_name",
+      "value": "Enter a skill name.",
+      "description": "Empty skill name validation message"
+    }
+  ]
+}

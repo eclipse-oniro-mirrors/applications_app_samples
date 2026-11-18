@@ -1,0 +1,19 @@
+{
+  "string": [
+    {
+      "name": "module_test_desc",
+      "value": "SystemLoad UI test module",
+      "description": "Test module description"
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "Runs SystemLoad UI tests",
+      "description": "Test ability description"
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "SystemLoad Test",
+      "description": "Test ability label"
+    }
+  ]
+}

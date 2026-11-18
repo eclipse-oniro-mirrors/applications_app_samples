@@ -12,13 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start transition_effectExample4]
 import { curves } from '@kit.ArkUI';
 
 @Entry
 @Component
 struct TransitionEffectDemo {
   @State isPresent: boolean = false;
-  // 第一步，创建TransitionEffect
+  // 第一步：创建TransitionEffect
   private effect: TransitionEffect =
     // 创建默认透明度转场效果，并指定了springMotion(0.6, 0.8)曲线
     TransitionEffect.OPACITY.animation({
@@ -72,3 +73,4 @@ struct TransitionEffectDemo {
     .height('60%')
   }
 }
+// [End transition_effectExample4]

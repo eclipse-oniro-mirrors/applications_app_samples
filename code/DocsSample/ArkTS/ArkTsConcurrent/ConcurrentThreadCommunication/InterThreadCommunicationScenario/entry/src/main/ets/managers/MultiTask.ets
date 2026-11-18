@@ -18,18 +18,25 @@ import { taskpool } from '@kit.ArkTS';
 import { IconItemSource } from './IconItemSource';
 import { loadPicture } from './IndependentTask';
 
-let iconItemSourceList: IconItemSource[][];
+let iconItemSourceList: IconItemSource[] = [];
 
 let taskGroup: taskpool.TaskGroup = new taskpool.TaskGroup();
 taskGroup.addTask(new taskpool.Task(loadPicture, 30));
 taskGroup.addTask(new taskpool.Task(loadPicture, 20));
 taskGroup.addTask(new taskpool.Task(loadPicture, 10));
 taskpool.execute(taskGroup).then((ret: object) => {
-  let tmpLength = (ret as IconItemSource[][]).length
+  let retA = ret as IconItemSource[][];
+  let tmpLength = (retA).length
   for (let i = 0; i < tmpLength; i++) {
-    for (let j = 0; j < ret[i].length; j++) {
-      iconItemSourceList.push(ret[i][j]);
+    for (let j = 0; j < retA[i].length; j++) {
+      if (retA[i][j]) {
+        iconItemSourceList.push(retA[i][j]);
+      }
     }
   }
-})
+  // The length of iconItemSourceList is 360
+  console.info('The length of iconItemSourceList is ' + (iconItemSourceList?.length ?? 0));
+}).catch((e: BusinessError) => {
+  console.error(`taskpool execute error, code: ${e.code}, message is: ${e.message}`);
+});
 // [End execute_task_group]

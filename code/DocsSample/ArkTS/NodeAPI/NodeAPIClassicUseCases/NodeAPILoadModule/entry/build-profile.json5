@@ -21,10 +21,17 @@
       "runtimeOnly" : {
         "sources": [
           "./src/main/ets/Test.ets"
+        ],
+        "packages": [
+          "library",
+          "sharedlibrary",
+          "@ohos/hypium",
+          "@ohos/axios",
+          "libentry7.so"
         ]
       }
     },
-  // [End napi_load_module_napi_build]
+  // [StartExclude napi_load_module_napi_build]
     "externalNativeOptions": {
       "path": "./src/main/cpp/CMakeLists.txt",
       "arguments": "",
@@ -35,7 +42,9 @@
         "armeabi-v7a"
       ]
     }
+  // [EndExclude napi_load_module_napi_build]
   },
+  // [End napi_load_module_napi_build]
   "buildOptionSet": [
     {
       "name": "release",

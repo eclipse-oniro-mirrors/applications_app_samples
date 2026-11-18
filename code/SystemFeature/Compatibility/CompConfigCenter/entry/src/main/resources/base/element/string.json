@@ -1,0 +1,13 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "CompConfigCenter demo" },
+    { "name": "EntryAbility_desc", "value": "CompConfigCenter demo" },
+    { "name": "EntryAbility_label", "value": "CompConfigCenter" },
+    { "name": "main_title", "value": "CompConfigCenter" },
+    { "name": "push_page1", "value": "Push DetailPage1" },
+    { "name": "push_page2", "value": "Push DetailPage2" },
+    { "name": "back", "value": "Back" },
+    { "name": "page1_title", "value": "DetailPage1" },
+    { "name": "page2_title", "value": "DetailPage2" }
+  ]
+}

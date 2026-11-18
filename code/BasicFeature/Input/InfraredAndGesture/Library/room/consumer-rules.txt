@@ -1,0 +1,1 @@
+# This sample disables obfuscation; no consumer keep rules are configured.

@@ -28,12 +28,12 @@ function convertEccAsyKey() {
   let pubKeyBlob: cryptoFramework.DataBlob = { data: pubKeyArray };
   let priKeyBlob: cryptoFramework.DataBlob = { data: priKeyArray };
   let generator = cryptoFramework.createAsyKeyGenerator('ECC256');
-  generator.convertKey(pubKeyBlob, priKeyBlob, (error, data) => {
+  generator.convertKey(pubKeyBlob, priKeyBlob, (error, keyPair) => {
     if (error) {
-      console.error(`convertKey failed, ${error.code}, ${error.message}`);
+      console.error(`convertKey failed: errCode: ${error.code}, message: ${error.message}`);
       return;
     }
-    console.info('convertKey success');
+    console.info('convertKey result: success.');
   });
 }
 // [End bin_convert_ecc_keypair]

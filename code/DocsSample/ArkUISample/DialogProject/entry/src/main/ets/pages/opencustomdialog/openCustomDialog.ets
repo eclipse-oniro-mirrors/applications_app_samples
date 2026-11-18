@@ -44,7 +44,7 @@ function buildText(params: Params) {
           PromptActionClass.updateDialog({
             alignment: DialogAlignment.Bottom,
             offset: { dx: 0, dy: -50 }
-          })
+          });
         }, 1500);
          PromptActionClass.closeDialog();
       })
@@ -65,7 +65,7 @@ function buildText(params: Params) {
           PromptActionClass.updateDialog({
             alignment: DialogAlignment.Bottom,
             offset: { dx: 0, dy: -50 }
-          })
+          });
         }, 150);
       })
       .layoutWeight(1)
@@ -88,7 +88,7 @@ function buildText(params: Params) {
 @Entry
 @Component
 export struct openCustomDialog {
-  @State message: string = 'hello'
+  @State message: string = 'hello';
   private ctx: UIContext = this.getUIContext();
   // [Start create_component_content]
   private contentNode: ComponentContent<Object> =
@@ -107,6 +107,7 @@ export struct openCustomDialog {
 
         Row() {
           Column() {
+            // 请将$r('app.string.change_text')替换为实际资源文件，在本示例中该资源文件的value值为"该按钮呼出的弹窗，点击“改变弹窗位置”弹窗由上对齐更新为底部对齐"
             Text($r('app.string.change_text'))
               .fontSize(14)
               .fontColor('#666')
@@ -127,6 +128,7 @@ export struct openCustomDialog {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.open_customDialog')替换为实际资源文件，在本示例中该资源文件的value值为"不依赖UI组件的全局自定义弹出框"
     .title($r('app.string.open_customDialog'))
   }
 }

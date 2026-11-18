@@ -15,13 +15,18 @@
 
 // [Start task_info_persistence_util]
 import { util } from '@kit.ArkTS';
-import fileStream from '@ohos.file.fs';
+import { fileIo } from '@kit.CoreFileKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 const helper = new util.Base64Helper();
 
-export const filePath = getContext().filesDir;
+export let filePath : string;
 export const fileName = 'demoFile.txt';
 export namespace  DownloadUtil {
+  
+  export function init(context: UIContext): void {
+    filePath = context.getHostContext()!.filesDir;
+  }
 
   export function uint8ArrayToStr(uint8Array: Uint8Array): string {
     return helper.encodeToStringSync(uint8Array);
@@ -41,7 +46,7 @@ export namespace  DownloadUtil {
 
   export function fileExists(filePath: string): boolean {
     try {
-      return fileStream.accessSync(filePath);
+      return fileIo.accessSync(filePath);
     } catch (error) {
       return false;
     }
@@ -49,19 +54,33 @@ export namespace  DownloadUtil {
 
   export function mkDirectorySync(directoryPath: string, recursion?: boolean): void {
     try {
-      fileStream.mkdirSync(directoryPath, recursion ?? false);
+      fileIo.mkdirSync(directoryPath, recursion ?? false);
     } catch (error) {
       console.error(`mk dir error. err message: ${error.message}, err code: ${error.code}`);
     }
   }
 
   export function writeToFileSync(dir: string, fileName: string, msg: string): void {
-    let file = fileStream.openSync(dir + '/' + fileName, fileStream.OpenMode.WRITE_ONLY | fileStream.OpenMode.CREATE);
-    fileStream.writeSync(file.fd, msg);
+    let file: fileIo.File | null = null;
+    try {
+      file = fileIo.openSync(dir + '/' + fileName, fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.CREATE);
+      fileIo.writeSync(file.fd, msg);
+    } catch (error) {
+      console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
+    } finally {
+      if (file) {
+        fileIo.closeSync(file);
+      }
+    }
   }
 
   export function readFileSync(dir: string, fileName: string): string {
-    return fileStream.readTextSync(dir + '/' + fileName);
+    try {
+      return fileIo.readTextSync(dir + '/' + fileName);
+    } catch (error) {
+      console.error(`ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
+      return '';
+    }
   }
 
 }

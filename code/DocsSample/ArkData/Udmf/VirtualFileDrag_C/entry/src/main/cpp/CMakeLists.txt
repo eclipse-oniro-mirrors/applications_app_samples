@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.5.0)
+project(VirtualFileDragC)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if(DEFINED PACKAGE_FIND_FILE)
+    include(${PACKAGE_FIND_FILE})
+endif()
+add_library(entry SHARED napi_init.cpp virtual_file_provider.cpp virtual_file_receiver.cpp)
+# The ArkUI native library below uses the fixed name defined by the OpenHarmony SDK.
+target_link_libraries(entry PUBLIC libace_napi.z.so libace_ndk.z.so libudmf.so libz.so)

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { router } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 @Entry
 @Component
@@ -21,19 +21,17 @@ struct Index {
   @State message: string = 'Hello World';
 
   goToSample(url: string): void {
-    router.pushUrl({
+    this.getUIContext().getRouter().pushUrl({
       url: url,
-    }, router.RouterMode.Single, (err) => {
-      if (err) {
-        console.error(`pushUrl failed, code is ${err.code}, message is ${err.message}`);
-        return;
-      }
+    }).then(() => {
       console.info('pushUrl success');
-    })
+    }).catch((err: BusinessError) => {
+      console.error(`pushUrl failed, code is ${err.code}, message is ${err.message}`);
+    });
   }
 
   build() {
-    Column({ space: 5 }) {
+    Column({ space: 1 }) {
       Text('SigningSignatureVerificationArkTs').fontSize(27).fontWeight(FontWeight.Bolder)
       Button($r('app.string.rsa_pkcs1_signature_validator_asynchronous'))
         .width('70%')
@@ -85,6 +83,16 @@ struct Index {
         .onClick(() => {
           this.goToSample('pages/ecdsa_signature_verification/ecdsa_signature_verification_synchronous')
         })
+      Button($r('app.string.ml_dsa_signature_verification_asynchronous'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/ml_dsa_signature_verification/ml_dsa_signature_verification_asynchronous')
+        })
+      Button($r('app.string.ml_dsa_signature_verification_synchronous'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/ml_dsa_signature_verification/ml_dsa_signature_verification_synchronous')
+        })
       Button($r('app.string.sm2_signature_verification_asynchronous'))
         .width('70%')
         .onClick(() => {
@@ -94,6 +102,21 @@ struct Index {
         .width('70%')
         .onClick(() => {
           this.goToSample('pages/sm2_signature_verification/sm2_signature_verification_synchronous')
+        })
+      Button($r('app.string.sm2_sign_data_der_to_rs'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/sm2_data_format_convertion/sm2_sign_data_der_to_rs')
+        })
+      Button($r('app.string.sm2_sign_data_rs_to_der'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/sm2_data_format_convertion/sm2_sign_data_rs_to_der')
+        })
+      Button($r('app.string.onlysign_onlyverify_signature_validator'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/onlysign_onlyverify_signature_validator/onlysign_onlyverify_signature_validator')
         })
     }
     .height('100%')

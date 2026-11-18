@@ -14,6 +14,8 @@
  */
 
 // [Start button_popup]
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
 @Entry
 @Component
 export struct ButtonPopupExample {
@@ -21,10 +23,9 @@ export struct ButtonPopupExample {
 
   build() {
     NavDestination() {
-      Column({ space: 12 }) {
-
         Column() {
           Button('PopupOptions').margin({ top: 300 })
+            .id('PopupOptions')
             .onClick(() => {
               this.handlePopup = !this.handlePopup;
             })
@@ -34,7 +35,7 @@ export struct ButtonPopupExample {
                 value: 'Confirm',
                 action: () => {
                   this.handlePopup = !this.handlePopup;
-                  console.info('confirm Button click');
+                  hilog.info(0xFF00, 'DialogProject', 'confirm Button click');
                 }
               },
               secondaryButton: {
@@ -50,14 +51,11 @@ export struct ButtonPopupExample {
               }
             })
         }.width('100%').padding({ top: 5 })
-
-      }
-      .width('100%')
-      .height('100%')
-      .padding({ left: 12, right: 12 })
     }
-    .backgroundColor('#f1f2f3')
+    // [StartExclude button_popup]
+    // 请将$r('app.string.custom_popup')替换为实际资源文件，在本示例中该资源文件的value值为"带按钮的提示气泡"
     .title($r('app.string.button_popup'))
+    // [EndExclude button_popup]
   }
 }
 // [End button_popup]

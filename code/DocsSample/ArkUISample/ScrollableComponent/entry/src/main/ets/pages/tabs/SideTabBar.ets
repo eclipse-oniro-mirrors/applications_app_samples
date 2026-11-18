@@ -15,7 +15,6 @@
 
 import { ComponentCard } from '../../common/Card';
 
-@Entry
 @Component
 export struct SideTabBar {
   build() {
@@ -23,7 +22,8 @@ export struct SideTabBar {
       Column({ space: 12 }) {
         ComponentCard({ title: $r('app.string.SideTabBar_titleExample') }) {
           // [Start side_navigation]
-          Tabs({ barPosition: BarPosition.Start  }) {
+          Tabs({ barPosition: BarPosition.Start }) {
+            // TabContent的内容:首页、发现、推荐、我的
             // [StartExclude side_navigation]
             TabContent() {
               Text($r('app.string.homepage_content'))

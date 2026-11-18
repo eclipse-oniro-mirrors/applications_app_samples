@@ -1,0 +1,10 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/StateValueChangePage",
+    "pages/ForEachSyncPage",
+    "pages/ObservabilityPage",
+    "pages/ObservabilityV2Page",
+    "pages/RenderUpdatePage"
+  ]
+}

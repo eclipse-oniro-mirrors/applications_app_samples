@@ -14,8 +14,30 @@
  */
 
 // [Start recommended_example]
-import resource from '../util/resource';
+// 在宿主线程中创建Worker线程（父Worker），在Worker线程中再次创建Worker线程（子Worker）
 import { worker, MessageEvents, ErrorEvent } from '@kit.ArkTS';
+
+// 宿主线程中创建父Worker对象
+const parentWorker = new worker.ThreadWorker('entry/ets/workers/ParentWorker.ets');
+
+// 接收父Worker返回的消息
+parentWorker.onmessage = (e: MessageEvents) => {
+  console.info('宿主线程收到父Worker线程信息 ' + e.data);
+}
+
+// 父Worker正常退出后的回调
+parentWorker.onexit = () => {
+  console.info('父Worker退出');
+}
+
+// 父Worker运行过程中发生未被捕获的异常或运行错误时的回调
+parentWorker.onAllErrors = (err: ErrorEvent) => {
+  console.error('宿主线程接收到父Worker报错 ' + err.message);
+}
+
+// 向父Worker发送启动消息，用于触发其onmessage中的处理逻辑
+parentWorker.postMessage('宿主线程发送消息给父Worker-推荐示例');
+// [End recommended_example]
 
 @Entry
 @Component
@@ -33,22 +55,6 @@ struct Index {
           middle: { anchor: '__container__', align: HorizontalAlign.Center }
         })
         .onClick(() => {
-          // 主线程中创建父worker对象
-          const parentworker = new worker.ThreadWorker('entry/ets/recommendworkers/parentworker.ets');
-
-          parentworker.onmessage = (e: MessageEvents) => {
-            console.info(resource.resourceToString($r('app.string.recommend1')) + e.data);
-          }
-
-          parentworker.onexit = () => {
-            console.info(resource.resourceToString($r('app.string.recommend2')));
-          }
-
-          parentworker.onerror = (err: ErrorEvent) => {
-            console.info(resource.resourceToString($r('app.string.recommend3')) + err);
-          }
-
-          parentworker.postMessage(resource.resourceToString($r('app.string.recommend4')));
           this.message = 'success';
         })
     }
@@ -56,4 +62,3 @@ struct Index {
     .width('100%')
   }
 }
-// [End recommended_example]

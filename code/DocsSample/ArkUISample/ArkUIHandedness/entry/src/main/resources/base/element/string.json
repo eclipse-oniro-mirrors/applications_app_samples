@@ -1,0 +1,36 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "ArkUIHandedness"
+    },
+    {
+      "name": "follow_anchor_title",
+      "value": "Follow Anchor (FOLLOW_ANCHOR)"
+    },
+    {
+      "name": "follow_grip_hand_title",
+      "value": "Follow Grip Hand (FOLLOW_GRIP_HAND)"
+    },
+    {
+      "name": "no_follow_title",
+      "value": "No Follow (NONE)"
+    },
+    {
+      "name": "alert_dialog_entry",
+      "value": "AlertDialog"
+    },
+    {
+      "name": "bind_sheet_entry",
+      "value": "bindSheet"
+    }
+  ]
+}

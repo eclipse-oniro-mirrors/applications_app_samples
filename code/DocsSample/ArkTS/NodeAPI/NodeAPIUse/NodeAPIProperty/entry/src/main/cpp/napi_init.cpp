@@ -67,7 +67,7 @@ static napi_value GetProperty(napi_env env, napi_callback_info info)
     size_t argc = 2;
     napi_value args[2] = {nullptr};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
-    // 传入的第一个参数为要检测的object，第二个对象为要检测的属性，通过调用napi_get_property接口获取对应的值
+    // 传入的第一个参数为要检测的object，第二个参数为要检测的属性，通过调用napi_get_property接口获取对应的值
     napi_value result;
     napi_status status = napi_get_property(env, args[0], args[1], &result);
     if (status != napi_ok) {
@@ -180,7 +180,11 @@ static napi_value NapiSetNamedProperty(napi_env env, napi_callback_info info)
     napi_get_cb_info(env, info, &argc, &str, nullptr, nullptr);
     // 获取传入参数字符串并存储在strKey中
     size_t keyLength;
-    napi_get_value_string_utf8(env, str, strKey, strLength, &keyLength);
+    napi_status status = napi_get_value_string_utf8(env, str, strKey, strLength, &keyLength);
+    if (status != napi_ok) {
+        napi_throw_error(env, nullptr, "napi_get_value_string_utf8 failed");
+        return nullptr;
+    }
     // 创建一个新对象
     napi_value newObj;
     napi_create_object(env, &newObj);
@@ -189,7 +193,7 @@ static napi_value NapiSetNamedProperty(napi_env env, napi_callback_info info)
     napi_value numValue;
     napi_create_int32(env, value, &numValue);
     // 将整数值与指定属性名关联
-    napi_status status = napi_set_named_property(env, newObj, strKey, numValue);
+    status = napi_set_named_property(env, newObj, strKey, numValue);
     if (status != napi_ok) {
         napi_throw_error(env, nullptr, "napi_set_named_property failed");
         return nullptr;
@@ -281,10 +285,13 @@ static napi_value SetterCallback(napi_env env, napi_callback_info info)
     napi_value argv[1] = {nullptr};
     napi_value result;
     napi_get_cb_info(env, info, &argc, argv, nullptr, nullptr);
-    std::string buf;
-    size_t length;
-    napi_get_value_string_utf8(env, argv[0], (char *)buf.c_str(), NAPI_AUTO_LENGTH, &length);
-    napi_create_string_utf8(env, buf.c_str(), length, &result);
+    size_t length = 0;
+    napi_get_value_string_utf8(env, argv[0], nullptr, 0, &length);
+    char* buf = new char[length + 1];
+    std::memset(buf, 0, length + 1);
+    napi_get_value_string_utf8(env, argv[0], buf, length + 1, &length);
+    napi_create_string_utf8(env, buf, length, &result);
+    delete[] buf;
     return result;
 }
 
@@ -325,8 +332,8 @@ static napi_value CreateStringWithGetterSetter(napi_env env, napi_callback_info 
     napi_create_function(env, nullptr, 0, SetterCallback, nullptr, &setterFn);
     napi_set_named_property(env, obj, "setterCallback", setterFn);
     // 定义带有getter和setter的属性
-    napi_property_descriptor desc = {"defineGetterSetter", nullptr, GetterCallback, SetterCallback, nullptr, obj,
-                                     napi_enumerable,      nullptr};
+    napi_property_descriptor desc = {"defineGetterSetter", nullptr, nullptr, GetterCallback, SetterCallback, nullptr,
+                                     napi_enumerable, nullptr};
     napi_define_properties(env, obj, 1, &desc);
     return obj;
 }

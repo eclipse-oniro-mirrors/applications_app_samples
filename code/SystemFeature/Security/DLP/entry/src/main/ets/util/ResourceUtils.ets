@@ -21,6 +21,9 @@ import common from '@ohos.app.ability.common';
  * @param ResourceData
  */
 export function getResourceString(context: common.UIAbilityContext, resourceData: Resource): string {
-  let stringData: string = context.resourceManager.getStringSync(resourceData.id);
-  return stringData;
+  try {
+    return context.resourceManager.getStringSync(resourceData.id);
+  } catch (e) {
+    return '';
+  }
 }

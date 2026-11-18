@@ -4,10 +4,10 @@
 
 本示例主要展示了使用SM4对称密钥（ECB模式）加解密(ArkTS)、使用SM4对称密钥（CBC模式）加解密(ArkTS)、使用SM4对称密钥（GCM模式）加解密(ArkTS)、使用SM4对称密钥（GCM模式）分段加解密(ArkTS)场景 。该工程中展示的代码详细描述可查如下链接。
 
-- [使用SM4对称密钥（ECB模式）加解密(ArkTS)](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-sm4-sym-encrypt-decrypt-ecb.md)
-- [使用SM4对称密钥（CBC模式）加解密(ArkTS)](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-sm4-sym-encrypt-decrypt-cbc.md)
-- [使用SM4对称密钥（GCM模式）加解密(ArkTS)](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-sm4-sym-encrypt-decrypt-gcm.md)
-- [使用SM4对称密钥（GCM模式）分段加解密(ArkTS)](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-sm4-sym-encrypt-decrypt-gcm-by-segment.md)
+- [使用SM4对称密钥（ECB模式）加解密(ArkTS)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-sm4-sym-encrypt-decrypt-ecb.md)
+- [使用SM4对称密钥（CBC模式）加解密(ArkTS)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-sm4-sym-encrypt-decrypt-cbc.md)
+- [使用SM4对称密钥（GCM模式）加解密(ArkTS)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-sm4-sym-encrypt-decrypt-gcm.md)
+- [使用SM4对称密钥（GCM模式）分段加解密(ArkTS)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-sm4-sym-encrypt-decrypt-gcm-by-segment.md)
 
 ### 效果预览
 
@@ -65,9 +65,9 @@ entry/src/
 
 1.本示例仅支持标准系统上运行, 支持设备：RK3568。
 
-2.本示例为Stage模型，支持API14版本SDK，版本号：5.0.2.57，镜像版本号：OpenHarmony_5.0.2.58。
+2.本示例为Stage模型，支持API14版本SDK，版本号：5.0.0.123，镜像版本号：OpenHarmony_5.0.0.123。
 
-3.本示例需要使用DevEco Studio 5.0.1 Release (Build Version: 5.0.5.306, built on December 6, 2024)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio 5.0.2 Release (Build Version: 5.0.7.200)及以上版本才可编译运行。
 
 ### 下载
 
@@ -77,6 +77,6 @@ entry/src/
 git init
 git config core.sparsecheckout true
 echo code/DocsSample/Security/CryptoArchitectureKit/EncryptionDecryption/EncryptionDecryptionGuidanceSM4ArkTs > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ````

@@ -12,13 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start on_page_end_trigger_prefetch_post_request_access_page]
 import { webview } from '@kit.ArkWeb';
-// [StartExclude on_page_end_trigger_prefetch_post_request_access_page]
-function resourceToString(resource: Resource) {
-  return getContext().resourceManager.getStringSync(resource);
-}
-// [EndExclude on_page_end_trigger_prefetch_post_request_access_page]
+
 @Entry
 @Component
 struct WebComponent {
@@ -26,18 +21,8 @@ struct WebComponent {
 
   build() {
     Column() {
-      Web({ src: $r('app.string.web_path'), controller: this.webviewController})
-        .onPageEnd(() => {
-          // 预获取时，需要將'https://www.example1.com/post?e=f&g=h'替换成真实要访问的网站地址。
-          webview.WebviewController.prefetchResource(
-            {url:resourceToString($r('app.string.web_path')) + '/post?e=f&g=h',
-              method:'POST',
-              formData:'a=x&b=y',},
-            [{headerKey:'c',
-              headerValue:'z',},],
-            'KeyX', 500);
-        })
+      // POST请求已在EntryAbility.onCreate中预获取，进入本页面不会再次触发启动预获取。
+      Web({ src: 'https://www.example.com/', controller: this.webviewController })
     }
   }
 }
-//[End on_page_end_trigger_prefetch_post_request_access_page]

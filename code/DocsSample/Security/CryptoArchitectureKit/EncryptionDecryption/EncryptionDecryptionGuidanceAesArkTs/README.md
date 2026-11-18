@@ -4,11 +4,13 @@
 
 本示例主要展示了使用AES对称密钥不同模式加解密(ArkTS)的同步异步方法和C/C++场景 。该工程中展示的代码详细描述可查如下链接。
 
-- [使用AES对称密钥（GCM模式）加解密(ArkTS)](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-aes-sym-encrypt-decrypt-gcm.md)
-- [使用AES对称密钥（CCM模式）加解密(ArkTS)](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-aes-sym-encrypt-decrypt-ccm.md)
-- [使用AES对称密钥（CBC模式）加解密(ArkTS)](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-aes-sym-encrypt-decrypt-cbc.md)
-- [使用AES对称密钥（ECB模式）加解密(ArkTS)](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-aes-sym-encrypt-decrypt-ecb.md)
-- [使用AES对称密钥（GCM模式）分段加解密(ArkTS)](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-aes-sym-encrypt-decrypt-gcm-by-segment.md)
+- [使用AES对称密钥（GCM模式）加解密(ArkTS)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-aes-sym-encrypt-decrypt-gcm.md)
+- [使用AES对称密钥（CCM模式）加解密(ArkTS)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-aes-sym-encrypt-decrypt-ccm.md)
+- [使用AES对称密钥（CBC模式）加解密(ArkTS)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-aes-sym-encrypt-decrypt-cbc.md)
+- [使用AES对称密钥（ECB模式）加解密(ArkTS)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-aes-sym-encrypt-decrypt-ecb.md)
+- [使用AES对称密钥（GCM模式）分段加解密(ArkTS)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-aes-sym-encrypt-decrypt-gcm-by-segment.md)
+- [使用AES对称密钥（新CCM模式）加解密(ArkTS)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-aes-sym-encrypt-decrypt-ccm-new.md)
+- [使用AES对称密钥（XTS模式）加解密(ArkTS)](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/CryptoArchitectureKit/crypto-aes-sym-encrypt-decrypt-xts.md)
 
 ### 效果预览
 
@@ -37,6 +39,8 @@ entry/src/
  │   │       ├── aes_ccm_encryption_decryption 
  │   │       |   ├── aes_ccm_encryption_decryption_asynchronous.ets
  │   │       |   ├── aes_ccm_encryption_decryption_synchronous.ets
+ │   │       |   ├── aes_new_ccm_encryption_decryption_asynchronous.ets
+ │   │       |   ├── aes_new_ccm_encryption_decryption_synchronous.ets
  │   │       ├── aes_ecb_encryption_decryption 
  │   │       |   ├── aes_ecb_encryption_decryption_asynchronous.ets
  │   │       |   ├── aes_ecb_encryption_decryption_synchronous.ets
@@ -46,6 +50,9 @@ entry/src/
  │   │       ├── aes_gcm_seg_encryption_decryption 
  │   │       |   ├── aes_gcm_seg_encryption_decryption_asynchronous.ets
  │   │       |   ├── aes_gcm_seg_encryption_decryption_synchronous.ets
+ │   │       ├── aes_xts_encryption_decryption
+ │   │       |   ├── aes_xts_encryption_decryption_asynchronous.ets
+ │   │       |   ├── aes_xts_encryption_decryption_synchronous.ets
  │   │       ├── Index.ets               // 使用AES对称密钥加解密(ArkTS)示例代码
  │   ├── module.json5
  │   └── resources
@@ -69,9 +76,9 @@ entry/src/
 
 1.本示例仅支持标准系统上运行, 支持设备：RK3568。
 
-2.本示例为Stage模型，支持API14版本SDK，版本号：5.0.2.57，镜像版本号：OpenHarmony_5.0.2.58。
+2.本示例为Stage模型，支持API26版本SDK，版本号：7.0.0.26，镜像版本号：OpenHarmony_7.0.0.26。
 
-3.本示例需要使用DevEco Studio 5.0.1 Release (Build Version: 5.0.5.306, built on December 6, 2024)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio 6.1.0 Release(6.1.0.850)及以上版本才可编译运行。
 
 ### 下载
 
@@ -81,6 +88,6 @@ entry/src/
 git init
 git config core.sparsecheckout true
 echo code/DocsSample/Security/CryptoArchitectureKit/EncryptionDecryption/EncryptionDecryptionGuidanceAesArkTs > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ````

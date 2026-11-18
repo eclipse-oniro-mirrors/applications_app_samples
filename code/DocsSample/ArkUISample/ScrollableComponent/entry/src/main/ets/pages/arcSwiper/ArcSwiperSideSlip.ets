@@ -13,25 +13,30 @@
  * limitations under the License.
  */
 
+// [Start side_slip]
 import {
   ArcSwiper,
-  ArcSwiperAttribute,
-  ArcDotIndicator,
-  ArcDirection,
-  ArcSwiperController
+  ArcSwiperAttribute, // ArcSwiper的属性依赖ArcSwiperAttribute对象导入，不建议删除该对象的引入。
 } from '@kit.ArkUI';
+// [StartExclude side_slip]
 import { ComponentCard } from '../../common/Card';
+// [EndExclude side_slip]
 
-@Entry
+// 如需作为页面入口，请取消@Entry的注释并删除export关键字
+// @Entry
 @Component
 export struct ArcSwiperSideSlip {
   @State backgroundColors: Color[] = [Color.Green, Color.Blue, Color.Yellow, Color.Pink, Color.Gray, Color.Orange];
   innerSelectedIndex: number = 0;
 
   build() {
+    // [StartExclude side_slip]
     NavDestination() {
+      // [EndExclude side_slip]
       Column({ space: 12 }) {
+        // [StartExclude side_slip]
         ComponentCard({ title: $r('app.string.ArcSwiperSideSlip_title') }) {
+          // [EndExclude side_slip]
           ArcSwiper() {
             ForEach(this.backgroundColors, (backgroundColor: Color, index: number) => {
               Text(index.toString())
@@ -62,13 +67,18 @@ export struct ArcSwiperSideSlip {
             }
             return GestureJudgeResult.CONTINUE;
           })
+          // [StartExclude side_slip]
         }
+        // [EndExclude side_slip]
       }
       .width('100%')
+      // [StartExclude side_slip]
       .height('100%')
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
     .title($r('app.string.ArcSwiperSideSlip_title'))
+    // [EndExclude side_slip]
   }
 }
+// [End side_slip]

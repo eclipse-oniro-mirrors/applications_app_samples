@@ -13,9 +13,6 @@
  * limitations under the License.
  */
 
-import { KeyCode } from '@kit.InputKit';
-import { ColorMetrics, LengthMetrics } from '@kit.ArkUI';
-
 // [Start dynamic_focus_click_count]
 @Entry
 @Component
@@ -47,8 +44,11 @@ export struct FocusAndClick {
       .height('100%')
       .padding({ left: 12, right: 12 })
     }
+    // [StartExclude dynamic_focus_click_count]
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.Focus_FocusAndClick_title')替换为实际资源文件，在本示例中该资源文件的value值为"焦点与按键事件"
     .title($r('app.string.Focus_FocusAndClick_title'))
+    // [EndExclude dynamic_focus_click_count]
   }
 }
 // [End dynamic_focus_click_count]

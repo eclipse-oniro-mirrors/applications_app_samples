@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -93,13 +93,14 @@ export struct WaterFlowInfiniteScrolling {
       this.columnChanged = true;
     }
   }
-
+  // [Start WaterFlowInfiniteScrolling_start]
   @Builder
   itemFoot() {
     Row() {
       LoadingProgress()
         .color(Color.Blue).height(50).aspectRatio(1).width('20%')
-      Text(`正在加载`)
+      // 请将$r('app.string.waterFlow_text1')替换为实际资源文件，在本示例中该资源文件的value值为"正在加载 "
+      Text($r('app.string.waterFlow_text1'))
         .fontSize(20)
         .width('30%')
         .height(50)
@@ -111,7 +112,10 @@ export struct WaterFlowInfiniteScrolling {
   build() {
     NavDestination() {
       Column({ space: 12 }) {
+        // [StartExclude WaterFlowInfiniteScrolling_start]
+        // 请将$r('app.string.WaterFlowInfiniteScrolling_title')替换为实际资源文件，在本示例中该资源文件的value值为"无限滚动（到达末尾时新增数据）"
         ComponentCard({ title: $r('app.string.WaterFlowInfiniteScrolling_title') }) {
+          // [EndExclude WaterFlowInfiniteScrolling_start]
           WaterFlow({ footer: this.itemFoot(), layoutMode: WaterFlowLayoutMode.SLIDING_WINDOW }) {
             LazyForEach(this.dataSource, (item: number) => {
               FlowItem() {
@@ -120,7 +124,7 @@ export struct WaterFlowInfiniteScrolling {
               .width('100%')
               .aspectRatio(this.itemHeightArray[item % 100] / this.itemWidthArray[item%100])
               .backgroundColor(this.colors[item % 5])
-            }, (item: string) => item)
+            }, (item: number) => item.toString())
           }
           .columnsTemplate('1fr '.repeat(this.columns))
           .backgroundColor(0xFAEEE0)
@@ -130,18 +134,20 @@ export struct WaterFlowInfiniteScrolling {
           // 触底加载数据
           .onReachEnd(() => {
             setTimeout(() => {
-              for (let i = 0; i < 100; i++) {
-                this.dataSource.addLastItem();
-              }
+              this.dataSource.addNewItems(100);
             }, 1000)
           })
         }
+        // [StartExclude WaterFlowInfiniteScrolling_start]
       }
       .width('100%')
       .height('100%')
       .padding({ left: 12, right: 12 })
+      // [EndExclude WaterFlowInfiniteScrolling_start]
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.WaterFlowInfiniteScrolling_title')替换为实际资源文件，在本示例中该资源文件的value值为"无限滚动（到达末尾时新增数据）"
     .title($r('app.string.WaterFlowInfiniteScrolling_title'))
   }
+  // [End WaterFlowInfiniteScrolling_start]
 }

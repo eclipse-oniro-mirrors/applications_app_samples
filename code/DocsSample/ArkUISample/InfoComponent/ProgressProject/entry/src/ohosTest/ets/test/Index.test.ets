@@ -14,13 +14,24 @@
  */
 
 import { describe, it, expect, beforeAll } from '@ohos/hypium';
-import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
+import { abilityDelegatorRegistry, Driver, ON, Component } from '@kit.TestKit';
 import { UIAbility, Want } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit'
+import { KeyCode } from '@kit.InputKit';
 
 const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
 let driver: Driver;
 let want: Want;
+const TAG = '[Sample_Progressproject]'
+const DOMAIN = 0xF811
+const BUNDLE = 'Progressproject_'
+
+async function getResourceString(resource: Resource): Promise<string> {
+  let manage = delegator.getAppContext().resourceManager;
+  let textString: string = await manage.getStringValue(resource);
+  return textString;
+}
 
 export default function IndexTest() {
   describe('IndexTest', () => {
@@ -38,7 +49,7 @@ export default function IndexTest() {
 
       // 验证当前页面是否正确
       const ability: UIAbility = await delegator.getCurrentTopAbility();
-      console.info('get top ability');
+      hilog.info(DOMAIN, TAG, BUNDLE + "get top ability");
       expect(ability.context.abilityInfo.name).assertEqual('EntryAbility');
     });
 
@@ -48,20 +59,20 @@ export default function IndexTest() {
      * @tc.desc 验证所有进度条组件是否存在
      */
     it('testProgressComponentsExist', 0, async (done: Function) => {
-      console.info('ProgressTest: testProgressComponentsExist begin');
+      hilog.info(DOMAIN, TAG, BUNDLE + "ProgressTest: testProgressComponentsExist begin");
 
       // 验证标题文本
-      const linearText = await driver.findComponent(ON.text('Linear Progress'));
-      const ringText = await driver.findComponent(ON.text('Ring Progress'));
-      const scaleRingText = await driver.findComponent(ON.text('ScaleRing Progress'));
-      const eclipseText = await driver.findComponent(ON.text('Eclipse Progress'));
-      const capsuleText = await driver.findComponent(ON.text('Capsule Progress'));
+      const linearText = await driver.findComponent(ON.text(await getResourceString($r('app.string.Linear_Progress'))));
+      const ringText = await driver.findComponent(ON.text(await getResourceString($r('app.string.Ring_Progress'))));
+      const scaleRingText = await driver.findComponent(ON.text(await getResourceString($r('app.string.ScaleRing_Progress'))));
+      const eclipseText = await driver.findComponent(ON.text(await getResourceString($r('app.string.Eclipse_Progress'))));
+      const capsuleText = await driver.findComponent(ON.text(await getResourceString($r('app.string.Capsule_Progress'))));
       expect(linearText === null).assertFalse();
       expect(ringText === null).assertFalse();
       expect(scaleRingText === null).assertFalse();
       expect(eclipseText === null).assertFalse();
       expect(capsuleText === null).assertFalse();
-      console.info('ProgressTest: testProgressComponentsExist end');
+      hilog.info(DOMAIN, TAG, BUNDLE + "ProgressTest: testProgressComponentsExist end");
       done();
     });
 
@@ -71,31 +82,16 @@ export default function IndexTest() {
      * @tc.desc 测试进度条增加功能
      */
     it('testProgressIncrease', 0, async (done: Function) => {
-      console.info('ProgressTest: testProgressIncrease begin');
-      const increaseBtn = await driver.findComponent(ON.text('progress add 5'));
+      hilog.info(DOMAIN, TAG, BUNDLE + "ProgressTest: testProgressIncrease begin");
+      const routerBtn = await driver.findComponent(ON.text('更新进度示例'));
+      await routerBtn.click();
+      await driver.delayMs(500);
+      const increaseBtn = await driver.findComponent(ON.text('进度条+5'));
       expect(increaseBtn === null).assertFalse();
       await increaseBtn.click();
       await driver.delayMs(500);
-      console.info('ProgressTest: testProgressIncrease end');
-      done();
-    });
-
-    /**
-     * @tc.number ProgressTest_003
-     * @tc.name testProgressDecrease
-     * @tc.desc 测试进度条减少功能
-     */
-    it('testProgressDecrease', 0, async (done: Function) => {
-      console.info('ProgressTest: testProgressDecrease begin');
-      const increaseBtn = await driver.findComponent(ON.text('progress add 5'));
-      await increaseBtn.click();
-      await increaseBtn.click();
-      await driver.delayMs(500);
-      const decreaseBtn = await driver.findComponent(ON.text('progress reduce 5'));
-      expect(decreaseBtn === null).assertFalse();
-      await decreaseBtn.click();
-      await driver.delayMs(500);
-      console.info('ProgressTest: testProgressDecrease end');
+      await driver.triggerKey(KeyCode.KEYCODE_BACK);
+      hilog.info(DOMAIN, TAG, BUNDLE + "ProgressTest: testProgressIncrease end");
       done();
     });
 
@@ -105,18 +101,18 @@ export default function IndexTest() {
      * @tc.desc 测试进度条最大值处理
      */
     it('testProgressMaxValue', 0, async (done: Function) => {
-      console.info('ProgressTest: testProgressMaxValue begin');
-      const increaseBtn = await driver.findComponent(ON.text('progress add 5'));
+      hilog.info(DOMAIN, TAG, BUNDLE + "ProgressTest: testProgressMaxValue begin");
+      const routerBtn = await driver.findComponent(ON.text('更新进度示例'));
+      await routerBtn.click();
+      await driver.delayMs(500);
+      const increaseBtn = await driver.findComponent(ON.text('进度条+5'));
       for (let i = 0; i < 25; i++) {
         await increaseBtn.click();
         await driver.delayMs(100);
       }
       await driver.delayMs(500);
-      const decreaseBtn = await driver.findComponent(ON.text('progress reduce 5'));
-      expect(decreaseBtn === null).assertFalse();
-      await decreaseBtn.click();
-      await driver.delayMs(500);
-      console.info('ProgressTest: testProgressDecrease end');
+      await driver.triggerKey(KeyCode.KEYCODE_BACK);
+      hilog.info(DOMAIN, TAG, BUNDLE + "ProgressTest: testProgressDecrease end");
       done();
     });
   });

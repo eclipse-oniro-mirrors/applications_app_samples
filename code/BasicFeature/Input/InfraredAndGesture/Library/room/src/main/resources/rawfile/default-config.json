@@ -1,0 +1,341 @@
+{
+  "codes": [
+    {
+      "id": "ir-projector-power-on",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x04FB,0x08F7",
+      "repeatCount": 1,
+      "source": "self-authored-demo",
+      "license": "Apache-2.0",
+      "brand": "Demo",
+      "model": "Demo-PJ-01",
+      "keySemantic": "POWER_ON",
+      "checksum": "demo-projector-power-on"
+    },
+    {
+      "id": "ir-projector-power-off",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x04FB,0x8877",
+      "repeatCount": 1,
+      "source": "self-authored-demo",
+      "license": "Apache-2.0",
+      "brand": "Demo",
+      "model": "Demo-PJ-01",
+      "keySemantic": "POWER_OFF",
+      "checksum": "demo-projector-power-off"
+    },
+    {
+      "id": "ir-screen-up",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x04FB,0x40BF",
+      "repeatCount": 1,
+      "source": "self-authored-demo",
+      "license": "Apache-2.0",
+      "brand": "Demo",
+      "model": "Demo-SC-01",
+      "keySemantic": "SCREEN_UP",
+      "checksum": "demo-screen-up"
+    },
+    {
+      "id": "ir-screen-down",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x04FB,0xC03F",
+      "repeatCount": 1,
+      "source": "self-authored-demo",
+      "license": "Apache-2.0",
+      "brand": "Demo",
+      "model": "Demo-SC-01",
+      "keySemantic": "SCREEN_DOWN",
+      "checksum": "demo-screen-down"
+    },
+    {
+      "id": "ir-light-power-on",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x04FB,0x20DF",
+      "repeatCount": 1,
+      "source": "self-authored-demo",
+      "license": "Apache-2.0",
+      "brand": "Demo",
+      "model": "Demo-LT-01",
+      "keySemantic": "POWER_ON",
+      "checksum": "demo-light-power-on"
+    },
+    {
+      "id": "ir-light-power-off",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x04FB,0xA05F",
+      "repeatCount": 1,
+      "source": "self-authored-demo",
+      "license": "Apache-2.0",
+      "brand": "Demo",
+      "model": "Demo-LT-01",
+      "keySemantic": "POWER_OFF",
+      "checksum": "demo-light-power-off"
+    },
+    {
+      "id": "ir-ac-power-on",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x04FB,0x10EF",
+      "repeatCount": 1,
+      "source": "self-authored-demo",
+      "license": "Apache-2.0",
+      "brand": "Demo",
+      "model": "Demo-AC-01",
+      "keySemantic": "POWER_ON",
+      "checksum": "demo-ac-power-on"
+    },
+    {
+      "id": "ir-ac-fan-speed",
+      "protocol": "NEC",
+      "frequencyHz": 38000,
+      "payload": "0x04FB,0x906F",
+      "repeatCount": 1,
+      "source": "self-authored-demo",
+      "license": "Apache-2.0",
+      "brand": "Demo",
+      "model": "Demo-AC-01",
+      "keySemantic": "FAN_SPEED",
+      "checksum": "demo-ac-fan-speed"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "room-default",
+      "name": "Meeting Room 3F",
+      "note": "Default meeting room",
+      "sortOrder": 0,
+      "createdAt": 1730000000000,
+      "updatedAt": 1730000000000
+    }
+  ],
+  "devices": [
+    {
+      "id": "dev-projector",
+      "roomId": "room-default",
+      "name": "Main Projector",
+      "type": "PROJECTOR",
+      "templateId": "tpl-projector",
+      "brand": "Demo",
+      "model": "Demo-PJ-01",
+      "sortOrder": 0,
+      "createdAt": 1730000000000,
+      "updatedAt": 1730000000000
+    },
+    {
+      "id": "dev-screen",
+      "roomId": "room-default",
+      "name": "Projection Screen",
+      "type": "SCREEN",
+      "templateId": "tpl-screen",
+      "brand": "Demo",
+      "model": "Demo-SC-01",
+      "sortOrder": 1,
+      "createdAt": 1730000000000,
+      "updatedAt": 1730000000000
+    },
+    {
+      "id": "dev-light",
+      "roomId": "room-default",
+      "name": "Lights",
+      "type": "LIGHT",
+      "templateId": "tpl-light",
+      "brand": "Demo",
+      "model": "Demo-LT-01",
+      "sortOrder": 2,
+      "createdAt": 1730000000000,
+      "updatedAt": 1730000000000
+    },
+    {
+      "id": "dev-ac",
+      "roomId": "room-default",
+      "name": "Air Conditioner",
+      "type": "AC",
+      "templateId": "tpl-ac",
+      "brand": "Demo",
+      "model": "Demo-AC-01",
+      "sortOrder": 3,
+      "createdAt": 1730000000000,
+      "updatedAt": 1730000000000
+    }
+  ],
+  "keys": [
+    {
+      "id": "key-projector-power-on",
+      "deviceId": "dev-projector",
+      "semantic": "POWER_ON",
+      "label": "Power On",
+      "irCodeId": "ir-projector-power-on",
+      "sortOrder": 0
+    },
+    {
+      "id": "key-projector-power-off",
+      "deviceId": "dev-projector",
+      "semantic": "POWER_OFF",
+      "label": "Power Off",
+      "irCodeId": "ir-projector-power-off",
+      "sortOrder": 1
+    },
+    {
+      "id": "key-screen-up",
+      "deviceId": "dev-screen",
+      "semantic": "SCREEN_UP",
+      "label": "Screen Up",
+      "irCodeId": "ir-screen-up",
+      "sortOrder": 0
+    },
+    {
+      "id": "key-screen-down",
+      "deviceId": "dev-screen",
+      "semantic": "SCREEN_DOWN",
+      "label": "Screen Down",
+      "irCodeId": "ir-screen-down",
+      "sortOrder": 1
+    },
+    {
+      "id": "key-light-power-on",
+      "deviceId": "dev-light",
+      "semantic": "POWER_ON",
+      "label": "Power On",
+      "irCodeId": "ir-light-power-on",
+      "sortOrder": 0
+    },
+    {
+      "id": "key-light-power-off",
+      "deviceId": "dev-light",
+      "semantic": "POWER_OFF",
+      "label": "Power Off",
+      "irCodeId": "ir-light-power-off",
+      "sortOrder": 1
+    },
+    {
+      "id": "key-ac-power-on",
+      "deviceId": "dev-ac",
+      "semantic": "POWER_ON",
+      "label": "Power On",
+      "irCodeId": "ir-ac-power-on",
+      "sortOrder": 0
+    },
+    {
+      "id": "key-ac-fan-speed",
+      "deviceId": "dev-ac",
+      "semantic": "FAN_SPEED",
+      "label": "Fan Speed",
+      "irCodeId": "ir-ac-fan-speed",
+      "sortOrder": 1
+    }
+  ],
+  "remoteTemplates": [
+    {
+      "id": "tpl-projector",
+      "deviceType": "PROJECTOR",
+      "name": "Projector Remote",
+      "layout": "grid-2x3",
+      "builtin": true
+    },
+    {
+      "id": "tpl-screen",
+      "deviceType": "SCREEN",
+      "name": "Screen Remote",
+      "layout": "grid-1x2",
+      "builtin": true
+    },
+    {
+      "id": "tpl-light",
+      "deviceType": "LIGHT",
+      "name": "Light Remote",
+      "layout": "grid-1x2",
+      "builtin": true
+    },
+    {
+      "id": "tpl-ac",
+      "deviceType": "AC",
+      "name": "Air Conditioner Remote",
+      "layout": "grid-2x2",
+      "builtin": true
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene-meeting",
+      "roomId": "room-default",
+      "name": "Start Meeting",
+      "icon": "ic_scene_meeting",
+      "sortOrder": 0
+    }
+  ],
+  "sceneSteps": [
+    {
+      "id": "step-meeting-0",
+      "sceneId": "scene-meeting",
+      "deviceId": "dev-projector",
+      "keyId": "key-projector-power-on",
+      "delayMs": 250,
+      "order": 0,
+      "enabled": true
+    },
+    {
+      "id": "step-meeting-1",
+      "sceneId": "scene-meeting",
+      "deviceId": "dev-screen",
+      "keyId": "key-screen-down",
+      "delayMs": 250,
+      "order": 1,
+      "enabled": true
+    },
+    {
+      "id": "step-meeting-2",
+      "sceneId": "scene-meeting",
+      "deviceId": "dev-light",
+      "keyId": "key-light-power-on",
+      "delayMs": 250,
+      "order": 2,
+      "enabled": true
+    },
+    {
+      "id": "step-meeting-3",
+      "sceneId": "scene-meeting",
+      "deviceId": "dev-ac",
+      "keyId": "key-ac-power-on",
+      "delayMs": 250,
+      "order": 3,
+      "enabled": true
+    }
+  ],
+  "expectedStates": [
+    {
+      "deviceId": "dev-projector",
+      "power": "UNKNOWN",
+      "level": -1,
+      "source": "SCENE",
+      "updatedAt": 1730000000000
+    },
+    {
+      "deviceId": "dev-screen",
+      "power": "UNKNOWN",
+      "level": -1,
+      "source": "SCENE",
+      "updatedAt": 1730000000000
+    },
+    {
+      "deviceId": "dev-light",
+      "power": "UNKNOWN",
+      "level": -1,
+      "source": "SCENE",
+      "updatedAt": 1730000000000
+    },
+    {
+      "deviceId": "dev-ac",
+      "power": "UNKNOWN",
+      "level": -1,
+      "source": "SCENE",
+      "updatedAt": 1730000000000
+    }
+  ]
+}

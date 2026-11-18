@@ -18,11 +18,11 @@ export const getLastErrorInfo: (str: string) => string; // napi_get_last_error_i
 // [End napi_get_last_error_info_api]
 
 // [Start napi_create_type_error_api]
-export const creatTypeError: () => Error; // napi_create_type_error
+export const createTypeError: () => Error; // napi_create_type_error
 // [End napi_create_type_error_api]
 
 // [Start napi_create_range_error_api]
-export const creatRangeError: () => Error; // napi_create_range_error
+export const createRangeError: () => Error; // napi_create_range_error
 // [End napi_create_range_error_api]
 
 // [Start napi_create_error_api]
@@ -35,6 +35,10 @@ export const napiThrowErrorMessage: () => void; // napi_throw_error
 export const napiThrowError: (dividend: number, divisor: number) => void; // napi_throw_error
 // [End napi_throw_error_api]
 
+// [Start napi_throw_business_error_api]
+export const napiThrowBusinessError: () => void; // napi_throw_business_error
+// [End napi_throw_business_error_api]
+
 // [Start napi_throw_type_error_api]
 export const throwTypeErrorMessage: () => void; // napi_throw_type_error
 
@@ -44,7 +48,7 @@ export const throwTypeError: (message: string) => void; // napi_throw_type_error
 // [Start napi_throw_range_error_api]
 export const throwRangeErrorMessage: () => void; // napi_throw_range_error
 
-export const throwRangeError: (num: number) => number | void; // napi_throw_range_error
+export const throwRangeError: (num: number) => number | undefined; // napi_throw_range_error
 // [End napi_throw_range_error_api]
 
 // [Start napi_is_error_api]
@@ -52,18 +56,11 @@ export const napiIsError: <T>(obj: T) => boolean; // napi_is_error
 // [End napi_is_error_api]
 
 // [Start napi_get_and_clear_last_exception_api]
-export const getAndClearLastException: () => Error | void; // napi_get_and_clear_last_exception
+export const getAndClearLastException: () => Error | undefined; // napi_get_and_clear_last_exception
 // [End napi_get_and_clear_last_exception_api]
 
-// [Start ark_napi_is_exception_pending_interface]
-export interface MyObject {
-  code: string;
-  message: string;
-}
-// [End ark_napi_is_exception_pending_interface]
-
 // [Start napi_is_exception_pending_api]
-export const isExceptionPending: () => Object | void; // napi_is_exception_pending
+export const isExceptionPending: () => Object | undefined; // napi_is_exception_pending
 // [End napi_is_exception_pending_api]
 
 // [Start napi_fatal_error_api]

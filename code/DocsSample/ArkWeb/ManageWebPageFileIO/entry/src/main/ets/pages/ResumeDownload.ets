@@ -18,10 +18,6 @@ import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { DownloadUtil, fileName, filePath } from './downloadUtil'; // downloadUtil.ets 见下文
 
-function resourceToString(resource: Resource) {
-  return getContext().resourceManager.getStringSync(resource);
-}
-
 @Entry
 @Component
 struct WebComponent {
@@ -31,33 +27,38 @@ struct WebComponent {
   // 用于记录失败的下载任务。
   failedData: Uint8Array = new Uint8Array();
 
+  aboutToAppear(): void {
+    DownloadUtil.init(this.getUIContext());
+  }
+
   build() {
     Column() {
       Button('setDownloadDelegate')
         .onClick(() => {
           try {
             this.delegate.onBeforeDownload((webDownloadItem: webview.WebDownloadItem) => {
-              console.log('will start a download.');
+              console.info('will start a download.');
               // 传入一个下载路径，并开始下载。
+              // 如果传入一个不存在的路径，则会下载到默认/data/storage/el2/base/cache/web/目录。
               webDownloadItem.start('/data/storage/el2/base/cache/web/' + webDownloadItem.getSuggestedFileName());
             })
             this.delegate.onDownloadUpdated((webDownloadItem: webview.WebDownloadItem) => {
-              console.log('download update percent complete: ' + webDownloadItem.getPercentComplete());
+              console.info('download update percent complete: ' + webDownloadItem.getPercentComplete());
               this.download = webDownloadItem;
             })
             this.delegate.onDownloadFailed((webDownloadItem: webview.WebDownloadItem) => {
-              console.log('download failed guid: ' + webDownloadItem.getGuid());
+              console.error('download failed guid: ' + webDownloadItem.getGuid());
               // 序列化失败的下载任务到一个字节数组。
               this.failedData = webDownloadItem.serialize();
             })
             this.delegate.onDownloadFinish((webDownloadItem: webview.WebDownloadItem) => {
-              console.log('download finish guid: ' + webDownloadItem.getGuid());
+              console.info('download finish guid: ' + webDownloadItem.getGuid());
             })
             this.controller.setDownloadDelegate(this.delegate);
             webview.WebDownloadManager.setDownloadDelegate(this.delegate);
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       Button('startDownload')
@@ -65,10 +66,10 @@ struct WebComponent {
           try {
             // 这里指定下载地址为 https://www.example.com/，Web组件会发起一个下载任务将该页面下载下来。
             // 开发者需要替换为自己想要下载的内容的地址。
-            this.controller.startDownload(resourceToString($r('app.string.web_path')));
+            this.controller.startDownload('https://www.example.com/');
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       // 将当前的下载任务信息序列化保存，用于后续恢复下载任务。
@@ -80,7 +81,7 @@ struct WebComponent {
             DownloadUtil.saveDownloadInfo(DownloadUtil.uint8ArrayToStr(this.download.serialize()));
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       // 从序列化的下载任务信息中，恢复下载任务。
@@ -95,7 +96,7 @@ struct WebComponent {
             webview.WebDownloadManager.resumeDownload(webDownloadItem);
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
 

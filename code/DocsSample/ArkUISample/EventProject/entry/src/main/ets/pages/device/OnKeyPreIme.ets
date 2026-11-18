@@ -18,38 +18,42 @@ import { KeyCode } from '@kit.InputKit';
 
 @Entry
 @Component
-export struct PreIme {
+struct PreImeEventExample {
   @State buttonText: string = '';
   @State buttonType: string = '';
   @State columnText: string = '';
   @State columnType: string = '';
 
   build() {
-    NavDestination() {
-      Column({ space: 12 }) {
-
-        Column() {
-          Search({
-            placeholder: 'Search...'
-          })
-            .width('80%')
-            .height('40vp')
-            .border({ radius:'20vp' })
-            .onKeyPreIme((event:KeyEvent) => {
-              if (event.keyCode == KeyCode.KEYCODE_DPAD_LEFT) {
-                return true;
-              }
-              return false;
-            })
-        }
-
-      }
-      .width('100%')
-      .height('100%')
-      .padding({ left: 12, right: 12 })
+    Column() {
+      Search({
+        placeholder: 'Search...'
+      })
+        .width('80%')
+        .height('40vp')
+        .border({ radius: '20vp' })
+        .onKeyPreIme((event: KeyEvent) => {
+          if (event.keyCode == KeyCode.KEYCODE_DPAD_LEFT) {
+            return true;
+          }
+          return false;
+        })
     }
-    .backgroundColor('#f1f2f3')
-    .title($r('app.string.Device_OnKeyPreIme_title'))
   }
 }
 // [End key_event_intercept]
+
+@Builder
+export function PreIme() {
+  NavDestination() {
+    Column({ space: 12 }) {
+      PreImeEventExample()
+    }
+    .width('100%')
+    .height('100%')
+    .padding({ left: 12, right: 12 })
+  }
+  .backgroundColor('#f1f2f3')
+  // 请将$r('app.string.Device_OnKeyPreIme_title')替换为实际资源文件，在本示例中该资源文件的value值为"屏蔽按键事件"
+  .title($r('app.string.Device_OnKeyPreIme_title'))
+}

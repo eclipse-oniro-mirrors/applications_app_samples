@@ -13,22 +13,35 @@
  * limitations under the License.
  */
 
-import { adminManager, deviceControl, EnterpriseAdminExtensionAbility, restrictions } from '@kit.MDMKit';
+// [Start set_disallowed_policy_wifi]
+// [Start import_mdm_kit]
+import { adminManager, restrictions } from '@kit.MDMKit';
+// [End import_mdm_kit]
+// [StartExclude set_disallowed_policy_wifi]
 import { BusinessError, commonEventManager } from '@kit.BasicServicesKit';
 import { CommonEventValue } from '../utils/CommonEventValue';
 import { CommonEventManagerHelper } from '../utils/CommonEventManagerHelper';
-import Logger from '../common/Logger';
-import { common, Want } from '@kit.AbilityKit';
+import { common } from '@kit.AbilityKit';
 import { DataPreferencesHelper } from '../utils/DataPreferencesHelper';
-
+import { deviceControl } from '@kit.MDMKit';
+// [Start enterprise_admin_extension_ability]
+import { EnterpriseAdminExtensionAbility } from '@kit.MDMKit';
+// [StartExclude enterprise_admin_extension_ability]
+// [EndExclude set_disallowed_policy_wifi]
+import { Want } from '@kit.AbilityKit';
+// [StartExclude set_disallowed_policy_wifi]
+import Logger from '../common/Logger';
+// [EndExclude enterprise_admin_extension_ability]
 
 export default class EnterpriseAdminAbility extends EnterpriseAdminExtensionAbility {
+  // [StartExclude enterprise_admin_extension_ability]
   private commonEventManagerHelper = new CommonEventManagerHelper();
+  // [EndExclude set_disallowed_policy_wifi]
   private wantTemp: Want = {
     bundleName: 'com.example.mdmsample',
     abilityName: 'EnterpriseAdminAbility',
   };
-  private context = getContext(this) as common.UIAbilityContext;
+  // [StartExclude set_disallowed_policy_wifi]
   private dataPreferenceHelper: DataPreferencesHelper | null = null;
   private subscribeInfo: commonEventManager.CommonEventSubscribeInfo = {
     events: [
@@ -42,7 +55,11 @@ export default class EnterpriseAdminAbility extends EnterpriseAdminExtensionAbil
 
   onStart(): void {
     if (this.dataPreferenceHelper == null) {
-      this.dataPreferenceHelper = new DataPreferencesHelper(this.context.getApplicationContext());
+      try {
+        this.dataPreferenceHelper = new DataPreferencesHelper(this.context.getApplicationContext());
+      } catch (err) {
+        Logger.error('getApplicationContext failed!');
+      }
     }
     this.commonEventManagerHelper.createSubscriber(this.subscribeInfo, (error, data) => {
       if (error) {
@@ -74,27 +91,35 @@ export default class EnterpriseAdminAbility extends EnterpriseAdminExtensionAbil
   }
 
   private async setWifi(isDisallow: boolean) {
+    // [EndExclude set_disallowed_policy_wifi]
     try {
-      restrictions.setDisallowedPolicy(this.wantTemp, 'wifi', isDisallow);
+      restrictions.setDisallowedPolicy(this.wantTemp, restrictions.FeatureForDevice.WIFI, isDisallow);
+      console.info(isDisallow ? 'disable wifi success.' : 'enable wifi success.');
+      // [StartExclude set_disallowed_policy_wifi]
       this.sendResult(CommonEventValue.STATUS_RESULT, isDisallow ?
-        this.getStringByResource($r('app.string.disable_wifi_suc')) :
-        this.getStringByResource($r('app.string.enable_wifi_suc')));
+        this.getStringByResource($r('app.string.disable_wifi_suc').id) :
+        this.getStringByResource($r('app.string.enable_wifi_suc').id));
       this.getWifiStatus();
+      // [EndExclude set_disallowed_policy_wifi]
     } catch (err) {
+      console.error('setDisallowedPolicy fail.');
+      // [StartExclude set_disallowed_policy_wifi]
       this.sendResult(CommonEventValue.STATUS_RESULT, isDisallow ?
-        this.getStringByResource($r('app.string.disable_wifi_fail')) :
-        this.getStringByResource($r('app.string.enable_wifi_fail')));
+        this.getStringByResource($r('app.string.disable_wifi_fail').id) :
+        this.getStringByResource($r('app.string.enable_wifi_fail').id));
+      // [EndExclude set_disallowed_policy_wifi]
     }
+    // [End set_disallowed_policy_wifi]
   }
 
   private async getWifiStatus() {
     try {
-      let ret = restrictions.getDisallowedPolicy(this.wantTemp, 'wifi');
+      let ret = restrictions.getDisallowedPolicy(this.wantTemp, restrictions.FeatureForDevice.WIFI);
       this.sendResult(CommonEventValue.STATUS_WIFI, ret ?
-        this.getStringByResource($r('app.string.disabled')) :
-        this.getStringByResource($r('app.string.enabled')));
+        this.getStringByResource($r('app.string.disabled').id) :
+        this.getStringByResource($r('app.string.enabled').id));
     } catch (err) {
-      this.sendResult(CommonEventValue.STATUS_WIFI, this.getStringByResource($r('app.string.get_wifi_status_failed')));
+      this.sendResult(CommonEventValue.STATUS_WIFI, this.getStringByResource($r('app.string.get_wifi_status_failed').id));
     }
   }
 
@@ -102,15 +127,15 @@ export default class EnterpriseAdminAbility extends EnterpriseAdminExtensionAbil
     try {
       deviceControl.operateDevice(this.wantTemp, 'reboot');
     } catch (err) {
-      this.sendResult(CommonEventValue.STATUS_RESULT, this.getStringByResource($r('app.string.reboot_fail')));
+      this.sendResult(CommonEventValue.STATUS_RESULT, this.getStringByResource($r('app.string.reboot_fail').id));
     }
   }
 
   private async disableAdmin() {
     await adminManager.disableAdmin(this.wantTemp).then(() => {
-      this.sendResult(CommonEventValue.STATUS_RESULT, this.getStringByResource($r('app.string.deactivate_suc')));
+      this.sendResult(CommonEventValue.STATUS_RESULT, this.getStringByResource($r('app.string.deactivate_suc').id));
     }).catch(() => {
-      this.sendResult(CommonEventValue.STATUS_RESULT, this.getStringByResource($r('app.string.deactivate_fail')));
+      this.sendResult(CommonEventValue.STATUS_RESULT, this.getStringByResource($r('app.string.deactivate_fail').id));
     })
   }
 
@@ -118,8 +143,13 @@ export default class EnterpriseAdminAbility extends EnterpriseAdminExtensionAbil
     Logger.info(`onAppStart bundleName:` + bundleName);
   }
 
-  private getStringByResource(res: Resource): string {
-    return this.context.resourceManager.getStringSync(res);
+  private getStringByResource(resId: number): string {
+    try {
+      return this.context.resourceManager.getStringSync(resId);
+    } catch (error) {
+      Logger.error(`Failed to get string for resource err = ${JSON.stringify(error)}`);
+      return '';
+    }
   }
 
   private async sendResult(code: number, result: string) {
@@ -134,21 +164,26 @@ export default class EnterpriseAdminAbility extends EnterpriseAdminExtensionAbil
       }
     });
   }
+  // [EndExclude enterprise_admin_extension_ability]
 
   // 设备管理器应用激活回调方法，应用可在此回调函数中进行初始化策略设置。
   onAdminEnabled() {
     console.info('onAdminEnabled');
-    this.sendResult(CommonEventValue.STATUS_ACTIVE, this.getStringByResource($r('app.string.activated')));
+    // [StartExclude enterprise_admin_extension_ability]
+    this.sendResult(CommonEventValue.STATUS_ACTIVE, this.getStringByResource($r('app.string.activated').id));
     this.dataPreferenceHelper?.save(DataPreferencesHelper.EXTRA_ACTIVE_STATUS,
-      this.getStringByResource($r('app.string.activated')));
+      this.getStringByResource($r('app.string.activated').id));
+    // [EndExclude enterprise_admin_extension_ability]
   }
 
   // 设备管理器应用去激活回调方法，应用可在此回调函数中通知企业管理员设备已脱管。
   onAdminDisabled() {
     console.info('onAdminDisabled');
-    this.sendResult(CommonEventValue.STATUS_ACTIVE, this.getStringByResource($r('app.string.no_active')));
+    // [StartExclude enterprise_admin_extension_ability]
+    this.sendResult(CommonEventValue.STATUS_ACTIVE, this.getStringByResource($r('app.string.no_active').id));
     this.dataPreferenceHelper?.save(DataPreferencesHelper.EXTRA_ACTIVE_STATUS,
-      this.getStringByResource($r('app.string.no_active')));
+      this.getStringByResource($r('app.string.no_active').id));
+    // [EndExclude enterprise_admin_extension_ability]
   }
 
   // 应用安装回调方法，应用可在此回调函数中进行事件上报，通知企业管理员。
@@ -158,6 +193,17 @@ export default class EnterpriseAdminAbility extends EnterpriseAdminExtensionAbil
 
   // 应用卸载回调方法，应用可在此回调函数中进行事件上报，通知企业管理员。
   onBundleRemoved(bundleName: string) {
-    console.info('EnterpriseAdminAbility onBundleRemoved bundleName' + bundleName);
+    console.info('EnterpriseAdminAbility onBundleRemoved bundleName:' + bundleName);
+  }
+
+  // 普通设备管理应用激活回调方法，应用可在此回调函数中进行初始化策略设置。
+  onDeviceAdminEnabled(bundleName: string) {
+    console.info('EnterpriseAdminAbility onDeviceAdminEnabled bundleName:' + bundleName);
+  }
+
+  // 普通设备管理应用解除激活回调方法，应用可在此回调函数中通知企业管理员设备已脱管。
+  onDeviceAdminDisabled(bundleName: string) {
+    console.info('EnterpriseAdminAbility onDeviceAdminDisabled bundleName:' + bundleName);
   }
 };
+// [End enterprise_admin_extension_ability]

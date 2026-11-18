@@ -13,10 +13,13 @@
  * limitations under the License.
  */
 
+import { UIContext } from '@kit.ArkUI';
+
 // [StartExclude p2p_manager_resource]
 export class P2PManager {
-  public resourceToString(resource: Resource):string {
-    return getContext(this).resourceManager.getStringSync(resource);
+  public resourceToString(resource: number):string {
+    let uiContext = UIContext.getCallingScopeUIContext();
+    return uiContext?.getHostContext()?.resourceManager.getStringSync(resource)!;
   }
 }
 

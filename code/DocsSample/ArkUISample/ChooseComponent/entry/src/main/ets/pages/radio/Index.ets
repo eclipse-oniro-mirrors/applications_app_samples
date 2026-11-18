@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2024-2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-import { RadioSample } from './RadioSample';
+import { RadioExample } from './RadioSample';
+import { RadioSample2 } from './RadioButton';
+import { RadioSwiperSample } from './RadioSwiper';
 import { CompletedRoutableCard } from '../../common/Card';
 import { Route } from '../../common/Route';
 import resource from '../../common/resource';
@@ -22,24 +24,41 @@ export const RADIO_ROUTE_PREFIX: string = 'radio';
 
 const routes: Route[] = [
   {
+    // 请将$r('app.string.RadioSample_title')替换为实际资源文件，在本示例中该资源文件的value值为"单选框示例示例"
     name: `${RADIO_ROUTE_PREFIX}/RadioSample`,
     title: resource.resourceToString($r('app.string.RadioSample_title')),
     description: $r('app.string.RadioSample_description')
+  },
+  {
+    // 请将$r('app.string.RadioSample2_title')替换为实际资源文件，在本示例中该资源文件的value值为"单选框示例2"
+    name: `${RADIO_ROUTE_PREFIX}/RadioSample2`,
+    title: resource.resourceToString($r('app.string.RadioSample2_title')),
+    description: $r('app.string.RadioSample2_description')
+  },
+  {
+    // 请将$r('app.string.RadioSwiper_title')替换为实际资源文件，在本示例中该资源文件的value值为"单选框与滑动容器联动示例"
+    name: `${RADIO_ROUTE_PREFIX}/RadioSwiper`,
+    title: resource.resourceToString($r('app.string.RadioSwiper_title')),
+    description: $r('app.string.RadioSwiper_description')
   }
 ]
 
 @Builder
 export function radioDestination(name: string) {
   if (name === RADIO_ROUTE_PREFIX) {
-    RadioExample();
-  } else if (name === routes[0].name) {
     RadioSample();
+  } else if (name === routes[0].name) {
+    RadioExample();
+  } else if (name === routes[1].name) {
+    RadioSample2();
+  } else if (name === routes[2].name) {
+    RadioSwiperSample();
   }
 }
 
 @Entry
 @Component
-struct RadioExample {
+struct RadioSample {
   @Consume pathStack: NavPathStack;
 
   build() {

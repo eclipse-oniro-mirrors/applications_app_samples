@@ -1,0 +1,8 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/IndexCustomDialog",
+    "pages/IndexController",
+    "pages/DialogDemo"
+  ]
+}

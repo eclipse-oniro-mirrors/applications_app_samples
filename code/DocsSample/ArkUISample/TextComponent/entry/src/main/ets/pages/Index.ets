@@ -16,14 +16,21 @@
 import { LengthMetrics } from '@kit.ArkUI';
 import { RoutableCard } from '../common/Card';
 import { Route } from '../common/Route';
-import { TextDestination, TEXT_ROUTE_PREFIX } from './text';
-import { TextInputDestination, INPUT_ROUTE_PREFIX } from './textInput';
-import { RichEditorDestination, RICH_EDITOR_ROUTE_PREFIX } from './richEditor';
-import { SymbolGlyphSpanDestination, SYMBOL_GLYPH_SPAN } from './symbol';
-import { PropertyStringDestination, PROPERTY_STRING_ROUTE_PREFIX } from './propertyString';
-import { NDKDestination, NDK_ROUTE_PREFIX } from './ndk';
+import { TEXT_ROUTE_PREFIX, TextDestination } from './text';
+import { KEYBOARD_ROUTE_PREFIX, ManageKeyBoardDestination } from './manageKeyBoard';
+import { INPUT_ROUTE_PREFIX, TextInputDestination } from './textInput';
+import { RICH_EDITOR_ROUTE_PREFIX, RichEditorDestination } from './richEditor';
+import { SYMBOL_GLYPH_SPAN, SymbolGlyphSpanDestination } from './symbol';
+import { PROPERTY_STRING_ROUTE_PREFIX, PropertyStringDestination } from './propertyString';
+import { NDK_ROUTE_PREFIX, NDKDestination } from './ndk';
 import resource from '../common/resource';
+import { TEXT_IMAGE_MIXED_LAYOUT, TextImageMixedLayoutDestination } from './textImageMixedLayout';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { TEXT_FAQ, TextFAQDestination } from './faq';
 
+const TAG = '[Sample_Textcomponent]';
+const DOMAIN = 0xF811;
+const BUNDLE = 'Textcomponent_';
 const routes: Route[] = [
   {
     title: resource.resourceToString($r('app.string.pageIndex_Text')),
@@ -48,6 +55,18 @@ const routes: Route[] = [
   {
     title: resource.resourceToString($r('app.string.pageIndex_TextNDKUI')),
     name: NDK_ROUTE_PREFIX
+  },
+  {
+    title: resource.resourceToString($r('app.string.pageIndex_TextImageMixedLayout')),
+    name: TEXT_IMAGE_MIXED_LAYOUT
+  },
+  {
+    title: resource.resourceToString($r('app.string.pageIndex_TextFAQ')),
+    name: TEXT_FAQ
+  },
+  {
+    title: resource.resourceToString($r('app.string.pageIndex_KeyBoard')),
+    name: KEYBOARD_ROUTE_PREFIX
   }
 ];
 
@@ -63,8 +82,14 @@ function Destination(name: string) {
     SymbolGlyphSpanDestination(name);
   } else if (name.startsWith(PROPERTY_STRING_ROUTE_PREFIX)) {
     PropertyStringDestination(name);
-  }else if (name.startsWith(NDK_ROUTE_PREFIX)) {
+  } else if (name.startsWith(NDK_ROUTE_PREFIX)) {
     NDKDestination(name);
+  } else if (name.startsWith(TEXT_IMAGE_MIXED_LAYOUT)) {
+    TextImageMixedLayoutDestination(name);
+  } else if (name.startsWith(TEXT_FAQ)) {
+    TextFAQDestination(name);
+  } else if (name.startsWith(KEYBOARD_ROUTE_PREFIX)) {
+    ManageKeyBoardDestination(name);
   }
 }
 
@@ -105,6 +130,7 @@ struct Index {
           }
           .width('100%')
           .onClick(() => {
+            hilog.info(DOMAIN, TAG, BUNDLE + "route.name" + route.name);
             this.pathStack.pushPath({ name: route.name });
           })
         })

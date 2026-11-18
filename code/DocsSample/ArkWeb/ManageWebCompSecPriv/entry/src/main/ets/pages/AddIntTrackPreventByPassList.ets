@@ -30,10 +30,10 @@ struct WebComponent {
             webview.WebviewController.addIntelligentTrackingPreventionBypassingList(hostList);
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
-      Web({ src: $r('app.string.web_path'), controller: this.controller });
+      Web({ src: 'www.example.com', controller: this.controller });
     }
   }
 }

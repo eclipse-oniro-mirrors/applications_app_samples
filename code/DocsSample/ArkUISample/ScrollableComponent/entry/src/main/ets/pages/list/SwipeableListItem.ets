@@ -34,7 +34,7 @@ export struct SwipeListItem {
     .backgroundColor('#FFE1E2E3')
     // [EndExclude build_the_tail_slide_out_component]
     .onClick(() => {
-      // this.messages为列表数据源，可根据实际场景构造。点击后从数据源删除指定数据项。
+      // this.arr为列表数据源，可根据实际场景构造。点击后从数据源删除指定数据项。
       this.arr.splice(index, 1);
     })
   }
@@ -47,6 +47,7 @@ export struct SwipeListItem {
           List({ space: 12 }) {
             ForEach(this.arr, (item: number) => {
               // [Start bind_the_swipeAction_property_to_left_swipe_list_item]
+              // 构建List时，通过ForEach基于数据源this.messages循环渲染ListItem。
               ListItem() {
                 // [StartExclude bind_the_swipeAction_property_to_left_swipe_list_item]
                 Text('Message ' + item)
@@ -61,12 +62,14 @@ export struct SwipeListItem {
                 end: {
                   // index为该ListItem在List中的索引值。
                   builder: () => {
+                    // [StartExclude bind_the_swipeAction_property_to_left_swipe_list_item]
                     this.index = this.arr.indexOf(item);
+                    // [EndExclude bind_the_swipeAction_property_to_left_swipe_list_item]
                     this.itemEnd(this.index);
                   },
                 }
-                // [End bind_the_swipeAction_property_to_left_swipe_list_item]
-              })
+              }) // 设置侧滑属性.
+              // [End bind_the_swipeAction_property_to_left_swipe_list_item]
             }, (item: number) => item.toString())
           }
         }

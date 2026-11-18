@@ -15,7 +15,6 @@
 
 import { ComponentCard } from '../../common/Card';
 
-@Entry
 @Component
 export struct FixedTabBar {
   build() {
@@ -24,6 +23,7 @@ export struct FixedTabBar {
         ComponentCard({ title: $r('app.string.FixedTabBar_titleExample') }) {
           // [Start fixed_tab_bar]
           Tabs({ barPosition: BarPosition.End }) {
+            // TabContent的内容：首页、发现、推荐、我的
             // [StartExclude fixed_tab_bar]
             TabContent() {
               Text($r('app.string.homepage_content'))
@@ -54,11 +54,9 @@ export struct FixedTabBar {
             .tabBar($r('app.string.mine'))
             // [EndExclude fixed_tab_bar]
           }
-          // [StartExclude fixed_tab_bar]
-          .height(500)
-          // [EndExclude fixed_tab_bar]
           .barMode(BarMode.Fixed)
           // [End fixed_tab_bar]
+          .height(500)
         }
       }
       .width('100%')

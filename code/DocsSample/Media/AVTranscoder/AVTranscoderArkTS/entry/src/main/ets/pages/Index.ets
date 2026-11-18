@@ -12,12 +12,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start transcoderUi]
 import {AVTranscoderDemo} from '../transcoder/AVTranscoderManager'
 
 @Entry
 @Component
 struct Index {
+  // 获取当前组件所在Ability的Context，以通过Context获取应用文件路径。
   private context:Context | undefined = this.getUIContext().getHostContext();
+  // 获取转码功能管理类。
   @State avTranscoder: AVTranscoderDemo = new AVTranscoderDemo(this.context);
 
   build() {
@@ -42,3 +45,4 @@ struct Index {
     .width('100%')
   }
 }
+// [End transcoderUi]

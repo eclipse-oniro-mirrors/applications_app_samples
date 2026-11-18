@@ -12,10 +12,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start particle_example2]
 @Entry
 @Component
 struct ParticleExample2 {
-  @State
   myCount: number = 100;
   flag: boolean = false;
 
@@ -37,6 +37,7 @@ struct ParticleExample2 {
                   lifetimeRange: 100
                 },
                 emitRate: 3,
+                position: [0, 0],
                 shape: ParticleEmitterShape.CIRCLE
               },
               color: {
@@ -151,6 +152,7 @@ struct ParticleExample2 {
               particle: {
                 type: ParticleType.IMAGE,
                 config: {
+                  // 请将$r('app.media.heart')替换为实际资源文件
                   src: $r('app.media.heart'),
                   size: [10, 10]
                 },
@@ -237,7 +239,7 @@ struct ParticleExample2 {
                     {
                       from: 50,
                       to: -50,
-                      startMillis: 0,
+                      startMillis: 1000,
                       endMillis: 3000,
                       curve: Curve.EaseIn
                     },
@@ -272,6 +274,7 @@ struct ParticleExample2 {
               particle: {
                 type: ParticleType.IMAGE,
                 config: {
+                  // 请将$r('app.media.sun')替换为实际资源文件
                   src: $r('app.media.sun'),
                   size: [10, 10]
                 },
@@ -397,3 +400,4 @@ struct ParticleExample2 {
 
   }
 }
+// [End particle_example2]

@@ -1,0 +1,8 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/Local",
+    "pages/Scene",
+    "pages/Additional"
+  ]
+}

@@ -19,15 +19,13 @@ import { router } from '@kit.ArkUI';
 @Component
 struct Index {
   goToSample(url: string): void {
-    router.pushUrl({
+    this.getUIContext().getRouter().pushUrl({
       url: url,
-    }, router.RouterMode.Single, (err) => {
-      if (err) {
-        console.error(`pushUrl failed, code is ${err.code}, message is ${err.message}`);
-        return;
-      }
+    }).then(() => {
       console.info('pushUrl success');
-    })
+    }).catch((err: BusinessError) => {
+      console.error(`pushUrl failed, code is ${err.code}, message is ${err.message}`);
+    });
   }
 
   build() {
@@ -52,6 +50,26 @@ struct Index {
         .width('70%')
         .onClick(() => {
           this.goToSample('pages/aes_ccm_encryption_decryption/aes_ccm_encryption_decryption_synchronous')
+        })
+      Button($r('app.string.aes_new_ccm_encryption_decryption_asynchronous'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/aes_ccm_encryption_decryption/aes_new_ccm_encryption_decryption_asynchronous')
+        })
+      Button($r('app.string.aes_new_ccm_encryption_decryption_synchronous'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/aes_ccm_encryption_decryption/aes_new_ccm_encryption_decryption_synchronous')
+        })
+      Button($r('app.string.aes_xts_encryption_decryption_asynchronous'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/aes_xts_encryption_decryption/aes_xts_encryption_decryption_asynchronous')
+        })
+      Button($r('app.string.aes_xts_encryption_decryption_synchronous'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/aes_xts_encryption_decryption/aes_xts_encryption_decryption_synchronous')
         })
       Button($r('app.string.aes_cbc_encryption_decryption_asynchronous'))
         .width('70%')

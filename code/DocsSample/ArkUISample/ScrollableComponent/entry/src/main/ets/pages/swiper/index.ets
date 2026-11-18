@@ -23,6 +23,9 @@ import { SwiperLoop } from './SwiperLoop';
 import { SwiperMultiPage } from './SwiperMultiPage';
 import { SwiperPageSwitchMethod } from './SwiperPageSwitchMethod';
 import { SwiperAndTabsLinkage } from './SwiperAndTabsLinkage';
+import { SwiperIgnoreComponentSize } from './SwiperIgnoreComponentSize';
+import { SwiperDigitIndicatorIgnoreComponentSize } from './SwiperDigitIndicatorIgnoreComponentSize';
+import { SwiperVisibleContentPosition } from './SwiperVisibleContentPosition';
 import resource from '../../common/resource';
 
 export const SWIPER_ROUTE_PREFIX: string = 'swiper';
@@ -30,43 +33,58 @@ export const SWIPER_ROUTE_PREFIX: string = 'swiper';
 const routes: Route[] = [
   {
     name: `${SWIPER_ROUTE_PREFIX}/SwiperLoop`,
-    title: resource.resourceToString($r('app.string.SwiperLoop_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.SwiperLoop_title'))},
     description: $r('app.string.SwiperLoop_description')
   },
   {
     name: `${SWIPER_ROUTE_PREFIX}/SwiperAutoPlay`,
-    title: resource.resourceToString($r('app.string.SwiperAutoPlay_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.SwiperAutoPlay_title'))},
     description: $r('app.string.SwiperAutoPlay_description')
   },
   {
     name: `${SWIPER_ROUTE_PREFIX}/SwiperIndicatorStyle`,
-    title: resource.resourceToString($r('app.string.SwiperIndicatorStyle_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.SwiperIndicatorStyle_title'))},
     description: $r('app.string.SwiperIndicatorStyle_description')
   },
   {
     name: `${SWIPER_ROUTE_PREFIX}/SwiperPageSwitchMethod`,
-    title: resource.resourceToString($r('app.string.SwiperPageSwitchMethod_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.SwiperPageSwitchMethod_title'))},
     description: $r('app.string.SwiperPageSwitchMethod_description')
   },
   {
     name: `${SWIPER_ROUTE_PREFIX}/SwiperDirection`,
-    title: resource.resourceToString($r('app.string.SwiperDirection_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.SwiperDirection_title'))},
     description: $r('app.string.SwiperDirection_description')
   },
   {
     name: `${SWIPER_ROUTE_PREFIX}/SwiperMultiPage`,
-    title: resource.resourceToString($r('app.string.SwiperMultiPage_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.SwiperMultiPage_title'))},
     description: $r('app.string.SwiperMultiPage_description')
   },
   {
     name: `${SWIPER_ROUTE_PREFIX}/SwiperCustomAnimation`,
-    title: resource.resourceToString($r('app.string.SwiperCustomAnimation_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.SwiperCustomAnimation_title'))},
     description: $r('app.string.SwiperCustomAnimation_description')
   },
   {
     name: `${SWIPER_ROUTE_PREFIX}/SwiperAndTabsLinkage`,
-    title: resource.resourceToString($r('app.string.SwiperAndTabsLinkage_title')),
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.SwiperAndTabsLinkage_title'))},
     description: $r('app.string.SwiperAndTabsLinkage_description')
+  },
+  {
+    name: `${SWIPER_ROUTE_PREFIX}/SwiperIgnoreComponentSize`,
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.SwiperIgnoreComponentSize_title'))},
+    description: $r('app.string.SwiperIgnoreComponentSize_description')
+  },
+  {
+    name: `${SWIPER_ROUTE_PREFIX}/SwiperDigitIndicatorIgnoreComponentSize`,
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.SwiperDigitIndicatorIgnoreComponentSize_title'))},
+    description: $r('app.string.SwiperDigitIndicatorIgnoreComponentSize_description')
+  },
+  {
+    name: `${SWIPER_ROUTE_PREFIX}/SwiperVisibleContentPosition`,
+    title: (context: Context) => { return resource.resourceToString(context, $r('app.string.SwiperVisibleContentPosition_title'))},
+    description: $r('app.string.SwiperVisibleContentPosition_description')
   }
 ];
 
@@ -90,6 +108,12 @@ export function swiperDestination(name: string) {
     SwiperCustomAnimation();
   } else if (name === routes[7].name) {
     SwiperAndTabsLinkage();
+  } else if (name === routes[8].name) {
+    SwiperIgnoreComponentSize();
+  } else if (name === routes[9].name) {
+    SwiperDigitIndicatorIgnoreComponentSize();
+  } else if (name === routes[10].name) {
+    SwiperVisibleContentPosition();
   }
 }
 
@@ -103,7 +127,8 @@ struct SwiperExample {
       List({ space: 12 }) {
         ForEach(routes, (route: Route) => {
           ListItem() {
-            CompletedRoutableCard({ title: route.title, description: route.description })
+            CompletedRoutableCard({ title: route.title(this.getUIContext().getHostContext()!),
+            description: route.description })
           }
           .width('100%')
           .onClick(() => {
@@ -113,10 +138,11 @@ struct SwiperExample {
       }
       .contentStartOffset(56)
       .padding({ left: 16, right: 16 })
+      .id('list_')
     }
-    .backgroundColor('#f1f3f5')
+    .backgroundColor($r('app.color.navigation_background'))
     .title('Swiper', {
-      backgroundBlurStyle: BlurStyle.COMPONENT_THICK,
+      backgroundColor: $r('app.color.navigation_background'),
       barStyle: BarStyle.STACK
     })
   }

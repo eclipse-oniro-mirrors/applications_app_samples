@@ -1,0 +1,92 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "microphone_reason",
+      "value": "For recording audio"
+    },
+    {
+      "name": "ui_displayed",
+      "value": "Displayed only as a UI"
+    },
+    {
+      "name": "placeholder",
+      "value": "Search place, address, bus"
+    },
+    {
+      "name": "near",
+      "value": "near"
+    },
+    {
+      "name": "star_number",
+      "value": "1.6 w"
+    },
+    {
+      "name": "share",
+      "value": "share"
+    },
+    {
+      "name": "take_a_taxi",
+      "value": "taxi"
+    },
+    {
+      "name": "navigation",
+      "value": "navigation"
+    },
+    {
+      "name": "route",
+      "value": "route"
+    },
+    {
+      "name": "my_position",
+      "value": "My position"
+    },
+    {
+      "name": "my_company",
+      "value": "My company"
+    },
+    {
+      "name": "driving",
+      "value": "driving"
+    },
+    {
+      "name": "bus_and_subway",
+      "value": "bus & subway"
+    },
+    {
+      "name": "ride",
+      "value": "ride"
+    },
+    {
+      "name": "walking",
+      "value": "walking"
+    },
+    {
+      "name": "train",
+      "value": "train"
+    },
+    {
+      "name": "coach",
+      "value": "coach"
+    },
+    {
+      "name": "start_navigating",
+      "value": "Start navigation"
+    },
+    {
+      "name": "speech_text",
+      "value": "Keep going straight ahead on the road ahead, maintain your current lane, and continue driving for two kilometers to reach your destination"
+    }
+  ]
+}

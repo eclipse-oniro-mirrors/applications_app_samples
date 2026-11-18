@@ -1,0 +1,13 @@
+{
+  "src": [
+    "pages/Index",
+    "console/pages/ConsolePage",
+    "console/pages/RoomConfigPage",
+    "console/pages/SceneEditorPage",
+    "console/pages/SettingsPage",
+    "orchestration/pages/OrchestrationHome",
+    "orchestration/pages/RoomConfigPage",
+    "orchestration/pages/SceneEditorPage",
+    "orchestration/pages/ConfigTransferPage"
+  ]
+}

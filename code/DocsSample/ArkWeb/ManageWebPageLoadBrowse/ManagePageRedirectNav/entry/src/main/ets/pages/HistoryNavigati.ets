@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
+// [Start button_click_trigger_back]
 import { webview } from '@kit.ArkWeb';
 
-// [Start button_click_trigger_back]
 @Entry
 @Component
 struct WebComponent {
@@ -23,13 +23,13 @@ struct WebComponent {
 
   build() {
     Column() {
-      Button('loadData')
+      Button('backward')
         .onClick(() => {
           if (this.webviewController.accessBackward()) {
             this.webviewController.backward();
           }
         })
-      Web({ src: $r('app.string.web_path'), controller: this.webviewController });
+      Web({ src: 'https://www.example.com/cn/', controller: this.webviewController });
     }
   }
 }

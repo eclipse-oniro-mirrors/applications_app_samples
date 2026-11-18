@@ -65,6 +65,14 @@
       "value": "Query the status of the user's registration credentials, and when the authentication method is disabled and then enabled, the query credentials will change again"
     },
     {
+      "name": "queryAuthLockState",
+      "value": "Retrieve the lock status of the specified authentication type, including current lock status, remaining retry attempts, and lockout duration"
+    },
+    {
+      "name": "queryAuthLockStateTitle",
+      "value": "Query auth lock state"
+    },
+    {
       "name": "customLogin",
       "value": "Impersonate a custom login"
     },
@@ -103,6 +111,10 @@
     {
       "name": "exampleTab4",
       "value": "Customize"
+    },
+    {
+      "name": "exampleTab5",
+      "value": "Perceive and adjust"
     },
     {
       "name": "credentialQueries",
@@ -149,8 +161,20 @@
       "value": "Toggle custom authentication"
     },
     {
+      "name": "descriptionContent7",
+      "value": "Adjust the authentication process, obtain the prompts for pulling up and exiting the control during the authentication process, as well as every failed authentication attempt made by the user during the authentication process."
+    },
+    {
       "name": "example6",
       "value": "Pull up the certification"
+    },
+    {
+      "name": "userRecognitionTitle",
+      "value": "User recognition"
+    },
+    {
+      "name": "userRecognition",
+      "value": "Query the latest user recognition result and subscribe to recognition change events"
     }
   ]
 }

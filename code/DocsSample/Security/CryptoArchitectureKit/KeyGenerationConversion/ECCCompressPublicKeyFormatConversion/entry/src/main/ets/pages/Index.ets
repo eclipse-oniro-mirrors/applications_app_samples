@@ -22,15 +22,13 @@ struct Index {
   @State message: string = 'ECCCompressPublicKeyFormatConversion';
 
   goToSample(url: string): void {
-    router.pushUrl({
+    this.getUIContext().getRouter().pushUrl({
       url: url,
-    }, router.RouterMode.Single, (err) => {
-      if (err) {
-        console.error(`pushUrl failed, code is ${err.code}, message is ${err.message}`);
-        return;
-      }
+    }).then(() => {
       console.info('pushUrl success');
-    })
+    }).catch((err: BusinessError) => {
+      console.error(`pushUrl failed, code is ${err.code}, message is ${err.message}`);
+    });
   }
 
   build() {
@@ -38,11 +36,35 @@ struct Index {
       Text(this.message)
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
-      Button($r('app.string.SpecifyUncompressedPublicKey'))
+      Button($r('app.string.specifyUncompressedPublicKeyCpp'))
         .width('70%')
         .onClick(() => {
-          let ret: number = testNapi.doTestEccDataCovert();
-          this.message = 'doTestEccDataCovert Success Result:' + ret.toString();
+          let ret: number = testNapi.doTestEccDataConvert();
+          if (ret == 0) {
+            this.message = 'doTestEccDataConvert Success';
+          } else {
+            this.message = 'doTestEccDataConvert Fail';
+          }
+        })
+      Button($r('app.string.compressedPointDataCpp'))
+        .width('70%')
+        .onClick(() => {
+          let ret: number = testNapi.doTestEccPointUncompressedToCompressed();
+          if (ret == 0) {
+            this.message = 'doTestEccPointUncompressedToCompressed Success';
+          } else {
+            this.message = 'doTestEccPointUncompressedToCompressed Fail';
+          }
+        })
+      Button($r('app.string.getKeyObjectCpp'))
+        .width('70%')
+        .onClick(() => {
+          let ret: number = testNapi.doTestEccPointCompressedToPoint();
+          if (ret == 0) {
+            this.message = 'doTestEccPointCompressedToPoint Success';
+          } else {
+            this.message = 'doTestEccPointCompressedToPoint Fail';
+          }
         })
       Button($r('app.string.SpecifyUncompressedPublicKeyArkTS'))
         .width('70%')

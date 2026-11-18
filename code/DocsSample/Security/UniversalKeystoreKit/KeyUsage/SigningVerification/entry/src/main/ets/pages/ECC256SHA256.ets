@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 // [Start key_algorithm_ECC256SHA256]
 /*
  * 密钥算法为ECC256、摘要算法为SHA256
@@ -45,7 +46,7 @@ function getEccGenerateProperties() {
     value: huks.HuksKeyAlg.HUKS_ALG_ECC
   }, {
     tag: huks.HuksTag.HUKS_TAG_KEY_SIZE,
-    value: huks.HuksKeySize.HUKS_AES_KEY_SIZE_256
+    value: huks.HuksKeySize.HUKS_ECC_KEY_SIZE_256
   }, {
     tag: huks.HuksTag.HUKS_TAG_PURPOSE,
     value: huks.HuksKeyPurpose.HUKS_KEY_PURPOSE_SIGN |
@@ -63,7 +64,7 @@ function getEccSignProperties() {
     value: huks.HuksKeyAlg.HUKS_ALG_ECC
   }, {
     tag: huks.HuksTag.HUKS_TAG_KEY_SIZE,
-    value: huks.HuksKeySize.HUKS_AES_KEY_SIZE_256
+    value: huks.HuksKeySize.HUKS_ECC_KEY_SIZE_256
   }, {
     tag: huks.HuksTag.HUKS_TAG_PURPOSE,
     value: huks.HuksKeyPurpose.HUKS_KEY_PURPOSE_SIGN
@@ -80,7 +81,7 @@ function getEccVerifyProperties() {
     value: huks.HuksKeyAlg.HUKS_ALG_ECC
   }, {
     tag: huks.HuksTag.HUKS_TAG_KEY_SIZE,
-    value: huks.HuksKeySize.HUKS_AES_KEY_SIZE_256
+    value: huks.HuksKeySize.HUKS_ECC_KEY_SIZE_256
   }, {
     tag: huks.HuksTag.HUKS_TAG_PURPOSE,
     value: huks.HuksKeyPurpose.HUKS_KEY_PURPOSE_VERIFY
@@ -97,8 +98,8 @@ async function generateEccKey(keyAlias: string) {
     properties: genProperties
   }
   await huks.generateKeyItem(keyAlias, options)
-    .then((data) => {
-      console.info(`promise: generate ECC Key success, data = ${JSON.stringify(data)}`);
+    .then(() => {
+      console.info(`promise: generate ECC Key success`);
     }).catch((err: Error) => {
       console.error(`promise: generate ECC Key failed, error: ` + JSON.stringify(err));
       throw (err as Error);
@@ -163,7 +164,7 @@ async function deleteEccKey(keyAlias: string) {
     properties: []
   }
   await huks.deleteKeyItem(keyAlias, emptyOptions)
-    .then((data) => {
+    .then(() => {
       console.info(`promise: delete data success`);
     }).catch((err: Error) => {
       console.error(`promise: delete data failed`);
@@ -177,8 +178,6 @@ async function testSignVerify() {
   await verify(keyAlias, plaintext, signature);
   await deleteEccKey(keyAlias);
 }
-
-
 // [End key_algorithm_ECC256SHA256]
 @Entry
 @Component

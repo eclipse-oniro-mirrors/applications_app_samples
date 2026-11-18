@@ -14,7 +14,7 @@
  */
 
 
-// [Start the_key_is_derived_from_hkdf]
+// [Start the_key_is_derived_from_hkdf_one]
 /*
  * 以下以HKDF密钥的Promise操作使用为例
  */
@@ -117,15 +117,17 @@ function stringToUint8Array(str: String) {
 class ThrowObject {
   public isThrow = false;
 }
+// [End the_key_is_derived_from_hkdf_one]
 
+// [Start the_key_is_derived_from_hkdf_two]
 function generateKeyItem(keyAlias: string, huksOptions: huks.HuksOptions, throwObject: ThrowObject) {
   return new Promise<void>((resolve, reject) => {
     try {
-      huks.generateKeyItem(keyAlias, huksOptions, (error, data) => {
+      huks.generateKeyItem(keyAlias, huksOptions, (error) => {
         if (error) {
           reject(error);
         } else {
-          resolve(data);
+          resolve();
         }
       });
     } catch (error) {
@@ -140,8 +142,8 @@ async function publicGenKeyFunc(keyAlias: string, huksOptions: huks.HuksOptions)
   let throwObject: ThrowObject = { isThrow: false };
   try {
     await generateKeyItem(keyAlias, huksOptions, throwObject)
-      .then((data) => {
-        console.info(`promise: generateKeyItem success, data = ${JSON.stringify(data)}`);
+      .then(() => {
+        console.info(`promise: generateKeyItem success`);
       })
       .catch((error: Error) => {
         if (throwObject.isThrow) {
@@ -198,7 +200,7 @@ async function publicInitFunc(keyAlias: string, huksOptions: huks.HuksOptions) {
 }
 
 function updateSession(handle: number, huksOptions: huks.HuksOptions, throwObject: ThrowObject) {
-  return new Promise<huks.HuksOptions>((resolve, reject) => {
+  return new Promise<huks.HuksReturnResult>((resolve, reject) => {
     try {
       huks.updateSession(handle, huksOptions, (error, data) => {
         if (error) {
@@ -279,11 +281,11 @@ async function publicFinishFunc(handle: number, huksOptions: huks.HuksOptions) {
 function deleteKeyItem(keyAlias: string, huksOptions: huks.HuksOptions, throwObject: ThrowObject) {
   return new Promise<void>((resolve, reject) => {
     try {
-      huks.deleteKeyItem(keyAlias, huksOptions, (error, data) => {
+      huks.deleteKeyItem(keyAlias, huksOptions, (error) => {
         if (error) {
           reject(error);
         } else {
-          resolve(data);
+          resolve();
         }
       });
     } catch (error) {
@@ -298,8 +300,8 @@ async function publicDeleteKeyFunc(keyAlias: string, huksOptions: huks.HuksOptio
   let throwObject: ThrowObject = { isThrow: false };
   try {
     await deleteKeyItem(keyAlias, huksOptions, throwObject)
-      .then((data) => {
-        console.info(`promise: deleteKeyItem key success, data = ${JSON.stringify(data)}`);
+      .then(() => {
+        console.info(`promise: deleteKeyItem key success`);
       })
       .catch((error: Error) => {
         if (throwObject.isThrow) {
@@ -325,7 +327,7 @@ async function testDerive() {
   await publicFinishFunc(handle, finishOptions);
   await publicDeleteKeyFunc(srcKeyAlias, huksOptions);
 }
-// [End the_key_is_derived_from_hkdf]
+// [End the_key_is_derived_from_hkdf_two]
 @Entry
 @Component
 struct Index {
@@ -334,7 +336,6 @@ struct Index {
   build() {
     Column({ space: 12 }) {
       Text(this.message).fontSize(20)
-        Text(this.message)
         .fontWeight(FontWeight.Regular)
         .fontSize($r('sys.float.ohos_id_text_size_body1'))
         .fontColor($r('sys.color.ohos_id_color_text_primary'))

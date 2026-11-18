@@ -1,0 +1,15 @@
+{
+  "src": [
+    "pages/Index",
+    "sendablepreferences/pages/SendablePreferencesHome",
+    "sendablerelationalstore/pages/SendableRelationalStoreHome",
+    "sendablearray/pages/SendableArrayHome",
+    "sendablemap/pages/SendableMapHome",
+    "sendablequeue/pages/SendableQueueHome",
+    "sendablerecord/pages/SendableRecordHome",
+    "migration/pages/DataMigrationHome",
+    "backup/pages/DataBackupHome",
+    "encryption/pages/DataEncryptionHome",
+    "distributed/pages/DistributedDataHome"
+  ]
+}

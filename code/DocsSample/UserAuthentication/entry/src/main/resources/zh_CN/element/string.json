@@ -65,6 +65,14 @@
       "value": "查询用户注册凭据的状态，当认证方式被关闭再开启后，再次查询凭据会变化"
     },
     {
+      "name": "queryAuthLockStateTitle",
+      "value": "查询认证冻结状态"
+    },
+    {
+      "name": "queryAuthLockState",
+      "value": "查询认证冻结状态，包含了认证类型是否被锁定，未锁定时的剩余可尝试次数以及锁定时的冻结时间。"
+    },
+    {
       "name": "customLogin",
       "value": "模拟自定义登录"
     },
@@ -103,6 +111,10 @@
     {
       "name": "exampleTab4",
       "value": "自定义"
+    },
+    {
+      "name": "exampleTab5",
+      "value": "调整和控制"
     },
     {
       "name": "credentialQueries",
@@ -149,8 +161,20 @@
       "value": "切换自定义认证"
     },
     {
+      "name": "descriptionContent7",
+      "value": "通过skipLockedBiometricAuth参数调整认证过程，通过on(type: 'authTip', callback: AuthTipCallback)获取认证过程中控件的拉起和退出提示，以及认证过程中用户的每一次认证失败尝试。"
+    },
+    {
       "name": "example6",
       "value": "拉起认证"
+    },
+    {
+      "name": "userRecognitionTitle",
+      "value": "用户识别"
+    },
+    {
+      "name": "userRecognition",
+      "value": "查询最新的用户识别结果，并订阅识别结果变化事件"
     }
   ]
 }

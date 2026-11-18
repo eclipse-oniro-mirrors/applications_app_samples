@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,14 +73,14 @@ static JSVM_Value GetTypedArrayInfo(JSVM_Env env, JSVM_CallbackInfo info)
     OH_JSVM_GetCbInfo(env, info, &argc, args, nullptr, nullptr);
 
     // 将第二个参数转为int32类型便于比较
-    int32_t infoTypeParam;
+    int32_t infoTypeParam = 0;
     OH_JSVM_GetValueInt32(env, args[1], &infoTypeParam);
     // 定义枚举类型与ArkTS侧枚举类型infoType顺序含义一致
     enum InfoType { INFO_TYPE, INFO_LENGTH, INFO_ARRAY_BUFFER, INFO_BYTE_OFFSET };
     void *data;
     JSVM_TypedarrayType type;
-    size_t byteOffset;
-    size_t length;
+    size_t byteOffset = 0;
+    size_t length = 0;
     JSVM_Value arrayBuffer = nullptr;
     // 调用接口OH_JSVM_GetTypedarrayInfo获得TypedArray类型数据的信息
     JSVM_Status status = OH_JSVM_GetTypedarrayInfo(env, args[0], &type, &length, &data, &arrayBuffer, &byteOffset);
@@ -88,52 +88,61 @@ static JSVM_Value GetTypedArrayInfo(JSVM_Env env, JSVM_CallbackInfo info)
     // 根据属性名，返回TypedArray对应的属性值
     switch (infoTypeParam) {
         case INFO_TYPE:
-            // 如果传入的参数是int8类型的TypedArray数据，它的类型（type）为JSVM_INT8_ARRAY
-            JSVM_Value int8_type;
-            OH_JSVM_GetBoolean(env, type == JSVM_INT8_ARRAY, &int8_type);
-            result = int8_type;
-            if (status != JSVM_OK) {
-                OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
-            } else {
-                OH_LOG_INFO(
-                    LOG_APP, "JSVM GetTypedArrayInfo success, JSVM_INT8_ARRAY: %{public}d", type == JSVM_INT8_ARRAY);
+            {
+                // 如果传入的参数是int8类型的TypedArray数据，它的类型（type）为JSVM_INT8_ARRAY
+                JSVM_Value int8_type;
+                OH_JSVM_GetBoolean(env, type == JSVM_INT8_ARRAY, &int8_type);
+                result = int8_type;
+                if (status != JSVM_OK) {
+                    OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
+                } else {
+                    OH_LOG_INFO(
+                        LOG_APP, "JSVM GetTypedArrayInfo success, JSVM_INT8_ARRAY: %{public}d",
+                        type == JSVM_INT8_ARRAY);
+                }
+                break;
             }
-            break;
         case INFO_LENGTH:
-            // TypedArray中的元素数
-            JSVM_Value jsvmLength;
-            OH_JSVM_CreateInt32(env, length, &jsvmLength);
-            result = jsvmLength;
-            if (status != JSVM_OK) {
-                OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
-            } else {
-                OH_LOG_INFO(LOG_APP, "JSVM GetTypedArrayInfo success, length: %{public}d", length);
+            {
+                // TypedArray中的元素数
+                JSVM_Value jsvmLength;
+                JSVM_CALL(OH_JSVM_CreateInt32(env, length, &jsvmLength));
+                result = jsvmLength;
+                if (status != JSVM_OK) {
+                    OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
+                } else {
+                    OH_LOG_INFO(LOG_APP, "JSVM GetTypedArrayInfo success, length: %{public}d", length);
+                }
+                break;
             }
-            break;
         case INFO_BYTE_OFFSET:
-            // TypedArray数组的第一个元素所在的基础原生数组中的字节偏移量
-            JSVM_Value jsvmOffset;
-            OH_JSVM_CreateInt32(env, byteOffset, &jsvmOffset);
-            result = jsvmOffset;
-            if (status != JSVM_OK) {
-                OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
-            } else {
-                OH_LOG_INFO(LOG_APP, "JSVM GetTypedArrayInfo success, byteOffset: %{public}d", byteOffset);
+            {
+                // TypedArray数组的第一个元素所在的基础原生数组中的字节偏移量
+                JSVM_Value jsvmOffset;
+                JSVM_CALL(OH_JSVM_CreateInt32(env, byteOffset, &jsvmOffset));
+                result = jsvmOffset;
+                if (status != JSVM_OK) {
+                    OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
+                } else {
+                    OH_LOG_INFO(LOG_APP, "JSVM GetTypedArrayInfo success, byteOffset: %{public}d", byteOffset);
+                }
+                break;
             }
-            break;
         case INFO_ARRAY_BUFFER:
-            // TypedArray下的ArrayBuffer
-            bool isArrayBuffer;
-            OH_JSVM_IsArraybuffer(env, arrayBuffer, &isArrayBuffer);
-            JSVM_Value isArray;
-            OH_JSVM_GetBoolean(env, isArrayBuffer, &isArray);
-            result = isArray;
-            if (status != JSVM_OK) {
-                OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
-            } else {
-                OH_LOG_INFO(LOG_APP, "JSVM GetTypedArrayInfo success, isArrayBuffer: %{public}d", isArrayBuffer);
+            {
+                // TypedArray下的ArrayBuffer
+                bool isArrayBuffer = false;
+                JSVM_CALL(OH_JSVM_IsArraybuffer(env, arrayBuffer, &isArrayBuffer));
+                JSVM_Value isArray = nullptr;
+                OH_JSVM_GetBoolean(env, isArrayBuffer, &isArray);
+                result = isArray;
+                if (status != JSVM_OK) {
+                    OH_LOG_ERROR(LOG_APP, "JSVM GetTypedArrayInfo fail");
+                } else {
+                    OH_LOG_INFO(LOG_APP, "JSVM GetTypedArrayInfo success, isArrayBuffer: %{public}d", isArrayBuffer);
+                }
+                break;
             }
-            break;
         default:
             break;
     }
@@ -177,8 +186,8 @@ static int32_t TestJSVM()
     }
     // 创建JSVM环境
     CHECK(OH_JSVM_CreateVM(nullptr, &vm));
-    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK(OH_JSVM_OpenVMScope(vm, &vmScope));
+    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK_RET(OH_JSVM_OpenEnvScope(env, &envScope));
     CHECK_RET(OH_JSVM_OpenHandleScope(env, &handleScope));
 
@@ -192,8 +201,8 @@ static int32_t TestJSVM()
     // 销毁JSVM环境
     CHECK_RET(OH_JSVM_CloseHandleScope(env, handleScope));
     CHECK_RET(OH_JSVM_CloseEnvScope(env, envScope));
-    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyEnv(env));
+    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyVM(vm));
     return 0;
 }
