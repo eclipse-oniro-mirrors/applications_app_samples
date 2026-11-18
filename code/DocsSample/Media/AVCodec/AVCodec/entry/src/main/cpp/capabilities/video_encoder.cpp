@@ -428,7 +428,7 @@ int32_t VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
                  *     // 异常处理。
                  * }
                  */
-                 return AVCODEC_SAMPLE_ERR_OK;
+                return AVCODEC_SAMPLE_ERR_OK;
             }
             case AV_ERR_TRY_AGAIN_LATER: {
                 AVCODEC_SAMPLE_LOGD("Get output buffer timeout.");

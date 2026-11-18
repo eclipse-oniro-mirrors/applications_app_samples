@@ -158,8 +158,8 @@ void Recorder::VideoEncInputSyncThread()
         }
         // [EndExclude recorder_video_buffer_input_sync]
     }
-}
 // [End recorder_video_buffer_input_sync]
+}
 
 void Recorder::VideoEncInputAsyncThread()
 {
@@ -230,7 +230,8 @@ void Recorder::VideoEncInputAsyncThread()
          * // 配置buffer 随帧信息。
          * // 值由开发者决定。
          * int32_t isIFrame;
-         * auto parameter = std::shared_ptr<OH_AVFormat>(OH_AVBuffer_GetParameter(bufferInfo->buffer), OH_AVFormat_Destroy);
+         * auto parameter =
+         *     std::shared_ptr<OH_AVFormat>(OH_AVBuffer_GetParameter(bufferInfo->buffer), OH_AVFormat_Destroy);
          * if (parameter == nullptr) {
          *     // 异常处理。
          * }
