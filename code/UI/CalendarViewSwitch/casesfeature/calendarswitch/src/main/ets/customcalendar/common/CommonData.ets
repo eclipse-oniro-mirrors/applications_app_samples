@@ -12,6 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file casesfeature/calendarswitch/src/main/ets/customcalendar/common/CommonData.ets
+ * 文件职责：CommonData 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：CommonData。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { DeviceType, ScheduleInfo } from '../model/CalendarModel';
 
 /**
@@ -20,12 +28,16 @@ import { DeviceType, ScheduleInfo } from '../model/CalendarModel';
 export default class CommonData {
   // 日程点年月日数组，用于月视图和周视图日程点刷新
   public static SCHEDULE_ARRAY: string[] = [];
+
   // 日程点数组，用于应用持久化存储日程信息
   public static SCHEDULE_DATA: Array<ScheduleInfo> = [];
+
   // 月视图/周视图上当前选中的日期
   public static CURRENT_SELECT_DATE: string = '';
+
   // 设备类型
   public static DEVICE_TYPE: DeviceType = DeviceType.PHONE;
+
   // 是否是折叠屏设备
   public static IS_FOLD: boolean = false;
 }

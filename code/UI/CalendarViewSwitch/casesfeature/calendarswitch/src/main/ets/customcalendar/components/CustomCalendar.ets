@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file casesfeature/calendarswitch/src/main/ets/customcalendar/components/CustomCalendar.ets
+ * 文件职责：CustomCalendar 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：CustomCalendar、DayInfo、CalendarController、CalendarViewType。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { CalendarStyle, CalendarSwitch } from '../model/CalendarModel';
 import { YearView } from '../view/YearView';
 import { MonthView } from '../view/MonthView';
@@ -78,24 +85,36 @@ import { TimeUtils } from '../utils/TimeUtils';
  * CustomCalendar({ calendarViewType: CalendarViewType.MONTH }) // 月视图
  * CustomCalendar({ calendarViewType: CalendarViewType.WEEK }) // 周视图
  */
+/**
+ * CustomCalendar：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct CustomCalendar {
   // 自定义日历类型
+  // @Prop calendarViewType：父组件传入的属性
   @Prop calendarViewType: CalendarViewType = CalendarViewType.MONTH;
+
   // 自定义日历样式
   calendarStyle: CalendarStyle = {};
+
   // 年、月、周视图切换场景的相关设置
   calendarSwitch: CalendarSwitch = { isYearMonthHidden: false };
+
   // 年视图月份点击回调。返回年视图点击的年月信息。仅用于年视图。
   onMonthClick: (year: number, month: number) => void = () => {
   };
+
   // 日期点击回调。返回点击日期的年月日信息。仅用于月、周视图。
   onDateClick: (year: number, month: number, date: number) => void = () => {
   };
+
   // 年、月、周视图左右滑动切换回调。返回左右切换年、月、周后的年月信息，其中年视图切换实际只返回切换后年份信息。
   onChangeYearMonth: (year: number, month: number) => void = () => {
   };
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear() {
     // 月视图和周视图加载时，从持久化存储dataPreferences中获取应用的日程数据
     if (this.calendarViewType === CalendarViewType.MONTH || this.calendarViewType === CalendarViewType.WEEK) {
@@ -127,6 +146,9 @@ export struct CustomCalendar {
     }
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
     if (this.calendarViewType === CalendarViewType.YEAR) {
       // 年视图
@@ -136,6 +158,7 @@ export struct CustomCalendar {
       // - controller：       自定义日历控制器，用于视图切换后的数据刷新。
       // - currentSelectDay： 记录月、周视图中点击选中的日期信息。
       // - isYearMonthHidden：是否隐藏自定义日历年、月、周视图中自带的年月信息标题。
+      // YearView：YearView 自定义组件
       YearView({
         onMonthClick: (year: number, month: number) => {
           this.onMonthClick(year, month);
@@ -148,7 +171,7 @@ export struct CustomCalendar {
           currentSelectDay: this.calendarSwitch.currentSelectDay,
           isYearMonthHidden: this.calendarSwitch.isYearMonthHidden
         },
-      })
+      }).id('custom_calendar_year_view_1')
     } else if (this.calendarViewType === CalendarViewType.MONTH) {
       // 月视图
       // CalendarStyle：      自定义日历样式。仅用于月、周视图。
@@ -163,6 +186,7 @@ export struct CustomCalendar {
       // - controller：       自定义日历控制器，用于视图切换后的数据刷新。
       // - currentSelectDay： 记录月、周视图中点击选中的日期信息。
       // - isYearMonthHidden：是否隐藏自定义日历年、月、周视图中自带的年月信息标题。
+      // MonthView：MonthView 自定义组件
       MonthView({
         calendarStyle: {
           textScaling: this.calendarStyle.textScaling,
@@ -182,7 +206,7 @@ export struct CustomCalendar {
           currentSelectDay: this.calendarSwitch.currentSelectDay,
           isYearMonthHidden: this.calendarSwitch.isYearMonthHidden
         }
-      })
+      }).id('custom_calendar_month_view_2')
     } else if (this.calendarViewType === CalendarViewType.WEEK) {
       // 周视图
       // CalendarStyle：      自定义日历样式。仅用于月、周视图。
@@ -197,6 +221,7 @@ export struct CustomCalendar {
       // - controller：       自定义日历控制器，用于视图切换后的数据刷新。
       // - currentSelectDay： 记录月、周视图中点击选中的日期信息。
       // - isYearMonthHidden：是否隐藏自定义日历年、月、周视图中自带的年月信息标题。
+      // WeekView：WeekView 自定义组件
       WeekView({
         calendarStyle: {
           textScaling: this.calendarStyle.textScaling,
@@ -215,13 +240,17 @@ export struct CustomCalendar {
           currentSelectDay: this.calendarSwitch.currentSelectDay,
           isYearMonthHidden: this.calendarSwitch.isYearMonthHidden
         }
-      })
+      }).id('custom_calendar_week_view_3')
     }
   }
 }
 
 /**
  * 一天的信息
+ */
+// @Observed：可观察对象
+/**
+ * DayInfo：类定义，承载本文件对应的逻辑与数据。
  */
 @Observed
 export class DayInfo {
@@ -230,6 +259,7 @@ export class DayInfo {
   public date: number; // 日
   public week: number; // 月视图周信息。月视图上点击上个月日期进行月份切换时需要用到
 
+  /** 构造 CustomCalendar 实例。 */
   constructor(year: number, month: number, date: number, week: number) {
     this.year = year;
     this.month = month;
@@ -245,9 +275,11 @@ export class CalendarController {
   // 视图刷新接口
   public swiperRefresh = (value: CalendarViewType) => {
   };
+
   // 视图刷新接口（仅用于在年视图上点击月份切换到月视图时刷新）
   public swiperYearToMonthRefresh = (year: number, month: number) => {
   };
+
   // 日程点数据刷新接口
   public schedulePointRefresh = () => {
   };

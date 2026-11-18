@@ -67,6 +67,14 @@
     {
       "name": "calendar_switch_describe",
       "value": "说明"
+    },
+    {
+      "name": "calendar_switch_year_month",
+      "value": "%d年%d月"
+    },
+    {
+      "name": "calendar_switch_year",
+      "value": "%d年"
     }
   ]
 }

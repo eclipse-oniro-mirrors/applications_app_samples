@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file casesfeature/calendarswitch/src/main/ets/pages/CustomCalendarSample.ets
+ * 文件职责：CustomCalendarSample 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：CustomCalendarSamplePage。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import {
   CustomCalendar, // 自定义日历组件
   CalendarViewType, // 自定义日历类型：年视图YEAR，月视图MONTH，周视图WEEK。
@@ -26,6 +33,7 @@ import { DeviceType } from '../customcalendar/model/CalendarModel';
 
 // 布局权重
 const LAYOUT_WEIGHT_ONE: number = 1;
+
 const LAYOUT_WEIGHT_THREE: number = 3;
 // 字体缩放倍数
 const TEXT_SCALING: number = 0.95;
@@ -43,6 +51,7 @@ const GAP_SPACE: number = 6;
 const CUSTOM_SEGMENT_BUTTON_MONTH_WIDTH: number = 30;
 // 自定义分段按钮选中和未选中的字体粗细
 const FONT_WEIGHT_FOUR_HUNDRED: number = 400;
+
 const FONT_WEIGHT_FIVE_HUNDRED: number = 500;
 // 月份数组
 const MONTHS: string[] =
@@ -70,39 +79,66 @@ const FONT_SIZE: number = 18;
  *  2.配置日程参数calendarManager.Event，然后传入addEvent创建日程，Calendar Kit日历服务会根据创建的日程进行相应的日程提醒。同时使用持久
  *  化preferences存储添加的日程信息，用于月视图和周视图中显示相应的日程点。
  */
+/**
+ * CustomCalendarSamplePage：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct CustomCalendarSamplePage {
   // 屏幕宽度
+  // @State screenWidth：组件内部状态
   @State screenWidth: number = 0;
+
   // 当前显示的年份
+  // @State currentShowYear：组件内部状态
   @State currentShowYear: number = TODAY_YEAR;
+
   // 当前显示的月份
+  // @State currentShowMonth：组件内部状态
   @State currentShowMonth: number = TODAY_MONTH;
+
   // 当前月视图或周视图中选中的日期
+  // @State currentSelectDay：组件内部状态
   @State currentSelectDay: DayInfo =
     new DayInfo(new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate(), 0);
+
   // 是否隐藏年、月、周视图中年月信息标题
+  // @State isYearMonthHidden：组件内部状态
   @State isYearMonthHidden: boolean = true;
+
   // 当前选中的自定义分段按钮。0年视图，1月视图,2周视图
+  // @State currentIndex：组件内部状态
   @State currentIndex: number = 1;
+
   // 自定义分段按钮左侧边距
+  // @State indicatorLeftMargin：组件内部状态
   @State indicatorLeftMargin: number = 0;
+
   // 自定义分段按钮白色滑块宽度
+  // @State indicatorWidth：组件内部状态
   @State indicatorWidth: number = 0;
+
   // 记录自定义分段按钮切换的index。如果切换到年视图，隐藏年月信息标题中月份
+  // @State tabSelectedIndex：组件内部状态
   @State tabSelectedIndex: number = 1;
+
   // 自定义分段按钮滑动动画时长
   private animationDuration: number = 300;
+
   // Tabs控制器
   private tabController: TabsController = new TabsController();
+
   // 自定义日历年视图控制器
   private calendarYearController = new CalendarController();
+
   // 自定义日历月视图控制器
   private calendarMonthController = new CalendarController();
+
   // 自定义日历周视图控制器
   private calendarWeekController = new CalendarController();
+
   // 检查设备是否可折叠
   private isFoldable: boolean = false;
+
   // 折叠设备屏幕显示模式回调
   private callback: Callback<display.FoldDisplayMode> = (mode: display.FoldDisplayMode) => {
     // 可折叠设备的显示模式改变时(如展开或者折叠)，重新获取屏幕宽度
@@ -123,8 +159,10 @@ export struct CustomCalendarSamplePage {
       CommonData.DEVICE_TYPE = DeviceType.PHONE;
     }
   };
+
   // 依据cases工程Navigation的mode属性说明，如使用Auto，窗口宽度>=600vp时，采用Split模式显示；窗口宽度<600vp时，采用Stack模式显示。
   private readonly DEVICESIZE: number = 600;
+
   // 不传isPlugin，默认为true。作为插件使用。设置false，适配cases。
   isPlugin: boolean = true;
 
@@ -142,6 +180,9 @@ export struct CustomCalendarSamplePage {
     }
   }
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear() {
     // 检查设备是否可折叠。false表示不可折叠，true表示可折叠。
     this.isFoldable = display.isFoldable();
@@ -165,6 +206,9 @@ export struct CustomCalendarSamplePage {
     }
   }
 
+  /**
+   * aboutToDisappear：组件即将销毁时回调，用于释放资源与取消订阅。
+   */
   aboutToDisappear() {
     if (this.isFoldable) {
       // 关闭显示设备变化的监听
@@ -175,21 +219,30 @@ export struct CustomCalendarSamplePage {
   /**
    * 年月信息标题。月视图和周视图显示年月信息，年视图只显示年信息。周视图中如果选中了日期，则优先根据选中日期显示年月信息。
    */
+  /**
+   * yearMonthTitle：执行 yearMonthTitle 相关逻辑。
+   */
   @Builder
   yearMonthTitle() {
+    // Row：水平布局容器
+    // 关键属性：内边距、主轴对齐、宽度、高度
     Row() {
+      // Text：文本
+      // 关键属性：字号、字重
       Text(`${this.currentShowYear}年 ${this.tabSelectedIndex === CalendarViewType.YEAR ? '' :
       MONTHS[this.currentShowMonth-1]}`)
         .fontSize(FONT_SIZE * TEXT_SCALING)
         .fontWeight(FONT_WEIGHT_FIVE_HUNDRED)
+        .id('yearMonthTitle')
       // 自定义添加日程组件
       // monthViewController：     可选项。传入该控制器，添加日程后，对应日程点会刷新到月视图上
       // weekViewController：      可选项。传入该控制器，添加日程后，对应日程点会刷新到周视图上
+      // SchedulePoint：SchedulePoint 自定义组件
       SchedulePoint({
         monthViewController: this.calendarMonthController,
         weekViewController: this.calendarWeekController
-      })
-    }
+      }).id('custom_calendar_sample_schedule_point_2')
+    }.id('custom_calendar_sample_row_1')
     .padding({ left: $r('app.integer.calendar_switch_size_ten'), right: $r('app.integer.calendar_switch_size_ten') })
     .justifyContent(FlexAlign.SpaceBetween)
     .width($r('app.string.calendar_switch_full_size'))
@@ -199,25 +252,36 @@ export struct CustomCalendarSamplePage {
   /**
    * 自定义分段按钮
    */
+  /**
+   * customSegmentButton：执行 customSegmentButton 相关逻辑。
+   */
   @Builder
   customSegmentButton() {
+    // Stack：层叠布局容器
+    // 关键属性：宽度、高度、外边距
     Stack({ alignContent: Alignment.TopStart }) {
+      // Row：水平布局容器
+      // 关键属性：宽度、高度、背景色、圆角、布局权重
       Row() {
-      }
+      }.id('custom_calendar_sample_row_4')
       .width($r('app.string.calendar_switch_full_size'))
       .height($r('app.integer.calendar_switch_size_thirty_five'))
       .backgroundColor($r('app.color.calendar_switch_segment_button_row_bgcolor'))
       .borderRadius($r('app.integer.calendar_switch_border_radius'))
       .layoutWeight(LAYOUT_WEIGHT_THREE)
 
+      // Column：垂直布局容器
+      // 关键属性：高度、宽度、外边距、内边距
       Column() {
+        // Row：水平布局容器
+        // 关键属性：圆角、高度、宽度、背景色
         Row() {
-        }
+        }.id('custom_calendar_sample_row_6')
         .borderRadius($r('app.integer.calendar_switch_border_radius'))
         .height($r('app.string.calendar_switch_full_size'))
         .width((this.screenWidth - PADDING * 2) / 3 - GAP_SPACE)
         .backgroundColor(Color.White)
-      }
+      }.id('custom_calendar_sample_column_5')
       .height($r('app.integer.calendar_switch_size_thirty_five'))
       .width(COLUMN_WIDTH)
       .margin({ left: this.indicatorLeftMargin })
@@ -226,17 +290,19 @@ export struct CustomCalendarSamplePage {
         bottom: $r('app.integer.calendar_switch_size_three')
       })
 
+      // Row：水平布局容器
+      // 关键属性：宽度、高度、圆角、背景色、布局权重
       Row() {
         this.customSegmentButtonItem(CalendarViewType.YEAR, '年')
         this.customSegmentButtonItem(CalendarViewType.MONTH, '月')
         this.customSegmentButtonItem(CalendarViewType.WEEK, '周')
-      }
+      }.id('custom_calendar_sample_row_7')
       .width($r('app.string.calendar_switch_full_size'))
       .height($r('app.integer.calendar_switch_size_thirty_five'))
       .borderRadius($r('app.integer.calendar_switch_border_radius'))
       .backgroundColor(Color.Transparent)
       .layoutWeight(LAYOUT_WEIGHT_THREE)
-    }
+    }.id('custom_calendar_sample_stack_3')
     .width($r('app.string.calendar_switch_full_size'))
     .height($r('app.integer.calendar_switch_size_thirty_five'))
     .margin({
@@ -250,10 +316,17 @@ export struct CustomCalendarSamplePage {
    * @param index 自定义分段按钮索引。这里对应自定义日历视图类型。0：年视图YEAR，1：月视图MONTH，2：周视图WEEK
    * @param name 自定义分段按钮名。这里对应'年'，'月'，'周'
    */
+  /**
+   * customSegmentButtonItem：执行 customSegmentButtonItem 相关逻辑。
+   */
   @Builder
   customSegmentButtonItem(index: number, name: string) {
+    // Column：垂直布局容器
+    // 关键属性：宽度、高度、布局权重
     Column() {
-      Text(name)
+      // Text：文本
+      // 关键属性：宽度、文本对齐、高度、字号、字体颜色
+      Text(name).id('custom_calendar_sample_text_8')
         .width(CUSTOM_SEGMENT_BUTTON_MONTH_WIDTH)
         .textAlign(TextAlign.Center)
         .height($r('app.integer.calendar_switch_size_thirty_five'))
@@ -265,6 +338,8 @@ export struct CustomCalendarSamplePage {
     .width($r('app.string.calendar_switch_full_size'))
     .height($r('app.integer.calendar_switch_size_thirty_five'))
     .layoutWeight(LAYOUT_WEIGHT_ONE)
+    .id(index === CalendarViewType.YEAR ? 'yearTabButton' :
+    (index === CalendarViewType.MONTH ? 'monthTabButton' : 'weekTabButton'))
     .onClick(() => {
       if (index === this.tabSelectedIndex) {
         // 点击同一个自定义分段按钮项，不做切换，避免冗余操作
@@ -304,15 +379,25 @@ export struct CustomCalendarSamplePage {
     })
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：宽度、高度、内边距
     Column() {
       // 年月信息标题（包含添加日程组件）
       this.yearMonthTitle()
       // 自定义分段按钮
       this.customSegmentButton()
 
+      // Tabs：页签容器
+      // 关键属性：animationDuration、onAnimationStart
       Tabs({ barPosition: BarPosition.End, index: CalendarViewType.MONTH, controller: this.tabController }) {
+        // TabContent：页签内容
         TabContent() {
+          // Column：垂直布局容器
+          // 关键属性：宽度、高度
           Column() {
             // 自定义年视图
             // calendarViewType：   必选项。自定义日历类型。YEAR年视图 MONTH月视图 WEEK周视图
@@ -322,6 +407,7 @@ export struct CustomCalendarSamplePage {
             // - controller：       可选项。自定义日历控制器，用于视图切换后的数据刷新。
             // - currentSelectDay： 可选项。记录月、周视图中点击选中的日期信息。
             // - isYearMonthHidden：可选项。是否隐藏自定义日历年、月、周视图中自带的年月信息标题。
+            // CustomCalendar：CustomCalendar 自定义组件
             CustomCalendar({
               calendarViewType: CalendarViewType.YEAR,
               onMonthClick: (year: number, month: number) => {
@@ -343,13 +429,17 @@ export struct CustomCalendarSamplePage {
                 currentSelectDay: this.currentSelectDay,
                 isYearMonthHidden: this.isYearMonthHidden
               }
-            })
+            }).id('custom_calendar_sample_custom_calendar_12')
           }
           .width($r('app.string.calendar_switch_full_size'))
           .height($r('app.string.calendar_switch_full_size'))
-        }
+          .id('yearViewContainer')
+        }.id('custom_calendar_sample_tab_content_11')
 
+        // TabContent：页签内容
         TabContent() {
+          // Column：垂直布局容器
+          // 关键属性：宽度、高度
           Column() {
             // 自定义月视图
             // calendarViewType：   必选项。自定义日历类型。YEAR年视图 MONTH月视图 WEEK周视图
@@ -365,6 +455,7 @@ export struct CustomCalendarSamplePage {
             // - controller：       可选项。自定义日历控制器，用于视图切换后的数据刷新。
             // - currentSelectDay： 可选项。记录月、周视图中点击选中的日期信息。
             // - isYearMonthHidden：可选项。是否隐藏自定义日历年、月、周视图中自带的年月信息标题。
+            // CustomCalendar：CustomCalendar 自定义组件
             CustomCalendar({
               calendarViewType: CalendarViewType.MONTH,
               calendarStyle: {
@@ -388,13 +479,17 @@ export struct CustomCalendarSamplePage {
                 currentSelectDay: this.currentSelectDay,
                 isYearMonthHidden: this.isYearMonthHidden,
               }
-            })
+            }).id('custom_calendar_sample_custom_calendar_14')
           }
           .width($r('app.string.calendar_switch_full_size'))
           .height($r('app.string.calendar_switch_full_size'))
-        }
+          .id('monthViewContainer')
+        }.id('custom_calendar_sample_tab_content_13')
 
+        // TabContent：页签内容
         TabContent() {
+          // Column：垂直布局容器
+          // 关键属性：宽度、高度
           Column() {
             // 自定义周视图
             // calendarViewType：   必选项。自定义日历类型。YEAR年视图 MONTH月视图 WEEK周视图
@@ -410,6 +505,7 @@ export struct CustomCalendarSamplePage {
             // - controller：       可选项。自定义日历控制器，用于视图切换后的数据刷新。
             // - currentSelectDay： 可选项。记录月、周视图中点击选中的日期信息。
             // - isYearMonthHidden：可选项。是否隐藏自定义日历年、月、周视图中自带的年月信息标题。
+            // CustomCalendar：CustomCalendar 自定义组件
             CustomCalendar({
               calendarViewType: CalendarViewType.WEEK,
               calendarStyle: {
@@ -432,12 +528,13 @@ export struct CustomCalendarSamplePage {
                 currentSelectDay: this.currentSelectDay,
                 isYearMonthHidden: this.isYearMonthHidden
               }
-            })
+            }).id('custom_calendar_sample_custom_calendar_16')
           }
           .width($r('app.string.calendar_switch_full_size'))
           .height($r('app.string.calendar_switch_full_size'))
-        }
-      }
+          .id('weekViewContainer')
+        }.id('custom_calendar_sample_tab_content_15')
+      }.id('custom_calendar_sample_tabs_10')
       .animationDuration(this.animationDuration)
       .onAnimationStart((index: number, targetIndex: number, event: TabsAnimationEvent) => {
         // 在年视图中点击月，切换到月视图时，需要显示'年月信息标题'中的的月份信息
@@ -465,7 +562,7 @@ export struct CustomCalendarSamplePage {
       .layoutWeight(LAYOUT_WEIGHT_ONE)
       .scrollable(false)
       .barHeight($r('app.integer.calendar_switch_zero'))
-    }
+    }.id('custom_calendar_sample_column_9')
     .width($r('app.string.calendar_switch_full_size'))
     .height($r('app.string.calendar_switch_full_size'))
     .padding(PADDING)

@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file casesfeature/calendarswitch/src/main/ets/customcalendar/model/CalendarModel.ets
+ * 文件职责：CalendarModel 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：CalendarStyle、Day、CalendarData、CalendarSwitch、ScheduleInfo、DeviceType。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { CalendarController, DayInfo } from '../components/CustomCalendar';
 
 /**
@@ -57,6 +64,10 @@ export interface CalendarSwitch {
 /**
  * 日程点相关信息
  */
+// @Observed：可观察对象
+/**
+ * ScheduleInfo：类定义，承载本文件对应的逻辑与数据。
+ */
 @Observed
 export class ScheduleInfo {
   public title: string; // 标题
@@ -67,6 +78,7 @@ export class ScheduleInfo {
   public dateString: string; // 开始时间startTime里的年月日，如'2024/11/5'
   public reminderTime: number[]; // 提醒时间
 
+  /** 构造 CalendarModel 实例。 */
   constructor(title: string, location: string, startTime: Date, endTime: Date, describe: string,
     dateString: string, reminderTime: number[]) {
     this.title = title;
