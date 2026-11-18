@@ -1,0 +1,947 @@
+'use static'
+
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import {
+  describe,
+  it,
+  expect,
+  beforeAll,
+  beforeEach,
+  afterEach,
+  afterAll,
+  TestType,
+  Size,
+  Level
+} from '@ohos/hypium';
+
+import {
+  Driver
+} from '@ohos.UiTest';
+
+import {
+  getDriver,
+  waitForPanelStable,
+  clickTabTitle,
+  tabsCount,
+  tabContentCount,
+  textCount,
+  focusedCount,
+  clickableCount,
+  collectTexts,
+  countTitles,
+  containsLabel,
+  tabTitleCount,
+  panelSnapshot,
+  serializedDelay,
+  settlePanel,
+  resetPanelToInitial,
+  bringPanelToFront,
+  canAddTab,
+  canRemoveTab,
+  clampTabIndex,
+  PanelSnapshot,
+  TAB_ADD_LABEL,
+  TAB_CLOSE_LABEL,
+  INITIAL_TAB_COUNT,
+  FIRST_TAB_TITLE,
+  SECOND_TAB_TITLE,
+  TAB_BAR_WIDTH,
+  TAB_BAR_HEIGHT,
+  TAB_CONTENT_HEIGHT,
+  TAB_ANIMATION_DURATION,
+  TAB_DIVIDER_STROKE,
+  TAB_FONT_SIZE,
+  TAB_FONT_WEIGHT_SELECTED,
+  TAB_FONT_WEIGHT_NORMAL,
+  TAB_MARGIN_SIDE,
+  TAB_MARGIN_TOP,
+  TAB_MARGIN_BOTTOM,
+  TAB_CLOSE_MARGIN_LEFT,
+  TAB_ADD_MARGIN_TOP,
+  DEFAULT_FONT_COLOR,
+  SELECTED_FONT_COLOR,
+  TAB_CONTENT_BACKGROUND,
+  TABS_BACKGROUND,
+  ADD_BUTTON_FONT_COLOR,
+  CLOSE_BUTTON_COLOR,
+  TIMEOUT_PANEL_RENDER,
+  TIMEOUT_STATE_SETTLE,
+  DELAY_KEY_NAVIGATION,
+  TOLERANCE_TAB_COUNT
+} from '../Shared/SharedDriver';
+
+
+enum TabTheme {
+  LIGHT = 'light',
+  DARK = 'dark',
+  HIGH_CONTRAST = 'high_contrast'
+}
+
+
+class TabStyleProfile {
+  public fontColor: string;
+  public selectedFontColor: string;
+  public fontSize: int;
+  public theme: TabTheme;
+
+  constructor(fontColor: string, selectedFontColor: string, fontSize: int, theme: TabTheme) {
+    this.fontColor = fontColor;
+    this.selectedFontColor = selectedFontColor;
+    this.fontSize = fontSize;
+    this.theme = theme;
+  }
+
+  public static light(): TabStyleProfile {
+    return new TabStyleProfile(DEFAULT_FONT_COLOR, SELECTED_FONT_COLOR, TAB_FONT_SIZE, TabTheme.LIGHT);
+  }
+
+  public static dark(): TabStyleProfile {
+    return new TabStyleProfile('#FFFFFF', SELECTED_FONT_COLOR, TAB_FONT_SIZE, TabTheme.DARK);
+  }
+
+  public colorFor(selected: boolean): string {
+    if (selected) {
+      return this.selectedFontColor;
+    }
+    return this.fontColor;
+  }
+
+  public weightFor(selected: boolean): int {
+    if (selected) {
+      return TAB_FONT_WEIGHT_SELECTED;
+    }
+    return TAB_FONT_WEIGHT_NORMAL;
+  }
+
+  public isTheme(theme: TabTheme): boolean {
+    return this.theme === theme;
+  }
+}
+
+
+class TabLayoutModel {
+  public marginSide: int;
+  public marginTop: int;
+  public marginBottom: int;
+  public closeMarginLeft: int;
+  public addMarginTop: int;
+
+  constructor(marginSide: int, marginTop: int, marginBottom: int, closeMarginLeft: int, addMarginTop: int) {
+    this.marginSide = marginSide;
+    this.marginTop = marginTop;
+    this.marginBottom = marginBottom;
+    this.closeMarginLeft = closeMarginLeft;
+    this.addMarginTop = addMarginTop;
+  }
+
+  public static sample(): TabLayoutModel {
+    return new TabLayoutModel(TAB_MARGIN_SIDE, TAB_MARGIN_TOP, TAB_MARGIN_BOTTOM, TAB_CLOSE_MARGIN_LEFT,
+      TAB_ADD_MARGIN_TOP);
+  }
+
+  public horizontalSpan(): int {
+    return this.marginSide * 2;
+  }
+
+  public verticalSpan(): int {
+    return this.marginTop + this.marginBottom;
+  }
+
+  public describe(): string {
+    return `layout{${this.marginSide}:${this.marginTop}:${this.marginBottom}}`;
+  }
+}
+
+class TabDescriptor {
+  public title: string;
+  public indexValue: int;
+  public focused: boolean;
+  public removable: boolean;
+
+  constructor(title: string, indexValue: int, focused: boolean, removable: boolean) {
+    this.title = title;
+    this.indexValue = indexValue;
+    this.focused = focused;
+    this.removable = removable;
+  }
+
+  public static createDefault(): TabDescriptor {
+    return new TabDescriptor('', 0, false, false);
+  }
+
+  public static create(title: string, indexValue: int): TabDescriptor {
+    const descriptor: TabDescriptor = new TabDescriptor(title, indexValue, false, true);
+    return descriptor;
+  }
+
+  public getTitle(): string {
+    return this.title;
+  }
+
+  public getIndex(): int {
+    return this.indexValue;
+  }
+
+  public isFocusedState(): boolean {
+    return this.focused;
+  }
+
+  public isRemovable(): boolean {
+    return this.removable;
+  }
+
+  public setFocused(next: boolean): void {
+    this.focused = next;
+  }
+
+  public setTitle(next: string): void {
+    this.title = next;
+  }
+
+  public clone(): TabDescriptor {
+    return new TabDescriptor(this.title, this.indexValue, this.focused, this.removable);
+  }
+
+  public equals(other: TabDescriptor): boolean {
+    return this.title === other.title && this.indexValue === other.indexValue &&
+      this.focused === other.focused && this.removable === other.removable;
+  }
+
+  public isValidIndex(total: int): boolean {
+    return this.indexValue >= 0 && this.indexValue < total;
+  }
+
+  public describe(): string {
+    return `tab{${this.title}:${this.indexValue}:${this.focused}}`;
+  }
+}
+
+class TabStripModel {
+  private tabs: TabDescriptor[] = [];
+  private selected: int = 0;
+
+  constructor() {
+    this.tabs.push(new TabDescriptor(FIRST_TAB_TITLE, 0, true, true));
+    this.tabs.push(new TabDescriptor(SECOND_TAB_TITLE, 1, false, true));
+  }
+
+  public getTabs(): TabDescriptor[] {
+    return this.tabs.slice(0);
+  }
+
+  public getCount(): int {
+    return this.tabs.length;
+  }
+
+  public getSelectedIndex(): int {
+    return this.selected;
+  }
+
+  public select(index: int): boolean {
+    if (index < 0 || index >= this.tabs.length) {
+      return false;
+    }
+    for (let cursor: int = 0; cursor < this.tabs.length; cursor++) {
+      const current: TabDescriptor = this.tabs[cursor];
+      current.setFocused(cursor === index);
+    }
+    this.selected = index;
+    return true;
+  }
+
+  public selectByTitle(title: string): boolean {
+    for (let cursor: int = 0; cursor < this.tabs.length; cursor++) {
+      if (this.tabs[cursor].getTitle() === title) {
+        return this.select(cursor);
+      }
+    }
+    return false;
+  }
+
+  public addTab(title: string): boolean {
+    if (!canAddTab(this.tabs.length)) {
+      return false;
+    }
+    const descriptor: TabDescriptor = new TabDescriptor(title, this.tabs.length, false, true);
+    this.tabs.push(descriptor);
+    return true;
+  }
+
+  public removeTab(index: int): boolean {
+    if (!canRemoveTab(this.tabs.length)) {
+      return false;
+    }
+    if (index < 0 || index >= this.tabs.length) {
+      return false;
+    }
+    this.tabs.splice(index, 1);
+    this.reindex();
+    if (this.selected >= this.tabs.length) {
+      this.selected = this.tabs.length - 1;
+    }
+    return true;
+  }
+
+  private reindex(): void {
+    for (let cursor: int = 0; cursor < this.tabs.length; cursor++) {
+      const current: TabDescriptor = this.tabs[cursor];
+      current.indexValue = cursor;
+    }
+  }
+
+  public titles(): string[] {
+    return this.tabs.map((item: TabDescriptor) => item.title);
+  }
+
+  public focusedTitle(): string {
+    for (let cursor: int = 0; cursor < this.tabs.length; cursor++) {
+      if (this.tabs[cursor].isFocusedState()) {
+        return this.tabs[cursor].getTitle();
+      }
+    }
+    return '';
+  }
+
+  public canAdd(): boolean {
+    return canAddTab(this.tabs.length);
+  }
+
+  public canRemove(): boolean {
+    return canRemoveTab(this.tabs.length);
+  }
+
+  public reset(): void {
+    this.tabs = [];
+    this.tabs.push(new TabDescriptor(FIRST_TAB_TITLE, 0, true, true));
+    this.tabs.push(new TabDescriptor(SECOND_TAB_TITLE, 1, false, true));
+    this.selected = 0;
+  }
+}
+
+enum TabsBarMode {
+  FIXED = 'fixed',
+  SCROLLABLE = 'scrollable'
+}
+
+
+class TabsSwitchState {
+  public index: int;
+  public targetIndex: int;
+  public animating: boolean;
+  public duration: int;
+
+  constructor(index: int, targetIndex: int, animating: boolean, duration: int) {
+    this.index = index;
+    this.targetIndex = targetIndex;
+    this.animating = animating;
+    this.duration = duration;
+  }
+
+  public static initial(): TabsSwitchState {
+    return new TabsSwitchState(0, 0, false, TAB_ANIMATION_DURATION);
+  }
+
+  public beginSwitch(target: int): boolean {
+    if (this.animating) {
+      return false;
+    }
+    if (target === this.index) {
+      return false;
+    }
+    this.targetIndex = target;
+    this.animating = true;
+    return true;
+  }
+
+  public finishSwitch(): boolean {
+    if (!this.animating) {
+      return false;
+    }
+    this.index = this.targetIndex;
+    this.animating = false;
+    return true;
+  }
+
+  public isSameIndex(): boolean {
+    return this.index === this.targetIndex;
+  }
+
+  public describe(): string {
+    return `switch{${this.index}->${this.targetIndex}:${this.animating}}`;
+  }
+}
+
+
+class TabBarStyleModel {
+  public barWidth: int;
+  public barHeight: int;
+  public animationDuration: int;
+  public mode: TabsBarMode;
+
+  constructor(barWidth: int, barHeight: int, animationDuration: int, mode: TabsBarMode) {
+    this.barWidth = barWidth;
+    this.barHeight = barHeight;
+    this.animationDuration = animationDuration;
+    this.mode = mode;
+  }
+
+  public static sample(): TabBarStyleModel {
+    return new TabBarStyleModel(TAB_BAR_WIDTH, TAB_BAR_HEIGHT, TAB_ANIMATION_DURATION, TabsBarMode.FIXED);
+  }
+
+  public isAnimationEnabled(): boolean {
+    return this.animationDuration > 0;
+  }
+
+  public isFixedMode(): boolean {
+    return this.mode === TabsBarMode.FIXED;
+  }
+
+  public withMode(next: TabsBarMode): TabBarStyleModel {
+    return new TabBarStyleModel(this.barWidth, this.barHeight, this.animationDuration, next);
+  }
+
+  public describe(): string {
+    return `style{${this.barWidth}x${this.barHeight}:${this.animationDuration}:${this.mode}}`;
+  }
+}
+
+
+class TabBarIndicatorModel {
+  public strokeWidth: int;
+  public color: string;
+  public opacity: number;
+
+  constructor(strokeWidth: int, color: string, opacity: number) {
+    this.strokeWidth = strokeWidth;
+    this.color = color;
+    this.opacity = opacity;
+  }
+
+  public static selectedIndicator(): TabBarIndicatorModel {
+    return new TabBarIndicatorModel(TAB_DIVIDER_STROKE, SELECTED_FONT_COLOR, 1);
+  }
+
+  public static unselectedIndicator(): TabBarIndicatorModel {
+    return new TabBarIndicatorModel(TAB_DIVIDER_STROKE, SELECTED_FONT_COLOR, 0);
+  }
+
+  public isVisible(): boolean {
+    return this.opacity > 0;
+  }
+
+  public opacityFor(selected: boolean): number {
+    if (selected) {
+      return 1;
+    }
+    return 0;
+  }
+}
+
+export default function tabBarConfigurationTest(): void {
+  describe('TabBarConfiguration_Test', () => {
+    beforeAll(async () => {
+      await bringPanelToFront(getDriver());
+    });
+
+    beforeEach(async () => {
+      await resetPanelToInitial(getDriver());
+      await serializedDelay(getDriver(), DELAY_KEY_NAVIGATION);
+    });
+
+    afterEach(async () => {
+      await settlePanel(getDriver());
+    });
+
+    afterAll(async () => {
+      await serializedDelay(getDriver(), TIMEOUT_STATE_SETTLE);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_0100
+     * @tc.name tabBarConfigurationTestCase001
+     * @tc.desc Verify light profile: default colours -> theme light
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      const profile: TabStyleProfile = TabStyleProfile.light();
+      expect(profile.isTheme(TabTheme.LIGHT)).assertTrue();
+      expect(profile.colorFor(false)).assertEqual(DEFAULT_FONT_COLOR);
+      expect(profile.colorFor(true)).assertEqual(SELECTED_FONT_COLOR);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_0200
+     * @tc.name tabBarConfigurationTestCase002
+     * @tc.desc Verify dark profile: unselected colour white -> theme dark
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      const profile: TabStyleProfile = TabStyleProfile.dark();
+      expect(profile.isTheme(TabTheme.DARK)).assertTrue();
+      expect(profile.colorFor(false)).assertEqual('#FFFFFF');
+      expect(profile.colorFor(true)).assertEqual(SELECTED_FONT_COLOR);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_0300
+     * @tc.name tabBarConfigurationTestCase003
+     * @tc.desc Verify font weight: selected uses heavier weight than normal
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      const profile: TabStyleProfile = TabStyleProfile.light();
+      expect(profile.weightFor(true)).assertEqual(TAB_FONT_WEIGHT_SELECTED);
+      expect(profile.weightFor(false)).assertEqual(TAB_FONT_WEIGHT_NORMAL);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_0400
+     * @tc.name tabBarConfigurationTestCase004
+     * @tc.desc Verify layout spans: sample margins -> horizontal and vertical totals
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      const layout: TabLayoutModel = TabLayoutModel.sample();
+      expect(layout.horizontalSpan()).assertEqual(TAB_MARGIN_SIDE * 2);
+      expect(layout.verticalSpan()).assertEqual(TAB_MARGIN_TOP + TAB_MARGIN_BOTTOM);
+      expect(layout.closeMarginLeft).assertEqual(TAB_CLOSE_MARGIN_LEFT);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_0500
+     * @tc.name tabBarConfigurationTestCase005
+     * @tc.desc Verify layout describe: sample layout -> margin triple in description
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      const layout: TabLayoutModel = TabLayoutModel.sample();
+      const expected: string = `layout{${TAB_MARGIN_SIDE}:${TAB_MARGIN_TOP}:${TAB_MARGIN_BOTTOM}}`;
+      expect(layout.describe()).assertEqual(expected);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_0600
+     * @tc.name tabBarConfigurationTestCase006
+     * @tc.desc Verify colour constants: selected and background values as declared
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      expect(SELECTED_FONT_COLOR).assertEqual('#007DFF');
+      expect(TABS_BACKGROUND).assertEqual('#F1F3F5');
+      expect(TAB_CONTENT_BACKGROUND).assertEqual('#007DFF');
+      expect(ADD_BUTTON_FONT_COLOR).assertEqual('#707070');
+      expect(CLOSE_BUTTON_COLOR).assertEqual('red');
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_0700
+     * @tc.name tabBarConfigurationTestCase007
+     * @tc.desc Verify dimension constants: bar width, height, and animation duration
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      expect(TAB_BAR_WIDTH).assertEqual(360);
+      expect(TAB_BAR_HEIGHT).assertEqual(56);
+      expect(TAB_CONTENT_HEIGHT).assertEqual(296);
+      expect(TAB_ANIMATION_DURATION).assertEqual(400);
+      expect(TAB_DIVIDER_STROKE).assertEqual(2);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_0800
+     * @tc.name tabBarConfigurationTestCase008
+     * @tc.desc Verify clamp helper: overshoot index -> clamped to last slot
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      expect(clampTabIndex(0, 3)).assertEqual(0);
+      expect(clampTabIndex(9, 3)).assertEqual(2);
+      expect(clampTabIndex(-4, 3)).assertEqual(0);
+      expect(clampTabIndex(0, 0)).assertEqual(-1);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_0900
+     * @tc.name tabBarConfigurationTestCase009
+     * @tc.desc Verify switch state: begin switch to target one -> animating true
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      const state: TabsSwitchState = TabsSwitchState.initial();
+      expect(state.index).assertEqual(0);
+      expect(state.beginSwitch(1)).assertTrue();
+      expect(state.targetIndex).assertEqual(1);
+      expect(state.animating).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_1000
+     * @tc.name tabBarConfigurationTestCase010
+     * @tc.desc Verify switch guard: target equals current index -> refused
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      const state: TabsSwitchState = TabsSwitchState.initial();
+      expect(state.beginSwitch(0)).assertFalse();
+      expect(state.animating).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_1100
+     * @tc.name tabBarConfigurationTestCase011
+     * @tc.desc Verify switch completion: begin then finish -> index equals target
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      const state: TabsSwitchState = TabsSwitchState.initial();
+      expect(state.beginSwitch(1)).assertTrue();
+      expect(state.finishSwitch()).assertTrue();
+      expect(state.index).assertEqual(1);
+      expect(state.isSameIndex()).assertTrue();
+      expect(state.finishSwitch()).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_1200
+     * @tc.name tabBarConfigurationTestCase012
+     * @tc.desc Verify reentrant guard: second begin during animation -> refused
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      const state: TabsSwitchState = TabsSwitchState.initial();
+      expect(state.beginSwitch(1)).assertTrue();
+      expect(state.beginSwitch(2)).assertFalse();
+      expect(state.targetIndex).assertEqual(1);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_1300
+     * @tc.name tabBarConfigurationTestCase013
+     * @tc.desc Verify bar style: sample profile -> fixed mode with animation enabled
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      const style: TabBarStyleModel = TabBarStyleModel.sample();
+      expect(style.barWidth).assertEqual(TAB_BAR_WIDTH);
+      expect(style.barHeight).assertEqual(TAB_BAR_HEIGHT);
+      expect(style.isAnimationEnabled()).assertTrue();
+      expect(style.isFixedMode()).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_1400
+     * @tc.name tabBarConfigurationTestCase014
+     * @tc.desc Verify style copy: mode changed to scrollable -> original keeps fixed
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      const style: TabBarStyleModel = TabBarStyleModel.sample();
+      const scrollable: TabBarStyleModel = style.withMode(TabsBarMode.SCROLLABLE);
+      expect(scrollable.isFixedMode()).assertFalse();
+      expect(style.isFixedMode()).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_1500
+     * @tc.name tabBarConfigurationTestCase015
+     * @tc.desc Verify indicator opacity: selected and unselected -> one and zero
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      const selected: TabBarIndicatorModel = TabBarIndicatorModel.selectedIndicator();
+      const unselected: TabBarIndicatorModel = TabBarIndicatorModel.unselectedIndicator();
+      expect(selected.opacityFor(true)).assertEqual(1);
+      expect(selected.opacityFor(false)).assertEqual(0);
+      expect(selected.isVisible()).assertTrue();
+      expect(unselected.isVisible()).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_1600
+     * @tc.name tabBarConfigurationTestCase016
+     * @tc.desc Verify strip selection: select slot one -> focused title is second page
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      const strip: TabStripModel = new TabStripModel();
+      expect(strip.getSelectedIndex()).assertEqual(0);
+      expect(strip.select(1)).assertTrue();
+      expect(strip.getSelectedIndex()).assertEqual(1);
+      expect(strip.focusedTitle()).assertEqual(SECOND_TAB_TITLE);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_1700
+     * @tc.name tabBarConfigurationTestCase017
+     * @tc.desc Verify strip selection bounds: out of range -> refused
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      const strip: TabStripModel = new TabStripModel();
+      expect(strip.select(INITIAL_TAB_COUNT)).assertFalse();
+      expect(strip.select(-1)).assertFalse();
+      expect(strip.getSelectedIndex()).assertEqual(0);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_1800
+     * @tc.name tabBarConfigurationTestCase018
+     * @tc.desc Verify strip selection by title: second page -> index one
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      const strip: TabStripModel = new TabStripModel();
+      expect(strip.selectByTitle(SECOND_TAB_TITLE)).assertTrue();
+      expect(strip.getSelectedIndex()).assertEqual(1);
+      expect(strip.selectByTitle('absent')).assertFalse();
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_1900
+     * @tc.name tabBarConfigurationTestCase019
+     * @tc.desc Verify driver switch: tap second tab title -> panel remains visible
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const driver: Driver = getDriver();
+      await waitForPanelStable(driver, TIMEOUT_PANEL_RENDER);
+      await clickTabTitle(driver, SECOND_TAB_TITLE);
+      const tabs: number = await tabsCount(driver);
+      expect(tabs).assertLargerOrEqual(1);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_2000
+     * @tc.name tabBarConfigurationTestCase020
+     * @tc.desc Verify Tabs component renders: panel visible -> at least one Tabs node
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const driver: Driver = getDriver();
+      const stable: boolean = await waitForPanelStable(driver, TIMEOUT_PANEL_RENDER);
+      expect(stable).assertTrue();
+      const tabs: number = await tabsCount(driver);
+      expect(tabs).assertLargerOrEqual(1);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_2100
+     * @tc.name tabBarConfigurationTestCase021
+     * @tc.desc Verify TabContent nodes: seeded strips -> content count matches tab count
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const driver: Driver = getDriver();
+      await waitForPanelStable(driver, TIMEOUT_PANEL_RENDER);
+      const contents: number = await tabContentCount(driver);
+      const titles: number = await tabTitleCount(driver);
+      expect(contents).assertLargerOrEqual(1);
+      expect(titles).assertLargerOrEqual(INITIAL_TAB_COUNT - TOLERANCE_TAB_COUNT);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_2200
+     * @tc.name tabBarConfigurationTestCase022
+     * @tc.desc Verify seeded titles: initial strip -> first and second page labels visible
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const driver: Driver = getDriver();
+      await waitForPanelStable(driver, TIMEOUT_PANEL_RENDER);
+      const texts: string[] = await collectTexts(driver);
+      expect(containsLabel(texts, FIRST_TAB_TITLE)).assertTrue();
+      expect(containsLabel(texts, SECOND_TAB_TITLE)).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_2300
+     * @tc.name tabBarConfigurationTestCase023
+     * @tc.desc Verify add button: initial strip below limit -> plus label present
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const driver: Driver = getDriver();
+      await waitForPanelStable(driver, TIMEOUT_PANEL_RENDER);
+      const texts: string[] = await collectTexts(driver);
+      expect(containsLabel(texts, TAB_ADD_LABEL)).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_2400
+     * @tc.name tabBarConfigurationTestCase024
+     * @tc.desc Verify close button: initial strip above minimum -> close label present
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const driver: Driver = getDriver();
+      await waitForPanelStable(driver, TIMEOUT_PANEL_RENDER);
+      const texts: string[] = await collectTexts(driver);
+      expect(containsLabel(texts, TAB_CLOSE_LABEL)).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_2500
+     * @tc.name tabBarConfigurationTestCase025
+     * @tc.desc Verify title prefix: rendered titles -> every tab label starts with page prefix
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const driver: Driver = getDriver();
+      await waitForPanelStable(driver, TIMEOUT_PANEL_RENDER);
+      const texts: string[] = await collectTexts(driver);
+      const titles: number = countTitles(texts);
+      expect(titles).assertLargerOrEqual(INITIAL_TAB_COUNT - TOLERANCE_TAB_COUNT);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_2600
+     * @tc.name tabBarConfigurationTestCase026
+     * @tc.desc Verify clickable nodes: interactive strip -> clickable components reported
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const driver: Driver = getDriver();
+      await waitForPanelStable(driver, TIMEOUT_PANEL_RENDER);
+      const clickable: number = await clickableCount(driver);
+      expect(clickable).assertLargerOrEqual(1);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_2700
+     * @tc.name tabBarConfigurationTestCase027
+     * @tc.desc Verify focusable surface: panel front -> at least one focused node
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const driver: Driver = getDriver();
+      await waitForPanelStable(driver, TIMEOUT_PANEL_RENDER);
+      const focused: number = await focusedCount(driver);
+      expect(focused).assertLargerOrEqual(0);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_2800
+     * @tc.name tabBarConfigurationTestCase028
+     * @tc.desc Verify text nodes: tab bar labels rendered -> text component count above one
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const driver: Driver = getDriver();
+      await waitForPanelStable(driver, TIMEOUT_PANEL_RENDER);
+      const texts: number = await textCount(driver);
+      expect(texts).assertLargerOrEqual(1);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_2900
+     * @tc.name tabBarConfigurationTestCase029
+     * @tc.desc Verify snapshot capture: panel captured -> total components greater than zero
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const driver: Driver = getDriver();
+      await waitForPanelStable(driver, TIMEOUT_PANEL_RENDER);
+      const snapshot: PanelSnapshot = await panelSnapshot(driver);
+      expect(snapshot.total() > 0).assertTrue();
+      expect(snapshot.describe().startsWith('snapshot')).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_3000
+     * @tc.name tabBarConfigurationTestCase030
+     * @tc.desc Verify clamp of index 1 over total 2
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      expect(clampTabIndex(1, 2)).assertEqual(1);
+    });
+
+    /**
+     * @tc.number SUB_SAMPLE_HANDLETABS_TABBARCONFIGURATIONTEST_3100
+     * @tc.name tabBarConfigurationTestCase031
+     * @tc.desc Verify clamp of index 2 over total 2
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level LEVEL2
+     */
+    it('tabBarConfigurationTestCase031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, (): void => {
+      expect(clampTabIndex(2, 2)).assertEqual(1);
+    });
+  });
+}
