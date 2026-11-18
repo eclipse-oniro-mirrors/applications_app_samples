@@ -23,6 +23,7 @@ import windowRatioPageUiTest from './PageUi.test';
 import ratioOfIndexTest from './logic/RatioOfIndex.test';
 import ratioLabelOfIndexTest from './logic/RatioLabelOfIndex.test';
 import sizeTextOfTest from './logic/SizeTextOf.test';
+import sizeTextOf2Test from './logic/SizeTextOf2.test';
 import heightForWidthTest from './logic/HeightForWidth.test';
 import heightForWidth2Test from './logic/HeightForWidth2.test';
 import heightForWidth3Test from './logic/HeightForWidth3.test';
@@ -39,6 +40,7 @@ import sizeSummaryOfTest from './logic/SizeSummaryOf.test';
 import sizeSummaryOf2Test from './logic/SizeSummaryOf2.test';
 import sizeSummaryOf3Test from './logic/SizeSummaryOf3.test';
 import sizeSummaryOf4Test from './logic/SizeSummaryOf4.test';
+import matchesRatioTest from './logic/MatchesRatio.test';
 import indexOfLabelTest from './logic/IndexOfLabel.test';
 import ratioPageStateCtorTest from './logic/RatioPageStateCtor.test';
 import ratioPageStateSelectTest from './logic/RatioPageStateSelect.test';
@@ -56,6 +58,7 @@ import ratioPageStateFlow4Test from './logic/RatioPageStateFlow4.test';
 import ratioPageStateFlow5Test from './logic/RatioPageStateFlow5.test';
 import ratioPageStateFlow6Test from './logic/RatioPageStateFlow6.test';
 import ratioPageStateFlow7Test from './logic/RatioPageStateFlow7.test';
+import windowRatioLogicConstantsTest from './logic/WindowRatioLogicConstants.test';
 
 export default function testsuite() {
   // Yield between cases so the main EventHandler can service watchdog tasks.
@@ -71,6 +74,7 @@ export default function testsuite() {
   ratioOfIndexTest();
   ratioLabelOfIndexTest();
   sizeTextOfTest();
+  sizeTextOf2Test();
   heightForWidthTest();
   heightForWidth2Test();
   heightForWidth3Test();
@@ -87,6 +91,7 @@ export default function testsuite() {
   sizeSummaryOf2Test();
   sizeSummaryOf3Test();
   sizeSummaryOf4Test();
+  matchesRatioTest();
   indexOfLabelTest();
   ratioPageStateCtorTest();
   ratioPageStateSelectTest();
@@ -104,4 +109,5 @@ export default function testsuite() {
   ratioPageStateFlow5Test();
   ratioPageStateFlow6Test();
   ratioPageStateFlow7Test();
+  windowRatioLogicConstantsTest();
 }
