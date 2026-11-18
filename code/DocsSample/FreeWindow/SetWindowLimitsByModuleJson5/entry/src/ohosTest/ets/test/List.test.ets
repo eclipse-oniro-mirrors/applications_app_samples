@@ -13,7 +13,11 @@
  * limitations under the License.
  */
 import abilityTest from './Ability.test';
+import apiTest from './WindowLimitsModuleJsonApi.test';
+import uiTest from './WindowLimitsModuleJsonUi.test';
 
 export default function testsuite() {
   abilityTest();
+  apiTest();
+  uiTest();
 }
