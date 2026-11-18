@@ -47,7 +47,7 @@ try {
   });
   } catch (err) {
   let error = err as BusinessError;
-  hilog.error(0x0000, 'testTag', createNetConnection failed, code: ${error.code}, message: ${error.message});
+  hilog.error(0x0000, 'testTag', `createNetConnection failed, code: ${error.code}, message: ${error.message}`);
   }
   // [End monitor_default_network_change]
 }
@@ -120,7 +120,7 @@ try {
   netConnection = connection.createNetConnection();
 } catch (err) {
   let error = err as BusinessError;
-  hilog.error(0x0000, 'testTag', createNetConnection failed, code: ${error.code}, message: ${error.message});
+  hilog.error(0x0000, 'testTag', `createNetConnection failed, code: ${error.code}, message: ${error.message}`);
 }
   // 网络切换会导致网络发生中断，原socket失效，故需重新建立socket。
   netConnection?.on('netAvailable', (netHandle: connection.NetHandle) => {
