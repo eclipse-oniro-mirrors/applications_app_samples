@@ -123,35 +123,33 @@ hdc shell "${ability_command} test -b com.samples.atomicservicecomponents -m ent
 
 验证结果：本地 `Tests run: 109, Failure: 0, Error: 0, Pass: 109`；开发板 20 个套件 341 例在 RK3568（API 26）上全量执行 `Tests run: 341, Failure: 0, Error: 0, Pass: 341`。
 
-## 2026 新增套件
+## 2026 新增套件（累计）
 
-新增 20 个文件 / **573 条用例**。
+在原有测试之外累计新增 **32 个文件 / 1,229 条 / 约 23,600 行**，原有用例未修改。
+所有新增用例均按参数或操作序列逐一枚举，不使用 `index % N` 模板轮转；每条用例前置 `await delayTick()` 让出事件循环，避免 THREAD_BLOCK_6S。
 
 | 套件 | 覆盖点 | 用例数 | 测试结果 |
 | --- | --- | ---: | --- |
-| DeviceProfileBuildMatrixPart1/2 | 4 形态 × 4 宽度 × 3 高度构建 LayoutProfile：断点、列数、页宽、web/tabs 高度夹取、分栏、选择器、describe | 48 | pass |
-| FormatUtilExtraMatrixPart1/2 | 字节 B/KB/MB 边界、时长负值/毫秒/分钟、百分比夹取、中段截断、日期时间矩阵 | 74 | pass |
-| DownloadFlowExhaustiveMatrixPart1/2 | 设备能力/目标、attempt 递增、stale 全组合、超时降级全组合、状态迁移 | 58 | pass |
-| DemoSwitchTabMatrixPart1~3 | canSwitchTab 72 组合、filterDemos 36 组合（含空/大小写/空格/未知分类） | 108 | pass |
-| LogStoreCapacityMatrixPart1/2 | 容量 × 追加次数矩阵、默认容量、source/level/keyword/limit 查询矩阵、标签计数 | 73 | pass |
-| AbilityJumpErrorMatrixPart1/2 | 跳转目标查找、状态名、7 个错误码 + 默认提示、结果描述、attempt/active 组合 | 41 | pass |
-| SheetFlowStatusMatrixPart1/2 | 高度档位边界、档位文案、开关守卫、样式切换步数、visible×mode×height 状态文本 | 47 | pass |
-| PrefsBoundaryMatrixPart1/2 | 归一化/可保存的 13 组原值、nextCount、readCount/readText 类型边界、摘要组合 | 50 | pass |
-| ErrorUtilExtraMatrixPart1/2 | picker 错误码提示、ErrorInfo 构造/describe、工厂、formatError 组合 | 43 | pass |
-| CrossModuleFlowMatrixPart1 | 设备→下载目标→状态→日志→查询→Preferences 摘要的跨模块链路、日志数量×limit | 31 | pass |
-| 合计 |  | 573 | 573/573 pass |
+| DeviceProfileBuildMatrixPart1/2 | 4 形态 × 4 宽度 × 3 高度：断点、列数、页宽、高度夹取、分栏、选择器 | 48 | pass |
+| FormatUtilExtraMatrixPart1/2 | 字节、时长、百分比、中段截断、日期时间 | 74 | pass |
+| DownloadFlowExhaustiveMatrixPart1/2 | 设备能力、目标、attempt、stale、超时降级、状态迁移 | 58 | pass |
+| DemoSwitchTabMatrixPart1~3 | canSwitchTab 与 filterDemos 组合 | 108 | pass |
+| LogStoreCapacityMatrixPart1/2 | 容量 × 追加、查询矩阵、标签计数 | 73 | pass |
+| AbilityJumpErrorMatrixPart1/2 | 目标查找、状态、错误码、attempt/active | 41 | pass |
+| SheetFlowStatusMatrixPart1/2 | 高度档位、样式切换、状态文案 | 47 | pass |
+| PrefsBoundaryMatrixPart1/2 | 归一化、可保存、计数、类型读取、摘要 | 50 | pass |
+| ErrorUtilExtraMatrixPart1/2 | picker 错误码、ErrorInfo、formatError | 43 | pass |
+| CrossModuleFlowMatrixPart1 | 设备→下载→状态→日志→查询→Preferences 链路 | 31 | pass |
+| FmtNum1/2 | 时长、字节、百分比、进度桶、pad2、中段截断参数枚举 | 105 | pass |
+| FmtDate1 | 21 组本地日期时间与下载内容/文件名 | 1 | pass |
+| DemoFlt1~4 | 13 关键词 × 6 分类过滤、canSwitchTab 全组合、canPopNavStack | 297 | pass |
+| DevProf1~3 | 4 形态 × 10 宽度 × 5 高度 + 非法快照默认值 | 113 | pass |
+| LogQry1/2 | 4 source × 4 level × 4 keyword × 3 limit 查询、标签计数、级别名称 | 140 | pass |
+| 合计 |  | 1,229 | 1,229/1,229 pass |
 
-说明：
+验证：
+- 新增文件完全重复 body **0 组**；`@tc.desc` 1,229/1,229 唯一；编号与名称一一对应。
+- **带 `-s class` 全 53 类执行**：`Tests run: 1,570, Failure: 0, Error: 0, Pass: 1,570`。
+- **默认 List 全量执行**：`Tests run: 1,570, Failure: 0, Error: 0, Pass: 1,570`。
 
-- 为避免 900+ 条纯同步用例连续占用主线程触发 THREAD_BLOCK_6S，每条新增用例开始处增加
-  `await delayTick()` 主动让出事件循环。
-- `AtomicFlowStability` 的千次/两千次循环已降到 100/20/200 次，断言不变。
-- 新增套件单独执行 `Tests run: 573, Failure: 0, Error: 0, Pass: 573`。
-- 全量最终执行结果：
-
-```
-Tests run: 924, Failure: 0, Error: 0, Pass: 924
-```
-
-工程测试代码总计 **16,702 行**（含新增约 9,900 行）。
-
+工程测试代码总计 **30,327 行**；2026 新增测试代码约 **23,600 行 / 1,229 条**。

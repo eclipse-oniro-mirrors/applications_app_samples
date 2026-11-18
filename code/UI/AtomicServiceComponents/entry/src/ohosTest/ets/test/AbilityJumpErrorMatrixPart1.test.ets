@@ -460,6 +460,7 @@ export default function AbilityJumpErrorMatrixPart1Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testJumpAttempt0028 begin');
       await delayTick();
       expect(beginAttempt(-1)).assertEqual(0);
+      expect(isActiveAttempt(-1, 0)).assertEqual(false);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testJumpAttempt0028 end');
     })
 
@@ -475,6 +476,7 @@ export default function AbilityJumpErrorMatrixPart1Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testJumpAttempt0029 begin');
       await delayTick();
       expect(beginAttempt(0)).assertEqual(1);
+      expect(isActiveAttempt(0, 1)).assertEqual(false);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testJumpAttempt0029 end');
     })
 
@@ -490,6 +492,7 @@ export default function AbilityJumpErrorMatrixPart1Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testJumpAttempt0030 begin');
       await delayTick();
       expect(beginAttempt(1)).assertEqual(2);
+      expect(isActiveAttempt(1, 2)).assertEqual(false);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testJumpAttempt0030 end');
     })
 
@@ -505,6 +508,7 @@ export default function AbilityJumpErrorMatrixPart1Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testJumpAttempt0031 begin');
       await delayTick();
       expect(beginAttempt(99)).assertEqual(100);
+      expect(isActiveAttempt(99, 100)).assertEqual(false);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testJumpAttempt0031 end');
     })
 
@@ -520,6 +524,7 @@ export default function AbilityJumpErrorMatrixPart1Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testJumpAttempt0032 begin');
       await delayTick();
       expect(beginAttempt(1000)).assertEqual(1001);
+      expect(isActiveAttempt(1000, 1001)).assertEqual(false);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testJumpAttempt0032 end');
     })
 
