@@ -48,12 +48,12 @@ interface RecordingHistoryChange {
 }
 
 class RecordingHistoryStore {
-  entries: RecordingHistoryEntry[] = [];
-  prefs: preferences.Preferences | undefined = undefined;
-  loaded: boolean = false;
-  pending: RecordingHistoryChange[] = [];
-  recoverySnapshot: string | undefined = undefined;
-  recoveryKey: string = '';
+  public entries: RecordingHistoryEntry[] = [];
+  public prefs: preferences.Preferences | undefined = undefined;
+  public loaded: boolean = false;
+  public pending: RecordingHistoryChange[] = [];
+  public recoverySnapshot: string | undefined = undefined;
+  public recoveryKey: string = '';
 }
 
 export class RecordingHistoryModel {

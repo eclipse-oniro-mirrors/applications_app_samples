@@ -2495,3 +2495,7 @@ The save sheet close button, Back action and dismiss gesture cancel recording st
 | HAP build and signing | Pass |
 
 See [test cases and results](ohosTest.md) and [verification instructions](tests/README.md) for scope and commands. The build still reports existing warnings.
+
+## Contributing
+
+Follow the [code and documentation guidelines](CONTRIBUTING.md) for function size, explicit lambda captures, ArkTS member visibility, terminology and validation.

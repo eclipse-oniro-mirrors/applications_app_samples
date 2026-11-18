@@ -39,8 +39,7 @@ void Require(bool condition, const char *message)
     }
 }
 
-void TestTailWorkers(TailAction action, bool synchronous)
-{
+struct TailPlaybackContext {
     PlayerStateMachine state;
     VideoFramePacer pacer;
     AudioPipeline audio;
@@ -53,78 +52,121 @@ void TestTailWorkers(TailAction action, bool synchronous)
     std::atomic<int> outputEos {0};
     std::atomic<int> remainingVideo {0};
     std::atomic<int> wrongMode {0};
-    Require(state.BeginInitialization() && state.MarkReady() && state.BeginPlayback(), "Start playback state");
-    const auto origin = VideoFramePacer::Clock::now();
-    Require(pacer.Deadline(FIRST_TAIL_PTS_US, 1.0, origin) == origin, "Anchor the tail frame clock");
-    const PipelineWorkers::Worker audioInput = [&]() { inputEos.fetch_add(1); };
-    const PipelineWorkers::Worker audioOutput = [&]() {
-        std::unique_lock<std::mutex> lock(mutex);
-        atTail = true;
-        changed.notify_all();
-        Require(changed.wait_for(lock, WAIT_LIMIT, [&]() { return proceed; }), "Audio worker must be released");
-        if (state.GetState() != PLAYER_STATE_STOPPING) {
-            outputEos.fetch_add(1);
+};
+
+PipelineWorkers::Worker CreateStopHandler(TailPlaybackContext &context)
+{
+    return [&context]() {
+        context.state.BeginStop();
+        std::lock_guard<std::mutex> lock(context.mutex);
+        context.proceed = true;
+        context.changed.notify_all();
+    };
+}
+
+void StartTailWorkers(TailPlaybackContext &context, bool synchronous)
+{
+    const PipelineWorkers::Worker audioInput = [&context]() { context.inputEos.fetch_add(1); };
+    const PipelineWorkers::Worker audioOutput = [&context]() {
+        std::unique_lock<std::mutex> lock(context.mutex);
+        context.atTail = true;
+        context.changed.notify_all();
+        Require(context.changed.wait_for(lock, WAIT_LIMIT, [&context]() { return context.proceed; }),
+            "Audio worker must be released");
+        if (context.state.GetState() != PLAYER_STATE_STOPPING) {
+            context.outputEos.fetch_add(1);
         }
     };
-    const PipelineWorkers::Worker unusedMode = [&]() { wrongMode.fetch_add(1); };
-    const PipelineWorkers::Worker inputWorker = [&]() {
-        std::unique_lock<std::mutex> lock(mutex);
-        Require(changed.wait_for(lock, WAIT_LIMIT, [&]() { return proceed; }), "Video input must be released");
+    const PipelineWorkers::Worker unusedMode = [&context]() { context.wrongMode.fetch_add(1); };
+    const PipelineWorkers::Worker inputWorker = [&context]() {
+        std::unique_lock<std::mutex> lock(context.mutex);
+        Require(context.changed.wait_for(lock, WAIT_LIMIT, [&context]() { return context.proceed; }),
+            "Video input must be released");
     };
-    const PipelineWorkers::Worker outputWorker = [&]() {
-        std::unique_lock<std::mutex> lock(mutex);
-        Require(changed.wait_for(lock, WAIT_LIMIT, [&]() { return proceed; }), "Video output must be released");
-        if (state.GetState() != PLAYER_STATE_STOPPING) {
-            remainingVideo.fetch_add(1);
+    const PipelineWorkers::Worker outputWorker = [&context]() {
+        std::unique_lock<std::mutex> lock(context.mutex);
+        Require(context.changed.wait_for(lock, WAIT_LIMIT, [&context]() { return context.proceed; }),
+            "Video output must be released");
+        if (context.state.GetState() != PLAYER_STATE_STOPPING) {
+            context.remainingVideo.fetch_add(1);
         }
     };
-    const auto stopOnFailure = [&]() {
-        state.BeginStop();
-        std::lock_guard<std::mutex> lock(mutex);
-        proceed = true;
-        changed.notify_all();
-    };
-    Require(audio.Start({synchronous, synchronous ? audioInput : unusedMode,
+    const auto stopOnFailure = CreateStopHandler(context);
+    Require(context.audio.Start({synchronous, synchronous ? audioInput : unusedMode,
         synchronous ? audioOutput : unusedMode, synchronous ? unusedMode : audioInput,
         synchronous ? unusedMode : audioOutput, stopOnFailure}), "Start audio workers");
-    Require(video.Start({synchronous, synchronous ? inputWorker : unusedMode,
+    Require(context.video.Start({synchronous, synchronous ? inputWorker : unusedMode,
         synchronous ? outputWorker : unusedMode, synchronous ? unusedMode : inputWorker,
         synchronous ? unusedMode : outputWorker, stopOnFailure}), "Start video workers");
-    {
-        std::unique_lock<std::mutex> lock(mutex);
-        Require(changed.wait_for(lock, WAIT_LIMIT, [&]() { return atTail; }), "Reach the audio tail barrier");
-        if (action == TailAction::PAUSE) {
-            Require(state.BeginPause(), "Pause at the tail");
-            Require(!state.BeginPause() && remainingVideo == 0 && outputEos == 0, "Pause does not finish workers");
-            Require(state.BeginResume(), "Resume the tail");
-        } else if (action == TailAction::SEEK || action == TailAction::TRACK_SWITCH) {
-            Require(state.BeginSeek() && !state.BeginSeek(), "Serialize seek and track rebuild transitions");
-            Require(state.CompleteSeek(), "Complete the rebuild before resuming");
-        } else if (action == TailAction::STOP) {
-            Require(state.BeginStop() && state.BeginStop() && !state.BeginSeek(), "Stop supersedes seek");
-        }
-        if (action != TailAction::COMPLETE) {
-            pacer.SetRevision(1);
-            const auto resumed = origin + WAIT_LIMIT;
-            Require(pacer.Deadline(FIRST_TAIL_PTS_US, 1.0, resumed) == resumed, "Reset timing after interruption");
-            Require(pacer.Deadline(FIRST_TAIL_PTS_US + TAIL_STEP_US, 1.0, resumed) == resumed + FRAME_INTERVAL,
-                "Tail timing does not include the interruption");
-        }
-        proceed = true;
-        changed.notify_all();
+}
+
+void ApplyTailAction(TailPlaybackContext &context, TailAction action)
+{
+    auto &state = context.state;
+    if (action == TailAction::PAUSE) {
+        Require(state.BeginPause(), "Pause at the tail");
+        Require(!state.BeginPause() && context.remainingVideo == 0 && context.outputEos == 0,
+            "Pause does not finish workers");
+        Require(state.BeginResume(), "Resume the tail");
+    } else if (action == TailAction::SEEK || action == TailAction::TRACK_SWITCH) {
+        Require(state.BeginSeek() && !state.BeginSeek(), "Serialize seek and track rebuild transitions");
+        Require(state.CompleteSeek(), "Complete the rebuild before resuming");
+    } else if (action == TailAction::STOP) {
+        Require(state.BeginStop() && state.BeginStop() && !state.BeginSeek(), "Stop supersedes seek");
     }
-    audio.Join();
-    video.Join();
-    Require(!audio.HasThreads() && !video.HasThreads(), "All pipeline workers must exit");
-    Require(inputEos == 1 && wrongMode == 0, "Dispatch each input worker once in the selected mode");
+}
+
+void ReleaseTailWorkers(TailPlaybackContext &context, TailAction action, VideoFramePacer::Clock::time_point origin)
+{
+    std::unique_lock<std::mutex> lock(context.mutex);
+    Require(context.changed.wait_for(lock, WAIT_LIMIT, [&context]() { return context.atTail; }),
+        "Reach the audio tail barrier");
+    ApplyTailAction(context, action);
+    if (action != TailAction::COMPLETE) {
+        context.pacer.SetRevision(1);
+        const auto resumed = origin + WAIT_LIMIT;
+        Require(context.pacer.Deadline(FIRST_TAIL_PTS_US, 1.0, resumed) == resumed, "Reset timing after interruption");
+        Require(context.pacer.Deadline(FIRST_TAIL_PTS_US + TAIL_STEP_US, 1.0, resumed) == resumed + FRAME_INTERVAL,
+            "Tail timing does not include the interruption");
+    }
+    context.proceed = true;
+    context.changed.notify_all();
+}
+
+void VerifyTailWorkers(TailPlaybackContext &context, TailAction action)
+{
+    context.audio.Join();
+    context.video.Join();
+    Require(!context.audio.HasThreads() && !context.video.HasThreads(), "All pipeline workers must exit");
+    Require(context.inputEos == 1 && context.wrongMode == 0, "Dispatch each input worker once in the selected mode");
     const int expected = action == TailAction::STOP ? 0 : 1;
-    Require(outputEos == expected && remainingVideo == expected, "Each active tail worker finishes once");
+    Require(context.outputEos == expected && context.remainingVideo == expected,
+        "Each active tail worker finishes once");
+}
+
+void TestReplay(TailPlaybackContext &context)
+{
+    auto &state = context.state;
     Require(state.BeginStop() && state.CompleteStop() && !state.CompleteStop(), "Complete stop exactly once");
-    const auto replayInput = [&]() { inputEos.fetch_add(1); };
+    const auto replayInput = [&context]() { context.inputEos.fetch_add(1); };
     Require(state.BeginInitialization() && state.MarkReady() && state.BeginPlayback(), "Replay starts a new state");
-    Require(audio.Start({true, replayInput, replayInput, {}, {}, stopOnFailure}), "Restart released pipeline");
-    audio.Join();
-    Require(!audio.HasThreads(), "Replay workers also exit");
+    Require(context.audio.Start({true, replayInput, replayInput, {}, {}, CreateStopHandler(context)}),
+        "Restart released pipeline");
+    context.audio.Join();
+    Require(!context.audio.HasThreads(), "Replay workers also exit");
+}
+
+void TestTailWorkers(TailAction action, bool synchronous)
+{
+    TailPlaybackContext context;
+    Require(context.state.BeginInitialization() && context.state.MarkReady() && context.state.BeginPlayback(),
+        "Start playback state");
+    const auto origin = VideoFramePacer::Clock::now();
+    Require(context.pacer.Deadline(FIRST_TAIL_PTS_US, 1.0, origin) == origin, "Anchor the tail frame clock");
+    StartTailWorkers(context, synchronous);
+    ReleaseTailWorkers(context, action, origin);
+    VerifyTailWorkers(context, action);
+    TestReplay(context);
 }
 } // namespace
 
