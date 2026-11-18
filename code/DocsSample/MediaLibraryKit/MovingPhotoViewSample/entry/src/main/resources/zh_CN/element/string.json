@@ -1,0 +1,56 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "动态照片示例入口"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "动态照片示例"
+    },
+    {
+      "name": "loading_moving_photo",
+      "value": "正在加载动态照片..."
+    },
+    {
+      "name": "context_undefined",
+      "value": "获取上下文失败"
+    },
+    {
+      "name": "moving_photo_loaded",
+      "value": "动态照片已加载，长按可播放"
+    },
+    {
+      "name": "moving_photo_load_failed",
+      "value": "加载动态照片失败"
+    },
+    {
+      "name": "play_button",
+      "value": "PLAY"
+    },
+    {
+      "name": "stop_button",
+      "value": "STOP"
+    },
+    {
+      "name": "playback_started",
+      "value": "开始播放"
+    },
+    {
+      "name": "playback_stopped",
+      "value": "停止播放"
+    },
+    {
+      "name": "mute_button",
+      "value": "静音"
+    },
+    {
+      "name": "unmute_button",
+      "value": "取消静音"
+    }
+  ]
+}

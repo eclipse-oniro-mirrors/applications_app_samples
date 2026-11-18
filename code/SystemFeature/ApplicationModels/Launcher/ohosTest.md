@@ -1,15 +1,61 @@
-# FileManager 测试用例归档
+# Launcher 测试用例说明
 
-## 用例表
+## 测试环境
 
-|测试功能|预置条件|输入|预期输出|是否自动|测试结果|
-|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
-|不同页面的滑动切换| 位于Launcher第一页 | 向左与向右滑动 |回到Launcher第一页|是|Pass|
-|添加服务卡片| 已安装相机应用 | 长按相机图标，在弹出的菜单中，点击“服务卡片” |将相机服务卡片添加到Launcher|是|Pass|
-|卸载预置应用| 已安装相机应用 | 长按相机图标，在弹出的菜单中，点击“卸载” | 弹出确认卸载弹框，卸载按钮正常点击 |是|Pass|
-|通过Launcher打开不同应用| 位于Launcher第一页 | 点击不同应用的图标 | 正常打开对应的应用 |是|Pass|
-|清除近期任务| 位于Launcher第一页 | 在Launcher空白处上滑，点击底部清理图标 | 近期任务列表被成功清除 |是|Pass|
-|启动上一次的组件实例 | 已安装startRecent应用 | 点击应用图标打开应用，点击home键，再次点击应用图标 | 把上次打开的Ability实例拉到前台，不会新建Ability实例 |是|Pass|
-|启动上一次的组件实例 | 已安装startRecent应用 | 长按应用图标打开菜单，点击“打开”启动应用，点击home键，再次长按应用图标打开菜单，点击“打开” | 将上次打开的Ability实例拉到前台，不会新建Ability实例 |是|Pass|
-|启动上一次的主组件实例 | 已安装startRecent应用 | 点击应用图标，点击EntryAbility中的"StartSingletonAbility"按钮，点击home键，再次点击应用图标 | 将上次打开的EntryAbility实例拉到前台，不会新建Ability实例，不会打开SecondAbility |是|Pass|
-|跨任务链返回 | 已安装crossChain应用 | 点击应用图标，点击按钮打开SecondAbility，点击back键 | 返回到EntryAbility上，而不是返回桌面 |是|Pass|
+- Bundle：`ohos.samples.launcher`
+- 测试模块：`entry_test`
+- 测试框架：`OpenHarmonyTestRunner`
+- SDK：API version 26.0.0
+
+## 自动化测试套件
+
+| 测试文件 | 用例数 |
+|---|---:|
+| `Ability.test.ets` | 3 |
+| `BaseLogic.test.ets` | 7 |
+| `BeanMatrixExtended.test.ets` | 30 |
+| `BeansExtended.test.ets` | 10 |
+| `BundleContract.test.ets` | 9 |
+| `CheckEmptyUtilsEdge.test.ets` | 8 |
+| `ConstantsExtended.test.ets` | 10 |
+| `DataSourceExtended.test.ets` | 10 |
+| `DataSourceListener.test.ets` | 8 |
+| `DesktopLayoutPosition.test.ets` | 10 |
+| `FormModelCache.test.ets` | 6 |
+| `GridLayoutData.test.ets` | 5 |
+| `GridLayoutItemInfoEdge.test.ets` | 10 |
+| `GridLayoutItemInfoParse.test.ets` | 13 |
+| `GridLayoutMatrixExtended.test.ets` | 30 |
+| `LauncherAbilityFinal.test.ets` | 50 |
+| `LauncherAbilityModelMatrix.test.ets` | 40 |
+| `LauncherAppInfoDeep.test.ets` | 40 |
+| `LauncherBundleDeep2.test.ets` | 50 |
+| `LauncherLaunchContract.test.ets` | 40 |
+| `LauncherModuleDeep.test.ets` | 40 |
+| `LauncherPermissionDeep2.test.ets` | 50 |
+| `LauncherPermissionModelMatrix.test.ets` | 30 |
+| `LauncherPlusBeanDeep.test.ets` | 45 |
+| `LauncherPlusBeans.test.ets` | 45 |
+| `LauncherPlusBundle.test.ets` | 60 |
+| `LauncherPlusBundleDeep.test.ets` | 60 |
+| `LauncherPlusCheckDeep.test.ets` | 60 |
+| `LauncherPlusConstants.test.ets` | 60 |
+| `LauncherPlusConstantsDeep.test.ets` | 60 |
+| `LauncherPlusEmpty.test.ets` | 60 |
+| `LauncherPlusEvents.test.ets` | 60 |
+| `LauncherPlusGrid.test.ets` | 45 |
+| `LauncherPlusGridDeep.test.ets` | 45 |
+| `LauncherServiceExtensionDeep.test.ets` | 40 |
+| `RdbContract.test.ets` | 5 |
+| `ResourceManagerAsync.test.ets` | 12 |
+| `ResourceManagerCache.test.ets` | 16 |
+
+合计：**38 个测试套件，1182 条用例**。
+
+> 以上用例数与 `List.test.ets` 中实际注册的套件和用例数一致。
+
+## 运行入口
+
+- 测试模块：`entry_test`
+- 测试运行器：`OpenHarmonyTestRunner`
+- 命令参数请参考 OpenHarmony 测试框架文档，按工程实际 bundleName 执行。
