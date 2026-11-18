@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-//[Start save the UIContext]
+// [Start save the UIContext]
 import { UIAbility } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import { fileIo } from '@kit.CoreFileKit';
@@ -32,7 +32,7 @@ export default class EntryAbility extends UIAbility {
 
       let mainWindow = windowStage.getMainWindowSync();
       if (mainWindow) {
-        // 保存UIContext， 在后续的同层渲染绘制中使用。
+        // 保存UIContext，在后续的同层渲染绘制中使用。
         AppStorage.setOrCreate<UIContext>('UIContext', mainWindow.getUIContext());
       } else {
         console.error('Failed to get the main window');
@@ -42,4 +42,4 @@ export default class EntryAbility extends UIAbility {
 
   // ... 其他需要重写的方法 ...
 }
-//[End save the UIContext]
+// [End save the UIContext]
