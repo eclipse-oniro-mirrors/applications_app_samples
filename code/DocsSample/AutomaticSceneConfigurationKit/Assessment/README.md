@@ -66,10 +66,6 @@ entry/src/main/ets/
 |---pages                                    // 页面，组合View组件并连接ViewModel
 |   |---IndexPage.ets                        // 主页面，通过AppStorageV2连接AssessmentViewModel，@Monitor监听回调事件
 |   |---ExamPage.ets                         // 答题页面，连接AssessmentViewModel与ExamViewModel，倒计时与中断处理
-|   |---BeginAssessment.ets                  // 文档代码片段：begin接口用法演示
-|   |---EndAssessment.ets                    // 文档代码片段：end接口用法演示
-|   |---ExamPageLifecycle.ets                // 文档代码片段：页面生命周期加固演示
-|   |---AssessmentHardening.ets              // 文档代码片段：ExamHardeningUtil定义
 entry/src/ohosTest/ets/test/
 |---Assessment.test.ets                      // isActive与getConfiguration接口用例
 |---AssessmentUi.test.ets                    // 主页面布局与交互的UI自动化用例
