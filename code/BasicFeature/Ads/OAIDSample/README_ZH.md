@@ -97,7 +97,7 @@ entry/src/main/ets/
 
 ### 测试
 
-本工程提供基于 Hypium 的自动化测试，位于 `entry/src/ohosTest`，共 899 条用例、27 个套件，
+本工程提供基于 Hypium 的自动化测试，位于 `entry/src/ohosTest`，共 901 条用例、28 个套件，
 覆盖 OAID 接口能力与 Want/BundleFlag/资源等通用系统 API 矩阵，
 详细套件说明与执行命令见 [ohosTest.md](ohosTest.md)。
 

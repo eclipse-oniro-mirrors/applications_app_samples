@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { beforeEachIt, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { tick } from '../util/TestTick';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Want } from '@kit.AbilityKit';
 import { uri } from '@kit.ArkTS';
@@ -23,6 +24,11 @@ const TAG: string = '[Sample_DynamicRouter]';
 
 export default function sampleWantUriMatrixTailTest(): void {
   describe('SampleWantUriMatrixTailTest', () => {
+    // 每 10 条用例让出一次主线程，避免整批串跑触发 THREAD_BLOCK_6S（见 util/TestTick.ets）
+    beforeEachIt(async () => {
+      await tick();
+    });
+
     /**
      * @tc.number    SUB_DYNAMIC_ROUTER_WANT_URI_0121
      * @tc.name      sampleWantUriMatrix0121

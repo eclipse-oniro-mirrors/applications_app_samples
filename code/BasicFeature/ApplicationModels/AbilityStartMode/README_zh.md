@@ -13,7 +13,7 @@
 |--------------------------------|--------------------------------|--------------------------------|--------------------------------|
 |![home](screenshots/devices/home.png)|![普通多实例Ability信息](screenshots/devices/standardAbilityMsg.png)|![单实例Ability信息](screenshots/devices/singletonAbilityMsg.png)|![指定多实例Ability信息](screenshots/devices/specifiedAbilityMsg.png)|
 
-使用说明
+### 使用说明
 
 1、standard模式：
 

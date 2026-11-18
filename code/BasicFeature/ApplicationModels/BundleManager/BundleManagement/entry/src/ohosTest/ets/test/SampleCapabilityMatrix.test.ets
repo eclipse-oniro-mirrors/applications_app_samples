@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { beforeEachIt, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { tick } from '../util/TestTick';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const DOMAIN: number = 0xF811;
@@ -21,6 +22,11 @@ const TAG: string = '[Sample_BundleManagement]';
 
 export default function sampleCapabilityMatrixTest(): void {
   describe('SampleCapabilityMatrixTest', () => {
+    // 每 10 条用例让出一次主线程，避免整批串跑触发 THREAD_BLOCK_6S（见 util/TestTick.ets）
+    beforeEachIt(async () => {
+      await tick();
+    });
+
     /**
      * @tc.number    SUB_BUNDLE_MGMT_CAPABILITY_0001
      * @tc.name      sampleCapabilityMatrix0001

@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, it, expect } from '@ohos/hypium';
+import { beforeEachIt, describe, it, expect } from '@ohos/hypium';
+import { tick } from '../util/TestTick';
 import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
 import Logger from '../../util/Logger';
@@ -31,6 +32,11 @@ async function getResourceString<T extends Resource>(resource: T): Promise<strin
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
+    // 每 10 条用例让出一次主线程，避免整批串跑触发 THREAD_BLOCK_6S（见 util/TestTick.ets）
+    beforeEachIt(async () => {
+      await tick();
+    });
+
     /**
      * 打开应用
      */

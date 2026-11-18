@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { beforeEachIt, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { tick } from '../util/TestTick';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { CategoryId } from '../../../main/ets/model/DataModels';
 
@@ -22,6 +23,11 @@ const TAG: string = '[Sample_StartMode]';
 
 export default function startModeCategoryMatrixTest(): void {
   describe('StartModeCategoryMatrixTest', () => {
+    // 每 10 条用例让出一次主线程，避免整批串跑触发 THREAD_BLOCK_6S（见 util/TestTick.ets）
+    beforeEachIt(async () => {
+      await tick();
+    });
+
     /**
      * @tc.number    SUB_START_MODE_CATEGORY_0001
      * @tc.name      startModeCategoryMatrix0001

@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { beforeEachIt, describe, expect, it } from '@ohos/hypium';
+import { tick } from '../util/TestTick';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { bundleManager } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
@@ -26,6 +27,11 @@ const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
+    // 每 10 条用例让出一次主线程，避免整批串跑触发 THREAD_BLOCK_6S（见 util/TestTick.ets）
+    beforeEachIt(async () => {
+      await tick();
+    });
+
     it('bundleMgmt_context_001', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'bundleMgmt_context_001 begin');
       const context = delegator.getAppContext();

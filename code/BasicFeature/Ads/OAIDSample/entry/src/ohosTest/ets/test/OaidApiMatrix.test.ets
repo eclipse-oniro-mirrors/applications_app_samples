@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { beforeEachIt, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { tick } from '../util/TestTick';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { identifier } from '@kit.AdsKit';
 import { abilityAccessCtrl, bundleManager } from '@kit.AbilityKit';
@@ -24,6 +25,11 @@ const TAG: string = '[Sample_OAID]';
 
 export default function oaidApiMatrixTest(): void {
   describe('OaidApiMatrixTest', () => {
+    // 每 10 条用例让出一次主线程，避免整批串跑触发 THREAD_BLOCK_6S（见 util/TestTick.ets）
+    beforeEachIt(async () => {
+      await tick();
+    });
+
     /**
      * @tc.number    SUB_OAID_API_0001
      * @tc.name      oaidApiMatrix0001

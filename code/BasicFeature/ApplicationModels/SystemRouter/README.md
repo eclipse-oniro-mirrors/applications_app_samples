@@ -1,90 +1,88 @@
-# Navigation系统路由
+# Navigation System Routing
 
-### 介绍
+### Introduction
 
-本项目提供系统路由的验证，运用系统路由表的方式，跳转到模块(HSP/HAR)的页面，可以不用配置不同跳转模块间的依赖。当发生页面跳转时，未跳转页面不会加载,
-已经加载过的页面不会再次加载。 解决了不同模块依赖耦合的问题，以及首页加载时间长的问题。
-详细配置可参考[系统路由表](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-navigation-navigation.md)。
+This project verifies the system routing table. With the system routing table, pages of modules (HSP/HAR) can be navigated to without configuring dependencies between the modules involved in the navigation. When a page navigation occurs, pages that are not navigated to are not loaded, and pages that have already been loaded are not loaded again. This resolves the coupling caused by module dependencies and the long home page loading time.
 
-由于环境的差异，不建议下载后直接编译，应先当创建项目，参考示例代码进行编写。
+For detailed configuration, see [system routing table](https://gitee.com/openharmony/docs/blob/master/en/application-dev/ui/arkts-navigation-navigation.md).
 
-### 效果预览
+Due to environment differences, it is not recommended to compile directly after downloading. Instead, create a project first and write code referring to the sample.
 
-<img src="./images/NavIndex.jpeg" width="200" height="360" /> 
+### Preview
 
-| EntryPageOne                                                     | EntryPageTwo                                                     | HarAPageOne                                                     | 
+<img src="./images/NavIndex.jpeg" width="200" height="360" />
+
+| EntryPageOne | EntryPageTwo | HarAPageOne |
 |------------------------------------------------------------------|------------------------------------------------------------------|-----------------------------------------------------------------|
 | <img src="./images/EntryPageOne.jpeg" width="200" height="360"/> | <img src="./images/EntryPageTwo.jpeg" width="200" height="360"/> | <img src="./images/HarAPageOne.jpeg" width="200" height="360"/> |
-| HarAPageTwo                                                      | HspAPageOne                                                      | HspAPageTwo                                                     |
-| <img src="./images/HarAPageTwo.jpeg" width="200" height="360"/>  | <img src="./images/HspAPageOne.jpeg" width="200" height="360"/>  | <img src="./images/HspAPageTwo.jpeg" width="200" height="360"/> |
+| HarAPageTwo | HspAPageOne | HspAPageTwo |
+| <img src="./images/HarAPageTwo.jpeg" width="200" height="360"/> | <img src="./images/HspAPageOne.jpeg" width="200" height="360"/> | <img src="./images/HspAPageTwo.jpeg" width="200" height="360"/> |
 
-使用说明
+### Usage
 
-1. 主页会提供一个NavIndex的导航页，点击按钮会跳转到不同的来自HAR和HSP包的页面
+1. The home page provides a NavIndex navigation page. Tapping the buttons navigates to different pages from the HAR and HSP packages.
 
-2. 每个HAR和HSP包的页面也存在跳转到别的页面的按钮
+2. Each page in the HAR and HSP packages also has buttons for navigating to other pages.
 
-### 工程目录
+### Project Directory
 
 ```
 ├──entry/src/main/ets/
 │  ├──common
 │  │  └──utils
-│  │     └──Logger.ets                          // 日志打印封装
+│  │     └──Logger.ets                          // Logging wrapper
 │  ├──entryability
-│  │  └──EntryAbility.ets                       // 程序入口  
+│  │  └──EntryAbility.ets                       // Entry point
 │  └──pages
-│     ├──EntryPageOne.ets                       // 页面1
-│     ├──EntryPageTwo.ets                       // 页面2
-│     └──Index.ets                              // 界面实现
-├──entry/src/main/resources                     // 应用资源目录
+│     ├──EntryPageOne.ets                       // Page 1
+│     ├──EntryPageTwo.ets                       // Page 2
+│     └──Index.ets                              // UI implementation
+├──entry/src/main/resources                     // Application resources
 ├──harA
 ├──harB
 ├──hspA
 └──hspB
 ```
 
-### 具体实现
+### Implementation
 
-1.创建hapA harA hspA hspB
+1. Create hapA, harA, hspA, and hspB.
 
-2.在跳转目标模块的配置文件[module.json5](entry/src/main/module.json5)添加路由表配置
+2. Add the routing table configuration to the configuration file [module.json5](entry/src/main/module.json5) of the target module.
 
-3.添加完路由配置文件地址后，需要在工程resources/base/profile中创建[route_map.json](entry/src/main/resources/base/profile/router_map.json)
-文件
+3. After adding the routing configuration file address, create the [route_map.json](entry/src/main/resources/base/profile/router_map.json) file in the project's resources/base/profile.
 
-4.在跳转目标页面中，需要配置入口Builder函数，函数名称需要和[route_map.json](entry/src/main/resources/base/profile/router_map.json)
-配置文件中的buildFunction保持一致。
+4. In the target page, configure an entry Builder function whose name matches the buildFunction in the [route_map.json](entry/src/main/resources/base/profile/router_map.json) configuration file.
 
-5.应用通过调用pushDestinationByName等方式，可以获取跳转目标页面的错误信息。
+5. By calling pushDestinationByName and similar APIs, the application can obtain the error information of the target page navigation.
 
-6.运行时需设置引用所有HSP模块。设置运行后，点击Run > entry来启动应用/服务的编译构建。
+6. At runtime, all HSP modules must be referenced. After setting this up, click Run > entry to build and launch the application.
 
-### 相关权限
+### Required Permissions
 
-不涉及
+N/A
 
-### 依赖
+### Dependencies
 
-不涉及。
+N/A
 
-### 约束与限制
+### Constraints
 
-1. 本示例仅支持标准系统上运行，支持设备：RK3568。
+1. This sample is supported only on standard systems. Supported device: RK3568.
 
-2. 本示例已适配 API 26 版本 SDK（compileSdkVersion 26.0.0），编译目标为 OpenHarmony。
+2. This sample is adapted to API version 26 SDK (compileSdkVersion 26.0.0), targeting OpenHarmony.
 
-3. 本示例需要使用 DevEco Studio 7.0 及以上版本才可编译运行。
+3. This sample must be compiled and run with DevEco Studio 7.0 or later.
 
-### 测试
+### Testing
 
-本工程提供基于 Hypium 的自动化测试，位于 `entry/src/ohosTest`，共 822 条用例、29 个套件，
-覆盖系统路由表（routerMap）、路由命名约定、NavPathStack 页面栈与跨 HSP 调用，
-详细套件说明与执行命令见 [ohosTest.md](ohosTest.md)。
+This project provides Hypium-based automated tests in `entry/src/ohosTest`, with 822 test cases in 29 suites in total,
+covering the system routing table (routerMap), routing naming conventions, the NavPathStack page stack, and cross-HSP calls.
+See [ohosTest.md](ohosTest.md) for detailed suite descriptions and execution commands.
 
-### 下载
+### Download
 
-如需单独下载本工程，执行如下命令：
+To download this project separately, run the following commands:
 
 ```
 git init

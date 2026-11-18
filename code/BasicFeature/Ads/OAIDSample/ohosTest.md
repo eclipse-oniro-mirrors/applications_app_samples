@@ -12,14 +12,15 @@
 
 ## 自动化测试
 
-本工程在 `entry/src/ohosTest/ets/test` 下提供基于 Hypium 的自动化用例，共 899 条、27 个套件：
-892 条覆盖通用系统 API，7 条覆盖 OAID 接口能力。
+本工程在 `entry/src/ohosTest/ets/test` 下提供基于 Hypium 的自动化用例，共 901 条、28 个套件：
+892 条覆盖通用系统 API，9 条覆盖 OAID 接口能力（含 Ability UI 冒烟 2 条）。
 
 ### OAID 专属套件
 
 | 套件 | 覆盖内容 | 用例数 |
 |---|---|---|
 | OaidApiMatrix | OAID 权限声明、包信息、OAID 字符串格式与重置后的状态校验 | 7 |
+| Ability（ActsAbilityTest） | 应用拉起、授权弹窗、Promise/callback 获取 OAID、重置 OAID 的 UI 冒烟 | 2 |
 
 ### 通用系统 API 套件
 

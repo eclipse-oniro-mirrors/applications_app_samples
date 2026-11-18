@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { beforeEachIt, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { tick } from '../util/TestTick';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { deviceInfo } from '@kit.BasicServicesKit';
@@ -23,6 +24,11 @@ const TAG: string = '[Sample_SystemRouter]';
 
 export default function sampleDeviceMatrixTest(): void {
   describe('SampleDeviceMatrixTest', () => {
+    // 每 10 条用例让出一次主线程，避免整批串跑触发 THREAD_BLOCK_6S（见 util/TestTick.ets）
+    beforeEachIt(async () => {
+      await tick();
+    });
+
     /**
      * @tc.number    SUB_SYSTEM_ROUTER_DEVICE_0001
      * @tc.name      sampleDeviceMatrix0001
