@@ -417,7 +417,8 @@ void SetSpecifiedScreenConfigBuffer(OH_AVScreenCaptureConfig &config)
     config.videoInfo.videoCapInfo.videoFrameHeight = displayInfo->height;
     OH_NativeDisplayManager_DestroyDisplay(displayInfo);
     displayInfo = nullptr;
-    // 设置录屏模式为OH_CAPTURE_SPECIFIED_SCREEN，传入屏幕ID。
+    // 当不使用Picker时，通过OH_AVScreenCapture_StrategyForPickerPopUp设置为false，
+    // 开发者可通过设置录屏模式为OH_CAPTURE_SPECIFIED_SCREEN，传入具体屏幕ID来录屏。
     config.captureMode = OH_CAPTURE_SPECIFIED_SCREEN;
     config.videoInfo.videoCapInfo.displayId = 0;
     // [End screenCapture_PCSpecifiedScreenConfigBuffer]
@@ -460,7 +461,8 @@ void SetSpecifiedWindowScreenConfigBuffer(OH_AVScreenCaptureConfig &config)
     config.videoInfo.videoCapInfo.videoFrameHeight = displayInfo->height;
     OH_NativeDisplayManager_DestroyDisplay(displayInfo);
     displayInfo = nullptr;
-    // 设置录屏模式为OH_CAPTURE_SPECIFIED_WINDOW，传入屏幕ID。
+    // 当不使用Picker时，通过OH_AVScreenCapture_StrategyForPickerPopUp设置为false，
+    // 开发者可通过设置录屏模式为OH_CAPTURE_SPECIFIED_WINDOW，传入具体窗口ID来录屏。
     config.captureMode = OH_CAPTURE_SPECIFIED_WINDOW;
     config.videoInfo.videoCapInfo.displayId = 0;
 
