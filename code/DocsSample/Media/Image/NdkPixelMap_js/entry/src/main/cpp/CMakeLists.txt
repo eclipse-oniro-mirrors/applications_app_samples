@@ -11,6 +11,6 @@ endif()
 include_directories(${NATIVERENDER_ROOT_PATH}
                     ${NATIVERENDER_ROOT_PATH}/include)
 
-add_library(entry SHARED napi_init.cpp)
+add_library(entry SHARED napi_init.cpp application_cache.cpp)
 target_link_libraries(entry PUBLIC libace_napi.z.so libhilog_ndk.z.so libpixelmap_ndk.z.so
-    libimage_source_ndk.z.so librawfile.z.so libimage_packer_ndk.z.so)
+    libimage_source_ndk.z.so librawfile.z.so libimage_packer_ndk.z.so libability_runtime.so)
