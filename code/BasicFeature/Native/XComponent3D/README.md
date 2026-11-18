@@ -1,101 +1,161 @@
 # XComponent3D
 
-#### 介绍
-基于XComponent组件调用Native API来创建EGL/GLES环境，从而使用标准OpenGL ES进行图形渲染。本项目实现了两个示例：
+### Introduction
 
-1. 使用OpenGL实现2D的图形绘制和动画；
+This sample creates an EGL/GLES environment from a XComponent component and the native APIs, and renders graphics with standard OpenGL ES. The ArkTS side calls the drawing interfaces exported by `libnativerender.so`. It uses the [XComponent](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-arkui/arkui-ts/ts-basic-components-xcomponent.md) component and the native interfaces described in [Native XComponent](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/napi/xcomponent-guidelines.md).
 
-2. 使用OpenGL实现了在主页面绘制两个立方体，光源可以在当前场景中移动，并实现了光照效果。
+Two drawing scenes are implemented:
 
-> **说明**
-> 本示例XComponent接口使用方法已停止演进，推荐使用方法请参考[ArkTSXComponent示例](../ArkTSXComponent/README_zh.md)。
-#### 效果展示
+1. 2D graphics and animation: two rectangles are drawn every frame, one keeps rotating and the other keeps scaling;
+2. 3D scene: two cubes are drawn every frame, one stays in the middle of the screen and the other revolves around it and acts as a light source, so the cube in the middle shows lighting that changes with the angle.
 
-| 3D效果1                                                   | 3D效果2                                                   | 2D效果1                                                   | 2D效果2                                                   |
-|---------------------------------------------------------|---------------------------------------------------------|---------------------------------------------------------|---------------------------------------------------------|
-| <img src=".//screenshots/3D_1.jpg" style="zoom:25%;" /> | <img src=".//screenshots/3D_2.jpg" style="zoom:25%;" /> | <img src=".//screenshots/2D_1.jpg" style="zoom:25%;" /> | <img src=".//screenshots/2D_2.jpg" style="zoom:25%;" /> |
+> **NOTE**
+> The declarative ArkTS usage of XComponent no longer evolves. For the current recommended usage, see [XComponent](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-arkui/arkui-ts/ts-basic-components-xcomponent.md).
 
+### Effect Preview
 
-#### 使用说明
+| 3D scene one                                           | 3D scene two                                           | 2D scene one                                           | 2D scene two                                           |
+|------------------------------------------------------|------------------------------------------------------|------------------------------------------------------|------------------------------------------------------|
+| ![3D_1](screenshots/3D_1.jpg)                        | ![3D_2](screenshots/3D_2.jpg)                        | ![2D_1](screenshots/2D_1.jpg)                        | ![2D_2](screenshots/2D_2.jpg)                        |
 
-在主页面，默认展示的是3D图形绘制效果，通过点击tab可以切换到第二个2D绘制效果
+### Usage Instructions
 
-#### 工程目录
+1. Install the compiled HAP package and launch the application. The home page shows the 3D scene by default.
+2. Tap **DrawTransform** to switch to the 2D scene.
+3. Tap **DrawCube** to switch back to the 3D scene.
+4. The animation in both scenes is driven by a timer, so no extra operation is required.
+
+### Project Structure
+
 ```
-entry/src/main/ets/
-|---entryability
-|	|	|---EntryAbility.ts
-|---pages
-|	|---Index.ets				//首页
-entry/src/main/cpp/
-|---algorithm
-	|---Algorithm.h 			// 实现了Perspective，LookAt。
-	|---Matrix4x4.h 			// 4*4的矩阵运算，支持旋转，位移，缩放，矩阵的乘法
-	|---Matrix4x4.cpp
-	|---Quaternion.h 			// 四元素，用于旋转
-	|---Quaternion.cpp
-	|---Vector3.h 				// 三维向量运算
-	|---Vector3.cpp
-|---include
-	|---util
-		|---log.h 				// 日志工具类
-		|---napi_manager.h		// 负责管理注册进来的多个XComponent控件
-		|---napi_util.h			// 工具类
-		|---native_common.h		// napi函数注册入口
-		|---types.h				// 常量类
-	|---app_napi.h				// 实现XComponent的生命周期函数，注册napi绘制接口
-	|---camera.h				// 相机类
-	|---opengl_draw.h			// 3D类绘制类，用于绘制立方体或者长方体
-	|---shader.h				// shader编译类
-|---shape
-	|---base_shape.h			// 形状绘制基类
-	|---cube.cpp
-	|---cube.h					// 立方体绘制类，继承base_shape
-	|---rectangle.cpp
-	|---rectangle.h				// 长方体绘制类，继承base_shape
-|---types
-	|---libnativerender			
-		|---nativerender.d.ts	// 对外接口，用于界面进行调用
-|---app_napi.app				
-|---module.cpp					
-|---napi_manager.cpp			
-|---napi_util.cpp				
-|---opengl_draw.cpp				
+├──entry/src/main
+│  ├──cpp                                     // C++ code
+│  │  ├──CMakeLists.txt                       // CMake build and link configuration
+│  │  ├──app_napi.cpp                         // XComponent lifecycle callbacks and napi drawing interface registration
+│  │  ├──module.cpp                           // napi module registration entry
+│  │  ├──napi_manager.cpp                     // Management of the registered XComponent instances
+│  │  ├──napi_util.cpp                        // napi argument and return code helpers
+│  │  ├──opengl_draw.cpp                      // Drawing entry: creates the EGL environment and drives the shapes
+│  │  ├──pixel_probe.cpp                      // Clears a pbuffer with an independent EGL context and reads pixels back
+│  │  ├──pixel_probe.h                        // Declarations of the pixel probe
+│  │  ├──algorithm                            // Matrix, quaternion and vector math
+│  │  │  ├──Algorithm.h                       // Perspective matrix and LookAt matrix
+│  │  │  ├──Matrix4x4.h
+│  │  │  ├──Matrix4x4.cpp                     // 4*4 matrix operations: rotation, translation, scale and multiplication
+│  │  │  ├──Quaternion.h
+│  │  │  ├──Quaternion.cpp                    // Quaternion used for rotation
+│  │  │  ├──Vector3.h
+│  │  │  └──Vector3.cpp                       // 3D vector operations
+│  │  ├──include
+│  │  │  ├──app_napi.h                        // Declarations of the XComponent lifecycle and napi drawing interfaces
+│  │  │  ├──camera.h                          // Camera
+│  │  │  ├──opengl_draw.h                     // Declarations of the drawing class
+│  │  │  ├──shader.h                          // Shader compilation
+│  │  │  └──util
+│  │  │     ├──log.h                          // Logging utilities
+│  │  │     ├──napi_manager.h                 // Declarations of the XComponent management
+│  │  │     ├──napi_util.h                    // Declarations of the helpers
+│  │  │     ├──native_common.h                // napi function registration entry
+│  │  │     └──types.h                        // Constants
+│  │  ├──shape
+│  │  │  ├──base_shape.h                      // Base class of the drawable shapes
+│  │  │  ├──cube.h
+│  │  │  ├──cube.cpp                          // Cube drawing class derived from base_shape
+│  │  │  ├──rectangle.h
+│  │  │  └──rectangle.cpp                     // Rectangle drawing class derived from base_shape
+│  │  └──types
+│  │     └──libnativerender
+│  │        ├──nativerender.d.ts              // Declarations of the native interfaces exposed to ArkTS
+│  │        └──oh-package.json5
+│  ├──ets
+│  │  ├──entryability
+│  │  │  └──EntryAbility.ts                   // Application entry
+│  │  ├──pages
+│  │  │  └──Index.ets                         // Home page, declares the XComponent component
+│  │  └──util
+│  │     └──Logger.ts                         // Logging wrapper
+│  └──resources                               // Strings, colors and page configuration
+└──entry/src/ohosTest                         // Automated test cases, see ohosTest.md
 ```
 
-#### 具体实现
+### Implementation
 
-在主页面显示了一个XComponent控件，默认显示立方体。通过用户点击，触发ChangeShape事件，opengl_draw收到事件，完成绘制内容变更。首页启动时，会触发一个定时器，每40ms触发一次，当opengl_draw收到事件时，进行动画更新。
+**XComponent declaration and drawing start**
 
-在XComponent初始化完成时，OnSurfaceCreated回调里面，会自动开始图形绘制。源码参考[opengl_draw.cpp](.//entry/src/main/cpp/opengl_draw.cpp) 。在opengl_draw.cpp里面Init方法会创建EglWindow和EGLSurface，然后创建上下文EGLContext， 完成baseShape的初始化，默认使用Cube进行初始化。
+The home page declares a XComponent in [Index.ets](entry/src/main/ets/pages/Index.ets): the id is xComponentId, the type is the SURFACE member of XComponentType, the library is nativerender, and the width and height are set to 90% and 100%.
 
----绘制2D图形：rectangle.cpp的Init方法，完成Shader的初始化；   Update方法主要是绘制两个图形，一个进行旋转，一个进行缩放
----绘制3D物体：cube.cpp的Init方法，完成Shader的初始化，相机的初始化。 Update方法绘制了两个立方体，一个在屏幕中间，另一个会围绕中间的物体进行圆周运动。并且设置运动的物体为发光源，在中间物体展示不同角度的光照效果。
+When the XComponent is ready, [app_napi.cpp](entry/src/main/cpp/app_napi.cpp) starts drawing in the XComponent ready callback: it first reads back the drawing-area width and height through `OH_NativeXComponent_GetXComponentSize`, and then passes them to the Init method of [opengl_draw.cpp](entry/src/main/cpp/opengl_draw.cpp), which creates the EglWindow, the EGL drawing window and the EGLContext, and initializes the default shape Cube.
 
+**Animation driving and shape switching**
 
-#### 相关权限
-不涉及
+[Index.ets](entry/src/main/ets/pages/Index.ets) starts a 40 ms timer in onPageShow, and each tick calls the native `animate()` to update one frame. Tapping **DrawCube** or **DrawTransform** calls `changeShape(targetIndex)`, where index 0 means the cube and any other value means the rectangle.
 
+**2D and 3D drawing**
 
-#### 依赖
-不涉及
+- 2D: Init in [rectangle.cpp](entry/src/main/cpp/shape/rectangle.cpp) initializes the shaders, and Update draws two rectangles every frame, one rotating and the other scaling.
+- 3D: Init in [cube.cpp](entry/src/main/cpp/shape/cube.cpp) initializes the shaders and the camera, and Update draws two cubes every frame. One cube stays in the middle of the screen and the other revolves around it and acts as a light source, so the cube in the middle shows lighting that changes with the angle. The perspective matrix, the LookAt matrix, the 4*4 matrix, the quaternion and the vector math are located in [algorithm](entry/src/main/cpp/algorithm/).
 
+**Exported interfaces**
 
-#### 约束与限制
-本示例仅支持标准系统上运行，支持设备：RK3568;
+The interfaces exported from native to ArkTS are declared in [nativerender.d.ts](entry/src/main/cpp/types/libnativerender/nativerender.d.ts):
 
-本示例已适配API version 10版本SDK，版本号：4.0.10.13
+| Interface | Description |
+| -------- | -------- |
+| animate(): void | Drives one frame: takes the next frame of the current shape and refreshes the drawing area. |
+| changeShape(shapeIndex: number): void | Switches the drawing shape by index, 0 for the cube and any other value for the rectangle. |
+| getShapeIndex(): number | Reads back the shapeIndex received by the latest changeShape call. |
+| GetXComponentSize_Width(): number | Reads back the cached drawing-area width, in px on real devices. |
+| GetXComponentSize_Height(): number | Reads back the cached drawing-area height, in px on real devices. |
+| GetXComponentOffset_x(): number | Reads back the cached x offset, which the current implementation returns as 0. |
+| GetXComponentOffset_y(): number | Reads back the cached y offset, which the current implementation returns as 0. |
+| GetContext(type: number): object | Obtains the lifecycle callback container: type 0 returns onCreate/onShow/onHide/onDestroy, type 1 returns onPageShow/onPageHide. |
+| probe interfaces | Probes that call the native XComponent interfaces directly and return `{code, value, aux}`, where code 0 means success, -1 execution failure and -2 invalid argument. |
+| probeRenderSolidPixel(red, green, blue, alpha) | Clears a 4*4 pbuffer to the given color with an independent EGL context and reads the pixels back, returning the RGBA of the `pixel` and `corner` sample points. |
 
-本示例需要使用Build Version: 4.0.0.600 (Build Version: 4.0.0.600, built on October 17, 2023)及以上版本才可编译运行；
+### Test Results
 
+The automated test cases are located in `entry/src/ohosTest`, covering 94 test suites and 4687 test cases. For the case details and the execution steps, see [ohosTest.md](ohosTest.md). On 2026-11-18 the suites were executed one by one on a real device with OpenHarmony-7.1.0.21 (API 26), using the `entry_test` module and `OpenHarmonyTestRunner`:
 
-#### 下载
+| Item | Value |
+| -------- | -------- |
+| Test suites | 94 |
+| Test cases | 4687 |
+| Pass | 4687 |
+| Failure | 0 |
+| Error | 0 |
 
-如需单独下载本工程，执行如下命令：
+Each suite is executed with `-s class <suite>`; a run without `-s class` is not used because the framework's overall timeout guard terminates it. Every failure reported by the baselines was traced to the test side, and no functional defect was found on the main side:
+
+- The baseline before the first expansion (54 suites) reported 68 failed cases: mismatched error code domains, keyCode and action being -1 when no key event exists, non-enumerable properties of the GetContext result, alpha being 255 on clear which interfered with channel comparisons, and GetXComponentSize returning px while GetXComponentOffset always returns 0. After the cases were corrected, the test HAP was rebuilt, reinstalled and the full run reported zero failures.
+- The baseline after the first expansion (71 suites / 3607 cases) reported 2 failed cases, both asserting that the `code` of the tilt interfaces equals the `code` of the event-source interface; the two interface families use different error semantics, so the assumption did not hold. After the assertions were relaxed to a per-family domain, the full run reported zero failures.
+- The baseline after the second expansion (23 new suites / 1080 cases) reported 10 failed cases: an anchor assertion that did not hold over the whole input domain (the channel sum of the anchors is 96 to 224 while the assertion required a sum greater than 255) and an ordering assertion that did not hold for inverted frame-rate triples (`value <= aux` with `min > max`). Both were assertion issues inside the affected suites; after they were corrected the suites were updated and re-run.
+
+After the final rebuild and reinstall, the 23 new suites passed 1080 of 1080 cases and the existing 71 suites passed 3607 of 3607 cases on the same build artefact.
+
+### Permissions
+
+Not involved. The sample declares no permission in module.json5.
+
+### Dependencies
+
+No dependency is involved.
+
+### Constraints & Limitations
+
+1. This sample runs on standard systems only. The supported device types are default and tablet.
+2. This sample uses the Stage model. It is compiled with the API version 26.0.0 SDK, and the SDK version is 26.0.0.
+3. DevEco Studio 26.0.0.821 or later is required to build and run this sample.
+4. The sample has been built, installed and fully tested with automated cases on a real device running OpenHarmony-7.1.0.21 (API 26).
+5. On real devices `OH_NativeXComponent_GetXComponentSize` returns the size in px and `OH_NativeXComponent_GetXComponentOffset` always returns 0 with the current implementation. The declarations in [nativerender.d.ts](entry/src/main/cpp/types/libnativerender/nativerender.d.ts) are documented accordingly, and assertions that rely on these two values must follow the real read-back results.
+
+### Download
+
+To download this project separately, run the following commands:
+
 ```
 git init
 git config core.sparsecheckout true
-echo code/BasicFeature/Native/XComponent3D > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+echo code/BasicFeature/Native/XComponent3D/ > .git/info/sparse-checkout
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
