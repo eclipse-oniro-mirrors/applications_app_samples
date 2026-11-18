@@ -22,6 +22,7 @@ struct Index {
       Row() {
         Row() {
           Text(this.message)
+            .id('messageText')
         }.height('50%')
         .width('100%')
         .alignItems(VerticalAlign.Center)
