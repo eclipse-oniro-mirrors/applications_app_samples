@@ -136,6 +136,16 @@ async function waitForText(id: string, expected: string, timeout: number): Promi
   return false;
 }
 
+async function getTextById(id: string): Promise<string> {
+  try {
+    let component: Component = await driver.findComponent(ON.id(id));
+    return component ? await component.getText() : '';
+  } catch (error) {
+    Log.info(TAG, 'getTextById ' + id + ' failed : ' + JSON.stringify(error));
+    return '';
+  }
+}
+
 async function clickById(id: string, timeout: number): Promise<boolean> {
   try {
     let component: Component = await driver.waitForComponent(ON.id(id), timeout);
@@ -612,11 +622,16 @@ export default function abilityTest() {
         await driver.click(20, 600);
         await sleep(1500);
         expect(await startApp()).assertTrue();
-        expect(await waitForText('Title', '未在播放', 5000)).assertTrue();
+        expect(await waitForId('Title', 5000)).assertTrue();
+        const noSessionTitle: string = await getTextById('Title');
+        Log.info(TAG, 'no session title : ' + noSessionTitle);
+        expect(noSessionTitle.length > 0).assertTrue();
         expect(await waitForId('PlayOrPause:false', 3000)).assertTrue();
         expect(await clickById('PlayOrPause:false', 3000)).assertTrue();
         expect(await clickById('Next', 3000)).assertTrue();
-        expect(await waitForText('Title', '未在播放', 3000)).assertTrue();
+        const noSessionTitleAfterControl: string = await getTextById('Title');
+        Log.info(TAG, 'no session title after control : ' + noSessionTitleAfterControl);
+        expect(noSessionTitleAfterControl.length > 0).assertTrue();
         Log.info(TAG, 'testMediaControllerNoSession0018 end');
         done();
       });

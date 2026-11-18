@@ -283,6 +283,8 @@ export default function userAuthTest() {
           expect(await button.getId()).assertEqual('perceiveAdjustBtn');
           const result: string = await getText(driver, 'perceiveResult');
           log('perceive result = ' + result);
+          expect(result === 'wait').assertFalse();
+          expect(result.length > 0).assertTrue();
         } catch (err) {
           log('testPerceiveAdjust0008 failed: ' + String(err));
           expect().assertFail();

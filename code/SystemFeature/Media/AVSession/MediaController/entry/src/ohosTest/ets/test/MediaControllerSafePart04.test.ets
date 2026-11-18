@@ -32,8 +32,8 @@ export default function mediaControllerSafeTestPart04() {
     it('com.samples.mediacontroller_Safe_0291', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0291 begin');
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SINGLE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, mode);
-      expect(mode === AVSessionManager.LoopMode.LOOP_MODE_SINGLE).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, 1);
+      expect(mode).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0291 end');
     })
     /**
@@ -47,8 +47,8 @@ export default function mediaControllerSafeTestPart04() {
     it('com.samples.mediacontroller_Safe_0292', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0292 begin');
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_LIST;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, mode);
-      expect(mode === AVSessionManager.LoopMode.LOOP_MODE_LIST).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, 2);
+      expect(mode).assertEqual(2);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0292 end');
     })
     /**
@@ -62,8 +62,8 @@ export default function mediaControllerSafeTestPart04() {
     it('com.samples.mediacontroller_Safe_0293', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0293 begin');
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SHUFFLE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, mode);
-      expect(mode === AVSessionManager.LoopMode.LOOP_MODE_SHUFFLE).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, 3);
+      expect(mode).assertEqual(3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0293 end');
     })
     /**
@@ -77,8 +77,8 @@ export default function mediaControllerSafeTestPart04() {
     it('com.samples.mediacontroller_Safe_0294', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0294 begin');
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_CUSTOM;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, mode);
-      expect(mode === AVSessionManager.LoopMode.LOOP_MODE_CUSTOM).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, 4);
+      expect(mode).assertEqual(4);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0294 end');
     })
     /**
@@ -92,8 +92,8 @@ export default function mediaControllerSafeTestPart04() {
     it('com.samples.mediacontroller_Safe_0295', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0295 begin');
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SEQUENCE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, mode);
-      expect(mode === AVSessionManager.LoopMode.LOOP_MODE_SEQUENCE).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, 0);
+      expect(mode).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0295 end');
     })
     /**
@@ -107,8 +107,8 @@ export default function mediaControllerSafeTestPart04() {
     it('com.samples.mediacontroller_Safe_0296', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0296 begin');
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SINGLE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, mode);
-      expect(mode === AVSessionManager.LoopMode.LOOP_MODE_SINGLE).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, 1);
+      expect(mode).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0296 end');
     })
     /**
@@ -122,8 +122,8 @@ export default function mediaControllerSafeTestPart04() {
     it('com.samples.mediacontroller_Safe_0297', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0297 begin');
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_LIST;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, mode);
-      expect(mode === AVSessionManager.LoopMode.LOOP_MODE_LIST).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, 2);
+      expect(mode).assertEqual(2);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0297 end');
     })
     /**
@@ -137,8 +137,8 @@ export default function mediaControllerSafeTestPart04() {
     it('com.samples.mediacontroller_Safe_0298', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0298 begin');
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SHUFFLE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, mode);
-      expect(mode === AVSessionManager.LoopMode.LOOP_MODE_SHUFFLE).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, 3);
+      expect(mode).assertEqual(3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0298 end');
     })
     /**
@@ -152,8 +152,8 @@ export default function mediaControllerSafeTestPart04() {
     it('com.samples.mediacontroller_Safe_0299', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0299 begin');
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_CUSTOM;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, mode);
-      expect(mode === AVSessionManager.LoopMode.LOOP_MODE_CUSTOM).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, 4);
+      expect(mode).assertEqual(4);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0299 end');
     })
     /**
@@ -167,8 +167,8 @@ export default function mediaControllerSafeTestPart04() {
     it('com.samples.mediacontroller_Safe_0300', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0300 begin');
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SEQUENCE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, mode);
-      expect(mode === AVSessionManager.LoopMode.LOOP_MODE_SEQUENCE).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', mode, 0);
+      expect(mode).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Safe_0300 end');
     })
   })

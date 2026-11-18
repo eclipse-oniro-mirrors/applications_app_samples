@@ -52,6 +52,7 @@ struct PresentPage {
   @State
   private sessionsReady: boolean = false;
   private hasPageShown: boolean = false;
+  private isRefreshing: boolean = false;
 
   async aboutToAppear() {
     await this.controller.initLink();
@@ -60,9 +61,18 @@ struct PresentPage {
   }
 
   async refreshSessions(): Promise<void> {
+    if (this.isRefreshing) {
+      Log.info(TAG, 'refreshSessions skipped, a refresh is already running');
+      return;
+    }
+    this.isRefreshing = true;
     this.sessionsReady = false;
-    await this.controller.startControl();
-    this.sessionsReady = true;
+    try {
+      await this.controller.startControl();
+    } finally {
+      this.sessionsReady = true;
+      this.isRefreshing = false;
+    }
   }
 
   onPageShow() {
