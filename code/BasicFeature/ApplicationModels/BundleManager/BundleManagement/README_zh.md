@@ -90,11 +90,17 @@ hdc_std install 本地路径\entry-default-signed.hap 本地路径\libraryRuntim
 
 1.本示例仅支持标准系统上运行，支持设备：RK3568；
 
-2.本示例为Stage模型，支持API12版本SDK，版本号：5.0.0.22；
+2.本示例为Stage模型，已适配 API 26 版本 SDK（compileSdkVersion 26.0.0）；
 
-3.本示例需要使用DevEco Studio 4.1.3 Release（Build Version: 4.1.3.500, built on January 20, 2024）才可编译运行；
+3.本示例需要使用 DevEco Studio 7.0 及以上版本才可编译运行；
 
 4.本示例涉及权限至少为system_basic级别。
+
+### 测试
+
+本工程提供基于 Hypium 的自动化测试，位于 `entry/src/ohosTest`，共 833 条用例、31 个套件，
+覆盖包信息查询、ExtensionAbility、BundleFlag、UID/图标/launchWant 等包管理能力，
+详细套件说明与执行命令见 [ohosTest.md](ohosTest.md)。
 
 ### 下载
 
