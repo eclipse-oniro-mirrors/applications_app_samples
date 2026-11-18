@@ -20,6 +20,7 @@ import windowRatioRatioCoreTest from './RatioCore.test';
 import windowRatioStorageModelTest from './StorageModel.test';
 import windowRatioWindowModeEnumTest from './WindowModeEnum.test';
 import windowRatioPageUiTest from './PageUi.test';
+import ratioOfIndexTest from './logic/RatioOfIndex.test';
 
 export default function testsuite() {
   // Yield between cases so the main EventHandler can service watchdog tasks.
@@ -32,4 +33,5 @@ export default function testsuite() {
   windowRatioStorageModelTest();
   windowRatioWindowModeEnumTest();
   windowRatioPageUiTest();
+  ratioOfIndexTest();
 }
