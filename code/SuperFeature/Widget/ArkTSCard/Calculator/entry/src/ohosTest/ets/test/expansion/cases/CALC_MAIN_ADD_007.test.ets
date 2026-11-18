@@ -27,7 +27,7 @@ interface AdditionMatrix {
  */
 const runExpansionCase: () => void = () => {
     const matrix: AdditionMatrix = { input: '7+05', expected: '12' };
-    // Explicit oracle: 7 + 5 = 12; both Number-normalized operands have zero decimal places.
+    // Explicit oracle: 7 + 5 = 12; both Number-normalized operands have zero fractional digits.
     const result: string = calc(matrix.input);
     expect(result).assertEqual(matrix.expected);
     expect(Number(result)).assertEqual(12);

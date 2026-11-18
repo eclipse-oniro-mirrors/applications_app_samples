@@ -19,7 +19,7 @@ import { calc } from '../../../../../main/ets/pages/Index';
 /**
  * @tc.number: EXP_CI0004
  * @tc.name: EXP_CI0004
- * @tc.desc: Integer subtraction yields a negative result with zero decimal places and no cross-call state pollution.
+ * @tc.desc: Integer subtraction yields a negative result with zero fractional digits and no cross-call state pollution.
  * @tc.level: Level 1
  */
 const runExpansionCase: () => void = () => {

@@ -32,7 +32,7 @@ const runExpansionCase: () => void = () => {
       expected: '1002',
       numericExpected: 1002
     };
-    // The explicit oracle is 1000 + 2, with zero normalized decimal places.
+    // The explicit oracle is 1000 + 2, with zero fractional digits after normalization.
     const result: string = calc(matrix.input);
     expect(result).assertEqual(matrix.expected);
     expect(Number(result)).assertEqual(matrix.numericExpected);

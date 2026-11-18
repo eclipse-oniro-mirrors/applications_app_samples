@@ -19,7 +19,7 @@ import { calc } from '../../../../../main/ets/pages/Index';
 /**
  * @tc.number CALC_MAIN_SUB_012
  * @tc.name EXP_CALC_MAIN_SUB_012
- * @tc.desc Subtract 2.34 from 1.2 with two decimal places and verify call isolation.
+ * @tc.desc Subtract 2.34 from 1.2 with two fractional digits and verify call isolation.
  * @tc.level Level 1
  */
 const runExpansionCase: () => void = () => {

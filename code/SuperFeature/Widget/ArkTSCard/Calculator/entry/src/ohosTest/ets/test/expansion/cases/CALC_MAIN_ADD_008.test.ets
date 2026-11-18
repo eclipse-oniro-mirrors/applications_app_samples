@@ -32,7 +32,7 @@ const runExpansionCase: () => void = () => {
       expected: '-7',
       expectedNumber: -7
     };
-    // Both Number-normalized operands have zero decimal places; the explicit oracle is -7.
+    // Both Number-normalized operands have zero fractional digits; the explicit oracle is -7.
     const actual: string = calc(matrix.input);
     expect(actual).assertEqual(matrix.expected);
     expect(Number(actual)).assertEqual(matrix.expectedNumber);

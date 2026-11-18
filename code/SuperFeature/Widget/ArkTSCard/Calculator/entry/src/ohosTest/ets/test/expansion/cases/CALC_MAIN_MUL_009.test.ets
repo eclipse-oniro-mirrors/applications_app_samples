@@ -19,7 +19,7 @@ import { calc } from '../../../../../main/ets/pages/Index';
 /**
  * @tc.number CALC_MAIN_MUL_009
  * @tc.name EXP_CALC_MAIN_MUL_009
- * @tc.desc Main calculator multiplies a negative decimal and preserves three decimal places without state pollution.
+ * @tc.desc Main calculator multiplies a negative decimal and preserves three fractional digits without state pollution.
  * @tc.level Level 1
  */
 const runExpansionCase: () => void = () => {

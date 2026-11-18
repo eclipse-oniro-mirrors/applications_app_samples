@@ -29,7 +29,7 @@ interface AdditionMatrix {
  */
 const runExpansionCase: () => void = () => {
     const matrix: AdditionMatrix = { input: '7+0', expected: '7' };
-    // Number-normalized operands have zero decimal places; the expected text is a fixed constant.
+    // Number-normalized operands have zero fractional digits; the expected text is a fixed constant.
     const result: string = calc(matrix.input);
     expect(result).assertEqual(matrix.expected);
     expect(Number(result)).assertEqual(7);

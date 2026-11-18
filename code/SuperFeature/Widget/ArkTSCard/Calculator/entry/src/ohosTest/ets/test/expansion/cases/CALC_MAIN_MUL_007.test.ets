@@ -18,7 +18,7 @@ import {calc} from '../../../../../main/ets/pages/Index';
 /**
  * @tc.number CALC_MAIN_MUL_007
  * @tc.name EXP_CALC_MAIN_MUL_007
- * @tc.desc Main calculator multiplies leading-dot decimals with two decimal places and remains isolated.
+ * @tc.desc Main calculator multiplies leading-dot decimals with two fractional digits and remains isolated.
  * @tc.level Level 1
  */
 const runExpansionCase: () => void = () => {

@@ -19,7 +19,7 @@ import { calc } from '../../../../../main/ets/calc/pages/CardCalc';
 /**
  * @tc.number EXP_CC0009
  * @tc.name EXP_CC0009
- * @tc.desc Verify integer division preserves three decimal places and trailing zeros,
+ * @tc.desc Verify integer division preserves three fractional digits and trailing zeros,
  * including numeric meaning and isolation across an intervening addition.
  * @tc.level Level 1
  */

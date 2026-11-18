@@ -24,7 +24,7 @@ import { calc } from '../../../../../main/ets/calc/pages/CardCalc';
  * @tc.level Level 1
  */
 const runExpansionCase: () => void = () => {
-    // Subtraction uses the longer operand precision: 7.25 - 2.5 must retain exactly two decimal places.
+    // Subtraction uses the longer operand precision: 7.25 - 2.5 must retain exactly two fractional digits.
     const firstResult: string = calc('7.25-2.5');
     expect(firstResult).assertEqual('4.75');
     expect(Number(firstResult)).assertEqual(4.75);

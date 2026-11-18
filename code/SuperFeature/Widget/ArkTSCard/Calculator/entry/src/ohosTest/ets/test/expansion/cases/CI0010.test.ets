@@ -19,7 +19,7 @@ import { calc } from '../../../../../main/ets/pages/Index';
 /**
  * @tc.number EXP_CI0010
  * @tc.name EXP_CI0010
- * @tc.desc Integer division retains three decimal places for one eighth, preserves its numeric value,
+ * @tc.desc Integer division retains three fractional digits for one eighth, preserves its numeric value,
  * and remains independent of an intervening addition calculation.
  * @tc.level Level 1
  */

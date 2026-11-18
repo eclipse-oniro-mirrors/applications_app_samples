@@ -23,7 +23,7 @@ import { calc } from '../../../../../main/ets/calc/pages/CardCalc';
  * @tc.level Level 1
  */
 const runExpansionCase: () => void = () => {
-    // Cover single-operand evaluation without rounding or added decimal places.
+    // Cover single-operand evaluation without rounding or added fractional digits.
     const result: string = calc('42');
     expect(result).assertEqual('42');
     expect(Number(result)).assertEqual(42);

@@ -25,7 +25,7 @@ import { calc } from '../../../../../main/ets/pages/Index';
 const runExpansionCase: () => void = () => {
     const input: string = '0+7';
     const expected: string = '7';
-    // Explicit mathematical and formatting constants: 0 + 7 = 7, with zero decimal places.
+    // Explicit mathematical and formatting constants: 0 + 7 = 7, with zero fractional digits.
     const result: string = calc(input);
     expect(result).assertEqual(expected);
     expect(Number(result)).assertEqual(7);

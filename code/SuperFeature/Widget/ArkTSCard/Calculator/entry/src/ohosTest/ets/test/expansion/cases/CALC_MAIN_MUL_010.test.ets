@@ -19,7 +19,7 @@ import { calc } from '../../../../../main/ets/pages/Index';
 /**
  * @tc.number CALC_MAIN_MUL_010
  * @tc.name EXP_CALC_MAIN_MUL_010
- * @tc.desc Multiply decimal tokens and retain three decimal places without state pollution.
+ * @tc.desc Multiply decimal tokens and retain three fractional digits without state pollution.
  * @tc.level Level 1
  */
 const runExpansionCase: () => void = () => {

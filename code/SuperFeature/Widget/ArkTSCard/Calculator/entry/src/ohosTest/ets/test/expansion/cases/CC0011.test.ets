@@ -23,7 +23,7 @@ import { calc } from '../../../../../main/ets/calc/pages/CardCalc';
  * @tc.level Level 1
  */
 const runExpansionCase: () => void = () => {
-    // Cover exact integer division with the division precision floor of three decimal places.
+    // Cover exact integer division with the division precision floor of three fractional digits.
     const firstResult: string = calc('100/4');
     expect(firstResult).assertEqual('25.000');
     expect(Number(firstResult)).assertEqual(25);
