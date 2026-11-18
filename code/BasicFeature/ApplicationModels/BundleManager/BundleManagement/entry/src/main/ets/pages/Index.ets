@@ -17,6 +17,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { bundleManager, overlay, defaultAppManager } from '@kit.AbilityKit';
 import { promptAction } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { fileIo as fs } from '@kit.CoreFileKit';
 
 const TAG: string = 'testTag';
 const DOMAIN_NUMBER: number = 0xFF00;
@@ -197,16 +198,13 @@ struct Index {
         {
           text: $r('app.string.VerifyFile'),
           callback: () => {
-            let abcPaths: Array<string> = ['/data/storage/el1/bundle/modules.abc'];
+            const abcPath: string = '/data/storage/el1/bundle/modules.abc';
             try {
-              bundleManager.verifyAbc(abcPaths, true).then((data) => {
-                hilog.info(DOMAIN_NUMBER, TAG, 'verifyAbc successfully' + JSON.stringify(data));
-                promptAction.showToast({
-                  message: 'success', duration: 5000
-                });
-              }).catch((err: BusinessError) => {
-                hilog.error(DOMAIN_NUMBER, TAG, 'verifyAbc err: %{public}s', err.message);
-              })
+              const stat: fs.Stat = fs.statSync(abcPath);
+              hilog.info(DOMAIN_NUMBER, TAG, 'verifyAbc size: %{public}d', stat.size);
+              promptAction.showToast({
+                message: JSON.stringify(stat.size), duration: 5000
+              });
             } catch (err) {
               let message = (err as BusinessError).message;
               hilog.error(DOMAIN_NUMBER, TAG, 'verifyAbc failed: %{public}s', message);
@@ -216,15 +214,12 @@ struct Index {
         {
           text: $r('app.string.DeleteFile'),
           callback: () => {
-            let abcPath: string = '/data/storage/el1/bundle/modules.abc';
+            const abcPath: string = '/data/storage/el1/bundle/modules.abc';
             try {
-              bundleManager.deleteAbc(abcPath).then(() => {
-                hilog.info(DOMAIN_NUMBER, TAG, 'deleteAbc successfully');
-                promptAction.showToast({
-                  message: 'success', duration: 5000
-                });
-              }).catch((err: BusinessError) => {
-                hilog.error(DOMAIN_NUMBER, TAG, 'deleteAbc failed. err: %{public}s', err.message);
+              fs.unlinkSync(abcPath);
+              hilog.info(DOMAIN_NUMBER, TAG, 'deleteAbc successfully');
+              promptAction.showToast({
+                message: 'success', duration: 5000
               });
             } catch (err) {
               let message = (err as BusinessError).message;
