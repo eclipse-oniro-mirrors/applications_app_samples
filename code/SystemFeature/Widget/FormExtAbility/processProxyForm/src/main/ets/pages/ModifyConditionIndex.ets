@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file processProxyForm/src/main/ets/pages/ModifyConditionIndex.ets
+ * 文件职责：ModifyConditionIndex 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：updateCardDisplayContent、modifyCondition、IndexThi。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import base from '@ohos.base';
 import common from '@ohos.app.ability.common';
 import formBindingData from '@ohos.app.form.formBindingData';
@@ -23,9 +30,14 @@ import Logger from '../../common/Logger';
 import { getProcessConditionID, saveProcessConditionID } from '../../common/StatePersistence';
 
 const TAG = '[Sample_ModifyConditionIndex]';
+
 let conditionID = '110000';
+
 let context: common.UIAbilityContext;
 
+/**
+ * updateCardDisplayContent：函数定义，承载本文件对应的逻辑与数据。
+ */
 function updateCardDisplayContent(runningFormInfo: formInfo.RunningFormInfo): void {
   Logger.info(TAG, `updateCardDisplayContent bundle: ${runningFormInfo.bundleName}`);
   let proxies:Array<formBindingData.ProxyData> = [
@@ -47,6 +59,9 @@ function updateCardDisplayContent(runningFormInfo: formInfo.RunningFormInfo): vo
   });
 }
 
+/**
+ * modifyCondition：函数定义，承载本文件对应的逻辑与数据。
+ */
 function modifyCondition(): void {
   let formInstanceFilter: formInfo.FormProviderFilter = {
     bundleName: 'ohos.samples.formextability',
@@ -61,12 +76,21 @@ function modifyCondition(): void {
   });
 }
 
+/**
+ * IndexThi：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct IndexThi {
+  // @State processConditionID：组件内部状态
   @State processConditionID: string = '';
+
+  // @State processSwitchFlag：组件内部状态
   @State processSwitchFlag: boolean = true;
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear() {
     context = getContext(this) as common.UIAbilityContext;
     this.processConditionID = getProcessConditionID(context);
@@ -77,28 +101,51 @@ struct IndexThi {
     Logger.debug(TAG, `persistentSwitchFlag : ${JSON.stringify(this.processSwitchFlag)}`);
   }
 
+  /**
+   * aboutToDisappear：组件即将销毁时回调，用于释放资源与取消订阅。
+   */
   aboutToDisappear() {
     saveProcessConditionID(context, this.processConditionID);
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Row：水平布局容器
+    // 关键属性：高度
     Row() {
+      // Column：垂直布局容器
       Column({ space: 150 }) {
-        Text($r('app.string.subscription_conditions'))
+        // Text：文本
+        // 关键属性：字体颜色、字号、行高、字重
+        Text($r('app.string.subscription_conditions')).id('modify_condition_index_text_3')
           .fontColor('#182431')
           .fontSize(40)
           .lineHeight(41)
           .fontWeight('100%')
+        // Column：垂直布局容器
+        // 关键属性：宽度
         Column() {
-          Text($r('app.string.modify_subscription_conditions'))
+          // Text：文本
+          // 关键属性：字号、外边距
+          Text($r('app.string.modify_subscription_conditions')).id('modify_condition_index_text_5')
             .fontSize(28)
             .margin({ bottom: 20 })
+          // Row：水平布局容器
+          // 关键属性：宽度
           Row() {
+            // Flex：弹性布局容器
             Flex({ justifyContent: FlexAlign.SpaceEvenly }) {
+              // Column：垂直布局容器
               Column() {
-                Text($r('app.string.city_sy'))
+                // Text：文本
+                // 关键属性：外边距
+                Text($r('app.string.city_sy')).id('modify_condition_index_text_9')
                   .margin({ bottom: 10 })
-                Radio({ value: 'sy', group: 'modifyConditionGroup' })
+                // Radio：单选框
+                // 关键属性：高度、宽度、radioStyle
+                Radio({ value: 'sy', group: 'modifyConditionGroup' }).id('modify_condition_index_radio_10')
                   .height(24)
                   .width(24)
                   .radioStyle({
@@ -114,12 +161,17 @@ struct IndexThi {
                       modifyCondition();
                     }
                   })
-              }
+              }.id('modify_condition_index_column_8')
 
+              // Column：垂直布局容器
               Column() {
-                Text($r('app.string.city_hz'))
+                // Text：文本
+                // 关键属性：外边距
+                Text($r('app.string.city_hz')).id('modify_condition_index_text_12')
                   .margin({ bottom: 10 })
-                Radio({ value: 'hz', group: 'modifyConditionGroup' })
+                // Radio：单选框
+                // 关键属性：高度、宽度、勾选状态、radioStyle
+                Radio({ value: 'hz', group: 'modifyConditionGroup' }).id('modify_condition_index_radio_13')
                   .height(24)
                   .width(24)
                   .checked(!this.processSwitchFlag)
@@ -135,14 +187,14 @@ struct IndexThi {
                       modifyCondition();
                     }
                   })
-              }
-            }
-          }
+              }.id('modify_condition_index_column_11')
+            }.id('modify_condition_index_flex_7')
+          }.id('modify_condition_index_row_6')
           .width('70%')
-        }
+        }.id('modify_condition_index_column_4')
         .width('100%')
-      }
-    }
+      }.id('modify_condition_index_column_2')
+    }.id('modify_condition_index_row_1')
     .height('100%')
   }
 }

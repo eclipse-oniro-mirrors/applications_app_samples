@@ -13,42 +13,77 @@
  * limitations under the License.
  */
 
+/**
+ * @file processProxyForm/src/main/ets/widget/pages/WidgetCard.ets
+ * 文件职责：WidgetCard 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：WidgetCard、ParamsType、ActionType。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 let storage = new LocalStorage();
 
 const ACTION_TYPE: string = 'router';
+
 const ABILITY_NAME: string = 'EntryAbility';
+
 const MESSAGE: string = 'add detail';
+
 const FULL_WIDTH_PERCENT: string = '100%';
+
 const FULL_HEIGHT_PERCENT: string = '100%';
 
+/**
+ * WidgetCard：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry(storage)
 @Component
 struct WidgetCard {
+  // @LocalStorageProp cityName：与 LocalStorage 单向绑定
   @LocalStorageProp('cityName') cityName: string = '';
+
+  // @LocalStorageProp cityTemperature：与 LocalStorage 单向绑定
   @LocalStorageProp('cityTemperature') cityTemperature: string = '';
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Row：水平布局容器
+    // 关键属性：背景色、宽度、边框样式、圆角、透明度、高度
+    // 交互：可点击交互
     Row() {
+      // Column：垂直布局容器
+      // 关键属性：宽度
       Column() {
+        // Row：水平布局容器
         Row() {
-          Text($r('app.string.city'))
+          // Text：文本
+          // 关键属性：字号、字重
+          Text($r('app.string.city')).id('widget_card_text_4')
             .fontSize($r('sys.float.ohos_id_text_size_body2'))
             .fontWeight('medium')
-          Text(this.cityName)
+          // Text：文本
+          // 关键属性：字号、字重
+          Text(this.cityName).id('widget_card_text_5')
             .fontSize($r('sys.float.ohos_id_text_size_body3'))
             .fontWeight('regular')
-        }
+        }.id('widget_card_row_3')
+        // Row：水平布局容器
         Row() {
-          Text($r('app.string.temperature'))
+          // Text：文本
+          // 关键属性：字号、字重
+          Text($r('app.string.temperature')).id('widget_card_text_7')
             .fontSize($r('sys.float.ohos_id_text_size_body2'))
             .fontWeight('medium')
-          Text(this.cityTemperature + ' ℃')
+          // Text：文本
+          // 关键属性：字号、字重
+          Text(this.cityTemperature + ' ℃').id('widget_card_text_8')
             .fontSize($r('sys.float.ohos_id_text_size_body3'))
             .fontWeight('regular')
-        }
-      }
+        }.id('widget_card_row_6')
+      }.id('widget_card_column_2')
       .width(FULL_WIDTH_PERCENT)
-    }
+    }.id('widget_card_row_1')
     .backgroundColor(0xAFEEEE)
     .width((FULL_WIDTH_PERCENT))
     .borderStyle(12)
