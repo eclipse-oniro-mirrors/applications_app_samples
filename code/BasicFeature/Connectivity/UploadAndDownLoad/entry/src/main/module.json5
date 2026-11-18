@@ -49,16 +49,6 @@
     ],
     "requestPermissions": [
       {
-        "name": "ohos.permission.READ_MEDIA",
-        "reason": "$string:media_permission",
-        "usedScene": {
-          "abilities": [
-            "EntryAbility"
-          ],
-          "when": "inuse"
-        }
-      },
-      {
         "name": "ohos.permission.INTERNET",
         "reason": "$string:media_internet_permission",
         "usedScene": {

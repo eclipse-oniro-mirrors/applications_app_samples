@@ -45,7 +45,7 @@
 
 点击**上传**按钮会使用post方式访问百度，并在空白处显示返回的响应header内容。
 
-以上功能需要在src/main/resources/base/profile/network_config.json中配置domains和digest，只有你配置的证书信息通过验证，上传和下载才可以正常响应；否则将无法正常访问百度，会通过toast提示上传或者下载失败，日志中会有具体错误信息。如果你要访问的服务器根证书不在系统中，你需要把它的根证书放到src/main/resources/resfile目录下。
+以上功能需要在src/main/resources/base/profile/network_config.json中配置domains和digest，只有配置的证书信息通过验证，上传和下载才可以正常响应；否则将无法正常访问百度，会通过toast提示上传或者下载失败，日志中会有具体错误信息。如果要访问的服务器根证书不在系统中，需要把它的根证书放到src/main/resources/resfile目录下。
 
 如示例中访问百度，则digest需要取百度服务器的证书生成：
 
@@ -109,7 +109,7 @@ UploadAndDownload
     
   * 证书锁定模块
     
-    * 使用[@ohos.request](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-request.md)中API 12接口agent.create创建上传任务，调用@ohos.request中的Task相关接口实现通过get或者post方式访问指定的网页，点击按钮后会在空白处显示返回的响应header内容。你需要提前在src/main/resources/base/profile/network_config.json中配置domains和digest，只有你配置的证书信息通过验证，上传和下载才可以正常响应。如果你要访问的服务器根证书不在系统中，你需要把它的根证书放在src/main/resources/resfile目录下。
+    * 使用[@ohos.request](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-request.md)中API 12接口agent.create创建上传任务，调用@ohos.request中的Task相关接口实现通过get或者post方式访问指定的网页，点击按钮后会在空白处显示返回的响应header内容。需要提前在src/main/resources/base/profile/network_config.json中配置domains和digest，只有配置的证书信息通过验证，上传和下载才可以正常响应。如果要访问的服务器根证书不在系统中，需要把它的根证书放在src/main/resources/resfile目录下。
     
     * 源码链接，[CertLock.ets](./entry/src/main/ets/pages/CertLock.ets)
     
@@ -121,9 +121,9 @@ UploadAndDownload
 
 ### 相关权限
 
-[ohos.permission.INTERNET](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissioninternet)
+[ohos.permission.INTERNET](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissioninternet)
 
-[ohos.permission.READ_MEDIA](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionread_media)
+本示例通过系统 PhotoViewPicker 选择用户明确授权的图片，并读取返回的 URI，不申请整个媒体库的受限权限 `ohos.permission.READ_IMAGEVIDEO`，也无需在应用启动时请求该权限。参见[选择用户文件](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/file-management/select-user-file.md)。
 
 ### 依赖
 
@@ -133,9 +133,9 @@ UploadAndDownload
 
 1.本示例仅支持标准系统上运行，支持设备：RK3568。
 
-2.本示例为Stage模型，支持API20版本SDK，SDK版本号(API Version 20),镜像版本号(6.0)
+2.本示例为 Stage 模型，当前工程的编译、兼容和目标 SDK 版本均为 26.0.0（API 26）；运行时请使用兼容 API 26 的系统镜像。
 
-3.本示例需要使用DevEco Studio 版本号(5.0.5 Release)及以上版本才可编译运行。
+3.请使用支持上述 SDK 的 DevEco Studio。旧版文档记录的 DevEco Studio 版本号(5.0.5 Release) 仅供历史参考，不代表当前工程的最低 IDE 版本。
 
 4.运行本示例需全程联网。
 

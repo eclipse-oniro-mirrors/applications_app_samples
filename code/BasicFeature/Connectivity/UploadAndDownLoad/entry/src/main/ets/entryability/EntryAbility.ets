@@ -13,32 +13,18 @@
  * limitations under the License.
  */
 
-import abilityAccessCtrl from '@ohos.abilityAccessCtrl';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 import UIAbility from '@ohos.app.ability.UIAbility';
 import window from '@ohos.window';
 import Want from '@ohos.app.ability.Want';
-import { Permissions } from '@ohos.abilityAccessCtrl';
 import { logger, urlUtils } from '@ohos/uploaddownload';
 
-const PERMISSIONS: Array<Permissions> = ['ohos.permission.READ_MEDIA'];
 const TAG: string = 'EntryAbility';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     logger.info(TAG, 'Ability onCreate');
-    let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
-    try {
-      atManager.requestPermissionsFromUser(this.context, PERMISSIONS, (err, data) => {
-        if (err) {
-          logger.info(TAG, `requestPermissionsFromUser data: ${JSON.stringify(err)}`);
-        } else {
-          logger.info(TAG, `requestPermissionsFromUser data: ${JSON.stringify(data)}`);
-        }
-      });
-    } catch (err) {
-      logger.info(TAG, `catch err->${JSON.stringify(err)}`);
-    }
+    // PhotoViewPicker grants access to user-selected URIs; no media-library permission is needed.
   }
 
   onDestroy(): void {
