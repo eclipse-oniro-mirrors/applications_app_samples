@@ -22,7 +22,7 @@
         "compatibleSdkVersion": "26.0.0",
         "compileSdkVersion": "26.0.0",
         "runtimeOS": "OpenHarmony",
-        "signingConfig": "8Ro8SV66NFCfYl15YT5kkP7T3ow2AyhIf8xTQgVWzmc"
+        "signingConfig": "default"
       }
     ],
     "buildModeSet": [
@@ -33,33 +33,7 @@
         "name": "release"
       }
     ],
-    "signingConfigs": [
-      {
-        "name": "default",
-        "type": "HarmonyOS",
-        "material": {
-          "certpath": "C:\\Users\\chenchunming\\.ohos\\config\\default_CodecCapabilitySample_kHHY4nMt24PNGLJm2MKRuwqwwVL64FQIcKHk6e63PXY=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001B83AB68208DC55CBD3755A7DD235BAFDB21494A6F2999B9296A6CF7A2AA1C37249C5B6B727F6F18",
-          "profile": "C:\\Users\\chenchunming\\.ohos\\config\\default_CodecCapabilitySample_kHHY4nMt24PNGLJm2MKRuwqwwVL64FQIcKHk6e63PXY=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\chenchunming\\.ohos\\config\\default_CodecCapabilitySample_kHHY4nMt24PNGLJm2MKRuwqwwVL64FQIcKHk6e63PXY=.p12",
-          "storePassword": "0000001BB0A9690A2CF123151A2906FA2753F0F4B92A0A6BDEDCAA9D4DFA8789845971908C11E745FC4EDA"
-        }
-      },
-      {
-        "name": "8Ro8SV66NFCfYl15YT5kkP7T3ow2AyhIf8xTQgVWzmc",
-        "material": {
-          "certpath": "C:/Users/chenchunming/.ohos/config/openharmony/auto_ohos_8Ro8SV66NFCfYl15YT5kkP7T3ow2AyhIf8xTQgVWzmc_CodecCapabilitySample_com.samples.codeccapabilitysample.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001BEDE015A5F29188643F6A52D715E8911CC05D18575C6C53952DE2E0CA2D8A11276BA4BF4D77A523",
-          "profile": "C:/Users/chenchunming/.ohos/config/openharmony/auto_ohos_8Ro8SV66NFCfYl15YT5kkP7T3ow2AyhIf8xTQgVWzmc_CodecCapabilitySample_com.samples.codeccapabilitysample.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/chenchunming/.ohos/config/openharmony/auto_ohos_8Ro8SV66NFCfYl15YT5kkP7T3ow2AyhIf8xTQgVWzmc_CodecCapabilitySample_com.samples.codeccapabilitysample.p12",
-          "storePassword": "0000001BFEB65EF0224CCDBF44DE3CD65778C34AFFE972A187FDDCA9356E5427B2E46EC32101E733F7789C"
-        }
-      }
-    ]
+    "signingConfigs": []
   },
   "modules": [
     {
