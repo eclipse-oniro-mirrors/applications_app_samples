@@ -319,7 +319,7 @@
   <tr height="18" style='height:13.50pt;'>
    <td x:str><strong>内容嵌入服务</strong></td>
    <td x:str><a href="code/DocsSample/ContentEmbedKit/OEServerDemo">服务端开发</a></td>
-   <td ></td>
+   <td x:str><a href="code/DocsSample/ContentEmbedKit/OEClientDemo">客户端开发</a></td>
    <td ></td>
    <td ></td>
   </tr>
