@@ -43,6 +43,26 @@ public:
     int32_t GetVideoTrackId();
     int32_t GetAudioTrackId();
 
+    // 以下方法为开发指南“媒体数据封装”文档示例的演示实现，展示可选的封装配置能力，默认录制流程不会调用。
+    // 设置mp4文件级元数据，须在Start前调用。
+    int32_t SetFileLevelData();
+    // 用OH_AVFormat_Create创建format添加音频轨（文档“方法一”）。
+    int32_t AddAudioTrackByCreate();
+    // 用OH_AVFormat_Create创建format添加视频轨（文档“方法一”）。
+    int32_t AddVideoTrackByCreate();
+    // 添加音频辅助轨。
+    int32_t AddAudioAuxiliaryTrack();
+    // 添加视频辅助轨。
+    int32_t AddVideoAuxiliaryTrack();
+    // 用OH_AVFormat_Create创建format添加封面轨（文档“方法一”）。
+    int32_t AddCoverTrackByCreate();
+    // 用OH_AVFormat_CreateVideoFormat创建format添加封面轨（文档“方法二”）。
+    int32_t AddCoverTrack();
+    // 设置flv文件级元数据，须在Start前调用。
+    int32_t SetFlvFileLevelData();
+    // 以固定参数添加AAC音频轨（flv示例）。
+    int32_t AddAacAudioTrack();
+
 private:
     // 由OH_AVMuxer_Create创建、由Release() 销毁的封装器句柄。
     OH_AVMuxer *muxer_ = nullptr;
