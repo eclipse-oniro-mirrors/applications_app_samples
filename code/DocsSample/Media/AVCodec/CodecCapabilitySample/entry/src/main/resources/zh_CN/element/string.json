@@ -306,11 +306,11 @@
     },
     {
       "name": "item_ltr_callback_buffer_mode",
-      "value": "LTR随帧回调注册（Buffer模式）"
+      "value": "LTR随帧回调注册（Buffer输入模式）"
     },
     {
-      "name": "item_ltr_callback_surface_mode",
-      "value": "LTR随帧回调注册（窗口输入模式）"
+      "name": "item_ltr_callback_surface_input_mode",
+      "value": "LTR随帧回调注册（Surface输入模式）"
     },
     {
       "name": "category_video_decoder",

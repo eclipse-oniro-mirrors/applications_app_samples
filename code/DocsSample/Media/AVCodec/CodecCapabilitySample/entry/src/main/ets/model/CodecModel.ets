@@ -192,7 +192,7 @@ export const SCENARIO_GROUPS: ScenarioGroup[] = [
       { id: 36, name: $r('app.string.item_ltr_support_and_count') },
       { id: 37, name: $r('app.string.item_config_max_ltr_count') },
       { id: 38, name: $r('app.string.item_ltr_callback_buffer_mode') },
-      { id: 39, name: $r('app.string.item_ltr_callback_surface_mode') }
+      { id: 39, name: $r('app.string.item_ltr_callback_surface_input_mode') }
     ]
   }
 ];

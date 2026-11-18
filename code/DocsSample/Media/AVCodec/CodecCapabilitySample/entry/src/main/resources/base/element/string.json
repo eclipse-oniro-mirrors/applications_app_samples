@@ -306,11 +306,11 @@
     },
     {
       "name": "item_ltr_callback_buffer_mode",
-      "value": "LTR Frame Callback Registration (Buffer Mode)"
+      "value": "LTR Frame Callback Registration (Buffer Input Mode)"
     },
     {
-      "name": "item_ltr_callback_surface_mode",
-      "value": "LTR Frame Callback Registration (Surface Mode)"
+      "name": "item_ltr_callback_surface_input_mode",
+      "value": "LTR Frame Callback Registration (Surface Input Mode)"
     },
     {
       "name": "category_video_decoder",
