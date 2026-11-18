@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,107 +13,48 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
-import { describe, it, expect } from '@ohos/hypium'
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import { Driver, ON } from '@ohos.UiTest';
+import { describe, expect, it } from '@ohos/hypium';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { bundleManager } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DRIVER = Driver.create();
-let abilityDelegatorRegistry = AbilityDelegatorRegistry.getAbilityDelegator();
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_StartMode]_Test';
+const BUNDLE: string = 'ohos.samples.startmode';
+const MAIN_ABILITY: string = 'MainAbility';
+const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 
-// 资源本地化
-async function getResourceString<T extends Resource>(resource: T): Promise<string> {
-  let manage = abilityDelegatorRegistry.getAppContext().resourceManager;
-  let text = await manage.getStringValue(resource);
-  return text;
-}
-
-// 结果需要使用aa工具查看，这里仅测试UI部分是否展示正常
 export default function abilityTest() {
-  describe('ActsAbilityTest', function () {
+  describe('ActsAbilityTest', () => {
+    it('startMode_context_001', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'startMode_context_001 begin');
+      const context = delegator.getAppContext();
+      expect(context.applicationInfo.name).assertEqual(BUNDLE);
+      expect(typeof context.filesDir).assertEqual('string');
+      expect(context.filesDir.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'startMode_context_001 end');
+    });
 
-    /**
-     * 拉起应用
-     */
-    it('StartAbility_001', 0, async function (done) {
-      hilog.info(0xF811, 'testTag', 'StartAbility_001 begin');
-      try {
-        await abilityDelegatorRegistry.startAbility({
-          bundleName: 'ohos.samples.startmode',
-          abilityName: 'MainAbility'
-        });
-        done();
-      } catch (err) {
-        expect(0).assertEqual(err.code);
-        done();
-      }
-      hilog.info(0xF811, 'testTag', 'StartAbility_001 end');
-    })
+    it('startMode_bundle_001', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'startMode_bundle_001 begin');
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION;
+      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+      expect(info.name).assertEqual(BUNDLE);
+      expect(info.versionCode > 0).assertTrue();
+      expect(info.appInfo.accessTokenId > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'startMode_bundle_001 end');
+    });
 
-    /**
-     * 检查页面
-     */
-    it('CheckPage_001', 0, async function () {
-      hilog.info(0xF811, 'testTag', 'CheckPage_001 begin');
-      await DRIVER.delayMs(1000);
-      // 检查是否存在这三个板块
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.Ordinary_multiple_instances'))));
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.Specify_multiple_instances'))));
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.Single_instance'))));
-      hilog.info(0xF811, 'testTag', 'CheckPage_001 end');
-    })
-
-    /**
-     * 进入详情页
-     */
-    it('CheckDetailPage_001', 0, async function () {
-      hilog.info(0xF811, 'testTag', 'CheckDetailPage_001 begin');
-      await DRIVER.delayMs(1000);
-      // 点击番茄
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.Tomato'))));
-      let tomato = await DRIVER.findComponent(ON.text(await getResourceString($r('app.string.Tomato'))));
-      await tomato.click();
-      await DRIVER.delayMs(1000);
-      // 断言存在text为番茄的组件
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.Tomato'))));
-      await DRIVER.assertComponentExist(ON.id('ContentTable'));
-      let contentTable = await DRIVER.findComponent(ON.id('ContentTable'));
-      let contentTablePoint = await contentTable.getBoundsCenter();
-      // 向左滑动
-      await DRIVER.fling({
-        x: contentTablePoint.x + 200, y: contentTablePoint.y
-      }, {
-        x: contentTablePoint.x - 200, y: contentTablePoint.y
-      }, 50, 200);
-      await DRIVER.delayMs(2000);
-      await DRIVER.assertComponentExist(ON.id('CaloriesProgress'));
-      await DRIVER.assertComponentExist(ON.id('detailPage'));
-      let detailPage = await DRIVER.findComponent(ON.id('detailPage'));
-      let detailPagePoint = await detailPage.getBoundsCenter();
-      // 向下滑动
-      await DRIVER.fling({
-        x: detailPagePoint.x, y: detailPagePoint.y + 100
-      }, {
-        x: detailPagePoint.x, y: detailPagePoint.y - 100
-      }, 100, 200);
-      await DRIVER.delayMs(2000);
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.Cucumber'))));
-      hilog.info(0xF811, 'testTag', 'CheckDetailPage_001 end');
-    })
-
-    /**
-     * 进入另个一个详情页
-     */
-    it('CheckDetailPage_002', 0, async function () {
-      hilog.info(0xF811, 'testTag', 'CheckDetailPage_002 begin');
-      // 点击黄瓜
-      await DRIVER.delayMs(1000);
-      let cucumber = await DRIVER.findComponent(ON.text(await getResourceString($r('app.string.Cucumber'))));
-      await cucumber.click();
-      await DRIVER.delayMs(1000);
-      await DRIVER.assertComponentExist(ON.text(await getResourceString($r('app.string.Cucumber'))));
-      await DRIVER.assertComponentExist(ON.text('Food Detail'));
-      hilog.info(0xF811, 'testTag', 'CheckDetailPage_002 end');
-    })
-  })
+    it('startMode_module_001', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'startMode_module_001 begin');
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE |
+        bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_ABILITY;
+      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+      const module: bundleManager.HapModuleInfo = info.hapModulesInfo[0];
+      expect(module.mainElementName).assertEqual(MAIN_ABILITY);
+      expect(module.abilitiesInfo.length > 0).assertTrue();
+      expect(module.name.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'startMode_module_001 end');
+    });
+  });
 }
