@@ -72,8 +72,10 @@ export class BleScanManager {
   }
 
   // 1 订阅扫描结果
+  private scanListener: (data: ble.ScanResult[]) => void = (_data: ble.ScanResult[]): void => {};
+
   public onScanResult() {
-    ble.on('BLEDeviceFind', (data: Array<ble.ScanResult>) => {
+    const listener = (data: ble.ScanResult[]): void => {
       if (data.length > 0) {
         console.info(TAG, 'BLE scan result = ' + data[0].deviceId);
         this.parseScanResult(data[0].data);
@@ -85,7 +87,9 @@ export class BleScanManager {
         }
         // [EndExclude open_close_scan]
       }
-    });
+    };
+    ble.on('BLEDeviceFind', listener);
+    this.scanListener = listener;
   }
 
   private parseScanResult(data: ArrayBuffer) {
@@ -272,9 +276,7 @@ export class BleScanManager {
   // 3 关闭扫描
   public stopScan() {
     try {
-      ble.off('BLEDeviceFind', (data: Array<ble.ScanResult>) => { // 取消订阅扫描结果
-        console.info(TAG, 'off success');
-      });
+      ble.off('BLEDeviceFind', this.scanListener); // 取消订阅同一真实回调
       ble.stopBLEScan();
       // [StartExclude open_close_scan]
       this.toastReport.showResult('stopBleScan success');

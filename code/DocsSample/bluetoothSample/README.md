@@ -134,9 +134,9 @@
 
 1.本示例仅支持标准系统上运行, 支持设备：RK3568。
 
-2.本示例为Stage模型，支持API14版本SDK，版本号：5.0.2.57，镜像版本号：OpenHarmony_5.0.2.57。
+2.本示例为 Stage 模型，当前工程的编译、兼容和目标 SDK 版本均为 26.0.0（API 26）；运行时请使用兼容 API 26 的系统镜像。
 
-3.本示例需要使用DevEco Studio NEXT Developer Preview2 (Build Version: 5.0.5.306， built on December 12, 2024)及以上版本才可编译运行。
+3.请使用支持上述 SDK 的 DevEco Studio。旧版文档记录的 DevEco Studio NEXT Developer Preview2 (Build Version: 5.0.5.306， built on December 12, 2024) 仅供历史参考，不代表当前工程的最低 IDE 版本。
 
 ### 下载
 

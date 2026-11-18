@@ -64,13 +64,16 @@ export class GattServerManager {
   }
 
   // 1. 订阅连接状态变化事件
+  private connectionListener: (data: ble.BLEConnectionChangeState) => void =
+    (_data: ble.BLEConnectionChangeState): void => {};
+
   public onGattServerStateChange() {
     if (!this.gattServer) {
       console.error(TAG, 'no gattServer');
       return;
     }
     try {
-      this.gattServer.on('connectionStateChange', (stateInfo: ble.BLEConnectionChangeState) => {
+      const listener = (stateInfo: ble.BLEConnectionChangeState): void => {
         let state = '';
         switch (stateInfo.state) {
           case 0:
@@ -90,7 +93,9 @@ export class GattServerManager {
             break;
         }
         console.info(TAG, 'onGattServerStateChange: device=' + stateInfo.deviceId + ', state=' + state);
-      });
+      };
+      this.gattServer.on('connectionStateChange', listener);
+      this.connectionListener = listener;
     } catch (err) {
       console.error(TAG, 'errCode: ' + (err as BusinessError).code + ', errMessage: ' + (err as BusinessError).message);
     }
@@ -281,8 +286,7 @@ export class GattServerManager {
     console.info(TAG, 'unRegisterServer ' + this.myServiceUuid);
     try {
       this.gattServer.removeService(this.myServiceUuid); // 7.1 删除服务
-      this.gattServer.off('connectionStateChange', (stateInfo: ble.BLEConnectionChangeState) => { // 7.2 取消订阅连接状态
-      });
+      this.gattServer.off('connectionStateChange', this.connectionListener);
       this.gattServer.close() // 7.3 如果不再使用此gattServer，则需要close
       this.toastReport.showResult('unRegisterServer');
     } catch (err) {

@@ -22,3 +22,11 @@
 | 测试NativeBuffer输入场景 | 进入参数设置页面 | 切换输入场景为NativeBuffer，点击确认与Apply按钮 | 在NativeBuffer场景下成功应用滤镜链 | 是 | Pass |
 | 测试URI输入场景 | 进入参数设置页面 | 切换输入场景为URI，点击确认与Apply按钮 | 在URI场景下成功应用滤镜链 | 是 | Pass |
 | 测试NativeWindow输入场景 | 进入参数设置页面 | 切换输入场景为NativeWindow，点击确认与Apply按钮 | 在NativeWindow场景下成功应用滤镜链 | 是 | Pass |
+| [亮度、对比度和自定义亮度](./entry/src/ohosTest/ets/test/Expansion.test.ets#L467) | 测试包 Native 滤镜库、测试资源和沙箱可用 | 真实图片输入与强度边界、不同图案和小数强度 | 滤镜输出完整有效，像素值、方向或饱和边界符合独立预期 | 是 | Pass（228/228） |
+| [滤镜链顺序](./entry/src/ohosTest/ets/test/Expansion.test.ets#L497) | 测试包 Native 滤镜库、测试资源和沙箱可用 | 多段滤镜、交换顺序、含裁剪或饱和的链 | 像素和尺寸与按原顺序计算的参考一致，能区分顺序敏感的输出 | 是 | Pass（41/41） |
+| [内置和自定义裁剪](./entry/src/ohosTest/ets/test/Expansion.test.ets#L521) | 测试包 Native 滤镜库、测试资源和沙箱可用 | 不同尺寸和行带图案、多个裁剪比例和 ROI 边界 | ROI、裁剪形状及对应像素符合预期 | 是 | Pass（76/76） |
+| [滤镜输入路径与无 Surface 边界](./entry/src/ohosTest/ets/test/Expansion.test.ets#L428) | 测试包 Native 滤镜库、测试资源和沙箱可用 | NativeBuffer、URI 资源，以及未注册 Surface 时调用 | 支持的输入产生预期结果，无 Surface 调用按约定返回 | 是 | Pass（22/22） |
+| [滤镜列表和信息](./entry/src/ohosTest/ets/test/Expansion.test.ets#L599) | 测试包 Native 滤镜库、测试资源和沙箱可用 | 按像素格式查询可用滤镜，并按名称查询参数 | 内置、自定义滤镜及返回信息符合注册定义 | 是 | Pass（8/8） |
+| [图像工具与解码](./entry/src/ohosTest/ets/test/Expansion.test.ets#L608) | 测试包 Native 滤镜库、测试资源和沙箱可用 | 读取文件、资源等输入，检查工具对象和解码结果 | 实例行为、输出尺寸和像素符合资源及参考结果 | 是 | Pass（25/25） |
+
+运行范围：连接测试设备后，在 DevEco Studio 使用 **All Tests in 'test (entry)'**。[List.test.ets](./entry/src/ohosTest/ets/test/List.test.ets) 只运行 [Expansion.test.ets](./entry/src/ohosTest/ets/test/Expansion.test.ets) 注册的用例，对应表中带通过数的条目；其余条目仅作历史归档，不由此入口执行。2026-11-18 的 API 26 真机归档记录：400/400 通过，应用启动检查通过。
