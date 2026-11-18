@@ -16,12 +16,14 @@
 // 示例应用的主页面 index.ets
 import { window } from '@kit.ArkUI';
 
+const DEFAULT_WINDOW_DECOR_HEIGHT: number = 50;
+
 @Entry
 @Component
 struct Index {
   @State message: string = 'Top layout area, do not hide the title bar.';
   private mainWindow: window.Window | null = null;
-  @State private topAreaHeight: number = 50;
+  @State private topAreaHeight: number = DEFAULT_WINDOW_DECOR_HEIGHT;
   @State private topAreaWidth: number | string = '100%';
   @State private titleButtonRect: window.TitleButtonRect = {
     right: 0,
@@ -37,7 +39,11 @@ struct Index {
       return;
     }
     this.mainWindow = windowStage.getMainWindowSync();
-    this.topAreaHeight = this.mainWindow.getWindowDecorHeight();
+    try {
+      this.topAreaHeight = this.mainWindow.getWindowDecorHeight();
+    } catch (error) {
+      this.topAreaHeight = DEFAULT_WINDOW_DECOR_HEIGHT;
+    }
     this.mainWindow.on("windowSizeChange", (data) => {
       this.windowSize = data;
       this.topAreaWidth = this.getUIContext().px2vp(this.windowSize.width) - this.titleButtonRect.width;
@@ -84,7 +90,11 @@ struct Index {
                 return;
               }
               this.message = 'Top layout area, hide the title bar and avoid the three buttons.';
-              this.mainWindow.setWindowDecorVisible(false);
+              try {
+                this.mainWindow.setWindowDecorVisible(false);
+              } catch (error) {
+                console.info('setWindowDecorVisible(false) is not supported on this device');
+              }
               this.updateTitleButtonRect();
             })
           Button('do not hide the title bar.')
@@ -93,8 +103,16 @@ struct Index {
                 return;
               }
               this.message = 'Top layout area, do not hide the title bar.';
-              this.mainWindow.setWindowDecorVisible(true);
-              this.topAreaHeight = this.mainWindow.getWindowDecorHeight();
+              try {
+                this.mainWindow.setWindowDecorVisible(true);
+              } catch (error) {
+                console.info('setWindowDecorVisible(true) is not supported on this device');
+              }
+              try {
+                this.topAreaHeight = this.mainWindow.getWindowDecorHeight();
+              } catch (error) {
+                this.topAreaHeight = DEFAULT_WINDOW_DECOR_HEIGHT;
+              }
               this.topAreaWidth = '100%';
             })
             .margin(20)

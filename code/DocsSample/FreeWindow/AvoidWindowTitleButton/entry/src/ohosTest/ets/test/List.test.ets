@@ -13,7 +13,13 @@
  * limitations under the License.
  */
 import abilityTest from './Ability.test';
+import avoidWindowTitleButtonExtraTest from './AvoidWindowTitleButtonExtra.test';
+import avoidWindowTitleButtonLayoutTest from './AvoidWindowTitleButtonLayout.test';
+import avoidWindowTitleButtonStressTest from './AvoidWindowTitleButtonStress.test';
 
 export default function testsuite() {
   abilityTest();
+  avoidWindowTitleButtonExtraTest();
+  avoidWindowTitleButtonLayoutTest();
+  avoidWindowTitleButtonStressTest();
 }

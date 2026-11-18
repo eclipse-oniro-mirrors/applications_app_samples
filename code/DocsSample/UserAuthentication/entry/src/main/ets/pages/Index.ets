@@ -587,31 +587,12 @@ struct Index {
    * 查询和订阅用户识别结果
    * */
   // [Start user_recognition_result]
+  // The API 26 public SDK removed getUserRecognitionMgr / UserRecognitionResult /
+  // UserRecognitionResultCallback (passive recognition); keep the entry and report unsupported.
   async obtainingUserRecognitionResult(): Promise<string> {
-    try {
-      // 获取实例
-      let mgr = userAuth.getUserRecognitionMgr();
-      if (!mgr) {
-        Logger.error('the device does not support user recognition.');
-        return 'the device does not support user recognition.';
-      }
-      // 获取最新识别结果
-      let result = await mgr.getUserRecognitionResult();
-      Logger.info(`status: ${result.status}, userId: ${result.userId}`);
-      // 订阅识别结果变化
-      let callback: userAuth.UserRecognitionResultCallback = (recognitionResult: userAuth.UserRecognitionResult) => {
-        Logger.info(`status: ${recognitionResult.status}, userId: ${recognitionResult.userId}`);
-      };
-      mgr.onUserRecognitionChange(callback);
-      // 取消订阅
-      mgr.offUserRecognitionChange(callback);
-      return `status: ${result.status}, userId: ${result.userId}`;
-    } catch (error) {
-      const err: BusinessError = error as BusinessError;
-      const errMessage: string = `getUserRecognitionResult failed, Code: ${err?.code}, message: ${err?.message}`;
-      Logger.error(errMessage);
-      return errMessage;
-    }
+    const message: string = 'user recognition is not supported by current SDK (API 26).';
+    Logger.info(message);
+    return message;
   }
 
   // [End user_recognition_result]
@@ -673,6 +654,7 @@ struct Index {
               .textAlign(TextAlign.Center)
               .fontSize($r('app.float.size_20'))
             Button($r('app.string.query'))
+              .id('queryCapabilityBtn')
               .onClick(() => {
                 if (this.obtainingSupported()) {
                   this.result[ResultIndex.WHETHER_SUPPORTED] = 'Support';
@@ -681,6 +663,7 @@ struct Index {
                 }
               })
             Text(this.result[ResultIndex.WHETHER_SUPPORTED])
+              .id('capabilityResult')
               .fontSize($r('app.float.size_40'))
               .textAlign(TextAlign.Center)
           }
@@ -693,10 +676,12 @@ struct Index {
               .textAlign(TextAlign.Center)
               .fontSize($r('app.float.size_20'))
             Button($r('app.string.example1'))
+              .id('example1Btn')
               .onClick(async () => {
                 this.initiatingUserAuthentication1();
               })
             Text(this.result[ResultIndex.EXAMPLE_1])
+              .id('example1Result')
               .fontSize($r('app.float.size_40'))
               .textAlign(TextAlign.Center)
             Blank()
@@ -706,10 +691,12 @@ struct Index {
               .textAlign(TextAlign.Center)
               .fontSize($r('app.float.size_20'))
             Button($r('app.string.example2'))
+              .id('example2Btn')
               .onClick(async () => {
                 this.initiatingUserAuthentication2();
               })
             Text(this.result[ResultIndex.EXAMPLE_2])
+              .id('example2Result')
               .fontSize($r('app.float.size_40'))
               .textAlign(TextAlign.Center)
           }
@@ -722,10 +709,12 @@ struct Index {
               .textAlign(TextAlign.Center)
               .fontSize($r('app.float.size_20'))
             Button($r('app.string.example3'))
+              .id('example3Btn')
               .onClick(() => {
                 this.initiatingUserAuthentication3();
               })
             Text(this.result[ResultIndex.EXAMPLE_3])
+              .id('example3Result')
               .fontSize($r('app.float.size_40'))
               .textAlign(TextAlign.Center)
             Blank()
@@ -735,10 +724,12 @@ struct Index {
               .textAlign(TextAlign.Center)
               .fontSize($r('app.float.size_20'))
             Button($r('app.string.example4'))
+              .id('example4Btn')
               .onClick(() => {
                 this.initiatingUserAuthentication4();
               })
             Text(this.result[ResultIndex.EXAMPLE_4])
+              .id('example4Result')
               .fontSize($r('app.float.size_40'))
               .textAlign(TextAlign.Center)
           }
@@ -751,10 +742,12 @@ struct Index {
               .textAlign(TextAlign.Center)
               .fontSize($r('app.float.size_20'))
             Button($r('app.string.example5'))
+              .id('cancelAuthBtn')
               .onClick(async () => {
                 this.cancelingUserAuthentication();
               })
             Text(this.result[ResultIndex.CANCEL])
+              .id('cancelResult')
               .fontSize($r('app.float.size_40'))
               .textAlign(TextAlign.Center)
           }
@@ -767,10 +760,12 @@ struct Index {
               .textAlign(TextAlign.Center)
               .fontSize($r('app.float.size_20'))
             Button($r('app.string.example6'))
+              .id('perceiveAdjustBtn')
               .onClick(async () => {
                 this.perceiveAndAdjustAuthentication();
               })
             Text(this.result[ResultIndex.PERCEIVE_ADJUST])
+              .id('perceiveResult')
               .fontSize($r('app.float.size_40'))
               .textAlign(TextAlign.Center)
           }
@@ -783,10 +778,12 @@ struct Index {
               .textAlign(TextAlign.Center)
               .fontSize($r('app.float.size_20'))
             Button($r('app.string.example6'))
+              .id('customAuthBtn')
               .onClick(() => {
                 this.applyingCustomAuthentication();
               })
             Text(this.result[ResultIndex.CUSTOMIZE])
+              .id('customResult')
               .fontSize($r('app.float.size_40'))
               .textAlign(TextAlign.Center)
           }
@@ -799,6 +796,7 @@ struct Index {
               .textAlign(TextAlign.Center)
               .fontSize($r('app.float.size_20'))
             Button($r('app.string.query'))
+              .id('queryCredentialBtn')
               .onClick(() => {
                 if (this.obtainingEnrolledCredentialInformation()) {
                   this.credentialDigest = 'credentialDigest is ' + this.obtainingEnrolledCredentialInformation();
@@ -807,6 +805,7 @@ struct Index {
                 }
               })
             Text(this.credentialDigest)
+              .id('credentialResult')
               .fontSize($r('app.float.size_40'))
               .textAlign(TextAlign.Center)
           }
@@ -815,6 +814,7 @@ struct Index {
         TabContent() {
           Column() {
             Button($r('app.string.refreshSupported'))
+              .id('refreshSupportBtn')
               .onClick(() => {
                 if (this.obtainingSupported()) {
                   this.whetherSupport = $r('app.string.queryPass');
@@ -824,16 +824,19 @@ struct Index {
               })
               .margin($r('app.float.size_10'))
             Text(this.whetherSupport)
+              .id('supportResult')
               .fontSize($r('app.float.size_20'))
               .textAlign(TextAlign.Center)
             Blank()
               .height('10%')
             Row({ space: this.SPACE_GAP }) {
               Button($r('app.string.customLogin'))
+                .id('customLoginBtn')
                 .onClick(() => {
                   this.comprehensiveFeatures();
                 })
               Button($r('app.string.simpleLogin'))
+                .id('simpleLoginBtn')
                 .onClick(() => {
                   this.initiatingUserAuthentication2();
                 })
@@ -847,6 +850,7 @@ struct Index {
               .fontSize($r('app.float.size_20'))
               .textAlign(TextAlign.Center)
             Button($r('app.string.refreshTheCredentials'))
+              .id('refreshCredentialBtn')
               .onClick(() => {
                 try {
                   let enrolledState = userAuth.getEnrolledState(userAuth.UserAuthType.PIN);
@@ -859,6 +863,7 @@ struct Index {
               })
               .margin($r('app.float.size_10'))
             Text(this.credentialValue)
+              .id('credentialValueResult')
               .fontSize($r('app.float.size_20'))
               .textAlign(TextAlign.Center)
           }
@@ -873,12 +878,14 @@ struct Index {
               .textAlign(TextAlign.Center)
               .fontSize($r('app.float.size_20'))
             Button($r('app.string.query'))
+              .id('queryLockStateBtn')
               .onClick(() => {
                 this.obtainingAuthLockState().then((result : string) => {
                   this.authLockStateContent = result;
                 })
               })
             Text(this.authLockStateContent)
+              .id('lockStateResult')
               .fontSize($r('app.float.size_40'))
               .textAlign(TextAlign.Center)
           }
@@ -891,12 +898,14 @@ struct Index {
               .textAlign(TextAlign.Center)
               .fontSize($r('app.float.size_20'))
             Button($r('app.string.query'))
+              .id('queryRecognitionBtn')
               .onClick(() => {
                 this.obtainingUserRecognitionResult().then((result : string) => {
                   this.recognitionResult = result;
                 })
               })
             Text(this.recognitionResult)
+              .id('recognitionResult')
               .fontSize($r('app.float.size_40'))
               .textAlign(TextAlign.Center)
           }

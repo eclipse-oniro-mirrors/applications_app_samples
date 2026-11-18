@@ -12,123 +12,114 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { bundleManager, common, Want } from '@kit.AbilityKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 import testNapi from 'libentry.so';
 
-const TAG = '[Sample_MyApp]'
-const DOMAIN = 0xF888
-const BUNDLE = 'dlp_'
+const BUNDLE_NAME: string = 'com.dlp.api.test';
+const ENTRY_ABILITY_NAME: string = 'EntryAbility';
+const EXPECTED_VERSION_NAME: string = '1.0.0';
+const EXPECTED_VERSION_CODE: number = 1000000;
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
-export default function localUnitTest() {
-  describe('localUnitTest', () => {
-    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
+export default function abilityTest() {
+  describe('DlpAbilityTest', () => {
+    let appContext: common.Context;
+
     beforeAll(() => {
-      // Presets an action, which is performed only once before all test cases of the test suite start.
-      // This API supports only one parameter: preset action function.
-    });
-    beforeEach(() => {
-      // Presets an action, which is performed before each unit test case starts.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: preset action function.
-    });
-    afterEach(() => {
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
-    });
-    afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
-    });
-    /**
-     * 查询当前DLP沙箱的权限信息
-     */
-    it('GetDlpPermissionInfo_001', 0, () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + "GetDlpPermissionInfo_001, begin");
-
-
-      const result: number = testNapi.GetDlpPermissionInfo();
-      let message: string = result.toString();
-
-      hilog.info(DOMAIN, TAG, BUNDLE + "GetDlpPermissionInfo_001, message" + message);
-      expect(message).assertContain("19100006");
-      hilog.info(DOMAIN, TAG, BUNDLE + "GetDlpPermissionInfo_001, begin");
-    });
+      appContext = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+    })
 
     /**
-     * 获取指定DLP文件名的原始文件名
+     * @tc.name   testAppContext0001
+     * @tc.number SUB_DLP_C_API_ABILITY_0100
+     * @tc.desc   Test that the app context and resource manager are available and the app name equals the bundle name.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL0
      */
-    it('GetOriginalFileName_001', 0, () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + "GetOriginalFileName_001, begin");
-
-
-      const result: number = testNapi.GetOriginalFileName();
-      let message: string = result.toString();
-
-      hilog.info(DOMAIN, TAG, BUNDLE + "GetOriginalFileName_001, message" + message);
-      expect(message).assertContain("test.txt");
-      hilog.info(DOMAIN, TAG, BUNDLE + "GetOriginalFileName_001, begin");
-    });
+    it('testAppContext0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testAppContext0001 begin');
+      expect(appContext !== undefined).assertTrue();
+      expect(appContext.resourceManager !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'appName=%{public}s', appContext.applicationInfo.name);
+      expect(appContext.applicationInfo.name).assertEqual(BUNDLE_NAME);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testAppContext0001 end');
+    })
 
     /**
-     * 查询当前运行DLP沙箱环境
+     * @tc.name   testBundleInfo0001
+     * @tc.number SUB_DLP_C_API_ABILITY_0200
+     * @tc.desc   Test that the bundle name and the version of the app itself equal the values configured in app.json5.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL0
      */
-    it('IsInSandbox_001', 0, () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + "IsInSandbox_001, begin");
-
-
-      const result: boolean = testNapi.IsInSandbox();
-      let message: string = result.toString();
-
-      hilog.info(DOMAIN, TAG, BUNDLE + "IsInSandbox_001, message" + message);
-      expect(message).assertContain("false");
-      hilog.info(DOMAIN, TAG, BUNDLE + "IsInSandbox_001, begin");
-    });
+    it('testBundleInfo0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testBundleInfo0001 begin');
+      const bundleFlag: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_DEFAULT;
+      const bundleInfo: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(bundleFlag);
+      expect(bundleInfo.name).assertEqual(BUNDLE_NAME);
+      expect(bundleInfo.versionName).assertEqual(EXPECTED_VERSION_NAME);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'bundle=%{public}s version=%{public}s(%{public}d)',
+        bundleInfo.name, bundleInfo.versionName, bundleInfo.versionCode);
+      expect(bundleInfo.versionCode).assertEqual(EXPECTED_VERSION_CODE);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testBundleInfo0001 end');
+    })
 
     /**
-     * 设置沙箱应用配置信息
+     * @tc.name   testNapiExported0001
+     * @tc.number SUB_DLP_C_API_ABILITY_0300
+     * @tc.desc   Test that the native library libentry.so exports all six DLP C API wrappers as callable functions.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL0
      */
-    it('SetSandboxAppConfig_001', 0, () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + "SetSandboxAppConfig_001, begin");
-
-
-      const result: number = testNapi.SetSandboxAppConfig();
-      let message: string = result.toString();
-
-      hilog.info(DOMAIN, TAG, BUNDLE + "SetSandboxAppConfig_001, message" + message);
-      expect(message).assertContain("0");
-      hilog.info(DOMAIN, TAG, BUNDLE + "SetSandboxAppConfig_001, begin");
-    });
+    it('testNapiExported0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testNapiExported0001 begin');
+      expect(testNapi !== undefined).assertTrue();
+      expect(typeof testNapi.GetDlpPermissionInfo).assertEqual('function');
+      expect(typeof testNapi.GetOriginalFileName).assertEqual('function');
+      expect(typeof testNapi.IsInSandbox).assertEqual('function');
+      expect(typeof testNapi.SetSandboxAppConfig).assertEqual('function');
+      expect(typeof testNapi.GetSandboxAppConfig).assertEqual('function');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'libentry loaded=%{public}s', typeof testNapi);
+      expect(typeof testNapi.CleanSandboxAppConfig).assertEqual('function');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testNapiExported0001 end');
+    })
 
     /**
-     * 获取沙箱应用配置信息
+     * @tc.name   testStartEntryAbility0001
+     * @tc.number SUB_DLP_C_API_ABILITY_0400
+     * @tc.desc   Test that the entry ability can be started without error.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL0
      */
-    it('GetSandboxAppConfig_001', 0, () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + "GetSandboxAppConfig_001, begin");
-
-
-      const result: number = testNapi.GetSandboxAppConfig();
-      let message: string = result.toString();
-
-      hilog.info(DOMAIN, TAG, BUNDLE + "GetSandboxAppConfig_001, message" + message);
-      expect(message).assertContain("configInfo");
-      hilog.info(DOMAIN, TAG, BUNDLE + "GetSandboxAppConfig_001, begin");
-    });
-
-    /**
-     * 清理沙箱应用配置信息
-     */
-    it('CleanSandboxAppConfig_001', 0, () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + "CleanSandboxAppConfig_001, begin");
-
-
-      const result: number = testNapi.CleanSandboxAppConfig();
-      let message: string = result.toString();
-
-      hilog.info(DOMAIN, TAG, BUNDLE + "CleanSandboxAppConfig_001, message" + message);
-      expect(message).assertContain("0");
-      hilog.info(DOMAIN, TAG, BUNDLE + "CleanSandboxAppConfig_001, begin");
-    });
-  });
+    it('testStartEntryAbility0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testStartEntryAbility0001 begin');
+      const want: Want = {
+        bundleName: BUNDLE_NAME,
+        abilityName: ENTRY_ABILITY_NAME
+      };
+      const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator =
+        abilityDelegatorRegistry.getAbilityDelegator();
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'bundle=%{public}s ability=%{public}s',
+        want.bundleName, want.abilityName);
+      let isFailed: boolean = false;
+      abilityDelegator.startAbility(want, (err: BusinessError) => {
+        if (err !== undefined && err !== null && err.code !== 0) {
+          isFailed = true;
+        }
+        expect(isFailed).assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testStartEntryAbility0001 end');
+        done();
+      });
+    })
+  })
 }
