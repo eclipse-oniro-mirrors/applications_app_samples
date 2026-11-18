@@ -36,6 +36,14 @@ export default function abilityTest() {
       // Presets a clear action, which is performed after all test cases of the test suite end.
       // This API supports only one parameter: clear action function.
     })
+    /**
+     * @tc.number    SUB_CITYSEARCH_LEGACY_0001
+     * @tc.name      assertContain
+     * @tc.desc      Verify legacy case assertContain runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
     it('assertContain', 0, () => {
       // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
       hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
@@ -44,6 +52,7 @@ export default function abilityTest() {
       // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
       expect(a).assertContain(b);
       expect(a).assertEqual(a);
+      hilog.info(0x0000, 'testTag', '%{public}s', 'it end');
     })
   })
 }
