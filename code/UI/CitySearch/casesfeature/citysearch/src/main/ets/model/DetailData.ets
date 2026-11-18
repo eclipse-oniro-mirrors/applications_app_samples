@@ -14,6 +14,13 @@
  */
 
 /**
+ * @file casesfeature/citysearch/src/main/ets/model/DetailData.ets
+ * 文件职责：DetailData 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：HotListItemView、AlphabetListItemType、AlphabetListItemView。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
+/**
  * 热门城市列表项视图
  * @param hotListItem: 热门列表项数据
  * @param contentBuilder: 列表项视图
@@ -23,6 +30,7 @@ export class HotListItemView {
   hotListItem: string;
   contentBuilder: WrappedBuilder<[string]>;
 
+  /** 构造 DetailData 实例。 */
   constructor(hotListItem: string, contentBuilder: WrappedBuilder<[string]>) {
     this.hotListItem = hotListItem;
     this.contentBuilder = contentBuilder;
@@ -38,6 +46,7 @@ export class AlphabetListItemType {
   name: string;
   dataList: string[];
 
+  /** 构造 DetailData 实例。 */
   constructor(name: string, dataList: string[]) {
     this.name = name;
     this.dataList = dataList;
@@ -53,6 +62,7 @@ export class AlphabetListItemView {
   alphabetListItem: AlphabetListItemType;
   contentBuilder: WrappedBuilder<[string]>;
 
+  /** 构造 DetailData 实例。 */
   constructor(alphabetListItem: AlphabetListItemType, contentBuilder: WrappedBuilder<[string]>) {
     this.alphabetListItem = alphabetListItem;
     this.contentBuilder = contentBuilder;
@@ -80,7 +90,6 @@ export const CITY_DATA = [
     ['郑州', '珠海', '张家口', '张家界', '镇江', '中山', '枣阳', '枣庄', '漳州', '枝江', '芷江', '织金', '中牟', '中卫',
       '周口', '舟山', '庄河', '珠海'])
 ];
-
 
 // 国内热门城市数据
 export const HOT_CITY =

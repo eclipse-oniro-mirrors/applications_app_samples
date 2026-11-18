@@ -13,6 +13,13 @@
 * limitations under the License.
 */
 
+/**
+ * @file casesfeature/citysearch/src/main/ets/view/CitySearch.ets
+ * 文件职责：CitySearch 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：CitySearch、hotCitySection、cityListItemSection。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { AlphabetListItemView, AlphabetListItemType, CITY_DATA, HotListItemView, HOT_CITY } from '../model/DetailData';
 import { SearchView } from './SearchView';
 import { AlphabetListView } from '../utils/AlphabetListView';
@@ -62,21 +69,33 @@ const SEARCH_BUTTON_TEXT = '搜索';
    })
  *
  */
+/**
+ * CitySearch：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct CitySearch {
   // 搜索值
+  // @State changeValue：组件内部状态
   @State changeValue: string = '';
+
   // 热门城市列表
   hotCityList: HotListItemView[] = [];
+
   // 城市列表
   cityList: AlphabetListItemView[] = [];
+
   // 占位
   placeholder: string = CommonConstants.PLACE_HOLDER_TEXT;
+
   // 搜索控制器
   controller: SearchController = new SearchController();
+
   // 是否展示搜索结果列表
+  // @State isSearchState：组件内部状态
   @State isSearchState: boolean = false;
+
   // 搜索结果
+  // @State searchList：组件内部状态
   @State searchList: string[] = [];
 
   /**
@@ -88,6 +107,9 @@ export struct CitySearch {
     })
   }
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear(): void {
     CITY_DATA.forEach((cityItem: AlphabetListItemType) => {
       this.cityList.push(new AlphabetListItemView(cityItem, wrapBuilder(cityListItemSection)))
@@ -97,9 +119,22 @@ export struct CitySearch {
     })
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：宽度、高度、内边距、背景色、主轴对齐、交叉轴对齐
+    // Column：垂直布局容器
+    // 关键属性：宽度、高度、内边距、背景色、主轴对齐、交叉轴对齐
     Column() {
       // 搜索框
+      // Search：搜索框
+      // 关键属性：searchButton、宽度、高度、外边距、背景色、占位提示颜色
+      // 交互：输入/提交回调
+      // Search：搜索框
+      // 关键属性：searchButton、宽度、高度、外边距、背景色、占位提示颜色
+      // 交互：输入/提交回调
       Search({ value: this.changeValue, placeholder: this.placeholder, controller: this.controller })
         .searchButton(SEARCH_BUTTON_TEXT)
         .width(CommonConstants.VIEW_FULL)
@@ -141,6 +176,7 @@ export struct CitySearch {
             }
           }
         })
+        .id('citySearchInput')
 
       /**
        * 城市列表组件
@@ -150,6 +186,10 @@ export struct CitySearch {
        * @param hotSelectHandle - 点击热门选择列表项处理逻辑
        * @param alphabetSelectHandle - 点击字母列表项处理逻辑
        */
+      // AlphabetListView：AlphabetListView 自定义组件
+      // 关键属性：外边距
+      // AlphabetListView：AlphabetListView 自定义组件
+      // 关键属性：外边距
       AlphabetListView({
         hotSelectList: this.hotCityList,
         hotSelectListTitle: $r('app.string.citysearch_hotCity'),
@@ -160,7 +200,7 @@ export struct CitySearch {
         alphabetSelectHandle: (alphabetSelectValue: string) => {
           this.cityHandle(alphabetSelectValue);
         }
-      })
+      }).id('cityAlphabetList')
         .margin({ top: $r('app.integer.citysearch_list_margin_top') })/**
          * 性能知识点：由于需要通过搜索按钮频繁的控制自定义组件的显隐状态，因此推荐使用显隐控制替代条件渲染，
          * 参考合理选择条件渲染和显隐控制文章：
@@ -173,11 +213,16 @@ export struct CitySearch {
        * @param searchList: 搜索列表数据
        * @param changeValue: 选定的城市
        */
+      // SearchView：SearchView 自定义组件
+      // 关键属性：宽度、布局权重、可见性
+      // SearchView：SearchView 自定义组件
+      // 关键属性：宽度、布局权重、可见性
       SearchView({ searchList: $searchList, changeValue: $changeValue })
         .width(CommonConstants.VIEW_FULL)
         .layoutWeight(1)
         .visibility(this.isSearchState ? Visibility.Visible : Visibility.None)
-    }
+        .id('searchResultList')
+    }.id('city_search_column_1')
     .width(CommonConstants.VIEW_FULL)
     .height(CommonConstants.VIEW_FULL)
     .padding({ left: $r('app.integer.citysearch_padding_left'), right: $r('app.integer.citysearch_padding_right') })
@@ -187,6 +232,9 @@ export struct CitySearch {
   }
 
   // 搜索城市展示逻辑
+  /**
+   * searchCityList：执行 searchCityList 相关逻辑。
+   */
   searchCityList(value: string) {
     let cityNames: string[] = [];
     CITY_DATA.forEach(item => {
@@ -211,19 +259,38 @@ export struct CitySearch {
     }
   }
 
+  /**
+   * cityHandle：执行 cityHandle 相关逻辑。
+   */
   cityHandle(alphabetSelectValue: string) {
     // TODO:待开发者根据选定列表的城市名称时执行的逻辑操作，比如说筛选等
     // 当前调用Toast显示提示:此样式仅为案例展示
     promptAction.showToast({ message: $r('app.string.citysearch_only_show_ui') });
   }
 
+  /**
+   * hotCityHandle：执行 hotCityHandle 相关逻辑。
+   */
   hotCityHandle(hotSelectValue: string) {
     this.changeValue = hotSelectValue;
   }
 }
 
+/**
+ * hotCitySection：函数定义，承载本文件对应的逻辑与数据。
+ */
 @Builder
 function hotCitySection(hotCity: string) {
+  // Text：文本
+  // 关键属性：外边距
+  /**
+   * Text：执行 Text 相关逻辑。
+   */
+  // Text：文本
+  // 关键属性：外边距
+  /**
+   * Text：执行 Text 相关逻辑。
+   */
   Text(`${hotCity}`)
     .margin({
       bottom: $r('app.integer.citysearch_text_margin_bottom'),
@@ -237,12 +304,27 @@ function hotCitySection(hotCity: string) {
     .fontColor($r('app.color.citysearch_text_font_color2'))
     .backgroundColor($r('app.color.citysearch_text_bgc'))
     .borderRadius($r('app.integer.citysearch_text_border_radius'))
+    .id('hotCity_' + hotCity)
 }
 
+/**
+ * cityListItemSection：函数定义，承载本文件对应的逻辑与数据。
+ */
 @Builder
 function cityListItemSection(cityItem: string) {
+  // Text：文本
+  // 关键属性：高度、字号、宽度
+  /**
+   * Text：执行 Text 相关逻辑。
+   */
+  // Text：文本
+  // 关键属性：高度、字号、宽度
+  /**
+   * Text：执行 Text 相关逻辑。
+   */
   Text(cityItem)
     .height($r('app.integer.citysearch_list_item_height'))
     .fontSize($r('app.integer.citysearch_text_font'))
     .width(CommonConstants.VIEW_FULL)
+    .id('cityItem_' + cityItem)
 }

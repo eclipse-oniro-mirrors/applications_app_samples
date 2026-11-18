@@ -18,3 +18,9 @@ export { CitySearch } from './src/main/ets/view/CitySearch';
 export { AlphabetListView } from './src/main/ets/utils/AlphabetListView';
 
 export { AlphabetListItemType, AlphabetListItemView, HotListItemView } from './src/main/ets/model/DetailData';
+
+export { CITY_DATA, HOT_CITY } from './src/main/ets/model/DetailData';
+
+export { CommonConstants } from './src/main/ets/common/CommonConstants';
+
+export { logger } from './src/main/ets/utils/Logger';
