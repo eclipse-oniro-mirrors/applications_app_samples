@@ -54,6 +54,18 @@ import prefsBoundaryMatrixPart2Test from './PrefsBoundaryMatrixPart2.test';
 import errorUtilExtraMatrixPart1Test from './ErrorUtilExtraMatrixPart1.test';
 import errorUtilExtraMatrixPart2Test from './ErrorUtilExtraMatrixPart2.test';
 import crossModuleFlowMatrixPart1Test from './CrossModuleFlowMatrixPart1.test';
+import formatNumericGridMatrixCombinedPart1Test from './FormatNumericGridMatrixCombinedPart1.test';
+import formatNumericGridMatrixCombinedPart2Test from './FormatNumericGridMatrixCombinedPart2.test';
+import formatDateGridMatrixCombinedPart1Test from './FormatDateGridMatrixCombinedPart1.test';
+import demoFilterGridMatrixCombinedPart1Test from './DemoFilterGridMatrixCombinedPart1.test';
+import demoFilterGridMatrixCombinedPart2Test from './DemoFilterGridMatrixCombinedPart2.test';
+import demoFilterGridMatrixCombinedPart3Test from './DemoFilterGridMatrixCombinedPart3.test';
+import demoFilterGridMatrixCombinedPart4Test from './DemoFilterGridMatrixCombinedPart4.test';
+import deviceProfileGridMatrixCombinedPart1Test from './DeviceProfileGridMatrixCombinedPart1.test';
+import deviceProfileGridMatrixCombinedPart2Test from './DeviceProfileGridMatrixCombinedPart2.test';
+import deviceProfileGridMatrixCombinedPart3Test from './DeviceProfileGridMatrixCombinedPart3.test';
+import logQueryGridMatrixCombinedPart1Test from './LogQueryGridMatrixCombinedPart1.test';
+import logQueryGridMatrixCombinedPart2Test from './LogQueryGridMatrixCombinedPart2.test';
 export default function testsuite() {
   atomicServiceComponentsTest();
   demoLogicTest();
@@ -96,4 +108,16 @@ export default function testsuite() {
   errorUtilExtraMatrixPart1Test();
   errorUtilExtraMatrixPart2Test();
   crossModuleFlowMatrixPart1Test();
+  formatNumericGridMatrixCombinedPart1Test();
+  formatNumericGridMatrixCombinedPart2Test();
+  formatDateGridMatrixCombinedPart1Test();
+  demoFilterGridMatrixCombinedPart1Test();
+  demoFilterGridMatrixCombinedPart2Test();
+  demoFilterGridMatrixCombinedPart3Test();
+  demoFilterGridMatrixCombinedPart4Test();
+  deviceProfileGridMatrixCombinedPart1Test();
+  deviceProfileGridMatrixCombinedPart2Test();
+  deviceProfileGridMatrixCombinedPart3Test();
+  logQueryGridMatrixCombinedPart1Test();
+  logQueryGridMatrixCombinedPart2Test();
 }
