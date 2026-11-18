@@ -16,7 +16,7 @@
   "license": "Apache-2.0",
   "devDependencies": {},
   "author": "",
-  "name": "routermodule",
+  "name": "RouterModule",
   "description": "Please describe the basic information.",
   "main": "Index.ets",
   "version": "1.0.0",
