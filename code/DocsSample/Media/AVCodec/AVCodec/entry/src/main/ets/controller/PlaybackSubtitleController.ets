@@ -42,12 +42,14 @@ export class PlaybackSubtitleController {
     let content: string = '';
     try {
       const stat: fileIo.Stat = await fileIo.stat(uri);
+      if (request !== this.revision) { return ''; }
       if (stat.size > PlaybackSubtitleController.MAX_FILE_BYTES) { throw new Error('Subtitle exceeds 4 MiB'); }
       content = await fileIo.readText(uri, { encoding: 'UTF-8' });
     } catch (error) {
       if (request !== this.revision) { return ''; }
       throw new Error('Unable to read subtitle: ' + JSON.stringify(error));
     }
+    if (request !== this.revision) { return ''; }
     const name: string = uri.substring(uri.lastIndexOf('/') + 1);
     const cues = parseSubtitle(content, name);
     if (request !== this.revision) { return ''; }

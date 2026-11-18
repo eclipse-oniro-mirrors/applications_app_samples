@@ -15,6 +15,7 @@
 
 import { common } from '@kit.AbilityKit';
 import { fileIo } from '@kit.CoreFileKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import player, { PlaybackResult } from 'libplayer.so';
 import { PlayerSettingsModel } from '../model/PlayerSettingsModel';
 import { MediaFileActivity } from '../model/MediaFileActivity';
@@ -27,27 +28,43 @@ export interface PlaybackStartupResult {
   started: boolean;
   nativeOwnsLease: boolean;
   error: string;
+  cleanupPending?: boolean;
 }
 
 export class PlaybackStartupController {
+  private static unconfirmedInputs: Map<number, fileIo.File> = new Map<number, fileIo.File>();
+
   static launch(context: common.Context | undefined, path: string, settings: PlayerSettingsModel,
     smartFluency: boolean, prepare: (lease: MediaTaskLease) => void,
-    completed: (result: PlaybackResult) => void): PlaybackStartupResult {
+    completed: (result: PlaybackResult, cleanupPending: boolean) => void): PlaybackStartupResult {
     const result: PlaybackStartupResult = { started: false, nativeOwnsLease: false, error: '' };
+    if (PlaybackStartupController.unconfirmedInputs.size > 0) {
+      result.error = 'close_unconfirmed'; result.cleanupPending = true; return result;
+    }
     if (!MediaFileActivity.beginLaunch()) { result.error = 'busy'; return result; }
     const lease: MediaTaskLease | undefined = MediaTaskCoordinator.acquire('playback');
     if (lease === undefined) { MediaFileActivity.endLaunch(); result.error = 'busy'; return result; }
     let input: fileIo.File | undefined = undefined;
     let closed: boolean = false;
+    let closeAttempted: boolean = false;
+    let completionHandled: boolean = false;
     let sourceIdentity: MediaInputIdentity | undefined = undefined;
-    const closeInput = (): void => {
-      if (input === undefined || closed) { return; }
+    const closeInput = (): boolean => {
+      if (input === undefined || closed) { return true; }
+      if (closeAttempted) { return false; }
+      closeAttempted = true;
       try {
         fileIo.closeSync(input);
         closed = true;
       } catch (error) {
+        if ((error as BusinessError).code === 13900008) { closed = true; return true; }
+        // 关闭结果不明时保留File和租约，不重试可能已被复用的fd。
+        PlaybackStartupController.unconfirmedInputs.set(input.fd, input);
+        result.cleanupPending = true;
+        MediaTaskCoordinator.cancelling(lease);
         Logger.error('PlaybackStartup', 'Close input failed: ' + String(error));
       }
+      return closed;
     };
     try {
       if (context !== undefined) {
@@ -66,7 +83,9 @@ export class PlaybackStartupController {
         inputFileSize: size,
         isSmartFluencySupported: smartFluency
       }), (completion: PlaybackResult): void => {
-        closeInput();
+        if (completionHandled) { return; }
+        completionHandled = true;
+        if (!closeInput()) { completed(completion, true); return; }
         try {
           if (context !== undefined && MediaTaskCoordinator.owns(lease)) {
             void MediaSessionStore.finish(context, lease.id,
@@ -78,7 +97,7 @@ export class PlaybackStartupController {
         } finally {
           MediaTaskCoordinator.release(lease);
         }
-        completed(completion);
+        completed(completion, false);
       });
       // 初始化失败也可能仍在异步释放；完成回调到达前保留fd和任务租约。
       result.nativeOwnsLease = result.started || player.getState() !== player.PlayerState.IDLE;
@@ -94,15 +113,16 @@ export class PlaybackStartupController {
       result.nativeOwnsLease = player.getState() !== player.PlayerState.IDLE;
       return result;
     } finally {
-      if (!result.nativeOwnsLease) {
-        closeInput();
-        if (context !== undefined) {
-          const report = MediaReports.base(lease.id, 'playback', 'failed');
-          report.error = MediaReports.error('playback.prepare', -1, 'Playback preparation did not complete');
-          void MediaSessionStore.finish(context, lease.id, report)
-            .catch((error: Error): void => Logger.warn('PlaybackStartup', error.message));
-        }
-        MediaTaskCoordinator.release(lease);
+      if (!result.nativeOwnsLease && !completionHandled) {
+        if (closeInput()) {
+          if (context !== undefined) {
+            const report = MediaReports.base(lease.id, 'playback', 'failed');
+            report.error = MediaReports.error('playback.prepare', -1, 'Playback preparation did not complete');
+            void MediaSessionStore.finish(context, lease.id, report)
+              .catch((error: Error): void => Logger.warn('PlaybackStartup', error.message));
+          }
+          MediaTaskCoordinator.release(lease);
+        } else { result.error = 'close_unconfirmed'; }
       }
       MediaFileActivity.endLaunch();
     }

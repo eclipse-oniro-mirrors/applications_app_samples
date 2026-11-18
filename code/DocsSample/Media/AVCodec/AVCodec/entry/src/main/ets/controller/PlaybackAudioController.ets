@@ -30,11 +30,12 @@ export class PlaybackAudioController {
   private setMuted: (muted: boolean) => void;
   private getVolumeBeforeMute: () => number;
   private setVolumeBeforeMute: (volume: number) => void;
+  private getSession: () => number;
 
   constructor(ui: () => UIContext, settings: PlayerSettingsModel,
     rejectWhileSeeking: () => boolean, getText: (resource: Resource) => string,
     onTrackChanged: () => void, isMuted: () => boolean, setMuted: (muted: boolean) => void,
-    getVolumeBeforeMute: () => number, setVolumeBeforeMute: (volume: number) => void) {
+    getVolumeBeforeMute: () => number, setVolumeBeforeMute: (volume: number) => void, getSession: () => number) {
     this.ui = ui;
     this.settings = settings;
     this.rejectWhileSeeking = rejectWhileSeeking;
@@ -44,6 +45,7 @@ export class PlaybackAudioController {
     this.setMuted = setMuted;
     this.getVolumeBeforeMute = getVolumeBeforeMute;
     this.setVolumeBeforeMute = setVolumeBeforeMute;
+    this.getSession = getSession;
   }
 
   private formatTrackLabel(track: MediaTrackInfo, position: number): string {
@@ -66,7 +68,8 @@ export class PlaybackAudioController {
   }
 
   selectTrack(): void {
-    if (this.rejectWhileSeeking()) {
+    const session: number = this.getSession();
+    if (session < 0 || this.rejectWhileSeeking()) {
       return;
     }
     let tracks: MediaTrackInfo[] = [];
@@ -92,6 +95,9 @@ export class PlaybackAudioController {
       selected: Math.max(0,
         tracks.findIndex((track: MediaTrackInfo): boolean => track.index === this.settings.audioTrackIndex)),
       onAccept: (value: TextPickerResult): void => {
+        if (session !== this.getSession()) {
+          return;
+        }
         const selected: number = getPickerSelectedIndex(value.index);
         if (selected < 0 || selected >= tracks.length || this.rejectWhileSeeking()) {
           return;

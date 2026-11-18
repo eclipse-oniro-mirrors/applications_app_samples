@@ -20,10 +20,12 @@ export class PlaybackQueueController {
   public paths: string[] = [];
   public index: number = -1;
   public pendingIndex: number = -1;
+  public pendingPositionUs: number = 0;
 
   append(path: string): void {
     if (path.length > 0 && this.paths.indexOf(path) < 0) {
-      this.paths = this.paths.concat([path]);
+      // 追加不替换队列身份，正在等待的有效切换可继续使用原目标。
+      this.paths.push(path);
     }
   }
 

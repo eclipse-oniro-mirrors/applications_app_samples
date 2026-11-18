@@ -39,97 +39,163 @@ export class PlaybackSessionController {
   private callbacks: PlaybackSessionCallbacks | undefined = undefined;
   private generation: number = 0;
   private listenerRegistered: boolean = false;
-  private stopTask: Promise<void> | undefined = undefined;
+  private operations: Promise<void> = Promise.resolve();
+  private sessionActive: boolean = false;
   // AVSession未激活时暂存最新播放状态，激活后再同步给系统媒体控件。
   private pendingPlaybackState: avSession.AVPlaybackState | undefined = undefined;
 
-  async start(context: common.UIAbilityContext, media: PlaybackSessionMedia,
+  start(context: common.UIAbilityContext, media: PlaybackSessionMedia,
     callbacks: PlaybackSessionCallbacks): Promise<void> {
     const currentGeneration = ++this.generation;
-    const requiredSessionType: avSession.AVSessionType = media.hasVideo ? 'video' : 'audio';
-    this.callbacks = callbacks;
-    try {
-      if (this.stopTask !== undefined) {
-        await this.stopTask;
-        if (currentGeneration !== this.generation) {
-          return;
-        }
-        this.stopTask = undefined;
-      }
-      if (this.session !== undefined && this.sessionType !== requiredSessionType) {
-        const previousSession = this.session;
-        this.session = undefined;
-        this.sessionType = undefined;
-        this.listenerRegistered = false;
-        await this.destroySession(previousSession);
-        if (currentGeneration !== this.generation) {
-          return;
-        }
-      }
-      if (this.session === undefined) {
-        const createdSession = await avSession.createAVSession(context, 'AVCodecPlayer',
-          requiredSessionType);
-        if (currentGeneration !== this.generation) {
-          await createdSession.destroy();
-          return;
-        }
-        this.session = createdSession;
-        this.sessionType = requiredSessionType;
-      }
-      if (currentGeneration !== this.generation || this.session === undefined) {
+    this.callbacks = undefined;
+    this.sessionActive = false;
+    const task: Promise<void> = this.operations.then(async (): Promise<void> => {
+      if (currentGeneration !== this.generation) {
         return;
       }
-      this.registerListeners(this.session);
-      const metadata: avSession.AVMetadata = {
-        assetId: media.assetId,
-        title: media.title,
-        duration: media.durationMs,
-        skipIntervals: avSession.SkipIntervals.SECONDS_15,
-        avQueueName: media.queueTitle,
-        avQueueId: 'avcodec-playback-queue'
-      };
-      const previousAssetId = this.getQueueAssetId(media.queueIndex - 1, media.queueTitles.length);
-      const nextAssetId = this.getQueueAssetId(media.queueIndex + 1, media.queueTitles.length);
-      if (previousAssetId !== undefined) {
-        metadata.previousAssetId = previousAssetId;
-      }
-      if (nextAssetId !== undefined) {
-        metadata.nextAssetId = nextAssetId;
-      }
-      await this.session.setAVMetadata(metadata);
-      if (currentGeneration !== this.generation || this.session === undefined) {
-        return;
-      }
-      const queueItems: avSession.AVQueueItem[] = this.createQueueItems(media.queueTitles);
-      if (queueItems.length > 0) {
-        await this.session.setAVQueueItems(queueItems);
-        await this.session.setAVQueueTitle(media.queueTitle);
-      }
-      if (currentGeneration !== this.generation || this.session === undefined) {
-        return;
-      }
-      await this.setLaunchAbility(context, currentGeneration);
-      if (currentGeneration !== this.generation || this.session === undefined) {
-        return;
-      }
-      await this.session.activate();
-      if (currentGeneration !== this.generation || this.session === undefined) {
-        return;
-      }
-      const initialState: avSession.AVPlaybackState = this.pendingPlaybackState ?? {
-        state: avSession.PlaybackState.PLAYBACK_STATE_PLAY,
-        speed: 1,
-        position: {
-          elapsedTime: 0,
-          updateTime: Date.now()
-        },
-        duration: Math.max(0, media.durationMs)
-      };
-      this.pendingPlaybackState = undefined;
-      await this.session.setAVPlaybackState(initialState);
-    } catch (error) {
+      this.callbacks = callbacks;
+      await this.startSession(context, media, currentGeneration);
+    }).catch(async (error: Error): Promise<void> => {
       Logger.error(TAG, `Start AVSession failed: ${JSON.stringify(error)}`);
+      if (currentGeneration === this.generation) {
+        this.callbacks = undefined;
+        this.sessionActive = false;
+        const failedSession = this.clearSession();
+        if (failedSession !== undefined) {
+          await this.destroySession(failedSession);
+        }
+      }
+    });
+    this.operations = task;
+    return task;
+  }
+
+  private async startSession(context: common.UIAbilityContext, media: PlaybackSessionMedia,
+    currentGeneration: number): Promise<void> {
+    const requiredSessionType: avSession.AVSessionType = media.hasVideo ? 'video' : 'audio';
+    if (this.session !== undefined && this.sessionType !== requiredSessionType) {
+      const previousSession = this.session;
+      this.session = undefined;
+      this.sessionType = undefined;
+      this.listenerRegistered = false;
+      await this.destroySession(previousSession);
+      if (currentGeneration !== this.generation) {
+        return;
+      }
     }
+    if (this.session === undefined) {
+      const createdSession = await avSession.createAVSession(context, 'AVCodecPlayer',
+        requiredSessionType);
+      if (currentGeneration !== this.generation) {
+        await createdSession.destroy();
+        return;
+      }
+      this.session = createdSession;
+      this.sessionType = requiredSessionType;
+    }
+    if (currentGeneration !== this.generation || this.session === undefined) {
+      return;
+    }
+    const currentSession = this.session;
+    this.registerListeners(currentSession, currentGeneration);
+    const metadata: avSession.AVMetadata = {
+      assetId: media.assetId,
+      title: media.title,
+      duration: media.durationMs,
+      skipIntervals: avSession.SkipIntervals.SECONDS_15,
+      avQueueName: media.queueTitle,
+      avQueueId: 'avcodec-playback-queue'
+    };
+    const previousAssetId = this.getQueueAssetId(media.queueIndex - 1, media.queueTitles.length);
+    const nextAssetId = this.getQueueAssetId(media.queueIndex + 1, media.queueTitles.length);
+    if (previousAssetId !== undefined) {
+      metadata.previousAssetId = previousAssetId;
+    }
+    if (nextAssetId !== undefined) {
+      metadata.nextAssetId = nextAssetId;
+    }
+    await currentSession.setAVMetadata(metadata);
+    if (!this.isCurrentSession(currentSession, currentGeneration)) {
+      return;
+    }
+    const queueItems: avSession.AVQueueItem[] = this.createQueueItems(media.queueTitles);
+    if (queueItems.length > 0) {
+      await currentSession.setAVQueueItems(queueItems);
+      if (!this.isCurrentSession(currentSession, currentGeneration)) {
+        return;
+      }
+      await currentSession.setAVQueueTitle(media.queueTitle);
+    }
+    if (!this.isCurrentSession(currentSession, currentGeneration)) {
+      return;
+    }
+    await this.setLaunchAbility(context, currentGeneration);
+    if (!this.isCurrentSession(currentSession, currentGeneration)) {
+      return;
+    }
+    await currentSession.activate();
+    if (!this.isCurrentSession(currentSession, currentGeneration)) {
+      return;
+    }
+    const initialState: avSession.AVPlaybackState = this.pendingPlaybackState ?? {
+      state: avSession.PlaybackState.PLAYBACK_STATE_PLAY,
+      speed: 1,
+      position: {
+        elapsedTime: 0,
+        updateTime: Date.now()
+      },
+      duration: Math.max(0, media.durationMs)
+    };
+    this.pendingPlaybackState = undefined;
+    await currentSession.setAVPlaybackState(initialState);
+    if (this.isCurrentSession(currentSession, currentGeneration)) {
+      this.sessionActive = true;
+      this.queuePlaybackState(currentSession, currentGeneration);
+    }
+  }
+
+  private isCurrentSession(currentSession: avSession.AVSession, generation: number): boolean {
+    return generation === this.generation && this.session === currentSession;
+  }
+
+  private queuePlaybackState(currentSession: avSession.AVSession, generation: number): void {
+    const task: Promise<void> = this.operations.then(async (): Promise<void> => {
+      if (!this.isCurrentSession(currentSession, generation) || !this.sessionActive) {
+        return;
+      }
+      const playbackState = this.pendingPlaybackState;
+      if (playbackState === undefined) {
+        return;
+      }
+      this.pendingPlaybackState = undefined;
+      await currentSession.setAVPlaybackState(playbackState);
+    }).catch((error: Error): void => {
+      Logger.warn(TAG, `Update AVSession state failed: ${JSON.stringify(error)}`);
+    });
+    this.operations = task;
+  }
+
+  private clearSession(): avSession.AVSession | undefined {
+    const currentSession = this.session;
+    this.session = undefined;
+    this.sessionType = undefined;
+    this.listenerRegistered = false;
+    return currentSession;
+  }
+
+  stop(): Promise<void> {
+    ++this.generation;
+    this.callbacks = undefined;
+    this.pendingPlaybackState = undefined;
+    this.sessionActive = false;
+    const task: Promise<void> = this.operations.then(async (): Promise<void> => {
+      const currentSession = this.clearSession();
+      if (currentSession !== undefined) {
+        await this.destroySession(currentSession);
+      }
+    });
+    this.operations = task;
+    return task;
   }
 
   updateState(state: number, speed: number, positionUs: number, durationUs: number): void {
@@ -151,34 +217,8 @@ export class PlaybackSessionController {
     };
     this.pendingPlaybackState = playbackState;
     const currentSession = this.session;
-    if (currentSession === undefined) {
-      return;
-    }
-    currentSession.setAVPlaybackState(playbackState).catch((error: Error) => {
-      Logger.warn(TAG, `Update AVSession state failed: ${JSON.stringify(error)}`);
-    });
-  }
-
-  async stop(): Promise<void> {
-    ++this.generation;
-    if (this.stopTask !== undefined) {
-      await this.stopTask;
-      return;
-    }
-    const currentSession = this.session;
-    this.session = undefined;
-    this.sessionType = undefined;
-    this.callbacks = undefined;
-    this.listenerRegistered = false;
-    this.pendingPlaybackState = undefined;
-    if (currentSession === undefined) {
-      return;
-    }
-    const cleanupTask: Promise<void> = this.destroySession(currentSession);
-    this.stopTask = cleanupTask;
-    await cleanupTask;
-    if (this.stopTask === cleanupTask) {
-      this.stopTask = undefined;
+    if (currentSession !== undefined && this.sessionActive) {
+      this.queuePlaybackState(currentSession, this.generation);
     }
   }
 
@@ -201,39 +241,42 @@ export class PlaybackSessionController {
     }
   }
 
-  private registerListeners(currentSession: avSession.AVSession): void {
+  private registerListeners(currentSession: avSession.AVSession, generation: number): void {
     if (this.listenerRegistered) {
-      return;
+      this.unregisterListeners(currentSession);
+      this.listenerRegistered = false;
     }
-    try {
-      currentSession.on('play', this.handlePlay);
-      currentSession.on('pause', this.handlePause);
-      currentSession.on('stop', this.handleStop);
-      currentSession.on('playNext', this.handleNext);
-      currentSession.on('playPrevious', this.handlePrevious);
-      currentSession.on('fastForward', this.handleFastForward);
-      currentSession.on('rewind', this.handleRewind);
-      currentSession.on('seek', this.handleSeek);
-      currentSession.on('setSpeed', this.handleSetSpeed);
-      this.listenerRegistered = true;
-    } catch (error) {
-      Logger.warn(TAG, `Register AVSession listeners failed: ${JSON.stringify(error)}`);
-    }
+    this.bindListeners(currentSession, generation);
+    // 任一监听注册失败时交由启动收尾销毁会话，避免激活不完整的媒体控件。
+    currentSession.on('play', this.handlePlay);
+    currentSession.on('pause', this.handlePause);
+    currentSession.on('stop', this.handleStop);
+    currentSession.on('playNext', this.handleNext);
+    currentSession.on('playPrevious', this.handlePrevious);
+    currentSession.on('fastForward', this.handleFastForward);
+    currentSession.on('rewind', this.handleRewind);
+    currentSession.on('seek', this.handleSeek);
+    currentSession.on('setSpeed', this.handleSetSpeed);
+    this.listenerRegistered = true;
   }
 
   private unregisterListeners(currentSession: avSession.AVSession): void {
+    this.unregisterListener((): void => currentSession.off('play', this.handlePlay));
+    this.unregisterListener((): void => currentSession.off('pause', this.handlePause));
+    this.unregisterListener((): void => currentSession.off('stop', this.handleStop));
+    this.unregisterListener((): void => currentSession.off('playNext', this.handleNext));
+    this.unregisterListener((): void => currentSession.off('playPrevious', this.handlePrevious));
+    this.unregisterListener((): void => currentSession.off('fastForward', this.handleFastForward));
+    this.unregisterListener((): void => currentSession.off('rewind', this.handleRewind));
+    this.unregisterListener((): void => currentSession.off('seek', this.handleSeek));
+    this.unregisterListener((): void => currentSession.off('setSpeed', this.handleSetSpeed));
+  }
+
+  private unregisterListener(unregister: () => void): void {
     try {
-      currentSession.off('play', this.handlePlay);
-      currentSession.off('pause', this.handlePause);
-      currentSession.off('stop', this.handleStop);
-      currentSession.off('playNext', this.handleNext);
-      currentSession.off('playPrevious', this.handlePrevious);
-      currentSession.off('fastForward', this.handleFastForward);
-      currentSession.off('rewind', this.handleRewind);
-      currentSession.off('seek', this.handleSeek);
-      currentSession.off('setSpeed', this.handleSetSpeed);
+      unregister();
     } catch (error) {
-      Logger.warn(TAG, `Unregister AVSession listeners failed: ${JSON.stringify(error)}`);
+      Logger.warn(TAG, `Unregister AVSession listener failed: ${JSON.stringify(error)}`);
     }
   }
 
@@ -261,45 +304,54 @@ export class PlaybackSessionController {
     }
   }
 
-  private handlePlay: () => void = (): void => {
-    this.callbacks?.onPlay();
-  };
+  private handlePlay: () => void = (): void => {};
+  private handlePause: () => void = (): void => {};
+  private handleStop: () => void = (): void => {};
+  private handleNext: () => void = (): void => {};
+  private handlePrevious: () => void = (): void => {};
+  private handleFastForward: (seconds?: number) => void = (): void => {};
+  private handleRewind: (seconds?: number) => void = (): void => {};
+  private handleSeek: (positionMs: number) => void = (): void => {};
+  private handleSetSpeed: (speed: number) => void = (): void => {};
 
-  private handlePause: () => void = (): void => {
-    this.callbacks?.onPause();
-  };
+  private sessionCallbacks(currentSession: avSession.AVSession, generation: number):
+    PlaybackSessionCallbacks | undefined {
+    return this.isCurrentSession(currentSession, generation) ? this.callbacks : undefined;
+  }
 
-  private handleStop: () => void = (): void => {
-    this.callbacks?.onStop();
-  };
-
-  private handleNext: () => void = (): void => {
-    this.callbacks?.onNext();
-  };
-
-  private handlePrevious: () => void = (): void => {
-    this.callbacks?.onPrevious();
-  };
-
-  private handleFastForward: (seconds?: number) => void = (seconds?: number): void => {
-    this.callbacks?.onFastForward(this.normalizeSkip(seconds));
-  };
-
-  private handleRewind: (seconds?: number) => void = (seconds?: number): void => {
-    this.callbacks?.onRewind(this.normalizeSkip(seconds));
-  };
-
-  private handleSeek: (positionMs: number) => void = (positionMs: number): void => {
-    if (Number.isFinite(positionMs) && positionMs >= 0) {
-      this.callbacks?.onSeek(positionMs);
-    }
-  };
-
-  private handleSetSpeed: (speed: number) => void = (speed: number): void => {
-    if (Number.isFinite(speed) && speed > 0) {
-      this.callbacks?.onSetSpeed(speed);
-    }
-  };
+  private bindListeners(currentSession: avSession.AVSession, generation: number): void {
+    this.handlePlay = (): void => {
+      this.sessionCallbacks(currentSession, generation)?.onPlay();
+    };
+    this.handlePause = (): void => {
+      this.sessionCallbacks(currentSession, generation)?.onPause();
+    };
+    this.handleStop = (): void => {
+      this.sessionCallbacks(currentSession, generation)?.onStop();
+    };
+    this.handleNext = (): void => {
+      this.sessionCallbacks(currentSession, generation)?.onNext();
+    };
+    this.handlePrevious = (): void => {
+      this.sessionCallbacks(currentSession, generation)?.onPrevious();
+    };
+    this.handleFastForward = (seconds?: number): void => {
+      this.sessionCallbacks(currentSession, generation)?.onFastForward(this.normalizeSkip(seconds));
+    };
+    this.handleRewind = (seconds?: number): void => {
+      this.sessionCallbacks(currentSession, generation)?.onRewind(this.normalizeSkip(seconds));
+    };
+    this.handleSeek = (positionMs: number): void => {
+      if (Number.isFinite(positionMs) && positionMs >= 0) {
+        this.sessionCallbacks(currentSession, generation)?.onSeek(positionMs);
+      }
+    };
+    this.handleSetSpeed = (speed: number): void => {
+      if (Number.isFinite(speed) && speed > 0) {
+        this.sessionCallbacks(currentSession, generation)?.onSetSpeed(speed);
+      }
+    };
+  }
 
   private normalizeSkip(seconds: number | undefined): number {
     if (seconds === undefined || !Number.isFinite(seconds) || seconds <= 0) {
