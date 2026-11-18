@@ -50,17 +50,26 @@ struct MediaTrackFormatInfo {
     int32_t audioSampleRate = 0;
     int32_t audioChannelCount = 0;
     int64_t bitrate = 0;
+    // 辅助轨类型（OH_MD_KEY_TRACK_REFERENCE_TYPE），仅辅助轨有效。
+    std::string referenceType;
+    // 辅助轨引用的轨道ID（OH_MD_KEY_REFERENCE_TRACK_IDS），仅辅助轨有效。
+    std::vector<int32_t> referenceTrackIds;
     std::string formatDump;
 };
 
 struct MediaSourceInfo {
+    // 网络或本地URI输入（可选）。非空时优先于inputFilePath和fd。
+    std::string inputUri;
+    // 沙箱文件路径输入（可选），走自定义数据源。非空时优先于fd。
+    std::string inputFilePath;
     int32_t inputFd = -1;
     int64_t inputFileOffset = 0;
     int64_t inputFileSize = 0;
-    std::string inputFilePath;
     int64_t durationUs = 0;
     int32_t trackCount = 0;
     std::string sourceFormatDump;
+    // 用户自定义属性信息（OH_AVSource_GetCustomMetadataFormat），文件未写入自定义属性时为空。
+    std::string customMetadataDump;
     std::vector<MediaTrackFormatInfo> trackFormats;
 };
 

@@ -20,6 +20,8 @@ constexpr size_t LEGACY_PLAY_ARG_COUNT = 9;
 constexpr size_t STRUCTURED_PLAY_ARG_COUNT = 2;
 constexpr int32_t MAX_DUMP_MIB = 1024;
 constexpr int32_t MAX_DUMP_SECONDS = 300;
+// inputUri/inputFilePath等字符串输入的最大长度。
+constexpr size_t MAX_INPUT_STRING_LEN = 4096;
 
 bool IsFunction(napi_env env, napi_value value)
 {
@@ -117,6 +119,30 @@ bool ReadOptionalDoubleProperty(napi_env env, napi_value object, const char *nam
     return true;
 }
 
+bool ReadOptionalStringProperty(napi_env env, napi_value object, const char *name, std::string &result)
+{
+    bool hasProperty = false;
+    if (napi_has_named_property(env, object, name, &hasProperty) != napi_ok || !hasProperty) {
+        return true;
+    }
+    napi_value value = nullptr;
+    size_t length = 0;
+    if (napi_get_named_property(env, object, name, &value) != napi_ok ||
+        napi_get_value_string_utf8(env, value, nullptr, 0, &length) != napi_ok || length == 0 ||
+        length > MAX_INPUT_STRING_LEN) {
+        napi_throw_type_error(env, nullptr, "Play option must be a non-empty string");
+        return false;
+    }
+    std::vector<char> buffer(length + 1, '\0');
+    size_t copied = 0;
+    if (napi_get_value_string_utf8(env, value, buffer.data(), buffer.size(), &copied) != napi_ok) {
+        napi_throw_type_error(env, nullptr, "Play option must be a non-empty string");
+        return false;
+    }
+    result.assign(buffer.data(), copied);
+    return true;
+}
+
 bool ParseDiagnosticOptions(napi_env env, napi_value options, SampleInfo &sampleInfo)
 {
     napi_value name = nullptr;
@@ -153,9 +179,17 @@ bool ParsePlayOptions(napi_env env, napi_value options, SampleInfo &sampleInfo)
         return false;
     }
     double audioVolume = sampleInfo.audioPlayback.volume;
-    const bool parsed = ReadInt32Property(env, options, "inputFileFd", sampleInfo.source.inputFd) &&
-        ReadInt64Property(env, options, "inputFileOffset", sampleInfo.source.inputFileOffset) &&
-        ReadInt64Property(env, options, "inputFileSize", sampleInfo.source.inputFileSize) &&
+    // 输入三选一：inputUri（网络或本地URI）、inputFilePath（沙箱路径，走自定义数据源）、fd。
+    // 未提供uri与path时，fd/offset/size三项保持必填。
+    const bool uriOrPathInput =
+        ReadOptionalStringProperty(env, options, "inputUri", sampleInfo.source.inputUri) &&
+        ReadOptionalStringProperty(env, options, "inputFilePath", sampleInfo.source.inputFilePath);
+    const bool useFdInput = sampleInfo.source.inputUri.empty() && sampleInfo.source.inputFilePath.empty();
+    const bool fdInput = uriOrPathInput && (!useFdInput ||
+        (ReadInt32Property(env, options, "inputFileFd", sampleInfo.source.inputFd) &&
+         ReadInt64Property(env, options, "inputFileOffset", sampleInfo.source.inputFileOffset) &&
+         ReadInt64Property(env, options, "inputFileSize", sampleInfo.source.inputFileSize)));
+    const bool parsed = fdInput &&
         ReadInt32Property(env, options, "videoDecoderType", sampleInfo.codec.codecType) &&
         ReadInt32Property(env, options, "videoDecoderRunMode", sampleInfo.codec.codecRunMode) &&
         ReadInt32Property(env, options, "videoDecoderSyncMode", sampleInfo.codec.codecSyncMode) &&
