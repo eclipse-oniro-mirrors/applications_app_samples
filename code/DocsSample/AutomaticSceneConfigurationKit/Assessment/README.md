@@ -20,20 +20,18 @@
 
 | 主页面 | 答题页面 |
 | -------- | -------- |
-| 配置评估时长与应用白名单（点击?查看白名单说明），设置加固开关（清空剪贴板/隐私模式/简单键盘/开发者模式/模拟器），调用begin、end、isActive、getConfiguration接口，查看评估状态与回调事件记录 | 显示剩余时间、选择题与填空题，底部调试入口可弹窗调用接口与查看状态信息，交卷时调用end接口结束评估 |
+| 配置评估时长与应用白名单，调用begin、end、isActive、getConfiguration接口，查看评估状态与回调事件记录 | 显示剩余时间、题目与选项，交卷时调用end接口结束评估 |
 
 ## 使用说明
 
 1. 在主页面"评估配置"卡片中，点击时长标签选择本次评估的最大时长，"默认时长"对应duration取值0，表示由系统按默认时长处理。
-2. 在"评估配置"卡片的输入框中输入应用包名，点击"添加"按钮加入白名单，点击"移除"按钮从白名单中删除，白名单中的应用在评估模式下仍可运行。点击应用白名单标签旁的"?"按钮可查看白名单说明与默认应用列表。
-3. 在"加固配置"卡片中，通过开关设置进入考试后的加固措施（清空剪贴板、隐私模式、简单键盘），以及是否允许在开发者模式或模拟器环境下进入考试。
-4. 点击"开始评估"按钮调用begin接口，系统弹出确认弹窗，用户确认后进入评估模式，onBegin回调返回code为0，页面自动跳转到答题页面。
-5. 在答题页面点击选项作答（选择题）或输入答案（填空题），点击"上一题"和"下一题"切换题目，页面顶部按评估时长倒计时。
-6. 点击答题页面底部的"接口调用与状态信息"条目，弹出半模态底部弹窗，可在考试期间调用接口或查看状态信息。
-7. 点击"交卷"按钮调用end接口结束评估，系统解除评估模式下的能力限制，onEnd回调触发后弹窗展示作答数量并返回主页面。
-8. 评估被中断时（用户取消、超时退出、系统错误、环境异常），onInterrupted回调触发，答题页面弹窗展示中断原因并返回主页面。
-9. 在主页面点击"查询评估状态"按钮调用isActive接口，点击"查询评估配置"按钮调用getConfiguration接口，结果展示在"状态信息"卡片中。
-10. "状态信息"卡片的回调事件记录按时间倒序展示最近20条回调与接口调用结果，便于观察接口行为。
+2. 在"评估配置"卡片的输入框中输入应用包名，点击"添加"按钮加入白名单，点击"移除"按钮从白名单中删除，白名单中的应用在评估模式下仍可运行。
+3. 点击"开始评估"按钮调用begin接口，系统弹出确认弹窗，用户确认后进入评估模式，onBegin回调返回code为0，页面自动跳转到答题页面。
+4. 在答题页面点击选项作答，点击"上一题"和"下一题"切换题目，页面顶部按评估时长倒计时。
+5. 点击"交卷"按钮调用end接口结束评估，系统解除评估模式下的能力限制，onEnd回调触发后弹窗展示作答数量并返回主页面。
+6. 评估被中断时（用户取消、超时退出、系统错误、环境异常），onInterrupted回调触发，答题页面弹窗展示中断原因并返回主页面。
+7. 在主页面点击"查询评估状态"按钮调用isActive接口，点击"查询评估配置"按钮调用getConfiguration接口，结果展示在"状态信息"卡片中。
+8. "状态信息"卡片的回调事件记录按时间倒序展示最近20条回调与接口调用结果，便于观察接口行为。
 
 ## 工程目录
 
@@ -51,25 +49,23 @@ entry/src/main/ets/
 |---entrybackupability
 |   |---EntryBackupAbility.ets               // 备份扩展Ability
 |---model                                    // Model层，纯数据结构
-|   |---ExamQuestionModel.ets                // 题目数据模型与本地模拟题库（选择题+填空题）
+|   |---ExamQuestionModel.ets                // 题目数据模型与本地模拟题库
 |   |---EventLogModel.ets                    // 回调事件日志数据模型
-|   |---SettingModel.ets                     // 加固配置数据模型，@ObservedV2可观察配置项
 |---viewmodel                                // ViewModel层，@ObservedV2状态管理与业务逻辑
 |   |---AssessmentViewModel.ets              // 评估管理状态与逻辑：封装begin/end/isActive/getConfiguration接口，
 |   |                                         //   注册IAssessmentCallback，通过@Trace发布状态与事件，@Computed计算属性
 |   |---ExamViewModel.ets                    // 答题状态与逻辑：题目导航、选项选择、倒计时管理，@Computed派生属性
 |---view                                     // View层，@ComponentV2纯UI组件
 |   |---TitleView.ets                        // 主页面标题区
-|   |---ConfigView.ets                       // 评估配置卡片：时长选择、应用白名单增删、白名单说明Popup
-|   |---SettingView.ets                      // 加固配置卡片：清空剪贴板/隐私模式/简单键盘/开发者模式/模拟器开关
+|   |---ConfigView.ets                       // 评估配置卡片：时长选择、应用白名单增删
 |   |---OperationView.ets                    // 操作按钮区：开始/结束/查询状态/查询配置
 |   |---StatusView.ets                       // 状态信息卡片：评估状态、当前配置、回调事件记录
 |   |---ExamHeaderView.ets                   // 答题页头部：标题与剩余时间倒计时
 |   |---QuestionCardView.ets                 // 题目卡片：题干展示与选项选择
 |   |---ExamOperationView.ets                // 答题操作区：上一题/下一题/交卷
 |---pages                                    // 页面，组合View组件并连接ViewModel
-|   |---IndexPage.ets                        // 主页面，通过AppStorageV2连接AssessmentViewModel与SettingModel，@Monitor监听回调事件
-|   |---ExamPage.ets                         // 答题页面，连接AssessmentViewModel与ExamViewModel，倒计时、中断处理、底部调试弹窗
+|   |---IndexPage.ets                        // 主页面，通过AppStorageV2连接AssessmentViewModel，@Monitor监听回调事件
+|   |---ExamPage.ets                         // 答题页面，连接AssessmentViewModel与ExamViewModel，倒计时与中断处理
 |   |---BeginAssessment.ets                  // 文档代码片段：begin接口用法演示
 |   |---EndAssessment.ets                    // 文档代码片段：end接口用法演示
 |   |---ExamPageLifecycle.ets                // 文档代码片段：页面生命周期加固演示
