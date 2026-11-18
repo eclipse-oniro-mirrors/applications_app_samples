@@ -48,6 +48,8 @@ public:
     int32_t Seek(int64_t positionMs, OH_AVSeekMode mode = SEEK_MODE_NEXT_SYNC);
 
 private:
+    // 由SampleInfo创建Source。按uri、自定义数据源（沙箱文件路径）、fd的优先级选择输入方式。
+    int32_t CreateSource(SampleInfo &info);
     int32_t GetTrackInfo(std::shared_ptr<OH_AVFormat> sourceFormat, SampleInfo &info);
     std::shared_ptr<OH_AVFormat> GetTrackFormat(int32_t index);
     int GetTrackType(std::shared_ptr<OH_AVFormat> trackFormat);

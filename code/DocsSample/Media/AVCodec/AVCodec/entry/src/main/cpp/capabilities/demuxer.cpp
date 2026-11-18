@@ -15,7 +15,6 @@
 
 #include "demuxer.h"
 #include <cstdint>
-#include <cstdio>
 #include <cstring>
 // [Start Demuxer::IncludeHeaders]
 #include <multimedia/player_framework/native_avdemuxer.h>
@@ -36,6 +35,14 @@ namespace {
 constexpr size_t CODEC_CONFIG_LOG_BYTES = 2;
 using namespace std;
 constexpr size_t MAX_CODEC_CONFIG_SIZE = 1024 * 1024;
+// DRM uuid十六进制文本：每字节2个字符，另加结尾空字符。
+constexpr size_t UUID_HEX_LEN_PER_BYTE = 2;
+constexpr size_t UUID_TEXT_LEN = DRM_UUID_LEN * UUID_HEX_LEN_PER_BYTE + 1;
+// 十六进制换算参数：每字符位数、字节低4位掩码及低半字节写入偏移。
+constexpr uint8_t BITS_PER_HEX_DIGIT = 4;
+constexpr uint8_t HEX_DIGIT_MASK = 0x0F;
+constexpr size_t LOW_NIBBLE_OFFSET = 1;
+constexpr char HEX_DIGITS[] = "0123456789abcdef";
 
 string CopyFormatDump(OH_AVFormat *format)
 {
@@ -103,9 +110,12 @@ static void OnDrmInfoChangedWithObj(OH_AVDemuxer *demuxer, DRM_MediaKeySystemInf
         static_cast<void *>(demuxer), drmInfo->psshCount);
     for (uint32_t index = 0; index < drmInfo->psshCount && index < MAX_PSSH_INFO_COUNT; index++) {
         const DRM_PsshInfo &pssh = drmInfo->psshInfo[index];
-        char uuid[DRM_UUID_LEN * 2 + 1] = {0};
+        // 将uuid逐字节转换为两个十六进制字符。
+        char uuid[UUID_TEXT_LEN] = {0};
         for (uint32_t uuidIndex = 0; uuidIndex < DRM_UUID_LEN; uuidIndex++) {
-            snprintf(uuid + uuidIndex * 2, 3, "%02x", pssh.uuid[uuidIndex]);
+            const uint8_t byte = pssh.uuid[uuidIndex];
+            uuid[uuidIndex * UUID_HEX_LEN_PER_BYTE] = HEX_DIGITS[byte >> BITS_PER_HEX_DIGIT];
+            uuid[uuidIndex * UUID_HEX_LEN_PER_BYTE + LOW_NIBBLE_OFFSET] = HEX_DIGITS[byte & HEX_DIGIT_MASK];
         }
         AVCODEC_SAMPLE_LOGI("Demuxer DRM pssh[%{public}u] uuid: %{public}s, dataLen: %{public}d", index, uuid,
             pssh.dataLen);
@@ -115,22 +125,19 @@ static void OnDrmInfoChangedWithObj(OH_AVDemuxer *demuxer, DRM_MediaKeySystemInf
 
 Demuxer::~Demuxer() { Release(); }
 
-int32_t Demuxer::Create(SampleInfo &info)
+int32_t Demuxer::CreateSource(SampleInfo &info)
 {
-    videoTrackId_ = -1;
-    audioTrackId_ = -1;
-    info.audio.trackIndex = -1;
     // 输入按优先级选择：uri（网络或本地路径） > 自定义数据源（沙箱文件路径） > fd。
     if (!info.source.inputUri.empty()) {
         // [Start Demuxer::CreateSourceWithURI]
-        // 为 uri 资源文件创建 source 资源实例（可选）。使用网络URI前需先在module.json5中申请Internet权限。
+        // 为uri资源文件创建source资源实例（可选）。使用网络URI前需先在module.json5中申请Internet权限。
         source_ = OH_AVSource_CreateWithURI(const_cast<char *>(info.source.inputUri.c_str()));
         CHECK_AND_RETURN_RET_LOG(source_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
             "Create demuxer source failed, uri: %{public}s", info.source.inputUri.c_str());
         // [End Demuxer::CreateSourceWithURI]
     } else if (!info.source.inputFilePath.empty()) {
         // [Start Demuxer::CreateSourceWithDataSource]
-        // 为自定义数据源创建 source 资源实例（可选）。使用该方式前，需要先实现AVSourceReadAt接口函数实现。
+        // 为自定义数据源创建source资源实例（可选）。使用该方式前，需要先实现AVSourceReadAt接口函数实现。
         g_filePath = info.source.inputFilePath;
         struct stat fileStatus {};
         CHECK_AND_RETURN_RET_LOG(stat(g_filePath.c_str(), &fileStatus) == 0, AVCODEC_SAMPLE_ERR_ERROR,
@@ -152,6 +159,16 @@ int32_t Demuxer::Create(SampleInfo &info)
             info.source.inputFd, info.source.inputFileOffset, info.source.inputFileSize);
         // [End Demuxer::CreateSourceWithFD]
     }
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+
+int32_t Demuxer::Create(SampleInfo &info)
+{
+    videoTrackId_ = -1;
+    audioTrackId_ = -1;
+    info.audio.trackIndex = -1;
+    int32_t ret = CreateSource(info);
+    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create demuxer source failed");
 
     // [Start Demuxer::CreateDemuxer]
     // 为资源实例创建对应的解封装器。
@@ -195,7 +212,7 @@ int32_t Demuxer::Create(SampleInfo &info)
         }
     }
 
-    int32_t ret = GetTrackInfo(sourceFormat, info);
+    ret = GetTrackInfo(sourceFormat, info);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Get video track info failed");
 
     return AVCODEC_SAMPLE_ERR_OK;
@@ -284,7 +301,7 @@ int32_t Demuxer::GetMediaKeySystemInfo(DRM_MediaKeySystemInfo &mediaKeySystemInf
 int32_t Demuxer::Release()
 {
     std::lock_guard<std::mutex> lock(demuxerMutex_);
-    // 需要用户调用 OH_AVDemuxer_Destroy 接口成功后，手动将实例置为nullptr，对同一实例重复调用会导致程序错误。
+    // 需要用户调用OH_AVDemuxer_Destroy接口成功后，手动将实例置为nullptr，对同一实例重复调用会导致程序错误。
     // Demuxer必须先于Source销毁；fd由应用侧管理，不由解封装模块关闭。
     if (demuxer_ != nullptr) {
         OH_AVDemuxer_Destroy(demuxer_);
