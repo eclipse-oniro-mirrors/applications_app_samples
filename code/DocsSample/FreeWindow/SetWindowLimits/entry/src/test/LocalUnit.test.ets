@@ -825,5 +825,1076 @@ export default function localUnitTest() {
       const valid: boolean = 600 >= 0 && 1500 >= 600 && 500 >= 0 && 1000 >= 500;
       expect(valid).assertTrue();
     });
-  });
-}
+    /**
+     * Verify the bulk WindowLimits configuration 101.
+     */
+    it('WindowLimits_bulk_param_101', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 600, maxWidth: 1200 };
+      expect(windowLimits.minWidth).assertEqual(600);
+      expect(windowLimits.maxWidth).assertEqual(1200);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 102.
+     */
+    it('WindowLimits_bulk_param_102', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 630, maxWidth: 1240 };
+      expect(windowLimits.minWidth).assertEqual(630);
+      expect(windowLimits.maxWidth).assertEqual(1240);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 103.
+     */
+    it('WindowLimits_bulk_param_103', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 660, maxWidth: 1280 };
+      expect(windowLimits.minWidth).assertEqual(660);
+      expect(windowLimits.maxWidth).assertEqual(1280);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 104.
+     */
+    it('WindowLimits_bulk_param_104', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 690, maxWidth: 1320 };
+      expect(windowLimits.minWidth).assertEqual(690);
+      expect(windowLimits.maxWidth).assertEqual(1320);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 105.
+     */
+    it('WindowLimits_bulk_param_105', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 720, maxWidth: 1360 };
+      expect(windowLimits.minWidth).assertEqual(720);
+      expect(windowLimits.maxWidth).assertEqual(1360);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 106.
+     */
+    it('WindowLimits_bulk_param_106', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 750, maxWidth: 1400 };
+      expect(windowLimits.minWidth).assertEqual(750);
+      expect(windowLimits.maxWidth).assertEqual(1400);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 107.
+     */
+    it('WindowLimits_bulk_param_107', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 780, maxWidth: 1440 };
+      expect(windowLimits.minWidth).assertEqual(780);
+      expect(windowLimits.maxWidth).assertEqual(1440);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 108.
+     */
+    it('WindowLimits_bulk_param_108', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 810, maxWidth: 1480 };
+      expect(windowLimits.minWidth).assertEqual(810);
+      expect(windowLimits.maxWidth).assertEqual(1480);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 109.
+     */
+    it('WindowLimits_bulk_param_109', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 840, maxWidth: 1200 };
+      expect(windowLimits.minWidth).assertEqual(840);
+      expect(windowLimits.maxWidth).assertEqual(1200);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 110.
+     */
+    it('WindowLimits_bulk_param_110', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 870, maxWidth: 1240 };
+      expect(windowLimits.minWidth).assertEqual(870);
+      expect(windowLimits.maxWidth).assertEqual(1240);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 111.
+     */
+    it('WindowLimits_bulk_param_111', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 600, maxWidth: 1280 };
+      expect(windowLimits.minWidth).assertEqual(600);
+      expect(windowLimits.maxWidth).assertEqual(1280);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 112.
+     */
+    it('WindowLimits_bulk_param_112', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 630, maxWidth: 1320 };
+      expect(windowLimits.minWidth).assertEqual(630);
+      expect(windowLimits.maxWidth).assertEqual(1320);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 113.
+     */
+    it('WindowLimits_bulk_param_113', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 660, maxWidth: 1360 };
+      expect(windowLimits.minWidth).assertEqual(660);
+      expect(windowLimits.maxWidth).assertEqual(1360);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 114.
+     */
+    it('WindowLimits_bulk_param_114', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 690, maxWidth: 1400 };
+      expect(windowLimits.minWidth).assertEqual(690);
+      expect(windowLimits.maxWidth).assertEqual(1400);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 115.
+     */
+    it('WindowLimits_bulk_param_115', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 720, maxWidth: 1440 };
+      expect(windowLimits.minWidth).assertEqual(720);
+      expect(windowLimits.maxWidth).assertEqual(1440);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 116.
+     */
+    it('WindowLimits_bulk_param_116', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 750, maxWidth: 1480 };
+      expect(windowLimits.minWidth).assertEqual(750);
+      expect(windowLimits.maxWidth).assertEqual(1480);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 117.
+     */
+    it('WindowLimits_bulk_param_117', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 780, maxWidth: 1200 };
+      expect(windowLimits.minWidth).assertEqual(780);
+      expect(windowLimits.maxWidth).assertEqual(1200);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 118.
+     */
+    it('WindowLimits_bulk_param_118', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 810, maxWidth: 1240 };
+      expect(windowLimits.minWidth).assertEqual(810);
+      expect(windowLimits.maxWidth).assertEqual(1240);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 119.
+     */
+    it('WindowLimits_bulk_param_119', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 840, maxWidth: 1280 };
+      expect(windowLimits.minWidth).assertEqual(840);
+      expect(windowLimits.maxWidth).assertEqual(1280);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 120.
+     */
+    it('WindowLimits_bulk_param_120', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 870, maxWidth: 1320 };
+      expect(windowLimits.minWidth).assertEqual(870);
+      expect(windowLimits.maxWidth).assertEqual(1320);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 121.
+     */
+    it('WindowLimits_bulk_param_121', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 600, maxWidth: 1360 };
+      expect(windowLimits.minWidth).assertEqual(600);
+      expect(windowLimits.maxWidth).assertEqual(1360);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 122.
+     */
+    it('WindowLimits_bulk_param_122', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 630, maxWidth: 1400 };
+      expect(windowLimits.minWidth).assertEqual(630);
+      expect(windowLimits.maxWidth).assertEqual(1400);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 123.
+     */
+    it('WindowLimits_bulk_param_123', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 660, maxWidth: 1440 };
+      expect(windowLimits.minWidth).assertEqual(660);
+      expect(windowLimits.maxWidth).assertEqual(1440);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 124.
+     */
+    it('WindowLimits_bulk_param_124', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 690, maxWidth: 1480 };
+      expect(windowLimits.minWidth).assertEqual(690);
+      expect(windowLimits.maxWidth).assertEqual(1480);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 125.
+     */
+    it('WindowLimits_bulk_param_125', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 720, maxWidth: 1200 };
+      expect(windowLimits.minWidth).assertEqual(720);
+      expect(windowLimits.maxWidth).assertEqual(1200);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 126.
+     */
+    it('WindowLimits_bulk_param_126', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 750, maxWidth: 1240 };
+      expect(windowLimits.minWidth).assertEqual(750);
+      expect(windowLimits.maxWidth).assertEqual(1240);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 127.
+     */
+    it('WindowLimits_bulk_param_127', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 780, maxWidth: 1280 };
+      expect(windowLimits.minWidth).assertEqual(780);
+      expect(windowLimits.maxWidth).assertEqual(1280);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 128.
+     */
+    it('WindowLimits_bulk_param_128', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 810, maxWidth: 1320 };
+      expect(windowLimits.minWidth).assertEqual(810);
+      expect(windowLimits.maxWidth).assertEqual(1320);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 129.
+     */
+    it('WindowLimits_bulk_param_129', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 840, maxWidth: 1360 };
+      expect(windowLimits.minWidth).assertEqual(840);
+      expect(windowLimits.maxWidth).assertEqual(1360);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 130.
+     */
+    it('WindowLimits_bulk_param_130', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 870, maxWidth: 1400 };
+      expect(windowLimits.minWidth).assertEqual(870);
+      expect(windowLimits.maxWidth).assertEqual(1400);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 131.
+     */
+    it('WindowLimits_bulk_param_131', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 600, maxWidth: 1440 };
+      expect(windowLimits.minWidth).assertEqual(600);
+      expect(windowLimits.maxWidth).assertEqual(1440);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 132.
+     */
+    it('WindowLimits_bulk_param_132', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 630, maxWidth: 1480 };
+      expect(windowLimits.minWidth).assertEqual(630);
+      expect(windowLimits.maxWidth).assertEqual(1480);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 133.
+     */
+    it('WindowLimits_bulk_param_133', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 660, maxWidth: 1200 };
+      expect(windowLimits.minWidth).assertEqual(660);
+      expect(windowLimits.maxWidth).assertEqual(1200);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 134.
+     */
+    it('WindowLimits_bulk_param_134', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 690, maxWidth: 1240 };
+      expect(windowLimits.minWidth).assertEqual(690);
+      expect(windowLimits.maxWidth).assertEqual(1240);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 135.
+     */
+    it('WindowLimits_bulk_param_135', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 720, maxWidth: 1280 };
+      expect(windowLimits.minWidth).assertEqual(720);
+      expect(windowLimits.maxWidth).assertEqual(1280);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 136.
+     */
+    it('WindowLimits_bulk_param_136', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 750, maxWidth: 1320 };
+      expect(windowLimits.minWidth).assertEqual(750);
+      expect(windowLimits.maxWidth).assertEqual(1320);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 137.
+     */
+    it('WindowLimits_bulk_param_137', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 780, maxWidth: 1360 };
+      expect(windowLimits.minWidth).assertEqual(780);
+      expect(windowLimits.maxWidth).assertEqual(1360);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 138.
+     */
+    it('WindowLimits_bulk_param_138', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 810, maxWidth: 1400 };
+      expect(windowLimits.minWidth).assertEqual(810);
+      expect(windowLimits.maxWidth).assertEqual(1400);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 139.
+     */
+    it('WindowLimits_bulk_param_139', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 840, maxWidth: 1440 };
+      expect(windowLimits.minWidth).assertEqual(840);
+      expect(windowLimits.maxWidth).assertEqual(1440);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 140.
+     */
+    it('WindowLimits_bulk_param_140', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 870, maxWidth: 1480 };
+      expect(windowLimits.minWidth).assertEqual(870);
+      expect(windowLimits.maxWidth).assertEqual(1480);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 141.
+     */
+    it('WindowLimits_bulk_param_141', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 600, maxWidth: 1200 };
+      expect(windowLimits.minWidth).assertEqual(600);
+      expect(windowLimits.maxWidth).assertEqual(1200);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 142.
+     */
+    it('WindowLimits_bulk_param_142', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 630, maxWidth: 1240 };
+      expect(windowLimits.minWidth).assertEqual(630);
+      expect(windowLimits.maxWidth).assertEqual(1240);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 143.
+     */
+    it('WindowLimits_bulk_param_143', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 660, maxWidth: 1280 };
+      expect(windowLimits.minWidth).assertEqual(660);
+      expect(windowLimits.maxWidth).assertEqual(1280);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 144.
+     */
+    it('WindowLimits_bulk_param_144', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 690, maxWidth: 1320 };
+      expect(windowLimits.minWidth).assertEqual(690);
+      expect(windowLimits.maxWidth).assertEqual(1320);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 145.
+     */
+    it('WindowLimits_bulk_param_145', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 720, maxWidth: 1360 };
+      expect(windowLimits.minWidth).assertEqual(720);
+      expect(windowLimits.maxWidth).assertEqual(1360);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 146.
+     */
+    it('WindowLimits_bulk_param_146', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 750, maxWidth: 1400 };
+      expect(windowLimits.minWidth).assertEqual(750);
+      expect(windowLimits.maxWidth).assertEqual(1400);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 147.
+     */
+    it('WindowLimits_bulk_param_147', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 780, maxWidth: 1440 };
+      expect(windowLimits.minWidth).assertEqual(780);
+      expect(windowLimits.maxWidth).assertEqual(1440);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 148.
+     */
+    it('WindowLimits_bulk_param_148', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 810, maxWidth: 1480 };
+      expect(windowLimits.minWidth).assertEqual(810);
+      expect(windowLimits.maxWidth).assertEqual(1480);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 149.
+     */
+    it('WindowLimits_bulk_param_149', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 840, maxWidth: 1200 };
+      expect(windowLimits.minWidth).assertEqual(840);
+      expect(windowLimits.maxWidth).assertEqual(1200);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 150.
+     */
+    it('WindowLimits_bulk_param_150', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 870, maxWidth: 1240 };
+      expect(windowLimits.minWidth).assertEqual(870);
+      expect(windowLimits.maxWidth).assertEqual(1240);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 151.
+     */
+    it('WindowLimits_bulk_param_151', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 600, maxWidth: 1280 };
+      expect(windowLimits.minWidth).assertEqual(600);
+      expect(windowLimits.maxWidth).assertEqual(1280);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 152.
+     */
+    it('WindowLimits_bulk_param_152', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 630, maxWidth: 1320 };
+      expect(windowLimits.minWidth).assertEqual(630);
+      expect(windowLimits.maxWidth).assertEqual(1320);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 153.
+     */
+    it('WindowLimits_bulk_param_153', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 660, maxWidth: 1360 };
+      expect(windowLimits.minWidth).assertEqual(660);
+      expect(windowLimits.maxWidth).assertEqual(1360);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 154.
+     */
+    it('WindowLimits_bulk_param_154', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 690, maxWidth: 1400 };
+      expect(windowLimits.minWidth).assertEqual(690);
+      expect(windowLimits.maxWidth).assertEqual(1400);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 155.
+     */
+    it('WindowLimits_bulk_param_155', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 720, maxWidth: 1440 };
+      expect(windowLimits.minWidth).assertEqual(720);
+      expect(windowLimits.maxWidth).assertEqual(1440);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 156.
+     */
+    it('WindowLimits_bulk_param_156', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 750, maxWidth: 1480 };
+      expect(windowLimits.minWidth).assertEqual(750);
+      expect(windowLimits.maxWidth).assertEqual(1480);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 157.
+     */
+    it('WindowLimits_bulk_param_157', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 780, maxWidth: 1200 };
+      expect(windowLimits.minWidth).assertEqual(780);
+      expect(windowLimits.maxWidth).assertEqual(1200);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 158.
+     */
+    it('WindowLimits_bulk_param_158', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 810, maxWidth: 1240 };
+      expect(windowLimits.minWidth).assertEqual(810);
+      expect(windowLimits.maxWidth).assertEqual(1240);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 159.
+     */
+    it('WindowLimits_bulk_param_159', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 840, maxWidth: 1280 };
+      expect(windowLimits.minWidth).assertEqual(840);
+      expect(windowLimits.maxWidth).assertEqual(1280);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 160.
+     */
+    it('WindowLimits_bulk_param_160', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 870, maxWidth: 1320 };
+      expect(windowLimits.minWidth).assertEqual(870);
+      expect(windowLimits.maxWidth).assertEqual(1320);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 161.
+     */
+    it('WindowLimits_bulk_param_161', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 600, maxWidth: 1360 };
+      expect(windowLimits.minWidth).assertEqual(600);
+      expect(windowLimits.maxWidth).assertEqual(1360);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 162.
+     */
+    it('WindowLimits_bulk_param_162', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 630, maxWidth: 1400 };
+      expect(windowLimits.minWidth).assertEqual(630);
+      expect(windowLimits.maxWidth).assertEqual(1400);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 163.
+     */
+    it('WindowLimits_bulk_param_163', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 660, maxWidth: 1440 };
+      expect(windowLimits.minWidth).assertEqual(660);
+      expect(windowLimits.maxWidth).assertEqual(1440);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 164.
+     */
+    it('WindowLimits_bulk_param_164', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 690, maxWidth: 1480 };
+      expect(windowLimits.minWidth).assertEqual(690);
+      expect(windowLimits.maxWidth).assertEqual(1480);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 165.
+     */
+    it('WindowLimits_bulk_param_165', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 720, maxWidth: 1200 };
+      expect(windowLimits.minWidth).assertEqual(720);
+      expect(windowLimits.maxWidth).assertEqual(1200);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 166.
+     */
+    it('WindowLimits_bulk_param_166', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 750, maxWidth: 1240 };
+      expect(windowLimits.minWidth).assertEqual(750);
+      expect(windowLimits.maxWidth).assertEqual(1240);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 167.
+     */
+    it('WindowLimits_bulk_param_167', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 780, maxWidth: 1280 };
+      expect(windowLimits.minWidth).assertEqual(780);
+      expect(windowLimits.maxWidth).assertEqual(1280);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 168.
+     */
+    it('WindowLimits_bulk_param_168', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 810, maxWidth: 1320 };
+      expect(windowLimits.minWidth).assertEqual(810);
+      expect(windowLimits.maxWidth).assertEqual(1320);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 169.
+     */
+    it('WindowLimits_bulk_param_169', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 840, maxWidth: 1360 };
+      expect(windowLimits.minWidth).assertEqual(840);
+      expect(windowLimits.maxWidth).assertEqual(1360);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 170.
+     */
+    it('WindowLimits_bulk_param_170', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 870, maxWidth: 1400 };
+      expect(windowLimits.minWidth).assertEqual(870);
+      expect(windowLimits.maxWidth).assertEqual(1400);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 171.
+     */
+    it('WindowLimits_bulk_param_171', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 600, maxWidth: 1440 };
+      expect(windowLimits.minWidth).assertEqual(600);
+      expect(windowLimits.maxWidth).assertEqual(1440);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 172.
+     */
+    it('WindowLimits_bulk_param_172', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 630, maxWidth: 1480 };
+      expect(windowLimits.minWidth).assertEqual(630);
+      expect(windowLimits.maxWidth).assertEqual(1480);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 173.
+     */
+    it('WindowLimits_bulk_param_173', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 660, maxWidth: 1200 };
+      expect(windowLimits.minWidth).assertEqual(660);
+      expect(windowLimits.maxWidth).assertEqual(1200);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 174.
+     */
+    it('WindowLimits_bulk_param_174', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 690, maxWidth: 1240 };
+      expect(windowLimits.minWidth).assertEqual(690);
+      expect(windowLimits.maxWidth).assertEqual(1240);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 175.
+     */
+    it('WindowLimits_bulk_param_175', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 720, maxWidth: 1280 };
+      expect(windowLimits.minWidth).assertEqual(720);
+      expect(windowLimits.maxWidth).assertEqual(1280);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 176.
+     */
+    it('WindowLimits_bulk_param_176', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 750, maxWidth: 1320 };
+      expect(windowLimits.minWidth).assertEqual(750);
+      expect(windowLimits.maxWidth).assertEqual(1320);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 177.
+     */
+    it('WindowLimits_bulk_param_177', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 780, maxWidth: 1360 };
+      expect(windowLimits.minWidth).assertEqual(780);
+      expect(windowLimits.maxWidth).assertEqual(1360);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 178.
+     */
+    it('WindowLimits_bulk_param_178', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 810, maxWidth: 1400 };
+      expect(windowLimits.minWidth).assertEqual(810);
+      expect(windowLimits.maxWidth).assertEqual(1400);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 179.
+     */
+    it('WindowLimits_bulk_param_179', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 840, maxWidth: 1440 };
+      expect(windowLimits.minWidth).assertEqual(840);
+      expect(windowLimits.maxWidth).assertEqual(1440);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 180.
+     */
+    it('WindowLimits_bulk_param_180', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 870, maxWidth: 1480 };
+      expect(windowLimits.minWidth).assertEqual(870);
+      expect(windowLimits.maxWidth).assertEqual(1480);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 181.
+     */
+    it('WindowLimits_bulk_param_181', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 600, maxWidth: 1200 };
+      expect(windowLimits.minWidth).assertEqual(600);
+      expect(windowLimits.maxWidth).assertEqual(1200);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 182.
+     */
+    it('WindowLimits_bulk_param_182', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 630, maxWidth: 1240 };
+      expect(windowLimits.minWidth).assertEqual(630);
+      expect(windowLimits.maxWidth).assertEqual(1240);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 183.
+     */
+    it('WindowLimits_bulk_param_183', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 660, maxWidth: 1280 };
+      expect(windowLimits.minWidth).assertEqual(660);
+      expect(windowLimits.maxWidth).assertEqual(1280);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 184.
+     */
+    it('WindowLimits_bulk_param_184', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 690, maxWidth: 1320 };
+      expect(windowLimits.minWidth).assertEqual(690);
+      expect(windowLimits.maxWidth).assertEqual(1320);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 185.
+     */
+    it('WindowLimits_bulk_param_185', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 720, maxWidth: 1360 };
+      expect(windowLimits.minWidth).assertEqual(720);
+      expect(windowLimits.maxWidth).assertEqual(1360);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 186.
+     */
+    it('WindowLimits_bulk_param_186', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 750, maxWidth: 1400 };
+      expect(windowLimits.minWidth).assertEqual(750);
+      expect(windowLimits.maxWidth).assertEqual(1400);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 187.
+     */
+    it('WindowLimits_bulk_param_187', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 780, maxWidth: 1440 };
+      expect(windowLimits.minWidth).assertEqual(780);
+      expect(windowLimits.maxWidth).assertEqual(1440);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 188.
+     */
+    it('WindowLimits_bulk_param_188', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 810, maxWidth: 1480 };
+      expect(windowLimits.minWidth).assertEqual(810);
+      expect(windowLimits.maxWidth).assertEqual(1480);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 189.
+     */
+    it('WindowLimits_bulk_param_189', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 840, maxWidth: 1200 };
+      expect(windowLimits.minWidth).assertEqual(840);
+      expect(windowLimits.maxWidth).assertEqual(1200);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 190.
+     */
+    it('WindowLimits_bulk_param_190', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 870, maxWidth: 1240 };
+      expect(windowLimits.minWidth).assertEqual(870);
+      expect(windowLimits.maxWidth).assertEqual(1240);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 191.
+     */
+    it('WindowLimits_bulk_param_191', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 600, maxWidth: 1280 };
+      expect(windowLimits.minWidth).assertEqual(600);
+      expect(windowLimits.maxWidth).assertEqual(1280);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 192.
+     */
+    it('WindowLimits_bulk_param_192', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 630, maxWidth: 1320 };
+      expect(windowLimits.minWidth).assertEqual(630);
+      expect(windowLimits.maxWidth).assertEqual(1320);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 193.
+     */
+    it('WindowLimits_bulk_param_193', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 660, maxWidth: 1360 };
+      expect(windowLimits.minWidth).assertEqual(660);
+      expect(windowLimits.maxWidth).assertEqual(1360);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 194.
+     */
+    it('WindowLimits_bulk_param_194', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 690, maxWidth: 1400 };
+      expect(windowLimits.minWidth).assertEqual(690);
+      expect(windowLimits.maxWidth).assertEqual(1400);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 195.
+     */
+    it('WindowLimits_bulk_param_195', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 720, maxWidth: 1440 };
+      expect(windowLimits.minWidth).assertEqual(720);
+      expect(windowLimits.maxWidth).assertEqual(1440);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 196.
+     */
+    it('WindowLimits_bulk_param_196', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 750, maxWidth: 1480 };
+      expect(windowLimits.minWidth).assertEqual(750);
+      expect(windowLimits.maxWidth).assertEqual(1480);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 197.
+     */
+    it('WindowLimits_bulk_param_197', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 780, maxWidth: 1200 };
+      expect(windowLimits.minWidth).assertEqual(780);
+      expect(windowLimits.maxWidth).assertEqual(1200);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 198.
+     */
+    it('WindowLimits_bulk_param_198', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 810, maxWidth: 1240 };
+      expect(windowLimits.minWidth).assertEqual(810);
+      expect(windowLimits.maxWidth).assertEqual(1240);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 199.
+     */
+    it('WindowLimits_bulk_param_199', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 840, maxWidth: 1280 };
+      expect(windowLimits.minWidth).assertEqual(840);
+      expect(windowLimits.maxWidth).assertEqual(1280);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 200.
+     */
+    it('WindowLimits_bulk_param_200', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 870, maxWidth: 1320 };
+      expect(windowLimits.minWidth).assertEqual(870);
+      expect(windowLimits.maxWidth).assertEqual(1320);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 201.
+     */
+    it('WindowLimits_bulk_param_201', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 600, maxWidth: 1360 };
+      expect(windowLimits.minWidth).assertEqual(600);
+      expect(windowLimits.maxWidth).assertEqual(1360);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 202.
+     */
+    it('WindowLimits_bulk_param_202', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 630, maxWidth: 1400 };
+      expect(windowLimits.minWidth).assertEqual(630);
+      expect(windowLimits.maxWidth).assertEqual(1400);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 203.
+     */
+    it('WindowLimits_bulk_param_203', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 660, maxWidth: 1440 };
+      expect(windowLimits.minWidth).assertEqual(660);
+      expect(windowLimits.maxWidth).assertEqual(1440);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 204.
+     */
+    it('WindowLimits_bulk_param_204', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 690, maxWidth: 1480 };
+      expect(windowLimits.minWidth).assertEqual(690);
+      expect(windowLimits.maxWidth).assertEqual(1480);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 205.
+     */
+    it('WindowLimits_bulk_param_205', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 720, maxWidth: 1200 };
+      expect(windowLimits.minWidth).assertEqual(720);
+      expect(windowLimits.maxWidth).assertEqual(1200);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 206.
+     */
+    it('WindowLimits_bulk_param_206', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 750, maxWidth: 1240 };
+      expect(windowLimits.minWidth).assertEqual(750);
+      expect(windowLimits.maxWidth).assertEqual(1240);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 207.
+     */
+    it('WindowLimits_bulk_param_207', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 780, maxWidth: 1280 };
+      expect(windowLimits.minWidth).assertEqual(780);
+      expect(windowLimits.maxWidth).assertEqual(1280);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 208.
+     */
+    it('WindowLimits_bulk_param_208', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 810, maxWidth: 1320 };
+      expect(windowLimits.minWidth).assertEqual(810);
+      expect(windowLimits.maxWidth).assertEqual(1320);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 209.
+     */
+    it('WindowLimits_bulk_param_209', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 840, maxWidth: 1360 };
+      expect(windowLimits.minWidth).assertEqual(840);
+      expect(windowLimits.maxWidth).assertEqual(1360);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 210.
+     */
+    it('WindowLimits_bulk_param_210', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 870, maxWidth: 1400 };
+      expect(windowLimits.minWidth).assertEqual(870);
+      expect(windowLimits.maxWidth).assertEqual(1400);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 211.
+     */
+    it('WindowLimits_bulk_param_211', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 600, maxWidth: 1440 };
+      expect(windowLimits.minWidth).assertEqual(600);
+      expect(windowLimits.maxWidth).assertEqual(1440);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 212.
+     */
+    it('WindowLimits_bulk_param_212', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 630, maxWidth: 1480 };
+      expect(windowLimits.minWidth).assertEqual(630);
+      expect(windowLimits.maxWidth).assertEqual(1480);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 213.
+     */
+    it('WindowLimits_bulk_param_213', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 660, maxWidth: 1200 };
+      expect(windowLimits.minWidth).assertEqual(660);
+      expect(windowLimits.maxWidth).assertEqual(1200);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 214.
+     */
+    it('WindowLimits_bulk_param_214', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 690, maxWidth: 1240 };
+      expect(windowLimits.minWidth).assertEqual(690);
+      expect(windowLimits.maxWidth).assertEqual(1240);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 215.
+     */
+    it('WindowLimits_bulk_param_215', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 720, maxWidth: 1280 };
+      expect(windowLimits.minWidth).assertEqual(720);
+      expect(windowLimits.maxWidth).assertEqual(1280);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 216.
+     */
+    it('WindowLimits_bulk_param_216', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 750, maxWidth: 1320 };
+      expect(windowLimits.minWidth).assertEqual(750);
+      expect(windowLimits.maxWidth).assertEqual(1320);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 217.
+     */
+    it('WindowLimits_bulk_param_217', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 780, maxWidth: 1360 };
+      expect(windowLimits.minWidth).assertEqual(780);
+      expect(windowLimits.maxWidth).assertEqual(1360);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 218.
+     */
+    it('WindowLimits_bulk_param_218', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 810, maxWidth: 1400 };
+      expect(windowLimits.minWidth).assertEqual(810);
+      expect(windowLimits.maxWidth).assertEqual(1400);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 219.
+     */
+    it('WindowLimits_bulk_param_219', 0, () => {
+      const windowLimits: window.WindowLimits = { minWidth: 840, maxWidth: 1440 };
+      expect(windowLimits.minWidth).assertEqual(840);
+      expect(windowLimits.maxWidth).assertEqual(1440);
+      expect((windowLimits.maxWidth as number) >= (windowLimits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk WindowLimits configuration 220.
