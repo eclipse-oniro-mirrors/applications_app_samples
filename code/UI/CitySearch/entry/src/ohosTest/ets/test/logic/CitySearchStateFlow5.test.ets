@@ -979,9 +979,9 @@ export default function citySearchStateFlow5Test(): void {
     it('CitySearch_CitySearchStateFlow_0238', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       logInfo(`${BUNDLE}CitySearchStateFlow_0238 begin`);
       const subject: CitySearchState = new CitySearchState();
-      const step1: string = subject.pick('vUE');
-      logInfo(`step1 pick("vUE"): step1=${step1}`);
-      expect(step1).assertEqual('vUE');
+      const step1: string = subject.pick('qWzK');
+      logInfo(`step1 pick("qWzK"): step1=${step1}`);
+      expect(step1).assertEqual('qWzK');
       const step2: number = subject.submit(' A ');
       logInfo(`step2 submit(" A "): step2=${step2}`);
       expect(step2).assertEqual(0);

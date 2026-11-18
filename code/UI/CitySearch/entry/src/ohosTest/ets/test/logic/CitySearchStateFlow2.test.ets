@@ -1187,11 +1187,11 @@ export default function citySearchStateFlow2Test(): void {
       const step4: number = subject.submit('mTZV');
       logInfo(`step4 submit("mTZV"): step4=${step4}`);
       expect(step4).assertEqual(0);
-      const step5: string = subject.pick('vUE');
-      logInfo(`step5 pick("vUE"): step5=${step5}`);
-      expect(step5).assertEqual('vUE');
+      const step5: string = subject.pick('qWzK');
+      logInfo(`step5 pick("qWzK"): step5=${step5}`);
+      expect(step5).assertEqual('qWzK');
       logInfo(`pick>submit>pick>submit>pick final: subject.changeValue=${subject.changeValue}`);
-      expect(subject.changeValue).assertEqual('vUE');
+      expect(subject.changeValue).assertEqual('qWzK');
       logInfo(`pick>submit>pick>submit>pick final: subject.isSearchState=${subject.isSearchState}`);
       expect(subject.isSearchState).assertTrue();
       logInfo(`pick>submit>pick>submit>pick final: subject.toasts=${subject.toasts}`);

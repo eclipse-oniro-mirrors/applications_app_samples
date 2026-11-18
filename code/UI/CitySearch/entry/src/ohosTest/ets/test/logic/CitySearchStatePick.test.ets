@@ -1036,7 +1036,7 @@ export default function citySearchStatePickTest(): void {
     /**
      * @tc.number    SUB_CITYSEARCH_CITY_SEARCH_STATE_PICK_0054
      * @tc.name      CitySearch_CitySearchStatePick_0054
-     * @tc.desc      CitySearchState.pick(name="vUE") yields "vUE"
+     * @tc.desc      CitySearchState.pick(name="qWzK") yields "qWzK"
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL1
@@ -1044,11 +1044,11 @@ export default function citySearchStatePickTest(): void {
     it('CitySearch_CitySearchStatePick_0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       logInfo(`${BUNDLE}CitySearchStatePick_0054 begin`);
       const subject: CitySearchState = new CitySearchState();
-      const actual: string = subject.pick('vUE');
-      logInfo(`pick(name="vUE"): actual=${actual}`);
-      expect(actual).assertEqual('vUE');
-      logInfo(`pick(name="vUE") state: subject.changeValue=${subject.changeValue}`);
-      expect(subject.changeValue).assertEqual('vUE');
+      const actual: string = subject.pick('qWzK');
+      logInfo(`pick(name="qWzK"): actual=${actual}`);
+      expect(actual).assertEqual('qWzK');
+      logInfo(`pick(name="qWzK") state: subject.changeValue=${subject.changeValue}`);
+      expect(subject.changeValue).assertEqual('qWzK');
       logInfo(`${BUNDLE}CitySearchStatePick_0054 end`);
     });
 

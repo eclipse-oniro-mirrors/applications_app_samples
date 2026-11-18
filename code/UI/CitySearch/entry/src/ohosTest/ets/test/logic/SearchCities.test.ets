@@ -1247,15 +1247,15 @@ export default function searchCitiesTest(): void {
     /**
      * @tc.number    SUB_CITYSEARCH_SEARCH_CITIES_0076
      * @tc.name      CitySearch_SearchCities_0076
-     * @tc.desc      searchCities(value="N2NDK332E") returns len0
+     * @tc.desc      searchCities(value="N2QX332E") returns len0
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL1
      */
     it('CitySearch_SearchCities_0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       logInfo(`${BUNDLE}SearchCities_0076 begin`);
-      const actual: string[] = searchCities('N2NDK332E');
-      logInfo(`searchCities(value="N2NDK332E"): actual.length=${actual.length}`);
+      const actual: string[] = searchCities('N2QX332E');
+      logInfo(`searchCities(value="N2QX332E"): actual.length=${actual.length}`);
       expect(actual.length).assertEqual(0);
       logInfo(`${BUNDLE}SearchCities_0076 end`);
     });
