@@ -43,3 +43,7 @@ export const drawStar: (id: string) => void;
 export const getStatusForSurfaceHolder: (node: FrameNode) => XComponentContextStatus;
 
 export const drawPatternForSurfaceHolder: (node: FrameNode) => void;
+
+export const registerInspectorTreeGetter: (tag: string) => number;
+
+export const unregisterInspectorTreeGetter: (tag: string) => number;
