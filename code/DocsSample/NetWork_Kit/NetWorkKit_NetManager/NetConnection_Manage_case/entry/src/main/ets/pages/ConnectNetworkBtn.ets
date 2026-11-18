@@ -39,7 +39,13 @@ let netSpecifier: connection.NetSpecifier = {
 let TIMEOUT = 10 * NETWORK_CONNECTION_TIMEOUT;
 
 // 创建NetConnection对象
-let conn = connection.createNetConnection(netSpecifier, TIMEOUT);
+let conn: connection.NetConnection | undefined = undefined;
+try {
+  conn = connection.createNetConnection(netSpecifier, TIMEOUT);
+} catch (err) {
+  let error = err as BusinessError;
+  hilog.error(0x0000, 'testTag', createNetConnection failed, code: ${error.code}, message: ${error.message});
+}
 // [End notification_network_create_NetConnection]
 @Component
 export default struct ConnectNetworkBtn {
