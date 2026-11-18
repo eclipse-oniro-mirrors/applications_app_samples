@@ -797,7 +797,8 @@ struct Index {
                           this.promptAction.showDialog({ title: $r('app.string.update_failed'), message: $r('app.string.not_placeholder'), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
                           return;
                         }
-                        // 步骤2：按云侧最新元数据（大小、时间戳从云侧元数据查询获得，此处由入参模拟）
+                        // 步骤2：按云侧最新元数据（大小、时间戳从云侧元数据查询获得，此处由入参模拟；
+                        // 示例简化了输入校验，实际使用时应对非法输入做校验）
                         // 更新占位符：本地已水合数据会被清空，占位符回到未水合状态；
                         // 若存在水合任务会返回OH_CLOUD_DISK_HYDRATE_IN_PROGRESS，可稍后重试或者取消水合后重试。
                         // 重置完成后，应用需再通过OH_CloudDisk_HydratePlaceholder()接口触发水合，
@@ -809,8 +810,8 @@ struct Index {
                           parseInt(this.updateOnCloudSizeChangeSize) || 0
                         );
                         if (ret === 0) {
-                          // 展示重置前占位符状态：未水合（本地无数据，仅更新元数据）/部分水合或完全水合（本地数据已清空，回到未水合）
-                          this.promptAction.showDialog({ title: $r('app.string.update_success'), message: this.getPlaceholderStateMsg(stateRet.state), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
+                          // 重置成功：占位符已回到未水合状态，本地数据已清空，提示重置后的目标状态
+                          this.promptAction.showDialog({ title: $r('app.string.update_success'), message: $r('app.string.state_unhydrated'), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
                         } else {
                           this.promptAction.showDialog({ title: $r('app.string.update_failed'), message: this.resStr($r('app.string.error_code_label')) + ret.toString() + '\n' + this.resStr($r('app.string.reason_label')) + this.getErrorCodeMsg(ret), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
                         }
