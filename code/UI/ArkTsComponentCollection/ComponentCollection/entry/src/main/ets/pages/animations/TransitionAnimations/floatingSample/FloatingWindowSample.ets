@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/animations/TransitionAnimations/floatingSample/FloatingWindowSample.ets
+ * 文件职责：FloatingWindowSample 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：FloatingWindowSample。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import curves from '@ohos.curves';
 import display from '@ohos.display';
 import inputMethod from '@ohos.inputMethod';
@@ -23,27 +30,48 @@ import Logger from '../../../../util/Logger';
 
 const TAG = '[FloatingWindowPage]';
 
+/**
+ * FloatingWindowSample：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct FloatingWindowSample {
   private diameter: number = 120; // 触摸点相对偏移量
+  // @State positionX：组件内部状态
   @State positionX: number = 50; // 组件位置X
+  // @State positionY：组件内部状态
   @State positionY: number = 500; // 组件位置Y
+  // @State displayHalfWidth：组件内部状态
   @State displayHalfWidth: number = 0; // 屏幕一半的宽
+  // @State displayHalfHeight：组件内部状态
   @State displayHalfHeight: number = 0; // 屏幕一半的高
+  // @State moveStartX：组件内部状态
   @State moveStartX: number = 0; // X方向起始点
+  // @State moveStartY：组件内部状态
   @State moveStartY: number = 0; // Y方向起始点
+  // @State moveEndX：组件内部状态
   @State moveEndX: number = 0; // X方向终点
+  // @State moveEndY：组件内部状态
   @State moveEndY: number = 0; // Y方向终点
+  // @State moveSumLengthX：组件内部状态
   @State moveSumLengthX: number = 0; // X方向移动距离总和
+  // @State moveSumLengthY：组件内部状态
   @State moveSumLengthY: number = 0; // Y方向移动距离总和
+  // @State moveStartTime：组件内部状态
   @State moveStartTime: number = 0; // 触摸开始时间
+  // @State moveEndTime：组件内部状态
   @State moveEndTime: number = 0; // 触摸结束时间
+  // @State inputMethodSetting：组件内部状态
   @State inputMethodSetting: inputMethod.InputMethodSetting = inputMethod.getSetting();
+
+  // @StorageLink keyboardHeight：与 AppStorage 双向绑定
   @StorageLink('keyboardHeight') @Watch('keyboardHeightChange') keyboardHeight: number = 0;
   private statusHeight: number = 0;
   private bottomHeight: number = 0;
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear() {
     display.getAllDisplays((_err, data) => {
       // 拿到屏幕宽高的一半，作为判断基准值
@@ -65,6 +93,9 @@ struct FloatingWindowSample {
     })
   }
 
+  /**
+   * keyboardHeightChange：执行 keyboardHeightChange 相关逻辑。
+   */
   keyboardHeightChange() {
     Logger.info(TAG, `keyboardHeightChange keyboardHeight: ${this.keyboardHeight}`);
     let keyboradTop: number = this.displayHalfHeight * 2 - px2vp(this.keyboardHeight) -
@@ -77,18 +108,34 @@ struct FloatingWindowSample {
     }
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Row：水平布局容器
+    // 关键属性：宽度、高度
     Row() {
+      // Column：垂直布局容器
+      // 关键属性：宽度、高度、背景色
       Column() {
+        // TitleBar：TitleBar 自定义组件
         TitleBar({ title: $r('app.string.Floating_window') })
           .id('target')
+        // TextInput：单行输入框
+        // 关键属性：宽度、高度、enableKeyboardOnFocus
         TextInput({ placeholder: $r('app.string.avoiding_input_method_testing') })
           .width('95%').height(50)
           .enableKeyboardOnFocus(false)
           .id('test_input')
+        // Row：水平布局容器
+        // 关键属性：宽度、高度
         Row() {
+          // Row：水平布局容器
+          // 关键属性：宽度、高度、绝对定位、触摸事件回调
+          // 交互：可点击交互
           Row() {
-            FloatingWindowComponent()
+            // FloatingWindowComponent：FloatingWindowComponent 自定义组件
+            FloatingWindowComponent().id('floating_window_sample_floating_window_component_4')
           }
           .id('floatingWindowComponent')
           .width(80)
@@ -147,14 +194,14 @@ struct FloatingWindowSample {
               })
             }
           })
-        }
+        }.id('floating_window_sample_row_3')
         .width('100%')
         .height('92%')
-      }
+      }.id('floating_window_sample_column_2')
       .width('100%')
       .height('100%')
       .backgroundColor($r('app.color.background_shallow_grey'))
-    }
+    }.id('floating_window_sample_row_1')
     .width('100%')
     .height('100%')
   }

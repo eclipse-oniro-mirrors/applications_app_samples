@@ -13,19 +13,33 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/animations/TransitionAnimations/multiplexSample/MultiplexModel.ets
+ * 文件职责：MultiplexModel 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：MultiplexModel。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 export class MultiplexModel {
   private id: string;
   private img: Resource;
 
+  /** 构造 MultiplexModel 实例。 */
   constructor(id: string, img: Resource) {
     this.id = id;
     this.img = img;
   }
 
+  /**
+   * getId：执行 getId 相关逻辑。
+   */
   getId():string {
     return this.id;
   }
 
+  /**
+   * getImg：执行 getImg 相关逻辑。
+   */
   getImg():Resource {
     return this.img;
   }
