@@ -18,7 +18,6 @@ import Window from '@ohos.window';
 
 
 export default class EntryAbility extends UIAbility {
-
   onWindowStageCreate(windowStage: Window.WindowStage) {
     windowStage.loadContent('pages/mainPage', (err, data) => {
       if (err.code) {

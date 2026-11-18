@@ -1,0 +1,489 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "星闪示例代码入口模块。",
+      "description": "入口模块的描述信息。"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "星闪示例代码。",
+      "description": "Ability的描述信息。"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "星闪示例",
+      "description": "应用在桌面显示的名称。"
+    },
+    {
+      "name": "permission_reason_nearlink",
+      "value": "用于星闪通信。",
+      "description": "申请星闪权限的原因说明。"
+    },
+    {
+      "name": "operation_log",
+      "value": "操作日志",
+      "description": "操作日志区域标题。"
+    },
+    {
+      "name": "no_logs_yet",
+      "value": "暂无日志",
+      "description": "无日志时的占位文本。"
+    },
+    {
+      "name": "unknown_device",
+      "value": "未知设备",
+      "description": "未知设备名称的默认值。"
+    },
+    {
+      "name": "btn_select",
+      "value": "选择",
+      "description": "选择按钮文本。"
+    },
+    {
+      "name": "status_connected",
+      "value": "已连接",
+      "description": "已连接状态文本。"
+    },
+    {
+      "name": "status_disconnected",
+      "value": "未连接",
+      "description": "未连接状态文本。"
+    },
+    {
+      "name": "app_title",
+      "value": "NearLink",
+      "description": "主页应用标题。"
+    },
+    {
+      "name": "app_subtitle",
+      "value": "功能演示",
+      "description": "主页应用副标题。"
+    },
+    {
+      "name": "section_basic_features",
+      "value": "基础功能",
+      "description": "基础功能分区标题。"
+    },
+    {
+      "name": "section_ssap_protocol",
+      "value": "SSAP协议",
+      "description": "SSAP协议分区标题。"
+    },
+    {
+      "name": "section_other_features",
+      "value": "其他功能",
+      "description": "其他功能分区标题。"
+    },
+    {
+      "name": "menu_manager",
+      "value": "管理",
+      "description": "管理菜单项标题。"
+    },
+    {
+      "name": "menu_manager_desc",
+      "value": "星闪状态",
+      "description": "管理菜单项副标题。"
+    },
+    {
+      "name": "menu_advertising",
+      "value": "广播",
+      "description": "广播菜单项标题。"
+    },
+    {
+      "name": "menu_advertising_desc",
+      "value": "星闪广播",
+      "description": "广播菜单项副标题。"
+    },
+    {
+      "name": "menu_scan",
+      "value": "扫描",
+      "description": "扫描菜单项标题。"
+    },
+    {
+      "name": "menu_scan_desc",
+      "value": "设备发现",
+      "description": "扫描菜单项副标题。"
+    },
+    {
+      "name": "menu_ssap_server",
+      "value": "SSAP服务端",
+      "description": "SSAP服务端菜单项标题。"
+    },
+    {
+      "name": "menu_ssap_server_desc",
+      "value": "服务与属性",
+      "description": "SSAP服务端菜单项副标题。"
+    },
+    {
+      "name": "menu_ssap_client",
+      "value": "SSAP客户端",
+      "description": "SSAP客户端菜单项标题。"
+    },
+    {
+      "name": "menu_ssap_client_desc",
+      "value": "读/写/通知",
+      "description": "SSAP客户端菜单项副标题。"
+    },
+    {
+      "name": "menu_data_transfer",
+      "value": "数据传输",
+      "description": "数据传输菜单项标题。"
+    },
+    {
+      "name": "menu_data_transfer_desc",
+      "value": "基于端口传输",
+      "description": "数据传输菜单项副标题。"
+    },
+    {
+      "name": "menu_cdsm",
+      "value": "CDSM",
+      "description": "CDSM菜单项标题。"
+    },
+    {
+      "name": "menu_cdsm_desc",
+      "value": "合作设备集",
+      "description": "CDSM菜单项副标题。"
+    },
+    {
+      "name": "nav_manager",
+      "value": "管理",
+      "description": "管理页面导航标题。"
+    },
+    {
+      "name": "nav_advertising",
+      "value": "广播",
+      "description": "广播页面导航标题。"
+    },
+    {
+      "name": "nav_scan",
+      "value": "扫描",
+      "description": "扫描页面导航标题。"
+    },
+    {
+      "name": "nav_ssap_server",
+      "value": "SSAP服务端",
+      "description": "SSAP服务端页面导航标题。"
+    },
+    {
+      "name": "nav_ssap_client",
+      "value": "SSAP客户端",
+      "description": "SSAP客户端页面导航标题。"
+    },
+    {
+      "name": "nav_data_transfer",
+      "value": "数据传输",
+      "description": "数据传输页面导航标题。"
+    },
+    {
+      "name": "nav_cdsm",
+      "value": "CDSM",
+      "description": "CDSM页面导航标题。"
+    },
+    {
+      "name": "section_nearlink_status",
+      "value": "星闪状态",
+      "description": "星闪状态分区标题。"
+    },
+    {
+      "name": "section_device_support",
+      "value": "设备支持",
+      "description": "设备支持分区标题。"
+    },
+    {
+      "name": "section_local_info",
+      "value": "本地信息",
+      "description": "本地信息分区标题。"
+    },
+    {
+      "name": "section_paired_devices",
+      "value": "已配对设备",
+      "description": "已配对设备分区标题。"
+    },
+    {
+      "name": "label_current_status",
+      "value": "当前状态",
+      "description": "当前状态标签。"
+    },
+    {
+      "name": "label_nearlink_supported",
+      "value": "星闪支持",
+      "description": "星闪支持标签。"
+    },
+    {
+      "name": "label_device_name",
+      "value": "设备名称",
+      "description": "设备名称标签。"
+    },
+    {
+      "name": "btn_refresh_status",
+      "value": "刷新状态",
+      "description": "刷新状态按钮。"
+    },
+    {
+      "name": "btn_recheck",
+      "value": "重新检查",
+      "description": "重新检查按钮。"
+    },
+    {
+      "name": "btn_refresh_info",
+      "value": "刷新信息",
+      "description": "刷新信息按钮。"
+    },
+    {
+      "name": "btn_refresh_list",
+      "value": "刷新列表",
+      "description": "刷新列表按钮。"
+    },
+    {
+      "name": "no_paired_devices",
+      "value": "无已配对设备",
+      "description": "无已配对设备时的占位文本。"
+    },
+    {
+      "name": "label_selected",
+      "value": "已选中",
+      "description": "选中设备标记文本。"
+    },
+    {
+      "name": "label_pairing_state",
+      "value": "配对状态",
+      "description": "配对状态标签。"
+    },
+    {
+      "name": "scanning_nearby_devices",
+      "value": "正在扫描附近设备...",
+      "description": "扫描进行中的提示信息。"
+    },
+    {
+      "name": "no_scan_results",
+      "value": "无扫描结果",
+      "description": "无扫描结果时的占位文本。"
+    },
+    {
+      "name": "cdsm_description",
+      "value": "合作设备集管理(CDSM)用于管理一组协同工作的设备，例如左右耳机。",
+      "description": "CDSM功能描述。"
+    },
+    {
+      "name": "section_cdsm_operations",
+      "value": "CDSM操作",
+      "description": "CDSM操作分区标题。"
+    },
+    {
+      "name": "label_selected_device",
+      "value": "已选设备",
+      "description": "已选设备标签。"
+    },
+    {
+      "name": "not_selected",
+      "value": "未选择",
+      "description": "未选择设备时的占位文本。"
+    },
+    {
+      "name": "btn_create_cdsm_client",
+      "value": "创建CDSM客户端",
+      "description": "创建CDSM客户端按钮。"
+    },
+    {
+      "name": "btn_get_set_info",
+      "value": "获取集合信息",
+      "description": "获取集合信息按钮。"
+    },
+    {
+      "name": "section_set_members",
+      "value": "集合成员",
+      "description": "集合成员分区标题。"
+    },
+    {
+      "name": "no_members",
+      "value": "无成员",
+      "description": "无成员时的占位文本。"
+    },
+    {
+      "name": "label_advertising_state",
+      "value": "广播状态",
+      "description": "广播状态标签。"
+    },
+    {
+      "name": "label_target_address",
+      "value": "目标地址",
+      "description": "目标地址标签。"
+    },
+    {
+      "name": "label_received_data",
+      "value": "接收数据",
+      "description": "接收数据标签。"
+    },
+    {
+      "name": "received_data_count",
+      "value": "接收数据（%d 条）",
+      "description": "接收数据数量标签。"
+    },
+    {
+      "name": "label_advertising_id",
+      "value": "广播ID",
+      "description": "广播ID标签。"
+    },
+    {
+      "name": "label_server",
+      "value": "服务端",
+      "description": "连接管理中的服务端标签。"
+    },
+    {
+      "name": "section_scan_filters",
+      "value": "扫描过滤(可选)",
+      "description": "扫描过滤分区标题。"
+    },
+    {
+      "name": "placeholder_device_name",
+      "value": "设备名称",
+      "description": "设备名称输入框占位文本。"
+    },
+    {
+      "name": "placeholder_address",
+      "value": "地址(如 11:22:33:AA:BB:FF)",
+      "description": "地址输入框占位文本。"
+    },
+    {
+      "name": "btn_stop_scan",
+      "value": "停止扫描",
+      "description": "停止扫描按钮。"
+    },
+    {
+      "name": "btn_filtered_scan",
+      "value": "过滤扫描",
+      "description": "过滤扫描按钮。"
+    },
+    {
+      "name": "btn_full_scan",
+      "value": "全量扫描",
+      "description": "全量扫描按钮。"
+    },
+    {
+      "name": "btn_start_scan",
+      "value": "开始扫描",
+      "description": "开始扫描按钮。"
+    },
+    {
+      "name": "btn_connect",
+      "value": "连接",
+      "description": "连接按钮。"
+    },
+    {
+      "name": "btn_disconnect",
+      "value": "断开连接",
+      "description": "断开连接按钮。"
+    },
+    {
+      "name": "btn_send_data",
+      "value": "发送数据",
+      "description": "发送数据按钮。"
+    },
+    {
+      "name": "btn_notify_property",
+      "value": "通知属性变更",
+      "description": "通知属性变更按钮。"
+    },
+    {
+      "name": "btn_close_server",
+      "value": "关闭服务端",
+      "description": "关闭服务端按钮。"
+    },
+    {
+      "name": "btn_get_services",
+      "value": "获取服务",
+      "description": "获取服务按钮。"
+    },
+    {
+      "name": "btn_read_property",
+      "value": "读取属性",
+      "description": "读取属性按钮。"
+    },
+    {
+      "name": "btn_write_property",
+      "value": "写入属性",
+      "description": "写入属性按钮。"
+    },
+    {
+      "name": "btn_enable_notification",
+      "value": "启用通知",
+      "description": "启用通知按钮。"
+    },
+    {
+      "name": "section_scan_devices",
+      "value": "扫描设备",
+      "description": "扫描设备分区标题。"
+    },
+    {
+      "name": "section_connection_management",
+      "value": "连接管理",
+      "description": "连接管理分区标题。"
+    },
+    {
+      "name": "section_notification_status",
+      "value": "通知状态",
+      "description": "通知状态分区标题。"
+    },
+    {
+      "name": "section_service_operations",
+      "value": "服务操作",
+      "description": "服务操作分区标题。"
+    },
+    {
+      "name": "section_server_status",
+      "value": "服务端状态",
+      "description": "服务端状态分区标题。"
+    },
+    {
+      "name": "section_advertising_control",
+      "value": "广播控制",
+      "description": "广播控制分区标题。"
+    },
+    {
+      "name": "section_operations",
+      "value": "操作",
+      "description": "操作分区标题。"
+    },
+    {
+      "name": "section_advertising_status",
+      "value": "广播状态",
+      "description": "广播状态分区标题。"
+    },
+    {
+      "name": "section_port_management",
+      "value": "端口管理",
+      "description": "端口管理分区标题。"
+    },
+    {
+      "name": "section_connection_transfer",
+      "value": "连接与传输",
+      "description": "连接与传输分区标题。"
+    },
+    {
+      "name": "status_advertising",
+      "value": "广播中",
+      "description": "广播活动状态文本。"
+    },
+    {
+      "name": "status_stopped",
+      "value": "已停止",
+      "description": "广播停止状态文本。"
+    },
+    {
+      "name": "btn_create_port",
+      "value": "创建端口",
+      "description": "创建端口按钮。"
+    },
+    {
+      "name": "btn_destroy_port",
+      "value": "销毁端口",
+      "description": "销毁端口按钮。"
+    },
+    {
+      "name": "section_scan_results",
+      "value": "扫描结果",
+      "description": "扫描结果分区标题。"
+    }
+  ]
+}

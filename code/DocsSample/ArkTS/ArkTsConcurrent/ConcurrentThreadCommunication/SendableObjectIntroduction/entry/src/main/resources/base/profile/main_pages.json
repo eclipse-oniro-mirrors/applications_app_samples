@@ -1,0 +1,8 @@
+{
+  "src": [
+    "pages/Index",
+    "managers/classusage",
+    "managers/functionusage",
+    "managers/enumusage"
+  ]
+}

@@ -12,14 +12,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 export class ResourceManager {
+  private context: Context | undefined = undefined;
   public resourceToString(resource: Resource): string {
-    return getContext(this).resourceManager.getStringSync(resource);
+    if (this.context) {
+      try {
+        return this.context.resourceManager.getStringSync(resource.id);
+      } catch (error) {
+        hilog.error(0x0000, 'testTag', `resourceToString failed. error code: ${error.code}, error message: ${error.message}`);
+      }
+    }
+    return 'undefined|null';
+  }
+  public setContext(context: Context | undefined) {
+    this.context = context;
   }
 }
 
 // 默认导出let
 let resourceToStringManager = new ResourceManager();
 
-export default resourceToStringManager as ResourceManager;
+export default resourceToStringManager;

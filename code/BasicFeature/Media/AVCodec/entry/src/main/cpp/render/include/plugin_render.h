@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,26 +19,23 @@
 #include <ace/xcomponent/native_interface_xcomponent.h>
 #include <napi/native_api.h>
 #include <string>
-#include <unordered_map>
 
 namespace NativeXComponentSample {
 class PluginRender {
 public:
-    explicit PluginRender(std::string& id);
-    ~PluginRender() {}
-    static PluginRender* GetInstance(std::string& id);
-    static void Release(std::string& id);
+    explicit PluginRender(const std::string& id);
+    ~PluginRender() = default;
     void Export(napi_env env, napi_value exports);
     void OnSurfaceChanged(OH_NativeXComponent* component, void* window);
     void OnTouchEvent(OH_NativeXComponent* component, void* window);
     void RegisterCallback(OH_NativeXComponent* nativeXComponent);
 
-public:
-    static std::unordered_map<std::string, PluginRender*> instance_;
     std::string id_;
 
 private:
+    // 回调表由 PluginRender 持有。XComponent 销毁回调会释放对应的 PluginRender，
+    // 因此其他线程不能在销毁通知后继续保存或调用此回调表。
     OH_NativeXComponent_Callback renderCallback_;
 };
-} // namespace NativeXComponentSample
-#endif // NATIVE_XCOMPONENT_PLUGIN_RENDER_H
+}
+#endif

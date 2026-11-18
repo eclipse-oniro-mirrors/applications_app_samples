@@ -1,0 +1,484 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Photo picker and sendable media sample",
+      "description": "Module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Photo picker and sendable media sample",
+      "description": "Entry ability description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "PhotoPickerAndSendable",
+      "description": "Entry ability label"
+    },
+    {
+      "name": "pp_permission_reason_read_imagevideo",
+      "value": "Used to browse the full photo gallery",
+      "description": "Reason shown when requesting the media read permission"
+    },
+    {
+      "name": "pp_app_title",
+      "value": "Photo Picker & Sendable",
+      "description": "Title of the home page"
+    },
+    {
+      "name": "pp_home_subtitle",
+      "value": "Photo picker, recent photos, full gallery and cross-thread editing",
+      "description": "Subtitle of the home page"
+    },
+    {
+      "name": "pp_home_selected",
+      "value": "Selected: %d",
+      "description": "Selected item count on the home page"
+    },
+    {
+      "name": "pp_home_clear",
+      "value": "Clear",
+      "description": "Clear selection button on the home page"
+    },
+    {
+      "name": "pp_home_section_scenes",
+      "value": "Scenes",
+      "description": "Section title of the scene list"
+    },
+    {
+      "name": "pp_home_scene_picker_title",
+      "value": "Photo Picker",
+      "description": "Title of the picker scene"
+    },
+    {
+      "name": "pp_home_scene_picker_desc",
+      "value": "Pick media with the system picker, no media permission needed",
+      "description": "Description of the picker scene"
+    },
+    {
+      "name": "pp_home_scene_recent_title",
+      "value": "Recent Photos",
+      "description": "Title of the recent photo scene"
+    },
+    {
+      "name": "pp_home_scene_recent_desc",
+      "value": "RecentPhotoComponent with time window and source filters",
+      "description": "Description of the recent photo scene"
+    },
+    {
+      "name": "pp_home_scene_gallery_title",
+      "value": "Full Gallery",
+      "description": "Title of the full gallery scene"
+    },
+    {
+      "name": "pp_home_scene_gallery_desc",
+      "value": "getAssets over the whole media library (ACL signing required)",
+      "description": "Description of the full gallery scene"
+    },
+    {
+      "name": "pp_home_scene_edit_title",
+      "value": "Cross-thread Editing",
+      "description": "Title of the editing scene"
+    },
+    {
+      "name": "pp_home_scene_edit_desc",
+      "value": "Crop, rotate, filter, watermark and compress in TaskPool",
+      "description": "Description of the editing scene"
+    },
+    {
+      "name": "pp_home_scene_cache_title",
+      "value": "Sandbox Cache",
+      "description": "Title of the cache scene"
+    },
+    {
+      "name": "pp_home_scene_cache_desc",
+      "value": "List, export and clean processed files",
+      "description": "Description of the cache scene"
+    },
+    {
+      "name": "pp_picker_hint",
+      "value": "Up to %d items can be picked",
+      "description": "Selection limit hint of the picker scene"
+    },
+    {
+      "name": "pp_picker_selected",
+      "value": "Selected %d",
+      "description": "Selected count of the picker scene"
+    },
+    {
+      "name": "pp_picker_empty_selection",
+      "value": "Nothing selected yet",
+      "description": "Empty selection hint of the picker scene"
+    },
+    {
+      "name": "pp_picker_clear",
+      "value": "Clear selection",
+      "description": "Clear selection button of the picker scene"
+    },
+    {
+      "name": "pp_picker_confirm",
+      "value": "Use selection",
+      "description": "Confirm button of the picker scene"
+    },
+    {
+      "name": "pp_picker_open",
+      "value": "Choose photos and videos",
+      "description": "Button that opens the system picker"
+    },
+    {
+      "name": "pp_picker_open_failed",
+      "value": "Opening the picker failed",
+      "description": "Toast when the system picker cannot be opened"
+    },
+    {
+      "name": "pp_picker_guide",
+      "value": "The system picker opens in full screen. Chosen items stay readable by this app through the granted uris, so no media permission is needed.",
+      "description": "Guide text of the picker scene"
+    },
+    {
+      "name": "pp_picker_confirmed",
+      "value": "Ready to edit %d item(s)",
+      "description": "Toast after the picker selection is confirmed"
+    },
+    {
+      "name": "pp_picker_confirm_failed",
+      "value": "Reading picker results failed",
+      "description": "Toast when picker results cannot be read"
+    },
+    {
+      "name": "pp_picker_exceed",
+      "value": "Selection limit reached",
+      "description": "Toast when the selection limit is reached"
+    },
+    {
+      "name": "pp_picker_loading",
+      "value": "Reading...",
+      "description": "Loading label of the picker scene"
+    },
+    {
+      "name": "pp_picker_meta_summary",
+      "value": "%s · %s",
+      "description": "Name and size of the first picked item"
+    },
+    {
+      "name": "pp_recent_period_label",
+      "value": "Time window",
+      "description": "Label of the recent photo time window"
+    },
+    {
+      "name": "pp_recent_period_1h",
+      "value": "1 hour",
+      "description": "Recent photo time window of one hour"
+    },
+    {
+      "name": "pp_recent_period_6h",
+      "value": "6 hours",
+      "description": "Recent photo time window of six hours"
+    },
+    {
+      "name": "pp_recent_period_24h",
+      "value": "24 hours",
+      "description": "Recent photo time window of one day"
+    },
+    {
+      "name": "pp_recent_source_label",
+      "value": "Photo source",
+      "description": "Label of the recent photo source"
+    },
+    {
+      "name": "pp_recent_source_all",
+      "value": "All",
+      "description": "Recent photo source of all photos"
+    },
+    {
+      "name": "pp_recent_source_camera",
+      "value": "Camera",
+      "description": "Recent photo source of camera photos"
+    },
+    {
+      "name": "pp_recent_source_screenshot",
+      "value": "Screenshot",
+      "description": "Recent photo source of screenshots"
+    },
+    {
+      "name": "pp_recent_autorefresh",
+      "value": "Auto refresh",
+      "description": "Label of the recent photo auto refresh switch"
+    },
+    {
+      "name": "pp_recent_hint",
+      "value": "Tap a recent photo to add it to the selection",
+      "description": "Hint shown before the recent photo is checked"
+    },
+    {
+      "name": "pp_recent_exists",
+      "value": "Recent photos are available",
+      "description": "Result shown when recent photos exist"
+    },
+    {
+      "name": "pp_recent_missing",
+      "value": "No recent photos in this window",
+      "description": "Result shown when no recent photo exists"
+    },
+    {
+      "name": "pp_recent_info",
+      "value": "Taken: %s\nIdentifier: %s",
+      "description": "Recent photo info of date and identifier"
+    },
+    {
+      "name": "pp_recent_query",
+      "value": "Query recent photo info",
+      "description": "Button that queries the recent photo info"
+    },
+    {
+      "name": "pp_recent_fallback_title",
+      "value": "Newest item in the selected range",
+      "description": "Title of the fallback card of the recent photo scene"
+    },
+    {
+      "name": "pp_recent_fallback_use",
+      "value": "Use this",
+      "description": "Button that adds the fallback item to the selection"
+    },
+    {
+      "name": "pp_recent_picked",
+      "value": "Selected %d",
+      "description": "Toast after a recent photo is picked"
+    },
+    {
+      "name": "pp_recent_clicked",
+      "value": "Recent photo added, total %d",
+      "description": "Status after a recent photo is clicked"
+    },
+    {
+      "name": "pp_gallery_permission_title",
+      "value": "Permission required",
+      "description": "Title of the gallery permission card"
+    },
+    {
+      "name": "pp_gallery_permission_desc",
+      "value": "Browsing the full gallery calls getAssets and needs ohos.permission.READ_IMAGEVIDEO. It is a restricted system_basic permission, so the app must be signed with ACL.",
+      "description": "Explanation of the gallery permission"
+    },
+    {
+      "name": "pp_gallery_request",
+      "value": "Request permission",
+      "description": "Button that requests the gallery permission"
+    },
+    {
+      "name": "pp_gallery_acl_tip",
+      "value": "ACL signing is required for this permission. Without it the install or the request fails; remove the declaration to debug the other scenes.",
+      "description": "ACL hint of the gallery scene"
+    },
+    {
+      "name": "pp_gallery_count",
+      "value": "Loaded %d",
+      "description": "Loaded item count of the gallery scene"
+    },
+    {
+      "name": "pp_gallery_selected",
+      "value": "Selected %d",
+      "description": "Selected item count of the gallery scene"
+    },
+    {
+      "name": "pp_gallery_loading",
+      "value": "Loading...",
+      "description": "Loading label of the gallery scene"
+    },
+    {
+      "name": "pp_gallery_end",
+      "value": "All items loaded",
+      "description": "Footer shown when all gallery items are loaded"
+    },
+    {
+      "name": "pp_gallery_load_failed",
+      "value": "Loading media library failed",
+      "description": "Toast when the media library query fails"
+    },
+    {
+      "name": "pp_edit_no_source",
+      "value": "Pick a photo in the picker or gallery scene first",
+      "description": "Hint shown when the editor has no source image"
+    },
+    {
+      "name": "pp_edit_crop",
+      "value": "Drag on the preview to crop",
+      "description": "Hint of the crop gesture"
+    },
+    {
+      "name": "pp_edit_crop_active",
+      "value": "Crop region set, drag again to adjust",
+      "description": "Hint shown after a crop region is set"
+    },
+    {
+      "name": "pp_edit_crop_reset",
+      "value": "Reset crop",
+      "description": "Button that resets the crop region"
+    },
+    {
+      "name": "pp_edit_rotation",
+      "value": "Rotation",
+      "description": "Label of the rotation options"
+    },
+    {
+      "name": "pp_edit_filter",
+      "value": "Filter",
+      "description": "Label of the filter options"
+    },
+    {
+      "name": "pp_filter_original",
+      "value": "Original",
+      "description": "Preset filter that keeps colors"
+    },
+    {
+      "name": "pp_filter_gray",
+      "value": "Gray",
+      "description": "Preset filter that turns the image gray"
+    },
+    {
+      "name": "pp_filter_invert",
+      "value": "Invert",
+      "description": "Preset filter that inverts colors"
+    },
+    {
+      "name": "pp_filter_warm",
+      "value": "Warm",
+      "description": "Preset filter with warm colors"
+    },
+    {
+      "name": "pp_filter_cool",
+      "value": "Cool",
+      "description": "Preset filter with cool colors"
+    },
+    {
+      "name": "pp_filter_high_contrast",
+      "value": "High contrast",
+      "description": "Preset filter with high contrast"
+    },
+    {
+      "name": "pp_edit_brightness",
+      "value": "Brightness %d",
+      "description": "Label of the brightness slider"
+    },
+    {
+      "name": "pp_edit_contrast",
+      "value": "Contrast %d",
+      "description": "Label of the contrast slider"
+    },
+    {
+      "name": "pp_edit_saturation",
+      "value": "Saturation %d",
+      "description": "Label of the saturation slider"
+    },
+    {
+      "name": "pp_edit_watermark",
+      "value": "Watermark",
+      "description": "Label of the watermark input"
+    },
+    {
+      "name": "pp_edit_watermark_placeholder",
+      "value": "PhotoPickerAndSendable",
+      "description": "Placeholder of the watermark input"
+    },
+    {
+      "name": "pp_edit_quality",
+      "value": "JPEG quality %d",
+      "description": "Label of the quality slider"
+    },
+    {
+      "name": "pp_edit_max_edge",
+      "value": "Max edge (px)",
+      "description": "Label of the max edge options"
+    },
+    {
+      "name": "pp_edit_process",
+      "value": "Process in TaskPool",
+      "description": "Button that starts cross-thread processing"
+    },
+    {
+      "name": "pp_edit_processing",
+      "value": "Processing...",
+      "description": "Label shown while processing"
+    },
+    {
+      "name": "pp_edit_process_failed",
+      "value": "Image processing failed",
+      "description": "Toast when processing fails"
+    },
+    {
+      "name": "pp_edit_result_title",
+      "value": "Result",
+      "description": "Title of the processing result card"
+    },
+    {
+      "name": "pp_edit_stats",
+      "value": "Worker %d ms · Decode %d ms",
+      "description": "Timing of the worker thread and the decode step"
+    },
+    {
+      "name": "pp_edit_size",
+      "value": "%s → %s (%s)",
+      "description": "Source size, output size and ratio"
+    },
+    {
+      "name": "pp_edit_dims",
+      "value": "%d × %d px",
+      "description": "Pixel size of the result"
+    },
+    {
+      "name": "pp_edit_save",
+      "value": "Save to sandbox",
+      "description": "Button that saves the result into the sandbox"
+    },
+    {
+      "name": "pp_edit_saved",
+      "value": "Saved to %s",
+      "description": "Path of the saved result"
+    },
+    {
+      "name": "pp_edit_saved_toast",
+      "value": "Saved to the sandbox",
+      "description": "Toast after the result is saved"
+    },
+    {
+      "name": "pp_cache_total",
+      "value": "Total size %s",
+      "description": "Total size of the cached files"
+    },
+    {
+      "name": "pp_cache_count",
+      "value": "%d cached files",
+      "description": "Count of the cached files"
+    },
+    {
+      "name": "pp_cache_export",
+      "value": "Export picked originals",
+      "description": "Button that exports picked originals into the sandbox"
+    },
+    {
+      "name": "pp_cache_clear",
+      "value": "Clear all",
+      "description": "Button that clears the cache directory"
+    },
+    {
+      "name": "pp_cache_delete",
+      "value": "Delete",
+      "description": "Button that deletes one cached file"
+    },
+    {
+      "name": "pp_cache_empty",
+      "value": "No cached files",
+      "description": "Empty state of the cache scene"
+    },
+    {
+      "name": "pp_cache_export_done",
+      "value": "Exported %d file(s)",
+      "description": "Result of exporting originals"
+    },
+    {
+      "name": "pp_cache_export_none",
+      "value": "Pick photos before exporting",
+      "description": "Toast when exporting without a selection"
+    }
+  ]
+}

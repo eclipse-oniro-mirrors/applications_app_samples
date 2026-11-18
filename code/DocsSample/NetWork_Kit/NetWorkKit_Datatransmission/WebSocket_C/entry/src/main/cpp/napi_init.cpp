@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+// [Start websocket_build_project]
 #include "napi/native_api.h"
 #include "network/netstack/net_websocket.h"
 #include "network/netstack/net_websocket_type.h"
@@ -25,7 +26,7 @@
 #define LOG_DOMAIN 0x3200 // 全局domain宏，标识业务领域
 #define LOG_TAG "WSDEMO"  // 全局tag宏，标识模块日志tag
 
-// [Start websocket_build_project]
+
 // WebSocket客户端全局变量
 static struct WebSocket *g_client = nullptr;
 
@@ -44,6 +45,7 @@ static void onMessage(struct WebSocket *wsClient, char *data, uint32_t length)
     }
     tmp[length] = '\0';
     OH_LOG_INFO(LOG_APP, "onMessage: len: %{public}u, data: %{public}s", length, tmp);
+    delete[] tmp;
 }
 
 static void onError(struct WebSocket *wsClient, WebSocket_ErrorResult errorResult)
@@ -55,8 +57,12 @@ static void onError(struct WebSocket *wsClient, WebSocket_ErrorResult errorResul
 
 static void onClose(struct WebSocket *wsClient, WebSocket_CloseResult closeResult)
 {
-    (void)wsClient;
     OH_LOG_INFO(LOG_APP, "onClose: code: %{public}u, reason: %{public}s", closeResult.code, closeResult.reason);
+    // 收到连接关闭事件后，释放对应客户端的资源
+    if (wsClient == g_client) {
+        g_client = nullptr;
+    }
+    OH_WebSocketClient_Destroy(wsClient);
 }
 
 static napi_value ConnectWebsocket(napi_env env, napi_callback_info info)
@@ -96,7 +102,7 @@ static napi_value ConnectWebsocket(napi_env env, napi_callback_info info)
     napi_get_boolean(env, connectRet == 0, &result);
     return result;
 }
-// [End websocket_build_project]
+
 
 static napi_value SendMessage(napi_env env, napi_callback_info info)
 {
@@ -137,18 +143,17 @@ static napi_value CloseWebsocket(napi_env env, napi_callback_info info)
         napi_create_int32(env, -1, &result);
         return result;
     }
-    // 关闭WebSocket连接
+    // 发起关闭请求，资源在onClose回调中释放
     int ret = OH_WebSocketClient_Close(g_client, {
                                                    .code = 0,
                                                    .reason = "Actively Close",
                                                });
-    // 释放WebSocket资源并置空
-    OH_WebSocketClient_Destroy(g_client);
-    g_client = nullptr;
     napi_create_int32(env, ret, &result);
     return result;
 }
+// [End websocket_build_project]
 
+// [Start websocket_extern_c]
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
@@ -161,7 +166,9 @@ static napi_value Init(napi_env env, napi_value exports)
     return exports;
 }
 EXTERN_C_END
+// [End websocket_extern_c]
 
+// [Start websocket_napi_module]
 static napi_module demoModule = {
     .nm_version = 1,
     .nm_flags = 0,
@@ -173,3 +180,4 @@ static napi_module demoModule = {
 };
 
 extern "C" __attribute__((constructor)) void RegisterEntryModule(void) { napi_module_register(&demoModule); }
+// [End websocket_napi_module]

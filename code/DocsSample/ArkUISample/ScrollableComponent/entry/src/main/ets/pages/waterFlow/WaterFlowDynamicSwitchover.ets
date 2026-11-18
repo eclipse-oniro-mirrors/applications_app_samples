@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -37,7 +37,7 @@ struct ReusableFlowItem {
     }
   }
 }
-
+// [Start waterFlowDynamicSwitchover_start]
 @Reusable
 @Component
 struct ReusableListItem {
@@ -61,13 +61,16 @@ struct ReusableListItem {
 @Entry
 @Component
 export struct WaterFlowDynamicSwitchover {
+  // 通过状态变量设置列数，可以按需修改触发布局更新
+  @State columns: number = 2;
+
+  // [StartExclude waterFlowDynamicSwitchover_start]
   minSize: number = 80;
   maxSize: number = 180;
   colors: number[] = [0xFFC0CB, 0xDA70D6, 0x6B8E23, 0x6A5ACD, 0x00FFFF, 0x00FF7F];
   dataSource: WaterFlowDataSource = new WaterFlowDataSource(100);
   private itemWidthArray: number[] = [];
   private itemHeightArray: number[] = [];
-  @State columns: number = 2;
   @State waterflowScale: number = 1;
   @State imageScale: number = 1;
   @State waterFlowOpacity: number = 1;
@@ -119,7 +122,8 @@ export struct WaterFlowDynamicSwitchover {
     Row() {
       LoadingProgress()
         .color(Color.Blue).height(50).aspectRatio(1).width('20%')
-      Text(`正在加载`)
+      // 请将$r('app.string.waterFlow_text1')替换为实际资源文件，在本示例中该资源文件的value值为"正在加载 "
+      Text($r('app.string.waterFlow_text1'))
         .fontSize(20)
         .width('30%')
         .height(50)
@@ -127,13 +131,17 @@ export struct WaterFlowDynamicSwitchover {
         .margin({ top: 2 })
     }.width('100%').justifyContent(FlexAlign.Center)
   }
-
+  // [EndExclude waterFlowDynamicSwitchover_start]
   build() {
     NavDestination() {
       Column({ space: 12 }) {
+        // [StartExclude waterFlowDynamicSwitchover_start]
+        // 请将$r('app.string.WaterFlowDynamicSwitchover_title')替换为实际资源文件，在本示例中该资源文件的value值为"动态切换列数"
         ComponentCard({ title: $r('app.string.WaterFlowDynamicSwitchover_title') }) {
+          // [EndExclude waterFlowDynamicSwitchover_start]
           Column({ space: 2 }) {
-            Button('切换列数').fontSize(20).onClick(() => {
+            // 请将$r('app.string.waterFlow_text2')替换为实际资源文件，在本示例中该资源文件的value值为"切换列数 "
+            Button($r('app.string.waterFlow_text2')).fontSize(20).onClick(() => {
               if (this.columns === 2) {
                 this.columns = 1;
               } else {
@@ -152,7 +160,7 @@ export struct WaterFlowDynamicSwitchover {
                 .width('100%')
                 .aspectRatio(this.columns === 2 ? this.itemHeightArray[item % 100] / this.itemWidthArray[item % 100] : 0)
                 .backgroundColor(this.colors[item % 5])
-              }, (item: string) => item)
+              }, (item: number) => item.toString())
             }
             .columnsTemplate('1fr '.repeat(this.columns))
             .backgroundColor(0xFAEEE0)
@@ -167,13 +175,20 @@ export struct WaterFlowDynamicSwitchover {
                 }, 1000);
               }
             })
+            // [StartExclude waterFlowDynamicSwitchover_start]
+            .id('test')
+            // [EndExclude waterFlowDynamicSwitchover_start]
           }
         }
+        // [StartExclude waterFlowDynamicSwitchover_start]
       }
       .width('100%')
       .height('100%')
+      // [EndExclude waterFlowDynamicSwitchover_start]
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.WaterFlowDynamicSwitchover_title')替换为实际资源文件，在本示例中该资源文件的value值为"动态切换列数"
     .title($r('app.string.WaterFlowDynamicSwitchover_title'))
   }
 }
+// [End waterFlowDynamicSwitchover_start]

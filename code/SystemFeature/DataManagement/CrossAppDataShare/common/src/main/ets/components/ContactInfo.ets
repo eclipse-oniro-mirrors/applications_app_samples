@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -25,7 +25,7 @@ export struct ContactInfo {
   @Link email: string
   @Link address: string
   @Link remark: string
-  private phoneData: ContactDataSource = new ContactDataSource()
+  private phoneData: ContactDataSource<string> = new ContactDataSource<string>()
 
   build() {
     Column() {
@@ -38,16 +38,12 @@ export struct ContactInfo {
       Text($r('app.string.save_to_phone'))
         .fontSize($r('app.float.font_size_22'))
         .margin({ top: 22, bottom: 32 })
-      // 传一个id：0
       this.newContact($r('app.string.contact_name'), $r('app.media.name'), '', this.name, 12, 0)
-      LazyForEach(this.phoneData, (item, index) => {
+      LazyForEach(this.phoneData, (item: string, index: number) => {
         this.phoneView(item, index)
-      }, (item, index) => index.toString())
-      // 传一个id：1
+      }, (item: string, index: number) => index.toString())
       this.newContact($r('app.string.contact_email'), $r('app.media.email'), '', this.email, 20, 1)
-      // 传一个id：2
       this.newContact($r('app.string.contact_address'), $r('app.media.address'), '', this.address, 20, 2)
-      // 传一个id：3
       this.newContact($r('app.string.contact_remark'), $r('app.media.remark'), '', this.remark, 50, 3)
     }
     .width('100%')
@@ -82,7 +78,7 @@ export struct ContactInfo {
           .margin({ left: $r('app.float.page_space_16'), right: $r('app.float.page_space_12') })
           .onClick(() => {
             this.phones.splice(index, 1)
-            this.phoneData['dataArray'].splice(index, 1)
+            this.phoneData.dataArray.splice(index, 1)
             this.phoneData.notifyDataReload()
           })
       }
@@ -140,6 +136,6 @@ export struct ContactInfo {
   }
 
   aboutToAppear() {
-    this.phoneData['dataArray'] = this.phones.copyWithin(this.phones.length, 0)
+    this.phoneData.dataArray = this.phones.slice()
   }
 }

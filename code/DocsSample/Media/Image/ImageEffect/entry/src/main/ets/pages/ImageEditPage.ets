@@ -32,6 +32,7 @@ struct ImageEditPage {
   settingBtn: Resource = $r('app.media.ic_public_settings');
   @Provide displayPixelMap: image.PixelMap | undefined = undefined;
   @Provide displayPixelMapUri: image.PixelMap | undefined = undefined;
+  @State displayPixelMapTexture: image.PixelMap | undefined = undefined;
   @State brightnessSetValue: number = 100;
   @State brightnessSelect: boolean = false;
   @State contrastSetValue: number = 0;
@@ -46,7 +47,7 @@ struct ImageEditPage {
   @State filterInfo: string = '';
   mXComponentController: XComponentController = new XComponentController();
   @State mSurfaceId: string = '';
-  @State inputType: 'PixelmapNative' | 'NativeBuffer' | 'URI' | 'NativeWindow' = 'PixelmapNative';
+  @State inputType: 'PixelmapNative' | 'NativeBuffer' | 'URI' | 'NativeWindow' | 'Texture' = 'PixelmapNative';
   @State index: number = 0;
   cameraMgr: camera.CameraManager | undefined = undefined;
   dialogController: CustomDialogController = new CustomDialogController({
@@ -80,6 +81,9 @@ struct ImageEditPage {
     })
     ImageUtils.getInstance().getPixelMap($r('app.media.ic_700x700')).then(pixelMap => {
       this.displayPixelMapUri = pixelMap;
+    })
+    ImageUtils.getInstance().getPixelMap($r('app.media.ic_1080x1920')).then(pixelMap => {
+      this.displayPixelMapTexture = pixelMap;
     })
     console.info(`${this.tag} aboutToAppear done`);
   }
@@ -130,6 +134,10 @@ struct ImageEditPage {
       Column() {
         if (this.inputType == 'PixelmapNative') {
           Image(this.displayPixelMap)
+            .objectFit(ImageFit.None)
+        }
+        if (this.inputType == 'Texture') {
+          Image(this.displayPixelMapTexture)
             .objectFit(ImageFit.None)
         }
         if (this.inputType == 'NativeBuffer') {
@@ -312,6 +320,27 @@ struct ImageEditPage {
     console.info(`write data to file succeed and size is ${writeLen}`);
   }
 
+  private async doSaveTexturePixel(): Promise<void> {
+    let pixelMap: image.PixelMap | undefined =
+      await ImageUtils.getInstance().getPixelMap($r('app.media.ic_1080x1920'));
+    const imagePackerApi = image.createImagePacker();
+    const packOption: image.PackingOption = {
+      format: 'image/jpeg',
+      quality: 100
+    };
+    let filePath = getContext().filesDir + '/texture_input.jpg';
+    console.info(`save texture pixel to ${filePath}`);
+    let uri = fileUri.getUriFromPath(filePath);
+    let imageData = await imagePackerApi.packToData(pixelMap, packOption);
+    let file = fs.openSync(uri, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
+    try {
+      let writeLen = fs.writeSync(file.fd, imageData);
+      console.info(`write texture pixel to file succeed and size is ${writeLen}`);
+    } finally {
+      fs.closeSync(file);
+    }
+  }
+
   private confirmInfo() {
     this.filterOptions = [];
     if (this.brightnessSelect && this.inputType != 'URI') {
@@ -369,6 +398,14 @@ struct ImageEditPage {
           result = imageEffect.SurfaceFilterStart([...this.filterOptions]);
           promptAction.showToast({ message: `apply NativeWindow ${result == true ? 'succeed' : 'fail'}!` });
           break;
+        case 'Texture':
+          await this.doSaveTexturePixel();
+          result = imageEffect.TextureFilterStart(getContext().filesDir + '/texture_input.jpg',
+            getContext().filesDir + '/texture_output.jpg', [...this.filterOptions]);
+          this.displayPixelMapTexture =
+            await ImageUtils.getInstance().getPixelMapByFilePath(getContext().filesDir + '/texture_output.jpg');
+          promptAction.showToast({ message: `apply Texture ${result == true ? 'succeed' : 'fail'}!` });
+          break;
       }
     }
   }
@@ -384,6 +421,8 @@ struct ImageEditPage {
     this.displayPixelMap = await ImageUtils.getInstance().getPixelMap($r('app.media.ic_1080x1920'));
     this.displayPixelMapUri?.release();
     this.displayPixelMapUri = await ImageUtils.getInstance().getPixelMap($r('app.media.ic_700x700'));
+    this.displayPixelMapTexture?.release();
+    this.displayPixelMapTexture = await ImageUtils.getInstance().getPixelMap($r('app.media.ic_1080x1920'));
   }
 }
 
@@ -404,7 +443,7 @@ struct CustomDialogExample {
   @Link inputType: string;
   @Link index: number;
   inputList: SelectOption[] = [{ value: 'PixelmapNative' }, { value: 'NativeBuffer' },
-    { value: 'URI' }, { value: 'NativeWindow' }];
+    { value: 'URI' }, { value: 'NativeWindow' }, { value: 'Texture' }];
   controller: CustomDialogController;
   @State formatList: String[] = ['Format:rgba_8888', 'Format:nv21', 'Format:nv12'];
   @State handlePopup: boolean = false;
@@ -585,6 +624,7 @@ struct CustomDialogExample {
                   .margin({ left: $r('app.float.margin_left') })
                   .id('btn_search_crop')
                 }
+                .visibility(this.inputType == 'Texture' ? Visibility.None : Visibility.Visible)
               }
 
               Flex({ justifyContent: FlexAlign.Start, alignItems: ItemAlign.Center }) {
@@ -631,6 +671,7 @@ struct CustomDialogExample {
                 .margin({ left: $r('app.float.margin_left') })
                 .id('btn_search_custom_brightness')
               }
+              .visibility(this.inputType == 'Texture' ? Visibility.None : Visibility.Visible)
 
               if (this.inputType != 'NativeWindow') {
                 Flex({ justifyContent: FlexAlign.Start, alignItems: ItemAlign.Center }) {
@@ -677,6 +718,7 @@ struct CustomDialogExample {
                   .margin({ left: $r('app.float.margin_left') })
                   .id('btn_search_custom_crop')
                 }
+                .visibility(this.inputType == 'Texture' ? Visibility.None : Visibility.Visible)
               }
             }
             .width('100%')

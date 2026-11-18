@@ -23,12 +23,35 @@ import { TextSpan } from './TextSpan';
 import resource from '../../common/resource';
 import { SelectMenu } from './SelectMenu';
 import { AIMenu } from './AIMenu';
+import { TextSpanOnHover } from './TextSpanOnHover';
+import { ContentTransitionDemo } from './ContentTransition';
+import { TextLayout } from './TextLayout';
+import { LineSpacing } from './LineSpacing';
+import { EnableAutoSpacing } from './EnableAutoSpacing';
+import { ShaderStyleDemo } from './ShaderStyle';
+import { GeneralEvents } from './GeneralEvents';
+import { BindSelectionMenu } from './BindSelectionMenu';
+import { SelectionChange } from './SelectionChange';
+import { ServiceMenuItems } from './ServiceMenuItems';
+import { DisableMenuItems } from './DisableMenuItems';
+import { PrepareMenu } from './PrepareMenu';
+import { WordBreakExample } from './WordBreakExample';
+import { HeightAdaptivePolicy } from './HeightAdaptivePolicy';
+import { LengthMetric } from './LengthMetric';
+import { DisplayedTogether } from './DisplayedTogether';
+import { TextLong } from './TextLong';
+import { TextLongTwo } from './TextLongTwo';
+import { CustomAndBlockMenus } from './CustomAndBlockMenus';
+import { TextMenuShowSubWindow } from './TextMenuShowSubWindow';
+import { GradientTextFlowEffect } from './GradientTextFlowEffect';
+import { MarqueeRerun } from './MarqueeRerun'
+import { SelectionContainerIndex, SelectionContainerDestination, SELECTION_CONTAINER_PREFIX } from './SelectionContainerIndex';
 
 export const TEXT_ROUTE_PREFIX: string = 'text';
 
 const routes: Route[] = [
   {
-    name: `${TEXT_ROUTE_PREFIX}/CreatText`,
+    name: `${TEXT_ROUTE_PREFIX}/CreateText`,
     title: resource.resourceToString($r('app.string.CreatText_title')),
     description: $r('app.string.CreatText_description')
   },
@@ -61,6 +84,123 @@ const routes: Route[] = [
     name: `${TEXT_ROUTE_PREFIX}/TextHotSearch`,
     title: resource.resourceToString($r('app.string.TextHotSearch_title')),
     description: $r('app.string.TextHotSearch_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/TextSpanOnHover`,
+    title: resource.resourceToString($r('app.string.OnClick_onHover')),
+    description: $r('app.string.OnClickOnHover_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/ContentTransitionDemo`,
+    title: resource.resourceToString($r('app.string.Set_digital_flip_effect')),
+    description: $r('app.string.Set_digital_flip_effect_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/TextLayout`,
+    title: resource.resourceToString($r('app.string.text_layout')),
+    description: $r('app.string.text_layout_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/LineSpacing`,
+    title: resource.resourceToString($r('app.string.Set_text_line_spacing')),
+    description: $r('app.string.Set_text_line_spacing_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/EnableAutoSpacing`,
+    title: resource.resourceToString($r('app.string.Automatic_spacing')),
+    description: $r('app.string.Automatic_spacing_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/ShaderStyleDemo`,
+    title: resource.resourceToString($r('app.string.Shader_Style')),
+    description: $r('app.string.Shader_Style_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/GeneralEvents`,
+    title: resource.resourceToString($r('app.string.General_Events')),
+    description: $r('app.string.General_Events_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/BindSelectionMenu`,
+    title: resource.resourceToString($r('app.string.Bind_SelectionMenu')),
+    description: $r('app.string.Bind_SelectionMenu_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/SelectionChange`,
+    title: resource.resourceToString($r('app.string.Selection_Change')),
+    description: $r('app.string.Selection_Change_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/ServiceMenuItems`,
+    title: resource.resourceToString($r('app.string.Service_MenuItems')),
+    description: $r('app.string.Service_MenuItems_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/DisableMenuItems`,
+    title: resource.resourceToString($r('app.string.Disable_MenuItems')),
+    description: $r('app.string.Disable_MenuItems_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/PrepareMenu`,
+    title: resource.resourceToString($r('app.string.Prepare_Menu')),
+    description: $r('app.string.Prepare_Menu_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/WordBreakExample`,
+    title: resource.resourceToString($r('app.string.Word_Break')),
+    description: $r('app.string.Word_Break_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/HeightAdaptivePolicy`,
+    title: resource.resourceToString($r('app.string.Height_AdaptivePolicy')),
+    description: $r('app.string.Height_AdaptivePolicy_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/LengthMetric`,
+    title: resource.resourceToString($r('app.string.Length_Metric')),
+    description: $r('app.string.Length_Metric_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/DisplayedTogether`,
+    title: resource.resourceToString($r('app.string.Displayed_Together')),
+    description: $r('app.string.Displayed_Together_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/TextLong`,
+    title: resource.resourceToString($r('app.string.Text_Long')),
+    description: $r('app.string.Text_Long_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/TextLongTwo`,
+    title: resource.resourceToString($r('app.string.Text_Long_Two')),
+    description: $r('app.string.Text_Long_Two_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/CustomAndBlockMenus`,
+    title: resource.resourceToString($r('app.string.CustomAndBlockMenus')),
+    description: $r('app.string.CustomAndBlockMenus')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/TextMenuShowSubWindow`,
+    title: resource.resourceToString($r('app.string.TextMenuShow_title')),
+    description: $r('app.string.TextMenuShow_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/GradientTextFlowEffect`,
+    title: resource.resourceToString($r('app.string.GradientTextFlowEffect_title')),
+    description: $r('app.string.GradientTextFlowEffect_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/MarqueeRerun`,
+    title:
+    resource.resourceToString($r('app.string.MarqueeRerun_title')),
+    description:
+    $r('app.string.MarqueeRerun_description')
+  },
+  {
+    name: `${TEXT_ROUTE_PREFIX}/SelectionContainer`,
+    title: resource.resourceToString($r('app.string.SelectionContainer_title')),
+    description: $r('app.string.SelectionContainer_description')
   }
 ];
 
@@ -82,6 +222,54 @@ export function TextDestination(name: string) {
     AIMenu();
   } else if (name === routes[6].name) {
     TextHotSearch();
+  } else if (name === routes[7].name) {
+    TextSpanOnHover();
+  } else if (name === routes[8].name) {
+    ContentTransitionDemo();
+  } else if (name === routes[9].name) {
+    TextLayout();
+  } else if (name === routes[10].name) {
+    LineSpacing();
+  } else if (name === routes[11].name) {
+    EnableAutoSpacing();
+  } else if (name === routes[12].name) {
+    ShaderStyleDemo();
+  } else if (name === routes[13].name) {
+    GeneralEvents();
+  } else if (name === routes[14].name) {
+    BindSelectionMenu();
+  } else if (name === routes[15].name) {
+    SelectionChange();
+  } else if (name === routes[16].name) {
+    ServiceMenuItems();
+  } else if (name === routes[17].name) {
+    DisableMenuItems();
+  } else if (name === routes[18].name) {
+    PrepareMenu();
+  } else if (name === routes[19].name) {
+    WordBreakExample();
+  } else if (name === routes[20].name) {
+    HeightAdaptivePolicy();
+  } else if (name === routes[21].name) {
+    LengthMetric();
+  } else if (name === routes[22].name) {
+    DisplayedTogether();
+  } else if (name === routes[23].name) {
+    TextLong();
+  } else if (name === routes[24].name) {
+    TextLongTwo();
+  } else if (name === routes[25].name) {
+    CustomAndBlockMenus();
+  } else if (name === routes[26].name) {
+    TextMenuShowSubWindow();
+  } else if (name === routes[27].name) {
+    GradientTextFlowEffect();
+  } else if (name === routes[28].name) {
+    MarqueeRerun();
+  } else if (name === routes[29].name) {
+    SelectionContainerIndex();
+  } else if (name.startsWith(SELECTION_CONTAINER_PREFIX + '/')) {
+    SelectionContainerDestination(name);
   }
 }
 
@@ -92,19 +280,21 @@ struct TextExample {
 
   build() {
     NavDestination() {
-      List({ space: 12 }) {
-        ForEach(routes, (route: Route) => {
-          ListItem() {
-            CompletedRoutableCard({ title: route.title, description: route.description })
-          }
-          .width('100%')
-          .onClick(() => {
-            this.pathStack.pushPath({ name: route.name });
+      Scroll() {
+        List({ space: 12 }) {
+          ForEach(routes, (route: Route) => {
+            ListItem() {
+              CompletedRoutableCard({ title: route.title, description: route.description })
+            }
+            .width('100%')
+            .onClick(() => {
+              this.pathStack.pushPath({ name: route.name });
+            })
           })
-        })
-      }
-      .contentStartOffset(56)
-      .padding({ left: 16, right: 16 })
+        }
+        .contentStartOffset(56)
+        .padding({ left: 16, right: 16 })
+      }.id('scroll_')
     }
     .backgroundColor('#f1f3f5')
     .title('Text/Span', {

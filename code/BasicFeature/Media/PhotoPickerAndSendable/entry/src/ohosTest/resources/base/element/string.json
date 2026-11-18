@@ -1,0 +1,19 @@
+{
+  "string": [
+    {
+      "name": "module_test_desc",
+      "value": "test ability description",
+      "description": "Test module description"
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "the test ability",
+      "description": "Test ability description"
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "PhotoPickerAndSendable test",
+      "description": "Test ability label"
+    }
+  ]
+}

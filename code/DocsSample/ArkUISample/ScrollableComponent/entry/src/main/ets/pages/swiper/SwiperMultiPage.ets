@@ -15,7 +15,6 @@
 
 import { ComponentCard } from '../../common/Card';
 
-@Entry
 @Component
 export struct SwiperMultiPage {
   build() {
@@ -25,26 +24,26 @@ export struct SwiperMultiPage {
           // [Start each_page_displays_multiple_subpages]
           Swiper() {
             Text('0')
-              .width('90%')
-              .height('100%')
+              .width(250)
+              .height(250)
               .backgroundColor(Color.Gray)
               .textAlign(TextAlign.Center)
               .fontSize(30)
             Text('1')
-              .width('90%')
-              .height('100%')
+              .width(250)
+              .height(250)
               .backgroundColor(Color.Green)
               .textAlign(TextAlign.Center)
               .fontSize(30)
             Text('2')
-              .width('90%')
-              .height('100%')
+              .width(250)
+              .height(250)
               .backgroundColor(Color.Pink)
               .textAlign(TextAlign.Center)
               .fontSize(30)
             Text('3')
-              .width('90%')
-              .height('100%')
+              .width(250)
+              .height(250)
               .backgroundColor(Color.Yellow)
               .textAlign(TextAlign.Center)
               .fontSize(30)
@@ -54,8 +53,8 @@ export struct SwiperMultiPage {
           // [EndExclude each_page_displays_multiple_subpages]
           .indicator(true)
           .displayCount(2)
+          // [End each_page_displays_multiple_subpages]
         }
-        // [End each_page_displays_multiple_subpages]
       }
       .width('100%')
       .height('100%')

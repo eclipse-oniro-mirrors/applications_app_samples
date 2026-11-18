@@ -20,8 +20,7 @@
     "description": "$string:module_desc",
     "mainElement": "EntryAbility",
     "deviceTypes": [
-      "default",
-      "tablet"
+      "default"
     ],
     "deliveryWithInstall": true,
     "installationFree": false,
@@ -60,6 +59,16 @@
             "resource": "$profile:backup_config"
           }
         ]
+      }
+    ],
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.READ_PASTEBOARD",
+        "reason": "$string:READ_PASTEBOARD_Permission_Reason",
+        "usedScene": {
+          "abilities": ["EntryAbility"],
+          "when": "inuse"
+        }
       }
     ]
   }

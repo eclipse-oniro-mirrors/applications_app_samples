@@ -1,0 +1,15 @@
+{
+  "common": {
+    "displayModeOptions": {
+      "wideWindowMode": "navigationSplit",
+      "navigationSplitOptions": {
+        "supportLandscapeFullscreen": true,
+        "dialogSupportSplit": true,
+        "disablePlaceholder": false,
+        "enableReducedContainerSize": false,
+        "homePage": "navBar",
+        "disableDivider": false
+      }
+    }
+  }
+}

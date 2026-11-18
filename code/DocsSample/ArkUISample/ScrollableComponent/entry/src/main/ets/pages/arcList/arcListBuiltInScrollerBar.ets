@@ -13,24 +13,46 @@
  * limitations under the License.
  */
 
-import { ArcList, ArcListItem, ArcListAttribute, ArcListItemAttribute, LengthMetrics, ColorMetrics } from '@kit.ArkUI';
+import {
+  ArcList,
+  ArcListItem,
+  ArcListAttribute,
+  ArcListItemAttribute,
+  LengthMetrics,
+  ColorMetrics,
+  ComponentContent
+} from '@kit.ArkUI';
 import { ComponentCard } from '../../common/Card';
+
+@Builder
+function customHeader() {
+  Column() {
+    Text($r('app.string.ArcListCrown_set'))
+      .fontColor('#FFFFFFFF')
+      .fontSize('19fp')
+  }
+}
 
 @Entry
 @Component
 export struct arcListBuiltInScrollerBar {
+  context: UIContext = this.getUIContext();
+  arcListHeader: ComponentContent<Object> = new ComponentContent(this.context, wrapBuilder(customHeader));
 
   build() {
     NavDestination() {
       Column({ space: 12 }) {
+        // 请将$r('app.string.arcListBuiltInScrollerBar_title')替换为实际资源文件，在本示例中该资源文件的value值为"添加内置滚动条"
         ComponentCard({ title: $r('app.string.arcListBuiltInScrollerBar_title') }) {
-          ArcList() {
+          // [Start arcListBuiltInScrollBar_start]
+          ArcList({ header: this.arcListHeader }) {
+            // [StartExclude arcListBuiltInScrollBar_start]
             ArcListItem() {
               Row() {
                 Image($r('app.media.wlan')).width('99px').height('99px')
                   .borderRadius('50px').margin({ left: 7 })
                 Column() {
-                  Text($r('app.string.ArcListStyles_waln')).fontSize('38px').fontColor('#FFFFFFFF')
+                  Text($r('app.string.ArcListStyles_wlan')).fontSize('38px').fontColor('#FFFFFFFF')
                   Text($r('app.string.ArcListStyles_open')).fontSize('20px').fontColor('#FFFFFFFF')
                 }.width('190px')
 
@@ -111,7 +133,12 @@ export struct arcListBuiltInScrollerBar {
             .width('414px')
             .height('129px')
             .backgroundColor('#26FFFFFF')
+            // [EndExclude arcListBuiltInScrollBar_start]
           }
+          .scrollBar(BarState.Auto)
+          .scrollBarWidth(LengthMetrics.px(10))
+          .scrollBarColor(ColorMetrics.numeric(Color.White))
+          // [End arcListBuiltInScrollBar_start]
           .width('466px')
           .height('466px')
           .space(LengthMetrics.px(10))
@@ -124,6 +151,7 @@ export struct arcListBuiltInScrollerBar {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.arcListBuiltInScrollerBar_title')替换为实际资源文件，在本示例中该资源文件的value值为"添加内置滚动条"
     .title($r('app.string.arcListBuiltInScrollerBar_title'))
   }
 }

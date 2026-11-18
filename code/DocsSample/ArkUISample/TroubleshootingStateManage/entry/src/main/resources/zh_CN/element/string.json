@@ -1,0 +1,40 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "状态管理问题定位"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "状态管理问题定位"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "TroubleshootingStateManage"
+    },
+    {
+      "name": "title_main",
+      "value": "状态变量改变不触发刷新问题定位"
+    },
+    {
+      "name": "step_state_value_change",
+      "value": "第二步：状态变量发生改变"
+    },
+    {
+      "name": "step_observability_v1",
+      "value": "第三步（V1）：赋值是否可被观察"
+    },
+    {
+      "name": "step_observability_v2",
+      "value": "第三步（V2）：赋值是否可被观察"
+    },
+    {
+      "name": "step_foreach_sync",
+      "value": "第四步：数据源与同步对象关联（ForEach断链）"
+    },
+    {
+      "name": "step_render_update",
+      "value": "第五步：是否执行组件更新函数（Image回调）"
+    }
+  ]
+}

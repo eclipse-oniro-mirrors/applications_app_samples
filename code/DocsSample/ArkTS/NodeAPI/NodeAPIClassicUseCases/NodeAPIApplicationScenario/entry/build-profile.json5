@@ -25,19 +25,26 @@
         ]
       }
     },
-// [End napi_event_loop_build]
-// [Start napi_ark_runtime_build]
+// [StartExclude napi_event_loop_build]
+// [StartExclude napi_ark_runtime_build]
+    "sourceOption": {
+      "workers": [
+        "./src/main/ets/workers/Worker.ets"
+      ]
+    },
     "externalNativeOptions": {
       "path": "./src/main/cpp/CMakeLists.txt",
       "arguments": "",
       "cppFlags": "",
       "abiFilters": [
         "arm64-v8a",
-        "x86_64",
-        "armeabi-v7a"
       ]
     }
+// [EndExclude napi_event_loop_build]
+// [EndExclude napi_ark_runtime_build]
   },
+// [End napi_event_loop_build]
+// [End napi_ark_runtime_build]
   "buildOptionSet": [
     {
       "name": "release",

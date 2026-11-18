@@ -13,25 +13,27 @@
  * limitations under the License.
  */
 
-import common from '@ohos.app.ability.common';
+import { common } from '@kit.AbilityKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { PAGE_ID_NEW_BACK } from '../common/MenuIds';
 import { logger } from '../util/Logger';
 
-const TAG: string = 'NewAbility';
+const TAG: string = 'New';
 
 @Entry
 @Component
 struct New {
-  private context = getContext(this) as common.UIAbilityContext;
-
   build() {
     Column() {
       Row() {
         Image($r('app.media.ic_back'))
           .size({ width: 20, height: 18 })
           .margin({ right: 18 })
+          .id(PAGE_ID_NEW_BACK)
           .onClick(() => {
-            this.context.terminateSelf((err, data) => {
-              logger.info(`${TAG} terminateSelf err:${JSON.stringify(err)},data:${JSON.stringify(data)}`);
+            const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            context.terminateSelf((err: BusinessError) => {
+              logger.info(`${TAG} terminateSelf err:${JSON.stringify(err)}`);
             })
           })
         Text($r('app.string.NewAbility_label'))
@@ -41,7 +43,7 @@ struct New {
       .padding({ left: 26, right: 26 })
       .width('100%')
 
-      Flex({ justifyContent: FlexAlign.Center, alignItems: ItemAlign.Center, alignContent: FlexAlign.Center }) {
+      Flex({ justifyContent: FlexAlign.Center, alignItems: ItemAlign.Center }) {
         Column() {
           Image($r('app.media.pic_empty')).width('33%')
           Text($r('app.string.empty'))

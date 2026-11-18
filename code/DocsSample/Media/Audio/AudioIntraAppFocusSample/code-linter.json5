@@ -1,0 +1,89 @@
+// Copyright (c) 2026 Huawei Device Co., Ltd.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+{
+  "files": [
+    "**/*.ets",
+    "**/*.ts",
+    "**/*.js"
+  ],
+  "ignore": [],
+  "ruleSet": [
+    "no-unused-variable",
+    "no-implicit-return-type",
+    "no-explicit-any",
+    "no-this-alias",
+    "no-untyped-public-signature",
+    "no-unsafe-declaration-merging",
+    "no-unsafe-function-argument",
+    "no-unsafe-assignment",
+    "no-unsafe-return",
+    "no-unsafe-call",
+    "no-unsafe-member-access",
+    "no-unsafe-enum-comparison",
+    "no-empty-interface",
+    "no-redundant-type-assertion",
+    "no-return-await",
+    "no-unnecessary-qualifier",
+    "no-sparse-arrays"
+  ],
+  "defects": [
+    "CWE-20",
+    "CWE-22",
+    "CWE-78",
+    "CWE-89",
+    "CWE-90",
+    "CWE-94",
+    "CWE-113",
+    "CWE-116",
+    "CWE-134",
+    "CWE-190",
+    "CWE-191",
+    "CWE-193",
+    "CWE-197",
+    "CWE-200",
+    "CWE-209",
+    "CWE-215",
+    "CWE-254",
+    "CWE-319",
+    "CWE-327",
+    "CWE-362",
+    "CWE-400",
+    "CWE-476",
+    "CWE-502",
+    "CWE-733"
+  ],
+  "complexity": [
+    "no-func-length",
+    "no-cognitive-complexity",
+    "no-nested-switch",
+    "no-nested-conditional",
+    "no-nested-template-literals",
+    "no-multi-line-logical-expression",
+    "no-misused-promises",
+    "no-hungarian-notation",
+    "no-duplicate-string",
+    "no-duplicate-imports",
+    "no-deprecated-decorator",
+    "no-consecutive-overloads",
+    "no-commonjs-imports",
+    "no-commonjs-exports",
+    "no-banned-words",
+    "no-array-constructor"
+  ],
+  "security": [
+    "no-xss",
+    "no-unsafe-regex",
+    "no-hardcoded-credentials",
+    "no-duplicate-json-keys"
+  ]
+}

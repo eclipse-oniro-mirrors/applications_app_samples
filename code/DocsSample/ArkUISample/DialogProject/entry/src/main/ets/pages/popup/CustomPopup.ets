@@ -14,6 +14,7 @@
  */
 
 // [Start custom_popup]
+// 请将$r('app.media.xxx')替换为实际资源文件
 @Entry
 @Component
 export struct CustomPopupExample {
@@ -30,34 +31,33 @@ export struct CustomPopupExample {
 
   build() {
     NavDestination() {
-      Column({ space: 12 }) {
-
-        Column() {
-          Button('CustomPopupOptions')
-            .margin({ top: 300 })
-            .onClick(() => {
-              this.customPopup = !this.customPopup;
-            })
-            .bindPopup(this.customPopup, {
-              builder: this.popupBuilder, // 气泡的内容
-              placement: Placement.Bottom, // 气泡的弹出位置
-              popupColor: Color.Pink, // 气泡的背景色
-              onStateChange: (e) => {
-                if (!e.isVisible) {
-                  this.customPopup = false
-                }
+      Column() {
+        Button('CustomPopupOptions')
+          .id('CustomPopupOptions')
+          .margin({ top: 300 })
+          .onClick(() => {
+            this.customPopup = !this.customPopup;
+          })
+          .bindPopup(this.customPopup, {
+            builder: this.popupBuilder, // 气泡的内容
+            placement: Placement.Bottom, // 气泡的弹出位置
+            popupColor: Color.Pink, // 气泡的背景色
+            backgroundBlurStyle: BlurStyle.NONE,
+            onStateChange: (e) => {
+              if (!e.isVisible) {
+                this.customPopup = false
               }
-            })
-        }
-        .height('100%')
-
+            }
+          })
       }
-      .width('100%')
       .height('100%')
-      .padding({ left: 12, right: 12 })
     }
-    .backgroundColor('#f1f2f3')
+    // [StartExclude custom_popup]
+    // 请将$r('app.string.custom_popup')替换为实际资源文件，在本示例中该资源文件的value值为"自定义气泡"
     .title($r('app.string.custom_popup'))
+
+    // [EndExclude custom_popup]
   }
 }
+
 // [End custom_popup]

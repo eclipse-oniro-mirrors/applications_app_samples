@@ -37,11 +37,11 @@ function genSymKeyByData(symKeyData: Uint8Array) {
   let symKeyBlob: cryptoFramework.DataBlob = { data: symKeyData };
   let aesGenerator = cryptoFramework.createSymKeyGenerator('AES128');
   let symKey = aesGenerator.convertKeySync(symKeyBlob);
-  console.info('convertKeySync success');
+  console.info('convertKeySync result: success.');
   return symKey;
 }
 
-function main() {
+function aesECBSync() {
   try {
     let keyData = new Uint8Array([83, 217, 231, 76, 28, 113, 23, 219, 250, 71, 209, 210, 205, 97, 32, 159]);
     let symKey = genSymKeyByData(keyData);
@@ -50,13 +50,13 @@ function main() {
     let encryptText = encryptMessage(symKey, plainText);
     let decryptText = decryptMessage(symKey, encryptText);
     if (plainText.data.toString() === decryptText.data.toString()) {
-      console.info('decrypt ok');
+      console.info('decrypt ok.');
       console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
     } else {
-      console.error('decrypt failed');
+      console.error('decrypt failed.');
     }
   } catch (error) {
-    console.error(`AES ECB “${error}“, error code: ${error.code}`);
+    console.error(`AES ECB failed: errCode: ${error.code}, message: ${error.message}`);
   }
 }
 // [End ecb_encrypt_decrypt_aes_symkey_sync]
@@ -73,7 +73,7 @@ struct Index {
         .width('70%')
         .onClick(() => {
           try {
-            main();
+            aesECBSync();
             this.message = 'AES_ECBSynchronousSuccess';
           } catch {
             this.message = 'AES_ECBSynchronousFail';

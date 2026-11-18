@@ -1,0 +1,105 @@
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// [Start Computed_Init_Param]
+@ObservedV2
+class Article {
+  @Trace public quantity: number = 0;
+  public unitPrice: number = 0;
+
+  constructor(quantity: number, unitPrice: number) {
+    this.quantity = quantity;
+    this.unitPrice = unitPrice;
+  }
+}
+
+@Entry
+@ComponentV2
+struct ComputingInitParam {
+  @Local shoppingBasket: Article[] = [new Article(1, 20), new Article(5, 2)];
+
+  @Computed
+  get total(): number {
+    return this.shoppingBasket.reduce((acc: number, item: Article) => acc + (item.quantity * item.unitPrice), 0);
+  }
+
+  @Computed
+  get qualifiesForDiscount(): boolean {
+    return this.total >= 100;
+  }
+
+  build() {
+    Column() {
+      Text(`Shopping List: `)
+        .fontSize(30)
+        .margin(10)
+      ForEach(this.shoppingBasket, (item: Article) => {
+        Row() {
+          Text(`unitPrice: ${item.unitPrice}`)
+            .fontSize(20)
+            .margin(10)
+          // 点击Button减少quantity，触发total和qualifiesForDiscount重新计算
+          Button('-')
+            .onClick(() => {
+              if (item.quantity > 0) {
+                item.quantity--;
+              }
+            })
+          Text(`quantity: ${item.quantity}`)
+            .fontSize(20)
+            .margin(10)
+          // 点击Button增加quantity，触发total和qualifiesForDiscount重新计算
+          Button('+')
+            .onClick(() => {
+              item.quantity++;
+            })
+        }
+        .width('100%')
+
+        Divider()
+      })
+      Child({ total: this.total, qualifiesForDiscount: this.qualifiesForDiscount })
+    }
+    .alignItems(HorizontalAlign.Start)
+  }
+}
+
+@ComponentV2
+struct Child {
+  @Param total: number = 0;
+  @Param qualifiesForDiscount: boolean = false;
+
+  build() {
+    Row() {
+      Text(`Total: ${this.total} `)
+        .fontSize(30)
+        .margin(10)
+      Text(`Discount: ${this.qualifiesForDiscount} `)
+        .fontSize(30)
+        .margin(10)
+    }
+  }
+}
+// [End Computed_Init_Param]
+
+@Builder
+export function ComputedInitParam() {
+  NavDestination() {
+    ComputingInitParam()
+  }
+  .backgroundColor('#f1f2f3')
+  // 请将$r('app.string.computed_title_3')替换为实际资源文件，在本示例中该资源文件的value值为"@Computed装饰的属性可以初始化@Param"
+  .title($r('app.string.computed_title_3'))
+}

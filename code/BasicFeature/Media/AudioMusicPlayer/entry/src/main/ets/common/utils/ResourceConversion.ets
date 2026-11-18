@@ -1,0 +1,37 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { common } from '@kit.AbilityKit';
+
+export class ResourceConversion {
+  private context: common.UIAbilityContext | undefined = undefined;
+
+  constructor() {
+    this.context = AppStorage.get('context');
+  }
+
+  getStringValueFromResource(res: Resource) {
+    if (!this.context) {
+      return;
+    }
+    if (!res || !res.id) {
+      return;
+    }
+    // Pass the full Resource object so cross-module resources can be routed
+    // by their moduleName/bundleName; an id-only lookup may fail in some
+    // multi-module environments (e.g. ohosTest processes).
+    return this.context.resourceManager.getStringSync(res);
+  }
+}

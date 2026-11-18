@@ -77,7 +77,7 @@ OH_Crypto_ErrCode doTestSm4GcmSeg()
     }
 
     // 加密
-    ret = OH_CryptoSymCipher_Create("SM4_128|GCM|PKCS7", &encCtx);
+    ret = OH_CryptoSymCipher_Create("SM4_128|GCM", &encCtx);
     if (ret != CRYPTO_SUCCESS) {
         goto end;
     }
@@ -95,6 +95,7 @@ OH_Crypto_ErrCode doTestSm4GcmSeg()
         msgBlob.data += blockSize;
         memcpy(&cipherText[cipherLen], outUpdate.data, outUpdate.len);
         cipherLen += outUpdate.len;
+        OH_Crypto_FreeDataBlob(&outUpdate);
     }
     if (rem > 0) {
         msgBlob.len = rem;
@@ -104,6 +105,7 @@ OH_Crypto_ErrCode doTestSm4GcmSeg()
         }
         memcpy(&cipherText[cipherLen], outUpdate.data, outUpdate.len);
         cipherLen += outUpdate.len;
+        OH_Crypto_FreeDataBlob(&outUpdate);
     }
     ret = OH_CryptoSymCipher_Final(encCtx, nullptr, &tag);
     if (ret != CRYPTO_SUCCESS) {
@@ -114,7 +116,7 @@ OH_Crypto_ErrCode doTestSm4GcmSeg()
     cipherBlob = {.data = reinterpret_cast<uint8_t *>(cipherText), .len = (size_t)cipherLen};
     msgBlob.data -= strlen(plainText) - rem;
     msgBlob.len = strlen(plainText);
-    ret = OH_CryptoSymCipher_Create("SM4_128|GCM|PKCS7", &decCtx);
+    ret = OH_CryptoSymCipher_Create("SM4_128|GCM", &decCtx);
     if (ret != CRYPTO_SUCCESS) {
         goto end;
     }

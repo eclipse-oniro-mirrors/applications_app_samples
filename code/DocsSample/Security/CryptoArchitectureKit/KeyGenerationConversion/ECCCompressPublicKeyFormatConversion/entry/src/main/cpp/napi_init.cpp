@@ -16,18 +16,38 @@
 #include "napi/native_api.h"
 #include "types/project/file.h"
 
-static napi_value NAPI_Global_doTestEccDataCovert(napi_env env, napi_callback_info info)
+static napi_value NAPI_Global_doTestEccDataConvert(napi_env env, napi_callback_info info)
 {
     napi_value ret;
-    napi_create_int32(env, doTestEccDataCovert(), &ret);
+    napi_create_int32(env, doTestEccDataConvert(), &ret);
+    return ret;
+}
+
+static napi_value NAPI_Global_doTestEccPointUncompressedToCompressed(napi_env env, napi_callback_info info)
+{
+    napi_value ret;
+    napi_create_int32(env, doTestEccPointUncompressedToCompressed(), &ret);
+    return ret;
+}
+
+static napi_value NAPI_Global_doTestEccPointCompressedToPoint(napi_env env, napi_callback_info info)
+{
+    napi_value ret;
+    napi_create_int32(env, doTestEccPointCompressedToPoint(), &ret);
     return ret;
 }
 
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
-    napi_property_descriptor desc[] = {{"doTestEccDataCovert", nullptr, NAPI_Global_doTestEccDataCovert, nullptr,
-                                        nullptr, nullptr, napi_default, nullptr}};
+    napi_property_descriptor desc[] = {
+        {"doTestEccDataConvert", nullptr, NAPI_Global_doTestEccDataConvert, nullptr, nullptr, nullptr,
+            napi_default, nullptr},
+        {"doTestEccPointUncompressedToCompressed", nullptr, NAPI_Global_doTestEccPointUncompressedToCompressed,
+            nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"doTestEccPointCompressedToPoint", nullptr, NAPI_Global_doTestEccPointCompressedToPoint, nullptr,
+            nullptr, nullptr, napi_default, nullptr}
+    };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;
 }

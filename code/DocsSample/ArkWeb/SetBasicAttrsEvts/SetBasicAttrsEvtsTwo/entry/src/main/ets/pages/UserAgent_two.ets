@@ -28,13 +28,13 @@ struct WebComponent {
     Column() {
       Web({ src: 'www.example.com', controller: this.controller })
         .onControllerAttached(() => {
-          console.log('onControllerAttached');
+          console.info('onControllerAttached');
           try {
             let userAgent = this.controller.getUserAgent() + this.customUserAgent;
             this.controller.setCustomUserAgent(userAgent);
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
     }

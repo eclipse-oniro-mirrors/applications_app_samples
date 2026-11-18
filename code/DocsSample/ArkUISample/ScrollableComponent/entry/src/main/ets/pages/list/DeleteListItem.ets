@@ -13,12 +13,17 @@
  * limitations under the License.
  */
 
-import { util } from '@kit.ArkTS';
+import common from '@ohos.app.ability.common';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 // [Start structural_references]
+import { util } from '@kit.ArkTS';
+
+// 结构参考
 export class ToDo {
   public key: string = util.generateRandomUUID(true);
   public name: string;
+  public toDoData: ToDo[] = [];
 
   constructor(name: string) {
     this.name = name;
@@ -40,16 +45,24 @@ export struct ToDoListItem {
         .fontSize(16)
         .width('80%')
         .margin({ left: 20 })
+      // [Start is_edit_mode]
       if (this.isEditMode) {
         Checkbox()
-          .onChange((value: boolean) => {
-            if (value) {
-              this.selectedItems.push(new ToDo(this.toDoItem.name));
-              this.isEditMode = true;
+          .onChange((isSelected) => {
+            if (isSelected) {
+              this.selectedItems.push(new ToDo(this.toDoItem.name)); // this.selectedItems为勾选时，记录选中的列表项，可根据实际场景构造
+            } else {
+              let index = this.selectedItems.findIndex(selectedItem => selectedItem.name === this.toDoItem.name);
+              if (index !== -1) {
+                this.selectedItems.splice(index, 1); // 取消勾选时，则将此项从selectedItems中删除
+              }
             }
           })
       }
+      // [End is_edit_mode]
+      // [EndExclude enter_edit_mode]
     }
+    // [StartExclude enter_edit_mode]
     .backgroundColor('#FFF1F3F5')
     .width('100%')
     .height(40)
@@ -59,13 +72,15 @@ export struct ToDoListItem {
       GestureGroup(GestureMode.Exclusive,
         LongPressGesture()
           .onAction(() => {
-            this.isEditMode = true;
+            if (!this.isEditMode) {
+              this.isEditMode = true; // 进入编辑模式
+            }
           })
       )
     )
+    // [End enter_edit_mode]
   }
 }
-// [End enter_edit_mode]
 
 @Entry
 @Component
@@ -73,11 +88,51 @@ export struct DeleteListItem {
   @State arr: number[] = [0, 1, 2, 3];
   @State toDoData: ToDo[] = [];
   @Watch('onEditModeChange') @State isEditMode: boolean = false;
-  @State selectedItems: ToDo[] = [];
-  private availableThings: string[] = ['Reading', 'Exercise', 'Travel', 'Listening Music', 'Watching Films', 'Singing'];
+  @State selectedItems: ToDo[] = []
+  private availableThings: string [] = [];
 
   public deleteToDoData() {
     this.toDoData = [];
+  }
+
+  aboutToAppear(): void {
+    const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    try {
+      const reading = context.resourceManager.getStringByNameSync('Reading')
+      this.availableThings.push(reading)
+    } catch (e) {
+      hilog.error(0x0000, 'testTag', 'Failed to get Reading: %{public}s', JSON.stringify(e) ?? '');
+    }
+    try {
+      const exercise = context.resourceManager.getStringByNameSync('Exercise')
+      this.availableThings.push(exercise)
+    } catch (e) {
+      hilog.error(0x0000, 'testTag', 'Failed to get Exercise: %{public}s', JSON.stringify(e) ?? '');
+    }
+    try {
+      const travel = context.resourceManager.getStringByNameSync('Travel')
+      this.availableThings.push(travel)
+    } catch (e) {
+      hilog.error(0x0000, 'testTag', 'Failed to get Travel: %{public}s', JSON.stringify(e) ?? '');
+    }
+    try {
+      const listening = context.resourceManager.getStringByNameSync('Listening_Music')
+      this.availableThings.push(listening)
+    } catch (e) {
+      hilog.error(0x0000, 'testTag', 'Failed to get Listening_Music: %{public}s', JSON.stringify(e) ?? '');
+    }
+    try {
+      const watching = context.resourceManager.getStringByNameSync('Watching_Films')
+      this.availableThings.push(watching)
+    } catch (e) {
+      hilog.error(0x0000, 'testTag', 'Failed to get Watching_Films: %{public}s', JSON.stringify(e) ?? '');
+    }
+    try {
+      const singing = context.resourceManager.getStringByNameSync('Singing')
+      this.availableThings.push(singing)
+    } catch (e) {
+      hilog.error(0x0000, 'testTag', 'Failed to get Singing: %{public}s', JSON.stringify(e) ?? '');
+    }
   }
 
   onEditModeChange() {
@@ -90,6 +145,7 @@ export struct DeleteListItem {
     NavDestination() {
       Column({ space: 12 }) {
         Column({ space: 8 }) {
+          // 请将$r('app.string.DeleteListItem_titleExample')替换为实际资源文件，在本示例中该资源文件的value值为"删除列表项示例"
           Text($r('app.string.DeleteListItem_titleExample'))
             .fontSize(14)
             .fontColor('#666')
@@ -103,6 +159,7 @@ export struct DeleteListItem {
                   })
                   .margin({ left: 20, right: 20 })
               } else {
+                // 请将$r('app.string.TodoItem')替换为实际资源文件，在本示例中该资源文件的value值为"待办"
                 Text($r('app.string.TodoItem'))
                   .fontSize(30)
                   .margin({ left: 20 })
@@ -127,8 +184,13 @@ export struct DeleteListItem {
             .backgroundColor('#FFF1F3F5')
             .borderRadius(12)
             .height(45)
-
-            List({ space: 12 }) {
+            // [Start implement_cached_count]
+            List(
+              // [StartExclude implement_cached_count]
+              { space: 12 }
+              // [EndExclude implement_cached_count]
+            ) {
+              // [StartExclude implement_cached_count]
               ForEach(this.toDoData, (toDoItem: ToDo) => {
                 ListItem() {
                   // 将toDoData的每个数据放入到以model的形式放进ListItem里
@@ -139,7 +201,9 @@ export struct DeleteListItem {
                   })
                 }
               }, (toDoItem: ToDo) => toDoItem.name.toString())
-            }
+              // [EndExclude implement_cached_count]
+            }.cachedCount(3)
+            // [End implement_cached_count]
           }
         }
         .alignItems(HorizontalAlign.Start)
@@ -151,23 +215,28 @@ export struct DeleteListItem {
         if (this.isEditMode) {
           Column({ space: 8 }) {
             // [Start implement_deletion]
-            Button('delete')
+            // app.string.delete 资源文件中的value值为'删除'
+            Button($r('app.string.delete'))
+            // [StartExclude implement_deletion]
               .width('90%')
               .backgroundColor(Color.Red)
+              // [EndExclude implement_deletion]
               .onClick(() => {
+                // this.toDoData为待办的列表项，可根据实际场景构造。点击后删除选中的列表项对应的toDoData数据
                 this.toDoData = this.toDoData.filter(toDoItem =>
                 !this.selectedItems.some(selectedItem => selectedItem.name === toDoItem.name));
                 this.isEditMode = false;
               })
+            // [End implement_deletion]
           }
         }
       }
-      // [End implement_deletion]
       .width('100%')
       .height('100%')
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.DeleteListItem_title')替换为实际资源文件，在本示例中该资源文件的value值为"删除列表项"
     .title($r('app.string.DeleteListItem_title'))
   }
 }

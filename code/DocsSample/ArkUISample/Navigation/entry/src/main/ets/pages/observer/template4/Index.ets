@@ -18,13 +18,13 @@ import { uiObserver } from '@kit.ArkUI';
 struct PageOne {
   build() {
     NavDestination() {
-      Text("pageOne")
-    }.title("pageOne")
+      Text('pageOne')
+    }.title('pageOne')
   }
 }
 
 function callBackFunc(info: uiObserver.NavDestinationSwitchInfo) {
-  console.info(`testTag navDestinationSwitch from: ${JSON.stringify(info.from)} to: ${JSON.stringify(info.to)}`)
+  console.info(`testTag navDestinationSwitch from: ${JSON.stringify(info.from)} to: ${JSON.stringify(info.to)}`);
 }
 
 @Entry
@@ -38,22 +38,22 @@ struct Index {
   }
 
   aboutToAppear() {
-    uiObserver.on('navDestinationSwitch', this.getUIContext(), { navigationId: 'myNavId' }, callBackFunc)
+    uiObserver.on('navDestinationSwitch', this.getUIContext(), { navigationId: 'myNavId' }, callBackFunc);
   }
 
   aboutToDisappear() {
-    uiObserver.off('navDestinationSwitch', this.getUIContext(), { navigationId: 'myNavId' }, callBackFunc)
+    uiObserver.off('navDestinationSwitch', this.getUIContext(), { navigationId: 'myNavId' }, callBackFunc);
   }
 
   build() {
     Column() {
       Navigation(this.stack) {
-        Button("push").onClick(() => {
-          this.stack.pushPath({ name: "pageOne" });
+        Button('push').onClick(() => {
+          this.stack.pushPath({ name: 'pageOne' });
         })
       }
       .id('myNavId')
-      .title("Navigation")
+      .title('Navigation')
       .navDestination(this.PageBuilder)
     }
     .width('100%')

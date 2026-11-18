@@ -12,11 +12,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start attrAnimateToDemo2]
 import { curves } from '@kit.ArkUI';
-
 @Entry
 @Component
-struct attrAnimateToDemo2 {
+struct AttrAnimateToDemo2 {
   @State animate: boolean = false;
   // 第一步: 声明相关状态变量
   @State rotateValue: number = 0; // 组件一旋转角度
@@ -65,3 +65,4 @@ struct attrAnimateToDemo2 {
     .justifyContent(FlexAlign.Center)
   }
 }
+// [End attrAnimateToDemo2]

@@ -14,10 +14,13 @@
  */
 
 // [Start taskpool_listen_sensor_data]
+// [Start taskpool_listen_sensor_data_import]
 import { sensor } from '@kit.SensorServiceKit';
 import { taskpool } from '@kit.ArkTS';
 import { BusinessError, emitter } from '@kit.BasicServicesKit';
+// [End taskpool_listen_sensor_data_import]
 
+// [Start taskpool_listen_sensor_data_concurrent]
 @Concurrent
 async function sensorListener(): Promise<void> {
   sensor.on(sensor.SensorId.ACCELEROMETER, (data) => {
@@ -29,6 +32,7 @@ async function sensorListener(): Promise<void> {
     emitter.off(1)
   })
 }
+// [End taskpool_listen_sensor_data_concurrent]
 
 @Entry
 @Component
@@ -47,14 +51,14 @@ struct Index {
           this.sensorTask = new taskpool.LongTask(sensorListener);
           emitter.on({ eventId: 0 }, (data) => {
             // Do something here
-            console.info(`Receive ACCELEROMETER data: {${data.data?.x}, ${data.data?.y}, ${data.data?.z}`);
+            console.info(`Receive ACCELEROMETER data: {${data.data?.x}, ${data.data?.y}, ${data.data?.z}}`);
           });
           taskpool.execute(this.sensorTask).then(() => {
+            this.addListener = 'success';
             console.info('Add listener of ACCELEROMETER success');
           }).catch((e: BusinessError) => {
-            // Process error
+            this.addListener = 'failed';
           })
-          this.addListener = 'success';
         })
       Text(this.deleteListener)
         .id('Delete listener')
@@ -65,10 +69,11 @@ struct Index {
           emitter.off(0);
           if (this.sensorTask != undefined) {
             taskpool.terminateTask(this.sensorTask);
+            this.deleteListener = 'success';
           } else {
             console.error('sensorTask is undefined.');
+            this.deleteListener = 'failed';
           }
-          this.deleteListener = 'success';
         })
     }
     .height('100%')

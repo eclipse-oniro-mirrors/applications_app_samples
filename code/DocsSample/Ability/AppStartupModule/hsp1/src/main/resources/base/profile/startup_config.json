@@ -1,0 +1,46 @@
+﻿{
+  "startupTasks": [
+    {
+      "name": "Hsp1Task01",
+      "srcEntry": "./ets/startup/Hsp1Task01.ets",
+      "dependencies": [
+        "Hsp1Task02",
+        "Har1Task01"
+      ],
+      "runOnThread": "taskPool",
+      "waitOnMainThread": false,
+      "excludeFromAutoStart": true
+    },
+    {
+      "name": "Hsp1Task02",
+      "srcEntry": "./ets/startup/Hsp1Task02.ets",
+      "dependencies": [
+        "Hsp2Task01"
+      ],
+      "runOnThread": "taskPool",
+      "waitOnMainThread": false,
+      "excludeFromAutoStart": true
+    }
+  ],
+  "appPreloadHintStartupTasks": [
+    {
+      "name": "libhsp1_01",
+      "srcEntry": "libhsp1_01.so",
+      "dependencies": [
+        "libhsp1_02",
+        "libhar1_01"
+      ],
+      "runOnThread": "taskPool",
+      "excludeFromAutoStart": true
+    },
+    {
+      "name": "libhsp1_02",
+      "srcEntry": "libhsp1_02.so",
+      "dependencies": [
+        "libhsp2_01"
+      ],
+      "runOnThread": "taskPool",
+      "excludeFromAutoStart": true
+    }
+  ]
+}

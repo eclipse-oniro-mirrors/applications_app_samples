@@ -14,7 +14,6 @@
  */
 
 // [Start date_picker_dialog]
-import { PromptAction } from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -48,8 +47,11 @@ export struct DatePickerDialogExample {
       .height('100%')
       .padding({ left: 12, right: 12 })
     }
+    // [StartExclude date_picker_dialog]
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.CustomDialog_date')替换为实际资源文件，在本示例中该资源文件的value值为"日期滑动选择器弹窗"
     .title($r('app.string.CustomDialog_date'))
+    // [EndExclude date_picker_dialog]
   }
 }
 // [End date_picker_dialog]

@@ -48,6 +48,7 @@ entry/src/
  │   │       ├── ResidentTaskGuide.ets               // 常驻任务开发指导
  │   │       ├── SyncTaskDevelopment.ets		     // 同步任务开发指导
  │   │       ├── write.ets                           // I/O密集型任务开发指导
+ │   │       ├── WorkerManager.ets                   // Worker单用例开发指导
  │   │   ├── pages
  │   │       ├── Index.ets                           // 首页
  │   │   ├── util
@@ -55,8 +56,8 @@ entry/src/
  │   │       ├── resource.ets 		                 // 资源引用转换
  │   │   ├── workers
  │   │       ├── handle.ts 		                     // 同步任务开发指导
- │   │       ├── MyWorker1.ts 		                 // CPU密集型任务开发指导
- │   │       ├── MyWorker2.ts 		                 // 同步任务开发指导
+ │   │       ├── MyWorker1.ets 		                 // CPU密集型任务开发指导
+ │   │       ├── MyWorker2.ets 		                 // 同步任务开发指导
  │   │       ├── Worker.ets 		                 // 常驻任务开发指导
  │   ├── module.json5
  │   └── resources
@@ -90,6 +91,6 @@ entry/src/
 git init
 git config core.sparsecheckout true
 echo code/DocsSample/ArkTS/ArkTsConcurrent/ApplicationMultithreadingDevelopment/ApplicationMultithreading > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

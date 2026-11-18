@@ -1,0 +1,200 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "对象编辑器客户端示例"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "OEClientDemo"
+    },
+    {
+      "name": "btn_open_file",
+      "value": "打开文件"
+    },
+    {
+      "name": "btn_save_file",
+      "value": "保存文件"
+    },
+    {
+      "name": "btn_insert_file",
+      "value": "插入文件"
+    },
+    {
+      "name": "btn_insert_existing",
+      "value": "插入现有文件"
+    },
+    {
+      "name": "btn_query_format",
+      "value": "查询嵌入格式"
+    },
+    {
+      "name": "title_object",
+      "value": "对象"
+    },
+    {
+      "name": "title_success",
+      "value": "执行成功"
+    },
+    {
+      "name": "title_failed",
+      "value": "执行失败"
+    },
+    {
+      "name": "title_open_failed",
+      "value": "打开失败"
+    },
+    {
+      "name": "btn_ok",
+      "value": "确定"
+    },
+    {
+      "name": "btn_browse",
+      "value": "浏览"
+    },
+    {
+      "name": "btn_confirm",
+      "value": "确认"
+    },
+    {
+      "name": "btn_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "btn_query",
+      "value": "查询"
+    },
+    {
+      "name": "label_file_path",
+      "value": "文件路径："
+    },
+    {
+      "name": "label_insert_method",
+      "value": "插入方式："
+    },
+    {
+      "name": "label_oeid",
+      "value": "oeid："
+    },
+    {
+      "name": "label_locale",
+      "value": "locale："
+    },
+    {
+      "name": "radio_copy",
+      "value": "复制"
+    },
+    {
+      "name": "radio_link",
+      "value": "链接"
+    },
+    {
+      "name": "no_data",
+      "value": "暂无数据"
+    },
+    {
+      "name": "query_header_oeid",
+      "value": "OEID"
+    },
+    {
+      "name": "query_header_name",
+      "value": "名称"
+    },
+    {
+      "name": "query_header_description",
+      "value": "描述"
+    },
+    {
+      "name": "query_header_extensions",
+      "value": "文件后缀"
+    },
+    {
+      "name": "query_header_icon",
+      "value": "图标"
+    },
+    {
+      "name": "ce_err_msg_0",
+      "value": "操作成功。"
+    },
+    {
+      "name": "ce_err_msg_201",
+      "value": "权限校验失败。"
+    },
+    {
+      "name": "ce_err_msg_401",
+      "value": "参数不合法。"
+    },
+    {
+      "name": "ce_err_msg_801",
+      "value": "当前设备不支持此功能。"
+    },
+    {
+      "name": "ce_err_msg_35300001",
+      "value": "返回空指针，可能是内存分配失败或内部错误。"
+    },
+    {
+      "name": "ce_err_msg_35300002",
+      "value": "客户端未注册对应的回调函数。"
+    },
+    {
+      "name": "ce_err_msg_35300003",
+      "value": "OE Extension发生未知错误。"
+    },
+    {
+      "name": "ce_err_msg_35300004",
+      "value": "系统服务出现异常，可能是服务未启动、连接中断或权限不足。"
+    },
+    {
+      "name": "ce_err_msg_35300005",
+      "value": "OE文档Storage对象相关操作失败。"
+    },
+    {
+      "name": "ce_err_msg_35300006",
+      "value": "OE文档Stream对象相关操作失败。"
+    },
+    {
+      "name": "ce_err_msg_35300007",
+      "value": "文件操作失败，可能是文件不存在、权限不足、路径错误或磁盘空间不足。"
+    },
+    {
+      "name": "ce_err_msg_35300008",
+      "value": "当前应用正在DLP沙箱环境中运行，暂不支持调用相关功能。"
+    },
+    {
+      "name": "ce_err_msg_35300009",
+      "value": "ImagePacker操作失败。"
+    },
+    {
+      "name": "ce_err_msg_35300010",
+      "value": "客户端注册的回调函数在执行过程中发生异常。"
+    },
+    {
+      "name": "ce_err_msg_35300011",
+      "value": "OE Extension意外退出。"
+    },
+    {
+      "name": "ce_err_msg_35300012",
+      "value": "链接到不允许被链接目录中的文件，如应用沙箱目录内的文件。"
+    },
+    {
+      "name": "ce_err_msg_35300013",
+      "value": "当前OE Extension连接超出限制。"
+    },
+    {
+      "name": "ce_err_msg_35300014",
+      "value": "当前文件未授权。"
+    },
+    {
+      "name": "ce_err_msg_35300015",
+      "value": "当前磁盘空间不足。"
+    },
+    {
+      "name": "ce_err_msg_35300016",
+      "value": "当前OE Extension不支持该能力。"
+    }
+  ]
+}

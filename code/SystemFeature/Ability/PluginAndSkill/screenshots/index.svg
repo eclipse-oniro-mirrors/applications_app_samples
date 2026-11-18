@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1280" width="720" height="1280">
+  <!-- Backgrounds -->
+  <rect width="720" height="1280" fill="#ffffff"/>
+  <rect x="0" y="60" width="720" height="1120" fill="#f5f6f8"/>
+
+  <!-- Status Bar -->
+  <text x="40" y="45" font-family="sans-serif" font-size="24" fill="#333333" font-weight="500">没有 SIM 卡</text>
+  <!-- Signal Bars -->
+  <rect x="165" y="26" width="4" height="16" fill="#888888" rx="1"/>
+  <rect x="172" y="22" width="4" height="20" fill="#888888" rx="1"/>
+  <rect x="179" y="18" width="4" height="24" fill="#888888" rx="1"/>
+  <rect x="186" y="14" width="4" height="28" fill="#888888" rx="1"/>
+  
+  <text x="520" y="42" font-family="sans-serif" font-size="24" fill="#333333" text-anchor="end">11%</text>
+  
+  <!-- Battery Icon -->
+  <rect x="535" y="23" width="26" height="15" rx="2" stroke="#333333" stroke-width="1.5" fill="none"/>
+  <rect x="537.5" y="25.5" width="5" height="10" fill="#4caf50" rx="1"/>
+  <rect x="561" y="27" width="2.5" height="7" fill="#333333" rx="1"/>
+  
+  <text x="680" y="42" font-family="sans-serif" font-size="24" fill="#333333" text-anchor="end">11:52</text>
+
+  <!-- Header -->
+  <text x="360" y="270" font-family="sans-serif" font-size="42" fill="#333333" font-weight="bold" text-anchor="middle">技能管理</text>
+  <text x="360" y="330" font-family="sans-serif" font-size="22" fill="#666666" text-anchor="middle">查询本应用、指定应用或设备的技能。</text>
+
+  <!-- Buttons Group 1 -->
+  <rect x="36" y="360" width="648" height="72" rx="36" fill="#007aff"/>
+  <text x="360" y="405" font-family="sans-serif" font-size="22" fill="#ffffff" text-anchor="middle">查询自有技能</text>
+
+  <rect x="36" y="456" width="648" height="72" rx="36" fill="#007aff"/>
+  <text x="360" y="501" font-family="sans-serif" font-size="22" fill="#ffffff" text-anchor="middle">查询应用技能</text>
+
+  <rect x="36" y="552" width="648" height="72" rx="36" fill="#007aff"/>
+  <text x="360" y="597" font-family="sans-serif" font-size="22" fill="#ffffff" text-anchor="middle">查询设备全部技能</text>
+
+  <!-- Divider Line 1 -->
+  <line x1="100" y1="652" x2="620" y2="652" stroke="#cccccc" stroke-width="1"/>
+
+  <!-- Buttons Group 2 -->
+  <rect x="36" y="676" width="648" height="72" rx="36" fill="#007aff"/>
+  <text x="360" y="721" font-family="sans-serif" font-size="22" fill="#ffffff" text-anchor="middle">执行技能</text>
+
+  <rect x="36" y="772" width="648" height="72" rx="36" fill="#007aff"/>
+  <text x="360" y="817" font-family="sans-serif" font-size="22" fill="#ffffff" text-anchor="middle">技能对比</text>
+
+  <!-- Divider Line 2 -->
+  <line x1="100" y1="872" x2="620" y2="872" stroke="#cccccc" stroke-width="1"/>
+
+  <!-- Buttons Group 3 -->
+  <rect x="36" y="896" width="648" height="72" rx="36" fill="#007aff"/>
+  <text x="360" y="941" font-family="sans-serif" font-size="22" fill="#ffffff" text-anchor="middle">查询历史</text>
+
+  <rect x="36" y="992" width="648" height="72" rx="36" fill="#007aff"/>
+  <text x="360" y="1037" font-family="sans-serif" font-size="22" fill="#ffffff" text-anchor="middle">批量操作</text>
+
+  <!-- Bottom Navigation Bar -->
+  <rect x="0" y="1180" width="720" height="100" fill="#ffffff"/>
+  
+  <!-- Back Triangle -->
+  <polygon points="200,1230 218,1214 218,1246" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+  
+  <!-- Home Circle -->
+  <circle cx="360" cy="1230" r="12" fill="none" stroke="#333333" stroke-width="2"/>
+  
+  <!-- Recent Square -->
+  <rect x="498" y="1218" width="24" height="24" rx="2" fill="none" stroke="#333333" stroke-width="2"/>
+</svg>

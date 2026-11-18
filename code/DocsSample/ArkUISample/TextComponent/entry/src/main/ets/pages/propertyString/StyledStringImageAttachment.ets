@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,13 +14,16 @@
  */
 
 import { ComponentCard } from '../../common/Card';
+import resource from '../../common/resource';
+// [Start styledStringImageAttachment_start]
+// xxx.ets
 import { image } from '@kit.ImageKit';
 import { LengthMetrics } from '@kit.ArkUI';
-import resource from '../../common/resource';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 @Entry
 @Component
-export struct StyledStringImageAttachment {
+struct StyledStringImageAttachment {
   @State abled: boolean = true;
   @State message: string = 'Hello World';
   imagePixelMap: image.PixelMap | undefined = undefined;
@@ -39,32 +42,36 @@ export struct StyledStringImageAttachment {
   }]);
 
   async aboutToAppear() {
-    console.info('aboutToAppear initial imagePixelMap');
-    this.imagePixelMap = await this.getPixmapFromMedia($r('app.media.startIcon'));
+    hilog.info(0x0000, 'testTag', 'aboutToAppear initial imagePixelMap');
+    // $r('app.media.sea')需要替换为开发者所需的图像资源文件。
+    this.imagePixelMap = await this.getPixmapFromMedia($r('app.media.sea'));
   }
 
   private async getPixmapFromMedia(resource: Resource) {
-    let unit8Array = await this.getUIContext().getHostContext()?.resourceManager?.getMediaContent({
-      bundleName: resource.bundleName,
-      moduleName: resource.moduleName,
-      id: resource.id
-    });
-    let imageSource = image.createImageSource(unit8Array?.buffer?.slice(0, unit8Array?.buffer?.byteLength));
-    let createPixelMap: image.PixelMap = await imageSource.createPixelMap({
-      desiredPixelFormat: image.PixelMapFormat.RGBA_8888
-    });
-    await imageSource.release();
-    return createPixelMap;
+    try {
+      let uint8Array = await this.getUIContext().getHostContext()?.resourceManager?.getMediaContent(resource.id);
+      let imageSource = image.createImageSource(uint8Array?.buffer?.slice(0, uint8Array?.buffer?.byteLength));
+      let createPixelMap: image.PixelMap = await imageSource.createPixelMap({
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      });
+      await imageSource.release();
+      return createPixelMap;
+    } catch (error) {
+      hilog.error(0x0000, 'testTag', `Get Pixmap failed. error code: ${error.code}, error message: ${error.message}`);
+    }
+    return undefined;
   }
 
   leadingMarginValue: ParagraphStyle = new ParagraphStyle({ leadingMargin: LengthMetrics.vp(5)});
-  //行高样式对象
-  lineHeightStyle1: LineHeightStyle= new LineHeightStyle(new LengthMetrics(24));
-  //Bold样式
+  // 行高样式对象
+  lineHeightStyle1: LineHeightStyle = new LineHeightStyle(new LengthMetrics(24));
+  // Bold样式
   boldTextStyle: TextStyle = new TextStyle({ fontWeight: FontWeight.Bold });
-  //创建含段落样式的对象paragraphStyledString1
+  // 创建含段落样式的对象paragraphStyledString1
+  // 请将$r('app.string.StyledStringImageAttachment_Text_1')替换为实际资源文件，在本示例中该资源文件的value值为"\n品牌相纸 高清冲印30张\n限时直降5.15元 限量赠送"
   paragraphStyledString1: MutableStyledString =
-    new MutableStyledString(resource.resourceToString($r('app.string.StyledStringImageAttachment_Text_1')), [
+    new MutableStyledString(this.getUIContext()
+      .getHostContext()!.resourceManager.getStringSync($r('app.string.StyledStringImageAttachment_Text_1').id), [
     {
       start: 0,
       length: 28,
@@ -90,8 +97,10 @@ export struct StyledStringImageAttachment {
       styledValue: this.lineHeightStyle1
     }
   ]);
+  // 请将$r('app.string.StyledStringImageAttachment_Text_2')替换为实际资源文件，在本示例中该资源文件的value值为"\n￥16.21 3000+人好评"
   paragraphStyledString2: MutableStyledString =
-    new MutableStyledString(resource.resourceToString($r('app.string.StyledStringImageAttachment_Text_2')), [
+    new MutableStyledString(this.getUIContext()
+      .getHostContext()!.resourceManager.getStringSync($r('app.string.StyledStringImageAttachment_Text_2').id), [
     {
       start: 0,
       length: 5,
@@ -139,8 +148,10 @@ export struct StyledStringImageAttachment {
   build() {
     NavDestination() {
       Column({ space: 12 }) {
+        // [StartExclude styledStringImageAttachment_start]
+        // 请将$r('app.string.StyledStringImageAttachment_title')替换为实际资源文件，在本示例中该资源文件的value值为"通过ImageAttachment来添加图片"
         ComponentCard({ title: $r('app.string.StyledStringImageAttachment_title') }) {
-          // [Start styled_string_image_attachment]
+          // [EndExclude styledStringImageAttachment_start]
           Row() {
             Column({ space: 10 }) {
               Text(undefined, { controller: this.controller })
@@ -149,7 +160,7 @@ export struct StyledStringImageAttachment {
                 .draggable(true)
                 .backgroundColor('#FFFFFF')
                 .borderRadius(5)
-
+              // 请将$r('app.string.StyledStringImageAttachment_Button_1')替换为实际资源文件，在本示例中该资源文件的value值为"点击查看商品卡片"
               Button($r('app.string.StyledStringImageAttachment_Button_1'))
                 .enabled(this.abled)
                 .onClick(() => {
@@ -171,14 +182,17 @@ export struct StyledStringImageAttachment {
           }
           .height('100%')
           .backgroundColor('#F8F8FF')
-          // [End styled_string_image_attachment]
         }
+        // [StartExclude styledStringImageAttachment_start]
       }
       .width('100%')
       .height('100%')
       .padding({ left: 12, right: 12 })
+      // [EndExclude styledStringImageAttachment_start]
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.StyledStringImageAttachment_title')替换为实际资源文件，在本示例中该资源文件的value值为"通过ImageAttachment来添加图片"
     .title($r('app.string.StyledStringImageAttachment_title'))
   }
 }
+// [End styledStringImageAttachment_start]

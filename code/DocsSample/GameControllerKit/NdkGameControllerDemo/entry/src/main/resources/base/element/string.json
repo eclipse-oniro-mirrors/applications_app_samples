@@ -1,0 +1,40 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "GameControllerDemo entry module."
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Sample for listening to game controller events."
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "GameControllerDemo"
+    },
+    {
+      "name": "main_title",
+      "value": "GameControllerDemo"
+    },
+    {
+      "name": "register_all",
+      "value": "Register all event monitors"
+    },
+    {
+      "name": "unregister_all",
+      "value": "Unregister all event monitors"
+    },
+    {
+      "name": "query_devices",
+      "value": "Query all device infos"
+    },
+    {
+      "name": "clear_log",
+      "value": "Clear log"
+    },
+    {
+      "name": "log_title",
+      "value": "Log"
+    }
+  ]
+}

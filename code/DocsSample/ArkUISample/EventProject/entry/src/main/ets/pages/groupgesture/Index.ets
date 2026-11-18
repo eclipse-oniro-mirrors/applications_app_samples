@@ -21,7 +21,7 @@ import { Sequence } from './Sequence';
 import resource from '../../common/resource';
 
 export const GroupGesture_ROUTE_PREFIX: string = 'GroupGestureExample';
-
+// $r('app.string.xxx')需要替换为开发者所需的资源文件
 const routes: Route[] = [
   {
     name: `${GroupGesture_ROUTE_PREFIX}/Sequence`,
@@ -38,7 +38,7 @@ const routes: Route[] = [
     title: resource.resourceToString($r('app.string.groupgesture_Index_Exclusive_title')),
     description: resource.resourceToString($r('app.string.groupgesture_Index_Exclusive_description')),
   }
-]
+];
 
 @Builder
 export function GroupGestureDestination(name: string) {
@@ -79,6 +79,7 @@ struct GroupGestureExample {
       backgroundBlurStyle: BlurStyle.COMPONENT_THICK,
       barStyle: BarStyle.STACK
     })
+    // 请将$r('app.string.groupgesture_Index_title')替换为实际资源文件，在本示例中该资源文件的value值为"组合手势"
     .title($r('app.string.groupgesture_Index_title'))
   }
 }

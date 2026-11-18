@@ -21,7 +21,7 @@ import { ComponentContent } from '@kit.ArkUI';
 struct CustomDialogExample {
   cancel?: () => void;
   confirm?: () => void;
-  controller: CustomDialogController;
+  controller?: CustomDialogController;
 
   build() {
     Column() {
@@ -37,7 +37,7 @@ struct CustomDialogExample {
             .lineHeight(21)
         }
         .onClick(() => {
-          this.controller.close();
+          this.controller?.close();
         })
         .layoutWeight(1)
         .backgroundColor(Color.Transparent)
@@ -52,7 +52,7 @@ struct CustomDialogExample {
             .fontColor($r('sys.color.font_emphasize'))
         }
         .onClick(() => {
-          this.controller.close();
+          this.controller?.close();
         })
         .layoutWeight(1)
         .backgroundColor(Color.Transparent)
@@ -105,6 +105,7 @@ export struct DialogInteraction {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.CustomDialog_interaction')替换为实际资源文件，在本示例中该资源文件的value值为"弹出框交互"
     .title($r('app.string.CustomDialog_interaction'))
   }
   // [End dialog_constructor_accept]

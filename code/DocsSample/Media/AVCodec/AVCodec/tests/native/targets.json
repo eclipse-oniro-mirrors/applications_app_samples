@@ -1,0 +1,47 @@
+{
+  "AudioCapturerInitTest": [
+    "capabilities/audio_capturer.cpp"
+  ],
+  "AudioCodecBufferTest": [
+    "capabilities/audio_decoder.cpp",
+    "capabilities/audio_encoder.cpp",
+    "sample/player/output/audio/AudioOutputPump.cpp"
+  ],
+  "VideoEncoderBufferTest": [
+    "capabilities/video_encoder.cpp",
+    "common/sample_callback.cpp"
+  ],
+  "RecorderFrameCopyTest": [
+    "sample/recorder/input/video/RecorderFrameCopy.cpp"
+  ],
+  "RecorderFrameEffectsTest": [
+    "sample/recorder/input/video/RecorderFrameEffects.cpp"
+  ],
+  "VideoFramePacerTest": [],
+  "PlaybackLifecycleTest": [
+    "sample/player/output/pipeline/VideoPipeline.cpp",
+    "sample/player/sync/PlayerStateMachine.cpp"
+  ],
+  "VideoPresentationGeometryTest": [
+    "sample/player/output/video/gpu/VideoPresentationGeometry.cpp"
+  ],
+  "PlaybackDiagnosticsTest": [
+    "sample/player/sync/PlaybackDiagnostics.cpp",
+    "common/SessionReport.cpp"
+  ],
+  "RecorderDiagnosticsTest": [],
+  "TranscodeAudioPipelineTest": [
+    "sample/transcoder/process/audio/TranscodeAudioPipeline.cpp",
+    "sample/transcoder/codec/TranscodeCodecCallbacks.cpp"
+  ],
+  "TranscodeCodecCallbacksTest": [
+    "sample/transcoder/codec/TranscodeCodecCallbacks.cpp"
+  ],
+  "TranscodeDiagnosticsTest": [],
+  "TranscodeFrameProcessorTest": [
+    "sample/transcoder/process/video/TranscodeFrameProcessor.cpp"
+  ],
+  "TranscodeQualityTest": [
+    "sample/transcoder/process/video/TranscodeFrameProcessor.cpp"
+  ]
+}

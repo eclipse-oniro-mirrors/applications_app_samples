@@ -14,7 +14,6 @@
  */
 
 // [Start napi_set_instance_data]
-#include <cstdlib>
 #include "napi/native_api.h"
 
 // 定义一个结构来存储实例数据
@@ -29,7 +28,6 @@ void FinalizeCallback(napi_env env, void *finalizeData, void *finalizeHint)
         InstanceData *data = reinterpret_cast<InstanceData *>(finalizeData);
         // 释放内存，清除指针指向地址
         delete (data);
-        *(InstanceData **)finalizeData = nullptr;
     }
 }
 
@@ -45,11 +43,14 @@ static napi_value SetInstanceData(napi_env env, napi_callback_info info)
     instanceData->value = instanceDataValue;
     // 调用napi_set_instance_data将实例数据关联到Node-API环境，并指定FinalizeCallback函数
     napi_status status = napi_set_instance_data(env, instanceData, FinalizeCallback, nullptr);
-    bool success = true;
-    napi_value result;
-    if (status == napi_ok) {
-        napi_get_boolean(env, success, &result);
+    if (status != napi_ok) {
+        delete instanceData;
+        napi_throw_error(env, nullptr, "Test Node-API napi_set_instance_data failed");
+        return nullptr;
     }
+    bool success = true;
+    napi_value result = nullptr;
+    napi_get_boolean(env, success, &result);
     return result;
 }
 // [End napi_set_instance_data]
@@ -59,9 +60,17 @@ static napi_value SetInstanceData(napi_env env, napi_callback_info info)
 static napi_value GetInstanceData(napi_env env, napi_callback_info info)
 {
     InstanceData *resData = nullptr;
-    // napi_get_instance_data获取之前想关联的数据项
-    napi_get_instance_data(env, (void **)&resData);
-    napi_value result;
+    // napi_get_instance_data获取之前相关联的数据项
+    napi_status status = napi_get_instance_data(env, (void **)&resData);
+    if (status != napi_ok) {
+        return nullptr;
+    }
+
+    if (resData == nullptr) {
+        napi_throw_error(env, nullptr, "Instance data not set or already freed");
+        return nullptr;
+    }
+    napi_value result = nullptr;
     napi_create_int32(env, resData->value, &result);
     return result;
 }

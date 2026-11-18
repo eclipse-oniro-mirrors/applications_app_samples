@@ -12,6 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+// [Start KeyframeAnimateToDemo]
 @Entry
 @Component
 struct KeyframeAnimateToDemo {
@@ -37,7 +39,7 @@ struct KeyframeAnimateToDemo {
           iterations: 1
         }, [
           {
-            // 第一段关键帧动画时长为800ms，组件一顺时针旋转90度，组件二的透明度变从1变为0.6，组件二的translate从0位移到50
+            // 第一段关键帧动画时长为800ms，组件一顺时针旋转90度，组件二的透明度从1变为0.6，组件二的translate从0位移到50
             duration: 800,
             event: () => {
               this.rotateValue = 90;
@@ -46,7 +48,7 @@ struct KeyframeAnimateToDemo {
             }
           },
           {
-            // 第二段关键帧动画时长为500ms，组件一逆时针旋转90度恢复至0度，组件二的透明度变从0.6变为1，组件二的translate从50位移到0
+            // 第二段关键帧动画时长为500ms，组件一逆时针旋转90度恢复至0度，组件二的透明度从0.6变为1，组件二的translate从50位移到0
             duration: 500,
             event: () => {
               this.rotateValue = 0;
@@ -72,3 +74,4 @@ struct KeyframeAnimateToDemo {
     .justifyContent(FlexAlign.Center)
   }
 }
+// [End KeyframeAnimateToDemo]

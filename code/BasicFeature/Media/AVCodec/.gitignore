@@ -9,3 +9,7 @@
 /.clang-format
 /.clang-tidy
 **/.test
+/.codex-native-build
+/.claude
+/docs
+**/oh-package-lock.json5

@@ -14,6 +14,7 @@
  */
 
 // [Start register_callback_function]
+// worker.ets
 import { ErrorEvent, MessageEvents, ThreadWorkerGlobalScope, worker } from '@kit.ArkTS';
 
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
@@ -23,17 +24,17 @@ workerPort.onmessage = (e: MessageEvents) => {
   let data: string = e.data;
   console.info('workerPort onmessage is: ', data);
 
-  // 向主线程发送消息
+  // 向宿主线程发送消息
   workerPort.postMessage('2');
 }
 
 // 注册onmessageerror回调，当Worker对象接收到一条无法被序列化的消息时被调用，在Worker线程执行
 workerPort.onmessageerror = () => {
-  console.info('workerPort onmessageerror');
+  console.error('workerPort onmessageerror');
 }
 
-// 注册onerror回调，当Worker在执行过程中发生异常被调用，在Worker线程执行
+// 注册onerror回调，捕获Worker在执行过程中发生的异常，在Worker线程执行
 workerPort.onerror = (err: ErrorEvent) => {
-  console.info('workerPort onerror err is: ', err.message);
+  console.error('workerPort onerror err is: ', err.message);
 }
 // [End register_callback_function]

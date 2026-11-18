@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-//
+
 // [Start key_algorithm_RSASHA256PSS]
 /*
  * 密钥算法为RSA，摘要算法为SHA256，填充模式为PSS
@@ -101,8 +101,8 @@ async function generateRsaKey(keyAlias: string) {
     properties: genProperties
   };
   await huks.generateKeyItem(keyAlias, options)
-    .then((data) => {
-      console.info(`promise: generate RSA Key success, data = ${JSON.stringify(data)}`);
+    .then(() => {
+      console.info(`promise: generate RSA Key success`);
     }).catch((err: Error) => {
       console.error(`promise: generate RSA Key failed, error: ` + JSON.stringify(err));
       throw (err as Error);
@@ -174,11 +174,8 @@ async function deleteRsaKey(keyAlias: string) {
     properties: []
   }
   await huks.deleteKeyItem(keyAlias, emptyOptions)
-    .then((data) => {
+    .then(() => {
       console.info(`promise: delete data success`);
-    }).catch((err: Error) => {
-      console.error(`promise: delete data failed`);
-      throw (err as Error);
     });
 }
 
@@ -188,8 +185,6 @@ export async function testSignVerify() {
   await verify(keyAlias, plaintext, signature);
   await deleteRsaKey(keyAlias);
 }
-
-
 // [End key_algorithm_RSASHA256PSS]
 @Entry
 @Component

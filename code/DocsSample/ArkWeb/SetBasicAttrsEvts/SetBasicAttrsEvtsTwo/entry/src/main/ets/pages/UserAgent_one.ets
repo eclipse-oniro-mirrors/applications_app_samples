@@ -28,10 +28,10 @@ struct WebComponent {
         .onClick(() => {
           try {
             let userAgent = this.controller.getUserAgent();
-            console.log('userAgent: ' + userAgent);
+            console.info('userAgent: ' + userAgent);
           } catch (error) {
             console.error(
-              `ErrorCode: ${(error as BusinessError).code},  Message: ${(error as BusinessError).message}`);
+              `ErrorCode: ${(error as BusinessError).code}, Message: ${(error as BusinessError).message}`);
           }
         })
       Web({ src: 'www.example.com', controller: this.controller })

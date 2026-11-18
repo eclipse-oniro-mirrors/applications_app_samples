@@ -19,7 +19,6 @@ import {
 } from '@kit.ArkUI';
 import { ComponentCard } from '../../common/Card';
 
-@Entry
 @Component
 export struct ArcSwiperHorizontal {
   @State message: string = 'Hello World';
@@ -28,7 +27,9 @@ export struct ArcSwiperHorizontal {
     NavDestination() {
       Column({ space: 12 }) {
         ComponentCard({ title: $r('app.string.ArcSwiperHorizontal_title') }) {
+          // [Start horizontal]
           ArcSwiper() {
+            // [StartExclude horizontal]
             Text('0')
               .width(233)
               .height(233)
@@ -49,9 +50,11 @@ export struct ArcSwiperHorizontal {
               .backgroundColor(Color.Pink)
               .textAlign(TextAlign.Center)
               .fontSize(30)
+            // [EndExclude horizontal]
           }
           .indicator(true)
           .vertical(false)
+          // [End horizontal]
         }
       }
       .width('100%')

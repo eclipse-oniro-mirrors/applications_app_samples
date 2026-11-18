@@ -20,8 +20,6 @@
 #include <uv.h>
 #include "hilog/log.h"
 
-static constexpr int INT_ARG_100 = 100; // 入参索引
-
 // [Start node_api_module_add]
 // 模块加载
 static napi_value Add(napi_env env, napi_callback_info info)
@@ -65,6 +63,7 @@ static napi_value CreateObjectWithProperties(napi_env env, napi_callback_info in
     if (valueType == napi_object) {
         return object;
     }
+    return nullptr;
 }
 // [End node_api_module_create_object_properties]
 // [Start node_api_module_create_object_name_properties]
@@ -82,11 +81,13 @@ static napi_value CreateObjectWithNameProperties(napi_env env, napi_callback_inf
     const napi_value values[] = {
         argv[0],
     };
-    napi_property_descriptor desc[] = {{"name", nullptr, nullptr, nullptr, nullptr, nullptr, napi_default, nullptr}};
+    napi_property_descriptor desc[] = {{"name", nullptr, nullptr,
+                                        nullptr, nullptr, nullptr, napi_default, nullptr}};
     napi_status status = napi_create_object_with_named_properties(
-        env, &obj, sizeof(desc) / sizeof(desc[0]), key, values);
+        env, &obj, sizeof(desc) / sizeof(desc[0]), key, values
+    );
     if (status != napi_ok) {
-        return argv[0];
+        return nullptr;
     }
     return obj;
 }
@@ -97,7 +98,7 @@ static napi_value RunScriptPath(napi_env env, napi_callback_info info)
 {
     napi_value value = nullptr;
     // 注意：记得在应用rawfile目录下放置.abc文件
-    const char *scriptPath = "/entry/src/main/resources/rawfile/test.abc";
+    const char *scriptPath = "/entry/resources/rawfile/test.abc";
     // 使用napi_run_script_path函数执行指定路径中的文件
     napi_status status = napi_run_script_path(env, scriptPath, &value);
     // 检查是否执行成功，如果失败，返回false
@@ -303,7 +304,7 @@ static napi_value AboutSerialize(napi_env env, napi_callback_info info)
     napi_valuetype valuetype;
     napi_typeof(env, number, &valuetype);
     if (valuetype != napi_number) {
-        napi_throw_error(env, nullptr, "Node-API Wrong type of argment. Expects a number.");
+        napi_throw_error(env, nullptr, "Node-API Wrong type of argument. Expects a number.");
         return nullptr;
     }
     // 调用napi_delete_serialization_data方法删除序列化数据
@@ -383,7 +384,7 @@ static napi_value GetSendableObject(napi_env env, napi_callback_info info)
     napi_create_sendable_object_with_properties(env, 1, desc1, &obj);
     return obj;
 }
-// [End napi_create_sendable_object_with_properties
+// [End napi_create_sendable_object_with_properties]
 // [Start napi_create_sendable_array]
 // Sendable相关 napi_create_sendable_array
 static napi_value GetSendableArray(napi_env env, napi_callback_info info)
@@ -401,7 +402,7 @@ static napi_value GetSendableArrayWithLength(napi_env env, napi_callback_info in
     napi_create_sendable_array_with_length(env, 1, &result);
     return result;
 }
-// End napi_create_sendable_array_with_length]
+// [End napi_create_sendable_array_with_length]
 // [Start napi_create_sendable_arraybuffer]
 // Sendable相关 napi_create_sendable_arraybuffer
 static napi_value GetSendableArrayBuffer(napi_env env, napi_callback_info info)
@@ -454,6 +455,8 @@ static napi_value WrapSendable(napi_env env, napi_callback_info info)
 }
 // [End napi_wrap_sendable]
 // [Start napi_wrap_sendable_with_size]
+static constexpr int INT_ARG_100 = 100; // 入参索引
+
 // Sendable相关 napi_wrap_sendable_with_size
 static napi_value WrapSendableWithSize(napi_env env, napi_callback_info info)
 {
@@ -528,6 +531,7 @@ static napi_value Init(napi_env env, napi_value exports)
     // 通过napi_property_descriptor结构体，可以定义需要导出的属性，并在Node-API模块中使用。napi_define_properties将属性与实际的C++函数进行关联，使其可以被ArkTS层访问和调用
     napi_property_descriptor desc[] = {
         {"add", nullptr, Add, nullptr, nullptr, nullptr, napi_default, nullptr},
+        // [StartExclude node_api_module_add]
         {"createObjectWithProperties", nullptr, CreateObjectWithProperties, nullptr, nullptr, nullptr, napi_default,
          nullptr},
         {"createObjectWithNameProperties", nullptr, CreateObjectWithNameProperties, nullptr, nullptr, nullptr,
@@ -549,14 +553,18 @@ static napi_value Init(napi_env env, napi_value exports)
         {"wrapSendable", nullptr, WrapSendable, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"wrapSendableWithSize", nullptr, WrapSendableWithSize, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"unwrapSendable", nullptr, UnwrapSendable, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"removeWrapSendable", nullptr, RemoveWrapSendable, nullptr, nullptr, nullptr, napi_default, nullptr}};
+        {"removeWrapSendable", nullptr, RemoveWrapSendable, nullptr, nullptr, nullptr, napi_default, nullptr}
+    // [EndExclude node_api_module_add]
+    };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
+    // [StartExclude node_api_module_add]
     auto object = Object::GetInstance();
     napi_wrap(env, exports, reinterpret_cast<void *>(object), FinializeCallback, nullptr, nullptr);
     napi_coerce_to_native_binding_object(env, exports, DetachCallback, AttachCallback, reinterpret_cast<void *>(object),
                                          nullptr);
     napi_value cons = DefineSendableClass(env);
     napi_set_named_property(env, exports, "SendableClass", cons);
+    // [EndExclude node_api_module_add]
     return exports;
 }
 EXTERN_C_END
@@ -573,6 +581,9 @@ static napi_module demoModule = {
 };
 
 // 在RegisterEntryModule函数中，使用napi_module_register函数注册并导出了这个插件
-extern "C" __attribute__((constructor)) void RegisterEntryModule(void) { napi_module_register(&demoModule); }
+extern "C" __attribute__((constructor)) void RegisterEntryModule(void)
+{
+    napi_module_register(&demoModule);
+}
 // [End napi_coerce_to_native_binding_object]
 // [End node_api_module_add]

@@ -13,10 +13,9 @@
  * limitations under the License.
  */
 
-// 使用NodeController的Page页
 // Index.ets
 // [Start nodeContainer_bind_controller_to_show_dynamic_pages]
-import { getNWeb } from './common'
+import { getNWeb } from './Common'
 @Entry
 @Component
 struct Index {

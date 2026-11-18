@@ -1,6 +1,6 @@
 # the minimum version of CMake.
-cmake_minimum_required(VERSION 3.4.1)
-project(NDKJSBridg)
+cmake_minimum_required(VERSION 3.5.0)
+project(NDKJSBridge)
 
 set(NATIVERENDER_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -11,7 +11,7 @@ endif()
 include_directories(${NATIVERENDER_ROOT_PATH}
                     ${NATIVERENDER_ROOT_PATH}/include)
 
-add_library(entry SHARED hello.cpp jsbridge_object.cpp)
+add_library(entry4 SHARED hello.cpp jsbridge_object.cpp)
 
 find_library(
     # Sets the name of the path variable.
@@ -21,4 +21,4 @@ find_library(
     hilog_ndk.z
 )
 
-target_link_libraries(entry PUBLIC libace_napi.z.so ${hilog-lib} libohweb.so)
+target_link_libraries(entry4 PUBLIC libace_napi.z.so ${hilog-lib} libohweb.so)

@@ -16,27 +16,26 @@
 import curves from '@ohos.curves';
 import { Route, RouteGroup } from './common/Index';
 import { KeyboardAvoidMode } from '@kit.ArkUI';
-import router from '@ohos.router';
 
 @Styles
 function cardPressedStyle() {
   .backgroundColor('rgba(0,0,0,0.1)')
   .opacity(1)
-  .animation({ curve: curves.cubicBezierCurve(0.33, 0, 0.67, 1), duration: 100 })
+  .animation({ curve: curves.cubicBezierCurve(0.33, 0, 0.67, 1), duration: 100 });
 }
 
 @Styles
 function cardNormalStyle() {
   .backgroundColor('rgba(0,0,0,0)')
   .opacity(1)
-  .animation({ curve: curves.cubicBezierCurve(0.33, 0, 0.67, 1), duration: 100 })
+  .animation({ curve: curves.cubicBezierCurve(0.33, 0, 0.67, 1), duration: 100 });
 }
 
 @Styles
 function cardDisabledStyle() {
   .backgroundColor('rgba(0,0,0,0)')
   .opacity(0.5)
-  .animation({ curve: curves.cubicBezierCurve(0.33, 0, 0.67, 1), duration: 100 })
+  .animation({ curve: curves.cubicBezierCurve(0.33, 0, 0.67, 1), duration: 100 });
 }
 
 
@@ -44,6 +43,7 @@ function cardDisabledStyle() {
 @Component
 struct Index {
   @Provide('router') router: NavPathStack = new NavPathStack();
+  // $r('app.string.xxx')需要替换为开发者所需的资源文件
   @State routes: RouteGroup[] = [
     {
       name: 'navigation',
@@ -72,41 +72,57 @@ struct Index {
         { name: 'template2/Index', label: $r('app.string.stepperIndex_text15') },
         { name: 'template3/Index', label: $r('app.string.stepperIndex_text16') },
         { name: 'template4/Index', label: $r('app.string.stepperIndex_text17') },
+        { name: 'template5/Index', label: $r('app.string.navDestination_text4') },
       ]
     }, {
-      name: 'observer',
-      label: $r('app.string.stepperIndex_text18'),
-      children: [
-        { name: 'template1/Index', label: "uiObserver.on('navDestinationUpdate')" },
-        { name: 'template2/Index', label: $r('app.string.stepperIndex_text19') },
-        { name: 'template3/Index', label: "uiObserver.on('navDestinationSwitch')" },
-        { name: 'template4/Index', label: $r('app.string.stepperIndex_text20') },
-      ]
-    }, {
-      name: 'sideBarContainer',
-      label: 'SideBarContainer',
-      children: [
-        { name: 'template1/Index', label: $r('app.string.stepperIndex_text21') },
-      ]
-    }, {
-      name: "navPathStackExtend",
-      label: $r('app.string.stepperIndex_text22'),
-      children: [
-        { name: 'template1/Index', label: "queryNavDestinationInfo18+" },
-      ]
-    }, {
-      name: 'router',
-      label: 'Router',
-      children: [
-        { name: 'template1/Index', label: $r('app.string.stepperIndex_text23') },
-      ]
-    }, {
-      name: 'stepper',
-      label: 'Stepper',
-      children: [
-        { name: 'template1/Index', label: $r('app.string.stepperIndex_text21') },
-      ]
-    }
+    name: 'observer',
+    label: $r('app.string.stepperIndex_text18'),
+    children: [
+      { name: 'template1/Index', label: "uiObserver.on('navDestinationUpdate')" },
+      { name: 'template2/Index', label: $r('app.string.stepperIndex_text19') },
+      { name: 'template3/Index', label: "uiObserver.on('navDestinationSwitch')" },
+      { name: 'template4/Index', label: $r('app.string.stepperIndex_text20') },
+    ]
+  }, {
+    name: 'sideBarContainer',
+    label: 'SideBarContainer',
+    children: [
+      { name: 'template1/Index', label: $r('app.string.stepperIndex_text21') },
+    ]
+  }, {
+    name: "navPathStackExtend",
+    label: $r('app.string.stepperIndex_text22'),
+    children: [
+      { name: 'template1/Index', label: "queryNavDestinationInfo18+" },
+    ]
+  }, {
+    name: 'router',
+    label: 'Router',
+    children: [
+      { name: 'template1/Index', label: $r('app.string.stepperIndex_text23') },
+    ]
+  }, {
+    name: 'routerToNavigation',
+    label: $r('app.string.routerToNavigation_text'),
+    children: [
+      { name: 'router/Index', label: $r('app.string.routerToNavigation_text1') },
+      { name: 'navigation/Index', label: $r('app.string.routerToNavigation_text2') }
+    ]
+  }, {
+    name: 'pageRouter',
+    label: $r('app.string.pageRouter_text'),
+    children: [
+      { name: 'jumpPage/Index', label: $r('app.string.pageRouter_jump_text1') },
+      { name: 'jumpPage/Login', label: $r('app.string.pageRouter_jump_text2') },
+      { name: 'jumpPage/Setting', label: $r('app.string.pageRouter_jump_text3') },
+      { name: 'jumpPage/SearchResult', label: $r('app.string.pageRouter_jump_text4') },
+      { name: 'jumpPage/IndexPara', label: $r('app.string.pageRouter_jump_text5') },
+      { name: 'jumpPage/BackHome', label: $r('app.string.pageRouter_jump_text6_pageBack') },
+      { name: 'lifeCycle/Index', label: $r('app.string.pageRouter_jump_text8_life') },
+      { name: 'pageTransition/ShowAlert', label: $r('app.string.pageRouter_jump_text9_alert') },
+      { name: 'pageTransition/ShowDialog', label: $r('app.string.pageRouter_jump_text9_dialog') }
+    ]
+  }
   ];
   @State selection: string | null = null;
 
@@ -140,7 +156,7 @@ struct Index {
       disabled: cardDisabledStyle,
     })
     .onClick(() => {
-      animateTo(
+      this.getUIContext().animateTo(
         { curve: curves.interpolatingSpring(0, 1, 228, 25) },
         () => {
           if (this.selection === route.name) {
@@ -152,9 +168,10 @@ struct Index {
     })
   }
 
-  aboutToAppear(): void{
+  aboutToAppear(): void {
     this.getUIContext().setKeyboardAvoidMode(KeyboardAvoidMode.RESIZE);
   }
+
   build() {
     Column() {
       Text('Index')
@@ -190,7 +207,7 @@ struct Index {
                   .width('100%')
                   .onClick(() => {
                     const name = `pages/${routeGroup.name}/${route.name}`;
-                    router.pushUrl({url: name})
+                    this.getUIContext().getRouter().pushUrl({ url: name });
                   })
                 }
                 .width('100%')
@@ -200,7 +217,7 @@ struct Index {
           .padding(2)
           .divider({ strokeWidth: 0.5 })
         })
-      }.padding({bottom: 10})
+      }.padding({ bottom: 10 })
     }
   }
 }

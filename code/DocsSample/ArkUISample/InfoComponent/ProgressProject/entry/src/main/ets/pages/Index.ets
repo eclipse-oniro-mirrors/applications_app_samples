@@ -15,76 +15,89 @@
 
 @Entry
 @Component
-struct ProgressCase1 {
-  @State progressValue: number = 0	// 设置进度条初始值为0
+struct Index {
+  scroller: Scroller = new Scroller();
   build() {
-    Column({space:10}) {
-      Text($r('app.string.Linear_Progress')).fontSize(9).fontColor(0xCCCCCC).width('90%')
-      Progress({ value: 0, total: 100, type: ProgressType.Linear }).width(200).height(50).value(this.progressValue)
-      Progress({ value: 0, total: 100, type: ProgressType.Linear }).width(50).height(100).value(this.progressValue)
+    NavDestination() {
+      Scroll(this.scroller) {
+        Column({space:10}) {
+          Row() {
+            // 请将$r('app.string.Progress_Style')替换为实际资源文件，在本示例中该资源文件的value值为"不同进度条样式"
+            Text($r('app.string.Progress_Style'))
+            Blank()
+            // 请将$r('app.string.Progress_Update_Example')替换为实际资源文件，在本示例中该资源文件的value值为"更新进度示例"
+            Button($r('app.string.Progress_Update_Example'))
+              .onClick((event: ClickEvent) => {
+                this.getUIContext().getRouter().pushUrl({
+                  url: 'pages/ProgressCase1'
+                })
+              })
+          }.width('90%')
+          // [Start progress_create]
+          Progress({ value: 24, total: 100, type: ProgressType.Linear }) // 创建一个进度总长为100，当前进度值为24的线性进度条
+          // [End progress_create]
+          // 请将$r('app.string.Linear_Progress')替换为实际资源文件，在本示例中该资源文件的value值为"线性样式进度条"
+          Text($r('app.string.Linear_Progress')).fontSize(9).fontColor(0xCCCCCC).width('90%')
+          // [Start progress_style_1]
+          Progress({ value: 20, total: 100, type: ProgressType.Linear }).width(200).height(50)
+          Progress({ value: 20, total: 100, type: ProgressType.Linear }).width(50).height(200)
+          // [End progress_style_1]
 
-      Text($r('app.string.Ring_Progress')).fontSize(9).fontColor(0xCCCCCC).width('90%')
-      Row({space:40}) {
-        // 从左往右，1号环形进度条，默认前景色为蓝色渐变，默认strokeWidth进度条宽度为2.0vp
-        Progress({ value: 0, total: 100, type: ProgressType.Ring }).width(50).height(50).value(this.progressValue)
-        // 从左往右，2号环形进度条
-        Progress({ value: 0, total: 100, type: ProgressType.Ring }).width(50).height(50)
-          .color(Color.Grey)// 进度条前景色为灰色
-          .style({ strokeWidth: 15 }) // 设置strokeWidth进度条宽度为15.0vp
-          .value(this.progressValue)
-      }
-
-      Text($r('app.string.ScaleRing_Progress')).fontSize(9).fontColor(0xCCCCCC).width('90%')
-      Row({space:40}) {
-        Progress({ value: 0, total: 100, type: ProgressType.ScaleRing }).width(50).height(50)
-          .backgroundColor(Color.Black)
-          .style({ scaleCount: 20, scaleWidth: 5 }) // 设置环形有刻度进度条总刻度数为20，刻度宽度为5vp
-          .value(this.progressValue)
-        Progress({ value: 0, total: 100, type: ProgressType.ScaleRing }).width(50).height(50)
-          .backgroundColor(Color.Black)
-          .style({ strokeWidth: 15, scaleCount: 20, scaleWidth: 5 }) // 设置环形有刻度进度条宽度15，总刻度数为20，刻度宽度为5vp
-          .value(this.progressValue)
-        Progress({ value: 0, total: 100, type: ProgressType.ScaleRing }).width(50).height(50)
-          .backgroundColor(Color.Black)
-          .style({ strokeWidth: 15, scaleCount: 20, scaleWidth: 3 }) // 设置环形有刻度进度条宽度15，总刻度数为20，刻度宽度为3vp
-          .value(this.progressValue)
-      }
-
-      Text($r('app.string.Eclipse_Progress')).fontSize(9).fontColor(0xCCCCCC).width('90%')
-      Row({space:40}) {
-        // 从左往右，1号圆形进度条，默认前景色为蓝色
-        Progress({ value: 0, total: 100, type: ProgressType.Eclipse }).width(50).height(50).value(this.progressValue)
-        // 从左往右，2号圆形进度条，指定前景色为灰色
-        Progress({ value: 0, total: 100, type: ProgressType.Eclipse }).color(Color.Grey).width(50).height(50).value(this.progressValue)
-      }
-
-      Text($r('app.string.Capsule_Progress')).fontSize(9).fontColor(0xCCCCCC).width('90%')
-      Row({space:40}) {
-        Progress({ value: 0, total: 100, type: ProgressType.Capsule }).width(50).height(50).value(this.progressValue)
-        Progress({ value: 0, total: 100, type: ProgressType.Capsule }).width(50).height(50).color(Color.Grey).value(this.progressValue)
-        Progress({ value: 0, total: 100, type: ProgressType.Capsule })
-          .width(50)
-          .height(50)
-          .color(Color.Blue)
-          .backgroundColor(Color.Black)
-          .value(this.progressValue)
-      }
-      Progress({value:0, total:100, type:ProgressType.Capsule}).width(200).height(50).value(this.progressValue)
-      Row().width('100%').height(20)
-
-      Button($r('app.string.progress_add'))
-        .onClick(()=>{
-          this.progressValue += 5
-          if (this.progressValue > 100){
-            this.progressValue = 0
+          // 请将$r('app.string.Ring_Progress')替换为实际资源文件，在本示例中该资源文件的value值为"环形无刻度样式进度条"
+          Text($r('app.string.Ring_Progress')).fontSize(9).fontColor(0xCCCCCC).width('90%')
+          Row({space:40}) {
+            // [Start progress_style_2]
+            // 从左往右，1号环形进度条，默认前景色为蓝色渐变，默认strokeWidth进度条宽度为4.0vp
+            Progress({ value: 40, total: 150, type: ProgressType.Ring }).width(100).height(100)
+            // 从左往右，2号环形进度条
+            Progress({ value: 40, total: 150, type: ProgressType.Ring }).width(100).height(100)
+              .color(Color.Grey)	// 进度条前景色为灰色
+              .style({ strokeWidth: 15})	// 设置strokeWidth进度条宽度为15.0vp
+            // [End progress_style_2]
           }
-        })
-      Button($r('app.string.progress_reduce'))
-        .onClick(()=>{
-          if (this.progressValue >= 5){
-            this.progressValue -= 5
+
+          // 请将$r('app.string.Ring_Progress')替换为实际资源文件，在本示例中该资源文件的value值为"环形有刻度样式进度条"
+          Text($r('app.string.ScaleRing_Progress')).fontSize(9).fontColor(0xCCCCCC).width('90%')
+          Row({space:40}) {
+            // [Start progress_style_3]
+            Progress({ value: 20, total: 150, type: ProgressType.ScaleRing }).width(100).height(100)
+              .backgroundColor(Color.Black)
+              .style({ scaleCount: 20, scaleWidth: 5 })	// 设置环形有刻度进度条总刻度数为20，刻度宽度为5vp
+            Progress({ value: 20, total: 150, type: ProgressType.ScaleRing }).width(100).height(100)
+              .backgroundColor(Color.Black)
+              .style({ strokeWidth: 15, scaleCount: 20, scaleWidth: 5 })	// 设置环形有刻度进度条宽度15，总刻度数为20，刻度宽度为5vp
+            Progress({ value: 20, total: 150, type: ProgressType.ScaleRing }).width(100).height(100)
+              .backgroundColor(Color.Black)
+              .style({ strokeWidth: 15, scaleCount: 20, scaleWidth: 3 })	// 设置环形有刻度进度条宽度15，总刻度数为20，刻度宽度为3vp
+            // [End progress_style_3]
           }
-        })
-    }.width('100%').height('100%')
+
+          // 请将$r('app.string.Eclipse_Progress')替换为实际资源文件，在本示例中该资源文件的value值为"圆形样式进度条"
+          Text($r('app.string.Eclipse_Progress')).fontSize(9).fontColor(0xCCCCCC).width('90%')
+          Row({space:40}) {
+            // [Start progress_style_4]
+            // 从左往右，1号圆形进度条，默认前景色为蓝色
+            Progress({ value: 10, total: 150, type: ProgressType.Eclipse }).width(100).height(100)
+            // 从左往右，2号圆形进度条，指定前景色为灰色
+            Progress({ value: 20, total: 150, type: ProgressType.Eclipse }).color(Color.Grey).width(100).height(100)
+            // [End progress_style_4]
+          }
+
+          // 请将$r('app.string.Capsule_Progress')替换为实际资源文件，在本示例中该资源文件的value值为"胶囊样式进度条"
+          Text($r('app.string.Capsule_Progress')).fontSize(9).fontColor(0xCCCCCC).width('90%')
+          Row({space:40}) {
+            // [Start progress_style_5]
+            Progress({ value: 10, total: 150, type: ProgressType.Capsule }).width(100).height(50)
+            Progress({ value: 20, total: 150, type: ProgressType.Capsule }).width(50).height(100).color(Color.Grey)
+            Progress({ value: 50, total: 150, type: ProgressType.Capsule }).width(50).height(100).color(Color.Blue).backgroundColor(Color.Black)
+            // [End progress_style_5]
+          }
+        }.width('100%')
+      }
+      .scale({ x: 0.98 })
+      .id('scroll_')
+    }
+    .backgroundColor('#f1f2f3')
   }
 }
+

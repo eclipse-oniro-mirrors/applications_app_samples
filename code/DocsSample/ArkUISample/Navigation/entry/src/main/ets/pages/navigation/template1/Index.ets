@@ -87,6 +87,7 @@ struct NavigationExample1 {
       .title(this.NavigationTitle)
       .menus(this.NavigationMenus)
       .titleMode(NavigationTitleMode.Full)
+      // 请将$r('app.xxx.xxx')替换为实际资源文件
       .toolbarConfiguration([
         {
           value: $r("app.string.navigation_toolbar_add"),
@@ -104,7 +105,7 @@ struct NavigationExample1 {
       .hideTitleBar(false)
       .hideToolBar(false)
       .onTitleModeChange((titleModel: NavigationTitleMode) => {
-        console.info('titleMode' + titleModel)
+        console.info('titleMode' + titleModel);
       })
     }.width('100%').height('100%').backgroundColor('#F1F3F5')
   }

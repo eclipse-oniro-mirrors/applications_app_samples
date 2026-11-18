@@ -1,0 +1,9 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/Basics",
+    "pages/Functions",
+    "pages/Classes",
+    "pages/Generics"
+  ]
+}

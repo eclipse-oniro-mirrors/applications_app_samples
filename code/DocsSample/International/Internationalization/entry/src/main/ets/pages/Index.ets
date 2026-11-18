@@ -14,7 +14,6 @@
  */
 
 import TitleBar from '../component/TitleBar';
-import router from '@ohos.router';
 import { resourceToString } from '../component/ResourceToString';
 
 interface Item {
@@ -22,9 +21,7 @@ interface Item {
 }
 
 const operationUrls: Array<string> = [
-  'i18napplication/LocaleCulturalDivision',
   'i18napplication/LanguagePreferenceSetting',
-  'i18napplication/DateTimeFormatting',
   'i18napplication/NumberMeasurementFormatting',
   'i18napplication/PhoneNumberFormatting',
   'i18napplication/CalendarSetting',
@@ -39,9 +36,7 @@ const operationUrls: Array<string> = [
 struct Index {
 
   @State ListItem: Item[] = [
-    { text: resourceToString($r('app.string.LocaleCulturalDivisionExample')) },
     { text: resourceToString($r('app.string.LanguagePreferenceSetting')) },
-    { text: resourceToString($r('app.string.DateTimeFormatting')) },
     { text: resourceToString($r('app.string.NumberMeasurementFormatting')) },
     { text: resourceToString($r('app.string.PhoneNumberFormatting')) },
     { text: resourceToString($r('app.string.CalendarSetting')) },
@@ -68,7 +63,9 @@ struct Index {
                 .width(12)
             }
             .onClick(() => {
-              router.pushUrl({
+              this.getUIContext()
+                .getRouter()
+                .pushUrl({
                 url: operationUrls[index]
               })
             })

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>惯性滚动演示</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: sans-serif;
+            background: linear-gradient(180deg, #f0f8ff 0%, #e6f7ff 100%);
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #007DFF;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #333;
+            border-left: 4px solid #007DFF;
+            padding-left: 12px;
+        }
+
+        p {
+            line-height: 1.8;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="section">
+    <h1>惯性滚动速度限制演示</h1>
+    <p>此页面用于演示 flingSpeedLimit 属性的效果。在页面上快速滑动后松手，观察惯性滚动的减速行为。</p>
+    <p>较小的速度上限会使惯性滚动更快停止，较大的速度上限允许惯性滚动持续更久。</p>
+</div>
+
+<div class="section">
+    <h2>区域 1</h2>
+    <p>向下滚动查看更多内容。尝试快速滑动并松手，感受惯性滚动的速度变化。</p>
+</div>
+
+<div class="section">
+    <h2>区域 2</h2>
+    <p>继续向下滚动...</p>
+</div>
+
+<div class="section">
+    <h2>区域 3</h2>
+    <p>页面内容继续延伸。在不同速度上限设置下，惯性滚动的距离会有明显差异。</p>
+</div>
+
+<div class="section">
+    <h2>区域 4</h2>
+    <p>更多内容展示区域。</p>
+</div>
+
+<div class="section">
+    <h2>区域 5</h2>
+    <p>继续滚动...</p>
+</div>
+
+<div class="section">
+    <h2>区域 6</h2>
+    <p>更多内容展示区域。</p>
+</div>
+
+<div class="section">
+    <h2>区域 7</h2>
+    <p>继续滚动...</p>
+</div>
+
+<div class="section">
+    <h2>页面底部</h2>
+    <p>你已经到达页面底部！向上滑动可以回到顶部。</p>
+</div>
+</body>
+</html>

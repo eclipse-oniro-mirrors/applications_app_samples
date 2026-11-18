@@ -12,16 +12,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start napi_call_threadsafe_function_with_priority_ets]
-// [Start napi_event_loop_ets]
-// [Start napi_ark_runtime_ets]
+
 import testNapi from 'libentry.so';
-// [StartExclute napi_call_threadsafe_function_with_priority_ets]
-// [StartExclute napi_event_loop_ets]
-// [StartExclute napi_ark_runtime_ets]
-// [Start napi_thread_safety_ets]
 import nativeModule from 'libentry1.so';
-// [StartExclute napi_thread_safety_ets]
+import { ErrorEvent, worker, taskpool } from '@kit.ArkTS';
+
+@Concurrent
+function nativeCall(input : string): void {
+  console.info('Taskpool thread received:%s', input);
+  nativeModule.startWithCallback('Taskpool', (result: string) => {
+    console.info('[Taskpool] Got from native:', result);
+  });
+}
+
+async function testTaskpool() : Promise<void> {
+  try {
+    const task = new taskpool.Task(nativeCall, 'Start');
+    await taskpool.execute(task);
+  } catch (e) {
+    console.error('Taskpool execute error: ${e}');
+  }
+}
+
 @Entry
 @Component
 struct Index {
@@ -35,7 +47,8 @@ struct Index {
       Button($r('app.string.createArkRuntime'))
         .width('70%')
         .onClick(() => {
-          // [EndExclute napi_ark_runtime_ets]
+          // [Start napi_ark_runtime_ets]
+          // index.ets
           testNapi.createArkRuntime();
           // [End napi_ark_runtime_ets]
           this.message = 'ArkRuntime success';
@@ -43,7 +56,8 @@ struct Index {
       Button($r('app.string.runEventLoop'))
         .width('70%')
         .onClick(() => {
-          // [EndExclute napi_event_loop_ets]
+          // [Start napi_event_loop_ets]
+          // index.ets
           testNapi.runEventLoop(true);
           // [End napi_event_loop_ets]
           this.message = 'EventLoop success';
@@ -51,7 +65,8 @@ struct Index {
       Button($r('app.string.CallThreadSafeWithPriority'))
         .width('70%')
         .onClick(() => {
-          // [EndExclute napi_call_threadsafe_function_with_priority_ets]
+          // [Start napi_call_threadsafe_function_with_priority_ets]
+          // index.ets
           let callback = (a: number, b: number): number => {
             console.info('result is ' + (a + b))
             return a + b;
@@ -63,7 +78,8 @@ struct Index {
       Button($r('app.string.startThread'))
         .width('70%')
         .onClick(() => {
-          // [EndExclute napi_thread_safety_ets]
+          // [Start napi_thread_safety_ets]
+          // index.ets
           let callback = (): Promise<string> => {
             return new Promise((resolve) => {
               setTimeout(() => {
@@ -74,6 +90,29 @@ struct Index {
           nativeModule.startThread(callback);
           // [End napi_thread_safety_ets]
           this.message = 'StartThread success';
+        })
+      Button($r('app.string.workerTest'))
+        .width('70%')
+        .onClick(() => {
+          // [Start napi_call_threadsafe_function_worker_ets]
+          // index.ets
+          const wk = new worker.ThreadWorker('entry/ets/workers/Worker.ets');
+          wk.postMessage('Start');
+          wk.onmessage = (msg) => {
+            console.info('[Main] Received:', msg.data);
+            wk.terminate();
+          }
+          // [End napi_call_threadsafe_function_worker_ets]
+          this.message = 'WorkerTest success';
+        })
+      Button($r('app.string.taskpoolTest'))
+        .width('70%')
+        .onClick(() => {
+          // [Start napi_call_threadsafe_function_taskpool_ets]
+          // index.ets
+          testTaskpool();
+          // [End napi_call_threadsafe_function_taskpool_ets]
+          this.message = 'TaskpoolTest success';
         })
     }
     .width('100%')

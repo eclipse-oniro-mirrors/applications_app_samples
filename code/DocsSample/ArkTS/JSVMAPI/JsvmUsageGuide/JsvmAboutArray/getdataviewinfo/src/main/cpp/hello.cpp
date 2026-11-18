@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,6 +64,16 @@ static int g_aa = 0;
 #define JSVM_CALL(theCall) JSVM_CALL_BASE(env, theCall, nullptr)
 // [EndExclude oh_jsvm_get_dataview_info]
 
+// 根据OH_JSVM_GetDataviewInfo的返回状态打印成功或失败日志
+static void LogGetDataViewInfo(JSVM_Status status, const char *name, int32_t value)
+{
+    if (status != JSVM_OK) {
+        OH_LOG_ERROR(LOG_APP, "JSVM GetDataViewInfo fail");
+        return;
+    }
+    OH_LOG_INFO(LOG_APP, "JSVM GetDataViewInfo success, %{public}s: %{public}d", name, value);
+}
+
 // OH_JSVM_GetDataviewInfo的样例方法
 static JSVM_Value GetDataViewInfo(JSVM_Env env, JSVM_CallbackInfo info)
 {
@@ -71,59 +81,42 @@ static JSVM_Value GetDataViewInfo(JSVM_Env env, JSVM_CallbackInfo info)
     size_t argc = 2;
     JSVM_Value args[2] = {nullptr};
     OH_JSVM_GetCbInfo(env, info, &argc, args, nullptr, nullptr);
-    // 将第二个参数转为int32类型的数字
-    int32_t infoType;
+    int32_t infoType = 0;
     OH_JSVM_GetValueInt32(env, args[1], &infoType);
-    size_t byteLength;
-    void *data;
+    size_t byteLength = 0;
+    void *data = nullptr;
     JSVM_Value arrayBuffer = nullptr;
-    size_t byteOffset;
-    // 定义枚举类型与ArkTS侧枚举类型infoType顺序含义一致
-    enum InfoTypeEnum { BYTE_LENGTHE, ARRAY_BUFFERE, BYTE_OFFSET };
-    // 获取dataview信息
+    size_t byteOffset = 0;
+    enum InfoTypeEnum { BYTE_LENGTH, ARRAY_BUFFER, BYTE_OFFSET };
     JSVM_Status status = OH_JSVM_GetDataviewInfo(env, args[0], &byteLength, &data, &arrayBuffer, &byteOffset);
     JSVM_Value result = nullptr;
     switch (infoType) {
-        case BYTE_LENGTHE:
+        case BYTE_LENGTH: {
             // 返回查询DataView的长度
-            JSVM_Value len;
-            OH_JSVM_CreateInt32(env, byteLength, &len);
-            result = len;
-            if (status != JSVM_OK) {
-                OH_LOG_ERROR(LOG_APP, "JSVM GetDataViewInfo fail");
-            } else {
-                OH_LOG_INFO(LOG_APP, "JSVM GetDataViewInfo success, byteLength: %{public}d", byteLength);
-            }
+            JSVM_CALL(OH_JSVM_CreateInt32(env, byteLength, &result));
+            LogGetDataViewInfo(status, "byteLength", byteLength);
             break;
-        case ARRAY_BUFFERE:
+        }
+        case ARRAY_BUFFER: {
             // 判断DataView的Info里的arraybuffer是否为arraybuffer
-            bool isArrayBuffer;
-            OH_JSVM_IsArraybuffer(env, arrayBuffer, &isArrayBuffer);
-            JSVM_Value isArray;
-            OH_JSVM_GetBoolean(env, isArrayBuffer, &isArray);
-            result = isArray;
-            if (status != JSVM_OK) {
-                OH_LOG_ERROR(LOG_APP, "JSVM GetDataViewInfo fail");
-            } else {
-                OH_LOG_INFO(LOG_APP, "JSVM GetDataViewInfo success, isArrayBuffer: %{public}d", isArrayBuffer);
-            }
+            bool isArrayBuffer = false;
+            JSVM_CALL(OH_JSVM_IsArraybuffer(env, arrayBuffer, &isArrayBuffer));
+            OH_JSVM_GetBoolean(env, isArrayBuffer, &result);
+            LogGetDataViewInfo(status, "isArrayBuffer", isArrayBuffer);
             break;
-        case BYTE_OFFSET:
+        }
+        case BYTE_OFFSET: {
             // 返回查询DataView的偏移量
-            JSVM_Value offset;
-            OH_JSVM_CreateInt32(env, byteOffset, &offset);
-            result = offset;
-            if (status != JSVM_OK) {
-                OH_LOG_ERROR(LOG_APP, "JSVM GetDataViewInfo fail");
-            } else {
-                OH_LOG_INFO(LOG_APP, "JSVM GetDataViewInfo success, byteOffset: %{public}d", byteOffset);
-            }
+            JSVM_CALL(OH_JSVM_CreateInt32(env, byteOffset, &result));
+            LogGetDataViewInfo(status, "byteOffset", byteOffset);
             break;
+        }
         default:
             break;
     }
     return result;
 }
+
 // GetDataViewInfo注册回调
 static JSVM_CallbackStruct param[] = {
     {.data = nullptr, .callback = GetDataViewInfo},
@@ -168,8 +161,8 @@ static int32_t TestJSVM()
     }
     // 创建JSVM环境
     CHECK(OH_JSVM_CreateVM(nullptr, &vm));
-    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK(OH_JSVM_OpenVMScope(vm, &vmScope));
+    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK_RET(OH_JSVM_OpenEnvScope(env, &envScope));
     CHECK_RET(OH_JSVM_OpenHandleScope(env, &handleScope));
 
@@ -183,8 +176,8 @@ static int32_t TestJSVM()
     // 销毁JSVM环境
     CHECK_RET(OH_JSVM_CloseHandleScope(env, handleScope));
     CHECK_RET(OH_JSVM_CloseEnvScope(env, envScope));
-    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyEnv(env));
+    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyVM(vm));
     return 0;
 }

@@ -35,8 +35,8 @@ static napi_value HandleScopeTest(napi_env env, napi_callback_info info)
     napi_get_named_property(env, obj, "key", &result);
     // 关闭句柄作用域，自动释放在该作用域内创建的对象句柄
     napi_close_handle_scope(env, scope);
-    // 此处的result能够得到值“handleScope”
-    return result;
+    // result已经离开scope的作用域，继续使用可能会存在稳定性问题，如果需要在作用域外使用对象，建议使用napi_open_escapable_handle_scope系列接口
+    return nullptr;
 }
 
 static napi_value HandleScope(napi_env env, napi_callback_info info)
@@ -74,54 +74,96 @@ static napi_value EscapableHandleScopeTest(napi_env env, napi_callback_info info
     napi_value value = nullptr;
     napi_create_string_utf8(env, "Test napi_escapable_handle_scope", NAPI_AUTO_LENGTH, &value);
     napi_set_named_property(env, obj, "key", value);
-    // 调用napi_escape_handle将对象逃逸到作用域之外
-    napi_value escapedObj = nullptr;
-    napi_escape_handle(env, scope, obj, &escapedObj);
+    napi_value prop = nullptr;
+    napi_get_named_property(env, obj, "key", &prop);
+    // 调用napi_escape_handle将属性值逃逸到作用域之外
+    napi_value result = nullptr;
+    napi_escape_handle(env, scope, prop, &result);
     // 关闭可逃逸的句柄作用域，清理资源
     napi_close_escapable_handle_scope(env, scope);
-    // 在获取逃逸后的obj：escapedObj的属性并返回，此处也能够得到“napi_escapable_handle_scope”
-    napi_value result = nullptr;
-    // 为了验证逃逸的实现，可以在此处获取obj的属性，此处会得到“undefined”
-    napi_get_named_property(env, escapedObj, "key", &result);
+    // 逃逸后的result可以在作用域外继续使用
     return result;
 }
 // [End napi_open_close_escapable_handle_scope]
 
 // [Start napi_create_delete_reference]
-// 创建一个指向napi_ref类型的指针，用于存储创建的引用。在调用napi_create_reference函数之前，你需要分配一个napi_ref类型的变量，并将其地址传递给result位置的参数
-napi_ref g_ref;
+// 创建一个napi_ref类型的指针，用于存储创建的引用。在调用napi_add_finalizer函数前，分配一个napi_ref类型的变量，并传递其地址作为result参数。
+napi_ref gRefFinalizer = nullptr;
+
+// 创建一个napi_ref类型的指针，用于存储创建的引用。在调用napi_create_reference函数前，分配一个napi_ref类型的变量，并传递其地址作为result参数。
+napi_ref gRef = nullptr;
 
 void Finalizer(napi_env env, void *data, void *hint)
 {
     // 执行资源清理操作
-    OH_LOG_INFO(LOG_APP, "Node-API: Use terminators to release resources.");
+    OH_LOG_INFO(LOG_APP, "Test Node-API Use Finalizer to release resources.");
+    // do something 执行资源清理操作
+}
+
+static napi_value AddFinalizer(napi_env env, napi_callback_info info)
+{
+    napi_value obj = nullptr;
+    napi_status status = napi_create_object(env, &obj);
+    if (status != napi_ok) {
+        napi_throw_error(env, nullptr, "napi_create_object fail");
+        return nullptr;
+    }
+    napi_value value = nullptr;
+    status = napi_create_string_utf8(env, "AddFinalizer", NAPI_AUTO_LENGTH, &value);
+    if (status != napi_ok) {
+        napi_throw_error(env, nullptr, "napi_create_string_utf8 fail");
+        return nullptr;
+    }
+    // 将键值对添加到对象中
+    status = napi_set_named_property(env, obj, "key", value);
+    if (status != napi_ok) {
+        napi_throw_error(env, nullptr, "napi_set_named_property fail");
+        return nullptr;
+    }
+
+    // 注册回调函数Finalizer用于清理资源
+    void *data = {};
+    status = napi_add_finalizer(env, obj, data, Finalizer, nullptr, &gRefFinalizer);
+    if (status != napi_ok) {
+        napi_throw_error(env, nullptr, "napi_add_finalizer fail");
+        return nullptr;
+    }
+
+    return obj;
 }
 
 static napi_value CreateReference(napi_env env, napi_callback_info info)
 {
     napi_value obj = nullptr;
-    napi_create_object(env, &obj);
+    napi_status status = napi_create_object(env, &obj);
+    if (status != napi_ok) {
+        napi_throw_error(env, nullptr, "napi_create_object fail");
+        return nullptr;
+    }
     napi_value value = nullptr;
-    napi_create_string_utf8(env, "CreateReference", NAPI_AUTO_LENGTH, &value);
+    status = napi_create_string_utf8(env, "CreateReference", NAPI_AUTO_LENGTH, &value);
+    if (status != napi_ok) {
+        napi_throw_error(env, nullptr, "napi_create_string_utf8 fail");
+        return nullptr;
+    }
     // 将键值对添加到对象中
-    napi_set_named_property(env, obj, "key", value);
-    // [StartExclude napi_create_delete_reference]
+    status = napi_set_named_property(env, obj, "key", value);
+    if (status != napi_ok) {
+        napi_throw_error(env, nullptr, "napi_set_named_property fail");
+        return nullptr;
+    }
     // 创建对ArkTS对象的引用
-    napi_status status = napi_create_reference(env, obj, 1, &g_ref);
+    status = napi_create_reference(env, obj, 1, &gRef);
     if (status != napi_ok) {
         napi_throw_error(env, nullptr, "napi_create_reference fail");
         return nullptr;
     }
-    // [EndExclude napi_create_delete_reference]
-    // 添加终结器
-    void *data = {};
-    napi_add_finalizer(env, obj, data, Finalizer, nullptr, &g_ref);
     // 增加传入引用的引用计数并返回生成的引用计数
     uint32_t result = 0;
-    napi_reference_ref(env, g_ref, &result);
-    OH_LOG_INFO(LOG_APP, "napi_reference_ref, count = %{public}d.", result);
+    status = napi_reference_ref(env, gRef, &result);
+    OH_LOG_INFO(LOG_APP, "Test Node-API napi_reference_ref, count = %{public}d.", result);
     uint32_t numCount = 2;
-    if (result != numCount) {
+    if (status != napi_ok || result != numCount) {
         // 若传入引用的引用计数未增加，则抛出错误
         napi_throw_error(env, nullptr, "napi_reference_ref fail");
         return nullptr;
@@ -133,12 +175,12 @@ static napi_value UseReference(napi_env env, napi_callback_info info)
 {
     napi_value obj = nullptr;
     // 通过调用napi_get_reference_value获取引用的ArkTS对象
-    napi_status status = napi_get_reference_value(env, g_ref, &obj);
+    napi_status status = napi_get_reference_value(env, gRef, &obj);
     if (status != napi_ok) {
         napi_throw_error(env, nullptr, "napi_get_reference_value fail");
         return nullptr;
     }
-    // 将获取到的对象返回
+    // 返回获取的对象
     return obj;
 }
 
@@ -147,25 +189,169 @@ static napi_value DeleteReference(napi_env env, napi_callback_info info)
     // 减少传入引用的引用计数并返回生成的引用计数
     uint32_t result = 0;
     napi_value count = nullptr;
-    napi_reference_unref(env, g_ref, &result);
-    OH_LOG_INFO(LOG_APP, "napi_reference_ref, count = %{public}d.", result);
+    napi_status status = napi_reference_unref(env, gRef, &result);
+    OH_LOG_INFO(LOG_APP, "Test Node-API napi_reference_unref, count = %{public}d.", result);
     uint32_t numCount = 1;
-    if (result != numCount) {
+    if (status != napi_ok || result != numCount) {
         // 若传入引用的引用计数未减少，则抛出错误
         napi_throw_error(env, nullptr, "napi_reference_unref fail");
         return nullptr;
     }
+
     // 通过调用napi_delete_reference删除对ArkTS对象的引用
-    napi_status status = napi_delete_reference(env, g_ref);
+    status = napi_delete_reference(env, gRef);
+    if (status != napi_ok) {
+        napi_throw_error(env, nullptr, "napi_delete_reference fail");
+        return nullptr;
+    }
+
+    status = napi_delete_reference(env, gRefFinalizer);
     if (status != napi_ok) {
         napi_throw_error(env, nullptr, "napi_delete_reference fail");
         return nullptr;
     }
     napi_value returnResult = nullptr;
-    napi_create_string_utf8(env, "napi_delete_reference success", NAPI_AUTO_LENGTH, &returnResult);
+    status = napi_create_string_utf8(env, "napi_delete_reference success", NAPI_AUTO_LENGTH, &returnResult);
+    if (status != napi_ok) {
+        napi_throw_error(env, nullptr, "napi_create_string_utf8 fail");
+        return nullptr;
+    }
     return returnResult;
 }
 // [End napi_create_delete_reference]
+
+// [Start napi_create_weak_reference]
+#include "napi/native_api.h"
+
+napi_ref g_weakRef = nullptr;
+
+static napi_value CreateWeakReference(napi_env env, napi_callback_info info)
+{
+    napi_value value = nullptr;
+    napi_create_string_utf8(env, "This is a test property", NAPI_AUTO_LENGTH, &value);
+    napi_value jsObject = nullptr;
+    napi_create_object(env, &jsObject);
+    napi_set_named_property(env, jsObject, "test", value);
+
+    // 清理之前的引用（如果存在）
+    if (g_weakRef != nullptr) {
+        napi_delete_reference(env, g_weakRef);
+        g_weakRef = nullptr;
+    }
+
+    // 创建弱引用，不会阻止垃圾回收，没有其他强引用持有时会被正常回收
+    napi_status status = napi_create_reference(env, jsObject, 0, &g_weakRef);
+    if (status != napi_ok) {
+        napi_throw_error(env, nullptr, "Failed to create weak reference");
+        return nullptr;
+    }
+
+    return nullptr;
+}
+
+static napi_value GetWeakReferenceValue(napi_env env, napi_callback_info info)
+{
+    napi_value weakValue;
+    napi_status status = napi_get_reference_value(env, g_weakRef, &weakValue);
+    if (status != napi_ok) {
+        napi_throw_error(env, nullptr, "Failed to get reference value");
+        return nullptr;
+    }
+
+    // 判断对象是否已被回收
+    if (weakValue == nullptr) {
+        napi_throw_error(env, nullptr, "Object has been garbage collected");
+        return nullptr;
+    }
+
+    // 尝试获取对象的属性来确认它仍然有效
+    napi_value result = nullptr;
+    napi_get_named_property(env, weakValue, "test", &result);
+
+    return result;
+}
+// [End napi_create_weak_reference]
+
+// [Start napi_create_strong_reference]
+#include "napi/native_api.h"
+
+// 全局强引用
+napi_ref g_strongRef = nullptr;
+
+// 创建强引用
+static napi_value CreateStrongReference(napi_env env, napi_callback_info info)
+{
+    napi_value value = nullptr;
+    napi_create_string_utf8(env, "This is a test property", NAPI_AUTO_LENGTH, &value);
+    napi_value jsObject = nullptr;
+    napi_create_object(env, &jsObject);
+    napi_set_named_property(env, jsObject, "test", value);
+
+    // 清理之前的强引用（如果存在）
+    if (g_strongRef != nullptr) {
+        napi_delete_reference(env, g_strongRef);
+        g_strongRef = nullptr;
+    }
+
+    // 创建强引用（初始引用计数为1），阻止垃圾回收器回收
+    napi_status status = napi_create_reference(env, jsObject, 1, &g_strongRef);
+    if (status != napi_ok) {
+        napi_throw_error(env, nullptr, "Failed to create strong reference");
+        return nullptr;
+    }
+
+    return nullptr;
+}
+
+static napi_value GetStrongReferenceValue(napi_env env, napi_callback_info info)
+{
+    napi_value jsValue;
+    napi_status status = napi_get_reference_value(env, g_strongRef, &jsValue);
+    if (status != napi_ok) {
+        napi_throw_error(env, nullptr, "Failed to get reference value");
+        return nullptr;
+    }
+
+    // 尝试获取对象的属性来确认它仍然有效
+    napi_value result = nullptr;
+    napi_get_named_property(env, jsValue, "test", &result);
+
+    return result;
+}
+
+// 清理强引用
+static napi_value CleanupStrongReference(napi_env env, napi_callback_info info)
+{
+    napi_value ret = nullptr;
+    if (g_strongRef != nullptr) {
+        // 强制删除引用，即使引用计数不为0
+        napi_delete_reference(env, g_strongRef);
+        g_strongRef = nullptr;
+        napi_get_boolean(env, true, &ret);
+        return ret;
+    }
+    napi_get_boolean(env, false, &ret);
+    return ret;
+}
+// [End napi_create_strong_reference]
+
+// [Start napi_get_global_handle_count]
+// napi_get_global_handle_count
+static napi_value GetGlobalHandleCount(napi_env env, napi_callback_info info)
+{
+    size_t count = 0;
+    napi_status status = napi_get_global_handle_count(env, &count);
+    if (status != napi_ok) {
+        napi_throw_error(env, nullptr, "Failed to get global handle count");
+        return nullptr;
+    }
+    OH_LOG_INFO(LOG_APP, "Test Node-API napi_get_global_handle_count, count = %{public}zu.", count);
+    // 将handle数量转换为ArkTS number返回
+    napi_value result = nullptr;
+    napi_create_double(env, static_cast<double>(count), &result);
+    return result;
+}
+// [End napi_get_global_handle_count]
 
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
@@ -175,9 +361,18 @@ static napi_value Init(napi_env env, napi_value exports)
         {"handleScope", nullptr, HandleScope, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"escapableHandleScopeTest", nullptr, EscapableHandleScopeTest, nullptr, nullptr, nullptr, napi_default,
          nullptr},
+        {"addFinalizer", nullptr, AddFinalizer, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"createReference", nullptr, CreateReference, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"useReference", nullptr, UseReference, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"deleteReference", nullptr, DeleteReference, nullptr, nullptr, nullptr, napi_default, nullptr}};
+        {"deleteReference", nullptr, DeleteReference, nullptr, nullptr, nullptr, napi_default, nullptr},
+        { "createWeakReference", nullptr, CreateWeakReference, nullptr, nullptr, nullptr, napi_default, nullptr },
+        { "getWeakReferenceValue", nullptr, GetWeakReferenceValue, nullptr, nullptr, nullptr, napi_default, nullptr },
+        { "createStrongReference", nullptr, CreateStrongReference, nullptr, nullptr, nullptr, napi_default, nullptr },
+        { "getStrongReferenceValue", nullptr, GetStrongReferenceValue, nullptr, nullptr, nullptr, napi_default,
+          nullptr },
+        { "cleanupStrongReference", nullptr, CleanupStrongReference, nullptr, nullptr, nullptr, napi_default, nullptr },
+        { "getGlobalHandleCount", nullptr, GetGlobalHandleCount, nullptr, nullptr, nullptr, napi_default, nullptr }
+    };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;
 }

@@ -23,7 +23,8 @@ struct Index {
   private items: string[] = [
     'Reset Result Message',
     '1.napiIsPromise',
-    '2.napiDeferred'
+    '2.napiDeferred',
+    '3.napiDeferredMicrotask'
   ]
 
   build() {
@@ -65,12 +66,12 @@ struct Index {
                   let promiseSuccess: Promise<string> =
                     testNapi.resolveRejectDeferred('success', 'fail', true) as Promise<string>;
                   promiseSuccess.then((res) => {
-                    hilog.info(0x0000, 'Node-API', 'get_resolve_deferred resolve %{public}s', res)
+                    hilog.info(0x0000, 'Node-API', 'get_resolve_deferred resolve %{public}s', res);
                     // [StartExclude ark_napi_resolve_reject_deferred]
                     this.result = 'napiDeferredSuccess';
                     // [EndExclude ark_napi_resolve_reject_deferred]
                   }).catch((err: Error) => {
-                    hilog.info(0x0000, 'Node-API', 'get_resolve_deferred reject %{public}s', err)
+                    hilog.error(0x0000, 'Node-API', 'get_resolve_deferred reject %{public}s', err);
                     // [StartExclude ark_napi_resolve_reject_deferred]
                     this.result = 'napiDeferredFail';
                     // [EndExclude ark_napi_resolve_reject_deferred]
@@ -79,17 +80,27 @@ struct Index {
                   let promiseFail: Promise<string> =
                     testNapi.resolveRejectDeferred('success', 'fail', false) as Promise<string>;
                   promiseFail.then((res) => {
-                    hilog.info(0x0000, 'Node-API', 'get_resolve_deferred resolve %{public}s', res)
+                    hilog.info(0x0000, 'Node-API', 'get_resolve_deferred resolve %{public}s', res);
                     // [StartExclude ark_napi_resolve_reject_deferred]
                     this.result = 'napiDeferredSuccess';
                     // [EndExclude ark_napi_resolve_reject_deferred]
                   }).catch((err: Error) => {
-                    hilog.info(0x0000, 'Node-API', 'get_resolve_deferred reject %{public}s', err)
+                    hilog.error(0x0000, 'Node-API', 'get_resolve_deferred reject %{public}s', err);
                     // [StartExclude ark_napi_resolve_reject_deferred]
                     this.result = 'napiDeferredFail';
                     // [EndExclude ark_napi_resolve_reject_deferred]
                   })
                   // [End ark_napi_resolve_reject_deferred]
+                } else if (item === '3.napiDeferredMicrotask') {
+                  // [Start ark_napi_open_microtask_scope]
+                  // napi_open_microtask_scope & napi_close_microtask_scope
+                  // 返回值位含义：bit0=1 作用域打开期间then回调未执行，bit1=1 作用域关闭后then回调已执行
+                  let value = testNapi.deferredMicrotask(); // 预期结果: 3（二进制0b11）
+                  hilog.info(0x0000, 'Node-API', 'deferredMicrotask %{public}s', value.toString());
+                  // [StartExclude ark_napi_open_microtask_scope]
+                  this.result = 'napiDeferredMicrotaskSuccess';
+                  // [EndExclude ark_napi_open_microtask_scope]
+                  // [End ark_napi_open_microtask_scope]
                 }
               })
           }

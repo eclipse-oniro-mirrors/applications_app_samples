@@ -1,0 +1,5 @@
+# Define project specific obfuscation rules here.
+# You can include the obfuscation configuration files with the current file name pattern.
+
+-enable-property-name
+-enable-toplevel-name

@@ -22,15 +22,17 @@ struct Index {
   @State message: string = 'KeyExchange';
 
   goToSample(url: string): void {
-    router.pushUrl({
-      url: url,
-    }, router.RouterMode.Single, (err) => {
-      if (err) {
-        console.error(`pushUrl failed, code is ${err.code}, message is ${err.message}`);
-        return;
-      }
-      console.info('pushUrl success');
-    })
+    this.getUIContext()
+      .getRouter()
+      .pushUrl({
+        url: url,
+      }, router.RouterMode.Single, (err) => {
+        if (err) {
+          console.error(`pushUrl failed, code is ${err.code}, message is ${err.message}`);
+          return;
+        }
+        console.info('pushUrl success');
+      })
   }
 
   build() {
@@ -61,7 +63,7 @@ struct Index {
         .onClick(() => {
           this.goToSample('pages/DH')
         })
-      Button($r('app.string.call_cpp_agree_key'))
+      Button($r('app.string.ecdh'))
         .padding('12vp')
         .height('40vp')
         .borderRadius($r('sys.float.ohos_id_corner_radius_button'))
@@ -69,8 +71,40 @@ struct Index {
         .fontSize('14sp')
         .fontColor('#ffffff')
         .onClick(() => {
-          let ret: number = testNapi.agreeKey();
-          this.message = 'Call C/C++ Result: ' + ret.toString();
+          this.goToSample('pages/ECDH')
+        })
+      Button($r('app.string.call_cpp_x25519_key' ))
+        .padding('12vp')
+        .height('40vp')
+        .borderRadius($r('sys.float.ohos_id_corner_radius_button'))
+        .backgroundColor($r('sys.color.ohos_id_color_emphasize'))
+        .fontSize('14sp')
+        .fontColor('#ffffff')
+        .onClick(() => {
+          let ret: number = testNapi.x25519agreeKey();
+          this.message = 'Call C/C++ X25519 Result: ' + ret.toString();
+        })
+      Button($r('app.string.call_cpp_dh_key'))
+        .padding('12vp')
+        .height('40vp')
+        .borderRadius($r('sys.float.ohos_id_corner_radius_button'))
+        .backgroundColor($r('sys.color.ohos_id_color_emphasize'))
+        .fontSize('14sp')
+        .fontColor('#ffffff')
+        .onClick(() => {
+          let ret: number = testNapi.dhagreeKey();
+          this.message = 'Call C/C++ DH Result: ' + ret.toString();
+        })
+      Button($r('app.string.call_cpp_ecdh_key'))
+        .padding('12vp')
+        .height('40vp')
+        .borderRadius($r('sys.float.ohos_id_corner_radius_button'))
+        .backgroundColor($r('sys.color.ohos_id_color_emphasize'))
+        .fontSize('14sp')
+        .fontColor('#ffffff')
+        .onClick(() => {
+          let ret: number = testNapi.ecdhagreeKey();
+          this.message = 'Call C/C++ ECDH Result: ' + ret.toString();
         })
     }
     .height('100%')

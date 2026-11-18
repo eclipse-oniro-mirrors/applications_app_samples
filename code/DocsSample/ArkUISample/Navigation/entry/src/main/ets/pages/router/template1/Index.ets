@@ -41,19 +41,22 @@ struct Index {
     let options: router.RouterOptions = {
       url: 'pages/router/template1/second',
       params: new RouterParams('This is the value of the first page', [12, 45, 78])
-    }
+    };
     // 建议使用this.getUIContext().getRouter().pushUrl()
-    router.pushUrl(options)
+    this.getUIContext()
+      .getRouter()
+      .pushUrl(options)
       .then(() => {
         console.error(`pushUrl finish`);
       })
       .catch((err: ESObject) => {
         console.error(`pushUrl failed, code is ${(err as BusinessError).code}, message is ${(err as BusinessError).message}`);
-      })
+      });
   }
 
   build() {
     Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Center, justifyContent: FlexAlign.Center }) {
+      // 请将$r('app.string.RouterTemp1PageOne_text2')替换为实际资源文件，在本示例中该资源文件的value值为"这是第一页"
       Text($r('app.string.RouterTemp1PageOne_text2'))
         .fontSize(50)
         .fontWeight(FontWeight.Bold)
@@ -65,7 +68,7 @@ struct Index {
       .margin({ top: 20 })
       .backgroundColor('#ccc')
       .onClick(() => {
-        this.routePage()
+        this.routePage();
       })
     }
     .width('100%')

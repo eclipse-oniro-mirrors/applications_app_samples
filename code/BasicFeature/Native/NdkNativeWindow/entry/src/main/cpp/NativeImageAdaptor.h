@@ -25,6 +25,7 @@
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
 #include <GLES3/gl3.h>
+#include <GLES2/gl2ext.h>
 #include <sys/mman.h>
 #include <mutex>
 #include <queue>
@@ -43,7 +44,9 @@ public:
     static napi_value NapiOnConsumerBuffer(napi_env env, napi_callback_info info);
     static napi_value NapiOnAttachBuffer(napi_env env, napi_callback_info info);
     static napi_value NapiOnDettachBuffer(napi_env env, napi_callback_info info);
-    
+    static napi_value NapiOnAcquireLatestBuffer(napi_env env, napi_callback_info info);
+    static napi_value NapiOnPreAllocBuffer(napi_env env, napi_callback_info info);
+
     static void OnFrameAvailable(void *context);
     void DealCallback(void *context);
     bool Export(napi_env env, napi_value exports);
@@ -54,6 +57,8 @@ public:
     bool InitNativeWindowCache();
     void AttachBuffer();
     void DettachBuffer();
+    int32_t AcquireLatestBuffer(uint32_t value, OHNativeWindow *InNativeWindow);
+    int32_t PreAllocBuffer(uint32_t value, OHNativeWindow *InNativeWindow);
     EGLDisplay GetPlatformEglDisplay(EGLenum platform, void *native_display, const EGLint *attrib_list);
     bool CheckEglExtension(const char *eglExtensions, const char *eglExtension);
     int32_t GetCount();
@@ -64,7 +69,9 @@ public:
 
 private:
     void SetConfigAndGetValue();
+    void SetAndGetScreenInfo();
     void GetBufferMapPlanes(NativeWindowBuffer *buffer);
+    void SetBufferColorSpace(NativeWindowBuffer *buffer);
     OHNativeWindow *nativeWindow_;
     OHNativeWindow *nativeWindowCache_;
     OH_NativeImage *image_;
@@ -79,6 +86,8 @@ private:
     std::queue<NativeWindowBuffer *> bufferCache_;
     std::queue<NativeWindowBuffer *> bufferAttached_;
     bool isAutoConsumer_;
+    bool isSingleBufferMode_ = false;
+    OHIPCParcel* parcel_ = nullptr;
 };
 }
 #endif // NdkNativeWindow_NativeImageAdaptor_H

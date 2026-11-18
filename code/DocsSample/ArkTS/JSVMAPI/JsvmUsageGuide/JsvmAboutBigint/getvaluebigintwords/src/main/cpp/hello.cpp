@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,7 +76,7 @@ static JSVM_Value GetValueBigintWords(JSVM_Env env, JSVM_CallbackInfo info)
     uint64_t* words{nullptr};
     // 调用OH_JSVM_GetValueBigintWords接口获取wordCount
     JSVM_Status status = OH_JSVM_GetValueBigintWords(env, args[0], nullptr, &wordCount, nullptr);
-    OH_LOG_INFO(LOG_APP, "OH_JSVM_GetValueBigintWords wordCount:%{public}d.", wordCount);
+    OH_LOG_INFO(LOG_APP, "OH_JSVM_GetValueBigintWords wordCount:%{public}zu.", wordCount);
     if (wordCount == 0 || wordCount > MAX_MALLOC_SIZE) {
         OH_LOG_ERROR(LOG_APP, "Invalid wordCount: %{public}zu", wordCount);
         return nullptr;
@@ -129,8 +129,8 @@ static int32_t TestJSVM()
     }
     // 创建JSVM环境
     CHECK(OH_JSVM_CreateVM(nullptr, &vm));
-    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK(OH_JSVM_OpenVMScope(vm, &vmScope));
+    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK_RET(OH_JSVM_OpenEnvScope(env, &envScope));
     CHECK_RET(OH_JSVM_OpenHandleScope(env, &handleScope));
 
@@ -144,8 +144,8 @@ static int32_t TestJSVM()
     // 销毁JSVM环境
     CHECK_RET(OH_JSVM_CloseHandleScope(env, handleScope));
     CHECK_RET(OH_JSVM_CloseEnvScope(env, envScope));
-    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyEnv(env));
+    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyVM(vm));
     return 0;
 }

@@ -8,7 +8,7 @@
 
 <!--
 
-【示例贡献温馨提示】感谢您关注OpenHarmony，如果您希望提交代码样例/示例/Demo，请参考知识体系的[《如何共建开发样例》](https://gitee.com/openharmony-sig/knowledge/blob/master/docs/co-construct_demos/README_zh.md)，首先提交到SIG（兴趣组）仓，知识体系SIG仓中的提交也是有效贡献。再次感谢您的关注！)  
+【示例贡献温馨提示】感谢您关注OpenHarmony，如果您希望提交代码样例/示例/Demo，请参考知识体系的[《如何共建开发样例》](https://gitee.com/openharmony-sig/knowledge/blob/master/docs/co-construct_demos/README_zh.md)，首先提交到SIG（兴趣组）仓，知识体系SIG仓中的提交也是有效贡献。再次感谢您的关注！)
 
 -->
 
@@ -62,11 +62,11 @@
  <tr height="18" style='height:13.50pt;'>
   <td width="170" x:str><a href="code/UI/VerifyCode">验证码布局</a></td>
   <td width="170" x:str><a href="code/UI/WindowStartIcon">启动页实现案例</a></td>
-  <td></td>
+  <td width="170" x:str><a href="code/UI/NdkBuildOnMultiThread">使用NDK多线程创建UI组件</a></td>
   <td></td>
  </tr>
  <tr height="18" style='height:13.50pt;'>
-  <td height="270" align="center" rowspan="35" style='height:202.50pt' x:str><strong>基础特性</strong></td>
+  <td height="270" align="center" rowspan="39" style='height:202.50pt' x:str><strong>基础特性</strong></td>
   <td x:str><strong>能力增强</strong></td>
   <td x:str><a href="code/BasicFeature/Ability/AbilityFeature">基础能力增强</a></td>
   <td x:str><a href="code/BasicFeature/Ability/AbilityRuntime">基础能力增强</a></td>
@@ -219,7 +219,7 @@
   <tr height="18" style='height:13.50pt;'>
   <td x:str><a href="code/BasicFeature/Native/XComponent">XComponent</a></td>
   <td x:str><a href="code/BasicFeature/Native/XComponent3D">XComponent3D</a></td>
-  <td ></td>
+  <td x:str><a href="code/BasicFeature/Native/GewuService">Gewu Service</a></td>
   <td ></td>
  </tr>
  <tr height="18" style='height:13.50pt;'>
@@ -231,6 +231,7 @@
  </tr>
   <tr height="18" style='height:13.50pt;'>
   <td x:str><a href="code/BasicFeature/Notification/CustomNotificationBadge">自定义通知角标（API 10）</a></td>
+  <td x:str><a href="code/DocsSample/Notification/ThirdpartyWearableDemo">三方穿戴设备</a></td>
   <td ></td>
   <td ></td>
   <td ></td>
@@ -296,7 +297,34 @@
   <td ></td>
  </tr>
  <tr height="18" style='height:13.50pt;'>
-<td height="90" align="center" rowspan="26" style='height:67.50pt;' x:str><strong>系统特性（仅对系统应用开放）</strong></td>
+  <td rowspan="2" x:str><strong>驱动开发</strong></td>
+  <td x:str><a href="code/DocsSample/DriverDevelopmentKit/DriverDemo">基础驱动开发样例</a></td>
+  <td x:str><a href="code/DocsSample/DriverDevelopmentKit/UsbDriverDemo">USB协议类驱动样例</a></td>
+  <td x:str><a href="code/DocsSample/DriverDevelopmentKit/HidDriverDemo">HID协议类驱动样例</a></td>
+  <td x:str><a href="code/DocsSample/DriverDevelopmentKit/UsbSerialDriverDemo">USB转串口类驱动样例</a></td>
+ </tr>
+ <tr height="18" style='height:13.50pt;'>
+  <td x:str><a href="code/DocsSample/DriverDevelopmentKit/ScsiPeripheralDemo">SCSI协议类驱动样例</a></td>
+  <td ></td>
+  <td ></td>
+  <td ></td>
+ </tr>
+  <tr height="18" style='height:13.50pt;'>
+   <td x:str><strong>总线管理</strong></td>
+   <td x:str><a href="code/DocsSample/USB/USBManagerSample">USB设备管理</a></td>
+   <td x:str><a href="code/DocsSample/USB/USBManagerSerialSample">USB虚拟串口管理</a></td>
+   <td x:str><a href="code/DocsSample/Serial/SerialManagerSample">串口管理服务</a></td>
+   <td ></td>
+  </tr>
+  <tr height="18" style='height:13.50pt;'>
+   <td x:str><strong>内容嵌入服务</strong></td>
+   <td x:str><a href="code/DocsSample/ContentEmbedKit/OEServerDemo">服务端开发</a></td>
+   <td x:str><a href="code/DocsSample/ContentEmbedKit/OEClientDemo">客户端开发</a></td>
+   <td ></td>
+   <td ></td>
+  </tr>
+ <tr height="18" style='height:13.50pt;'>
+<td height="90" align="center" rowspan="27" style='height:67.50pt;' x:str><strong>系统特性（仅对系统应用开放）</strong></td>
   <td x:str><strong>能力增强</strong></td>
   <td x:str><a href="code/SystemFeature/Ability/AbilityFeatureSystem">基础能力增强</a></td>
   <td ></td>
@@ -325,7 +353,14 @@
  <tr height="18" style='height:13.50pt;'>
   <td x:str><strong>自动填充</strong></td>
   <td x:str><a href="code/SystemFeature/AutoFill/AutoFill">AutoFill自动填充能力</a></td>
-  <td x:str><a href="code/SystemFeature/AutoFill/AutoFillScenarioization">情景化自动填充能力</a></td>
+   <td x:str><a href="code/SystemFeature/AutoFill/AutoFillScenarioization">情景化自动填充能力</a></td>
+   <td ></td>
+   <td ></td>
+  </tr>
+ <tr height="18" style='height:13.50pt;'>
+  <td x:str><strong>兼容</strong></td>
+  <td x:str><a href="code/SystemFeature/Compatibility/CompConfigCenter">兼容配置中心CompConfigCenter</a></td>
+  <td ></td>
   <td ></td>
   <td ></td>
  </tr>
@@ -347,7 +382,6 @@
   <td x:str><strong>设备管理</strong></td>
   <td x:str><a href="code/SystemFeature/DeviceManagement/DeviceManagementCollection">设备管理合集（API 11）</a></td>
   <td x:str><a href="code/SystemFeature/DeviceManagement/Mouse">鼠标外设（API 10）</a></td>
-  <td x:str><a href="code/SystemFeature/DeviceManagement/Screen">屏幕属性（API 10）</a></td>
   <td x:str><a href="code/SystemFeature/DeviceManagement/StorageStatistic">存储空间统计（API 10）</a></td>
  </tr>
  <tr height="18" style='height:13.50pt;'>
@@ -428,7 +462,6 @@
  <tr height="18" style='height:13.50pt;'>
   <td rowspan="2" x:str><strong>安全</strong></td>
   <td x:str><a href="code/SystemFeature/Security/AbilityAccessCtrl">应用访问权限控制</a></td>
-  <td x:str><a href="code/SystemFeature/Security/AuthorizedButton">安全控件类型的UI控件（API 10）</a></td>
   <td x:str><a href="code/SystemFeature/Security/CertificateFramework">证书算法库框架</a></td>
   <td x:str><a href="code/SystemFeature/Security/DLP">DLP</a></td>
  </tr>
@@ -558,13 +591,6 @@
   <td ></td>
   <td ></td>
  </tr>
-<tr height="18" style='height:13.50pt;'>
-  <td x:str><strong>社交</strong></td>
-  <td x:str><a href="code/Solutions/Social/GrapeSquare">葡萄广场</a></td>
-  <td ></td>
-  <td ></td>
-  <td ></td>
- </tr>
  <tr height="18" style='height:13.50pt;'>
   <td x:str><strong>工具</strong></td>
   <td x:str><a href="code/Solutions/Tools/ArkTSClock">ArkTS时钟</a></td>
@@ -576,7 +602,7 @@
   <td height="54" align="center" rowspan="3" style='height:40.50pt' x:str><strong>工程能力</strong></td>
   <td x:str><strong>应用程序包</strong></td>
   <td x:str><a href="code/Project/ApplicationHap/MultiHap">多HAP</a></td>
-  <td ></td>
+  <td x:str><a href="code/Project/ApplicationHap/CallHapInHsp/">HSP调用HAP指导</a></td>
   <td ></td>
   <td ></td>
  </tr>
@@ -674,15 +700,16 @@ code
 |---SystemFeature              # 系统特性
   |---Ability                      # 能力增强
   |---ApplicationModels            # 应用模型
-  |---AutoFill                     # 自动填充
-  |---Connectivity                 # 网络与连接
+|---AutoFill                     # 自动填充
+|---Compatibility                 # 兼容
+|---Connectivity                 # 网络与连接
   |---DataManagement               # 数据管理
   |---DeviceManagement             # 设备管理
   |---DeviceUsageStatistics        # 设备使用信息
   |---DistributedAppDev            # 分布式
   |---FileManagement               # 文件管理
   |---FullScreenStart              # 全屏原子化服务
-  |---IDL                          # IDL 
+  |---IDL                          # IDL
   |---Internationalnation          # 国际化
   |---Media                        # 媒体
   |---Notification                 # 通知

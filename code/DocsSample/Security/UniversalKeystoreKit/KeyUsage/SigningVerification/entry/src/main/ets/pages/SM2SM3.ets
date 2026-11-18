@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 // [Start key_algorithm_SM2SM3]
 /*
  * 密钥算法为SM2、摘要算法为SM3
@@ -23,7 +24,6 @@ let handle: number;
 let plaintext = '123456';
 let signature: Uint8Array;
 
-
 function stringToUint8Array(str: String) {
   let arr: number[] = [];
   for (let i = 0, j = str.length; i < j; ++i) {
@@ -31,7 +31,6 @@ function stringToUint8Array(str: String) {
   }
   return new Uint8Array(arr);
 }
-
 
 function uint8ArrayToString(fileData: Uint8Array) {
   let dataString = '';
@@ -41,14 +40,13 @@ function uint8ArrayToString(fileData: Uint8Array) {
   return dataString;
 }
 
-
 function getSm2GenerateProperties() {
   let properties: huks.HuksParam[] = [{
     tag: huks.HuksTag.HUKS_TAG_ALGORITHM,
     value: huks.HuksKeyAlg.HUKS_ALG_SM2
   }, {
     tag: huks.HuksTag.HUKS_TAG_KEY_SIZE,
-    value: huks.HuksKeySize.HUKS_AES_KEY_SIZE_256
+    value: huks.HuksKeySize.HUKS_SM2_KEY_SIZE_256
   }, {
     tag: huks.HuksTag.HUKS_TAG_PURPOSE,
     value: huks.HuksKeyPurpose.HUKS_KEY_PURPOSE_SIGN |
@@ -66,7 +64,7 @@ function getSm2SignProperties() {
     value: huks.HuksKeyAlg.HUKS_ALG_SM2
   }, {
     tag: huks.HuksTag.HUKS_TAG_KEY_SIZE,
-    value: huks.HuksKeySize.HUKS_AES_KEY_SIZE_256
+    value: huks.HuksKeySize.HUKS_SM2_KEY_SIZE_256
   }, {
     tag: huks.HuksTag.HUKS_TAG_PURPOSE,
     value: huks.HuksKeyPurpose.HUKS_KEY_PURPOSE_SIGN
@@ -83,7 +81,7 @@ function getSm2VerifyProperties() {
     value: huks.HuksKeyAlg.HUKS_ALG_SM2
   }, {
     tag: huks.HuksTag.HUKS_TAG_KEY_SIZE,
-    value: huks.HuksKeySize.HUKS_AES_KEY_SIZE_256
+    value: huks.HuksKeySize.HUKS_SM2_KEY_SIZE_256
   }, {
     tag: huks.HuksTag.HUKS_TAG_PURPOSE,
     value: huks.HuksKeyPurpose.HUKS_KEY_PURPOSE_VERIFY
@@ -100,8 +98,8 @@ async function generateSm2Key(keyAlias: string) {
     properties: genProperties
   }
   await huks.generateKeyItem(keyAlias, options)
-    .then((data) => {
-      console.info(`promise: generate Sm2 Key success, data = ${JSON.stringify(data)}`);
+    .then(() => {
+      console.info(`promise: generate Sm2 Key success`);
     }).catch((err: Error) => {
       console.error(`promise: generate Sm2 Key failed, error: ` + JSON.stringify(err));
       throw (err as Error);
@@ -166,7 +164,7 @@ async function deleteSm2Key(keyAlias: string) {
     properties: []
   }
   await huks.deleteKeyItem(keyAlias, emptyOptions)
-    .then((data) => {
+    .then(() => {
       console.info(`promise: delete data success`);
     }).catch((err: Error) => {
       console.error(`promise: delete data failed`);
@@ -180,8 +178,6 @@ export async function testSignVerify() {
   await verify(keyAlias, plaintext, signature);
   await deleteSm2Key(keyAlias);
 }
-
-
 // [End key_algorithm_SM2SM3]
 @Entry
 @Component

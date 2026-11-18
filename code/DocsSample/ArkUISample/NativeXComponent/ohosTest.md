@@ -1,0 +1,18 @@
+# NdkXComponent 测试用例归档
+
+## 用例表
+
+|测试功能|预置条件|输入|预期输出|是否自动|测试结果|
+|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
+| 拉起应用 | 设备正常运行 |		|成功拉起应用|是| Pass |
+| 组件创建和销毁 | 位于首页 | 1、点击"创建/销毁"按钮。2、再次点击"创建/销毁"按钮。 | 1、组件消失。2、组件显示 | 是  | Pass |
+| 响应触摸事件 | 位于首页 | 1、点击XComponent区域（灰色背景部分） | 1、页面中的五角星改变颜色 | 是 | Pass |
+| 设置最小帧率 | 位于首页 | 1、点击min对应滑动条，设置最小帧率为120 | 1、滑动条滑块位于中间位置 | 是 | Pass |
+| 设置最大帧率 | 位于首页 | 1、点击max对应滑动条，设置最大帧率为240 | 1、滑动条滑块位于最右侧 | 是 | Pass |
+| 设置期望帧率 | 位于首页 | 1、点击expected对应滑动条，设置期望帧率为120 | 1、滑动条滑块位于中间位置 | 是 | Pass |
+| 单指点击XComponent软键盘消失 | 位于首页 | 1、点击“单指点击XComponent软键盘消失”对应文本输入框。 2、再次点击XComponent区域（灰色背景部分） | 1、软件盘正常拉起2、软件盘消失 | 是 | Pass |
+| 单指点击XComponent软键盘不消失 | 位于首页 | 1、点击needSoftKeyboard=false按钮。2、点击“单指点击XComponent软键盘消失”对应文本输入框。3、再次点击XComponent区域（灰色背景部分） | 2、软件盘正常拉起3、软件盘不消失 | 是 | Pass |
+| 注册InspectorTreeGetter回调 | 位于首页 | 1、点击“InspectorTreeGetter”页签。2、点击“点击此处进入”。3、点击“Register”按钮。 | 1、进入InspectorTreeGetter示例页面。2、页面显示“register success” | 是 | Pass |
+| 获取组件树（包含第三方框架子树） | 位于InspectorTreeGetter示例页面，且已注册回调 | 1、点击“Get Inspector Tree”按钮。 | 1、页面显示“tree contains external framework subtree”，组件树JSON中包含ExternalView等模拟第三方框架节点 | 是 | Pass |
+| 注销InspectorTreeGetter回调 | 位于InspectorTreeGetter示例页面，且已注册回调 | 1、点击“Unregister”按钮。 | 1、页面显示“unregister success” | 是 | Pass |
+| 获取组件树（不包含第三方框架子树） | 位于InspectorTreeGetter示例页面，且已注销回调 | 1、点击“Get Inspector Tree”按钮。 | 1、页面显示“tree does not contain external framework subtree”，组件树JSON中不包含FlutterView等模拟第三方框架节点 | 是 | Pass |

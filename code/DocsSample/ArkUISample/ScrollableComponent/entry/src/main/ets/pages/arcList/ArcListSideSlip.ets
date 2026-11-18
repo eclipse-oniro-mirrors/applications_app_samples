@@ -17,17 +17,19 @@ import { ArcList, ArcListAttribute, ArcListItemAttribute, ArcListItem } from '@k
 import { ComponentContent, LengthMetrics } from '@ohos.arkui.node';
 import { util } from '@kit.ArkTS';
 import { ComponentCard } from '../../common/Card';
+import { common } from '@kit.AbilityKit';
 
 class Contact {
   key: string = util.generateRandomUUID(true);
-  name: string;
+  name: ResourceStr;
   firstChar: string;
 
-  constructor(name: string, firstChar: string) {
+  constructor(name: ResourceStr, firstChar: string) {
     this.name = name;
     this.firstChar = firstChar;
   }
 }
+
 @Builder
 function buildText() {
   Column() {
@@ -41,44 +43,45 @@ function buildText() {
 @Entry
 @Component
 export struct ArcListSideSlip {
+  private context1 = this.getUIContext().getHostContext() as common.UIAbilityContext;
   @State contacts: Array<object> = [
     new Contact('Alice', 'A'),
     new Contact('Bob', 'B'),
     new Contact('Charlie', 'C'),
     new Contact('Diana', 'D'),
     new Contact('Eve', 'E'),
-    new Contact('阿哈', 'A'),
-    new Contact('贝贝', 'B'),
-    new Contact('彩彩', 'C'),
-    new Contact('东东', 'D'),
-    new Contact('嗯嗯', 'E'),
-    new Contact('芳芳', 'F'),
-    new Contact('哥哥', 'G'),
-    new Contact('哈哈', 'H'),
-    new Contact('吉吉', 'J'),
-    new Contact('可可', 'K'),
-    new Contact('乐乐', 'L'),
-    new Contact('妹妹', 'M'),
-    new Contact('妮妮', 'N'),
-    new Contact('哦豁', 'O'),
-    new Contact('胖胖', 'P'),
-    new Contact('琪琪', 'Q'),
-    new Contact('然然', 'R'),
-    new Contact('叔叔', 'S'),
-    new Contact('天天', 'T'),
+    // 请将$r('app.string.xxx')替换为实际资源文件
+    new Contact($r('app.string.name_aha'), 'A'),
+    new Contact($r('app.string.name_beibei'), 'B'),
+    new Contact($r('app.string.name_caicai'), 'C'),
+    new Contact($r('app.string.name_dongdong'), 'D'),
+    new Contact($r('app.string.name_enen'), 'E'),
+    new Contact($r('app.string.name_fangfang'), 'F'),
+    new Contact($r('app.string.name_gege'), 'G'),
+    new Contact($r('app.string.name_haha'), 'H'),
+    new Contact($r('app.string.name_jiji'), 'J'),
+    new Contact($r('app.string.name_keke'), 'K'),
+    new Contact($r('app.string.name_lele'), 'L'),
+    new Contact($r('app.string.name_meimei'), 'M'),
+    new Contact($r('app.string.name_nini'), 'N'),
+    new Contact($r('app.string.name_ohuo'), 'O'),
+    new Contact($r('app.string.name_pangpang'), 'P'),
+    new Contact($r('app.string.name_qiqi'), 'Q'),
+    new Contact($r('app.string.name_ranran'), 'R'),
+    new Contact($r('app.string.name_shushu'), 'S'),
+    new Contact($r('app.string.name_tiantian'), 'T'),
   ];
-
   private scrollerForList: Scroller = new Scroller();
-
   @State indexerIndex: number = 0;
   context: UIContext = this.getUIContext();
   tabBar1: ComponentContent<Object> = new ComponentContent(this.context, wrapBuilder(buildText));
 
+  // [Start create_SideSlip_start]
   @Builder
   itemEnd(item: Contact) {
     // 构建尾端滑出组件
     Button({ type: ButtonType.Circle }) {
-      Image($r('app.media.MaterialSymbolsDelete'))
+      Image($r('app.media.ic_public_delete_filled'))
         .width(20)
         .height(20)
     }
@@ -92,21 +95,27 @@ export struct ArcListSideSlip {
         iterations: 1,
         playMode: PlayMode.Normal,
       }, () => {
+        // this.contacts为列表数据源，可根据实际场景构造，indexOf方法可获取将被删除数据在数据源中的索引
         let index = this.contacts.indexOf(item);
+        // 从数据源删除指定数据项
         this.contacts.splice(index, 1);
       })
-
     })
   }
+  // [End create_SideSlip_start]
 
   build() {
     NavDestination() {
       Column({ space: 12 }) {
+        // 请将$r('app.string.ArcListSideSlip_title')替换为实际资源文件，在本示例中该资源文件的value值为"响应列表项侧滑"
         ComponentCard({ title: $r('app.string.ArcListSideSlip_title') }) {
           Stack() {
             ArcList({ initialIndex: 0, header: this.tabBar1, scroller: this.scrollerForList }) {
               ForEach(this.contacts, (item: Contact) => {
+                // [Start bind_swipeAction_start]
+                // 构建ArcList时，通过ForEach基于数据源this.contacts循环渲染ArcListItem
                 ArcListItem() {
+                  // [StartExclude bind_swipeAction_start]
                   Row() {
                     Text(item.firstChar)
                       .textAlign(TextAlign.Center)
@@ -121,6 +130,7 @@ export struct ArcListSideSlip {
                   .borderRadius('65px')
                   .width('90%')
                   .justifyContent(FlexAlign.Start)
+                  // [EndExclude bind_swipeAction_start]
                 }
                 .swipeAction({
                   end: {
@@ -130,6 +140,7 @@ export struct ArcListSideSlip {
                     },
                   }
                 }) // 设置侧滑属性.
+                // [End bind_swipeAction_start]
                 .borderRadius('65px')
                 .width('400px')
                 .height('130px')
@@ -154,6 +165,7 @@ export struct ArcListSideSlip {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.ArcListSideSlip_title')替换为实际资源文件，在本示例中该资源文件的value值为"响应列表项侧滑"
     .title($r('app.string.ArcListSideSlip_title'))
   }
 }

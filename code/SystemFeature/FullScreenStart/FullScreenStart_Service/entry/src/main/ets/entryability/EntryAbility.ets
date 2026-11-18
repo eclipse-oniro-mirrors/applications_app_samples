@@ -49,13 +49,19 @@ export default class EntryAbility extends EmbeddableUIAbility {
   onForeground(): void {
     // Ability has brought to foreground
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onForeground');
-    let options: commonEventManager.CommonEventPublishData = {
-      parameters: {
-        'bundleName': this.context.abilityInfo.bundleName,
+    try {
+      let bundleName = this.context?.abilityInfo?.bundleName ?? '';
+      let options: commonEventManager.CommonEventPublishData = {
+        parameters: {
+          'bundleName': bundleName,
+        }
       }
+      commonEventManager.publish('GetCurrentTopAbility', options, async () => {
+      })
+    } catch (err) {
+      hilog.error(0x0000, 'testTag', 'onForeground publish failed: %{public}s',
+        JSON.stringify(err) ?? '');
     }
-    commonEventManager.publish('GetCurrentTopAbility', options, async () => {
-    })
   }
 
   onBackground(): void {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,50 +13,58 @@
  * limitations under the License.
  */
 
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import testsuite from '../test/List.test';
-import { UIAbility } from '@kit.AbilityKit';
-import { Want } from '@kit.AbilityKit';
-import { AbilityConstant } from '@kit.AbilityKit';
-import window from '@ohos.window';
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { window } from '@kit.ArkUI';
 import { Hypium } from '@ohos/hypium';
-import { logger } from '../util/Logger';
+import testsuite from '../test/List.test';
 
-const TAG: string = 'TestAbility';
+const ON_DESTROY_ERROR = -2;
 
 export default class TestAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    logger.info(TAG, `TestAbility onCreate, want param: ${JSON.stringify(want)},launchParam: ${JSON.stringify(launchParam)}`);
-    let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-    logger.info(TAG, 'start run testcase!!!');
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+  public abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
+
+  constructor() {
+    super();
+    this.abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
   }
 
-  onDestroy(): void {
-    logger.info(TAG, 'TestAbility onDestroy');
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
+    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onCreate');
+    hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
+    hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
+    let abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs;
+    abilityDelegatorArguments = abilityDelegatorRegistry.getArguments();
+    hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
+    Hypium.hypiumTest(this.abilityDelegator, abilityDelegatorArguments, testsuite);
   }
 
-  onWindowStageCreate(windowStage: window.WindowStage): void {
-    logger.info(TAG, 'TestAbility onWindowStageCreate');
-    windowStage.loadContent('testability/pages/Index', (err, data) => {
+  onDestroy() {
+    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onDestroy');
+    this.abilityDelegator.finishTest('TestAbility onDestroy unexpectedly!', ON_DESTROY_ERROR, () => {});
+  }
+
+  onWindowStageCreate(windowStage: window.WindowStage) {
+    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageCreate');
+    windowStage.loadContent('testability/pages/Index', (err) => {
       if (err.code) {
-        logger.error(TAG, `Failed to load the content. Cause: ${JSON.stringify(err)}`);
+        hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
-      logger.info(TAG, `Succeeded in loading the content. Data: ${JSON.stringify(data) ?? ''}`);
+      hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
     });
   }
 
-  onWindowStageDestroy(): void {
-    logger.info(TAG, 'TestAbility onWindowStageDestroy');
+  onWindowStageDestroy() {
+    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageDestroy');
   }
 
-  onForeground(): void {
-    logger.info(TAG, 'TestAbility onForeground');
+  onForeground() {
+    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onForeground');
   }
 
-  onBackground(): void {
-    logger.info(TAG, 'TestAbility onBackground');
+  onBackground() {
+    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onBackground');
   }
 }

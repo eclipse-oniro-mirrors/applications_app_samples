@@ -15,6 +15,7 @@
 
 // [Start generate_rsa_keypair]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function generateAsyKey() {
   // 创建一个AsyKeyGenerator实例
@@ -27,8 +28,10 @@ function generateAsyKey() {
     // 获取非对称密钥对的二进制数据
     let pkBlob = pubKey.getEncoded();
     let skBlob = priKey.getEncoded();
-    console.info('pk bin data' + pkBlob.data);
-    console.info('sk bin data' + skBlob.data);
+    console.info('pk bin data: ' + pkBlob.data);
+    console.info('sk bin data: ' + skBlob.data);
+  }).catch((error: BusinessError) => {
+    console.error(`generateAsyKey failed: errCode: ${error.code}, message: ${error.message}`);
   });
 }
 // [End generate_rsa_keypair]
