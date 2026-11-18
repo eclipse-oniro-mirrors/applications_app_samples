@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/components/canvasAndGraphicDrawing/rectSample/RectSample.ets
+ * 文件职责：RectSample 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：RectSample。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { TitleBar } from '../../../../common/TitleBar';
 import { LEFT_PADDING, RIGHT_PADDING } from '../../ComponentData';
 import { RectControlPanel } from './ChangePanel';
@@ -24,26 +31,60 @@ import { RectControlPanel } from './ChangePanel';
   .padding(12)
 }
 
+/**
+ * RectSample：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct RectSample {
+  // @State rectHeight：组件内部状态
   @State rectHeight: number = 90;
+
+  // @State rectWidth：组件内部状态
   @State rectWidth: number = 150;
+
+  // @State radiusWidth：组件内部状态
   @State radiusWidth: number = 40;
+
+  // @State radiusHeight：组件内部状态
   @State radiusHeight: number = 20;
+
+  // @State fillOpacity：组件内部状态
   @State fillOpacity: number = 50;
+
+  // @State strokeWidth：组件内部状态
   @State strokeWidth: number = 3;
+
+  // @State stroke：组件内部状态
   @State stroke: Color = Color.Blue;
+
+  // @State strokeDashArray：组件内部状态
   @State strokeDashArray: number = 1;
+
+  // @State fill：组件内部状态
   @State fill: Color = Color.Blue;
+
+  // @State strokeOpacity：组件内部状态
   @State strokeOpacity: number = 50;
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：背景色、高度
     Column() {
-      TitleBar({ title: $r('app.string.rect_title') })
+      // TitleBar：TitleBar 自定义组件
+      TitleBar({ title: $r('app.string.rect_title') }).id('rect_sample_title_bar_2')
+      // Column：垂直布局容器
+      // 关键属性：内边距、布局权重
       Column() {
+        // Column：垂直布局容器
+        // 关键属性：cardStyle、高度、外边距
         Column() {
-          Rect()
+          // Rect：矩形
+          // 关键属性：尺寸、radiusWidth、radiusHeight、fill、fillOpacity、stroke
+          Rect().id('rect_sample_rect_5')
             .size({ width: this.rectWidth, height: this.rectHeight })
             .radiusWidth(this.radiusWidth)
             .radiusHeight(this.radiusHeight)
@@ -53,12 +94,17 @@ struct RectSample {
             .strokeWidth(this.strokeWidth)
             .strokeDashArray([this.strokeDashArray])
             .strokeOpacity(this.strokeOpacity / 100)
-        }.cardStyle()
+        }.id('rect_sample_column_4').cardStyle()
         .height('35%')
         .margin({ bottom: 10 })
 
+        // Column：垂直布局容器
+        // 关键属性：cardStyle、布局权重、外边距、内边距
         Column() {
+          // Scroll：滚动容器
+          // 关键属性：cardStyle
           Scroll() {
+            // RectControlPanel：RectControlPanel 自定义组件
             RectControlPanel({
               rectHeight: $rectHeight,
               rectWidth: $rectWidth,
@@ -70,14 +116,14 @@ struct RectSample {
               strokeWidth: $strokeWidth,
               strokeDashArray: $strokeDashArray,
               strokeOpacity: $strokeOpacity
-            })
-          }
-        }.cardStyle()
+            }).id('rect_sample_rect_control_panel_8')
+          }.id('rect_sample_scroll_7')
+        }.id('rect_sample_column_6').cardStyle()
         .layoutWeight(1)
         .margin({bottom:4})
-      }.padding({ left: LEFT_PADDING, right: RIGHT_PADDING })
+      }.id('rect_sample_column_3').padding({ left: LEFT_PADDING, right: RIGHT_PADDING })
       .layoutWeight(1)
-    }
+    }.id('rect_sample_column_1')
     .backgroundColor($r('app.color.background_light_gray'))
     .height('100%')
   }

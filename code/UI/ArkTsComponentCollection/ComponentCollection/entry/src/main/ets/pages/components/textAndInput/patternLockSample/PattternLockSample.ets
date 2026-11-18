@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/components/textAndInput/patternLockSample/PattternLockSample.ets
+ * 文件职责：PattternLockSample 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：PattternLockSample。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { IntroductionTitle } from '../../../../common/IntroductionTitle'
 import { TitleBar } from '../../../../common/TitleBar'
 import { LEFT_PADDING, RIGHT_PADDING } from '../../ComponentData';
@@ -25,26 +32,50 @@ import { PatternLockControlPanel } from './ChangePanel'
   .width('100%')
 }
 
+/**
+ * PattternLockSample：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct PattternLockSample {
+  // @State passwords：组件内部状态
   @State passwords: Number[] = []
+  // @State message：组件内部状态
   @State message: string = 'please input password!'
+  // @State sideLength：组件内部状态
   @State sideLength: number = 200
+  // @State circleRadius：组件内部状态
   @State circleRadius: number = 9
+  // @State pathStrokeWidth：组件内部状态
   @State pathStrokeWidth: number = 18
+  // @State activeColor：组件内部状态
   @State activeColor: Color = Color.Blue
+  // @State selectedColor：组件内部状态
   @State selectedColor: Color = Color.Blue
+  // @State pathColor：组件内部状态
   @State pathColor: Color = Color.Blue
+  // @State regularColor：组件内部状态
   @State regularColor: Color = Color.Blue
   private patternLockController: PatternLockController = new PatternLockController()
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：主轴对齐、交叉轴对齐、背景色、高度、内边距
     Column() {
-      TitleBar({ title: $r('app.string.patternlock_title') })
+      // TitleBar：TitleBar 自定义组件
+      TitleBar({ title: $r('app.string.patternlock_title') }).id('patttern_lock_sample_title_bar_2')
+      // Column：垂直布局容器
+      // 关键属性：cardStyle、高度
       Column() {
-        Text(this.message).textAlign(TextAlign.Center).margin(20).fontSize(20)
-        PatternLock(this.patternLockController)
+        // Text：文本
+        // 关键属性：文本对齐、外边距、字号
+        Text(this.message).id('patttern_lock_sample_text_4').textAlign(TextAlign.Center).margin(20).fontSize(20)
+        // PatternLock：PatternLock 自定义组件
+        // 关键属性：sideLength、circleRadius、pathStrokeWidth、activeColor、selectedColor、pathColor
+        PatternLock(this.patternLockController).id('patttern_lock_sample_pattern_lock_5')
           .sideLength(this.sideLength)
           .circleRadius(this.circleRadius)
           .pathStrokeWidth(this.pathStrokeWidth)
@@ -75,18 +106,27 @@ struct PattternLockSample {
               this.message = "Please enter again."
             }
           })
+        // Button：按钮
+        // 关键属性：cardStyle
         Button('Reset PatternLock').margin(30).onClick(() => {
           // 重置密码锁
           this.patternLockController.reset()
           this.passwords = []
           this.message = 'Please input password'
         })
-      }.cardStyle()
+      }.id('patttern_lock_sample_column_3').cardStyle()
       .height('55%')
+      // IntroductionTitle：IntroductionTitle 自定义组件
       IntroductionTitle({ introduction: $r('app.string.patternlock_change') })
+        .id('patttern_lock_sample_introduction_title_7')
+      // Column：垂直布局容器
+      // 关键属性：cardStyle、布局权重、外边距、主轴对齐
       Column() {
+        // Scroll：滚动容器
         Scroll() {
+          // Column：垂直布局容器
           Column() {
+            // PatternLockControlPanel：PatternLockControlPanel 自定义组件
             PatternLockControlPanel({
               sideLength: $sideLength,
               pathStrokeWidth: $pathStrokeWidth,
@@ -95,14 +135,14 @@ struct PattternLockSample {
               selectedColor: $selectedColor,
               regularColor: $regularColor,
               pathColor: $pathColor
-            })
-          }
-        }
+            }).id('patttern_lock_sample_pattern_lock_control_panel_10')
+          }.id('patttern_lock_sample_column_9')
+        }.id('patttern_lock_sample_scroll_8')
       }.id('patternLock_scroll_001')
       .cardStyle()
       .layoutWeight(1)
       .margin({bottom:8})
-    }.justifyContent(FlexAlign.Start)
+    }.id('patttern_lock_sample_column_1').justifyContent(FlexAlign.Start)
     .alignItems(HorizontalAlign.Center)
     .backgroundColor($r('app.color.background_light_gray'))
     .height('100%')

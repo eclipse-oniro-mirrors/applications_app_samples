@@ -13,28 +13,55 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/universal/events/touchEventSample/TouchEventSample.ets
+ * 文件职责：TouchEventSample 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：TouchEventSample。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { IntroductionTitle } from '../../../../common/IntroductionTitle'
 import { TitleBar } from '../../../../common/TitleBar'
 
+/**
+ * TouchEventSample：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct TouchEventSample {
+  // @State positionX：组件内部状态
   @State positionX: number = 200
+  // @State positionY：组件内部状态
   @State positionY: number = 100
+  // @State touchEventInfo：组件内部状态
   @State touchEventInfo: string = ''
   private touchAreaRight: number = 0
   private touchAreaBottom: number = 0
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：宽度、高度、背景色
     Column() {
-      TitleBar({ title: $r('app.string.touch_event') })
+      // TitleBar：TitleBar 自定义组件
+      TitleBar({ title: $r('app.string.touch_event') }).id('touch_event_sample_title_bar_2')
+      // IntroductionTitle：IntroductionTitle 自定义组件
       IntroductionTitle({ introduction: $r('app.string.touch_action_tips') })
+        .id('touch_event_sample_introduction_title_3')
+      // Column：垂直布局容器
+      // 关键属性：内边距、圆角、背景色
       Column() {
+        // Row：水平布局容器
+        // 关键属性：高度、宽度、背景色、区域变化回调
         Row() {
-          Text('+')
+          // Text：文本
+          // 关键属性：字号、绝对定位
+          Text('+').id('touch_event_sample_text_6')
             .fontSize(28)
             .position({ x: this.positionX, y: this.positionY })
-        }
+        }.id('touch_event_sample_row_5')
         .height(200)
         .width('100%')
         .backgroundColor($r('app.color.background_shallow_grey'))
@@ -66,17 +93,19 @@ struct TouchEventSample {
           + '\nTarget:\n  globalPos: (' + event.target.area.globalPosition.x + ',' + event.target.area.globalPosition.y
           + ')\n  width:' + event.target.area.width + '\n  height:' + event.target.area.height
         })
-      }
+      }.id('touch_event_sample_column_4')
       .padding(12)
       .borderRadius(24)
       .backgroundColor(Color.White)
       // touch location information
-      Text(this.touchEventInfo)
+      // Text：文本
+      // 关键属性：字号、宽度、文本对齐、内边距
+      Text(this.touchEventInfo).id('touch_event_sample_text_7')
         .fontSize(18)
         .width('100%')
         .textAlign(TextAlign.Start)
         .padding({ left: 18, top: 30 })
-    }
+    }.id('touch_event_sample_column_1')
     .width('100%')
     .height('100%')
     .backgroundColor($r('app.color.background_shallow_grey'))

@@ -13,17 +13,39 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/components/textAndInput/textAreaSample/ChangePanel.ets
+ * 文件职责：ChangePanel 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：textAreaControlPanel。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { CommonItemSelect,CommonItemColorSelect } from '../../../../common/AttributeModificationTool';
 
+/**
+ * textAreaControlPanel：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct textAreaControlPanel {
+  // @Link placeholderColor：与父组件双向绑定的状态
   @Link placeholderColor: Color;
+
+  // @Link textAlign：与父组件双向绑定的状态
   @Link textAlign: TextAlign;
+
+  // @Link caretColor：与父组件双向绑定的状态
   @Link caretColor:Color;
+
+  // @Link copyOption：与父组件双向绑定的状态
   @Link copyOption: CopyOptions;
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
     Column() {
+      // CommonItemSelect：CommonItemSelect 自定义组件
       CommonItemSelect({
         name: $r('app.string.textareaa_textalign_change'),
         selects: [$r('app.string.textarea_textalign_start'),$r('app.string.textarea_textalign_center'),$r('app.string.textarea_textalign_end')],
@@ -39,7 +61,8 @@ export struct textAreaControlPanel {
               this.textAlign = TextAlign.Start;
           }
         }, testId:'textarea_select_001'
-      })
+      }).id('change_panel_common_item_select_2')
+      // CommonItemSelect：CommonItemSelect 自定义组件
       CommonItemSelect({
         name: $r('app.string.textarea_copyoptions_change'),
         selects: [$r('app.string.textarea_copyoptions_none'),$r('app.string.textarea_copyoptions_inapp'),$r('app.string.textarea_copyoptions_localdevice')],
@@ -55,19 +78,21 @@ export struct textAreaControlPanel {
             this.copyOption = CopyOptions.None;
           }
         },testId:'textarea_select_002'
-      })
+      }).id('change_panel_common_item_select_3')
+      // CommonItemColorSelect：CommonItemColorSelect 自定义组件
       CommonItemColorSelect({
         name: $r('app.string.textarea_placeholder_change'),
         isItemStyle:true,
         selectColor:$placeholderColor,
         testId:'textarea_color_001'
-      })
+      }).id('change_panel_common_item_color_select_4')
+      // CommonItemColorSelect：CommonItemColorSelect 自定义组件
       CommonItemColorSelect({
         name: $r('app.string.textarea_caretcolor_change'),
         isItemStyle:true,
         selectColor:$caretColor,
         testId:'textarea_color_002'
-      })
-    }
+      }).id('change_panel_common_item_color_select_5')
+    }.id('change_panel_column_1')
   }
 }

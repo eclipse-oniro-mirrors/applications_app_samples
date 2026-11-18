@@ -13,18 +13,42 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/components/listAndGrid/gridItemSample/GridItemControlPanel.ets
+ * 文件职责：GridItemControlPanel 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：PropertiesControlPanel。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { CommonItemTwoRowSlider, CommonItemSelect } from '../../../../common/AttributeModificationTool';
 
+/**
+ * PropertiesControlPanel：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct PropertiesControlPanel {
+  // @Link rowStart：与父组件双向绑定的状态
   @Link rowStart: number;
+
+  // @Link rowEnd：与父组件双向绑定的状态
   @Link rowEnd: number;
+
+  // @Link columnStart：与父组件双向绑定的状态
   @Link columnStart: number;
+
+  // @Link columnEnd：与父组件双向绑定的状态
   @Link columnEnd: number;
+
+  // @Link gridItemStyle：与父组件双向绑定的状态
   @Link gridItemStyle: number;
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
     Column() {
+      // CommonItemSelect：CommonItemSelect 自定义组件
       CommonItemSelect({
         name: $r('app.string.grid_item_row_start'),
         selects: ['0', '1', '2', '3', '4'],
@@ -32,8 +56,9 @@ export struct PropertiesControlPanel {
           this.rowStart = Number.parseInt(value);
         },
         testId: `griditem_001`
-      })
+      }).id('grid_item_control_panel_common_item_select_2')
 
+      // CommonItemSelect：CommonItemSelect 自定义组件
       CommonItemSelect({
         name: $r('app.string.grid_item_row_end'),
         selects: ['0', '1', '2', '3', '4'],
@@ -41,8 +66,9 @@ export struct PropertiesControlPanel {
           this.rowEnd = Number.parseInt(value);
         },
         testId: `griditem_002`
-      })
+      }).id('grid_item_control_panel_common_item_select_3')
 
+      // CommonItemSelect：CommonItemSelect 自定义组件
       CommonItemSelect({
         name: $r('app.string.grid_item_column_start'),
         selects: ['0', '1', '2', '3', '4'],
@@ -50,8 +76,9 @@ export struct PropertiesControlPanel {
           this.columnStart = Number.parseInt(value);
         },
         testId: `griditem_003`
-      })
+      }).id('grid_item_control_panel_common_item_select_4')
 
+      // CommonItemSelect：CommonItemSelect 自定义组件
       CommonItemSelect({
         name: $r('app.string.grid_item_column_end'),
         selects: ['0', '1', '2', '3', '4'],
@@ -59,9 +86,10 @@ export struct PropertiesControlPanel {
           this.columnEnd = Number.parseInt(value);
         },
         testId: `griditem_004`
-      })
+      }).id('grid_item_control_panel_common_item_select_5')
 
       // polymorphic styles
+      // CommonItemSelect：CommonItemSelect 自定义组件
       CommonItemSelect({
         name: $r('app.string.grid_item_polymorphic_styles'),
         selects: ['plain', 'none'],
@@ -73,7 +101,7 @@ export struct PropertiesControlPanel {
           }
         },
         testId: 'gridItem_style'
-      })
-    }
+      }).id('grid_item_control_panel_common_item_select_6')
+    }.id('grid_item_control_panel_column_1')
   }
 }

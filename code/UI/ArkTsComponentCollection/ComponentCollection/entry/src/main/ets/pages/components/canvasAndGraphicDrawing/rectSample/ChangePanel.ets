@@ -13,65 +13,105 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/components/canvasAndGraphicDrawing/rectSample/ChangePanel.ets
+ * 文件职责：ChangePanel 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：RectControlPanel。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { CommonItemTwoRowSlider, CommonItemColorSelect } from '../../../../common/AttributeModificationTool';
 
+/**
+ * RectControlPanel：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct RectControlPanel {
+  // @Link rectHeight：与父组件双向绑定的状态
   @Link rectHeight: number;
+
+  // @Link rectWidth：与父组件双向绑定的状态
   @Link rectWidth: number;
+
+  // @Link radiusWidth：与父组件双向绑定的状态
   @Link radiusWidth: number;
+
+  // @Link radiusHeight：与父组件双向绑定的状态
   @Link radiusHeight: number;
+
+  // @Link fillOpacity：与父组件双向绑定的状态
   @Link fillOpacity: number;
+
+  // @Link strokeWidth：与父组件双向绑定的状态
   @Link strokeWidth: number;
+
+  // @Link stroke：与父组件双向绑定的状态
   @Link stroke: Color;
+
+  // @Link strokeDashArray：与父组件双向绑定的状态
   @Link strokeDashArray: number;
+
+  // @Link fill：与父组件双向绑定的状态
   @Link fill: Color;
+
+  // @Link strokeOpacity：与父组件双向绑定的状态
   @Link strokeOpacity: number;
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
 
+    // Column：垂直布局容器
     Column() {
+      // CommonItemColorSelect：CommonItemColorSelect 自定义组件
       CommonItemColorSelect({
         name: $r('app.string.rect_fill'),
         isItemStyle: true,
         selectColor: $fill,
         testId: 'rect_color_001'
-      })
+      }).id('change_panel_common_item_color_select_2')
+      // CommonItemColorSelect：CommonItemColorSelect 自定义组件
       CommonItemColorSelect({
         name: $r('app.string.rect_stroke'),
         isItemStyle: true,
         selectColor: $stroke,
         testId: 'rect_color_002'
-      })
+      }).id('change_panel_common_item_color_select_3')
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         changeValue: $rectHeight,
         max: 200,
         min: 50,
         name: $r('app.string.rect_height'),
         testId: 'rect_slider_001'
-      })
+      }).id('change_panel_common_item_two_row_slider_4')
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         changeValue: $rectWidth,
         max: 200,
         min: 50,
         name: $r('app.string.rect_width'),
         testId: 'rect_slider_002'
-      })
+      }).id('change_panel_common_item_two_row_slider_5')
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         changeValue: $radiusWidth,
         max: 50,
         min: 0,
         name: $r('app.string.rect_radius_width'),
         testId: 'rect_slider_003'
-      })
+      }).id('change_panel_common_item_two_row_slider_6')
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         changeValue: $radiusHeight,
         max: 50,
         min: 0,
         name: $r('app.string.rect_radius_height'),
         testId: 'rect_slider_004'
-      })
+      }).id('change_panel_common_item_two_row_slider_7')
 
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         changeValue: $fillOpacity,
         max: 100,
@@ -79,7 +119,8 @@ export struct RectControlPanel {
         name: $r('app.string.rect_fill_opacity'),
         vpTest: '%',
         testId: 'rect_slider_005'
-      })
+      }).id('change_panel_common_item_two_row_slider_8')
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         changeValue: $strokeOpacity,
         max: 100,
@@ -87,21 +128,23 @@ export struct RectControlPanel {
         name: $r('app.string.rect_stroke_opacity'),
         vpTest: '%',
         testId: 'rect_slider_006'
-      })
+      }).id('change_panel_common_item_two_row_slider_9')
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         changeValue: $strokeWidth,
         max: 10,
         min: 3,
         name: $r('app.string.rect_stroke_width'),
         testId: 'rect_slider_007'
-      })
+      }).id('change_panel_common_item_two_row_slider_10')
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         changeValue: $strokeDashArray,
         max: 40,
         min: 1,
         name: $r('app.string.rect_stroke_dash'),
         testId: 'rect_slider_008'
-      })
-    }
+      }).id('change_panel_common_item_two_row_slider_11')
+    }.id('change_panel_column_1')
   }
 }
