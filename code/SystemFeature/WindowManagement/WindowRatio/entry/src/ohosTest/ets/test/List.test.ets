@@ -13,8 +13,15 @@
  * limitations under the License.
  */
 
+import { beforeEachIt } from '@ohos/hypium';
+
 import abilityTest from './Ability.test';
 
 export default function testsuite() {
+  // Yield between cases so the main EventHandler can service watchdog tasks.
+  beforeEachIt(() => new Promise<void>((resolve) => {
+    setTimeout(resolve, 1);
+  }));
+
   abilityTest();
 }
