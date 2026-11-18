@@ -43,8 +43,28 @@ constexpr double FONT_SCALE = 16.0;
 constexpr double MIN_FONT_SIZE = 12.0;
 constexpr double MAX_FONT_SIZE = 96.0;
 constexpr float DASH_INTERVALS[] = {12.0F, 8.0F};
+constexpr int32_t DASH_INTERVAL_COUNT = static_cast<int32_t>(sizeof(DASH_INTERVALS) / sizeof(DASH_INTERVALS[0]));
 // 文字落笔点相对画布宽度的左边距比例，两种绘制方式保持一致。
 constexpr double TEXT_ORIGIN_RATIO = 0.05;
+// 排版文本落笔点在画布高度上的起始比例，为上方留出视图边距。
+constexpr double TEXT_PAINT_TOP_RATIO = 0.3;
+// 单行 TextBlob 按画布高度居中绘制时的比例。
+constexpr double TEXT_BLOB_CENTER_RATIO = 0.5;
+// 排版可用行宽占画布宽度的比例。
+constexpr double TEXT_LAYOUT_WIDTH_RATIO = 0.9;
+// 测量场景的排版行宽比例，需额外留出虚线框的左右边距。
+constexpr double TEXT_MEASURE_WIDTH_RATIO = 0.8;
+// 测量虚线框左上角相对画布的位置比例。
+constexpr float MEASURE_BOX_LEFT_RATIO = 0.1F;
+constexpr float MEASURE_BOX_TOP_RATIO = 0.25F;
+// 测量虚线框的线宽。
+constexpr float MEASURE_PEN_WIDTH = 2.0F;
+// 行高倍率：按字体默认行高排版。
+constexpr double TEXT_FONT_HEIGHT_SCALE = 1.0;
+// 样式只挂一个字体族，与 FONT_PATHS 的元素个数解耦。
+constexpr int32_t FONT_FAMILY_COUNT = 1;
+// 创建字体文件对应的 Typeface 时使用默认索引。
+constexpr int32_t TYPEFACE_INDEX_DEFAULT = 0;
 
 struct TypographyBundle {
     OH_Drawing_TypographyStyle *typoStyle = nullptr;
@@ -87,7 +107,7 @@ bool RegisterSampleFont(OH_Drawing_FontCollection *fontCollection, OH_Drawing_Te
             continue;
         }
         const char *families[] = {FONT_FAMILY};
-        OH_Drawing_SetTextStyleFontFamilies(textStyle, 1, families);
+        OH_Drawing_SetTextStyleFontFamilies(textStyle, FONT_FAMILY_COUNT, families);
         return true;
     }
     return false;
@@ -108,7 +128,7 @@ bool BuildTypography(TypographyBundle &bundle, const char *text, double fontSize
     OH_Drawing_SetTextStyleFontSize(bundle.textStyle, fontSize);
     OH_Drawing_SetTextStyleFontWeight(bundle.textStyle, FONT_WEIGHT_400);
     OH_Drawing_SetTextStyleBaseLine(bundle.textStyle, TEXT_BASELINE_ALPHABETIC);
-    OH_Drawing_SetTextStyleFontHeight(bundle.textStyle, 1.0);
+    OH_Drawing_SetTextStyleFontHeight(bundle.textStyle, TEXT_FONT_HEIGHT_SCALE);
     (void)RegisterSampleFont(fontCollection, bundle.textStyle);
 
     bundle.handler = OH_Drawing_CreateTypographyHandler(bundle.typoStyle, fontCollection);
@@ -148,9 +168,11 @@ void DrawTypography(OH_Drawing_Canvas *canvas, int32_t width, int32_t height)
     }
     const double fontSize = ClampFontSize(static_cast<double>(width) / FONT_SCALE);
     TypographyBundle bundle;
-    const double maxWidth = static_cast<double>(width) * 0.9;
+    const double maxWidth = static_cast<double>(width) * TEXT_LAYOUT_WIDTH_RATIO;
     if (BuildTypography(bundle, TEXT_CONTENT, fontSize, maxWidth, fontCollection)) {
-        OH_Drawing_TypographyPaint(bundle.typography, canvas, width * TEXT_ORIGIN_RATIO, height * 0.3);
+        const double paintX = static_cast<double>(width) * TEXT_ORIGIN_RATIO;
+        const double paintY = static_cast<double>(height) * TEXT_PAINT_TOP_RATIO;
+        OH_Drawing_TypographyPaint(bundle.typography, canvas, static_cast<float>(paintX), static_cast<float>(paintY));
     }
     DestroyTypography(bundle);
     OH_Drawing_DestroyFontCollection(fontCollection);
@@ -169,7 +191,7 @@ void DrawTextBlob(OH_Drawing_Canvas *canvas, int32_t width, int32_t height)
             DRAWING_LOGW("font file not found, use default typeface, index=%{public}d", i);
             continue;
         }
-        OH_Drawing_Typeface *typeface = OH_Drawing_TypefaceCreateFromFile(FONT_PATHS[i], 0);
+        OH_Drawing_Typeface *typeface = OH_Drawing_TypefaceCreateFromFile(FONT_PATHS[i], TYPEFACE_INDEX_DEFAULT);
         if (typeface != nullptr) {
             OH_Drawing_FontSetTypeface(font, typeface);
             OH_Drawing_TypefaceDestroy(typeface);
@@ -189,7 +211,7 @@ void DrawTextBlob(OH_Drawing_Canvas *canvas, int32_t width, int32_t height)
         OH_Drawing_CanvasAttachBrush(canvas, brush);
     }
     // TextBlob 只支持单行绘制，按画布中心线定位。
-    OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, width * TEXT_ORIGIN_RATIO, height * 0.5);
+    OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, width * TEXT_ORIGIN_RATIO, height * TEXT_BLOB_CENTER_RATIO);
     if (brush != nullptr) {
         OH_Drawing_CanvasDetachBrush(canvas);
         OH_Drawing_BrushDestroy(brush);
@@ -207,7 +229,7 @@ void DrawMeasure(OH_Drawing_Canvas *canvas, int32_t width, int32_t height)
     }
     const double fontSize = ClampFontSize(static_cast<double>(width) / FONT_SCALE);
     TypographyBundle bundle;
-    const double maxWidth = static_cast<double>(width) * 0.8;
+    const double maxWidth = static_cast<double>(width) * TEXT_MEASURE_WIDTH_RATIO;
     if (!BuildTypography(bundle, TEXT_CONTENT, fontSize, maxWidth, fontCollection)) {
         DestroyTypography(bundle);
         OH_Drawing_DestroyFontCollection(fontCollection);
@@ -215,16 +237,16 @@ void DrawMeasure(OH_Drawing_Canvas *canvas, int32_t width, int32_t height)
     }
     const double textWidth = OH_Drawing_TypographyGetLongestLine(bundle.typography);
     const double textHeight = OH_Drawing_TypographyGetHeight(bundle.typography);
-    const float left = static_cast<float>(width) * 0.1F;
-    const float top = static_cast<float>(height) * 0.25F;
+    const float left = static_cast<float>(width) * MEASURE_BOX_LEFT_RATIO;
+    const float top = static_cast<float>(height) * MEASURE_BOX_TOP_RATIO;
     OH_Drawing_Rect *rect = CreateRect(left, top, left + static_cast<float>(textWidth),
         top + static_cast<float>(textHeight));
     OH_Drawing_Pen *pen = OH_Drawing_PenCreate();
     if (pen != nullptr) {
         float intervals[] = {DASH_INTERVALS[0], DASH_INTERVALS[1]};
-        OH_Drawing_PathEffect *pathEffect = OH_Drawing_CreateDashPathEffect(intervals, 2, 0.0F);
+        OH_Drawing_PathEffect *pathEffect = OH_Drawing_CreateDashPathEffect(intervals, DASH_INTERVAL_COUNT, 0.0F);
         OH_Drawing_PenSetAntiAlias(pen, true);
-        OH_Drawing_PenSetWidth(pen, 2.0F);
+        OH_Drawing_PenSetWidth(pen, MEASURE_PEN_WIDTH);
         OH_Drawing_PenSetColor(pen, COLOR_ACCENT);
         OH_Drawing_PenSetPathEffect(pen, pathEffect);
         OH_Drawing_CanvasAttachPen(canvas, pen);
