@@ -19,10 +19,8 @@
 #include <GLES3/gl3.h>
 #include <hilog/log.h>
 
-namespace PixelProbe
-{
-    namespace
-    {
+namespace PixelProbe {
+    namespace {
         constexpr uint32_t PROBE_LOG_DOMAIN = 0xF811;
         constexpr const char *PROBE_LOG_TAG = "[Sample_AppXComponent3D]";
 
@@ -41,8 +39,7 @@ namespace PixelProbe
         // eglChooseConfig 请求返回的配置个数
         constexpr EGLint PROBE_CONFIG_COUNT = 1;
 
-        struct EglBundle
-        {
+        struct EglBundle {
             EGLDisplay display = EGL_NO_DISPLAY;
             EGLSurface pbuffer = EGL_NO_SURFACE;
             EGLContext context = EGL_NO_CONTEXT;
@@ -50,18 +47,15 @@ namespace PixelProbe
 
         void ReleaseEgl(EglBundle &bundle)
         {
-            if (bundle.display == EGL_NO_DISPLAY)
-            {
+            if (bundle.display == EGL_NO_DISPLAY) {
                 return;
             }
             eglMakeCurrent(bundle.display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
-            if (bundle.context != EGL_NO_CONTEXT)
-            {
+            if (bundle.context != EGL_NO_CONTEXT) {
                 eglDestroyContext(bundle.display, bundle.context);
                 bundle.context = EGL_NO_CONTEXT;
             }
-            if (bundle.pbuffer != EGL_NO_SURFACE)
-            {
+            if (bundle.pbuffer != EGL_NO_SURFACE) {
                 eglDestroySurface(bundle.display, bundle.pbuffer);
                 bundle.pbuffer = EGL_NO_SURFACE;
             }
@@ -82,8 +76,7 @@ namespace PixelProbe
                 EGL_NONE};
             EGLint configCount = 0;
             if (eglChooseConfig(display, configAttribs, &config, PROBE_CONFIG_COUNT, &configCount) != EGL_TRUE ||
-                configCount < PROBE_CONFIG_COUNT)
-            {
+                configCount < PROBE_CONFIG_COUNT) {
                 OH_LOG_Print(LOG_APP, LOG_ERROR, PROBE_LOG_DOMAIN, PROBE_LOG_TAG,
                              "pixel probe: eglChooseConfig failed");
                 return false;
@@ -94,12 +87,11 @@ namespace PixelProbe
         bool AttachProbeContext(EglBundle &bundle, EGLConfig config)
         {
             const EGLint surfaceAttribs[] = {
-                EGL_WIDTH, PROBE_SURFACE_SIZE,
-                EGL_HEIGHT, PROBE_SURFACE_SIZE,
+                EGL_WIDTH, PROBE_BUFFER_EDGE,
+                EGL_HEIGHT, PROBE_BUFFER_EDGE,
                 EGL_NONE};
             bundle.pbuffer = eglCreatePbufferSurface(bundle.display, config, surfaceAttribs);
-            if (bundle.pbuffer == EGL_NO_SURFACE)
-            {
+            if (bundle.pbuffer == EGL_NO_SURFACE) {
                 OH_LOG_Print(LOG_APP, LOG_ERROR, PROBE_LOG_DOMAIN, PROBE_LOG_TAG,
                              "pixel probe: eglCreatePbufferSurface failed");
                 return false;
@@ -107,15 +99,13 @@ namespace PixelProbe
 
             const EGLint contextAttribs[] = {EGL_CONTEXT_CLIENT_VERSION, PROBE_GLES_VERSION, EGL_NONE};
             bundle.context = eglCreateContext(bundle.display, config, EGL_NO_CONTEXT, contextAttribs);
-            if (bundle.context == EGL_NO_CONTEXT)
-            {
+            if (bundle.context == EGL_NO_CONTEXT) {
                 OH_LOG_Print(LOG_APP, LOG_ERROR, PROBE_LOG_DOMAIN, PROBE_LOG_TAG,
                              "pixel probe: eglCreateContext failed");
                 return false;
             }
 
-            if (eglMakeCurrent(bundle.display, bundle.pbuffer, bundle.pbuffer, bundle.context) != EGL_TRUE)
-            {
+            if (eglMakeCurrent(bundle.display, bundle.pbuffer, bundle.pbuffer, bundle.context) != EGL_TRUE) {
                 OH_LOG_Print(LOG_APP, LOG_ERROR, PROBE_LOG_DOMAIN, PROBE_LOG_TAG,
                              "pixel probe: eglMakeCurrent failed");
                 return false;
@@ -126,22 +116,19 @@ namespace PixelProbe
         bool PrepareEgl(EglBundle &bundle)
         {
             bundle.display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-            if (bundle.display == EGL_NO_DISPLAY)
-            {
+            if (bundle.display == EGL_NO_DISPLAY) {
                 OH_LOG_Print(LOG_APP, LOG_ERROR, PROBE_LOG_DOMAIN, PROBE_LOG_TAG, "pixel probe: no egl display");
                 return false;
             }
             EGLint major = 0;
             EGLint minor = 0;
-            if (eglInitialize(bundle.display, &major, &minor) != EGL_TRUE)
-            {
+            if (eglInitialize(bundle.display, &major, &minor) != EGL_TRUE) {
                 OH_LOG_Print(LOG_APP, LOG_ERROR, PROBE_LOG_DOMAIN, PROBE_LOG_TAG, "pixel probe: eglInitialize failed");
                 return false;
             }
 
             EGLConfig config = nullptr;
-            if (!ChooseProbeConfig(bundle.display, config))
-            {
+            if (!ChooseProbeConfig(bundle.display, config)) {
                 return false;
             }
             return AttachProbeContext(bundle, config);
@@ -151,18 +138,16 @@ namespace PixelProbe
     int32_t RenderSolidAndRead(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha,
                                uint8_t outRgba[PROBE_RGBA_BYTES])
     {
-        if (outRgba == nullptr)
-        {
+        if (outRgba == nullptr) {
             return PROBE_RESULT_BAD_PARAMETER;
         }
         EglBundle bundle;
-        if (!PrepareEgl(bundle))
-        {
+        if (!PrepareEgl(bundle)) {
             ReleaseEgl(bundle);
             return PROBE_RESULT_FAILED;
         }
 
-        glViewport(0, 0, PROBE_SURFACE_SIZE, PROBE_SURFACE_SIZE);
+        glViewport(0, 0, PROBE_BUFFER_EDGE, PROBE_BUFFER_EDGE);
         glClearColor(static_cast<GLfloat>(red) / CHANNEL_MAX_F, static_cast<GLfloat>(green) / CHANNEL_MAX_F,
                      static_cast<GLfloat>(blue) / CHANNEL_MAX_F, static_cast<GLfloat>(alpha) / CHANNEL_MAX_F);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -170,14 +155,13 @@ namespace PixelProbe
 
         // 左下角与右上角各取一个像素，用来验证清屏覆盖整个 pbuffer
         glReadPixels(0, 0, PROBE_SAMPLE_PIXELS, PROBE_SAMPLE_PIXELS, GL_RGBA, GL_UNSIGNED_BYTE, outRgba);
-        glReadPixels(PROBE_SURFACE_SIZE - PROBE_SAMPLE_PIXELS, PROBE_SURFACE_SIZE - PROBE_SAMPLE_PIXELS,
+        glReadPixels(PROBE_BUFFER_EDGE - PROBE_SAMPLE_PIXELS, PROBE_BUFFER_EDGE - PROBE_SAMPLE_PIXELS,
                      PROBE_SAMPLE_PIXELS, PROBE_SAMPLE_PIXELS, GL_RGBA, GL_UNSIGNED_BYTE,
                      outRgba + PROBE_CHANNEL_BYTES);
 
         const GLenum glError = glGetError();
         ReleaseEgl(bundle);
-        if (glError != GL_NO_ERROR)
-        {
+        if (glError != GL_NO_ERROR) {
             OH_LOG_Print(LOG_APP, LOG_ERROR, PROBE_LOG_DOMAIN, PROBE_LOG_TAG,
                          "pixel probe: glError %{public}u", glError);
             return PROBE_RESULT_FAILED;
@@ -185,8 +169,8 @@ namespace PixelProbe
         return PROBE_RESULT_OK;
     }
 
-    int32_t GetProbeSurfaceSize()
+    int32_t GetProbeBufferEdge()
     {
-        return PROBE_SURFACE_SIZE;
+        return PROBE_BUFFER_EDGE;
     }
 } // namespace PixelProbe

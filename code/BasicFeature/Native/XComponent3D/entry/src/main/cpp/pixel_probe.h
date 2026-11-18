@@ -18,10 +18,9 @@
 
 #include <cstdint>
 
-namespace PixelProbe
-{
+namespace PixelProbe {
     // 离线渲染用的 pbuffer 边长，取 4 是为了让 glReadPixels 的采样点远离边缘
-    const int32_t PROBE_SURFACE_SIZE = 4;
+    const int32_t PROBE_BUFFER_EDGE = 4;
 
     // 单个采样点的通道字节数：R、G、B、A 各一字节
     const int32_t PROBE_CHANNEL_BYTES = 4;
@@ -43,7 +42,7 @@ namespace PixelProbe
                                uint8_t outRgba[PROBE_RGBA_BYTES]);
 
     // 回读 pbuffer 边长，供用例核对采样面积
-    int32_t GetProbeSurfaceSize();
+    int32_t GetProbeBufferEdge();
 } // namespace PixelProbe
 
 #endif // XCOMPONENT3D_PIXEL_PROBE_H

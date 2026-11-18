@@ -25,8 +25,7 @@
 
 #define CIRCUMFERENCE_DEGREE 360
 
-class AppNapi
-{
+class AppNapi {
 public:
     explicit AppNapi(std::string &id);
     static AppNapi *GetInstance(std::string &id);

@@ -51,8 +51,7 @@ static void OnSurfaceCreatedCB(OH_NativeXComponent *component, void *window)
     char idStr[OH_XCOMPONENT_ID_LEN_MAX + 1] = {};
     uint64_t idSize = OH_XCOMPONENT_ID_LEN_MAX + 1;
     ret = OH_NativeXComponent_GetXComponentId(component, idStr, &idSize);
-    if (ret != OH_NATIVEXCOMPONENT_RESULT_SUCCESS)
-    {
+    if (ret != OH_NATIVEXCOMPONENT_RESULT_SUCCESS) {
         return;
     }
 
@@ -67,8 +66,7 @@ static void OnSurfaceChangedCB(OH_NativeXComponent *component, void *window)
     char idStr[OH_XCOMPONENT_ID_LEN_MAX + 1] = {};
     uint64_t idSize = OH_XCOMPONENT_ID_LEN_MAX + 1;
     retChange = OH_NativeXComponent_GetXComponentId(component, idStr, &idSize);
-    if (retChange != OH_NATIVEXCOMPONENT_RESULT_SUCCESS)
-    {
+    if (retChange != OH_NATIVEXCOMPONENT_RESULT_SUCCESS) {
         return;
     }
     std::string id(idStr);
@@ -82,8 +80,7 @@ static void OnSurfaceDestroyedCB(OH_NativeXComponent *component, void *window)
     char idStr[OH_XCOMPONENT_ID_LEN_MAX + 1] = {};
     uint64_t idSize = OH_XCOMPONENT_ID_LEN_MAX + 1;
     ret = OH_NativeXComponent_GetXComponentId(component, idStr, &idSize);
-    if (ret != OH_NATIVEXCOMPONENT_RESULT_SUCCESS)
-    {
+    if (ret != OH_NATIVEXCOMPONENT_RESULT_SUCCESS) {
         return;
     }
     std::string id(idStr);
@@ -99,8 +96,7 @@ static void DispatchTouchEventCB(OH_NativeXComponent *component, void *window)
     char idStr[OH_XCOMPONENT_ID_LEN_MAX + 1] = {};
     uint64_t idSize = OH_XCOMPONENT_ID_LEN_MAX + 1;
     ret = OH_NativeXComponent_GetXComponentId(component, idStr, &idSize);
-    if (ret != OH_NATIVEXCOMPONENT_RESULT_SUCCESS)
-    {
+    if (ret != OH_NATIVEXCOMPONENT_RESULT_SUCCESS) {
         return;
     }
     std::string id(idStr);
@@ -115,8 +111,7 @@ static void DispatchMouseEventCB(OH_NativeXComponent *component, void *window)
     char idStr[OH_XCOMPONENT_ID_LEN_MAX + 1] = {};
     uint64_t idSize = OH_XCOMPONENT_ID_LEN_MAX + 1;
     ret = OH_NativeXComponent_GetXComponentId(component, idStr, &idSize);
-    if (ret != OH_NATIVEXCOMPONENT_RESULT_SUCCESS)
-    {
+    if (ret != OH_NATIVEXCOMPONENT_RESULT_SUCCESS) {
         return;
     }
     std::string id(idStr);
@@ -141,14 +136,11 @@ AppNapi::AppNapi(std::string &id)
 
 AppNapi *AppNapi::GetInstance(std::string &id)
 {
-    if (instance_.find(id) == instance_.end())
-    {
+    if (instance_.find(id) == instance_.end()) {
         AppNapi *instance = new AppNapi(id);
         instance_[id] = instance;
         return instance;
-    }
-    else
-    {
+    } else {
         return instance_[id];
     }
 }
@@ -175,8 +167,7 @@ void AppNapi::OnSurfaceCreated(OH_NativeXComponent *component, void *window)
     int32_t ret = OH_NativeXComponent_GetXComponentSize(component, window, &width_, &height_);
 
     LOGE("Offset : x = %{public}f, y = %{public}f ", x_, y_);
-    if (ret == OH_NATIVEXCOMPONENT_RESULT_SUCCESS)
-    {
+    if (ret == OH_NATIVEXCOMPONENT_RESULT_SUCCESS) {
         openglDraw->Init(reinterpret_cast<EGLNativeWindowType>(window), width_, height_);
         openglDraw->Update();
         isCreated_++;
@@ -184,23 +175,18 @@ void AppNapi::OnSurfaceCreated(OH_NativeXComponent *component, void *window)
         xcWidth_ = width_;
 
         int32_t retOffset = OH_NativeXComponent_GetXComponentOffset(component, window, &x_, &y_);
-        if (retOffset == OH_NATIVEXCOMPONENT_RESULT_SUCCESS)
-        {
+        if (retOffset == OH_NATIVEXCOMPONENT_RESULT_SUCCESS) {
             off_x = x_;
             off_y = y_;
             LOGE("Offset : x = %{public}lf, y = %{public}lf ", off_x, off_y);
-        }
-        else
-        {
+        } else {
             LOGE("Offset Get failed");
         }
 
         window_ = window;
 
         LOGE("AppNapi::OnSurfaceCreated success ");
-    }
-    else
-    {
+    } else {
         LOGE("AppNapi::OnSurfaceCreated failed");
     }
 }
@@ -210,8 +196,7 @@ void AppNapi::OnSurfaceChanged(OH_NativeXComponent *component, void *window)
     LOGE("AppNapi::OnSurfaceChanged");
     int32_t ret = OH_NativeXComponent_GetXComponentSize(component, window, &width_, &height_);
     int32_t ret1;
-    if (ret == OH_NATIVEXCOMPONENT_RESULT_SUCCESS)
-    {
+    if (ret == OH_NATIVEXCOMPONENT_RESULT_SUCCESS) {
         xcHeight_ = height_;
         xcWidth_ = width_;
         window_ = window;
@@ -220,12 +205,9 @@ void AppNapi::OnSurfaceChanged(OH_NativeXComponent *component, void *window)
         off_x = x_;
         off_y = y_;
 
-        if (ret1 == OH_NATIVEXCOMPONENT_RESULT_SUCCESS)
-        {
+        if (ret1 == OH_NATIVEXCOMPONENT_RESULT_SUCCESS) {
             LOGE("Offset : x = %{public}lf, y = %{public}lf ", off_x, off_y);
-        }
-        else
-        {
+        } else {
             LOGE("Offset Get failed");
         }
 
@@ -245,13 +227,11 @@ void AppNapi::OnSurfaceDestroyed(OH_NativeXComponent *component, void *window)
 void AppNapi::DispatchTouchEvent(OH_NativeXComponent *component, void *window)
 {
     int32_t ret = OH_NativeXComponent_GetTouchEvent(component, window, &touchEvent_);
-    if (ret == OH_NATIVEXCOMPONENT_RESULT_SUCCESS)
-    {
+    if (ret == OH_NATIVEXCOMPONENT_RESULT_SUCCESS) {
         testTouchEvent_ = touchEvent_;
         LOGE("Touch Info : x = %{public}f, y = %{public}f screenx = %{public}f, screeny = %{public}f", touchEvent_.x,
              touchEvent_.y, touchEvent_.screenX, touchEvent_.screenY);
-        for (uint32_t i = 0; i < touchEvent_.numPoints; i++)
-        {
+        for (uint32_t i = 0; i < touchEvent_.numPoints; i++) {
             LOGE("Touch Info : dots[%{public}d] id %{public}d x = %{public}f, y = %{public}f", i,
                  touchEvent_.touchPoints[i].id, touchEvent_.touchPoints[i].x, touchEvent_.touchPoints[i].y);
             LOGE("Touch Info : screenx = %{public}f, screeny = %{public}f", touchEvent_.touchPoints[i].screenX,
@@ -270,9 +250,7 @@ void AppNapi::DispatchTouchEvent(OH_NativeXComponent *component, void *window)
             tiltY_ = tiltY;
             LOGE("Touch Info : [%{public}d] %{public}u, %{public}f, %{public}f", i, toolType, tiltX, tiltY);
         }
-    }
-    else
-    {
+    } else {
         LOGE("Touch fail");
     }
 }
@@ -281,23 +259,19 @@ void AppNapi::DispatchMouseEvent(OH_NativeXComponent *component, void *window)
 {
     int32_t ret = OH_NativeXComponent_GetMouseEvent(component, window, &mouseEvent_);
     LOGE("Mouse Info DispatchMouseEvent");
-    if (ret == OH_NATIVEXCOMPONENT_RESULT_SUCCESS)
-    {
+    if (ret == OH_NATIVEXCOMPONENT_RESULT_SUCCESS) {
         testMouseEvent_ = mouseEvent_;
         LOGE("Mouse Info : x = %{public}f, y = %{public}f screenx = %{public}f, screeny = %{public}f", mouseEvent_.x,
              mouseEvent_.y, mouseEvent_.screenX, mouseEvent_.screenY);
         LOGE("Mouse Info : action = %{public}d, button = %{public}d", mouseEvent_.action, mouseEvent_.button);
-    }
-    else
-    {
+    } else {
         LOGE("Mouse Info fail");
     }
 }
 
 napi_value AppNapi::Animate(napi_env env, napi_callback_info info)
 {
-    if (openglDraw != nullptr)
-    {
+    if (openglDraw != nullptr) {
         openglDraw->Animate();
         openglDraw->Update();
     }
@@ -321,20 +295,17 @@ napi_value AppNapi::Quit(napi_env env, napi_callback_info info)
     NAPI_CALL(env, napi_get_cb_info(env, info, NULL, NULL, &thisArg, NULL));
 
     status = napi_get_named_property(env, thisArg, OH_NATIVE_XCOMPONENT_OBJ, &exportInstance);
-    if (status != napi_ok)
-    {
+    if (status != napi_ok) {
         return nullptr;
     }
 
     status = napi_unwrap(env, exportInstance, reinterpret_cast<void **>(&nativeXComponent));
-    if (status != napi_ok)
-    {
+    if (status != napi_ok) {
         return nullptr;
     }
 
     ret = OH_NativeXComponent_GetXComponentId(nativeXComponent, idStr, &idSize);
-    if (ret != OH_NATIVEXCOMPONENT_RESULT_SUCCESS)
-    {
+    if (ret != OH_NATIVEXCOMPONENT_RESULT_SUCCESS) {
         return nullptr;
     }
 
@@ -356,8 +327,7 @@ napi_value AppNapi::GetXComponentId(napi_env env, napi_callback_info info)
     status = napi_get_named_property(env, thisArg, OH_NATIVE_XCOMPONENT_OBJ, &exportInstance);
     status = napi_unwrap(env, exportInstance, reinterpret_cast<void **>(&nativeXComponent));
     ret = OH_NativeXComponent_GetXComponentId(nativeXComponent, idStr, &idSize);
-    if (ret != OH_NATIVEXCOMPONENT_RESULT_SUCCESS)
-    {
+    if (ret != OH_NATIVEXCOMPONENT_RESULT_SUCCESS) {
         return nullptr;
     }
 
@@ -509,87 +479,115 @@ napi_value AppNapi::GetShapeIndex(napi_env env, napi_callback_info info)
     return output;
 }
 
+namespace {
+    // 注册一组函数：失败只记日志，不中断其余分组
+    void DefineFunctionGroup(napi_env env, napi_value exports, const napi_property_descriptor *desc, size_t count)
+    {
+        napi_status status = napi_define_properties(env, exports, count, desc);
+        if (status != napi_ok) {
+            LOGE("RegisterXtsFunctions failed %{public}d", status);
+        }
+    }
+
+    // 绘制控制、尺寸与事件查询接口
+    void RegisterShapeAndQueryFunctions(napi_env env, napi_value exports)
+    {
+        const napi_property_descriptor desc[] = {
+            DECLARE_NAPI_FUNCTION("Quit", AppNapi::Quit),
+            DECLARE_NAPI_FUNCTION("GetXComponentId", AppNapi::GetXComponentId),
+            DECLARE_NAPI_FUNCTION("GetXComponentSize_Height", AppNapi::GetXComponentSize_Height),
+            DECLARE_NAPI_FUNCTION("GetXComponentSize_Width", AppNapi::GetXComponentSize_Width),
+            DECLARE_NAPI_FUNCTION("GetXComponentOffset_x", AppNapi::GetXComponentOffset_x),
+            DECLARE_NAPI_FUNCTION("GetXComponentOffset_y", AppNapi::GetXComponentOffset_y),
+            DECLARE_NAPI_FUNCTION("GetXComponent_TouchEvent", AppNapi::GetXComponent_TouchEvent),
+            DECLARE_NAPI_FUNCTION("GetXComponent_MouseEvent", AppNapi::GetXComponent_MouseEvent),
+            DECLARE_NAPI_FUNCTION("GetXComponentpointtool_tilty", AppNapi::GetXComponentpointtool_tilty),
+            DECLARE_NAPI_FUNCTION("GetXComponentpointtool_type", AppNapi::GetXComponentpointtool_type),
+            DECLARE_NAPI_FUNCTION("GetXComponentpointtool_tiltx", AppNapi::GetXComponentpointtool_tiltx),
+            DECLARE_NAPI_FUNCTION("GetXComponent_RegisterMouseEventCallback",
+                                  AppNapi::GetXComponent_RegisterMouseEventCallback),
+            DECLARE_NAPI_FUNCTION("getShapeIndex", AppNapi::GetShapeIndex),
+        };
+        DefineFunctionGroup(env, exports, desc, sizeof(desc) / sizeof(desc[0]));
+    }
+
+    // probe 查询类接口：直接调用原生查询函数
+    void RegisterProbeQueryFunctions(napi_env env, napi_value exports)
+    {
+        const napi_property_descriptor desc[] = {
+            DECLARE_NAPI_FUNCTION("probeGetXComponentId", AppNapi::ProbeGetXComponentId),
+            DECLARE_NAPI_FUNCTION("probeGetXComponentSize", AppNapi::ProbeGetXComponentSize),
+            DECLARE_NAPI_FUNCTION("probeGetXComponentOffset", AppNapi::ProbeGetXComponentOffset),
+            DECLARE_NAPI_FUNCTION("probeGetTouchPointToolType", AppNapi::ProbeGetTouchPointToolType),
+            DECLARE_NAPI_FUNCTION("probeGetTouchPointTiltX", AppNapi::ProbeGetTouchPointTiltX),
+            DECLARE_NAPI_FUNCTION("probeGetTouchPointTiltY", AppNapi::ProbeGetTouchPointTiltY),
+            DECLARE_NAPI_FUNCTION("probeGetTouchPointWindowX", AppNapi::ProbeGetTouchPointWindowX),
+            DECLARE_NAPI_FUNCTION("probeGetTouchPointWindowY", AppNapi::ProbeGetTouchPointWindowY),
+            DECLARE_NAPI_FUNCTION("probeGetTouchPointDisplayX", AppNapi::ProbeGetTouchPointDisplayX),
+            DECLARE_NAPI_FUNCTION("probeGetTouchPointDisplayY", AppNapi::ProbeGetTouchPointDisplayY),
+            DECLARE_NAPI_FUNCTION("probeGetTouchEventSourceType", AppNapi::ProbeGetTouchEventSourceType),
+            DECLARE_NAPI_FUNCTION("probeGetHistoricalPoints", AppNapi::ProbeGetHistoricalPoints),
+            DECLARE_NAPI_FUNCTION("probeGetKeyEvent", AppNapi::ProbeGetKeyEvent),
+            DECLARE_NAPI_FUNCTION("probeGetExtraMouseEventInfo", AppNapi::ProbeGetExtraMouseEventInfo),
+            DECLARE_NAPI_FUNCTION("probeGetMouseEventModifierKeyStates", AppNapi::ProbeGetMouseEventModifierKeyStates),
+            DECLARE_NAPI_FUNCTION("probeGetNativeAccessibilityProvider", AppNapi::ProbeGetNativeAccessibilityProvider),
+            DECLARE_NAPI_FUNCTION("probeSetExpectedFrameRateRange", AppNapi::ProbeSetExpectedFrameRateRange),
+            DECLARE_NAPI_FUNCTION("probeSetNeedSoftKeyboard", AppNapi::ProbeSetNeedSoftKeyboard),
+        };
+        DefineFunctionGroup(env, exports, desc, sizeof(desc) / sizeof(desc[0]));
+    }
+
+    // probe 注册类接口与像素回读接口
+    void RegisterProbeCallbackFunctions(napi_env env, napi_value exports)
+    {
+        const napi_property_descriptor desc[] = {
+            DECLARE_NAPI_FUNCTION("probeRegisterCallback", AppNapi::ProbeRegisterCallback),
+            DECLARE_NAPI_FUNCTION("probeRegisterMouseEventCallback", AppNapi::ProbeRegisterMouseEventCallback),
+            DECLARE_NAPI_FUNCTION("probeRegisterFocusEventCallback", AppNapi::ProbeRegisterFocusEventCallback),
+            DECLARE_NAPI_FUNCTION("probeRegisterBlurEventCallback", AppNapi::ProbeRegisterBlurEventCallback),
+            DECLARE_NAPI_FUNCTION("probeRegisterKeyEventCallback", AppNapi::ProbeRegisterKeyEventCallback),
+            DECLARE_NAPI_FUNCTION("probeRegisterKeyEventCallbackWithResult",
+                                  AppNapi::ProbeRegisterKeyEventCallbackWithResult),
+            DECLARE_NAPI_FUNCTION("probeRegisterOnFrameCallback", AppNapi::ProbeRegisterOnFrameCallback),
+            DECLARE_NAPI_FUNCTION("probeUnregisterOnFrameCallback", AppNapi::ProbeUnregisterOnFrameCallback),
+            DECLARE_NAPI_FUNCTION("probeRegisterSurfaceShowCallback", AppNapi::ProbeRegisterSurfaceShowCallback),
+            DECLARE_NAPI_FUNCTION("probeRegisterSurfaceHideCallback", AppNapi::ProbeRegisterSurfaceHideCallback),
+            DECLARE_NAPI_FUNCTION("probeRegisterOnTouchInterceptCallback",
+                                  AppNapi::ProbeRegisterOnTouchInterceptCallback),
+            DECLARE_NAPI_FUNCTION("probeRegisterUIInputEventCallback", AppNapi::ProbeRegisterUIInputEventCallback),
+            DECLARE_NAPI_FUNCTION("probeGetKeyEventAction", AppNapi::ProbeGetKeyEventAction),
+            DECLARE_NAPI_FUNCTION("probeGetKeyEventCode", AppNapi::ProbeGetKeyEventCode),
+            DECLARE_NAPI_FUNCTION("probeRenderSolidPixel", AppNapi::ProbeRenderSolidPixel),
+        };
+        DefineFunctionGroup(env, exports, desc, sizeof(desc) / sizeof(desc[0]));
+    }
+} // namespace
+
 void AppNapi::RegisterXtsFunctions(napi_env env, napi_value exports)
 {
     // 同一 exports 对象可能被 Init 与 XComponent 上下文各调用一次，已注册则跳过
     bool registered = false;
     napi_status status = napi_has_named_property(env, exports, "getShapeIndex", &registered);
-    if (status != napi_ok || registered)
-    {
+    if (status != napi_ok || registered) {
         return;
     }
 
-    napi_property_descriptor desc[] = {
-        DECLARE_NAPI_FUNCTION("Quit", AppNapi::Quit),
-        DECLARE_NAPI_FUNCTION("GetXComponentId", AppNapi::GetXComponentId),
-        DECLARE_NAPI_FUNCTION("GetXComponentSize_Height", AppNapi::GetXComponentSize_Height),
-        DECLARE_NAPI_FUNCTION("GetXComponentSize_Width", AppNapi::GetXComponentSize_Width),
-        DECLARE_NAPI_FUNCTION("GetXComponentOffset_x", AppNapi::GetXComponentOffset_x),
-        DECLARE_NAPI_FUNCTION("GetXComponentOffset_y", AppNapi::GetXComponentOffset_y),
-        DECLARE_NAPI_FUNCTION("GetXComponent_TouchEvent", AppNapi::GetXComponent_TouchEvent),
-        DECLARE_NAPI_FUNCTION("GetXComponent_MouseEvent", AppNapi::GetXComponent_MouseEvent),
-        DECLARE_NAPI_FUNCTION("GetXComponentpointtool_tilty", AppNapi::GetXComponentpointtool_tilty),
-        DECLARE_NAPI_FUNCTION("GetXComponentpointtool_type", AppNapi::GetXComponentpointtool_type),
-        DECLARE_NAPI_FUNCTION("GetXComponentpointtool_tiltx", AppNapi::GetXComponentpointtool_tiltx),
-        DECLARE_NAPI_FUNCTION("GetXComponent_RegisterMouseEventCallback",
-                              AppNapi::GetXComponent_RegisterMouseEventCallback),
-        DECLARE_NAPI_FUNCTION("getShapeIndex", AppNapi::GetShapeIndex),
-        DECLARE_NAPI_FUNCTION("probeGetXComponentId", AppNapi::ProbeGetXComponentId),
-        DECLARE_NAPI_FUNCTION("probeGetXComponentSize", AppNapi::ProbeGetXComponentSize),
-        DECLARE_NAPI_FUNCTION("probeGetXComponentOffset", AppNapi::ProbeGetXComponentOffset),
-        DECLARE_NAPI_FUNCTION("probeGetTouchPointToolType", AppNapi::ProbeGetTouchPointToolType),
-        DECLARE_NAPI_FUNCTION("probeGetTouchPointTiltX", AppNapi::ProbeGetTouchPointTiltX),
-        DECLARE_NAPI_FUNCTION("probeGetTouchPointTiltY", AppNapi::ProbeGetTouchPointTiltY),
-        DECLARE_NAPI_FUNCTION("probeGetTouchPointWindowX", AppNapi::ProbeGetTouchPointWindowX),
-        DECLARE_NAPI_FUNCTION("probeGetTouchPointWindowY", AppNapi::ProbeGetTouchPointWindowY),
-        DECLARE_NAPI_FUNCTION("probeGetTouchPointDisplayX", AppNapi::ProbeGetTouchPointDisplayX),
-        DECLARE_NAPI_FUNCTION("probeGetTouchPointDisplayY", AppNapi::ProbeGetTouchPointDisplayY),
-        DECLARE_NAPI_FUNCTION("probeGetTouchEventSourceType", AppNapi::ProbeGetTouchEventSourceType),
-        DECLARE_NAPI_FUNCTION("probeGetHistoricalPoints", AppNapi::ProbeGetHistoricalPoints),
-        DECLARE_NAPI_FUNCTION("probeGetKeyEvent", AppNapi::ProbeGetKeyEvent),
-        DECLARE_NAPI_FUNCTION("probeGetExtraMouseEventInfo", AppNapi::ProbeGetExtraMouseEventInfo),
-        DECLARE_NAPI_FUNCTION("probeGetMouseEventModifierKeyStates", AppNapi::ProbeGetMouseEventModifierKeyStates),
-        DECLARE_NAPI_FUNCTION("probeGetNativeAccessibilityProvider", AppNapi::ProbeGetNativeAccessibilityProvider),
-        DECLARE_NAPI_FUNCTION("probeSetExpectedFrameRateRange", AppNapi::ProbeSetExpectedFrameRateRange),
-        DECLARE_NAPI_FUNCTION("probeSetNeedSoftKeyboard", AppNapi::ProbeSetNeedSoftKeyboard),
-        DECLARE_NAPI_FUNCTION("probeRegisterCallback", AppNapi::ProbeRegisterCallback),
-        DECLARE_NAPI_FUNCTION("probeRegisterMouseEventCallback", AppNapi::ProbeRegisterMouseEventCallback),
-        DECLARE_NAPI_FUNCTION("probeRegisterFocusEventCallback", AppNapi::ProbeRegisterFocusEventCallback),
-        DECLARE_NAPI_FUNCTION("probeRegisterBlurEventCallback", AppNapi::ProbeRegisterBlurEventCallback),
-        DECLARE_NAPI_FUNCTION("probeRegisterKeyEventCallback", AppNapi::ProbeRegisterKeyEventCallback),
-        DECLARE_NAPI_FUNCTION("probeRegisterKeyEventCallbackWithResult",
-                              AppNapi::ProbeRegisterKeyEventCallbackWithResult),
-        DECLARE_NAPI_FUNCTION("probeRegisterOnFrameCallback", AppNapi::ProbeRegisterOnFrameCallback),
-        DECLARE_NAPI_FUNCTION("probeUnregisterOnFrameCallback", AppNapi::ProbeUnregisterOnFrameCallback),
-        DECLARE_NAPI_FUNCTION("probeRegisterSurfaceShowCallback", AppNapi::ProbeRegisterSurfaceShowCallback),
-        DECLARE_NAPI_FUNCTION("probeRegisterSurfaceHideCallback", AppNapi::ProbeRegisterSurfaceHideCallback),
-        DECLARE_NAPI_FUNCTION("probeRegisterOnTouchInterceptCallback", AppNapi::ProbeRegisterOnTouchInterceptCallback),
-        DECLARE_NAPI_FUNCTION("probeRegisterUIInputEventCallback", AppNapi::ProbeRegisterUIInputEventCallback),
-        DECLARE_NAPI_FUNCTION("probeGetKeyEventAction", AppNapi::ProbeGetKeyEventAction),
-        DECLARE_NAPI_FUNCTION("probeGetKeyEventCode", AppNapi::ProbeGetKeyEventCode),
-        DECLARE_NAPI_FUNCTION("probeRenderSolidPixel", AppNapi::ProbeRenderSolidPixel),
-    };
-    status = napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
-    if (status != napi_ok)
-    {
-        LOGE("RegisterXtsFunctions failed %{public}d", status);
-    }
+    RegisterShapeAndQueryFunctions(env, exports);
+    RegisterProbeQueryFunctions(env, exports);
+    RegisterProbeCallbackFunctions(env, exports);
 }
 
 OH_NativeXComponent *AppNapi::GetActiveComponent(void)
 {
-    for (auto &entry : instance_)
-    {
-        if (entry.second != nullptr && entry.second->component_ != nullptr)
-        {
+    for (auto &entry : instance_) {
+        if (entry.second != nullptr && entry.second->component_ != nullptr) {
             return entry.second->component_;
         }
     }
     return nullptr;
 }
 
-namespace
-{
+namespace {
     const int32_t PROBE_BAD_PARAMETER = OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER;
 
     // 帧率区间 probe 的三个入参：最小值、最大值、期望值，下标与 napi 实参顺序一致
@@ -638,8 +636,7 @@ namespace
         napi_value args[1] = {nullptr};
         napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
         int32_t value = defaultValue;
-        if (argc >= 1 && args[0] != nullptr)
-        {
+        if (argc >= 1 && args[0] != nullptr) {
             napi_get_value_int32(env, args[0], &value);
         }
         return value;
@@ -654,24 +651,20 @@ namespace
     // 逐个通道读取像素探针入参；缺省回填青色，任一通道越界或类型不符时返回 false
     bool ReadPixelChannels(napi_env env, napi_callback_info info, int32_t outChannels[PROBE_CHANNEL_COUNT])
     {
-        for (size_t i = 0; i < PROBE_CHANNEL_COUNT; i++)
-        {
+        for (size_t i = 0; i < PROBE_CHANNEL_COUNT; i++) {
             outChannels[i] = PROBE_DEFAULT_CHANNELS[i];
         }
         size_t argc = PIXEL_ARG_COUNT;
         napi_value args[PIXEL_ARG_COUNT] = {nullptr, nullptr, nullptr, nullptr};
         napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
         bool channelValid = true;
-        for (size_t i = 0; i < PROBE_CHANNEL_COUNT && i < argc; i++)
-        {
-            if (args[i] == nullptr)
-            {
+        for (size_t i = 0; i < PROBE_CHANNEL_COUNT && i < argc; i++) {
+            if (args[i] == nullptr) {
                 continue;
             }
             int32_t channel = 0;
             if (napi_get_value_int32(env, args[i], &channel) != napi_ok || channel < 0 ||
-                channel > PROBE_CHANNEL_MAX)
-            {
+                channel > PROBE_CHANNEL_MAX) {
                 channelValid = false;
                 continue;
             }
@@ -687,8 +680,7 @@ namespace
         napi_value corner = nullptr;
         napi_create_array_with_length(env, PROBE_CHANNEL_COUNT, &pixel);
         napi_create_array_with_length(env, PROBE_CHANNEL_COUNT, &corner);
-        for (uint32_t i = 0; i < PROBE_CHANNEL_COUNT; i++)
-        {
+        for (uint32_t i = 0; i < PROBE_CHANNEL_COUNT; i++) {
             napi_value channel = nullptr;
             napi_create_uint32(env, rgba[i], &channel);
             napi_set_element(env, pixel, i, channel);
@@ -738,8 +730,7 @@ namespace
 napi_value AppNapi::ProbeGetXComponentId(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     char idStr[OH_XCOMPONENT_ID_LEN_MAX + 1] = {};
@@ -756,8 +747,7 @@ napi_value AppNapi::ProbeGetXComponentId(napi_env env, napi_callback_info info)
 napi_value AppNapi::ProbeGetXComponentSize(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (!ProbeWindowReady(component))
-    {
+    if (!ProbeWindowReady(component)) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     uint64_t width = 0;
@@ -769,8 +759,7 @@ napi_value AppNapi::ProbeGetXComponentSize(napi_env env, napi_callback_info info
 napi_value AppNapi::ProbeGetXComponentOffset(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (!ProbeWindowReady(component))
-    {
+    if (!ProbeWindowReady(component)) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     double x = 0;
@@ -782,8 +771,7 @@ napi_value AppNapi::ProbeGetXComponentOffset(napi_env env, napi_callback_info in
 napi_value AppNapi::ProbeGetTouchPointToolType(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t pointIndex = GetInt32Arg(env, info, -1);
@@ -795,8 +783,7 @@ napi_value AppNapi::ProbeGetTouchPointToolType(napi_env env, napi_callback_info 
 napi_value AppNapi::ProbeGetTouchPointTiltX(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t pointIndex = GetInt32Arg(env, info, -1);
@@ -808,8 +795,7 @@ napi_value AppNapi::ProbeGetTouchPointTiltX(napi_env env, napi_callback_info inf
 napi_value AppNapi::ProbeGetTouchPointTiltY(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t pointIndex = GetInt32Arg(env, info, -1);
@@ -821,8 +807,7 @@ napi_value AppNapi::ProbeGetTouchPointTiltY(napi_env env, napi_callback_info inf
 napi_value AppNapi::ProbeGetTouchPointWindowX(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t pointIndex = GetInt32Arg(env, info, -1);
@@ -834,8 +819,7 @@ napi_value AppNapi::ProbeGetTouchPointWindowX(napi_env env, napi_callback_info i
 napi_value AppNapi::ProbeGetTouchPointWindowY(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t pointIndex = GetInt32Arg(env, info, -1);
@@ -847,8 +831,7 @@ napi_value AppNapi::ProbeGetTouchPointWindowY(napi_env env, napi_callback_info i
 napi_value AppNapi::ProbeGetTouchPointDisplayX(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t pointIndex = GetInt32Arg(env, info, -1);
@@ -860,8 +843,7 @@ napi_value AppNapi::ProbeGetTouchPointDisplayX(napi_env env, napi_callback_info 
 napi_value AppNapi::ProbeGetTouchPointDisplayY(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t pointIndex = GetInt32Arg(env, info, -1);
@@ -873,8 +855,7 @@ napi_value AppNapi::ProbeGetTouchPointDisplayY(napi_env env, napi_callback_info 
 napi_value AppNapi::ProbeGetTouchEventSourceType(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t pointId = GetInt32Arg(env, info, -1);
@@ -886,8 +867,7 @@ napi_value AppNapi::ProbeGetTouchEventSourceType(napi_env env, napi_callback_inf
 napi_value AppNapi::ProbeGetHistoricalPoints(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (!ProbeWindowReady(component))
-    {
+    if (!ProbeWindowReady(component)) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t size = 0;
@@ -899,8 +879,7 @@ napi_value AppNapi::ProbeGetHistoricalPoints(napi_env env, napi_callback_info in
 napi_value AppNapi::ProbeGetKeyEvent(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     OH_NativeXComponent_KeyEvent *keyEvent = nullptr;
@@ -911,8 +890,7 @@ napi_value AppNapi::ProbeGetKeyEvent(napi_env env, napi_callback_info info)
 napi_value AppNapi::ProbeGetExtraMouseEventInfo(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     OH_NativeXComponent_ExtraMouseEventInfo *extraInfo = nullptr;
@@ -923,14 +901,12 @@ napi_value AppNapi::ProbeGetExtraMouseEventInfo(napi_env env, napi_callback_info
 napi_value AppNapi::ProbeGetMouseEventModifierKeyStates(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     OH_NativeXComponent_ExtraMouseEventInfo *extraInfo = nullptr;
     int32_t code = OH_NativeXComponent_GetExtraMouseEventInfo(component, &extraInfo);
-    if (code != OH_NATIVEXCOMPONENT_RESULT_SUCCESS || extraInfo == nullptr)
-    {
+    if (code != OH_NATIVEXCOMPONENT_RESULT_SUCCESS || extraInfo == nullptr) {
         return MakeProbeResult(env, code, 0, 0);
     }
     uint64_t keys = 0;
@@ -942,8 +918,7 @@ napi_value AppNapi::ProbeGetMouseEventModifierKeyStates(napi_env env, napi_callb
 napi_value AppNapi::ProbeGetNativeAccessibilityProvider(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     ArkUI_AccessibilityProvider *provider = nullptr;
@@ -954,8 +929,7 @@ napi_value AppNapi::ProbeGetNativeAccessibilityProvider(napi_env env, napi_callb
 napi_value AppNapi::ProbeSetExpectedFrameRateRange(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     size_t argc = RATE_RANGE_ARG_COUNT;
@@ -964,16 +938,13 @@ napi_value AppNapi::ProbeSetExpectedFrameRateRange(napi_env env, napi_callback_i
     int32_t min = 0;
     int32_t max = 0;
     int32_t expected = 0;
-    if (argc > ARG_RATE_MIN && args[ARG_RATE_MIN] != nullptr)
-    {
+    if (argc > ARG_RATE_MIN && args[ARG_RATE_MIN] != nullptr) {
         napi_get_value_int32(env, args[ARG_RATE_MIN], &min);
     }
-    if (argc > ARG_RATE_MAX && args[ARG_RATE_MAX] != nullptr)
-    {
+    if (argc > ARG_RATE_MAX && args[ARG_RATE_MAX] != nullptr) {
         napi_get_value_int32(env, args[ARG_RATE_MAX], &max);
     }
-    if (argc > ARG_RATE_EXPECTED && args[ARG_RATE_EXPECTED] != nullptr)
-    {
+    if (argc > ARG_RATE_EXPECTED && args[ARG_RATE_EXPECTED] != nullptr) {
         napi_get_value_int32(env, args[ARG_RATE_EXPECTED], &expected);
     }
     OH_NativeXComponent_ExpectedRateRange range = {min, max, expected};
@@ -984,8 +955,7 @@ napi_value AppNapi::ProbeSetExpectedFrameRateRange(napi_env env, napi_callback_i
 napi_value AppNapi::ProbeSetNeedSoftKeyboard(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t need = GetInt32Arg(env, info, 0);
@@ -997,8 +967,7 @@ napi_value AppNapi::ProbeSetNeedSoftKeyboard(napi_env env, napi_callback_info in
 napi_value AppNapi::ProbeRegisterCallback(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t code = OH_NativeXComponent_RegisterCallback(component, &AppNapi::callback_);
@@ -1008,8 +977,7 @@ napi_value AppNapi::ProbeRegisterCallback(napi_env env, napi_callback_info info)
 napi_value AppNapi::ProbeRegisterMouseEventCallback(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t code = OH_NativeXComponent_RegisterMouseEventCallback(component, &AppNapi::mouseEventcallback_);
@@ -1019,8 +987,7 @@ napi_value AppNapi::ProbeRegisterMouseEventCallback(napi_env env, napi_callback_
 napi_value AppNapi::ProbeRegisterFocusEventCallback(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t code = OH_NativeXComponent_RegisterFocusEventCallback(component, EmptyComponentCallback);
@@ -1030,8 +997,7 @@ napi_value AppNapi::ProbeRegisterFocusEventCallback(napi_env env, napi_callback_
 napi_value AppNapi::ProbeRegisterBlurEventCallback(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t code = OH_NativeXComponent_RegisterBlurEventCallback(component, EmptyComponentCallback);
@@ -1041,8 +1007,7 @@ napi_value AppNapi::ProbeRegisterBlurEventCallback(napi_env env, napi_callback_i
 napi_value AppNapi::ProbeRegisterKeyEventCallback(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t code = OH_NativeXComponent_RegisterKeyEventCallback(component, EmptyComponentCallback);
@@ -1052,8 +1017,7 @@ napi_value AppNapi::ProbeRegisterKeyEventCallback(napi_env env, napi_callback_in
 napi_value AppNapi::ProbeRegisterKeyEventCallbackWithResult(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t code = OH_NativeXComponent_RegisterKeyEventCallbackWithResult(component, EmptyKeyCallbackWithResult);
@@ -1063,8 +1027,7 @@ napi_value AppNapi::ProbeRegisterKeyEventCallbackWithResult(napi_env env, napi_c
 napi_value AppNapi::ProbeRegisterOnFrameCallback(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t code = OH_NativeXComponent_RegisterOnFrameCallback(component, EmptyFrameCallback);
@@ -1074,8 +1037,7 @@ napi_value AppNapi::ProbeRegisterOnFrameCallback(napi_env env, napi_callback_inf
 napi_value AppNapi::ProbeUnregisterOnFrameCallback(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t code = OH_NativeXComponent_UnregisterOnFrameCallback(component);
@@ -1085,8 +1047,7 @@ napi_value AppNapi::ProbeUnregisterOnFrameCallback(napi_env env, napi_callback_i
 napi_value AppNapi::ProbeRegisterSurfaceShowCallback(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t code = OH_NativeXComponent_RegisterSurfaceShowCallback(component, EmptyComponentCallback);
@@ -1096,8 +1057,7 @@ napi_value AppNapi::ProbeRegisterSurfaceShowCallback(napi_env env, napi_callback
 napi_value AppNapi::ProbeRegisterSurfaceHideCallback(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t code = OH_NativeXComponent_RegisterSurfaceHideCallback(component, EmptyComponentCallback);
@@ -1107,8 +1067,7 @@ napi_value AppNapi::ProbeRegisterSurfaceHideCallback(napi_env env, napi_callback
 napi_value AppNapi::ProbeRegisterOnTouchInterceptCallback(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t code = OH_NativeXComponent_RegisterOnTouchInterceptCallback(component, EmptyHitTestCallback);
@@ -1118,8 +1077,7 @@ napi_value AppNapi::ProbeRegisterOnTouchInterceptCallback(napi_env env, napi_cal
 napi_value AppNapi::ProbeRegisterUIInputEventCallback(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     int32_t inputType = GetInt32Arg(env, info, static_cast<int32_t>(ARKUI_UIINPUTEVENT_TYPE_TOUCH));
@@ -1131,14 +1089,12 @@ napi_value AppNapi::ProbeRegisterUIInputEventCallback(napi_env env, napi_callbac
 napi_value AppNapi::ProbeGetKeyEventAction(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     OH_NativeXComponent_KeyEvent *keyEvent = nullptr;
     int32_t code = OH_NativeXComponent_GetKeyEvent(component, &keyEvent);
-    if (code != OH_NATIVEXCOMPONENT_RESULT_SUCCESS || keyEvent == nullptr)
-    {
+    if (code != OH_NATIVEXCOMPONENT_RESULT_SUCCESS || keyEvent == nullptr) {
         return MakeProbeResult(env, code, 0, 0);
     }
     OH_NativeXComponent_KeyAction action = OH_NATIVEXCOMPONENT_KEY_ACTION_UNKNOWN;
@@ -1149,14 +1105,12 @@ napi_value AppNapi::ProbeGetKeyEventAction(napi_env env, napi_callback_info info
 napi_value AppNapi::ProbeGetKeyEventCode(napi_env env, napi_callback_info info)
 {
     OH_NativeXComponent *component = GetActiveComponent();
-    if (component == nullptr)
-    {
+    if (component == nullptr) {
         return MakeProbeResult(env, PROBE_BAD_PARAMETER, 0, 0);
     }
     OH_NativeXComponent_KeyEvent *keyEvent = nullptr;
     int32_t code = OH_NativeXComponent_GetKeyEvent(component, &keyEvent);
-    if (code != OH_NATIVEXCOMPONENT_RESULT_SUCCESS || keyEvent == nullptr)
-    {
+    if (code != OH_NATIVEXCOMPONENT_RESULT_SUCCESS || keyEvent == nullptr) {
         return MakeProbeResult(env, code, 0, 0);
     }
     OH_NativeXComponent_KeyCode keyCode = static_cast<OH_NativeXComponent_KeyCode>(0);
@@ -1171,8 +1125,7 @@ napi_value AppNapi::ProbeRenderSolidPixel(napi_env env, napi_callback_info info)
 
     uint8_t rgba[PixelProbe::PROBE_RGBA_BYTES] = {};
     int32_t code = PROBE_BAD_PARAMETER;
-    if (channelsValid)
-    {
+    if (channelsValid) {
         code = PixelProbe::RenderSolidAndRead(static_cast<uint8_t>(channels[ARG_RED]),
                                               static_cast<uint8_t>(channels[ARG_GREEN]),
                                               static_cast<uint8_t>(channels[ARG_BLUE]),
@@ -1180,7 +1133,7 @@ napi_value AppNapi::ProbeRenderSolidPixel(napi_env env, napi_callback_info info)
     }
 
     napi_value result = MakeProbeResult(env, code, static_cast<double>(rgba[ARG_RED]),
-                                        static_cast<double>(PixelProbe::GetProbeSurfaceSize()));
+                                        static_cast<double>(PixelProbe::GetProbeBufferEdge()));
     AttachPixelSamples(env, result, rgba);
     return result;
 }
@@ -1203,8 +1156,7 @@ napi_value AppNapi::ChangeShape(napi_env env, napi_callback_info info)
     uint32_t value1;
     napi_get_value_uint32(env, args[0], &value1);
     shapeIndex_ = value1;
-    if (openglDraw != nullptr)
-    {
+    if (openglDraw != nullptr) {
         openglDraw->ChangeShape(value1);
         openglDraw->Update();
     }

@@ -34,7 +34,7 @@ const RESULT_FAILED: number = -1;
 const RESULT_BAD_PARAMETER: number = -2;
 
 const CHANNEL_COUNT: number = 4;
-const PROBE_SURFACE_SIZE: number = 4;
+const PROBE_BUFFER_EDGE: number = 4;
 
 function isResultCode(code: number): boolean {
     return code === RESULT_SUCCESS || code === RESULT_FAILED || code === RESULT_BAD_PARAMETER;
@@ -138,7 +138,7 @@ export default function nativeStableCoreTest() {
             const second: PixelProbeResult = probeRenderSolidPixel(32, 64, 128, 255);
             expect(samePixel(first, second)).assertTrue();
             expect(second.pixel.length).assertEqual(CHANNEL_COUNT);
-            expect(second.aux).assertEqual(PROBE_SURFACE_SIZE);
+            expect(second.aux).assertEqual(PROBE_BUFFER_EDGE);
             hilog.info(DOMAIN, TAG, '%{public}s', 'testStable0001 end');
         });
 
@@ -267,7 +267,7 @@ export default function nativeStableCoreTest() {
             hilog.info(DOMAIN, TAG, '%{public}s', 'testStable0008 begin');
             const first: PixelProbeResult = probeRenderSolidPixel(3, 5, 7, 255);
             const last: PixelProbeResult = renderTimes(3, 5, 7, 255, 50);
-            expect(last.aux).assertEqual(PROBE_SURFACE_SIZE);
+            expect(last.aux).assertEqual(PROBE_BUFFER_EDGE);
             expect(last.value).assertEqual(first.value);
             expect(channelSum(last.pixel)).assertEqual(channelSum(first.pixel));
             hilog.info(DOMAIN, TAG, '%{public}s', 'testStable0008 end');
@@ -346,7 +346,7 @@ export default function nativeStableCoreTest() {
             }
             expect(allRejected).assertTrue();
             expect(allEmpty).assertTrue();
-            expect(probeRenderSolidPixel(300, 0, 0, 255).aux).assertEqual(PROBE_SURFACE_SIZE);
+            expect(probeRenderSolidPixel(300, 0, 0, 255).aux).assertEqual(PROBE_BUFFER_EDGE);
             hilog.info(DOMAIN, TAG, '%{public}s', 'testStable0012 end');
         });
 

@@ -55,7 +55,7 @@ const RESULT_BAD_PARAMETER: number = -2;
 
 const CHANNEL_COUNT: number = 4;
 const CHANNEL_MAX: number = 255;
-const PROBE_SURFACE_SIZE: number = 4;
+const PROBE_BUFFER_EDGE: number = 4;
 
 function isResultCode(code: number): boolean {
     return code === RESULT_SUCCESS || code === RESULT_FAILED || code === RESULT_BAD_PARAMETER;
@@ -201,7 +201,7 @@ export default function nativeComboTailTest() {
             expect(pixel.pixel.length).assertEqual(CHANNEL_COUNT);
             expect(isResultCode(pixel.code)).assertTrue();
             expect(Number.isFinite(offset.value)).assertTrue();
-            expect(pixel.aux).assertEqual(PROBE_SURFACE_SIZE);
+            expect(pixel.aux).assertEqual(PROBE_BUFFER_EDGE);
             hilog.info(DOMAIN, TAG, '%{public}s', 'testCombo0242 end');
         });
 
@@ -275,7 +275,7 @@ export default function nativeComboTailTest() {
             const keyEvent: ProbeResult = probeGetKeyEvent();
             expect(pixel.pixel[1]).assertEqual(pixel.pixel[2]);
             expect(keyEvent.value <= 1).assertTrue();
-            expect(pixel.aux).assertEqual(PROBE_SURFACE_SIZE);
+            expect(pixel.aux).assertEqual(PROBE_BUFFER_EDGE);
             hilog.info(DOMAIN, TAG, '%{public}s', 'testCombo0246 end');
         });
 
@@ -623,7 +623,7 @@ export default function nativeComboTailTest() {
             const tiltX: ProbeResult = probeGetTouchPointTiltX(0);
             expect(pixel.pixel[2]).assertEqual(rgbMax(pixel.pixel));
             expect(isResultCode(tiltX.code)).assertTrue();
-            expect(pixel.aux).assertEqual(PROBE_SURFACE_SIZE);
+            expect(pixel.aux).assertEqual(PROBE_BUFFER_EDGE);
             hilog.info(DOMAIN, TAG, '%{public}s', 'testCombo0265 end');
         });
 
@@ -1319,7 +1319,7 @@ export default function nativeComboTailTest() {
             animate();
             const after: PixelProbeResult = probeRenderSolidPixel(0, 128, 255, 255);
             expect(after.pixel.length).assertEqual(CHANNEL_COUNT);
-            expect(after.aux).assertEqual(PROBE_SURFACE_SIZE);
+            expect(after.aux).assertEqual(PROBE_BUFFER_EDGE);
             expect(before.corner.length).assertEqual(CHANNEL_COUNT);
             hilog.info(DOMAIN, TAG, '%{public}s', 'testCombo0303 end');
         });
@@ -1537,7 +1537,7 @@ export default function nativeComboTailTest() {
             const pixel: PixelProbeResult = probeRenderSolidPixel(49, 149, 249, 255);
             const windowX: ProbeResult = probeGetTouchPointWindowX(0);
             const windowY: ProbeResult = probeGetTouchPointWindowY(0);
-            expect(pixel.aux).assertEqual(PROBE_SURFACE_SIZE);
+            expect(pixel.aux).assertEqual(PROBE_BUFFER_EDGE);
             expect(Number.isFinite(windowX.value)).assertTrue();
             expect(Number.isFinite(windowY.value)).assertTrue();
             hilog.info(DOMAIN, TAG, '%{public}s', 'testCombo0314 end');

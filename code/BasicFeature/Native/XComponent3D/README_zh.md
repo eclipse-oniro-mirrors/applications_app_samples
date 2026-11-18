@@ -82,7 +82,7 @@
 
 **XComponent 声明与绘制启动**
 
-主页面在 [Index.ets](entry/src/main/ets/pages/Index.ets) 中声明 XComponent 组件：id 为 xComponentId，type 取 XComponentType 的 SURFACE 成员，libraryname 为 nativerender，宽度 90%、高度 100%。
+主页面在 [Index.ets](entry/src/main/ets/pages/Index.ets) 中声明 XComponent 组件：id 为 xComponentId，type 取 XComponentType 中原生渲染对应的成员，libraryname 为 nativerender，宽度 90%、高度 100%。
 
 XComponent 初始化完成时，native 侧的 [app_napi.cpp](entry/src/main/cpp/app_napi.cpp) 在绘制区创建回调中启动绘制：先通过 `OH_NativeXComponent_GetXComponentSize` 取得绘制区的宽高，再交给 [opengl_draw.cpp](entry/src/main/cpp/opengl_draw.cpp) 的 Init 方法创建 EglWindow、EGL 绘制窗口与 EGLContext，并初始化默认形状 Cube。
 

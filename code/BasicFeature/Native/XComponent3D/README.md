@@ -82,7 +82,7 @@ Two drawing scenes are implemented:
 
 **XComponent declaration and drawing start**
 
-The home page declares a XComponent in [Index.ets](entry/src/main/ets/pages/Index.ets): the id is xComponentId, the type is the SURFACE member of XComponentType, the library is nativerender, and the width and height are set to 90% and 100%.
+The home page declares a XComponent in [Index.ets](entry/src/main/ets/pages/Index.ets): the id is xComponentId, the type selects the native rendering mode of XComponentType, the library is nativerender, and the width and height are set to 90% and 100%.
 
 When the XComponent is ready, [app_napi.cpp](entry/src/main/cpp/app_napi.cpp) starts drawing in the XComponent ready callback: it first reads back the drawing-area width and height through `OH_NativeXComponent_GetXComponentSize`, and then passes them to the Init method of [opengl_draw.cpp](entry/src/main/cpp/opengl_draw.cpp), which creates the EglWindow, the EGL drawing window and the EGLContext, and initializes the default shape Cube.
 

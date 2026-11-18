@@ -18,8 +18,7 @@
 #include "app_napi.h"
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
     /*
@@ -40,8 +39,7 @@ extern "C"
         AppNapi::RegisterXtsFunctions(env, exports);
 
         bool ret = NapiManager::GetInstance()->Export(env, exports);
-        if (!ret)
-        {
+        if (!ret) {
             LOGE("Init failed");
         }
 

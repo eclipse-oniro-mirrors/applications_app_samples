@@ -31,7 +31,7 @@ const TAG: string = '[Sample_AppXComponent3D]';
 const LAYOUT_WIDTH: number = 200;
 const LAYOUT_HEIGHT: number = 100;
 const GEOMETRY_TOLERANCE: number = 2;
-const SURFACE_WAIT_MS: number = 10000;
+const READY_WAIT_MS: number = 10000;
 const POLL_INTERVAL_MS: number = 50;
 
 let surfaceProbed: boolean = false;
@@ -48,7 +48,7 @@ function delay(intervalMs: number): Promise<void> {
 // TestAbility 在 onCreate 中启动 Hypium，页面在 onWindowStageCreate 中异步加载，
 // 因此指定用例需要轮询等待绘制区创建回调完成，此后结果即为确定的环境状态。
 async function waitSurfaceReady(): Promise<boolean> {
-    const deadline: number = Date.now() + SURFACE_WAIT_MS;
+    const deadline: number = Date.now() + READY_WAIT_MS;
     while (Date.now() < deadline) {
         if (GetXComponentSize_Width() > 0 && GetXComponentSize_Height() > 0) {
             return true;
@@ -62,10 +62,10 @@ async function ensureSurfaceReady(): Promise<boolean> {
     if (!surfaceProbed) {
         surfaceReady = await waitSurfaceReady();
         surfaceProbed = true;
-        hilog.info(DOMAIN, TAG, 'surface ready = %{public}s', surfaceReady ? 'true' : 'false');
+        hilog.info(DOMAIN, TAG, 'render ready = %{public}s', surfaceReady ? 'true' : 'false');
     }
     // 几何真值诊断：hilog 不支持 %f，统一用字符串输出实际回读值
-    hilog.info(DOMAIN, TAG, 'surface geometry w=%{public}s h=%{public}s x=%{public}s y=%{public}s',
+    hilog.info(DOMAIN, TAG, 'render geometry w=%{public}s h=%{public}s x=%{public}s y=%{public}s',
         String(GetXComponentSize_Width()), String(GetXComponentSize_Height()),
         String(GetXComponentOffset_x()), String(GetXComponentOffset_y()));
     return surfaceReady;

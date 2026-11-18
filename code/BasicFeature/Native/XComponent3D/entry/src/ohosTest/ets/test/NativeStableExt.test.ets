@@ -38,7 +38,7 @@ const RESULT_FAILED: number = -1;
 const RESULT_BAD_PARAMETER: number = -2;
 
 const CHANNEL_COUNT: number = 4;
-const PROBE_SURFACE_SIZE: number = 4;
+const PROBE_BUFFER_EDGE: number = 4;
 
 function isResultCode(code: number): boolean {
     return code === RESULT_SUCCESS || code === RESULT_FAILED || code === RESULT_BAD_PARAMETER;
@@ -457,7 +457,7 @@ export default function nativeStableExtTest() {
             const first: PixelProbeResult = probeRenderSolidPixel(80, 160, 240, 255);
             const last: PixelProbeResult = renderRounds(80, 160, 240, 20);
             expect(samePixel(first, last)).assertTrue();
-            expect(last.aux).assertEqual(PROBE_SURFACE_SIZE);
+            expect(last.aux).assertEqual(PROBE_BUFFER_EDGE);
             expect(channelSum(last.pixel)).assertEqual(channelSum(first.pixel));
             hilog.info(DOMAIN, TAG, '%{public}s', 'testStable0069 end');
         });
@@ -579,7 +579,7 @@ export default function nativeStableExtTest() {
             const last: PixelProbeResult = probeRenderSolidPixel(64, 64, 64, 255);
             expect(renders).assertEqual(15);
             expect(samePixel(baseline, last)).assertTrue();
-            expect(last.aux).assertEqual(PROBE_SURFACE_SIZE);
+            expect(last.aux).assertEqual(PROBE_BUFFER_EDGE);
             hilog.info(DOMAIN, TAG, '%{public}s', 'testStable0075 end');
         });
 
@@ -605,7 +605,7 @@ export default function nativeStableExtTest() {
             animate();
             changeShape(0);
             expect(getShapeIndex()).assertEqual(0);
-            expect(probeRenderSolidPixel(70, 140, 210, 255).aux).assertEqual(PROBE_SURFACE_SIZE);
+            expect(probeRenderSolidPixel(70, 140, 210, 255).aux).assertEqual(PROBE_BUFFER_EDGE);
             hilog.info(DOMAIN, TAG, '%{public}s', 'testStable0076 end');
         });
 
@@ -967,7 +967,7 @@ export default function nativeStableExtTest() {
             const recovered: PixelProbeResult = probeRenderSolidPixel(128, 64, 32, 255);
             expect(rejectedCount).assertEqual(10);
             expect(recovered.code === RESULT_BAD_PARAMETER).assertFalse();
-            expect(recovered.aux).assertEqual(PROBE_SURFACE_SIZE);
+            expect(recovered.aux).assertEqual(PROBE_BUFFER_EDGE);
             hilog.info(DOMAIN, TAG, '%{public}s', 'testStable0089 end');
         });
 
@@ -1016,7 +1016,7 @@ export default function nativeStableExtTest() {
             probeRegisterUIInputEventCallback(1);
             const after: PixelProbeResult = probeRenderSolidPixel(111, 222, 33, 255);
             expect(samePixel(baseline, after)).assertTrue();
-            expect(after.aux).assertEqual(PROBE_SURFACE_SIZE);
+            expect(after.aux).assertEqual(PROBE_BUFFER_EDGE);
             expect(channelSum(after.corner)).assertEqual(channelSum(baseline.corner));
             hilog.info(DOMAIN, TAG, '%{public}s', 'testStable0091 end');
         });
@@ -1126,11 +1126,11 @@ export default function nativeStableExtTest() {
             hilog.info(DOMAIN, TAG, '%{public}s', 'testStable0096 begin');
             let matched: number = 0;
             for (let i = 0; i < 30; i++) {
-                if (probeRenderSolidPixel(255 - i * 8, i * 8, 128, 255).aux === PROBE_SURFACE_SIZE) { matched++; }
+                if (probeRenderSolidPixel(255 - i * 8, i * 8, 128, 255).aux === PROBE_BUFFER_EDGE) { matched++; }
             }
             expect(matched).assertEqual(30);
-            expect(probeRenderSolidPixel(0, 0, 0, 255).aux).assertEqual(PROBE_SURFACE_SIZE);
-            expect(PROBE_SURFACE_SIZE).assertEqual(4);
+            expect(probeRenderSolidPixel(0, 0, 0, 255).aux).assertEqual(PROBE_BUFFER_EDGE);
+            expect(PROBE_BUFFER_EDGE).assertEqual(4);
             hilog.info(DOMAIN, TAG, '%{public}s', 'testStable0096 end');
         });
 
@@ -1217,7 +1217,7 @@ export default function nativeStableExtTest() {
             expect(getShapeIndex()).assertEqual(0);
             expect(sameProbe(sizeOne, sizeTwo)).assertTrue();
             expect(sameProbe(offsetOne, offsetTwo)).assertTrue();
-            expect(pixel.aux).assertEqual(PROBE_SURFACE_SIZE);
+            expect(pixel.aux).assertEqual(PROBE_BUFFER_EDGE);
             hilog.info(DOMAIN, TAG, '%{public}s', 'testStable0100 end');
         });
     });

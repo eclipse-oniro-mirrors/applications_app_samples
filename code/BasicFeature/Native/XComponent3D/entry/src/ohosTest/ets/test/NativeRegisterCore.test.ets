@@ -61,7 +61,7 @@ const INPUT_TYPE_KEY: number = 4;
 // 规格常量：HTM_DEFAULT 为 0
 const HTM_DEFAULT: number = 0;
 
-const SURFACE_WAIT_MS: number = 10000;
+const READY_WAIT_MS: number = 10000;
 const POLL_INTERVAL_MS: number = 50;
 
 // 规格常量：OH_NativeXComponent_KeyCode 的 KEY_UNKNOWN 与 OH_NativeXComponent_KeyAction 的 UNKNOWN
@@ -94,7 +94,7 @@ function delay(intervalMs: number): Promise<void> {
  */
 async function waitProbeReady(): Promise<boolean> {
     const start: number = Date.now();
-    while (Date.now() - start < SURFACE_WAIT_MS) {
+    while (Date.now() - start < READY_WAIT_MS) {
         const size: ProbeResult = probeGetXComponentSize();
         if (size.code === RESULT_SUCCESS && size.value > 0 && size.aux > 0) {
             return true;
