@@ -17,15 +17,15 @@ import { serial } from '@kit.BasicServicesKit';
 
 /* SDK 26 enum values remain available when the native serial service is absent. */
 export default class SerialConfigValues {
-  static readonly dataBitsFive: serial.DataBits = 5;
-  static readonly dataBitsSix: serial.DataBits = 6;
-  static readonly dataBitsSeven: serial.DataBits = 7;
-  static readonly dataBitsEight: serial.DataBits = 8;
-  static readonly stopBitsOne: serial.StopBits = 1;
-  static readonly stopBitsTwo: serial.StopBits = 2;
-  static readonly parityNone: serial.Parity = 'none' as serial.Parity;
-  static readonly parityEven: serial.Parity = 'even' as serial.Parity;
-  static readonly parityOdd: serial.Parity = 'odd' as serial.Parity;
-  static readonly parityMark: serial.Parity = 'mark' as serial.Parity;
-  static readonly paritySpace: serial.Parity = 'space' as serial.Parity;
+  public static readonly dataBitsFive: serial.DataBits = 5;
+  public static readonly dataBitsSix: serial.DataBits = 6;
+  public static readonly dataBitsSeven: serial.DataBits = 7;
+  public static readonly dataBitsEight: serial.DataBits = 8;
+  public static readonly stopBitsOne: serial.StopBits = 1;
+  public static readonly stopBitsTwo: serial.StopBits = 2;
+  public static readonly parityNone: serial.Parity = 'none' as serial.Parity;
+  public static readonly parityEven: serial.Parity = 'even' as serial.Parity;
+  public static readonly parityOdd: serial.Parity = 'odd' as serial.Parity;
+  public static readonly parityMark: serial.Parity = 'mark' as serial.Parity;
+  public static readonly paritySpace: serial.Parity = 'space' as serial.Parity;
 }

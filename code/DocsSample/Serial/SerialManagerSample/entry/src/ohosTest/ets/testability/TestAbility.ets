@@ -27,8 +27,9 @@ export default class TestAbility extends UIAbility {
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
     hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onCreate');
-    hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
-    hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
+    hilog.info(0x0000, 'testTag', 'Bundle: %{public}s, ability: %{public}s',
+      want.bundleName ?? '', want.abilityName ?? '');
+    hilog.info(0x0000, 'testTag', 'Launch reason: %{public}d', launchParam.launchReason);
   }
 
   onDestroy() {
@@ -41,13 +42,14 @@ export default class TestAbility extends UIAbility {
 
   onWindowStageCreate(windowStage: window.WindowStage) {
     hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageCreate');
-    windowStage.loadContent('testability/pages/Index', (err, data) => {
+    windowStage.loadContent('testability/pages/Index', (err) => {
       if (err.code) {
-        hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
+        hilog.error(0x0000, 'testTag', 'Failed to load content. Code: %{public}d, message: %{public}s',
+          err.code, err.message);
         return;
       }
-      hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s',
-        JSON.stringify(data) ?? '');
+      hilog.info(0x0000, 'testTag', '%{public}s',
+        'Succeeded in loading the content');
     });
   }
 
