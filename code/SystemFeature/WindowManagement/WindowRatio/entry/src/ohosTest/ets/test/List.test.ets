@@ -36,6 +36,7 @@ import sizeSummaryOfTest from './logic/SizeSummaryOf.test';
 import sizeSummaryOf2Test from './logic/SizeSummaryOf2.test';
 import sizeSummaryOf3Test from './logic/SizeSummaryOf3.test';
 import indexOfLabelTest from './logic/IndexOfLabel.test';
+import ratioPageStateSelectTest from './logic/RatioPageStateSelect.test';
 
 export default function testsuite() {
   // Yield between cases so the main EventHandler can service watchdog tasks.
@@ -64,4 +65,5 @@ export default function testsuite() {
   sizeSummaryOf2Test();
   sizeSummaryOf3Test();
   indexOfLabelTest();
+  ratioPageStateSelectTest();
 }
