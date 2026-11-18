@@ -128,7 +128,7 @@ export default class control {
       Log.info(TAG, 'getAbilityLabel failed, fallback to bundleName : ' + JSON.stringify(error));
     }
     Log.info(TAG, 'getBundleName name : ' + bundleAppName);
-    this.bundleNameMap.set(descriptor.sessionId, '来自 ' + bundleAppName);
+    this.bundleNameMap.set(descriptor.sessionId, 'From ' + bundleAppName);
     Log.info(TAG, 'getBundleName name finished');
   }
 
