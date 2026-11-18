@@ -611,7 +611,7 @@ export default function ContactSequenceGridMatrixPart1Test(): void {
       store.add('c5', '13800005', 'd5', false);
       store.add('c6', '13800006', 'd6', true);
       store.add('c7', '13800007', 'd7', false);
-      store.add('c8', '13800008', 'd8', true);
+      store.add('c8', '13800008', 'dept-8', true);
       expect(store.count()).assertEqual(8);
       expect(store.onlineCount()).assertEqual(4);
       expect(store.findById(1) !== null).assertTrue();
@@ -637,7 +637,7 @@ export default function ContactSequenceGridMatrixPart1Test(): void {
       store.add('c5', '13800005', 'd5', false);
       store.add('c6', '13800006', 'd6', true);
       store.add('c7', '13800007', 'd7', false);
-      store.add('c8', '13800008', 'd8', true);
+      store.add('c8', '13800008', 'dept-8', true);
       store.add('c9', '13800009', 'd9', false);
       store.add('c10', '138000010', 'd10', true);
       store.add('c11', '138000011', 'd11', false);
