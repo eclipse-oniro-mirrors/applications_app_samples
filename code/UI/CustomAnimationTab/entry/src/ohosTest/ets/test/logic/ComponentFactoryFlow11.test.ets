@@ -40,8 +40,8 @@ export default function componentFactoryFlow11Test(): void {
       logInfo(`${BUNDLE}ComponentFactoryFlow_0708 begin`);
       const subject: ComponentFactory = new ComponentFactory();
       subject.getContent('s7CZvpnN5wE0');
-      const step2 = subject.getBar('ndk');
-      logInfo(`step2 getBar("ndk"): step2=${step2}`);
+      const step2 = subject.getBar('q3Mx7');
+      logInfo(`step2 getBar("q3Mx7"): step2=${step2}`);
       expect(step2).assertUndefined();
       logInfo(`${BUNDLE}ComponentFactoryFlow_0708 end`);
     });
@@ -1170,8 +1170,8 @@ export default function componentFactoryFlow11Test(): void {
       const step3 = subject.getBar('Rv1MAGc');
       logInfo(`step3 getBar("Rv1MAGc"): step3=${step3}`);
       expect(step3).assertUndefined();
-      const step4 = subject.getBar('ndk');
-      logInfo(`step4 getBar("ndk"): step4=${step4}`);
+      const step4 = subject.getBar('q3Mx7');
+      logInfo(`step4 getBar("q3Mx7"): step4=${step4}`);
       expect(step4).assertUndefined();
       const step5: string[] = subject.toArray();
       logInfo(`step5 toArray(): step5.length=${step5.length}`);

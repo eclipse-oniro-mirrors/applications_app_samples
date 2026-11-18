@@ -1105,8 +1105,8 @@ export default function componentFactoryFlow22Test(): void {
       const step1: string[] = subject.toArray();
       logInfo(`step1 toArray(): step1.length=${step1.length}`);
       expect(step1.length).assertEqual(0);
-      const step2 = subject.getBar('ndk');
-      logInfo(`step2 getBar("ndk"): step2=${step2}`);
+      const step2 = subject.getBar('q3Mx7');
+      logInfo(`step2 getBar("q3Mx7"): step2=${step2}`);
       expect(step2).assertUndefined();
       logInfo(`${BUNDLE}ComponentFactoryFlow_1559 end`);
     });

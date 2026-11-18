@@ -1507,8 +1507,8 @@ export default function componentFactoryFlow18Test(): void {
       subject.delete('Ccw2Zqi2ZIS');
       subject.getContent('mc');
       subject.delete('YTQNvDFZ');
-      const step4 = subject.getBar('ndk');
-      logInfo(`step4 getBar("ndk"): step4=${step4}`);
+      const step4 = subject.getBar('q3Mx7');
+      logInfo(`step4 getBar("q3Mx7"): step4=${step4}`);
       expect(step4).assertUndefined();
       logInfo(`${BUNDLE}ComponentFactoryFlow_1287 end`);
     });

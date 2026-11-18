@@ -279,8 +279,8 @@ export default function componentFactoryFlow21Test(): void {
       subject.getParams('Vw');
       subject.getContent('eAN');
       subject.delete('2YgDIi9nw');
-      const step5 = subject.getBar('ndk');
-      logInfo(`step5 getBar("ndk"): step5=${step5}`);
+      const step5 = subject.getBar('q3Mx7');
+      logInfo(`step5 getBar("q3Mx7"): step5=${step5}`);
       expect(step5).assertUndefined();
       logInfo(`${BUNDLE}ComponentFactoryFlow_1446 end`);
     });
