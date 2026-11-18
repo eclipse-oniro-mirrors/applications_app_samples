@@ -1,0 +1,117 @@
+/*
+ * Copyright (c) 2026 Shenzhen Kaihong Digital Industry Development Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { ErrorCategory, ErrorInfo, formatCode, lookupError } from '../core/ErrorCodeCore';
+import { textOf } from '../core/TextCatalog';
+
+const KNOWN_CODES: number[] = [0, 13900001, 13900002, 13900004, 13900005, 13900008, 13900011, 13900012,
+  13900013, 13900015, 13900019, 13900020, 13900025, 13900030, 13900042, 19100001, 19100002, 19100003, 19100004];
+
+export function categoryLabel(category: ErrorCategory): string {
+  if (category === ErrorCategory.NONE) {
+    return textOf('dlp_category_none');
+  }
+  if (category === ErrorCategory.FILE_NOT_FOUND) {
+    return textOf('dlp_category_file_not_found');
+  }
+  if (category === ErrorCategory.PERMISSION_DENIED) {
+    return textOf('dlp_category_permission_denied');
+  }
+  if (category === ErrorCategory.INVALID_ARGUMENT) {
+    return textOf('dlp_category_invalid_argument');
+  }
+  if (category === ErrorCategory.NETWORK) {
+    return textOf('dlp_category_network');
+  }
+  if (category === ErrorCategory.STORAGE_FULL) {
+    return textOf('dlp_category_storage_full');
+  }
+  if (category === ErrorCategory.OUT_OF_MEMORY) {
+    return textOf('dlp_category_out_of_memory');
+  }
+  if (category === ErrorCategory.DLP_POLICY) {
+    return textOf('dlp_category_dlp_policy');
+  }
+  if (category === ErrorCategory.ACCOUNT) {
+    return textOf('dlp_category_account');
+  }
+  if (category === ErrorCategory.INTERNAL) {
+    return textOf('dlp_category_internal');
+  }
+  return textOf('dlp_category_unknown');
+}
+
+export class ErrorCenterModel {
+  static knownCodes(): number[] {
+    const copy: number[] = [];
+    for (let index = 0; index < KNOWN_CODES.length; index++) {
+      copy.push(KNOWN_CODES[index]);
+    }
+    return copy;
+  }
+
+  static entries(): ErrorInfo[] {
+    const result: ErrorInfo[] = [];
+    for (let index = 0; index < KNOWN_CODES.length; index++) {
+      result.push(lookupError(KNOWN_CODES[index]));
+    }
+    return result;
+  }
+
+  static filter(keyword: string, categoryKey: string): ErrorInfo[] {
+    const all: ErrorInfo[] = ErrorCenterModel.entries();
+    const result: ErrorInfo[] = [];
+    const needle: string = keyword.trim().toLowerCase();
+    for (let index = 0; index < all.length; index++) {
+      const info: ErrorInfo = all[index];
+      if (categoryKey !== 'all' && info.category.toString() !== categoryKey) {
+        continue;
+      }
+      if (needle.length === 0) {
+        result.push(info);
+        continue;
+      }
+      const haystack: string = (formatCode(info.code) + ' ' + info.code.toString() + ' ' + info.message + ' ' +
+        info.hint).toLowerCase();
+      if (haystack.indexOf(needle) >= 0) {
+        result.push(info);
+      }
+    }
+    return result;
+  }
+
+  static categoryKeys(): string[] {
+    return ['all', ErrorCategory.FILE_NOT_FOUND.toString(), ErrorCategory.PERMISSION_DENIED.toString(),
+      ErrorCategory.DLP_POLICY.toString(), ErrorCategory.STORAGE_FULL.toString()];
+  }
+
+  static retryableCount(entries: ErrorInfo[]): number {
+    let count: number = 0;
+    for (let index = 0; index < entries.length; index++) {
+      if (entries[index].retryable) {
+        count += 1;
+      }
+    }
+    return count;
+  }
+
+  static formattedCode(info: ErrorInfo): string {
+    return formatCode(info.code);
+  }
+
+  static retryableLabel(info: ErrorInfo): string {
+    return info.retryable ? textOf('dlp_retryable_yes') : textOf('dlp_retryable_no');
+  }
+}
