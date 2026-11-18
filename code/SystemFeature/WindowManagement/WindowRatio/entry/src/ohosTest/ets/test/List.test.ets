@@ -36,7 +36,11 @@ import sizeSummaryOfTest from './logic/SizeSummaryOf.test';
 import sizeSummaryOf2Test from './logic/SizeSummaryOf2.test';
 import sizeSummaryOf3Test from './logic/SizeSummaryOf3.test';
 import indexOfLabelTest from './logic/IndexOfLabel.test';
+import ratioPageStateCtorTest from './logic/RatioPageStateCtor.test';
 import ratioPageStateSelectTest from './logic/RatioPageStateSelect.test';
+import ratioPageStateSelect2Test from './logic/RatioPageStateSelect2.test';
+import ratioPageStateOnSizeChange5Test from './logic/RatioPageStateOnSizeChange5.test';
+import ratioPageStateApplyTest from './logic/RatioPageStateApply.test';
 
 export default function testsuite() {
   // Yield between cases so the main EventHandler can service watchdog tasks.
@@ -65,5 +69,9 @@ export default function testsuite() {
   sizeSummaryOf2Test();
   sizeSummaryOf3Test();
   indexOfLabelTest();
+  ratioPageStateCtorTest();
   ratioPageStateSelectTest();
+  ratioPageStateSelect2Test();
+  ratioPageStateOnSizeChange5Test();
+  ratioPageStateApplyTest();
 }
