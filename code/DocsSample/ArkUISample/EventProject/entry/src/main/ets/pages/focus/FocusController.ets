@@ -13,9 +13,6 @@
  * limitations under the License.
  */
 
-import { KeyCode } from '@kit.InputKit';
-import { ColorMetrics, LengthMetrics } from '@kit.ArkUI';
-
 // [Start dynamic_focus_control_demo]
 @Entry
 @Component
@@ -25,8 +22,6 @@ export struct FocusControl {
 
   build() {
     NavDestination() {
-      Column({ space: 12 }) {
-
         Column({ space: 20 }) {
           Column({ space: 5 }) {
             Button('Button')
@@ -66,7 +61,11 @@ export struct FocusControl {
             Button('FocusController.requestFocus')
               .width(200).height(70).fontColor(Color.White)
               .onClick(() => {
-                this.getUIContext().getFocusController().requestFocus('testButton');
+                try {
+                  this.getUIContext().getFocusController().requestFocus('testButton');
+                } catch (error) {
+                  console.error('Request focus failed!');
+                }
               })
               .backgroundColor('#ff2787d9')
 
@@ -87,14 +86,12 @@ export struct FocusControl {
         }
         .width('100%')
         .height('100%')
-
-      }
-      .width('100%')
-      .height('100%')
-      .padding({ left: 12, right: 12 })
     }
+    // [StartExclude dynamic_focus_control_demo]
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.Focus_FocusController_title')替换为实际资源文件，在本示例中该资源文件的value值为"主动获焦/失焦"
     .title($r('app.string.Focus_FocusController_title'))
+    // [EndExclude dynamic_focus_control_demo]
   }
 }
 // [End dynamic_focus_control_demo]

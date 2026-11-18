@@ -1,0 +1,56 @@
+{
+  "color": [
+    {
+      "name": "gc_brand_primary",
+      "value": "#4A9EFF"
+    },
+    {
+      "name": "gc_brand_light",
+      "value": "#1A4A9EFF"
+    },
+    {
+      "name": "gc_success",
+      "value": "#64BB5C"
+    },
+    {
+      "name": "gc_warning",
+      "value": "#ED6F21"
+    },
+    {
+      "name": "gc_danger",
+      "value": "#E84026"
+    },
+    {
+      "name": "gc_danger_light",
+      "value": "#33E84026"
+    },
+    {
+      "name": "gc_page_bg",
+      "value": "#000000"
+    },
+    {
+      "name": "gc_text_primary",
+      "value": "#E5FFFFFF"
+    },
+    {
+      "name": "gc_text_secondary",
+      "value": "#99FFFFFF"
+    },
+    {
+      "name": "gc_text_tertiary",
+      "value": "#66FFFFFF"
+    },
+    {
+      "name": "gc_divider",
+      "value": "#1AFFFFFF"
+    },
+    {
+      "name": "gc_card_bg",
+      "value": "#1C1C1E"
+    },
+    {
+      "name": "gc_chip_bg",
+      "value": "#0DFFFFFF"
+    }
+  ]
+}

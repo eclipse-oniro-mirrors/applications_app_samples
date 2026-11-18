@@ -24,7 +24,10 @@ struct Index {
     'Reset Result Message',
     '1.napiOpenHandleScope',
     '2.napiOpenEscapableHandleScope',
-    '3.napiAddFinalizer'
+    '3.napiAddFinalizer',
+    '4.napiCreateWeakReference',
+    '5.napiCreateStrongReference',
+    '6.napiGetGlobalHandleCount'
   ]
 
   build() {
@@ -89,6 +92,8 @@ struct Index {
                   // [Start ark_napi_create_delete_reference]
                   // napi_add_finalizer
                   try {
+                    hilog.info(0x0000, 'testTag', 'Test Node-API addFinalizer: %{public}s',
+                      JSON.stringify(testNapi.addFinalizer()));
                     hilog.info(0x0000, 'testTag', 'Test Node-API createReference: %{public}s',
                       JSON.stringify(testNapi.createReference()));
                     hilog.info(0x0000, 'testTag', 'Test Node-API useReference: %{public}s',
@@ -107,6 +112,54 @@ struct Index {
                     // [EndExclude ark_napi_create_delete_reference]
                   }
                   // [End ark_napi_create_delete_reference]
+                } else if (item === '4.napiCreateWeakReference') {
+                  // [Start napi_create_weak_reference]
+                  try {
+                    testNapi.createWeakReference();
+                    hilog.info(0x0000, 'testTag', 'reference test: %{public}s', testNapi.getWeakReferenceValue());
+                    // [StartExclude napi_create_weak_reference]
+                    this.result = 'napiCreateWeakReferenceSuccess';
+                    // [EndExclude napi_create_weak_reference]
+                  } catch (error) {
+                    hilog.error(0x0000, 'testTag', `调用错误：${error.message}`);
+                    // [StartExclude napi_create_weak_reference]
+                    this.result = 'napiCreateWeakReferenceFail';
+                    // [EndExclude napi_create_weak_reference]
+                  }
+                  // [End napi_create_weak_reference]
+                } else if (item === '5.napiCreateStrongReference') {
+                  // [Start napi_create_weak_reference]
+                  try {
+                    testNapi.createStrongReference();
+                    hilog.info(0x0000, 'testTag', 'reference test: %{public}s', testNapi.getStrongReferenceValue());
+                    testNapi.cleanupStrongReference();
+                    // [StartExclude napi_create_weak_reference]
+                    this.result = 'napiCreateStrongReferenceSuccess';
+                    // [EndExclude napi_create_weak_reference]
+                  } catch (error) {
+                    hilog.error(0x0000, 'testTag', `调用错误：${error.message}`);
+                    // [StartExclude napi_create_weak_reference]
+                    this.result = 'napiCreateStrongReferenceFail';
+                    // [EndExclude napi_create_weak_reference]
+                  }
+                  // [End napi_create_weak_reference]
+                } else if (item === '6.napiGetGlobalHandleCount') {
+                  // [Start napi_get_global_handle_count]
+                  try {
+                    hilog.info(0x0000, 'testTag', 'Test Node-API getGlobalHandleCount: %{public}s',
+                      testNapi.getGlobalHandleCount().toString());
+                    // [StartExclude napi_get_global_handle_count]
+                    this.result = 'napiGetGlobalHandleCountSuccess';
+                    // [EndExclude napi_get_global_handle_count]
+                  } catch (error) {
+                    hilog.error(0x0000, 'testTag',
+                      'Test Node-API getGlobalHandleCount errorCode: %{public}s, errorMessage: %{public}s',
+                      error.code, error.message);
+                    // [StartExclude napi_get_global_handle_count]
+                    this.result = 'napiGetGlobalHandleCountFail';
+                    // [EndExclude napi_get_global_handle_count]
+                  }
+                  // [End napi_get_global_handle_count]
                 }
               })
           }

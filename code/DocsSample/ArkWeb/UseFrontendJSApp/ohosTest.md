@@ -24,6 +24,22 @@
 | 删除testObjName        | 注册testObjName对象 | 点击deleteJavaScriptRegister按钮      | 删除Web端注册的testObjName对象 | Yes      | Pass     |
 | callArkTS              | testObj 注册到前端  | 点击Click Me!按钮                     | 触发callArkTS函数              | Yes      | Pass     |
 
+#### RegisterJavaScriptProxyOne
+
+| 测试功能               | 预置条件            | 输入                                  | 预期输出                       | 是否自动 | 测试结果 |
+| ---------------------- | ------------------- | --------------------------------- | ------------------------------ | -------- | -------- |
+| 触发callArkTS函数      | 设备运转正常          | 点击Click Me!按钮                    | 触发callArkTS函数             | Yes       | Pass     |
+| 删除testObjName        | 注册testObjName对象  | 点击deleteJavaScriptRegister按钮     | 删除Web端注册的testObjName对象 | Yes      | Pass     |
+| callArkTS              | testObj 注册到前端  | 点击Click Me!按钮                     | 不触发callArkTS函数           | Yes      | Pass     |
+
+#### RegisterJavaScriptProxyTwo
+
+| 测试功能               | 预置条件            | 输入                                  | 预期输出                       | 是否自动 | 测试结果 |
+| ---------------------- | ------------------- | ---------------------------------- | ------------------------------ | -------- | -------- |
+| 触发callArkTS函数       | testObj 注册到前端  | 点击Click Me!按钮                     | 触发callArkTS函数               | Yes      | Pass     |
+| 删除testObjName        | 注册testObjName对象 | 点击deleteJavaScriptRegister按钮      | 删除Web端注册的testObjName对象   | Yes      | Pass     |
+| 触发callArkTS函数       | testObj 注册到前端  | 点击Click Me!按钮                     | 不触发callArkTS函数             | Yes      | Pass     |
+
 #### UsageOfComplexTypes_one
 
 | 测试功能               | 预置条件            | 输入                                  | 预期输出                       | 是否自动 | 测试结果 |
@@ -112,3 +128,9 @@
 | 注册消息处理的回调（多线程） | 设备运转正常 | 点击setHandlerThread按钮                          | 调用 testNapi.setMessageEventHandlerThread              | Yes      | Pass     |
 | 发送消息                     | 回调注册成功 | 点击SendString按钮                                | TextArea 中显示 H5 recv result: send string from native | Yes      | Pass     |
 
+### entry6:
+
+| 测试功能                          | 预置条件     | 输入                               | 预期输出                   | 是否自动 | 测试结果 |
+| --------------------------------- | ------------ | ---------------------------------- | -------------------------- | -------- | -------- |
+| 应用侧与前端页面的相互调用(C/C++) | 设备运转正常 | 应用启动成功，点击 runJS hello按钮 | 调用testNapi.runJavaScript | Yes      | Pass     |
+| testNdkProxyObjMethod1            | 设备运转正常 | 点击test Native Development Kit method1!按钮          | 调用testNdkProxyObjMethod1 | Yes      | Pass     |

@@ -17,24 +17,27 @@ import { ComponentCard } from '../../common/Card';
 
 @Entry
 @Component
-export struct SymbolGlyphSpanAddToText {
+struct SymbolGlyphSpanAddToText {
   scroller: Scroller = new Scroller();
+  @State isActive: boolean = true;
 
   build() {
     NavDestination() {
       Scroll(this.scroller) {
         Column({ space: 12 }) {
+          // 请将$r('app.string.SymbolGlyphSpanAddToText_title_1')替换为实际资源文件，在本示例中该资源文件的value值为"创建SymbolSpan"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanAddToText_title_1') }) {
             // [Start creat_symbol_span]
             Text() {
               SymbolSpan($r('sys.symbol.ohos_trash'))
                 .fontWeight(FontWeight.Normal)
                 .fontSize(96)
-            }.id('1')
-
+            }
             // [End creat_symbol_span]
           }
 
+          // 请将$r('app.string.SymbolGlyphSpanAddToText_title_2')替换为实际资源文件，
+          // 在本示例中该资源文件的value值为"通过fontSize属性设置SymbolSpan的大小"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanAddToText_title_2') }) {
             // [Start symbol_span_font_size]
             Row() {
@@ -45,7 +48,7 @@ export struct SymbolGlyphSpanAddToText {
                     .fontSize(48)
                     .renderingStrategy(SymbolRenderingStrategy.SINGLE)
                     .fontColor([Color.Black, Color.Green, Color.White])
-                }.id('2')
+                }
               }
 
               Column() {
@@ -55,7 +58,7 @@ export struct SymbolGlyphSpanAddToText {
                     .fontSize(72)
                     .renderingStrategy(SymbolRenderingStrategy.SINGLE)
                     .fontColor([Color.Black, Color.Green, Color.White])
-                }.id('3')
+                }
               }
 
               Column() {
@@ -65,13 +68,14 @@ export struct SymbolGlyphSpanAddToText {
                     .fontSize(96)
                     .renderingStrategy(SymbolRenderingStrategy.SINGLE)
                     .fontColor([Color.Black, Color.Green, Color.White])
-                }.id('4')
+                }
               }
             }
-
             // [End symbol_span_font_size]
           }
 
+          // 请将$r('app.string.SymbolGlyphSpanAddToText_title_3')替换为实际资源文件，
+          // 在本示例中该资源文件的value值为"通过fontWeight属性设置SymbolSpan组件的粗细"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanAddToText_title_3') }) {
             // [Start symbol_span_font_weight]
             Row() {
@@ -81,7 +85,7 @@ export struct SymbolGlyphSpanAddToText {
                   SymbolSpan($r('sys.symbol.ohos_trash'))
                     .fontWeight(FontWeight.Lighter)
                     .fontSize(96)
-                }.id('5')
+                }
               }
 
               Column() {
@@ -90,7 +94,7 @@ export struct SymbolGlyphSpanAddToText {
                   SymbolSpan($r('sys.symbol.ohos_trash'))
                     .fontWeight(FontWeight.Normal)
                     .fontSize(96)
-                }.id('6')
+                }
               }
 
               Column() {
@@ -99,13 +103,14 @@ export struct SymbolGlyphSpanAddToText {
                   SymbolSpan($r('sys.symbol.ohos_trash'))
                     .fontWeight(FontWeight.Bold)
                     .fontSize(96)
-                }.id('7')
+                }
               }
             }
-
             // [End symbol_span_font_weight]
           }
 
+          // 请将$r('app.string.SymbolGlyphSpanAddToText_title_4')替换为实际资源文件，
+          // 在本示例中该资源文件的value值为"通过fontColor属性设置SymbolSpan的颜色"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanAddToText_title_4') }) {
             // [Start symbol_span_font_color]
             Row() {
@@ -115,7 +120,7 @@ export struct SymbolGlyphSpanAddToText {
                   SymbolSpan($r('sys.symbol.ohos_folder_badge_plus'))
                     .fontSize(96)
                     .fontColor([Color.Black])
-                }.id('8')
+                }
               }
 
               Column() {
@@ -124,7 +129,7 @@ export struct SymbolGlyphSpanAddToText {
                   SymbolSpan($r('sys.symbol.ohos_folder_badge_plus'))
                     .fontSize(96)
                     .fontColor([Color.Green])
-                }.id('9')
+                }
               }
 
               Column() {
@@ -133,82 +138,128 @@ export struct SymbolGlyphSpanAddToText {
                   SymbolSpan($r('sys.symbol.ohos_folder_badge_plus'))
                     .fontSize(96)
                     .fontColor([Color.Pink])
-                }.id('10')
+                }
               }
             }
-
             // [End symbol_span_font_color]
           }
 
+          // 请将$r('app.string.SymbolGlyphSpanAddToText_title_5')替换为实际资源文件，
+          // 在本示例中该资源文件的value值为"通过renderingStrategy属性设置SymbolSpan的渲染策略"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanAddToText_title_5') }) {
             // [Start symbol_span_rendering_strategy]
             Row() {
               Column() {
-                Text($r('app.string.SymbolAddToText_Text_1'))
+                // 请将$r('app.string.single_color')替换为实际资源文件，在本示例中该资源文件的value值为"单色"
+                Text($r('app.string.single_color'));
                 Text() {
                   SymbolSpan($r('sys.symbol.ohos_folder_badge_plus'))
                     .fontSize(96)
                     .renderingStrategy(SymbolRenderingStrategy.SINGLE)
                     .fontColor([Color.Black, Color.Green, Color.White])
-                }.id('11')
+                }
               }
 
               Column() {
-                Text($r('app.string.SymbolAddToText_Text_2'))
+                // 请将$r('app.string.multi_color')替换为实际资源文件，在本示例中该资源文件的value值为"多色"
+                Text($r('app.string.multi_color'));
                 Text() {
                   SymbolSpan($r('sys.symbol.ohos_folder_badge_plus'))
                     .fontSize(96)
                     .renderingStrategy(SymbolRenderingStrategy.MULTIPLE_COLOR)
                     .fontColor([Color.Black, Color.Green, Color.White])
-                }.id('12')
+                }
               }
 
               Column() {
-                Text($r('app.string.SymbolAddToText_Text_3'))
+                // 请将$r('app.string.hierarchical')替换为实际资源文件，在本示例中该资源文件的value值为"分层"
+                Text($r('app.string.hierarchical'));
                 Text() {
                   SymbolSpan($r('sys.symbol.ohos_folder_badge_plus'))
                     .fontSize(96)
                     .renderingStrategy(SymbolRenderingStrategy.MULTIPLE_OPACITY)
                     .fontColor([Color.Black, Color.Green, Color.White])
-                }.id('13')
+                }
               }
             }
-
             // [End symbol_span_rendering_strategy]
           }
 
+          // 请将$r('app.string.SymbolGlyphSpanAddToText_title_6')替换为实际资源文件，
+          // 在本示例中该资源文件的value值为"通过设置SymbolEffect属性配置SymbolGlyph的动效\n点击可播放动画效果"
           ComponentCard({ title: $r('app.string.SymbolGlyphSpanAddToText_title_6') }) {
-            // [Start symbol_span_effect_strategy]
-            Row() {
-              Column() {
-                Text($r('app.string.SymbolAddToText_Text_4'))
-                Text() {
-                  SymbolSpan($r('sys.symbol.ohos_wifi'))
-                    .fontSize(96)
-                    .effectStrategy(SymbolEffectStrategy.NONE)
-                }.id('14')
-              }
+            if (this.isActive) {
+              // [Start symbol_span_effect_strategy]
+              Row() {
+                Column() {
+                  // 请将$r('app.string.no_action')替换为实际资源文件，在本示例中该资源文件的value值为"无动效"
+                  Text($r('app.string.no_action'));
+                  Text() {
+                    SymbolSpan($r('sys.symbol.ohos_wifi'))
+                      .fontSize(96)
+                      .effectStrategy(SymbolEffectStrategy.NONE)
+                  }
+                }
 
-              Column() {
-                Text($r('app.string.SymbolAddToText_Text_5'))
-                Text() {
-                  SymbolSpan($r('sys.symbol.ohos_wifi'))
-                    .fontSize(96)
-                    .effectStrategy(SymbolEffectStrategy.SCALE)
-                }.id('15')
-              }
+                Column() {
+                  // 请将$r('app.string.overall_scaling_animation_effect')替换为实际资源文件，在本示例中该资源文件的value值为"整体缩放动效"
+                  Text($r('app.string.overall_scaling_animation_effect'));
+                  Text() {
+                    SymbolSpan($r('sys.symbol.ohos_wifi'))
+                      .fontSize(96)
+                      .effectStrategy(SymbolEffectStrategy.SCALE)
+                  }
+                }
 
-              Column() {
-                Text($r('app.string.SymbolAddToText_Text_6'))
-                Text() {
-                  SymbolSpan($r('sys.symbol.ohos_wifi'))
-                    .fontSize(96)
-                    .effectStrategy(SymbolEffectStrategy.HIERARCHICAL)
-                }.id('16')
+                Column() {
+                  // 请将$r('app.string.hierarchical_animation')替换为实际资源文件，在本示例中该资源文件的value值为"层级动效"
+                  Text($r('app.string.hierarchical_animation'));
+                  Text() {
+                    SymbolSpan($r('sys.symbol.ohos_wifi'))
+                      .fontSize(96)
+                      .effectStrategy(SymbolEffectStrategy.HIERARCHICAL)
+                  }
+                }
               }
+              // [End symbol_span_effect_strategy]
+              .onClick(() => {
+                this.isActive = !this.isActive;
+              })
+            } else {
+              Row() {
+                Column() {
+                  // 请将$r('app.string.no_action')替换为实际资源文件，在本示例中该资源文件的value值为"无动效"
+                  Text($r('app.string.no_action'));
+                  Text() {
+                    SymbolSpan($r('sys.symbol.ohos_wifi'))
+                      .fontSize(96)
+                      .effectStrategy(SymbolEffectStrategy.NONE)
+                  }
+                }
+
+                Column() {
+                  // 请将$r('app.string.overall_scaling_animation_effect')替换为实际资源文件，在本示例中该资源文件的value值为"整体缩放动效"
+                  Text($r('app.string.overall_scaling_animation_effect'));
+                  Text() {
+                    SymbolSpan($r('sys.symbol.ohos_wifi'))
+                      .fontSize(96)
+                      .effectStrategy(SymbolEffectStrategy.SCALE)
+                  }
+                }
+
+                Column() {
+                  // 请将$r('app.string.hierarchical_animation')替换为实际资源文件，在本示例中该资源文件的value值为"层级动效"
+                  Text($r('app.string.hierarchical_animation'));
+                  Text() {
+                    SymbolSpan($r('sys.symbol.ohos_wifi'))
+                      .fontSize(96)
+                      .effectStrategy(SymbolEffectStrategy.HIERARCHICAL)
+                  }
+                }
+              }.onClick(() => {
+                this.isActive = !this.isActive;
+              })
             }
-
-            // [End symbol_span_effect_strategy]
           }
         }
         .width('100%')
@@ -216,6 +267,9 @@ export struct SymbolGlyphSpanAddToText {
       }.id('scroll_')
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.SymbolGlyphSpanAddToText_title')替换为实际资源文件，在本示例中该资源文件的value值为"添加到文本中"
     .title($r('app.string.SymbolGlyphSpanAddToText_title'))
   }
 }
+
+export { SymbolGlyphSpanAddToText };

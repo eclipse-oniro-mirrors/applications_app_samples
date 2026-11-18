@@ -13,6 +13,7 @@
 * limitations under the License.
 */
 
+// [Start register_init_scheme]
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
@@ -29,6 +30,7 @@ export default class EntryAbility extends UIAbility {
     testNapi.setSchemeHandler();
   }
 
+// [StartExclude register_init_scheme]
   onDestroy(): void {
 
   }
@@ -52,4 +54,6 @@ export default class EntryAbility extends UIAbility {
   onBackground(): void {
 
   }
+  // [EndExclude register_init_scheme]
 };
+// [End register_init_scheme]

@@ -1,0 +1,56 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "DRM Kit C API sample."
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "DrmNDK entry ability."
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "DrmNDK"
+    },
+    {
+      "name": "page_title",
+      "value": "DRM Kit C API Sample"
+    },
+    {
+      "name": "c_api_section_title",
+      "value": "C API Demo"
+    },
+    {
+      "name": "result_section_title",
+      "value": "Result"
+    },
+    {
+      "name": "result_hint",
+      "value": "Tap a button to run the sample. DRM solution name: %s"
+    },
+    {
+      "name": "c_query_if_supported",
+      "value": "C API: Query If Supported"
+    },
+    {
+      "name": "c_query_supported_list",
+      "value": "C API: Query Supported List"
+    },
+    {
+      "name": "c_query_support_level",
+      "value": "C API: Query Support Level"
+    },
+    {
+      "name": "c_media_key_system_flow",
+      "value": "C API: MediaKeySystem Flow"
+    },
+    {
+      "name": "c_media_key_session_flow",
+      "value": "C API: MediaKeySession Flow"
+    },
+    {
+      "name": "oh_is_supported_result",
+      "value": "OH_MediaKeySystem_IsSupported: %s"
+    }
+  ]
+}

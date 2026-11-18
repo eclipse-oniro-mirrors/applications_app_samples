@@ -16,24 +16,30 @@
 
 // [Start use_dh_for_key_negotiation_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
-function dhAwait() {
-  let keyGen = cryptoFramework.createAsyKeyGenerator('DH_modp1536');
-  // 随机生成公私钥对A
-  let keyPairA = keyGen.generateKeyPairSync();
-  // 随机生成规格一致的公私钥对B
-  let keyPairB = keyGen.generateKeyPairSync();
-  let keyAgreement = cryptoFramework.createKeyAgreement('DH_modp1536');
-  // 使用A的公钥和B的私钥进行密钥协商
-  let secret1 = keyAgreement.generateSecretSync(keyPairB.priKey, keyPairA.pubKey);
-  // 使用A的私钥和B的公钥进行密钥协商
-  let secret2 = keyAgreement.generateSecretSync(keyPairA.priKey, keyPairB.pubKey);
-  // 两种协商的结果应当一致
-  if (secret1.data.toString() === secret2.data.toString()) {
-    console.info('DH success');
-    console.info('DH output is ' + secret1.data);
-  } else {
-    console.error('DH result is not equal');
+function dhSync() {
+  try {
+    let keyGen = cryptoFramework.createAsyKeyGenerator('DH_modp1536');
+    // 随机生成公私钥对A
+    let keyPairA = keyGen.generateKeyPairSync();
+    // 随机生成规格一致的公私钥对B
+    let keyPairB = keyGen.generateKeyPairSync();
+    let keyAgreement = cryptoFramework.createKeyAgreement('DH_modp1536');
+    // 使用A的公钥和B的私钥进行密钥协商
+    let secret1 = keyAgreement.generateSecretSync(keyPairB.priKey, keyPairA.pubKey);
+    // 使用A的私钥和B的公钥进行密钥协商
+    let secret2 = keyAgreement.generateSecretSync(keyPairA.priKey, keyPairB.pubKey);
+    // 两种协商的结果应当一致
+    if (secret1.data.toString() === secret2.data.toString()) {
+      console.info('DH result: success.');
+      console.info('DH output: ' + secret1.data);
+    } else {
+      console.error('DH result is not equal.');
+    }
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
   }
 }
 // [End use_dh_for_key_negotiation_sync]
@@ -49,7 +55,7 @@ struct Index {
         .width('70%')
         .onClick(() => {
           try {
-            dhAwait();
+            dhSync();
             this.message = 'DH Sync Success';
           } catch {
             this.message = 'DH Async Fail';

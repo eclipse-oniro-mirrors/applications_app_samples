@@ -16,17 +16,25 @@
 import HomeContent from './Home/HomeContent'
 import SettingsContent from './Home/SettingsContent'
 
+class TabResource {
+  public title: Resource = $r('app.string.contact')
+  public image: Resource = $r('app.media.contact')
+  public imageSelected: Resource = $r('app.media.contact_selected')
+
+  constructor(title: Resource, image: Resource, imageSelected: Resource) {
+    this.title = title;
+    this.image = image;
+    this.imageSelected = imageSelected;
+  }
+}
+
 @Entry
 @Component
 struct Home {
-  private tabResource = [{
-                           title: $r('app.string.contact'),
-                           image: $r('app.media.contact'),
-                           imageSelected: $r('app.media.contact_selected') },
-                         {
-                           title: $r('app.string.settings'),
-                           image: $r('app.media.settings'),
-                           imageSelected: $r('app.media.settings_selected') }]
+  private tabResource: TabResource[] = [
+    new TabResource($r('app.string.contact'),$r('app.media.contact'),$r('app.media.contact_selected')),
+    new TabResource($r('app.string.settings'),$r('app.media.settings'), $r('app.media.settings_selected'))
+  ]
   @State tabSelectedIndex: number = 0
   private tabController: TabsController = new TabsController()
 

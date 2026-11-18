@@ -1,0 +1,100 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "密钥管理扩展能力"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "UkeyExtension"
+    },
+    {
+      "name": "call_cpp",
+      "value": "Call C/C++"
+    },
+    {
+      "name": "call_arkts",
+      "value": "Call ArkTS"
+    },
+    {
+      "name": "api_22_title",
+      "value": "API 22 基础能力"
+    },
+    {
+      "name": "api_26_title",
+      "value": "API 26.0.0 增强能力"
+    },
+    {
+      "name": "api_26_1_title",
+      "value": "API 26.0.1 新增能力"
+    },
+    {
+      "name": "register_provider",
+      "value": "注册Provider"
+    },
+    {
+      "name": "unregister_single",
+      "value": "注销单个Provider"
+    },
+    {
+      "name": "unregister_all",
+      "value": "批量注销Provider"
+    },
+    {
+      "name": "open_resource",
+      "value": "打开资源"
+    },
+    {
+      "name": "close_resource",
+      "value": "关闭资源"
+    },
+    {
+      "name": "query_pin_auth_state",
+      "value": "查询PIN认证状态"
+    },
+    {
+      "name": "register_provider_with_auth_ui",
+      "value": "注册Provider与定制化认证UI"
+    },
+    {
+      "name": "clear_pin_auth_state",
+      "value": "清除PIN认证状态"
+    },
+    {
+      "name": "get_resource_id",
+      "value": "获取资源ID"
+    },
+    {
+      "name": "set_property",
+      "value": "属性设置"
+    },
+    {
+      "name": "extension_key_generation",
+      "value": "密钥生成"
+    },
+    {
+      "name": "extension_key_export",
+      "value": "公钥导出"
+    },
+    {
+      "name": "extension_key_import",
+      "value": "密钥导入"
+    },
+    {
+      "name": "register_ukey_auth_extension",
+      "value": "注册UkeyAuthExtensionAbility"
+    },
+    {
+      "name": "open_authorize_dialog",
+      "value": "打开证书选择弹窗"
+    },
+    {
+      "name": "open_ukey_auth_dialog",
+      "value": "拉起PIN认证弹窗"
+    }
+  ]
+}

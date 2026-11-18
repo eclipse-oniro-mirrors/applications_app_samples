@@ -1,0 +1,144 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "导航与布局高级组件示例"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "导航与布局示例"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "导航与布局"
+    },
+    {
+      "name": "page_title",
+      "value": "导航与布局"
+    },
+    {
+      "name": "breakpoint_label",
+      "value": "当前布局"
+    },
+    {
+      "name": "hub_multi_title",
+      "value": "MultiNavigation"
+    },
+    {
+      "name": "hub_multi_desc",
+      "value": "MultiNavPathStack 与 SplitPolicy 分栏导航"
+    },
+    {
+      "name": "hub_split_title",
+      "value": "SplitLayout"
+    },
+    {
+      "name": "hub_split_desc",
+      "value": "图片与内容的自适应分栏布局"
+    },
+    {
+      "name": "hub_fold_title",
+      "value": "FoldSplitContainer"
+    },
+    {
+      "name": "hub_fold_desc",
+      "value": "折叠、悬停、展开三态布局与模拟预览"
+    },
+    {
+      "name": "hub_hsp_title",
+      "value": "HSP 导航"
+    },
+    {
+      "name": "hub_hsp_desc",
+      "value": "使用 NavPushPathHelper 从 HSP 分包加载页面"
+    },
+    {
+      "name": "multi_title",
+      "value": "MultiNavigation 示例"
+    },
+    {
+      "name": "split_title",
+      "value": "SplitLayout 示例"
+    },
+    {
+      "name": "fold_title",
+      "value": "FoldSplitContainer 示例"
+    },
+    {
+      "name": "hsp_title",
+      "value": "HSP 导航示例"
+    },
+    {
+      "name": "open_detail",
+      "value": "打开详情页"
+    },
+    {
+      "name": "open_full",
+      "value": "打开全屏页"
+    },
+    {
+      "name": "back",
+      "value": "返回"
+    },
+    {
+      "name": "single_column",
+      "value": "单栏"
+    },
+    {
+      "name": "double_column",
+      "value": "双栏"
+    },
+    {
+      "name": "triple_column",
+      "value": "三栏"
+    },
+    {
+      "name": "sim_folded",
+      "value": "折叠态"
+    },
+    {
+      "name": "sim_hover",
+      "value": "悬停态"
+    },
+    {
+      "name": "sim_expanded",
+      "value": "展开态"
+    },
+    {
+      "name": "sim_preview",
+      "value": "模拟预览"
+    },
+    {
+      "name": "push_hsp",
+      "value": "从 HSP 打开页面"
+    },
+    {
+      "name": "push_local",
+      "value": "打开本地兜底页"
+    },
+    {
+      "name": "split_primary",
+      "value": "主区域"
+    },
+    {
+      "name": "split_secondary",
+      "value": "次区域"
+    },
+    {
+      "name": "split_extra",
+      "value": "扩展区域"
+    },
+    {
+      "name": "split_content",
+      "value": "自定义容器内容：可承载列表、详情或设置等自适应区域。"
+    },
+    {
+      "name": "hub_stack_title",
+      "value": "栈 API 示例"
+    },
+    {
+      "name": "hub_stack_desc",
+      "value": "MultiNavPathStack 方法全覆盖"
+    }
+  ]
+}

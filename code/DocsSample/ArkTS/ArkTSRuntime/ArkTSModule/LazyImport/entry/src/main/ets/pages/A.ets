@@ -13,10 +13,13 @@
  * limitations under the License.
  */
 
-// [Start export_variable_a]
+// [Start import_variable_c]
+// A.ets
 import { c } from './B';
-
 console.info(c);
-// [End export_variable_a]
+// [End import_variable_c]
 
-export { c };
+// [Start export_variable_a]
+// A.ets
+export let a = 10;
+// [End export_variable_a]

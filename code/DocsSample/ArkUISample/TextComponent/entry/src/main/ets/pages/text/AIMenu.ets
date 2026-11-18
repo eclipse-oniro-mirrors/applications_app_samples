@@ -17,13 +17,15 @@ import { ComponentCard } from '../../common/Card';
 
 @Entry
 @Component
-export struct AIMenu {
+struct AIMenu {
   build() {
     NavDestination() {
       Column({ space: 12 }) {
         ComponentCard({ title: $r('app.string.SetUpAIMenu_title') }) {
           // [Start set_ai_menu]
-          Text($r('app.string.AIMenu_Text_1'))
+          // 'app.string.AIMenu_Text_One'资源文件中的value值为'电话号码：(86) (755) ********  \n \n 链接：www.********.com
+          // \n \n 邮箱：***@example.com\n \n 地址：XX省XX市XX区XXXX \n \n 时间：XX年XX月XX日XXXX'
+          Text($r('app.string.AIMenu_Text_One'))
             .fontSize(16)
             .copyOption(CopyOptions.LocalDevice)
             .enableDataDetector(true)// 使能实体识别
@@ -45,3 +47,5 @@ export struct AIMenu {
     .title($r('app.string.SetUpAIMenu_title'))
   }
 }
+
+export { AIMenu };

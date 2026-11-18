@@ -14,50 +14,37 @@
  */
 
 // [Start style_popup]
+// xxx.ets
+
 @Entry
 @Component
 export struct StylePopupExample {
   @State handlePopup: boolean = false;
 
-  // popup构造器定义弹框内容
-  @Builder
-  popupBuilder() {
-    Row({ space: 2 }) {
-      Image($r('app.media.app_icon')).width(24).height(24).margin({ left: 5 })
-      Text('This is Custom Popup').fontSize(15)
-    }.width(200).height(50).padding(5)
-  }
-
   build() {
     NavDestination() {
-      Column({ space: 12 }) {
-
-        Column({ space: 100 }) {
-          Button('PopupOptions')
-            .margin({ top: 300 })
-            .onClick(() => {
-              this.handlePopup = !this.handlePopup;
-            })
-            .bindPopup(this.handlePopup, {
-              width: 200,
-              message: 'This is a popup.',
-              popupColor: Color.Pink, // 设置气泡的背景色
-              mask: {
-                color: '#33d9d9d9'
-              },
-              placement: Placement.Top,
-              backgroundBlurStyle: BlurStyle.NONE // 去除背景模糊效果需要关闭气泡的模糊背景
-            })
-        }
-        .width('100%')
-
+      Column({ space: 100 }) {
+        Button('PopupOptions')
+          .onClick(() => {
+            this.handlePopup = !this.handlePopup;
+          })
+          .bindPopup(this.handlePopup, {
+            width: 200,
+            message: 'This is a popup.',
+            popupColor: Color.Red, // 设置气泡的背景色
+            mask: {
+              color: '#33d9d9d9'
+            },
+            placement: Placement.Top,
+            backgroundBlurStyle: BlurStyle.NONE // 去除背景模糊效果需要关闭气泡的模糊背景
+          })
       }
       .width('100%')
-      .height('100%')
-      .padding({ left: 12, right: 12 })
     }
-    .backgroundColor('#f1f2f3')
+    // [StartExclude style_popup]
+    // 请将$r('app.string.StylePopup_title')替换为实际资源文件，在本示例中该资源文件的value值为"气泡样式"
     .title($r('app.string.StylePopup_title'))
+    // [EndExclude style_popup]
   }
 }
 // [End style_popup]

@@ -21,10 +21,9 @@ export struct StatePopupExample {
 
   build() {
     NavDestination() {
-      Column({ space: 12 }) {
-
         Column() {
           Button('PopupOptions')
+            .id('PopupOptions')
             .margin({ top: 300 })
             .onClick(() => {
               this.handlePopup = !this.handlePopup;
@@ -38,14 +37,11 @@ export struct StatePopupExample {
               }
             })
         }.width('100%').padding({ top: 5 })
-
-      }
-      .width('100%')
-      .height('100%')
-      .padding({ left: 12, right: 12 })
     }
-    .backgroundColor('#f1f2f3')
+    // [StartExclude state_popup]
+    // 请将$r('app.string.onStateChange_title')替换为实际资源文件，在本示例中该资源文件的value值为"添加气泡状态变化的事件"
     .title($r('app.string.onStateChange_title'))
+    // [EndExclude state_popup]
   }
 }
 // [End state_popup]

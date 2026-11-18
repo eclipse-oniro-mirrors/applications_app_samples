@@ -1,0 +1,60 @@
+/*
+ * Copyright (c) 2025-2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+// [Start FormEditDemo_FormEditSecPageAbility]
+// entry/src/main/ets/entryformeditability/FormEditSecPageAbility.ets
+import { FormEditExtensionAbility } from '@kit.FormKit';
+import { UIExtensionContentSession, Want } from '@kit.AbilityKit';
+import { ExtensionEvent } from '../model/ExtensionEvent';
+
+const TAG: string = 'FormEditSecPageAbility';
+
+export default class FormEditSecPageAbility extends FormEditExtensionAbility {
+  public storage: LocalStorage = new LocalStorage();
+
+  onCreate() {
+    console.info(TAG, `Ability onCreate`);
+  }
+
+  onForeground(): void {
+    console.info(TAG, `Ability onForeground`);
+  }
+
+  onBackground(): void {
+    console.info(TAG, `Ability onBackground`);
+  }
+
+  onDestroy(): void {
+    console.info(TAG, `Ability onDestroy`);
+  }
+
+  onSessionCreate(want: Want, session: UIExtensionContentSession) {
+    let extensionEvent: ExtensionEvent = new ExtensionEvent();
+    this.storage.setOrCreate('extensionEvent', extensionEvent);
+    this.storage.setOrCreate('session', session);
+
+    try {
+      session.loadContent('pages/FormEditSecPage', this.storage);
+      console.info(TAG, 'loadContent second edit page success');
+    } catch (e) {
+      console.error(TAG, `FormEditSecPageAbility loadContent err, want: ${e?.message}`);
+    }
+  }
+
+  onSessionDestroy(session: UIExtensionContentSession) {
+    console.info(TAG, `onSessionDestroy`);
+  }
+}
+
+// [End FormEditDemo_FormEditSecPageAbility]

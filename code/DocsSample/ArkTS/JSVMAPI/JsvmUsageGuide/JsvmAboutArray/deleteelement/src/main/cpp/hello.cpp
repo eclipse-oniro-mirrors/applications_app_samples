@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,19 +70,19 @@ static JSVM_Value DeleteElement(JSVM_Env env, JSVM_CallbackInfo info)
     // 获取js侧传入的两个参数
     size_t argc = 2;
     JSVM_Value args[2] = {nullptr};
-    OH_JSVM_GetCbInfo(env, info, &argc, args, nullptr, nullptr);
+    JSVM_CALL(OH_JSVM_GetCbInfo(env, info, &argc, args, nullptr, nullptr));
     // 获取要删除的元素的索引
-    uint32_t index;
-    OH_JSVM_GetValueUint32(env, args[1], &index);
+    uint32_t index = 0;
+    JSVM_CALL(OH_JSVM_GetValueUint32(env, args[1], &index));
     // 尝试删除请求索引位置的元素
     bool deleted = true;
     JSVM_Status status = OH_JSVM_DeleteElement(env, args[0], index, &deleted);
     // 将boolean结果转换为JSVM_Value并返回
     JSVM_Value result = nullptr;
-    OH_JSVM_GetBoolean(env, deleted, &result);
     if (status != JSVM_OK) {
         OH_LOG_ERROR(LOG_APP, "JSVM DeleteElement fail");
     } else {
+        OH_JSVM_GetBoolean(env, deleted, &result);
         OH_LOG_INFO(LOG_APP, "JSVM DeleteElement: %{public}d", deleted);
     }
     return result;
@@ -119,8 +119,8 @@ static int32_t TestJSVM()
     }
     // 创建JSVM环境
     CHECK(OH_JSVM_CreateVM(nullptr, &vm));
-    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK(OH_JSVM_OpenVMScope(vm, &vmScope));
+    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK_RET(OH_JSVM_OpenEnvScope(env, &envScope));
     CHECK_RET(OH_JSVM_OpenHandleScope(env, &handleScope));
 
@@ -134,8 +134,8 @@ static int32_t TestJSVM()
     // 销毁JSVM环境
     CHECK_RET(OH_JSVM_CloseHandleScope(env, handleScope));
     CHECK_RET(OH_JSVM_CloseEnvScope(env, envScope));
-    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyEnv(env));
+    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyVM(vm));
     return 0;
 }

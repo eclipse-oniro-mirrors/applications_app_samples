@@ -1,0 +1,209 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Accessibility extension sample module",
+      "description": "Description of the entry module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Accessibility extension sample entry ability",
+      "description": "Description of the entry ability"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "Accessibility Sample",
+      "description": "Label of the entry ability shown on the home screen"
+    },
+    {
+      "name": "AccessibilityExtensionAbility_desc",
+      "value": "Accessibility extension ability description",
+      "description": "Description of the accessibility extension ability"
+    },
+    {
+      "name": "AccessibilityExtensionAbility_label",
+      "value": "Accessibility Extension",
+      "description": "Label of the accessibility extension ability shown in system settings"
+    },
+    {
+      "name": "accessibility_config_description",
+      "value": "Accessibility configuration for sample application",
+      "description": "Description of the accessibility extension configuration"
+    },
+    {
+      "name": "page_title",
+      "value": "Accessibility Sample",
+      "description": "Title of the sample page"
+    },
+    {
+      "name": "section_basic_interaction",
+      "value": "Basic Interaction",
+      "description": "Title of the basic interaction section"
+    },
+    {
+      "name": "btn_click_me",
+      "value": "Click Me",
+      "description": "Text of the click event button"
+    },
+    {
+      "name": "btn_click_desc",
+      "value": "Button to trigger click accessibility event",
+      "description": "Accessibility description of the click event button"
+    },
+    {
+      "name": "btn_long_click",
+      "value": "Long Press",
+      "description": "Text of the long click event button"
+    },
+    {
+      "name": "btn_long_click_desc",
+      "value": "Button to trigger long click accessibility event",
+      "description": "Accessibility description of the long click event button"
+    },
+    {
+      "name": "counter_label",
+      "value": "Counter",
+      "description": "Label of the click counter"
+    },
+    {
+      "name": "section_text_input",
+      "value": "Text Input",
+      "description": "Title of the text input section"
+    },
+    {
+      "name": "input_placeholder",
+      "value": "Please input text...",
+      "description": "Placeholder of the text input field"
+    },
+    {
+      "name": "input_accessibility_text",
+      "value": "Text input field",
+      "description": "Accessibility text of the text input field"
+    },
+    {
+      "name": "input_accessibility_desc",
+      "value": "Input field that triggers text update accessibility event",
+      "description": "Accessibility description of the text input field"
+    },
+    {
+      "name": "section_toggle",
+      "value": "Toggle Switch",
+      "description": "Title of the toggle switch section"
+    },
+    {
+      "name": "toggle_accessibility_text",
+      "value": "Switch toggle",
+      "description": "Accessibility text of the toggle switch"
+    },
+    {
+      "name": "toggle_accessibility_desc",
+      "value": "Toggle switch that triggers select accessibility event",
+      "description": "Accessibility description of the toggle switch"
+    },
+    {
+      "name": "section_list",
+      "value": "Scrollable List",
+      "description": "Title of the scrollable list section"
+    },
+    {
+      "name": "list_item_1",
+      "value": "List item 1",
+      "description": "Text of the first list item"
+    },
+    {
+      "name": "list_item_2",
+      "value": "List item 2",
+      "description": "Text of the second list item"
+    },
+    {
+      "name": "list_item_3",
+      "value": "List item 3",
+      "description": "Text of the third list item"
+    },
+    {
+      "name": "list_item_4",
+      "value": "List item 4",
+      "description": "Text of the fourth list item"
+    },
+    {
+      "name": "list_item_5",
+      "value": "List item 5",
+      "description": "Text of the fifth list item"
+    },
+    {
+      "name": "list_accessibility_text",
+      "value": "Scrollable list of items",
+      "description": "Accessibility text of the scrollable list"
+    },
+    {
+      "name": "section_slider",
+      "value": "Slider Control",
+      "description": "Title of the slider section"
+    },
+    {
+      "name": "slider_accessibility_text",
+      "value": "Volume slider",
+      "description": "Accessibility text of the slider"
+    },
+    {
+      "name": "slider_accessibility_desc",
+      "value": "Slider that demonstrates valueNow valueMax valueMin accessibility properties",
+      "description": "Accessibility description of the slider"
+    },
+    {
+      "name": "slider_value_label",
+      "value": "Value",
+      "description": "Label of the current slider value"
+    },
+    {
+      "name": "section_checkbox",
+      "value": "Checkbox Control",
+      "description": "Title of the checkbox section"
+    },
+    {
+      "name": "checkbox_accessibility_text",
+      "value": "Enable notifications",
+      "description": "Accessibility text of the checkbox"
+    },
+    {
+      "name": "checkbox_accessibility_desc",
+      "value": "Checkbox that demonstrates checkable and checked accessibility properties",
+      "description": "Accessibility description of the checkbox"
+    },
+    {
+      "name": "checkbox_label",
+      "value": "Enable notifications",
+      "description": "Text displayed next to the checkbox"
+    },
+    {
+      "name": "section_swiper",
+      "value": "Swiper Pages",
+      "description": "Title of the swiper section"
+    },
+    {
+      "name": "swiper_accessibility_text",
+      "value": "Page swiper",
+      "description": "Accessibility text of the swiper"
+    },
+    {
+      "name": "swiper_accessibility_desc",
+      "value": "Swiper that demonstrates page content update accessibility events",
+      "description": "Accessibility description of the swiper"
+    },
+    {
+      "name": "swiper_page_1",
+      "value": "Page 1",
+      "description": "Text of the first swiper page"
+    },
+    {
+      "name": "swiper_page_2",
+      "value": "Page 2",
+      "description": "Text of the second swiper page"
+    },
+    {
+      "name": "swiper_page_3",
+      "value": "Page 3",
+      "description": "Text of the third swiper page"
+    }
+  ]
+}

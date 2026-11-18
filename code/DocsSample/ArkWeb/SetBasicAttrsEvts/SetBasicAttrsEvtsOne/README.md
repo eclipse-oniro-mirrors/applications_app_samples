@@ -16,10 +16,10 @@
 | ----------------------------------------------------------- |
 | <img src="screenshots\AllowGeolocation.png" width="360;" /> |
 
-使用说明
+#### 具体实现
 
 1. 将可选参数incognitoMode设置为true，来开启Web组件的隐私模式
-2. 点击按钮通过allowGeolocation设置隐私模式下的Web组件允许指定来源使用地理位置。
+2. 点击按钮通过allowGeolocation设置隐私模式下的Web组件允许指定来源使用地理位置，参考源码：[AllowGeolocation.ets](./entry/src/main/ets/pages/AllowGeolocation.ets)。
 
 ### ClearAllCookiesSync
 
@@ -85,10 +85,10 @@
 | ------------------------------------------------------------ |
 | <img src="screenshots\DeleteGeolocation.png" width="360;" /> |
 
-使用说明
+#### 具体实现
 
 1. 将可选参数incognitoMode设置为true，来开启Web组件的隐私模式。
-2. 点击按钮通过deleteGeolocation清除隐私模式下指定来源的地理位置权限状态。
+2. 点击按钮通过deleteGeolocation清除隐私模式下指定来源的地理位置权限状态，参考源码：[DeleteGeolocation.ets](./entry/src/main/ets/pages/DeleteGeolocation.ets)。
 
 ### ExistCookie
 
@@ -136,10 +136,10 @@
 | ------------------------------------------------------------ |
 | <img src="screenshots\GetAccessibleGeolocation.png" width="360;" /> |
 
-使用说明
+#### 具体实现
 
 1. 将可选参数incognitoMode设置为true，来开启Web组件的隐私模式。
-2. 点击按钮通过getAccessibleGeolocation以回调方式异步获取隐私模式下指定源的地理位置权限状态。
+2. 点击按钮通过getAccessibleGeolocation以回调方式异步获取隐私模式下指定源的地理位置权限状态，参考源码：[GetAccessibleGeolocation.ets](./entry/src/main/ets/pages/GetAccessibleGeolocation.ets)。
 
 ### IncognitoMode_one
 
@@ -173,6 +173,10 @@
 
 1. 点击按钮通过isIncogntoMode判断当前Web组件是否是隐私模式。
 
+### 具体实现
+* 在创建Web组件时，可以将可选参数incognitoMode设置为true，来开启Web组件的隐私模式。
+* 隐私模式提供了一系列接口，用于操作地理位置、Cookie以及Cache Data。
+
 # 在新窗口中打开页面
 
 ### OpenPageNewWin
@@ -193,6 +197,11 @@
 1. 通过multiWindowAccess()接口来设置是否允许网页在新窗口打开。
 1. 点击按钮在新窗口打开网页。
 
+#### 具体实现
+
+1. 使能[multiWindowAccess()](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkweb/arkts-basic-components-web-attributes.md#multiwindowaccess9)情况下，通知用户新建窗口请求。
+2. 当有新窗口打开时，应用侧在[onWindowNew()](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkweb/arkts-basic-components-web-events.md#onwindownew9)接口。开发者需要在此接口事件中新建窗口来处理Web组件的窗口请求，参考源码：[OpenPageNewWin.ets](./entry/src/main/ets/pages/OpenPageNewWin.ets)
+
 #  管理位置权限
 
 ### ManageLocPerms
@@ -208,10 +217,10 @@
 | ----------------------------------------------------------- | ----------------------------------------------------------- |
 | <img src="screenshots\ManageLocPerms_1.png" width="360;" /> | <img src="screenshots\ManageLocPerms_2.png" width="360;" /> |
 
-使用说明
+#### 具体实现
 
 1. 通过onGeolocationShow()接口对某个网站进行位置权限管理。
-1. 点击按钮，Web组件通过弹窗的形式通知应用侧位置权限请求消息。
+1. 点击按钮，Web组件通过弹窗的形式通知应用侧位置权限请求消息，参考源码：[ManageLocPerms.ets](./entry/src/main/ets/pages/ManageLocPerms.ets)。
 
 #  设置深色模式
 
@@ -281,6 +290,9 @@ entry/src/main/
 |---|---|---|---Ability.test.ets            // 自动化测试用例
 ```
 
+## 具体实现
+* 通过darkMode接口配置Web深色模式。参考源码：[DarkMode_one.ets](./entry/src/main/ets/pages/DarkMode_one.ets)
+
 ## 相关权限
 
 [ohos.permission.INTERNET](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissioninternet)
@@ -298,8 +310,8 @@ entry/src/main/
 ## 约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568。
-2. 本示例支持API14版本SDK，SDK版本号(API Version 14 Release)。
-3. 本示例需要使用DevEco Studio 版本号(5.0.1Release)才可编译运行。
+2. 本示例支持API20版本SDK。
+3. 本示例建议使用最新DevEco Studio版本。
 
 ## 下载
 

@@ -14,13 +14,14 @@
  */
 @Entry
 @Component
-struct pageTransitionPage1 {
+struct PageTransitionPage1 {
   @State scale2: number = 1;
   @State opacity2: number = 1;
 
   build() {
     Column() {
-      Image($r("app.media.transition_image2")).width('100%').height('100%') // 图片存放在media文件夹下
+      // 请将$r('app.media.transition_image2')替换为实际资源文件
+      Image($r('app.media.transition_image2')).width('100%').height('100%') // 图片存放在media文件夹下
     }
     .width('100%')
     .height('100%')

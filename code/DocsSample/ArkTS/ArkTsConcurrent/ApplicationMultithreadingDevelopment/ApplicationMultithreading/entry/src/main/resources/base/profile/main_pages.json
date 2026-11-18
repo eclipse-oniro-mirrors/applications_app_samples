@@ -5,6 +5,7 @@
     "managers/IoIntensiveTaskDevelopment",
     "managers/SyncTaskDevelopment",
     "managers/LongTimeTaskGuide",
-    "managers/ResidentTaskGuide"
+    "managers/ResidentTaskGuide",
+    "managers/WorkerManager"
   ]
 }

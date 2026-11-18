@@ -53,6 +53,14 @@
       "value": "ecdsa_signature_verification_synchronous"
     },
     {
+      "name": "ml_dsa_signature_verification_asynchronous",
+      "value": "ml_dsa_signature_verification_asynchronous"
+    },
+    {
+      "name": "ml_dsa_signature_verification_synchronous",
+      "value": "ml_dsa_signature_verification_synchronous"
+    },
+    {
       "name": "sm2_signature_verification_asynchronous",
       "value": "sm2_signature_verification_asynchronous"
     },
@@ -67,6 +75,14 @@
     {
       "name": "call_ecdsasignature_synchronous",
       "value": "Call ECDSASignature Synchronous"
+    },
+    {
+      "name": "call_ml_dsasignature_asynchronous",
+      "value": "Call ML-DSASignature Asynchronous"
+    },
+    {
+      "name": "call_ml_dsasignature_synchronous",
+      "value": "Call ML-DSASignature Synchronous"
     },
     {
       "name": "call_signatureseg_asynchronous",
@@ -107,6 +123,50 @@
     {
       "name": "call_sm2_signature_synchronous",
       "value": "Call SM2Signature Synchronous"
+    },
+    {
+      "name": "call_sm2_sign_data_der_to_rs",
+      "value": "Call SM2 Sign Data DER to RS"
+    },
+    {
+      "name": "call_sm2_sign_data_rs_to_der",
+      "value": "Call SM2 Sign Data RS to DER"
+    },
+    {
+      "name": "sm2_sign_data_der_to_rs",
+      "value": "SM2 Sign Data DER to RS"
+    },
+    {
+      "name": "sm2_sign_data_rs_to_der",
+      "value": "SM2 Sign Data RS to DER"
+    },
+    {
+      "name": "onlysign_onlyverify_signature_validator",
+      "value": "onlysign_onlyverify_signature_validator"
+    },
+    {
+      "name": "rsa_pkcs1_onlysign_onlyverify_signature_validator_asynchronous",
+      "value": "rsa_pkcs1_onlysign_onlyverify_signature_validator_asynchronous"
+    },
+    {
+      "name": "rsa_pkcs1_onlysign_onlyverify_signature_validator_synchronous",
+      "value": "rsa_pkcs1_onlysign_onlyverify_signature_validator_synchronous"
+    },
+    {
+      "name": "rsa_pss_onlysign_onlyverify_signature_verification_asynchronous",
+      "value": "rsa_pss_onlysign_onlyverify_signature_verification_asynchronous"
+    },
+    {
+      "name": "rsa_pss_onlysign_onlyverify_signature_verification_synchronous",
+      "value": "rsa_pss_onlysign_onlyverify_signature_verification_synchronous"
+    },
+    {
+      "name": "ecc_onlysign_onlyverify_signature_verification_asynchronous",
+      "value": "ecc_onlysign_onlyverify_signature_verification_asynchronous"
+    },
+    {
+      "name": "ecc_onlysign_onlyverify_signature_verification_synchronous",
+      "value": "ecc_onlysign_onlyverify_signature_verification_synchronous"
     }
   ]
 }

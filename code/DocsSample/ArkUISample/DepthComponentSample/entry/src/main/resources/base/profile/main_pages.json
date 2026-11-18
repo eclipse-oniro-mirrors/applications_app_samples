@@ -1,0 +1,10 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/DepthComponent_2D",
+    "pages/DepthComponent_3D",
+    "pages/DepthComponent_NDC",
+    "pages/DepthComponent_Depth",
+    "pages/DepthComponent_Crop"
+  ]
+}

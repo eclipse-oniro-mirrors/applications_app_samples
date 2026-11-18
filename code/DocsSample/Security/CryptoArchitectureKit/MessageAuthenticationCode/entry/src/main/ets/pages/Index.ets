@@ -21,15 +21,13 @@ struct Index {
   @State message: string = 'MessageAuthenticationCode';
 
   goToSample(url: string): void {
-    router.pushUrl({
+    this.getUIContext().getRouter().pushUrl({
       url: url,
-    }, router.RouterMode.Single, (err) => {
-      if (err) {
-        console.error(`pushUrl failed, code is ${err.code}, message is ${err.message}`);
-        return;
-      }
+    }).then(() => {
       console.info('pushUrl success');
-    })
+    }).catch((err: BusinessError) => {
+      console.error(`pushUrl failed, code is ${err.code}, message is ${err.message}`);
+    });
   }
 
   build() {
@@ -56,6 +54,36 @@ struct Index {
         .width('70%')
         .onClick(() => {
           this.goToSample('pages/HMACSingleTime/Sync')
+        })
+      Button($r('app.string.call_hmac_spec_async'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/HMACSingleTime/Spec')
+        })
+      Button($r('app.string.call_cmac_segmentation_async'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/CMACSegmentation/Async')
+        })
+      Button($r('app.string.call_cmac_segmentation_sync'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/CMACSegmentation/Sync')
+        })
+      Button($r('app.string.call_cmac_single_time_async'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/CMACSingleTime/Async')
+        })
+      Button($r('app.string.call_cmac_single_time_sync'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/CMACSingleTime/Sync')
+        })
+      Button($r('app.string.cpp_test'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/cpp_test')
         })
     }
     .height('100%')

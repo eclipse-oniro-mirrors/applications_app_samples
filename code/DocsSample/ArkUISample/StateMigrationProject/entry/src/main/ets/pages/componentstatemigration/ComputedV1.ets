@@ -1,0 +1,43 @@
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+// [Start ComputedV1_start]
+@Entry
+@Component
+struct Index {
+  @State firstName: string = 'Li';
+  @State lastName: string = 'Hua';
+
+  build() {
+    Column() {
+      Text(this.firstName + ' ' + this.lastName)
+        .fontSize(20)
+        .margin(10)
+      Text(this.firstName + ' ' + this.lastName)
+        .fontSize(20)
+        .margin(10)
+      // 每次改变lastName都会触发Text组件的刷新
+      Button('changed lastName')
+        .width(300)
+        .margin(10)
+        .onClick(() => {
+          this.lastName += 'a';
+        })
+    }
+    .width('100%')
+  }
+}
+// [End ComputedV1_start]
+const index1 = Index;
+export default index1;

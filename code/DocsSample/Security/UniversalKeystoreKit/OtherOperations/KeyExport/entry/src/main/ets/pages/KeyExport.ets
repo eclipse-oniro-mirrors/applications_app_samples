@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// [Start fetch_persistent_security_public_keys]
+// [Start fetch_persistent_security_public_keys_ets]
 import { huks } from '@kit.UniversalKeystoreKit';
 
 /* 1. 设置密钥别名 */
@@ -22,7 +22,8 @@ let keyAlias = 'keyAlias';
 let emptyOptions: huks.HuksOptions = {
 properties: []
 };
-// [StartExclude fetch_persistent_security_public_keys]
+
+/* 2. 初始化密钥属性集 */
 let properties1: huks.HuksParam[] = [
   {
     tag: huks.HuksTag.HUKS_TAG_ALGORITHM,
@@ -47,11 +48,11 @@ let huksOptions: huks.HuksOptions = {
 function generateKeyItem(keyAlias: string, huksOptions: huks.HuksOptions) {
   return new Promise<void>((resolve, reject) => {
     try {
-      huks.generateKeyItem(keyAlias, huksOptions, (error, data) => {
+      huks.generateKeyItem(keyAlias, huksOptions, (error) => {
         if (error) {
           reject(error);
         } else {
-          resolve(data);
+          resolve();
         }
       });
     } catch (error) {
@@ -64,15 +65,10 @@ async function publicGenKeyFunc(keyAlias: string, huksOptions: huks.HuksOptions)
   console.info(`enter promise generateKeyItem`);
   try {
     await generateKeyItem(keyAlias, huksOptions)
-      .then((data) => {
-        console.info(`promise: generateKeyItem success, data = ${JSON.stringify(data)}`);
-      })
-      .catch((error: Error) => {
-        console.error(`promise: generateKeyItem failed, ${JSON.stringify(error)}`);
-      });
+    console.info(`promise: generateKeyItem success`);
     return 'Success';
   } catch (error) {
-    console.error(`promise: generateKeyItem input arg invalid, ${JSON.stringify(error)}`);
+    console.error(`promise: generateKeyItem failed, ${JSON.stringify(error)}`);
     return 'Failed';
   }
 }
@@ -83,12 +79,9 @@ async function testGenKey(): Promise<string> {
 }
 
 function check(): string {
-// [EndExclude fetch_persistent_security_public_keys]
   try {
-    // [StartExclude fetch_persistent_security_public_keys]
     /* 1. 生成密钥 */
     testGenKey()
-    // [EndExclude fetch_persistent_security_public_keys]
     /* 2. 导出密钥 */
     huks.exportKeyItem(keyAlias, emptyOptions, (error, data) => {
       if (error) {
@@ -102,8 +95,8 @@ function check(): string {
     console.error(`callback: exportKeyItem input arg invalid, ${JSON.stringify(error)}`);
     return 'Failed';
   }
-// [End fetch_persistent_security_public_keys]
 }
+// [End fetch_persistent_security_public_keys_ets]
 
 @Entry
 @Component

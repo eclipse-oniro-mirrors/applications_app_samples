@@ -17,8 +17,16 @@
       "value": "Call SignatureSeg"
     },
     {
+      "name": "call_verify_seg",
+      "value": "Call VerifySeg"
+    },
+    {
       "name": "call_signature",
       "value": "Call Signature"
+    },
+    {
+      "name": "call_verify",
+      "value": "Call Verify"
     },
     {
       "name": "call_signature_recover",
@@ -29,12 +37,32 @@
       "value": "Call PSSSignatureSeg"
     },
     {
+      "name": "call_pssverify_seg",
+      "value": "Call PSSVerifySeg"
+    },
+    {
       "name": "call_ecdsasignature",
       "value": "Call ECDSASignature"
     },
     {
+      "name": "call_ecdsaverify",
+      "value": "Call ECDSAVerify"
+    },
+    {
       "name": "call_sm2signature",
       "value": "Call SM2Signature"
+    },
+    {
+      "name": "call_sm2_sign",
+      "value": "Call SM2Sign"
+    },
+    {
+      "name": "call_sm2_rs_to_der",
+      "value": "Call SM2 RS to DER"
+    },
+    {
+      "name": "call_sm2_der_convert_rs",
+      "value": "Call SM2 DER Convert RS"
     }
   ]
 }

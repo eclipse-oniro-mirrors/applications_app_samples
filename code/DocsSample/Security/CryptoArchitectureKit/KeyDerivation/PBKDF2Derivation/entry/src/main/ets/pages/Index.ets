@@ -21,15 +21,13 @@ struct Index {
   @State message: string = 'PBKDF2Derivation';
 
   goToSample(url: string): void {
-    router.pushUrl({
+    this.getUIContext().getRouter().pushUrl({
       url: url,
-    }, router.RouterMode.Single, (err) => {
-      if (err) {
-        console.error(`pushUrl failed, code is ${err.code}, message is ${err.message}`);
-        return;
-      }
+    }).then(() => {
       console.info('pushUrl success');
-    })
+    }).catch((err: BusinessError) => {
+      console.error(`pushUrl failed, code is ${err.code}, message is ${err.message}`);
+    });
   }
 
   build() {
@@ -51,6 +49,11 @@ struct Index {
         .width('70%')
         .onClick(() => {
           this.goToSample('pages/Sync')
+        })
+      Button($r('app.string.call_cpp_test'))
+        .width('70%')
+        .onClick(() => {
+          this.goToSample('pages/CppTest')
         })
     }
     .height('100%')

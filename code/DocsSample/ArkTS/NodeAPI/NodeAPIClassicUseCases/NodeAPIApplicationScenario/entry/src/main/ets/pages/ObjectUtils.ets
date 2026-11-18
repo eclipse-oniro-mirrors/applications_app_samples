@@ -14,7 +14,7 @@
  */
 // [Start napi_ark_runtime_utils]
 export function Logger() {
-  console.log('print log');
+  console.info('print log');
 }
 // [End napi_ark_runtime_utils]
 // [Start napi_event_loop_utils]
@@ -22,7 +22,7 @@ export function SetTimeout(): Promise<void> {
   return new Promise((resolve) => {
     setTimeout(() => {
       console.info('set timer delay 1s');
-      // attempt to stop the event loop at napi terminal
+      // 尝试在napi侧停止事件循环
       resolve();
     }, 1000)
   })

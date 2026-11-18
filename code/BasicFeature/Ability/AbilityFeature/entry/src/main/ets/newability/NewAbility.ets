@@ -13,47 +13,57 @@
  * limitations under the License.
  */
 
-import AbilityConstant from '@ohos.app.ability.AbilityConstant';
-import UIAbility from '@ohos.app.ability.UIAbility';
-import window from '@ohos.window';
-import Want from '@ohos.app.ability.Want';
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { logger } from '../util/Logger';
 
-export default class NewAbility extends UIAbility {
-  onWindowStageCreate(windowStage: window.WindowStage) {
-    // Main window is created, set main page for this ability
-    windowStage.loadContent('pages/New', () => {
-    });
-    windowStage.getMainWindow((err, windowClass) => {
-      if (err.code) {
-        return;
-      }
-      windowClass.setWindowLayoutFullScreen(true);
-    })
-  }
+const TAG: string = 'NewAbility';
 
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
+export default class NewAbility extends UIAbility {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     AppStorage.setOrCreate('want', want);
     AppStorage.setOrCreate('launchParam', launchParam);
-    logger.info(`NewAbility onCreate ${want.bundleName},${launchParam.launchReason}`);
+    logger.info(`${TAG} onCreate ${want.bundleName},${launchParam.launchReason}`);
   }
 
-  onDestroy() {
-    logger.info(`NewAbility onDestroy`);
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    windowStage.loadContent('pages/New', (err: BusinessError) => {
+      if (err.code) {
+        logger.error(`${TAG} loadContent failed: ${JSON.stringify(err)}`);
+        return;
+      }
+      logger.info(`${TAG} loadContent succeeded`);
+    });
+    this.setImmersiveLayout(windowStage);
   }
 
-  onWindowStageDestroy() {
-    logger.info(`NewAbility onWindowStageDestroy`);
-    // Main window is destroyed, release UI related resources
+  onDestroy(): void {
+    logger.info(`${TAG} onDestroy`);
   }
 
-  onForeground() {
-    logger.info(`NewAbility onForeground`);
-    // Ability has brought to foreground
+  onWindowStageDestroy(): void {
+    logger.info(`${TAG} onWindowStageDestroy`);
   }
 
-  onBackground() {
-    logger.info(`NewAbility onBackground`);
-    // Ability has back to background
+  onForeground(): void {
+    logger.info(`${TAG} onForeground`);
+  }
+
+  onBackground(): void {
+    logger.info(`${TAG} onBackground`);
+  }
+
+  private setImmersiveLayout(windowStage: window.WindowStage): void {
+    try {
+      const mainWindow: window.Window = windowStage.getMainWindowSync();
+      mainWindow.setWindowLayoutFullScreen(true).then(() => {
+        logger.info(`${TAG} setWindowLayoutFullScreen succeeded`);
+      }).catch((error: BusinessError) => {
+        logger.error(`${TAG} setWindowLayoutFullScreen failed: ${JSON.stringify(error)}`);
+      });
+    } catch (error) {
+      logger.error(`${TAG} getMainWindowSync failed: ${JSON.stringify(error)}`);
+    }
   }
 }

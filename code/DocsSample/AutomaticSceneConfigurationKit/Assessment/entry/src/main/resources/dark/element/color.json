@@ -1,0 +1,44 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#000000"
+    },
+    {
+      "name": "page_background",
+      "value": "#000000"
+    },
+    {
+      "name": "card_background",
+      "value": "#1C1C1E"
+    },
+    {
+      "name": "title_font",
+      "value": "#E5E5E5"
+    },
+    {
+      "name": "body_font",
+      "value": "#E5E5E5"
+    },
+    {
+      "name": "secondary_font",
+      "value": "#99E5E5E5"
+    },
+    {
+      "name": "divider",
+      "value": "#0DE5E5E5"
+    },
+    {
+      "name": "brand",
+      "value": "#0A59F7"
+    },
+    {
+      "name": "warning",
+      "value": "#ED6F21"
+    },
+    {
+      "name": "success",
+      "value": "#64BB5C"
+    }
+  ]
+}

@@ -1,9 +1,0 @@
-{
-  "src": [
-    "pages/Index",
-    "managers/NormalObject",
-    "managers/ArrayBufferObject",
-    "managers/SharedArrayBufferObject",
-    "managers/TransferabledObject"
-  ]
-}

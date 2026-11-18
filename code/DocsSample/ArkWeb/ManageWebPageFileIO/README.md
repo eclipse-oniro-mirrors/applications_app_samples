@@ -102,6 +102,15 @@ entry/src/main/
 |---|---|---|---Ability.test.ets            // 自动化测试用例
 ```
 
+### 具体实现
+* 上传文件，源码参考[UploadFiles.ets](./entry/src/main/ets/pages/UploadFiles.ets)
+  * 在拦截回调中调用ocumentViewPicker启动文件选择器，通过异步方式允许用户从设备存储中选择目标文档，获取对应的文件url。调用FileSelectorResult对象的handleFileList方法，通知Web组件进行文件选择操作。
+* 使用Web组件的下载能力，源码参考[ResumeDownload.ets](./entry/src/main/ets/pages/ResumeDownload.ets)
+  * 实例化WebDownloadDelegate对象并通过setDownloadDelegate接口将其绑定至当前Web控制器，接管Web组件的下载行为。
+  * 在onBeforeDownload中指定文件存储路径，在onDownloadUpdated中实时获取进度。
+  * 通过saveDownloadInfo将当前的下载任务信息序列化保存，用于后续恢复下载任务。
+  * 在恢复流程中，首先从本地文件中读取已保存的序列化数据，通过deserialize还原出下载任务对象。随后调用resumeDownload接口，恢复下载任务。
+
 ### 相关权限
 
 [ohos.permission.INTERNET](https://docs.openharmony.cn/pages/v5.0/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissioninternet)
@@ -113,7 +122,7 @@ entry/src/main/
 ### 约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568。
-2. 本示例支持API14版本SDK，SDK版本号(API Version 14 Release)。
+2. 本示例支持API18版本SDK，SDK版本号(API Version 18 Release)。
 3. 本示例需要使用DevEco Studio 版本号(5.0.1Release)才可编译运行。
 
 ### 下载

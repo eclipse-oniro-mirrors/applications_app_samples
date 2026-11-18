@@ -12,20 +12,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start rotation_page]
 import { display } from '@kit.ArkUI';
 
 @Entry
 @Component
-struct rotation {
+struct RotationTest {
 
-  // 获取通过监听窗口的windowsSizeChange事件得到的屏幕显示方向
+  // 获取通过监听窗口的windowSizeChange事件得到的屏幕显示方向
   @StorageLink('orientation') myOrientation: display.Orientation = display.Orientation.PORTRAIT;
 
   build() {
     Stack() {
 
       // 当屏幕显示方向变化时，切换组件的视图效果
-      if (this.myOrientation == display.Orientation.PORTRAIT || this.myOrientation == display.Orientation.PORTRAIT_INVERTED) {
+      if (this.myOrientation === display.Orientation.PORTRAIT || this.myOrientation === display.Orientation.PORTRAIT_INVERTED) {
+        // 请将$r('app.media.sky')替换为实际资源文件
         Image($r('app.media.sky'))
           .size({ width: 100, height: 100 })
           .id('image1')
@@ -33,6 +35,7 @@ struct rotation {
         // 开发者也可以通过自行设置transition的TransitionEffect.OPACITY转场效果来实现旋转屏动画的透明度变化
         // .transition(TransitionEffect.OPACITY)
       } else {
+        // 请将$r('app.media.tree')替换为实际资源文件
         Image($r('app.media.tree'))
           .position({ x: 0, y: 0 })
           .size({ width: 200, height: 200 })
@@ -46,3 +49,5 @@ struct rotation {
     .size({ width: '100%', height: '100%' })
   }
 }
+
+// [End rotation_page]

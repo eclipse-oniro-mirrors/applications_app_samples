@@ -14,7 +14,7 @@
  */
 
 // [Start time_picker_dialog]
-import { PromptAction } from '@kit.ArkUI';
+// xxx.ets
 
 @Entry
 @Component
@@ -48,14 +48,18 @@ export struct TimePickerDialogExample {
               })
             })
         }.width('100%').margin({ top: 5 })
-
       }
+      // [StartExclude time_picker_dialog]
       .width('100%')
       .height('100%')
       .padding({ left: 12, right: 12 })
+      // [EndExclude time_picker_dialog]
     }
+    // [StartExclude time_picker_dialog]
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.CustomDialog_time')替换为实际资源文件，在本示例中该资源文件的value值为"时间滑动选择器弹窗"
     .title($r('app.string.CustomDialog_time'))
+    // [EndExclude time_picker_dialog]
   }
 }
 // [End time_picker_dialog]

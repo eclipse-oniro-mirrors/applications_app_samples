@@ -29,12 +29,52 @@
       "value": "CertManagerDialogGuidelines"
     },
     {
+      "name": "certManagerCACertsGuidelines",
+      "value": "CertManagerCACertsGuidelines"
+    },
+    {
       "name": "call_certManagerGuidelines",
       "value": "Call CertManagerGuidelines"
     },
     {
+      "name": "call_certManagerGetUkeyCertGuidelines",
+      "value": "Call CertManagerGetUkeyCertGuidelines"
+    },
+    {
       "name": "call_certManagerDialogGuidelines",
       "value": "Call CertManagerDialogGuidelines"
+    },
+    {
+      "name": "call_installUserCADialog",
+      "value": "Call InstallUserCADialog"
+    },
+    {
+      "name": "call_uninstallUserCADialog",
+      "value": "Call UninstallUserCADialog"
+    },
+    {
+      "name": "call_certDetailDialog",
+      "value": "Call CertDetailDialog"
+    },
+    {
+      "name": "call_openAuthorizeDialog",
+      "value": "Call OpenAuthorizeDialog"
+    },
+    {
+      "name": "call_openUkeyAuthDialog",
+      "value": "Call OpenUkeyAuthDialog"
+    },
+    {
+      "name": "call_userCASample",
+      "value": "Call UserCaSample"
+    },
+    {
+      "name": "call_certManagerSystemCredGuidelines",
+      "value": "Call CertManagerSystemCredGuidelines"
+    },
+    {
+      "name": "call_certManagerUserCredGuidelines",
+      "value": "Call CertManagerUserCredGuidelines"
     }
   ]
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,8 +13,6 @@
  * limitations under the License.
  */
 
-import { router } from '@kit.ArkUI';
-
 @Entry
 @Component
 struct Index {
@@ -22,19 +20,39 @@ struct Index {
     Column({ space: 10 }) {
       Button('InitiatePrintW3CAPI')
         .onClick(() => {
-          router.pushUrl({ url: 'pages/InitiatePrintW3CAPI' });
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/InitiatePrintW3CAPI' });
         })
       Button('InitiatePrintAppAPI')
         .onClick(() => {
-          router.pushUrl({ url: 'pages/InitiatePrintAppAPI' });
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/InitiatePrintAppAPI' });
         })
       Button('PreviewPDF')
         .onClick(() => {
-          router.pushUrl({ url: 'pages/PreviewPDF' });
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/PreviewPDF' });
         })
       Button('CalcAdjustSafeArea')
         .onClick(() => {
-          router.pushUrl({ url: 'pages/CalcAdjustSafeArea' });
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/CalcAdjustSafeArea' });
+        })
+      Button('LoadNetworkPdf')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/LoadNetworkPdf' });
+        })
+      Button('LoadSandboxPdf')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/LoadSandboxPdf' });
+        })
+      Button('LoadRawfilePdf')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/LoadRawfilePdf' });
+        })
+      Button('PdfEvent')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/PdfEvent' });
+        })
+      Button('ImmersiveWeb')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/ImmersiveWeb' });
         })
     }.height('100%')
     .width('100%')

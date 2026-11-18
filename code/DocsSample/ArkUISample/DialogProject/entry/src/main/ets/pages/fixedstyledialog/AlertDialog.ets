@@ -14,12 +14,10 @@
  */
 
 // [Start alert_dialog]
-import { PromptAction } from '@kit.ArkUI';
 
 @Entry
 @Component
 export struct showAlertDialogExample {
-
   build() {
     NavDestination() {
       Column({ space: 12 }) {
@@ -42,7 +40,7 @@ export struct showAlertDialogExample {
                     .animation({ duration: 3000, curve: Curve.Sharp })),
                     TransitionEffect.OPACITY.animation({ duration: 100, curve: Curve.Smooth })
                       .combine(TransitionEffect.scale({ x: 0.5, y: 0.5 })
-                        .animation({ duration: 100, curve: Curve.Smooth }))),
+                      .animation({ duration: 100, curve: Curve.Smooth }))),
                   buttons: [{
                     value: 'cancel',
                     action: () => {
@@ -69,7 +67,9 @@ export struct showAlertDialogExample {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.CustomDialog_AlertDialog')替换为实际资源文件，在本示例中该资源文件的value值为"警告弹窗"
     .title($r('app.string.CustomDialog_AlertDialog'))
   }
 }
+
 // [End alert_dialog]

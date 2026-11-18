@@ -14,11 +14,13 @@
  */
 
 // [Start widget_update_by_status_card]
+// entry/src/main/ets/widgetupdatebystatus/pages/WidgetUpdateByStatusCard.ets
 let storageUpdateByStatus = new LocalStorage();
 
 @Entry(storageUpdateByStatus)
 @Component
 struct WidgetUpdateByStatusCard {
+  // $r('app.string.to_be_refreshed')需要替换为开发者所需的资源文件
   @LocalStorageProp('textA') textA: Resource = $r('app.string.to_be_refreshed');
   @LocalStorageProp('textB') textB: Resource = $r('app.string.to_be_refreshed');
   @State selectA: boolean = false;
@@ -41,6 +43,7 @@ struct WidgetUpdateByStatusCard {
                 }
               });
             })
+          // $r('app.string.status_a')需要替换为开发者所需的资源文件
           Text($r('app.string.status_a'))
             .fontColor('#000000')
             .opacity(0.9)
@@ -65,6 +68,7 @@ struct WidgetUpdateByStatusCard {
                 }
               });
             })
+          // $r('app.string.status_b')需要替换为开发者所需的资源文件
           Text($r('app.string.status_b'))
             .fontColor('#000000')
             .opacity(0.9)
@@ -79,7 +83,8 @@ struct WidgetUpdateByStatusCard {
       .position({ y: 12 })
 
       Column() {
-        Row() { // 选中状态A才会进行刷新的内容
+        Row() {
+          // 选中状态A才会进行刷新的内容
           Text($r('app.string.status_a'))
             .fontColor('#000000')
             .opacity(0.4)
@@ -92,7 +97,8 @@ struct WidgetUpdateByStatusCard {
         }
         .margin({ top: '12px', left: 26, right: '26px' })
 
-        Row() { // 选中状态B才会进行刷新的内容
+        Row() {
+          // 选中状态B才会进行刷新的内容
           Text($r('app.string.status_b'))
             .fontColor('#000000')
             .opacity(0.4)
@@ -101,14 +107,22 @@ struct WidgetUpdateByStatusCard {
             .fontColor('#000000')
             .opacity(0.4)
             .fontSize(12)
-        }.margin({ top: '12px', bottom: '21px', left: 26, right: '26px' })
+        }
+        .margin({
+          top: '12px',
+          bottom: '21px',
+          left: 26,
+          right: '26px'
+        })
       }
       .margin({ top: 80 })
       .width('100%')
       .alignItems(HorizontalAlign.Start)
     }.width('100%').height('100%')
+    // $r('app.media.CardUpdateByStatus')需要替换为开发者所需的资源文件
     .backgroundImage($r('app.media.CardUpdateByStatus'))
     .backgroundImageSize(ImageSize.Cover)
   }
 }
+
 // [End widget_update_by_status_card]

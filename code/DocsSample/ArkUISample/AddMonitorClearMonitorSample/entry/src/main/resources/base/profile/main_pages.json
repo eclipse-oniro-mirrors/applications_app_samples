@@ -1,0 +1,22 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/AddMonitorArray",
+    "pages/AddMonitorDuplicateFunc",
+    "pages/AddMonitorIsSynchronous",
+    "pages/AddMonitorSynchronous",
+    "pages/ClearMonitorUsage",
+    "pages/DynamicCancelMonitor",
+    "pages/MonitorAccessibleChange",
+    "pages/MonitorArrayIndexLength",
+    "pages/MonitorAsyncOnly",
+    "pages/MonitorConstructorSync",
+    "pages/MonitorIndependentPath",
+    "pages/MonitorObservedV2ComponentV2",
+    "pages/MonitorWildcardArray",
+    "pages/MonitorWildcardDate",
+    "pages/MonitorWildcardMap",
+    "pages/MonitorWildcardObject",
+    "pages/MonitorWildcardSet"
+  ]
+}

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,13 +73,14 @@ static JSVM_Value CreateArraybuffer(JSVM_Env env, JSVM_CallbackInfo info)
     OH_JSVM_GetCbInfo(env, info, &argc, argv, nullptr, nullptr);
     int32_t value = 0;
     size_t length = 0;
-    OH_JSVM_GetValueInt32(env, argv[0], &value);
+    JSVM_CALL(OH_JSVM_GetValueInt32(env, argv[0], &value));
     length = size_t(value);
     void *data;
     // 创建一个新的ArrayBuffer
     JSVM_Status status = OH_JSVM_CreateArraybuffer(env, length, &data, &result);
     if (status != JSVM_OK) {
         OH_LOG_ERROR(LOG_APP, "JSVM CreateArraybuffer: failed");
+        return nullptr;
     } else {
         OH_LOG_INFO(LOG_APP, "JSVM CreateArraybuffer: success");
         OH_LOG_INFO(LOG_APP, "JSVM ArrayBuffer length: %{public}d", length);
@@ -118,8 +119,8 @@ static int32_t TestJSVM()
     }
     // 创建JSVM环境
     CHECK(OH_JSVM_CreateVM(nullptr, &vm));
-    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK(OH_JSVM_OpenVMScope(vm, &vmScope));
+    CHECK(OH_JSVM_CreateEnv(vm, sizeof(descriptor) / sizeof(descriptor[0]), descriptor, &env));
     CHECK_RET(OH_JSVM_OpenEnvScope(env, &envScope));
     CHECK_RET(OH_JSVM_OpenHandleScope(env, &handleScope));
 
@@ -133,8 +134,8 @@ static int32_t TestJSVM()
     // 销毁JSVM环境
     CHECK_RET(OH_JSVM_CloseHandleScope(env, handleScope));
     CHECK_RET(OH_JSVM_CloseEnvScope(env, envScope));
-    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyEnv(env));
+    CHECK(OH_JSVM_CloseVMScope(vm, vmScope));
     CHECK(OH_JSVM_DestroyVM(vm));
     return 0;
 }

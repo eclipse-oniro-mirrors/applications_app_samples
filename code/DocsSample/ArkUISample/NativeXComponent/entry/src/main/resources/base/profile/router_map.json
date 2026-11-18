@@ -1,0 +1,34 @@
+{
+  "routerMap": [
+    {
+      "name": "NativeXComponentNDK",
+      "pageSourceFile": "src/main/ets/pages/NativeXComponentNDK.ets",
+      "buildFunction": "NativeXComponentNDKBuilder"
+    },
+    {
+      "name": "NativeXComponentDeclarative",
+      "pageSourceFile": "src/main/ets/pages/NativeXComponentDeclarative.ets",
+      "buildFunction": "NativeXComponentDeclarativeBuilder"
+    },
+    {
+      "name": "SurfaceHolderTypeNode",
+      "pageSourceFile": "src/main/ets/pages/SurfaceHolderTypeNode.ets",
+      "buildFunction": "SurfaceHolderTypeNodeBuilder"
+    },
+    {
+      "name": "SurfaceHolderDeclarative",
+      "pageSourceFile": "src/main/ets/pages/SurfaceHolderDeclarative.ets",
+      "buildFunction": "SurfaceHolderDeclarativeBuilder"
+    },
+    {
+      "name": "SurfaceHolderNDK",
+      "pageSourceFile": "src/main/ets/pages/SurfaceHolderNDK.ets",
+      "buildFunction": "SurfaceHolderNDKBuilder"
+    },
+    {
+      "name": "XComponentTypeNodeController",
+      "pageSourceFile": "src/main/ets/pages/XComponentTypeNodeController.ets",
+      "buildFunction": "XComponentTypeNodeControllerBuilder"
+    }
+  ]
+}

@@ -1,0 +1,568 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { formatResource, localText } from '../text/LocalizedText';
+
+/**
+ * 归档保留策略：条数上限、天数上限、按结果差异化保留，以及"先预览、再执行"的清理。
+ *
+ * 契约：
+ *  - 策略与清理都是纯函数：不修改入参记录，返回新数组；同一份输入 + 同一 now
+ *    必得同一份预览。
+ *  - 清理必须可解释：每条记录都有保留/删除理由（CleanupReason），预览给出
+ *    保留数、删除数、按天数删多少、按条数删多少。
+ *  - 最近一条有效样本（成功或明确失败的最新一条）永远不被清理，即使它已经
+ *    超过天数或条数上限；此时预览会标记 protectedRescued，说明"本应删除、已豁免"。
+ *  - 时间戳缺失或非法的记录不参与年龄/条数计算，一律保留并在预览里单独提示，
+ *    不让一条坏时间悄悄吃掉可排查的数据。
+ *  - 执行只依据预览的决策；预览之后新增的记录不会被删，预览中已消失的记录会
+ *    记入 missingIds，而不是假装"删除成功"。
+ */
+
+import { QueryOutcome } from '../AutoStartupTypes';
+import { ArchiveEntry, DAY_MS } from './ArchiveIndex';
+
+/** 允许的最小条数上限：至少保留 1 条，避免策略把归档清成空。 */
+export const MIN_RETENTION_ENTRIES: number = 1;
+/** 失败样本最多额外保留的天数；再大就失去"多留一天排查"的意义。 */
+export const MAX_FAILURE_BONUS_DAYS: number = 7;
+/** 条数上限的硬上限，防止策略被写成"永不清理"。 */
+export const MAX_RETENTION_ENTRIES: number = 100000;
+/** 天数上限的硬上限（约 10 年）。 */
+export const MAX_RETENTION_DAYS: number = 3650;
+
+/** 清理决策的理由。保留与删除共用一套枚举，便于预览直接渲染。 */
+export enum CleanupReason {
+  /** 超过天数上限。 */
+  AGE_EXPIRED = 'ageExpired',
+  /** 超出条数上限，且不是最近有效样本。 */
+  OVER_COUNT = 'overCount',
+  /** 在天数与条数上限之内。 */
+  KEPT_RECENT = 'keptRecent',
+  /** 失败样本多保留的缓冲天数内，因此没被天数规则删掉。 */
+  KEPT_FAILURE_GRACE = 'keptFailureGrace',
+  /** 最近一条有效样本，规则豁免。 */
+  KEPT_PROTECTED = 'keptProtected',
+  /** 时间戳缺失或非法，不参与清理。 */
+  KEPT_UNKNOWN_TIME = 'keptUnknownTime'
+}
+
+/** 理由标签。 */
+export function cleanupReasonLabel(reason: CleanupReason): string {
+  switch (reason) {
+    case CleanupReason.AGE_EXPIRED:
+      return localText('startup_text_0061');
+    case CleanupReason.OVER_COUNT:
+      return localText('startup_text_0062');
+    case CleanupReason.KEPT_FAILURE_GRACE:
+      return localText('startup_text_0063');
+    case CleanupReason.KEPT_PROTECTED:
+      return localText('startup_text_0064');
+    case CleanupReason.KEPT_UNKNOWN_TIME:
+      return localText('startup_text_0065');
+    default:
+      return localText('startup_text_0066');
+  }
+}
+
+/** 该理由是否意味着删除。 */
+export function isDeleteReason(reason: CleanupReason): boolean {
+  return reason === CleanupReason.AGE_EXPIRED || reason === CleanupReason.OVER_COUNT;
+}
+
+/** 保留策略。 */
+export class RetentionPolicy {
+  /** 归档最多保留的条数（按时间从新到旧）。 */
+  public maxEntries: number = 500;
+  /** 记录最多保留的天数；失败样本在此之上再加 failureBonusDays。 */
+  public maxDays: number = 90;
+  /** 失败样本的额外保留天数，默认 1 天，便于排查偶发失败。 */
+  public failureBonusDays: number = 1;
+
+  constructor(maxEntries: number = 500, maxDays: number = 90, failureBonusDays: number = 1) {
+    this.maxEntries = maxEntries;
+    this.maxDays = maxDays;
+    this.failureBonusDays = failureBonusDays;
+  }
+
+  /** 某结论的实际保留天数。只有失败样本享受额外天数，其他结论一律 maxDays。 */
+  retentionDaysFor(outcome: string): number {
+    const base: number = Number.isFinite(this.maxDays) ? Math.max(1, Math.round(this.maxDays)) : 1;
+    if (outcome !== QueryOutcome.FAILURE) {
+      return base;
+    }
+    const bonus: number = Number.isFinite(this.failureBonusDays) ?
+      Math.max(0, Math.round(this.failureBonusDays)) : 0;
+    return base + bonus;
+  }
+
+  /** 夹取到合法区间后的副本；原对象不变。 */
+  normalized(): RetentionPolicy {
+    return normalizePolicy(this);
+  }
+
+  /** 两个策略的生效参数是否一致。 */
+  equals(other: RetentionPolicy): boolean {
+    return this.maxEntries === other.maxEntries && this.maxDays === other.maxDays &&
+      this.failureBonusDays === other.failureBonusDays;
+  }
+
+  /** 一行摘要。 */
+  text(): string {
+    return formatResource('startup_format_c130b6f1be3e', [String(this.maxEntries), String(this.maxDays), String(this.failureBonusDays)]);
+  }
+}
+
+/** 默认策略：500 条 / 90 天 / 失败多留 1 天。 */
+export function defaultRetentionPolicy(): RetentionPolicy {
+  return new RetentionPolicy(500, 90, 1);
+}
+
+/** 夹取整数到 [min, max]；非数值回落到 min。 */
+function clampInt(value: number, min: number, max: number): number {
+  if (!Number.isFinite(value)) {
+    return min;
+  }
+  return Math.min(max, Math.max(min, Math.round(value)));
+}
+
+/**
+ * 归一化策略。
+ *
+ * 条数下限固定为 1：允许"清理到 0"意味着归档可以在用户不知情时变成空，和
+ * "不静默删除最近一条有效样本"冲突。天数与失败缓冲同样夹到硬上限。
+ */
+export function normalizePolicy(policy: RetentionPolicy): RetentionPolicy {
+  const maxEntries: number = clampInt(policy.maxEntries, MIN_RETENTION_ENTRIES, MAX_RETENTION_ENTRIES);
+  const maxDays: number = clampInt(policy.maxDays, 1, MAX_RETENTION_DAYS);
+  const bonus: number = clampInt(policy.failureBonusDays, 0, MAX_FAILURE_BONUS_DAYS);
+  return new RetentionPolicy(maxEntries, maxDays, bonus);
+}
+
+/** 策略说明行，供诊断页与预览头部展示。 */
+export function describePolicy(policy: RetentionPolicy): string[] {
+  const safe: RetentionPolicy = normalizePolicy(policy);
+  const lines: string[] = [
+    formatResource('startup_format_0578a9fa4203', [String(safe.maxEntries)]),
+    formatResource('startup_format_15112b27191a', [String(safe.maxDays)])
+  ];
+  if (safe.failureBonusDays > 0) {
+    lines.push(formatResource('startup_retention_failure_bonus_summary', [String(safe.failureBonusDays), String(safe.retentionDaysFor(QueryOutcome.FAILURE))]));
+  } else {
+    lines.push(localText('startup_text_0076'));
+  }
+  lines.push(localText('startup_text_0077'));
+  return lines;
+}
+
+/** 一条记录的清理决策。 */
+export class CleanupDecision {
+  public entryId: number = 0;
+  public keep: boolean = true;
+  public reason: CleanupReason = CleanupReason.KEPT_RECENT;
+  /** 年龄（完整天数）；时间未知时为 -1。 */
+  public ageDays: number = -1;
+  /** 该结论适用的保留天数；时间未知时为 0。 */
+  public retentionDays: number = 0;
+  /** 具体解释，供预览逐条展示。 */
+  public detail: string = '';
+
+  constructor(entryId: number = 0, keep: boolean = true,
+    reason: CleanupReason = CleanupReason.KEPT_RECENT) {
+    this.entryId = entryId;
+    this.keep = keep;
+    this.reason = reason;
+  }
+
+  describe(): string {
+    const action: string = this.keep ? localText('startup_text_0078') : localText('startup_text_0079');
+    const suffix: string = this.detail.length > 0 ?
+      formatResource('startup_detail_suffix', [this.detail]) : '';
+    return formatResource('startup_cleanup_decision_summary', [action, String(this.entryId),
+      cleanupReasonLabel(this.reason), suffix]);
+  }
+}
+
+/**
+ * 清理预览。
+ *
+ * decisions 按时间从新到旧排列（与执行时的选择顺序一致）；未知时间的记录排在
+ * 最后。preview 只描述"如果现在执行会怎样"，不持有原始记录，也不修改数据。
+ */
+export class CleanupPreview {
+  public policy: RetentionPolicy = new RetentionPolicy();
+  public now: number = 0;
+  public decisions: CleanupDecision[] = [];
+  public keepCount: number = 0;
+  public deleteCount: number = 0;
+  /** 因天数规则删除的条数。 */
+  public agedCount: number = 0;
+  /** 因条数上限删除的条数。 */
+  public countCutCount: number = 0;
+  /** 被保护的最近有效样本序号；没有则为 -1。 */
+  public protectedId: number = -1;
+  /** 该样本本应被删除、但被豁免。 */
+  public protectedRescued: boolean = false;
+  /** 入参为空。 */
+  public emptyInput: boolean = false;
+  /** 时间未知、被保留的条数。 */
+  public unknownTimeCount: number = 0;
+  public notes: string[] = [];
+
+  /** 是否有记录会被删除。 */
+  hasDeletions(): boolean {
+    return this.deleteCount > 0;
+  }
+
+  /** 将被保留的序号。 */
+  keptIds(): number[] {
+    return this.decisions.filter((decision: CleanupDecision): boolean => decision.keep)
+      .map((decision: CleanupDecision): number => decision.entryId);
+  }
+
+  /** 将被删除的序号。 */
+  deletedIds(): number[] {
+    return this.decisions.filter((decision: CleanupDecision): boolean => !decision.keep)
+      .map((decision: CleanupDecision): number => decision.entryId);
+  }
+
+  /** 一句话摘要：保留多少、删除多少、各由哪条规则触发。 */
+  summaryText(): string {
+    if (this.emptyInput) {
+      return localText('startup_text_0080');
+    }
+    return formatResource('startup_format_9fdbaf9a38b9', [String(this.keepCount), String(this.deleteCount)]) +
+      formatResource('startup_format_3df62be81a01', [String(this.agedCount), String(this.countCutCount)]);
+  }
+
+  /** 摘要 + 全部说明。 */
+  text(): string {
+    const lines: string[] = [this.summaryText()];
+    this.notes.forEach((note: string): void => {
+      lines.push(note);
+    });
+    return lines.join('\n');
+  }
+
+  /** 逐条解释；limit<=0 表示不限。 */
+  explainLines(limit: number = 30): string[] {
+    const take: number = limit > 0 ? limit : this.decisions.length;
+    const lines: string[] = this.decisions.slice(0, take).map((decision: CleanupDecision): string =>
+      decision.describe());
+    if (take < this.decisions.length) {
+      lines.push(formatResource('startup_format_7e901017c73d', [String(this.decisions.length - take)]));
+    }
+    return lines;
+  }
+}
+
+/** 策略是否可执行：不依赖外部状态，仅检查参数是否自洽。 */
+export class RetentionAudit {
+  public ok: boolean = false;
+  public findings: string[] = [];
+
+  report(): string {
+    return this.ok ? localText('startup_text_0088') :
+      this.findings.join(localText('startup_audit_separator'));
+  }
+}
+
+/** 自检策略参数：整数、范围内、失败样本确实多留。 */
+export function auditRetentionPolicy(policy: RetentionPolicy): RetentionAudit {
+  const audit: RetentionAudit = new RetentionAudit();
+  if (!Number.isInteger(policy.maxEntries) || policy.maxEntries < MIN_RETENTION_ENTRIES ||
+    policy.maxEntries > MAX_RETENTION_ENTRIES) {
+    audit.findings.push(formatResource('startup_format_d4b6a332589a', [String(policy.maxEntries)]));
+  }
+  if (!Number.isInteger(policy.maxDays) || policy.maxDays < 1 || policy.maxDays > MAX_RETENTION_DAYS) {
+    audit.findings.push(formatResource('startup_format_1dce782ee99c', [String(policy.maxDays)]));
+  }
+  if (!Number.isInteger(policy.failureBonusDays) || policy.failureBonusDays < 0 ||
+    policy.failureBonusDays > MAX_FAILURE_BONUS_DAYS) {
+    audit.findings.push(formatResource('startup_format_45877e0e8c45', [String(policy.failureBonusDays)]));
+  }
+  const safe: RetentionPolicy = normalizePolicy(policy);
+  const successDays: number = safe.retentionDaysFor(QueryOutcome.SUCCESS);
+  const failureDays: number = safe.retentionDaysFor(QueryOutcome.FAILURE);
+  if (failureDays < successDays) {
+    audit.findings.push(localText('startup_text_0092'));
+  }
+  if (safe.failureBonusDays > 0 && failureDays - successDays !== safe.failureBonusDays) {
+    audit.findings.push(localText('startup_text_0093'));
+  }
+  if (safe.retentionDaysFor(QueryOutcome.TIMEOUT) !== successDays) {
+    audit.findings.push(localText('startup_text_0094'));
+  }
+  audit.ok = audit.findings.length === 0;
+  return audit;
+}
+
+/** 记录的有效时间；非法或缺失返回 0。 */
+function timeOf(entry: ArchiveEntry): number {
+  return Number.isFinite(entry.timestamp) && entry.timestamp > 0 ? entry.timestamp : 0;
+}
+
+/**
+ * 计算清理预览。
+ *
+ * 规则顺序是刻意固定的：
+ *  1) 先算天数：超过"该结论适用天数"的记录进入 AGE_EXPIRED；
+ *  2) 再算条数：未被天数规则删掉的记录里，按时间从新到旧保留 maxEntries 条，
+ *     其余进入 OVER_COUNT；
+ *  3) 最近一条有效样本先占一个名额，任何一条规则都不能删它。
+ * 先算天数再算条数，可以让"失败样本多留一天"在条数上限内也保持有效，而不是被
+ * 条数规则顺手清掉。
+ */
+export function previewCleanup(entries: ArchiveEntry[], now: number,
+  policy: RetentionPolicy = defaultRetentionPolicy()): CleanupPreview {
+  const preview: CleanupPreview = new CleanupPreview();
+  const safePolicy: RetentionPolicy = normalizePolicy(policy);
+  preview.policy = safePolicy;
+  const safeNow: number = Number.isFinite(now) && now > 0 ? now : 0;
+  preview.now = safeNow;
+
+  if (entries.length === 0) {
+    preview.emptyInput = true;
+    preview.notes.push(localText('startup_text_0080'));
+    return preview;
+  }
+
+  const ordered: ArchiveEntry[] = entries.slice();
+  ordered.sort((left: ArchiveEntry, right: ArchiveEntry): number => {
+    const leftTime: number = timeOf(left);
+    const rightTime: number = timeOf(right);
+    if (rightTime !== leftTime) {
+      return rightTime - leftTime;
+    }
+    return right.id - left.id;
+  });
+
+  // 排序后第一条"时间有效"的有效样本就是最近一条有效样本；没有则为 -1。
+  // 时间未知的记录本来就不会被清理，不占用保护名额。
+  let protectedIndex: number = -1;
+  for (let index = 0; index < ordered.length; index++) {
+    if (timeOf(ordered[index]) > 0 && ordered[index].isValidSample()) {
+      protectedIndex = index;
+      break;
+    }
+  }
+
+  const expired: boolean[] = ordered.map((): boolean => false);
+  const knownTime: boolean[] = ordered.map((entry: ArchiveEntry): boolean => timeOf(entry) > 0);
+  ordered.forEach((entry: ArchiveEntry, index: number): void => {
+    if (!knownTime[index]) {
+      preview.unknownTimeCount++;
+      return;
+    }
+    if (safeNow <= 0) {
+      return;
+    }
+    if (index === protectedIndex) {
+      return;
+    }
+    const ageDays: number = Math.floor(Math.max(0, safeNow - timeOf(entry)) / DAY_MS);
+    const retentionDays: number = safePolicy.retentionDaysFor(entry.outcome);
+    if (ageDays > retentionDays) {
+      expired[index] = true;
+    }
+  });
+
+  // 条数上限：最近有效样本先占名额，再从新到旧填满剩余名额。
+  const selected: boolean[] = ordered.map((): boolean => false);
+  if (protectedIndex >= 0) {
+    selected[protectedIndex] = true;
+  }
+  let used: number = protectedIndex >= 0 ? 1 : 0;
+  ordered.forEach((entry: ArchiveEntry, index: number): void => {
+    if (index === protectedIndex || !knownTime[index] || expired[index]) {
+      return;
+    }
+    if (used >= safePolicy.maxEntries) {
+      return;
+    }
+    selected[index] = true;
+    used++;
+  });
+
+  const decisions: CleanupDecision[] = [];
+  ordered.forEach((entry: ArchiveEntry, index: number): void => {
+    const known: boolean = knownTime[index];
+    // 时间无效时按 0 天展示，具体"已跳过天数规则"由预览说明告知。
+    const ageDays: number = known ?
+      (safeNow > 0 ? Math.floor(Math.max(0, safeNow - timeOf(entry)) / DAY_MS) : 0) : -1;
+    const retentionDays: number = known ? safePolicy.retentionDaysFor(entry.outcome) : 0;
+    let keep: boolean = true;
+    let reason: CleanupReason = CleanupReason.KEPT_RECENT;
+    let detail: string = '';
+
+    if (!known) {
+      keep = true;
+      reason = CleanupReason.KEPT_UNKNOWN_TIME;
+      detail = localText('startup_text_0095');
+    } else if (index === protectedIndex) {
+      keep = true;
+      reason = CleanupReason.KEPT_PROTECTED;
+      detail = ageDays > retentionDays ?
+        formatResource('startup_format_12dfec4921dc', [String(ageDays), String(retentionDays)]) :
+        localText('startup_text_0099');
+    } else if (expired[index]) {
+      keep = false;
+      reason = CleanupReason.AGE_EXPIRED;
+      detail = formatResource('startup_format_07f9b1860c52', [String(ageDays), String(retentionDays)]);
+      preview.agedCount++;
+    } else if (selected[index]) {
+      keep = true;
+      if (entry.outcome === QueryOutcome.FAILURE && ageDays > safePolicy.maxDays) {
+        reason = CleanupReason.KEPT_FAILURE_GRACE;
+        detail = formatResource('startup_format_b777fa58943b', [String(safePolicy.maxDays), String(safePolicy.failureBonusDays)]);
+      } else {
+        reason = CleanupReason.KEPT_RECENT;
+        detail = formatResource('startup_format_f67f452272bb', [String(ageDays), String(retentionDays), String(safePolicy.maxEntries)]);
+      }
+    } else {
+      keep = false;
+      reason = CleanupReason.OVER_COUNT;
+      detail = formatResource('startup_format_33f68c0d4b7a', [String(safePolicy.maxEntries)]);
+      preview.countCutCount++;
+    }
+
+    if (keep) {
+      preview.keepCount++;
+    } else {
+      preview.deleteCount++;
+    }
+    const decision: CleanupDecision = new CleanupDecision(entry.id, keep, reason);
+    decision.ageDays = ageDays;
+    decision.retentionDays = retentionDays;
+    decision.detail = detail;
+    decisions.push(decision);
+  });
+  preview.decisions = decisions;
+
+  if (protectedIndex >= 0) {
+    const protectedEntry: ArchiveEntry = ordered[protectedIndex];
+    preview.protectedId = protectedEntry.id;
+    const protectedAge: number = safeNow > 0 ?
+      Math.floor(Math.max(0, safeNow - timeOf(protectedEntry)) / DAY_MS) : 0;
+    const protectedLimit: number = safePolicy.retentionDaysFor(protectedEntry.outcome);
+    let rank: number = 0;
+    for (let index = 0; index < protectedIndex; index++) {
+      if (knownTime[index]) {
+        rank++;
+      }
+    }
+    preview.protectedRescued = (safeNow > 0 && protectedAge > protectedLimit) ||
+      rank >= safePolicy.maxEntries;
+  }
+
+  preview.notes.push(formatResource('startup_format_f819ef1fad54', [String(safePolicy.maxDays)]) +
+    (safePolicy.failureBonusDays > 0 ?
+      formatResource('startup_format_17b0f2c979e6', [String(safePolicy.failureBonusDays), String(safePolicy.retentionDaysFor(QueryOutcome.FAILURE))]) :
+      ''));
+  preview.notes.push(formatResource('startup_format_e6bc0515c1ce', [String(safePolicy.maxEntries)]));
+  if (preview.protectedId > 0) {
+    preview.notes.push(preview.protectedRescued ?
+      formatResource('startup_retention_latest_sample_exemption', [String(preview.protectedId)]) :
+      formatResource('startup_format_de566cf45f13', [String(preview.protectedId)]));
+  }
+  if (preview.unknownTimeCount > 0) {
+    preview.notes.push(formatResource('startup_retention_unknown_time_summary', [String(preview.unknownTimeCount)]));
+  }
+  if (safeNow <= 0) {
+    preview.notes.push(localText('startup_text_0115'));
+  }
+  return preview;
+}
+
+/** 一次清理的执行结果。 */
+export class RetentionResult {
+  public preview: CleanupPreview = new CleanupPreview();
+  public kept: ArchiveEntry[] = [];
+  public removed: ArchiveEntry[] = [];
+  /** 预览里要删、执行时已不存在的序号。 */
+  public missingIds: number[] = [];
+  /** 预览之后才出现、因而被保留的序号。 */
+  public unseenIds: number[] = [];
+  public executed: boolean = false;
+
+  /** 实际删除条数。 */
+  deletedCount(): number {
+    return this.removed.length;
+  }
+
+  /** 实际保留条数。 */
+  keptCount(): number {
+    return this.kept.length;
+  }
+
+  /** 执行结果是否与预览完全一致。 */
+  matchesPreview(): boolean {
+    return this.missingIds.length === 0 && this.unseenIds.length === 0;
+  }
+
+  text(): string {
+    if (!this.executed) {
+      return localText('startup_text_0116');
+    }
+    const lines: string[] = [
+      formatResource('startup_format_b913919d50b3', [String(this.removed.length), String(this.kept.length)])
+    ];
+    if (this.missingIds.length > 0) {
+      lines.push(formatResource('startup_format_8a010c72ad3d', [String(this.missingIds.length)]));
+    }
+    if (this.unseenIds.length > 0) {
+      lines.push(formatResource('startup_format_dbf76dc97a16', [String(this.unseenIds.length)]));
+    }
+    return lines.join('\n');
+  }
+}
+
+/**
+ * 执行清理。
+ *
+ * 只在预览的决策范围内动手：
+ *  - 决策为删除且记录仍在 → 删除；
+ *  - 决策为保留或记录未出现在预览里 → 保留（新增记录绝不顺手删掉）；
+ *  - 决策为删除但记录已不存在 → 记入 missingIds。
+ * 返回新数组与克隆记录，入参不被修改。
+ */
+export function applyRetention(entries: ArchiveEntry[], preview: CleanupPreview): RetentionResult {
+  const result: RetentionResult = new RetentionResult();
+  result.preview = preview;
+  result.executed = true;
+  const seen: number[] = [];
+  entries.forEach((entry: ArchiveEntry): void => {
+    const decision: CleanupDecision | undefined = preview.decisions.find(
+      (item: CleanupDecision): boolean => item.entryId === entry.id);
+    if (decision === undefined) {
+      result.kept.push(entry.clone());
+      result.unseenIds.push(entry.id);
+      seen.push(entry.id);
+      return;
+    }
+    seen.push(entry.id);
+    if (decision.keep) {
+      result.kept.push(entry.clone());
+    } else {
+      result.removed.push(entry.clone());
+    }
+  });
+  preview.decisions.forEach((decision: CleanupDecision): void => {
+    if (seen.indexOf(decision.entryId) < 0) {
+      result.missingIds.push(decision.entryId);
+    }
+  });
+  return result;
+}

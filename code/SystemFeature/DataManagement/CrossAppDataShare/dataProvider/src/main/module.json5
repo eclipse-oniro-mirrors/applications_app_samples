@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,7 +17,7 @@
   "module": {
     "name": "dataProvider",
     "type": "entry",
-    "srcEntrance": "./ets/Application/MyAbilityStage.ts",
+    "srcEntrance": "./ets/Application/MyAbilityStage.ets",
     "description": "$string:entry_desc",
     "mainElement": "ohos.samples.dataprovider.MainAbility",
     "deviceTypes": [
@@ -30,7 +30,7 @@
     "abilities": [
       {
         "name": "ohos.samples.dataprovider.MainAbility",
-        "srcEntrance": "./ets/MainAbility/MainAbility.ts",
+        "srcEntry": "./ets/MainAbility/MainAbility.ets",
         "description": "$string:MainAbility_desc",
         "icon": "$media:icon",
         "label": "$string:MainAbility_label",
@@ -53,7 +53,7 @@
     "extensionAbilities": [
       {
         "name": "DataShareExtAbility",
-        "srcEntrance": "./ets/DataShareAbility/DataShareAbility.ts",
+        "srcEntrance": "./ets/DataShareAbility/DataShareAbility.ets",
         "icon": "$media:icon",
         "description": "$string:DataShareAbility_desc",
         "type": "dataShare",

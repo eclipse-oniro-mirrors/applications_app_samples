@@ -1,0 +1,36 @@
+{
+  "network-security-config": {
+    "base-config": {
+      "cleartextTrafficPermitted": false,
+      "trust-anchors": [
+        {
+          "certificates": "/etc/security/certificates"
+        }
+      ]
+    },
+    "domain-config": [
+      {
+        "cleartextTrafficPermitted": true,
+        "domains": [
+          {
+            "include-subdomains": true,
+            "name": "example.com"
+          },
+          {
+            "include-subdomains": false,
+            "name": "www.example.com"
+          }
+        ]
+      },
+      {
+        "cleartextTrafficPermitted": false,
+        "domains": [
+          {
+            "include-subdomains": true,
+            "name": "iana.org"
+          }
+        ]
+      }
+    ]
+  }
+}

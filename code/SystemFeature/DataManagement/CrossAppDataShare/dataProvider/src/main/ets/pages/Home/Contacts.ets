@@ -20,12 +20,12 @@ const TAG: string = 'Contacts'
 
 @Component
 export default struct Contacts {
-  private contactsData: ContactDataSource = new ContactDataSource()
+  private contactsData: ContactDataSource<Contact> = new ContactDataSource<Contact>()
   @Link contactsCount: number
 
   build() {
     List() {
-      LazyForEach(this.contactsData, (item, index) => {
+      LazyForEach(this.contactsData, (item: Contact, index: number) => {
         ListItem() {
           this.ContactItem(item, index)
         }
@@ -38,7 +38,7 @@ export default struct Contacts {
             }
           })
         })
-      }, item => item.name)
+      }, (item: Contact, index: number) => item.name)
     }
     .divider({ startMargin: 50, strokeWidth: 1 })
     .listDirection(Axis.Vertical)
@@ -48,11 +48,12 @@ export default struct Contacts {
   @Builder ContactItem(contact: Contact, index: number) {
     Column() {
       if (index === 0) {
-        Text(this.contactsData['dataArray'][index].name.substr(0, 1).toUpperCase())
+        Text(this.contactsData.dataArray[index]!.name.substr(0, 1).toUpperCase())
           .fontSize($r('app.float.font_size_24'))
           .margin({ top: $r('app.float.page_space_24'), bottom: $r('app.float.page_space_24') })
-      } else if (this.contactsData['dataArray'][index].name.substr(0, 1) !== this.contactsData['dataArray'][index-1].name.substr(0, 1)) {
-        Text(this.contactsData['dataArray'][index].name.substr(0, 1).toUpperCase())
+      } else if (this.contactsData.dataArray[index]!.name.substr(0, 1) !==
+        this.contactsData.dataArray[index - 1]!.name.substr(0, 1)) {
+        Text(this.contactsData.dataArray[index]!.name.substr(0, 1).toUpperCase())
           .fontSize($r('app.float.font_size_24'))
           .margin({ top: $r('app.float.page_space_24'), bottom: $r('app.float.page_space_24') })
       }
@@ -77,8 +78,8 @@ export default struct Contacts {
   queryAllContacts = async () => {
     let contacts = await contactDataShareUtil.queryAllContacts(getContext(this))
     this.contactsCount = contacts.length
-    this.contactsData['dataArray'] = contacts
-    logger.info(TAG, `contacts= ${JSON.stringify(this.contactsData['dataArray'])}`)
+    this.contactsData.dataArray = contacts
+    logger.info(TAG, `contacts= ${JSON.stringify(this.contactsData.dataArray)}`)
     this.contactsData.notifyDataReload()
   }
 }

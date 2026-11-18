@@ -1,0 +1,69 @@
+{
+  "string": [
+    {
+      "name": "gc_notify_enter_title",
+      "value": "围栏签到",
+      "description": "进入围栏通知标题"
+    },
+    {
+      "name": "gc_notify_enter_text",
+      "value": "已进入签到点，自动签到时间",
+      "description": "进入围栏通知正文前缀"
+    },
+    {
+      "name": "gc_notify_exit_title",
+      "value": "围栏签退",
+      "description": "离开围栏通知标题"
+    },
+    {
+      "name": "gc_notify_exit_text",
+      "value": "已离开签到点，停留时长",
+      "description": "离开围栏通知正文前缀"
+    },
+    {
+      "name": "gc_label_status",
+      "value": "围栏状态",
+      "description": "围栏状态卡片标题"
+    },
+    {
+      "name": "gc_status_on",
+      "value": "监控中",
+      "description": "围栏已开启状态"
+    },
+    {
+      "name": "gc_status_off",
+      "value": "未开启",
+      "description": "围栏未开启状态"
+    },
+    {
+      "name": "gc_label_today_check_in",
+      "value": "今日签到",
+      "description": "今日签到次数标签"
+    },
+    {
+      "name": "gc_label_today_duration",
+      "value": "今日停留",
+      "description": "今日累计停留时长标签"
+    },
+    {
+      "name": "gc_label_ongoing",
+      "value": "进行中",
+      "description": "未签退记录的进行中标签"
+    },
+    {
+      "name": "gc_label_enter_time",
+      "value": "进入",
+      "description": "签到记录进入时间标签"
+    },
+    {
+      "name": "gc_label_exit_time",
+      "value": "离开",
+      "description": "签到记录离开时间标签"
+    },
+    {
+      "name": "gc_label_duration",
+      "value": "停留",
+      "description": "签到记录停留时长标签"
+    }
+  ]
+}

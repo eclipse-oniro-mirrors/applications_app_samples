@@ -1,0 +1,64 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "page_material_scope_adapt",
+      "value": "材质生效范围（标题栏 vs 内容区）"
+    },
+    {
+      "name": "page_app_level_compatibility",
+      "value": "应用级兼容性适配"
+    },
+    {
+      "name": "page_component_level_compatibility",
+      "value": "组件级兼容性适配"
+    },
+    {
+      "name": "page_material_color_invert",
+      "value": "材质自动反色"
+    },
+    {
+      "name": "page_material_color",
+      "value": "材质赋色"
+    },
+    {
+      "name": "page_material_interactive_light",
+      "value": "交互形变与点光源"
+    },
+    {
+      "name": "page_custom_shadow",
+      "value": "自定义阴影"
+    },
+    {
+      "name": "select_option_1",
+      "value": "选项1"
+    },
+    {
+      "name": "select_option_2",
+      "value": "选项2"
+    },
+    {
+      "name": "select_placeholder",
+      "value": "选择"
+    },
+    {
+      "name": "title_bar",
+      "value": "标题栏"
+    },
+    {
+      "name": "content_area",
+      "value": "内容区"
+    }
+  ]
+}

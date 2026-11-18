@@ -14,6 +14,7 @@
  */
  
 import { ComponentCard } from '../../common/Card';
+import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component
@@ -22,6 +23,7 @@ export struct ControlledScrollPositionList {
   private listScroller: Scroller = new Scroller();
   // [End create_private_list_scroller]
   private arr: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
   build() {
     NavDestination() {
@@ -29,14 +31,13 @@ export struct ControlledScrollPositionList {
         ComponentCard({ title: $r('app.string.ControlledScrollPositionList_titleExample') }) {
           // [Start control_scrolling]
           Stack({ alignContent: Alignment.Bottom }) {
-            // 控制滚动位置示例List容器
             // 将listScroller用于初始化List组件的scroller参数，完成listScroller与列表的绑定。
             List({ space: 20, scroller: this.listScroller }) {
-              // ...
               // [StartExclude control_scrolling]
               ForEach(this.arr, (item: number) => {
                 ListItem() {
-                  Text('新闻' + item)
+                  // 请在resources\base\element\string.json文件中配置name为'list_text1' ，value为非空字符串的资源
+                  Text(this.context.resourceManager.getStringByNameSync('list_text1') + item)
                     .width('100%')
                     .height(100)
                     .fontSize(16)
@@ -50,7 +51,6 @@ export struct ControlledScrollPositionList {
 
             Button() {
               // [StartExclude control_scrolling]
-              // ...
               Image($r('sys.media.ohos_ic_public_arrow_up')).width(40).height(40)
               // [EndExclude control_scrolling]
             }
@@ -61,9 +61,10 @@ export struct ControlledScrollPositionList {
             .onClick(() => {
               // 点击按钮时，指定跳转位置，返回列表顶部
               this.listScroller.scrollToIndex(0);
-              // [End control_scrolling]
             })
-          }.height('90%')
+          }
+          // [End control_scrolling]
+          .height('90%')
         }
       }
       .width('100%')

@@ -17,35 +17,42 @@ import { ComponentCard } from '../../common/Card';
 
 @Entry
 @Component
-export struct TextSpan {
+struct TextSpan {
   @State onClickText: ResourceStr = 'I am Upper-span2';
 
   build() {
     NavDestination() {
       Column({ space: 12 }) {
+        // 请将$r('app.string.TextSpan_title_1')替换为实际资源文件，在本示例中该资源文件的value值为"创建Span"
         ComponentCard({ title: $r('app.string.TextSpan_title_1') }) {
           // [Start create_span]
-          Text($r('app.string.TextSpan_textContent_1')) {
-            Span($r('app.string.TextSpan_textContent_2'))
+          // 请将$r('app.string.TextSpan_textContent_text')替换为实际资源文件，在本示例中该资源文件的value值为"我是Text"
+          Text($r('app.string.TextSpan_textContent_text')) {
+            // 请将$r('app.string.TextSpan_textContent_span')替换为实际资源文件，在本示例中该资源文件的value值为"我是Span"
+            Span($r('app.string.TextSpan_textContent_span'))
           }
           .padding(10)
           .borderWidth(1)
           // [End create_span]
         }
 
+        // 请将$r('app.string.TextSpan_title_2')替换为实际资源文件，在本示例中该资源文件的value值为"设置文本装饰线及颜色"
         ComponentCard({ title: $r('app.string.TextSpan_title_2') }) {
           // [Start create_span_with_lines]
           Text() {
-            Span($r('app.string.TextSpan_textContent_3'))
+            // 请将$r('app.string.TextSpan_textContent_span_one')替换为实际资源文件，在本示例中该资源文件的value值为"我是Span1，"
+            Span($r('app.string.TextSpan_textContent_span_one'))
               .fontSize(16)
               .fontColor(Color.Grey)
               .decoration({ type: TextDecorationType.LineThrough, color: Color.Red })
-            Span($r('app.string.TextSpan_textContent_4'))
+            // 请将$r('app.string.TextSpan_textContent_span_two')替换为实际资源文件，在本示例中该资源文件的value值为"我是Span2"
+            Span($r('app.string.TextSpan_textContent_span_two'))
               .fontColor(Color.Blue)
               .fontSize(16)
               .fontStyle(FontStyle.Italic)
               .decoration({ type: TextDecorationType.Underline, color: Color.Black })
-            Span($r('app.string.TextSpan_textContent_5'))
+            // 请将$r('app.string.TextSpan_textContent_span_three')替换为实际资源文件，在本示例中该资源文件的value值为"，我是Span3"
+            Span($r('app.string.TextSpan_textContent_span_three'))
               .fontSize(16)
               .fontColor(Color.Grey)
               .decoration({ type: TextDecorationType.Overline, color: Color.Green })
@@ -55,6 +62,7 @@ export struct TextSpan {
           // [End create_span_with_lines]
         }
 
+        // 请将$r('app.string.TextSpan_title_3')替换为实际资源文件，在本示例中该资源文件的value值为"通过textCase设置文字一直保持大写或者小写状态"
         ComponentCard({ title: $r('app.string.TextSpan_title_3') }) {
           // [Start create_span_with_upper_case]
           Text() {
@@ -66,6 +74,7 @@ export struct TextSpan {
           // [End create_span_with_upper_case]
         }
 
+        // 请将$r('app.string.TextSpan_title_4')替换为实际资源文件，在本示例中该资源文件的value值为"添加事件"
         ComponentCard({ title: $r('app.string.TextSpan_title_4') }) {
           // [Start create_span_with_onclick]
           Text() {
@@ -73,6 +82,7 @@ export struct TextSpan {
               .fontSize(12)
               .textCase(TextCase.UpperCase)
               .onClick(() => {
+                // 请将$r('app.string.TextSpan_textContent_6')替换为实际资源文件，在本示例中该资源文件的value值为"我是Span——onClick"
                 this.onClickText = $r('app.string.TextSpan_textContent_6');
               })
           }
@@ -84,6 +94,9 @@ export struct TextSpan {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.TextSpan_title')替换为实际资源文件，在本示例中该资源文件的value值为"添加子组件"
     .title($r('app.string.TextSpan_title'))
   }
 }
+
+export { TextSpan };

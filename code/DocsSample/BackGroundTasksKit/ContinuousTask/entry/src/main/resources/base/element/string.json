@@ -1,0 +1,27 @@
+{
+  "string": [
+    {
+      "name": "entry_desc",
+      "value": "长时任务管理"
+    },
+    {
+      "name": "MainAbility_desc",
+      "value": "长时任务管理"
+    },
+    {
+      "name": "MainAbility_label",
+      "value": "长时任务"
+    },
+    {
+      "name": "bt_permission_desc_1",
+      "value": "用于检测蓝牙期间功能是否正常",
+      "attr": {
+        "priority": "translate"
+      }
+    },
+    {
+      "name": "keep_running",
+      "value": "长时任务权限"
+    }
+  ]
+}

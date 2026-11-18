@@ -49,7 +49,7 @@ export default function abilityTest() {
       const driver = Driver.create();
       await driver.delayMs(1000);
       const text =
-        await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Cpu_intensive_task_development'))));
+        await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Cpu_intensive_task_development').id)));
       await text.click();
       await driver.delayMs(1000);
       const text1 = await driver.findComponent(ON.text('Hello World'));
@@ -67,7 +67,7 @@ export default function abilityTest() {
       console.log('uitest: UsingIoIntensiveTaskDevelopment begin');
       const driver = Driver.create();
       await driver.delayMs(1000);
-      const text = await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Io_intensive_task_development'))));
+      const text = await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Io_intensive_task_development').id)));
       await text.click();
       await driver.delayMs(1000);
       const text1 = await driver.findComponent(ON.text('Hello World'));
@@ -86,7 +86,7 @@ export default function abilityTest() {
       const driver = Driver.create();
       await driver.delayMs(1000);
       const text =
-        await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Sync_task_development'))));
+        await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Sync_task_development').id)));
       await text.click();
       await driver.delayMs(1000);
       const text1 = await driver.findComponent(ON.text('Hello World'));
@@ -105,7 +105,7 @@ export default function abilityTest() {
       const driver = Driver.create();
       await driver.delayMs(1000);
       const text =
-        await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Long_time_task_guide'))));
+        await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Long_time_task_guide').id)));
       await text.click();
       await driver.delayMs(1000);
       const addListener = await driver.findComponent(ON.id('Add listener'));
@@ -129,7 +129,7 @@ export default function abilityTest() {
       const driver = Driver.create();
       await driver.delayMs(1000);
       const text =
-        await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Resident_task_guide'))));
+        await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Resident_task_guide').id)));
       await text.click();
       await driver.delayMs(1000);
       const listener = await driver.findComponent(ON.text('Listener task'));
@@ -137,6 +137,25 @@ export default function abilityTest() {
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('success'));
       console.log('uitest: UsingResidentTaskGuide end');
+      await driver.pressBack();
+      done();
+    })
+    /**
+     * 点击按钮，进入Worker发消息页面，点击Hello World执行
+     */
+    it('testWorkerSend', 0, async (done: Function) => {
+      console.info('uitest: UsingWorkerSend begin');
+      const driver = Driver.create();
+      await driver.delayMs(1000);
+      const text =
+        await driver.findComponent(ON.text(resource.resourceToString($r('app.string.Worker_send').id)));
+      await text.click();
+      await driver.delayMs(1000);
+      const listener = await driver.findComponent(ON.text('Hello World'));
+      await listener.click();
+      await driver.delayMs(1000);
+      await driver.assertComponentExist(ON.text('success'));
+      console.info('uitest: UsingWorkerSend end');
       await driver.pressBack();
       done();
     })

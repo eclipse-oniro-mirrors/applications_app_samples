@@ -1,0 +1,172 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "USB Manager C API 测试入口模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "USB Manager C API 测试入口"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "USBManagerCApiSample"
+    },
+    {
+      "name": "page_title",
+      "value": "USB Manager C API Test"
+    },
+    {
+      "name": "btn_get_device_list",
+      "value": "① 获取设备信息 GetUsbDeviceList"
+    },
+    {
+      "name": "btn_free_device_list",
+      "value": "② 释放设备信息 FreeUsbDeviceList"
+    },
+    {
+      "name": "btn_has_permission",
+      "value": "③ 查询权限 HasPermission"
+    },
+    {
+      "name": "btn_request_permission",
+      "value": "④ 申请权限 RequestPermission"
+    },
+    {
+      "name": "btn_connect_device",
+      "value": "⑤ 连接 ConnectDevice"
+    },
+    {
+      "name": "btn_get_fd",
+      "value": "⑥ 取FD GetFileDescriptor"
+    },
+    {
+      "name": "btn_close_pipe",
+      "value": "⑦ 关闭 ClosePipe"
+    },
+    {
+      "name": "btn_clear_logs",
+      "value": "清空日志"
+    },
+    {
+      "name": "empty_device_list",
+      "value": "暂无设备信息，点击「① 获取设备信息」枚举 USB 设备"
+    },
+    {
+      "name": "label_manufacturer",
+      "value": "厂商:"
+    },
+    {
+      "name": "label_product",
+      "value": "产品:"
+    },
+    {
+      "name": "label_version",
+      "value": "版本:"
+    },
+    {
+      "name": "label_config",
+      "value": "配置:"
+    },
+    {
+      "name": "label_interface",
+      "value": "接口:"
+    },
+    {
+      "name": "label_endpoint",
+      "value": "端点:"
+    },
+    {
+      "name": "log_ready",
+      "value": "USB Manager C API 测试 demo 就绪，请先获取设备信息"
+    },
+    {
+      "name": "log_api_coverage",
+      "value": "覆盖接口: GetUsbDeviceList / FreeUsbDeviceList / HasPermission / RequestPermission / ConnectDevice / GetFileDescriptor / ClosePipe"
+    },
+    {
+      "name": "log_get_list_success",
+      "value": "GetUsbDeviceList 成功，共 %d 台设备，设备信息已持有（点击②释放）"
+    },
+    {
+      "name": "log_no_device",
+      "value": "未发现 USB 设备，请插入设备后重试"
+    },
+    {
+      "name": "log_free_success",
+      "value": "FreeDeviceList 已释放 %d 台设备信息"
+    },
+    {
+      "name": "log_free_nothing",
+      "value": "FreeDeviceList：当前没有已获取未释放的设备信息"
+    },
+    {
+      "name": "log_select_device_first",
+      "value": "请先选择设备"
+    },
+    {
+      "name": "log_request_sent",
+      "value": "RequestPermission(\"%s\") 已发起，请在系统弹窗中选择允许或禁止..."
+    },
+    {
+      "name": "log_request_result",
+      "value": "RequestPermission 回调结果 = %s"
+    },
+    {
+      "name": "log_connect_success",
+      "value": "ConnectDevice 成功, pipe {busNum=%d, devAddress=%d}"
+    },
+    {
+      "name": "log_get_fd_success",
+      "value": "GetFileDescriptor 成功, fd = %d (可用于 ioctl/libusb 直通传输)"
+    },
+    {
+      "name": "log_close_result",
+      "value": "ClosePipe 结果 = %s，设备信息仍持有，可点击②释放"
+    },
+    {
+      "name": "log_action_failed",
+      "value": "ERR: %s 失败: code=%s %s"
+    },
+    {
+      "name": "status_granted",
+      "value": "已授权"
+    },
+    {
+      "name": "status_not_granted",
+      "value": "未授权"
+    },
+    {
+      "name": "status_user_allowed",
+      "value": "用户允许"
+    },
+    {
+      "name": "status_user_denied",
+      "value": "用户拒绝"
+    },
+    {
+      "name": "status_selected",
+      "value": "选中: %s"
+    },
+    {
+      "name": "status_none",
+      "value": "无"
+    },
+    {
+      "name": "status_pipe",
+      "value": "| 管道: %s"
+    },
+    {
+      "name": "status_connected",
+      "value": "已连接"
+    },
+    {
+      "name": "status_disconnected",
+      "value": "未连接"
+    },
+    {
+      "name": "allow_dialog_button",
+      "value": "允许"
+    }
+  ]
+}

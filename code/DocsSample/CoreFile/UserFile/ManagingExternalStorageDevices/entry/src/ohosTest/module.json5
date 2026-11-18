@@ -15,6 +15,21 @@
 
 {
   "module": {
+    "description": "$string:module_test_desc",
+    "mainElement": "TestAbility",
+    "pages": "$profile:test_pages",
+    "abilities": [
+      {
+        "name": "TestAbility",
+        "srcEntry": "./ets/testability/TestAbility.ets",
+        "description": "$string:TestAbility_desc",
+        "label": "$string:TestAbility_label",
+        "icon": "$media:app_icon",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true
+      }
+    ],
     "name": "entry_test",
     "type": "feature",
     "deviceTypes": [

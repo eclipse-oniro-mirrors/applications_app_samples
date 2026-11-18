@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,13 +14,21 @@
  */
 
 export const initNative: (fd: number, videoCodecMime: string, width: number, height: number,
-                          frameRate: number, isHDRVivid: number, bitRate: number, format: number) => Promise<Response>
+  frameRate: number, isHDRVivid: number, bitRate: number, format: number, isSync: number,
+  outputFormat: number, bitrateMode: number, iFrameInterval: number, audioSampleRate: number,
+  audioChannelCount: number, audioBitRate: number, audioLatencyMode: number, secondaryFd?: number,
+  enableDualOutput?: number, preprocMode?: number, downsamplingWidth?: number,
+  downsamplingHeight?: number, dropToFrameRate?: number, cropLeft?: number, cropTop?: number,
+  cropRight?: number, cropBottom?: number, secondaryWidth?: number, secondaryHeight?: number,
+  enableVideoDump?: number, videoDumpPath?: string, secondaryVideoDumpPath?: string) => Promise<Response>
 
 export const startNative: () => void
 
-export const stopNative: () => Promise<Response>
+export const stopBeginNative: () => Promise<Response>
+
+export const stopEndNative: () => Promise<Response>
 
 export class Response {
   code: number
-  surfaceId: string
+  outputId: string
 }

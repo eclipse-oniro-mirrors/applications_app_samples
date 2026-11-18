@@ -1,0 +1,70 @@
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+// [Start ObservedV2_Class_User]
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TAG = '[Sample_Textcomponent]';
+const DOMAIN = 0xF811;
+const BUNDLE = 'Textcomponent_';
+
+@ObservedV2
+class Name {
+  @Trace public firstName: string = 'Hua';
+  @Trace public lastName: string = 'Li';
+
+  @Computed
+  get fullName() {
+    hilog.info(DOMAIN, TAG, BUNDLE + '---------Computed----------');
+    return this.firstName + ' ' + this.lastName;
+  }
+}
+
+const name: Name = new Name();
+
+@Entry
+@ComponentV2
+struct ObservedV2ClassUser {
+  name1: Name = name;
+
+  build() {
+    Column() {
+      Text(this.name1.fullName)
+        .fontSize(20)
+        .margin(10)
+      Text(this.name1.fullName)
+        .fontSize(20)
+        .margin(10)
+      // 点击Button改变lastName，触发fullName重新计算，且只被计算一次
+      Button('changed lastName')
+        .width(300)
+        .margin(10)
+        .onClick(() => {
+          this.name1.lastName += 'a';
+        })
+    }
+    .width('100%')
+  }
+}
+// [End ObservedV2_Class_User]
+
+@Builder
+export function ObservedV2ClassUserFunc() {
+  NavDestination() {
+    ObservedV2ClassUser()
+  }
+  .backgroundColor('#f1f2f3')
+  // 请将$r('app.string.computed_desc_2')替换为实际资源文件，在本示例中该资源文件的value值为"在@ObservedV2装饰的类中使用计算属性。"
+  .title($r('app.string.computed_desc_2'))
+}

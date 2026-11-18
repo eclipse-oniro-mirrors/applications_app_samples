@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <rect width="960" height="540" rx="18" fill="#1b1b1b"/>
+  <text x="40" y="52" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="26" fill="#ffffff">功能菜单（二级菜单）</text>
+  <text x="920" y="52" text-anchor="end" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="18" fill="#9aa0a6">09:26</text>
+
+  <rect x="40" y="86" width="880" height="176" rx="14" fill="#ffffff"/>
+  <text x="68" y="140" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="22" fill="#2b2f36">UX 会议纪要</text>
+  <text x="68" y="176" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="16" fill="#8a9099">2026年01月01日 09:06 · 工作</text>
+  <rect x="68" y="196" width="3" height="24" fill="#0a59f7"/>
+
+  <rect x="0" y="292" width="960" height="248" fill="#eef1f5"/>
+
+  <g font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" text-anchor="middle">
+    <rect x="120" y="344" width="200" height="144" rx="16" fill="#0a59f7" fill-opacity="0.12" stroke="#0a59f7" stroke-width="2"/>
+    <g fill="#0a59f7">
+      <rect x="196" y="368" width="48" height="6" rx="3"/>
+      <rect x="196" y="384" width="48" height="6" rx="3"/>
+      <rect x="196" y="400" width="28" height="6" rx="3"/>
+      <path d="M204 418 l16 14 l-6 2 l-4 -10 z" />
+    </g>
+    <text x="220" y="470" font-size="24" fill="#0a59f7">编辑</text>
+
+    <rect x="380" y="344" width="200" height="144" rx="16" fill="#ffffff" stroke="#c9ced6"/>
+    <g fill="#5b6168">
+      <rect x="430" y="372" width="100" height="56" rx="8" stroke="#5b6168" fill="none" stroke-width="2"/>
+      <rect x="446" y="388" width="14" height="10" rx="2"/>
+      <rect x="470" y="388" width="14" height="10" rx="2"/>
+      <rect x="494" y="388" width="14" height="10" rx="2"/>
+      <rect x="446" y="406" width="14" height="10" rx="2"/>
+      <rect x="470" y="406" width="14" height="10" rx="2"/>
+      <rect x="494" y="406" width="14" height="10" rx="2"/>
+    </g>
+    <text x="480" y="470" font-size="24" fill="#2b2f36">键盘</text>
+
+    <rect x="640" y="344" width="200" height="144" rx="16" fill="#ffffff" stroke="#c9ced6"/>
+    <g fill="#5b6168">
+      <circle cx="740" cy="392" r="26" fill="none" stroke="#5b6168" stroke-width="6"/>
+      <circle cx="740" cy="392" r="8"/>
+      <path d="M740 356 l0 10 M740 418 l0 10 M704 392 l10 0 M766 392 l10 0" stroke="#5b6168" stroke-width="6"/>
+    </g>
+    <text x="740" y="470" font-size="24" fill="#2b2f36">设置</text>
+  </g>
+
+  <text x="40" y="524" font-family="HarmonyOS Sans SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="16" fill="#8a9099">点击左上角键盘图标进入二级菜单，遥控器方向键选择，OK 键确认</text>
+</svg>

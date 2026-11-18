@@ -14,39 +14,119 @@
  */
 
 import { ComponentCard } from '../../common/Card';
-
+import common from '@ohos.app.ability.common';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 // [Start build_scrollable_horizontally_grid_layouts]
 @Entry
 @Component
 export struct ScrollableGrid {
-  @State services: Array<string> = ['Live Streaming', 'Imported', 'Categories', 'Recharge',
-    'Membership', 'Claim Coupon', 'Lottery', 'Favorites', 'Points', 'More'];
-
+  // [StartExclude build_scrollable_horizontally_grid_layouts]
+  context = this.getUIContext().getHostContext();
+  // [EndExclude build_scrollable_horizontally_grid_layouts]
+  @State services: Array<string> = [
+    // 请将$r('app.string.Live_Streaming')替换为实际资源文件，在本示例中该资源文件的value值为"直播"
+    this.context!.resourceManager.getStringSync($r('app.string.Live_Streaming').id),
+    // 请将$r('app.string.Imported')替换为实际资源文件，在本示例中该资源文件的value值为"进口"
+    this.context!.resourceManager.getStringSync($r('app.string.Imported').id)
+    ];
+  // [StartExclude build_scrollable_horizontally_grid_layouts]
+  private bgColors: string[] = ['#3079fe', '#fea500', '#f45a43']
+  aboutToAppear(): void {
+    const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    try {
+      const categories = context.resourceManager.getStringByNameSync('Categories')
+      this.services.push(categories)
+    } catch (e) {
+      hilog.error(0x0000, 'testTag', 'Failed to get Categories: %{public}s', JSON.stringify(e) ?? '');
+    }
+    try {
+      const recharge = context.resourceManager.getStringByNameSync('Recharge')
+      this.services.push(recharge)
+    } catch (e) {
+      hilog.error(0x0000, 'testTag', 'Failed to get Recharge: %{public}s', JSON.stringify(e) ?? '');
+    }
+    try {
+      const membership = context.resourceManager.getStringByNameSync('Membership')
+      this.services.push(membership)
+    } catch (e) {
+      hilog.error(0x0000, 'testTag', 'Failed to get Membership: %{public}s', JSON.stringify(e) ?? '');
+    }
+    try {
+      const claim = context.resourceManager.getStringByNameSync('Claim_Coupon')
+      this.services.push(claim)
+    } catch (e) {
+      hilog.error(0x0000, 'testTag', 'Failed to get Claim_Coupon: %{public}s', JSON.stringify(e) ?? '');
+    }
+    try {
+      const lottery = context.resourceManager.getStringByNameSync('Lottery')
+      this.services.push(lottery)
+    } catch (e) {
+      hilog.error(0x0000, 'testTag', 'Failed to get Lottery: %{public}s', JSON.stringify(e) ?? '');
+    }
+    try {
+      const favorites = context.resourceManager.getStringByNameSync('Favorites')
+      this.services.push(favorites)
+    } catch (e) {
+      hilog.error(0x0000, 'testTag', 'Failed to get Favorites: %{public}s', JSON.stringify(e) ?? '');
+    }
+    try {
+      const points = context.resourceManager.getStringByNameSync('Points')
+      this.services.push(points)
+    } catch (e) {
+      hilog.error(0x0000, 'testTag', 'Failed to get Points: %{public}s', JSON.stringify(e) ?? '');
+    }
+    try {
+      const more = context.resourceManager.getStringByNameSync('More')
+      this.services.push(more)
+    } catch (e) {
+      hilog.error(0x0000, 'testTag', 'Failed to get More: %{public}s', JSON.stringify(e) ?? '');
+    }
+  }
+  // [EndExclude build_scrollable_horizontally_grid_layouts]
   build() {
+    // [StartExclude build_scrollable_horizontally_grid_layouts]
     NavDestination() {
-      Column({ space: 12 }) {
+      // [EndExclude build_scrollable_horizontally_grid_layouts]
+
+      Column({ space: 5 }) {
+        // [StartExclude build_scrollable_horizontally_grid_layouts]
+        // 请将$r('app.string.ScrollableGrid_titleHorizontal')替换为实际资源文件，在本示例中该资源文件的value值为"横向可滚动网格布局示例"
         ComponentCard({ title: $r('app.string.ScrollableGrid_titleHorizontal') }) {
+          // [EndExclude build_scrollable_horizontally_grid_layouts]
+
           Grid() {
-            ForEach(this.services, (service: string) => {
+            ForEach(this.services, (service: string, index: number) => {
               GridItem() {
+                // [StartExclude build_scrollable_horizontally_grid_layouts]
                 Text(service)
-              }.backgroundColor('#FFF1F3F5').width('25%')
+                // [EndExclude build_scrollable_horizontally_grid_layouts]
+              }
+              .width('25%')
+              // [StartExclude build_scrollable_horizontally_grid_layouts]
+              .backgroundColor(this.bgColors[index % this.bgColors.length])
+              .borderRadius(50)
+              // [EndExclude build_scrollable_horizontally_grid_layouts]
             }, (service: string): string => service)
           }
+          .rowsTemplate('1fr 1fr') // 只设置rowsTemplate属性，当内容超出Grid区域时，可水平滚动。
+          .rowsGap(15)
+
           // [StartExclude build_scrollable_horizontally_grid_layouts]
           .height(200)
           .columnsGap(10)
           // [EndExclude build_scrollable_horizontally_grid_layouts]
-          .rowsGap(15)
-          .rowsTemplate('1fr 1fr') // 只设置rowsTemplate属性，当内容超出Grid区域时，可水平滚动。
         }
       }
-      // [End build_scrollable_horizontally_grid_layouts]
+      // [StartExclude build_scrollable_horizontally_grid_layouts]
       .width('100%')
       .height('100%')
       .padding({ left: 12, right: 12 })
+
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.ScrollableGrid_title')替换为实际资源文件，在本示例中该资源文件的value值为"横向可滚动网格布局示例"
     .title($r('app.string.ScrollableGrid_title'))
   }
+  // [EndExclude build_scrollable_horizontally_grid_layouts]
 }
+// [End build_scrollable_horizontally_grid_layouts]

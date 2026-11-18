@@ -1,0 +1,278 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { describe, it, expect } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { ChannelConfigModel, ChannelConfigStatus } from 'library';
+import type { ChannelConfigJson } from 'library';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_SystemConfig]';
+
+/**
+ * ChannelConfigModel extended test suite.
+ * Additionally covers full state-machine transitions / toJSON round-trip serialization /
+ * cumulative markSuccess / markLoading boundaries / getTimeSinceLastFetch scenarios.
+ */
+export default function ChannelConfigModelExtendedTest(): void {
+  describe('ChannelConfigModelExtendedTest', () => {
+
+    // ========================================
+    // Full state machine transition tests
+    // ========================================
+
+    /**
+     * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0100
+     * @tc.name testChannelConfigModelExtended0001
+     * @tc.desc Verify the full UNINITIALIZED → LOADING → SUCCESS state transition.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testChannelConfigModelExtended0001', 0, () => {
+      hilog.info(DOMAIN, TAG, 'testChannelConfigModelExtended0001: begin');
+      const model: ChannelConfigModel = new ChannelConfigModel();
+      expect(model.status).assertEqual(ChannelConfigStatus.UNINITIALIZED);
+      expect(model.isLoading()).assertFalse();
+      expect(model.isSuccess()).assertFalse();
+      expect(model.isFailed()).assertFalse();
+      model.markLoading();
+      expect(model.status).assertEqual(ChannelConfigStatus.LOADING);
+      expect(model.isLoading()).assertTrue();
+      expect(model.errorMessage).assertEqual('');
+      expect(model.errorCode).assertEqual(0);
+      model.markSuccess('channel-001');
+      expect(model.status).assertEqual(ChannelConfigStatus.SUCCESS);
+      expect(model.isSuccess()).assertTrue();
+      expect(model.channelId).assertEqual('channel-001');
+      expect(model.fetchCount).assertEqual(1);
+    });
+
+    /**
+     * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0200
+     * @tc.name testChannelConfigModelExtended0002
+     * @tc.desc Verify the UNINITIALIZED → LOADING → FAILED → reset transition.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('testChannelConfigModelExtended0002', 0, () => {
+      hilog.info(DOMAIN, TAG, 'testChannelConfigModelExtended0002: begin');
+      const model: ChannelConfigModel = new ChannelConfigModel();
+      model.markLoading();
+      expect(model.isLoading()).assertTrue();
+      model.markFailed('network error', 5001);
+      expect(model.status).assertEqual(ChannelConfigStatus.FAILED);
+      expect(model.isFailed()).assertTrue();
+      expect(model.isSuccess()).assertFalse();
+      expect(model.errorMessage).assertEqual('network error');
+      expect(model.errorCode).assertEqual(5001);
+      expect(model.fetchCount).assertEqual(1);
+      model.reset();
+      expect(model.status).assertEqual(ChannelConfigStatus.UNINITIALIZED);
+      expect(model.channelId).assertEqual('');
+      expect(model.fetchCount).assertEqual(0);
+    });
+
+    // ========================================
+    // toJSON round-trip serialization test
+    // ========================================
+
+    /**
+     * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0300
+     * @tc.name testChannelConfigModelExtended0003
+     * @tc.desc Verify toJSON keeps all fields complete and consistent with the model values.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('testChannelConfigModelExtended0003', 0, () => {
+      hilog.info(DOMAIN, TAG, 'testChannelConfigModelExtended0003: begin');
+      const model: ChannelConfigModel = new ChannelConfigModel();
+      model.markSuccess('test-channel-id');
+      const json: ChannelConfigJson = model.toJSON();
+      expect(json.channelId).assertEqual('test-channel-id');
+      expect(json.status).assertEqual(ChannelConfigStatus.SUCCESS);
+      expect(json.lastFetchTime).assertLarger(0);
+      expect(json.fetchCount).assertEqual(1);
+      expect(json.errorMessage).assertEqual('');
+      expect(json.errorCode).assertEqual(0);
+    });
+
+    // ========================================
+    // Cumulative markSuccess tests
+    // ========================================
+
+    /**
+     * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0400
+     * @tc.name testChannelConfigModelExtended0004
+     * @tc.desc Verify fetchCount accumulates across multiple markSuccess calls.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('testChannelConfigModelExtended0004', 0, () => {
+      hilog.info(DOMAIN, TAG, 'testChannelConfigModelExtended0004: begin');
+      const model: ChannelConfigModel = new ChannelConfigModel();
+      expect(model.fetchCount).assertEqual(0);
+      model.markSuccess('ch-1');
+      expect(model.fetchCount).assertEqual(1);
+      expect(model.channelId).assertEqual('ch-1');
+      model.markSuccess('ch-2');
+      expect(model.fetchCount).assertEqual(2);
+      expect(model.channelId).assertEqual('ch-2');
+      model.markSuccess('ch-3');
+      expect(model.fetchCount).assertEqual(3);
+      expect(model.lastFetchTime).assertLarger(0);
+    });
+
+    // ========================================
+    // getTimeSinceLastFetch tests
+    // ========================================
+
+    /**
+     * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0500
+     * @tc.name testChannelConfigModelExtended0005
+     * @tc.desc Verify it returns -1 before any fetch and a non-negative time diff afterwards.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testChannelConfigModelExtended0005', 0, () => {
+      hilog.info(DOMAIN, TAG, 'testChannelConfigModelExtended0005: begin');
+      const model: ChannelConfigModel = new ChannelConfigModel();
+      expect(model.getTimeSinceLastFetch()).assertEqual(-1);
+      const before: number = Date.now();
+      model.markSuccess('ch-1');
+      const elapsed: number = model.getTimeSinceLastFetch();
+      expect(elapsed).assertLargerOrEqual(0);
+      expect(elapsed).assertLess(5000);
+      expect(model.lastFetchTime).assertLargerOrEqual(before);
+      expect(model.isSuccess()).assertTrue();
+    });
+
+    /**
+     * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0600
+     * @tc.name testChannelConfigModelExtended0006
+     * @tc.desc Verify getTimeSinceLastFetch returns -1 again after reset.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('testChannelConfigModelExtended0006', 0, () => {
+      hilog.info(DOMAIN, TAG, 'testChannelConfigModelExtended0006: begin');
+      const model: ChannelConfigModel = new ChannelConfigModel();
+      model.markSuccess('ch-1');
+      expect(model.getTimeSinceLastFetch()).assertLargerOrEqual(0);
+      model.reset();
+      expect(model.getTimeSinceLastFetch()).assertEqual(-1);
+      expect(model.lastFetchTime).assertEqual(0);
+    });
+
+    // ========================================
+    // toString tests
+    // ========================================
+
+    /**
+     * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0700
+     * @tc.name testChannelConfigModelExtended0007
+     * @tc.desc Verify the toString output contains the key fields.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('testChannelConfigModelExtended0007', 0, () => {
+      hilog.info(DOMAIN, TAG, 'testChannelConfigModelExtended0007: begin');
+      const model: ChannelConfigModel = new ChannelConfigModel();
+      model.markSuccess('my-channel');
+      const str: string = model.toString();
+      expect(str.indexOf('ChannelConfigModel')).assertLarger(-1);
+      expect(str.indexOf('my-channel')).assertLarger(-1);
+      expect(str.indexOf('success')).assertLarger(-1);
+    });
+
+    // ========================================
+    // isSuccess boundary tests
+    // ========================================
+
+    /**
+     * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0800
+     * @tc.name testChannelConfigModelExtended0008
+     * @tc.desc Verify isSuccess returns false when status is SUCCESS but channelId is empty.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('testChannelConfigModelExtended0008', 0, () => {
+      hilog.info(DOMAIN, TAG, 'testChannelConfigModelExtended0008: begin');
+      const model: ChannelConfigModel = new ChannelConfigModel();
+      model.markSuccess('valid-id');
+      expect(model.isSuccess()).assertTrue();
+      model.channelId = '';
+      expect(model.status).assertEqual(ChannelConfigStatus.SUCCESS);
+      expect(model.isSuccess()).assertFalse();
+    });
+
+    // ========================================
+    // markLoading error clearing test
+    // ========================================
+
+    /**
+     * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_0900
+     * @tc.name testChannelConfigModelExtended0009
+     * @tc.desc Verify markLoading clears the previous error message.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 1
+     */
+    it('testChannelConfigModelExtended0009', 0, () => {
+      hilog.info(DOMAIN, TAG, 'testChannelConfigModelExtended0009: begin');
+      const model: ChannelConfigModel = new ChannelConfigModel();
+      model.markFailed('prev error', 999);
+      expect(model.errorMessage).assertEqual('prev error');
+      expect(model.errorCode).assertEqual(999);
+      model.markLoading();
+      expect(model.errorMessage).assertEqual('');
+      expect(model.errorCode).assertEqual(0);
+      expect(model.status).assertEqual(ChannelConfigStatus.LOADING);
+    });
+
+    // ========================================
+    // Construction parameter tests
+    // ========================================
+
+    /**
+     * @tc.number SUB_CHANNEL_CONFIG_MODEL_EXTENDED_1000
+     * @tc.name testChannelConfigModelExtended0010
+     * @tc.desc Verify all query methods return correct initial values after default construction.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testChannelConfigModelExtended0010', 0, () => {
+      hilog.info(DOMAIN, TAG, 'testChannelConfigModelExtended0010: begin');
+      const model: ChannelConfigModel = new ChannelConfigModel();
+      expect(model.channelId).assertEqual('');
+      expect(model.status).assertEqual(ChannelConfigStatus.UNINITIALIZED);
+      expect(model.lastFetchTime).assertEqual(0);
+      expect(model.errorMessage).assertEqual('');
+      expect(model.errorCode).assertEqual(0);
+      expect(model.fetchCount).assertEqual(0);
+      expect(model.isSuccess()).assertFalse();
+      expect(model.isLoading()).assertFalse();
+      expect(model.isFailed()).assertFalse();
+      expect(model.getTimeSinceLastFetch()).assertEqual(-1);
+    });
+  });
+}

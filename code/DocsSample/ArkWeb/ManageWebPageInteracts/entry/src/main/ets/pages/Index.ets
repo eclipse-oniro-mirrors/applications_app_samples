@@ -20,17 +20,29 @@ import { router } from '@kit.ArkUI';
 struct Index {
   build() {
     Column({ space: 10 }) {
-      Button('ImpNestedScroll')
+      Button('WebNestedScroll1')
         .onClick(() => {
-          router.pushUrl({ url: 'pages/ImpNestedScroll' });
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/ImpNestedScroll' }).catch(() => {
+            console.error('Routing failed!');
+          });
+        })
+      Button('WebNestedScroll2')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/WebNestedScroll' }).catch(() => {
+            console.error('Routing failed!');
+          });
         })
       Button('OnIntKbdAttachSysCustIn')
         .onClick(() => {
-          router.pushUrl({ url: 'pages/OnIntKbdAttachSysCustIn' });
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/OnIntKbdAttachSysCustIn' }).catch(() => {
+            console.error('Routing failed!');
+          });
         })
       Button('SetSKBMode_one')
         .onClick(() => {
-          router.pushUrl({ url: 'pages/SetSKBMode_one' });
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/SetSKBMode_one' }).catch(() => {
+            console.error('Routing failed!');
+          });
         })
     }.height('100%')
     .width('100%')

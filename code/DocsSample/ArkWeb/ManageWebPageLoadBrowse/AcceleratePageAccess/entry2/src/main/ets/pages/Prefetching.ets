@@ -14,11 +14,7 @@
  */
 // [Start on_page_end_triggers_preload_of_next_page]
 import { webview } from '@kit.ArkWeb';
-// [StartExclude on_page_end_triggers_preload_of_next_page]
-function resourceToString(resource: Resource) {
-  return getContext().resourceManager.getStringSync(resource);
-}
-// [EndExclude on_page_end_triggers_preload_of_next_page]
+
 @Entry
 @Component
 struct WebComponent {
@@ -26,10 +22,10 @@ struct WebComponent {
 
   build() {
     Column() {
-      Web({ src: 'www.example.com', controller: this.webviewController })
+      Web({ src: 'https://www.example.com/', controller: this.webviewController })
         .onPageEnd(() => {
           // 预加载https://www.iana.org/help/example-domains。
-          this.webviewController.prefetchPage(resourceToString($r('app.string.domains_path')));
+          this.webviewController.prefetchPage('https://www.iana.org/help/example-domains');
         })
     }
   }

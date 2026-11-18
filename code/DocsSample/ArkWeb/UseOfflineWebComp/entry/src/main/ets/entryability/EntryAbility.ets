@@ -13,12 +13,12 @@
  * limitations under the License.
  */
 
-
-import { createNWeb } from "../pages/common";
+// [Start entry_ability_window_stage_created_after_specified_page_loaded]
+import { createNWeb } from "../pages/Common";
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
-import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
-
+// [StartExclude entry_ability_window_stage_created_after_specified_page_loaded]
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
@@ -28,14 +28,20 @@ export default class EntryAbility extends UIAbility {
   onDestroy(): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
   }
-  // [Start entry_ability_window_stage_created_after_specified_page_loaded]
+  // [EndExclude entry_ability_window_stage_created_after_specified_page_loaded]
   onWindowStageCreate(windowStage: window.WindowStage): void {
     windowStage.loadContent('pages/Index', (err, data) => {
-      // 创建Web动态组件（需传入UIContext），loadContent之后的任意时机均可创建
-      createNWeb('www.example.com', windowStage.getMainWindowSync().getUIContext());
-      if (err.code) {
+      if (err && err.code) {
+        console.error('loadContent failed. errorCode: ' + err.code);
         return;
       }
+      let windowClass: window.Window = windowStage.getMainWindowSync(); // Obtain the main window of the application.
+      if (!windowClass) {
+        console.error('windowClass is null');
+        return;
+      }
+      // 创建Web动态组件（需传入UIContext），loadContent之后的任意时机均可创建
+      createNWeb('www.example.com', windowClass.getUIContext());
     });
   }
   // [End entry_ability_window_stage_created_after_specified_page_loaded]

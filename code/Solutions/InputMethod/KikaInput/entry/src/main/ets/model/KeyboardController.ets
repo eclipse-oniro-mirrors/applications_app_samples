@@ -466,12 +466,6 @@ export class KeyboardController {
     }
     this.inputHandle.addLog(`OnKeyUp: this.keyCodes = ${JSON.stringify(this.keyCodes)}`);
 
-    // For KEYCODE_DEL/KEYCODE_FORWARD_DEL, processed in OnKeyDown, so just intercept it
-    if (keyCode === 2055 || keyCode === 2071 || (keyCode >= 2012 && keyCode <= 2016)) {
-      this.inputHandle.addLog(`special code: ${keyCode}`);
-      return true;
-    }
-
     if (this.isSpecialKeyPress) {
       let keyValue: string = GetHardKeyValue(keyCode, this.isShiftKeyHold());
       if (keyValue === '') {
@@ -483,7 +477,7 @@ export class KeyboardController {
       this.inputHandle.addLog(`OnKeyUp: this.isSpecialKeyPress: ${this.isSpecialKeyPress}`);
       return false;
     }
-    return true;
+    return false;
   }
 
   public isKeyCodeAZ(keyCode: number): boolean {

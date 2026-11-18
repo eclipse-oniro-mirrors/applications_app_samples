@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,6 +14,7 @@
  */
 
 import { ComponentCard } from '../../common/Card';
+// [Start styledStringGestureStyle_start]
 import { drawing } from '@kit.ArkGraphics2D';
 
 let gUIContext: UIContext;
@@ -94,7 +95,7 @@ class MyCustomSpan extends CustomSpan {
     this.word = word;
   }
 
-  public  width: number = 160;
+  public width: number = 160;
   public word: string = 'drawing';
   public height: number = 10;
   public fontSize: number = 16;
@@ -102,11 +103,20 @@ class MyCustomSpan extends CustomSpan {
 
 @Entry
 @Component
-export struct StyledStringGestureStyle {
+struct StyledStringGestureStyle {
   customSpan3: MyCustomSpan = new MyCustomSpan('99VIP88%off', 200, 40, 30);
-  textStyle: MutableStyledString = new MutableStyledString('123');
+  customSpanStyledString: MutableStyledString = new MutableStyledString(this.customSpan3);
   textController: TextController = new TextController();
   isPageShow: boolean = true;
+  @State backgroundColor1: ResourceColor | undefined = undefined;
+  gestureStyleAttr: GestureStyle = new GestureStyle({
+    onClick: () => {
+      this.backgroundColor1 = Color.Green;
+    },
+    onLongPress: () => {
+      this.backgroundColor1 = Color.Grey;
+    }
+  });
 
   aboutToAppear() {
     gUIContext = this.getUIContext();
@@ -117,16 +127,29 @@ export struct StyledStringGestureStyle {
       return;
     }
     this.isPageShow = false;
-    this.textController.setStyledString(new StyledString(this.customSpan3));
+    this.customSpanStyledString.setStyle({
+      start: 0,
+      length: 1,
+      styledKey: StyledStringKey.GESTURE,
+      styledValue: this.gestureStyleAttr
+    })
+    this.textController.setStyledString(this.customSpanStyledString);
   }
 
   build() {
     NavDestination() {
       Column({ space: 12 }) {
-        ComponentCard({ title: $r('app.string.TStyledStringGestureStyle_title') }) {
-          // [Start styled_string_gesture_style]
+        // [StartExclude styledStringGestureStyle_start]
+        // 请将$r('app.string.StyledStringGestureStyle_title')替换为实际资源文件，在本示例中该资源文件的value值为"设置事件"
+        ComponentCard({ title: $r('app.string.StyledStringGestureStyle_title') }) {
+          // [EndExclude styledStringGestureStyle_start]
           Row() {
             Column() {
+              // 请将$r('app.string.StyledStringGestureStyle_button_content')替换为实际资源文件，在本示例中该资源文件的value值为"响应属性字符串事件改变背景色"
+              Button($r('app.string.StyledStringGestureStyle_button_content'))
+                .backgroundColor(this.backgroundColor1)
+                .width('80%')
+                .margin(10)
               Text(undefined, { controller: this.textController })
                 .id('text1')
                 .copyOption(CopyOptions.InApp)
@@ -135,14 +158,17 @@ export struct StyledStringGestureStyle {
             .width('100%')
           }
           .height('100%')
-          // [End styled_string_gesture_style]
         }
+        // [StartExclude styledStringGestureStyle_start]
       }
       .width('100%')
       .height('100%')
       .padding({ left: 12, right: 12 })
+      // [EndExclude styledStringGestureStyle_start]
     }
     .backgroundColor('#f1f2f3')
-    .title($r('app.string.TStyledStringGestureStyle_title'))
+    // 请将$r('app.string.StyledStringGestureStyle_title')替换为实际资源文件，在本示例中该资源文件的value值为"设置事件"
+    .title($r('app.string.StyledStringGestureStyle_title'))
   }
 }
+// [End styledStringGestureStyle_start]

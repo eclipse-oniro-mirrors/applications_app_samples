@@ -5,6 +5,12 @@
     "managers/recommend",
     "managers/notrecommendedone",
     "managers/notrecommendedtwo",
-    "managers/basicusage"
+    "managers/basicusage",
+    "managers/Index",
+    "managers/stageRules",
+    "managers/CreateWorker",
+    "managers/StageRulesHar",
+    "managers/StageRulesThreadFile",
+    "managers/StageRulesFa"
   ]
 }

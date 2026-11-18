@@ -14,7 +14,7 @@
  */
 
 import notification from '@ohos.notificationManager';
-import { WantAgent } from '@ohos.wantAgent';
+import { WantAgent } from '@ohos.app.ability.wantAgent';
 
 class NotificationRequestUtil {
   /**

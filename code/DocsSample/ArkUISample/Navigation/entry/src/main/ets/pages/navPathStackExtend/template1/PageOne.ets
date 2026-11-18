@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 import { uiObserver } from '@kit.ArkUI';
-import resource from '../../common/Index';
+import resourceManager from '@ohos.resourceManager';
 
 @Builder
 export function PageOneBuilder() {
@@ -24,9 +24,11 @@ export function PageOneBuilder() {
 export struct PageOneComponent {
   navDesInfo: uiObserver.NavDestinationInfo | undefined;
   @State text: string = '';
+
   build() {
     NavDestination() {
       Column() {
+        // 请将$r('app.string.navStackTemp1PageOne_text1')替换为实际资源文件，在本示例中该资源文件的value值为"点击向内查找"
         Button($r('app.string.navStackTemp1PageOne_text1'))
           .width('80%')
           .height(40)
@@ -36,7 +38,9 @@ export struct PageOneComponent {
             this.navDesInfo = this.queryNavDestinationInfo(true);
             this.text = JSON.stringify(this.navDesInfo?.name);
           })
-        Text(resource.resourceToString($r('app.string.navStackTemp1PageOne_text2')) + this.text)
+        // 请将$r('app.string.navStackTemp1PageOne_text2')替换为实际资源文件，在本示例中该资源文件的value值为"向内查找的NavDestination是"
+        Text(resourceManager.getSysResourceManager().getStringSync($r('app.string.navStackTemp1PageOne_text2').id) +
+        this.text)
           .width('80%')
           .height(50)
           .margin(50)
@@ -55,6 +59,7 @@ struct MyComponent {
 
   build() {
     Column() {
+      // 请将$r('app.string.navStackTemp1PageOne_text3')替换为实际资源文件，在本示例中该资源文件的value值为"点击向外查找"
       Button($r('app.string.navStackTemp1PageOne_text3'))
         .width('80%')
         .height(40)
@@ -64,7 +69,9 @@ struct MyComponent {
           this.navDesInfo = this.queryNavDestinationInfo(false);
           this.text = JSON.stringify(this.navDesInfo?.name);
         })
-      Text(resource.resourceToString($r('app.string.navStackTemp1PageOne_text4')) + this.text)
+      // 请将$r('app.string.navStackTemp1PageOne_text4')替换为实际资源文件，在本示例中该资源文件的value值为"向外查找的NavDestination是"
+      Text(resourceManager.getSysResourceManager().getStringSync($r('app.string.navStackTemp1PageOne_text4').id) +
+      this.text)
         .width('80%')
         .height(50)
         .margin(50)

@@ -39,7 +39,7 @@ export struct MoreDrag {
   }
 
   onPageShow(): void {
-    let i: number = 0
+    let i: number = 0;
     for (i = 0; i < 100; i++) {
       this.numbers.push(i);
       this.isSelectedGrid.push(false);
@@ -96,7 +96,7 @@ export struct MoreDrag {
                       this.previewData[idx] = {
                         pixelMap: this.pixmap
                       };
-                    })
+                    });
                 } else {
                   this.numberBadge--;
                 }
@@ -126,6 +126,7 @@ export struct MoreDrag {
       .padding({ left: 12, right: 12 })
     }
     .backgroundColor('#f1f2f3')
+    // 请将$r('app.string.Drag_MoreDrag_title')替换为实际资源文件，在本示例中该资源文件的value值为"多选拖拽"
     .title($r('app.string.Drag_MoreDrag_title'))
   }
 }

@@ -1,0 +1,40 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "GameControllerDemo主模块。"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "监听游戏手柄事件的示例应用。"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "游戏手柄示例"
+    },
+    {
+      "name": "main_title",
+      "value": "游戏手柄示例"
+    },
+    {
+      "name": "register_all",
+      "value": "注册全部事件监听"
+    },
+    {
+      "name": "unregister_all",
+      "value": "取消注册全部事件监听"
+    },
+    {
+      "name": "query_devices",
+      "value": "查询所有在线设备"
+    },
+    {
+      "name": "clear_log",
+      "value": "清理日志"
+    },
+    {
+      "name": "log_title",
+      "value": "日志"
+    }
+  ]
+}
