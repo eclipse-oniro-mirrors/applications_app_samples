@@ -14,12 +14,14 @@
  */
 import { describe, it, expect, Level, Size, TestType } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { Want } from '@kit.AbilityKit';
+// dataStorage 在 @kit.ArkData 中无对应导出，且被测 FormAbility 仍使用该接口
 import dataStorage from '@ohos.data.storage';
 import FormAbility from '../../../main/ets/FormAbility/FormAbility';
-import type Want from '@ohos.app.ability.Want';
 
-const DOMAIN: number = 0xF814;
-const TAG: string = 'FormStorageModelTest';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_FormExtAbility]';
+const BUNDLE: string = 'FormExtAbility_';
 
 const DATA_STORAGE_PATH: string = '/data/storage/el2/base/haps/form_store';
 const DEFAULT_FORM_INFO_JSON: string = '{"formName":"","tempFlag":false,"updateCount":0}';
@@ -28,7 +30,7 @@ const POLL_RETRY: number = 20;
 const POLL_INTERVAL: number = 250;
 
 function log(message: string): void {
-  hilog.info(DOMAIN, TAG, '%{public}s', message);
+  hilog.info(DOMAIN, TAG, '%{public}s', `${BUNDLE}${message}`);
 }
 
 function sleep(duration: number): Promise<void> {
@@ -88,13 +90,13 @@ export default function formStorageModelTest(): void {
   describe('FormStorageModelTest', () => {
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0301
-     * @tc.name      testFormStorage0301
+     * @tc.name      FormExtAbility_testFormStorage0301
      * @tc.desc      Verify the form store preferences instance can be opened in the test process.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0301', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0301`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0301 begin');
       const storage = await getFormStore();
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue actual=${storage !== null && storage !== undefined}`);
@@ -104,13 +106,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0302
-     * @tc.name      testFormStorage0302
+     * @tc.name      FormExtAbility_testFormStorage0302
      * @tc.desc      Verify a string value round-trips through put and get on the form store.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0302', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0302`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0302 begin');
       const storage = await getFormStore();
       await storage.put('ut_direct_string', 'value-0302');
@@ -123,13 +125,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0303
-     * @tc.name      testFormStorage0303
+     * @tc.name      FormExtAbility_testFormStorage0303
      * @tc.desc      Verify getting a missing key returns the provided default form info json.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0303', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0303`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0303 begin');
       const storage = await getFormStore();
       const data = await storage.get('ut_direct_missing', DEFAULT_FORM_INFO_JSON);
@@ -140,13 +142,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0304
-     * @tc.name      testFormStorage0304
+     * @tc.name      FormExtAbility_testFormStorage0304
      * @tc.desc      Verify putting the same key again overwrites the previous value.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0304', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0304`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0304 begin');
       const storage = await getFormStore();
       await storage.put('ut_direct_overwrite', 'first');
@@ -161,13 +163,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0305
-     * @tc.name      testFormStorage0305
+     * @tc.name      FormExtAbility_testFormStorage0305
      * @tc.desc      Verify a deleted key falls back to the default form info json.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0305', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0305`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0305 begin');
       const storage = await getFormStore();
       await storage.put('ut_direct_delete', 'value-0305');
@@ -182,13 +184,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0306
-     * @tc.name      testFormStorage0306
+     * @tc.name      FormExtAbility_testFormStorage0306
      * @tc.desc      Verify a boolean value round-trips through put and get.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0306', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0306`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0306 begin');
       const storage = await getFormStore();
       await storage.put('ut_direct_bool', true);
@@ -201,13 +203,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0307
-     * @tc.name      testFormStorage0307
+     * @tc.name      FormExtAbility_testFormStorage0307
      * @tc.desc      Verify a number value round-trips through put and get.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0307', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0307`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0307 begin');
       const storage = await getFormStore();
       await storage.put('ut_direct_number', 7);
@@ -220,13 +222,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0308
-     * @tc.name      testFormStorage0308
+     * @tc.name      FormExtAbility_testFormStorage0308
      * @tc.desc      Verify flush on the form store completes without throwing.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0308', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0308`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0308 begin');
       const storage = await getFormStore();
       await storage.flush();
@@ -237,13 +239,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0309
-     * @tc.name      testFormStorage0309
+     * @tc.name      FormExtAbility_testFormStorage0309
      * @tc.desc      Verify two getStorage calls observe the same stored value.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0309', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0309`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0309 begin');
       const first = await getFormStore();
       await first.put('ut_direct_shared', 'shared-0309');
@@ -257,13 +259,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0310
-     * @tc.name      testFormStorage0310
+     * @tc.name      FormExtAbility_testFormStorage0310
      * @tc.desc      Verify a serialized form info json round-trips as a string value.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0310', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0310`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0310 begin');
       const storage = await getFormStore();
       const formInfoJson: string = '{"formName":"Weather","tempFlag":true,"updateCount":0}';
@@ -277,13 +279,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0311
-     * @tc.name      testFormStorage0311
+     * @tc.name      FormExtAbility_testFormStorage0311
      * @tc.desc      Verify writes to different keys do not interfere with each other.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0311', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0311`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0311 begin');
       const storage = await getFormStore();
       await storage.put('ut_direct_key_a', 'value-a');
@@ -300,13 +302,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0312
-     * @tc.name      testFormStorage0312
+     * @tc.name      FormExtAbility_testFormStorage0312
      * @tc.desc      Verify multiple keys can be deleted independently.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0312', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0312`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0312 begin');
       const storage = await getFormStore();
       await storage.put('ut_direct_del_a', 'value-a');
@@ -325,13 +327,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0313
-     * @tc.name      testFormStorage0313
+     * @tc.name      FormExtAbility_testFormStorage0313
      * @tc.desc      Verify onAddForm persists the stored form name for id 6101.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0313', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0313`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0313 begin');
       const formAbility = new FormAbility();
       formAbility.onAddForm(buildAddFormWant('6101', 'Weather', false));
@@ -343,13 +345,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0314
-     * @tc.name      testFormStorage0314
+     * @tc.name      FormExtAbility_testFormStorage0314
      * @tc.desc      Verify onAddForm persists tempFlag true for a temporary form.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0314', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0314`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0314 begin');
       const formAbility = new FormAbility();
       formAbility.onAddForm(buildAddFormWant('6102', 'Weather', true));
@@ -361,13 +363,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0315
-     * @tc.name      testFormStorage0315
+     * @tc.name      FormExtAbility_testFormStorage0315
      * @tc.desc      Verify onAddForm persists tempFlag false for a normal form.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0315', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0315`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0315 begin');
       const formAbility = new FormAbility();
       formAbility.onAddForm(buildAddFormWant('6103', 'Weather', false));
@@ -379,13 +381,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0316
-     * @tc.name      testFormStorage0316
+     * @tc.name      FormExtAbility_testFormStorage0316
      * @tc.desc      Verify a freshly added form is stored with updateCount zero.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0316', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0316`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0316 begin');
       const formAbility = new FormAbility();
       formAbility.onAddForm(buildAddFormWant('6104', 'Weather', false));
@@ -397,13 +399,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0317
-     * @tc.name      testFormStorage0317
+     * @tc.name      FormExtAbility_testFormStorage0317
      * @tc.desc      Verify onUpdateForm increments the persisted updateCount to one.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0317', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0317`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0317 begin');
       const formAbility = new FormAbility();
       formAbility.onAddForm(buildAddFormWant('6105', 'Weather', false));
@@ -419,13 +421,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0318
-     * @tc.name      testFormStorage0318
+     * @tc.name      FormExtAbility_testFormStorage0318
      * @tc.desc      Verify onUpdateForm on an unknown form id stores updateCount one.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0318', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0318`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0318 begin');
       const formAbility = new FormAbility();
       formAbility.onUpdateForm('6106');
@@ -437,13 +439,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0319
-     * @tc.name      testFormStorage0319
+     * @tc.name      FormExtAbility_testFormStorage0319
      * @tc.desc      Verify repeated onUpdateForm calls keep incrementing updateCount.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0319', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0319`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0319 begin');
       const formAbility = new FormAbility();
       formAbility.onUpdateForm('6107');
@@ -459,13 +461,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0320
-     * @tc.name      testFormStorage0320
+     * @tc.name      FormExtAbility_testFormStorage0320
      * @tc.desc      Verify onCastToNormalForm clears the temporary flag of a stored form.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0320', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0320`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0320 begin');
       const formAbility = new FormAbility();
       formAbility.onAddForm(buildAddFormWant('6108', 'Weather', true));
@@ -481,13 +483,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0321
-     * @tc.name      testFormStorage0321
+     * @tc.name      FormExtAbility_testFormStorage0321
      * @tc.desc      Verify onCastToNormalForm keeps a normal form flag unchanged.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0321', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0321`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0321 begin');
       const formAbility = new FormAbility();
       formAbility.onAddForm(buildAddFormWant('6109', 'Weather', false));
@@ -504,13 +506,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0322
-     * @tc.name      testFormStorage0322
+     * @tc.name      FormExtAbility_testFormStorage0322
      * @tc.desc      Verify onRemoveForm deletes the stored record back to the default json.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0322', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0322`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0322 begin');
       const formAbility = new FormAbility();
       formAbility.onAddForm(buildAddFormWant('6110', 'Weather', false));
@@ -526,13 +528,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0323
-     * @tc.name      testFormStorage0323
+     * @tc.name      FormExtAbility_testFormStorage0323
      * @tc.desc      Verify removing a form id that was never stored keeps the default value.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0323', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0323`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0323 begin');
       const formAbility = new FormAbility();
       formAbility.onRemoveForm('6111');
@@ -545,13 +547,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0324
-     * @tc.name      testFormStorage0324
+     * @tc.name      FormExtAbility_testFormStorage0324
      * @tc.desc      Verify a Chinese form name round-trips through the form store.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0324', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0324`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0324 begin');
       const formAbility = new FormAbility();
       formAbility.onAddForm(buildAddFormWant('6112', '温度卡片', false));
@@ -563,13 +565,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0325
-     * @tc.name      testFormStorage0325
+     * @tc.name      FormExtAbility_testFormStorage0325
      * @tc.desc      Verify an empty form name is persisted as an empty string field.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0325', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0325`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0325 begin');
       const formAbility = new FormAbility();
       formAbility.onAddForm(buildAddFormWant('6113', '', true));
@@ -581,13 +583,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0326
-     * @tc.name      testFormStorage0326
+     * @tc.name      FormExtAbility_testFormStorage0326
      * @tc.desc      Verify a long form name is persisted without truncation.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0326', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0326`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0326 begin');
       const formAbility = new FormAbility();
       let longName: string = '';
@@ -603,13 +605,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0327
-     * @tc.name      testFormStorage0327
+     * @tc.name      FormExtAbility_testFormStorage0327
      * @tc.desc      Verify adding the same form id again resets the stored updateCount.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0327', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0327`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0327 begin');
       const formAbility = new FormAbility();
       formAbility.onAddForm(buildAddFormWant('6115', 'Weather', false));
@@ -629,13 +631,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0328
-     * @tc.name      testFormStorage0328
+     * @tc.name      FormExtAbility_testFormStorage0328
      * @tc.desc      Verify a deleted form id can be stored again by onAddForm.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0328', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0328`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0328 begin');
       const formAbility = new FormAbility();
       formAbility.onAddForm(buildAddFormWant('6116', 'Weather', false));
@@ -655,13 +657,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0329
-     * @tc.name      testFormStorage0329
+     * @tc.name      FormExtAbility_testFormStorage0329
      * @tc.desc      Verify two different form ids are stored independently.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0329', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0329`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0329 begin');
       const formAbility = new FormAbility();
       formAbility.onAddForm(buildAddFormWant('6117', 'Alpha', false));
@@ -677,13 +679,13 @@ export default function formStorageModelTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_STORAGE_0330
-     * @tc.name      testFormStorage0330
+     * @tc.name      FormExtAbility_testFormStorage0330
      * @tc.desc      Verify the stored record for a temporary form keeps all three fields.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormStorage0330', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormStorage0330`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormStorage0330 begin');
       const formAbility = new FormAbility();
       formAbility.onAddForm(buildAddFormWant('6119', 'Weather', true));

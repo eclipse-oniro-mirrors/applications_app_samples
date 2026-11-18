@@ -17,7 +17,7 @@
  * @file entry/src/main/ets/pages/second.ets
  * 文件职责：second 相关的 ArkTS 声明与 UI 构建逻辑。
  * 主要声明：Second。
- * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位。
  */
 
 import router from '@ohos.router';
@@ -28,30 +28,19 @@ import router from '@ohos.router';
 @Entry
 @Component
 struct Second {
-  // @State message：组件内部状态
   @State message: string = 'Second Page'
 
   /**
    * build：UI 构建入口，声明本组件的组件树结构。
    */
   build() {
-    // Row：水平布局容器
-    // 关键属性：高度
     Row() {
-      // Column：垂直布局容器
-      // 关键属性：宽度
       Column() {
-        // Text：文本
-        // 关键属性：字号、字重
         Text(this.message)
           .id('secondMessageText')
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
-        // Button：按钮
-        // 关键属性：输入类型、外边距
         Button() {
-          // Text：文本
-          // 关键属性：字号、字重
           Text('back to index').id('second_text_3')
             .fontSize(20)
             .fontWeight(FontWeight.Bold)

@@ -19,8 +19,8 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const BUNDLE: string = 'ohos.samples.formextability';
 const ABILITY: string = 'ohos.samples.formextability.MainAbility';
-const DOMAIN: number = 0xF814;
-const TAG: string = 'IndexUiStateTest';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_FormExtAbility]';
 
 const INDEX_MESSAGE_ID: string = 'indexMessageText';
 const INDEX_NEXT_BUTTON_ID: string = 'indexNextButton';

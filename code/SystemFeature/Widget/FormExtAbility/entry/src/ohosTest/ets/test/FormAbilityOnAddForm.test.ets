@@ -14,15 +14,16 @@
  */
 import { describe, it, expect, Level, Size, TestType } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { formBindingData } from '@kit.FormKit';
+import { Want } from '@kit.AbilityKit';
 import FormAbility from '../../../main/ets/FormAbility/FormAbility';
-import formBindingData from '@ohos.app.form.formBindingData';
-import type Want from '@ohos.app.ability.Want';
 
-const DOMAIN: number = 0xF814;
-const TAG: string = 'FormAbilityOnAddFormTest';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_FormExtAbility]';
+const BUNDLE: string = 'FormExtAbility_';
 
 function log(message: string): void {
-  hilog.info(DOMAIN, TAG, '%{public}s', message);
+  hilog.info(DOMAIN, TAG, '%{public}s', `${BUNDLE}${message}`);
 }
 
 function buildAddFormWant(formId: string, formName: string, tempFlag: boolean): Want {
@@ -59,13 +60,13 @@ export default function formAbilityOnAddFormTest(): void {
   describe('FormAbilityOnAddFormTest', () => {
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0201
-     * @tc.name      testFormOnAdd0201
+     * @tc.name      FormExtAbility_testFormOnAdd0201
      * @tc.desc      Verify onAddForm returns card data for id 5201 with name Widget and temp false.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0201', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0201`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0201 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =
@@ -76,13 +77,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0202
-     * @tc.name      testFormOnAdd0202
+     * @tc.name      FormExtAbility_testFormOnAdd0202
      * @tc.desc      Verify onAddForm returns card data for id 5201 with name Widget and temp true.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0202', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0202`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0202 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =
@@ -93,13 +94,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0203
-     * @tc.name      testFormOnAdd0203
+     * @tc.name      FormExtAbility_testFormOnAdd0203
      * @tc.desc      Verify onAddForm returns card data for id 5202 with a Chinese form name.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0203', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0203`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0203 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =
@@ -110,13 +111,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0204
-     * @tc.name      testFormOnAdd0204
+     * @tc.name      FormExtAbility_testFormOnAdd0204
      * @tc.desc      Verify onAddForm returns card data for id 5202 with a Chinese form name and temp true.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0204', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0204`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0204 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =
@@ -127,13 +128,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0205
-     * @tc.name      testFormOnAdd0205
+     * @tc.name      FormExtAbility_testFormOnAdd0205
      * @tc.desc      Verify onAddForm returns card data for id 5203 with an empty form name.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0205', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0205`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0205 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =
@@ -144,13 +145,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0206
-     * @tc.name      testFormOnAdd0206
+     * @tc.name      FormExtAbility_testFormOnAdd0206
      * @tc.desc      Verify onAddForm returns card data for id 5203 with an empty name and temp true.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0206', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0206`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0206 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =
@@ -161,13 +162,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0207
-     * @tc.name      testFormOnAdd0207
+     * @tc.name      FormExtAbility_testFormOnAdd0207
      * @tc.desc      Verify onAddForm returns card data for the zero form id edge value.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0207', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0207`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0207 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =
@@ -178,13 +179,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0208
-     * @tc.name      testFormOnAdd0208
+     * @tc.name      FormExtAbility_testFormOnAdd0208
      * @tc.desc      Verify onAddForm returns card data for a large numeric form id.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0208', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0208`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0208 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =
@@ -195,13 +196,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0209
-     * @tc.name      testFormOnAdd0209
+     * @tc.name      FormExtAbility_testFormOnAdd0209
      * @tc.desc      Verify onAddForm returns card data for a padded numeric form id.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0209', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0209`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0209 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =
@@ -212,13 +213,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0210
-     * @tc.name      testFormOnAdd0210
+     * @tc.name      FormExtAbility_testFormOnAdd0210
      * @tc.desc      Verify onAddForm tolerates a non numeric form id without throwing.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0210', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0210`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0210 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =
@@ -229,13 +230,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0211
-     * @tc.name      testFormOnAdd0211
+     * @tc.name      FormExtAbility_testFormOnAdd0211
      * @tc.desc      Verify onAddForm tolerates a negative numeric form id.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0211', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0211`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0211 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =
@@ -246,13 +247,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0212
-     * @tc.name      testFormOnAdd0212
+     * @tc.name      FormExtAbility_testFormOnAdd0212
      * @tc.desc      Verify onAddForm works when the temporary parameter is omitted.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0212', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0212`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0212 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =
@@ -263,13 +264,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0213
-     * @tc.name      testFormOnAdd0213
+     * @tc.name      FormExtAbility_testFormOnAdd0213
      * @tc.desc      Verify onAddForm accepts a string temporary parameter value.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0213', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0213`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0213 begin');
       const formAbility = new FormAbility();
       let want: Want = {
@@ -286,13 +287,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0214
-     * @tc.name      testFormOnAdd0214
+     * @tc.name      FormExtAbility_testFormOnAdd0214
      * @tc.desc      Verify onAddForm accepts a numeric zero temporary parameter value.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0214', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0214`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0214 begin');
       const formAbility = new FormAbility();
       let want: Want = {
@@ -309,13 +310,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0215
-     * @tc.name      testFormOnAdd0215
+     * @tc.name      FormExtAbility_testFormOnAdd0215
      * @tc.desc      Verify repeated onAddForm calls with the same form id stay stable.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0215', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0215`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0215 begin');
       const formAbility = new FormAbility();
       const first: formBindingData.FormBindingData =
@@ -329,13 +330,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0216
-     * @tc.name      testFormOnAdd0216
+     * @tc.name      FormExtAbility_testFormOnAdd0216
      * @tc.desc      Verify onAddForm results for different form ids are both valid objects.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0216', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0216`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0216 begin');
       const formAbility = new FormAbility();
       const first: formBindingData.FormBindingData =
@@ -349,13 +350,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0217
-     * @tc.name      testFormOnAdd0217
+     * @tc.name      FormExtAbility_testFormOnAdd0217
      * @tc.desc      Verify onAddForm card data keeps object type for temp flag true.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0217', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0217`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0217 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =
@@ -367,13 +368,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0218
-     * @tc.name      testFormOnAdd0218
+     * @tc.name      FormExtAbility_testFormOnAdd0218
      * @tc.desc      Verify onAddForm card data carries a non empty payload for a normal form.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0218', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0218`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0218 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =
@@ -385,13 +386,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0219
-     * @tc.name      testFormOnAdd0219
+     * @tc.name      FormExtAbility_testFormOnAdd0219
      * @tc.desc      Verify onAddForm card data carries a non empty payload for a temporary form.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0219', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0219`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0219 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =
@@ -403,13 +404,13 @@ export default function formAbilityOnAddFormTest(): void {
 
     /**
      * @tc.number    SUB_FORMEXTABILITY_ONADD_0220
-     * @tc.name      testFormOnAdd0220
+     * @tc.name      FormExtAbility_testFormOnAdd0220
      * @tc.desc      Verify onAddForm does not throw for a form id with leading zeros and temp true.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testFormOnAdd0220', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it(`${BUNDLE}testFormOnAdd0220`, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testFormOnAdd0220 begin');
       const formAbility = new FormAbility();
       const result: formBindingData.FormBindingData =

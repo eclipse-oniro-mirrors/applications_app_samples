@@ -14,25 +14,14 @@
  */
 
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import { Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
+import { Driver, ON } from '@kit.TestKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { isSampleLauncherInstalled } from './util/LauncherHelper';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_FormExtAbility]';
 const DRIVER = Driver.create();
-const SAMPLE_LAUNCHER_BUNDLE = 'ohos.samples.launcher';
 let launcherReady = false;
-
-async function isSampleLauncherInstalled(): Promise<boolean> {
-  try {
-    const result = await abilityDelegatorRegistry.getAbilityDelegator()
-      .executeShellCommand(`bm dump -n ${SAMPLE_LAUNCHER_BUNDLE}`);
-    return JSON.stringify(result).indexOf(SAMPLE_LAUNCHER_BUNDLE) >= 0;
-  } catch (err) {
-    hilog.info(DOMAIN, TAG, 'check sample launcher failed: ' + JSON.stringify(err));
-    return false;
-  }
-}
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {

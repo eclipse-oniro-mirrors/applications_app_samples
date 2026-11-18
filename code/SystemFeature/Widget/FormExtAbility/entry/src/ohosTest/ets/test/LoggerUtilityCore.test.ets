@@ -16,8 +16,8 @@ import { describe, it, expect, Level, Size, TestType } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import Logger from '../../../main/ets/model/Logger';
 
-const DOMAIN: number = 0xF814;
-const TAG: string = 'LoggerUtilityTest';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_FormExtAbility]';
 
 function log(message: string): void {
   hilog.info(DOMAIN, TAG, '%{public}s', message);
