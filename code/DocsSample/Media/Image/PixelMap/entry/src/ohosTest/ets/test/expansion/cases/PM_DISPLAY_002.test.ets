@@ -22,7 +22,7 @@ import { DisplayInfo } from '../../../../../main/ets/utils/DisPlayInfoUtil';
  * @tc.name EXP_PM_DISPLAY_002
  */
 const runExpansionCase: () => void = () => {
-    // Prerequisite: a HarmonyOS device with a stable default display throughout this synchronous case.
+    // Use a physical device with a stable default display throughout this synchronous case.
     const before = display.getDefaultDisplaySync();
     const screenWidth: number = before.width;
     const screenHeight: number = before.height;

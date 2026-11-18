@@ -21,12 +21,12 @@
 namespace SampleNdkPixelMap {
 bool GetApplicationCacheDirectory(std::string& directory)
 {
-    constexpr int32_t CACHE_DIR_BUFFER_SIZE = 4096;
-    char buffer[CACHE_DIR_BUFFER_SIZE] = {0};
+    constexpr int32_t cacheDirBufferSize = 4096;
+    char buffer[cacheDirBufferSize] = {0};
     int32_t length = 0;
     const AbilityRuntime_ErrorCode status = OH_AbilityRuntime_ApplicationContextGetCacheDir(
         buffer, sizeof(buffer), &length);
-    if (status != ABILITY_RUNTIME_ERROR_CODE_NO_ERROR || length <= 0 || length >= CACHE_DIR_BUFFER_SIZE ||
+    if (status != ABILITY_RUNTIME_ERROR_CODE_NO_ERROR || length <= 0 || length >= cacheDirBufferSize ||
         buffer[length] != '\0') {
         return false;
     }

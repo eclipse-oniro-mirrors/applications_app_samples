@@ -22,7 +22,7 @@ import { DisplayInfo } from '../../../../../main/ets/utils/DisPlayInfoUtil';
  * @tc.name EXP_PM_DISPLAY_016
  * @tc.desc Verify getWidth(1280) returns floor(1280 * min(screen width, screen height) / 720)px.
  * @tc.level Level 1
- * Prerequisite: a real HarmonyOS default display with stable dimensions throughout the case.
+ * Use a physical device with stable default display dimensions throughout this case.
  */
 const runExpansionCase: () => void = () => {
     const before = display.getDefaultDisplaySync();

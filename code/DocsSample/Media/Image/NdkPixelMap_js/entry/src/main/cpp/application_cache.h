@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#ifndef NDK_PIXELMAP_JS_APPLICATION_CACHE_H
-#define NDK_PIXELMAP_JS_APPLICATION_CACHE_H
+#ifndef SAMPLE_PIXELMAP_JS_APPLICATION_CACHE_H
+#define SAMPLE_PIXELMAP_JS_APPLICATION_CACHE_H
 
 #include <string>
 

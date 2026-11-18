@@ -284,7 +284,7 @@ export class FixtureScope {
       throw new Error('Unsafe fixture case ID');
     }
     sequence++;
-    this.directory = context.cacheDir + '/exp_ndk_' + caseId + '_' + Date.now() + '_' + sequence;
+    this.directory = context.cacheDir + '/pixelmap_case_' + caseId + '_' + Date.now() + '_' + sequence;
     fs.mkdirSync(this.directory);
   }
 

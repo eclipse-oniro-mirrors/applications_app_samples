@@ -24,7 +24,7 @@ import { DisplayInfo } from '../../../../../main/ets/utils/DisPlayInfoUtil';
  * @tc.level Level 1
  */
 const runExpansionCase: () => void = () => {
-    // Requires a real HarmonyOS default display with stable dimensions during this case.
+    // Use a physical device with stable default display dimensions throughout this case.
     const before = display.getDefaultDisplaySync();
     const screenWidth: number = before.width;
     const screenHeight: number = before.height;

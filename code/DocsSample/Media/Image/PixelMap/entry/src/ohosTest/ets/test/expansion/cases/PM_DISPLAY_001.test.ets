@@ -22,7 +22,7 @@ import { DisplayInfo } from '../../../../../main/ets/utils/DisPlayInfoUtil';
  * @tc.name EXP_PM_DISPLAY_001
  * @tc.desc Verify negative standard-width scaling using a real, stable default display for both methods.
  * @tc.level Level 1
- * Requires a HarmonyOS device with a stable default display throughout the case.
+ * Use a physical device with a stable default display throughout this case.
  */
 const runExpansionCase: () => void = () => {
     const before = display.getDefaultDisplaySync();
