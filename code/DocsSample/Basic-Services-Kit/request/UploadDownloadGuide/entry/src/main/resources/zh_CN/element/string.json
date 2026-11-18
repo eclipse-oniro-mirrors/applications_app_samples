@@ -113,6 +113,10 @@
       "value": "允许访问网络"
     },
     {
+      "name": "media_write_permission",
+      "value": "允许应用将下载的图片或视频保存至媒体库"
+    },
+    {
       "name": "background_tips",
       "value": "是否开启后台任务"
     },
