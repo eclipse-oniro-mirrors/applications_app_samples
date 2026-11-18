@@ -36,6 +36,7 @@ target_link_libraries(capability PUBLIC libnative_media_venc.so)
 # [End config_cmake_link_libraries]
 
 # hilog日志库与N-API能力库，均为OpenHarmony SDK发布的系统动态库。
-# 说明：hilog日志库须使用sysroot内的官方原始库名链接，不可更名。
+# 说明：libhilog_ndk.z.so为OpenHarmony NDK（Native Development Kit）官方系统库，
+# 位于SDK sysroot内，必须使用官方原始库名链接，不可更名。
 target_link_libraries(capability PUBLIC libace_napi.z.so)
 target_link_libraries(capability PUBLIC libhilog_ndk.z.so)
