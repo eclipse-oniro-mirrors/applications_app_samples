@@ -166,7 +166,7 @@
 
 `SystemRouter` 当前测试设计形成了“共享驱动 + 领域校验 + 真实路由场景 + 非功能质量”的组合式覆盖结构。该结构具备良好的扩展性、可维护性和风险发现能力，可作为系统路由能力后续持续集成、版本回归和测试审计的核心基础。
 
-> 运行说明：全量用例较多，`aa test` 的启动过滤能力有限。建议使用最新构建产物（`entry/build/default/outputs/...`）并确保设备解锁、屏幕常亮（`TestAbility` 已 `setWindowKeepScreenOn(true)`）；如使用 `-s class` 全类过滤，需保证测试 HAP 与类清单同源（同一构建）。
+> 运行说明：全量用例较多，系统测试命令（Ability Assistant）的启动过滤能力有限。建议使用最新构建产物（`entry/build/default/outputs/...`）并确保设备解锁、屏幕常亮（`TestAbility` 已 `setWindowKeepScreenOn(true)`）；使用类过滤参数（`-s class`）时，需保证测试 HAP 与类清单同源（同一构建）。
 
 ## 附录：手工用例归档
 
