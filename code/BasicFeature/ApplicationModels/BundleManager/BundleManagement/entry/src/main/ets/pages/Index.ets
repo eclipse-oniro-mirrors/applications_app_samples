@@ -19,8 +19,8 @@ import { promptAction } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 
-const TAG: string = 'testTag';
-const DOMAIN_NUMBER: number = 0xFF00;
+const TAG: string = '[Sample_BundleManagement]';
+const DOMAIN_NUMBER: number = 0xF811;
 
 export interface GroupMsg {
   title: Resource | string,

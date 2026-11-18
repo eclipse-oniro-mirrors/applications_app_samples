@@ -1,15 +1,15 @@
-# 5.0 Feature Capabilities Sample
+# Bundle Management Sample
 
 ### Introduction
 
-This sample uses [@ohos.bundle.bundleManager](https://gitee.com/openharmony/docs/blob/master/en/application-dev/reference/apis-ability-kit/js-apis-bundleManager.md), [@ohos.bundle.defaultAppManager](https://gitee.com/openharmony/docs/blob/master/en/application-dev/reference/apis-ability-kit/js-apis-defaultAppManager.md), [@ohos.bundle.overlay](https://gitee.com/openharmony/docs/blob/master/en/application-dev/reference/apis-ability-kit/js-apis-overlay.md)
+This sample uses [@ohos.bundle.bundleManager](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-ability-kit/js-apis-bundleManager.md), [@ohos.bundle.defaultAppManager](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-ability-kit/js-apis-defaultAppManager.md), [@ohos.bundle.overlay](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-ability-kit/js-apis-overlay.md)
 and other APIs to show developers how to call the public APIs provided by bundle management and verify their functions.
 
 ### Preview
 
 | Home |
 |---|
-| ![main](./sceenshots/device/Scene-directory.png)|
+| ![main](./screenshots/device/Scene-directory.svg)|
 
 ### Usage
 
@@ -21,7 +21,7 @@ For example, as shown in the figure below, the result returned by the API corres
 
 | Resource API test |
 |---|
-| ![main](./sceenshots/device/snapshot_directory.png)|
+| ![main](./screenshots/device/snapshot_directory.svg)|
 
 ### Project Directory
 
@@ -50,8 +50,8 @@ For dynamic shared packages, see [HSP (openharmony.cn)](https://docs.openharmony
 * Obtain the configured json (sync): bundleManager.getProfileByAbilitySync()
 * Obtain the configured array: bundleManager.getProfileByExtensionAbility()
 * Obtain the configured array (sync): bundleManager.getProfileByExtensionAbilitySync()
-* Verify an .abc file: bundleManager.verifyAbc()
-* Delete an .abc file: bundleManager.deleteAbc()
+* Verify an .abc file: obtain the .abc file size via the file system API fs.statSync() for verification (bundleManager.verifyAbc() is unavailable in the current version)
+* Delete an .abc file: delete the .abc file via the file system API fs.unlinkSync() (bundleManager.deleteAbc() is unavailable in the current version)
 * Verify whether a link can be opened: bundleManager.canOpenLink()
 * Check the default application: defaultAppMgr.isDefaultApplication()
 * Check the default application (sync): defaultAppMgr.isDefaultApplicationSync()
@@ -65,13 +65,13 @@ Source code reference: [Resource API call example](entry/src/main/ets/pages/Inde
 
 modules.abc (the \ets\modules.abc file in any hap).
 
-1. Testing the verifyAbc() and deleteAbc() APIs (verifying and deleting .abc files) depends on an .abc file, so it must be pushed to the specified directory:
+1. Verifying and deleting .abc files depends on an .abc file, so it must be pushed to the specified directory:
 
 ```
 hdc_std file send local_path\modules.abc /data/app/el1/bundle/public/com.samples.bundlemanagement/
 ```
 
-2. Testing setOverlayEnabled(), getOverlayModuleInfo(), and getTargetOverlayModuleInfos() (setting the overlay state and obtaining overlayModuleInfo) depends on dynamic shared packages, so they must be installed together:
+2. Testing setOverlayEnabled(), getOverlayModuleInfo(), and getTargetOverlayModuleInfos() (setting the overlay state and obtaining overlayModuleInfo) depends on the dynamic shared packages (libraryOverlay/libraryRuntimeOverlay). Build the HSPs separately in DevEco Studio and install them together with entry:
 
 ```
 hdc_std install local_path\entry-default-signed.hap local_path\libraryRuntimeOverlay-default-signed.hsp local_path\libraryOverlay-default-signed.hsp
@@ -109,6 +109,6 @@ To download this project separately, run the following commands:
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/ApplicationModels/BundleManager/BundleManagement/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

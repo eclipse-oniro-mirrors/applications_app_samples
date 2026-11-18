@@ -81,7 +81,7 @@ entry/src/main/ets/
 ### 相关权限
 
 获取OAID功能需要申请广告跟踪权限：
-[ohos.permission.APP_TRACKING_CONSENT](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all-user.md#ohospermissionapp_tracking_consent)。
+[ohos.permission.APP_TRACKING_CONSENT](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all-user.md#ohospermissionapp_tracking_consent)。
 
 ### 依赖
 
@@ -109,6 +109,6 @@ entry/src/main/ets/
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Ads/OAIDSample/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

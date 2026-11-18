@@ -4,7 +4,7 @@
 
 本示例展示了在一个Stage模型中，实现standard、singleton、specified多种模式场景。
 
-本实例参考[开发指南](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/quick-start/application-package-structure-stage.md) 。
+本实例参考[开发指南](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/quick-start/application-package-structure-stage.md) 。
 本实例需要使用Ability管理命令行工具查看应用Ability 模式信息。 
 
 ### 效果预览
@@ -96,6 +96,6 @@ entry/src/main/ets/
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/ApplicationModels/AbilityStartMode/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

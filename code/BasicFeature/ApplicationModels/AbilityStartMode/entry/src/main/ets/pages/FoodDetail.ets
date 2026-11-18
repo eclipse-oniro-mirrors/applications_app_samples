@@ -255,7 +255,7 @@ struct StartModeCard {
         }
       })
     }
-    Logger.info(TAG, 'StartModeCard startMode start')
+    Logger.info(TAG, 'StartModeCard startMode end')
   }
 
   build() {

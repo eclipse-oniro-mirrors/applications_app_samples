@@ -4,7 +4,7 @@
 
 本项目提供系统路由的验证，运用系统路由表的方式，跳转到模块(HSP/HAR)的页面，可以不用配置不同跳转模块间的依赖。当发生页面跳转时，未跳转页面不会加载,
 已经加载过的页面不会再次加载。 解决了不同模块依赖耦合的问题，以及首页加载时间长的问题。
-详细配置可参考[系统路由表](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-navigation-navigation.md)。
+详细配置可参考[系统路由表](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-navigation-navigation.md)。
 
 由于环境的差异，不建议下载后直接编译，应先当创建项目，参考示例代码进行编写。
 
@@ -15,8 +15,6 @@
 | EntryPageOne                                                     | EntryPageTwo                                                     | HarAPageOne                                                     | 
 |------------------------------------------------------------------|------------------------------------------------------------------|-----------------------------------------------------------------|
 | <img src="./images/EntryPageOne.jpeg" width="200" height="360"/> | <img src="./images/EntryPageTwo.jpeg" width="200" height="360"/> | <img src="./images/HarAPageOne.jpeg" width="200" height="360"/> |
-| HarAPageTwo                                                      | HspAPageOne                                                      | HspAPageTwo                                                     |
-| <img src="./images/HarAPageTwo.jpeg" width="200" height="360"/>  | <img src="./images/HspAPageOne.jpeg" width="200" height="360"/>  | <img src="./images/HspAPageTwo.jpeg" width="200" height="360"/> |
 
 ### 使用说明
 
@@ -90,6 +88,6 @@
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/ApplicationModels/SystemRouter > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

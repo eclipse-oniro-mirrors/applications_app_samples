@@ -89,6 +89,6 @@ To download this project separately, run the following commands:
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/ApplicationModels/DynamicRouter > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

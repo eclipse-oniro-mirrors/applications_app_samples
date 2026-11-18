@@ -4,7 +4,7 @@
 
 This sample demonstrates how to implement the standard, singleton, and specified launch modes in the stage model.
 
-This sample refers to the [development guide](https://gitee.com/openharmony/docs/blob/master/en/application-dev/quick-start/application-package-structure-stage.md).
+This sample refers to the [development guide](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/quick-start/application-package-structure-stage.md).
 It requires the ability management command-line tool to view the launch mode information of application abilities.
 
 ### Preview
@@ -98,6 +98,6 @@ To download this project separately, run the following commands:
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/ApplicationModels/AbilityStartMode/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

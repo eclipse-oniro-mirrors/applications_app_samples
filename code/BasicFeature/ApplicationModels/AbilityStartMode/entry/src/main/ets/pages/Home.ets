@@ -52,7 +52,7 @@ struct Home {
                 } else {
                   FoodListComp({
                     modeIntro: $r("app.string.singleton"),
-                    modeName: 'sinleton',
+                    modeName: 'singleton',
                     foodsList: item,
                     foodListIndex: index
                   })

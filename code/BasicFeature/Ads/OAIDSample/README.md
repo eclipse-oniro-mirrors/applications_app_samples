@@ -84,7 +84,7 @@ entry/src/main/ets/
 ### Required Permissions
 
 Obtaining the OAID requires the ad tracking permission:
-[ohos.permission.APP_TRACKING_CONSENT](https://gitee.com/openharmony/docs/blob/master/en/application-dev/security/AccessToken/permissions-for-all-user.md#ohospermissionapp_tracking_consent).
+[ohos.permission.APP_TRACKING_CONSENT](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/security/AccessToken/permissions-for-all-user.md#ohospermissionapp_tracking_consent).
 
 ### Dependencies
 
@@ -112,6 +112,6 @@ To download this project separately, run the following commands:
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Ads/OAIDSample/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

@@ -4,7 +4,7 @@
 
 This project verifies the system routing table. With the system routing table, pages of modules (HSP/HAR) can be navigated to without configuring dependencies between the modules involved in the navigation. When a page navigation occurs, pages that are not navigated to are not loaded, and pages that have already been loaded are not loaded again. This resolves the coupling caused by module dependencies and the long home page loading time.
 
-For detailed configuration, see [system routing table](https://gitee.com/openharmony/docs/blob/master/en/application-dev/ui/arkts-navigation-navigation.md).
+For detailed configuration, see [system routing table](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/ui/arkts-navigation-navigation.md).
 
 Due to environment differences, it is not recommended to compile directly after downloading. Instead, create a project first and write code referring to the sample.
 
@@ -15,8 +15,6 @@ Due to environment differences, it is not recommended to compile directly after 
 | EntryPageOne | EntryPageTwo | HarAPageOne |
 |------------------------------------------------------------------|------------------------------------------------------------------|-----------------------------------------------------------------|
 | <img src="./images/EntryPageOne.jpeg" width="200" height="360"/> | <img src="./images/EntryPageTwo.jpeg" width="200" height="360"/> | <img src="./images/HarAPageOne.jpeg" width="200" height="360"/> |
-| HarAPageTwo | HspAPageOne | HspAPageTwo |
-| <img src="./images/HarAPageTwo.jpeg" width="200" height="360"/> | <img src="./images/HspAPageOne.jpeg" width="200" height="360"/> | <img src="./images/HspAPageTwo.jpeg" width="200" height="360"/> |
 
 ### Usage
 
@@ -88,6 +86,6 @@ To download this project separately, run the following commands:
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/ApplicationModels/SystemRouter > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

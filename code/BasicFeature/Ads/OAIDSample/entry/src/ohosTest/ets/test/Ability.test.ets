@@ -57,8 +57,8 @@ export default function abilityTest() {
     /**
      * OAID测试
      */
-    it(BUNDLE + 'OAIDFunction_001', 0, async (done: Function) => {
-      Logger.info(TAG, BUNDLE + 'OAIDFunction_001 begin')
+    it(BUNDLE + '_OAIDFunction_001', 0, async (done: Function) => {
+      Logger.info(TAG, BUNDLE + '_OAIDFunction_001 begin')
       let driver = Driver.create()
       await driver.delayMs(2000);
       // 获取OAID按钮，Promise方式
@@ -68,6 +68,7 @@ export default function abilityTest() {
       await driver.delayMs(2000);
       let oaidTextArea = await driver.findComponent(ON.id('hiad_demo_oaid_textArea'))
       let oaid = await oaidTextArea.getText();
+      Logger.info(TAG, 'OAIDFunction_001 promise oaid: %{public}s', oaid)
       expect(oaid.length > 0).assertEqual(true)
       await driver.delayMs(1000)
       // 获取OAID按钮，Async Callback方式
@@ -76,15 +77,16 @@ export default function abilityTest() {
       await getOaidByAsyncCallback.click()
       await driver.delayMs(2000);
       oaid = await oaidTextArea.getText();
+      Logger.info(TAG, 'OAIDFunction_001 asyncCallback oaid: %{public}s', oaid)
       expect(oaid.length > 0).assertEqual(true)
-      await driver.delayMs(1000)
       // 重置OAID按钮
       await driver.assertComponentExist(ON.text(await getResourceString($r('app.string.oaid_btn_reset'))))
       let resetOaid = await driver.findComponent(ON.text(await getResourceString($r('app.string.oaid_btn_reset'))))
       await resetOaid.click()
       oaid = await oaidTextArea.getText();
+      Logger.info(TAG, 'OAIDFunction_001 reset oaid: %{public}s', oaid)
       expect(oaid.length > 0).assertEqual(true)
-      Logger.info(TAG, BUNDLE + 'OAIDFunction_001 clickOAIDShowPage end')
+      Logger.info(TAG, BUNDLE + '_OAIDFunction_001 clickOAIDShowPage end')
       done()
     })
   })

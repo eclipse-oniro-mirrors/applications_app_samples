@@ -17,7 +17,7 @@ import { common } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG: string = '[Sample_ShortCut]';
-const DOMAIN_NUMBER: number = 0xFF00;
+const DOMAIN_NUMBER: number = 0xF811;
 
 @Entry
 @Component
