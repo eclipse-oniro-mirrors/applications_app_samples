@@ -14,14 +14,13 @@
  */
 
 import { describe, it, expect } from '@ohos/hypium';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import Want from '@ohos.app.ability.Want';
-import { Driver, ON } from '@ohos.UiTest';
+import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
+import { Want } from '@kit.AbilityKit';
 import Logger from '../../util/Logger';
 
 const BUNDLE = 'OAID';
 const TAG = '[Sample_OAID_Test]';
-const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 // 资源本地化
 async function getResourceString<T extends Resource>(resource: T): Promise<string> {
