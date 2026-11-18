@@ -31,6 +31,7 @@ import widthForHeight2Test from './logic/WidthForHeight2.test';
 import widthForHeight3Test from './logic/WidthForHeight3.test';
 import roundedHeightForWidthTest from './logic/RoundedHeightForWidth.test';
 import roundedHeightForWidth2Test from './logic/RoundedHeightForWidth2.test';
+import roundedHeightForWidth3Test from './logic/RoundedHeightForWidth3.test';
 
 export default function testsuite() {
   // Yield between cases so the main EventHandler can service watchdog tasks.
@@ -54,4 +55,5 @@ export default function testsuite() {
   widthForHeight3Test();
   roundedHeightForWidthTest();
   roundedHeightForWidth2Test();
+  roundedHeightForWidth3Test();
 }
