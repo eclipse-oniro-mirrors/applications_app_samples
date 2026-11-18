@@ -24,7 +24,7 @@ import { CleanupGuard } from './fixtures/ImageEffectCleanup';
  * @tc.name EXP_EFFECT_IMAGEUTILS_005
  * @tc.desc ImageUtils真实单例/路径/资源解码接缝; {"method": "getPixelMap", "resource": "app.media.ic_1080x1920", "expectedSize": [1080, 1920], "caseId": "EFFECT_IMAGEUTILS_005"}
  * @tc.level Level 1
- * Prerequisite: real HarmonyOS device; serial native calls, no concurrent UI/surface creation.
+ * Use a physical test device. Call native APIs serially; do not create UI or render targets concurrently.
  */
 const runExpansionCase: () => Promise<void> = async (): Promise<void> => {
     const context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();

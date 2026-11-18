@@ -15,8 +15,8 @@
 
 import { afterEach, describe, it } from '@ohos/hypium';
 
-import runEffectNoSurface001 from './expansion/EFFECT_NO_SURFACE_001.test';
-import runEffectNoSurface002 from './expansion/EFFECT_NO_SURFACE_002.test';
+import runEffectNoRenderTarget001 from './expansion/EFFECT_NO_RENDER_TARGET_001.test';
+import runEffectNoRenderTarget002 from './expansion/EFFECT_NO_RENDER_TARGET_002.test';
 import runEffectBuffer001 from './expansion/EFFECT_BUFFER_001.test';
 import runEffectBuffer002 from './expansion/EFFECT_BUFFER_002.test';
 import runEffectBuffer003 from './expansion/EFFECT_BUFFER_003.test';
@@ -425,11 +425,11 @@ export default function expansionTest(): void {
       });
     });
 
-    it('EXP_EFFECT_NO_SURFACE_001', 0, (): Promise<void> => {
-      return runEffectNoSurface001();
+    it('EXP_EFFECT_NO_RENDER_TARGET_001', 0, (): Promise<void> => {
+      return runEffectNoRenderTarget001();
     });
-    it('EXP_EFFECT_NO_SURFACE_002', 0, (): Promise<void> => {
-      return runEffectNoSurface002();
+    it('EXP_EFFECT_NO_RENDER_TARGET_002', 0, (): Promise<void> => {
+      return runEffectNoRenderTarget002();
     });
     it('EXP_EFFECT_BUFFER_001', 0, (): Promise<void> => {
       return runEffectBuffer001();

@@ -25,7 +25,7 @@ import { CleanupGuard } from './fixtures/ImageEffectCleanup';
  * @tc.name EXP_EFFECT_CUSTOM_BRIGHTNESS_001
  * @tc.desc 自定义亮度夹紧与number转int32小数截断; {"pathFixture": {"id": "solid[128, 128, 128]", "format": "image/png", "width": 32, "height": 24, "pattern": "solid", "rgba": [128, 128, 128, 255]}, "filterOptions": [["CustomBrightness", -100]], "expectedRGB": [28, 28, 28], "jpegChannelTolerance": 4, "caseId": "EFFECT_CUSTOM_BRIGHTNESS_001"}
  * @tc.level Level 1
- * Prerequisite: real HarmonyOS device; serial native calls, no concurrent UI/surface creation.
+ * Use a physical test device. Call native APIs serially; do not create UI or render targets concurrently.
  */
 const runExpansionCase: () => Promise<void> = async (): Promise<void> => {
     const context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();

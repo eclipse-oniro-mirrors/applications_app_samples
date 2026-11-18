@@ -20,7 +20,7 @@ import { ImageUtils } from '../../../../main/ets/utils/ImageUtils';
  * @tc.name EXP_EFFECT_IMAGEUTILS_001
  * @tc.desc ImageUtils真实单例/路径/资源解码接缝; {"method": "getInstance", "state": "同进程取两次", "expected": "引用全等", "caseId": "EFFECT_IMAGEUTILS_001"}
  * @tc.level Level 1
- * Prerequisite: real HarmonyOS device; serial native calls, no concurrent UI/surface creation.
+ * Use a physical test device. Call native APIs serially; do not create UI or render targets concurrently.
  */
 const runExpansionCase: () => Promise<void> = async (): Promise<void> => {
     const first = ImageUtils.getInstance();

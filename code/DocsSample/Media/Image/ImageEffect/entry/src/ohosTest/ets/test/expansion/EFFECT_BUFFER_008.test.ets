@@ -20,7 +20,7 @@ import ImageEffect from 'libentry.so';
  * @tc.name EXP_EFFECT_BUFFER_008
  * @tc.desc NativeBuffer路径合法滤镜和有序链有限返回; {"filterOptions": [["CustomBrightness", 0]], "nativeBufferConfig": {"width": 256, "height": 256, "format": "RGBA_8888", "usage": "ALIGNMENT_512"}, "caseId": "EFFECT_BUFFER_008"}
  * @tc.level Level 1
- * Prerequisite: real HarmonyOS device; serial native calls, no concurrent UI/surface creation.
+ * Use a physical test device. Call native APIs serially; do not create UI or render targets concurrently.
  */
 const runExpansionCase: () => Promise<void> = async (): Promise<void> => {
     const options: (string | number)[][] = [['CustomBrightness', 0]];

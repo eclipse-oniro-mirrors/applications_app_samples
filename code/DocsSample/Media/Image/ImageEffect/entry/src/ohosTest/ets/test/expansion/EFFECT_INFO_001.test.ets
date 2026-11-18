@@ -21,7 +21,7 @@ import { assertFilterInfo } from './fixtures/ImageEffectAssertions';
  * @tc.name EXP_EFFECT_INFO_001
  * @tc.desc 五种已注册滤镜信息的真实字符串契约; {"name": "Brightness", "expectedPrefix": "name:Brightness, ", "customExact": null, "caseId": "EFFECT_INFO_001"}
  * @tc.level Level 1
- * Prerequisite: real HarmonyOS device; serial native calls, no concurrent UI/surface creation.
+ * Use a physical test device. Call native APIs serially; do not create UI or render targets concurrently.
  */
 const runExpansionCase: () => Promise<void> = async (): Promise<void> => {
     const info: string = ImageEffect.lookupFilterInfo('Brightness');

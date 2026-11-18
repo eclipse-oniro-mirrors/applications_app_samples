@@ -25,7 +25,7 @@ import { CleanupGuard } from './fixtures/ImageEffectCleanup';
  * @tc.name EXP_EFFECT_URI_002
  * @tc.desc URI既有入口：自定义亮度/裁剪和完整ROI; {"pathFixture": {"id": "uriGray", "format": "image/jpeg", "width": 32, "height": 24, "pattern": "solid", "rgba": [128, 128, 128, 255], "quality": 100}, "filterOptions": [["CustomBrightness", -50]], "expectedRGB": [78, 78, 78], "jpegChannelTolerance": 4, "caseId": "EFFECT_URI_002"}
  * @tc.level Level 1
- * Prerequisite: real HarmonyOS device; serial native calls, no concurrent UI/surface creation.
+ * Use a physical test device. Call native APIs serially; do not create UI or render targets concurrently.
  */
 const runExpansionCase: () => Promise<void> = async (): Promise<void> => {
     const context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();

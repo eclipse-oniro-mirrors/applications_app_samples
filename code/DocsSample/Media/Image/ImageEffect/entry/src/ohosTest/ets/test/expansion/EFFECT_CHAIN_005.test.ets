@@ -25,7 +25,7 @@ import { CleanupGuard } from './fixtures/ImageEffectCleanup';
  * @tc.name EXP_EFFECT_CHAIN_005
  * @tc.desc 有向滤镜顺序、饱和非交换性、连续裁剪; {"pathFixture": {"id": "chainBands", "format": "image/png", "width": 64, "height": 64, "pattern": "large-opaque-gray-bands", "grayValues": [0, 32, 128, 224, 255]}, "filterOptions": [["CustomBrightness", 20], ["CustomCrop", 50]], "caseId": "EFFECT_CHAIN_005"}
  * @tc.level Level 1
- * Prerequisite: real HarmonyOS device; serial native calls, no concurrent UI/surface creation.
+ * Use a physical test device. Call native APIs serially; do not create UI or render targets concurrently.
  */
 const runExpansionCase: () => Promise<void> = async (): Promise<void> => {
     const context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();

@@ -39,7 +39,7 @@ export function descriptor(bytes: number[] = []): ble.BLEDescriptor {
     descriptorValue: new Uint8Array(bytes).buffer };
 }
 
-/** External SDK surface only; never implements a production manager or business algorithm. */
+/** External SDK interface only; never implements a production manager or business algorithm. */
 class ClientPort {
   public on(event: string, listener: ConnectionListener): void { throw new Error('SDK stub not installed'); }
   public off(event: string, listener: ConnectionListener): void { throw new Error('SDK stub not installed'); }

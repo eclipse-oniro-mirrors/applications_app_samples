@@ -25,7 +25,7 @@ import { CleanupGuard } from './fixtures/ImageEffectCleanup';
  * @tc.name EXP_EFFECT_CUSTOM_CROP_005
  * @tc.desc 正比例裁剪、奇数截断、最小非零输出; {"pathFixture": {"id": "crop17x13", "format": "image/png", "width": 17, "height": 13, "pattern": "opaque-row-bands-top-distinct-from-bottom"}, "filterOptions": [["CustomCrop", 50]], "expectedRenderedSize": [17, 6], "caseId": "EFFECT_CUSTOM_CROP_005"}
  * @tc.level Level 1
- * Prerequisite: real HarmonyOS device; serial native calls, no concurrent UI/surface creation.
+ * Use a physical test device. Call native APIs serially; do not create UI or render targets concurrently.
  */
 const runExpansionCase: () => Promise<void> = async (): Promise<void> => {
     const context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();

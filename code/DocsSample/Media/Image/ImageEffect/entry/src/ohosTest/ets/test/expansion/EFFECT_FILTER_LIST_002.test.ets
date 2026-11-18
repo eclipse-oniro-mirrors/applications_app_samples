@@ -21,7 +21,7 @@ import { assertFilterList } from './fixtures/ImageEffectAssertions';
  * @tc.name EXP_EFFECT_FILTER_LIST_002
  * @tc.desc UI三个真实Format查询键和列表一致性; {"key": "Format:nv21", "customExpected": [], "caseId": "EFFECT_FILTER_LIST_002"}
  * @tc.level Level 1
- * Prerequisite: real HarmonyOS device; serial native calls, no concurrent UI/surface creation.
+ * Use a physical test device. Call native APIs serially; do not create UI or render targets concurrently.
  */
 const runExpansionCase: () => Promise<void> = async (): Promise<void> => {
     const list: string = ImageEffect.lookupFilters('Format:nv21');

@@ -25,7 +25,7 @@ import { CleanupGuard } from './fixtures/ImageEffectCleanup';
  * @tc.name EXP_EFFECT_BUILTIN_010
  * @tc.desc 单Brightness/Contrast强度端点和中值; {"pathFixture": {"id": "pngOdd", "format": "image/png", "width": 17, "height": 13, "pattern": "opaque-color-quadrants"}, "filterOptions": [["Contrast", 100]], "branch": "single OH_EffectFilter_Render", "expectedDimensions": [17, 13], "caseId": "EFFECT_BUILTIN_010"}
  * @tc.level Level 1
- * Prerequisite: real HarmonyOS device; serial native calls, no concurrent UI/surface creation.
+ * Use a physical test device. Call native APIs serially; do not create UI or render targets concurrently.
  */
 const runExpansionCase: () => Promise<void> = async (): Promise<void> => {
     const context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();

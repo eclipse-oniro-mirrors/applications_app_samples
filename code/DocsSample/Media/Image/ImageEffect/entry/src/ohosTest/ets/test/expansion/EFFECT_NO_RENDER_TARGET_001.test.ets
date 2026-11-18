@@ -16,14 +16,14 @@ import { expect } from '@ohos/hypium';
 import ImageEffect from 'libentry.so';
 
 /**
- * @tc.number EXP_EFFECT_NO_SURFACE_001
- * @tc.name EXP_EFFECT_NO_SURFACE_001
- * @tc.desc 未创建surface时合法Start/Stop保护分支; {"method": "SurfaceFilterStart", "args": [[["Brightness", 0]]], "state": "新测试进程、没有调用getSurfaceId", "caseId": "EFFECT_NO_SURFACE_001"}
+ * @tc.number EXP_EFFECT_NO_RENDER_TARGET_001
+ * @tc.name EXP_EFFECT_NO_RENDER_TARGET_001
+ * @tc.desc 新测试进程中，原生滤镜实例未初始化；以亮度值 0 调用启动接口，应返回 false。
  * @tc.level Level 1
- * Prerequisite: real HarmonyOS device; serial native calls, no concurrent UI/surface creation.
+ * Use a physical test device. Call native APIs serially; do not create UI or render targets concurrently.
  */
 const runExpansionCase: () => Promise<void> = async (): Promise<void> => {
-    // Prerequisite: dedicated fresh test process; never call getSurfaceId or open the camera UI.
+    // Use a dedicated fresh test process. Do not initialize the render target or open the camera UI.
     const result: boolean = ImageEffect.SurfaceFilterStart([['Brightness', 0]]);
     expect(result).assertFalse();
   };

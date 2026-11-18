@@ -25,7 +25,7 @@ import { CleanupGuard } from './fixtures/ImageEffectCleanup';
  * @tc.name EXP_EFFECT_CROP_001
  * @tc.desc 内建Crop合法ROI比例的封装可观察输出; {"pathFixture": {"id": "pngOdd", "format": "image/png", "width": 17, "height": 13, "pattern": "opaque-color-quadrants"}, "filterOptions": [["Crop", 25]], "sourceComputedRegion": [12, 9, 17, 13], "caseId": "EFFECT_CROP_001"}
  * @tc.level Level 1
- * Prerequisite: real HarmonyOS device; serial native calls, no concurrent UI/surface creation.
+ * Use a physical test device. Call native APIs serially; do not create UI or render targets concurrently.
  */
 const runExpansionCase: () => Promise<void> = async (): Promise<void> => {
     const context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
