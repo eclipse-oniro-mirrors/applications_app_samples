@@ -4456,3 +4456,1950 @@ export default function TextDecoderStreamLogic(): void {
         const lead: string = decoder.decodeToString(leadBytes, { stream: true });
         InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'o', lead);
         expect(lead).assertEqual('o');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xF0]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 240, byte0[0]);
+        expect(byte0[0]).assertEqual(240);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0x9D]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 157, byte1[0]);
+        expect(byte1[0]).assertEqual(157);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0x84]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '', chunk2);
+        expect(chunk2).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 132, byte2[0]);
+        expect(byte2[0]).assertEqual(132);
+        joined += chunk2;
+        const gap2: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 3 retains bytes', '', gap2);
+        expect(gap2).assertEqual('');
+        const byte3: Uint8Array = new Uint8Array([0x9E]);
+        const chunk3: string = decoder.decodeToString(byte3, { stream: true });
+        InterfaceTestLog.value(name, 'byte 4 fixed output', '\uD834\uDD1E', chunk3);
+        expect(chunk3).assertEqual('\uD834\uDD1E');
+        InterfaceTestLog.number(name, 'byte 4 not mutated', 158, byte3[0]);
+        expect(byte3[0]).assertEqual(158);
+        joined += chunk3;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'o\uD834\uDD1E\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 4, joined.length);
+        expect(joined.length).assertEqual(4);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xF0, 0x9D, 0x84, 0x9E, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\uD834\uDD1E\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0064
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0064
+     * @tc.desc REGIONAL_C, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0064',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0064';
+        InterfaceTestLog.begin(name, 'REGIONAL_C, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([112]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'p', lead);
+        expect(lead).assertEqual('p');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xF0]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 240, byte0[0]);
+        expect(byte0[0]).assertEqual(240);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0x9F]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 159, byte1[0]);
+        expect(byte1[0]).assertEqual(159);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0x87]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '', chunk2);
+        expect(chunk2).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 135, byte2[0]);
+        expect(byte2[0]).assertEqual(135);
+        joined += chunk2;
+        const gap2: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 3 retains bytes', '', gap2);
+        expect(gap2).assertEqual('');
+        const byte3: Uint8Array = new Uint8Array([0xA8]);
+        const chunk3: string = decoder.decodeToString(byte3, { stream: true });
+        InterfaceTestLog.value(name, 'byte 4 fixed output', '\uD83C\uDDE8', chunk3);
+        expect(chunk3).assertEqual('\uD83C\uDDE8');
+        InterfaceTestLog.number(name, 'byte 4 not mutated', 168, byte3[0]);
+        expect(byte3[0]).assertEqual(168);
+        joined += chunk3;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'p\uD83C\uDDE8\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 4, joined.length);
+        expect(joined.length).assertEqual(4);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xF0, 0x9F, 0x87, 0xA8, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\uD83C\uDDE8\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0065
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0065
+     * @tc.desc default replacement, isolated continuation
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0065',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0065';
+        InterfaceTestLog.begin(name, 'default replacement, isolated continuation');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'default is nonfatal', !decoder.fatal);
+        expect(!decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x41, 0x80]);
+        const snapshot: string = bytes.join(',');
+        const expected: string = 'A\uFFFD';
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty stream flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        const body: string = decoder.decodeToString(bytes, { stream: false });
+        const bodyExpected: string = 'A\uFFFD';
+        InterfaceTestLog.value(name, 'malformed or pending body', bodyExpected, body);
+        expect(body).assertEqual(bodyExpected);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        const flushExpected: string = '';
+        InterfaceTestLog.value(name, 'pending maximal subpart on flush', flushExpected, flush);
+        expect(flush).assertEqual(flushExpected);
+        const joined: string = body + flush;
+        InterfaceTestLog.value(name, 'complete replacement oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'full replacement UTF16 length', 2, joined.length);
+        expect(joined.length).assertEqual(body.length + flush.length);
+        InterfaceTestLog.number(name, 'replacement scalar count', 2, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(countScalars(body) + countScalars(flush));
+        InterfaceTestLog.number(name, 'exact replacement multiplicity', 1, joined.split('\uFFFD').length - 1);
+        expect(joined.split('\uFFFD').length - 1 >= 0).assertTrue();
+        InterfaceTestLog.value(name, 'malformed byte source unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'malformed source byte count', 2, bytes.length);
+        expect(bytes.length).assertEqual(2);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xE4, 0xB8, 0xAD, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\u4E2D\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const again: string = decoder.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'same malformed bytes new session', expected, again);
+        expect(again).assertEqual(expected);
+        const other: util.TextDecoder = util.TextDecoder.create();
+        const independent: string = other.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'new decoder same fixed oracle', expected, independent);
+        expect(independent).assertEqual(expected);
+        InterfaceTestLog.value(name, 'bytes immutable after repeats', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0066
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0066
+     * @tc.desc default replacement, forbidden FF
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0066',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0066';
+        InterfaceTestLog.begin(name, 'default replacement, forbidden FF');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'default is nonfatal', !decoder.fatal);
+        expect(!decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x42, 0xFF]);
+        const snapshot: string = bytes.join(',');
+        const expected: string = 'B\uFFFD';
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty stream flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        const body: string = decoder.decodeToString(bytes, { stream: false });
+        const bodyExpected: string = 'B\uFFFD';
+        InterfaceTestLog.value(name, 'malformed or pending body', bodyExpected, body);
+        expect(body).assertEqual(bodyExpected);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        const flushExpected: string = '';
+        InterfaceTestLog.value(name, 'pending maximal subpart on flush', flushExpected, flush);
+        expect(flush).assertEqual(flushExpected);
+        const joined: string = body + flush;
+        InterfaceTestLog.value(name, 'complete replacement oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'full replacement UTF16 length', 2, joined.length);
+        expect(joined.length).assertEqual(body.length + flush.length);
+        InterfaceTestLog.number(name, 'replacement scalar count', 2, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(countScalars(body) + countScalars(flush));
+        InterfaceTestLog.number(name, 'exact replacement multiplicity', 1, joined.split('\uFFFD').length - 1);
+        expect(joined.split('\uFFFD').length - 1 >= 0).assertTrue();
+        InterfaceTestLog.value(name, 'malformed byte source unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'malformed source byte count', 2, bytes.length);
+        expect(bytes.length).assertEqual(2);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xE4, 0xB8, 0xAD, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\u4E2D\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const again: string = decoder.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'same malformed bytes new session', expected, again);
+        expect(again).assertEqual(expected);
+        const other: util.TextDecoder = util.TextDecoder.create();
+        const independent: string = other.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'new decoder same fixed oracle', expected, independent);
+        expect(independent).assertEqual(expected);
+        InterfaceTestLog.value(name, 'bytes immutable after repeats', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0067
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0067
+     * @tc.desc default replacement, overlong two byte
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0067',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0067';
+        InterfaceTestLog.begin(name, 'default replacement, overlong two byte');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'default is nonfatal', !decoder.fatal);
+        expect(!decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x43, 0xC0, 0xAF]);
+        const snapshot: string = bytes.join(',');
+        const expected: string = 'C\uFFFD\uFFFD';
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty stream flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        const body: string = decoder.decodeToString(bytes, { stream: false });
+        const bodyExpected: string = 'C\uFFFD\uFFFD';
+        InterfaceTestLog.value(name, 'malformed or pending body', bodyExpected, body);
+        expect(body).assertEqual(bodyExpected);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        const flushExpected: string = '';
+        InterfaceTestLog.value(name, 'pending maximal subpart on flush', flushExpected, flush);
+        expect(flush).assertEqual(flushExpected);
+        const joined: string = body + flush;
+        InterfaceTestLog.value(name, 'complete replacement oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'full replacement UTF16 length', 3, joined.length);
+        expect(joined.length).assertEqual(3);
+        InterfaceTestLog.number(name, 'replacement scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        InterfaceTestLog.number(name, 'exact replacement multiplicity', 2, joined.split('\uFFFD').length - 1);
+        expect(joined.split('\uFFFD').length - 1).assertEqual(2);
+        InterfaceTestLog.value(name, 'malformed byte source unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'malformed source byte count', 3, bytes.length);
+        expect(bytes.length).assertEqual(3);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xE4, 0xB8, 0xAD, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\u4E2D\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const again: string = decoder.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'same malformed bytes new session', expected, again);
+        expect(again).assertEqual(expected);
+        const other: util.TextDecoder = util.TextDecoder.create();
+        const independent: string = other.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'new decoder same fixed oracle', expected, independent);
+        expect(independent).assertEqual(expected);
+        InterfaceTestLog.value(name, 'bytes immutable after repeats', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0068
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0068
+     * @tc.desc default replacement, overlong three byte
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0068',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0068';
+        InterfaceTestLog.begin(name, 'default replacement, overlong three byte');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'default is nonfatal', !decoder.fatal);
+        expect(!decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x44, 0xE0, 0x80, 0x80]);
+        const snapshot: string = bytes.join(',');
+        const expected: string = 'D\uFFFD\uFFFD\uFFFD';
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty stream flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        const body: string = decoder.decodeToString(bytes, { stream: false });
+        const bodyExpected: string = 'D\uFFFD\uFFFD\uFFFD';
+        InterfaceTestLog.value(name, 'malformed or pending body', bodyExpected, body);
+        expect(body).assertEqual(bodyExpected);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        const flushExpected: string = '';
+        InterfaceTestLog.value(name, 'pending maximal subpart on flush', flushExpected, flush);
+        expect(flush).assertEqual(flushExpected);
+        const joined: string = body + flush;
+        InterfaceTestLog.value(name, 'complete replacement oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'full replacement UTF16 length', 4, joined.length);
+        expect(joined.length).assertEqual(4);
+        InterfaceTestLog.number(name, 'replacement scalar count', 4, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(4);
+        InterfaceTestLog.number(name, 'exact replacement multiplicity', 3, joined.split('\uFFFD').length - 1);
+        expect(joined.split('\uFFFD').length - 1).assertEqual(3);
+        InterfaceTestLog.value(name, 'malformed byte source unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'malformed source byte count', 4, bytes.length);
+        expect(bytes.length).assertEqual(4);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xE4, 0xB8, 0xAD, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\u4E2D\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const again: string = decoder.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'same malformed bytes new session', expected, again);
+        expect(again).assertEqual(expected);
+        const other: util.TextDecoder = util.TextDecoder.create();
+        const independent: string = other.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'new decoder same fixed oracle', expected, independent);
+        expect(independent).assertEqual(expected);
+        InterfaceTestLog.value(name, 'bytes immutable after repeats', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0069
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0069
+     * @tc.desc default replacement, encoded surrogate
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0069',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0069';
+        InterfaceTestLog.begin(name, 'default replacement, encoded surrogate');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'default is nonfatal', !decoder.fatal);
+        expect(!decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x45, 0xED, 0xA0, 0x80]);
+        const snapshot: string = bytes.join(',');
+        const expected: string = 'E\uFFFD\uFFFD\uFFFD';
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty stream flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        const body: string = decoder.decodeToString(bytes, { stream: false });
+        const bodyExpected: string = 'E\uFFFD\uFFFD\uFFFD';
+        InterfaceTestLog.value(name, 'malformed or pending body', bodyExpected, body);
+        expect(body).assertEqual(bodyExpected);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        const flushExpected: string = '';
+        InterfaceTestLog.value(name, 'pending maximal subpart on flush', flushExpected, flush);
+        expect(flush).assertEqual(flushExpected);
+        const joined: string = body + flush;
+        InterfaceTestLog.value(name, 'complete replacement oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'full replacement UTF16 length', 4, joined.length);
+        expect(joined.length).assertEqual(4);
+        InterfaceTestLog.number(name, 'replacement scalar count', 4, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(4);
+        InterfaceTestLog.number(name, 'exact replacement multiplicity', 3, joined.split('\uFFFD').length - 1);
+        expect(joined.split('\uFFFD').length - 1).assertEqual(3);
+        InterfaceTestLog.value(name, 'malformed byte source unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'malformed source byte count', 4, bytes.length);
+        expect(bytes.length).assertEqual(4);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xE4, 0xB8, 0xAD, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\u4E2D\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const again: string = decoder.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'same malformed bytes new session', expected, again);
+        expect(again).assertEqual(expected);
+        const other: util.TextDecoder = util.TextDecoder.create();
+        const independent: string = other.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'new decoder same fixed oracle', expected, independent);
+        expect(independent).assertEqual(expected);
+        InterfaceTestLog.value(name, 'bytes immutable after repeats', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0070
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0070
+     * @tc.desc default replacement, above maximum
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0070',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0070';
+        InterfaceTestLog.begin(name, 'default replacement, above maximum');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'default is nonfatal', !decoder.fatal);
+        expect(!decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x46, 0xF4, 0x90, 0x80, 0x80]);
+        const snapshot: string = bytes.join(',');
+        const expected: string = 'F\uFFFD\uFFFD\uFFFD\uFFFD';
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty stream flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        const body: string = decoder.decodeToString(bytes, { stream: false });
+        const bodyExpected: string = 'F\uFFFD\uFFFD\uFFFD\uFFFD';
+        InterfaceTestLog.value(name, 'malformed or pending body', bodyExpected, body);
+        expect(body).assertEqual(bodyExpected);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        const flushExpected: string = '';
+        InterfaceTestLog.value(name, 'pending maximal subpart on flush', flushExpected, flush);
+        expect(flush).assertEqual(flushExpected);
+        const joined: string = body + flush;
+        InterfaceTestLog.value(name, 'complete replacement oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'full replacement UTF16 length', 5, joined.length);
+        expect(joined.length).assertEqual(5);
+        InterfaceTestLog.number(name, 'replacement scalar count', 5, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(5);
+        InterfaceTestLog.number(name, 'exact replacement multiplicity', 4, joined.split('\uFFFD').length - 1);
+        expect(joined.split('\uFFFD').length - 1).assertEqual(4);
+        InterfaceTestLog.value(name, 'malformed byte source unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'malformed source byte count', 5, bytes.length);
+        expect(bytes.length).assertEqual(5);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xE4, 0xB8, 0xAD, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\u4E2D\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const again: string = decoder.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'same malformed bytes new session', expected, again);
+        expect(again).assertEqual(expected);
+        const other: util.TextDecoder = util.TextDecoder.create();
+        const independent: string = other.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'new decoder same fixed oracle', expected, independent);
+        expect(independent).assertEqual(expected);
+        InterfaceTestLog.value(name, 'bytes immutable after repeats', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0071
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0071
+     * @tc.desc default replacement, forbidden F5
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0071',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0071';
+        InterfaceTestLog.begin(name, 'default replacement, forbidden F5');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'default is nonfatal', !decoder.fatal);
+        expect(!decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x47, 0xF5, 0x80, 0x80, 0x80]);
+        const snapshot: string = bytes.join(',');
+        const expected: string = 'G\uFFFD\uFFFD\uFFFD\uFFFD';
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty stream flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        const body: string = decoder.decodeToString(bytes, { stream: false });
+        const bodyExpected: string = 'G\uFFFD\uFFFD\uFFFD\uFFFD';
+        InterfaceTestLog.value(name, 'malformed or pending body', bodyExpected, body);
+        expect(body).assertEqual(bodyExpected);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        const flushExpected: string = '';
+        InterfaceTestLog.value(name, 'pending maximal subpart on flush', flushExpected, flush);
+        expect(flush).assertEqual(flushExpected);
+        const joined: string = body + flush;
+        InterfaceTestLog.value(name, 'complete replacement oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'full replacement UTF16 length', 5, joined.length);
+        expect(joined.length).assertEqual(5);
+        InterfaceTestLog.number(name, 'replacement scalar count', 5, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(5);
+        InterfaceTestLog.number(name, 'exact replacement multiplicity', 4, joined.split('\uFFFD').length - 1);
+        expect(joined.split('\uFFFD').length - 1).assertEqual(4);
+        InterfaceTestLog.value(name, 'malformed byte source unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'malformed source byte count', 5, bytes.length);
+        expect(bytes.length).assertEqual(5);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xE4, 0xB8, 0xAD, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\u4E2D\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const again: string = decoder.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'same malformed bytes new session', expected, again);
+        expect(again).assertEqual(expected);
+        const other: util.TextDecoder = util.TextDecoder.create();
+        const independent: string = other.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'new decoder same fixed oracle', expected, independent);
+        expect(independent).assertEqual(expected);
+        InterfaceTestLog.value(name, 'bytes immutable after repeats', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0075
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0075
+     * @tc.desc default replacement, ASCII interrupts two byte
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0075',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0075';
+        InterfaceTestLog.begin(name, 'default replacement, ASCII interrupts two byte');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'default is nonfatal', !decoder.fatal);
+        expect(!decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x4B, 0xC2, 0x41]);
+        const snapshot: string = bytes.join(',');
+        const expected: string = 'K\uFFFDA';
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty stream flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        const body: string = decoder.decodeToString(bytes, { stream: false });
+        const bodyExpected: string = 'K\uFFFDA';
+        InterfaceTestLog.value(name, 'malformed or pending body', bodyExpected, body);
+        expect(body).assertEqual(bodyExpected);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        const flushExpected: string = '';
+        InterfaceTestLog.value(name, 'pending maximal subpart on flush', flushExpected, flush);
+        expect(flush).assertEqual(flushExpected);
+        const joined: string = body + flush;
+        InterfaceTestLog.value(name, 'complete replacement oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'full replacement UTF16 length', 3, joined.length);
+        expect(joined.length).assertEqual(3);
+        InterfaceTestLog.number(name, 'replacement scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        InterfaceTestLog.number(name, 'exact replacement multiplicity', 1, joined.split('\uFFFD').length - 1);
+        expect(joined.split('\uFFFD').length - 1 >= 0).assertTrue();
+        InterfaceTestLog.value(name, 'malformed byte source unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'malformed source byte count', 3, bytes.length);
+        expect(bytes.length).assertEqual(3);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xE4, 0xB8, 0xAD, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\u4E2D\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const again: string = decoder.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'same malformed bytes new session', expected, again);
+        expect(again).assertEqual(expected);
+        const other: util.TextDecoder = util.TextDecoder.create();
+        const independent: string = other.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'new decoder same fixed oracle', expected, independent);
+        expect(independent).assertEqual(expected);
+        InterfaceTestLog.value(name, 'bytes immutable after repeats', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0076
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0076
+     * @tc.desc default replacement, ASCII interrupts three byte start
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0076',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0076';
+        InterfaceTestLog.begin(name, 'default replacement, ASCII interrupts three byte start');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'default is nonfatal', !decoder.fatal);
+        expect(!decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x4C, 0xE4, 0x41]);
+        const snapshot: string = bytes.join(',');
+        const expected: string = 'L\uFFFDA';
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty stream flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        const body: string = decoder.decodeToString(bytes, { stream: false });
+        const bodyExpected: string = 'L\uFFFDA';
+        InterfaceTestLog.value(name, 'malformed or pending body', bodyExpected, body);
+        expect(body).assertEqual(bodyExpected);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        const flushExpected: string = '';
+        InterfaceTestLog.value(name, 'pending maximal subpart on flush', flushExpected, flush);
+        expect(flush).assertEqual(flushExpected);
+        const joined: string = body + flush;
+        InterfaceTestLog.value(name, 'complete replacement oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'full replacement UTF16 length', 3, joined.length);
+        expect(joined.length).assertEqual(3);
+        InterfaceTestLog.number(name, 'replacement scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        InterfaceTestLog.number(name, 'exact replacement multiplicity', 1, joined.split('\uFFFD').length - 1);
+        expect(joined.split('\uFFFD').length - 1 >= 0).assertTrue();
+        InterfaceTestLog.value(name, 'malformed byte source unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'malformed source byte count', 3, bytes.length);
+        expect(bytes.length).assertEqual(3);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xE4, 0xB8, 0xAD, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\u4E2D\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const again: string = decoder.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'same malformed bytes new session', expected, again);
+        expect(again).assertEqual(expected);
+        const other: util.TextDecoder = util.TextDecoder.create();
+        const independent: string = other.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'new decoder same fixed oracle', expected, independent);
+        expect(independent).assertEqual(expected);
+        InterfaceTestLog.value(name, 'bytes immutable after repeats', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0077
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0077
+     * @tc.desc default replacement, ASCII interrupts three byte tail
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0077',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0077';
+        InterfaceTestLog.begin(name, 'default replacement, ASCII interrupts three byte tail');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'default is nonfatal', !decoder.fatal);
+        expect(!decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x4D, 0xE4, 0xB8, 0x41]);
+        const snapshot: string = bytes.join(',');
+        const expected: string = 'M\uFFFDA';
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty stream flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        const body: string = decoder.decodeToString(bytes, { stream: false });
+        const bodyExpected: string = 'M\uFFFDA';
+        InterfaceTestLog.value(name, 'malformed or pending body', bodyExpected, body);
+        expect(body).assertEqual(bodyExpected);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        const flushExpected: string = '';
+        InterfaceTestLog.value(name, 'pending maximal subpart on flush', flushExpected, flush);
+        expect(flush).assertEqual(flushExpected);
+        const joined: string = body + flush;
+        InterfaceTestLog.value(name, 'complete replacement oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'full replacement UTF16 length', 3, joined.length);
+        expect(joined.length).assertEqual(3);
+        InterfaceTestLog.number(name, 'replacement scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        InterfaceTestLog.number(name, 'exact replacement multiplicity', 1, joined.split('\uFFFD').length - 1);
+        expect(joined.split('\uFFFD').length - 1 >= 0).assertTrue();
+        InterfaceTestLog.value(name, 'malformed byte source unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'malformed source byte count', 4, bytes.length);
+        expect(bytes.length).assertEqual(4);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xE4, 0xB8, 0xAD, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\u4E2D\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const again: string = decoder.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'same malformed bytes new session', expected, again);
+        expect(again).assertEqual(expected);
+        const other: util.TextDecoder = util.TextDecoder.create();
+        const independent: string = other.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'new decoder same fixed oracle', expected, independent);
+        expect(independent).assertEqual(expected);
+        InterfaceTestLog.value(name, 'bytes immutable after repeats', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0078
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0078
+     * @tc.desc default replacement, ASCII interrupts four byte
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0078',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0078';
+        InterfaceTestLog.begin(name, 'default replacement, ASCII interrupts four byte');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'default is nonfatal', !decoder.fatal);
+        expect(!decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x4E, 0xF0, 0x9F, 0x41]);
+        const snapshot: string = bytes.join(',');
+        const expected: string = 'N\uFFFDA';
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty stream flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        const body: string = decoder.decodeToString(bytes, { stream: false });
+        const bodyExpected: string = 'N\uFFFDA';
+        InterfaceTestLog.value(name, 'malformed or pending body', bodyExpected, body);
+        expect(body).assertEqual(bodyExpected);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        const flushExpected: string = '';
+        InterfaceTestLog.value(name, 'pending maximal subpart on flush', flushExpected, flush);
+        expect(flush).assertEqual(flushExpected);
+        const joined: string = body + flush;
+        InterfaceTestLog.value(name, 'complete replacement oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'full replacement UTF16 length', 3, joined.length);
+        expect(joined.length).assertEqual(3);
+        InterfaceTestLog.number(name, 'replacement scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        InterfaceTestLog.number(name, 'exact replacement multiplicity', 1, joined.split('\uFFFD').length - 1);
+        expect(joined.split('\uFFFD').length - 1 >= 0).assertTrue();
+        InterfaceTestLog.value(name, 'malformed byte source unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'malformed source byte count', 4, bytes.length);
+        expect(bytes.length).assertEqual(4);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xE4, 0xB8, 0xAD, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\u4E2D\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const again: string = decoder.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'same malformed bytes new session', expected, again);
+        expect(again).assertEqual(expected);
+        const other: util.TextDecoder = util.TextDecoder.create();
+        const independent: string = other.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'new decoder same fixed oracle', expected, independent);
+        expect(independent).assertEqual(expected);
+        InterfaceTestLog.value(name, 'bytes immutable after repeats', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0079
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0079
+     * @tc.desc default replacement, two continuations
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0079',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0079';
+        InterfaceTestLog.begin(name, 'default replacement, two continuations');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'default is nonfatal', !decoder.fatal);
+        expect(!decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x4F, 0x80, 0xBF]);
+        const snapshot: string = bytes.join(',');
+        const expected: string = 'O\uFFFD\uFFFD';
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty stream flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        const body: string = decoder.decodeToString(bytes, { stream: false });
+        const bodyExpected: string = 'O\uFFFD\uFFFD';
+        InterfaceTestLog.value(name, 'malformed or pending body', bodyExpected, body);
+        expect(body).assertEqual(bodyExpected);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        const flushExpected: string = '';
+        InterfaceTestLog.value(name, 'pending maximal subpart on flush', flushExpected, flush);
+        expect(flush).assertEqual(flushExpected);
+        const joined: string = body + flush;
+        InterfaceTestLog.value(name, 'complete replacement oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'full replacement UTF16 length', 3, joined.length);
+        expect(joined.length).assertEqual(3);
+        InterfaceTestLog.number(name, 'replacement scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        InterfaceTestLog.number(name, 'exact replacement multiplicity', 2, joined.split('\uFFFD').length - 1);
+        expect(joined.split('\uFFFD').length - 1).assertEqual(2);
+        InterfaceTestLog.value(name, 'malformed byte source unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'malformed source byte count', 3, bytes.length);
+        expect(bytes.length).assertEqual(3);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xE4, 0xB8, 0xAD, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\u4E2D\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const again: string = decoder.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'same malformed bytes new session', expected, again);
+        expect(again).assertEqual(expected);
+        const other: util.TextDecoder = util.TextDecoder.create();
+        const independent: string = other.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'new decoder same fixed oracle', expected, independent);
+        expect(independent).assertEqual(expected);
+        InterfaceTestLog.value(name, 'bytes immutable after repeats', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0080
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0080
+     * @tc.desc default replacement, ASCII between invalid parts
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0080',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0080';
+        InterfaceTestLog.begin(name, 'default replacement, ASCII between invalid parts');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'default is nonfatal', !decoder.fatal);
+        expect(!decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x50, 0xE2, 0x28, 0xA1]);
+        const snapshot: string = bytes.join(',');
+        const expected: string = 'P\uFFFD(\uFFFD';
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty stream flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        const body: string = decoder.decodeToString(bytes, { stream: false });
+        const bodyExpected: string = 'P\uFFFD(\uFFFD';
+        InterfaceTestLog.value(name, 'malformed or pending body', bodyExpected, body);
+        expect(body).assertEqual(bodyExpected);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        const flushExpected: string = '';
+        InterfaceTestLog.value(name, 'pending maximal subpart on flush', flushExpected, flush);
+        expect(flush).assertEqual(flushExpected);
+        const joined: string = body + flush;
+        InterfaceTestLog.value(name, 'complete replacement oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'full replacement UTF16 length', 4, joined.length);
+        expect(joined.length).assertEqual(4);
+        InterfaceTestLog.number(name, 'replacement scalar count', 4, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(4);
+        InterfaceTestLog.number(name, 'exact replacement multiplicity', 2, joined.split('\uFFFD').length - 1);
+        expect(joined.split('\uFFFD').length - 1).assertEqual(2);
+        InterfaceTestLog.value(name, 'malformed byte source unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'malformed source byte count', 4, bytes.length);
+        expect(bytes.length).assertEqual(4);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xE4, 0xB8, 0xAD, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\u4E2D\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const again: string = decoder.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'same malformed bytes new session', expected, again);
+        expect(again).assertEqual(expected);
+        const other: util.TextDecoder = util.TextDecoder.create();
+        const independent: string = other.decodeToString(bytes);
+        InterfaceTestLog.value(name, 'new decoder same fixed oracle', expected, independent);
+        expect(independent).assertEqual(expected);
+        InterfaceTestLog.value(name, 'bytes immutable after repeats', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0081
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0081
+     * @tc.desc fatal true throws and same-instance recovery, isolated continuation
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0081',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0081';
+        InterfaceTestLog.begin(name, 'fatal true throws and same-instance recovery, isolated continuation');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal is true', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x61, 0x80]);
+        const snapshot: string = bytes.join(',');
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'strict empty flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        let threw: boolean = false;
+        try {
+          decoder.decodeToString(bytes, { stream: false });
+        } catch {
+          threw = true;
+        }
+        InterfaceTestLog.flag(name, 'invalid UTF8 raises an exception', threw);
+        InterfaceTestLog.flag(name, 'invalid UTF8 throws', threw);
+        InterfaceTestLog.value(name, 'strict error leaves bytes unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'strict input byte count', 2, bytes.length);
+        expect(bytes.length).assertEqual(2);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x98, 0x80, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDE00\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const fresh: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        const freshResult: string = fresh.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'fresh strict decoder independent', reuseExpected, freshResult);
+        expect(freshResult).assertEqual(reuseExpected);
+        let repeatThrew: boolean = false;
+        try {
+          decoder.decodeToString(bytes);
+        } catch {
+          repeatThrew = true;
+        }
+        InterfaceTestLog.flag(name, 'repeat malformed input still throws', repeatThrew);
+        InterfaceTestLog.flag(name, 'repeat malformed input throws', repeatThrew);
+        const recoveredAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'second recovery has exact content', reuseExpected, recoveredAgain);
+        expect(recoveredAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.number(name, 'second recovery length', 4, recoveredAgain.length);
+        expect(recoveredAgain.length).assertEqual(4);
+        const endFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty flush after second recovery', '', endFlush);
+        expect(endFlush).assertEqual('');
+        InterfaceTestLog.value(name, 'strict input final immutable', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'strict mode retained after errors', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0082
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0082
+     * @tc.desc fatal true throws and same-instance recovery, forbidden FF
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0082',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0082';
+        InterfaceTestLog.begin(name, 'fatal true throws and same-instance recovery, forbidden FF');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal is true', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x62, 0xFF]);
+        const snapshot: string = bytes.join(',');
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'strict empty flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        let threw: boolean = false;
+        try {
+          decoder.decodeToString(bytes, { stream: false });
+        } catch {
+          threw = true;
+        }
+        InterfaceTestLog.flag(name, 'invalid UTF8 raises an exception', threw);
+        InterfaceTestLog.flag(name, 'invalid UTF8 throws', threw);
+        InterfaceTestLog.value(name, 'strict error leaves bytes unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'strict input byte count', 2, bytes.length);
+        expect(bytes.length).assertEqual(2);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x98, 0x80, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDE00\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const fresh: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        const freshResult: string = fresh.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'fresh strict decoder independent', reuseExpected, freshResult);
+        expect(freshResult).assertEqual(reuseExpected);
+        let repeatThrew: boolean = false;
+        try {
+          decoder.decodeToString(bytes);
+        } catch {
+          repeatThrew = true;
+        }
+        InterfaceTestLog.flag(name, 'repeat malformed input still throws', repeatThrew);
+        InterfaceTestLog.flag(name, 'repeat malformed input throws', repeatThrew);
+        const recoveredAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'second recovery has exact content', reuseExpected, recoveredAgain);
+        expect(recoveredAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.number(name, 'second recovery length', 4, recoveredAgain.length);
+        expect(recoveredAgain.length).assertEqual(4);
+        const endFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty flush after second recovery', '', endFlush);
+        expect(endFlush).assertEqual('');
+        InterfaceTestLog.value(name, 'strict input final immutable', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'strict mode retained after errors', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0083
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0083
+     * @tc.desc fatal true throws and same-instance recovery, overlong two byte
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0083',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0083';
+        InterfaceTestLog.begin(name, 'fatal true throws and same-instance recovery, overlong two byte');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal is true', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x63, 0xC0, 0xAF]);
+        const snapshot: string = bytes.join(',');
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'strict empty flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        let threw: boolean = false;
+        try {
+          decoder.decodeToString(bytes, { stream: false });
+        } catch {
+          threw = true;
+        }
+        InterfaceTestLog.flag(name, 'invalid UTF8 raises an exception', threw);
+        InterfaceTestLog.flag(name, 'invalid UTF8 throws', threw);
+        InterfaceTestLog.value(name, 'strict error leaves bytes unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'strict input byte count', 3, bytes.length);
+        expect(bytes.length).assertEqual(3);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x98, 0x80, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDE00\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const fresh: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        const freshResult: string = fresh.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'fresh strict decoder independent', reuseExpected, freshResult);
+        expect(freshResult).assertEqual(reuseExpected);
+        let repeatThrew: boolean = false;
+        try {
+          decoder.decodeToString(bytes);
+        } catch {
+          repeatThrew = true;
+        }
+        InterfaceTestLog.flag(name, 'repeat malformed input still throws', repeatThrew);
+        InterfaceTestLog.flag(name, 'repeat malformed input throws', repeatThrew);
+        const recoveredAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'second recovery has exact content', reuseExpected, recoveredAgain);
+        expect(recoveredAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.number(name, 'second recovery length', 4, recoveredAgain.length);
+        expect(recoveredAgain.length).assertEqual(4);
+        const endFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty flush after second recovery', '', endFlush);
+        expect(endFlush).assertEqual('');
+        InterfaceTestLog.value(name, 'strict input final immutable', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'strict mode retained after errors', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0084
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0084
+     * @tc.desc fatal true throws and same-instance recovery, overlong three byte
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0084',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0084';
+        InterfaceTestLog.begin(name, 'fatal true throws and same-instance recovery, overlong three byte');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal is true', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x64, 0xE0, 0x80, 0x80]);
+        const snapshot: string = bytes.join(',');
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'strict empty flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        let threw: boolean = false;
+        try {
+          decoder.decodeToString(bytes, { stream: false });
+        } catch {
+          threw = true;
+        }
+        InterfaceTestLog.flag(name, 'invalid UTF8 raises an exception', threw);
+        InterfaceTestLog.flag(name, 'invalid UTF8 throws', threw);
+        InterfaceTestLog.value(name, 'strict error leaves bytes unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'strict input byte count', 4, bytes.length);
+        expect(bytes.length).assertEqual(4);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x98, 0x80, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDE00\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const fresh: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        const freshResult: string = fresh.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'fresh strict decoder independent', reuseExpected, freshResult);
+        expect(freshResult).assertEqual(reuseExpected);
+        let repeatThrew: boolean = false;
+        try {
+          decoder.decodeToString(bytes);
+        } catch {
+          repeatThrew = true;
+        }
+        InterfaceTestLog.flag(name, 'repeat malformed input still throws', repeatThrew);
+        InterfaceTestLog.flag(name, 'repeat malformed input throws', repeatThrew);
+        const recoveredAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'second recovery has exact content', reuseExpected, recoveredAgain);
+        expect(recoveredAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.number(name, 'second recovery length', 4, recoveredAgain.length);
+        expect(recoveredAgain.length).assertEqual(4);
+        const endFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty flush after second recovery', '', endFlush);
+        expect(endFlush).assertEqual('');
+        InterfaceTestLog.value(name, 'strict input final immutable', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'strict mode retained after errors', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0085
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0085
+     * @tc.desc fatal true throws and same-instance recovery, encoded surrogate
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0085',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0085';
+        InterfaceTestLog.begin(name, 'fatal true throws and same-instance recovery, encoded surrogate');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal is true', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x65, 0xED, 0xA0, 0x80]);
+        const snapshot: string = bytes.join(',');
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'strict empty flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        let threw: boolean = false;
+        try {
+          decoder.decodeToString(bytes, { stream: false });
+        } catch {
+          threw = true;
+        }
+        InterfaceTestLog.flag(name, 'invalid UTF8 raises an exception', threw);
+        InterfaceTestLog.flag(name, 'invalid UTF8 throws', threw);
+        InterfaceTestLog.value(name, 'strict error leaves bytes unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'strict input byte count', 4, bytes.length);
+        expect(bytes.length).assertEqual(4);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x98, 0x80, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDE00\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const fresh: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        const freshResult: string = fresh.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'fresh strict decoder independent', reuseExpected, freshResult);
+        expect(freshResult).assertEqual(reuseExpected);
+        let repeatThrew: boolean = false;
+        try {
+          decoder.decodeToString(bytes);
+        } catch {
+          repeatThrew = true;
+        }
+        InterfaceTestLog.flag(name, 'repeat malformed input still throws', repeatThrew);
+        InterfaceTestLog.flag(name, 'repeat malformed input throws', repeatThrew);
+        const recoveredAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'second recovery has exact content', reuseExpected, recoveredAgain);
+        expect(recoveredAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.number(name, 'second recovery length', 4, recoveredAgain.length);
+        expect(recoveredAgain.length).assertEqual(4);
+        const endFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty flush after second recovery', '', endFlush);
+        expect(endFlush).assertEqual('');
+        InterfaceTestLog.value(name, 'strict input final immutable', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'strict mode retained after errors', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0086
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0086
+     * @tc.desc fatal true throws and same-instance recovery, above maximum
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0086',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0086';
+        InterfaceTestLog.begin(name, 'fatal true throws and same-instance recovery, above maximum');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal is true', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x66, 0xF4, 0x90, 0x80, 0x80]);
+        const snapshot: string = bytes.join(',');
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'strict empty flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        let threw: boolean = false;
+        try {
+          decoder.decodeToString(bytes, { stream: false });
+        } catch {
+          threw = true;
+        }
+        InterfaceTestLog.flag(name, 'invalid UTF8 raises an exception', threw);
+        InterfaceTestLog.flag(name, 'invalid UTF8 throws', threw);
+        InterfaceTestLog.value(name, 'strict error leaves bytes unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'strict input byte count', 5, bytes.length);
+        expect(bytes.length).assertEqual(5);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x98, 0x80, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDE00\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const fresh: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        const freshResult: string = fresh.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'fresh strict decoder independent', reuseExpected, freshResult);
+        expect(freshResult).assertEqual(reuseExpected);
+        let repeatThrew: boolean = false;
+        try {
+          decoder.decodeToString(bytes);
+        } catch {
+          repeatThrew = true;
+        }
+        InterfaceTestLog.flag(name, 'repeat malformed input still throws', repeatThrew);
+        InterfaceTestLog.flag(name, 'repeat malformed input throws', repeatThrew);
+        const recoveredAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'second recovery has exact content', reuseExpected, recoveredAgain);
+        expect(recoveredAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.number(name, 'second recovery length', 4, recoveredAgain.length);
+        expect(recoveredAgain.length).assertEqual(4);
+        const endFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty flush after second recovery', '', endFlush);
+        expect(endFlush).assertEqual('');
+        InterfaceTestLog.value(name, 'strict input final immutable', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'strict mode retained after errors', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0087
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0087
+     * @tc.desc fatal true throws and same-instance recovery, forbidden F5
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0087',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0087';
+        InterfaceTestLog.begin(name, 'fatal true throws and same-instance recovery, forbidden F5');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal is true', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x67, 0xF5, 0x80, 0x80, 0x80]);
+        const snapshot: string = bytes.join(',');
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'strict empty flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        let threw: boolean = false;
+        try {
+          decoder.decodeToString(bytes, { stream: false });
+        } catch {
+          threw = true;
+        }
+        InterfaceTestLog.flag(name, 'invalid UTF8 raises an exception', threw);
+        InterfaceTestLog.flag(name, 'invalid UTF8 throws', threw);
+        InterfaceTestLog.value(name, 'strict error leaves bytes unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'strict input byte count', 5, bytes.length);
+        expect(bytes.length).assertEqual(5);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x98, 0x80, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDE00\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const fresh: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        const freshResult: string = fresh.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'fresh strict decoder independent', reuseExpected, freshResult);
+        expect(freshResult).assertEqual(reuseExpected);
+        let repeatThrew: boolean = false;
+        try {
+          decoder.decodeToString(bytes);
+        } catch {
+          repeatThrew = true;
+        }
+        InterfaceTestLog.flag(name, 'repeat malformed input still throws', repeatThrew);
+        InterfaceTestLog.flag(name, 'repeat malformed input throws', repeatThrew);
+        const recoveredAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'second recovery has exact content', reuseExpected, recoveredAgain);
+        expect(recoveredAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.number(name, 'second recovery length', 4, recoveredAgain.length);
+        expect(recoveredAgain.length).assertEqual(4);
+        const endFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty flush after second recovery', '', endFlush);
+        expect(endFlush).assertEqual('');
+        InterfaceTestLog.value(name, 'strict input final immutable', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'strict mode retained after errors', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0091
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0091
+     * @tc.desc fatal true throws and same-instance recovery, ASCII interrupts two byte
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0091',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0091';
+        InterfaceTestLog.begin(name, 'fatal true throws and same-instance recovery, ASCII interrupts two byte');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal is true', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x6B, 0xC2, 0x41]);
+        const snapshot: string = bytes.join(',');
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'strict empty flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        let threw: boolean = false;
+        try {
+          decoder.decodeToString(bytes, { stream: false });
+        } catch {
+          threw = true;
+        }
+        InterfaceTestLog.flag(name, 'invalid UTF8 raises an exception', threw);
+        InterfaceTestLog.flag(name, 'invalid UTF8 throws', threw);
+        InterfaceTestLog.value(name, 'strict error leaves bytes unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'strict input byte count', 3, bytes.length);
+        expect(bytes.length).assertEqual(3);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x98, 0x80, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDE00\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const fresh: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        const freshResult: string = fresh.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'fresh strict decoder independent', reuseExpected, freshResult);
+        expect(freshResult).assertEqual(reuseExpected);
+        let repeatThrew: boolean = false;
+        try {
+          decoder.decodeToString(bytes);
+        } catch {
+          repeatThrew = true;
+        }
+        InterfaceTestLog.flag(name, 'repeat malformed input still throws', repeatThrew);
+        InterfaceTestLog.flag(name, 'repeat malformed input throws', repeatThrew);
+        const recoveredAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'second recovery has exact content', reuseExpected, recoveredAgain);
+        expect(recoveredAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.number(name, 'second recovery length', 4, recoveredAgain.length);
+        expect(recoveredAgain.length).assertEqual(4);
+        const endFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty flush after second recovery', '', endFlush);
+        expect(endFlush).assertEqual('');
+        InterfaceTestLog.value(name, 'strict input final immutable', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'strict mode retained after errors', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0092
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0092
+     * @tc.desc fatal true throws and same-instance recovery, ASCII interrupts three byte start
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0092',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0092';
+        InterfaceTestLog.begin(name, 'fatal true throws and same-instance recovery, ASCII interrupts three byte start');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal is true', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x6C, 0xE4, 0x41]);
+        const snapshot: string = bytes.join(',');
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'strict empty flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        let threw: boolean = false;
+        try {
+          decoder.decodeToString(bytes, { stream: false });
+        } catch {
+          threw = true;
+        }
+        InterfaceTestLog.flag(name, 'invalid UTF8 raises an exception', threw);
+        InterfaceTestLog.flag(name, 'invalid UTF8 throws', threw);
+        InterfaceTestLog.value(name, 'strict error leaves bytes unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'strict input byte count', 3, bytes.length);
+        expect(bytes.length).assertEqual(3);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x98, 0x80, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDE00\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const fresh: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        const freshResult: string = fresh.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'fresh strict decoder independent', reuseExpected, freshResult);
+        expect(freshResult).assertEqual(reuseExpected);
+        let repeatThrew: boolean = false;
+        try {
+          decoder.decodeToString(bytes);
+        } catch {
+          repeatThrew = true;
+        }
+        InterfaceTestLog.flag(name, 'repeat malformed input still throws', repeatThrew);
+        InterfaceTestLog.flag(name, 'repeat malformed input throws', repeatThrew);
+        const recoveredAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'second recovery has exact content', reuseExpected, recoveredAgain);
+        expect(recoveredAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.number(name, 'second recovery length', 4, recoveredAgain.length);
+        expect(recoveredAgain.length).assertEqual(4);
+        const endFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty flush after second recovery', '', endFlush);
+        expect(endFlush).assertEqual('');
+        InterfaceTestLog.value(name, 'strict input final immutable', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'strict mode retained after errors', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0093
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0093
+     * @tc.desc fatal true throws and same-instance recovery, ASCII interrupts three byte tail
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0093',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0093';
+        InterfaceTestLog.begin(name, 'fatal true throws and same-instance recovery, ASCII interrupts three byte tail');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal is true', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x6D, 0xE4, 0xB8, 0x41]);
+        const snapshot: string = bytes.join(',');
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'strict empty flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        let threw: boolean = false;
+        try {
+          decoder.decodeToString(bytes, { stream: false });
+        } catch {
+          threw = true;
+        }
+        InterfaceTestLog.flag(name, 'invalid UTF8 raises an exception', threw);
+        InterfaceTestLog.flag(name, 'invalid UTF8 throws', threw);
+        InterfaceTestLog.value(name, 'strict error leaves bytes unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'strict input byte count', 4, bytes.length);
+        expect(bytes.length).assertEqual(4);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x98, 0x80, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDE00\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const fresh: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        const freshResult: string = fresh.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'fresh strict decoder independent', reuseExpected, freshResult);
+        expect(freshResult).assertEqual(reuseExpected);
+        let repeatThrew: boolean = false;
+        try {
+          decoder.decodeToString(bytes);
+        } catch {
+          repeatThrew = true;
+        }
+        InterfaceTestLog.flag(name, 'repeat malformed input still throws', repeatThrew);
+        InterfaceTestLog.flag(name, 'repeat malformed input throws', repeatThrew);
+        const recoveredAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'second recovery has exact content', reuseExpected, recoveredAgain);
+        expect(recoveredAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.number(name, 'second recovery length', 4, recoveredAgain.length);
+        expect(recoveredAgain.length).assertEqual(4);
+        const endFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty flush after second recovery', '', endFlush);
+        expect(endFlush).assertEqual('');
+        InterfaceTestLog.value(name, 'strict input final immutable', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'strict mode retained after errors', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0094
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0094
+     * @tc.desc fatal true throws and same-instance recovery, ASCII interrupts four byte
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0094',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0094';
+        InterfaceTestLog.begin(name, 'fatal true throws and same-instance recovery, ASCII interrupts four byte');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal is true', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x6E, 0xF0, 0x9F, 0x41]);
+        const snapshot: string = bytes.join(',');
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'strict empty flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        let threw: boolean = false;
+        try {
+          decoder.decodeToString(bytes, { stream: false });
+        } catch {
+          threw = true;
+        }
+        InterfaceTestLog.flag(name, 'invalid UTF8 raises an exception', threw);
+        InterfaceTestLog.flag(name, 'invalid UTF8 throws', threw);
+        InterfaceTestLog.value(name, 'strict error leaves bytes unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'strict input byte count', 4, bytes.length);
+        expect(bytes.length).assertEqual(4);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x98, 0x80, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDE00\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const fresh: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        const freshResult: string = fresh.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'fresh strict decoder independent', reuseExpected, freshResult);
+        expect(freshResult).assertEqual(reuseExpected);
+        let repeatThrew: boolean = false;
+        try {
+          decoder.decodeToString(bytes);
+        } catch {
+          repeatThrew = true;
+        }
+        InterfaceTestLog.flag(name, 'repeat malformed input still throws', repeatThrew);
+        InterfaceTestLog.flag(name, 'repeat malformed input throws', repeatThrew);
+        const recoveredAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'second recovery has exact content', reuseExpected, recoveredAgain);
+        expect(recoveredAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.number(name, 'second recovery length', 4, recoveredAgain.length);
+        expect(recoveredAgain.length).assertEqual(4);
+        const endFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty flush after second recovery', '', endFlush);
+        expect(endFlush).assertEqual('');
+        InterfaceTestLog.value(name, 'strict input final immutable', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'strict mode retained after errors', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0095
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0095
+     * @tc.desc fatal true throws and same-instance recovery, two continuations
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0095',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0095';
+        InterfaceTestLog.begin(name, 'fatal true throws and same-instance recovery, two continuations');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal is true', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x6F, 0x80, 0xBF]);
+        const snapshot: string = bytes.join(',');
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'strict empty flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        let threw: boolean = false;
+        try {
+          decoder.decodeToString(bytes, { stream: false });
+        } catch {
+          threw = true;
+        }
+        InterfaceTestLog.flag(name, 'invalid UTF8 raises an exception', threw);
+        InterfaceTestLog.flag(name, 'invalid UTF8 throws', threw);
+        InterfaceTestLog.value(name, 'strict error leaves bytes unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'strict input byte count', 3, bytes.length);
+        expect(bytes.length).assertEqual(3);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x98, 0x80, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDE00\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const fresh: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        const freshResult: string = fresh.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'fresh strict decoder independent', reuseExpected, freshResult);
+        expect(freshResult).assertEqual(reuseExpected);
+        let repeatThrew: boolean = false;
+        try {
+          decoder.decodeToString(bytes);
+        } catch {
+          repeatThrew = true;
+        }
+        InterfaceTestLog.flag(name, 'repeat malformed input still throws', repeatThrew);
+        InterfaceTestLog.flag(name, 'repeat malformed input throws', repeatThrew);
+        const recoveredAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'second recovery has exact content', reuseExpected, recoveredAgain);
+        expect(recoveredAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.number(name, 'second recovery length', 4, recoveredAgain.length);
+        expect(recoveredAgain.length).assertEqual(4);
+        const endFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty flush after second recovery', '', endFlush);
+        expect(endFlush).assertEqual('');
+        InterfaceTestLog.value(name, 'strict input final immutable', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'strict mode retained after errors', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0096
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0096
+     * @tc.desc fatal true throws and same-instance recovery, ASCII between invalid parts
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0096',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0096';
+        InterfaceTestLog.begin(name, 'fatal true throws and same-instance recovery, ASCII between invalid parts');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal is true', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const bytes: Uint8Array = new Uint8Array([0x70, 0xE2, 0x28, 0xA1]);
+        const snapshot: string = bytes.join(',');
+        const initialFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'strict empty flush', '', initialFlush);
+        expect(initialFlush).assertEqual('');
+        let threw: boolean = false;
+        try {
+          decoder.decodeToString(bytes, { stream: false });
+        } catch {
+          threw = true;
+        }
+        InterfaceTestLog.flag(name, 'invalid UTF8 raises an exception', threw);
+        InterfaceTestLog.flag(name, 'invalid UTF8 throws', threw);
+        InterfaceTestLog.value(name, 'strict error leaves bytes unchanged', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.number(name, 'strict input byte count', 4, bytes.length);
+        expect(bytes.length).assertEqual(4);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x98, 0x80, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDE00\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        const fresh: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        const freshResult: string = fresh.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'fresh strict decoder independent', reuseExpected, freshResult);
+        expect(freshResult).assertEqual(reuseExpected);
+        let repeatThrew: boolean = false;
+        try {
+          decoder.decodeToString(bytes);
+        } catch {
+          repeatThrew = true;
+        }
+        InterfaceTestLog.flag(name, 'repeat malformed input still throws', repeatThrew);
