@@ -38,6 +38,8 @@ struct AudioPlaybackIndex {
   @State message: string = 'ContinuousTask';
   // 通过getUIContext().getHostContext()方法，来获取page所在的UIAbility上下文
   private context: Context | undefined = this.getUIContext().getHostContext();
+  private audioTaskOperation: Promise<void> = Promise.resolve();
+  private audioTaskVersion: number = 0;
 
   // [StartExclude continuous_task]
   @State isSwitching: boolean = false;
@@ -51,16 +53,14 @@ struct AudioPlaybackIndex {
     if (PlayerModel.isPlaying) {
       PlayerModel.pauseMusic();
       // cancel continuous task
-      this.stopContinuousTask();
       PlayerModel.isPlaying = false;
+      this.stopContinuousTask(false);
     } else {
       PlayerModel.preLoad(PlayerModel.playerIndex, this.context as common.UIAbilityContext, () => {
         PlayerModel.playMusic(-1, true, this.context as common.UIAbilityContext);
         // start continuous task
         PlayerModel.isPlaying = true;
-        if (!this.checkHaveAuidioPlaybackTask()) {
-          this.startContinuousTask();
-        }
+        this.startContinuousTask(false);
       })
     }
   }
@@ -81,9 +81,7 @@ struct AudioPlaybackIndex {
       PlayerModel.playMusic(0, true, this.context as common.UIAbilityContext);
       this.isSwitching = false;
       PlayerModel.isPlaying = true;
-      if (!this.checkHaveAuidioPlaybackTask()) {
-        this.startContinuousTask();
-      }
+      this.startContinuousTask(false);
     })
   }
 
@@ -103,36 +101,15 @@ struct AudioPlaybackIndex {
       PlayerModel.playMusic(0, true, this.context as common.UIAbilityContext);
       this.isSwitching = false;
       PlayerModel.isPlaying = true;
-      if (!this.checkHaveAuidioPlaybackTask()) {
-        this.startContinuousTask();
-      }
+      this.startContinuousTask(false);
     })
   }
 
   // 查询当前UIability是否已经申请过特定类型的长时任务
-  checkHaveAuidioPlaybackTask(): boolean {
-    try {
-      backgroundTaskManager.getAllContinuousTasks(this.context, false).
-      then((info: backgroundTaskManager.ContinuousTaskInfo[]) => {
-        console.info(`Operation getAllContinuousTasks succeeded. data: ` + JSON.stringify(info));
-        let index: number = 0;
-        for (index = 0; index < info.length; index++) {
-          if (info[index].backgroundModes.indexOf('audioPlayback') != 0) {
-            return true;
-          } else {
-            console.info(`current have audioplyback continuous task.`);
-          }
-        }
-        return false;
-      }).catch((error: BusinessError) => {
-        console.error(`Operation getAllContinuousTasks failed. code is ${error.code} message is ${error.message}`);
-        return false;
-      });
-    } catch (error) {
-      console.error(`Operation getAllContinuousTasks failed. code is ${(error as BusinessError).code} message is ${(error as BusinessError).message}`);
-      return false;
-    }
-    return false;
+  private hasAudioPlaybackTask(context: Context): Promise<boolean> {
+    return backgroundTaskManager.getAllContinuousTasks(context, false).then((tasks) => {
+      return tasks.some((task) => task.backgroundModes.includes('audioPlayback'));
+    });
   }
 
   aboutToAppear() {
@@ -162,7 +139,7 @@ struct AudioPlaybackIndex {
   }
 
   // 申请长时任务.then()写法
-  startContinuousTask() {
+  startContinuousTask(playOnSuccess: boolean = true): void {
     let wantAgentInfo: wantAgent.WantAgentInfo = {
       // 点击通知后，将要执行的动作列表
       // 添加需要被拉起应用的bundleName和abilityName
@@ -185,46 +162,63 @@ struct AudioPlaybackIndex {
       // }
     };
 
-    try {
-      // 通过wantAgent模块下getWantAgent方法获取WantAgent对象
-      // 在原子化服务中，使用wantAgent.getWantAgent(wantAgentInfo).then((wantAgentObj: object) => {替换下面一行代码
-      wantAgent.getWantAgent(wantAgentInfo).then((wantAgentObj: WantAgent) => {
-        try {
+    const context = this.context;
+    if (context === undefined) {
+      return;
+    }
+    const version: number = this.audioTaskVersion;
+    this.audioTaskOperation = this.audioTaskOperation.then(() => {
+      if (version !== this.audioTaskVersion) {
+        return;
+      }
+      return this.hasAudioPlaybackTask(context).then((hasTask: boolean) => {
+        if (hasTask || version !== this.audioTaskVersion) {
+          return;
+        }
+        // 通过wantAgent模块下getWantAgent方法获取WantAgent对象
+        // 在原子化服务中，请将回调参数的WantAgent类型替换为object。
+        return wantAgent.getWantAgent(wantAgentInfo).then((wantAgentObj: WantAgent) => {
+          if (version !== this.audioTaskVersion) {
+            return;
+          }
           let list: string[] = ['audioPlayback'];
           // let list: string[] = ['bluetoothInteraction']; 长时任务类型包含bluetoothInteraction，CAR_KEY子类型合法
-          backgroundTaskManager.startBackgroundRunning(this.context, list, wantAgentObj).
-            then((res: backgroundTaskManager.ContinuousTaskNotification) => {
+          return backgroundTaskManager.startBackgroundRunning(context, list, wantAgentObj).then(() => {
             console.info('Operation startBackgroundRunning succeeded');
             // 此处执行具体的长时任务逻辑，如播音等。
             // 系统会对业务场景的真实性进行检测，如果没有实际执行对应的业务，系统可能会取消对应的长时任务并挂起应用。
             // [StartExclude continuous_task]
-            if (!PlayerModel.isPlaying) {
+            if (playOnSuccess && version === this.audioTaskVersion && !PlayerModel.isPlaying) {
               this.onPlayClick();
             }
             // [EndExclude continuous_task]
-          }).catch((error: BusinessError) => {
-            console.error(`Failed to Operation startBackgroundRunning. code is ${error.code} message is ${error.message}`);
           });
-        } catch (error) {
-          console.error(`Failed to Operation startBackgroundRunning. code is ${(error as BusinessError).code} message is ${(error as BusinessError).message}`);
-        }
+        });
       });
-    } catch (error) {
-      console.error(`Failed to Operation getWantAgent. code is ${(error as BusinessError).code} message is ${(error as BusinessError).message}`);
-    }
+    }).catch((error: BusinessError) => {
+      console.error(`Failed to ensure an audio playback task. Code is ${error.code}, message is ${error.message}`);
+    });
   }
 
   // 取消长时任务.then()写法
-  stopContinuousTask() {
-    backgroundTaskManager.stopBackgroundRunning(this.context).then(() => {
-      console.info(`Succeeded in operationing stopBackgroundRunning.`);
-      // [StartExclude continuous_task]
-      if (PlayerModel.isPlaying) {
-        this.onPlayClick();
-      }
-      // [EndExclude continuous_task]
-    }).catch((err: BusinessError) => {
-      console.error(`Failed to operation stopBackgroundRunning. Code is ${err.code}, message is ${err.message}`);
+  stopContinuousTask(pauseOnSuccess: boolean = true): void {
+    const context = this.context;
+    if (context === undefined) {
+      return;
+    }
+    const version: number = ++this.audioTaskVersion;
+    this.audioTaskOperation = this.audioTaskOperation.then(() => {
+      return backgroundTaskManager.stopBackgroundRunning(context).then(() => {
+        console.info('Operation stopBackgroundRunning succeeded');
+        // [StartExclude continuous_task]
+        if (pauseOnSuccess && version === this.audioTaskVersion && PlayerModel.isPlaying) {
+          PlayerModel.pauseMusic();
+          PlayerModel.isPlaying = false;
+        }
+        // [EndExclude continuous_task]
+      });
+    }).catch((error: BusinessError) => {
+      console.error(`Failed to stop the audio playback task. Code is ${error.code}, message is ${error.message}`);
     });
   }
 
