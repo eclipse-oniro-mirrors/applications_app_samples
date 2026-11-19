@@ -13,7 +13,13 @@
  * limitations under the License.
  */
 import appTest from './App.test';
+import dataUtilLogicTest from './DataUtilLogic.test';
+import dataModelsLogicTest from './DataModelsLogic.test';
+import breakpointTypeLogicTest from './BreakpointTypeLogic.test';
 
 export default function testsuite() {
   appTest();
+  dataUtilLogicTest();
+  dataModelsLogicTest();
+  breakpointTypeLogicTest();
 }

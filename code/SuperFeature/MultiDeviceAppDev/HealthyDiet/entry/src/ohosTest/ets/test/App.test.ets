@@ -16,20 +16,22 @@ import { describe, it, expect } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import Logger from '../util/Logger';
+import Want from '@ohos.app.ability.Want';
+import { BusinessError } from '@ohos.base';
 
 const BUNDLE = 'HealthyDiet_';
 const TAG = 'AppTestPage';
 let abilityDelegatorRegistry = AbilityDelegatorRegistry.getAbilityDelegator();
 
 export default function appTest() {
-  describe('appTest', function () {
-    it(BUNDLE + 'StartAbility_001', 0, async function (done) {
+  describe('appTest', () => {
+    it(BUNDLE + 'StartAbility_001', 0, async (done: Function) => {
       Logger.info(TAG, 'StartAbility start')
-      let want = {
+      let want: Want = {
         bundleName: 'ohos.samples.healthy_diet',
         abilityName: 'MainAbility'
       }
-      abilityDelegatorRegistry.startAbility(want, (err, data) => {
+      abilityDelegatorRegistry.startAbility(want, (err: BusinessError, data: void) => {
         Logger.info(TAG, `StartAbility get err ${JSON.stringify(err)}`);
         done()
         Logger.info(TAG, 'StartAbility end');
@@ -39,7 +41,7 @@ export default function appTest() {
     /**
      * 点击食物进入详情页面并记录食物，用例只支持RK3568
      */
-    it(BUNDLE + 'IndexPage_EnterFoodDetail_001', 0, async function () {
+    it(BUNDLE + 'IndexPage_EnterFoodDetail_001', 0, async () => {
       Logger.info(TAG, 'IndexPage_EnterFoodDetail_001 start');
       let driver = Driver.create();
       await driver.delayMs(5000);
@@ -57,20 +59,20 @@ export default function appTest() {
     /**
      * 配置饮食标准，用例只支持RK3568
      */
-    it(BUNDLE + 'FoodDetailPage_SetDiet_001', 0, async function () {
+    it(BUNDLE + 'FoodDetailPage_SetDiet_001', 0, async () => {
       Logger.info(TAG, 'FoodDetailPage_SetDiet_001 start');
       let driver = Driver.create();
       await driver.delayMs(1000);
       // 查看食物详细信息
       for (let i = 0;i < 4; i++) {
-        // 坐标基于rk3568
-        await driver.swipe(400, 829, 320, 829, 600);
+        // Coordinates are based on RK3568 (picker area inside dialog to avoid click-through)
+        await driver.swipe(400, 1000, 320, 1000, 600);
         await driver.delayMs(1000);
       }
       // 设置饮食，用例只支持RK3568
-      await driver.swipe(360, 960, 360, 900, 600);
+      await driver.swipe(360, 1000, 360, 940, 600);
       await driver.delayMs(1000);
-      await driver.swipe(559, 960, 559, 900, 600);
+      await driver.swipe(559, 1000, 559, 940, 600);
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.id('complete'));
       let complete = await driver.findComponent(ON.id('complete'));
@@ -86,7 +88,7 @@ export default function appTest() {
     /**
      * 删除记录，用例只支持RK3568
      */
-    it(BUNDLE + 'RecordPage_DeleteRecord_001', 0, async function () {
+    it(BUNDLE + 'RecordPage_DeleteRecord_001', 0, async () => {
       Logger.info(TAG, 'FoodDetailPage_SetDiet_001 start');
       let driver = Driver.create();
       await driver.delayMs(1000);
@@ -117,7 +119,7 @@ export default function appTest() {
     /**
      * 切换到食物列表
      */
-    it(BUNDLE + 'IndexPage_SwitchFoodList_001', 0, async function () {
+    it(BUNDLE + 'IndexPage_SwitchFoodList_001', 0, async () => {
       Logger.info(TAG, 'IndexPage_SwitchFoodList_001 start');
       let driver = Driver.create();
       await driver.delayMs(1000);
@@ -131,6 +133,15 @@ export default function appTest() {
       let ability = await abilityDelegatorRegistry.getCurrentTopAbility();
       let resourceManager = ability.context.resourceManager;
       let foodName = await resourceManager.getStringValue($r('app.string.food_name_avocado'));
+      // Avocado is off screen, scroll the list first
+      for (let i = 0;i < 5; i++) {
+        await driver.swipe(360, 900, 360, 300, 600);
+        await driver.delayMs(500);
+        let found = await driver.findComponent(ON.text(foodName));
+        if (found !== undefined && found !== null) {
+          break;
+        }
+      }
       await driver.assertComponentExist(ON.text(foodName));
       let avocado = await driver.findComponent(ON.text(foodName));
       await avocado.click();
