@@ -13,16 +13,19 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_CustomNotification]';
 
 @Entry
 @Component
 struct Index {
-  aboutToAppear() {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility index aboutToAppear');
-  }
   @State message: string = 'Hello World';
+
+  aboutToAppear(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility index aboutToAppear');
+  }
 
   build() {
     Row() {
@@ -39,7 +42,7 @@ struct Index {
         .margin({
           top: 20
         })
-        .backgroundColor('#0D9FFB')
+        .backgroundColor($r('app.color.test_button_background'))
         .width('35%')
         .height('5%')
         .onClick(() => {

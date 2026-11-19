@@ -26,10 +26,14 @@
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:test_pages",
+    "testRunner": {
+      "name": "OpenHarmonyTestRunner",
+      "srcPath": "./ets/TestRunner/OpenHarmonyTestRunner.ts"
+    },
     "abilities": [
       {
         "name": "TestAbility",
-        "srcEntrance": "./ets/testability/TestAbility.ets",
+        "srcEntry": "./ets/testability/TestAbility.ets",
         "description": "$string:testAbility_desc",
         "icon": "$media:icon",
         "label": "$string:testAbility_label",
