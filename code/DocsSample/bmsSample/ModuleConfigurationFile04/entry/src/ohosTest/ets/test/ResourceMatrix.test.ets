@@ -2707,3 +2707,1483 @@ export default function ResourceMatrixTest(): void {
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixIntegerUpper',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'integer' + ':' + 'AppName';
+      TestLog.text('testResourceMatrixIntegerUpper', 'case begin', 'resource kind integer with name upper');
+      TestLog.step('testResourceMatrixIntegerUpper', 'resource kind integer with name upper');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixIntegerUpper', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixIntegerUpper', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixIntegerUpper', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixIntegerUpper', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixIntegerUpper', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixIntegerUpper', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixIntegerUpper', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixIntegerUpper', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixIntegerUpper', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixIntegerUpper', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixIntegerUpper', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixIntegerUpper', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixIntegerUpper', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixIntegerUpper', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixIntegerUpper', 'case end', 'resource kind integer with name upper');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6644
+     * @tc.name      testResourceMatrixIntegerDigitSuffix
+     * @tc.desc      Checks that the Integer resource reference with name DigitSuffix is validated as
+     * @tc.desc      expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixIntegerDigitSuffix',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'integer' + ':' + 'app_name_2';
+      TestLog.text('testResourceMatrixIntegerDigitSuffix', 'case begin', 'resource kind integer with name digitsuffix');
+      TestLog.step('testResourceMatrixIntegerDigitSuffix', 'resource kind integer with name digitsuffix');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixIntegerDigitSuffix', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixIntegerDigitSuffix', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixIntegerDigitSuffix', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixIntegerDigitSuffix', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixIntegerDigitSuffix', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixIntegerDigitSuffix', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixIntegerDigitSuffix', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixIntegerDigitSuffix', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixIntegerDigitSuffix', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixIntegerDigitSuffix', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixIntegerDigitSuffix', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixIntegerDigitSuffix', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixIntegerDigitSuffix', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixIntegerDigitSuffix', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixIntegerDigitSuffix', 'case end', 'resource kind integer with name digitsuffix');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6645
+     * @tc.name      testResourceMatrixIntegerLeadingDigit
+     * @tc.desc      Checks that the Integer resource reference with name LeadingDigit is validated as
+     * @tc.desc      expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixIntegerLeadingDigit',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'integer' + ':' + '1app';
+      TestLog.text('testResourceMatrixIntegerLeadingDigit', 
+        'case begin', 'resource kind integer with name leadingdigit');
+      TestLog.step('testResourceMatrixIntegerLeadingDigit', 'resource kind integer with name leadingdigit');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixIntegerLeadingDigit', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixIntegerLeadingDigit', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_LEADING_DIGIT');
+      TestLog.flag('testResourceMatrixIntegerLeadingDigit', 'has code RESOURCE_REF_LEADING_DIGIT', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixIntegerLeadingDigit', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixIntegerLeadingDigit', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixIntegerLeadingDigit', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixIntegerLeadingDigit', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixIntegerLeadingDigit', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixIntegerLeadingDigit', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixIntegerLeadingDigit', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixIntegerLeadingDigit', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixIntegerLeadingDigit', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixIntegerLeadingDigit', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixIntegerLeadingDigit', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixIntegerLeadingDigit', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixIntegerLeadingDigit', 'case end', 'resource kind integer with name leadingdigit');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6646
+     * @tc.name      testResourceMatrixIntegerHyphen
+     * @tc.desc      Checks that the Integer resource reference with name Hyphen is validated as expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixIntegerHyphen',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'integer' + ':' + 'app-name';
+      TestLog.text('testResourceMatrixIntegerHyphen', 'case begin', 'resource kind integer with name hyphen');
+      TestLog.step('testResourceMatrixIntegerHyphen', 'resource kind integer with name hyphen');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixIntegerHyphen', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixIntegerHyphen', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_ILLEGAL_NAME');
+      TestLog.flag('testResourceMatrixIntegerHyphen', 'has code RESOURCE_REF_ILLEGAL_NAME', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixIntegerHyphen', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixIntegerHyphen', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixIntegerHyphen', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixIntegerHyphen', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixIntegerHyphen', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixIntegerHyphen', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixIntegerHyphen', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixIntegerHyphen', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixIntegerHyphen', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixIntegerHyphen', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixIntegerHyphen', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixIntegerHyphen', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixIntegerHyphen', 'case end', 'resource kind integer with name hyphen');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6647
+     * @tc.name      testResourceMatrixIntegerEmpty
+     * @tc.desc      Checks that the Integer resource reference with name Empty is validated as expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixIntegerEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'integer' + ':' + '';
+      TestLog.text('testResourceMatrixIntegerEmpty', 'case begin', 'resource kind integer with name empty');
+      TestLog.step('testResourceMatrixIntegerEmpty', 'resource kind integer with name empty');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixIntegerEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixIntegerEmpty', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY_NAME');
+      TestLog.flag('testResourceMatrixIntegerEmpty', 'has code RESOURCE_REF_EMPTY_NAME', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixIntegerEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixIntegerEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixIntegerEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixIntegerEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixIntegerEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixIntegerEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixIntegerEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixIntegerEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixIntegerEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixIntegerEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixIntegerEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixIntegerEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixIntegerEmpty', 'case end', 'resource kind integer with name empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6648
+     * @tc.name      testResourceMatrixPatternSample
+     * @tc.desc      Checks that the Pattern resource reference with name Sample is validated as expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixPatternSample',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'pattern' + ':' + 'app_name';
+      TestLog.text('testResourceMatrixPatternSample', 'case begin', 'resource kind pattern with name sample');
+      TestLog.step('testResourceMatrixPatternSample', 'resource kind pattern with name sample');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixPatternSample', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixPatternSample', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixPatternSample', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixPatternSample', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixPatternSample', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixPatternSample', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixPatternSample', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixPatternSample', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixPatternSample', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixPatternSample', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixPatternSample', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixPatternSample', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixPatternSample', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixPatternSample', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixPatternSample', 'case end', 'resource kind pattern with name sample');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6649
+     * @tc.name      testResourceMatrixPatternUpper
+     * @tc.desc      Checks that the Pattern resource reference with name Upper is validated as expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixPatternUpper',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'pattern' + ':' + 'AppName';
+      TestLog.text('testResourceMatrixPatternUpper', 'case begin', 'resource kind pattern with name upper');
+      TestLog.step('testResourceMatrixPatternUpper', 'resource kind pattern with name upper');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixPatternUpper', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixPatternUpper', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixPatternUpper', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixPatternUpper', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixPatternUpper', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixPatternUpper', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixPatternUpper', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixPatternUpper', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixPatternUpper', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixPatternUpper', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixPatternUpper', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixPatternUpper', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixPatternUpper', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixPatternUpper', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixPatternUpper', 'case end', 'resource kind pattern with name upper');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6650
+     * @tc.name      testResourceMatrixPatternDigitSuffix
+     * @tc.desc      Checks that the Pattern resource reference with name DigitSuffix is validated as
+     * @tc.desc      expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixPatternDigitSuffix',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'pattern' + ':' + 'app_name_2';
+      TestLog.text('testResourceMatrixPatternDigitSuffix', 'case begin', 'resource kind pattern with name digitsuffix');
+      TestLog.step('testResourceMatrixPatternDigitSuffix', 'resource kind pattern with name digitsuffix');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixPatternDigitSuffix', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixPatternDigitSuffix', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixPatternDigitSuffix', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixPatternDigitSuffix', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixPatternDigitSuffix', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixPatternDigitSuffix', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixPatternDigitSuffix', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixPatternDigitSuffix', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixPatternDigitSuffix', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixPatternDigitSuffix', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixPatternDigitSuffix', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixPatternDigitSuffix', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixPatternDigitSuffix', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixPatternDigitSuffix', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixPatternDigitSuffix', 'case end', 'resource kind pattern with name digitsuffix');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6651
+     * @tc.name      testResourceMatrixPatternLeadingDigit
+     * @tc.desc      Checks that the Pattern resource reference with name LeadingDigit is validated as
+     * @tc.desc      expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixPatternLeadingDigit',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'pattern' + ':' + '1app';
+      TestLog.text('testResourceMatrixPatternLeadingDigit', 
+        'case begin', 'resource kind pattern with name leadingdigit');
+      TestLog.step('testResourceMatrixPatternLeadingDigit', 'resource kind pattern with name leadingdigit');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixPatternLeadingDigit', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixPatternLeadingDigit', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_LEADING_DIGIT');
+      TestLog.flag('testResourceMatrixPatternLeadingDigit', 'has code RESOURCE_REF_LEADING_DIGIT', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixPatternLeadingDigit', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixPatternLeadingDigit', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixPatternLeadingDigit', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixPatternLeadingDigit', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixPatternLeadingDigit', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixPatternLeadingDigit', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixPatternLeadingDigit', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixPatternLeadingDigit', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixPatternLeadingDigit', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixPatternLeadingDigit', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixPatternLeadingDigit', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixPatternLeadingDigit', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixPatternLeadingDigit', 'case end', 'resource kind pattern with name leadingdigit');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6652
+     * @tc.name      testResourceMatrixPatternHyphen
+     * @tc.desc      Checks that the Pattern resource reference with name Hyphen is validated as expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixPatternHyphen',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'pattern' + ':' + 'app-name';
+      TestLog.text('testResourceMatrixPatternHyphen', 'case begin', 'resource kind pattern with name hyphen');
+      TestLog.step('testResourceMatrixPatternHyphen', 'resource kind pattern with name hyphen');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixPatternHyphen', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixPatternHyphen', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_ILLEGAL_NAME');
+      TestLog.flag('testResourceMatrixPatternHyphen', 'has code RESOURCE_REF_ILLEGAL_NAME', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixPatternHyphen', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixPatternHyphen', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixPatternHyphen', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixPatternHyphen', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixPatternHyphen', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixPatternHyphen', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixPatternHyphen', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixPatternHyphen', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixPatternHyphen', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixPatternHyphen', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixPatternHyphen', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixPatternHyphen', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixPatternHyphen', 'case end', 'resource kind pattern with name hyphen');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6653
+     * @tc.name      testResourceMatrixPatternEmpty
+     * @tc.desc      Checks that the Pattern resource reference with name Empty is validated as expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixPatternEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'pattern' + ':' + '';
+      TestLog.text('testResourceMatrixPatternEmpty', 'case begin', 'resource kind pattern with name empty');
+      TestLog.step('testResourceMatrixPatternEmpty', 'resource kind pattern with name empty');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixPatternEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixPatternEmpty', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY_NAME');
+      TestLog.flag('testResourceMatrixPatternEmpty', 'has code RESOURCE_REF_EMPTY_NAME', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixPatternEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixPatternEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixPatternEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixPatternEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixPatternEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixPatternEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixPatternEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixPatternEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixPatternEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixPatternEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixPatternEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixPatternEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixPatternEmpty', 'case end', 'resource kind pattern with name empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6654
+     * @tc.name      testResourceMatrixUnknownSample
+     * @tc.desc      Checks that the Unknown resource reference with name Sample is validated as expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixUnknownSample',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'text' + ':' + 'app_name';
+      TestLog.text('testResourceMatrixUnknownSample', 'case begin', 'resource kind unknown with name sample');
+      TestLog.step('testResourceMatrixUnknownSample', 'resource kind unknown with name sample');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixUnknownSample', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixUnknownSample', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_UNKNOWN_KIND');
+      TestLog.flag('testResourceMatrixUnknownSample', 'has code RESOURCE_REF_UNKNOWN_KIND', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixUnknownSample', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixUnknownSample', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixUnknownSample', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixUnknownSample', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixUnknownSample', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixUnknownSample', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixUnknownSample', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixUnknownSample', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixUnknownSample', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixUnknownSample', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixUnknownSample', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixUnknownSample', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixUnknownSample', 'case end', 'resource kind unknown with name sample');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6655
+     * @tc.name      testResourceMatrixUnknownUpper
+     * @tc.desc      Checks that the Unknown resource reference with name Upper is validated as expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixUnknownUpper',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'text' + ':' + 'AppName';
+      TestLog.text('testResourceMatrixUnknownUpper', 'case begin', 'resource kind unknown with name upper');
+      TestLog.step('testResourceMatrixUnknownUpper', 'resource kind unknown with name upper');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixUnknownUpper', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixUnknownUpper', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_UNKNOWN_KIND');
+      TestLog.flag('testResourceMatrixUnknownUpper', 'has code RESOURCE_REF_UNKNOWN_KIND', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixUnknownUpper', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixUnknownUpper', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixUnknownUpper', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixUnknownUpper', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixUnknownUpper', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixUnknownUpper', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixUnknownUpper', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixUnknownUpper', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixUnknownUpper', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixUnknownUpper', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixUnknownUpper', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixUnknownUpper', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixUnknownUpper', 'case end', 'resource kind unknown with name upper');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6656
+     * @tc.name      testResourceMatrixUnknownDigitSuffix
+     * @tc.desc      Checks that the Unknown resource reference with name DigitSuffix is validated as
+     * @tc.desc      expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixUnknownDigitSuffix',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'text' + ':' + 'app_name_2';
+      TestLog.text('testResourceMatrixUnknownDigitSuffix', 'case begin', 'resource kind unknown with name digitsuffix');
+      TestLog.step('testResourceMatrixUnknownDigitSuffix', 'resource kind unknown with name digitsuffix');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixUnknownDigitSuffix', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixUnknownDigitSuffix', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_UNKNOWN_KIND');
+      TestLog.flag('testResourceMatrixUnknownDigitSuffix', 'has code RESOURCE_REF_UNKNOWN_KIND', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixUnknownDigitSuffix', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixUnknownDigitSuffix', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixUnknownDigitSuffix', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixUnknownDigitSuffix', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixUnknownDigitSuffix', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixUnknownDigitSuffix', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixUnknownDigitSuffix', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixUnknownDigitSuffix', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixUnknownDigitSuffix', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixUnknownDigitSuffix', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixUnknownDigitSuffix', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixUnknownDigitSuffix', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixUnknownDigitSuffix', 'case end', 'resource kind unknown with name digitsuffix');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6657
+     * @tc.name      testResourceMatrixUnknownLeadingDigit
+     * @tc.desc      Checks that the Unknown resource reference with name LeadingDigit is validated as
+     * @tc.desc      expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixUnknownLeadingDigit',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'text' + ':' + '1app';
+      TestLog.text('testResourceMatrixUnknownLeadingDigit', 
+        'case begin', 'resource kind unknown with name leadingdigit');
+      TestLog.step('testResourceMatrixUnknownLeadingDigit', 'resource kind unknown with name leadingdigit');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixUnknownLeadingDigit', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixUnknownLeadingDigit', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_UNKNOWN_KIND');
+      TestLog.flag('testResourceMatrixUnknownLeadingDigit', 'has code RESOURCE_REF_UNKNOWN_KIND', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const hasExpected3: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_LEADING_DIGIT');
+      TestLog.flag('testResourceMatrixUnknownLeadingDigit', 'has code RESOURCE_REF_LEADING_DIGIT', hasExpected3);
+      expect(hasExpected3).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixUnknownLeadingDigit', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixUnknownLeadingDigit', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixUnknownLeadingDigit', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixUnknownLeadingDigit', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixUnknownLeadingDigit', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixUnknownLeadingDigit', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixUnknownLeadingDigit', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixUnknownLeadingDigit', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixUnknownLeadingDigit', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixUnknownLeadingDigit', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixUnknownLeadingDigit', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixUnknownLeadingDigit', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixUnknownLeadingDigit', 'case end', 'resource kind unknown with name leadingdigit');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6658
+     * @tc.name      testResourceMatrixUnknownHyphen
+     * @tc.desc      Checks that the Unknown resource reference with name Hyphen is validated as expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixUnknownHyphen',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'text' + ':' + 'app-name';
+      TestLog.text('testResourceMatrixUnknownHyphen', 'case begin', 'resource kind unknown with name hyphen');
+      TestLog.step('testResourceMatrixUnknownHyphen', 'resource kind unknown with name hyphen');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixUnknownHyphen', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixUnknownHyphen', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_UNKNOWN_KIND');
+      TestLog.flag('testResourceMatrixUnknownHyphen', 'has code RESOURCE_REF_UNKNOWN_KIND', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const hasExpected3: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_ILLEGAL_NAME');
+      TestLog.flag('testResourceMatrixUnknownHyphen', 'has code RESOURCE_REF_ILLEGAL_NAME', hasExpected3);
+      expect(hasExpected3).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixUnknownHyphen', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixUnknownHyphen', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixUnknownHyphen', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixUnknownHyphen', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixUnknownHyphen', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixUnknownHyphen', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixUnknownHyphen', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixUnknownHyphen', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixUnknownHyphen', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixUnknownHyphen', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixUnknownHyphen', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixUnknownHyphen', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixUnknownHyphen', 'case end', 'resource kind unknown with name hyphen');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6659
+     * @tc.name      testResourceMatrixUnknownEmpty
+     * @tc.desc      Checks that the Unknown resource reference with name Empty is validated as expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixUnknownEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + 'text' + ':' + '';
+      TestLog.text('testResourceMatrixUnknownEmpty', 'case begin', 'resource kind unknown with name empty');
+      TestLog.step('testResourceMatrixUnknownEmpty', 'resource kind unknown with name empty');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixUnknownEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixUnknownEmpty', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_UNKNOWN_KIND');
+      TestLog.flag('testResourceMatrixUnknownEmpty', 'has code RESOURCE_REF_UNKNOWN_KIND', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const hasExpected3: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY_NAME');
+      TestLog.flag('testResourceMatrixUnknownEmpty', 'has code RESOURCE_REF_EMPTY_NAME', hasExpected3);
+      expect(hasExpected3).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixUnknownEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixUnknownEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixUnknownEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixUnknownEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixUnknownEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixUnknownEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixUnknownEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixUnknownEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixUnknownEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixUnknownEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixUnknownEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixUnknownEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixUnknownEmpty', 'case end', 'resource kind unknown with name empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6660
+     * @tc.name      testResourceMatrixEmptySample
+     * @tc.desc      Checks that the Empty resource reference with name Sample is validated as expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixEmptySample',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + '' + ':' + 'app_name';
+      TestLog.text('testResourceMatrixEmptySample', 'case begin', 'resource kind empty with name sample');
+      TestLog.step('testResourceMatrixEmptySample', 'resource kind empty with name sample');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixEmptySample', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY_KIND');
+      TestLog.flag('testResourceMatrixEmptySample', 'has code RESOURCE_REF_EMPTY_KIND', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixEmptySample', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixEmptySample', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixEmptySample', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixEmptySample', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixEmptySample', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixEmptySample', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixEmptySample', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixEmptySample', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixEmptySample', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixEmptySample', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixEmptySample', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixEmptySample', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixEmptySample', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixEmptySample', 'case end', 'resource kind empty with name sample');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6661
+     * @tc.name      testResourceMatrixEmptyUpper
+     * @tc.desc      Checks that the Empty resource reference with name Upper is validated as expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixEmptyUpper',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + '' + ':' + 'AppName';
+      TestLog.text('testResourceMatrixEmptyUpper', 'case begin', 'resource kind empty with name upper');
+      TestLog.step('testResourceMatrixEmptyUpper', 'resource kind empty with name upper');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixEmptyUpper', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY_KIND');
+      TestLog.flag('testResourceMatrixEmptyUpper', 'has code RESOURCE_REF_EMPTY_KIND', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixEmptyUpper', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixEmptyUpper', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixEmptyUpper', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixEmptyUpper', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixEmptyUpper', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixEmptyUpper', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixEmptyUpper', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixEmptyUpper', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixEmptyUpper', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixEmptyUpper', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixEmptyUpper', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixEmptyUpper', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixEmptyUpper', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixEmptyUpper', 'case end', 'resource kind empty with name upper');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6662
+     * @tc.name      testResourceMatrixEmptyDigitSuffix
+     * @tc.desc      Checks that the Empty resource reference with name DigitSuffix is validated as expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixEmptyDigitSuffix',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + '' + ':' + 'app_name_2';
+      TestLog.text('testResourceMatrixEmptyDigitSuffix', 'case begin', 'resource kind empty with name digitsuffix');
+      TestLog.step('testResourceMatrixEmptyDigitSuffix', 'resource kind empty with name digitsuffix');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixEmptyDigitSuffix', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY_KIND');
+      TestLog.flag('testResourceMatrixEmptyDigitSuffix', 'has code RESOURCE_REF_EMPTY_KIND', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixEmptyDigitSuffix', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixEmptyDigitSuffix', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixEmptyDigitSuffix', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixEmptyDigitSuffix', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixEmptyDigitSuffix', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixEmptyDigitSuffix', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixEmptyDigitSuffix', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixEmptyDigitSuffix', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixEmptyDigitSuffix', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixEmptyDigitSuffix', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixEmptyDigitSuffix', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixEmptyDigitSuffix', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixEmptyDigitSuffix', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixEmptyDigitSuffix', 'case end', 'resource kind empty with name digitsuffix');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6663
+     * @tc.name      testResourceMatrixEmptyLeadingDigit
+     * @tc.desc      Checks that the Empty resource reference with name LeadingDigit is validated as
+     * @tc.desc      expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixEmptyLeadingDigit',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + '' + ':' + '1app';
+      TestLog.text('testResourceMatrixEmptyLeadingDigit', 'case begin', 'resource kind empty with name leadingdigit');
+      TestLog.step('testResourceMatrixEmptyLeadingDigit', 'resource kind empty with name leadingdigit');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixEmptyLeadingDigit', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY_KIND');
+      TestLog.flag('testResourceMatrixEmptyLeadingDigit', 'has code RESOURCE_REF_EMPTY_KIND', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixEmptyLeadingDigit', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const hasExpected3: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_LEADING_DIGIT');
+      TestLog.flag('testResourceMatrixEmptyLeadingDigit', 'has code RESOURCE_REF_LEADING_DIGIT', hasExpected3);
+      expect(hasExpected3).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixEmptyLeadingDigit', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixEmptyLeadingDigit', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixEmptyLeadingDigit', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixEmptyLeadingDigit', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixEmptyLeadingDigit', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixEmptyLeadingDigit', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixEmptyLeadingDigit', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixEmptyLeadingDigit', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixEmptyLeadingDigit', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixEmptyLeadingDigit', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixEmptyLeadingDigit', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixEmptyLeadingDigit', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixEmptyLeadingDigit', 'case end', 'resource kind empty with name leadingdigit');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6664
+     * @tc.name      testResourceMatrixEmptyHyphen
+     * @tc.desc      Checks that the Empty resource reference with name Hyphen is validated as expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixEmptyHyphen',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + '' + ':' + 'app-name';
+      TestLog.text('testResourceMatrixEmptyHyphen', 'case begin', 'resource kind empty with name hyphen');
+      TestLog.step('testResourceMatrixEmptyHyphen', 'resource kind empty with name hyphen');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixEmptyHyphen', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY_KIND');
+      TestLog.flag('testResourceMatrixEmptyHyphen', 'has code RESOURCE_REF_EMPTY_KIND', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixEmptyHyphen', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const hasExpected3: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_ILLEGAL_NAME');
+      TestLog.flag('testResourceMatrixEmptyHyphen', 'has code RESOURCE_REF_ILLEGAL_NAME', hasExpected3);
+      expect(hasExpected3).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixEmptyHyphen', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixEmptyHyphen', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixEmptyHyphen', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixEmptyHyphen', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixEmptyHyphen', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixEmptyHyphen', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixEmptyHyphen', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixEmptyHyphen', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixEmptyHyphen', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixEmptyHyphen', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixEmptyHyphen', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixEmptyHyphen', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixEmptyHyphen', 'case end', 'resource kind empty with name hyphen');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6665
+     * @tc.name      testResourceMatrixEmptyEmpty
+     * @tc.desc      Checks that the Empty resource reference with name Empty is validated as expected.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testResourceMatrixEmptyEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const reference: string = '$' + '' + ':' + '';
+      TestLog.text('testResourceMatrixEmptyEmpty', 'case begin', 'resource kind empty with name empty');
+      TestLog.step('testResourceMatrixEmptyEmpty', 'resource kind empty with name empty');
+      const findings: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.findings('testResourceMatrixEmptyEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY_KIND');
+      TestLog.flag('testResourceMatrixEmptyEmpty', 'has code RESOURCE_REF_EMPTY_KIND', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testResourceMatrixEmptyEmpty', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const hasExpected3: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY_NAME');
+      TestLog.flag('testResourceMatrixEmptyEmpty', 'has code RESOURCE_REF_EMPTY_NAME', hasExpected3);
+      expect(hasExpected3).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testResourceMatrixEmptyEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testResourceMatrixEmptyEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testResourceMatrixEmptyEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testResourceMatrixEmptyEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testResourceMatrixEmptyEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testResourceMatrixEmptyEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testResourceMatrixEmptyEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testResourceMatrixEmptyEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testResourceMatrixEmptyEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testResourceMatrixEmptyEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = ResourceReference.validate(reference, 'string', 'app.label');
+      TestLog.number('testResourceMatrixEmptyEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testResourceMatrixEmptyEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testResourceMatrixEmptyEmpty', 'case end', 'resource kind empty with name empty');
+    })
+
+  })
+}
