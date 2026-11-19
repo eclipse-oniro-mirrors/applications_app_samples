@@ -3969,3 +3969,1674 @@ export default function IntlDateTimeLogic(): void {
      * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0052
      * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
      * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0052',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0052';
+      const input: string = 'en-US; instant=2000-02-28T23:59:59.000Z; options={"year":"numeric","month":"' +
+        'long","day":"numeric","weekday":"long","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 951782399000;
+      const kitDate0: Date = new Date(951782399000);
+      const kitDate1: Date = new Date(951695999000);
+      const kitDate2: Date = new Date(951868799000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(951782399000);
+      const runtimeDate1: Date = new Date(951695999000);
+      const runtimeDate2: Date = new Date(951868799000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'Monday, February 28, 2000', kitText0);
+      expect(kitText0).assertEqual('Monday, February 28, 2000');
+      InterfaceTestLog.value(name, 'kit.format.1', 'Sunday, February 27, 2000', kitText1);
+      expect(kitText1).assertEqual('Sunday, February 27, 2000');
+      InterfaceTestLog.value(name, 'kit.format.2', 'Tuesday, February 29, 2000', kitText2);
+      expect(kitText2).assertEqual('Tuesday, February 29, 2000');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 951782399000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(951782399000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 951695999000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(951695999000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 951868799000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(951868799000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'Monday, February 28, 2000', runtimeText0);
+      expect(runtimeText0).assertEqual('Monday, February 28, 2000');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'Sunday, February 27, 2000', runtimeText1);
+      expect(runtimeText1).assertEqual('Sunday, February 27, 2000');
+      InterfaceTestLog.value(name, 'runtime.format.2', 'Tuesday, February 29, 2000', runtimeText2);
+      expect(runtimeText2).assertEqual('Tuesday, February 29, 2000');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 951782399000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(951782399000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 951695999000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(951695999000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 951868799000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(951868799000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0053
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0053
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0053',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0053';
+      const input: string = 'en-US; instant=2000-02-29T00:00:00.000Z; options={"year":"numeric","month":"' +
+        'long","day":"numeric","weekday":"long","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 951782400000;
+      const kitDate0: Date = new Date(951782400000);
+      const kitDate1: Date = new Date(951696000000);
+      const kitDate2: Date = new Date(951868800000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(951782400000);
+      const runtimeDate1: Date = new Date(951696000000);
+      const runtimeDate2: Date = new Date(951868800000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'Tuesday, February 29, 2000', kitText0);
+      expect(kitText0).assertEqual('Tuesday, February 29, 2000');
+      InterfaceTestLog.value(name, 'kit.format.1', 'Monday, February 28, 2000', kitText1);
+      expect(kitText1).assertEqual('Monday, February 28, 2000');
+      InterfaceTestLog.value(name, 'kit.format.2', 'Wednesday, March 1, 2000', kitText2);
+      expect(kitText2).assertEqual('Wednesday, March 1, 2000');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 951782400000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(951782400000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 951696000000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(951696000000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 951868800000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(951868800000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'Tuesday, February 29, 2000', runtimeText0);
+      expect(runtimeText0).assertEqual('Tuesday, February 29, 2000');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'Monday, February 28, 2000', runtimeText1);
+      expect(runtimeText1).assertEqual('Monday, February 28, 2000');
+      InterfaceTestLog.value(name, 'runtime.format.2', 'Wednesday, March 1, 2000', runtimeText2);
+      expect(runtimeText2).assertEqual('Wednesday, March 1, 2000');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 951782400000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(951782400000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 951696000000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(951696000000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 951868800000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(951868800000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0054
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0054
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0054',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0054';
+      const input: string = 'en-US; instant=2000-03-01T00:00:00.000Z; options={"year":"numeric","month":"' +
+        'long","day":"numeric","weekday":"long","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 951868800000;
+      const kitDate0: Date = new Date(951868800000);
+      const kitDate1: Date = new Date(951782400000);
+      const kitDate2: Date = new Date(951955200000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(951868800000);
+      const runtimeDate1: Date = new Date(951782400000);
+      const runtimeDate2: Date = new Date(951955200000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'Wednesday, March 1, 2000', kitText0);
+      expect(kitText0).assertEqual('Wednesday, March 1, 2000');
+      InterfaceTestLog.value(name, 'kit.format.1', 'Tuesday, February 29, 2000', kitText1);
+      expect(kitText1).assertEqual('Tuesday, February 29, 2000');
+      InterfaceTestLog.value(name, 'kit.format.2', 'Thursday, March 2, 2000', kitText2);
+      expect(kitText2).assertEqual('Thursday, March 2, 2000');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 951868800000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(951868800000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 951782400000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(951782400000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 951955200000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(951955200000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'Wednesday, March 1, 2000', runtimeText0);
+      expect(runtimeText0).assertEqual('Wednesday, March 1, 2000');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'Tuesday, February 29, 2000', runtimeText1);
+      expect(runtimeText1).assertEqual('Tuesday, February 29, 2000');
+      InterfaceTestLog.value(name, 'runtime.format.2', 'Thursday, March 2, 2000', runtimeText2);
+      expect(runtimeText2).assertEqual('Thursday, March 2, 2000');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 951868800000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(951868800000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 951782400000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(951782400000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 951955200000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(951955200000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0055
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0055
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0055',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0055';
+      const input: string = 'en-US; instant=2023-02-28T23:59:59.000Z; options={"year":"numeric","month":"' +
+        'long","day":"numeric","weekday":"long","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 1677628799000;
+      const kitDate0: Date = new Date(1677628799000);
+      const kitDate1: Date = new Date(1677542399000);
+      const kitDate2: Date = new Date(1677715199000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(1677628799000);
+      const runtimeDate1: Date = new Date(1677542399000);
+      const runtimeDate2: Date = new Date(1677715199000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'Tuesday, February 28, 2023', kitText0);
+      expect(kitText0).assertEqual('Tuesday, February 28, 2023');
+      InterfaceTestLog.value(name, 'kit.format.1', 'Monday, February 27, 2023', kitText1);
+      expect(kitText1).assertEqual('Monday, February 27, 2023');
+      InterfaceTestLog.value(name, 'kit.format.2', 'Wednesday, March 1, 2023', kitText2);
+      expect(kitText2).assertEqual('Wednesday, March 1, 2023');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 1677628799000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(1677628799000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 1677542399000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(1677542399000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 1677715199000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(1677715199000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'Tuesday, February 28, 2023', runtimeText0);
+      expect(runtimeText0).assertEqual('Tuesday, February 28, 2023');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'Monday, February 27, 2023', runtimeText1);
+      expect(runtimeText1).assertEqual('Monday, February 27, 2023');
+      InterfaceTestLog.value(name, 'runtime.format.2', 'Wednesday, March 1, 2023', runtimeText2);
+      expect(runtimeText2).assertEqual('Wednesday, March 1, 2023');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 1677628799000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(1677628799000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 1677542399000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(1677542399000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 1677715199000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(1677715199000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0056
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0056
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0056',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0056';
+      const input: string = 'en-US; instant=2024-02-29T12:34:56.000Z; options={"year":"numeric","month":"' +
+        'long","day":"numeric","weekday":"long","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 1709210096000;
+      const kitDate0: Date = new Date(1709210096000);
+      const kitDate1: Date = new Date(1709123696000);
+      const kitDate2: Date = new Date(1709296496000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(1709210096000);
+      const runtimeDate1: Date = new Date(1709123696000);
+      const runtimeDate2: Date = new Date(1709296496000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'Thursday, February 29, 2024', kitText0);
+      expect(kitText0).assertEqual('Thursday, February 29, 2024');
+      InterfaceTestLog.value(name, 'kit.format.1', 'Wednesday, February 28, 2024', kitText1);
+      expect(kitText1).assertEqual('Wednesday, February 28, 2024');
+      InterfaceTestLog.value(name, 'kit.format.2', 'Friday, March 1, 2024', kitText2);
+      expect(kitText2).assertEqual('Friday, March 1, 2024');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 1709210096000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(1709210096000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 1709123696000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(1709123696000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 1709296496000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(1709296496000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'Thursday, February 29, 2024', runtimeText0);
+      expect(runtimeText0).assertEqual('Thursday, February 29, 2024');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'Wednesday, February 28, 2024', runtimeText1);
+      expect(runtimeText1).assertEqual('Wednesday, February 28, 2024');
+      InterfaceTestLog.value(name, 'runtime.format.2', 'Friday, March 1, 2024', runtimeText2);
+      expect(runtimeText2).assertEqual('Friday, March 1, 2024');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 1709210096000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(1709210096000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 1709123696000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(1709123696000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 1709296496000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(1709296496000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0057
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0057
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0057',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0057';
+      const input: string = 'en-US; instant=2024-04-30T23:59:59.000Z; options={"year":"numeric","month":"' +
+        'long","day":"numeric","weekday":"long","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 1714521599000;
+      const kitDate0: Date = new Date(1714521599000);
+      const kitDate1: Date = new Date(1714435199000);
+      const kitDate2: Date = new Date(1714607999000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(1714521599000);
+      const runtimeDate1: Date = new Date(1714435199000);
+      const runtimeDate2: Date = new Date(1714607999000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'Tuesday, April 30, 2024', kitText0);
+      expect(kitText0).assertEqual('Tuesday, April 30, 2024');
+      InterfaceTestLog.value(name, 'kit.format.1', 'Monday, April 29, 2024', kitText1);
+      expect(kitText1).assertEqual('Monday, April 29, 2024');
+      InterfaceTestLog.value(name, 'kit.format.2', 'Wednesday, May 1, 2024', kitText2);
+      expect(kitText2).assertEqual('Wednesday, May 1, 2024');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 1714521599000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(1714521599000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 1714435199000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(1714435199000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 1714607999000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(1714607999000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'Tuesday, April 30, 2024', runtimeText0);
+      expect(runtimeText0).assertEqual('Tuesday, April 30, 2024');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'Monday, April 29, 2024', runtimeText1);
+      expect(runtimeText1).assertEqual('Monday, April 29, 2024');
+      InterfaceTestLog.value(name, 'runtime.format.2', 'Wednesday, May 1, 2024', runtimeText2);
+      expect(runtimeText2).assertEqual('Wednesday, May 1, 2024');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 1714521599000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(1714521599000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 1714435199000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(1714435199000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 1714607999000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(1714607999000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0058
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0058
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0058',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0058';
+      const input: string = 'en-US; instant=2024-05-01T00:00:00.000Z; options={"year":"numeric","month":"' +
+        'long","day":"numeric","weekday":"long","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 1714521600000;
+      const kitDate0: Date = new Date(1714521600000);
+      const kitDate1: Date = new Date(1714435200000);
+      const kitDate2: Date = new Date(1714608000000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(1714521600000);
+      const runtimeDate1: Date = new Date(1714435200000);
+      const runtimeDate2: Date = new Date(1714608000000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'Wednesday, May 1, 2024', kitText0);
+      expect(kitText0).assertEqual('Wednesday, May 1, 2024');
+      InterfaceTestLog.value(name, 'kit.format.1', 'Tuesday, April 30, 2024', kitText1);
+      expect(kitText1).assertEqual('Tuesday, April 30, 2024');
+      InterfaceTestLog.value(name, 'kit.format.2', 'Thursday, May 2, 2024', kitText2);
+      expect(kitText2).assertEqual('Thursday, May 2, 2024');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 1714521600000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(1714521600000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 1714435200000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(1714435200000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 1714608000000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(1714608000000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'Wednesday, May 1, 2024', runtimeText0);
+      expect(runtimeText0).assertEqual('Wednesday, May 1, 2024');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'Tuesday, April 30, 2024', runtimeText1);
+      expect(runtimeText1).assertEqual('Tuesday, April 30, 2024');
+      InterfaceTestLog.value(name, 'runtime.format.2', 'Thursday, May 2, 2024', runtimeText2);
+      expect(runtimeText2).assertEqual('Thursday, May 2, 2024');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 1714521600000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(1714521600000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 1714435200000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(1714435200000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 1714608000000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(1714608000000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0059
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0059
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0059',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0059';
+      const input: string = 'en-US; instant=2024-12-31T23:59:59.000Z; options={"year":"numeric","month":"' +
+        'long","day":"numeric","weekday":"long","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 1735689599000;
+      const kitDate0: Date = new Date(1735689599000);
+      const kitDate1: Date = new Date(1735603199000);
+      const kitDate2: Date = new Date(1735775999000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(1735689599000);
+      const runtimeDate1: Date = new Date(1735603199000);
+      const runtimeDate2: Date = new Date(1735775999000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'Tuesday, December 31, 2024', kitText0);
+      expect(kitText0).assertEqual('Tuesday, December 31, 2024');
+      InterfaceTestLog.value(name, 'kit.format.1', 'Monday, December 30, 2024', kitText1);
+      expect(kitText1).assertEqual('Monday, December 30, 2024');
+      InterfaceTestLog.value(name, 'kit.format.2', 'Wednesday, January 1, 2025', kitText2);
+      expect(kitText2).assertEqual('Wednesday, January 1, 2025');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 1735689599000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(1735689599000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 1735603199000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(1735603199000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 1735775999000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(1735775999000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'Tuesday, December 31, 2024', runtimeText0);
+      expect(runtimeText0).assertEqual('Tuesday, December 31, 2024');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'Monday, December 30, 2024', runtimeText1);
+      expect(runtimeText1).assertEqual('Monday, December 30, 2024');
+      InterfaceTestLog.value(name, 'runtime.format.2', 'Wednesday, January 1, 2025', runtimeText2);
+      expect(runtimeText2).assertEqual('Wednesday, January 1, 2025');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 1735689599000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(1735689599000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 1735603199000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(1735603199000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 1735775999000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(1735775999000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0060
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0060
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0060',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0060';
+      const input: string = 'en-US; instant=2100-03-01T00:00:00.000Z; options={"year":"numeric","month":"' +
+        'long","day":"numeric","weekday":"long","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"long","day":"numeric","weekday":"long","timeZone"' +
+        ':"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 4107542400000;
+      const kitDate0: Date = new Date(4107542400000);
+      const kitDate1: Date = new Date(4107456000000);
+      const kitDate2: Date = new Date(4107628800000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(4107542400000);
+      const runtimeDate1: Date = new Date(4107456000000);
+      const runtimeDate2: Date = new Date(4107628800000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'Monday, March 1, 2100', kitText0);
+      expect(kitText0).assertEqual('Monday, March 1, 2100');
+      InterfaceTestLog.value(name, 'kit.format.1', 'Sunday, February 28, 2100', kitText1);
+      expect(kitText1).assertEqual('Sunday, February 28, 2100');
+      InterfaceTestLog.value(name, 'kit.format.2', 'Tuesday, March 2, 2100', kitText2);
+      expect(kitText2).assertEqual('Tuesday, March 2, 2100');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 4107542400000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(4107542400000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 4107456000000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(4107456000000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 4107628800000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(4107628800000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'Monday, March 1, 2100', runtimeText0);
+      expect(runtimeText0).assertEqual('Monday, March 1, 2100');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'Sunday, February 28, 2100', runtimeText1);
+      expect(runtimeText1).assertEqual('Sunday, February 28, 2100');
+      InterfaceTestLog.value(name, 'runtime.format.2', 'Tuesday, March 2, 2100', runtimeText2);
+      expect(runtimeText2).assertEqual('Tuesday, March 2, 2100');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 4107542400000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(4107542400000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 4107456000000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(4107456000000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 4107628800000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(4107628800000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0061
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0061
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0061',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0061';
+      const input: string = 'en-GB; instant=1969-12-31T23:59:59.000Z; options={"year":"numeric","month":"' +
+        'numeric","day":"numeric","hour":"2-digit","minute":"2-digit","second":"2-dig' +
+        'it","hourCycle":"h23","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = -1000;
+      const kitDate0: Date = new Date(-1000);
+      const kitDate1: Date = new Date(-86401000);
+      const kitDate2: Date = new Date(86399000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(-1000);
+      const runtimeDate1: Date = new Date(-86401000);
+      const runtimeDate2: Date = new Date(86399000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '31/12/1969, 23:59:59', kitText0);
+      expect(kitText0).assertEqual('31/12/1969, 23:59:59');
+      InterfaceTestLog.value(name, 'kit.format.1', '30/12/1969, 23:59:59', kitText1);
+      expect(kitText1).assertEqual('30/12/1969, 23:59:59');
+      InterfaceTestLog.value(name, 'kit.format.2', '01/01/1970, 23:59:59', kitText2);
+      expect(kitText2).assertEqual('01/01/1970, 23:59:59');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', -1000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(-1000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', -86401000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(-86401000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 86399000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(86399000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', '31/12/1969, 23:59:59', runtimeText0);
+      expect(runtimeText0).assertEqual('31/12/1969, 23:59:59');
+      InterfaceTestLog.value(name, 'runtime.format.1', '30/12/1969, 23:59:59', runtimeText1);
+      expect(runtimeText1).assertEqual('30/12/1969, 23:59:59');
+      InterfaceTestLog.value(name, 'runtime.format.2', '01/01/1970, 23:59:59', runtimeText2);
+      expect(runtimeText2).assertEqual('01/01/1970, 23:59:59');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', -1000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(-1000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', -86401000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(-86401000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 86399000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(86399000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0062
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0062
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0062',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0062';
+      const input: string = 'en-GB; instant=1970-01-01T00:00:00.000Z; options={"year":"numeric","month":"' +
+        'numeric","day":"numeric","hour":"2-digit","minute":"2-digit","second":"2-dig' +
+        'it","hourCycle":"h23","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 0;
+      const kitDate0: Date = new Date(0);
+      const kitDate1: Date = new Date(-86400000);
+      const kitDate2: Date = new Date(86400000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(0);
+      const runtimeDate1: Date = new Date(-86400000);
+      const runtimeDate2: Date = new Date(86400000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '01/01/1970, 00:00:00', kitText0);
+      expect(kitText0).assertEqual('01/01/1970, 00:00:00');
+      InterfaceTestLog.value(name, 'kit.format.1', '31/12/1969, 00:00:00', kitText1);
+      expect(kitText1).assertEqual('31/12/1969, 00:00:00');
+      InterfaceTestLog.value(name, 'kit.format.2', '02/01/1970, 00:00:00', kitText2);
+      expect(kitText2).assertEqual('02/01/1970, 00:00:00');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 0, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', -86400000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(-86400000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 86400000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(86400000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', '01/01/1970, 00:00:00', runtimeText0);
+      expect(runtimeText0).assertEqual('01/01/1970, 00:00:00');
+      InterfaceTestLog.value(name, 'runtime.format.1', '31/12/1969, 00:00:00', runtimeText1);
+      expect(runtimeText1).assertEqual('31/12/1969, 00:00:00');
+      InterfaceTestLog.value(name, 'runtime.format.2', '02/01/1970, 00:00:00', runtimeText2);
+      expect(runtimeText2).assertEqual('02/01/1970, 00:00:00');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 0, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', -86400000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(-86400000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 86400000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(86400000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0063
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0063
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0063',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0063';
+      const input: string = 'en-GB; instant=1999-12-31T23:59:59.000Z; options={"year":"numeric","month":"' +
+        'numeric","day":"numeric","hour":"2-digit","minute":"2-digit","second":"2-dig' +
+        'it","hourCycle":"h23","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 946684799000;
+      const kitDate0: Date = new Date(946684799000);
+      const kitDate1: Date = new Date(946598399000);
+      const kitDate2: Date = new Date(946771199000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(946684799000);
+      const runtimeDate1: Date = new Date(946598399000);
+      const runtimeDate2: Date = new Date(946771199000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '31/12/1999, 23:59:59', kitText0);
+      expect(kitText0).assertEqual('31/12/1999, 23:59:59');
+      InterfaceTestLog.value(name, 'kit.format.1', '30/12/1999, 23:59:59', kitText1);
+      expect(kitText1).assertEqual('30/12/1999, 23:59:59');
+      InterfaceTestLog.value(name, 'kit.format.2', '01/01/2000, 23:59:59', kitText2);
+      expect(kitText2).assertEqual('01/01/2000, 23:59:59');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 946684799000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(946684799000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 946598399000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(946598399000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 946771199000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(946771199000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', '31/12/1999, 23:59:59', runtimeText0);
+      expect(runtimeText0).assertEqual('31/12/1999, 23:59:59');
+      InterfaceTestLog.value(name, 'runtime.format.1', '30/12/1999, 23:59:59', runtimeText1);
+      expect(runtimeText1).assertEqual('30/12/1999, 23:59:59');
+      InterfaceTestLog.value(name, 'runtime.format.2', '01/01/2000, 23:59:59', runtimeText2);
+      expect(runtimeText2).assertEqual('01/01/2000, 23:59:59');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 946684799000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(946684799000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 946598399000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(946598399000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 946771199000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(946771199000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0064
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0064
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0064',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0064';
+      const input: string = 'en-GB; instant=2000-02-28T23:59:59.000Z; options={"year":"numeric","month":"' +
+        'numeric","day":"numeric","hour":"2-digit","minute":"2-digit","second":"2-dig' +
+        'it","hourCycle":"h23","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 951782399000;
+      const kitDate0: Date = new Date(951782399000);
+      const kitDate1: Date = new Date(951695999000);
+      const kitDate2: Date = new Date(951868799000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(951782399000);
+      const runtimeDate1: Date = new Date(951695999000);
+      const runtimeDate2: Date = new Date(951868799000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '28/02/2000, 23:59:59', kitText0);
+      expect(kitText0).assertEqual('28/02/2000, 23:59:59');
+      InterfaceTestLog.value(name, 'kit.format.1', '27/02/2000, 23:59:59', kitText1);
+      expect(kitText1).assertEqual('27/02/2000, 23:59:59');
+      InterfaceTestLog.value(name, 'kit.format.2', '29/02/2000, 23:59:59', kitText2);
+      expect(kitText2).assertEqual('29/02/2000, 23:59:59');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 951782399000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(951782399000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 951695999000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(951695999000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 951868799000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(951868799000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', '28/02/2000, 23:59:59', runtimeText0);
+      expect(runtimeText0).assertEqual('28/02/2000, 23:59:59');
+      InterfaceTestLog.value(name, 'runtime.format.1', '27/02/2000, 23:59:59', runtimeText1);
+      expect(runtimeText1).assertEqual('27/02/2000, 23:59:59');
+      InterfaceTestLog.value(name, 'runtime.format.2', '29/02/2000, 23:59:59', runtimeText2);
+      expect(runtimeText2).assertEqual('29/02/2000, 23:59:59');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 951782399000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(951782399000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 951695999000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(951695999000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 951868799000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(951868799000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0065
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0065
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0065',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0065';
+      const input: string = 'en-GB; instant=2000-02-29T00:00:00.000Z; options={"year":"numeric","month":"' +
+        'numeric","day":"numeric","hour":"2-digit","minute":"2-digit","second":"2-dig' +
+        'it","hourCycle":"h23","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 951782400000;
+      const kitDate0: Date = new Date(951782400000);
+      const kitDate1: Date = new Date(951696000000);
+      const kitDate2: Date = new Date(951868800000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(951782400000);
+      const runtimeDate1: Date = new Date(951696000000);
+      const runtimeDate2: Date = new Date(951868800000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '29/02/2000, 00:00:00', kitText0);
+      expect(kitText0).assertEqual('29/02/2000, 00:00:00');
+      InterfaceTestLog.value(name, 'kit.format.1', '28/02/2000, 00:00:00', kitText1);
+      expect(kitText1).assertEqual('28/02/2000, 00:00:00');
+      InterfaceTestLog.value(name, 'kit.format.2', '01/03/2000, 00:00:00', kitText2);
+      expect(kitText2).assertEqual('01/03/2000, 00:00:00');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 951782400000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(951782400000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 951696000000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(951696000000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 951868800000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(951868800000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', '29/02/2000, 00:00:00', runtimeText0);
+      expect(runtimeText0).assertEqual('29/02/2000, 00:00:00');
+      InterfaceTestLog.value(name, 'runtime.format.1', '28/02/2000, 00:00:00', runtimeText1);
+      expect(runtimeText1).assertEqual('28/02/2000, 00:00:00');
+      InterfaceTestLog.value(name, 'runtime.format.2', '01/03/2000, 00:00:00', runtimeText2);
+      expect(runtimeText2).assertEqual('01/03/2000, 00:00:00');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 951782400000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(951782400000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 951696000000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(951696000000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 951868800000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(951868800000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0066
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0066
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0066',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0066';
+      const input: string = 'en-GB; instant=2000-03-01T00:00:00.000Z; options={"year":"numeric","month":"' +
+        'numeric","day":"numeric","hour":"2-digit","minute":"2-digit","second":"2-dig' +
+        'it","hourCycle":"h23","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 951868800000;
+      const kitDate0: Date = new Date(951868800000);
+      const kitDate1: Date = new Date(951782400000);
+      const kitDate2: Date = new Date(951955200000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(951868800000);
+      const runtimeDate1: Date = new Date(951782400000);
+      const runtimeDate2: Date = new Date(951955200000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '01/03/2000, 00:00:00', kitText0);
+      expect(kitText0).assertEqual('01/03/2000, 00:00:00');
+      InterfaceTestLog.value(name, 'kit.format.1', '29/02/2000, 00:00:00', kitText1);
+      expect(kitText1).assertEqual('29/02/2000, 00:00:00');
+      InterfaceTestLog.value(name, 'kit.format.2', '02/03/2000, 00:00:00', kitText2);
+      expect(kitText2).assertEqual('02/03/2000, 00:00:00');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 951868800000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(951868800000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 951782400000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(951782400000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 951955200000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(951955200000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', '01/03/2000, 00:00:00', runtimeText0);
+      expect(runtimeText0).assertEqual('01/03/2000, 00:00:00');
+      InterfaceTestLog.value(name, 'runtime.format.1', '29/02/2000, 00:00:00', runtimeText1);
+      expect(runtimeText1).assertEqual('29/02/2000, 00:00:00');
+      InterfaceTestLog.value(name, 'runtime.format.2', '02/03/2000, 00:00:00', runtimeText2);
+      expect(runtimeText2).assertEqual('02/03/2000, 00:00:00');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 951868800000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(951868800000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 951782400000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(951782400000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 951955200000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(951955200000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0067
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0067
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0067',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0067';
+      const input: string = 'en-GB; instant=2023-02-28T23:59:59.000Z; options={"year":"numeric","month":"' +
+        'numeric","day":"numeric","hour":"2-digit","minute":"2-digit","second":"2-dig' +
+        'it","hourCycle":"h23","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 1677628799000;
+      const kitDate0: Date = new Date(1677628799000);
+      const kitDate1: Date = new Date(1677542399000);
+      const kitDate2: Date = new Date(1677715199000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(1677628799000);
+      const runtimeDate1: Date = new Date(1677542399000);
+      const runtimeDate2: Date = new Date(1677715199000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '28/02/2023, 23:59:59', kitText0);
+      expect(kitText0).assertEqual('28/02/2023, 23:59:59');
+      InterfaceTestLog.value(name, 'kit.format.1', '27/02/2023, 23:59:59', kitText1);
+      expect(kitText1).assertEqual('27/02/2023, 23:59:59');
+      InterfaceTestLog.value(name, 'kit.format.2', '01/03/2023, 23:59:59', kitText2);
+      expect(kitText2).assertEqual('01/03/2023, 23:59:59');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 1677628799000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(1677628799000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 1677542399000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(1677542399000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 1677715199000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(1677715199000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', '28/02/2023, 23:59:59', runtimeText0);
+      expect(runtimeText0).assertEqual('28/02/2023, 23:59:59');
+      InterfaceTestLog.value(name, 'runtime.format.1', '27/02/2023, 23:59:59', runtimeText1);
+      expect(runtimeText1).assertEqual('27/02/2023, 23:59:59');
+      InterfaceTestLog.value(name, 'runtime.format.2', '01/03/2023, 23:59:59', runtimeText2);
+      expect(runtimeText2).assertEqual('01/03/2023, 23:59:59');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 1677628799000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(1677628799000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 1677542399000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(1677542399000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 1677715199000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(1677715199000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0068
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0068
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0068',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0068';
+      const input: string = 'en-GB; instant=2024-02-29T12:34:56.000Z; options={"year":"numeric","month":"' +
+        'numeric","day":"numeric","hour":"2-digit","minute":"2-digit","second":"2-dig' +
+        'it","hourCycle":"h23","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 1709210096000;
+      const kitDate0: Date = new Date(1709210096000);
+      const kitDate1: Date = new Date(1709123696000);
+      const kitDate2: Date = new Date(1709296496000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(1709210096000);
+      const runtimeDate1: Date = new Date(1709123696000);
+      const runtimeDate2: Date = new Date(1709296496000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '29/02/2024, 12:34:56', kitText0);
+      expect(kitText0).assertEqual('29/02/2024, 12:34:56');
+      InterfaceTestLog.value(name, 'kit.format.1', '28/02/2024, 12:34:56', kitText1);
+      expect(kitText1).assertEqual('28/02/2024, 12:34:56');
+      InterfaceTestLog.value(name, 'kit.format.2', '01/03/2024, 12:34:56', kitText2);
+      expect(kitText2).assertEqual('01/03/2024, 12:34:56');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 1709210096000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(1709210096000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 1709123696000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(1709123696000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 1709296496000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(1709296496000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', '29/02/2024, 12:34:56', runtimeText0);
+      expect(runtimeText0).assertEqual('29/02/2024, 12:34:56');
+      InterfaceTestLog.value(name, 'runtime.format.1', '28/02/2024, 12:34:56', runtimeText1);
+      expect(runtimeText1).assertEqual('28/02/2024, 12:34:56');
+      InterfaceTestLog.value(name, 'runtime.format.2', '01/03/2024, 12:34:56', runtimeText2);
+      expect(runtimeText2).assertEqual('01/03/2024, 12:34:56');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 1709210096000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(1709210096000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 1709123696000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(1709123696000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 1709296496000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(1709296496000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0069
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0069
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0069',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0069';
+      const input: string = 'en-GB; instant=2024-04-30T23:59:59.000Z; options={"year":"numeric","month":"' +
+        'numeric","day":"numeric","hour":"2-digit","minute":"2-digit","second":"2-dig' +
+        'it","hourCycle":"h23","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 1714521599000;
+      const kitDate0: Date = new Date(1714521599000);
+      const kitDate1: Date = new Date(1714435199000);
+      const kitDate2: Date = new Date(1714607999000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(1714521599000);
+      const runtimeDate1: Date = new Date(1714435199000);
+      const runtimeDate2: Date = new Date(1714607999000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '30/04/2024, 23:59:59', kitText0);
+      expect(kitText0).assertEqual('30/04/2024, 23:59:59');
+      InterfaceTestLog.value(name, 'kit.format.1', '29/04/2024, 23:59:59', kitText1);
+      expect(kitText1).assertEqual('29/04/2024, 23:59:59');
+      InterfaceTestLog.value(name, 'kit.format.2', '01/05/2024, 23:59:59', kitText2);
+      expect(kitText2).assertEqual('01/05/2024, 23:59:59');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 1714521599000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(1714521599000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 1714435199000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(1714435199000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 1714607999000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(1714607999000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', '30/04/2024, 23:59:59', runtimeText0);
+      expect(runtimeText0).assertEqual('30/04/2024, 23:59:59');
+      InterfaceTestLog.value(name, 'runtime.format.1', '29/04/2024, 23:59:59', runtimeText1);
+      expect(runtimeText1).assertEqual('29/04/2024, 23:59:59');
+      InterfaceTestLog.value(name, 'runtime.format.2', '01/05/2024, 23:59:59', runtimeText2);
+      expect(runtimeText2).assertEqual('01/05/2024, 23:59:59');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 1714521599000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(1714521599000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 1714435199000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(1714435199000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 1714607999000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(1714607999000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0070
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0070
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0070',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0070';
+      const input: string = 'en-GB; instant=2024-05-01T00:00:00.000Z; options={"year":"numeric","month":"' +
+        'numeric","day":"numeric","hour":"2-digit","minute":"2-digit","second":"2-dig' +
+        'it","hourCycle":"h23","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 1714521600000;
+      const kitDate0: Date = new Date(1714521600000);
+      const kitDate1: Date = new Date(1714435200000);
+      const kitDate2: Date = new Date(1714608000000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(1714521600000);
+      const runtimeDate1: Date = new Date(1714435200000);
+      const runtimeDate2: Date = new Date(1714608000000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '01/05/2024, 00:00:00', kitText0);
+      expect(kitText0).assertEqual('01/05/2024, 00:00:00');
+      InterfaceTestLog.value(name, 'kit.format.1', '30/04/2024, 00:00:00', kitText1);
+      expect(kitText1).assertEqual('30/04/2024, 00:00:00');
+      InterfaceTestLog.value(name, 'kit.format.2', '02/05/2024, 00:00:00', kitText2);
+      expect(kitText2).assertEqual('02/05/2024, 00:00:00');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 1714521600000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(1714521600000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 1714435200000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(1714435200000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 1714608000000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(1714608000000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', '01/05/2024, 00:00:00', runtimeText0);
+      expect(runtimeText0).assertEqual('01/05/2024, 00:00:00');
+      InterfaceTestLog.value(name, 'runtime.format.1', '30/04/2024, 00:00:00', runtimeText1);
+      expect(runtimeText1).assertEqual('30/04/2024, 00:00:00');
+      InterfaceTestLog.value(name, 'runtime.format.2', '02/05/2024, 00:00:00', runtimeText2);
+      expect(runtimeText2).assertEqual('02/05/2024, 00:00:00');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 1714521600000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(1714521600000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 1714435200000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(1714435200000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 1714608000000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(1714608000000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0071
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0071
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0071',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0071';
+      const input: string = 'en-GB; instant=2024-12-31T23:59:59.000Z; options={"year":"numeric","month":"' +
+        'numeric","day":"numeric","hour":"2-digit","minute":"2-digit","second":"2-dig' +
+        'it","hourCycle":"h23","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 1735689599000;
+      const kitDate0: Date = new Date(1735689599000);
+      const kitDate1: Date = new Date(1735603199000);
+      const kitDate2: Date = new Date(1735775999000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(1735689599000);
+      const runtimeDate1: Date = new Date(1735603199000);
+      const runtimeDate2: Date = new Date(1735775999000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '31/12/2024, 23:59:59', kitText0);
+      expect(kitText0).assertEqual('31/12/2024, 23:59:59');
+      InterfaceTestLog.value(name, 'kit.format.1', '30/12/2024, 23:59:59', kitText1);
+      expect(kitText1).assertEqual('30/12/2024, 23:59:59');
+      InterfaceTestLog.value(name, 'kit.format.2', '01/01/2025, 23:59:59', kitText2);
+      expect(kitText2).assertEqual('01/01/2025, 23:59:59');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 1735689599000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(1735689599000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 1735603199000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(1735603199000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 1735775999000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(1735775999000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', '31/12/2024, 23:59:59', runtimeText0);
+      expect(runtimeText0).assertEqual('31/12/2024, 23:59:59');
+      InterfaceTestLog.value(name, 'runtime.format.1', '30/12/2024, 23:59:59', runtimeText1);
+      expect(runtimeText1).assertEqual('30/12/2024, 23:59:59');
+      InterfaceTestLog.value(name, 'runtime.format.2', '01/01/2025, 23:59:59', runtimeText2);
+      expect(runtimeText2).assertEqual('01/01/2025, 23:59:59');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 1735689599000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(1735689599000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 1735603199000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(1735603199000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 1735775999000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(1735775999000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0072
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0072
+     * @tc.desc Check fixed UTC timestamps, previous/next day, leap-year and month/year boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0072',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_DATETIME_0072';
+      const input: string = 'en-GB; instant=2100-03-01T00:00:00.000Z; options={"year":"numeric","month":"' +
+        'numeric","day":"numeric","hour":"2-digit","minute":"2-digit","second":"2-dig' +
+        'it","hourCycle":"h23","timeZone":"UTC"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.DateTimeOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const kitOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const runtimeOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
+        second: '2-digit', hourCycle: 'h23', timeZone: 'UTC',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"year":"numeric","month":"numeric","day":"numeric","hour":"2-digit","minute' +
+        '":"2-digit","second":"2-digit","hourCycle":"h23","timeZone":"UTC"}';
+      const kit: intl.DateTimeFormat = new intl.DateTimeFormat(locale, kitOptions);
+      const runtime: Intl.DateTimeFormat = new Intl.DateTimeFormat(locale, runtimeOptions);
+      const timestamp: number = 4107542400000;
+      const kitDate0: Date = new Date(4107542400000);
+      const kitDate1: Date = new Date(4107456000000);
+      const kitDate2: Date = new Date(4107628800000);
+      const kitText0: string = kit.format(kitDate0);
+      const kitText1: string = kit.format(kitDate1);
+      const kitText2: string = kit.format(kitDate2);
+      const kitResolved: intl.DateTimeOptions = kit.resolvedOptions();
+      const runtimeDate0: Date = new Date(4107542400000);
+      const runtimeDate1: Date = new Date(4107456000000);
+      const runtimeDate2: Date = new Date(4107628800000);
+      const runtimeText0: string = runtime.format(runtimeDate0);
+      const runtimeText1: string = runtime.format(runtimeDate1);
+      const runtimeText2: string = runtime.format(runtimeDate2);
+      const runtimeResolved: Intl.ResolvedDateTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '01/03/2100, 00:00:00', kitText0);
+      expect(kitText0).assertEqual('01/03/2100, 00:00:00');
+      InterfaceTestLog.value(name, 'kit.format.1', '28/02/2100, 00:00:00', kitText1);
+      expect(kitText1).assertEqual('28/02/2100, 00:00:00');
+      InterfaceTestLog.value(name, 'kit.format.2', '02/03/2100, 00:00:00', kitText2);
+      expect(kitText2).assertEqual('02/03/2100, 00:00:00');
+      InterfaceTestLog.number(name, 'kit.inputUnchanged', 4107542400000, kitDate0.getTime());
+      expect(kitDate0.getTime()).assertEqual(4107542400000);
+      InterfaceTestLog.number(name, 'kit.previousDayUnchanged', 4107456000000, kitDate1.getTime());
+      expect(kitDate1.getTime()).assertEqual(4107456000000);
+      InterfaceTestLog.number(name, 'kit.nextDayUnchanged', 4107628800000, kitDate2.getTime());
+      expect(kitDate2.getTime()).assertEqual(4107628800000);
+      InterfaceTestLog.value(name, 'kit.timeZone', 'UTC', String(kitResolved.timeZone));
+      expect(kitResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.value(name, 'runtime.format.0', '01/03/2100, 00:00:00', runtimeText0);
+      expect(runtimeText0).assertEqual('01/03/2100, 00:00:00');
+      InterfaceTestLog.value(name, 'runtime.format.1', '28/02/2100, 00:00:00', runtimeText1);
+      expect(runtimeText1).assertEqual('28/02/2100, 00:00:00');
+      InterfaceTestLog.value(name, 'runtime.format.2', '02/03/2100, 00:00:00', runtimeText2);
+      expect(runtimeText2).assertEqual('02/03/2100, 00:00:00');
+      InterfaceTestLog.number(name, 'runtime.inputUnchanged', 4107542400000, runtimeDate0.getTime());
+      expect(runtimeDate0.getTime()).assertEqual(4107542400000);
+      InterfaceTestLog.number(name, 'runtime.previousDayUnchanged', 4107456000000, runtimeDate1.getTime());
+      expect(runtimeDate1.getTime()).assertEqual(4107456000000);
+      InterfaceTestLog.number(name, 'runtime.nextDayUnchanged', 4107628800000, runtimeDate2.getTime());
+      expect(runtimeDate2.getTime()).assertEqual(4107628800000);
+      InterfaceTestLog.value(name, 'runtime.timeZone', 'UTC', String(runtimeResolved.timeZone));
+      expect(runtimeResolved.timeZone).assertEqual('UTC');
+      InterfaceTestLog.end(name);
+    });
+  });
+}
