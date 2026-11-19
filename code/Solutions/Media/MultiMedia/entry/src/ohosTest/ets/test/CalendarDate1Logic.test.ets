@@ -1803,3 +1803,159 @@ export default function CalendarDate1Logic(): void {
      * @tc.name MultiMedia_Date_1429
      * @tc.desc Month-boundary filename dates across leap, non-leap and century years
      * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Date_1429', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Date_1429';
+      LogicTestLog.begin(name, 'year=2026;month=4;day=30');
+      const dateTime: DateTimeUtil = new DateTimeUtil();
+      const formatted: string = dateTime.concatDate(2026, 4, 30);
+      LogicTestLog.value(name, 'filename date', String('20260430'), String(formatted));
+      expect(formatted).assertEqual('20260430');
+      LogicTestLog.number(name, 'date width', 8, formatted.length);
+      expect(formatted.length).assertEqual(8);
+      LogicTestLog.value(name, 'year component', String('2026'), String(formatted.substring(0, 4)));
+      expect(formatted.substring(0, 4)).assertEqual('2026');
+      LogicTestLog.value(name, 'month component', String('04'), String(formatted.substring(4, 6)));
+      expect(formatted.substring(4, 6)).assertEqual('04');
+      LogicTestLog.value(name, 'day component', String('30'), String(formatted.substring(6, 8)));
+      expect(formatted.substring(6, 8)).assertEqual('30');
+      LogicTestLog.value(name, 'interleaved time independence', String('000000'), String(dateTime.concatTime(0, 0, 0)));
+      expect(dateTime.concatTime(0, 0, 0)).assertEqual('000000');
+      LogicTestLog.value(name, 'date remains repeatable', String('20260430'), String(dateTime.concatDate(2026, 4, 30)));
+      expect(dateTime.concatDate(2026, 4, 30)).assertEqual('20260430');
+      LogicTestLog.value(name, 'date result type', String('string'), String(typeof formatted));
+      expect(typeof formatted).assertEqual('string');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1430
+     * @tc.name MultiMedia_Date_1430
+     * @tc.desc Month-boundary filename dates across leap, non-leap and century years
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Date_1430', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Date_1430';
+      LogicTestLog.begin(name, 'year=2026;month=5;day=1');
+      const dateTime: DateTimeUtil = new DateTimeUtil();
+      const formatted: string = dateTime.concatDate(2026, 5, 1);
+      LogicTestLog.value(name, 'filename date', String('20260501'), String(formatted));
+      expect(formatted).assertEqual('20260501');
+      LogicTestLog.number(name, 'date width', 8, formatted.length);
+      expect(formatted.length).assertEqual(8);
+      LogicTestLog.value(name, 'year component', String('2026'), String(formatted.substring(0, 4)));
+      expect(formatted.substring(0, 4)).assertEqual('2026');
+      LogicTestLog.value(name, 'month component', String('05'), String(formatted.substring(4, 6)));
+      expect(formatted.substring(4, 6)).assertEqual('05');
+      LogicTestLog.value(name, 'day component', String('01'), String(formatted.substring(6, 8)));
+      expect(formatted.substring(6, 8)).assertEqual('01');
+      LogicTestLog.value(name, 'interleaved time independence', String('000000'), String(dateTime.concatTime(0, 0, 0)));
+      expect(dateTime.concatTime(0, 0, 0)).assertEqual('000000');
+      LogicTestLog.value(name, 'date remains repeatable', String('20260501'), String(dateTime.concatDate(2026, 5, 1)));
+      expect(dateTime.concatDate(2026, 5, 1)).assertEqual('20260501');
+      LogicTestLog.value(name, 'date result type', String('string'), String(typeof formatted));
+      expect(typeof formatted).assertEqual('string');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1431
+     * @tc.name MultiMedia_Date_1431
+     * @tc.desc Month-boundary filename dates across leap, non-leap and century years
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Date_1431', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Date_1431';
+      LogicTestLog.begin(name, 'year=2026;month=5;day=31');
+      const dateTime: DateTimeUtil = new DateTimeUtil();
+      const formatted: string = dateTime.concatDate(2026, 5, 31);
+      LogicTestLog.value(name, 'filename date', String('20260531'), String(formatted));
+      expect(formatted).assertEqual('20260531');
+      LogicTestLog.number(name, 'date width', 8, formatted.length);
+      expect(formatted.length).assertEqual(8);
+      LogicTestLog.value(name, 'year component', String('2026'), String(formatted.substring(0, 4)));
+      expect(formatted.substring(0, 4)).assertEqual('2026');
+      LogicTestLog.value(name, 'month component', String('05'), String(formatted.substring(4, 6)));
+      expect(formatted.substring(4, 6)).assertEqual('05');
+      LogicTestLog.value(name, 'day component', String('31'), String(formatted.substring(6, 8)));
+      expect(formatted.substring(6, 8)).assertEqual('31');
+      LogicTestLog.value(name, 'interleaved time independence', String('000000'), String(dateTime.concatTime(0, 0, 0)));
+      expect(dateTime.concatTime(0, 0, 0)).assertEqual('000000');
+      LogicTestLog.value(name, 'date remains repeatable', String('20260531'), String(dateTime.concatDate(2026, 5, 31)));
+      expect(dateTime.concatDate(2026, 5, 31)).assertEqual('20260531');
+      LogicTestLog.value(name, 'date result type', String('string'), String(typeof formatted));
+      expect(typeof formatted).assertEqual('string');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1432
+     * @tc.name MultiMedia_Date_1432
+     * @tc.desc Month-boundary filename dates across leap, non-leap and century years
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Date_1432', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Date_1432';
+      LogicTestLog.begin(name, 'year=2026;month=6;day=1');
+      const dateTime: DateTimeUtil = new DateTimeUtil();
+      const formatted: string = dateTime.concatDate(2026, 6, 1);
+      LogicTestLog.value(name, 'filename date', String('20260601'), String(formatted));
+      expect(formatted).assertEqual('20260601');
+      LogicTestLog.number(name, 'date width', 8, formatted.length);
+      expect(formatted.length).assertEqual(8);
+      LogicTestLog.value(name, 'year component', String('2026'), String(formatted.substring(0, 4)));
+      expect(formatted.substring(0, 4)).assertEqual('2026');
+      LogicTestLog.value(name, 'month component', String('06'), String(formatted.substring(4, 6)));
+      expect(formatted.substring(4, 6)).assertEqual('06');
+      LogicTestLog.value(name, 'day component', String('01'), String(formatted.substring(6, 8)));
+      expect(formatted.substring(6, 8)).assertEqual('01');
+      LogicTestLog.value(name, 'interleaved time independence', String('000000'), String(dateTime.concatTime(0, 0, 0)));
+      expect(dateTime.concatTime(0, 0, 0)).assertEqual('000000');
+      LogicTestLog.value(name, 'date remains repeatable', String('20260601'), String(dateTime.concatDate(2026, 6, 1)));
+      expect(dateTime.concatDate(2026, 6, 1)).assertEqual('20260601');
+      LogicTestLog.value(name, 'date result type', String('string'), String(typeof formatted));
+      expect(typeof formatted).assertEqual('string');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1433
+     * @tc.name MultiMedia_Date_1433
+     * @tc.desc Month-boundary filename dates across leap, non-leap and century years
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Date_1433', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Date_1433';
+      LogicTestLog.begin(name, 'year=2026;month=6;day=30');
+      const dateTime: DateTimeUtil = new DateTimeUtil();
+      const formatted: string = dateTime.concatDate(2026, 6, 30);
+      LogicTestLog.value(name, 'filename date', String('20260630'), String(formatted));
+      expect(formatted).assertEqual('20260630');
+      LogicTestLog.number(name, 'date width', 8, formatted.length);
+      expect(formatted.length).assertEqual(8);
+      LogicTestLog.value(name, 'year component', String('2026'), String(formatted.substring(0, 4)));
+      expect(formatted.substring(0, 4)).assertEqual('2026');
+      LogicTestLog.value(name, 'month component', String('06'), String(formatted.substring(4, 6)));
+      expect(formatted.substring(4, 6)).assertEqual('06');
+      LogicTestLog.value(name, 'day component', String('30'), String(formatted.substring(6, 8)));
+      expect(formatted.substring(6, 8)).assertEqual('30');
+      LogicTestLog.value(name, 'interleaved time independence', String('000000'), String(dateTime.concatTime(0, 0, 0)));
+      expect(dateTime.concatTime(0, 0, 0)).assertEqual('000000');
+      LogicTestLog.value(name, 'date remains repeatable', String('20260630'), String(dateTime.concatDate(2026, 6, 30)));
+      expect(dateTime.concatDate(2026, 6, 30)).assertEqual('20260630');
+      LogicTestLog.value(name, 'date result type', String('string'), String(typeof formatted));
+      expect(typeof formatted).assertEqual('string');
+      LogicTestLog.end(name);
+    });
+  });
+}
