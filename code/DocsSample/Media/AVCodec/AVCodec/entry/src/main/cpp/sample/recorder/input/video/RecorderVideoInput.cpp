@@ -184,7 +184,7 @@ void Recorder::VideoEncInputAsyncThread()
         // [Start recorder_video_buffer_input_async]
         // 异步模式只消费OnNeedInputBuffer回调入队的Buffer和索引，不调用Query/Get接口。
         const auto bufferInfo = encContext_->inputBufferQueue.Dequeue(INPUT_WAIT_MS);
-        if (input == nullptr || input->buffer == nullptr) {
+        if (bufferInfo == nullptr || bufferInfo->buffer == nullptr) {
             continue;
         }
          /**
