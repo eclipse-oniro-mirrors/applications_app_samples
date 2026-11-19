@@ -17,8 +17,8 @@ import { router } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
-const DOMAIN = 0x0000;
-const TAG = 'Index';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_ReasonableUsingSystemInterfaces]';
 
 @Entry
 @Component
@@ -30,7 +30,7 @@ struct Index {
     router.pushUrl({ url: url }).catch((error: BusinessError) => {
       hilog.error(DOMAIN, TAG, 'Failed to push page %{public}s, code: %{public}d, message: %{public}s',
         url, error.code, error.message);
-    })
+    });
   }
 
   build() {

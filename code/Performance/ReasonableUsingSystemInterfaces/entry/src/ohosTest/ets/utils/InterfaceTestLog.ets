@@ -17,11 +17,11 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 
 export class InterfaceTestLog {
   static begin(name: string, input: string): void {
-    hilog.info(0xF812, 'InterfaceLogic', '%{public}s begin input=%{public}s', name, input);
+    hilog.info(0xF811, '[Sample_ReasonableUsingSystemInterfaces]', '%{public}s begin input=%{public}s', name, input);
   }
 
   static value(name: string, label: string, expected: string, actual: string): void {
-    hilog.info(0xF812, 'InterfaceLogic', '%{public}s %{public}s expected=%{public}s actual=%{public}s',
+    hilog.info(0xF811, '[Sample_ReasonableUsingSystemInterfaces]', '%{public}s %{public}s expected=%{public}s actual=%{public}s',
       name, label, expected.substring(0, 120), actual.substring(0, 120));
   }
 
@@ -30,10 +30,10 @@ export class InterfaceTestLog {
   }
 
   static flag(name: string, label: string, actual: boolean): void {
-    hilog.info(0xF812, 'InterfaceLogic', '%{public}s %{public}s actual=%{public}s', name, label, String(actual));
+    hilog.info(0xF811, '[Sample_ReasonableUsingSystemInterfaces]', '%{public}s %{public}s actual=%{public}s', name, label, String(actual));
   }
 
   static end(name: string): void {
-    hilog.info(0xF812, 'InterfaceLogic', '%{public}s end', name);
+    hilog.info(0xF811, '[Sample_ReasonableUsingSystemInterfaces]', '%{public}s end', name);
   }
 }

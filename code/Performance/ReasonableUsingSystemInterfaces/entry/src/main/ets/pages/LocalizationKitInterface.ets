@@ -18,8 +18,8 @@ import { hiTraceMeter, hilog } from '@kit.PerformanceAnalysisKit';
 // 导入国际化接口intl
 import { intl } from '@kit.LocalizationKit';
 
-const DOMAIN: number = 0x0000;
-const TAG: string = 'LocalizationKitInterface';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_ReasonableUsingSystemInterfaces]';
 const LOOP_COUNT: number = 100;
 
 /**

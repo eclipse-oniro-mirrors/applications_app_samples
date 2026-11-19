@@ -17,8 +17,8 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { decodeDisplayText } from '../utils/DisplayText';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0x0000;
-const TAG: string = 'UsingWordBreak';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_ReasonableUsingSystemInterfaces]';
 const RAW_FILE_NAME: string = 'sanguo.txt';
 
 @Entry

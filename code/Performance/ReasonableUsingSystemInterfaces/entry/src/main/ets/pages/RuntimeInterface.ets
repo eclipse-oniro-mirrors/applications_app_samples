@@ -16,8 +16,8 @@
 // 导入自定义打点模块
 import { hiTraceMeter, hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0x0000;
-const TAG: string = 'RuntimeInterface';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_ReasonableUsingSystemInterfaces]';
 const LOOP_COUNT: number = 100;
 
 /**
