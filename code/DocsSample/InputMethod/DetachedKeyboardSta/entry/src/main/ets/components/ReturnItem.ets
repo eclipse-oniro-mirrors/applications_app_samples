@@ -1,0 +1,87 @@
+'use static'
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import {
+  Component,
+  StorageLink,
+  Stack,
+  Resource,
+  Text,
+  Image,
+  $r,
+  StateStyles,
+  ClickEvent,
+  ShadowOptions,
+  Color,
+  $rawfile
+} from '@kit.ArkUI';
+import { InputHandler } from '../InputMethodExtensionAbility/model/KeyboardController';
+import { KeyStyle, StyleConfiguration } from '../common/StyleConfiguration';
+
+enum EntryKey {
+  Send = 'Send',
+  Search = 'Search',
+  Go = 'Go'
+}
+
+// 返回组件
+@Component
+export struct ReturnItem {
+  @StorageLink('enterKeyType') enterKeyType: number = 0;
+  @StorageLink('inputStyle') inputStyle: KeyStyle = StyleConfiguration.getSavedInputStyle();
+  returnWeight: number = 0;
+
+  build(): void {
+    if (this.returnWeight > 0) {
+      Stack() {
+        if (this.enterKeyType === 2) {
+          Text(EntryKey.Send)
+            .fontSize(this.inputStyle.symbol_fontSize)
+            .fontColor(Color.Black)
+        } else if (this.enterKeyType === 3) {
+          Text(EntryKey.Search)
+            .fontSize(this.inputStyle.symbol_fontSize)
+            .fontColor(Color.Black)
+        } else if (this.enterKeyType === 4) {
+          Text(EntryKey.Go)
+            .fontSize(this.inputStyle.symbol_fontSize)
+            .fontColor(Color.Black)
+        } else {
+          Image($rawfile('return.svg'))
+            .width(this.inputStyle.returnPicSize)
+            .height(this.inputStyle.returnPicSize)
+        }
+      }
+      .backgroundColor($r('app.color.key_item_gray'))
+      .layoutWeight(this.returnWeight)
+      .borderRadius(4)
+      .height('100%')
+      .id('returnItem')
+      .shadow({ radius: 1, color: $r('app.color.shadow'), offsetY: 3 } as ShadowOptions)
+      .onClick((e: ClickEvent): void => {
+        InputHandler.getInstance().sendKeyFunction();
+      })
+      .stateStyles({
+        normal: () => {
+          this.backgroundColor($r('app.color.key_item_gray'))
+        },
+        pressed: () => {
+          this.backgroundColor($r('app.color.key_item_gray_pressed'))
+        }
+      } as StateStyles)
+    }
+  }
+}
