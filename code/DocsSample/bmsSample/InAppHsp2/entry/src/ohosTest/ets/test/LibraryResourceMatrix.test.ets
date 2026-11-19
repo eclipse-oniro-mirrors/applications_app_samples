@@ -654,3 +654,71 @@ export default function libraryResourceMatrixTest() {
     });
     /**
      * @tc.number    SUB_IHSP_LRES_0028
+     * @tc.name      testLibraryResource0028
+     * @tc.desc      Library module context paths probe 6
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLibraryResource0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const installed: boolean = await libraryInstalled();
+      if (!installed) {
+        logCase('testLibraryResource0028', 'library module not installed');
+        return;
+      }
+      const libCtx: common.Context = moduleContext(LIB_MODULE);
+      const entryCtx: common.Context = moduleContext(ENTRY_MODULE);
+      const probe: number = 6;
+      logCase('testLibraryResource0028', 'library context probe=' + probe);
+      expect(libCtx.filesDir.length > 0).assertTrue();
+      expect(libCtx.filesDir !== entryCtx.filesDir).assertTrue();
+      expect(libCtx.databaseDir.length > 0).assertTrue();
+      expect(libCtx.databaseDir !== entryCtx.databaseDir).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_IHSP_LRES_0029
+     * @tc.name      testLibraryResource0029
+     * @tc.desc      Library module context paths probe 7
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLibraryResource0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const installed: boolean = await libraryInstalled();
+      if (!installed) {
+        logCase('testLibraryResource0029', 'library module not installed');
+        return;
+      }
+      const libCtx: common.Context = moduleContext(LIB_MODULE);
+      const entryCtx: common.Context = moduleContext(ENTRY_MODULE);
+      const probe: number = 7;
+      logCase('testLibraryResource0029', 'library context probe=' + probe);
+      expect(libCtx.filesDir.length > 0).assertTrue();
+      expect(libCtx.filesDir !== entryCtx.filesDir).assertTrue();
+      expect(libCtx.filesDir.startsWith('/data/storage')).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_IHSP_LRES_0030
+     * @tc.name      testLibraryResource0030
+     * @tc.desc      Library module context paths probe 8
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLibraryResource0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const installed: boolean = await libraryInstalled();
+      if (!installed) {
+        logCase('testLibraryResource0030', 'library module not installed');
+        return;
+      }
+      const libCtx: common.Context = moduleContext(LIB_MODULE);
+      const entryCtx: common.Context = moduleContext(ENTRY_MODULE);
+      const probe: number = 8;
+      logCase('testLibraryResource0030', 'library context probe=' + probe);
+      expect(libCtx.filesDir.length > 0).assertTrue();
+      expect(libCtx.filesDir !== entryCtx.filesDir).assertTrue();
+      expect(libCtx.cacheDir !== libCtx.filesDir).assertTrue();
+    });
+;
+  });
+}
