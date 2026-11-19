@@ -4176,3 +4176,1107 @@ export default function IntlScientificLogic(): void {
       InterfaceTestLog.value(name, 'runtime.format.2', '1E3', runtimeText2);
       expect(runtimeText2).assertEqual(kitText2);
       InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '3', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(3);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0058
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0058
+     * @tc.desc Check signed scientific/engineering notation and significant-digit boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0058',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0058';
+      const input: string = 'en-US; value=1000; options={"style":"decimal","notation":"engineering","useG' +
+        'rouping":false,"minimumSignificantDigits":1,"maximumSignificantDigits":3,"si' +
+        'gnDisplay":"auto"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.NumberOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 3, signDisplay: 'auto',
+      };
+      const kitOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":3,"signDisplay":"auto"}';
+      const runtimeOptions: Intl.NumberFormatOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 3, signDisplay: 'auto',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":3,"signDisplay":"auto"}';
+      const kit: intl.NumberFormat = new intl.NumberFormat(locale, kitOptions);
+      const runtime: Intl.NumberFormat = new Intl.NumberFormat(locale, runtimeOptions);
+      const probe0: number = 1000;
+      const probe1: number = -1000;
+      const probe2: number = 1000.125;
+      const kitText0: string = kit.format(probe0);
+      const kitText1: string = kit.format(probe1);
+      const kitText2: string = kit.format(probe2);
+      const kitResolved: intl.NumberOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0);
+      const runtimeText1: string = runtime.format(probe1);
+      const runtimeText2: string = runtime.format(probe2);
+      const runtimeResolved: Intl.ResolvedNumberFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '1E3', kitText0);
+      expect(kitText0).assertEqual(runtimeText0);
+      InterfaceTestLog.value(name, 'kit.format.1', '-1E3', kitText1);
+      expect(kitText1).assertEqual(runtimeText1);
+      InterfaceTestLog.value(name, 'kit.format.2', '1E3', kitText2);
+      expect(kitText2).assertEqual(runtimeText2);
+      InterfaceTestLog.value(name, 'kit.notation', 'engineering', String(kitResolved.notation));
+      expect(kitResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'kit.signDisplay', 'auto', String(kitResolved.signDisplay));
+      expect(kitResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.digits', '3', String(kitResolved.maximumSignificantDigits));
+      expect(kitResolved.maximumSignificantDigits).assertEqual(3);
+      InterfaceTestLog.value(name, 'runtime.format.0', '1E3', runtimeText0);
+      expect(runtimeText0).assertEqual(kitText0);
+      InterfaceTestLog.value(name, 'runtime.format.1', '-1E3', runtimeText1);
+      expect(runtimeText1).assertEqual(kitText1);
+      InterfaceTestLog.value(name, 'runtime.format.2', '1E3', runtimeText2);
+      expect(runtimeText2).assertEqual(kitText2);
+      InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '3', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(3);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0059
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0059
+     * @tc.desc Check signed scientific/engineering notation and significant-digit boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0059',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0059';
+      const input: string = 'en-US; value=-123456.789; options={"style":"decimal","notation":"engineering' +
+        '","useGrouping":false,"minimumSignificantDigits":1,"maximumSignificantDigits' +
+        '":3,"signDisplay":"auto"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.NumberOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 3, signDisplay: 'auto',
+      };
+      const kitOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":3,"signDisplay":"auto"}';
+      const runtimeOptions: Intl.NumberFormatOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 3, signDisplay: 'auto',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":3,"signDisplay":"auto"}';
+      const kit: intl.NumberFormat = new intl.NumberFormat(locale, kitOptions);
+      const runtime: Intl.NumberFormat = new Intl.NumberFormat(locale, runtimeOptions);
+      const probe0: number = -123456.789;
+      const probe1: number = 123456.789;
+      const probe2: number = -123456.664;
+      const kitText0: string = kit.format(probe0);
+      const kitText1: string = kit.format(probe1);
+      const kitText2: string = kit.format(probe2);
+      const kitResolved: intl.NumberOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0);
+      const runtimeText1: string = runtime.format(probe1);
+      const runtimeText2: string = runtime.format(probe2);
+      const runtimeResolved: Intl.ResolvedNumberFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '-123E3', kitText0);
+      expect(kitText0).assertEqual(runtimeText0);
+      InterfaceTestLog.value(name, 'kit.format.1', '123E3', kitText1);
+      expect(kitText1).assertEqual(runtimeText1);
+      InterfaceTestLog.value(name, 'kit.format.2', '-123E3', kitText2);
+      expect(kitText2).assertEqual(runtimeText2);
+      InterfaceTestLog.value(name, 'kit.notation', 'engineering', String(kitResolved.notation));
+      expect(kitResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'kit.signDisplay', 'auto', String(kitResolved.signDisplay));
+      expect(kitResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.digits', '3', String(kitResolved.maximumSignificantDigits));
+      expect(kitResolved.maximumSignificantDigits).assertEqual(3);
+      InterfaceTestLog.value(name, 'runtime.format.0', '-123E3', runtimeText0);
+      expect(runtimeText0).assertEqual(kitText0);
+      InterfaceTestLog.value(name, 'runtime.format.1', '123E3', runtimeText1);
+      expect(runtimeText1).assertEqual(kitText1);
+      InterfaceTestLog.value(name, 'runtime.format.2', '-123E3', runtimeText2);
+      expect(runtimeText2).assertEqual(kitText2);
+      InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '3', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(3);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0060
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0060
+     * @tc.desc Check signed scientific/engineering notation and significant-digit boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0060',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0060';
+      const input: string = 'en-US; value=1e+21; options={"style":"decimal","notation":"engineering","use' +
+        'Grouping":false,"minimumSignificantDigits":1,"maximumSignificantDigits":3,"s' +
+        'ignDisplay":"auto"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.NumberOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 3, signDisplay: 'auto',
+      };
+      const kitOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":3,"signDisplay":"auto"}';
+      const runtimeOptions: Intl.NumberFormatOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 3, signDisplay: 'auto',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":3,"signDisplay":"auto"}';
+      const kit: intl.NumberFormat = new intl.NumberFormat(locale, kitOptions);
+      const runtime: Intl.NumberFormat = new Intl.NumberFormat(locale, runtimeOptions);
+      const probe0: number = 1e+21;
+      const probe1: number = -1e+21;
+      const probe2: number = 1.0000000000000003e+21;
+      const kitText0: string = kit.format(probe0);
+      const kitText1: string = kit.format(probe1);
+      const kitText2: string = kit.format(probe2);
+      const kitResolved: intl.NumberOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0);
+      const runtimeText1: string = runtime.format(probe1);
+      const runtimeText2: string = runtime.format(probe2);
+      const runtimeResolved: Intl.ResolvedNumberFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '1E21', kitText0);
+      expect(kitText0).assertEqual(runtimeText0);
+      InterfaceTestLog.value(name, 'kit.format.1', '-1E21', kitText1);
+      expect(kitText1).assertEqual(runtimeText1);
+      InterfaceTestLog.value(name, 'kit.format.2', '1E21', kitText2);
+      expect(kitText2).assertEqual(runtimeText2);
+      InterfaceTestLog.value(name, 'kit.notation', 'engineering', String(kitResolved.notation));
+      expect(kitResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'kit.signDisplay', 'auto', String(kitResolved.signDisplay));
+      expect(kitResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.digits', '3', String(kitResolved.maximumSignificantDigits));
+      expect(kitResolved.maximumSignificantDigits).assertEqual(3);
+      InterfaceTestLog.value(name, 'runtime.format.0', '1E21', runtimeText0);
+      expect(runtimeText0).assertEqual(kitText0);
+      InterfaceTestLog.value(name, 'runtime.format.1', '-1E21', runtimeText1);
+      expect(runtimeText1).assertEqual(kitText1);
+      InterfaceTestLog.value(name, 'runtime.format.2', '1E21', runtimeText2);
+      expect(runtimeText2).assertEqual(kitText2);
+      InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '3', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(3);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0061
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0061
+     * @tc.desc Check signed scientific/engineering notation and significant-digit boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0061',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0061';
+      const input: string = 'en-GB; value=-0; options={"style":"decimal","notation":"engineering","useGro' +
+        'uping":false,"minimumSignificantDigits":1,"maximumSignificantDigits":21,"sig' +
+        'nDisplay":"auto"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.NumberOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const kitOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const runtimeOptions: Intl.NumberFormatOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const kit: intl.NumberFormat = new intl.NumberFormat(locale, kitOptions);
+      const runtime: Intl.NumberFormat = new Intl.NumberFormat(locale, runtimeOptions);
+      const probe0: number = -0;
+      const probe1: number = 0;
+      const probe2: number = 0.125;
+      const kitText0: string = kit.format(probe0);
+      const kitText1: string = kit.format(probe1);
+      const kitText2: string = kit.format(probe2);
+      const kitResolved: intl.NumberOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0);
+      const runtimeText1: string = runtime.format(probe1);
+      const runtimeText2: string = runtime.format(probe2);
+      const runtimeResolved: Intl.ResolvedNumberFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '-0E0', kitText0);
+      expect(kitText0).assertEqual(runtimeText0);
+      InterfaceTestLog.value(name, 'kit.format.1', '0E0', kitText1);
+      expect(kitText1).assertEqual(runtimeText1);
+      InterfaceTestLog.value(name, 'kit.format.2', '125E-3', kitText2);
+      expect(kitText2).assertEqual(runtimeText2);
+      InterfaceTestLog.value(name, 'kit.notation', 'engineering', String(kitResolved.notation));
+      expect(kitResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'kit.signDisplay', 'auto', String(kitResolved.signDisplay));
+      expect(kitResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.digits', '21', String(kitResolved.maximumSignificantDigits));
+      expect(kitResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.value(name, 'runtime.format.0', '-0E0', runtimeText0);
+      expect(runtimeText0).assertEqual(kitText0);
+      InterfaceTestLog.value(name, 'runtime.format.1', '0E0', runtimeText1);
+      expect(runtimeText1).assertEqual(kitText1);
+      InterfaceTestLog.value(name, 'runtime.format.2', '125E-3', runtimeText2);
+      expect(runtimeText2).assertEqual(kitText2);
+      InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '21', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0062
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0062
+     * @tc.desc Check signed scientific/engineering notation and significant-digit boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0062',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0062';
+      const input: string = 'en-GB; value=0; options={"style":"decimal","notation":"engineering","useGrou' +
+        'ping":false,"minimumSignificantDigits":1,"maximumSignificantDigits":21,"sign' +
+        'Display":"auto"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.NumberOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const kitOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const runtimeOptions: Intl.NumberFormatOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const kit: intl.NumberFormat = new intl.NumberFormat(locale, kitOptions);
+      const runtime: Intl.NumberFormat = new Intl.NumberFormat(locale, runtimeOptions);
+      const probe0: number = 0;
+      const probe1: number = -0;
+      const probe2: number = 0.125;
+      const kitText0: string = kit.format(probe0);
+      const kitText1: string = kit.format(probe1);
+      const kitText2: string = kit.format(probe2);
+      const kitResolved: intl.NumberOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0);
+      const runtimeText1: string = runtime.format(probe1);
+      const runtimeText2: string = runtime.format(probe2);
+      const runtimeResolved: Intl.ResolvedNumberFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '0E0', kitText0);
+      expect(kitText0).assertEqual(runtimeText0);
+      InterfaceTestLog.value(name, 'kit.format.1', '-0E0', kitText1);
+      expect(kitText1).assertEqual(runtimeText1);
+      InterfaceTestLog.value(name, 'kit.format.2', '125E-3', kitText2);
+      expect(kitText2).assertEqual(runtimeText2);
+      InterfaceTestLog.value(name, 'kit.notation', 'engineering', String(kitResolved.notation));
+      expect(kitResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'kit.signDisplay', 'auto', String(kitResolved.signDisplay));
+      expect(kitResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.digits', '21', String(kitResolved.maximumSignificantDigits));
+      expect(kitResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.value(name, 'runtime.format.0', '0E0', runtimeText0);
+      expect(runtimeText0).assertEqual(kitText0);
+      InterfaceTestLog.value(name, 'runtime.format.1', '-0E0', runtimeText1);
+      expect(runtimeText1).assertEqual(kitText1);
+      InterfaceTestLog.value(name, 'runtime.format.2', '125E-3', runtimeText2);
+      expect(runtimeText2).assertEqual(kitText2);
+      InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '21', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0063
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0063
+     * @tc.desc Check signed scientific/engineering notation and significant-digit boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0063',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0063';
+      const input: string = 'en-GB; value=-1; options={"style":"decimal","notation":"engineering","useGro' +
+        'uping":false,"minimumSignificantDigits":1,"maximumSignificantDigits":21,"sig' +
+        'nDisplay":"auto"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.NumberOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const kitOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const runtimeOptions: Intl.NumberFormatOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const kit: intl.NumberFormat = new intl.NumberFormat(locale, kitOptions);
+      const runtime: Intl.NumberFormat = new Intl.NumberFormat(locale, runtimeOptions);
+      const probe0: number = -1;
+      const probe1: number = 1;
+      const probe2: number = -0.875;
+      const kitText0: string = kit.format(probe0);
+      const kitText1: string = kit.format(probe1);
+      const kitText2: string = kit.format(probe2);
+      const kitResolved: intl.NumberOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0);
+      const runtimeText1: string = runtime.format(probe1);
+      const runtimeText2: string = runtime.format(probe2);
+      const runtimeResolved: Intl.ResolvedNumberFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '-1E0', kitText0);
+      expect(kitText0).assertEqual(runtimeText0);
+      InterfaceTestLog.value(name, 'kit.format.1', '1E0', kitText1);
+      expect(kitText1).assertEqual(runtimeText1);
+      InterfaceTestLog.value(name, 'kit.format.2', '-875E-3', kitText2);
+      expect(kitText2).assertEqual(runtimeText2);
+      InterfaceTestLog.value(name, 'kit.notation', 'engineering', String(kitResolved.notation));
+      expect(kitResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'kit.signDisplay', 'auto', String(kitResolved.signDisplay));
+      expect(kitResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.digits', '21', String(kitResolved.maximumSignificantDigits));
+      expect(kitResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.value(name, 'runtime.format.0', '-1E0', runtimeText0);
+      expect(runtimeText0).assertEqual(kitText0);
+      InterfaceTestLog.value(name, 'runtime.format.1', '1E0', runtimeText1);
+      expect(runtimeText1).assertEqual(kitText1);
+      InterfaceTestLog.value(name, 'runtime.format.2', '-875E-3', runtimeText2);
+      expect(runtimeText2).assertEqual(kitText2);
+      InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '21', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0064
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0064
+     * @tc.desc Check signed scientific/engineering notation and significant-digit boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0064',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0064';
+      const input: string = 'en-GB; value=1; options={"style":"decimal","notation":"engineering","useGrou' +
+        'ping":false,"minimumSignificantDigits":1,"maximumSignificantDigits":21,"sign' +
+        'Display":"auto"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.NumberOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const kitOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const runtimeOptions: Intl.NumberFormatOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const kit: intl.NumberFormat = new intl.NumberFormat(locale, kitOptions);
+      const runtime: Intl.NumberFormat = new Intl.NumberFormat(locale, runtimeOptions);
+      const probe0: number = 1;
+      const probe1: number = -1;
+      const probe2: number = 1.125;
+      const kitText0: string = kit.format(probe0);
+      const kitText1: string = kit.format(probe1);
+      const kitText2: string = kit.format(probe2);
+      const kitResolved: intl.NumberOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0);
+      const runtimeText1: string = runtime.format(probe1);
+      const runtimeText2: string = runtime.format(probe2);
+      const runtimeResolved: Intl.ResolvedNumberFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '1E0', kitText0);
+      expect(kitText0).assertEqual(runtimeText0);
+      InterfaceTestLog.value(name, 'kit.format.1', '-1E0', kitText1);
+      expect(kitText1).assertEqual(runtimeText1);
+      InterfaceTestLog.value(name, 'kit.format.2', '1.125E0', kitText2);
+      expect(kitText2).assertEqual(runtimeText2);
+      InterfaceTestLog.value(name, 'kit.notation', 'engineering', String(kitResolved.notation));
+      expect(kitResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'kit.signDisplay', 'auto', String(kitResolved.signDisplay));
+      expect(kitResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.digits', '21', String(kitResolved.maximumSignificantDigits));
+      expect(kitResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.value(name, 'runtime.format.0', '1E0', runtimeText0);
+      expect(runtimeText0).assertEqual(kitText0);
+      InterfaceTestLog.value(name, 'runtime.format.1', '-1E0', runtimeText1);
+      expect(runtimeText1).assertEqual(kitText1);
+      InterfaceTestLog.value(name, 'runtime.format.2', '1.125E0', runtimeText2);
+      expect(runtimeText2).assertEqual(kitText2);
+      InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '21', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0065
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0065
+     * @tc.desc Check signed scientific/engineering notation and significant-digit boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0065',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0065';
+      const input: string = 'en-GB; value=-0.000001; options={"style":"decimal","notation":"engineering",' +
+        '"useGrouping":false,"minimumSignificantDigits":1,"maximumSignificantDigits":' +
+        '21,"signDisplay":"auto"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.NumberOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const kitOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const runtimeOptions: Intl.NumberFormatOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const kit: intl.NumberFormat = new intl.NumberFormat(locale, kitOptions);
+      const runtime: Intl.NumberFormat = new Intl.NumberFormat(locale, runtimeOptions);
+      const probe0: number = -0.000001;
+      const probe1: number = 0.000001;
+      const probe2: number = 0.124999;
+      const kitText0: string = kit.format(probe0);
+      const kitText1: string = kit.format(probe1);
+      const kitText2: string = kit.format(probe2);
+      const kitResolved: intl.NumberOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0);
+      const runtimeText1: string = runtime.format(probe1);
+      const runtimeText2: string = runtime.format(probe2);
+      const runtimeResolved: Intl.ResolvedNumberFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '-1E-6', kitText0);
+      expect(kitText0).assertEqual(runtimeText0);
+      InterfaceTestLog.value(name, 'kit.format.1', '1E-6', kitText1);
+      expect(kitText1).assertEqual(runtimeText1);
+      InterfaceTestLog.value(name, 'kit.format.2', '124.999E-3', kitText2);
+      expect(kitText2).assertEqual(runtimeText2);
+      InterfaceTestLog.value(name, 'kit.notation', 'engineering', String(kitResolved.notation));
+      expect(kitResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'kit.signDisplay', 'auto', String(kitResolved.signDisplay));
+      expect(kitResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.digits', '21', String(kitResolved.maximumSignificantDigits));
+      expect(kitResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.value(name, 'runtime.format.0', '-1E-6', runtimeText0);
+      expect(runtimeText0).assertEqual(kitText0);
+      InterfaceTestLog.value(name, 'runtime.format.1', '1E-6', runtimeText1);
+      expect(runtimeText1).assertEqual(kitText1);
+      InterfaceTestLog.value(name, 'runtime.format.2', '124.999E-3', runtimeText2);
+      expect(runtimeText2).assertEqual(kitText2);
+      InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '21', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0066
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0066
+     * @tc.desc Check signed scientific/engineering notation and significant-digit boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0066',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0066';
+      const input: string = 'en-GB; value=0.000001; options={"style":"decimal","notation":"engineering","' +
+        'useGrouping":false,"minimumSignificantDigits":1,"maximumSignificantDigits":2' +
+        '1,"signDisplay":"auto"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.NumberOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const kitOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const runtimeOptions: Intl.NumberFormatOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const kit: intl.NumberFormat = new intl.NumberFormat(locale, kitOptions);
+      const runtime: Intl.NumberFormat = new Intl.NumberFormat(locale, runtimeOptions);
+      const probe0: number = 0.000001;
+      const probe1: number = -0.000001;
+      const probe2: number = 0.125001;
+      const kitText0: string = kit.format(probe0);
+      const kitText1: string = kit.format(probe1);
+      const kitText2: string = kit.format(probe2);
+      const kitResolved: intl.NumberOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0);
+      const runtimeText1: string = runtime.format(probe1);
+      const runtimeText2: string = runtime.format(probe2);
+      const runtimeResolved: Intl.ResolvedNumberFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '1E-6', kitText0);
+      expect(kitText0).assertEqual(runtimeText0);
+      InterfaceTestLog.value(name, 'kit.format.1', '-1E-6', kitText1);
+      expect(kitText1).assertEqual(runtimeText1);
+      InterfaceTestLog.value(name, 'kit.format.2', '125.001E-3', kitText2);
+      expect(kitText2).assertEqual(runtimeText2);
+      InterfaceTestLog.value(name, 'kit.notation', 'engineering', String(kitResolved.notation));
+      expect(kitResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'kit.signDisplay', 'auto', String(kitResolved.signDisplay));
+      expect(kitResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.digits', '21', String(kitResolved.maximumSignificantDigits));
+      expect(kitResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.value(name, 'runtime.format.0', '1E-6', runtimeText0);
+      expect(runtimeText0).assertEqual(kitText0);
+      InterfaceTestLog.value(name, 'runtime.format.1', '-1E-6', runtimeText1);
+      expect(runtimeText1).assertEqual(kitText1);
+      InterfaceTestLog.value(name, 'runtime.format.2', '125.001E-3', runtimeText2);
+      expect(runtimeText2).assertEqual(kitText2);
+      InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '21', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0067
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0067
+     * @tc.desc Check signed scientific/engineering notation and significant-digit boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0067',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0067';
+      const input: string = 'en-GB; value=0.00099995; options={"style":"decimal","notation":"engineering"' +
+        ',"useGrouping":false,"minimumSignificantDigits":1,"maximumSignificantDigits"' +
+        ':21,"signDisplay":"auto"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.NumberOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const kitOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const runtimeOptions: Intl.NumberFormatOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const kit: intl.NumberFormat = new intl.NumberFormat(locale, kitOptions);
+      const runtime: Intl.NumberFormat = new Intl.NumberFormat(locale, runtimeOptions);
+      const probe0: number = 0.00099995;
+      const probe1: number = -0.00099995;
+      const probe2: number = 0.12599995;
+      const kitText0: string = kit.format(probe0);
+      const kitText1: string = kit.format(probe1);
+      const kitText2: string = kit.format(probe2);
+      const kitResolved: intl.NumberOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0);
+      const runtimeText1: string = runtime.format(probe1);
+      const runtimeText2: string = runtime.format(probe2);
+      const runtimeResolved: Intl.ResolvedNumberFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '999.95E-6', kitText0);
+      expect(kitText0).assertEqual(runtimeText0);
+      InterfaceTestLog.value(name, 'kit.format.1', '-999.95E-6', kitText1);
+      expect(kitText1).assertEqual(runtimeText1);
+      InterfaceTestLog.value(name, 'kit.format.2', '125.99995E-3', kitText2);
+      expect(kitText2).assertEqual(runtimeText2);
+      InterfaceTestLog.value(name, 'kit.notation', 'engineering', String(kitResolved.notation));
+      expect(kitResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'kit.signDisplay', 'auto', String(kitResolved.signDisplay));
+      expect(kitResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.digits', '21', String(kitResolved.maximumSignificantDigits));
+      expect(kitResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.value(name, 'runtime.format.0', '999.95E-6', runtimeText0);
+      expect(runtimeText0).assertEqual(kitText0);
+      InterfaceTestLog.value(name, 'runtime.format.1', '-999.95E-6', runtimeText1);
+      expect(runtimeText1).assertEqual(kitText1);
+      InterfaceTestLog.value(name, 'runtime.format.2', '125.99995E-3', runtimeText2);
+      expect(runtimeText2).assertEqual(kitText2);
+      InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '21', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0068
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0068
+     * @tc.desc Check signed scientific/engineering notation and significant-digit boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0068',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0068';
+      const input: string = 'en-GB; value=0.001; options={"style":"decimal","notation":"engineering","use' +
+        'Grouping":false,"minimumSignificantDigits":1,"maximumSignificantDigits":21,"' +
+        'signDisplay":"auto"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.NumberOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const kitOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const runtimeOptions: Intl.NumberFormatOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const kit: intl.NumberFormat = new intl.NumberFormat(locale, kitOptions);
+      const runtime: Intl.NumberFormat = new Intl.NumberFormat(locale, runtimeOptions);
+      const probe0: number = 0.001;
+      const probe1: number = -0.001;
+      const probe2: number = 0.126;
+      const kitText0: string = kit.format(probe0);
+      const kitText1: string = kit.format(probe1);
+      const kitText2: string = kit.format(probe2);
+      const kitResolved: intl.NumberOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0);
+      const runtimeText1: string = runtime.format(probe1);
+      const runtimeText2: string = runtime.format(probe2);
+      const runtimeResolved: Intl.ResolvedNumberFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '1E-3', kitText0);
+      expect(kitText0).assertEqual(runtimeText0);
+      InterfaceTestLog.value(name, 'kit.format.1', '-1E-3', kitText1);
+      expect(kitText1).assertEqual(runtimeText1);
+      InterfaceTestLog.value(name, 'kit.format.2', '126E-3', kitText2);
+      expect(kitText2).assertEqual(runtimeText2);
+      InterfaceTestLog.value(name, 'kit.notation', 'engineering', String(kitResolved.notation));
+      expect(kitResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'kit.signDisplay', 'auto', String(kitResolved.signDisplay));
+      expect(kitResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.digits', '21', String(kitResolved.maximumSignificantDigits));
+      expect(kitResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.value(name, 'runtime.format.0', '1E-3', runtimeText0);
+      expect(runtimeText0).assertEqual(kitText0);
+      InterfaceTestLog.value(name, 'runtime.format.1', '-1E-3', runtimeText1);
+      expect(runtimeText1).assertEqual(kitText1);
+      InterfaceTestLog.value(name, 'runtime.format.2', '126E-3', runtimeText2);
+      expect(runtimeText2).assertEqual(kitText2);
+      InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '21', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0069
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0069
+     * @tc.desc Check signed scientific/engineering notation and significant-digit boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0069',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0069';
+      const input: string = 'en-GB; value=999.95; options={"style":"decimal","notation":"engineering","us' +
+        'eGrouping":false,"minimumSignificantDigits":1,"maximumSignificantDigits":21,' +
+        '"signDisplay":"auto"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.NumberOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const kitOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const runtimeOptions: Intl.NumberFormatOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const kit: intl.NumberFormat = new intl.NumberFormat(locale, kitOptions);
+      const runtime: Intl.NumberFormat = new Intl.NumberFormat(locale, runtimeOptions);
+      const probe0: number = 999.95;
+      const probe1: number = -999.95;
+      const probe2: number = 1000.075;
+      const kitText0: string = kit.format(probe0);
+      const kitText1: string = kit.format(probe1);
+      const kitText2: string = kit.format(probe2);
+      const kitResolved: intl.NumberOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0);
+      const runtimeText1: string = runtime.format(probe1);
+      const runtimeText2: string = runtime.format(probe2);
+      const runtimeResolved: Intl.ResolvedNumberFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '999.95E0', kitText0);
+      expect(kitText0).assertEqual(runtimeText0);
+      InterfaceTestLog.value(name, 'kit.format.1', '-999.95E0', kitText1);
+      expect(kitText1).assertEqual(runtimeText1);
+      InterfaceTestLog.value(name, 'kit.format.2', '1.000075E3', kitText2);
+      expect(kitText2).assertEqual(runtimeText2);
+      InterfaceTestLog.value(name, 'kit.notation', 'engineering', String(kitResolved.notation));
+      expect(kitResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'kit.signDisplay', 'auto', String(kitResolved.signDisplay));
+      expect(kitResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.digits', '21', String(kitResolved.maximumSignificantDigits));
+      expect(kitResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.value(name, 'runtime.format.0', '999.95E0', runtimeText0);
+      expect(runtimeText0).assertEqual(kitText0);
+      InterfaceTestLog.value(name, 'runtime.format.1', '-999.95E0', runtimeText1);
+      expect(runtimeText1).assertEqual(kitText1);
+      InterfaceTestLog.value(name, 'runtime.format.2', '1.000075E3', runtimeText2);
+      expect(runtimeText2).assertEqual(kitText2);
+      InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '21', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0070
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0070
+     * @tc.desc Check signed scientific/engineering notation and significant-digit boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0070',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0070';
+      const input: string = 'en-GB; value=1000; options={"style":"decimal","notation":"engineering","useG' +
+        'rouping":false,"minimumSignificantDigits":1,"maximumSignificantDigits":21,"s' +
+        'ignDisplay":"auto"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.NumberOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const kitOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const runtimeOptions: Intl.NumberFormatOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const kit: intl.NumberFormat = new intl.NumberFormat(locale, kitOptions);
+      const runtime: Intl.NumberFormat = new Intl.NumberFormat(locale, runtimeOptions);
+      const probe0: number = 1000;
+      const probe1: number = -1000;
+      const probe2: number = 1000.125;
+      const kitText0: string = kit.format(probe0);
+      const kitText1: string = kit.format(probe1);
+      const kitText2: string = kit.format(probe2);
+      const kitResolved: intl.NumberOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0);
+      const runtimeText1: string = runtime.format(probe1);
+      const runtimeText2: string = runtime.format(probe2);
+      const runtimeResolved: Intl.ResolvedNumberFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '1E3', kitText0);
+      expect(kitText0).assertEqual(runtimeText0);
+      InterfaceTestLog.value(name, 'kit.format.1', '-1E3', kitText1);
+      expect(kitText1).assertEqual(runtimeText1);
+      InterfaceTestLog.value(name, 'kit.format.2', '1.000125E3', kitText2);
+      expect(kitText2).assertEqual(runtimeText2);
+      InterfaceTestLog.value(name, 'kit.notation', 'engineering', String(kitResolved.notation));
+      expect(kitResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'kit.signDisplay', 'auto', String(kitResolved.signDisplay));
+      expect(kitResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.digits', '21', String(kitResolved.maximumSignificantDigits));
+      expect(kitResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.value(name, 'runtime.format.0', '1E3', runtimeText0);
+      expect(runtimeText0).assertEqual(kitText0);
+      InterfaceTestLog.value(name, 'runtime.format.1', '-1E3', runtimeText1);
+      expect(runtimeText1).assertEqual(kitText1);
+      InterfaceTestLog.value(name, 'runtime.format.2', '1.000125E3', runtimeText2);
+      expect(runtimeText2).assertEqual(kitText2);
+      InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '21', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0071
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0071
+     * @tc.desc Check signed scientific/engineering notation and significant-digit boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0071',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0071';
+      const input: string = 'en-GB; value=-123456.789; options={"style":"decimal","notation":"engineering' +
+        '","useGrouping":false,"minimumSignificantDigits":1,"maximumSignificantDigits' +
+        '":21,"signDisplay":"auto"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.NumberOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const kitOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const runtimeOptions: Intl.NumberFormatOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const kit: intl.NumberFormat = new intl.NumberFormat(locale, kitOptions);
+      const runtime: Intl.NumberFormat = new Intl.NumberFormat(locale, runtimeOptions);
+      const probe0: number = -123456.789;
+      const probe1: number = 123456.789;
+      const probe2: number = -123456.664;
+      const kitText0: string = kit.format(probe0);
+      const kitText1: string = kit.format(probe1);
+      const kitText2: string = kit.format(probe2);
+      const kitResolved: intl.NumberOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0);
+      const runtimeText1: string = runtime.format(probe1);
+      const runtimeText2: string = runtime.format(probe2);
+      const runtimeResolved: Intl.ResolvedNumberFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '-123.456789E3', kitText0);
+      expect(kitText0).assertEqual(runtimeText0);
+      InterfaceTestLog.value(name, 'kit.format.1', '123.456789E3', kitText1);
+      expect(kitText1).assertEqual(runtimeText1);
+      InterfaceTestLog.value(name, 'kit.format.2', '-123.456664E3', kitText2);
+      expect(kitText2).assertEqual(runtimeText2);
+      InterfaceTestLog.value(name, 'kit.notation', 'engineering', String(kitResolved.notation));
+      expect(kitResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'kit.signDisplay', 'auto', String(kitResolved.signDisplay));
+      expect(kitResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.digits', '21', String(kitResolved.maximumSignificantDigits));
+      expect(kitResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.value(name, 'runtime.format.0', '-123.456789E3', runtimeText0);
+      expect(runtimeText0).assertEqual(kitText0);
+      InterfaceTestLog.value(name, 'runtime.format.1', '123.456789E3', runtimeText1);
+      expect(runtimeText1).assertEqual(kitText1);
+      InterfaceTestLog.value(name, 'runtime.format.2', '-123.456664E3', runtimeText2);
+      expect(runtimeText2).assertEqual(kitText2);
+      InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '21', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0072
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0072
+     * @tc.desc Check signed scientific/engineering notation and significant-digit boundaries.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0072',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_SCIENTIFIC_0072';
+      const input: string = 'en-GB; value=1e+21; options={"style":"decimal","notation":"engineering","use' +
+        'Grouping":false,"minimumSignificantDigits":1,"maximumSignificantDigits":21,"' +
+        'signDisplay":"auto"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.NumberOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const kitOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const runtimeOptions: Intl.NumberFormatOptions = {
+        style: 'decimal', notation: 'engineering', useGrouping: false, minimumSignificantDigits: 1,
+        maximumSignificantDigits: 21, signDisplay: 'auto',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"style":"decimal","notation":"engineering","useGrouping":false,"minimumSign' +
+        'ificantDigits":1,"maximumSignificantDigits":21,"signDisplay":"auto"}';
+      const kit: intl.NumberFormat = new intl.NumberFormat(locale, kitOptions);
+      const runtime: Intl.NumberFormat = new Intl.NumberFormat(locale, runtimeOptions);
+      const probe0: number = 1e+21;
+      const probe1: number = -1e+21;
+      const probe2: number = 1.0000000000000003e+21;
+      const kitText0: string = kit.format(probe0);
+      const kitText1: string = kit.format(probe1);
+      const kitText2: string = kit.format(probe2);
+      const kitResolved: intl.NumberOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0);
+      const runtimeText1: string = runtime.format(probe1);
+      const runtimeText2: string = runtime.format(probe2);
+      const runtimeResolved: Intl.ResolvedNumberFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '1E21', kitText0);
+      expect(kitText0).assertEqual(runtimeText0);
+      InterfaceTestLog.value(name, 'kit.format.1', '-1E21', kitText1);
+      expect(kitText1).assertEqual(runtimeText1);
+      InterfaceTestLog.value(name, 'kit.format.2', '1.0000000000000003E21', kitText2);
+      expect(kitText2).assertEqual(runtimeText2);
+      InterfaceTestLog.value(name, 'kit.notation', 'engineering', String(kitResolved.notation));
+      expect(kitResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'kit.signDisplay', 'auto', String(kitResolved.signDisplay));
+      expect(kitResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.digits', '21', String(kitResolved.maximumSignificantDigits));
+      expect(kitResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.value(name, 'runtime.format.0', '1E21', runtimeText0);
+      expect(runtimeText0).assertEqual(kitText0);
+      InterfaceTestLog.value(name, 'runtime.format.1', '-1E21', runtimeText1);
+      expect(runtimeText1).assertEqual(kitText1);
+      InterfaceTestLog.value(name, 'runtime.format.2', '1.0000000000000003E21', runtimeText2);
+      expect(runtimeText2).assertEqual(kitText2);
+      InterfaceTestLog.value(name, 'runtime.notation', 'engineering', String(runtimeResolved.notation));
+      expect(runtimeResolved.notation).assertEqual('engineering');
+      InterfaceTestLog.value(name, 'runtime.signDisplay', 'auto', String(runtimeResolved.signDisplay));
+      expect(runtimeResolved.signDisplay).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.digits', '21', String(runtimeResolved.maximumSignificantDigits));
+      expect(runtimeResolved.maximumSignificantDigits).assertEqual(21);
+      InterfaceTestLog.end(name);
+    });
+  });
+}
