@@ -1798,3 +1798,1573 @@ export default function gcFinalizationRegistryTest() {
 
     /**
      * @tc.number    SUB_ARKTS_GC_FINALREG_4700
+     * @tc.name      testFinalRegUnregisterEqual0001
+     * @tc.desc      Unregister with a structurally equal but distinct token object and check matching is by identity so
+     *               the victim is still reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFinalRegUnregisterEqual0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const realKey: TokenRecord = new TokenRecord(4701, 'struct');
+      const cloneKey: TokenRecord = new TokenRecord(4701, 'struct');
+      const controlKey: TokenRecord = new TokenRecord(4702, 'control');
+      registerNumberPairKeyedAt(ledger, 4710, 4711, realKey as object);
+      registerNumberPairKeyedAt(ledger, 4712, 4713, controlKey as object);
+      ledger.unregister(cloneKey as object);
+      const rounds: number = await collectUntil(() => ledger.has(4711) && ledger.has(4713), COLLECT_ROUNDS);
+      logCase('testFinalRegUnregisterEqual0001', `rounds=${rounds} realId=${realKey.id} ` +
+        `cloneId=${cloneKey.id} tokens=${ledger.sorted().join(',')}`);
+      expect(cloneKey.id).assertEqual(realKey.id);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(TWO);
+      expect(ledger.has(4711) && ledger.has(4713)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_4800
+     * @tc.name      testFinalRegUnregisterShared0001
+     * @tc.desc      Register two different pairs with the same token, unregister once and check both entries are
+     *               removed while the control is reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFinalRegUnregisterShared0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const sharedKey: TokenRecord = new TokenRecord(4800, 'shared-key');
+      const controlKey: TokenRecord = new TokenRecord(4801, 'control-key');
+      registerNumberPairKeyedAt(ledger, 4810, 4811, sharedKey as object);
+      registerNumberPairKeyedAt(ledger, 4812, 4813, sharedKey as object);
+      registerNumberPairKeyedAt(ledger, 4814, 4815, controlKey as object);
+      ledger.unregister(sharedKey as object);
+      const rounds: number = await collectUntil(() => ledger.has(4815), COLLECT_ROUNDS);
+      logCase('testFinalRegUnregisterShared0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(4811)).assertFalse();
+      expect(ledger.has(4813)).assertFalse();
+      expect(ledger.has(4815)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_4900
+     * @tc.name      testFinalRegUnregisterPartial0001
+     * @tc.desc      Register one target with token A and two with token B, unregister B and check only the token A
+     *               target and the control are reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegUnregisterPartial0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const keptKey: TokenRecord = new TokenRecord(4900, 'kept-key');
+      const droppedKey: TokenRecord = new TokenRecord(4901, 'dropped-key');
+      const controlKey: TokenRecord = new TokenRecord(4902, 'control-key');
+      registerNumberPairKeyedAt(ledger, 4910, 4911, keptKey as object);
+      registerNumberPairKeyedAt(ledger, 4912, 4913, droppedKey as object);
+      registerNumberPairKeyedAt(ledger, 4914, 4915, droppedKey as object);
+      registerNumberPairKeyedAt(ledger, 4916, 4917, controlKey as object);
+      ledger.unregister(droppedKey as object);
+      const rounds: number = await collectUntil(() => ledger.has(4911) && ledger.has(4917), COLLECT_ROUNDS);
+      logCase('testFinalRegUnregisterPartial0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(TWO);
+      expect(ledger.has(4911)).assertTrue();
+      expect(ledger.has(4913)).assertFalse();
+      expect(ledger.has(4915)).assertFalse();
+      expect(ledger.has(4917)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_5000
+     * @tc.name      testFinalRegUnregisterControl0001
+     * @tc.desc      Register one victim and one control, unregister the victim and check the ledger holds exactly the
+     *               control token
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFinalRegUnregisterControl0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const victimKey: TokenRecord = new TokenRecord(5000, 'victim-key');
+      const controlKey: TokenRecord = new TokenRecord(5001, 'control-key');
+      registerNumberPairKeyedAt(ledger, 5010, 5001, victimKey as object);
+      registerNumberPairKeyedAt(ledger, 5011, 5002, controlKey as object);
+      ledger.unregister(victimKey as object);
+      const rounds: number = await collectUntil(() => ledger.count() >= ONE, COLLECT_ROUNDS);
+      logCase('testFinalRegUnregisterControl0001', `rounds=${rounds} ` +
+        `count=${ledger.count()} tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(5001)).assertFalse();
+      expect(ledger.has(5002)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_5100
+     * @tc.name      testFinalRegUnregisterReregister0001
+     * @tc.desc      Unregister a target and register the same target again with a new token and key and check only the
+     *               new token is reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegUnregisterReregister0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const firstKey: TokenRecord = new TokenRecord(5100, 'first-key');
+      const secondKey: TokenRecord = new TokenRecord(5101, 'second-key');
+      registerPairTwiceAroundUnregister(ledger, 5110, 5111, 5112, firstKey as object, secondKey as object);
+      const rounds: number = await collectUntil(() => ledger.count() >= ONE, COLLECT_ROUNDS);
+      logCase('testFinalRegUnregisterReregister0001', `rounds=${rounds} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(5112)).assertTrue();
+      expect(ledger.has(5111)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_5200
+     * @tc.name      testFinalRegUnregisterHeldValue0001
+     * @tc.desc      Pass the held record itself to unregister on an entry registered without a token and check the
+     *               call reports false and the record still arrives
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegUnregisterHeldValue0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: BoxLedger = new BoxLedger();
+      const held: TokenRecord = registerBoxPairPlain(ledger, 5201, 5201, 'held-only');
+      ledger.unregister(held as object);
+      const rounds: number = await collectUntil(() => ledger.hasId(5201), COLLECT_ROUNDS);
+      logCase('testFinalRegUnregisterHeldValue0001', `rounds=${rounds} ` +
+        `count=${ledger.count()} ids=${ledger.sortedIds().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.hasId(5201)).assertTrue();
+      expect(ledger.find(5201) === held).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_5300
+     * @tc.name      testFinalRegUnregisterNoKey0001
+     * @tc.desc      Unregister a fresh object against an entry registered with no token and check the entry is
+     *               untouched and still reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFinalRegUnregisterNoKey0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const freshKey: TokenRecord = new TokenRecord(5399, 'never-used');
+      registerNumberPairAt(ledger, 5301, 5301);
+      ledger.unregister(freshKey as object);
+      const rounds: number = await collectUntil(() => ledger.has(5301), COLLECT_ROUNDS);
+      logCase('testFinalRegUnregisterNoKey0001', `rounds=${rounds} ` +
+        `count=${ledger.count()} tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(5301)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_5400
+     * @tc.name      testFinalRegUnregisterSelfKey0001
+     * @tc.desc      Register a pair using itself as the unregister token, unregister with another object and check the
+     *               entry survives and is reported once
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegUnregisterSelfKey0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      registerPairWithSelfKey(ledger, 5401, 5401);
+      ledger.unregister(new TokenRecord(5402, 'other') as object);
+      const rounds: number = await collectUntil(() => ledger.has(5401), COLLECT_ROUNDS);
+      logCase('testFinalRegUnregisterSelfKey0001', `rounds=${rounds} ` +
+        `count=${ledger.count()} tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(5401)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_5500
+     * @tc.name      testFinalRegUnregisterAfterCollect0001
+     * @tc.desc      Wait for a callback, then unregister with the same token and check the registry reports nothing
+     *               removed because the entry is already gone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFinalRegUnregisterAfterCollect0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const key: TokenRecord = new TokenRecord(5500, 'consumed');
+      registerNumberPairKeyedAt(ledger, 5510, 5501, key as object);
+      const rounds: number = await collectUntil(() => ledger.has(5501), COLLECT_ROUNDS);
+      ledger.unregister(key as object);
+      logCase('testFinalRegUnregisterAfterCollect0001', `rounds=${rounds} ` +
+        `count=${ledger.count()} tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(5501)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_5600
+     * @tc.name      testFinalRegUnregisterTokenAlive0001
+     * @tc.desc      Keep the token alive while the target is collected without unregistering and check the callback
+     *               fires and the token object stays usable
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegUnregisterTokenAlive0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const key: TokenRecord = new TokenRecord(5600, 'alive-key');
+      const controlKey: TokenRecord = new TokenRecord(5601, 'control-key');
+      registerNumberPairKeyedAt(ledger, 5610, 5601, key as object);
+      registerNumberPairKeyedAt(ledger, 5611, 5602, controlKey as object);
+      const rounds: number = await collectUntil(() => ledger.count() >= TWO, COLLECT_ROUNDS);
+      ledger.unregister(key as object);
+      logCase('testFinalRegUnregisterTokenAlive0001', `rounds=${rounds} keyId=${key.id} ` +
+        `count=${ledger.count()}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(TWO);
+      expect(ledger.has(5601) && ledger.has(5602)).assertTrue();
+      expect(key.id).assertEqual(5600);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_5700
+     * @tc.name      testFinalRegUnregisterMany0001
+     * @tc.desc      Register six targets with their own tokens, unregister the even ones and check exactly the odd
+     *               tokens are reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegUnregisterMany0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const keys: TokenRecord[] = [];
+      const expected: number[] = [5701, 5703, 5705];
+      for (let i = 0; i < RING_SMALL; i++) {
+        const key: TokenRecord = new TokenRecord(5700 + i, 'many-' + i.toString());
+        keys.push(key);
+        registerNumberPairKeyedAt(ledger, 5710 + i, 5700 + i, key as object);
+      }
+      for (let i = 0; i < RING_SMALL; i += 2) {
+        ledger.unregister(keys[i] as object);
+      }
+      const rounds: number = await collectUntil(() => ledger.count() >= PAIR_SMALL, COLLECT_ROUNDS);
+      logCase('testFinalRegUnregisterMany0001', `rounds=${rounds} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.has(5700)).assertFalse();
+      expect(sameNumbers(ledger.sorted(), expected)).assertTrue();
+      expect(ledger.count()).assertEqual(PAIR_SMALL);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_5800
+     * @tc.name      testFinalRegUnregisterAll0001
+     * @tc.desc      Register five targets with their own tokens, unregister every one of them and check only the
+     *               control token is reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegUnregisterAll0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const keys: TokenRecord[] = [];
+      for (let i = 0; i < PAIR_MID; i++) {
+        const key: TokenRecord = new TokenRecord(5800 + i, 'all-' + i.toString());
+        keys.push(key);
+        registerNumberPairKeyedAt(ledger, 5810 + i, 5800 + i, key as object);
+      }
+      const controlKey: TokenRecord = new TokenRecord(5899, 'control');
+      registerNumberPairKeyedAt(ledger, 5890, 5891, controlKey as object);
+      keys.forEach((key: TokenRecord) => {
+        ledger.unregister(key as object);
+      });
+      const rounds: number = await collectUntil(() => ledger.count() >= ONE, COLLECT_ROUNDS);
+      logCase('testFinalRegUnregisterAll0001', `rounds=${rounds} ` +
+        `count=${ledger.count()} tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.has(5800)).assertFalse();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(5891)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_5900
+     * @tc.name      testFinalRegUnregisterMap0001
+     * @tc.desc      Keep tokens in a Map, unregister two of them by map lookup and check exactly the three untouched
+     *               tokens are reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegUnregisterMap0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const keys: Map<number, TokenRecord> = new Map<number, TokenRecord>();
+      const expected: number[] = [5900, 5902, 5904];
+      for (let i = 0; i < PAIR_MID; i++) {
+        const key: TokenRecord = new TokenRecord(5900 + i, 'map-' + i.toString());
+        keys.set(i, key);
+        registerNumberPairKeyedAt(ledger, 5910 + i, 5900 + i, key as object);
+      }
+      ledger.unregister(keys.get(1) as TokenRecord);
+      ledger.unregister(keys.get(3) as TokenRecord);
+      const rounds: number = await collectUntil(() => ledger.count() >= PAIR_SMALL, COLLECT_ROUNDS);
+      logCase('testFinalRegUnregisterMap0001', `rounds=${rounds} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(PAIR_SMALL);
+      expect(sameNumbers(ledger.sorted(), expected)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_6000
+     * @tc.name      testFinalRegUnregisterReturn0001
+     * @tc.desc      Check the four unregister outcomes through the reported tokens: used token, repeated token, fresh
+     *               token and a token that belongs to another registry
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegUnregisterReturn0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const other: NumberLedger = new NumberLedger();
+      const usedKey: TokenRecord = new TokenRecord(6001, 'used');
+      const freshKey: TokenRecord = new TokenRecord(6002, 'fresh');
+      const otherKey: TokenRecord = new TokenRecord(6003, 'other');
+      registerNumberPairKeyedAt(ledger, 6010, 6011, usedKey as object);
+      registerNumberPairKeyedAt(other, 6014, 6015, otherKey as object);
+      ledger.unregister(usedKey as object);
+      ledger.unregister(usedKey as object);
+      ledger.unregister(freshKey as object);
+      other.unregister(usedKey as object);
+      registerNumberPairKeyedAt(ledger, 6012, 6013, freshKey as object);
+      const rounds: number = await collectUntil(() => ledger.has(6013) && other.has(6015), COLLECT_ROUNDS);
+      logCase('testFinalRegUnregisterReturn0001', `rounds=${rounds} usedReported=${ledger.has(6011)} ` +
+        `freshReported=${ledger.has(6013)} otherReported=${other.has(6015)}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.has(6011)).assertFalse();
+      expect(ledger.has(6013)).assertTrue();
+      expect(other.has(6015)).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+    });
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_6100
+     * @tc.name      testFinalRegInterleaveBasic0001
+     * @tc.desc      Register, unregister and register the same target with the same token again and check exactly one
+     *               callback is delivered
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFinalRegInterleaveBasic0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const key: TokenRecord = new TokenRecord(6101, 'cycle');
+      registerUnregisterRegister(ledger, 6110, 6111, key as object);
+      const rounds: number = await collectUntil(() => ledger.count() >= ONE, COLLECT_ROUNDS);
+      logCase('testFinalRegInterleaveBasic0001', `rounds=${rounds} ` +
+        `count=${ledger.count()} tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(6111)).assertTrue();
+      expect(occurrences(ledger.values(), 6111)).assertEqual(ONE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_6200
+     * @tc.name      testFinalRegInterleaveRekey0001
+     * @tc.desc      Unregister before the target dies, re-register the target under a second key and check the old key
+     *               no longer matches while the new entry is reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegInterleaveRekey0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const firstKey: TokenRecord = new TokenRecord(6201, 'first-key');
+      const secondKey: TokenRecord = new TokenRecord(6202, 'second-key');
+      rekeyTarget(ledger, 6210, 6211, firstKey as object, secondKey as object);
+      const rounds: number = await collectUntil(() => ledger.count() >= ONE, COLLECT_ROUNDS);
+      logCase('testFinalRegInterleaveRekey0001', `rounds=${rounds} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(6211)).assertTrue();
+      expect(occurrences(ledger.values(), 6211)).assertEqual(ONE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_6300
+     * @tc.name      testFinalRegInterleaveSharedRestore0001
+     * @tc.desc      Unregister a shared token that covered two targets and register a third target with the same token
+     *               value and check only the third callback arrives
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegInterleaveSharedRestore0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const sharedKey: TokenRecord = new TokenRecord(6301, 'shared');
+      const freshKey: TokenRecord = new TokenRecord(6302, 'fresh');
+      registerNumberPairKeyedAt(ledger, 6310, 6311, sharedKey as object);
+      registerNumberPairKeyedAt(ledger, 6312, 6313, sharedKey as object);
+      ledger.unregister(sharedKey as object);
+      registerNumberPairKeyedAt(ledger, 6314, 6311, freshKey as object);
+      const rounds: number = await collectUntil(() => ledger.count() >= ONE, COLLECT_ROUNDS);
+      logCase('testFinalRegInterleaveSharedRestore0001', `rounds=${rounds} ` +
+        `count=${ledger.count()} tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(6311)).assertTrue();
+      expect(ledger.has(6313)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_6400
+     * @tc.name      testFinalRegInterleaveAcrossRegistries0001
+     * @tc.desc      Register in one registry, unregister there and register the same token in a second registry and
+     *               check only the second registry reports
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegInterleaveAcrossRegistries0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const left: NumberLedger = new NumberLedger();
+      const right: NumberLedger = new NumberLedger();
+      const key: TokenRecord = new TokenRecord(6401, 'moved');
+      const controlKey: TokenRecord = new TokenRecord(6402, 'control');
+      registerNumberPairKeyedAt(left, 6410, 6411, key as object);
+      left.unregister(key as object);
+      registerNumberPairKeyedAt(right, 6412, 6413, key as object);
+      registerNumberPairKeyedAt(left, 6414, 6415, controlKey as object);
+      const rounds: number = await collectUntil(() => right.has(6413) && left.has(6415), COLLECT_ROUNDS);
+      logCase('testFinalRegInterleaveAcrossRegistries0001', `rounds=${rounds} ` +
+        `left=${left.sorted().join(',')} right=${right.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(left.has(6411)).assertFalse();
+      expect(right.has(6413)).assertTrue();
+      expect(left.has(6415)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_6500
+     * @tc.name      testFinalRegInterleaveChurn0001
+     * @tc.desc      Churn one target through six register and unregister rounds and check only the later registration
+     *               is reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegInterleaveChurn0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const churnKey: TokenRecord = new TokenRecord(6501, 'churn');
+      const freshKey: TokenRecord = new TokenRecord(6502, 'fresh');
+      churnRegisterUnregister(ledger, 6510, 6511, churnKey as object, RING_SMALL);
+      registerNumberPairKeyedAt(ledger, 6512, 6513, freshKey as object);
+      const rounds: number = await collectUntil(() => ledger.count() >= ONE, COLLECT_ROUNDS);
+      logCase('testFinalRegInterleaveChurn0001', `rounds=${rounds} ` +
+        `count=${ledger.count()} tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(6511)).assertFalse();
+      expect(ledger.has(6513)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_6600
+     * @tc.name      testFinalRegInterleaveBatches0001
+     * @tc.desc      Run four batches of register, unregister and register and check exactly the four kept tokens are
+     *               reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegInterleaveBatches0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const expected: number[] = [6601, 6603, 6605, 6607];
+      for (let round = 0; round < 4; round++) {
+        const base: number = 6600 + round * 2;
+        const dropKey: TokenRecord = new TokenRecord(base + 100, 'drop-' + round.toString());
+        registerNumberPairKeyedAt(ledger, base, base, dropKey as object);
+        ledger.unregister(dropKey as object);
+        registerNumberPairAt(ledger, base + 1, base + 1);
+      }
+      const rounds: number = await collectUntil(() => ledger.count() >= 4, COLLECT_ROUNDS);
+      logCase('testFinalRegInterleaveBatches0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(4);
+      expect(sameNumbers(ledger.sorted(), expected)).assertTrue();
+      expect(ledger.has(6602)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_6700
+     * @tc.name      testFinalRegInterleaveBeforeRegister0001
+     * @tc.desc      Unregister a token twice around a registration and check the entry created in between is removed
+     *               and only the later token is reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegInterleaveBeforeRegister0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const key: TokenRecord = new TokenRecord(6701, 'pump');
+      pumpToken(ledger, 6710, 6711, 6712, key as object);
+      const rounds: number = await collectUntil(() => ledger.count() >= ONE, COLLECT_ROUNDS);
+      logCase('testFinalRegInterleaveBeforeRegister0001', `rounds=${rounds} ` +
+        `count=${ledger.count()} tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(6712)).assertTrue();
+      expect(ledger.has(6711)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_6800
+     * @tc.name      testFinalRegInterleaveOrderMatters0001
+     * @tc.desc      Compare a register then unregister target with an unregister then register target and check the
+     *               order decides which token is reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegInterleaveOrderMatters0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const firstKey: TokenRecord = new TokenRecord(6801, 'first-key');
+      const secondKey: TokenRecord = new TokenRecord(6802, 'second-key');
+      registerNumberPairKeyedAt(ledger, 6810, 6811, firstKey as object);
+      ledger.unregister(firstKey as object);
+      ledger.unregister(secondKey as object);
+      registerNumberPairKeyedAt(ledger, 6812, 6813, secondKey as object);
+      const rounds: number = await collectUntil(() => ledger.has(6813), COLLECT_ROUNDS);
+      logCase('testFinalRegInterleaveOrderMatters0001', `rounds=${rounds} ` +
+        `count=${ledger.count()} tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(6813)).assertTrue();
+      expect(ledger.has(6811)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_6900
+     * @tc.name      testFinalRegInterleaveThreeToken0001
+     * @tc.desc      Register three targets, unregister the second then the first and check only the third token is
+     *               reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegInterleaveThreeToken0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const firstKey: TokenRecord = new TokenRecord(6901, 'first');
+      const secondKey: TokenRecord = new TokenRecord(6902, 'second');
+      const thirdKey: TokenRecord = new TokenRecord(6903, 'third');
+      registerNumberPairKeyedAt(ledger, 6910, 6911, firstKey as object);
+      registerNumberPairKeyedAt(ledger, 6911, 6912, secondKey as object);
+      registerNumberPairKeyedAt(ledger, 6912, 6913, thirdKey as object);
+      ledger.unregister(secondKey as object);
+      ledger.unregister(firstKey as object);
+      const rounds: number = await collectUntil(() => ledger.count() >= ONE, COLLECT_ROUNDS);
+      logCase('testFinalRegInterleaveThreeToken0001', `rounds=${rounds} ` +
+        `count=${ledger.count()} tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(6913)).assertTrue();
+      expect(ledger.has(6911) || ledger.has(6912)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_7000
+     * @tc.name      testFinalRegInterleaveRepeatUnreg0001
+     * @tc.desc      Unregister the same token three times in a row and check the victim stays silent while the
+     *               control token is still delivered
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegInterleaveRepeatUnreg0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const key: TokenRecord = new TokenRecord(7001, 'repeat');
+      const controlKey: TokenRecord = new TokenRecord(7002, 'control');
+      registerNumberPairKeyedAt(ledger, 7010, 7011, key as object);
+      for (let i = 0; i < PAIR_SMALL; i++) {
+        ledger.unregister(key as object);
+      }
+      registerNumberPairKeyedAt(ledger, 7012, 7013, controlKey as object);
+      ledger.unregister(key as object);
+      const rounds: number = await collectUntil(() => ledger.has(7013), COLLECT_ROUNDS);
+      logCase('testFinalRegInterleaveRepeatUnreg0001', `rounds=${rounds} ` +
+        `count=${ledger.count()} tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(7013)).assertTrue();
+      expect(ledger.has(7011)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_7100
+     * @tc.name      testFinalRegInterleaveMixedTypes0001
+     * @tc.desc      Run the same register and unregister interleaving on a numeric ledger and a string ledger and
+     *               check both report only the entry registered last
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegInterleaveMixedTypes0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const numbers: NumberLedger = new NumberLedger();
+      const strings: StringLedger = new StringLedger();
+      const numberKey: TokenRecord = new TokenRecord(7101, 'number-key');
+      const stringKey: TokenRecord = new TokenRecord(7102, 'string-key');
+      const stringVictim: string = 'string-victim';
+      const stringKept: string = 'string-kept';
+      registerNumberPairKeyedAt(numbers, 7110, 7111, numberKey as object);
+      numbers.unregister(numberKey as object);
+      registerNumberPairKeyedAt(numbers, 7112, 7113, numberKey as object);
+      registerStringPairKeyedAt(strings, 7120, stringVictim, stringKey as object);
+      strings.unregister(stringKey as object);
+      registerStringPairKeyedAt(strings, 7121, stringKept, stringKey as object);
+      const rounds: number = await collectUntil(() => numbers.has(7113) && strings.has(stringKept), COLLECT_ROUNDS);
+      logCase('testFinalRegInterleaveMixedTypes0001', `rounds=${rounds} ` +
+        `numbers=${numbers.sorted().join(',')} strings=${strings.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(numbers.has(7113)).assertTrue();
+      expect(strings.has(stringKept)).assertTrue();
+      expect(numbers.has(7111)).assertFalse();
+      expect(strings.has(stringVictim)).assertFalse();
+      expect(numbers.count() + strings.count()).assertEqual(TWO);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_7200
+     * @tc.name      testFinalRegOrderAscending0001
+     * @tc.desc      Register twenty tokens in ascending order and check the ledger sorted view matches the
+     *               registration range
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFinalRegOrderAscending0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      registerNumberPairs(ledger, RING_WIDE, 7200);
+      const rounds: number = await collectUntil(() => ledger.count() >= RING_WIDE, COLLECT_ROUNDS);
+      const tokens: number[] = ledger.sorted();
+      logCase('testFinalRegOrderAscending0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `observed=${ledger.values().join(',')} sorted=${tokens.join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(tokens.length).assertEqual(RING_WIDE);
+      expect(sameNumbers(tokens, range(7200, RING_WIDE))).assertTrue();
+      expect(ascending(tokens)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_7300
+     * @tc.name      testFinalRegOrderDescending0001
+     * @tc.desc      Register six tokens in descending order and check the sorted view is still ascending with the same
+     *               token set
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFinalRegOrderDescending0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      for (let i = PAIR_MID; i >= 0; i--) {
+        registerNumberPairAt(ledger, 7310 + i, 7300 + i);
+      }
+      const rounds: number = await collectUntil(() => ledger.count() >= RING_SMALL, COLLECT_ROUNDS);
+      const tokens: number[] = ledger.sorted();
+      logCase('testFinalRegOrderDescending0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `observed=${ledger.values().join(',')} sorted=${tokens.join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(sameNumbers(tokens, range(7300, RING_SMALL))).assertTrue();
+      expect(ascending(tokens)).assertTrue();
+      expect(uniqueNumbers(tokens).length).assertEqual(RING_SMALL);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_7400
+     * @tc.name      testFinalRegOrderStepped0001
+     * @tc.desc      Register six tokens in a stepped order and check the sorted view covers the full range without
+     *               gaps
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegOrderStepped0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const order: number[] = [0, 3, 1, 4, 2, 5];
+      order.forEach((index: number) => {
+        registerNumberPairAt(ledger, 7410 + index, 7400 + index);
+      });
+      const rounds: number = await collectUntil(() => ledger.count() >= RING_SMALL, COLLECT_ROUNDS);
+      const tokens: number[] = ledger.sorted();
+      logCase('testFinalRegOrderStepped0001', `rounds=${rounds} order=${order.join(',')} ` +
+        `sorted=${tokens.join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(sameNumbers(tokens, range(7400, RING_SMALL))).assertTrue();
+      expect(ascending(tokens)).assertTrue();
+      expect(tokens.length).assertEqual(order.length);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_7500
+     * @tc.name      testFinalRegOrderBatches0001
+     * @tc.desc      Register odd tokens first and even tokens second and check the sorted ledger holds the whole range
+     *               in order
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegOrderBatches0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const oddTokens: number[] = [7501, 7503, 7505];
+      const evenTokens: number[] = [7500, 7502, 7504];
+      oddTokens.forEach((token: number) => {
+        registerNumberPairAt(ledger, 7510 + token - 7500, token);
+      });
+      evenTokens.forEach((token: number) => {
+        registerNumberPairAt(ledger, 7520 + token - 7500, token);
+      });
+      const rounds: number = await collectUntil(() => ledger.count() >= RING_SMALL, COLLECT_ROUNDS);
+      const tokens: number[] = ledger.sorted();
+      logCase('testFinalRegOrderBatches0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `sorted=${tokens.join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(sameNumbers(tokens, range(7500, RING_SMALL))).assertTrue();
+      expect(ascending(tokens)).assertTrue();
+      expect(ledger.count()).assertEqual(RING_SMALL);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_7600
+     * @tc.name      testFinalRegOrderStrings0001
+     * @tc.desc      Register four string tokens out of order and check the sorted view lists them alphabetically
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegOrderStrings0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: StringLedger = new StringLedger();
+      const tokenA: string = 'order-a';
+      const tokenB: string = 'order-b';
+      const tokenC: string = 'order-c';
+      const tokenD: string = 'order-d';
+      const expected: string[] = [tokenA, tokenB, tokenC, tokenD];
+      registerStringPairAt(ledger, 7610, tokenD);
+      registerStringPairAt(ledger, 7611, tokenB);
+      registerStringPairAt(ledger, 7612, tokenA);
+      registerStringPairAt(ledger, 7613, tokenC);
+      const rounds: number = await collectUntil(() => ledger.count() >= 4, COLLECT_ROUNDS);
+      const tokens: string[] = ledger.sorted();
+      logCase('testFinalRegOrderStrings0001', `rounds=${rounds} observed=${ledger.values().join(',')} ` +
+        `sorted=${tokens.join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(sameStrings(tokens, expected)).assertTrue();
+      expect(ascendingStrings(tokens)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_7700
+     * @tc.name      testFinalRegOrderNegative0001
+     * @tc.desc      Register negative and positive numeric tokens mixed and check the sorted view keeps signed order
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegOrderNegative0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const order: number[] = [2, -1, 0, -3, 1, -2];
+      const expected: number[] = [-3, -2, -1, 0, 1, 2];
+      order.forEach((token: number) => {
+        registerNumberPairAt(ledger, 7710 + token, token);
+      });
+      const rounds: number = await collectUntil(() => ledger.count() >= RING_SMALL, COLLECT_ROUNDS);
+      const tokens: number[] = ledger.sorted();
+      logCase('testFinalRegOrderNegative0001', `rounds=${rounds} order=${order.join(',')} ` +
+        `sorted=${tokens.join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(sameNumbers(tokens, expected)).assertTrue();
+      expect(ascending(tokens)).assertTrue();
+      expect(ledger.has(0)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_7800
+     * @tc.name      testFinalRegOrderDuplicates0001
+     * @tc.desc      Register three targets with one repeated token and check the sorted view keeps all three copies
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegOrderDuplicates0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      registerNumberPairAt(ledger, 7810, 7800);
+      registerNumberPairAt(ledger, 7811, 7800);
+      registerNumberPairAt(ledger, 7812, 7800);
+      const rounds: number = await collectUntil(() => ledger.count() >= PAIR_SMALL, COLLECT_ROUNDS);
+      const tokens: number[] = ledger.sorted();
+      const expected: number[] = [7800, 7800, 7800];
+      logCase('testFinalRegOrderDuplicates0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `sorted=${tokens.join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(sameNumbers(tokens, expected)).assertTrue();
+      expect(occurrences(tokens, 7800)).assertEqual(PAIR_SMALL);
+      expect(uniqueNumbers(tokens).length).assertEqual(ONE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_7900
+     * @tc.name      testFinalRegOrderSingle0001
+     * @tc.desc      Register exactly one released pair and check the ledger holds a single sorted token
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegOrderSingle0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      registerNumberPairAt(ledger, 7910, 7900);
+      const rounds: number = await collectUntil(() => ledger.count() >= ONE, COLLECT_ROUNDS);
+      const tokens: number[] = ledger.sorted();
+      const onlyToken: number = tokens[0];
+      logCase('testFinalRegOrderSingle0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `only=${onlyToken} sortedLength=${tokens.length}`);
+      expect(rounds > 0).assertTrue();
+      expect(tokens.length).assertEqual(ONE);
+      expect(onlyToken).assertEqual(7900);
+      expect(ascending(tokens)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_8000
+     * @tc.name      testFinalRegOrderWide0001
+     * @tc.desc      Register twelve tokens and check the sorted view is the complete contiguous range
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegOrderWide0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      for (let i = CYCLE_ROUNDS - 1; i >= 0; i--) {
+        registerNumberPairAt(ledger, 8010 + i, 8000 + i);
+      }
+      const rounds: number = await collectUntil(() => ledger.count() >= CYCLE_ROUNDS, COLLECT_ROUNDS);
+      const tokens: number[] = ledger.sorted();
+      logCase('testFinalRegOrderWide0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `first=${tokens[0]} last=${tokens[tokens.length - 1]}`);
+      expect(rounds > 0).assertTrue();
+      expect(sameNumbers(tokens, range(8000, CYCLE_ROUNDS))).assertTrue();
+      expect(uniqueNumbers(tokens).length).assertEqual(CYCLE_ROUNDS);
+      expect(ascending(tokens)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_8100
+     * @tc.name      testFinalRegOrderBoxIds0001
+     * @tc.desc      Register object records with ids out of order and check the sorted id view is contiguous and
+     *               ascending
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegOrderBoxIds0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: BoxLedger = new BoxLedger();
+      registerBoxPairAt(ledger, 8110, 8102, 'id-8102');
+      registerBoxPairAt(ledger, 8111, 8100, 'id-8100');
+      registerBoxPairAt(ledger, 8112, 8101, 'id-8101');
+      const rounds: number = await collectUntil(() => ledger.count() >= PAIR_SMALL, COLLECT_ROUNDS);
+      const ids: number[] = ledger.sortedIds();
+      logCase('testFinalRegOrderBoxIds0001', `rounds=${rounds} count=${ledger.count()} ids=${ids.join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(sameNumbers(ids, range(8100, PAIR_SMALL))).assertTrue();
+      expect(ascending(ids)).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_8200
+     * @tc.name      testFinalRegSameTargetTwice0001
+     * @tc.desc      Register one pair twice with two different tokens and check both entries report their own token
+     *               exactly once
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFinalRegSameTargetTwice0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      registerSameTargetTwice(ledger, 8210, 8201, 8202);
+      const rounds: number = await collectUntil(() => ledger.count() >= TWO, COLLECT_ROUNDS);
+      const values: number[] = ledger.values();
+      logCase('testFinalRegSameTargetTwice0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(TWO);
+      expect(occurrences(values, 8201)).assertEqual(ONE);
+      expect(occurrences(values, 8202)).assertEqual(ONE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_8300
+     * @tc.name      testFinalRegSameTargetSameKey0001
+     * @tc.desc      Register one pair twice with the same token and key, unregister once and check both entries are
+     *               removed so only the control is reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegSameTargetSameKey0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const sharedKey: TokenRecord = new TokenRecord(8301, 'double-key');
+      const controlKey: TokenRecord = new TokenRecord(8302, 'control');
+      registerSameTargetSameKey(ledger, 8310, 8301, sharedKey as object);
+      ledger.unregister(sharedKey as object);
+      registerNumberPairKeyedAt(ledger, 8311, 8302, controlKey as object);
+      const rounds: number = await collectUntil(() => ledger.count() >= ONE, COLLECT_ROUNDS);
+      logCase('testFinalRegSameTargetSameKey0001', `rounds=${rounds} ` +
+        `count=${ledger.count()} tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(8301)).assertFalse();
+      expect(ledger.has(8302)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_8400
+     * @tc.name      testFinalRegSameTargetUnregOne0001
+     * @tc.desc      Register one pair under two keys, unregister only the first key and check the second token is still
+     *               reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegSameTargetUnregOne0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const firstKey: TokenRecord = new TokenRecord(8401, 'first-key');
+      const secondKey: TokenRecord = new TokenRecord(8402, 'second-key');
+      const tokens: number[] = [8401, 8402];
+      const keys: object[] = [firstKey as object, secondKey as object];
+      registerSameTargetKeyed(ledger, 8410, tokens, keys);
+      ledger.unregister(firstKey as object);
+      const rounds: number = await collectUntil(() => ledger.count() >= ONE, COLLECT_ROUNDS);
+      logCase('testFinalRegSameTargetUnregOne0001', `rounds=${rounds} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(8402)).assertTrue();
+      expect(ledger.has(8401)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_8500
+     * @tc.name      testFinalRegSameTargetThree0001
+     * @tc.desc      Register one pair three times and check the ledger reports three tokens once each
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegSameTargetThree0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      registerSameTargetMany(ledger, 8510, 8501, PAIR_SMALL);
+      const rounds: number = await collectUntil(() => ledger.count() >= PAIR_SMALL, COLLECT_ROUNDS);
+      const values: number[] = ledger.values();
+      logCase('testFinalRegSameTargetThree0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(sameNumbers(ledger.sorted(), range(8501, PAIR_SMALL))).assertTrue();
+      expect(occurrences(values, 8502)).assertEqual(ONE);
+      expect(ledger.count()).assertEqual(PAIR_SMALL);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_8600
+     * @tc.name      testFinalRegSameTargetRegistries0001
+     * @tc.desc      Register one pair twice in the first registry and once in the second and check each registry counts
+     *               its own entries
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegSameTargetRegistries0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const left: NumberLedger = new NumberLedger();
+      const right: NumberLedger = new NumberLedger();
+      registerTargetTwiceInOneAndOnceInOther(left, right, 8610, 8601, 8602, 8603);
+      const rounds: number = await collectUntil(() => left.count() >= TWO && right.count() >= ONE, COLLECT_ROUNDS);
+      logCase('testFinalRegSameTargetRegistries0001', `rounds=${rounds} leftCount=${left.count()} ` +
+        `rightCount=${right.count()} left=${left.sorted().join(',')} right=${right.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(left.count()).assertEqual(TWO);
+      expect(right.count()).assertEqual(ONE);
+      expect(sameNumbers(left.sorted(), range(8601, TWO))).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_8700
+     * @tc.name      testFinalRegSameRingTwice0001
+     * @tc.desc      Register one released ring twice with two tokens and check both tokens are reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegSameRingTwice0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      registerSameRingTwice(ledger, 8710, RING_TINY, 8701, 8702);
+      const rounds: number = await collectUntil(() => ledger.count() >= TWO, COLLECT_ROUNDS);
+      const tokens: number[] = ledger.sorted();
+      logCase('testFinalRegSameRingTwice0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `tokens=${tokens.join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(TWO);
+      expect(sameNumbers(tokens, range(8701, TWO))).assertTrue();
+      expect(uniqueNumbers(tokens).length).assertEqual(TWO);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_8800
+     * @tc.name      testFinalRegSameTargetUnregAll0001
+     * @tc.desc      Register one pair twice with two keys, unregister both keys and check neither token is reported
+     *               while the control token is
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegSameTargetUnregAll0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const firstKey: TokenRecord = new TokenRecord(8801, 'first-key');
+      const secondKey: TokenRecord = new TokenRecord(8802, 'second-key');
+      const controlKey: TokenRecord = new TokenRecord(8803, 'control-key');
+      const tokens: number[] = [8801, 8802];
+      const keys: object[] = [firstKey as object, secondKey as object];
+      registerSameTargetKeyed(ledger, 8810, tokens, keys);
+      ledger.unregister(firstKey as object);
+      ledger.unregister(secondKey as object);
+      registerNumberPairKeyedAt(ledger, 8811, 8803, controlKey as object);
+      const rounds: number = await collectUntil(() => ledger.count() >= ONE, COLLECT_ROUNDS);
+      logCase('testFinalRegSameTargetUnregAll0001', `rounds=${rounds} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(8803)).assertTrue();
+      expect(ledger.has(8802)).assertFalse();
+      expect(ledger.has(8801)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_8900
+     * @tc.name      testFinalRegSameTargetPartial0001
+     * @tc.desc      Register one pair three times with three keys, unregister two of them and check only the first
+     *               token is reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegSameTargetPartial0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const firstKey: TokenRecord = new TokenRecord(8901, 'first-key');
+      const secondKey: TokenRecord = new TokenRecord(8902, 'second-key');
+      const thirdKey: TokenRecord = new TokenRecord(8903, 'third-key');
+      const tokens: number[] = [8901, 8902, 8903];
+      const keys: object[] = [firstKey as object, secondKey as object, thirdKey as object];
+      registerSameTargetKeyed(ledger, 8910, tokens, keys);
+      ledger.unregister(secondKey as object);
+      ledger.unregister(thirdKey as object);
+      const rounds: number = await collectUntil(() => ledger.count() >= ONE, COLLECT_ROUNDS);
+      logCase('testFinalRegSameTargetPartial0001', `rounds=${rounds} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(8901)).assertTrue();
+      expect(ledger.has(8903)).assertFalse();
+      expect(ledger.has(8902)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_9000
+     * @tc.name      testFinalRegPressureHint0001
+     * @tc.desc      Apply allocation pressure and hintGC right after four registrations and check all four callbacks
+     *               still arrive
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFinalRegPressureHint0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      registerNumberPairs(ledger, 4, 9000);
+      const sink: number = allocatePressure();
+      hintGC();
+      const rounds: number = await collectUntil(() => ledger.count() >= 4, COLLECT_ROUNDS);
+      logCase('testFinalRegPressureHint0001', `sink=${sink} rounds=${rounds} count=${ledger.count()} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(sink > 0).assertTrue();
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(4);
+      expect(sameNumbers(ledger.sorted(), range(9000, 4))).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_9100
+     * @tc.name      testFinalRegPressureRing0001
+     * @tc.desc      Apply allocation pressure and hintGC after three ring registrations and check each ring token is
+     *               reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFinalRegPressureRing0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      registerNumberRings(ledger, PAIR_SMALL, RING_MID, 9100);
+      allocatePressure();
+      hintGC();
+      const rounds: number = await collectUntil(() => ledger.count() >= PAIR_SMALL, COLLECT_ROUNDS);
+      logCase('testFinalRegPressureRing0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(PAIR_SMALL);
+      expect(sameNumbers(ledger.sorted(), range(9100, PAIR_SMALL))).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_9200
+     * @tc.name      testFinalRegPressureRepeat0001
+     * @tc.desc      Repeat three rounds of register, allocatePressure, hintGC and check all six tokens arrive
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegPressureRepeat0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      for (let round = 0; round < PAIR_SMALL; round++) {
+        registerNumberPairs(ledger, TWO, 9200 + round * 2);
+        allocatePressure();
+        hintGC();
+        await paceTurn();
+      }
+      const rounds: number = await collectUntil(() => ledger.count() >= RING_SMALL, COLLECT_ROUNDS);
+      const tokens: number[] = ledger.sorted();
+      logCase('testFinalRegPressureRepeat0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `tokens=${tokens.join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(RING_SMALL);
+      expect(sameNumbers(tokens, range(9200, RING_SMALL))).assertTrue();
+      expect(uniqueNumbers(tokens).length).assertEqual(RING_SMALL);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_9300
+     * @tc.name      testFinalRegPressureUnregister0001
+     * @tc.desc      Unregister a victim before applying pressure and hintGC and check only the control token is
+     *               reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegPressureUnregister0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const victimKey: TokenRecord = new TokenRecord(9301, 'victim-key');
+      const controlKey: TokenRecord = new TokenRecord(9302, 'control-key');
+      registerNumberPairKeyedAt(ledger, 9310, 9301, victimKey as object);
+      registerNumberPairKeyedAt(ledger, 9311, 9302, controlKey as object);
+      ledger.unregister(victimKey as object);
+      allocatePressure();
+      hintGC();
+      const rounds: number = await collectUntil(() => ledger.count() >= ONE, COLLECT_ROUNDS);
+      logCase('testFinalRegPressureUnregister0001', `rounds=${rounds} ` +
+        `count=${ledger.count()} tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(ONE);
+      expect(ledger.has(9301)).assertFalse();
+      expect(ledger.has(9302)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_9400
+     * @tc.name      testFinalRegPressureHintOnly0001
+     * @tc.desc      Call hintGC without extra pressure and check the GC counter never drops while both registered
+     *               tokens arrive
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegPressureHintOnly0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const before: GcSnapshot = new GcSnapshot();
+      const ledger: NumberLedger = new NumberLedger();
+      registerNumberPairs(ledger, TWO, 9400);
+      hintGC();
+      const rounds: number = await collectUntil(() => ledger.count() >= TWO, COLLECT_ROUNDS);
+      const after: GcSnapshot = new GcSnapshot();
+      logCase('testFinalRegPressureHintOnly0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `beforeCount=${before.count} afterCount=${after.count} gcNow=${gcStat(KEY_GC_COUNT)}`);
+      expect(rounds > 0).assertTrue();
+      expect(after.notBefore(before)).assertTrue();
+      expect(gcStat(KEY_GC_COUNT) >= before.count).assertTrue();
+      expect(ledger.count()).assertEqual(TWO);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_9500
+     * @tc.name      testFinalRegPressureString0001
+     * @tc.desc      Apply pressure and hintGC on a string ledger and check the three string tokens are all reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegPressureString0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: StringLedger = new StringLedger();
+      registerStringPairs(ledger, PAIR_SMALL, 'pressure', 9500);
+      allocatePressure();
+      hintGC();
+      const rounds: number = await collectUntil(() => ledger.count() >= PAIR_SMALL, COLLECT_ROUNDS);
+      const expected: string[] = expectedStringTokens('pressure', ZERO, PAIR_SMALL);
+      logCase('testFinalRegPressureString0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.count()).assertEqual(PAIR_SMALL);
+      expect(sameStrings(ledger.sorted(), expected)).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_9600
+     * @tc.name      testFinalRegClassField0001
+     * @tc.desc      Drive a registry stored as a class field with three released pairs and check the field keeps the
+     *               token map and the callback results in step
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFinalRegClassField0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const guard: PairGuard = new PairGuard();
+      const tokens: TokenRecord[] = [];
+      for (let i = 0; i < PAIR_SMALL; i++) {
+        tokens.push(guard.guard(9610 + i, 9600 + i));
+      }
+      const rounds: number = await collectUntil(() => guard.count() >= PAIR_SMALL, COLLECT_ROUNDS);
+      const found: TokenRecord | null = guard.find(9601);
+      logCase('testFinalRegClassField0001', `rounds=${rounds} count=${guard.count()} ` +
+        `ids=${guard.sortedIds().join(',')} tokenCount=${guard.tokenCount()}`);
+      expect(rounds > 0).assertTrue();
+      expect(guard.count()).assertEqual(PAIR_SMALL);
+      expect(sameNumbers(guard.sortedIds(), range(9600, PAIR_SMALL))).assertTrue();
+      expect(found === tokens[1]).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_9700
+     * @tc.name      testFinalRegClassReuse0001
+     * @tc.desc      Reuse one class field registry for two batches and check the counter grows from two to four
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegClassReuse0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const guard: PairGuard = new PairGuard();
+      guard.guard(9710, 9700);
+      guard.guard(9711, 9701);
+      const firstRounds: number = await collectUntil(() => guard.count() >= TWO, COLLECT_ROUNDS);
+      guard.guard(9712, 9702);
+      guard.guard(9713, 9703);
+      const secondRounds: number = await collectUntil(() => guard.count() >= 4, COLLECT_ROUNDS);
+      logCase('testFinalRegClassReuse0001', `firstRounds=${firstRounds} secondRounds=${secondRounds} ` +
+        `count=${guard.count()} ids=${guard.sortedIds().join(',')}`);
+      expect(firstRounds > 0 && secondRounds > 0).assertTrue();
+      expect(guard.count()).assertEqual(4);
+      expect(sameNumbers(guard.sortedIds(), range(9700, 4))).assertTrue();
+      expect(guard.tokenCount()).assertEqual(4);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_9800
+     * @tc.name      testFinalRegClassStatic0001
+     * @tc.desc      Drive a registry stored in a static class field and check the static counter and reset behavior
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegClassStatic0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      StaticRegistryHolder.reset();
+      StaticRegistryHolder.registerPair(9810, 9800);
+      StaticRegistryHolder.registerPair(9811, 9801);
+      const rounds: number = await collectUntil(() => StaticRegistryHolder.count() >= TWO, COLLECT_ROUNDS);
+      const values: number[] = StaticRegistryHolder.values();
+      logCase('testFinalRegClassStatic0001', `rounds=${rounds} count=${StaticRegistryHolder.count()} ` +
+        `values=${values.join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(values.length).assertEqual(TWO);
+      expect(sameNumbers(values, range(9800, TWO))).assertTrue();
+      StaticRegistryHolder.reset();
+      expect(StaticRegistryHolder.count()).assertEqual(ZERO);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_9900
+     * @tc.name      testFinalRegClosureCapture0001
+     * @tc.desc      Build a registry over captured closure variables and check the captured counter and token array
+     *               agree with the registration range
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegClosureCapture0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const tokens: number[] = [];
+      let hits: number = 0;
+      const registry: FinalizationRegistry<number> = new FinalizationRegistry<number>((token: number) => {
+        hits++;
+        tokens.push(token);
+      });
+      for (let i = 0; i < PAIR_SMALL; i++) {
+        registerInto(registry, 9910 + i, 9900 + i);
+      }
+      const rounds: number = await collectUntil(() => hits >= PAIR_SMALL, COLLECT_ROUNDS);
+      const sorted: number[] = tokens.slice().sort((left: number, right: number) => left - right);
+      logCase('testFinalRegClosureCapture0001', `rounds=${rounds} hits=${hits} ` +
+        `tokens=${sorted.join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(hits).assertEqual(PAIR_SMALL);
+      expect(tokens.length).assertEqual(PAIR_SMALL);
+      expect(sameNumbers(sorted, range(9900, PAIR_SMALL))).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_10000
+     * @tc.name      testFinalRegClosureFactory0001
+     * @tc.desc      Build a registry inside a factory built class over a captured array and check two string tokens
+     *               are reported through the captured sink
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegClosureFactory0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const probe: SinkProbe = makeSinkProbe();
+      const firstToken: string = 'closure-a';
+      const secondToken: string = 'closure-b';
+      const expected: string[] = [firstToken, secondToken];
+      registerIntoString(probe.registry, 10010, firstToken);
+      registerIntoString(probe.registry, 10011, secondToken);
+      const rounds: number = await collectUntil(() => probe.count() >= TWO, COLLECT_ROUNDS);
+      const values: string[] = probe.values();
+      logCase('testFinalRegClosureFactory0001', `rounds=${rounds} count=${probe.count()} ` +
+        `values=${values.join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(probe.count()).assertEqual(TWO);
+      expect(sameStrings(values, expected)).assertTrue();
+      expect(values[0]).assertEqual(firstToken);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_10100
+     * @tc.name      testFinalRegClassUnregister0001
+     * @tc.desc      Use the class release helper to unregister one guarded pair and check the released id never
+     *               arrives while the sibling id still does
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegClassUnregister0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const guard: PairGuard = new PairGuard();
+      guard.guard(10110, 10100);
+      guard.guard(10111, 10101);
+      guard.release(10100);
+      guard.release(10100);
+      const rounds: number = await collectUntil(() => guard.count() >= ONE, COLLECT_ROUNDS);
+      const ids: number[] = guard.sortedIds();
+      const onlyId: number = ids[0];
+      logCase('testFinalRegClassUnregister0001', `rounds=${rounds} ids=${ids.join(',')} ` +
+        `tokenCount=${guard.tokenCount()}`);
+      expect(rounds > 0).assertTrue();
+      expect(guard.count()).assertEqual(ONE);
+      expect(onlyId).assertEqual(10101);
+      expect(guard.tokenCount()).assertEqual(TWO);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_10200
+     * @tc.name      testFinalRegClassTokenMap0001
+     * @tc.desc      Ask the class to release an unknown id and check the token map stays intact while a known release
+     *               still removes its entry
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegClassTokenMap0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const guard: PairGuard = new PairGuard();
+      guard.guard(10210, 10200);
+      guard.guard(10211, 10201);
+      guard.guard(10212, 10202);
+      guard.release(9999);
+      guard.release(10202);
+      const rounds: number = await collectUntil(() => guard.count() >= TWO, COLLECT_ROUNDS);
+      logCase('testFinalRegClassTokenMap0001', `rounds=${rounds} ` +
+        `count=${guard.count()} tokenCount=${guard.tokenCount()}`);
+      expect(rounds > 0).assertTrue();
+      expect(guard.tokenCount()).assertEqual(PAIR_SMALL);
+      expect(guard.count()).assertEqual(TWO);
+      expect(sameNumbers(guard.sortedIds(), [10200, 10201])).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_10300
+     * @tc.name      testFinalRegClassLabels0001
+     * @tc.desc      Ask the class field registry for the delivered labels of two guarded pairs and check the label text
+     *               matches the guarded ids
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegClassLabels0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const guard: PairGuard = new PairGuard();
+      const expected: string[] = ['guard-10300', 'guard-10301'];
+      guard.guard(10310, 10300);
+      guard.guard(10311, 10301);
+      const rounds: number = await collectUntil(() => guard.count() >= TWO, COLLECT_ROUNDS);
+      const labels: string[] = guard.labels();
+      logCase('testFinalRegClassLabels0001', `rounds=${rounds} count=${guard.count()} ` +
+        `labels=${labels.join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(guard.count()).assertEqual(TWO);
+      expect(sameStrings(labels, expected)).assertTrue();
+      expect(labels.length).assertEqual(TWO);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_10400
+     * @tc.name      testFinalRegLongSequence0001
+     * @tc.desc      Run eight batches of two registrations and a collection and check all sixteen tokens arrive in one
+     *               contiguous range
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFinalRegLongSequence0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      let completed: boolean = true;
+      for (let batch = 0; batch < BATCH_ROUNDS; batch++) {
+        registerNumberPairs(ledger, TWO, 10400 + batch * 2);
+        const rounds: number = await collectUntil(() => ledger.count() >= (batch + 1) * TWO, COLLECT_ROUNDS);
+        completed = completed && rounds > 0;
+      }
+      const tokens: number[] = ledger.sorted();
+      const expectedCount: number = BATCH_ROUNDS * TWO;
+      logCase('testFinalRegLongSequence0001', `completed=${completed} count=${ledger.count()} ` +
+        `expectedCount=${expectedCount} first=${tokens[0]} last=${tokens[tokens.length - 1]}`);
+      expect(completed).assertTrue();
+      expect(ledger.count()).assertEqual(expectedCount);
+      expect(sameNumbers(tokens, range(10400, expectedCount))).assertTrue();
+      expect(uniqueNumbers(tokens).length).assertEqual(expectedCount);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_10500
+     * @tc.name      testFinalRegLongRings0001
+     * @tc.desc      Run six batches of two ring registrations and a collection and check all twelve tokens arrive
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegLongRings0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      for (let batch = 0; batch < RING_SMALL; batch++) {
+        registerNumberRings(ledger, TWO, 4, 10500 + batch * 2);
+        await collectUntil(() => ledger.count() >= (batch + 1) * TWO, COLLECT_ROUNDS);
+      }
+      const rounds: number = await collectUntil(() => ledger.count() >= CYCLE_ROUNDS, COLLECT_ROUNDS);
+      const tokens: number[] = ledger.sorted();
+      logCase('testFinalRegLongRings0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `tokens=${tokens.join(',')}`);
+      expect(ledger.count()).assertEqual(CYCLE_ROUNDS);
+      expect(sameNumbers(tokens, range(10500, CYCLE_ROUNDS))).assertTrue();
+      expect(uniqueNumbers(tokens).length).assertEqual(CYCLE_ROUNDS);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_10600
+     * @tc.name      testFinalRegLongUnregister0001
+     * @tc.desc      Register ten targets with their own tokens, unregister every even one and check exactly the five
+     *               odd tokens are reported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegLongUnregister0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      const keys: TokenRecord[] = [];
+      const expected: number[] = [10601, 10603, 10605, 10607, 10609];
+      for (let i = 0; i < PAIR_TALL; i++) {
+        const key: TokenRecord = new TokenRecord(10600 + i, 'long-' + i.toString());
+        keys.push(key);
+        registerNumberPairKeyedAt(ledger, 10610 + i, 10600 + i, key as object);
+      }
+      for (let i = 0; i < PAIR_TALL; i += 2) {
+        ledger.unregister(keys[i] as object);
+      }
+      const rounds: number = await collectUntil(() => ledger.count() >= PAIR_MID, COLLECT_ROUNDS);
+      logCase('testFinalRegLongUnregister0001', `rounds=${rounds} ` +
+        `tokens=${ledger.sorted().join(',')}`);
+      expect(rounds > 0).assertTrue();
+      expect(ledger.has(10600)).assertFalse();
+      expect(sameNumbers(ledger.sorted(), expected)).assertTrue();
+      expect(ledger.count()).assertEqual(PAIR_MID);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_10700
+     * @tc.name      testFinalRegLongMixed0001
+     * @tc.desc      Register a numeric, a string and an object token per round for six rounds and check all three
+     *               ledgers end with six records
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegLongMixed0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const numbers: NumberLedger = new NumberLedger();
+      const strings: StringLedger = new StringLedger();
+      const boxes: BoxLedger = new BoxLedger();
+      const roundsCount: number = RING_SMALL;
+      for (let round = 0; round < roundsCount; round++) {
+        registerNumberPairAt(numbers, 10710 + round, 10700 + round);
+        registerStringPairAt(strings, 10720 + round, 'long-mix-' + round.toString());
+        registerBoxPairAt(boxes, 10730 + round, 10740 + round, 'long-box-' + round.toString());
+        await paceTurn();
+      }
+      const rounds: number = await collectUntil(() => numbers.count() >= roundsCount &&
+        strings.count() >= roundsCount && boxes.count() >= roundsCount, COLLECT_ROUNDS);
+      logCase('testFinalRegLongMixed0001', `rounds=${rounds} numbers=${numbers.count()} ` +
+        `strings=${strings.count()} boxes=${boxes.count()}`);
+      expect(rounds > 0).assertTrue();
+      expect(sameNumbers(numbers.sorted(), range(10700, roundsCount))).assertTrue();
+      expect(strings.count()).assertEqual(roundsCount);
+      expect(boxes.count()).assertEqual(roundsCount);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_FINALREG_10800
+     * @tc.name      testFinalRegLongReuse0001
+     * @tc.desc      Register one pair per round for twelve rounds, collect every third round and check the final sorted
+     *               token set is complete
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFinalRegLongReuse0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ledger: NumberLedger = new NumberLedger();
+      for (let round = 0; round < CYCLE_ROUNDS; round++) {
+        registerNumberPairAt(ledger, 10810 + round, 10800 + round);
+        if ((round + ONE) % PAIR_SMALL === 0) {
+          await collectUntil(() => ledger.count() >= round + ONE, COLLECT_ROUNDS);
+        }
+      }
+      const rounds: number = await collectUntil(() => ledger.count() >= CYCLE_ROUNDS, COLLECT_ROUNDS);
+      const tokens: number[] = ledger.sorted();
+      logCase('testFinalRegLongReuse0001', `rounds=${rounds} count=${ledger.count()} ` +
+        `tokens=${tokens.join(',')}`);
+      expect(ledger.count()).assertEqual(CYCLE_ROUNDS);
+      expect(sameNumbers(tokens, range(10800, CYCLE_ROUNDS))).assertTrue();
+      expect(uniqueNumbers(tokens).length).assertEqual(CYCLE_ROUNDS);
+      expect(ascending(tokens)).assertTrue();
+    });
+  });
+}
