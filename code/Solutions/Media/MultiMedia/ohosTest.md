@@ -9,7 +9,7 @@
 - 主机回归：958/958 Pass，0 Failure，12,454 条断言，0 意外真实文件系统、媒体库或录音器调用.
 - 设备逻辑回归：22 个套件、958/958 Pass，0 Failure/Error/Ignore，运行器 OHOS_REPORT_CODE 为 0；958 个唯一用例的开始和通过记录与源码编号逐一一致.
 - 默认测试入口的 9 种 class 选择检查全部通过；这只是注册路由检查，不是 UI 功能验证.
-- 前次附加主机检查为 16/16 Pass；本次重跑在权限清单检查失败，未完成其余检查. 当前清单只声明 CAMERA、MICROPHONE，而 MainAbility 仍请求五项权限，不能沿用此前的 16 Pass 作为当前结果.
+- 前次附加主机检查为 16/16 Pass；本次重跑在权限清单检查失败，未完成其余检查. 该失败源于 [module.json5](entry/src/main/module.json5#L53) 曾被外部改为只声明 CAMERA、MICROPHONE，而 MainAbility 请求五项权限. 本次检视修复已恢复 MEDIA_LOCATION、READ_IMAGEVIDEO、WRITE_IMAGEVIDEO 声明，五项请求与声明重新一致；恢复后的附加检查与安装验收尚未重跑.
 - 本次仅更新设备 entry_test 测试模块，安装成功；未部署重新构建的主包，未新增或删除权限、未更改签名凭据、未卸载应用或清除设备数据，未提交或推送代码.
 - 原 UI、真实相机、视频和麦克风功能未验证；当前权限清单不一致仍是完整功能验收的未解决项.
 
@@ -27,7 +27,7 @@
 
 此前 unsigned HAP 安装因 9568320/no signature file 失败；配置签名后，14:04 的 signed HAP 安装因 9568289/READ_AUDIO 失败. [音频业务](entry/src/main/ets/model/MediaUtils.ts#L278)只访问应用沙箱，已移除不需要的 READ_AUDIO、WRITE_AUDIO. 当时主包保留五项功能权限，主机附加检查 16/16 通过. API 26 的 READ_IMAGEVIDEO、WRITE_IMAGEVIDEO 支持 provision 授权，完整媒体库功能需合法的签名 profile 授权，不能用运行时弹窗解决安装阶段的权限授权失败.
 
-本次四条失败修复期间发现，[module.json5](entry/src/main/module.json5#L53)已经被外部改为只声明 CAMERA、MICROPHONE，而 [MainAbility](entry/src/main/ets/MainAbility/MainAbility.ts#L22)仍申请 MEDIA_LOCATION、READ_IMAGEVIDEO、WRITE_IMAGEVIDEO 等五项权限. 未覆盖该外部变更，也未通过降低检查强度掩盖问题. 只更新测试模块成功，不证明重新构建的主包具备完整媒体功能；保留功能需要恢复一致的权限声明并使用合法授权的签名 profile，再单独验收真实图片、视频操作.
+本次四条失败修复期间发现，[module.json5](entry/src/main/module.json5#L53)已经被外部改为只声明 CAMERA、MICROPHONE，而 [MainAbility](entry/src/main/ets/MainAbility/MainAbility.ts#L22)仍申请 MEDIA_LOCATION、READ_IMAGEVIDEO、WRITE_IMAGEVIDEO 等五项权限. 本次检视修复已恢复这三项声明，使声明与运行时请求一致；未通过降低检查强度掩盖问题. 安装阶段仍需合法的签名 profile 才能使用媒体库能力；保留功能需单独验收真实图片、视频操作.
 
 ## 测试结构与编号
 
@@ -48,7 +48,7 @@
 
 | 套件/源文件 | 数量 | 输入与步骤 | 预期结果 | 主机结果 |
 | --- | ---: | --- | --- | --- |
-| [CalendarDate1Logic](entry/src/ohosTest/ets/test/CalendarDate1Logic.test.ets) | 60 | 不同年份、月份及月末日期调用真实日期格式化 | 与独立构造的年月日期望一致 | 60 Pass |
+| [CalendarDate1Logic](entry/src/ohosTest/ets/test/CalendarDate1Logic.test.ets) | 60 | 不同年份、月份及月底日期值调用真实日期格式化 | 与独立构造的矩阵期望值一致 | 60 Pass |
 | [CalendarDate2Logic](entry/src/ohosTest/ets/test/CalendarDate2Logic.test.ets) | 12 | 闰年、跨月和日期组件组合 | 日期组件及补零正确，不污染后续调用 | 12 Pass |
 | [ClockTime1Logic](entry/src/ohosTest/ets/test/ClockTime1Logic.test.ets) | 64 | 小时、分钟、秒矩阵 | 六位时分秒字符串与期望一致 | 64 Pass |
 | [ClockTime2Logic](entry/src/ohosTest/ets/test/ClockTime2Logic.test.ets) | 32 | 特殊时间组件和重复调用 | 组件顺序、补零及调用隔离符合既有契约 | 32 Pass |
@@ -94,13 +94,9 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default -p buildMode=d
 
 4. **设备执行前**，在 IDE 配置合法的 OpenHarmony 签名，重新生成可安装的主包和测试包. 不要提交签名密钥、证书口令或本机 SDK 路径.
 5. 使用 IDE 安装同一次构建的 entry 主模块和 entry_test 测试模块；不需要为逻辑测试安装外部相机或播放器. 不通过卸载/清数据绕过签名不匹配.
-6. 签名和安装成功后，可以运行默认逻辑入口：
+6. 签名和安装成功后，在 DevEco Studio 中选择 `entry_test` 测试配置并运行全部用例，测试框架参数为 `-s unittest /ets/testrunner/OpenHarmonyTestRunner`.
 
-```bash
-hdc shell aa test -b ohos.samples.multimedia -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 60000
-```
-
-该命令已在四条关闭异常用例修复后实际执行：22 个套件、958 Pass，0 Failure/Error/Ignore，OHOS_REPORT_CODE 为 0；开始和通过记录与源码编号逐一核对一致. Hvigor 实际生成的 runner 为 OpenHarmonyTestRunner，模块名为 entry_test. 不传 class 时注册 22 个逻辑套件，排除原 UI 套件；IDE “运行全部”的混合 class 选择也排除 UI.
+该配置已在四条关闭异常用例修复后实际执行：22 个套件、958 Pass，0 Failure/Error/Ignore，OHOS_REPORT_CODE 为 0；开始和通过记录与源码编号逐一核对一致. Hvigor 实际生成的 runner 为 OpenHarmonyTestRunner，模块名为 entry_test. 不传 class 时注册 22 个逻辑套件，排除原 UI 套件；IDE “运行全部”的混合 class 选择也排除 UI.
 
 7. 设备结果需独立核对实际用例名称、22 个套件、958 条结束记录、Failure/Error/Ignore 数量及运行器最终状态. 未取得设备报告前不得写为设备 Pass.
 
@@ -114,7 +110,7 @@ hdc shell aa test -b ohos.samples.multimedia -m entry_test -s unittest OpenHarmo
 
 ## pr-review_origin 检视与修复记录
 
-实现并编译通过后，执行 pr-style、pr-security、pr-logging、pr-typescript 和适用的 pr-basic 检视，并独立检查录音生命周期及测试期望. 下列为本轮确认并已修复的问题；链接指向当前源码.
+实现并编译通过后，执行 pr-review_origin 的各检视子技能及其适用的 PR 分支检查，并独立检查录音生命周期及测试期望. 下列为本轮确认并已修复的问题；链接指向当前源码.
 
 | 等级 | 问题与原因 | 修复与复验 |
 | --- | --- | --- |
@@ -127,11 +123,11 @@ hdc shell aa test -b ohos.samples.multimedia -m entry_test -s unittest OpenHarmo
 | 必须修改 | [DocumentPage 保存](entry/src/main/ets/pages/DocumentPage.ets#L29)写入失败漏关 fd，异步错误未处理 | finally 关闭，写入成功后才返回，调用点捕捉错误；成功/失败/无文件主机检查通过 |
 | 必须修改 | [精确 URI 查询](entry/src/main/ets/model/MediaUtils.ts#L287)的测试只判断 predicates 存在，不能发现漏掉 URI 条件 | 注入观察型查询构造器，检查 URI 字段、值和谓词对象身份；媒体用例通过 |
 | 必须修改 | [File 替身](entry/src/ohosTest/ets/utils/MediaFakes.ets#L82)与 SDK File.lock 重载不兼容 | 完整实现 File 接口，去除 descriptor cast；Promise/callback 分支回归及 ETS 编译通过 |
-| 必须修改 | 测试归档错误地描述其他工程并标记未验证的 UI Pass | 重写本文件，区分主机、编译、设备和 UI 结果 |
+| 必须修改 | 测试归档错误地描述其余工程并标记未验证的 UI Pass | 重写本文件，区分主机、编译、设备和 UI 结果 |
 
-逻辑扩展阶段确认的 10 类必须修改问题均已修复并复验；本次另修复关闭异常时重复清理，设备逻辑回归 958/958 通过. 当前权限清单不一致仍待解决，UI/硬件及完整功能验收未完成. 版权、逻辑用例编号唯一性、元数据数量、120 列行宽、断言前日志和入口选择均完成检查. README 已同步工程用途、权限、构建、下载路径及签名限制. 本轮未提供 PR 链接，PR 提交格式、远端目标分支及远端合入门禁不适用；未执行远端操作.
+逻辑扩展阶段确认的 10 类必须修改问题均已修复并复验；本次另修复关闭异常时重复清理，设备逻辑回归 958/958 通过. 权限声明已恢复为与 MainAbility 请求一致的五项，恢复后的安装与真机媒体功能仍待单独验收. 版权、逻辑用例编号唯一性、元数据数量、120 列行宽、断言前日志和入口选择均完成检查. README 已同步工程用途、权限、构建、下载路径及签名限制. 本轮未提供 PR 链接，PR 提交格式、远端目标分支及远端合入门禁不适用；未执行远端操作.
 
-既有相机/录像硬件实现和旧接口未在本轮迁移，也未做全工程 UI 重构. 这份记录不是对全部旧代码、真实硬件或设备安装的全面验收.
+既有相机/录像硬件实现和旧接口未在本轮迁移，也未做全工程 UI 重构. 这份记录不是对全部旧代码、真实硬件或设备安装的完整验收.
 
 ## 改动量口径
 

@@ -329,31 +329,39 @@ export default class MediaUtils {
     const fileAssets: MediaAssetHandle[] = [];
     try {
       if (mediaType === FileType.AUDIO || mediaType === FileType.FILE) {
-        const names = this.files.listFileSync(this.sandboxDirPath);
-        names.filter(name => name.endsWith(mediaType === FileType.AUDIO ? '.mp3' : '.txt')).forEach(name => {
-          fileAssets.push(new SandboxFileHandle(`${this.sandboxDirPath}/${name}`, mediaType, this.files));
-        });
+        this.collectSandboxAssets(mediaType, fileAssets);
       } else {
-        const predicates = this.predicatesFactory();
-        const fetchOptions: photoAccessHelper.FetchOptions = {
-          fetchColumns: ['duration', 'date_added'],
-          predicates: predicates
-        };
-        const fetchResult = await this.mediaLibrary.getAssets(fetchOptions);
-        try {
-          const assets = await fetchResult.getAllObjects();
-          assets.filter(item => item.photoType === mediaType).forEach(item => {
-            fileAssets.push(new PhotoAssetHandle(item, mediaType, this.files));
-          });
-        } finally {
-          fetchResult.close();
-        }
+        await this.collectLibraryAssets(mediaType, fileAssets);
       }
     } catch (err) {
       Logger.info(this.tag, `err ${JSON.stringify(err)}`);
     }
     Logger.info(this.tag, `getFileAssetsFromType = ${mediaType},fileAssets.count = ${fileAssets.length}`);
     return fileAssets;
+  }
+
+  private collectSandboxAssets(mediaType: number, fileAssets: MediaAssetHandle[]): void {
+    const names = this.files.listFileSync(this.sandboxDirPath);
+    names.filter(name => name.endsWith(mediaType === FileType.AUDIO ? '.mp3' : '.txt')).forEach(name => {
+      fileAssets.push(new SandboxFileHandle(`${this.sandboxDirPath}/${name}`, mediaType, this.files));
+    });
+  }
+
+  private async collectLibraryAssets(mediaType: number, fileAssets: MediaAssetHandle[]): Promise<void> {
+    const predicates = this.predicatesFactory();
+    const fetchOptions: photoAccessHelper.FetchOptions = {
+      fetchColumns: ['duration', 'date_added'],
+      predicates: predicates
+    };
+    const fetchResult = await this.mediaLibrary.getAssets(fetchOptions);
+    try {
+      const assets = await fetchResult.getAllObjects();
+      assets.filter(item => item.photoType === mediaType).forEach(item => {
+        fileAssets.push(new PhotoAssetHandle(item, mediaType, this.files));
+      });
+    } finally {
+      fetchResult.close();
+    }
   }
 
   async getFileAssets(context: common.Context, mediaType?: number): Promise<FileInfo[]> {

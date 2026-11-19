@@ -33,31 +33,31 @@ export interface MediaEquality {
 }
 
 export class FakeMediaPredicates extends dataSharePredicates.DataSharePredicates {
-  equalities: MediaEquality[] = [];
+  public equalities: MediaEquality[] = [];
 
-  equalTo(field: string, value: ValueType): dataSharePredicates.DataSharePredicates {
+  public equalTo(field: string, value: ValueType): dataSharePredicates.DataSharePredicates {
     this.equalities.push({ field: field, value: value });
     return this;
   }
 }
 
 export class MediaTrace {
-  events: string[] = [];
+  public events: string[] = [];
 
-  add(event: string): void {
+  public add(event: string): void {
     this.events.push(event);
   }
 
-  clear(): void {
+  public clear(): void {
     this.events = [];
   }
 }
 
 export class FakeMediaClock implements MediaClock {
-  date: string;
-  time: string;
-  dateCalls: number = 0;
-  timeCalls: number = 0;
+  public date: string;
+  public time: string;
+  public dateCalls: number = 0;
+  public timeCalls: number = 0;
   private trace: MediaTrace;
 
   constructor(trace: MediaTrace, date: string = '20261119', time: string = '080910') {
@@ -66,13 +66,13 @@ export class FakeMediaClock implements MediaClock {
     this.time = time;
   }
 
-  getDate(): string {
+  public getDate(): string {
     this.dateCalls++;
     this.trace.add('clock.date');
     return this.date;
   }
 
-  getTime(): string {
+  public getTime(): string {
     this.timeCalls++;
     this.trace.add('clock.time');
     return this.time;
@@ -80,9 +80,9 @@ export class FakeMediaClock implements MediaClock {
 }
 
 export class FakeMediaDescriptor implements fileIo.File {
-  fd: number;
-  path: string;
-  name: string;
+  public fd: number;
+  public path: string;
+  public name: string;
   private trace: MediaTrace;
 
   constructor(trace: MediaTrace, fd: number, path: string) {
@@ -92,15 +92,15 @@ export class FakeMediaDescriptor implements fileIo.File {
     this.name = path.substring(path.lastIndexOf('/') + 1);
   }
 
-  getParent(): string {
+  public getParent(): string {
     this.trace.add('descriptor.parent');
     return this.path.substring(0, this.path.lastIndexOf('/'));
   }
 
-  lock(exclusive?: boolean): Promise<void>;
-  lock(callback: AsyncCallback<void>): void;
-  lock(exclusive: boolean, callback: AsyncCallback<void>): void;
-  lock(exclusive: boolean | AsyncCallback<void> = false, callback?: AsyncCallback<void>): Promise<void> | void {
+  public lock(exclusive?: boolean): Promise<void>;
+  public lock(callback: AsyncCallback<void>): void;
+  public lock(exclusive: boolean, callback: AsyncCallback<void>): void;
+  public lock(exclusive: boolean | AsyncCallback<void> = false, callback?: AsyncCallback<void>): Promise<void> | void {
     this.trace.add(`descriptor.lock:${typeof exclusive === 'boolean' ? exclusive : false}`);
     const onLocked: AsyncCallback<void> | undefined = typeof exclusive === 'function' ? exclusive : callback;
     if (onLocked) {
@@ -110,11 +110,11 @@ export class FakeMediaDescriptor implements fileIo.File {
     return Promise.resolve();
   }
 
-  tryLock(exclusive: boolean = false): void {
+  public tryLock(exclusive: boolean = false): void {
     this.trace.add(`descriptor.tryLock:${exclusive}`);
   }
 
-  unlock(): void {
+  public unlock(): void {
     this.trace.add('descriptor.unlock');
   }
 }
@@ -130,30 +130,30 @@ export interface FakeMediaRename {
 }
 
 export class FakeMediaFiles implements MediaFileOperations {
-  names: string[] = [];
-  mtimes: Map<string, number> = new Map<string, number>();
-  opens: FakeMediaOpen[] = [];
-  closes: number[] = [];
-  renames: FakeMediaRename[] = [];
-  lists: string[] = [];
-  stats: string[] = [];
-  unlinks: string[] = [];
-  descriptors: fileIo.File[] = [];
-  nextFd: number = 710;
-  openError: string = '';
-  closeError: string = '';
-  renameError: string = '';
-  listError: string = '';
-  statError: string = '';
-  statErrorPath: string = '';
-  unlinkError: string = '';
+  public names: string[] = [];
+  public mtimes: Map<string, number> = new Map<string, number>();
+  public opens: FakeMediaOpen[] = [];
+  public closes: number[] = [];
+  public renames: FakeMediaRename[] = [];
+  public lists: string[] = [];
+  public stats: string[] = [];
+  public unlinks: string[] = [];
+  public descriptors: fileIo.File[] = [];
+  public nextFd: number = 710;
+  public openError: string = '';
+  public closeError: string = '';
+  public renameError: string = '';
+  public listError: string = '';
+  public statError: string = '';
+  public statErrorPath: string = '';
+  public unlinkError: string = '';
   private trace: MediaTrace;
 
   constructor(trace: MediaTrace) {
     this.trace = trace;
   }
 
-  openSync(path: string, mode: number): fileIo.File {
+  public openSync(path: string, mode: number): fileIo.File {
     this.opens.push({ path: path, mode: mode });
     this.trace.add('files.open');
     if (this.openError !== '') {
@@ -164,7 +164,7 @@ export class FakeMediaFiles implements MediaFileOperations {
     return descriptor;
   }
 
-  closeSync(fd: number): void {
+  public closeSync(fd: number): void {
     this.closes.push(fd);
     this.trace.add('files.close');
     if (this.closeError !== '') {
@@ -172,7 +172,7 @@ export class FakeMediaFiles implements MediaFileOperations {
     }
   }
 
-  renameSync(source: string, target: string): void {
+  public renameSync(source: string, target: string): void {
     this.renames.push({ source: source, target: target });
     this.trace.add('files.rename');
     if (this.renameError !== '') {
@@ -191,7 +191,7 @@ export class FakeMediaFiles implements MediaFileOperations {
     }
   }
 
-  listFileSync(path: string): string[] {
+  public listFileSync(path: string): string[] {
     this.lists.push(path);
     this.trace.add('files.list');
     if (this.listError !== '') {
@@ -200,7 +200,7 @@ export class FakeMediaFiles implements MediaFileOperations {
     return this.names.slice();
   }
 
-  statSync(path: string): MediaFileStat {
+  public statSync(path: string): MediaFileStat {
     this.stats.push(path);
     this.trace.add('files.stat');
     if (this.statError !== '' && (this.statErrorPath === '' || this.statErrorPath === path)) {
@@ -210,7 +210,7 @@ export class FakeMediaFiles implements MediaFileOperations {
     return { mtime: mtime === undefined ? 0 : mtime };
   }
 
-  unlinkSync(path: string): void {
+  public unlinkSync(path: string): void {
     this.unlinks.push(path);
     this.trace.add('files.unlink');
     if (this.unlinkError !== '') {
@@ -231,16 +231,16 @@ export interface FakeMediaSet {
 }
 
 export class FakeMediaPhoto implements MediaPhotoAsset {
-  uri: string;
-  photoType: photoAccessHelper.PhotoType;
-  members: Map<string, photoAccessHelper.MemberType> = new Map<string, photoAccessHelper.MemberType>();
-  gets: string[] = [];
-  sets: FakeMediaSet[] = [];
-  commits: number = 0;
-  getError: string = '';
-  setError: string = '';
-  commitError: string = '';
-  committedDisplayName: string = '';
+  public uri: string;
+  public photoType: photoAccessHelper.PhotoType;
+  public members: Map<string, photoAccessHelper.MemberType> = new Map<string, photoAccessHelper.MemberType>();
+  public gets: string[] = [];
+  public sets: FakeMediaSet[] = [];
+  public commits: number = 0;
+  public getError: string = '';
+  public setError: string = '';
+  public commitError: string = '';
+  public committedDisplayName: string = '';
   private trace: MediaTrace;
 
   constructor(trace: MediaTrace, uri: string, type: photoAccessHelper.PhotoType, name: string) {
@@ -252,7 +252,7 @@ export class FakeMediaPhoto implements MediaPhotoAsset {
     this.members.set('date_added', 0);
   }
 
-  get(member: string): photoAccessHelper.MemberType {
+  public get(member: string): photoAccessHelper.MemberType {
     this.gets.push(member);
     this.trace.add('photo.get');
     if (this.getError !== '') {
@@ -262,7 +262,7 @@ export class FakeMediaPhoto implements MediaPhotoAsset {
     return value === undefined ? 0 : value;
   }
 
-  set(member: string, value: string): void {
+  public set(member: string, value: string): void {
     this.sets.push({ member: member, value: value });
     this.trace.add('photo.set');
     if (this.setError !== '') {
@@ -271,7 +271,7 @@ export class FakeMediaPhoto implements MediaPhotoAsset {
     this.members.set(member, value);
   }
 
-  async commitModify(): Promise<void> {
+  public async commitModify(): Promise<void> {
     this.commits++;
     this.trace.add('photo.commit');
     if (this.commitError !== '') {
@@ -284,11 +284,11 @@ export class FakeMediaPhoto implements MediaPhotoAsset {
 }
 
 export class FakeMediaFetch implements MediaFetchResult {
-  assets: MediaPhotoAsset[];
-  allCalls: number = 0;
-  closeCalls: number = 0;
-  allError: string = '';
-  closeError: string = '';
+  public assets: MediaPhotoAsset[];
+  public allCalls: number = 0;
+  public closeCalls: number = 0;
+  public allError: string = '';
+  public closeError: string = '';
   private trace: MediaTrace;
 
   constructor(trace: MediaTrace, assets: MediaPhotoAsset[] = []) {
@@ -296,7 +296,7 @@ export class FakeMediaFetch implements MediaFetchResult {
     this.assets = assets;
   }
 
-  async getAllObjects(): Promise<MediaPhotoAsset[]> {
+  public async getAllObjects(): Promise<MediaPhotoAsset[]> {
     this.allCalls++;
     this.trace.add('fetch.all');
     if (this.allError !== '') {
@@ -305,7 +305,7 @@ export class FakeMediaFetch implements MediaFetchResult {
     return this.assets.slice();
   }
 
-  close(): void {
+  public close(): void {
     this.closeCalls++;
     this.trace.add('fetch.close');
     if (this.closeError !== '') {
@@ -325,22 +325,22 @@ export interface FakeMediaDelete {
 }
 
 export class FakeMediaLibrary implements MediaLibraryOperations {
-  creates: FakeMediaCreate[] = [];
-  fetches: photoAccessHelper.FetchOptions[] = [];
-  deletes: FakeMediaDelete[] = [];
-  results: FakeMediaFetch[] = [];
-  resultIndex: number = 0;
-  createdUri: string = 'fake://media/generated';
-  createError: string = '';
-  fetchError: string = '';
-  deleteError: string = '';
+  public creates: FakeMediaCreate[] = [];
+  public fetches: photoAccessHelper.FetchOptions[] = [];
+  public deletes: FakeMediaDelete[] = [];
+  public results: FakeMediaFetch[] = [];
+  public resultIndex: number = 0;
+  public createdUri: string = 'fake://media/generated';
+  public createError: string = '';
+  public fetchError: string = '';
+  public deleteError: string = '';
   private trace: MediaTrace;
 
   constructor(trace: MediaTrace) {
     this.trace = trace;
   }
 
-  async createAsset(photoType: photoAccessHelper.PhotoType, extension: string): Promise<string> {
+  public async createAsset(photoType: photoAccessHelper.PhotoType, extension: string): Promise<string> {
     this.creates.push({ photoType: photoType, extension: extension });
     this.trace.add('library.create');
     if (this.createError !== '') {
@@ -349,7 +349,7 @@ export class FakeMediaLibrary implements MediaLibraryOperations {
     return this.createdUri;
   }
 
-  async getAssets(options: photoAccessHelper.FetchOptions): Promise<MediaFetchResult> {
+  public async getAssets(options: photoAccessHelper.FetchOptions): Promise<MediaFetchResult> {
     this.fetches.push(options);
     this.trace.add('library.fetch');
     if (this.fetchError !== '') {
@@ -362,7 +362,7 @@ export class FakeMediaLibrary implements MediaLibraryOperations {
     return this.results[index];
   }
 
-  async deleteAssets(context: common.UIAbilityContext, uris: string[]): Promise<void> {
+  public async deleteAssets(context: common.UIAbilityContext, uris: string[]): Promise<void> {
     this.deletes.push({ context: context, uris: uris.slice() });
     this.trace.add('library.delete');
     if (this.deleteError !== '') {

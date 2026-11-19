@@ -1829,7 +1829,7 @@ export default function MediaFailureWorkflowsLogic(): void {
      * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1204
      * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1204
      * @tc.nameDesc Injected instances isolate library filesystem and clock state: Verify two context snapshots,
-     * independent fake operations and clocks with no native constructor activity.
+     * independent fake operations and clocks with no native constructor call.
      * @tc.type FUNCTION
      * @tc.size MEDIUMTEST
      * @tc.level LEVEL0
@@ -1908,7 +1908,7 @@ export default function MediaFailureWorkflowsLogic(): void {
      * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1205
      * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1205
      * @tc.nameDesc Injected instances isolate library filesystem and clock state: Verify two context snapshots,
-     * independent fake operations and clocks with no native constructor activity.
+     * independent fake operations and clocks with no native constructor call.
      * @tc.type FUNCTION
      * @tc.size MEDIUMTEST
      * @tc.level LEVEL0
@@ -1987,7 +1987,7 @@ export default function MediaFailureWorkflowsLogic(): void {
      * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1206
      * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1206
      * @tc.nameDesc Injected instances isolate library filesystem and clock state: Verify two context snapshots,
-     * independent fake operations and clocks with no native constructor activity.
+     * independent fake operations and clocks with no native constructor call.
      * @tc.type FUNCTION
      * @tc.size MEDIUMTEST
      * @tc.level LEVEL0
@@ -2058,7 +2058,7 @@ export default function MediaFailureWorkflowsLogic(): void {
      * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1207
      * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1207
      * @tc.nameDesc Injected instances isolate library filesystem and clock state: Verify two context snapshots,
-     * independent fake operations and clocks with no native constructor activity.
+     * independent fake operations and clocks with no native constructor call.
      * @tc.type FUNCTION
      * @tc.size MEDIUMTEST
      * @tc.level LEVEL0

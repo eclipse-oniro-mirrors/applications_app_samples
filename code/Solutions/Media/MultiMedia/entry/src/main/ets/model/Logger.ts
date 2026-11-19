@@ -15,7 +15,7 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 class Logger {
-  private readonly domain: number = 0xFF00;
+  private readonly domain: number = 0xF811;
   private readonly prefix: string;
   private readonly format: string = '%{public}s: %{private}s';
 

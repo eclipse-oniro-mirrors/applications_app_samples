@@ -50,7 +50,7 @@ lib/                                   外部相机、播放器产物及源码�
 
 ## 相关权限
 
-完整媒体功能需要以下权限；当前本地清单仅保留 CAMERA、MICROPHONE，而 MainAbility 仍申请五项，权限一致性附加检查失败. 本次四条失败修复未覆盖这一外部变更；完整功能验收前需恢复一致的声明、配置合法授权，并验证真实媒体操作：
+完整媒体功能需要以下权限；本次检视修复已恢复 MEDIA_LOCATION、WRITE_IMAGEVIDEO、READ_IMAGEVIDEO 的清单声明，使声明与 MainAbility 的五项运行时申请一致. 恢复后的安装、签名授权和真实媒体操作仍需单独验收：
 
 - `ohos.permission.CAMERA`
 - `ohos.permission.MICROPHONE`
@@ -73,11 +73,11 @@ lib/                                   外部相机、播放器产物及源码�
 5. 编译主包：`hvigorw --mode module -p module=entry@default -p product=default -p buildMode=debug assembleHap --no-daemon`.
 6. 编译测试包时，将 `module=entry@default` 改为 `module=entry@ohosTest`.
 7. 修改 SDK 后若 daemon 仍使用旧路径，先执行 `hvigorw --stop-daemon` 再重新编译.
-8. 四条关闭异常用例修复后，两个 signed HAP 已重编成功；仅更新设备 entry_test 测试模块，安装成功，未卸载或清数据. 因当前主清单与运行时权限申请不一致，未部署重新构建的主包，也未修改签名凭据或提升权限等级. 9568320/unsigned、9568289/READ_AUDIO 属于此前安装记录；逻辑测试通过不代表完整主应用功能已验收.
+8. 四条关闭异常用例修复后，两个 signed HAP 已重编成功；仅更新设备 entry_test 测试模块，安装成功，未卸载或清数据. 本次检视修复已恢复与运行时申请一致的权限声明并重新编译两个 HAP，但恢复后的主包未部署到设备，也未修改签名凭据或提升权限等级. 9568320/unsigned、9568289/READ_AUDIO 属于此前安装记录；逻辑测试通过不代表完整主应用功能已验收.
 
 ## 测试说明
 
-用例目录、执行步骤、真实验证结果和覆盖限制见 [ohosTest.md](ohosTest.md). 1196–1199 在设备上发现 try 内 return、finally 关闭抛错时重复关闭；将成功返回移到 finally 后，未删用例或放宽断言. 修复后四条定点设备用例全部通过，随后默认 22 个逻辑套件、958 条设备用例全部通过，0 Failure/Error/Ignore，唯一编号及开始/通过记录与源码一致. 主机 958 条、12,454 条断言通过，两个 HAP 编译成功. UI/硬件交互未执行，当前权限清单不一致仍未解决.
+用例目录、执行步骤、真实验证结果和覆盖限制见 [ohosTest.md](ohosTest.md). 1196–1199 在设备上发现 try 内 return、finally 关闭抛错时重复关闭；将成功返回移到 finally 后，未删用例或放宽断言. 修复后四条定点设备用例全部通过，随后默认 22 个逻辑套件、958 条设备用例全部通过，0 Failure/Error/Ignore，唯一编号及开始/通过记录与源码一致. 主机 958 条、12,454 条断言通过，两个 HAP 编译成功. UI/硬件交互未执行，权限声明已恢复一致，恢复后的真机媒体功能仍待验收.
 
 原有 UI 套件包含删除操作，只有 class 选择中全部条目都是 `MultiMediaUiTest` 测试时才注册，IDE “运行全部”的混合选择不会启用该套件. UI 套件还要求 Documents 沙箱为空：存在既有 `.txt` 文件或目录读取失败时会阻止执行. 仅在隔离、可丢弃的测试安装中运行.
 

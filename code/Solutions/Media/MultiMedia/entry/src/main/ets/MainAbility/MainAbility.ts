@@ -33,7 +33,7 @@ export default class MainAbility extends UIAbility {
   }
 
   onDestroy() {
-    Logger.info(TAG, 'MainAbility onDestroy')
+    Logger.info(TAG, 'MainAbility onDestroy');
   }
 
   async onWindowStageCreate(windowStage): Promise<void> {
@@ -46,16 +46,16 @@ export default class MainAbility extends UIAbility {
 
   onWindowStageDestroy() {
     // Main window is destroyed, release UI related resources
-    Logger.info(TAG, 'MainAbility onWindowStageDestroy')
+    Logger.info(TAG, 'MainAbility onWindowStageDestroy');
   }
 
   onForeground() {
     // Ability has brought to foreground
-    Logger.info(TAG, 'MainAbility onForeground')
+    Logger.info(TAG, 'MainAbility onForeground');
   }
 
   onBackground() {
     // Ability has back to background
-    Logger.info(TAG, 'MainAbility onBackground')
+    Logger.info(TAG, 'MainAbility onBackground');
   }
 }

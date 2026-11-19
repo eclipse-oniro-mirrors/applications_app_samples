@@ -52,7 +52,7 @@ lib/                                   External camera/player artifacts and sour
 
 Complete media functionality requires `ohos.permission.CAMERA`, `ohos.permission.MICROPHONE`, `ohos.permission.MEDIA_LOCATION`, `ohos.permission.WRITE_IMAGEVIDEO` and `ohos.permission.READ_IMAGEVIDEO`. Audio recordings and documents use the application sandbox, so `READ_AUDIO` and `WRITE_AUDIO` are neither declared nor requested at startup.
 
-The current local manifest has been externally changed to declare only CAMERA and MICROPHONE, while MainAbility still requests all five permissions. This mismatch failed the supplementary permission check and was not overwritten during the four-case fix. Full media functionality is not accepted: restore consistent declarations and validate the real media operations separately.
+The local manifest previously declared only CAMERA and MICROPHONE while MainAbility requested all five permissions. The mismatch was fixed by restoring the `MEDIA_LOCATION`, `WRITE_IMAGEVIDEO` and `READ_IMAGEVIDEO` declarations, so the manifest and the runtime requests are consistent again. Installation and real media operations with the restored declarations still need separate validation.
 
 API 26 defines `READ_IMAGEVIDEO` and `WRITE_IMAGEVIDEO` as `user_grant` permissions with `system_basic` available level and provision support. The signing profile must authorize these permissions through the appropriate APL/ACL; a runtime permission dialog cannot fix installation-time authorization failure. Removing permissions needed by the existing media-library features is not a functionality-preserving installation fix.
 
