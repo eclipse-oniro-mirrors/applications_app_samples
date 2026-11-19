@@ -927,3 +927,223 @@ export default function ClockTime2Logic(): void {
       expect(time.substring(4, 6)).assertEqual('09');
       LogicTestLog.value(name, 'elapsed display', String('23:10:09'), String(duration));
       expect(duration).assertEqual('23:10:09');
+      LogicTestLog.number(name, 'elapsed width', 8, duration.length);
+      expect(duration.length).assertEqual(8);
+      LogicTestLog.value(name, 'date interleave', String('20260109'), String(dateTime.concatDate(2026, 1, 9)));
+      expect(dateTime.concatDate(2026, 1, 9)).assertEqual('20260109');
+      LogicTestLog.value(name, 'clock remains repeatable', String('231009'), String(dateTime.concatTime(23, 10, 9)));
+      expect(dateTime.concatTime(23, 10, 9)).assertEqual('231009');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1536
+     * @tc.name MultiMedia_Clock_1536
+     * @tc.desc Filename clock components agree with independent duration display components
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Clock_1536', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Clock_1536';
+      LogicTestLog.begin(name, 'hour=23;minute=10;second=10');
+      const dateTime: DateTimeUtil = new DateTimeUtil();
+      const time: string = dateTime.concatTime(23, 10, 10);
+      const duration: string = getDurationString(83410000);
+      LogicTestLog.value(name, 'clock filename', String('231010'), String(time));
+      expect(time).assertEqual('231010');
+      LogicTestLog.number(name, 'clock width', 6, time.length);
+      expect(time.length).assertEqual(6);
+      LogicTestLog.value(name, 'hours component', String('23'), String(time.substring(0, 2)));
+      expect(time.substring(0, 2)).assertEqual('23');
+      LogicTestLog.value(name, 'minutes component', String('10'), String(time.substring(2, 4)));
+      expect(time.substring(2, 4)).assertEqual('10');
+      LogicTestLog.value(name, 'seconds component', String('10'), String(time.substring(4, 6)));
+      expect(time.substring(4, 6)).assertEqual('10');
+      LogicTestLog.value(name, 'elapsed display', String('23:10:10'), String(duration));
+      expect(duration).assertEqual('23:10:10');
+      LogicTestLog.number(name, 'elapsed width', 8, duration.length);
+      expect(duration.length).assertEqual(8);
+      LogicTestLog.value(name, 'date interleave', String('20260109'), String(dateTime.concatDate(2026, 1, 9)));
+      expect(dateTime.concatDate(2026, 1, 9)).assertEqual('20260109');
+      LogicTestLog.value(name, 'clock remains repeatable', String('231010'), String(dateTime.concatTime(23, 10, 10)));
+      expect(dateTime.concatTime(23, 10, 10)).assertEqual('231010');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1537
+     * @tc.name MultiMedia_Clock_1537
+     * @tc.desc Filename clock components agree with independent duration display components
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Clock_1537', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Clock_1537';
+      LogicTestLog.begin(name, 'hour=23;minute=10;second=59');
+      const dateTime: DateTimeUtil = new DateTimeUtil();
+      const time: string = dateTime.concatTime(23, 10, 59);
+      const duration: string = getDurationString(83459000);
+      LogicTestLog.value(name, 'clock filename', String('231059'), String(time));
+      expect(time).assertEqual('231059');
+      LogicTestLog.number(name, 'clock width', 6, time.length);
+      expect(time.length).assertEqual(6);
+      LogicTestLog.value(name, 'hours component', String('23'), String(time.substring(0, 2)));
+      expect(time.substring(0, 2)).assertEqual('23');
+      LogicTestLog.value(name, 'minutes component', String('10'), String(time.substring(2, 4)));
+      expect(time.substring(2, 4)).assertEqual('10');
+      LogicTestLog.value(name, 'seconds component', String('59'), String(time.substring(4, 6)));
+      expect(time.substring(4, 6)).assertEqual('59');
+      LogicTestLog.value(name, 'elapsed display', String('23:10:59'), String(duration));
+      expect(duration).assertEqual('23:10:59');
+      LogicTestLog.number(name, 'elapsed width', 8, duration.length);
+      expect(duration.length).assertEqual(8);
+      LogicTestLog.value(name, 'date interleave', String('20260109'), String(dateTime.concatDate(2026, 1, 9)));
+      expect(dateTime.concatDate(2026, 1, 9)).assertEqual('20260109');
+      LogicTestLog.value(name, 'clock remains repeatable', String('231059'), String(dateTime.concatTime(23, 10, 59)));
+      expect(dateTime.concatTime(23, 10, 59)).assertEqual('231059');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1538
+     * @tc.name MultiMedia_Clock_1538
+     * @tc.desc Filename clock components agree with independent duration display components
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Clock_1538', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Clock_1538';
+      LogicTestLog.begin(name, 'hour=23;minute=59;second=0');
+      const dateTime: DateTimeUtil = new DateTimeUtil();
+      const time: string = dateTime.concatTime(23, 59, 0);
+      const duration: string = getDurationString(86340000);
+      LogicTestLog.value(name, 'clock filename', String('235900'), String(time));
+      expect(time).assertEqual('235900');
+      LogicTestLog.number(name, 'clock width', 6, time.length);
+      expect(time.length).assertEqual(6);
+      LogicTestLog.value(name, 'hours component', String('23'), String(time.substring(0, 2)));
+      expect(time.substring(0, 2)).assertEqual('23');
+      LogicTestLog.value(name, 'minutes component', String('59'), String(time.substring(2, 4)));
+      expect(time.substring(2, 4)).assertEqual('59');
+      LogicTestLog.value(name, 'seconds component', String('00'), String(time.substring(4, 6)));
+      expect(time.substring(4, 6)).assertEqual('00');
+      LogicTestLog.value(name, 'elapsed display', String('23:59:00'), String(duration));
+      expect(duration).assertEqual('23:59:00');
+      LogicTestLog.number(name, 'elapsed width', 8, duration.length);
+      expect(duration.length).assertEqual(8);
+      LogicTestLog.value(name, 'date interleave', String('20260109'), String(dateTime.concatDate(2026, 1, 9)));
+      expect(dateTime.concatDate(2026, 1, 9)).assertEqual('20260109');
+      LogicTestLog.value(name, 'clock remains repeatable', String('235900'), String(dateTime.concatTime(23, 59, 0)));
+      expect(dateTime.concatTime(23, 59, 0)).assertEqual('235900');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1539
+     * @tc.name MultiMedia_Clock_1539
+     * @tc.desc Filename clock components agree with independent duration display components
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Clock_1539', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Clock_1539';
+      LogicTestLog.begin(name, 'hour=23;minute=59;second=9');
+      const dateTime: DateTimeUtil = new DateTimeUtil();
+      const time: string = dateTime.concatTime(23, 59, 9);
+      const duration: string = getDurationString(86349000);
+      LogicTestLog.value(name, 'clock filename', String('235909'), String(time));
+      expect(time).assertEqual('235909');
+      LogicTestLog.number(name, 'clock width', 6, time.length);
+      expect(time.length).assertEqual(6);
+      LogicTestLog.value(name, 'hours component', String('23'), String(time.substring(0, 2)));
+      expect(time.substring(0, 2)).assertEqual('23');
+      LogicTestLog.value(name, 'minutes component', String('59'), String(time.substring(2, 4)));
+      expect(time.substring(2, 4)).assertEqual('59');
+      LogicTestLog.value(name, 'seconds component', String('09'), String(time.substring(4, 6)));
+      expect(time.substring(4, 6)).assertEqual('09');
+      LogicTestLog.value(name, 'elapsed display', String('23:59:09'), String(duration));
+      expect(duration).assertEqual('23:59:09');
+      LogicTestLog.number(name, 'elapsed width', 8, duration.length);
+      expect(duration.length).assertEqual(8);
+      LogicTestLog.value(name, 'date interleave', String('20260109'), String(dateTime.concatDate(2026, 1, 9)));
+      expect(dateTime.concatDate(2026, 1, 9)).assertEqual('20260109');
+      LogicTestLog.value(name, 'clock remains repeatable', String('235909'), String(dateTime.concatTime(23, 59, 9)));
+      expect(dateTime.concatTime(23, 59, 9)).assertEqual('235909');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1540
+     * @tc.name MultiMedia_Clock_1540
+     * @tc.desc Filename clock components agree with independent duration display components
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Clock_1540', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Clock_1540';
+      LogicTestLog.begin(name, 'hour=23;minute=59;second=10');
+      const dateTime: DateTimeUtil = new DateTimeUtil();
+      const time: string = dateTime.concatTime(23, 59, 10);
+      const duration: string = getDurationString(86350000);
+      LogicTestLog.value(name, 'clock filename', String('235910'), String(time));
+      expect(time).assertEqual('235910');
+      LogicTestLog.number(name, 'clock width', 6, time.length);
+      expect(time.length).assertEqual(6);
+      LogicTestLog.value(name, 'hours component', String('23'), String(time.substring(0, 2)));
+      expect(time.substring(0, 2)).assertEqual('23');
+      LogicTestLog.value(name, 'minutes component', String('59'), String(time.substring(2, 4)));
+      expect(time.substring(2, 4)).assertEqual('59');
+      LogicTestLog.value(name, 'seconds component', String('10'), String(time.substring(4, 6)));
+      expect(time.substring(4, 6)).assertEqual('10');
+      LogicTestLog.value(name, 'elapsed display', String('23:59:10'), String(duration));
+      expect(duration).assertEqual('23:59:10');
+      LogicTestLog.number(name, 'elapsed width', 8, duration.length);
+      expect(duration.length).assertEqual(8);
+      LogicTestLog.value(name, 'date interleave', String('20260109'), String(dateTime.concatDate(2026, 1, 9)));
+      expect(dateTime.concatDate(2026, 1, 9)).assertEqual('20260109');
+      LogicTestLog.value(name, 'clock remains repeatable', String('235910'), String(dateTime.concatTime(23, 59, 10)));
+      expect(dateTime.concatTime(23, 59, 10)).assertEqual('235910');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1541
+     * @tc.name MultiMedia_Clock_1541
+     * @tc.desc Filename clock components agree with independent duration display components
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Clock_1541', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Clock_1541';
+      LogicTestLog.begin(name, 'hour=23;minute=59;second=59');
+      const dateTime: DateTimeUtil = new DateTimeUtil();
+      const time: string = dateTime.concatTime(23, 59, 59);
+      const duration: string = getDurationString(86399000);
+      LogicTestLog.value(name, 'clock filename', String('235959'), String(time));
+      expect(time).assertEqual('235959');
+      LogicTestLog.number(name, 'clock width', 6, time.length);
+      expect(time.length).assertEqual(6);
+      LogicTestLog.value(name, 'hours component', String('23'), String(time.substring(0, 2)));
+      expect(time.substring(0, 2)).assertEqual('23');
+      LogicTestLog.value(name, 'minutes component', String('59'), String(time.substring(2, 4)));
+      expect(time.substring(2, 4)).assertEqual('59');
+      LogicTestLog.value(name, 'seconds component', String('59'), String(time.substring(4, 6)));
+      expect(time.substring(4, 6)).assertEqual('59');
+      LogicTestLog.value(name, 'elapsed display', String('23:59:59'), String(duration));
+      expect(duration).assertEqual('23:59:59');
+      LogicTestLog.number(name, 'elapsed width', 8, duration.length);
+      expect(duration.length).assertEqual(8);
+      LogicTestLog.value(name, 'date interleave', String('20260109'), String(dateTime.concatDate(2026, 1, 9)));
+      expect(dateTime.concatDate(2026, 1, 9)).assertEqual('20260109');
+      LogicTestLog.value(name, 'clock remains repeatable', String('235959'), String(dateTime.concatTime(23, 59, 59)));
+      expect(dateTime.concatTime(23, 59, 59)).assertEqual('235959');
+      LogicTestLog.end(name);
+    });
+  });
+}
