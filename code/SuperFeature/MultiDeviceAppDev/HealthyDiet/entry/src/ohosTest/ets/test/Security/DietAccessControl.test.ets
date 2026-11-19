@@ -1982,3 +1982,772 @@ export default function dietAccessControlSuite() {
       expect(m.getFoodById(1000 + 921) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0922
+     * @tc.name    DietAccessControl922
+     * @tc.desc    Diet invalid weight rejected 922 probe 922
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl922', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-23)).assertEqual(false);
+      expect(m.getFoodById(1000 + 922) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0923
+     * @tc.name    DietAccessControl923
+     * @tc.desc    Diet invalid weight rejected 923 probe 923
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl923', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-24)).assertEqual(false);
+      expect(m.getFoodById(1000 + 923) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0924
+     * @tc.name    DietAccessControl924
+     * @tc.desc    Diet invalid weight rejected 924 probe 924
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl924', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-25)).assertEqual(false);
+      expect(m.getFoodById(1000 + 924) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0925
+     * @tc.name    DietAccessControl925
+     * @tc.desc    Diet invalid weight rejected 925 probe 925
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl925', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-26)).assertEqual(false);
+      expect(m.getFoodById(1000 + 925) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0926
+     * @tc.name    DietAccessControl926
+     * @tc.desc    Diet invalid weight rejected 926 probe 926
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl926', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-27)).assertEqual(false);
+      expect(m.getFoodById(1000 + 926) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0927
+     * @tc.name    DietAccessControl927
+     * @tc.desc    Diet invalid weight rejected 927 probe 927
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl927', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-28)).assertEqual(false);
+      expect(m.getFoodById(1000 + 927) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0928
+     * @tc.name    DietAccessControl928
+     * @tc.desc    Diet invalid weight rejected 928 probe 928
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl928', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-29)).assertEqual(false);
+      expect(m.getFoodById(1000 + 928) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0929
+     * @tc.name    DietAccessControl929
+     * @tc.desc    Diet invalid weight rejected 929 probe 929
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl929', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-30)).assertEqual(false);
+      expect(m.getFoodById(1000 + 929) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0930
+     * @tc.name    DietAccessControl930
+     * @tc.desc    Diet invalid weight rejected 930 probe 930
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl930', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-1)).assertEqual(false);
+      expect(m.getFoodById(1000 + 930) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0931
+     * @tc.name    DietAccessControl931
+     * @tc.desc    Diet invalid weight rejected 931 probe 931
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl931', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-2)).assertEqual(false);
+      expect(m.getFoodById(1000 + 931) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0932
+     * @tc.name    DietAccessControl932
+     * @tc.desc    Diet invalid weight rejected 932 probe 932
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl932', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-3)).assertEqual(false);
+      expect(m.getFoodById(1000 + 932) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0933
+     * @tc.name    DietAccessControl933
+     * @tc.desc    Diet invalid weight rejected 933 probe 933
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl933', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-4)).assertEqual(false);
+      expect(m.getFoodById(1000 + 933) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0934
+     * @tc.name    DietAccessControl934
+     * @tc.desc    Diet invalid weight rejected 934 probe 934
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl934', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-5)).assertEqual(false);
+      expect(m.getFoodById(1000 + 934) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0935
+     * @tc.name    DietAccessControl935
+     * @tc.desc    Diet invalid weight rejected 935 probe 935
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl935', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-6)).assertEqual(false);
+      expect(m.getFoodById(1000 + 935) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0936
+     * @tc.name    DietAccessControl936
+     * @tc.desc    Diet invalid weight rejected 936 probe 936
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl936', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-7)).assertEqual(false);
+      expect(m.getFoodById(1000 + 936) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0937
+     * @tc.name    DietAccessControl937
+     * @tc.desc    Diet invalid weight rejected 937 probe 937
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl937', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-8)).assertEqual(false);
+      expect(m.getFoodById(1000 + 937) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0938
+     * @tc.name    DietAccessControl938
+     * @tc.desc    Diet invalid weight rejected 938 probe 938
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl938', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-9)).assertEqual(false);
+      expect(m.getFoodById(1000 + 938) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0939
+     * @tc.name    DietAccessControl939
+     * @tc.desc    Diet invalid weight rejected 939 probe 939
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl939', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-10)).assertEqual(false);
+      expect(m.getFoodById(1000 + 939) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0940
+     * @tc.name    DietAccessControl940
+     * @tc.desc    Diet invalid weight rejected 940 probe 940
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl940', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-11)).assertEqual(false);
+      expect(m.getFoodById(1000 + 940) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0941
+     * @tc.name    DietAccessControl941
+     * @tc.desc    Diet invalid weight rejected 941 probe 941
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl941', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-12)).assertEqual(false);
+      expect(m.getFoodById(1000 + 941) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0942
+     * @tc.name    DietAccessControl942
+     * @tc.desc    Diet invalid weight rejected 942 probe 942
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl942', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-13)).assertEqual(false);
+      expect(m.getFoodById(1000 + 942) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0943
+     * @tc.name    DietAccessControl943
+     * @tc.desc    Diet invalid weight rejected 943 probe 943
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl943', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-14)).assertEqual(false);
+      expect(m.getFoodById(1000 + 943) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0944
+     * @tc.name    DietAccessControl944
+     * @tc.desc    Diet invalid weight rejected 944 probe 944
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl944', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-15)).assertEqual(false);
+      expect(m.getFoodById(1000 + 944) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0945
+     * @tc.name    DietAccessControl945
+     * @tc.desc    Diet invalid weight rejected 945 probe 945
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl945', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-16)).assertEqual(false);
+      expect(m.getFoodById(1000 + 945) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0946
+     * @tc.name    DietAccessControl946
+     * @tc.desc    Diet invalid weight rejected 946 probe 946
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl946', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-17)).assertEqual(false);
+      expect(m.getFoodById(1000 + 946) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0947
+     * @tc.name    DietAccessControl947
+     * @tc.desc    Diet invalid weight rejected 947 probe 947
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl947', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-18)).assertEqual(false);
+      expect(m.getFoodById(1000 + 947) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0948
+     * @tc.name    DietAccessControl948
+     * @tc.desc    Diet invalid weight rejected 948 probe 948
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl948', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-19)).assertEqual(false);
+      expect(m.getFoodById(1000 + 948) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0949
+     * @tc.name    DietAccessControl949
+     * @tc.desc    Diet invalid weight rejected 949 probe 949
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl949', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-20)).assertEqual(false);
+      expect(m.getFoodById(1000 + 949) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0950
+     * @tc.name    DietAccessControl950
+     * @tc.desc    Diet invalid weight rejected 950 probe 950
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl950', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-21)).assertEqual(false);
+      expect(m.getFoodById(1000 + 950) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0951
+     * @tc.name    DietAccessControl951
+     * @tc.desc    Diet invalid weight rejected 951 probe 951
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl951', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-22)).assertEqual(false);
+      expect(m.getFoodById(1000 + 951) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0952
+     * @tc.name    DietAccessControl952
+     * @tc.desc    Diet invalid weight rejected 952 probe 952
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl952', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-23)).assertEqual(false);
+      expect(m.getFoodById(1000 + 952) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0953
+     * @tc.name    DietAccessControl953
+     * @tc.desc    Diet invalid weight rejected 953 probe 953
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl953', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-24)).assertEqual(false);
+      expect(m.getFoodById(1000 + 953) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0954
+     * @tc.name    DietAccessControl954
+     * @tc.desc    Diet invalid weight rejected 954 probe 954
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl954', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-25)).assertEqual(false);
+      expect(m.getFoodById(1000 + 954) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0955
+     * @tc.name    DietAccessControl955
+     * @tc.desc    Diet invalid weight rejected 955 probe 955
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl955', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-26)).assertEqual(false);
+      expect(m.getFoodById(1000 + 955) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0956
+     * @tc.name    DietAccessControl956
+     * @tc.desc    Diet invalid weight rejected 956 probe 956
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl956', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-27)).assertEqual(false);
+      expect(m.getFoodById(1000 + 956) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0957
+     * @tc.name    DietAccessControl957
+     * @tc.desc    Diet invalid weight rejected 957 probe 957
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl957', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-28)).assertEqual(false);
+      expect(m.getFoodById(1000 + 957) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0958
+     * @tc.name    DietAccessControl958
+     * @tc.desc    Diet invalid weight rejected 958 probe 958
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl958', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-29)).assertEqual(false);
+      expect(m.getFoodById(1000 + 958) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0959
+     * @tc.name    DietAccessControl959
+     * @tc.desc    Diet invalid weight rejected 959 probe 959
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl959', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-30)).assertEqual(false);
+      expect(m.getFoodById(1000 + 959) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0960
+     * @tc.name    DietAccessControl960
+     * @tc.desc    Diet invalid weight rejected 960 probe 960
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl960', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-1)).assertEqual(false);
+      expect(m.getFoodById(1000 + 960) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0961
+     * @tc.name    DietAccessControl961
+     * @tc.desc    Diet invalid weight rejected 961 probe 961
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl961', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-2)).assertEqual(false);
+      expect(m.getFoodById(1000 + 961) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0962
+     * @tc.name    DietAccessControl962
+     * @tc.desc    Diet invalid weight rejected 962 probe 962
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl962', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-3)).assertEqual(false);
+      expect(m.getFoodById(1000 + 962) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0963
+     * @tc.name    DietAccessControl963
+     * @tc.desc    Diet invalid weight rejected 963 probe 963
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl963', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-4)).assertEqual(false);
+      expect(m.getFoodById(1000 + 963) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0964
+     * @tc.name    DietAccessControl964
+     * @tc.desc    Diet invalid weight rejected 964 probe 964
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl964', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-5)).assertEqual(false);
+      expect(m.getFoodById(1000 + 964) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0965
+     * @tc.name    DietAccessControl965
+     * @tc.desc    Diet invalid weight rejected 965 probe 965
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl965', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-6)).assertEqual(false);
+      expect(m.getFoodById(1000 + 965) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0966
+     * @tc.name    DietAccessControl966
+     * @tc.desc    Diet invalid weight rejected 966 probe 966
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietAccessControl966', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.isValidWeight(0)).assertEqual(false);
+      expect(m.isValidWeight(-7)).assertEqual(false);
+      expect(m.getFoodById(1000 + 966) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
