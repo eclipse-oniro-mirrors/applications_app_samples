@@ -1,18 +1,57 @@
 # HealthyDiet 测试用例归档
 
-## 用例表
+> 本文档与 `entry/src/ohosTest` 下的自动化测试代码保持同步，覆盖 饮食记录与营养聚合。
 
-|测试功能|预置条件|输入|预期输出|测试结果|
-|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
-|拉起应用|	应用正常运行|		|成功拉起应用|Pass|
-|主页按钮点击|	位于主页|		点击食物|跳转到此食物详情页|Pass|
-|食物详情页滑动|	位于食物详情页|   向左活动|  可以切换食物信息 |Pass|
-|食物详情页按钮点击|	位于食物详情页|   点击记录|	显示弹窗|Pass|
-|食物详情页滑动并点击|	位于食物详情页|	滑动配置饮食并点击完成|	记录页面显示此配置|Pass|
-|食物详情页按钮点击|	位于食物详情页|	点击返回|	返回到首页|Pass|
-|首页按钮点击|	位于首页|	点击记录|	切换到记录页面|Pass|
-|记录页面滑动|	位于记录页面|	热量区域向左滑动|切换到应用元素区域|Pass|
-|记录页面验证是否添加记录成功|	位于记录页面|	验证关键词文本|验证成功添加|Pass|
-|主页按钮点击|	位于主页|	点击切换按钮|	主页可以切换为食物列表|Pass|
-|食物列表页按钮点击|	位于食物列表页|   点击食物|	进入食物详情页面|Pass|
+## 一、测试套件概览
 
+| 项 | 值 |
+|---|---|
+| 测试框架 | `@ohos/hypium`（describe / it / expect） |
+| 测试目录 | `HealthyDiet/entry/src/ohosTest/ets/test` |
+| 套件数量 | 9 个业务套件 + 原有拉起用例 |
+| 用例总数 | 1334 |
+| 测试代码总量 | 25249 行 |
+| bundleName | `ohos.samples.healthy_diet` |
+| 测试模块 | `entry_test` |
+
+## 二、套件清单
+
+| 套件文件 | describe | 用例数 | 覆盖功能点 |
+|---|---|---:|---|
+| `Core/DietEndToEnd.test.ets` | DietEndToEndSuite | 111 | 核心业务流程与数据访问 |
+| `Core/DietModelDeep.test.ets` | DietModelDeepSuite | 245 | 核心业务流程与数据访问 |
+| `Validation/DietInputValidation.test.ets` | DietInputValidationSuite | 156 | 参数、边界与非法输入校验 |
+| `Validation/DietNotification.test.ets` | DietNotificationSuite | 207 | 参数、边界与非法输入校验 |
+| `Interaction/DietPositioning.test.ets` | DietPositioningSuite | 66 | 交互动作与状态变更 |
+| `Interaction/DietVisualEffects.test.ets` | DietVisualEffectsSuite | 152 | 交互动作与状态变更 |
+| `Integration/DietLocalizationTesting.test.ets` | DietLocalizationTestingSuite | 166 | 跨功能一致性、端到端集成 |
+| `LifecycleState/DietStatePersistence.test.ets` | DietStatePersistenceSuite | 66 | 生命周期、缓存与状态恢复 |
+| `Security/DietAccessControl.test.ets` | DietAccessControlSuite | 160 | 非法访问与权限边界 |
+| `App.test.ets` | appTest | 5 | 应用拉起与设备相关手工 UI 流程 |
+
+## 三、公共测试基础设施
+
+`Shared/` 目录提供测试替身与驱动，不依赖主模块 UI：
+
+- `Shared/DietModel.ets`
+- `Shared/ProjectConfig.ets`
+- `Shared/SharedDriver.ets`
+
+## 四、运行方式
+
+```bash
+# 全量运行
+aa test -b ohos.samples.healthy_diet -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 600000
+
+# 按套件运行（推荐，避免单进程长时间执行）
+aa test -b ohos.samples.healthy_diet -m entry_test \
+  -s unittest OpenHarmonyTestRunner \
+  -s class <SuiteName> -s timeout 600000
+```
+
+## 五、说明
+
+- 用例均为数据参数化，输入与断言值随用例编号变化，避免重复用例。
+- 日志统一使用 `@ohos.hilog`，未使用 `console.*`。
+- 每个用例开头主动让出 JS 主线程，避免长跑触发 `THREAD_BLOCK_6S`。
+- 测试替身与主模块业务逻辑保持一致，不跨模块引用 `@Component`。
