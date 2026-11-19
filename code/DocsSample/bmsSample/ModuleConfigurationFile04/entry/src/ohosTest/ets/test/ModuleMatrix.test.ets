@@ -1478,3 +1478,1930 @@ export default function ModuleMatrixTest(): void {
     })
 
     /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5723
+     * @tc.name      testModuleMatrixEmptyPlugin
+     * @tc.desc      Checks that module name Empty with type Plugin is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixEmptyPlugin',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = '';
+      moduleConfig.type = 'plugin';
+      TestLog.text('testModuleMatrixEmptyPlugin', 'case begin', 'module name empty with type plugin');
+      TestLog.step('testModuleMatrixEmptyPlugin', 'module name empty with type plugin');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixEmptyPlugin', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_EMPTY');
+      TestLog.flag('testModuleMatrixEmptyPlugin', 'has code MODULE_NAME_EMPTY', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_UNKNOWN');
+      TestLog.flag('testModuleMatrixEmptyPlugin', 'has code MODULE_TYPE_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixEmptyPlugin', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixEmptyPlugin', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixEmptyPlugin', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixEmptyPlugin', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixEmptyPlugin', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixEmptyPlugin', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixEmptyPlugin', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixEmptyPlugin', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixEmptyPlugin', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixEmptyPlugin', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixEmptyPlugin', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixEmptyPlugin', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixEmptyPlugin', 'case end', 'module name empty with type plugin');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5724
+     * @tc.name      testModuleMatrixEmptyEmpty
+     * @tc.desc      Checks that module name Empty with type Empty is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixEmptyEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = '';
+      moduleConfig.type = '';
+      TestLog.text('testModuleMatrixEmptyEmpty', 'case begin', 'module name empty with type empty');
+      TestLog.step('testModuleMatrixEmptyEmpty', 'module name empty with type empty');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixEmptyEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_EMPTY');
+      TestLog.flag('testModuleMatrixEmptyEmpty', 'has code MODULE_NAME_EMPTY', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_EMPTY');
+      TestLog.flag('testModuleMatrixEmptyEmpty', 'has code MODULE_TYPE_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixEmptyEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixEmptyEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixEmptyEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixEmptyEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixEmptyEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixEmptyEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixEmptyEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixEmptyEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixEmptyEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixEmptyEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixEmptyEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixEmptyEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixEmptyEmpty', 'case end', 'module name empty with type empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5725
+     * @tc.name      testModuleMatrixLeadingDigitEntry
+     * @tc.desc      Checks that module name LeadingDigit with type Entry is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixLeadingDigitEntry',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = '9entry';
+      moduleConfig.type = 'entry';
+      TestLog.text('testModuleMatrixLeadingDigitEntry', 'case begin', 'module name leadingdigit with type entry');
+      TestLog.step('testModuleMatrixLeadingDigitEntry', 'module name leadingdigit with type entry');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixLeadingDigitEntry', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_LEADING_DIGIT');
+      TestLog.flag('testModuleMatrixLeadingDigitEntry', 'has code MODULE_NAME_LEADING_DIGIT', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixLeadingDigitEntry', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixLeadingDigitEntry', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixLeadingDigitEntry', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixLeadingDigitEntry', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixLeadingDigitEntry', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixLeadingDigitEntry', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixLeadingDigitEntry', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixLeadingDigitEntry', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixLeadingDigitEntry', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixLeadingDigitEntry', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixLeadingDigitEntry', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixLeadingDigitEntry', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixLeadingDigitEntry', 'case end', 'module name leadingdigit with type entry');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5726
+     * @tc.name      testModuleMatrixLeadingDigitFeature
+     * @tc.desc      Checks that module name LeadingDigit with type Feature is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixLeadingDigitFeature',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = '9entry';
+      moduleConfig.type = 'feature';
+      TestLog.text('testModuleMatrixLeadingDigitFeature', 'case begin', 'module name leadingdigit with type feature');
+      TestLog.step('testModuleMatrixLeadingDigitFeature', 'module name leadingdigit with type feature');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixLeadingDigitFeature', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_LEADING_DIGIT');
+      TestLog.flag('testModuleMatrixLeadingDigitFeature', 'has code MODULE_NAME_LEADING_DIGIT', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixLeadingDigitFeature', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixLeadingDigitFeature', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixLeadingDigitFeature', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixLeadingDigitFeature', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixLeadingDigitFeature', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixLeadingDigitFeature', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixLeadingDigitFeature', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixLeadingDigitFeature', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixLeadingDigitFeature', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixLeadingDigitFeature', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixLeadingDigitFeature', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixLeadingDigitFeature', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixLeadingDigitFeature', 'case end', 'module name leadingdigit with type feature');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5727
+     * @tc.name      testModuleMatrixLeadingDigitShared
+     * @tc.desc      Checks that module name LeadingDigit with type Shared is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixLeadingDigitShared',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = '9entry';
+      moduleConfig.type = 'shared';
+      TestLog.text('testModuleMatrixLeadingDigitShared', 'case begin', 'module name leadingdigit with type shared');
+      TestLog.step('testModuleMatrixLeadingDigitShared', 'module name leadingdigit with type shared');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixLeadingDigitShared', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_LEADING_DIGIT');
+      TestLog.flag('testModuleMatrixLeadingDigitShared', 'has code MODULE_NAME_LEADING_DIGIT', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixLeadingDigitShared', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixLeadingDigitShared', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixLeadingDigitShared', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixLeadingDigitShared', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixLeadingDigitShared', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixLeadingDigitShared', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixLeadingDigitShared', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixLeadingDigitShared', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixLeadingDigitShared', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixLeadingDigitShared', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixLeadingDigitShared', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixLeadingDigitShared', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixLeadingDigitShared', 'case end', 'module name leadingdigit with type shared');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5728
+     * @tc.name      testModuleMatrixLeadingDigitPlugin
+     * @tc.desc      Checks that module name LeadingDigit with type Plugin is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixLeadingDigitPlugin',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = '9entry';
+      moduleConfig.type = 'plugin';
+      TestLog.text('testModuleMatrixLeadingDigitPlugin', 'case begin', 'module name leadingdigit with type plugin');
+      TestLog.step('testModuleMatrixLeadingDigitPlugin', 'module name leadingdigit with type plugin');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixLeadingDigitPlugin', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_LEADING_DIGIT');
+      TestLog.flag('testModuleMatrixLeadingDigitPlugin', 'has code MODULE_NAME_LEADING_DIGIT', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_UNKNOWN');
+      TestLog.flag('testModuleMatrixLeadingDigitPlugin', 'has code MODULE_TYPE_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixLeadingDigitPlugin', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixLeadingDigitPlugin', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixLeadingDigitPlugin', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixLeadingDigitPlugin', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixLeadingDigitPlugin', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixLeadingDigitPlugin', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixLeadingDigitPlugin', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixLeadingDigitPlugin', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixLeadingDigitPlugin', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixLeadingDigitPlugin', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixLeadingDigitPlugin', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixLeadingDigitPlugin', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixLeadingDigitPlugin', 'case end', 'module name leadingdigit with type plugin');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5729
+     * @tc.name      testModuleMatrixLeadingDigitEmpty
+     * @tc.desc      Checks that module name LeadingDigit with type Empty is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixLeadingDigitEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = '9entry';
+      moduleConfig.type = '';
+      TestLog.text('testModuleMatrixLeadingDigitEmpty', 'case begin', 'module name leadingdigit with type empty');
+      TestLog.step('testModuleMatrixLeadingDigitEmpty', 'module name leadingdigit with type empty');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixLeadingDigitEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_LEADING_DIGIT');
+      TestLog.flag('testModuleMatrixLeadingDigitEmpty', 'has code MODULE_NAME_LEADING_DIGIT', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_EMPTY');
+      TestLog.flag('testModuleMatrixLeadingDigitEmpty', 'has code MODULE_TYPE_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixLeadingDigitEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixLeadingDigitEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixLeadingDigitEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixLeadingDigitEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixLeadingDigitEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixLeadingDigitEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixLeadingDigitEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixLeadingDigitEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixLeadingDigitEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixLeadingDigitEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixLeadingDigitEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixLeadingDigitEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixLeadingDigitEmpty', 'case end', 'module name leadingdigit with type empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5730
+     * @tc.name      testModuleMatrixHyphenEntry
+     * @tc.desc      Checks that module name Hyphen with type Entry is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixHyphenEntry',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'en-try';
+      moduleConfig.type = 'entry';
+      TestLog.text('testModuleMatrixHyphenEntry', 'case begin', 'module name hyphen with type entry');
+      TestLog.step('testModuleMatrixHyphenEntry', 'module name hyphen with type entry');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixHyphenEntry', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_ILLEGAL_CHAR');
+      TestLog.flag('testModuleMatrixHyphenEntry', 'has code MODULE_NAME_ILLEGAL_CHAR', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixHyphenEntry', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixHyphenEntry', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixHyphenEntry', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixHyphenEntry', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixHyphenEntry', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixHyphenEntry', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixHyphenEntry', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixHyphenEntry', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixHyphenEntry', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixHyphenEntry', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixHyphenEntry', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixHyphenEntry', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixHyphenEntry', 'case end', 'module name hyphen with type entry');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5731
+     * @tc.name      testModuleMatrixHyphenFeature
+     * @tc.desc      Checks that module name Hyphen with type Feature is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixHyphenFeature',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'en-try';
+      moduleConfig.type = 'feature';
+      TestLog.text('testModuleMatrixHyphenFeature', 'case begin', 'module name hyphen with type feature');
+      TestLog.step('testModuleMatrixHyphenFeature', 'module name hyphen with type feature');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixHyphenFeature', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_ILLEGAL_CHAR');
+      TestLog.flag('testModuleMatrixHyphenFeature', 'has code MODULE_NAME_ILLEGAL_CHAR', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixHyphenFeature', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixHyphenFeature', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixHyphenFeature', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixHyphenFeature', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixHyphenFeature', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixHyphenFeature', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixHyphenFeature', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixHyphenFeature', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixHyphenFeature', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixHyphenFeature', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixHyphenFeature', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixHyphenFeature', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixHyphenFeature', 'case end', 'module name hyphen with type feature');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5732
+     * @tc.name      testModuleMatrixHyphenShared
+     * @tc.desc      Checks that module name Hyphen with type Shared is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixHyphenShared',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'en-try';
+      moduleConfig.type = 'shared';
+      TestLog.text('testModuleMatrixHyphenShared', 'case begin', 'module name hyphen with type shared');
+      TestLog.step('testModuleMatrixHyphenShared', 'module name hyphen with type shared');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixHyphenShared', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_ILLEGAL_CHAR');
+      TestLog.flag('testModuleMatrixHyphenShared', 'has code MODULE_NAME_ILLEGAL_CHAR', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixHyphenShared', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixHyphenShared', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixHyphenShared', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixHyphenShared', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixHyphenShared', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixHyphenShared', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixHyphenShared', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixHyphenShared', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixHyphenShared', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixHyphenShared', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixHyphenShared', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixHyphenShared', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixHyphenShared', 'case end', 'module name hyphen with type shared');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5733
+     * @tc.name      testModuleMatrixHyphenPlugin
+     * @tc.desc      Checks that module name Hyphen with type Plugin is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixHyphenPlugin',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'en-try';
+      moduleConfig.type = 'plugin';
+      TestLog.text('testModuleMatrixHyphenPlugin', 'case begin', 'module name hyphen with type plugin');
+      TestLog.step('testModuleMatrixHyphenPlugin', 'module name hyphen with type plugin');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixHyphenPlugin', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_ILLEGAL_CHAR');
+      TestLog.flag('testModuleMatrixHyphenPlugin', 'has code MODULE_NAME_ILLEGAL_CHAR', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_UNKNOWN');
+      TestLog.flag('testModuleMatrixHyphenPlugin', 'has code MODULE_TYPE_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixHyphenPlugin', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixHyphenPlugin', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixHyphenPlugin', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixHyphenPlugin', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixHyphenPlugin', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixHyphenPlugin', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixHyphenPlugin', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixHyphenPlugin', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixHyphenPlugin', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixHyphenPlugin', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixHyphenPlugin', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixHyphenPlugin', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixHyphenPlugin', 'case end', 'module name hyphen with type plugin');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5734
+     * @tc.name      testModuleMatrixHyphenEmpty
+     * @tc.desc      Checks that module name Hyphen with type Empty is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixHyphenEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'en-try';
+      moduleConfig.type = '';
+      TestLog.text('testModuleMatrixHyphenEmpty', 'case begin', 'module name hyphen with type empty');
+      TestLog.step('testModuleMatrixHyphenEmpty', 'module name hyphen with type empty');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixHyphenEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_ILLEGAL_CHAR');
+      TestLog.flag('testModuleMatrixHyphenEmpty', 'has code MODULE_NAME_ILLEGAL_CHAR', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_EMPTY');
+      TestLog.flag('testModuleMatrixHyphenEmpty', 'has code MODULE_TYPE_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixHyphenEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixHyphenEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixHyphenEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixHyphenEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixHyphenEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixHyphenEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixHyphenEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixHyphenEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixHyphenEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixHyphenEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixHyphenEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixHyphenEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixHyphenEmpty', 'case end', 'module name hyphen with type empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5735
+     * @tc.name      testModuleMatrixSpaceEntry
+     * @tc.desc      Checks that module name Space with type Entry is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixSpaceEntry',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'en try';
+      moduleConfig.type = 'entry';
+      TestLog.text('testModuleMatrixSpaceEntry', 'case begin', 'module name space with type entry');
+      TestLog.step('testModuleMatrixSpaceEntry', 'module name space with type entry');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixSpaceEntry', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_WHITESPACE');
+      TestLog.flag('testModuleMatrixSpaceEntry', 'has code MODULE_NAME_WHITESPACE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixSpaceEntry', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixSpaceEntry', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixSpaceEntry', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixSpaceEntry', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixSpaceEntry', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixSpaceEntry', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixSpaceEntry', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixSpaceEntry', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixSpaceEntry', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixSpaceEntry', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixSpaceEntry', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixSpaceEntry', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixSpaceEntry', 'case end', 'module name space with type entry');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5736
+     * @tc.name      testModuleMatrixSpaceFeature
+     * @tc.desc      Checks that module name Space with type Feature is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixSpaceFeature',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'en try';
+      moduleConfig.type = 'feature';
+      TestLog.text('testModuleMatrixSpaceFeature', 'case begin', 'module name space with type feature');
+      TestLog.step('testModuleMatrixSpaceFeature', 'module name space with type feature');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixSpaceFeature', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_WHITESPACE');
+      TestLog.flag('testModuleMatrixSpaceFeature', 'has code MODULE_NAME_WHITESPACE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixSpaceFeature', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixSpaceFeature', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixSpaceFeature', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixSpaceFeature', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixSpaceFeature', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixSpaceFeature', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixSpaceFeature', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixSpaceFeature', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixSpaceFeature', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixSpaceFeature', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixSpaceFeature', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixSpaceFeature', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixSpaceFeature', 'case end', 'module name space with type feature');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5737
+     * @tc.name      testModuleMatrixSpaceShared
+     * @tc.desc      Checks that module name Space with type Shared is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixSpaceShared',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'en try';
+      moduleConfig.type = 'shared';
+      TestLog.text('testModuleMatrixSpaceShared', 'case begin', 'module name space with type shared');
+      TestLog.step('testModuleMatrixSpaceShared', 'module name space with type shared');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixSpaceShared', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_WHITESPACE');
+      TestLog.flag('testModuleMatrixSpaceShared', 'has code MODULE_NAME_WHITESPACE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixSpaceShared', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixSpaceShared', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixSpaceShared', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixSpaceShared', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixSpaceShared', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixSpaceShared', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixSpaceShared', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixSpaceShared', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixSpaceShared', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixSpaceShared', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixSpaceShared', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixSpaceShared', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixSpaceShared', 'case end', 'module name space with type shared');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5738
+     * @tc.name      testModuleMatrixSpacePlugin
+     * @tc.desc      Checks that module name Space with type Plugin is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixSpacePlugin',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'en try';
+      moduleConfig.type = 'plugin';
+      TestLog.text('testModuleMatrixSpacePlugin', 'case begin', 'module name space with type plugin');
+      TestLog.step('testModuleMatrixSpacePlugin', 'module name space with type plugin');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixSpacePlugin', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_WHITESPACE');
+      TestLog.flag('testModuleMatrixSpacePlugin', 'has code MODULE_NAME_WHITESPACE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_UNKNOWN');
+      TestLog.flag('testModuleMatrixSpacePlugin', 'has code MODULE_TYPE_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixSpacePlugin', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixSpacePlugin', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixSpacePlugin', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixSpacePlugin', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixSpacePlugin', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixSpacePlugin', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixSpacePlugin', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixSpacePlugin', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixSpacePlugin', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixSpacePlugin', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixSpacePlugin', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixSpacePlugin', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixSpacePlugin', 'case end', 'module name space with type plugin');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5739
+     * @tc.name      testModuleMatrixSpaceEmpty
+     * @tc.desc      Checks that module name Space with type Empty is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixSpaceEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'en try';
+      moduleConfig.type = '';
+      TestLog.text('testModuleMatrixSpaceEmpty', 'case begin', 'module name space with type empty');
+      TestLog.step('testModuleMatrixSpaceEmpty', 'module name space with type empty');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixSpaceEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_WHITESPACE');
+      TestLog.flag('testModuleMatrixSpaceEmpty', 'has code MODULE_NAME_WHITESPACE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_EMPTY');
+      TestLog.flag('testModuleMatrixSpaceEmpty', 'has code MODULE_TYPE_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixSpaceEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixSpaceEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixSpaceEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixSpaceEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixSpaceEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixSpaceEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixSpaceEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixSpaceEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixSpaceEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixSpaceEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixSpaceEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixSpaceEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixSpaceEmpty', 'case end', 'module name space with type empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5740
+     * @tc.name      testModuleMatrixLeadingUnderscoreEntry
+     * @tc.desc      Checks that module name LeadingUnderscore with type Entry is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixLeadingUnderscoreEntry',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = '_entry';
+      moduleConfig.type = 'entry';
+      TestLog.text('testModuleMatrixLeadingUnderscoreEntry', 
+        'case begin', 'module name leadingunderscore with type entry');
+      TestLog.step('testModuleMatrixLeadingUnderscoreEntry', 'module name leadingunderscore with type entry');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixLeadingUnderscoreEntry', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_EDGE_UNDERSCORE');
+      TestLog.flag('testModuleMatrixLeadingUnderscoreEntry', 'has code MODULE_NAME_EDGE_UNDERSCORE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixLeadingUnderscoreEntry', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixLeadingUnderscoreEntry', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixLeadingUnderscoreEntry', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixLeadingUnderscoreEntry', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixLeadingUnderscoreEntry', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixLeadingUnderscoreEntry', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixLeadingUnderscoreEntry', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixLeadingUnderscoreEntry', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixLeadingUnderscoreEntry', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixLeadingUnderscoreEntry', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixLeadingUnderscoreEntry', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixLeadingUnderscoreEntry', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixLeadingUnderscoreEntry', 
+        'case end', 'module name leadingunderscore with type entry');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5741
+     * @tc.name      testModuleMatrixLeadingUnderscoreFeature
+     * @tc.desc      Checks that module name LeadingUnderscore with type Feature is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixLeadingUnderscoreFeature',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = '_entry';
+      moduleConfig.type = 'feature';
+      TestLog.text('testModuleMatrixLeadingUnderscoreFeature', 
+        'case begin', 'module name leadingunderscore with type feature');
+      TestLog.step('testModuleMatrixLeadingUnderscoreFeature', 'module name leadingunderscore with type feature');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixLeadingUnderscoreFeature', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_EDGE_UNDERSCORE');
+      TestLog.flag('testModuleMatrixLeadingUnderscoreFeature', 'has code MODULE_NAME_EDGE_UNDERSCORE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixLeadingUnderscoreFeature', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixLeadingUnderscoreFeature', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixLeadingUnderscoreFeature', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixLeadingUnderscoreFeature', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixLeadingUnderscoreFeature', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixLeadingUnderscoreFeature', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixLeadingUnderscoreFeature', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixLeadingUnderscoreFeature', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixLeadingUnderscoreFeature', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixLeadingUnderscoreFeature', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixLeadingUnderscoreFeature', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixLeadingUnderscoreFeature', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixLeadingUnderscoreFeature', 
+        'case end', 'module name leadingunderscore with type feature');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5742
+     * @tc.name      testModuleMatrixLeadingUnderscoreShared
+     * @tc.desc      Checks that module name LeadingUnderscore with type Shared is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixLeadingUnderscoreShared',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = '_entry';
+      moduleConfig.type = 'shared';
+      TestLog.text('testModuleMatrixLeadingUnderscoreShared', 
+        'case begin', 'module name leadingunderscore with type shared');
+      TestLog.step('testModuleMatrixLeadingUnderscoreShared', 'module name leadingunderscore with type shared');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixLeadingUnderscoreShared', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_EDGE_UNDERSCORE');
+      TestLog.flag('testModuleMatrixLeadingUnderscoreShared', 'has code MODULE_NAME_EDGE_UNDERSCORE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixLeadingUnderscoreShared', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixLeadingUnderscoreShared', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixLeadingUnderscoreShared', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixLeadingUnderscoreShared', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixLeadingUnderscoreShared', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixLeadingUnderscoreShared', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixLeadingUnderscoreShared', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixLeadingUnderscoreShared', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixLeadingUnderscoreShared', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixLeadingUnderscoreShared', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixLeadingUnderscoreShared', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixLeadingUnderscoreShared', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixLeadingUnderscoreShared', 
+        'case end', 'module name leadingunderscore with type shared');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5743
+     * @tc.name      testModuleMatrixLeadingUnderscorePlugin
+     * @tc.desc      Checks that module name LeadingUnderscore with type Plugin is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixLeadingUnderscorePlugin',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = '_entry';
+      moduleConfig.type = 'plugin';
+      TestLog.text('testModuleMatrixLeadingUnderscorePlugin', 
+        'case begin', 'module name leadingunderscore with type plugin');
+      TestLog.step('testModuleMatrixLeadingUnderscorePlugin', 'module name leadingunderscore with type plugin');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixLeadingUnderscorePlugin', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_EDGE_UNDERSCORE');
+      TestLog.flag('testModuleMatrixLeadingUnderscorePlugin', 'has code MODULE_NAME_EDGE_UNDERSCORE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_UNKNOWN');
+      TestLog.flag('testModuleMatrixLeadingUnderscorePlugin', 'has code MODULE_TYPE_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixLeadingUnderscorePlugin', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixLeadingUnderscorePlugin', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixLeadingUnderscorePlugin', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixLeadingUnderscorePlugin', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixLeadingUnderscorePlugin', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixLeadingUnderscorePlugin', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixLeadingUnderscorePlugin', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixLeadingUnderscorePlugin', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixLeadingUnderscorePlugin', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixLeadingUnderscorePlugin', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixLeadingUnderscorePlugin', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixLeadingUnderscorePlugin', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixLeadingUnderscorePlugin', 
+        'case end', 'module name leadingunderscore with type plugin');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5744
+     * @tc.name      testModuleMatrixLeadingUnderscoreEmpty
+     * @tc.desc      Checks that module name LeadingUnderscore with type Empty is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixLeadingUnderscoreEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = '_entry';
+      moduleConfig.type = '';
+      TestLog.text('testModuleMatrixLeadingUnderscoreEmpty', 
+        'case begin', 'module name leadingunderscore with type empty');
+      TestLog.step('testModuleMatrixLeadingUnderscoreEmpty', 'module name leadingunderscore with type empty');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixLeadingUnderscoreEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_EDGE_UNDERSCORE');
+      TestLog.flag('testModuleMatrixLeadingUnderscoreEmpty', 'has code MODULE_NAME_EDGE_UNDERSCORE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_EMPTY');
+      TestLog.flag('testModuleMatrixLeadingUnderscoreEmpty', 'has code MODULE_TYPE_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixLeadingUnderscoreEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixLeadingUnderscoreEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixLeadingUnderscoreEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixLeadingUnderscoreEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixLeadingUnderscoreEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixLeadingUnderscoreEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixLeadingUnderscoreEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixLeadingUnderscoreEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixLeadingUnderscoreEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixLeadingUnderscoreEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixLeadingUnderscoreEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixLeadingUnderscoreEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixLeadingUnderscoreEmpty', 
+        'case end', 'module name leadingunderscore with type empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5745
+     * @tc.name      testModuleMatrixTrailingUnderscoreEntry
+     * @tc.desc      Checks that module name TrailingUnderscore with type Entry is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixTrailingUnderscoreEntry',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'entry_';
+      moduleConfig.type = 'entry';
+      TestLog.text('testModuleMatrixTrailingUnderscoreEntry', 
+        'case begin', 'module name trailingunderscore with type entry');
+      TestLog.step('testModuleMatrixTrailingUnderscoreEntry', 'module name trailingunderscore with type entry');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixTrailingUnderscoreEntry', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_EDGE_UNDERSCORE');
+      TestLog.flag('testModuleMatrixTrailingUnderscoreEntry', 'has code MODULE_NAME_EDGE_UNDERSCORE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixTrailingUnderscoreEntry', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixTrailingUnderscoreEntry', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixTrailingUnderscoreEntry', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixTrailingUnderscoreEntry', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixTrailingUnderscoreEntry', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixTrailingUnderscoreEntry', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixTrailingUnderscoreEntry', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixTrailingUnderscoreEntry', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixTrailingUnderscoreEntry', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixTrailingUnderscoreEntry', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixTrailingUnderscoreEntry', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixTrailingUnderscoreEntry', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixTrailingUnderscoreEntry', 
+        'case end', 'module name trailingunderscore with type entry');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5746
+     * @tc.name      testModuleMatrixTrailingUnderscoreFeature
+     * @tc.desc      Checks that module name TrailingUnderscore with type Feature is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixTrailingUnderscoreFeature',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'entry_';
+      moduleConfig.type = 'feature';
+      TestLog.text('testModuleMatrixTrailingUnderscoreFeature', 
+        'case begin', 'module name trailingunderscore with type feature');
+      TestLog.step('testModuleMatrixTrailingUnderscoreFeature', 'module name trailingunderscore with type feature');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixTrailingUnderscoreFeature', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_EDGE_UNDERSCORE');
+      TestLog.flag('testModuleMatrixTrailingUnderscoreFeature', 'has code MODULE_NAME_EDGE_UNDERSCORE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixTrailingUnderscoreFeature', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixTrailingUnderscoreFeature', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixTrailingUnderscoreFeature', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixTrailingUnderscoreFeature', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixTrailingUnderscoreFeature', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixTrailingUnderscoreFeature', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixTrailingUnderscoreFeature', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixTrailingUnderscoreFeature', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixTrailingUnderscoreFeature', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixTrailingUnderscoreFeature', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixTrailingUnderscoreFeature', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixTrailingUnderscoreFeature', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixTrailingUnderscoreFeature', 
+        'case end', 'module name trailingunderscore with type feature');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5747
+     * @tc.name      testModuleMatrixTrailingUnderscoreShared
+     * @tc.desc      Checks that module name TrailingUnderscore with type Shared is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixTrailingUnderscoreShared',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'entry_';
+      moduleConfig.type = 'shared';
+      TestLog.text('testModuleMatrixTrailingUnderscoreShared', 
+        'case begin', 'module name trailingunderscore with type shared');
+      TestLog.step('testModuleMatrixTrailingUnderscoreShared', 'module name trailingunderscore with type shared');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixTrailingUnderscoreShared', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_EDGE_UNDERSCORE');
+      TestLog.flag('testModuleMatrixTrailingUnderscoreShared', 'has code MODULE_NAME_EDGE_UNDERSCORE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixTrailingUnderscoreShared', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixTrailingUnderscoreShared', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixTrailingUnderscoreShared', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixTrailingUnderscoreShared', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixTrailingUnderscoreShared', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixTrailingUnderscoreShared', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixTrailingUnderscoreShared', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixTrailingUnderscoreShared', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixTrailingUnderscoreShared', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixTrailingUnderscoreShared', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixTrailingUnderscoreShared', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixTrailingUnderscoreShared', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixTrailingUnderscoreShared', 
+        'case end', 'module name trailingunderscore with type shared');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5748
+     * @tc.name      testModuleMatrixTrailingUnderscorePlugin
+     * @tc.desc      Checks that module name TrailingUnderscore with type Plugin is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixTrailingUnderscorePlugin',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'entry_';
+      moduleConfig.type = 'plugin';
+      TestLog.text('testModuleMatrixTrailingUnderscorePlugin', 
+        'case begin', 'module name trailingunderscore with type plugin');
+      TestLog.step('testModuleMatrixTrailingUnderscorePlugin', 'module name trailingunderscore with type plugin');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixTrailingUnderscorePlugin', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_EDGE_UNDERSCORE');
+      TestLog.flag('testModuleMatrixTrailingUnderscorePlugin', 'has code MODULE_NAME_EDGE_UNDERSCORE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_UNKNOWN');
+      TestLog.flag('testModuleMatrixTrailingUnderscorePlugin', 'has code MODULE_TYPE_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixTrailingUnderscorePlugin', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixTrailingUnderscorePlugin', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixTrailingUnderscorePlugin', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixTrailingUnderscorePlugin', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixTrailingUnderscorePlugin', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixTrailingUnderscorePlugin', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixTrailingUnderscorePlugin', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixTrailingUnderscorePlugin', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixTrailingUnderscorePlugin', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixTrailingUnderscorePlugin', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixTrailingUnderscorePlugin', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixTrailingUnderscorePlugin', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixTrailingUnderscorePlugin', 
+        'case end', 'module name trailingunderscore with type plugin');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5749
+     * @tc.name      testModuleMatrixTrailingUnderscoreEmpty
+     * @tc.desc      Checks that module name TrailingUnderscore with type Empty is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixTrailingUnderscoreEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'entry_';
+      moduleConfig.type = '';
+      TestLog.text('testModuleMatrixTrailingUnderscoreEmpty', 
+        'case begin', 'module name trailingunderscore with type empty');
+      TestLog.step('testModuleMatrixTrailingUnderscoreEmpty', 'module name trailingunderscore with type empty');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixTrailingUnderscoreEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_EDGE_UNDERSCORE');
+      TestLog.flag('testModuleMatrixTrailingUnderscoreEmpty', 'has code MODULE_NAME_EDGE_UNDERSCORE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_EMPTY');
+      TestLog.flag('testModuleMatrixTrailingUnderscoreEmpty', 'has code MODULE_TYPE_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixTrailingUnderscoreEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixTrailingUnderscoreEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixTrailingUnderscoreEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixTrailingUnderscoreEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixTrailingUnderscoreEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixTrailingUnderscoreEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixTrailingUnderscoreEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixTrailingUnderscoreEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixTrailingUnderscoreEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixTrailingUnderscoreEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixTrailingUnderscoreEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixTrailingUnderscoreEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixTrailingUnderscoreEmpty', 
+        'case end', 'module name trailingunderscore with type empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5750
+     * @tc.name      testModuleMatrixReservedEntry
+     * @tc.desc      Checks that module name Reserved with type Entry is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixReservedEntry',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'app';
+      moduleConfig.type = 'entry';
+      TestLog.text('testModuleMatrixReservedEntry', 'case begin', 'module name reserved with type entry');
+      TestLog.step('testModuleMatrixReservedEntry', 'module name reserved with type entry');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixReservedEntry', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_RESERVED');
+      TestLog.flag('testModuleMatrixReservedEntry', 'has code MODULE_NAME_RESERVED', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixReservedEntry', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixReservedEntry', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixReservedEntry', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixReservedEntry', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixReservedEntry', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixReservedEntry', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixReservedEntry', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixReservedEntry', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixReservedEntry', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixReservedEntry', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixReservedEntry', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixReservedEntry', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixReservedEntry', 'case end', 'module name reserved with type entry');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5751
+     * @tc.name      testModuleMatrixReservedFeature
+     * @tc.desc      Checks that module name Reserved with type Feature is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixReservedFeature',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'app';
+      moduleConfig.type = 'feature';
+      TestLog.text('testModuleMatrixReservedFeature', 'case begin', 'module name reserved with type feature');
+      TestLog.step('testModuleMatrixReservedFeature', 'module name reserved with type feature');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixReservedFeature', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_RESERVED');
+      TestLog.flag('testModuleMatrixReservedFeature', 'has code MODULE_NAME_RESERVED', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixReservedFeature', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixReservedFeature', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixReservedFeature', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixReservedFeature', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixReservedFeature', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
