@@ -19,6 +19,7 @@ import { notificationUtil } from '@ohos/notification';
 import { TitleBar } from '../components/TitleBar'
 
 export interface ButtonMsg {
+  id: string,
   text: Resource,
   icon: Resource,
   callback?: () => void
@@ -31,31 +32,37 @@ export struct NotificationPublish {
   @State isVibrationEffect: boolean = false;
   @State buttons: ButtonMsg[] = [
     {
+      id: 'publishBasic',
       icon: $r('app.media.ic_notice_jiben'),
       text: $r('app.string.basic_notification'),
       callback: this.notificationOperations.publishBasicNotification
     },
     {
+      id: 'publishLongText',
       icon: $r('app.media.ic_notice_changwenben'),
       text: $r('app.string.long_text_notification'),
       callback: this.notificationOperations.publishLongTextNotification
     },
     {
+      id: 'publishMultiLine',
       icon: $r('app.media.ic_notice_duohang'),
       text: $r('app.string.multiline_notification'),
       callback: this.notificationOperations.publishMultiLineNotification
     },
     {
+      id: 'publishPicture',
       icon: $r('app.media.ic_notice_tupian'),
       text: $r('app.string.picture_notification'),
       callback: this.notificationOperations.publishPictureNotification
     },
     {
+      id: 'publishButtons',
       icon: $r('app.media.ic_notice_anniu'),
       text: $r('app.string.notification_with_buttons'),
       callback: this.notificationOperations.publishNotificationWithButtons
     },
     {
+      id: 'publishWantAgent',
       icon: $r('app.media.ic_notice_tiaozhuan'),
       text: $r('app.string.clickable_notification'),
       callback: this.notificationOperations.publishNotificationWithWantAgent
@@ -69,31 +76,32 @@ export struct NotificationPublish {
         .fontSize(16)
         .onClick(button.callback)
     }.viewStyle()
-    .justifyContent(FlexAlign.Center)
-    .alignItems(HorizontalAlign.Center)
-    .onClick(button.callback)
+      .justifyContent(FlexAlign.Center)
+      .alignItems(HorizontalAlign.Center)
+      .onClick(button.callback)
+      .id(button.id)
   }
 
   @Styles viewStyle(){
     .width('48%')
-    .height(100)
-    .borderRadius(20)
-    .margin({ top: 18 })
-    .backgroundColor($r('app.color.start_window_background'))
+      .height(100)
+      .borderRadius(20)
+      .margin({ top: 18 })
+      .backgroundColor($r('app.color.start_window_background'))
   }
 
   @Styles toggleStyle(){
     .width(52)
-    .height(26)
-    .margin({ right: 24 })
+      .height(26)
+      .margin({ right: 24 })
   }
 
   @Styles rowStyle(){
     .backgroundColor($r('app.color.start_window_background'))
-    .borderRadius(20)
-    .margin({ top: 18 })
-    .height(80)
-    .width('90%')
+      .borderRadius(20)
+      .margin({ top: 18 })
+      .height(80)
+      .width('90%')
   }
 
   build() {
@@ -113,7 +121,7 @@ export struct NotificationPublish {
           })
           .id('promptTone')
       }.rowStyle()
-      .alignItems(VerticalAlign.Center)
+        .alignItems(VerticalAlign.Center)
 
       Row() {
         Image($r('app.media.ic_public_vibrate')).width(20).height(25).objectFit(ImageFit.Contain)
@@ -129,7 +137,7 @@ export struct NotificationPublish {
           })
           .id('vibrationEffect')
       }.rowStyle()
-      .alignItems(VerticalAlign.Center)
+        .alignItems(VerticalAlign.Center)
 
       Flex({ wrap: FlexWrap.Wrap, justifyContent: FlexAlign.SpaceBetween, alignContent: FlexAlign.SpaceEvenly }) {
         ForEach(this.buttons, (item: ButtonMsg, index: number) => {
@@ -146,14 +154,15 @@ export struct NotificationPublish {
         .fontSize(16)
         .margin({ top: 20 })
         .fontColor($r('app.color.button_fontColor'))
-        .onClick(() => {
-          notificationUtil.cancelAllNotifications();
-          notificationManagement.resetTypeNotificationState();
+        .onClick(async () => {
+          await notificationUtil.cancelAllNotifications();
+          await notificationManagement.resetTypeNotificationState();
         })
+        .id('cancelAll')
     }
   }
 
-  aboutToAppear() {
+  aboutToAppear(): void {
     notificationUtil.enableNotification();
     this.isPromptTone = notificationUtil.promptTone();
     this.isVibrationEffect = notificationUtil.vibrationEffect();
