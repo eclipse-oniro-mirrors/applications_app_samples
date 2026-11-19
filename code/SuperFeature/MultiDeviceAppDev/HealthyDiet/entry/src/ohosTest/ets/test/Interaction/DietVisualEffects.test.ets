@@ -1984,3 +1984,938 @@ export default function dietVisualEffectsSuite() {
       expect(m.getFoodById(1000 + 691) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0692
+     * @tc.name    DietVisualEffects692
+     * @tc.desc    Diet statistics after entries 692 probe 692
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects692', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(8, 0, 93);
+      m.addEntry(9, 2, 94);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 692) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0693
+     * @tc.name    DietVisualEffects693
+     * @tc.desc    Diet statistics after entries 693 probe 693
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects693', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(9, 1, 94);
+      m.addEntry(10, 3, 95);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 693) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0694
+     * @tc.name    DietVisualEffects694
+     * @tc.desc    Diet statistics after entries 694 probe 694
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects694', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(10, 2, 95);
+      m.addEntry(11, 0, 96);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 694) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0695
+     * @tc.name    DietVisualEffects695
+     * @tc.desc    Diet statistics after entries 695 probe 695
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects695', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(11, 3, 96);
+      m.addEntry(0, 1, 97);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 695) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0696
+     * @tc.name    DietVisualEffects696
+     * @tc.desc    Diet statistics after entries 696 probe 696
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects696', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(0, 0, 97);
+      m.addEntry(1, 2, 98);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 696) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0697
+     * @tc.name    DietVisualEffects697
+     * @tc.desc    Diet statistics after entries 697 probe 697
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects697', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(1, 1, 98);
+      m.addEntry(2, 3, 99);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 697) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0698
+     * @tc.name    DietVisualEffects698
+     * @tc.desc    Diet statistics after entries 698 probe 698
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects698', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(2, 2, 99);
+      m.addEntry(3, 0, 100);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 698) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0699
+     * @tc.name    DietVisualEffects699
+     * @tc.desc    Diet statistics after entries 699 probe 699
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects699', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(3, 3, 100);
+      m.addEntry(4, 1, 101);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 699) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0700
+     * @tc.name    DietVisualEffects700
+     * @tc.desc    Diet statistics after entries 700 probe 700
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects700', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(4, 0, 101);
+      m.addEntry(5, 2, 102);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 700) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0701
+     * @tc.name    DietVisualEffects701
+     * @tc.desc    Diet statistics after entries 701 probe 701
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects701', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(5, 1, 102);
+      m.addEntry(6, 3, 103);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 701) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0702
+     * @tc.name    DietVisualEffects702
+     * @tc.desc    Diet statistics after entries 702 probe 702
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects702', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(6, 2, 103);
+      m.addEntry(7, 0, 104);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 702) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0703
+     * @tc.name    DietVisualEffects703
+     * @tc.desc    Diet statistics after entries 703 probe 703
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects703', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(7, 3, 104);
+      m.addEntry(8, 1, 105);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 703) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0704
+     * @tc.name    DietVisualEffects704
+     * @tc.desc    Diet statistics after entries 704 probe 704
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects704', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(8, 0, 105);
+      m.addEntry(9, 2, 106);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 704) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0705
+     * @tc.name    DietVisualEffects705
+     * @tc.desc    Diet statistics after entries 705 probe 705
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects705', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(9, 1, 106);
+      m.addEntry(10, 3, 107);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 705) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0706
+     * @tc.name    DietVisualEffects706
+     * @tc.desc    Diet statistics after entries 706 probe 706
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects706', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(10, 2, 107);
+      m.addEntry(11, 0, 108);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 706) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0707
+     * @tc.name    DietVisualEffects707
+     * @tc.desc    Diet statistics after entries 707 probe 707
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects707', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(11, 3, 108);
+      m.addEntry(0, 1, 109);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 707) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0708
+     * @tc.name    DietVisualEffects708
+     * @tc.desc    Diet statistics after entries 708 probe 708
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects708', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(0, 0, 109);
+      m.addEntry(1, 2, 110);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 708) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0709
+     * @tc.name    DietVisualEffects709
+     * @tc.desc    Diet statistics after entries 709 probe 709
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects709', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(1, 1, 110);
+      m.addEntry(2, 3, 111);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 709) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0710
+     * @tc.name    DietVisualEffects710
+     * @tc.desc    Diet statistics after entries 710 probe 710
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects710', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(2, 2, 111);
+      m.addEntry(3, 0, 112);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 710) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0711
+     * @tc.name    DietVisualEffects711
+     * @tc.desc    Diet statistics after entries 711 probe 711
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects711', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(3, 3, 112);
+      m.addEntry(4, 1, 113);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 711) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0712
+     * @tc.name    DietVisualEffects712
+     * @tc.desc    Diet statistics after entries 712 probe 712
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects712', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(4, 0, 113);
+      m.addEntry(5, 2, 114);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 712) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0713
+     * @tc.name    DietVisualEffects713
+     * @tc.desc    Diet statistics after entries 713 probe 713
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects713', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(5, 1, 114);
+      m.addEntry(6, 3, 115);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 713) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0714
+     * @tc.name    DietVisualEffects714
+     * @tc.desc    Diet statistics after entries 714 probe 714
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects714', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(6, 2, 115);
+      m.addEntry(7, 0, 116);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 714) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0715
+     * @tc.name    DietVisualEffects715
+     * @tc.desc    Diet statistics after entries 715 probe 715
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects715', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(7, 3, 116);
+      m.addEntry(8, 1, 117);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 715) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0716
+     * @tc.name    DietVisualEffects716
+     * @tc.desc    Diet statistics after entries 716 probe 716
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects716', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(8, 0, 117);
+      m.addEntry(9, 2, 118);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 716) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0717
+     * @tc.name    DietVisualEffects717
+     * @tc.desc    Diet statistics after entries 717 probe 717
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects717', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(9, 1, 118);
+      m.addEntry(10, 3, 119);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 717) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0718
+     * @tc.name    DietVisualEffects718
+     * @tc.desc    Diet statistics after entries 718 probe 718
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects718', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(10, 2, 119);
+      m.addEntry(11, 0, 120);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 718) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0719
+     * @tc.name    DietVisualEffects719
+     * @tc.desc    Diet statistics after entries 719 probe 719
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects719', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(11, 3, 120);
+      m.addEntry(0, 1, 121);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 719) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0720
+     * @tc.name    DietVisualEffects720
+     * @tc.desc    Diet statistics after entries 720 probe 720
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects720', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(0, 0, 121);
+      m.addEntry(1, 2, 122);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 720) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0721
+     * @tc.name    DietVisualEffects721
+     * @tc.desc    Diet statistics after entries 721 probe 721
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects721', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(1, 1, 122);
+      m.addEntry(2, 3, 123);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 721) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0722
+     * @tc.name    DietVisualEffects722
+     * @tc.desc    Diet statistics after entries 722 probe 722
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects722', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(2, 2, 123);
+      m.addEntry(3, 0, 124);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 722) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0723
+     * @tc.name    DietVisualEffects723
+     * @tc.desc    Diet statistics after entries 723 probe 723
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects723', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(3, 3, 124);
+      m.addEntry(4, 1, 125);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 723) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0724
+     * @tc.name    DietVisualEffects724
+     * @tc.desc    Diet statistics after entries 724 probe 724
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects724', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(4, 0, 125);
+      m.addEntry(5, 2, 126);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 724) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0725
+     * @tc.name    DietVisualEffects725
+     * @tc.desc    Diet statistics after entries 725 probe 725
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects725', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(5, 1, 126);
+      m.addEntry(6, 3, 127);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 725) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0726
+     * @tc.name    DietVisualEffects726
+     * @tc.desc    Diet statistics after entries 726 probe 726
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects726', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(6, 2, 127);
+      m.addEntry(7, 0, 128);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 726) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0727
+     * @tc.name    DietVisualEffects727
+     * @tc.desc    Diet statistics after entries 727 probe 727
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects727', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(7, 3, 128);
+      m.addEntry(8, 1, 129);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 727) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0728
+     * @tc.name    DietVisualEffects728
+     * @tc.desc    Diet statistics after entries 728 probe 728
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects728', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(8, 0, 129);
+      m.addEntry(9, 2, 130);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 728) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0729
+     * @tc.name    DietVisualEffects729
+     * @tc.desc    Diet statistics after entries 729 probe 729
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects729', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(9, 1, 130);
+      m.addEntry(10, 3, 131);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 729) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0730
+     * @tc.name    DietVisualEffects730
+     * @tc.desc    Diet statistics after entries 730 probe 730
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects730', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(10, 2, 131);
+      m.addEntry(11, 0, 132);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 730) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0731
+     * @tc.name    DietVisualEffects731
+     * @tc.desc    Diet statistics after entries 731 probe 731
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects731', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(11, 3, 132);
+      m.addEntry(0, 1, 133);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 731) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0732
+     * @tc.name    DietVisualEffects732
+     * @tc.desc    Diet statistics after entries 732 probe 732
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects732', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(0, 0, 133);
+      m.addEntry(1, 2, 134);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 732) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0733
+     * @tc.name    DietVisualEffects733
+     * @tc.desc    Diet statistics after entries 733 probe 733
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects733', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(1, 1, 134);
+      m.addEntry(2, 3, 135);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 733) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0734
+     * @tc.name    DietVisualEffects734
+     * @tc.desc    Diet statistics after entries 734 probe 734
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects734', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(2, 2, 135);
+      m.addEntry(3, 0, 136);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 734) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0735
+     * @tc.name    DietVisualEffects735
+     * @tc.desc    Diet statistics after entries 735 probe 735
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects735', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(3, 3, 136);
+      m.addEntry(4, 1, 137);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 735) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0736
+     * @tc.name    DietVisualEffects736
+     * @tc.desc    Diet statistics after entries 736 probe 736
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects736', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(4, 0, 137);
+      m.addEntry(5, 2, 138);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 736) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0737
+     * @tc.name    DietVisualEffects737
+     * @tc.desc    Diet statistics after entries 737 probe 737
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects737', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(5, 1, 138);
+      m.addEntry(6, 3, 139);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 737) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0738
+     * @tc.name    DietVisualEffects738
+     * @tc.desc    Diet statistics after entries 738 probe 738
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects738', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(6, 2, 139);
+      m.addEntry(7, 0, 140);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 738) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0739
+     * @tc.name    DietVisualEffects739
+     * @tc.desc    Diet statistics after entries 739 probe 739
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects739', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(7, 3, 140);
+      m.addEntry(8, 1, 141);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 739) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0740
+     * @tc.name    DietVisualEffects740
+     * @tc.desc    Diet statistics after entries 740 probe 740
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietVisualEffects740', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      m.addEntry(8, 0, 141);
+      m.addEntry(9, 2, 142);
+      expect(m.statistics().length <= 4).assertEqual(true);
+      expect(m.totalCalories() >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 740) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
