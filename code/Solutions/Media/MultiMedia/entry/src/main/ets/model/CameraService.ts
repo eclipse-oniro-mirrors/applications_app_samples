@@ -115,28 +115,30 @@ export default class CameraService {
     this.mediaUtil = MediaUtils.getInstance(context);
     this.mReceiver = image.createImageReceiver(CameraSize.WIDTH, CameraSize.HEIGHT, 4, 8);
     Logger.info(this.tag, 'createImageReceiver');
-    this.mReceiver.on('imageArrival', () => {
-      Logger.info(this.tag, 'imageArrival');
-      this.mReceiver.readNextImage((err, image) => {
-        Logger.info(this.tag, 'readNextImage');
-        if (err || image === undefined) {
-          Logger.error(this.tag, 'failed to get valid image');
+    this.mReceiver.on('imageArrival', () => this.handleImageArrival());
+  }
+
+  private handleImageArrival(): void {
+    Logger.info(this.tag, 'imageArrival');
+    this.mReceiver.readNextImage((err, image) => {
+      Logger.info(this.tag, 'readNextImage');
+      if (err || image === undefined) {
+        Logger.error(this.tag, 'failed to get valid image');
+        return;
+      }
+      image.getComponent(4, (errMsg, img) => {
+        Logger.info(this.tag, 'getComponent');
+        if (errMsg || img === undefined) {
+          Logger.info(this.tag, 'failed to get valid buffer');
           return;
         }
-        image.getComponent(4, (errMsg, img) => {
-          Logger.info(this.tag, 'getComponent');
-          if (errMsg || img === undefined) {
-            Logger.info(this.tag, 'failed to get valid buffer');
-            return;
-          }
-          let buffer = new ArrayBuffer(4096);
-          if (img.byteBuffer) {
-            buffer = img.byteBuffer;
-          } else {
-            Logger.error(this.tag, 'img.byteBuffer is undefined');
-          }
-          this.savePicture(buffer, image);
-        });
+        let buffer = new ArrayBuffer(4096);
+        if (img.byteBuffer) {
+          buffer = img.byteBuffer;
+        } else {
+          Logger.error(this.tag, 'img.byteBuffer is undefined');
+        }
+        this.savePicture(buffer, image);
       });
     });
   }
@@ -148,9 +150,12 @@ export default class CameraService {
     Logger.info(this.tag, `this.photoUri = ${this.photoUri}`);
     this.fd = await this.mediaUtil.getFdPath(this.fileAsset);
     Logger.info(this.tag, `this.fd = ${this.fd}`);
-    await fileio.write(this.fd, buffer);
-    await this.fileAsset.close(this.fd);
-    await img.release();
+    try {
+      await fileio.write(this.fd, buffer);
+    } finally {
+      await this.fileAsset.close(this.fd);
+      await img.release();
+    }
     Logger.info(this.tag, 'save image done');
     if (this.handleTakePicture) {
       this.handleTakePicture(this.photoUri);

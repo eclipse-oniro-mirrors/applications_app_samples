@@ -23,6 +23,7 @@ import { RenameDialog } from '../view/RenameDialog'
 import TitleBar from '../view/TitleBar'
 import { BusinessError } from '@ohos.base'
 import common from '@ohos.app.ability.common'
+import { fileIo } from '@kit.CoreFileKit'
 
 interface RouterParams {
   albumName: string;
@@ -132,7 +133,7 @@ struct AlbumPage {
             fileType: file.mediaType,
             displayName: file.displayName,
             duration: file.get('duration') as number,
-            dateAdded: file.get('date_added') as number
+            dateAdded: this.resolveDateAdded(file)
           }
           return mediaData
         })
@@ -141,6 +142,20 @@ struct AlbumPage {
       }).catch((err: BusinessError) => {
         Logger.error(this.tag, `getFileList err,err = ${err}`)
       })
+    }
+  }
+
+  private resolveDateAdded(file: MediaAssetHandle): number {
+    const dateAdded = file.get('date_added') as number
+    if (dateAdded > 0 || file.mediaType !== FileType.AUDIO) {
+      return dateAdded
+    }
+    // Sandbox audio has no media-library metadata, so fall back to the file modification time.
+    try {
+      return fileIo.statSync(file.uri).mtime
+    } catch (err) {
+      Logger.info(this.tag, `stat audio failed,err = ${JSON.stringify(err)}`)
+      return 0
     }
   }
 

@@ -115,7 +115,7 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default -p buildMode=d
 | 等级 | 问题与原因 | 修复与复验 |
 | --- | --- | --- |
 | 必须修改 | [RecordModel 初始化](entry/src/main/ets/model/RecordModel.ts#L94)在工厂等待期间被释放后仍安装过期对象；倒序完成也可能覆盖新对象 | 初始化世代检查，释放过期结果；阻塞工厂/取消/倒序完成回归通过 |
-| 必须修改 | [RecordModel 清理](entry/src/main/ets/model/RecordModel.ts#L156)重复 finish 导致重复 stop/reset/release，重新初始化可能早于释放完成 | 立即移除活动对象，共享清理 Promise，调用方等待同一工作；并发及故障回归通过 |
+| 必须修改 | [RecordModel 清理](entry/src/main/ets/model/RecordModel.ts)重复 finish 导致重复 stop/reset/release，重新初始化可能早于释放完成 | 立即移除活动对象，共享清理 Promise，调用方等待同一工作；并发及故障回归通过 |
 | 必须修改 | [RecordModel finish](entry/src/main/ets/model/RecordModel.ts#L226)空闲状态也调用 stop，宽松 fake 掩盖原生状态约束；清理期间回调仍生效 | 按已观察状态选择清理序列，晚到 prepared/started/paused 不再启动或回调；契约 fake 验证通过 |
 | 必须修改 | [RecordPage 清理](entry/src/main/ets/pages/RecordPage.ets#L71)未等待录音结束就关闭 fd，页面退出可能重复关闭或留下计时器 | 结束后 finally 关闭一次，清除计时器，捕捉异步错误；实际方法主机检查通过，设备交互未测 |
 | 必须修改 | [Logger 格式](entry/src/main/ets/model/Logger.ts#L20)把参数数组作为一个格式参数，且公开打印包含媒体路径的消息 | 使用两个 string 参数分别传递，消息标记 private，去除 any；四级日志检查通过 |
