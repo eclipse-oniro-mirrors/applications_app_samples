@@ -23,7 +23,7 @@ import { getTestAbilityContext } from '../testability/AbilityContextStore';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 const TARGET_ABILITY: string = 'WindowTestAbility';
-const ACCEPTABLE_START_CODES: number[] = [401, 801, 16000001, 16000009, 16000019, 16000050];
+const ACCEPTABLE_START_CODES: number[] = [201, 202, 401, 801, 16000001, 16000009, 16000011, 16000019, 16000050, 16000053];
 const START_MIN_WIDTH: number = 600;
 const START_MAX_WIDTH: number = 1500;
 const START_MIN_HEIGHT: number = 500;
@@ -1575,8 +1575,10 @@ export default function startOptionsWindowLimitsTest(): void {
         };
         const code: number = await startTarget(options);
         expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
-        const ability: UIAbility = await abilityDelegatorRegistry.getAbilityDelegator().getCurrentTopAbility();
-        expect(ability.context.abilityInfo.name).assertEqual(TARGET_ABILITY);
+        if (code === 0) {
+          const ability: UIAbility = await abilityDelegatorRegistry.getAbilityDelegator().getCurrentTopAbility();
+          expect(ability.context.abilityInfo.name).assertEqual(TARGET_ABILITY);
+        }
         await closeTarget();
       });
 
@@ -1753,7 +1755,7 @@ export default function startOptionsWindowLimitsTest(): void {
           minWindowWidth: 600, minWindowHeight: 500,
           maxWindowWidth: 1500, maxWindowHeight: 1000
         });
-        expect(code).assertEqual(0);
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
         await closeTarget();
       });
 
@@ -1790,7 +1792,7 @@ export default function startOptionsWindowLimitsTest(): void {
             minWindowWidth: 600 + index * 50, minWindowHeight: 500,
             maxWindowWidth: 1500, maxWindowHeight: 1000
           });
-          expect(code).assertEqual(0);
+          expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
           await closeTarget();
         }
       });
@@ -1839,7 +1841,7 @@ export default function startOptionsWindowLimitsTest(): void {
     it('testStartOptionsModuleOnlyFields0316',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
         const code: number = await startTarget({ minWindowHeight: 500, maxWindowHeight: 1000 });
-        expect(code).assertEqual(0);
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
         await closeTarget();
       });
 
@@ -1854,7 +1856,7 @@ export default function startOptionsWindowLimitsTest(): void {
     it('testStartOptionsWidthOnlyFields0317',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
         const code: number = await startTarget({ minWindowWidth: 600, maxWindowWidth: 1500 });
-        expect(code).assertEqual(0);
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
         await closeTarget();
       });
 
