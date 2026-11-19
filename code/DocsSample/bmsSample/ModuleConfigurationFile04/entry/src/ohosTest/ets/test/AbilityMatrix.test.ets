@@ -7681,3 +7681,1930 @@ export default function AbilityMatrixTest(): void {
       const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
       TestLog.number('testAbilityMatrixLowerCamelEmptyPortrait', 'repeat count', repeat.length);
       expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixLowerCamelEmptyPortrait', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixLowerCamelEmptyPortrait', 'case end', 'ability lowercamel with launch empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6118
+     * @tc.name      testAbilityMatrixLowerCamelEmptyLandscape
+     * @tc.desc      Checks that ability name LowerCamel with launch type Empty and orientation Landscape is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixLowerCamelEmptyLandscape',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = 'entryAbility';
+      ability.launchType = '';
+      ability.orientation = 'landscape';
+      TestLog.text('testAbilityMatrixLowerCamelEmptyLandscape', 'case begin', 'ability lowercamel with launch empty');
+      TestLog.step('testAbilityMatrixLowerCamelEmptyLandscape', 'ability lowercamel with launch empty');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixLowerCamelEmptyLandscape', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_NOT_PASCAL');
+      TestLog.flag('testAbilityMatrixLowerCamelEmptyLandscape',
+        'has code MODULE_ABILITY_NAME_NOT_PASCAL', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_LAUNCH_TYPE_EMPTY');
+      TestLog.flag('testAbilityMatrixLowerCamelEmptyLandscape', 'has code MODULE_LAUNCH_TYPE_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixLowerCamelEmptyLandscape', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixLowerCamelEmptyLandscape', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixLowerCamelEmptyLandscape', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixLowerCamelEmptyLandscape', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixLowerCamelEmptyLandscape', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixLowerCamelEmptyLandscape', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixLowerCamelEmptyLandscape', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixLowerCamelEmptyLandscape', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixLowerCamelEmptyLandscape', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixLowerCamelEmptyLandscape', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixLowerCamelEmptyLandscape', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixLowerCamelEmptyLandscape', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixLowerCamelEmptyLandscape', 'case end', 'ability lowercamel with launch empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6119
+     * @tc.name      testAbilityMatrixLowerCamelEmptyUnknown
+     * @tc.desc      Checks that ability name LowerCamel with launch type Empty and orientation Unknown is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixLowerCamelEmptyUnknown',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = 'entryAbility';
+      ability.launchType = '';
+      ability.orientation = 'sideways';
+      TestLog.text('testAbilityMatrixLowerCamelEmptyUnknown', 'case begin', 'ability lowercamel with launch empty');
+      TestLog.step('testAbilityMatrixLowerCamelEmptyUnknown', 'ability lowercamel with launch empty');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixLowerCamelEmptyUnknown', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_NOT_PASCAL');
+      TestLog.flag('testAbilityMatrixLowerCamelEmptyUnknown', 'has code MODULE_ABILITY_NAME_NOT_PASCAL', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_LAUNCH_TYPE_EMPTY');
+      TestLog.flag('testAbilityMatrixLowerCamelEmptyUnknown', 'has code MODULE_LAUNCH_TYPE_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const hasExpected3: boolean = FindingUtils.hasCode(findings, 'MODULE_ORIENTATION_UNKNOWN');
+      TestLog.flag('testAbilityMatrixLowerCamelEmptyUnknown', 'has code MODULE_ORIENTATION_UNKNOWN', hasExpected3);
+      expect(hasExpected3).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixLowerCamelEmptyUnknown', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixLowerCamelEmptyUnknown', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixLowerCamelEmptyUnknown', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixLowerCamelEmptyUnknown', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixLowerCamelEmptyUnknown', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixLowerCamelEmptyUnknown', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixLowerCamelEmptyUnknown', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixLowerCamelEmptyUnknown', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixLowerCamelEmptyUnknown', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixLowerCamelEmptyUnknown', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixLowerCamelEmptyUnknown', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixLowerCamelEmptyUnknown', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixLowerCamelEmptyUnknown', 'case end', 'ability lowercamel with launch empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6120
+     * @tc.name      testAbilityMatrixEmptySingletonUnspecified
+     * @tc.desc      Checks that ability name Empty with launch type Singleton and orientation Unspecified is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptySingletonUnspecified',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'singleton';
+      ability.orientation = 'unspecified';
+      TestLog.text('testAbilityMatrixEmptySingletonUnspecified', 'case begin', 'ability empty with launch singleton');
+      TestLog.step('testAbilityMatrixEmptySingletonUnspecified', 'ability empty with launch singleton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptySingletonUnspecified', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptySingletonUnspecified', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptySingletonUnspecified', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptySingletonUnspecified', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptySingletonUnspecified', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptySingletonUnspecified', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptySingletonUnspecified', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptySingletonUnspecified', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptySingletonUnspecified', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptySingletonUnspecified', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptySingletonUnspecified', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptySingletonUnspecified', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptySingletonUnspecified', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptySingletonUnspecified', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptySingletonUnspecified', 'case end', 'ability empty with launch singleton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6121
+     * @tc.name      testAbilityMatrixEmptySingletonPortrait
+     * @tc.desc      Checks that ability name Empty with launch type Singleton and orientation Portrait is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptySingletonPortrait',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'singleton';
+      ability.orientation = 'portrait';
+      TestLog.text('testAbilityMatrixEmptySingletonPortrait', 'case begin', 'ability empty with launch singleton');
+      TestLog.step('testAbilityMatrixEmptySingletonPortrait', 'ability empty with launch singleton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptySingletonPortrait', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptySingletonPortrait', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptySingletonPortrait', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptySingletonPortrait', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptySingletonPortrait', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptySingletonPortrait', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptySingletonPortrait', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptySingletonPortrait', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptySingletonPortrait', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptySingletonPortrait', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptySingletonPortrait', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptySingletonPortrait', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptySingletonPortrait', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptySingletonPortrait', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptySingletonPortrait', 'case end', 'ability empty with launch singleton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6122
+     * @tc.name      testAbilityMatrixEmptySingletonLandscape
+     * @tc.desc      Checks that ability name Empty with launch type Singleton and orientation Landscape is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptySingletonLandscape',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'singleton';
+      ability.orientation = 'landscape';
+      TestLog.text('testAbilityMatrixEmptySingletonLandscape', 'case begin', 'ability empty with launch singleton');
+      TestLog.step('testAbilityMatrixEmptySingletonLandscape', 'ability empty with launch singleton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptySingletonLandscape', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptySingletonLandscape', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptySingletonLandscape', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptySingletonLandscape', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptySingletonLandscape', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptySingletonLandscape', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptySingletonLandscape', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptySingletonLandscape', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptySingletonLandscape', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptySingletonLandscape', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptySingletonLandscape', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptySingletonLandscape', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptySingletonLandscape', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptySingletonLandscape', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptySingletonLandscape', 'case end', 'ability empty with launch singleton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6123
+     * @tc.name      testAbilityMatrixEmptySingletonUnknown
+     * @tc.desc      Checks that ability name Empty with launch type Singleton and orientation Unknown is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptySingletonUnknown',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'singleton';
+      ability.orientation = 'sideways';
+      TestLog.text('testAbilityMatrixEmptySingletonUnknown', 'case begin', 'ability empty with launch singleton');
+      TestLog.step('testAbilityMatrixEmptySingletonUnknown', 'ability empty with launch singleton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptySingletonUnknown', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptySingletonUnknown', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_ORIENTATION_UNKNOWN');
+      TestLog.flag('testAbilityMatrixEmptySingletonUnknown', 'has code MODULE_ORIENTATION_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptySingletonUnknown', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptySingletonUnknown', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptySingletonUnknown', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptySingletonUnknown', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptySingletonUnknown', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptySingletonUnknown', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptySingletonUnknown', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptySingletonUnknown', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptySingletonUnknown', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptySingletonUnknown', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptySingletonUnknown', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptySingletonUnknown', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptySingletonUnknown', 'case end', 'ability empty with launch singleton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6124
+     * @tc.name      testAbilityMatrixEmptyMultitonUnspecified
+     * @tc.desc      Checks that ability name Empty with launch type Multiton and orientation Unspecified is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptyMultitonUnspecified',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'multiton';
+      ability.orientation = 'unspecified';
+      TestLog.text('testAbilityMatrixEmptyMultitonUnspecified', 'case begin', 'ability empty with launch multiton');
+      TestLog.step('testAbilityMatrixEmptyMultitonUnspecified', 'ability empty with launch multiton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptyMultitonUnspecified', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyMultitonUnspecified', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptyMultitonUnspecified', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptyMultitonUnspecified', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptyMultitonUnspecified', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptyMultitonUnspecified', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptyMultitonUnspecified', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptyMultitonUnspecified', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptyMultitonUnspecified', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptyMultitonUnspecified', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptyMultitonUnspecified', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptyMultitonUnspecified', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptyMultitonUnspecified', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptyMultitonUnspecified', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptyMultitonUnspecified', 'case end', 'ability empty with launch multiton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6125
+     * @tc.name      testAbilityMatrixEmptyMultitonPortrait
+     * @tc.desc      Checks that ability name Empty with launch type Multiton and orientation Portrait is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptyMultitonPortrait',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'multiton';
+      ability.orientation = 'portrait';
+      TestLog.text('testAbilityMatrixEmptyMultitonPortrait', 'case begin', 'ability empty with launch multiton');
+      TestLog.step('testAbilityMatrixEmptyMultitonPortrait', 'ability empty with launch multiton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptyMultitonPortrait', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyMultitonPortrait', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptyMultitonPortrait', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptyMultitonPortrait', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptyMultitonPortrait', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptyMultitonPortrait', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptyMultitonPortrait', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptyMultitonPortrait', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptyMultitonPortrait', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptyMultitonPortrait', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptyMultitonPortrait', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptyMultitonPortrait', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptyMultitonPortrait', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptyMultitonPortrait', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptyMultitonPortrait', 'case end', 'ability empty with launch multiton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6126
+     * @tc.name      testAbilityMatrixEmptyMultitonLandscape
+     * @tc.desc      Checks that ability name Empty with launch type Multiton and orientation Landscape is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptyMultitonLandscape',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'multiton';
+      ability.orientation = 'landscape';
+      TestLog.text('testAbilityMatrixEmptyMultitonLandscape', 'case begin', 'ability empty with launch multiton');
+      TestLog.step('testAbilityMatrixEmptyMultitonLandscape', 'ability empty with launch multiton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptyMultitonLandscape', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyMultitonLandscape', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptyMultitonLandscape', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptyMultitonLandscape', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptyMultitonLandscape', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptyMultitonLandscape', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptyMultitonLandscape', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptyMultitonLandscape', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptyMultitonLandscape', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptyMultitonLandscape', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptyMultitonLandscape', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptyMultitonLandscape', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptyMultitonLandscape', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptyMultitonLandscape', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptyMultitonLandscape', 'case end', 'ability empty with launch multiton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6127
+     * @tc.name      testAbilityMatrixEmptyMultitonUnknown
+     * @tc.desc      Checks that ability name Empty with launch type Multiton and orientation Unknown is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptyMultitonUnknown',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'multiton';
+      ability.orientation = 'sideways';
+      TestLog.text('testAbilityMatrixEmptyMultitonUnknown', 'case begin', 'ability empty with launch multiton');
+      TestLog.step('testAbilityMatrixEmptyMultitonUnknown', 'ability empty with launch multiton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptyMultitonUnknown', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyMultitonUnknown', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_ORIENTATION_UNKNOWN');
+      TestLog.flag('testAbilityMatrixEmptyMultitonUnknown', 'has code MODULE_ORIENTATION_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptyMultitonUnknown', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptyMultitonUnknown', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptyMultitonUnknown', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptyMultitonUnknown', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptyMultitonUnknown', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptyMultitonUnknown', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptyMultitonUnknown', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptyMultitonUnknown', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptyMultitonUnknown', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptyMultitonUnknown', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptyMultitonUnknown', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptyMultitonUnknown', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptyMultitonUnknown', 'case end', 'ability empty with launch multiton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6128
+     * @tc.name      testAbilityMatrixEmptySpecifiedUnspecified
+     * @tc.desc      Checks that ability name Empty with launch type Specified and orientation Unspecified is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptySpecifiedUnspecified',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'specified';
+      ability.orientation = 'unspecified';
+      TestLog.text('testAbilityMatrixEmptySpecifiedUnspecified', 'case begin', 'ability empty with launch specified');
+      TestLog.step('testAbilityMatrixEmptySpecifiedUnspecified', 'ability empty with launch specified');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptySpecifiedUnspecified', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptySpecifiedUnspecified', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptySpecifiedUnspecified', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptySpecifiedUnspecified', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptySpecifiedUnspecified', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptySpecifiedUnspecified', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptySpecifiedUnspecified', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptySpecifiedUnspecified', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptySpecifiedUnspecified', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptySpecifiedUnspecified', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptySpecifiedUnspecified', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptySpecifiedUnspecified', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptySpecifiedUnspecified', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptySpecifiedUnspecified', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptySpecifiedUnspecified', 'case end', 'ability empty with launch specified');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6129
+     * @tc.name      testAbilityMatrixEmptySpecifiedPortrait
+     * @tc.desc      Checks that ability name Empty with launch type Specified and orientation Portrait is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptySpecifiedPortrait',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'specified';
+      ability.orientation = 'portrait';
+      TestLog.text('testAbilityMatrixEmptySpecifiedPortrait', 'case begin', 'ability empty with launch specified');
+      TestLog.step('testAbilityMatrixEmptySpecifiedPortrait', 'ability empty with launch specified');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptySpecifiedPortrait', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptySpecifiedPortrait', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptySpecifiedPortrait', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptySpecifiedPortrait', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptySpecifiedPortrait', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptySpecifiedPortrait', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptySpecifiedPortrait', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptySpecifiedPortrait', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptySpecifiedPortrait', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptySpecifiedPortrait', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptySpecifiedPortrait', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptySpecifiedPortrait', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptySpecifiedPortrait', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptySpecifiedPortrait', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptySpecifiedPortrait', 'case end', 'ability empty with launch specified');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6130
+     * @tc.name      testAbilityMatrixEmptySpecifiedLandscape
+     * @tc.desc      Checks that ability name Empty with launch type Specified and orientation Landscape is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptySpecifiedLandscape',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'specified';
+      ability.orientation = 'landscape';
+      TestLog.text('testAbilityMatrixEmptySpecifiedLandscape', 'case begin', 'ability empty with launch specified');
+      TestLog.step('testAbilityMatrixEmptySpecifiedLandscape', 'ability empty with launch specified');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptySpecifiedLandscape', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptySpecifiedLandscape', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptySpecifiedLandscape', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptySpecifiedLandscape', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptySpecifiedLandscape', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptySpecifiedLandscape', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptySpecifiedLandscape', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptySpecifiedLandscape', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptySpecifiedLandscape', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptySpecifiedLandscape', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptySpecifiedLandscape', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptySpecifiedLandscape', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptySpecifiedLandscape', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptySpecifiedLandscape', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptySpecifiedLandscape', 'case end', 'ability empty with launch specified');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6131
+     * @tc.name      testAbilityMatrixEmptySpecifiedUnknown
+     * @tc.desc      Checks that ability name Empty with launch type Specified and orientation Unknown is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptySpecifiedUnknown',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'specified';
+      ability.orientation = 'sideways';
+      TestLog.text('testAbilityMatrixEmptySpecifiedUnknown', 'case begin', 'ability empty with launch specified');
+      TestLog.step('testAbilityMatrixEmptySpecifiedUnknown', 'ability empty with launch specified');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptySpecifiedUnknown', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptySpecifiedUnknown', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_ORIENTATION_UNKNOWN');
+      TestLog.flag('testAbilityMatrixEmptySpecifiedUnknown', 'has code MODULE_ORIENTATION_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptySpecifiedUnknown', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptySpecifiedUnknown', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptySpecifiedUnknown', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptySpecifiedUnknown', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptySpecifiedUnknown', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptySpecifiedUnknown', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptySpecifiedUnknown', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptySpecifiedUnknown', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptySpecifiedUnknown', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptySpecifiedUnknown', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptySpecifiedUnknown', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptySpecifiedUnknown', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptySpecifiedUnknown', 'case end', 'ability empty with launch specified');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6132
+     * @tc.name      testAbilityMatrixEmptyUnknownUnspecified
+     * @tc.desc      Checks that ability name Empty with launch type Unknown and orientation Unspecified is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptyUnknownUnspecified',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'single';
+      ability.orientation = 'unspecified';
+      TestLog.text('testAbilityMatrixEmptyUnknownUnspecified', 'case begin', 'ability empty with launch unknown');
+      TestLog.step('testAbilityMatrixEmptyUnknownUnspecified', 'ability empty with launch unknown');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptyUnknownUnspecified', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyUnknownUnspecified', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_LAUNCH_TYPE_UNKNOWN');
+      TestLog.flag('testAbilityMatrixEmptyUnknownUnspecified', 'has code MODULE_LAUNCH_TYPE_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptyUnknownUnspecified', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptyUnknownUnspecified', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptyUnknownUnspecified', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptyUnknownUnspecified', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptyUnknownUnspecified', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptyUnknownUnspecified', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptyUnknownUnspecified', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptyUnknownUnspecified', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptyUnknownUnspecified', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptyUnknownUnspecified', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptyUnknownUnspecified', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptyUnknownUnspecified', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptyUnknownUnspecified', 'case end', 'ability empty with launch unknown');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6133
+     * @tc.name      testAbilityMatrixEmptyUnknownPortrait
+     * @tc.desc      Checks that ability name Empty with launch type Unknown and orientation Portrait is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptyUnknownPortrait',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'single';
+      ability.orientation = 'portrait';
+      TestLog.text('testAbilityMatrixEmptyUnknownPortrait', 'case begin', 'ability empty with launch unknown');
+      TestLog.step('testAbilityMatrixEmptyUnknownPortrait', 'ability empty with launch unknown');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptyUnknownPortrait', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyUnknownPortrait', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_LAUNCH_TYPE_UNKNOWN');
+      TestLog.flag('testAbilityMatrixEmptyUnknownPortrait', 'has code MODULE_LAUNCH_TYPE_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptyUnknownPortrait', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptyUnknownPortrait', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptyUnknownPortrait', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptyUnknownPortrait', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptyUnknownPortrait', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptyUnknownPortrait', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptyUnknownPortrait', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptyUnknownPortrait', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptyUnknownPortrait', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptyUnknownPortrait', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptyUnknownPortrait', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptyUnknownPortrait', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptyUnknownPortrait', 'case end', 'ability empty with launch unknown');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6134
+     * @tc.name      testAbilityMatrixEmptyUnknownLandscape
+     * @tc.desc      Checks that ability name Empty with launch type Unknown and orientation Landscape is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptyUnknownLandscape',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'single';
+      ability.orientation = 'landscape';
+      TestLog.text('testAbilityMatrixEmptyUnknownLandscape', 'case begin', 'ability empty with launch unknown');
+      TestLog.step('testAbilityMatrixEmptyUnknownLandscape', 'ability empty with launch unknown');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptyUnknownLandscape', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyUnknownLandscape', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_LAUNCH_TYPE_UNKNOWN');
+      TestLog.flag('testAbilityMatrixEmptyUnknownLandscape', 'has code MODULE_LAUNCH_TYPE_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptyUnknownLandscape', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptyUnknownLandscape', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptyUnknownLandscape', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptyUnknownLandscape', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptyUnknownLandscape', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptyUnknownLandscape', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptyUnknownLandscape', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptyUnknownLandscape', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptyUnknownLandscape', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptyUnknownLandscape', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptyUnknownLandscape', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptyUnknownLandscape', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptyUnknownLandscape', 'case end', 'ability empty with launch unknown');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6135
+     * @tc.name      testAbilityMatrixEmptyUnknownUnknown
+     * @tc.desc      Checks that ability name Empty with launch type Unknown and orientation Unknown is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptyUnknownUnknown',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = 'single';
+      ability.orientation = 'sideways';
+      TestLog.text('testAbilityMatrixEmptyUnknownUnknown', 'case begin', 'ability empty with launch unknown');
+      TestLog.step('testAbilityMatrixEmptyUnknownUnknown', 'ability empty with launch unknown');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptyUnknownUnknown', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyUnknownUnknown', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_LAUNCH_TYPE_UNKNOWN');
+      TestLog.flag('testAbilityMatrixEmptyUnknownUnknown', 'has code MODULE_LAUNCH_TYPE_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const hasExpected3: boolean = FindingUtils.hasCode(findings, 'MODULE_ORIENTATION_UNKNOWN');
+      TestLog.flag('testAbilityMatrixEmptyUnknownUnknown', 'has code MODULE_ORIENTATION_UNKNOWN', hasExpected3);
+      expect(hasExpected3).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptyUnknownUnknown', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptyUnknownUnknown', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptyUnknownUnknown', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptyUnknownUnknown', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptyUnknownUnknown', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptyUnknownUnknown', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptyUnknownUnknown', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptyUnknownUnknown', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptyUnknownUnknown', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptyUnknownUnknown', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptyUnknownUnknown', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptyUnknownUnknown', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptyUnknownUnknown', 'case end', 'ability empty with launch unknown');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6136
+     * @tc.name      testAbilityMatrixEmptyEmptyUnspecified
+     * @tc.desc      Checks that ability name Empty with launch type Empty and orientation Unspecified is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptyEmptyUnspecified',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = '';
+      ability.orientation = 'unspecified';
+      TestLog.text('testAbilityMatrixEmptyEmptyUnspecified', 'case begin', 'ability empty with launch empty');
+      TestLog.step('testAbilityMatrixEmptyEmptyUnspecified', 'ability empty with launch empty');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptyEmptyUnspecified', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyEmptyUnspecified', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_LAUNCH_TYPE_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyEmptyUnspecified', 'has code MODULE_LAUNCH_TYPE_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptyEmptyUnspecified', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptyEmptyUnspecified', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptyEmptyUnspecified', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptyEmptyUnspecified', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptyEmptyUnspecified', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptyEmptyUnspecified', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptyEmptyUnspecified', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptyEmptyUnspecified', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptyEmptyUnspecified', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptyEmptyUnspecified', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptyEmptyUnspecified', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptyEmptyUnspecified', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptyEmptyUnspecified', 'case end', 'ability empty with launch empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6137
+     * @tc.name      testAbilityMatrixEmptyEmptyPortrait
+     * @tc.desc      Checks that ability name Empty with launch type Empty and orientation Portrait is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptyEmptyPortrait',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = '';
+      ability.orientation = 'portrait';
+      TestLog.text('testAbilityMatrixEmptyEmptyPortrait', 'case begin', 'ability empty with launch empty');
+      TestLog.step('testAbilityMatrixEmptyEmptyPortrait', 'ability empty with launch empty');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptyEmptyPortrait', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyEmptyPortrait', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_LAUNCH_TYPE_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyEmptyPortrait', 'has code MODULE_LAUNCH_TYPE_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptyEmptyPortrait', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptyEmptyPortrait', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptyEmptyPortrait', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptyEmptyPortrait', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptyEmptyPortrait', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptyEmptyPortrait', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptyEmptyPortrait', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptyEmptyPortrait', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptyEmptyPortrait', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptyEmptyPortrait', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptyEmptyPortrait', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptyEmptyPortrait', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptyEmptyPortrait', 'case end', 'ability empty with launch empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6138
+     * @tc.name      testAbilityMatrixEmptyEmptyLandscape
+     * @tc.desc      Checks that ability name Empty with launch type Empty and orientation Landscape is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptyEmptyLandscape',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = '';
+      ability.orientation = 'landscape';
+      TestLog.text('testAbilityMatrixEmptyEmptyLandscape', 'case begin', 'ability empty with launch empty');
+      TestLog.step('testAbilityMatrixEmptyEmptyLandscape', 'ability empty with launch empty');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptyEmptyLandscape', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyEmptyLandscape', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_LAUNCH_TYPE_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyEmptyLandscape', 'has code MODULE_LAUNCH_TYPE_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptyEmptyLandscape', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptyEmptyLandscape', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptyEmptyLandscape', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptyEmptyLandscape', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptyEmptyLandscape', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptyEmptyLandscape', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptyEmptyLandscape', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptyEmptyLandscape', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptyEmptyLandscape', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptyEmptyLandscape', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptyEmptyLandscape', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptyEmptyLandscape', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptyEmptyLandscape', 'case end', 'ability empty with launch empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6139
+     * @tc.name      testAbilityMatrixEmptyEmptyUnknown
+     * @tc.desc      Checks that ability name Empty with launch type Empty and orientation Unknown is
+     * @tc.desc      validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixEmptyEmptyUnknown',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = '';
+      ability.launchType = '';
+      ability.orientation = 'sideways';
+      TestLog.text('testAbilityMatrixEmptyEmptyUnknown', 'case begin', 'ability empty with launch empty');
+      TestLog.step('testAbilityMatrixEmptyEmptyUnknown', 'ability empty with launch empty');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixEmptyEmptyUnknown', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyEmptyUnknown', 'has code MODULE_ABILITY_NAME_EMPTY', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_LAUNCH_TYPE_EMPTY');
+      TestLog.flag('testAbilityMatrixEmptyEmptyUnknown', 'has code MODULE_LAUNCH_TYPE_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const hasExpected3: boolean = FindingUtils.hasCode(findings, 'MODULE_ORIENTATION_UNKNOWN');
+      TestLog.flag('testAbilityMatrixEmptyEmptyUnknown', 'has code MODULE_ORIENTATION_UNKNOWN', hasExpected3);
+      expect(hasExpected3).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixEmptyEmptyUnknown', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixEmptyEmptyUnknown', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixEmptyEmptyUnknown', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixEmptyEmptyUnknown', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixEmptyEmptyUnknown', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixEmptyEmptyUnknown', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixEmptyEmptyUnknown', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixEmptyEmptyUnknown', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixEmptyEmptyUnknown', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixEmptyEmptyUnknown', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixEmptyEmptyUnknown', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixEmptyEmptyUnknown', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixEmptyEmptyUnknown', 'case end', 'ability empty with launch empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6140
+     * @tc.name      testAbilityMatrixUnderscoreSingletonUnspecified
+     * @tc.desc      Checks that ability name Underscore with launch type Singleton and orientation
+     * @tc.desc      Unspecified is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixUnderscoreSingletonUnspecified',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = 'Entry_Ability';
+      ability.launchType = 'singleton';
+      ability.orientation = 'unspecified';
+      TestLog.text('testAbilityMatrixUnderscoreSingletonUnspecified', 
+        'case begin', 'ability underscore with launch singleton');
+      TestLog.step('testAbilityMatrixUnderscoreSingletonUnspecified', 'ability underscore with launch singleton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixUnderscoreSingletonUnspecified', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_NOT_PASCAL');
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonUnspecified',
+        'has code MODULE_ABILITY_NAME_NOT_PASCAL', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonUnspecified', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixUnderscoreSingletonUnspecified', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixUnderscoreSingletonUnspecified', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonUnspecified', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixUnderscoreSingletonUnspecified', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixUnderscoreSingletonUnspecified', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonUnspecified', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonUnspecified', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixUnderscoreSingletonUnspecified', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonUnspecified', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixUnderscoreSingletonUnspecified', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonUnspecified', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonUnspecified', 
+        'case end', 'ability underscore with launch singleton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6141
+     * @tc.name      testAbilityMatrixUnderscoreSingletonPortrait
+     * @tc.desc      Checks that ability name Underscore with launch type Singleton and orientation Portrait
+     * @tc.desc      is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixUnderscoreSingletonPortrait',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = 'Entry_Ability';
+      ability.launchType = 'singleton';
+      ability.orientation = 'portrait';
+      TestLog.text('testAbilityMatrixUnderscoreSingletonPortrait', 
+        'case begin', 'ability underscore with launch singleton');
+      TestLog.step('testAbilityMatrixUnderscoreSingletonPortrait', 'ability underscore with launch singleton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixUnderscoreSingletonPortrait', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_NOT_PASCAL');
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonPortrait',
+        'has code MODULE_ABILITY_NAME_NOT_PASCAL', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonPortrait', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixUnderscoreSingletonPortrait', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixUnderscoreSingletonPortrait', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonPortrait', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixUnderscoreSingletonPortrait', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixUnderscoreSingletonPortrait', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonPortrait', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonPortrait', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixUnderscoreSingletonPortrait', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonPortrait', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixUnderscoreSingletonPortrait', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonPortrait', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonPortrait', 
+        'case end', 'ability underscore with launch singleton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6142
+     * @tc.name      testAbilityMatrixUnderscoreSingletonLandscape
+     * @tc.desc      Checks that ability name Underscore with launch type Singleton and orientation Landscape
+     * @tc.desc      is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixUnderscoreSingletonLandscape',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = 'Entry_Ability';
+      ability.launchType = 'singleton';
+      ability.orientation = 'landscape';
+      TestLog.text('testAbilityMatrixUnderscoreSingletonLandscape', 
+        'case begin', 'ability underscore with launch singleton');
+      TestLog.step('testAbilityMatrixUnderscoreSingletonLandscape', 'ability underscore with launch singleton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixUnderscoreSingletonLandscape', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_NOT_PASCAL');
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonLandscape',
+        'has code MODULE_ABILITY_NAME_NOT_PASCAL', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonLandscape', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixUnderscoreSingletonLandscape', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixUnderscoreSingletonLandscape', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonLandscape', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixUnderscoreSingletonLandscape', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixUnderscoreSingletonLandscape', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonLandscape', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonLandscape', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixUnderscoreSingletonLandscape', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonLandscape', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixUnderscoreSingletonLandscape', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonLandscape', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonLandscape', 
+        'case end', 'ability underscore with launch singleton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6143
+     * @tc.name      testAbilityMatrixUnderscoreSingletonUnknown
+     * @tc.desc      Checks that ability name Underscore with launch type Singleton and orientation Unknown
+     * @tc.desc      is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixUnderscoreSingletonUnknown',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = 'Entry_Ability';
+      ability.launchType = 'singleton';
+      ability.orientation = 'sideways';
+      TestLog.text('testAbilityMatrixUnderscoreSingletonUnknown', 
+        'case begin', 'ability underscore with launch singleton');
+      TestLog.step('testAbilityMatrixUnderscoreSingletonUnknown', 'ability underscore with launch singleton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixUnderscoreSingletonUnknown', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_NOT_PASCAL');
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonUnknown',
+        'has code MODULE_ABILITY_NAME_NOT_PASCAL', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_ORIENTATION_UNKNOWN');
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonUnknown', 'has code MODULE_ORIENTATION_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonUnknown', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixUnderscoreSingletonUnknown', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixUnderscoreSingletonUnknown', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonUnknown', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixUnderscoreSingletonUnknown', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixUnderscoreSingletonUnknown', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonUnknown', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixUnderscoreSingletonUnknown', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixUnderscoreSingletonUnknown', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonUnknown', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixUnderscoreSingletonUnknown', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonUnknown', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixUnderscoreSingletonUnknown', 
+        'case end', 'ability underscore with launch singleton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6144
+     * @tc.name      testAbilityMatrixUnderscoreMultitonUnspecified
+     * @tc.desc      Checks that ability name Underscore with launch type Multiton and orientation
+     * @tc.desc      Unspecified is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixUnderscoreMultitonUnspecified',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = 'Entry_Ability';
+      ability.launchType = 'multiton';
+      ability.orientation = 'unspecified';
+      TestLog.text('testAbilityMatrixUnderscoreMultitonUnspecified', 
+        'case begin', 'ability underscore with launch multiton');
+      TestLog.step('testAbilityMatrixUnderscoreMultitonUnspecified', 'ability underscore with launch multiton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixUnderscoreMultitonUnspecified', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_NOT_PASCAL');
+      TestLog.flag('testAbilityMatrixUnderscoreMultitonUnspecified',
+        'has code MODULE_ABILITY_NAME_NOT_PASCAL', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixUnderscoreMultitonUnspecified', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixUnderscoreMultitonUnspecified', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixUnderscoreMultitonUnspecified', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixUnderscoreMultitonUnspecified', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixUnderscoreMultitonUnspecified', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixUnderscoreMultitonUnspecified', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixUnderscoreMultitonUnspecified', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixUnderscoreMultitonUnspecified', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixUnderscoreMultitonUnspecified', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixUnderscoreMultitonUnspecified', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixUnderscoreMultitonUnspecified', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixUnderscoreMultitonUnspecified', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixUnderscoreMultitonUnspecified', 
+        'case end', 'ability underscore with launch multiton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6145
+     * @tc.name      testAbilityMatrixUnderscoreMultitonPortrait
+     * @tc.desc      Checks that ability name Underscore with launch type Multiton and orientation Portrait
+     * @tc.desc      is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityMatrixUnderscoreMultitonPortrait',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.name = 'Entry_Ability';
+      ability.launchType = 'multiton';
+      ability.orientation = 'portrait';
+      TestLog.text('testAbilityMatrixUnderscoreMultitonPortrait', 
+        'case begin', 'ability underscore with launch multiton');
+      TestLog.step('testAbilityMatrixUnderscoreMultitonPortrait', 'ability underscore with launch multiton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityMatrixUnderscoreMultitonPortrait', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_NOT_PASCAL');
+      TestLog.flag('testAbilityMatrixUnderscoreMultitonPortrait',
+        'has code MODULE_ABILITY_NAME_NOT_PASCAL', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityMatrixUnderscoreMultitonPortrait', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityMatrixUnderscoreMultitonPortrait', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityMatrixUnderscoreMultitonPortrait', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityMatrixUnderscoreMultitonPortrait', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityMatrixUnderscoreMultitonPortrait', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityMatrixUnderscoreMultitonPortrait', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityMatrixUnderscoreMultitonPortrait', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityMatrixUnderscoreMultitonPortrait', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityMatrixUnderscoreMultitonPortrait', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityMatrixUnderscoreMultitonPortrait', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityMatrixUnderscoreMultitonPortrait', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityMatrixUnderscoreMultitonPortrait', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityMatrixUnderscoreMultitonPortrait', 
+        'case end', 'ability underscore with launch multiton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6146
+     * @tc.name      testAbilityMatrixUnderscoreMultitonLandscape
