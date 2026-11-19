@@ -13,12 +13,26 @@
  * limitations under the License.
  */
 
-import { MailType } from '../model/dataType'
+import { MailType } from '../model/DataType';
+import {
+  FONT_BADGE,
+  FONT_BODY,
+  FONT_SUBTITLE,
+  ICON_MD,
+  ICON_SM,
+  ICON_XS,
+  ICON_XXS,
+  RADIUS_CARD,
+  RADIUS_CIRCLE,
+  RADIUS_TAG,
+  ROW_HEIGHT_LIST_ITEM,
+  ROW_HEIGHT_TOOLBAR
+} from './Constants';
 
 @Extend(Text) function TextStyle() {
-  .backgroundColor('#254ff7')
-  .fontColor('#fff')
-  .fontSize(10)
+  .backgroundColor($r('app.color.main_blue'))
+  .fontColor($r('app.color.white'))
+  .fontSize(FONT_BADGE)
   .textAlign(TextAlign.Center)
 }
 
@@ -35,24 +49,24 @@ export struct MailSideBar {
 
 @Component
 struct AccountInfo {
-  @State accountList: string[] = [
-    'jiaozi@xxx.com',
-    'jiaozi@163.com',
+  @State accountList: Resource[] = [
+    $r('app.string.mailAccount'),
+    $r('app.string.mailAccountSecond'),
   ]
 
   @Builder accountInfo() {
     Column() {
       Row() {
         Text($r('app.string.account'))
-          .fontSize(14)
+          .fontSize(FONT_BODY)
           .fontColor($r('sys.color.ohos_id_color_text_secondary'))
           .fontWeight(FontWeight.Medium)
         Blank()
         Text($r('app.string.addAccount'))
-          .fontSize(14)
-          .fontColor('#0a59f7')
+          .fontSize(FONT_BODY)
+          .fontColor($r('app.color.add_account_blue'))
           .fontWeight(FontWeight.Medium)
-      }.width('100%').height(48)
+      }.width('100%').height(ROW_HEIGHT_TOOLBAR)
     }.margin({ top: 78 }).padding({ left: 16, right: 16 })
   }
 
@@ -60,30 +74,30 @@ struct AccountInfo {
     Column() {
       this.accountInfo()
       List() {
-        ForEach(this.accountList, (item: string, index: number | undefined) => {
+        ForEach(this.accountList, (item: Resource, index: number | undefined) => {
           ListItem() {
             Row() {
               Text()
-                .width(12)
-                .height(12)
-                .borderRadius(8)
-                .backgroundColor(index === 0 ? '#61cfbe' : '#fec700')
+                .width(ICON_XXS)
+                .height(ICON_XXS)
+                .borderRadius(RADIUS_TAG)
+                .backgroundColor(index === 0 ? $r('app.color.account_green') : $r('app.color.account_yellow'))
               Text(item)
-                .fontSize(16)
-                .fontColor(index === 0 ? '#000' : '#E5000000')
+                .fontSize(FONT_SUBTITLE)
+                .fontColor(index === 0 ? $r('app.color.font_black') : $r('app.color.font_black_90'))
                 .margin({ left: 13 })
               Blank()
               if (index === 0) {
-                Image($r('app.media.ic_confirm')).width(16)
-                  .height(16).fillColor('#244ff7')
+                Image($r('app.media.ic_confirm')).width(ICON_XS)
+                  .height(ICON_XS).fillColor($r('app.color.main_blue'))
               } else {
-                Text('9')
-                  .width(18)
-                  .height(18)
-                  .borderRadius(18)
+                Text($r('app.string.unreadBadge'))
+                  .width(ICON_SM)
+                  .height(ICON_SM)
+                  .borderRadius(RADIUS_CIRCLE)
                   .TextStyle()
               }
-            }.width('100%').height(56)
+            }.width('100%').height(ROW_HEIGHT_LIST_ITEM)
           }
         })
       }
@@ -106,12 +120,12 @@ struct MailStatusList {
   @Builder accountInfo() {
     Column() {
       Row() {
-        Text($r('app.string.account')).fontSize(14)
+        Text($r('app.string.account')).fontSize(FONT_BODY)
         Blank()
         Text($r('app.string.addAccount'))
-          .fontSize(14)
-          .fontColor('#0a59f7')
-      }.width('100%').height(48)
+          .fontSize(FONT_BODY)
+          .fontColor($r('app.color.add_account_blue'))
+      }.width('100%').height(ROW_HEIGHT_TOOLBAR)
     }
   }
 
@@ -124,25 +138,25 @@ struct MailStatusList {
       ForEach(this.mailState, (item: MailType, index: number | undefined) => {
         ListItem() {
           Row() {
-            Image(item.src).width(24).height(24)
+            Image(item.src).width(ICON_MD).height(ICON_MD)
             Text(item.type)
-              .fontSize(16)
+              .fontSize(FONT_SUBTITLE)
               .margin({ left: 16 })
-              .fontColor(index === 0 ? '#000' : '#e5000000')
+              .fontColor(index === 0 ? $r('app.color.font_black') : $r('app.color.font_black_90'))
               .fontWeight(FontWeight.Medium)
             Blank()
             if (index === this.mailState.length - 1) {
-              Image($r('app.media.ic_settings_arrow')).width(12).height(24).rotate({ angle: 90 })
+              Image($r('app.media.ic_settings_arrow')).width(ICON_XXS).height(ICON_MD).rotate({ angle: 90 })
             } else {
               Text(item.num.toString())
-                .fontColor('#18181a')
-                .fontSize(14)
+                .fontColor($r('app.color.font_title'))
+                .fontSize(FONT_BODY)
             }
           }.width('100%')
         }.padding({ left: 14, right: 24 })
-        .height(56)
-        .backgroundColor(index === 0 ? '#19254ff7' : '')
-        .borderRadius(16)
+        .height(ROW_HEIGHT_LIST_ITEM)
+        .backgroundColor(index === 0 ? $r('app.color.list_selected_background') : $r('app.color.transparent'))
+        .borderRadius(RADIUS_CARD)
       })
     }.width('100%')
     .padding({ left: 7, right: 7 })

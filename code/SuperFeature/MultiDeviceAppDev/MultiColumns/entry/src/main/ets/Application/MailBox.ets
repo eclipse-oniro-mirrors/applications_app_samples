@@ -13,18 +13,31 @@
  * limitations under the License.
  */
 
-import { BreakpointType } from '../common/BreakpointSystem'
-import { MailNavigation } from '../common/MailNavigation'
-import { MailSideBar } from '../common/MailSideBar'
+import { MailNavigation } from '../common/MailNavigation';
+import { MailSideBar } from '../common/MailSideBar';
+import {
+  BREAKPOINT_LG,
+  BREAKPOINT_MD,
+  BREAKPOINT_SM,
+  CONTROL_BUTTON_HEIGHT,
+  CONTROL_BUTTON_LEFT,
+  CONTROL_BUTTON_TOP_MAILBOX,
+  CONTROL_BUTTON_WIDTH,
+  KEY_CURRENT_BREAKPOINT,
+  MIN_CONTENT_WIDTH_MD_LG,
+  MIN_CONTENT_WIDTH_SM,
+  MIN_SIDE_BAR_WIDTH,
+  SIDE_BAR_WIDTH
+} from '../common/Constants';
 
-let storage = LocalStorage.GetShared()
+const storage: LocalStorage = LocalStorage.GetShared();
 
 @Entry(storage)
 @Component
 struct MailBox {
-  @LocalStorageLink('currentBreakPoint') currentBreakPoint: string = 'md'
+  @LocalStorageLink(KEY_CURRENT_BREAKPOINT) currentBreakPoint: string = BREAKPOINT_MD
   @State isFold: boolean = false
-  @State sideBarWidth: number = 304
+  @State sideBarWidth: number = SIDE_BAR_WIDTH
 
   build() {
     GridRow() {
@@ -33,29 +46,34 @@ struct MailBox {
           // Area A
           Column() {
             MailSideBar()
-          }.width('100%').height('100%').backgroundColor('#f1f3f5')
+          }.width('100%').height('100%').backgroundColor($r('app.color.side_bar_background'))
 
           // Area B+C
           Column() {
             Stack() {
               MailNavigation()
-              if (this.isFold && this.currentBreakPoint !== 'lg') {
-                Column().width('100%').height('100%').backgroundColor('#33000000')
+              if (this.isFold && this.currentBreakPoint !== BREAKPOINT_LG) {
+                Column().width('100%').height('100%').backgroundColor($r('app.color.mask_black'))
               }
             }
           }.height('100%').width('100%')
         }
         .sideBarWidth(this.sideBarWidth)
-        .minSideBarWidth(240)
-        .minContentWidth(this.currentBreakPoint === 'sm' ? 360 : 600)
-        .controlButton({ left: 24, top: 40, width: 24, height: 24 })
-        .showSideBar(this.currentBreakPoint === 'lg')
+        .minSideBarWidth(MIN_SIDE_BAR_WIDTH)
+        .minContentWidth(this.currentBreakPoint === BREAKPOINT_SM ? MIN_CONTENT_WIDTH_SM : MIN_CONTENT_WIDTH_MD_LG)
+        .controlButton({
+          left: CONTROL_BUTTON_LEFT,
+          top: CONTROL_BUTTON_TOP_MAILBOX,
+          width: CONTROL_BUTTON_WIDTH,
+          height: CONTROL_BUTTON_HEIGHT
+        })
+        .showSideBar(this.currentBreakPoint === BREAKPOINT_LG)
         .onChange((value: boolean) => {
-          this.isFold = value
+          this.isFold = value;
         })
       }
     }.onBreakpointChange((breakpoint: string) => {
-      this.currentBreakPoint = breakpoint
+      this.currentBreakPoint = breakpoint;
     })
   }
 }

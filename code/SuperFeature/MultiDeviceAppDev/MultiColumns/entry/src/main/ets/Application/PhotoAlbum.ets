@@ -13,36 +13,50 @@
  * limitations under the License.
  */
 
-import { PhotoContent } from '../common/PhotoContent'
-import { PhotoSideBar } from '../common/PhotoSideBar'
+import { PhotoContent } from '../common/PhotoContent';
+import { PhotoSideBar } from '../common/PhotoSideBar';
+import {
+  BREAKPOINT_SM,
+  CONTROL_BUTTON_HEIGHT,
+  CONTROL_BUTTON_LEFT,
+  CONTROL_BUTTON_TOP_PHOTO_ALBUM,
+  CONTROL_BUTTON_WIDTH,
+  KEY_CURRENT_BREAKPOINT,
+  PHOTO_SIDE_BAR_MARGIN_TOP
+} from '../common/Constants';
 
-let storage = LocalStorage.GetShared()
+const storage: LocalStorage = LocalStorage.GetShared();
 
 @Entry(storage)
 @Component
 struct PhotoAlbum {
   @State sideBarStatus: boolean = true
-  @LocalStorageLink('currentBreakPoint') currentBreakPoint: string = 'sm'
+  @LocalStorageLink(KEY_CURRENT_BREAKPOINT) currentBreakPoint: string = BREAKPOINT_SM
 
   build() {
     GridRow() {
       GridCol({ span: { sm: 12, md: 12, lg: 12 } }) {
         SideBarContainer(SideBarContainerType.AUTO) {
           Column() {
-            PhotoSideBar().margin({ top: 64 })
-          }.backgroundColor('#f1f3f5')
+            PhotoSideBar().margin({ top: PHOTO_SIDE_BAR_MARGIN_TOP })
+          }.backgroundColor($r('app.color.side_bar_background'))
 
           Column() {
             PhotoContent({ sideBarStatus: $sideBarStatus })
           }
         }
-        .controlButton({ left: 24, top: 16, width: 24, height: 24 })
+        .controlButton({
+          left: CONTROL_BUTTON_LEFT,
+          top: CONTROL_BUTTON_TOP_PHOTO_ALBUM,
+          width: CONTROL_BUTTON_WIDTH,
+          height: CONTROL_BUTTON_HEIGHT
+        })
         .onChange((value: boolean) => {
-          this.sideBarStatus = value
+          this.sideBarStatus = value;
         })
       }
     }.onBreakpointChange((breakpoint: string) => {
-      this.currentBreakPoint = breakpoint
+      this.currentBreakPoint = breakpoint;
     })
   }
 }

@@ -13,7 +13,18 @@
  * limitations under the License.
  */
 
-import { photoType } from '../model/dataType'
+import { photoType } from '../model/DataType';
+import {
+  FONT_BODY,
+  FONT_SUBTITLE,
+  ICON_MD,
+  ICON_XXS,
+  OPACITY_NEAR_FULL,
+  OPACITY_TERTIARY,
+  RADIUS_COMPACT,
+  ROW_HEIGHT_LIST_ITEM,
+  ROW_HEIGHT_TOOLBAR
+} from './Constants';
 
 @Component
 export struct PhotoSideBar {
@@ -32,57 +43,59 @@ export struct PhotoSideBar {
   build() {
     Column() {
       Row() {
-        Search({ placeholder: $r('app.string.placeholderText') }).backgroundColor('#fff').focusable(false)
-      }.height(56).width('100%')
+        Search({ placeholder: $r('app.string.placeholderText') })
+          .backgroundColor($r('app.color.white'))
+          .focusable(false)
+      }.height(ROW_HEIGHT_LIST_ITEM).width('100%')
 
       List() {
         ListItem() {
           Row() {
-            Image($r('app.media.ic_public_picture')).width(24).aspectRatio(1)
+            Image($r('app.media.ic_public_picture')).width(ICON_MD).aspectRatio(1)
             Text($r('app.string.photo'))
-              .fontSize(16)
+              .fontSize(FONT_SUBTITLE)
               .fontWeight(FontWeight.Medium)
-              .opacity(0.9)
-              .height(48)
+              .opacity(OPACITY_NEAR_FULL)
+              .height(ROW_HEIGHT_TOOLBAR)
               .margin({ left: 8 })
           }.padding({ left: 8 }).width('100%')
         }
 
         ListItem() {
           Row() {
-            Image($r('app.media.ic_public_folder')).width(24).aspectRatio(1)
+            Image($r('app.media.ic_public_folder')).width(ICON_MD).aspectRatio(1)
             Text($r('app.string.album'))
-              .fontSize(16)
+              .fontSize(FONT_SUBTITLE)
               .fontWeight(FontWeight.Medium)
-              .opacity(0.9)
-              .height(48)
+              .opacity(OPACITY_NEAR_FULL)
+              .height(ROW_HEIGHT_TOOLBAR)
               .margin({ left: 8 })
-              .fontColor('rgb(10,89,247)')
+              .fontColor($r('app.color.add_account_blue'))
             Blank()
             Image($r('app.media.ic_public_arrow_down_0'))
-              .width(24)
-              .height(12)
+              .width(ICON_MD)
+              .height(ICON_XXS)
               .rotate({ angle: 90 })
-              .opacity(0.8)
+              .opacity(OPACITY_TERTIARY)
           }.padding({ left: 8 }).width('100%')
-          .backgroundColor('#19254ff7')
-          .borderRadius(10)
+          .backgroundColor($r('app.color.list_selected_background'))
+          .borderRadius(RADIUS_COMPACT)
         }
 
         ForEach(this.photoList, (item: photoType, index: number | undefined) => {
           ListItem() {
             Row() {
               Text(item.name)
-                .fontSize(16)
+                .fontSize(FONT_SUBTITLE)
                 .fontWeight(FontWeight.Medium)
-                .opacity(0.9)
-                .height(48)
+                .opacity(OPACITY_NEAR_FULL)
+                .height(ROW_HEIGHT_TOOLBAR)
                 .margin({ left: 8 })
               Blank()
               if (index === this.photoList.length - 1) {
-                Image($r('app.media.ic_public_lock_filled')).width(24).aspectRatio(1)
+                Image($r('app.media.ic_public_lock_filled')).width(ICON_MD).aspectRatio(1)
               } else {
-                Text(item.count.toString()).fontSize(14).fontWeight(FontWeight.Regular)
+                Text(item.count.toString()).fontSize(FONT_BODY).fontWeight(FontWeight.Regular)
               }
             }.padding({ left: 16, right: 24 }).width('100%')
           }

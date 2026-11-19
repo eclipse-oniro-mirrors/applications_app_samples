@@ -13,27 +13,29 @@
  * limitations under the License.
  */
 
+import { BREAKPOINT_SM, BREAKPOINT_MD, BREAKPOINT_LG } from './Constants';
+
 export class BreakpointType<T> {
-  sm: T
-  md: T
-  lg: T
+  sm: T;
+  md: T;
+  lg: T;
 
   constructor(sm: T, md: T, lg: T) {
-    this.sm = sm
-    this.md = md
-    this.lg = lg
+    this.sm = sm;
+    this.md = md;
+    this.lg = lg;
   }
 
-  GetValue(currentBreakpoint: string) {
-    if (currentBreakpoint === 'sm') {
-      return this.sm
+  GetValue(currentBreakpoint: string): T | undefined {
+    if (currentBreakpoint === BREAKPOINT_SM) {
+      return this.sm;
     }
-    if (currentBreakpoint === 'md') {
-      return this.md
+    if (currentBreakpoint === BREAKPOINT_MD) {
+      return this.md;
     }
-    if (currentBreakpoint === 'lg') {
-      return this.lg
+    if (currentBreakpoint === BREAKPOINT_LG) {
+      return this.lg;
     }
-    return undefined
+    return undefined;
   }
 }

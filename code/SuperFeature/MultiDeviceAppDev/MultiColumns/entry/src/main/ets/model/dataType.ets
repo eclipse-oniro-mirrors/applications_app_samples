@@ -18,8 +18,8 @@ export class OperateTabs {
   name: Resource
 
   constructor(src: Resource, name: Resource) {
-    this.src = src
-    this.name = name
+    this.src = src;
+    this.name = name;
   }
 }
 
@@ -29,9 +29,9 @@ export class MailType {
   src: Resource
 
   constructor(type: Resource, num: number, src: Resource) {
-    this.type = type
-    this.num = num
-    this.src = src
+    this.type = type;
+    this.num = num;
+    this.src = src;
   }
 }
 
@@ -41,8 +41,8 @@ export class photoType {
   src: Resource | undefined
 
   constructor(name: Resource, count: number, src?: Resource | undefined) {
-    this.name = name
-    this.count = count
-    this.src = src
+    this.name = name;
+    this.count = count;
+    this.src = src;
   }
 }

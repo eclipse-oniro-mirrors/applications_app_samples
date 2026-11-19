@@ -13,12 +13,22 @@
  * limitations under the License.
  */
 
-import { SubItem } from './SettingItem'
+import { SubItem } from './SettingItem';
+import {
+  BREAKPOINT_MD,
+  BREAKPOINT_SM,
+  FONT_SUBTITLE,
+  FONT_TITLE,
+  ICON_MD,
+  KEY_CURRENT_BREAKPOINT,
+  RADIUS_CARD,
+  ROW_HEIGHT_TITLE_BAR
+} from './Constants';
 
 @Component
 export struct WlanItem {
   @State netWorkStatus: Resource = $r('app.string.closed')
-  @LocalStorageProp('currentBreakPoint') currentBreakPoint: string = 'md'
+  @LocalStorageProp(KEY_CURRENT_BREAKPOINT) currentBreakPoint: string = BREAKPOINT_MD
 
   @Builder CustomDivider() {
     Divider()
@@ -30,20 +40,20 @@ export struct WlanItem {
   build() {
     NavDestination() {
       Row() {
-        if (this.currentBreakPoint === 'sm') {
-          Image($r('app.media.ic_public_back')).width(24).height(24).margin({ right: 16 })
+        if (this.currentBreakPoint === BREAKPOINT_SM) {
+          Image($r('app.media.ic_public_back')).width(ICON_MD).height(ICON_MD).margin({ right: 16 })
         }
-        Text($r('app.string.WLAN')).fontSize(20).fontWeight(FontWeight.Medium)
+        Text($r('app.string.WLAN')).fontSize(FONT_TITLE).fontWeight(FontWeight.Medium)
         Blank()
-        Image($r('app.media.ic_public_help')).width(24).aspectRatio(1)
-      }.width('100%').height(26).margin({ top: 38, bottom: 24 })
+        Image($r('app.media.ic_public_help')).width(ICON_MD).aspectRatio(1)
+      }.width('100%').height(ROW_HEIGHT_TITLE_BAR).margin({ top: 38, bottom: 24 })
       .padding({ left: 24, right: 24 })
 
       List({ space: 20 }) {
         ListItem() {
           SubItem({ itemDesc: $r('app.string.WLAN'), isShowButton: true })
         }.width('100%')
-        .borderRadius(16)
+        .borderRadius(RADIUS_CARD)
         .backgroundColor($r('sys.color.ohos_id_color_foreground_contrary'))
         .padding({ top: 4, bottom: 4 })
 
@@ -54,20 +64,24 @@ export struct WlanItem {
             itemStatusDesc: this.netWorkStatus
           })
         }.width('100%')
-        .borderRadius(16)
+        .borderRadius(RADIUS_CARD)
         .backgroundColor($r('sys.color.ohos_id_color_foreground_contrary'))
         .padding({ top: 4, bottom: 4 })
 
         ListItem() {
           SubItem({ itemDesc: $r('app.string.moreWLANSettings'), isShowRightArrow: true })
         }.width('100%')
-        .borderRadius(16)
+        .borderRadius(RADIUS_CARD)
         .backgroundColor($r('sys.color.ohos_id_color_foreground_contrary'))
         .padding({ top: 4, bottom: 4 })
 
         ListItem() {
           Column() {
-            Text($r('app.string.wlanConnected')).fontSize(16).fontColor('#66000000').width('100%').padding({ left: 12 })
+            Text($r('app.string.wlanConnected'))
+              .fontSize(FONT_SUBTITLE)
+              .fontColor($r('app.color.font_grey_40'))
+              .width('100%')
+              .padding({ left: 12 })
             SubItem({
               itemDesc: $r('app.string.wifiName'),
               content: $r('app.string.connected'),
@@ -76,7 +90,7 @@ export struct WlanItem {
             })
               .margin({ top: 8 })
               .width('100%')
-              .borderRadius(16)
+              .borderRadius(RADIUS_CARD)
               .backgroundColor($r('sys.color.ohos_id_color_foreground_contrary'))
               .padding({ top: 4, bottom: 4 })
           }
@@ -85,7 +99,11 @@ export struct WlanItem {
         ListItem() {
           Column() {
             Row() {
-              Text($r('app.string.wlanUseful')).fontSize(16).fontColor('#66000000').width('100%').padding({ left: 12 })
+              Text($r('app.string.wlanUseful'))
+                .fontSize(FONT_SUBTITLE)
+                .fontColor($r('app.color.font_grey_40'))
+                .width('100%')
+                .padding({ left: 12 })
             }
 
             Column() {
@@ -108,7 +126,7 @@ export struct WlanItem {
               })
             }
             .width('100%')
-            .borderRadius(16)
+            .borderRadius(RADIUS_CARD)
             .backgroundColor($r('sys.color.ohos_id_color_foreground_contrary'))
             .padding({ top: 4, bottom: 4 })
             .margin({ top: 8 })
@@ -118,14 +136,14 @@ export struct WlanItem {
         ListItem() {
           SubItem({ itemDesc: $r('app.string.addNetWork'), isLinkAddress: true })
         }.width('100%')
-        .borderRadius(16)
+        .borderRadius(RADIUS_CARD)
         .backgroundColor($r('sys.color.ohos_id_color_foreground_contrary'))
         .padding({ top: 4, bottom: 4 })
 
       }.padding({ left: 12, right: 12 })
-    }.title('WLAN')
+    }.title($r('app.string.WLAN'))
     .hideTitleBar(true)
-    .backgroundColor('#f1f3f5')
+    .backgroundColor($r('app.color.side_bar_background'))
   }
 }
 
