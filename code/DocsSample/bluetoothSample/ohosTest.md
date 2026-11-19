@@ -30,3 +30,13 @@
 | 继续广播       | 设备支持蓝牙，蓝牙权限申请成功，蓝牙已打开               | 在ADVERISER界面，点击继续广播按钮      | 弹出弹窗，提示继续广播 |否 | Pass     |
 | 停止广播       | 设备支持蓝牙，蓝牙权限申请成功，蓝牙已打开               | 在ADVERISER界面，点击停止广播按钮      | 弹出弹窗，提示停止广播 |否 | Pass     |
 | 关闭蓝牙       | 设备支持蓝牙，蓝牙权限申请成功，蓝牙已打开               | 在SWITCH界面，点击关闭蓝牙按钮      | 设备关闭蓝牙，上方BlueTooth State变为 Disconnected |否 | Pass     |
+| [蓝牙开关及状态回调](./entry/src/ohosTest/ets/test/Expansion.test.ets#L880) | 测试用 SDK 回调、返回值和状态已配置 | 通过测试环境的 SDK 回调或异常驱动两向切换 | 开关顺序、当前/旧回调、异常恢复和提示参数符合约定 | 是 | Pass（32/32） |
+| [扫描参数与设备列表](./entry/src/ohosTest/ets/test/Expansion.test.ets#L739) | 测试用 SDK 回调、返回值和状态已配置 | 过滤参数、捕获的扫描批次、重名设备、停止和重启 | 过滤参数正确，批次、设备顺序、重名处理和错误分支符合约定 | 是 | Pass（57/57） |
+| [扫描数据模型](./entry/src/ohosTest/ets/test/Expansion.test.ets#L700) | 测试用 SDK 回调、返回值和状态已配置 | RSSI、广播字节、初始值、构造及 setter 顺序 | 字段、引用和返回数据保持约定，独立对象之间不污染 | 是 | Pass（45/45） |
+| [GATT 客户端连接、发现与读写](./entry/src/ohosTest/ets/test/Expansion.test.ets#L484) | 测试用 SDK 回调、返回值和状态已配置 | 多设备句柄、服务/特征/描述符层级、字节、有效及缺失状态 | 请求及回调匹配正确设备和层级，读写字节、拒绝分支及状态恢复准确 | 是 | Pass（156/156） |
+| [GATT 服务端请求和应答](./entry/src/ohosTest/ets/test/Expansion.test.ets#L802) | 测试用 SDK 回调、返回值和状态已配置 | 模拟注册的读写请求、事务 ID、偏移和是否应答 | 仅需要时应答，事务、数据与偏移匹配，回复缓冲区互不影响 | 是 | Pass（50/50） |
+| [广播参数与生命周期](./entry/src/ohosTest/ets/test/Expansion.test.ets#L415) | 测试用 SDK 回调、返回值和状态已配置 | 广播负载、UUID、持续时长，启停、续播、句柄及回调替换 | SDK 调用参数、字节、句柄和事件顺序准确，异常后可恢复 | 是 | Pass（47/47） |
+
+运行范围：连接测试设备后，在 DevEco Studio 使用 **All Tests in 'test (entry)'**。[List.test.ets](./entry/src/ohosTest/ets/test/List.test.ets) 只运行 [Expansion.test.ets](./entry/src/ohosTest/ets/test/Expansion.test.ets) 注册的用例，对应表中带通过数的条目；其余条目仅作历史归档，不由此入口执行。2026-11-18 的 API 26 真机归档记录：387/387 通过，应用启动检查通过。
+
+通过测试夹具验证 SDK 回调和输入的处理逻辑，不等同于真实外部蓝牙设备互通测试。

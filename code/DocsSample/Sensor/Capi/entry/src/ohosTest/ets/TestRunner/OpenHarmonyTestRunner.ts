@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,49 +16,46 @@
 import hilog from '@ohos.hilog';
 import TestRunner from '@ohos.application.testRunner';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import Want from '@ohos.app.ability.Want';
 
-var abilityDelegator = undefined
-var abilityDelegatorArguments = undefined
-
-async function onAbilityCreateCallback() {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'onAbilityCreateCallback');
-}
-
-async function addAbilityMonitorCallback(err: any) {
-    hilog.info(0x0000, 'testTag', 'addAbilityMonitorCallback : %{public}s', JSON.stringify(err) ?? '');
-}
+const DOMAIN: number = 0xF811;
+const TAG: string = 'SensorTestRunner';
 
 export default class OpenHarmonyTestRunner implements TestRunner {
-    constructor() {
-    }
+  onPrepare(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'Preparing sensor tests');
+  }
 
-    onPrepare() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner OnPrepare ');
+  private buildWant(): Want {
+    const args = AbilityDelegatorRegistry.getArguments();
+    if (args.bundleName.length === 0) {
+      throw new Error('Test bundle name is empty');
     }
+    const want: Want = {
+      bundleName: args.bundleName,
+      abilityName: 'TestAbility'
+    };
+    return want;
+  }
 
-    async onRun() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner onRun run');
-        abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
-        abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
-        var testAbilityName = abilityDelegatorArguments.bundleName + '.TestAbility'
-        let lMonitor = {
-            abilityName: testAbilityName,
-            onAbilityCreate: onAbilityCreateCallback,
-        };
-        abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback)
-        var cmd = 'aa start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName
-        var debug = abilityDelegatorArguments.parameters['-D']
-        if (debug == 'true')
-        {
-            cmd += ' -D'
-        }
-        hilog.info(0x0000, 'testTag', 'cmd : %{public}s', cmd);
-        abilityDelegator.executeShellCommand(cmd,
-            (err: any, d: any) => {
-                hilog.info(0x0000, 'testTag', 'executeShellCommand : err : %{public}s', JSON.stringify(err) ?? '');
-                hilog.info(0x0000, 'testTag', 'executeShellCommand : data : %{public}s', d.stdResult ?? '');
-                hilog.info(0x0000, 'testTag', 'executeShellCommand : data : %{public}s', d.exitCode ?? '');
-            })
-        hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner onRun end');
+  private logArguments(): void {
+    const args = AbilityDelegatorRegistry.getArguments();
+    hilog.info(DOMAIN, TAG, 'Bundle: %{public}s', args.bundleName);
+    hilog.info(DOMAIN, TAG, '%{public}s', 'Using EntryAbility for compass UI checks');
+  }
+
+  async onRun(): Promise<void> {
+    this.logArguments();
+    const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+    const want: Want = this.buildWant();
+    hilog.info(DOMAIN, TAG, '%{public}s', 'Starting TestAbility');
+    try {
+      await delegator.startAbility(want);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility start completed');
+    } catch (error) {
+      const message: string = String(error);
+      hilog.error(DOMAIN, TAG, 'TestAbility start failed: %{public}s', message);
+      await delegator.finishTest('Cannot start Sensor TestAbility: ' + message, -1);
     }
+  }
 }

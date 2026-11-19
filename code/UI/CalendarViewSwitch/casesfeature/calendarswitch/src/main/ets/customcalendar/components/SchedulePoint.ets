@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file casesfeature/calendarswitch/src/main/ets/customcalendar/components/SchedulePoint.ets
+ * 文件职责：SchedulePoint 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：SchedulePoint。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { abilityAccessCtrl, common, PermissionRequestResult, Permissions } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { CalendarController } from './CustomCalendar';
@@ -28,9 +35,13 @@ import { TimeUtils } from '../utils/TimeUtils';
 import { logger } from '../utils/Logger';
 
 const TAG = 'Calendar_Switch';
+
 const COLUMN_SPACE = 25;
+
 const FONT_WEIGHT = 500;
+
 const OPACITY = 0.5;
+
 const STROKE_WIDTH = 1;
 
 /**
@@ -60,42 +71,71 @@ const STROKE_WIDTH = 1;
  * })
  * 对于需要在月视图或者周视图上显示添加的日程点的场景，需要传入对应的控制器，否则新增的日程点不会刷新
  */
+/**
+ * SchedulePoint：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct SchedulePoint {
   // 是否显示半模态转场标志位
+  // @State isShow：组件内部状态
   @State isShow: boolean = false;
+
   // 日程标题
+  // @State title：组件内部状态
   @State title: string = '';
+
   // 日程地点
+  // @State location：组件内部状态
   @State location: string = '';
+
   // 日程开始时间
+  // @State startTime：组件内部状态
   @State startTime: Date = new Date();
+
   // 日程开始时间字符串
+  // @State scheduleStartTime：组件内部状态
   @State scheduleStartTime: string = '';
+
   // 日程结束时间
+  // @State endTime：组件内部状态
   @State endTime: Date = new Date();
+
   // 日程结束时间字符串
+  // @State scheduleEndTime：组件内部状态
   @State scheduleEndTime: string = '';
+
   // 日程说明
+  // @State describe：组件内部状态
   @State describe: string = '';
+
   // 日程提醒时间index
+  // @State reminderTimeIndex：组件内部状态
   @State reminderTimeIndex: number = 0;
+
   // 日程提醒时间选项
   private reminderTimeArray: number[] = [0];
+
   // CalendarManager日程管理对象
   private calendarMgr: calendarManager.CalendarManager | null = null;
+
   // 用于添加日程时，刷新月视图数据的控制器
   private monthViewController = new CalendarController();
+
   // 用于添加日程时，刷新周视图数据的控制器
   private weekViewController = new CalendarController();
+
   // 创建时间、日期格式化对象。
   private dateFormat = new intl.DateTimeFormat('zh-CN', { dateStyle: 'short', timeStyle: 'short' });
+
   // Preferences对象
   private dataPreferences: preferences.Preferences | null = null;
+
   // 上下文context
   private context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
+
   // 日历Calendar对象
   private calendar: calendarManager.Calendar | undefined = undefined;
+
   // 日历配置信息
   private config: calendarManager.CalendarConfig = {
     // 打开日程提醒
@@ -103,6 +143,7 @@ export struct SchedulePoint {
     // 设置日历账户颜色。可选项
     color: Color.Green
   };
+
   // 日历账户信息
   private myCalendarAccount: calendarManager.CalendarAccount = {
     // 日历账户名称
@@ -113,6 +154,9 @@ export struct SchedulePoint {
     displayName: 'test'
   };
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear() {
     const permissions: Permissions[] = ['ohos.permission.READ_CALENDAR', 'ohos.permission.WRITE_CALENDAR'];
     // 获取AtManager实例
@@ -156,29 +200,45 @@ export struct SchedulePoint {
   /**
    * 日程提醒时间菜单
    */
+  /**
+   * reminderTimeMenu：执行 reminderTimeMenu 相关逻辑。
+   */
   @Builder
   reminderTimeMenu() {
+    // Column：垂直布局容器
+    // 关键属性：圆角、宽度、背景色、focusable
     Column() {
       ForEach(Constants.REMINDER_TIME_OPTION, (item: string, index: number) => {
+        // Column：垂直布局容器
+        // 关键属性：宽度、点击事件回调
+        // 交互：可点击交互
         Column() {
+          // Flex：弹性布局容器
+          // 关键属性：高度
           Flex({
             direction: FlexDirection.Row,
             justifyContent: FlexAlign.SpaceBetween,
             alignItems: ItemAlign.Center
           }) {
-            Text(item)
+            // Text：文本
+            // 关键属性：字号
+            Text(item).id('schedule_point_text_4')
               .fontSize($r('app.integer.calendar_switch_size_fifteen'))
-            Image($r('app.media.calendar_switch_ok'))
+            // Image：图片
+            // 关键属性：可见性、宽度、高度
+            Image($r('app.media.calendar_switch_ok')).id('schedule_point_image_5')
               .visibility(this.reminderTimeIndex === index ? Visibility.Visible : Visibility.Hidden)
               .width($r('app.integer.calendar_switch_size_twenty'))
               .height($r('app.integer.calendar_switch_size_twenty'))
-          }
+          }.id('schedule_point_flex_3')
           .height($r('app.integer.calendar_switch_size_forty_eight'))
 
-          Divider()
+          // Divider：分割线
+          // 关键属性：可见性、宽度
+          Divider().id('schedule_point_divider_6')
             .visibility(index !== Constants.REMINDER_TIME_OPTION.length - 1 ? Visibility.Visible : Visibility.Hidden)
             .width($r('app.string.calendar_switch_full_size'))
-        }
+        }.id('schedule_point_column_2')
         .width($r('app.integer.calendar_switch_size_ninety'))
         .onClick(() => {
           this.reminderTimeIndex = index;
@@ -201,7 +261,7 @@ export struct SchedulePoint {
           }
         })
       }, (item: string) => item)
-    }
+    }.id('schedule_point_column_1')
     .borderRadius($r('app.integer.calendar_switch_size_ten'))
     .width($r('app.integer.calendar_switch_size_hundred'))
     .backgroundColor(Color.White)
@@ -211,26 +271,40 @@ export struct SchedulePoint {
   /**
    * 提醒时间设置项
    */
+  /**
+   * reminderTime：执行 reminderTime 相关逻辑。
+   */
   @Builder
   reminderTime() {
+    // Row：水平布局容器
+    // 关键属性：宽度、高度、圆角、背景色、内边距
     Row() {
-      Text($r('app.string.calendar_switch_reminder_time'))
+      // Text：文本
+      // 关键属性：字号、字体颜色
+      Text($r('app.string.calendar_switch_reminder_time')).id('schedule_point_text_8')
         .fontSize($r('app.integer.calendar_switch_size_sixteen'))
         .fontColor(Color.Gray)
-      Blank()
+      // Blank：占位空白
+      Blank().id('schedule_point_blank_9')
+      // Row：水平布局容器
+      // 关键属性：bindMenu、reminderTimeMenu
       Row() {
-        Text(Constants.REMINDER_TIME_OPTION[this.reminderTimeIndex])
+        // Text：文本
+        // 关键属性：字号
+        Text(Constants.REMINDER_TIME_OPTION[this.reminderTimeIndex]).id('schedule_point_text_11')
           .fontSize($r('app.integer.calendar_switch_size_fifteen'))
-        Image($r('app.media.calendar_switch_spinner'))
+        // Image：图片
+        // 关键属性：宽度、高度、外边距
+        Image($r('app.media.calendar_switch_spinner')).id('schedule_point_image_12')
           .width($r('app.integer.calendar_switch_size_twenty_two'))
           .height($r('app.integer.calendar_switch_size_sixteen'))
           .margin({
             left: $r('app.integer.calendar_switch_size_eight'),
             right: $r('app.integer.calendar_switch_size_eight')
           })
-      }
+      }.id('schedule_point_row_10')
       .bindMenu(this.reminderTimeMenu(), { placement: Placement.Top })
-    }
+    }.id('schedule_point_row_7')
     .width($r('app.string.calendar_switch_full_size'))
     .height($r('app.integer.calendar_switch_size_forty_eight'))
     .borderRadius($r('app.integer.calendar_switch_size_ten'))
@@ -244,20 +318,35 @@ export struct SchedulePoint {
   /**
    * 新建日程页面
    */
+  /**
+   * addScheduleInfo：执行 addScheduleInfo 相关逻辑。
+   */
   @Builder
   addScheduleInfo() {
+    // Column：垂直布局容器
+    // 关键属性：高度、内边距
     Column({ space: COLUMN_SPACE }) {
+      // Row：水平布局容器
+      // 关键属性：宽度、高度、主轴对齐
       Row() {
-        Text($r('app.string.calendar_switch_cancel'))
+        // Text：文本
+        // 关键属性：字号、字体颜色、点击事件回调
+        // 交互：可点击交互
+        Text($r('app.string.calendar_switch_cancel')).id('schedule_point_text_15')
           .fontSize($r('app.integer.calendar_switch_size_eighteen'))
           .fontColor(Color.Red)
           .onClick(() => {
             this.isShow = false;
           })
-        Text($r('app.string.calendar_switch_new_schedule'))
+        // Text：文本
+        // 关键属性：字号、字重
+        Text($r('app.string.calendar_switch_new_schedule')).id('schedule_point_text_16')
           .fontSize($r('app.integer.calendar_switch_size_twenty_two'))
           .fontWeight(FONT_WEIGHT)
-        Text($r('app.string.calendar_switch_add'))
+        // Text：文本
+        // 关键属性：字号、字体颜色、点击事件回调
+        // 交互：可点击交互
+        Text($r('app.string.calendar_switch_add')).id('schedule_point_text_17')
           .fontSize($r('app.integer.calendar_switch_size_eighteen'))
           .fontColor(this.title === '' ? Color.Gray : Color.Black)
           .onClick(() => {
@@ -321,40 +410,58 @@ export struct SchedulePoint {
               message: $r('app.string.calendar_switch_add_completed')
             });
           })
-      }
+      }.id('schedule_point_row_14')
       .width($r('app.string.calendar_switch_full_size'))
       .height($r('app.integer.calendar_switch_size_sixty'))
       .justifyContent(FlexAlign.SpaceBetween)
 
+      // Column：垂直布局容器
+      // 关键属性：内边距
       Column() {
-        TextInput({ placeholder: $r('app.string.calendar_switch_title') })
+        // TextInput：单行输入框
+        // 关键属性：背景色、高度、内容变更回调
+        // 交互：输入/提交回调
+        TextInput({ placeholder: $r('app.string.calendar_switch_title') }).id('schedule_point_text_input_19')
           .backgroundColor(Color.White)
           .height($r('app.integer.calendar_switch_size_forty_eight'))
           .onChange((value: string) => {
             this.title = value;
           })
-        Divider()
+        // Divider：分割线
+        // 关键属性：宽度、strokeWidth、透明度
+        Divider().id('schedule_point_divider_20')
           .width($r('app.string.calendar_switch_full_size'))
           .strokeWidth(STROKE_WIDTH)
           .opacity(OPACITY)
-        TextInput({ placeholder: $r('app.string.calendar_switch_location') })
+        // TextInput：单行输入框
+        // 关键属性：背景色、高度、内容变更回调
+        // 交互：输入/提交回调
+        TextInput({ placeholder: $r('app.string.calendar_switch_location') }).id('schedule_point_text_input_21')
           .backgroundColor(Color.White)
           .height($r('app.integer.calendar_switch_size_forty_eight'))
           .onChange((value: string) => {
             this.location = value;
           })
-        Divider()
+        // Divider：分割线
+        // 关键属性：宽度、strokeWidth、透明度
+        Divider().id('schedule_point_divider_22')
           .width($r('app.string.calendar_switch_full_size'))
           .strokeWidth(STROKE_WIDTH)
           .opacity(OPACITY)
+        // Row：水平布局容器
+        // 关键属性：主轴对齐、宽度、内边距
         Row() {
-          Text($r('app.string.calendar_switch_start_time'))
+          // Text：文本
+          // 关键属性：高度、字号、字体颜色
+          Text($r('app.string.calendar_switch_start_time')).id('schedule_point_text_24')
             .height($r('app.integer.calendar_switch_size_forty_eight'))
             .fontSize($r('app.integer.calendar_switch_size_sixteen'))
             .fontColor(Color.Gray)
-          Text(this.scheduleStartTime)
+          // Text：文本
+          // 关键属性：字号
+          Text(this.scheduleStartTime).id('schedule_point_text_25')
             .fontSize($r('app.integer.calendar_switch_size_sixteen'))
-        }
+        }.id('schedule_point_row_23')
         .justifyContent(FlexAlign.SpaceBetween)
         .width($r('app.string.calendar_switch_full_size'))
         .padding({
@@ -382,18 +489,27 @@ export struct SchedulePoint {
           })
         })
 
-        Divider()
+        // Divider：分割线
+        // 关键属性：宽度、strokeWidth、透明度
+        Divider().id('schedule_point_divider_26')
           .width($r('app.string.calendar_switch_full_size'))
           .strokeWidth(STROKE_WIDTH)
           .opacity(OPACITY)
+        // Row：水平布局容器
+        // 关键属性：点击事件回调、show
+        // 交互：可点击交互
         Row() {
-          Text($r('app.string.calendar_switch_end_time'))
+          // Text：文本
+          // 关键属性：高度、字号、字体颜色
+          Text($r('app.string.calendar_switch_end_time')).id('schedule_point_text_28')
             .height($r('app.integer.calendar_switch_size_forty_eight'))
             .fontSize($r('app.integer.calendar_switch_size_sixteen'))
             .fontColor(Color.Gray)
-          Text(this.scheduleEndTime)
+          // Text：文本
+          // 关键属性：字号
+          Text(this.scheduleEndTime).id('schedule_point_text_29')
             .fontSize($r('app.integer.calendar_switch_size_sixteen'))
-        }
+        }.id('schedule_point_row_27')
         .onClick(() => {
           DatePickerDialog.show({
             selected: this.endTime,
@@ -417,12 +533,14 @@ export struct SchedulePoint {
           right: $r('app.integer.calendar_switch_size_sixteen')
         })
 
-        Divider()
+        // Divider：分割线
+        // 关键属性：宽度、strokeWidth、透明度、reminderTime
+        Divider().id('schedule_point_divider_30')
           .width($r('app.string.calendar_switch_full_size'))
           .strokeWidth(STROKE_WIDTH)
           .opacity(OPACITY)
         this.reminderTime()
-      }
+      }.id('schedule_point_column_18')
       .padding({
         top: $r('app.integer.calendar_switch_size_four'),
         bottom: $r('app.integer.calendar_switch_size_four'),
@@ -433,14 +551,19 @@ export struct SchedulePoint {
       .backgroundColor(Color.White)
       .width($r('app.string.calendar_switch_full_size'))
 
+      // Column：垂直布局容器
+      // 关键属性：高度、背景色、内边距
       Column() {
-        TextArea({ placeholder: $r('app.string.calendar_switch_describe') })
+        // TextArea：多行输入框
+        // 关键属性：背景色、高度、内容变更回调
+        // 交互：输入/提交回调
+        TextArea({ placeholder: $r('app.string.calendar_switch_describe') }).id('schedule_point_text_area_32')
           .backgroundColor(Color.White)
           .height($r('app.string.calendar_switch_full_size'))
           .onChange((value: string) => {
             this.describe = value;
           })
-      }
+      }.id('schedule_point_column_31')
       .height($r('app.integer.calendar_switch_two_hundred_fifty'))
       .backgroundColor(Color.White)
       .padding({
@@ -450,7 +573,7 @@ export struct SchedulePoint {
         right: $r('app.integer.calendar_switch_margin_size_twelve')
       })
       .borderRadius($r('app.integer.calendar_switch_size_fourteen'))
-    }
+    }.id('schedule_point_column_13')
     .height($r('app.string.calendar_switch_full_size'))
     .padding({
       top: $r('app.integer.calendar_switch_size_ten'),
@@ -460,9 +583,14 @@ export struct SchedulePoint {
     .width($r('app.string.calendar_switch_full_size'))
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
     // 添加日程按钮
-    Image($r('app.media.calendar_switch_add'))
+    // Image：图片
+    // 关键属性：bindSheet、addScheduleInfo
+    Image($r('app.media.calendar_switch_add')).id('schedule_point_image_33')
       .bindSheet($$this.isShow, this.addScheduleInfo(), {
         height: $r('app.string.calendar_switch_full_size'),
         showClose: false,

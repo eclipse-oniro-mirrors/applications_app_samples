@@ -68,7 +68,7 @@ struct Index {
       throw new Error('Prepare a file before dragging');
     }
     const entry: uniformDataStruct.VirtualFileInfo = this.provider.createVirtualEntry();
-    // oriUri 是非空占位 URI，不要求文件已存在；落入方使用实际获取的 URI。
+    // oriUri是非空占位URI，不要求文件已存在；落入方使用实际获取的URI。
     const fileUri: uniformDataStruct.FileUri = {
       uniformDataType: 'general.file-uri',
       oriUri: `file:///virtual/${encodeURIComponent(entry.itemInfo.name)}`,
@@ -94,7 +94,7 @@ struct Index {
   }
 
   private handleUris(uris: string[]): void {
-    // 业务可在此根据 URI 读取、复制或打开文件，示例仅提示已接收。
+    // 业务可在此根据URI读取、复制或打开文件，示例仅提示已接收。
     this.getUIContext().getPromptAction().showToast({ message: $r('app.string.uris_received', uris.length) });
   }
 // [End virtual_drag_js_drop_result]

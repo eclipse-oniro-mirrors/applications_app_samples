@@ -198,7 +198,7 @@ export class SongUtils {
 }
 
 // 媒体库类型定义（需要根据实际API调整）
-interface MediaLibrary {
+export interface MediaLibrary {
   id: string;
   title: string;
   artist: string;

@@ -1,0 +1,184 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import {
+  prepareCase,
+  finishCase,
+  logSuite,
+  downloadFilesData,
+  selectDownloadPage,
+  hasId,
+} from '../Shared/SharedDriver';
+
+export default function downloadModelPart36Test(): void {
+  describe('DownloadModelPart36Test', (): void => {
+    beforeAll((): void => {
+      logSuite('DownloadModelPart36Test', 'started');
+    });
+    beforeEach((): void => {
+      logSuite('DownloadModelPart36Test', 'model fixture isolated');
+    });
+    afterEach(async (): Promise<void> => {
+      await finishCase();
+    });
+    afterAll((): void => {
+      logSuite('DownloadModelPart36Test', 'finished');
+    });
+
+    // @tc.number SAMPLE_DOWNLOAD_036_0100
+    // @tc.name downloadModelPart36Test001
+    // @tc.desc Verify downloadFilesData url with URL class 7 and timestamp 1
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('downloadModelPart36Test001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const first: downloadFilesData = new downloadFilesData('http://127.0.0.1:8080/a.zip', 0, 1);
+      const originalId: string = first.id;
+      const originalUrl: string = first.url;
+      const expectedUrl: string = 'http://127.0.0.1:8080/a.zip';
+      expect(originalUrl).assertEqual(expectedUrl);
+      const initialStatus: number = first.fileStatus;
+      const expectedStatus: number = 0;
+      expect(initialStatus).assertEqual(expectedStatus);
+      const initialTime: number = first.downloadTime;
+      const expectedTime: number = 1;
+      expect(initialTime).assertEqual(expectedTime);
+      const replacement: string = 'https://example.test/retry.bin';
+      first.url = replacement;
+      const actual: string = first.url;
+      expect(actual).assertEqual(replacement);
+      first.url = expectedUrl;
+      const restored: string = first.url;
+      expect(restored).assertEqual(expectedUrl);
+      const retainedTime: number = first.downloadTime;
+      expect(retainedTime).assertEqual(expectedTime);
+    });
+
+    // @tc.number SAMPLE_DOWNLOAD_036_0200
+    // @tc.name downloadModelPart36Test002
+    // @tc.desc Verify downloadFilesData time with URL class 7 and timestamp 1
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('downloadModelPart36Test002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const first: downloadFilesData = new downloadFilesData('http://127.0.0.1:8080/a.zip', 0, 1);
+      const originalId: string = first.id;
+      const originalUrl: string = first.url;
+      const expectedUrl: string = 'http://127.0.0.1:8080/a.zip';
+      expect(originalUrl).assertEqual(expectedUrl);
+      const initialStatus: number = first.fileStatus;
+      const expectedStatus: number = 0;
+      expect(initialStatus).assertEqual(expectedStatus);
+      const initialTime: number = first.downloadTime;
+      const expectedTime: number = 1;
+      expect(initialTime).assertEqual(expectedTime);
+      const updatedTime: number = expectedTime + 1;
+      first.downloadTime = updatedTime;
+      const actual: number = first.downloadTime;
+      expect(actual).assertEqual(updatedTime);
+      const retainedId: string = first.id;
+      expect(retainedId).assertEqual(originalId);
+      const retainedUrl: string = first.url;
+      expect(retainedUrl).assertEqual(expectedUrl);
+    });
+
+    // @tc.number SAMPLE_DOWNLOAD_036_0300
+    // @tc.name downloadModelPart36Test003
+    // @tc.desc Verify downloadFilesData identity with URL class 7 and timestamp 1
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('downloadModelPart36Test003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const first: downloadFilesData = new downloadFilesData('http://127.0.0.1:8080/a.zip', 0, 1);
+      const originalId: string = first.id;
+      const originalUrl: string = first.url;
+      const expectedUrl: string = 'http://127.0.0.1:8080/a.zip';
+      expect(originalUrl).assertEqual(expectedUrl);
+      const initialStatus: number = first.fileStatus;
+      const expectedStatus: number = 0;
+      expect(initialStatus).assertEqual(expectedStatus);
+      const initialTime: number = first.downloadTime;
+      const expectedTime: number = 1;
+      expect(initialTime).assertEqual(expectedTime);
+      const second: downloadFilesData = new downloadFilesData(first.url);
+      const third: downloadFilesData = new downloadFilesData(first.url);
+      const secondId: string = second.id;
+      const thirdId: string = third.id;
+      expect(secondId).not().assertEqual(originalId);
+      expect(thirdId).not().assertEqual(secondId);
+      expect(thirdId).not().assertEqual(originalId);
+      const idUnchanged: string = first.id;
+      expect(idUnchanged).assertEqual(originalId);
+    });
+
+    // @tc.number SAMPLE_DOWNLOAD_036_0400
+    // @tc.name downloadModelPart36Test004
+    // @tc.desc Verify downloadFilesData queue with URL class 7 and timestamp 1
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('downloadModelPart36Test004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const first: downloadFilesData = new downloadFilesData('http://127.0.0.1:8080/a.zip', 0, 1);
+      const originalId: string = first.id;
+      const originalUrl: string = first.url;
+      const expectedUrl: string = 'http://127.0.0.1:8080/a.zip';
+      expect(originalUrl).assertEqual(expectedUrl);
+      const initialStatus: number = first.fileStatus;
+      const expectedStatus: number = 0;
+      expect(initialStatus).assertEqual(expectedStatus);
+      const initialTime: number = first.downloadTime;
+      const expectedTime: number = 1;
+      expect(initialTime).assertEqual(expectedTime);
+      const second: downloadFilesData = new downloadFilesData(first.url);
+      const queue: downloadFilesData[] = [first, second];
+      const remaining: downloadFilesData[] = queue.filter((item: downloadFilesData): boolean => item.id !== originalId);
+      const remainingCount: number = remaining.length;
+      const expectedCount: number = 1;
+      expect(remainingCount).assertEqual(expectedCount);
+      const retainedId: string = remaining[0].id;
+      const secondId: string = second.id;
+      expect(retainedId).assertEqual(secondId);
+    });
+
+    // @tc.number SAMPLE_DOWNLOAD_036_0500
+    // @tc.name downloadModelPart36Test005
+    // @tc.desc Verify downloadFilesData history with URL class 7 and timestamp 1
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('downloadModelPart36Test005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const first: downloadFilesData = new downloadFilesData('http://127.0.0.1:8080/a.zip', 0, 1);
+      const originalId: string = first.id;
+      const originalUrl: string = first.url;
+      const expectedUrl: string = 'http://127.0.0.1:8080/a.zip';
+      expect(originalUrl).assertEqual(expectedUrl);
+      const initialStatus: number = first.fileStatus;
+      const expectedStatus: number = 0;
+      expect(initialStatus).assertEqual(expectedStatus);
+      const initialTime: number = first.downloadTime;
+      const expectedTime: number = 1;
+      expect(initialTime).assertEqual(expectedTime);
+      const history: downloadFilesData[] = [];
+      first.fileStatus = 1;
+      history.push(first);
+      const storedUrl: string = history[0].url;
+      expect(storedUrl).assertEqual(expectedUrl);
+      const storedTime: number = history[0].downloadTime;
+      expect(storedTime).assertEqual(expectedTime);
+      const storedId: string = history[0].id;
+      expect(storedId).assertEqual(originalId);
+    });
+  });
+}

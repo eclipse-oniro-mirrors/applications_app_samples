@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1280" viewBox="0 0 720 1280">
+  <rect width="720" height="1280" fill="#F1F3F5"/>
+
+  <!-- status bar -->
+  <text x="40" y="52" font-size="26" fill="#182431">没有 SIM 卡</text>
+  <text x="600" y="52" font-size="26" fill="#182431">11%</text>
+  <text x="650" y="52" font-size="26" fill="#182431">05:10</text>
+
+  <!-- page title -->
+  <text x="36" y="128" font-size="38" font-weight="bold" fill="#182431">包管理接口</text>
+
+  <!-- group: bundle info -->
+  <text x="36" y="196" font-size="26" fill="#666666">获取当前应用的BundleInfo</text>
+  <rect x="20" y="216" width="680" height="196" rx="40" fill="#FFFFFF"/>
+  <text x="48" y="272" font-size="32" font-weight="bold" fill="#182431">获取BundleInfo</text>
+  <line x1="48" y1="308" x2="672" y2="308" stroke="#E5E5E5" stroke-width="2"/>
+  <text x="48" y="364" font-size="32" font-weight="bold"
+    fill="#182431">获取BundleInfo(sync)</text>
+
+  <!-- group: profile -->
+  <text x="36" y="452" font-size="26" fill="#666666">获取配置</text>
+  <rect x="20" y="472" width="680" height="296" rx="40" fill="#FFFFFF"/>
+  <text x="48" y="528" font-size="32" font-weight="bold" fill="#182431">获取配置json</text>
+  <line x1="48" y1="564" x2="672" y2="564" stroke="#E5E5E5" stroke-width="2"/>
+  <text x="48" y="620" font-size="32" font-weight="bold" fill="#182431">获取配置数组</text>
+  <line x1="48" y1="656" x2="672" y2="656" stroke="#E5E5E5" stroke-width="2"/>
+  <text x="48" y="712" font-size="32" font-weight="bold"
+    fill="#182431">获取配置json(sync)</text>
+
+  <!-- group: abc file -->
+  <text x="36" y="800" font-size="26" fill="#666666">校验.abc文件</text>
+  <rect x="20" y="820" width="680" height="196" rx="40" fill="#FFFFFF"/>
+  <text x="48" y="876" font-size="32" font-weight="bold" fill="#182431">校验.abc文件</text>
+  <line x1="48" y1="912" x2="672" y2="912" stroke="#E5E5E5" stroke-width="2"/>
+  <text x="48" y="968" font-size="32" font-weight="bold" fill="#182431">删除.abc文件</text>
+
+  <!-- group: link -->
+  <text x="36" y="1056" font-size="26" fill="#666666">校验链接</text>
+  <rect x="20" y="1076" width="680" height="96" rx="40" fill="#FFFFFF"/>
+  <text x="48" y="1132" font-size="32" font-weight="bold"
+    fill="#182431">校验链接是否可打开</text>
+
+  <!-- bottom navigation -->
+  <rect x="0" y="1180" width="720" height="100" fill="#FFFFFF"/>
+  <path d="M 300 1210 L 282 1235 L 318 1235 Z" fill="none"
+    stroke="#182431" stroke-width="4"/>
+  <circle cx="360" cy="1222" r="17" fill="none" stroke="#182431" stroke-width="4"/>
+  <rect x="423" y="1205" width="34" height="34" rx="4" fill="none"
+    stroke="#182431" stroke-width="4"/>
+</svg>

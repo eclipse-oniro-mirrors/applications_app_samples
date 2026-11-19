@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/DataSource.ets
+ * 文件职责：DataSource 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：BasicDataSource、MemoDataSource。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { MEMO_DATA} from './MockData';
 import { MemoInfo } from './MemoInfo';
 
@@ -22,20 +29,30 @@ import { MemoInfo } from './MemoInfo';
 class BasicDataSource implements IDataSource {
   // 数据变化监听器
   private listeners: DataChangeListener[] = [];
+
   // 需要进行数据迭代的数据源
   private originDataArray: MemoInfo[] = [];
 
   // 获取数据的长度
+  /**
+   * totalCount：执行 totalCount 相关逻辑。
+   */
   public totalCount(): number {
     return 0;
   }
 
   // 获取指定数据项
+  /**
+   * getData：执行 getData 相关逻辑。
+   */
   public getData(index: number): MemoInfo {
     return this.originDataArray[index];
   }
 
   // 该方法为框架侧调用，为LazyForEach组件向其数据源处添加listener监听
+  /**
+   * registerDataChangeListener：执行 registerDataChangeListener 相关逻辑。
+   */
   registerDataChangeListener(listener: DataChangeListener): void {
     if (this.listeners.indexOf(listener) < 0) {
       this.listeners.push(listener);
@@ -43,6 +60,9 @@ class BasicDataSource implements IDataSource {
   }
 
   // 该方法为框架侧调用，为对应的LazyForEach组件在数据源处去除listener监听
+  /**
+   * unregisterDataChangeListener：执行 unregisterDataChangeListener 相关逻辑。
+   */
   unregisterDataChangeListener(listener: DataChangeListener): void {
     const pos = this.listeners.indexOf(listener);
     if (pos >= 0) {
@@ -51,6 +71,9 @@ class BasicDataSource implements IDataSource {
   }
 
   // 通知LazyForEach组件需要重载所有子组件
+  /**
+   * notifyDataReload：执行 notifyDataReload 相关逻辑。
+   */
   notifyDataReload(): void {
     this.listeners.forEach(listener => {
       listener.onDataReloaded();
@@ -58,6 +81,9 @@ class BasicDataSource implements IDataSource {
   }
 
   // 通知LazyForEach组件需要在index对应索引处添加子组件
+  /**
+   * notifyDataAdd：执行 notifyDataAdd 相关逻辑。
+   */
   notifyDataAdd(index: number): void {
     this.listeners.forEach(listener => {
       listener.onDataAdd(index);
@@ -65,6 +91,9 @@ class BasicDataSource implements IDataSource {
   }
 
   // 通知LazyForEach组件在index对应索引处数据有变化，需要重建该子组件
+  /**
+   * notifyDataChange：执行 notifyDataChange 相关逻辑。
+   */
   notifyDataChange(index: number): void {
     this.listeners.forEach(listener => {
       listener.onDataChange(index);
@@ -72,6 +101,9 @@ class BasicDataSource implements IDataSource {
   }
 
   // 通知LazyForEach组件需要在index对应索引处删除该子组件
+  /**
+   * notifyDataDelete：执行 notifyDataDelete 相关逻辑。
+   */
   notifyDataDelete(index: number): void {
     this.listeners.forEach(listener => {
       listener.onDataDelete(index);
@@ -83,19 +115,28 @@ class BasicDataSource implements IDataSource {
  * 实现BasicDataSource接口的类，用于进行Memo数据懒加载迭代的数据源
  */
 export class MemoDataSource extends BasicDataSource {
-  // 懒加载数据
-  private memoData: Array<MemoInfo> = MEMO_DATA;
+  // 懒加载数据（每个数据源持有独立副本，避免 pushData 污染共享的 MEMO_DATA）
+  private memoData: Array<MemoInfo> = MEMO_DATA.slice();
 
+  /**
+   * totalCount：执行 totalCount 相关逻辑。
+   */
   totalCount(): number {
     return this.memoData.length;
   }
 
   // 获取指定数据项
+  /**
+   * getData：执行 getData 相关逻辑。
+   */
   getData(index: number): MemoInfo {
     return this.memoData[index];
   }
 
   // 存储数据到懒加载数据源中
+  /**
+   * pushData：执行 pushData 相关逻辑。
+   */
   pushData(data: MemoInfo): void {
     this.memoData.push(data);
     // 在数组头部添加数据

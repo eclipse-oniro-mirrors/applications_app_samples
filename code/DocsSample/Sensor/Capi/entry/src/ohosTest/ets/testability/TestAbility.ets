@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,49 +15,71 @@
 
 import UIAbility from '@ohos.app.ability.UIAbility';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import AbilityConstant from '@ohos.app.ability.AbilityConstant';
+import Want from '@ohos.app.ability.Want';
 import hilog from '@ohos.hilog';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
 import window from '@ohos.window';
 
+const DOMAIN: number = 0xF811;
+const TAG: string = 'SensorTestAbility';
+
 export default class TestAbility extends UIAbility {
-    onCreate(want, launchParam) {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onCreate');
-        hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
-        hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:'+ JSON.stringify(launchParam) ?? '');
-        var abilityDelegator: any
-        abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
-        var abilityDelegatorArguments: any
-        abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
-        hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
-        Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
-    }
+  private testsStarted: boolean = false;
 
-    onDestroy() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onDestroy');
-    }
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility created');
+    hilog.info(DOMAIN, TAG, 'Requested ability: %{public}s', want.abilityName);
+    hilog.info(DOMAIN, TAG, 'Launch reason: %{public}d', launchParam.launchReason);
+  }
 
-    onWindowStageCreate(windowStage: window.WindowStage) {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageCreate');
-        windowStage.loadContent('testability/pages/Index', (err, data) => {
-            if (err.code) {
-                hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
-                return;
-            }
-            hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s',
-                JSON.stringify(data) ?? '');
-        });
+  private startTests(): void {
+    if (this.testsStarted) {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'Test execution already started');
+      return;
     }
+    this.testsStarted = true;
+    const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+    const args = AbilityDelegatorRegistry.getArguments();
+    hilog.info(DOMAIN, TAG, 'Running tests for %{public}s', args.bundleName);
+    Hypium.hypiumTest(delegator, args, testsuite);
+  }
 
-    onWindowStageDestroy() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageDestroy');
-    }
+  private reportStartupFailure(code: number, message: string): void {
+    hilog.error(DOMAIN, TAG, 'Test page failed: %{public}d %{public}s', code, message);
+    const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+    delegator.finishTest('Sensor test page failed: ' + message, -1);
+  }
 
-    onForeground() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onForeground');
-    }
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'Test window created');
+    windowStage.loadContent('testability/pages/Index', (error) => {
+      if (error.code !== 0) {
+        this.reportStartupFailure(error.code, error.message);
+        return;
+      }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'Test page loaded');
+      this.startTests();
+    });
+  }
 
-    onBackground() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onBackground');
-    }
+  onWindowStageDestroy(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'Test window destroyed');
+  }
+
+  onForeground(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility foreground');
+    hilog.debug(DOMAIN, TAG, 'Tests started: %{public}s', String(this.testsStarted));
+  }
+
+  onBackground(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility background');
+    hilog.debug(DOMAIN, TAG, 'Tests started: %{public}s', String(this.testsStarted));
+  }
+
+  onDestroy(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility destroyed');
+    this.testsStarted = false;
+  }
 }

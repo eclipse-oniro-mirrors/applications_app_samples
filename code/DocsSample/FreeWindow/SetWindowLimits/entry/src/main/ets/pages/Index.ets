@@ -21,6 +21,7 @@ struct Index {
       Row() {
         Column() {
           Text('窗口最小宽度 minWindowWidth: 600px')
+            .id('messageText')
           Text('窗口最小高度 minWindowHeight: 500px')
           Text('窗口最大宽度 maxWindowWidth: 800px')
           Text('窗口最大高度 maxWindowHeight: 600px')

@@ -16,7 +16,7 @@ import { uniformTypeDescriptor } from '@kit.ArkData';
 import type { uniformDataStruct, unifiedDataChannel } from '@kit.ArkData';
 
 // [Start virtual_drag_receive]
-// 获取落入数据中的文件 URI，不读取文件内容。
+// 获取落入数据中的文件URI，不读取文件内容。
 export function getDroppedFileUris(event: DragEvent): string[] {
   const uris: string[] = [];
   const records: unifiedDataChannel.UnifiedRecord[] = event.getData().getRecords();
