@@ -14,6 +14,8 @@
  */
 
 import UIAbility from '@ohos.app.ability.UIAbility';
+import window from '@ohos.window';
+import Want from '@ohos.app.ability.Want';
 import commonEvent from '@ohos.commonEventManager';
 import consts from '../module/Consts';
 import dataPreferences from '@ohos.data.preferences';
@@ -21,7 +23,7 @@ import surveillanceEventsManager from '../module/SurveillanceEventsManager';
 import Logger from '../module/Logger';
 
 export default class LauncherAbility extends UIAbility {
-  onCreate(want) {
+  onCreate(want: Want): void {
     globalThis.abilityWant = want;
     let settings: Map<string, number> = new Map();
     surveillanceEventsManager.surveillanceEvents.forEach((element: string) => {
@@ -32,22 +34,20 @@ export default class LauncherAbility extends UIAbility {
     Logger.info(`LauncherAbility onCreate, settings.size = ${globalThis.settings.size}`)
   }
 
-  async onDestroy() {
+  async onDestroy(): Promise<void> {
     Logger.info("LauncherAbility onDestroy")
     globalThis.settings.forEach((value: number, key: string) => {
       if (value == consts.ENABLE_STATE_ONCE) {
         globalThis.settings.set(key, consts.ENABLE_STATE_NEVER);
       }
     });
-    let thisPref = null;
-    await dataPreferences.getPreferences(this.context, consts.DATA_BASE_NAME).then((pref) => {
-      thisPref = pref;
-    });
+    let thisPref: dataPreferences.Preferences =
+      await dataPreferences.getPreferences(this.context, consts.DATA_BASE_NAME);
     for (let element of surveillanceEventsManager.surveillanceEvents) {
       await thisPref.put(element, globalThis.settings.get(element));
     };
     await thisPref.flush();
-    let options = {
+    let options: commonEvent.CommonEventPublishData = {
       isSticky: true,
       parameters: surveillanceEventsManager.getSurveillanceEventStates()
     };
@@ -56,7 +56,7 @@ export default class LauncherAbility extends UIAbility {
     });
   }
 
-  onWindowStageCreate(windowStage) {
+  onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     windowStage.loadContent("pages/Launch", (err, data) => {
       if (err.code) {
@@ -67,17 +67,17 @@ export default class LauncherAbility extends UIAbility {
     });
   }
 
-  onWindowStageDestroy() {
+  onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
     Logger.info("LauncherAbility onWindowStageDestroy");
   }
 
-  onForeground() {
+  onForeground(): void {
     // Ability has brought to foreground
     Logger.info("LauncherAbility onForeground");
   }
 
-  onBackground() {
+  onBackground(): void {
     // Ability has back to background
     Logger.info("LauncherAbility onBackground");
   }

@@ -19,7 +19,7 @@ export default class utils {
   }
 
   static convertTimeToFormatString(n: number): string {
-    let totalTimeInSec = Math.floor(n / 1000)
+    let totalTimeInSec: number = Math.floor(n / 1000)
     let hour: number = Math.floor(totalTimeInSec / 3600)
     let min: number = Math.floor((totalTimeInSec % 3600) / 60)
     let sec: number = (totalTimeInSec % 3600) % 60

@@ -32,6 +32,23 @@ export default class LaunchFeature {
     this.innerContext = abilityContext;
   }
 
+  static trimRecords(records: Array<string>): Array<string> {
+    return records.slice(consts.MAX_RECORD_NUM, consts.MAX_RECORD_NUM + 1);
+  }
+
+  static buildDetail(params: Record<string, string>): Array<string> {
+    const detail: Array<string> = [];
+    detail.push(params['startTime']);
+    detail.push(params['endTime']);
+    detail.push(params['totalTime']);
+    detail.push(params['totalEvents']);
+    return detail;
+  }
+
+  static reachedRecordLimit(current: number): boolean {
+    return current >= consts.MAX_RECORD_NUM;
+  }
+
   async init(): Promise<void> {
     await dataPreferences.getPreferences(this.innerContext, consts.DATA_BASE_NAME).then((pref) => {
       this.pref = pref;
@@ -57,11 +74,13 @@ export default class LaunchFeature {
     value.push(event.parameters[consts.DATA_BASE_KEY_START_TIME]);
     // refresh database
     this.pref.put(consts.DATA_BASE_KEY_TOTAL_TIMES, value).then(() => {
-      let detail: Array<string> = [];
-      detail.push(event.parameters["startTime"]);
-      detail.push(event.parameters["endTime"]);
-      detail.push(event.parameters["totalTime"]);
-      detail.push(event.parameters["totalEvents"]);
+      let params: Record<string, string> = {
+        'startTime': event.parameters['startTime'],
+        'endTime': event.parameters['endTime'],
+        'totalTime': event.parameters['totalTime'],
+        'totalEvents': event.parameters['totalEvents']
+      };
+      let detail: Array<string> = LaunchFeature.buildDetail(params);
       this.pref.put(event.parameters[consts.DATA_BASE_KEY_START_TIME], detail).then(() => {
         this.pref.flush()
       })
@@ -78,7 +97,7 @@ export default class LaunchFeature {
         let value: Array<string> = [];
         this.insertRecord(event, value);
       }
-      if (this.currentRecordTimes >= consts.MAX_RECORD_NUM) {
+      if (LaunchFeature.reachedRecordLimit(this.currentRecordTimes)) {
         this.subscriber.finishCommonEvent();
         return;
       }
@@ -97,16 +116,16 @@ export default class LaunchFeature {
           this.subscriberLow.finishCommonEvent();
         })
       }
-      let records = value.slice(consts.MAX_RECORD_NUM, consts.MAX_RECORD_NUM + 1);
+      let records: Array<string> = LaunchFeature.trimRecords(value);
       this.pref.put(consts.DATA_BASE_KEY_TOTAL_TIMES, records);
       this.pref.flush();
     })
   }
 
-  jumpToStart = () => {
+  public jumpToStart = () => {
     // subscribe
     if (this.subscriber == null) {
-      let highSubscriberInfo = {
+      let highSubscriberInfo: commonEvent.CommonEventSubscribeInfo = {
         events: [
           consts.COMMON_EVENT_FINISH_MEDITATION // unordered self defined event
         ],
@@ -121,7 +140,7 @@ export default class LaunchFeature {
     }
     // subscribe
     if (this.subscriberLow == null) {
-      let lowSubscriberInfo = {
+      let lowSubscriberInfo: commonEvent.CommonEventSubscribeInfo = {
         events: [
           consts.COMMON_EVENT_FINISH_MEDITATION // unordered self defined event
         ],
@@ -134,14 +153,14 @@ export default class LaunchFeature {
         }
       });
     }
-    let want = {
+    let want: Want = {
       bundleName: 'com.samples.customcommonevent',
       abilityName: 'MainAbility',
     };
     this.innerContext.startAbility(want);
   }
 
-  jumpToHistory = () => {
+  public jumpToHistory = () => {
     Logger.info("ready to jump to history page");
     router.pushUrl({
       url: 'pages/History',
@@ -149,7 +168,7 @@ export default class LaunchFeature {
     });
   }
 
-  jumpToSetting = () => {
+  public jumpToSetting = () => {
     Logger.info("ready to jump to setting page");
     router.pushUrl({
       url: 'pages/Setting',
@@ -157,7 +176,7 @@ export default class LaunchFeature {
     });
   }
 
-  jumpToAbout = () => {
+  public jumpToAbout = () => {
     Logger.info("ready to jump to about page");
     router.pushUrl({
       url: 'pages/About',
@@ -165,14 +184,14 @@ export default class LaunchFeature {
     });
   }
 
-  jumpToCommonEvent = (): void => {
+  public jumpToCommonEvent = (): void => {
     Logger.info('ready to jump to commonEvent page');
     let context: common.UIAbilityContext | undefined = AppStorage.get('context');
     let want: Want = {
       bundleName: "com.samples.cardevent",
       abilityName: "EntryAbility",
     };
-    context && context.startAbility(want,  (err) => {
+    context && context.startAbility(want, (err) => {
       if (err.code) {
         Logger.error('StartAbility', `Failed to startAbility. Code: ${err.code}, message: ${err.message}`);
       }

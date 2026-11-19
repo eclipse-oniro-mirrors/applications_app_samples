@@ -21,7 +21,7 @@ import launchFeature from '../feature/LaunchFeature'
 struct Launch {
   private feature :launchFeature = new launchFeature(getContext() as common.UIAbilityContext)
 
-  async onPageShow() {
+  async onPageShow(): Promise<void> {
     await this.feature.init()
   }
 

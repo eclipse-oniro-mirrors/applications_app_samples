@@ -17,6 +17,7 @@ import prompt from '@ohos.promptAction';
 import commonEvent from '@ohos.commonEventManager';
 import Base from '@ohos.base';
 import Logger from '../module/Logger'
+import { CardEventFeature } from '../feature/CardEventFeature'
 
 interface Form {
   id: number
@@ -58,20 +59,11 @@ struct CardExample {
     }
   }
   private eventCallBackPrompt = () => {
-    if (!this.isSubscribeEvents) {
-      return;
+    const action: number = CardEventFeature.resolveToastAction(this.eventData, this.eventDataBundleName, this.isSubscribeEvents);
+    if (action === CardEventFeature.TOAST_BUNDLE_NAME_EVENT_RECEIVE) {
+      prompt.showToast({ message: $r('app.string.BundleNameEventReceive'), duration: 3000 });
     }
-    if (this.eventData == 'InApp') {
-      if (this.eventDataBundleName == this.eventData) {
-        prompt.showToast({ message: $r('app.string.BundleNameEventReceive'), duration: 3000 });
-      } else {
-        return;
-      }
-    }
-    if (this.eventData == 'OutApp') {
-      if (this.eventDataBundleName == this.eventData) {
-        return;
-      }
+    if (action === CardEventFeature.TOAST_EVENT_RECEIVE) {
       prompt.showToast({ message: $r('app.string.EventReceive'), duration: 3000 });
     }
   }
@@ -136,9 +128,9 @@ struct CardExample {
                   .textAlign(TextAlign.Start)
               }
               .width('336vp')
-              .margin({
-                top: $r('app.float.12vp')
-              })
+                .margin({
+                  top: $r('app.float.12vp')
+                })
             }
 
             ListItem() {
@@ -166,10 +158,10 @@ struct CardExample {
                     })
                 }
                 .alignItems(HorizontalAlign.Start)
-                .margin({
-                  left: $r('app.float.12vp')
-                })
-                .padding(0)
+                  .margin({
+                    left: $r('app.float.12vp')
+                  })
+                  .padding(0)
 
                 Column() {
                   Button(this.buttonText)
@@ -200,16 +192,16 @@ struct CardExample {
                 .padding(0)
               }
               .padding(0)
-              .alignItems(VerticalAlign.Center)
+                .alignItems(VerticalAlign.Center)
             }
             .padding(0)
-            .margin({
-              top: $r('app.float.11vp')
-            })
-            .borderRadius($r('app.float.24vp'))
-            .backgroundColor($r('app.color.white'))
-            .width($r('app.float.336vp'))
-            .height($r('app.float.72vp'))
+              .margin({
+                top: $r('app.float.11vp')
+              })
+              .borderRadius($r('app.float.24vp'))
+              .backgroundColor($r('app.color.white'))
+              .width($r('app.float.336vp'))
+              .height($r('app.float.72vp'))
 
             ListItem() {
               Column() {
@@ -265,7 +257,7 @@ struct CardExample {
       .width('100%')
     }
     .alignItems(VerticalAlign.Top)
-    .backgroundColor($r('app.color.page_background'))
-    .height('100%')
+      .backgroundColor($r('app.color.page_background'))
+      .height('100%')
   }
 }

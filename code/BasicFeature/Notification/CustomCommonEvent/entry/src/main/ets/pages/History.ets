@@ -18,7 +18,7 @@ import historyFeature from '../feature/HistoryFeature';
 import { Header } from '../component/Header';
 import Logger from '../module/Logger';
 
-const TAG: string = '[Sample_CustomCommonEvent_History]';
+const TAG: string = '[Sample_CustomCommonEvent]';
 
 @Entry
 @Component
@@ -26,9 +26,9 @@ struct History {
   private feature: historyFeature = new historyFeature(getContext() as common.UIAbilityContext);
   @State arr: Array<Array<string>> = [];
 
-  async onPageShow() {
+  async onPageShow(): Promise<void> {
     this.feature.getData().then((data: Array<Array<string>>) => {
-      this.arr = data;
+      this.arr = data.filter((item: Array<string>) => historyFeature.isCompleteRecord(item));
       Logger.info('mst arr is ' + JSON.stringify(this.arr.length));
       Logger.info('mst arr is ' + JSON.stringify(this.arr));
     });
@@ -87,23 +87,24 @@ struct History {
                 }.size({ width: '80%', height: '20%' })
               }
             }.size({ width: '100%', height: '18%' })
-            .backgroundColor(0xFFFFFF)
-            .borderRadius(10)
-            .opacity(0.8)
+              .backgroundColor(0xFFFFFF)
+              .borderRadius(10)
+              .opacity(0.8)
           }, (item: Array<string>) => JSON.stringify(item))
         }
-        .listDirection(Axis.Vertical)
-        .chainAnimation(false)
-        .width('90%')
-        .margin(10)
+        .id('historyRecordList')
+          .listDirection(Axis.Vertical)
+          .chainAnimation(false)
+          .width('90%')
+          .margin(10)
       }
       .size({ width: '90%', height: '85%' })
-      .backgroundColor(0xfbfafb)
-      .opacity(0.8)
-      .position({ x: '5%', y: '10%' })
-      .borderRadius(10)
+        .backgroundColor(0xfbfafb)
+        .opacity(0.8)
+        .position({ x: '5%', y: '10%' })
+        .borderRadius(10)
     }.size({ width: '100%', height: '100%' })
-    .backgroundImage($rawfile('vbg720.png'))
-    .backgroundImageSize(ImageSize.Contain)
+      .backgroundImage($rawfile('vbg720.png'))
+      .backgroundImageSize(ImageSize.Contain)
   }
 }
