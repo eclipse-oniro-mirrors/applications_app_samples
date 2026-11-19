@@ -743,524 +743,18 @@ class GestureRecognitionCheck22 {
     return valid / total;
   }
 }
-class GestureRecognitionTrack23 {
-  private seen: string[] = [];
-
-  public mark(key: string): boolean {
-    if (this.seen.indexOf(key) >= 0) {
-      return false;
-    }
-    this.seen.push(key);
-    return true;
-  }
-
-  public has(key: string): boolean {
-    return this.seen.indexOf(key) >= 0;
-  }
-
-  public size(): number {
-    return this.seen.length;
-  }
-
-  public reset(): void {
-    this.seen = [];
-  }
-}
-class GestureRecognitionMap24 {
-  private values: Map<string, number> = new Map<string, number>();
-
-  public add(key: string, value: number): boolean {
-    if (key.length === 0) {
-      return false;
-    }
-    this.values.set(key, value);
-    return true;
-  }
-
-  public get(key: string): number {
-    return this.values.get(key) ?? 0;
-  }
-
-  public size(): number {
-    return this.values.size;
-  }
-
-  public total(): number {
-    let sum: number = 0;
-    this.values.forEach((value: number) => {
-      sum += value;
-    });
-    return sum;
-  }
-}
-class GestureRecognitionQueue25 {
-  private items: string[] = [];
-
-  public push(item: string): void {
-    this.items.push(item);
-  }
-
-  public shift(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items.shift() ?? '';
-  }
-
-  public peek(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items[0];
-  }
-
-  public size(): number {
-    return this.items.length;
-  }
-
-  public isEmpty(): boolean {
-    return this.items.length === 0;
-  }
-}
-class GestureRecognitionCheck26 {
-  private limit: number;
-
-  constructor(limit: number = 10) {
-    this.limit = limit;
-  }
-
-  public within(value: number): boolean {
-    return value >= 0 && value <= this.limit;
-  }
-
-  public nonEmpty(value: string): boolean {
-    return value.length > 0;
-  }
-
-  public rate(valid: number, total: number): number {
-    if (total === 0) {
-      return 0;
-    }
-    return valid / total;
-  }
-}
-class GestureRecognitionTrack27 {
-  private seen: string[] = [];
-
-  public mark(key: string): boolean {
-    if (this.seen.indexOf(key) >= 0) {
-      return false;
-    }
-    this.seen.push(key);
-    return true;
-  }
-
-  public has(key: string): boolean {
-    return this.seen.indexOf(key) >= 0;
-  }
-
-  public size(): number {
-    return this.seen.length;
-  }
-
-  public reset(): void {
-    this.seen = [];
-  }
-}
-class GestureRecognitionMap28 {
-  private values: Map<string, number> = new Map<string, number>();
-
-  public add(key: string, value: number): boolean {
-    if (key.length === 0) {
-      return false;
-    }
-    this.values.set(key, value);
-    return true;
-  }
-
-  public get(key: string): number {
-    return this.values.get(key) ?? 0;
-  }
-
-  public size(): number {
-    return this.values.size;
-  }
-
-  public total(): number {
-    let sum: number = 0;
-    this.values.forEach((value: number) => {
-      sum += value;
-    });
-    return sum;
-  }
-}
-class GestureRecognitionQueue29 {
-  private items: string[] = [];
-
-  public push(item: string): void {
-    this.items.push(item);
-  }
-
-  public shift(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items.shift() ?? '';
-  }
-
-  public peek(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items[0];
-  }
-
-  public size(): number {
-    return this.items.length;
-  }
-
-  public isEmpty(): boolean {
-    return this.items.length === 0;
-  }
-}
-class GestureRecognitionCheck30 {
-  private limit: number;
-
-  constructor(limit: number = 10) {
-    this.limit = limit;
-  }
-
-  public within(value: number): boolean {
-    return value >= 0 && value <= this.limit;
-  }
-
-  public nonEmpty(value: string): boolean {
-    return value.length > 0;
-  }
-
-  public rate(valid: number, total: number): number {
-    if (total === 0) {
-      return 0;
-    }
-    return valid / total;
-  }
-}
-class GestureRecognitionTrack31 {
-  private seen: string[] = [];
-
-  public mark(key: string): boolean {
-    if (this.seen.indexOf(key) >= 0) {
-      return false;
-    }
-    this.seen.push(key);
-    return true;
-  }
-
-  public has(key: string): boolean {
-    return this.seen.indexOf(key) >= 0;
-  }
-
-  public size(): number {
-    return this.seen.length;
-  }
-
-  public reset(): void {
-    this.seen = [];
-  }
-}
-class GestureRecognitionMap32 {
-  private values: Map<string, number> = new Map<string, number>();
-
-  public add(key: string, value: number): boolean {
-    if (key.length === 0) {
-      return false;
-    }
-    this.values.set(key, value);
-    return true;
-  }
-
-  public get(key: string): number {
-    return this.values.get(key) ?? 0;
-  }
-
-  public size(): number {
-    return this.values.size;
-  }
-
-  public total(): number {
-    let sum: number = 0;
-    this.values.forEach((value: number) => {
-      sum += value;
-    });
-    return sum;
-  }
-}
-class GestureRecognitionQueue33 {
-  private items: string[] = [];
-
-  public push(item: string): void {
-    this.items.push(item);
-  }
-
-  public shift(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items.shift() ?? '';
-  }
-
-  public peek(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items[0];
-  }
-
-  public size(): number {
-    return this.items.length;
-  }
-
-  public isEmpty(): boolean {
-    return this.items.length === 0;
-  }
-}
-class GestureRecognitionCheck34 {
-  private limit: number;
-
-  constructor(limit: number = 10) {
-    this.limit = limit;
-  }
-
-  public within(value: number): boolean {
-    return value >= 0 && value <= this.limit;
-  }
-
-  public nonEmpty(value: string): boolean {
-    return value.length > 0;
-  }
-
-  public rate(valid: number, total: number): number {
-    if (total === 0) {
-      return 0;
-    }
-    return valid / total;
-  }
-}
-class GestureRecognitionTrack35 {
-  private seen: string[] = [];
-
-  public mark(key: string): boolean {
-    if (this.seen.indexOf(key) >= 0) {
-      return false;
-    }
-    this.seen.push(key);
-    return true;
-  }
-
-  public has(key: string): boolean {
-    return this.seen.indexOf(key) >= 0;
-  }
-
-  public size(): number {
-    return this.seen.length;
-  }
-
-  public reset(): void {
-    this.seen = [];
-  }
-}
-class GestureRecognitionMap36 {
-  private values: Map<string, number> = new Map<string, number>();
-
-  public add(key: string, value: number): boolean {
-    if (key.length === 0) {
-      return false;
-    }
-    this.values.set(key, value);
-    return true;
-  }
-
-  public get(key: string): number {
-    return this.values.get(key) ?? 0;
-  }
-
-  public size(): number {
-    return this.values.size;
-  }
-
-  public total(): number {
-    let sum: number = 0;
-    this.values.forEach((value: number) => {
-      sum += value;
-    });
-    return sum;
-  }
-}
-class GestureRecognitionQueue37 {
-  private items: string[] = [];
-
-  public push(item: string): void {
-    this.items.push(item);
-  }
-
-  public shift(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items.shift() ?? '';
-  }
-
-  public peek(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items[0];
-  }
-
-  public size(): number {
-    return this.items.length;
-  }
-
-  public isEmpty(): boolean {
-    return this.items.length === 0;
-  }
-}
-class GestureRecognitionCheck38 {
-  private limit: number;
-
-  constructor(limit: number = 10) {
-    this.limit = limit;
-  }
-
-  public within(value: number): boolean {
-    return value >= 0 && value <= this.limit;
-  }
-
-  public nonEmpty(value: string): boolean {
-    return value.length > 0;
-  }
-
-  public rate(valid: number, total: number): number {
-    if (total === 0) {
-      return 0;
-    }
-    return valid / total;
-  }
-}
-class GestureRecognitionTrack39 {
-  private seen: string[] = [];
-
-  public mark(key: string): boolean {
-    if (this.seen.indexOf(key) >= 0) {
-      return false;
-    }
-    this.seen.push(key);
-    return true;
-  }
-
-  public has(key: string): boolean {
-    return this.seen.indexOf(key) >= 0;
-  }
-
-  public size(): number {
-    return this.seen.length;
-  }
-
-  public reset(): void {
-    this.seen = [];
-  }
-}
-class GestureRecognitionMap40 {
-  private values: Map<string, number> = new Map<string, number>();
-
-  public add(key: string, value: number): boolean {
-    if (key.length === 0) {
-      return false;
-    }
-    this.values.set(key, value);
-    return true;
-  }
-
-  public get(key: string): number {
-    return this.values.get(key) ?? 0;
-  }
-
-  public size(): number {
-    return this.values.size;
-  }
-
-  public total(): number {
-    let sum: number = 0;
-    this.values.forEach((value: number) => {
-      sum += value;
-    });
-    return sum;
-  }
-}
-class GestureRecognitionQueue41 {
-  private items: string[] = [];
-
-  public push(item: string): void {
-    this.items.push(item);
-  }
-
-  public shift(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items.shift() ?? '';
-  }
-
-  public peek(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items[0];
-  }
-
-  public size(): number {
-    return this.items.length;
-  }
-
-  public isEmpty(): boolean {
-    return this.items.length === 0;
-  }
-}
-class GestureRecognitionCheck42 {
-  private limit: number;
-
-  constructor(limit: number = 10) {
-    this.limit = limit;
-  }
-
-  public within(value: number): boolean {
-    return value >= 0 && value <= this.limit;
-  }
-
-  public nonEmpty(value: string): boolean {
-    return value.length > 0;
-  }
-
-  public rate(valid: number, total: number): number {
-    if (total === 0) {
-      return 0;
-    }
-    return valid / total;
-  }
-}
 
 export default function gestureRecognitionTest() {
   describe('GestureRecognition_Test', () => {
-
     it('gestureRecognitionTest_share_registry_0', 0, async () => {
-      await yieldTick();
+      if (0 % 25 === 0) { await yieldTick(); }
       const registry = new GestureRecognitionRegistry();
       expect(registry.register({ id: 0, label: 'share_0', kind: GestureRecognitionKind.LINK, enabled: true })).assertTrue();
       expect(registry.contains(0)).assertTrue();
       expect(registry.size()).assertEqual(1);
     });
     it('gestureRecognitionTest_share_metrics_1', 0, async () => {
-      await yieldTick();
+      if (1 % 25 === 0) { await yieldTick(); }
       const metrics = new GestureRecognitionMetrics();
       metrics.record('link', 2);
       metrics.record('file', 3);
@@ -1269,7 +763,7 @@ export default function gestureRecognitionTest() {
       expect(metrics.distinct()).assertEqual(2);
     });
     it('gestureRecognitionTest_share_validate_2', 0, async () => {
-      await yieldTick();
+      if (2 % 25 === 0) { await yieldTick(); }
       const validator = new GestureRecognitionValidator(8);
       expect(validator.validate('').ok).assertFalse();
       expect(validator.validate('share').ok).assertTrue();
@@ -1277,7 +771,7 @@ export default function gestureRecognitionTest() {
       expect(validator.isUrl('https://example.com/share')).assertTrue();
     });
     it('gestureRecognitionTest_share_state_3', 0, async () => {
-      await yieldTick();
+      if (3 % 25 === 0) { await yieldTick(); }
       const machine = new GestureRecognitionStateMachine();
       machine.transition(GestureRecognitionState.READY);
       machine.transition(GestureRecognitionState.RUNNING);
@@ -1285,6 +779,143 @@ export default function gestureRecognitionTest() {
       expect(machine.current()).assertEqual(GestureRecognitionState.RUNNING);
       machine.transition(GestureRecognitionState.DONE);
       expect(machine.isTerminal()).assertTrue();
+    });
+    it('gestureRecognitionTest_share_render_budget_4', 0, async () => {
+      if (4 % 25 === 0) { await yieldTick(); }
+      expect(TIMEOUT_DIALOG_RENDER).assertLarger(0);
+      expect(TIMEOUT_DIALOG_RENDER >= 1000).assertTrue();
+      const budget: number = TIMEOUT_DIALOG_RENDER - 1000;
+      expect(budget >= 0).assertTrue();
+    });
+    it('gestureRecognitionTest_share_registry_5', 0, async () => {
+      if (5 % 25 === 0) { await yieldTick(); }
+      const registry = new GestureRecognitionRegistry();
+      expect(registry.register({ id: 5, label: 'share_5', kind: GestureRecognitionKind.LINK, enabled: true })).assertTrue();
+      expect(registry.contains(5)).assertTrue();
+      expect(registry.size()).assertEqual(1);
+    });
+    it('gestureRecognitionTest_share_metrics_6', 0, async () => {
+      if (6 % 25 === 0) { await yieldTick(); }
+      const metrics = new GestureRecognitionMetrics();
+      metrics.record('link', 2);
+      metrics.record('file', 3);
+      expect(metrics.total()).assertEqual(5);
+      expect(metrics.count('link')).assertEqual(2);
+      expect(metrics.distinct()).assertEqual(2);
+    });
+    it('gestureRecognitionTest_share_validate_7', 0, async () => {
+      if (7 % 25 === 0) { await yieldTick(); }
+      const validator = new GestureRecognitionValidator(8);
+      expect(validator.validate('').ok).assertFalse();
+      expect(validator.validate('share').ok).assertTrue();
+      expect(validator.validate('oversized').ok).assertFalse();
+      expect(validator.isUrl('https://example.com/share')).assertTrue();
+    });
+    it('gestureRecognitionTest_share_state_8', 0, async () => {
+      if (8 % 25 === 0) { await yieldTick(); }
+      const machine = new GestureRecognitionStateMachine();
+      machine.transition(GestureRecognitionState.READY);
+      machine.transition(GestureRecognitionState.RUNNING);
+      expect(machine.count()).assertEqual(2);
+      expect(machine.current()).assertEqual(GestureRecognitionState.RUNNING);
+      machine.transition(GestureRecognitionState.DONE);
+      expect(machine.isTerminal()).assertTrue();
+    });
+    it('gestureRecognitionTest_share_render_budget_9', 0, async () => {
+      if (9 % 25 === 0) { await yieldTick(); }
+      expect(TIMEOUT_DIALOG_RENDER).assertLarger(0);
+      expect(TIMEOUT_DIALOG_RENDER >= 1000).assertTrue();
+      const budget: number = TIMEOUT_DIALOG_RENDER - 1000;
+      expect(budget >= 0).assertTrue();
+    });
+    it('gestureRecognitionTest_share_registry_10', 0, async () => {
+      if (10 % 25 === 0) { await yieldTick(); }
+      const registry = new GestureRecognitionRegistry();
+      expect(registry.register({ id: 10, label: 'share_10', kind: GestureRecognitionKind.LINK, enabled: true })).assertTrue();
+      expect(registry.contains(10)).assertTrue();
+      expect(registry.size()).assertEqual(1);
+    });
+    it('gestureRecognitionTest_share_metrics_11', 0, async () => {
+      if (11 % 25 === 0) { await yieldTick(); }
+      const metrics = new GestureRecognitionMetrics();
+      metrics.record('link', 2);
+      metrics.record('file', 3);
+      expect(metrics.total()).assertEqual(5);
+      expect(metrics.count('link')).assertEqual(2);
+      expect(metrics.distinct()).assertEqual(2);
+    });
+    it('gestureRecognitionTest_share_validate_12', 0, async () => {
+      if (12 % 25 === 0) { await yieldTick(); }
+      const validator = new GestureRecognitionValidator(8);
+      expect(validator.validate('').ok).assertFalse();
+      expect(validator.validate('share').ok).assertTrue();
+      expect(validator.validate('oversized').ok).assertFalse();
+      expect(validator.isUrl('https://example.com/share')).assertTrue();
+    });
+    it('gestureRecognitionTest_share_state_13', 0, async () => {
+      if (13 % 25 === 0) { await yieldTick(); }
+      const machine = new GestureRecognitionStateMachine();
+      machine.transition(GestureRecognitionState.READY);
+      machine.transition(GestureRecognitionState.RUNNING);
+      expect(machine.count()).assertEqual(2);
+      expect(machine.current()).assertEqual(GestureRecognitionState.RUNNING);
+      machine.transition(GestureRecognitionState.DONE);
+      expect(machine.isTerminal()).assertTrue();
+    });
+    it('gestureRecognitionTest_share_render_budget_14', 0, async () => {
+      if (14 % 25 === 0) { await yieldTick(); }
+      expect(TIMEOUT_DIALOG_RENDER).assertLarger(0);
+      expect(TIMEOUT_DIALOG_RENDER >= 1000).assertTrue();
+      const budget: number = TIMEOUT_DIALOG_RENDER - 1000;
+      expect(budget >= 0).assertTrue();
+    });
+    it('gestureRecognitionTest_share_registry_15', 0, async () => {
+      if (15 % 25 === 0) { await yieldTick(); }
+      const registry = new GestureRecognitionRegistry();
+      expect(registry.register({ id: 15, label: 'share_15', kind: GestureRecognitionKind.LINK, enabled: true })).assertTrue();
+      expect(registry.contains(15)).assertTrue();
+      expect(registry.size()).assertEqual(1);
+    });
+    it('gestureRecognitionTest_share_metrics_16', 0, async () => {
+      if (16 % 25 === 0) { await yieldTick(); }
+      const metrics = new GestureRecognitionMetrics();
+      metrics.record('link', 2);
+      metrics.record('file', 3);
+      expect(metrics.total()).assertEqual(5);
+      expect(metrics.count('link')).assertEqual(2);
+      expect(metrics.distinct()).assertEqual(2);
+    });
+    it('gestureRecognitionTest_share_validate_17', 0, async () => {
+      if (17 % 25 === 0) { await yieldTick(); }
+      const validator = new GestureRecognitionValidator(8);
+      expect(validator.validate('').ok).assertFalse();
+      expect(validator.validate('share').ok).assertTrue();
+      expect(validator.validate('oversized').ok).assertFalse();
+      expect(validator.isUrl('https://example.com/share')).assertTrue();
+    });
+    it('gestureRecognitionTest_share_state_18', 0, async () => {
+      if (18 % 25 === 0) { await yieldTick(); }
+      const machine = new GestureRecognitionStateMachine();
+      machine.transition(GestureRecognitionState.READY);
+      machine.transition(GestureRecognitionState.RUNNING);
+      expect(machine.count()).assertEqual(2);
+      expect(machine.current()).assertEqual(GestureRecognitionState.RUNNING);
+      machine.transition(GestureRecognitionState.DONE);
+      expect(machine.isTerminal()).assertTrue();
+    });
+    it('gestureRecognitionTest_share_render_budget_19', 0, async () => {
+      if (19 % 25 === 0) { await yieldTick(); }
+      expect(TIMEOUT_DIALOG_RENDER).assertLarger(0);
+      expect(TIMEOUT_DIALOG_RENDER >= 1000).assertTrue();
+      const budget: number = TIMEOUT_DIALOG_RENDER - 1000;
+      expect(budget >= 0).assertTrue();
+    });
+    it('gestureRecognitionTest_share_registry_20', 0, async () => {
+      if (20 % 25 === 0) { await yieldTick(); }
+      const registry = new GestureRecognitionRegistry();
+      expect(registry.register({ id: 20, label: 'share_20', kind: GestureRecognitionKind.LINK, enabled: true })).assertTrue();
+      expect(registry.contains(20)).assertTrue();
+      expect(registry.size()).assertEqual(1);
     });
   });
 }
