@@ -6403,3 +6403,20 @@ export default function TextDecoderStreamLogic(): void {
           repeatThrew = true;
         }
         InterfaceTestLog.flag(name, 'repeat malformed input still throws', repeatThrew);
+        InterfaceTestLog.flag(name, 'repeat malformed input throws', repeatThrew);
+        const recoveredAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'second recovery has exact content', reuseExpected, recoveredAgain);
+        expect(recoveredAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.number(name, 'second recovery length', 4, recoveredAgain.length);
+        expect(recoveredAgain.length).assertEqual(4);
+        const endFlush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty flush after second recovery', '', endFlush);
+        expect(endFlush).assertEqual('');
+        InterfaceTestLog.value(name, 'strict input final immutable', snapshot, bytes.join(','));
+        expect(bytes.join(',')).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'strict mode retained after errors', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+  });
+}
