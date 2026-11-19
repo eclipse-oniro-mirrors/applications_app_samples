@@ -30,9 +30,11 @@
 
 本次日志为`.validation/warning-173154-host.log`、`warning-173154-native-debug.log`、`warning-173154-native-release.log`、`warning-173154-lint.log`、`warning-173154-build.log`和`warning-173154-device.log`。设备结构化结果为`.validation/device-result.json`。构建仍有存量警告；该轮本地验证不代表平台告警已清零，后续平台复扫情况见下一段。
 
-后续平台复扫报告4条：1条等待谓词跨行缩进、2条复核说明中的重复命令名称，以及1条真实测试命令的词语告警。等待谓词改为先判断停止、暂停和音频中断，再判断音频结束和时序版本变化，保留原有短路顺序；说明段落统一使用Ability Assistant全称。下方可运行命令及用途说明保留，其词语告警按误报待平台复核。
+后续平台复扫报告4条：1条等待谓词跨行缩进、2条复核说明中的重复命令名称，以及1条真实测试命令的词语告警。等待谓词改为先判断停止、暂停和音频中断，再判断音频结束和时序版本变化，保留原有短路顺序；说明段落统一使用Ability Assistant全称。再次复扫仅报告测试命令名称的1条词语告警，本次将该操作改为引用官方命令指南并列出完整项目参数，见[轮询真机采样](#轮询真机采样)。官方工具名称与项目参数不作改造，本次修改后尚未复扫。
 
-本次复验：17套Host回归及3组验证入口检查通过；PlaybackLifecycleTest、PlayerLifecycleIntegrationTest和NativeCheckTest在Debug、Release配置下均为Pass，失败检查负向控制均按预期退出1。等待谓词的32种状态组合已核对，结果与状态读取顺序保持一致。CodeLinter为245条存量、0条新增，基线未修改；HAP构建及签名Pass。本次未重跑设备用例或检测器，也未再次执行原平台扫描。日志为`.validation/warning-193443-host.log`、`warning-193443-lint.log`、`warning-193443-build.log`和`warning-193443-<debug或release>-<测试名>.log`。
+前次4条告警复验：17套Host回归及3组验证入口检查通过；PlaybackLifecycleTest、PlayerLifecycleIntegrationTest和NativeCheckTest在Debug、Release配置下均为Pass，失败检查负向控制均按预期退出1。等待谓词的32种状态组合已核对，结果与状态读取顺序保持一致。CodeLinter为245条存量、0条新增，基线未修改；HAP构建及签名Pass。本次未重跑设备用例或检测器，也未再次执行原平台扫描。日志为`.validation/warning-193443-host.log`、`warning-193443-lint.log`、`warning-193443-build.log`和`warning-193443-<debug或release>-<测试名>.log`。
+
+本次单条词语告警仅调整文档：已核对官方执行章节、连接设备的工具帮助和6组项目参数，Markdown围栏及本地链接检查通过。检查记录为`.validation/warning-195324-doc-check.json`，设备帮助为`warning-195324-device-help.log`。生产代码与测试实现未变，未重跑Host、Native、CodeLinter、HAP构建或设备用例；原告警平台尚未复扫。
 
 ### PCM队列基准
 
@@ -158,12 +160,16 @@ API 26真机另完成5次进入预览后取消，历史标题与操作前一致�
 
 `PlaybackPollingBenchmark`仅在显式指定该套件时注册，不进入默认13套、49条Hypium功能回归。使用大于10秒的本地AAC音频作为`polling-fixture.m4a`，放入测试应用的cacheDir；准备素材后直接执行Ability Assistant（系统Ability管理工具）的测试命令，不要再次运行会重装并清理cacheDir的`onDeviceTest`。素材和生成结果不合入仓库。
 
-```powershell
-# 先使用onDeviceTest构建安装测试HAP，再复制素材。
-# hdc是设备连接工具；以下命令通过Ability Assistant运行已安装的测试。
-hdc shell aa test -b com.samples.avcodecsample -m entry_test -s unittest OpenHarmonyTestRunner `
-  -s class PlaybackPollingBenchmark -s timeout 10000 -w 30
-```
+先使用`onDeviceTest`构建并安装测试HAP，再复制素材。执行方式参见官方[单元测试框架使用指导：命令行执行测试脚本]。通过hdc（设备连接工具）进入目标设备的shell，按官方Ability Assistant测试命令的结构填入下表全部参数，直接运行已安装的测试；此阶段不要重新安装HAP。
+
+| 参数用途 | 本项目参数 |
+|---|---|
+| 应用包名 | `-b com.samples.avcodecsample` |
+| 测试模块 | `-m entry_test` |
+| 测试运行器 | `-s unittest OpenHarmonyTestRunner` |
+| 筛选测试套 | `-s class PlaybackPollingBenchmark` |
+| 单用例超时，单位ms | `-s timeout 10000` |
+| 命令等待参数 | `-w 30` |
 
 用例在每个模式下预热4次，以250ms间隔采样8次；分别测量`getPlaybackInfo()`和包含另一次NAPI读取的`PlaybackViewModel.update()`，两项耗时不能相加当作生产单次更新成本。每次结果写入cacheDir的`polling-idle.json`、`polling-playing.json`和`polling-paused.json`。以报告中的`Tests run`、`Failure`、`Error`和`Pass`确认结果，Hvigor退出0不能单独证明断言通过。
 
@@ -264,7 +270,7 @@ CodeLinter使用正式配置[code-linter.json5](../code-linter.json5)，检查�
 | G.EXP.22-CPP：基准除数 | 实际计算比值的分支显式检查`ringMedian != 0.0`，保留有限性和正值校验；基准运行通过。 |
 | G.FMT.03-CPP：范围for初始化列表 | 将输入提为具名`invalidSpeeds`容器，再执行循环；相关测试Debug、Release通过。 |
 | WordsTool.297：两处工具说明 | 改用Ability Assistant全称，说明执行阶段与工具用途。 |
-| WordsTool.297：真实系统命令 | 保留可运行的系统命令；命令名仍可能命中词语扫描，需平台按误报复核。 |
+| WordsTool.297：真实系统命令 | 官方工具名称不改造；后续文档采用官方命令指南与完整项目参数表，保留构建、素材准备及直接运行的顺序，见[轮询真机采样](#轮询真机采样)。 |
 
 报告共7条，以上按相同处理合并展示。对应预防规则已写入本地开发约定：SDK替身保持ABI、实际除法附近防零、具名范围集合，以及保留真实命令。没有放宽CodeLinter基线，也没有用拆字符、编码或伪造命令规避检查。原平台复扫尚未执行。
 
