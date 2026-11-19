@@ -46,8 +46,7 @@ bool Recorder::InitSyncVideoInputContext()
     if (!encContext_->isEncFirstFrame) {
         return true;
     }
-    std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)> format(videoEncoder_->GetInputDescription(),
-                                                                        OH_AVFormat_Destroy);
+    std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)> format(videoEncoder_->GetInputDescription(), OH_AVFormat_Destroy);
     int32_t pixelFormat = -1;
     // 与同步解码首帧读取输出描述对应：取得首个输入Buffer后，读取编码器的实际输入布局。
     if (format == nullptr ||
