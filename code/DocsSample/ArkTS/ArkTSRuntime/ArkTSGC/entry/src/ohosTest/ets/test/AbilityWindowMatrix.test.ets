@@ -1798,3 +1798,1290 @@ export default function abilityWindowMatrixTest() {
 
     /**
      * @tc.number    SUB_ARKTS_GC_WINDOW_5000
+     * @tc.name      testWindowAvoidSystemRect0001
+     * @tc.desc      Read the system avoid area of the main window and check each of its four side rectangles stays
+     *               inside the window bounds
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowAvoidSystemRect0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const area: window.AvoidArea = probe.avoid(window.AvoidAreaType.TYPE_SYSTEM);
+      const rect: window.Rect = probe.rect();
+      logCase('testWindowAvoidSystemRect0001', `top=${area.topRect.height} bottom=${area.bottomRect.height} ` +
+        `left=${area.leftRect.width} right=${area.rightRect.width} window=${rect.width}x${rect.height}`);
+      expect(area.topRect.width <= rect.width).assertTrue();
+      expect(area.topRect.height <= rect.height).assertTrue();
+      expect(area.bottomRect.height <= rect.height).assertTrue();
+      expect(area.leftRect.width <= rect.width).assertTrue();
+      expect(area.rightRect.width <= rect.width).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_5100
+     * @tc.name      testWindowAvoidSystemFlag0001
+     * @tc.desc      Check the system avoid area exposes a stable boolean visibility flag and a top band that sits on
+     *               the display
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowAvoidSystemFlag0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const first: window.AvoidArea = probe.avoid(window.AvoidAreaType.TYPE_SYSTEM);
+      const second: window.AvoidArea = probe.avoid(window.AvoidAreaType.TYPE_SYSTEM);
+      const screen: display.Display = defaultDisplay();
+      logCase('testWindowAvoidSystemFlag0001', `visible=${first.visible} ` +
+        `top=${first.topRect.width}x${first.topRect.height} bottomHeight=${first.bottomRect.height}`);
+      expect(typeof first.visible).assertEqual(BOOLEAN_TYPE);
+      expect(first.visible).assertEqual(second.visible);
+      expect(first.topRect.width >= ORIGIN).assertTrue();
+      expect(rectInside(first.topRect, fullRectOf(screen))).assertTrue();
+      expect(rectEqual(first.topRect, second.topRect)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_5200
+     * @tc.name      testWindowAvoidCutout0001
+     * @tc.desc      Read the cutout avoid area and check none of its side rectangles overflows the display
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowAvoidCutout0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const area: window.AvoidArea = probe.avoid(window.AvoidAreaType.TYPE_CUTOUT);
+      const screen: display.Display = defaultDisplay();
+      logCase('testWindowAvoidCutout0001', `visible=${area.visible} width=${area.topRect.width} ` +
+        `height=${area.topRect.height} display=${screen.width}x${screen.height}`);
+      expect(area.topRect.width <= screen.width).assertTrue();
+      expect(area.topRect.height <= screen.height).assertTrue();
+      expect(area.leftRect.width <= screen.width).assertTrue();
+      expect(area.rightRect.width <= screen.width).assertTrue();
+      expect(area.bottomRect.height <= screen.height).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_5300
+     * @tc.name      testWindowAvoidNavigation0001
+     * @tc.desc      Read the navigation indicator avoid area and check its bottom band is a legal strip of the display
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowAvoidNavigation0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const area: window.AvoidArea = probe.avoid(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);
+      const screen: display.Display = defaultDisplay();
+      const rect: window.Rect = probe.rect();
+      logCase('testWindowAvoidNavigation0001', `height=${area.bottomRect.height} ` +
+        `width=${area.bottomRect.width} top=${area.bottomRect.top} windowHeight=${rect.height}`);
+      expect(area.bottomRect.height >= ORIGIN).assertTrue();
+      expect(area.bottomRect.height <= rect.height).assertTrue();
+      expect(area.bottomRect.width <= rect.width).assertTrue();
+      expect(area.bottomRect.top <= screen.height).assertTrue();
+      expect(typeof area.visible).assertEqual(BOOLEAN_TYPE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_5400
+     * @tc.name      testWindowAvoidGesture0001
+     * @tc.desc      Read the system gesture avoid area and check the two side bands together never exceed the window
+     *               width
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowAvoidGesture0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const area: window.AvoidArea = probe.avoid(window.AvoidAreaType.TYPE_SYSTEM_GESTURE);
+      const facts: AvoidFacts = new AvoidFacts(area);
+      const rect: window.Rect = probe.rect();
+      logCase('testWindowAvoidGesture0001', `left=${facts.leftWidth} right=${facts.rightWidth} ` +
+        `top=${facts.topHeight} bottom=${facts.bottomHeight}`);
+      expect(facts.leftWidth >= ORIGIN).assertTrue();
+      expect(facts.rightWidth >= ORIGIN).assertTrue();
+      expect(facts.leftWidth + facts.rightWidth <= rect.width).assertTrue();
+      expect(facts.topHeight + facts.bottomHeight <= rect.height).assertTrue();
+      expect(area.bottomRect.height <= rect.height).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_5500
+     * @tc.name      testWindowAvoidKeyboard0001
+     * @tc.desc      Read the keyboard avoid area with no keyboard on screen and check it does not cover the page
+     *               text and stays within the window width
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowAvoidKeyboard0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const area: window.AvoidArea = probe.avoid(window.AvoidAreaType.TYPE_KEYBOARD);
+      const bounds: Rect = await pageRootBounds();
+      const keyboardTop: number = area.bottomRect.top;
+      const keyboardBottom: number = keyboardTop + area.bottomRect.height;
+      const overlapsText: boolean = area.bottomRect.height > ORIGIN &&
+        bounds.bottom > keyboardTop && bounds.top < keyboardBottom;
+      logCase('testWindowAvoidKeyboard0001', `keyboardTop=${keyboardTop} keyboardHeight=${area.bottomRect.height} ` +
+        `textTop=${bounds.top} textBottom=${bounds.bottom} overlaps=${overlapsText}`);
+      expect(area.bottomRect.height >= ORIGIN).assertTrue();
+      expect(area.bottomRect.width <= probe.rect().width).assertTrue();
+      expect(overlapsText).assertFalse();
+      expect(bounds.bottom > bounds.top).assertTrue();
+      expect(probe.showing()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_5600
+     * @tc.name      testWindowAvoidIgnoringVisibility0001
+     * @tc.desc      Compare the system avoid area with the variant that ignores visibility and check the ignoring one
+     *               is at least as large
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowAvoidIgnoringVisibility0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const probe: WindowProbe = await openProbe();
+      const visible: window.AvoidArea = probe.avoid(window.AvoidAreaType.TYPE_SYSTEM);
+      const ignoring: window.AvoidArea =
+        probe.main.getWindowAvoidAreaIgnoringVisibility(window.AvoidAreaType.TYPE_SYSTEM);
+      const rect: window.Rect = probe.rect();
+      const visibleSpan: number = visible.topRect.height + visible.bottomRect.height;
+      const ignoringSpan: number = ignoring.topRect.height + ignoring.bottomRect.height;
+      logCase('testWindowAvoidIgnoringVisibility0001', `visibleSpan=${visibleSpan} ` +
+        `ignoringSpan=${ignoringSpan} top=${ignoring.topRect.height}`);
+      expect(ignoringSpan >= visibleSpan).assertTrue();
+      expect(ignoring.topRect.height >= visible.topRect.height).assertTrue();
+      expect(ignoring.bottomRect.height >= visible.bottomRect.height).assertTrue();
+      expect(ignoring.topRect.width <= rect.width).assertTrue();
+      expect(ignoring.leftRect.width <= rect.width).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_5700
+     * @tc.name      testWindowAvoidHorizontalBudget0001
+     * @tc.desc      Check the left and right system avoid rectangles never reach past the window width
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowAvoidHorizontalBudget0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const area: window.AvoidArea = probe.avoid(window.AvoidAreaType.TYPE_SYSTEM);
+      const rect: window.Rect = probe.rect();
+      logCase('testWindowAvoidHorizontalBudget0001', `left=${area.leftRect.left},${area.leftRect.width} ` +
+        `right=${area.rightRect.left},${area.rightRect.width} windowWidth=${rect.width}`);
+      expect(area.leftRect.left >= ORIGIN).assertTrue();
+      expect(rectRight(area.leftRect) <= rect.width).assertTrue();
+      expect(area.rightRect.left >= ORIGIN).assertTrue();
+      expect(area.rightRect.left <= rect.width).assertTrue();
+      expect(area.leftRect.width + area.rightRect.width <= rect.width).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_5800
+     * @tc.name      testWindowAvoidVerticalBudget0001
+     * @tc.desc      Check the top and bottom system avoid rectangles never reach past the window height
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowAvoidVerticalBudget0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const area: window.AvoidArea = probe.avoid(window.AvoidAreaType.TYPE_SYSTEM);
+      const rect: window.Rect = probe.rect();
+      logCase('testWindowAvoidVerticalBudget0001', `top=${area.topRect.top},${area.topRect.height} ` +
+        `bottom=${area.bottomRect.top},${area.bottomRect.height} windowHeight=${rect.height}`);
+      expect(area.topRect.top >= ORIGIN).assertTrue();
+      expect(rectBottom(area.topRect) <= rect.height).assertTrue();
+      expect(area.bottomRect.top >= ORIGIN).assertTrue();
+      expect(area.bottomRect.top <= rect.height).assertTrue();
+      expect(area.topRect.height + area.bottomRect.height <= rect.height).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_5900
+     * @tc.name      testWindowAvoidStableReads0001
+     * @tc.desc      Read the system avoid area three times and check the four side measurements collapse into one
+     *               stable value
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowAvoidStableReads0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const tops: number[] = [];
+      const bottoms: number[] = [];
+      const visibles: boolean[] = [];
+      for (let round = 0; round < REPEAT_READS; round++) {
+        const area: window.AvoidArea = probe.avoid(window.AvoidAreaType.TYPE_SYSTEM);
+        tops.push(area.topRect.height);
+        bottoms.push(area.bottomRect.height);
+        visibles.push(area.visible);
+      }
+      const distinctTops: number = tops.filter((value: number, index: number) =>
+        tops.indexOf(value) === index).length;
+      logCase('testWindowAvoidStableReads0001', `tops=${tops.join(',')} bottoms=${bottoms.join(',')} ` +
+        `distinctTops=${distinctTops} visibles=${visibles.join(',')}`);
+      expect(tops.length).assertEqual(REPEAT_READS);
+      expect(distinctTops).assertEqual(SINGLE_VALUE);
+      expect(bottoms[0]).assertEqual(bottoms[REPEAT_READS - 1]);
+      expect(visibles[0]).assertEqual(visibles[REPEAT_READS - 1]);
+      expect(tops[0] >= ORIGIN).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_6000
+     * @tc.name      testWindowAvoidInsideDisplay0001
+     * @tc.desc      Check the navigation indicator avoid rectangles live inside the display bounds on both axes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowAvoidInsideDisplay0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const area: window.AvoidArea = probe.avoid(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);
+      const screen: display.Display = defaultDisplay();
+      logCase('testWindowAvoidInsideDisplay0001', `bottom=${area.bottomRect.left},${area.bottomRect.top},` +
+        `${area.bottomRect.width},${area.bottomRect.height} display=${screen.width}x${screen.height}`);
+      expect(area.bottomRect.left >= ORIGIN).assertTrue();
+      expect(area.bottomRect.top >= ORIGIN).assertTrue();
+      expect(rectRight(area.bottomRect) <= screen.width).assertTrue();
+      expect(rectBottom(area.bottomRect) <= screen.height).assertTrue();
+      expect(area.bottomRect.width <= screen.width).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_6100
+     * @tc.name      testWindowAvoidRelaunchSame0001
+     * @tc.desc      Relaunch the ability and check the fresh window reports the same system avoid margins as the old
+     *               one
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowAvoidRelaunchSame0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const first: WindowProbe = await openProbe();
+      const before: AvoidFacts = avoidFactsOf(first, window.AvoidAreaType.TYPE_SYSTEM);
+      const second: WindowProbe = await openProbe();
+      const after: AvoidFacts = avoidFactsOf(second, window.AvoidAreaType.TYPE_SYSTEM);
+      logCase('testWindowAvoidRelaunchSame0001', `beforeTop=${before.topHeight} afterTop=${after.topHeight} ` +
+        `beforeBottom=${before.bottomHeight} afterBottom=${after.bottomHeight}`);
+      expect(after.topHeight).assertEqual(before.topHeight);
+      expect(after.bottomHeight).assertEqual(before.bottomHeight);
+      expect(after.leftWidth).assertEqual(before.leftWidth);
+      expect(after.rightWidth).assertEqual(before.rightWidth);
+      expect(second.showing()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_6200
+     * @tc.name      testWindowAvoidSystemTopBand0001
+     * @tc.desc      Check the top system avoid band is a horizontal strip whose height never exceeds the window and
+     *               which reports a positive height whenever the area is declared visible
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowAvoidSystemTopBand0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const probe: WindowProbe = await openProbe();
+      const area: window.AvoidArea = probe.avoid(window.AvoidAreaType.TYPE_SYSTEM);
+      const rect: window.Rect = probe.rect();
+      logCase('testWindowAvoidSystemTopBand0001', `visible=${area.visible} topHeight=${area.topRect.height} ` +
+        `topTop=${area.topRect.top} windowHeight=${rect.height}`);
+      expect(area.topRect.width <= rect.width).assertTrue();
+      expect(area.topRect.height <= rect.height).assertTrue();
+      if (area.visible) {
+        expect(area.topRect.height > ORIGIN).assertTrue();
+      }
+      expect(area.topRect.top >= ORIGIN).assertTrue();
+      expect(area.topRect.top <= rect.height).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_6300
+     * @tc.name      testWindowIdentityIdStable0001
+     * @tc.desc      Read the window identity three times and check the id never changes for a live main window
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testWindowIdentityIdStable0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const probe: WindowProbe = await openProbe();
+      const ids: number[] = [];
+      for (let round = 0; round < REPEAT_READS; round++) {
+        ids.push(probe.props().id);
+      }
+      const distinct: number = ids.filter((value: number, index: number) =>
+        ids.indexOf(value) === index).length;
+      logCase('testWindowIdentityIdStable0001', `ids=${ids.join(',')} distinct=${distinct} ` +
+        `showing=${probe.showing()}`);
+      expect(ids.length).assertEqual(REPEAT_READS);
+      expect(distinct).assertEqual(SINGLE_VALUE);
+      expect(ids[0] >= ORIGIN).assertTrue();
+      expect(probe.showing()).assertTrue();
+      expect(rectPositive(probe.rect())).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_6400
+     * @tc.name      testWindowIdentityTopMatch0001
+     * @tc.desc      Check the last window handles the same identity, display and type as the top window of the app
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowIdentityTopMatch0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ability: UIAbility = await launchHome();
+      const main: window.Window = await window.getLastWindow(ability.context);
+      const top: window.Window = await window.getTopWindow(ability.context);
+      const mainProps: window.WindowProperties = main.getWindowProperties();
+      const topProps: window.WindowProperties = top.getWindowProperties();
+      logCase('testWindowIdentityTopMatch0001', `main=${mainProps.id} top=${topProps.id} ` +
+        `mainDisplay=${mainProps.displayId} topDisplay=${topProps.displayId}`);
+      expect(mainProps.id).assertEqual(topProps.id);
+      expect(mainProps.id >= ORIGIN).assertTrue();
+      expect(mainProps.displayId === topProps.displayId).assertTrue();
+      expect(mainProps.type).assertEqual(topProps.type);
+      expect(main.isWindowShowing() && top.isWindowShowing()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_6500
+     * @tc.name      testWindowIdentityIdRange0001
+     * @tc.desc      Check the window id is a bounded non negative number and that it is not confused with the display
+     *               id space
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowIdentityIdRange0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const props: window.WindowProperties = probe.props();
+      const screen: display.Display = defaultDisplay();
+      logCase('testWindowIdentityIdRange0001', `windowId=${props.id} displayId=${screen.id} ` +
+        `bound=${MAX_WINDOW_ID} type=${props.type}`);
+      expect(props.id >= ORIGIN).assertTrue();
+      expect(props.id < MAX_WINDOW_ID).assertTrue();
+      expect(screen.id >= ORIGIN).assertTrue();
+      expect(screen.id < MAX_WINDOW_ID).assertTrue();
+      expect(knownWindowType(Number(props.type))).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_6600
+     * @tc.name      testWindowIdentityDisplayId0001
+     * @tc.desc      Check the window reports the default display as its home display whenever it publishes a display
+     *               id
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowIdentityDisplayId0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const props: window.WindowProperties = probe.props();
+      const screen: display.Display = defaultDisplay();
+      const displayId: number | undefined = props.displayId;
+      logCase('testWindowIdentityDisplayId0001', `displayId=${displayId} defaultId=${screen.id} ` +
+        `width=${screen.width} height=${screen.height}`);
+      expect(displayId === undefined || displayId === screen.id).assertTrue();
+      expect(screen.width > ORIGIN).assertTrue();
+      expect(screen.height > ORIGIN).assertTrue();
+      expect(probe.showing()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_6700
+     * @tc.name      testWindowIdentityName0001
+     * @tc.desc      Check the optional window name, when published, is a trimmed non empty label and the window type
+     *               is a declared one
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowIdentityName0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const probe: WindowProbe = await openProbe();
+      const facts: WindowFacts = capture(probe.main);
+      logCase('testWindowIdentityName0001', `name=${facts.name} length=${facts.name.length} ` +
+        `type=${facts.windowType}`);
+      expect(facts.name === '' || facts.name.length >= SINGLE_VALUE).assertTrue();
+      expect(facts.name.trim()).assertEqual(facts.name);
+      expect(knownWindowType(facts.windowType)).assertTrue();
+      expect(facts.showing).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_6800
+     * @tc.name      testWindowIdentityType0001
+     * @tc.desc      Check the main window reports a stable application window type that is neither a system alert nor
+     *               a dialog
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowIdentityType0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const first: number = Number(probe.props().type);
+      const second: number = Number(probe.props().type);
+      logCase('testWindowIdentityType0001', `first=${first} second=${second} ` +
+        `alert=${Number(window.WindowType.TYPE_SYSTEM_ALERT)} dialog=${Number(window.WindowType.TYPE_DIALOG)}`);
+      expect(first).assertEqual(second);
+      expect(first >= ORIGIN).assertTrue();
+      expect(knownWindowType(first)).assertTrue();
+      expect(first === Number(window.WindowType.TYPE_SYSTEM_ALERT)).assertFalse();
+      expect(first === Number(window.WindowType.TYPE_DIALOG)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_6900
+     * @tc.name      testWindowIdentityTransparent0001
+     * @tc.desc      Check the window publishes a background transparency flag that stays stable over an idle gap
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowIdentityTransparent0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const before: WindowFacts = capture(probe.main);
+      await sleepMs(IDLE_SETTLE_MS);
+      const after: WindowFacts = capture(probe.main);
+      const props: window.WindowProperties = probe.props();
+      logCase('testWindowIdentityTransparent0001', `before=${before.transparent} after=${after.transparent} ` +
+        `kind=${typeof props.isTransparent} id=${props.id}`);
+      expect(typeof after.transparent).assertEqual(BOOLEAN_TYPE);
+      expect(after.transparent).assertEqual(before.transparent);
+      expect(after.transparent).assertEqual(props.isTransparent);
+      expect(after.showing).assertTrue();
+      expect(after.width > ORIGIN).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_7000
+     * @tc.name      testWindowIdentityFocusable0001
+     * @tc.desc      Check the focusable flag of the foreground main window keeps its value over an idle gap and that
+     *               the window is focusable or touchable at all times
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowIdentityFocusable0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const focusBefore: boolean = probe.props().focusable;
+      await sleepMs(IDLE_SETTLE_MS);
+      const facts: WindowFacts = capture(probe.main);
+      logCase('testWindowIdentityFocusable0001', `focusBefore=${focusBefore} focusAfter=${facts.focusable} ` +
+        `touchable=${facts.touchable} status=${facts.status}`);
+      expect(facts.focusable).assertEqual(focusBefore);
+      expect(facts.focusable || facts.touchable).assertTrue();
+      expect(facts.showing).assertTrue();
+      expect(facts.height > ORIGIN).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_7100
+     * @tc.name      testWindowIdentityTouchable0001
+     * @tc.desc      Check a visible main window accepts touches and keeps that flag while the rectangle stays valid
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowIdentityTouchable0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const touchable: boolean = probe.props().touchable;
+      const repeated: boolean = probe.props().touchable;
+      const rect: window.Rect = probe.rect();
+      logCase('testWindowIdentityTouchable0001', `touchable=${touchable} repeated=${repeated} ` +
+        `showing=${probe.showing()} rect=${rect.width}x${rect.height}`);
+      expect(typeof touchable).assertEqual(BOOLEAN_TYPE);
+      expect(touchable).assertEqual(repeated);
+      expect(probe.showing()).assertTrue();
+      expect(rectPositive(rect)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_7200
+     * @tc.name      testWindowIdentityBrightness0001
+     * @tc.desc      Check the brightness reported before the first mutation is legal and identical across two captures
+     *               of the same window
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowIdentityBrightness0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const before: WindowFacts = capture(probe.main);
+      const after: WindowFacts = capture(probe.main);
+      logCase('testWindowIdentityBrightness0001', `before=${before.brightness} after=${after.brightness} ` +
+        `range=${DEFAULT_BRIGHTNESS}..${BRIGHTNESS_FULL}`);
+      expect(inBrightnessRange(before.brightness)).assertTrue();
+      expect(after.brightness).assertEqual(before.brightness);
+      expect(after.brightness <= BRIGHTNESS_FULL).assertTrue();
+      expect(after.brightness >= DEFAULT_BRIGHTNESS).assertTrue();
+      expect(after.showing).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_7300
+     * @tc.name      testDisplayWidthHeight0001
+     * @tc.desc      Check the default display publishes positive pixel dimensions that cover at least one density
+     *               pixel each
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testDisplayWidthHeight0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const screen: display.Display = defaultDisplay();
+      const area: number = screen.width * screen.height;
+      logCase('testDisplayWidthHeight0001', `width=${screen.width} height=${screen.height} area=${area} ` +
+        `densityPixels=${screen.densityPixels}`);
+      expect(screen.width >= MIN_SIDE_PX).assertTrue();
+      expect(screen.height >= MIN_SIDE_PX).assertTrue();
+      expect(area > ORIGIN).assertTrue();
+      expect(screen.width >= screen.densityPixels).assertTrue();
+      expect(screen.height >= screen.densityPixels).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_7400
+     * @tc.name      testDisplayDensityDpi0001
+     * @tc.desc      Check the display dpi is a plausible positive value consistent with the reported density scale
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDisplayDensityDpi0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const screen: display.Display = defaultDisplay();
+      const implied: number = screen.densityPixels * 160;
+      const drift: number = Math.abs(screen.densityDPI - implied);
+      logCase('testDisplayDensityDpi0001', `dpi=${screen.densityDPI} densityPixels=${screen.densityPixels} ` +
+        `impliedDpi=${implied} drift=${drift}`);
+      expect(screen.densityDPI > MIN_DENSITY_DPI).assertTrue();
+      expect(screen.densityDPI < MAX_DISPLAY_DPI).assertTrue();
+      expect(screen.densityPixels > ORIGIN).assertTrue();
+      expect(drift <= implied * MIN_DENSITY_RATIO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_7500
+     * @tc.name      testDisplayDensityPixels0001
+     * @tc.desc      Check the display density scale is inside the supported band and implies a sane width in vp
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDisplayDensityPixels0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const screen: display.Display = defaultDisplay();
+      const widthVp: number = screen.width / screen.densityPixels;
+      logCase('testDisplayDensityPixels0001', `densityPixels=${screen.densityPixels} width=${screen.width} ` +
+        `widthVp=${widthVp}`);
+      expect(screen.densityPixels >= MIN_DENSITY_PIXELS).assertTrue();
+      expect(screen.densityPixels <= MAX_DENSITY_RATIO).assertTrue();
+      expect(widthVp >= MIN_WINDOW_VP).assertTrue();
+      expect(widthVp <= MAX_WINDOW_VP).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_7600
+     * @tc.name      testDisplayScaledDensity0001
+     * @tc.desc      Check the scaled density used for font sizing stays within a legal ratio of the base density
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDisplayScaledDensity0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const screen: display.Display = defaultDisplay();
+      const ratio: number = screen.scaledDensity / screen.densityPixels;
+      logCase('testDisplayScaledDensity0001', `scaledDensity=${screen.scaledDensity} ` +
+        `densityPixels=${screen.densityPixels} ratio=${ratio}`);
+      expect(screen.scaledDensity > ORIGIN).assertTrue();
+      expect(ratio >= MIN_DENSITY_RATIO).assertTrue();
+      expect(ratio <= MAX_DENSITY_RATIO).assertTrue();
+      expect(screen.scaledDensity >= screen.densityPixels * MIN_DENSITY_RATIO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_7700
+     * @tc.name      testDisplayAspectRatio0001
+     * @tc.desc      Check the display aspect ratio is inside the range a phone, tablet or desktop panel can have
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDisplayAspectRatio0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const screen: display.Display = defaultDisplay();
+      const aspect: number = screen.width / screen.height;
+      logCase('testDisplayAspectRatio0001', `width=${screen.width} height=${screen.height} aspect=${aspect} ` +
+        `range=${MIN_ASPECT_RATIO}..${MAX_ASPECT_RATIO}`);
+      expect(aspect >= MIN_ASPECT_RATIO).assertTrue();
+      expect(aspect <= MAX_ASPECT_RATIO).assertTrue();
+      expect(screen.width > ORIGIN).assertTrue();
+      expect(screen.height > ORIGIN).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_7800
+     * @tc.name      testDisplayRotationRange0001
+     * @tc.desc      Check the display rotation is an integer in the declared rotation range and stable between reads
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDisplayRotationRange0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const first: display.Display = defaultDisplay();
+      const second: display.Display = defaultDisplay();
+      const rotation: number = first.rotation;
+      logCase('testDisplayRotationRange0001', `rotation=${rotation} second=${second.rotation} ` +
+        `max=${MAX_ROTATION_VALUE} floor=${Math.floor(rotation)}`);
+      expect(rotation >= ORIGIN).assertTrue();
+      expect(rotation <= MAX_ROTATION_VALUE).assertTrue();
+      expect(Math.floor(rotation)).assertEqual(rotation);
+      expect(second.rotation).assertEqual(rotation);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_7900
+     * @tc.name      testDisplayOrientationEnum0001
+     * @tc.desc      Check the display orientation is a declared value and agrees with the width and height ordering
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDisplayOrientationEnum0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const screen: display.Display = defaultDisplay();
+      const orientation: number = Number(screen.orientation);
+      const portrait: boolean = orientation === Number(display.Orientation.PORTRAIT) ||
+        orientation === Number(display.Orientation.PORTRAIT_INVERTED);
+      const landscape: boolean = orientation === Number(display.Orientation.LANDSCAPE) ||
+        orientation === Number(display.Orientation.LANDSCAPE_INVERTED);
+      logCase('testDisplayOrientationEnum0001', `orientation=${orientation} portrait=${portrait} ` +
+        `landscape=${landscape} size=${screen.width}x${screen.height}`);
+      expect(ORIENTATION_VALUES.indexOf(orientation) >= 0).assertTrue();
+      if (portrait) {
+        expect(screen.height >= screen.width).assertTrue();
+      }
+      if (landscape) {
+        expect(screen.width >= screen.height).assertTrue();
+      }
+      expect(screen.width > ORIGIN).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_8000
+     * @tc.name      testDisplayAvailableSize0001
+     * @tc.desc      Check the display available size never exceeds the full size and still leaves a usable area
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDisplayAvailableSize0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const screen: display.Display = defaultDisplay();
+      const availableArea: number = screen.availableWidth * screen.availableHeight;
+      const fullArea: number = screen.width * screen.height;
+      logCase('testDisplayAvailableSize0001', `available=${screen.availableWidth}x${screen.availableHeight} ` +
+        `full=${screen.width}x${screen.height} availableArea=${availableArea}`);
+      expect(screen.availableWidth > ORIGIN).assertTrue();
+      expect(screen.availableHeight > ORIGIN).assertTrue();
+      expect(screen.availableWidth <= screen.width).assertTrue();
+      expect(screen.availableHeight <= screen.height).assertTrue();
+      expect(availableArea <= fullArea).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_8100
+     * @tc.name      testDisplayByIdLookup0001
+     * @tc.desc      Look the default display up by its own id and check the resolved object reports identical geometry
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDisplayByIdLookup0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const screen: display.Display = defaultDisplay();
+      const probe: DisplayProbe = displayById(screen.id);
+      logCase('testDisplayByIdLookup0001', `code=${probe.code} id=${probe.id} width=${probe.width} ` +
+        `height=${probe.height} densityDPI=${probe.densityDPI}`);
+      expect(probe.code).assertEqual(OK_CODE);
+      expect(probe.id).assertEqual(screen.id);
+      expect(probe.width).assertEqual(screen.width);
+      expect(probe.height).assertEqual(screen.height);
+      expect(probe.densityPixels).assertEqual(screen.densityPixels);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_8200
+     * @tc.name      testDisplayAllContainsDefault0001
+     * @tc.desc      Enumerate every display and check the default display id appears in the list with a valid
+     *               positive count
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDisplayAllContainsDefault0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const listed: DisplayListProbe = await displayList();
+      const defaultId: number = defaultDisplay().id;
+      logCase('testDisplayAllContainsDefault0001', `code=${listed.code} count=${listed.count} ` +
+        `ids=${listed.ids.join(',')} defaultId=${defaultId}`);
+      expect(listed.code).assertEqual(OK_CODE);
+      expect(listed.count >= SINGLE_VALUE).assertTrue();
+      expect(listed.containsDefault).assertTrue();
+      expect(listed.ids.indexOf(defaultId) >= 0).assertTrue();
+      expect(listed.ids.every((value: number) => value >= ORIGIN)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_8300
+     * @tc.name      testDisplayPrimaryGeometry0001
+     * @tc.desc      Read the primary display and check it publishes a positive size, dpi and density like the default
+     *               display
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDisplayPrimaryGeometry0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const primary: PrimaryProbe = primaryDisplay();
+      logCase('testDisplayPrimaryGeometry0001', `code=${primary.code} id=${primary.id} ` +
+        `size=${primary.width}x${primary.height} dpi=${primary.densityDPI} density=${primary.densityPixels}`);
+      expect(primary.code).assertEqual(OK_CODE);
+      expect(primary.width > ORIGIN).assertTrue();
+      expect(primary.height > ORIGIN).assertTrue();
+      expect(primary.densityDPI > MIN_DENSITY_DPI).assertTrue();
+      expect(primary.densityPixels > ORIGIN).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_8400
+     * @tc.name      testDisplayAliveFlag0001
+     * @tc.desc      Check the default display reports itself alive as a stable boolean
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDisplayAliveFlag0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const first: display.Display = defaultDisplay();
+      const second: display.Display = defaultDisplay();
+      logCase('testDisplayAliveFlag0001', `alive=${first.alive} second=${second.alive} ` +
+        `state=${Number(first.state)} width=${first.width}`);
+      expect(typeof first.alive).assertEqual(BOOLEAN_TYPE);
+      expect(first.alive).assertTrue();
+      expect(second.alive).assertEqual(first.alive);
+      expect(first.width > ORIGIN).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_8500
+     * @tc.name      testDisplayStateValue0001
+     * @tc.desc      Check the default display power state is one of the declared states and is not the off state
+     *               while the test drives the UI
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDisplayStateValue0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const screen: display.Display = defaultDisplay();
+      const state: number = Number(screen.state);
+      logCase('testDisplayStateValue0001', `state=${state} declared=${DISPLAY_STATE_VALUES.join(',')} ` +
+        `alive=${screen.alive}`);
+      expect(DISPLAY_STATE_VALUES.indexOf(state) >= 0).assertTrue();
+      expect(state === Number(display.DisplayState.STATE_OFF)).assertFalse();
+      expect(state >= ORIGIN).assertTrue();
+      expect(screen.alive).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_8600
+     * @tc.name      testDisplayRefreshRate0001
+     * @tc.desc      Check the default display refresh rate is a positive plausible frequency
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testDisplayRefreshRate0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const screen: display.Display = defaultDisplay();
+      const rate: number = screen.refreshRate;
+      logCase('testDisplayRefreshRate0001', `refreshRate=${rate} width=${screen.width} ` +
+        `height=${screen.height}`);
+      expect(rate > ORIGIN).assertTrue();
+      expect(rate < MAX_DISPLAY_DPI).assertTrue();
+      expect(rate >= MIN_REFRESH_RATE).assertTrue();
+      expect(screen.alive).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_8700
+     * @tc.name      testDisplayNameText0001
+     * @tc.desc      Check the default display publishes a non empty trimmed name string
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testDisplayNameText0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const screen: display.Display = defaultDisplay();
+      const name: string = screen.name;
+      logCase('testDisplayNameText0001', `name=${name} length=${name.length} id=${screen.id}`);
+      expect(typeof name).assertEqual('string');
+      expect(name.length >= SINGLE_VALUE).assertTrue();
+      expect(name.trim()).assertEqual(name);
+      expect(screen.id >= ORIGIN).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_8800
+     * @tc.name      testDisplayXyDpi0001
+     * @tc.desc      Check the horizontal and vertical dpi of the default display are positive and agree with each
+     *               other
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testDisplayXyDpi0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const screen: display.Display = defaultDisplay();
+      const ratio: number = screen.xDPI / screen.yDPI;
+      logCase('testDisplayXyDpi0001', `xDPI=${screen.xDPI} yDPI=${screen.yDPI} ratio=${ratio} ` +
+        `densityDPI=${screen.densityDPI}`);
+      expect(screen.xDPI > ORIGIN).assertTrue();
+      expect(screen.yDPI > ORIGIN).assertTrue();
+      expect(ratio >= MIN_DENSITY_RATIO).assertTrue();
+      expect(ratio <= MAX_DENSITY_RATIO).assertTrue();
+      expect(screen.xDPI <= MAX_DISPLAY_DPI * 2).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_8900
+     * @tc.name      testDisplayPhysicalSize0001
+     * @tc.desc      Check the physical panel resolution is never smaller than the logical display size
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testDisplayPhysicalSize0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const screen: display.Display = defaultDisplay();
+      const physical: PhysicalProbe = await physicalResolution();
+      logCase('testDisplayPhysicalSize0001', `code=${physical.code} ` +
+        `physical=${physical.widestWidth}x${physical.widestHeight} logical=${screen.width}x${screen.height}`);
+      expect(tolerantCode(physical.code)).assertTrue();
+      if (physical.code === OK_CODE) {
+        expect(physical.count >= SINGLE_VALUE).assertTrue();
+        expect(physical.widestWidth >= screen.width).assertTrue();
+        expect(physical.widestHeight >= screen.height).assertTrue();
+      } else {
+        expect(physical.code > OK_CODE).assertTrue();
+      }
+      expect(screen.width > ORIGIN).assertTrue();
+      expect(screen.height > ORIGIN).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_9000
+     * @tc.name      testDisplayIdStable0001
+     * @tc.desc      Read the default display id three times and check the identity of the panel never changes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDisplayIdStable0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ids: number[] = [];
+      for (let round = 0; round < REPEAT_READS; round++) {
+        ids.push(defaultDisplay().id);
+      }
+      const distinct: number = ids.filter((value: number, index: number) =>
+        ids.indexOf(value) === index).length;
+      logCase('testDisplayIdStable0001', `ids=${ids.join(',')} distinct=${distinct} width=${defaultDisplay().width}`);
+      expect(ids.length).assertEqual(REPEAT_READS);
+      expect(distinct).assertEqual(SINGLE_VALUE);
+      expect(ids[0] >= ORIGIN).assertTrue();
+      expect(defaultDisplay().width > ORIGIN).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_9100
+     * @tc.name      testDisplayFoldStatus0001
+     * @tc.desc      Check the fold status matches the foldable capability of the device and uses a declared enum value
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testDisplayFoldStatus0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const fold: FoldProbe = foldState();
+      logCase('testDisplayFoldStatus0001', `code=${fold.code} foldable=${fold.foldable} status=${fold.status} ` +
+        `declared=${FOLD_STATUS_VALUES.join(',')}`);
+      expect(tolerantCode(fold.code)).assertTrue();
+      if (fold.code === OK_CODE) {
+        expect(FOLD_STATUS_VALUES.indexOf(fold.status) >= 0).assertTrue();
+        if (!fold.foldable) {
+          expect(fold.status).assertEqual(Number(display.FoldStatus.FOLD_STATUS_UNKNOWN));
+        }
+      }
+      expect(defaultDisplay().width > ORIGIN).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_9200
+     * @tc.name      testDisplayVpExtent0001
+     * @tc.desc      Convert both display dimensions to vp and check they land in a plausible window scale
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDisplayVpExtent0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const screen: display.Display = defaultDisplay();
+      const widthVp: number = screen.width / screen.densityPixels;
+      const heightVp: number = screen.height / screen.densityPixels;
+      logCase('testDisplayVpExtent0001', `widthVp=${widthVp} heightVp=${heightVp} ` +
+        `densityPixels=${screen.densityPixels}`);
+      expect(widthVp >= MIN_WINDOW_VP).assertTrue();
+      expect(widthVp <= MAX_WINDOW_VP).assertTrue();
+      expect(heightVp >= MIN_WINDOW_VP).assertTrue();
+      expect(heightVp <= MAX_WINDOW_VP).assertTrue();
+      expect(screen.densityPixels > ORIGIN).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_9300
+     * @tc.name      testWindowDisplayCoupling0001
+     * @tc.desc      Check the visible main window, its drawable area and its display id all agree with the default
+     *               display geometry
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowDisplayCoupling0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const props: window.WindowProperties = probe.props();
+      const screen: display.Display = defaultDisplay();
+      const drawable: window.Rect = probe.drawable();
+      const displayId: number | undefined = props.displayId;
+      logCase('testWindowDisplayCoupling0001', `window=${props.windowRect.width}x${props.windowRect.height} ` +
+        `drawable=${drawable.width}x${drawable.height} display=${screen.width}x${screen.height}`);
+      expect(props.windowRect.width <= screen.width).assertTrue();
+      expect(props.windowRect.height <= screen.height).assertTrue();
+      expect(drawable.width <= screen.width).assertTrue();
+      expect(drawable.height <= screen.height).assertTrue();
+      expect(displayId === undefined || displayId === screen.id).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_9400
+     * @tc.name      testPageRootTextShown0001
+     * @tc.desc      Check the page text of the home page is present in the visible main window
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testPageRootTextShown0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const probe: WindowProbe = await openProbe();
+      const page: boolean = await pageRootVisible();
+      logCase('testPageRootTextShown0001', `page=${page} showing=${probe.showing()} ` +
+        `id=${probe.props().id}`);
+      expect(page).assertTrue();
+      expect(probe.showing()).assertTrue();
+      expect(rectPositive(probe.rect())).assertTrue();
+      expect(probe.props().id >= ORIGIN).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_9500
+     * @tc.name      testPageRootTextBounds0001
+     * @tc.desc      Check the bounds of the page text form a positive rectangle and that the text itself is the
+     *               expected literal
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testPageRootTextBounds0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      await openProbe();
+      const bounds: Rect = await pageRootBounds();
+      const textComponent: Component = await pageRootComponent();
+      const text: string = await textComponent.getText();
+      logCase('testPageRootTextBounds0001', `left=${bounds.left} top=${bounds.top} ` +
+        `right=${bounds.right} bottom=${bounds.bottom} text=${text}`);
+      expect(bounds.right > bounds.left).assertTrue();
+      expect(bounds.bottom > bounds.top).assertTrue();
+      expect(bounds.right - bounds.left >= MIN_SIDE_PX).assertTrue();
+      expect(bounds.bottom - bounds.top >= MIN_SIDE_PX).assertTrue();
+      expect(text).assertEqual(PAGE_TEXT);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_9600
+     * @tc.name      testPageRootTextWithinDisplay0001
+     * @tc.desc      Check the page text is laid out inside the default display rectangle on both axes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testPageRootTextWithinDisplay0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      await openProbe();
+      const bounds: Rect = await pageRootBounds();
+      const screen: display.Display = defaultDisplay();
+      logCase('testPageRootTextWithinDisplay0001', `bounds=${bounds.left},${bounds.top},${bounds.right},` +
+        `${bounds.bottom} display=${screen.width}x${screen.height}`);
+      expect(bounds.left >= ORIGIN).assertTrue();
+      expect(bounds.top >= ORIGIN).assertTrue();
+      expect(bounds.right <= screen.width).assertTrue();
+      expect(bounds.bottom <= screen.height).assertTrue();
+      expect((bounds.right - bounds.left) * (bounds.bottom - bounds.top) <= screen.width * screen.height)
+        .assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_9700
+     * @tc.name      testPageRootTextStableBounds0001
+     * @tc.desc      Query the page text bounds twice and check the layout did not shift between the queries
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testPageRootTextStableBounds0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      await openProbe();
+      const first: Rect = await pageRootBounds();
+      const second: Rect = await pageRootBounds();
+      logCase('testPageRootTextStableBounds0001', `first=${first.left},${first.top} ` +
+        `second=${second.left},${second.top} firstRight=${first.right} secondRight=${second.right}`);
+      expect(second.left).assertEqual(first.left);
+      expect(second.top).assertEqual(first.top);
+      expect(second.right).assertEqual(first.right);
+      expect(second.bottom).assertEqual(first.bottom);
+      expect(first.right > first.left).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_9800
+     * @tc.name      testPageRootTextEnabled0001
+     * @tc.desc      Check the page text component is enabled and not clickable while the window is showing
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testPageRootTextEnabled0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: WindowProbe = await openProbe();
+      const text: Component = await pageRootComponent();
+      const enabled: boolean = await text.isEnabled();
+      const clickable: boolean = await text.isClickable();
+      logCase('testPageRootTextEnabled0001', `enabled=${enabled} clickable=${clickable} ` +
+        `showing=${probe.showing()}`);
+      expect(enabled).assertTrue();
+      expect(clickable).assertFalse();
+      expect(probe.showing()).assertTrue();
+      expect(rectPositive(probe.drawable())).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_9900
+     * @tc.name      testPageRootTextFocusedState0001
+     * @tc.desc      Check the page text is not focused on its own and the window that hosts it stays visible with a
+     *               valid rectangle
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testPageRootTextFocusedState0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const probe: WindowProbe = await openProbe();
+      const text: Component = await pageRootComponent();
+      const focused: boolean = await text.isFocused();
+      const kind: string = typeof focused;
+      logCase('testPageRootTextFocusedState0001', `focused=${focused} kind=${kind} ` +
+        `touchable=${probe.props().touchable}`);
+      expect(kind).assertEqual(BOOLEAN_TYPE);
+      expect(focused).assertFalse();
+      expect(probe.showing()).assertTrue();
+      expect(rectPositive(probe.rect())).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_10000
+     * @tc.name      testPageRootTextAfterRelaunch0001
+     * @tc.desc      Relaunch the ability and check the page text is delivered again into the new main window
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testPageRootTextAfterRelaunch0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      await openProbe();
+      const before: boolean = await pageRootVisible();
+      const second: WindowProbe = await openProbe();
+      const after: boolean = await pageRootVisible();
+      const bounds: Rect = await pageRootBounds();
+      logCase('testPageRootTextAfterRelaunch0001', `before=${before} after=${after} ` +
+        `bounds=${bounds.right - bounds.left}x${bounds.bottom - bounds.top} showing=${second.showing()}`);
+      expect(before).assertTrue();
+      expect(after).assertTrue();
+      expect(bounds.right > bounds.left).assertTrue();
+      expect(second.showing()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_10100
+     * @tc.name      testPageRootTextGoneAfterStop0001
+     * @tc.desc      Terminate the ability and check the page text disappears, then relaunch and check it comes back
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testPageRootTextGoneAfterStop0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      await openProbe();
+      const before: boolean = await pageRootVisible();
+      await stopHome();
+      const gone: Component | null =
+        await driver().waitForComponent(ON.text(PAGE_TEXT).type(PAGE_TEXT_TYPE), DRIVER_ABSENT_MS);
+      await openProbe();
+      const back: boolean = await pageRootVisible();
+      logCase('testPageRootTextGoneAfterStop0001', `before=${before} goneAfterStop=${gone === null} ` +
+        `back=${back}`);
+      expect(before).assertTrue();
+      expect(gone === null).assertTrue();
+      expect(back).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_10200
+     * @tc.name      testWindowRelaunchBrightness0001
+     * @tc.desc      Compare the untouched window brightness before and after a relaunch and check the fresh window
+     *               starts from the same legal level
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowRelaunchBrightness0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const first: WindowProbe = await openProbe();
+      const before: WindowFacts = capture(first.main);
+      const second: WindowProbe = await openProbe();
+      const after: WindowFacts = capture(second.main);
+      logCase('testWindowRelaunchBrightness0001', `before=${before.brightness} after=${after.brightness} ` +
+        `showing=${after.showing}`);
+      expect(after.brightness).assertEqual(before.brightness);
+      expect(inBrightnessRange(after.brightness)).assertTrue();
+      expect(after.showing).assertTrue();
+      expect(after.code).assertEqual(OK_CODE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_10300
+     * @tc.name      testWindowRelaunchType0001
+     * @tc.desc      Check a relaunched ability produces a main window of the same declared window type and width
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowRelaunchType0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const first: WindowProbe = await openProbe();
+      const before: WindowFacts = capture(first.main);
+      const second: WindowProbe = await openProbe();
+      const after: WindowFacts = capture(second.main);
+      logCase('testWindowRelaunchType0001', `beforeType=${before.windowType} afterType=${after.windowType} ` +
+        `beforeWidth=${before.width} afterWidth=${after.width}`);
+      expect(after.windowType).assertEqual(before.windowType);
+      expect(knownWindowType(after.windowType)).assertTrue();
+      expect(after.width).assertEqual(before.width);
+      expect(after.showing).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_10400
+     * @tc.name      testWindowRelaunchFullScreen0001
+     * @tc.desc      Check the two full screen flags of the main window survive a relaunch unchanged
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowRelaunchFullScreen0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const first: WindowProbe = await openProbe();
+      const before: WindowFacts = capture(first.main);
+      const second: WindowProbe = await openProbe();
+      const after: WindowFacts = capture(second.main);
+      logCase('testWindowRelaunchFullScreen0001', `fullScreen=${before.fullScreen}/${after.fullScreen} ` +
+        `layout=${before.layoutFullScreen}/${after.layoutFullScreen}`);
+      expect(after.fullScreen).assertEqual(before.fullScreen);
+      expect(after.layoutFullScreen).assertEqual(before.layoutFullScreen);
+      expect(after.height).assertEqual(before.height);
+      expect(after.showing).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_10500
+     * @tc.name      testWindowRelaunchDisplayId0001
+     * @tc.desc      Check the relaunched main window is bound to the same display and keeps the same width
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowRelaunchDisplayId0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const first: WindowProbe = await openProbe();
+      const before: WindowFacts = capture(first.main);
+      const second: WindowProbe = await openProbe();
+      const after: WindowFacts = capture(second.main);
+      logCase('testWindowRelaunchDisplayId0001', `beforeDisplay=${before.displayId} ` +
+        `afterDisplay=${after.displayId} width=${after.width}`);
+      expect(after.displayId).assertEqual(before.displayId);
+      expect(after.width).assertEqual(before.width);
+      expect(after.id >= ORIGIN).assertTrue();
+      expect(after.showing).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_10600
+     * @tc.name      testWindowRelaunchStatus0001
+     * @tc.desc      Check the window status of a relaunched ability equals the status before the relaunch
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowRelaunchStatus0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const first: WindowProbe = await openProbe();
+      const beforeStatus: number = first.statusSafe();
+      const second: WindowProbe = await openProbe();
+      const afterStatus: number = second.statusSafe();
+      logCase('testWindowRelaunchStatus0001', `before=${beforeStatus} after=${afterStatus} ` +
+        `showing=${second.showing()}`);
+      expect(afterStatus).assertEqual(beforeStatus);
+      expect(afterStatus === MISSING_ID || knownStatus(afterStatus)).assertTrue();
+      expect(second.showing()).assertTrue();
+      expect(rectPositive(second.rect())).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_10700
+     * @tc.name      testWindowRelaunchFlags0001
+     * @tc.desc      Check the focusable, touchable and keep screen on flags of a relaunched window match the old
+     *               window
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowRelaunchFlags0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const first: WindowProbe = await openProbe();
+      const before: WindowFacts = capture(first.main);
+      const second: WindowProbe = await openProbe();
+      const after: WindowFacts = capture(second.main);
+      logCase('testWindowRelaunchFlags0001', `focusable=${before.focusable}/${after.focusable} ` +
+        `touchable=${before.touchable}/${after.touchable} keepOn=${before.keepScreenOn}/${after.keepScreenOn}`);
+      expect(after.focusable).assertEqual(before.focusable);
+      expect(after.touchable).assertEqual(before.touchable);
+      expect(after.keepScreenOn).assertEqual(before.keepScreenOn);
+      expect(after.showing).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WINDOW_10800
+     * @tc.name      testWindowRelaunchDrawable0001
+     * @tc.desc      Check the drawable area of the relaunched main window keeps the same size and stays inside the
+     *               window
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowRelaunchDrawable0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const first: WindowProbe = await openProbe();
+      const before: WindowFacts = capture(first.main);
+      const second: WindowProbe = await openProbe();
+      const after: WindowFacts = capture(second.main);
+      logCase('testWindowRelaunchDrawable0001', `before=${before.drawableWidth}x${before.drawableHeight} ` +
+        `after=${after.drawableWidth}x${after.drawableHeight}`);
+      expect(after.drawableWidth).assertEqual(before.drawableWidth);
+      expect(after.drawableHeight).assertEqual(before.drawableHeight);
+      expect(rectInside(second.drawable(), second.rect())).assertTrue();
+      expect(second.showing()).assertTrue();
+    });
+
+  });
+}
