@@ -298,7 +298,7 @@ void SetConfig01(OH_AVScreenCaptureConfig &config)
 // [Start screenCapture_config]
 void SetConfig02(OH_AVScreenCaptureConfig &config, OH_RecorderInfo &recorderInfo)
 {
-    // 录屏时获取麦克风或者内录，内录参数必填，如果都设置了，内录和麦克风的参数设置需要一致。
+    // 录屏时如果要获取麦克风或者内录，内录参数必填。如果内录和麦克风都设置了，两者参数设置需要一致。
     OH_AudioCaptureInfo micCapInfo = {.audioSampleRate = 48000, .audioChannels = 2, .audioSource = OH_MIC};
 
     OH_AudioCaptureInfo innerCapInfo = {.audioSampleRate = 48000, .audioChannels = 2, .audioSource = OH_ALL_PLAYBACK};
@@ -359,7 +359,7 @@ void SetConfig02(OH_AVScreenCaptureConfig &config, OH_RecorderInfo &recorderInfo
 
 void SetConfig03(OH_AVScreenCaptureConfig &config)
 {
-    // 录屏时获取麦克风或者内录，内录参数必填，如果都设置了，内录和麦克风的参数设置需要一致。
+    // 录屏时如果要获取麦克风或者内录，内录参数必填。如果内录和麦克风都设置了，两者参数设置需要一致。
     OH_AudioCaptureInfo micCapInfo = {.audioSampleRate = 48000, .audioChannels = 2, .audioSource = OH_MIC};
 
     OH_AudioCaptureInfo innerCapInfo = {.audioSampleRate = 48000, .audioChannels = 2, .audioSource = OH_ALL_PLAYBACK};
