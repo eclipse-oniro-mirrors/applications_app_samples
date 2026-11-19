@@ -405,27 +405,12 @@ int32_t VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
                 // 开发者可根据业务需要，对输出数据进行保存/释放处理。
                 /**
                  * 示例：将编码完成帧数据buffer写入到对应输出文件中。
-                 * // 获取编码后信息。
-                 * OH_AVCodecBufferAttr attr;
-                 * OH_AVErrCode getBufferRet = OH_AVBuffer_GetBufferAttr(buffer, &attr);
-                 * if (getBufferRet != AV_ERR_OK) {
-                 *     // 异常处理。
-                 * }
-                 * if (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
-                 *     // 尾帧处理。
-                 * }
-                 * // 将编码完成帧数据buffer写入到对应输出文件中。
                  * uint8_t *addr = OH_AVBuffer_GetAddr(buffer);
                  * if (addr == nullptr) {
                  *    // 异常处理 。
                  * }
                  * if (outputFile != nullptr && outputFile->is_open()) {
                  *     outputFile->write(reinterpret_cast<char *>(addr), attr.size);
-                 * }
-                 * // 释放已完成写入的数据，index为对应输出队列下标。
-                 * OH_AVErrCode freeOutputRet = OH_VideoEncoder_FreeOutputBuffer(encoder_, info.bufferIndex);
-                 * if (freeOutputRet != AV_ERR_OK) {
-                 *     // 异常处理。
                  * }
                  */
                 return AVCODEC_SAMPLE_ERR_OK;
@@ -452,9 +437,7 @@ int32_t VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
             }
         }
     }
-    // [StartExclude encoder_sync_get_outputbuffer]
     AVCODEC_SAMPLE_LOGD("Output stream changed repeatedly, defer buffer acquisition to next poll");
-    // [EndExclude encoder_sync_get_outputbuffer]
     return AVCODEC_SAMPLE_ERR_AGAIN;
 }
 // [End encoder_sync_get_outputbuffer]
