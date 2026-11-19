@@ -21,6 +21,7 @@
 #include <mutex>
 #include "napi/native_api.h"
 #include "multimedia/player_framework/native_avdemuxer.h"
+#include "multimedia/drm_framework/native_drm_common.h"
 #include "sample_info.h"
 #include "dfx/error/av_codec_sample_error.h"
 #include "av_codec_sample_log.h"
@@ -41,10 +42,14 @@ public:
     int32_t GetAudioTrackInfo(int32_t trackIndex, AudioSampleInfo &audioInfo);
     // 切换音轨前先验证目标轨道，失败时保持当前选轨及元数据不变。
     int32_t SelectAudioTrack(int32_t trackIndex, SampleInfo &info);
+    // 主动获取DRM信息（uuid及对应pssh），供设置解码器解密配置前创建MediaKeySystem、MediaKeySession使用。
+    int32_t GetMediaKeySystemInfo(DRM_MediaKeySystemInfo &mediaKeySystemInfo);
     // 按容器同步帧定位。成功后需要同步刷新解码器和业务侧已缓存的旧帧。
     int32_t Seek(int64_t positionMs, OH_AVSeekMode mode = SEEK_MODE_NEXT_SYNC);
 
 private:
+    // 由SampleInfo创建Source。按uri、自定义数据源（沙箱文件路径）、fd的优先级选择输入方式。
+    int32_t CreateSource(SampleInfo &info);
     int32_t GetTrackInfo(std::shared_ptr<OH_AVFormat> sourceFormat, SampleInfo &info);
     std::shared_ptr<OH_AVFormat> GetTrackFormat(int32_t index);
     int GetTrackType(std::shared_ptr<OH_AVFormat> trackFormat);
