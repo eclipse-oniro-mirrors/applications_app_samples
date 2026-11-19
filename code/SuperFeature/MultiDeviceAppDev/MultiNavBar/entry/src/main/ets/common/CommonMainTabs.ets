@@ -20,7 +20,7 @@ import { CommonSubTabs } from './CommonSubTabs';
 
 @Component
 export struct CommonMainTabs {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointKey.MD;
   @Link currentMainIndex: number;
   @Link currentSubIndex: number;
   mainTabsController: TabsController = new TabsController();

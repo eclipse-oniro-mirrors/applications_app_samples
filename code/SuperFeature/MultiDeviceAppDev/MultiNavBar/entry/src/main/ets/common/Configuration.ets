@@ -22,48 +22,48 @@ import { CustomBreakPointStyle, CustomFontStyle, CustomLength, SubTabsController
  */
 class DesignSpec {
   /** 顶部控制按钮：左偏移 24、上偏移 40、图标 24 x 24，sm 与 md/lg 共用。 */
-  static readonly CONTROL_BUTTON: CustomLength = { left: 24, top: 40, width: 24, height: 24 };
+  public static readonly CONTROL_BUTTON: CustomLength = { left: 24, top: 40, width: 24, height: 24 };
 
   /** sm：底部 tab 形态。 */
-  static readonly SM_NAV_LIST_MARGIN: number = 0;
-  static readonly SM_MENU_IMG_MARGIN: CustomLength = { top: 7 };
-  static readonly SM_MENU_TEXT_SIZE: number = 10;
-  static readonly SM_MENU_TEXT_HEIGHT: number = 14;
-  static readonly SM_CONTENT_MARGIN: CustomLength = { top: 24, bottom: 0, left: 16, right: 16 };
-  static readonly SM_RECOMMEND_MARGIN: CustomLength = { top: 0 };
-  static readonly SM_RECOMMEND_GRID_HEIGHT: number = 284;
-  static readonly SM_RECOMMEND_GRID_ITEM_HEIGHT: number = 138;
-  static readonly SM_RECOMMEND_GRID_SEC_HEIGHT: number = 576;
+  public static readonly SM_NAV_LIST_MARGIN: number = 0;
+  public static readonly SM_MENU_IMG_MARGIN: CustomLength = { top: 7 };
+  public static readonly SM_MENU_TEXT_SIZE: number = 10;
+  public static readonly SM_MENU_TEXT_HEIGHT: number = 14;
+  public static readonly SM_CONTENT_MARGIN: CustomLength = { top: 24, bottom: 0, left: 16, right: 16 };
+  public static readonly SM_RECOMMEND_MARGIN: CustomLength = { top: 0 };
+  public static readonly SM_RECOMMEND_GRID_HEIGHT: number = 284;
+  public static readonly SM_RECOMMEND_GRID_ITEM_HEIGHT: number = 138;
+  public static readonly SM_RECOMMEND_GRID_SEC_HEIGHT: number = 576;
 
   /** md/lg：侧边槽形态。 */
-  static readonly MD_NAV_LIST_MARGIN: number = 24;
-  static readonly MD_MENU_IMG_MARGIN: CustomLength = { top: 0 };
-  static readonly MD_MENU_TEXT_SIZE: number = 12;
-  static readonly MD_MENU_TEXT_HEIGHT: number = 16;
-  static readonly MD_CONTENT_MARGIN: CustomLength = { left: 24, right: 24, top: 24, bottom: 22 };
-  static readonly MD_RECOMMEND_MARGIN: CustomLength = { top: 16 };
-  static readonly MD_RECOMMEND_GRID_HEIGHT: number = 106;
-  static readonly MD_RECOMMEND_GRID_ITEM_HEIGHT: number = 106;
-  static readonly MD_RECOMMEND_GRID_SEC_HEIGHT: number = 220;
+  public static readonly MD_NAV_LIST_MARGIN: number = 24;
+  public static readonly MD_MENU_IMG_MARGIN: CustomLength = { top: 0 };
+  public static readonly MD_MENU_TEXT_SIZE: number = 12;
+  public static readonly MD_MENU_TEXT_HEIGHT: number = 16;
+  public static readonly MD_CONTENT_MARGIN: CustomLength = { left: 24, right: 24, top: 24, bottom: 22 };
+  public static readonly MD_RECOMMEND_MARGIN: CustomLength = { top: 16 };
+  public static readonly MD_RECOMMEND_GRID_HEIGHT: number = 106;
+  public static readonly MD_RECOMMEND_GRID_ITEM_HEIGHT: number = 106;
+  public static readonly MD_RECOMMEND_GRID_SEC_HEIGHT: number = 220;
 
   /** 二级菜单：sm / list 模式（紧凑）。 */
-  static readonly COMPACT_TEXT_MARGIN: CustomLength = { top: 4, left: 0 };
-  static readonly COMPACT_SECOND_MENU_SPACE: number = 16;
-  static readonly COMPACT_SECOND_MENU_ITEM_MARGIN: CustomLength = { left: 0 };
-  static readonly COMPACT_SECOND_MENU_ITEM_HEIGHT: number = 56;
-  static readonly COMPACT_LIST_PADDING: CustomLength = { left: 0 };
-  static readonly COMPACT_MENU_PADDING: CustomLength = { left: 0, right: 0 };
-  static readonly COMPACT_ITEM_FONT_SIZE: number = 24;
-  static readonly COMPACT_INACTIVE_FONT_SIZE: number = 18;
+  public static readonly COMPACT_TEXT_MARGIN: CustomLength = { top: 4, left: 0 };
+  public static readonly COMPACT_SECOND_MENU_SPACE: number = 16;
+  public static readonly COMPACT_SECOND_MENU_ITEM_MARGIN: CustomLength = { left: 0 };
+  public static readonly COMPACT_SECOND_MENU_ITEM_HEIGHT: number = 56;
+  public static readonly COMPACT_LIST_PADDING: CustomLength = { left: 0 };
+  public static readonly COMPACT_MENU_PADDING: CustomLength = { left: 0, right: 0 };
+  public static readonly COMPACT_ITEM_FONT_SIZE: number = 24;
+  public static readonly COMPACT_INACTIVE_FONT_SIZE: number = 18;
 
   /** 二级菜单：md/lg tabs 模式（宽松）。 */
-  static readonly WIDE_TEXT_MARGIN: CustomLength = { top: 0, left: 8 };
-  static readonly WIDE_SECOND_MENU_SPACE: number = 0;
-  static readonly WIDE_SECOND_MENU_ITEM_HEIGHT: number = 48;
-  static readonly WIDE_SECOND_MENU_ITEM_MARGIN: CustomLength = { left: 44 };
-  static readonly WIDE_LIST_PADDING: CustomLength = { left: 12, right: 12 };
-  static readonly WIDE_MENU_PADDING: CustomLength = { left: 12, right: 12 };
-  static readonly WIDE_ITEM_FONT_SIZE: number = 16;
+  public static readonly WIDE_TEXT_MARGIN: CustomLength = { top: 0, left: 8 };
+  public static readonly WIDE_SECOND_MENU_SPACE: number = 0;
+  public static readonly WIDE_SECOND_MENU_ITEM_HEIGHT: number = 48;
+  public static readonly WIDE_SECOND_MENU_ITEM_MARGIN: CustomLength = { left: 44 };
+  public static readonly WIDE_LIST_PADDING: CustomLength = { left: 12, right: 12 };
+  public static readonly WIDE_MENU_PADDING: CustomLength = { left: 12, right: 12 };
+  public static readonly WIDE_ITEM_FONT_SIZE: number = 16;
 }
 
 /**

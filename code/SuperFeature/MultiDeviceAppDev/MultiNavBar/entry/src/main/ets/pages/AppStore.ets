@@ -25,8 +25,8 @@ let storage = LocalStorage.GetShared();
 @Entry(storage)
 @Component
 struct AppStore {
-  @LocalStorageLink("currentBreakpoint") currentBreakpoint: string = 'md';
-  @LocalStorageLink("currentSideBarMode") @Watch('onCurrentSideBarModeChange') currentSideBarMode: string = 'tabs';
+  @LocalStorageLink('currentBreakpoint') currentBreakpoint: string = 'md';
+  @LocalStorageLink('currentSideBarMode') @Watch('onCurrentSideBarModeChange') currentSideBarMode: string = 'tabs';
   @State sideListData: MenuType[] = sideListData;
   @State currentMainIndex: number = 0;
   @State currentSubIndex: number = 0;

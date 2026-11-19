@@ -2,13 +2,13 @@
 
 共 **63 个套件 / 2,179 条用例**，全部为 Hypium 自动化用例，源码位于 `entry/src/ohosTest/ets/test/`（63 个套件文件合计 72,233 行，另有只做注册的 `List.test.ets` 146 行）。
 
-用例按基础层与页面层覆盖：
+用例按基础层与应用层覆盖：
 
 | 层 | 用例数 | 套件构成 |
 |---|---|---|
 | 基础层·断点与样式 | 1,531 | BPT 397（11 套件） + SBM 245（7 套件） + BST 322（9 套件） + MTS 245（7 套件） + SCS 322（9 套件） |
 | 基础层·数据与模型 | 589 | SSTS 245（7 套件） + SLD 172（5 套件） + MDL 172（5 套件） |
-| 页面层·界面与冒烟 | 59 | UI 50（2 套件） + ABL 9（1 套件） |
+| 应用层·界面与冒烟 | 59 | UI 50（2 套件） + ABL 9（1 套件） |
 | **合计** | **2,179** | 63 个套件 |
 
 `@tc.size` 分布：MEDIUMTEST 59 / SMALLTEST 2,120；`@tc.level` 分布：LEVEL0 31 / LEVEL1 65 / LEVEL2 2,083。
@@ -97,7 +97,7 @@
 | `Ability.test.ets` | ABL | 9 | 307 | MEDIUMTEST 9 |
 | **合计** | - | **2,179** | **72,233** | - |
 
-> 预置条件统一为「已安装测试 HAP，main 侧代码可直接加载」；页面层套件为「已安装测试 HAP，应用已启动并停在前台」。下表只写与单个用例相关的额外前置。
+> 预置条件统一为「已安装测试 HAP，main 侧代码可直接加载」；应用层套件为「已安装测试 HAP，应用已启动并停在前台」。下表只写与单个用例相关的额外前置。
 >
 > 手写套件（`*EdgeReal` / `*Real01` / `UiNavReal*` / `Ability`）一例一行，行数与该套件用例数、上表逐行可核；52 个 `@volume` 生成套件按 `例N` 紧凑罗列（一行 1~2 例），`例N` 即文件内第 N 个 `it()`，与套件内用例顺序一一对应。为守住「单文件 ≤ 2,000 行」门禁，紧凑行不再受 120 字符约束，用例名与期望值则未删减。
 >
@@ -105,7 +105,7 @@
 
 ## BptEdgeReal 套件（`BptEdgeReal.test.ets`，22 条）
 
-L1 cases for BreakpointType<T>.GetValue (common/BreakpointSystem.ets:27). GetValue maps 'sm' / 'md' / 'lg' to the three frozen constructor slots and returns undefined for every other key - the match is case sensitive and whitespace sensitive.
+Base-layer cases for BreakpointType<T>.GetValue (common/BreakpointSystem.ets:27). GetValue maps 'sm' / 'md' / 'lg' to the three frozen constructor slots and returns undefined for every other key - the match is case sensitive and whitespace sensitive.
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
@@ -314,7 +314,7 @@ L1 cases for BreakpointType<T>.GetValue (common/BreakpointSystem.ets:27). GetVal
 
 ## SbmEdgeReal 套件（`SbmEdgeReal.test.ets`，20 条）
 
-L1 cases for SideBarMode<T>.GetValue (common/BreakpointSystem.ets:50). Only the two literals 'list' and 'tabs' select a slot; every other key returns undefined.
+Base-layer cases for SideBarMode<T>.GetValue (common/BreakpointSystem.ets:50). Only the two literals 'list' and 'tabs' select a slot; every other key returns undefined.
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
@@ -447,7 +447,7 @@ L1 cases for SideBarMode<T>.GetValue (common/BreakpointSystem.ets:50). Only the 
 
 ## BstFieldReal01 套件（`BstFieldReal01.test.ets`，22 条）
 
-L1 cases for StyleConfiguration.getBreakpointStyle (common/Configuration.ets:18). The method has exactly two branches: currentBreakpoint === 'sm' and everything else. Expectations come from the frozen tables in util/NavSpec.ts.
+Base-layer cases for StyleConfiguration.getBreakpointStyle (common/Configuration.ets:18). The method has exactly two branches: currentBreakpoint === 'sm' and everything else. Expectations come from the frozen tables in util/NavSpec.ts.
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
@@ -684,7 +684,7 @@ L1 cases for StyleConfiguration.getBreakpointStyle (common/Configuration.ets:18)
 
 ## MtsGridReal01 套件（`MtsGridReal01.test.ets`，20 条）
 
-L1 cases for StyleConfiguration.getCurrentMainTabsStyle (common/Configuration.ets:58). The selected tab (index === currentIndex) gets the accent colour on both the 'sm' and the default branch; the implementation of the two branches is identical, which case 1112 pins down.
+Base-layer cases for StyleConfiguration.getCurrentMainTabsStyle (common/Configuration.ets:58). The selected tab (index === currentIndex) gets the accent colour on both the 'sm' and the default branch; the implementation of the two branches is identical, which case 1112 pins down.
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
@@ -867,7 +867,7 @@ L1 cases for StyleConfiguration.getCurrentMainTabsStyle (common/Configuration.et
 
 ## ScsFieldReal01 套件（`ScsFieldReal01.test.ets`，22 条）
 
-L1 cases for StyleConfiguration.getSubTabsControllerStyle (common/Configuration.ets:90). The compact branch is selected by `bp === 'sm' || (bp !== 'sm' && mode === 'list')`; every other combination takes the wide branch.
+Base-layer cases for StyleConfiguration.getSubTabsControllerStyle (common/Configuration.ets:90). The compact branch is selected by `bp === 'sm' || (bp !== 'sm' && mode === 'list')`; every other combination takes the wide branch.
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
@@ -1104,7 +1104,7 @@ L1 cases for StyleConfiguration.getSubTabsControllerStyle (common/Configuration.
 
 ## SstsCellReal01 套件（`SstsCellReal01.test.ets`，20 条）
 
-L1 cases for StyleConfiguration.getCurrentSubTabsStyle (common/Configuration.ets:132). The compact branch is shared by 'sm' and by the wide layout in list mode; the wide branch is used for every other combination. Four field states exist in total.
+Base-layer cases for StyleConfiguration.getCurrentSubTabsStyle (common/Configuration.ets:132). The compact branch is shared by 'sm' and by the wide layout in list mode; the wide branch is used for every other combination. Four field states exist in total.
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
@@ -1287,7 +1287,7 @@ L1 cases for StyleConfiguration.getCurrentSubTabsStyle (common/Configuration.ets
 
 ## SldTableReal01 套件（`SldTableReal01.test.ets`，22 条）
 
-L1 cases for the frozen navigation table model/SideListData.ets:18. The table drives the primary side bar; SideBarController.ets:175 hides its last entry on every layout wider than 'sm'.
+Base-layer cases for the frozen navigation table model/SideListData.ets:18. The table drives the primary side bar; SideBarController.ets:175 hides its last entry on every layout wider than 'sm'.
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
@@ -1396,7 +1396,7 @@ L1 cases for the frozen navigation table model/SideListData.ets:18. The table dr
 
 ## MdlDefaultReal01 套件（`MdlDefaultReal01.test.ets`，22 条）
 
-L1 cases for the style value objects in model/StyleType.ets:16-64. All fields are optional with declared defaults, so a freshly created instance describes the zero state that the layout code relies on when a breakpoint never sets a value.
+Base-layer cases for the style value objects in model/StyleType.ets:16-64. All fields are optional with declared defaults, so a freshly created instance describes the zero state that the layout code relies on when a breakpoint never sets a value.
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
@@ -1504,7 +1504,7 @@ L1 cases for the style value objects in model/StyleType.ets:16-64. All fields ar
 
 ## UiNavReal01 套件（`UiNavReal01.test.ets`，25 条）
 
-L2 用例，需应用在前台：宽屏断言侧边栏控件（`switchButton` / `addTools` / `moreTools` / `accountTitle` / `searchButton`），窄屏（`sm` 断点）断言 `Tabs` 存在且侧边栏控件全部缺席。
+应用层用例，需应用在前台：宽屏断言侧边栏控件（`switchButton` / `addTools` / `moreTools` / `accountTitle` / `searchButton`），窄屏（`sm` 断点）断言 `Tabs` 存在且侧边栏控件全部缺席。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
@@ -1536,7 +1536,7 @@ L2 用例，需应用在前台：宽屏断言侧边栏控件（`switchButton` / 
 
 ## UiNavReal02 套件（`UiNavReal02.test.ets`，25 条）
 
-L2 用例，需应用在前台：宽屏断言侧边栏控件（`switchButton` / `addTools` / `moreTools` / `accountTitle` / `searchButton`），窄屏（`sm` 断点）断言 `Tabs` 存在且侧边栏控件全部缺席。
+应用层用例，需应用在前台：宽屏断言侧边栏控件（`switchButton` / `addTools` / `moreTools` / `accountTitle` / `searchButton`），窄屏（`sm` 断点）断言 `Tabs` 存在且侧边栏控件全部缺席。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
@@ -1568,7 +1568,7 @@ L2 用例，需应用在前台：宽屏断言侧边栏控件（`switchButton` / 
 
 ## ActsAbilityTest 套件（`Ability.test.ets`，9 条）
 
-L2 smoke cases kept from the original sample: launch the ability, resize the window to a target breakpoint and drive the side bar / bottom tools. Every case asserts the observed window width (or that the target component was hit) instead of only replaying gestures.
+App-layer smoke cases kept from the original sample: launch the ability, resize the window to a target breakpoint and drive the side bar / bottom tools. Every case asserts the observed window width (or that the target component was hit) instead of only replaying gestures.
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
@@ -1599,10 +1599,11 @@ hvigorw --mode module -p product=default -p module=entry@ohosTest assembleHap --
 ```bash
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
+```
 
-套件执行顺序：基础层（断点 → 样式 → 数据与模型）先跑，页面层（界面流转 → Ability 冒烟）后跑，避免 UI 交互与纯逻辑用例互相干扰。
+套件执行顺序：基础层（断点 → 样式 → 数据与模型）先跑，应用层（界面流转 → Ability 冒烟）后跑，避免 UI 交互与纯逻辑用例互相干扰。
 
-实际执行按套件逐个进行：63 个套件各起一个独立 `aa test` 进程（L1 套件 `-s timeout 120000`，UI 套件 300000~600000）。合并成单进程全量执行时会在第 789 例附近被系统回收（`App died`），因此不采用单进程全量方式；结果按套件汇总后回填下一节。
+实际执行按套件逐个进行：63 个套件各起一个独立的 Ability 测试进程，命令为 `hdc shell aa test`（`aa` 是 OpenHarmony 自带的 Ability assistant，负责拉起测试 Ability 并执行 unittest；基础层套件 `-s timeout 120000`，UI 套件 300000~600000）。合并成单进程全量执行时会在第 789 例附近被系统回收（`App died`），因此不采用单进程全量方式；结果按套件汇总后回填下一节。
 
 ## 测试结果
 
@@ -1612,7 +1613,7 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 | 套件注册 | 63 个套件全部在 `List.test.ets` 中 import 并在 `testsuite()` 内调用 |
 | 用例规模 | 2,179 条，与本文件用例清单一致（手写套件逐行、`@volume` 套件按 `例N` 罗列），未增未删 |
 | 单文件行数 | 63 个套件文件均 ≤ 2,000 行，最大 1,589 行（`BstFieldVol02.test.ets`、`BstFieldVol03.test.ets`）；`List.test.ets` 146 行 |
-| 归档文档行数 | `ohosTest.md` 1,673 行，满足单文件 ≤ 2,000 行 |
+| 归档文档行数 | `ohosTest.md` 1,629 行，满足单文件 ≤ 2,000 行 |
 | 真机运行 | 2,179 条通过 / 0 条失败 / 0 条错误 |
 | 结论 | **2,179 条用例全部通过** |
 
@@ -1623,6 +1624,7 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 | 应用包名 | `com.samples.multiplenavbar` | `-b` |
 | 测试模块名 | `entry_test` | `-m` |
 | 测试运行器 | `/ets/testrunner/OpenHarmonyTestRunner` | `-s unittest` |
-| 单套件超时（毫秒） | `120000`（L1）、`300000`~`600000`（UI） | `-s timeout` |
+| 单套件超时（毫秒） | `120000`（基础层）、`300000`~`600000`（应用层） | `-s timeout` |
 
 只跑指定套件时，在上表基础上追加 `-s class <套件名或 Suite#method，逗号分隔>`。
+

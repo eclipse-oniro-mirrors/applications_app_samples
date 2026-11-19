@@ -40,7 +40,7 @@ class ItemType {
 
 @Component
 export struct RecommendationList {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointKey.MD;
   @State bannerList: Resource[] = [
   $r('app.media.ic_public_swiper1'),
   $r('app.media.ic_public_swiper2'),

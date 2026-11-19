@@ -67,9 +67,9 @@ function emptyBox(): BoxInfo {
  */
 export class UiFlow {
   private driverInstance: Driver | undefined = undefined;
-  wide: boolean = false;
+  public wide: boolean = false;
   /** 'wide' for md/lg, 'narrow' for sm; decided once in boot(). */
-  mode: string = NARROW_MODE;
+  public mode: string = NARROW_MODE;
 
   /** Created on first use, so constructing a flow outside a test run never throws. */
   get driver(): Driver {

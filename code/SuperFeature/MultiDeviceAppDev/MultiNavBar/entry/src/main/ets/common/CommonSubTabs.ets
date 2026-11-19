@@ -22,11 +22,11 @@ import { SearchModule, SecondaryMenu } from './SideBarController';
 
 @Component
 export struct CommonSubTabs {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointKey.MD;
   @Link currentSubIndex: number;
   subTabsController: TabsController = new TabsController();
   subTabsContentList: MenuType[] = new Array();
-  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = SideBarModeKey.TABS;
+  @LocalStorageProp('currentSideBarMode') currentSideBarMode: string = SideBarModeKey.TABS;
 
   subControllerChangeIndex(subController: TabsController, index: number) {
     subController.changeIndex(index);
@@ -85,7 +85,7 @@ export struct CommonSubTabs {
 @Component
 struct SubTabsContentTitle {
   subTabsTitleName: Resource = $r('app.string.recommend');
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointKey.MD;
 
   build() {
     Row() {

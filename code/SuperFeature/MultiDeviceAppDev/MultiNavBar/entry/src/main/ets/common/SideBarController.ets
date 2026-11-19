@@ -33,8 +33,8 @@ import { sideListData } from '../model/SideListData';
 
 @Component
 export struct SideBarController {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
-  @LocalStorageLink("currentSideBarMode") currentSideBarMode: string = SideBarModeKey.TABS;
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageLink('currentSideBarMode') currentSideBarMode: string = SideBarModeKey.TABS;
   @Link currentSubIndex: number;
   @Link currentMainIndex: number;
   mainController: TabsController = new TabsController();
@@ -77,8 +77,8 @@ export struct SideBarController {
 
 @Component
 struct AccountInfo {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
-  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = SideBarModeKey.TABS;
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageProp('currentSideBarMode') currentSideBarMode: string = SideBarModeKey.TABS;
 
   build() {
     Row() {
@@ -112,8 +112,8 @@ struct AccountInfo {
 
 @Component
 export struct SearchModule {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
-  @LocalStorageLink("currentSideBarMode") @Watch('onCurrentSideBarModeChange')
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageLink('currentSideBarMode') @Watch('onCurrentSideBarModeChange')
   currentSideBarMode: string = SideBarModeKey.TABS;
   @State searchCompWidth: number | string = DimenText.FULL;
   controller: SearchController = new SearchController();
@@ -167,8 +167,8 @@ export struct SearchModule {
 
 @Component
 export struct SideBarPrimaryNavigation {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
-  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = SideBarModeKey.TABS;
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageProp('currentSideBarMode') currentSideBarMode: string = SideBarModeKey.TABS;
   @State sideListData: MenuType[] = sideListData;
   mainController: TabsController = new TabsController();
   @Link currentSubIndex: number;
@@ -227,8 +227,8 @@ export struct SideBarPrimaryNavigation {
 
 @Component
 export struct PrimaryMenu {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
-  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = SideBarModeKey.TABS;
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageProp('currentSideBarMode') currentSideBarMode: string = SideBarModeKey.TABS;
   @Link currentSubIndex: number;
   @Link currentMainIndex: number;
   sideTitleName: Resource = $r('app.string.index');
@@ -344,8 +344,8 @@ export struct PrimaryMenu {
 
 @Component
 export struct SecondaryMenu {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
-  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = SideBarModeKey.TABS;
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageProp('currentSideBarMode') currentSideBarMode: string = SideBarModeKey.TABS;
   @Link currentSubIndex: number | undefined;
   subTitleNameList: MenuType[] = new Array();
   changeIndex: (controller: TabsController, index: number) => void = () => {
@@ -411,8 +411,8 @@ interface MenuElement {
 
 @Component
 struct FootBarTools {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
-  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = SideBarModeKey.TABS;
+  @LocalStorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageProp('currentSideBarMode') currentSideBarMode: string = SideBarModeKey.TABS;
   @State toolList: MenuElement[] = [
     { value: $r('app.string.toolMenuItem', 1), action: this.callback, icon: $r('app.media.ic_favourites') },
   ];

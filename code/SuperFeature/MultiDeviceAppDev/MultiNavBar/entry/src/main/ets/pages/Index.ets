@@ -35,8 +35,8 @@ let storage = LocalStorage.GetShared();
 @Component
 struct Index {
   // @LocalStorageLink 的键名在 ArkTS 中必须是字符串字面量，无法引用 StorageKey。
-  @LocalStorageLink("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
-  @LocalStorageLink("currentSideBarMode") @Watch('onCurrentSideBarModeChange')
+  @LocalStorageLink('currentBreakpoint') currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageLink('currentSideBarMode') @Watch('onCurrentSideBarModeChange')
   currentSideBarMode: string = SideBarModeKey.TABS;
   @State sideListData: MenuType[] = sideListData;
   @State currentMainIndex: number = 0;
