@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,8 +13,72 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test'
+import abilityTest from './Ability.test';
+import sampleWantMatrixTestSuite from './SampleWantMatrix.test';
+import sampleWantFlagMatrixCoreTestSuite from './SampleWantFlagMatrixCore.test';
+import sampleWantFlagMatrixTailTestSuite from './SampleWantFlagMatrixTail.test';
+import sampleWantUriMatrixCoreTestSuite from './SampleWantUriMatrixCore.test';
+import sampleWantUriMatrixExtendedTestSuite from './SampleWantUriMatrixExtended.test';
+import sampleWantUriMatrixAdvancedTestSuite from './SampleWantUriMatrixAdvanced.test';
+import sampleWantUriMatrixTailTestSuite from './SampleWantUriMatrixTail.test';
+import sampleWantUriMatrixExtraTestSuite from './SampleWantUriMatrixExtra.test';
+import sampleWantUriMatrixMoreTestSuite from './SampleWantUriMatrixMore.test';
+import sampleWantUriMatrixFinalTestSuite from './SampleWantUriMatrixFinal.test';
+import sampleWantUriMatrixLastTestSuite from './SampleWantUriMatrixLast.test';
+import sampleBundleFlagMatrixCoreTestSuite from './SampleBundleFlagMatrixCore.test';
+import sampleBundleFlagMatrixExtendedTestSuite from './SampleBundleFlagMatrixExtended.test';
+import sampleBundleFlagMatrixTailTestSuite from './SampleBundleFlagMatrixTail.test';
+import sampleBundleFlagAsyncMatrixCoreTestSuite from './SampleBundleFlagAsyncMatrixCore.test';
+import sampleBundleFlagAsyncMatrixExtendedTestSuite from './SampleBundleFlagAsyncMatrixExtended.test';
+import sampleBundleFlagAsyncMatrixTailTestSuite from './SampleBundleFlagAsyncMatrixTail.test';
+import sampleBundleInfoMatrixTestSuite from './SampleBundleInfoMatrix.test';
+import sampleModuleConfigMatrixTestSuite from './SampleModuleConfigMatrix.test';
+import sampleAbilityInfoMatrixCoreTestSuite from './SampleAbilityInfoMatrixCore.test';
+import sampleAbilityInfoMatrixTailTestSuite from './SampleAbilityInfoMatrixTail.test';
+import samplePermissionMatrixTestSuite from './SamplePermissionMatrix.test';
+import sampleDeviceMatrixTestSuite from './SampleDeviceMatrix.test';
+import sampleProcessMatrixTestSuite from './SampleProcessMatrix.test';
+import sampleCapabilityMatrixTestSuite from './SampleCapabilityMatrix.test';
+import sampleResourceMatrixTestSuite from './SampleResourceMatrix.test';
+import startModeLaunchTypeMatrixTestSuite from './StartModeLaunchTypeMatrix.test';
+import startModeAbilitySkillMatrixTestSuite from './StartModeAbilitySkillMatrix.test';
+import startModeWantParamMatrixTestSuite from './StartModeWantParamMatrix.test';
+import startModeEmitterMatrixTestSuite from './StartModeEmitterMatrix.test';
+import startModeDelegatorMatrixTestSuite from './StartModeDelegatorMatrix.test';
+import startModeCategoryMatrixTestSuite from './StartModeCategoryMatrix.test';
 
-export default function testsuite() {
-  abilityTest()
+export default function testsuite(): void {
+  abilityTest();
+  sampleWantMatrixTestSuite();
+  sampleWantFlagMatrixCoreTestSuite();
+  sampleWantFlagMatrixTailTestSuite();
+  sampleWantUriMatrixCoreTestSuite();
+  sampleWantUriMatrixExtendedTestSuite();
+  sampleWantUriMatrixAdvancedTestSuite();
+  sampleWantUriMatrixTailTestSuite();
+  sampleWantUriMatrixExtraTestSuite();
+  sampleWantUriMatrixMoreTestSuite();
+  sampleWantUriMatrixFinalTestSuite();
+  sampleWantUriMatrixLastTestSuite();
+  sampleBundleFlagMatrixCoreTestSuite();
+  sampleBundleFlagMatrixExtendedTestSuite();
+  sampleBundleFlagMatrixTailTestSuite();
+  sampleBundleFlagAsyncMatrixCoreTestSuite();
+  sampleBundleFlagAsyncMatrixExtendedTestSuite();
+  sampleBundleFlagAsyncMatrixTailTestSuite();
+  sampleBundleInfoMatrixTestSuite();
+  sampleModuleConfigMatrixTestSuite();
+  sampleAbilityInfoMatrixCoreTestSuite();
+  sampleAbilityInfoMatrixTailTestSuite();
+  samplePermissionMatrixTestSuite();
+  sampleDeviceMatrixTestSuite();
+  sampleProcessMatrixTestSuite();
+  sampleCapabilityMatrixTestSuite();
+  sampleResourceMatrixTestSuite();
+  startModeLaunchTypeMatrixTestSuite();
+  startModeAbilitySkillMatrixTestSuite();
+  startModeWantParamMatrixTestSuite();
+  startModeEmitterMatrixTestSuite();
+  startModeDelegatorMatrixTestSuite();
+  startModeCategoryMatrixTestSuite();
 }

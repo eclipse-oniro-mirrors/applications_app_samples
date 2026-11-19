@@ -12,7 +12,7 @@
 ![image](images/HarA.jpg)
 ![image](images/HarB.jpg)
 
-使用说明
+### 使用说明
 
 1. 主页会提供一个NavIndex的导航页，点击按钮会跳转到不同的来自har包的页面
 
@@ -69,9 +69,15 @@
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568。
 
-2. 本示例需要使用DevEco Studio 版本号(Build Version: 4.1.1.500, built on January 21, 2024)及以上版本才可编译运行。
+2. 本示例需要使用 DevEco Studio 7.0 及以上版本才可编译运行。
 
-3. 本示例为Stage模型，支持API11版本SDK，SDK版本号(4.1.6.3以上),镜像版本号(4.1.6.3以上)。
+3. 本示例已适配 API 26 版本 SDK（compileSdkVersion 26.0.0），编译目标为 OpenHarmony。
+
+### 测试
+
+本工程提供基于 Hypium 的自动化测试，位于 `entry/src/ohosTest`，共 806 条用例、29 个套件，
+覆盖 NavPathStack 页面栈、RouterModule 动态路由名字表与路由 URL 约定，
+详细套件说明与执行命令见 [ohosTest.md](ohosTest.md)。
 
 ### 下载
 
@@ -81,6 +87,6 @@
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/ApplicationModels/DynamicRouter > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
