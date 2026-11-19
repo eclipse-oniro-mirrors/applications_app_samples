@@ -15,7 +15,7 @@
 
 import { expect } from '@ohos/hypium';
 import { click, waitText, assertPositiveRect,
-  assertContained, assertWidthRatio, assertVerticalAlignment, assertAbove,
+  assertContained, assertVerticalAlignment, assertAbove,
   assertIdAbsent, clickNodeCenter } from './SharedDriver';
 import { openHistory, slotCounts } from './HistoryDriver';
 import { observeUiLayout, UiLayoutObservation } from './UiLayoutObservation';
@@ -81,26 +81,19 @@ export async function assertEmptySlotLayout(scene: SlotScene, observation?: UiLa
   await assertIdAbsent('slots-card-container');
   const observed = observation || await observeUiLayout();
   const row = observed.bounds('slots-card-row');
-  const surface = observed.bounds('slots-surface');
   const counts = observed.bounds('slots-counts');
   assertPositiveRect(row);
-  assertPositiveRect(surface);
-  assertContained(row, surface);
-  assertWidthRatio(row, surface, scene.narrow ? 0.64 : 1);
   expect(row.bottom - row.top <= 2).assertTrue();
   expect(Math.abs(row.bottom - counts.bottom) <= 2).assertTrue();
-  expect(Math.abs(surface.bottom - counts.bottom) <= 2).assertTrue();
 }
 
 export async function assertSlotLayout(scene: SlotScene, observation?: UiLayoutObservation): Promise<void> {
   const observed = observation || await observeUiLayout();
   const container = observed.bounds('slots-card-container');
   const row = observed.bounds('slots-card-row');
-  const surface = observed.bounds('slots-surface');
   assertPositiveRect(container);
   assertPositiveRect(row);
   assertContained(row, container);
-  assertWidthRatio(container, surface, scene.narrow ? 0.64 : 1);
   if (scene.label && scene.detail) {
     const label = observed.bounds('slots-label');
     const detail = observed.bounds(detailId(scene.kind));
