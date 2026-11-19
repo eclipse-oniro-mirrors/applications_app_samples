@@ -10595,3 +10595,94 @@ export default function cachePathMatrixTest() {
         expect(content.charAt(0)).assertEqual('c');
         expect(content.length % 2).assertEqual(0);
         expect(fs.readTextSync(full).charCodeAt(17)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0259
+     * @tc.name      testCachePath0259
+     * @tc.desc      Count glyph_0259.cache cache name length and sandbox write of 19 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0259', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0259.cache';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0259-pppppppz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0259', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(19);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(19);
+        expect(checksum).assertEqual(1704);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(16);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(full.length).assertEqual(ctx.filesDir.length + 1 + name.length);
+        expect(name.includes('cache')).assertTrue();
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(18)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0260
+     * @tc.name      testCachePath0260
+     * @tc.desc      Count glyph_0260.png cache name length and sandbox write of 20 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0260', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0260.png';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0260-ppppppppz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0260', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(20);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(20);
+        expect(checksum).assertEqual(1808);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(10);
+        expect(name.substring(10)).assertEqual('.png');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(19)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+  });
+}
