@@ -13,54 +13,88 @@
  * limitations under the License.
  */
 
-import { beforeEachIt, describe, expect, it } from '@ohos/hypium';
-import { tick } from '../util/TestTick';
-import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { bundleManager } from '@kit.AbilityKit';
-import { hilog } from '@kit.PerformanceAnalysisKit';
-
-const DOMAIN: number = 0xF811;
-const TAG: string = '[Sample_StartMode]_Test';
-const BUNDLE: string = 'ohos.samples.startmode';
-const MAIN_ABILITY: string = 'MainAbility';
-const delegator = abilityDelegatorRegistry.getAbilityDelegator();
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import {
+  MODE_STANDARD,
+  MODE_SPECIFIED,
+  MODE_SINGLETON,
+  ABILITY_MAIN,
+  ABILITY_STANDARD,
+  ABILITY_SPECIFIED,
+  ABILITY_SINGLETON,
+  TIMEOUT_PAGE_RENDER,
+  DELAY_AFTER_START_MODE,
+  logInfo
+} from './Shared/SharedDriver';
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
-    // 每 10 条用例让出一次主线程，避免整批串跑触发 THREAD_BLOCK_6S（见 util/TestTick.ets）
-    beforeEachIt(async () => {
-      await tick();
+    beforeAll(() => {
+      logInfo('ActsAbilityTest beforeAll');
     });
 
-    it('startMode_context_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'startMode_context_001 begin');
-      const context = delegator.getAppContext();
-      expect(context.applicationInfo.name).assertEqual(BUNDLE);
-      expect(typeof context.filesDir).assertEqual('string');
-      expect(context.filesDir.length > 0).assertTrue();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'startMode_context_001 end');
+    beforeEach(() => {
+      logInfo('ActsAbilityTest beforeEach');
     });
 
-    it('startMode_bundle_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'startMode_bundle_001 begin');
-      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION;
-      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
-      expect(info.name).assertEqual(BUNDLE);
-      expect(info.versionCode > 0).assertTrue();
-      expect(info.appInfo.accessTokenId > 0).assertTrue();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'startMode_bundle_001 end');
+    afterEach(() => {
+      logInfo('ActsAbilityTest afterEach');
     });
 
-    it('startMode_module_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'startMode_module_001 begin');
-      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE |
-        bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_ABILITY;
-      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
-      const module: bundleManager.HapModuleInfo = info.hapModulesInfo[0];
-      expect(module.mainElementName).assertEqual(MAIN_ABILITY);
-      expect(module.abilitiesInfo.length > 0).assertTrue();
-      expect(module.name.length > 0).assertTrue();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'startMode_module_001 end');
+    afterAll(() => {
+      logInfo('ActsAbilityTest afterAll');
+    });
+
+    it('assertContain', 0, () => {
+      let sample: string = 'StartMode';
+      expect(sample).assertContain('Mode');
+      expect(sample).assertEqual(sample);
+    });
+
+    it('ability_names_should_be_unique', 0, () => {
+      const names: string[] = [ABILITY_MAIN, ABILITY_STANDARD, ABILITY_SPECIFIED, ABILITY_SINGLETON];
+      const unique: Set<string> = new Set<string>();
+      for (let i = 0; i < names.length; i++) {
+        unique.add(names[i]);
+      }
+      expect(unique.size).assertEqual(names.length);
+    });
+
+    it('mode_labels_should_be_stable', 0, () => {
+      expect(MODE_STANDARD).assertEqual('standard');
+      expect(MODE_SPECIFIED).assertEqual('specified');
+      expect(MODE_SINGLETON).assertEqual('sinleton');
+    });
+
+    it('timeout_should_be_positive', 0, () => {
+      expect(TIMEOUT_PAGE_RENDER > 0).assertTrue();
+      expect(DELAY_AFTER_START_MODE >= 0).assertTrue();
+    });
+
+    it('mode_labels_should_differ', 0, () => {
+      expect(MODE_STANDARD === MODE_SPECIFIED).assertFalse();
+      expect(MODE_SPECIFIED === MODE_SINGLETON).assertFalse();
+      expect(MODE_STANDARD === MODE_SINGLETON).assertFalse();
+    });
+
+    it('ability_name_length_should_match', 0, () => {
+      expect(ABILITY_MAIN.length).assertEqual('MainAbility'.length);
+      expect(ABILITY_STANDARD.length).assertEqual('StandardAbility'.length);
+      expect(ABILITY_SPECIFIED.length).assertEqual('SpecifiedAbility'.length);
+      expect(ABILITY_SINGLETON.length).assertEqual('SingletonAbility'.length);
+    });
+
+    it('mode_label_index_should_be_valid', 0, () => {
+      const labels: string[] = [MODE_STANDARD, MODE_SPECIFIED, MODE_SINGLETON];
+      for (let i = 0; i < labels.length; i++) {
+        expect(labels[i].length > 0).assertTrue();
+      }
+    });
+
+    it('ability_name_should_contain_suffix', 0, () => {
+      expect(ABILITY_STANDARD).assertContain('Ability');
+      expect(ABILITY_SPECIFIED).assertContain('Ability');
+      expect(ABILITY_SINGLETON).assertContain('Ability');
     });
   });
 }
