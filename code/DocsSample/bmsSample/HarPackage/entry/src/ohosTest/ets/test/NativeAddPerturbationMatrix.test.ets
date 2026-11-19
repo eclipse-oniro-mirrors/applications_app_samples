@@ -5990,3 +5990,334 @@ export default function nativeAddPerturbationMatrixTest() {
      * @tc.desc      Native add perturbation 361 over 4064 and 57
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testNativePerturb0361', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const a: number = 4064;
+      const b: number = 57;
+      const c: number = 21;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0361', `sum=${sum}`);
+      expect(sum).assertEqual(4121);
+      expect(nativeAdd(b, a)).assertEqual(4121);
+      expect(nativeAdd(sum, -57)).assertEqual(4064);
+      expect(nativeAdd(a, 0)).assertEqual(4064);
+      expect(sum - b).assertEqual(4064);
+      expect(nativeAdd(nativeAdd(a, b), c)).assertEqual(4142);
+      expect(nativeAdd(a, nativeAdd(b, c))).assertEqual(4142);
+      expect(nativeAdd(a, a)).assertEqual(8128);
+      expect(nativeAdd(-a, -b)).assertEqual(-4121);
+      {
+      const a: number = 4826;
+      const b: number = -33;
+      const c: number = 32;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0362', `sum=${sum}`);
+      expect(sum).assertEqual(4793);
+      expect(nativeAdd(b, a)).assertEqual(4793);
+      expect(nativeAdd(sum, 33)).assertEqual(4826);
+      expect(nativeAdd(a, 0)).assertEqual(4826);
+      expect(sum - b).assertEqual(4826);
+      expect(nativeAdd(nativeAdd(a, b), c)).assertEqual(4825);
+      expect(nativeAdd(a, nativeAdd(b, c))).assertEqual(4825);
+      }
+      {
+      const a: number = 4868;
+      const b: number = -26;
+      const c: number = -10;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0363', `sum=${sum}`);
+      expect(sum).assertEqual(4842);
+      expect(nativeAdd(b, a)).assertEqual(4842);
+      expect(nativeAdd(sum, 26)).assertEqual(4868);
+      expect(nativeAdd(a, 0)).assertEqual(4868);
+      expect(sum - b).assertEqual(4868);
+      expect(nativeAdd(nativeAdd(a, b), c)).assertEqual(4832);
+      expect(nativeAdd(a, nativeAdd(b, c))).assertEqual(4832);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_PERTURB_0364
+     * @tc.name      testNativePerturb0364
+     * @tc.desc      Native add perturbation 364 over 4184.5 and -19.5
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testNativePerturb0364', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const a: number = 4184.5;
+      const b: number = -19.5;
+      const c: number = 1;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0364', `sum=${sum}`);
+      expect(sum).assertEqual(4165.0);
+      expect(nativeAdd(b, a)).assertEqual(4165.0);
+      expect(nativeAdd(sum, 19.5)).assertEqual(4184.5);
+      expect(Math.abs(sum - 4165.0) < 1e-9).assertTrue();
+      expect(nativeAdd(a, -b)).assertEqual(4204.0);
+      {
+      const a: number = 4749;
+      const b: number = -12;
+      const c: number = 12;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0365', `sum=${sum}`);
+      expect(sum).assertEqual(4737);
+      expect(nativeAdd(b, a)).assertEqual(4737);
+      expect(nativeAdd(sum, 12)).assertEqual(4749);
+      expect(nativeAdd(a, 0)).assertEqual(4749);
+      expect(sum - b).assertEqual(4749);
+      expect(nativeAdd(nativeAdd(a, b), c)).assertEqual(4749);
+      expect(nativeAdd(a, nativeAdd(b, c))).assertEqual(4749);
+      }
+      {
+      const a: number = 4791;
+      const b: number = -5;
+      const c: number = 23;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0366', `sum=${sum}`);
+      expect(sum).assertEqual(4786);
+      expect(nativeAdd(b, a)).assertEqual(4786);
+      expect(nativeAdd(sum, 5)).assertEqual(4791);
+      expect(nativeAdd(a, 0)).assertEqual(4791);
+      expect(sum - b).assertEqual(4791);
+      expect(nativeAdd(nativeAdd(a, b), c)).assertEqual(4809);
+      expect(nativeAdd(a, nativeAdd(b, c))).assertEqual(4809);
+      expect(nativeAdd(a, a)).assertEqual(9582);
+      expect(nativeAdd(-a, -b)).assertEqual(-4786);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_PERTURB_0367
+     * @tc.name      testNativePerturb0367
+     * @tc.desc      Native add perturbation 367 over 4101 and 2
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testNativePerturb0367', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const a: number = 4101;
+      const b: number = 2;
+      const c: number = 34;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0367', `sum=${sum}`);
+      expect(sum).assertEqual(4103);
+      expect(nativeAdd(b, a)).assertEqual(4103);
+      expect(nativeAdd(sum, -2)).assertEqual(4101);
+      expect(nativeAdd(a, 0)).assertEqual(4101);
+      expect(sum - b).assertEqual(4101);
+      expect(nativeAdd(nativeAdd(a, b), c)).assertEqual(4137);
+      expect(nativeAdd(a, nativeAdd(b, c))).assertEqual(4137);
+      {
+      const a: number = 4875.5;
+      const b: number = 8.5;
+      const c: number = -8;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0368', `sum=${sum}`);
+      expect(sum).assertEqual(4884.0);
+      expect(nativeAdd(b, a)).assertEqual(4884.0);
+      expect(nativeAdd(sum, -8.5)).assertEqual(4875.5);
+      expect(Math.abs(sum - 4884.0) < 1e-9).assertTrue();
+      expect(nativeAdd(a, -b)).assertEqual(4867.0);
+      }
+      {
+      const a: number = 4917;
+      const b: number = 16;
+      const c: number = 3.5;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0369', `sum=${sum}`);
+      expect(sum).assertEqual(4933);
+      expect(nativeAdd(b, a)).assertEqual(4933);
+      expect(nativeAdd(sum, -16)).assertEqual(4917);
+      expect(nativeAdd(a, 0)).assertEqual(4917);
+      expect(sum - b).assertEqual(4917);
+      expect(nativeAdd(nativeAdd(a, b), c)).assertEqual(4936.5);
+      expect(nativeAdd(a, nativeAdd(b, c))).assertEqual(4936.5);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_PERTURB_0370
+     * @tc.name      testNativePerturb0370
+     * @tc.desc      Native add perturbation 370 over 4221 and 23
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testNativePerturb0370', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const a: number = 4221;
+      const b: number = 23;
+      const c: number = 14;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0370', `sum=${sum}`);
+      expect(sum).assertEqual(4244);
+      expect(nativeAdd(b, a)).assertEqual(4244);
+      expect(nativeAdd(sum, -23)).assertEqual(4221);
+      expect(nativeAdd(a, 0)).assertEqual(4221);
+      expect(sum - b).assertEqual(4221);
+      expect(nativeAdd(nativeAdd(a, b), c)).assertEqual(4258);
+      expect(nativeAdd(a, nativeAdd(b, c))).assertEqual(4258);
+      expect(sum % 9).assertEqual(5);
+      {
+      const a: number = 5001;
+      const b: number = 30;
+      const c: number = 25;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0371', `sum=${sum}`);
+      expect(sum).assertEqual(5031);
+      expect(nativeAdd(b, a)).assertEqual(5031);
+      expect(nativeAdd(sum, -30)).assertEqual(5001);
+      expect(nativeAdd(a, 0)).assertEqual(5001);
+      expect(sum - b).assertEqual(5001);
+      expect(nativeAdd(nativeAdd(a, b), c)).assertEqual(5056);
+      expect(nativeAdd(a, nativeAdd(b, c))).assertEqual(5056);
+      expect(nativeAdd(a, a)).assertEqual(10002);
+      expect(nativeAdd(-a, -b)).assertEqual(-5031);
+      }
+      {
+      const a: number = 4840.5;
+      const b: number = 36.5;
+      const c: number = -17;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0372', `sum=${sum}`);
+      expect(sum).assertEqual(4877.0);
+      expect(nativeAdd(b, a)).assertEqual(4877.0);
+      expect(nativeAdd(sum, -36.5)).assertEqual(4840.5);
+      expect(Math.abs(sum - 4877.0) < 1e-9).assertTrue();
+      expect(nativeAdd(a, -b)).assertEqual(4804.0);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_PERTURB_0373
+     * @tc.name      testNativePerturb0373
+     * @tc.desc      Native add perturbation 373 over 4138 and 44
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testNativePerturb0373', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const a: number = 4138;
+      const b: number = 44;
+      const c: number = -6;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0373', `sum=${sum}`);
+      expect(sum).assertEqual(4182);
+      expect(nativeAdd(b, a)).assertEqual(4182);
+      expect(nativeAdd(sum, -44)).assertEqual(4138);
+      expect(nativeAdd(a, 0)).assertEqual(4138);
+      expect(sum - b).assertEqual(4138);
+      expect(nativeAdd(nativeAdd(a, b), c)).assertEqual(4176);
+      expect(nativeAdd(a, nativeAdd(b, c))).assertEqual(4176);
+      {
+      const a: number = 4924;
+      const b: number = 51;
+      const c: number = 5;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0374', `sum=${sum}`);
+      expect(sum).assertEqual(4975);
+      expect(nativeAdd(b, a)).assertEqual(4975);
+      expect(nativeAdd(sum, -51)).assertEqual(4924);
+      expect(nativeAdd(a, 0)).assertEqual(4924);
+      expect(sum - b).assertEqual(4924);
+      expect(nativeAdd(nativeAdd(a, b), c)).assertEqual(4980);
+      expect(nativeAdd(a, nativeAdd(b, c))).assertEqual(4980);
+      }
+      {
+      const a: number = 4966;
+      const b: number = 58;
+      const c: number = 16;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0375', `sum=${sum}`);
+      expect(sum).assertEqual(5024);
+      expect(nativeAdd(b, a)).assertEqual(5024);
+      expect(nativeAdd(sum, -58)).assertEqual(4966);
+      expect(nativeAdd(a, 0)).assertEqual(4966);
+      expect(sum - b).assertEqual(4966);
+      expect(nativeAdd(nativeAdd(a, b), c)).assertEqual(5040);
+      expect(nativeAdd(a, nativeAdd(b, c))).assertEqual(5040);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_PERTURB_0376
+     * @tc.name      testNativePerturb0376
+     * @tc.desc      Native add perturbation 376 over 4258.5 and -32.5
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testNativePerturb0376', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const a: number = 4258.5;
+      const b: number = -32.5;
+      const c: number = 27;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0376', `sum=${sum}`);
+      expect(sum).assertEqual(4226.0);
+      expect(nativeAdd(b, a)).assertEqual(4226.0);
+      expect(nativeAdd(sum, 32.5)).assertEqual(4258.5);
+      expect(Math.abs(sum - 4226.0) < 1e-9).assertTrue();
+      expect(nativeAdd(a, -b)).assertEqual(4291.0);
+      {
+      const a: number = 5050;
+      const b: number = -25;
+      const c: number = -15;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0377', `sum=${sum}`);
+      expect(sum).assertEqual(5025);
+      expect(nativeAdd(b, a)).assertEqual(5025);
+      expect(nativeAdd(sum, 25)).assertEqual(5050);
+      expect(nativeAdd(a, 0)).assertEqual(5050);
+      expect(sum - b).assertEqual(5050);
+      expect(nativeAdd(nativeAdd(a, b), c)).assertEqual(5010);
+      expect(nativeAdd(a, nativeAdd(b, c))).assertEqual(5010);
+      }
+      {
+      const a: number = 5092;
+      const b: number = -18;
+      const c: number = -3.5;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0378', `sum=${sum}`);
+      expect(sum).assertEqual(5074);
+      expect(nativeAdd(b, a)).assertEqual(5074);
+      expect(nativeAdd(sum, 18)).assertEqual(5092);
+      expect(nativeAdd(a, 0)).assertEqual(5092);
+      expect(sum - b).assertEqual(5092);
+      expect(nativeAdd(nativeAdd(a, b), c)).assertEqual(5070.5);
+      expect(nativeAdd(a, nativeAdd(b, c))).assertEqual(5070.5);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_PERTURB_0379
+     * @tc.name      testNativePerturb0379
+     * @tc.desc      Native add perturbation 379 over 4175 and -11
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testNativePerturb0379', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const a: number = 4175;
+      const b: number = -11;
+      const c: number = 7;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0379', `sum=${sum}`);
+      expect(sum).assertEqual(4164);
+      expect(nativeAdd(b, a)).assertEqual(4164);
+      expect(nativeAdd(sum, 11)).assertEqual(4175);
+      expect(nativeAdd(a, 0)).assertEqual(4175);
+      expect(sum - b).assertEqual(4175);
+      expect(nativeAdd(nativeAdd(a, b), c)).assertEqual(4171);
+      expect(nativeAdd(a, nativeAdd(b, c))).assertEqual(4171);
+      {
+      const a: number = 4973.5;
+      const b: number = -4.5;
+      const c: number = 18;
+      const sum: number = nativeAdd(a, b);
+      logCase('testNativePerturb0380', `sum=${sum}`);
+      expect(sum).assertEqual(4969.0);
+      expect(nativeAdd(b, a)).assertEqual(4969.0);
+      expect(nativeAdd(sum, 4.5)).assertEqual(4973.5);
+      expect(Math.abs(sum - 4969.0) < 1e-9).assertTrue();
+      expect(nativeAdd(a, -b)).assertEqual(4978.0);
+      }
+    });
+
+  });
+}
+
