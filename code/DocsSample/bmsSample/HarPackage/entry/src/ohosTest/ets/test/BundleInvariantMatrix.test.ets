@@ -1679,3 +1679,588 @@ export default function bundleInvariantMatrixTest() {
       expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
       expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
       {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0126', 'signature.fingerprint|module.descriptionId');
+      expect(info.signatureInfo.fingerprint.length > 0).assertTrue();
+      expect(mod.descriptionId > 0).assertTrue();
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0127
+     * @tc.name      testBundleInvariant0127
+     * @tc.desc      Bundle invariant 127 checks that application label id is valid and entry module name matches
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleInvariant0127', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0127', 'app.labelId|module.name');
+      expect(info.appInfo.labelId > 0).assertTrue();
+      expect(mod.name).assertEqual(ENTRY_MODULE);
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      expect(mod.name.length > 0).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0128', 'bundle.versionName|module.descriptionId');
+      expect(info.versionName.length > 0).assertTrue();
+      expect(mod.descriptionId > 0).assertTrue();
+      expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0129
+     * @tc.name      testBundleInvariant0129
+     * @tc.desc      Bundle invariant 129 cross-checks bundle and module fields
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleInvariant0129', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0129', 'app.descriptionId|module.codePath');
+      expect(info.appInfo.descriptionId >= 0).assertTrue();
+      expect(mod.codePath.indexOf('..') < 0).assertTrue();
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0130', 'updateTime|ability.labelId');
+      expect(info.updateTime >= info.installTime).assertTrue();
+      expect(mod.abilitiesInfo[0].labelId > 0).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      expect(mod.name.length > 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0131
+     * @tc.name      testBundleInvariant0131
+     * @tc.desc      Bundle invariant 131 checks that at least one module is reported and module code path is readable
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleInvariant0131', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0131', 'hapModules|module.codePath');
+      expect(info.hapModulesInfo.length >= 1).assertTrue();
+      expect(mod.codePath.indexOf('..') < 0).assertTrue();
+      expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0132', 'app.name|ability.labelId');
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      expect(mod.abilitiesInfo[0].labelId > 0).assertTrue();
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0133
+     * @tc.name      testBundleInvariant0133
+     * @tc.desc      Bundle invariant 133 checks that default app index is zero and entry module exposes abilities
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleInvariant0133', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0133', 'appIndex|module.abilities');
+      expect(info.appIndex).assertEqual(0);
+      expect(mod.abilitiesInfo.length >= 1).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      expect(mod.name.length > 0).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0134', 'signature.fingerprint|ability.exported');
+      expect(info.signatureInfo.fingerprint.length > 0).assertTrue();
+      expect(mod.abilitiesInfo[0].exported).assertTrue();
+      expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0135
+     * @tc.name      testBundleInvariant0135
+     * @tc.desc      Bundle invariant 135 checks that application label id is valid and entry module exposes abilities
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleInvariant0135', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0135', 'app.labelId|module.abilities');
+      expect(info.appInfo.labelId > 0).assertTrue();
+      expect(mod.abilitiesInfo.length >= 1).assertTrue();
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0136', 'bundle.versionName|ability.exported');
+      expect(info.versionName.length > 0).assertTrue();
+      expect(mod.abilitiesInfo[0].exported).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      expect(mod.name.length > 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0137
+     * @tc.name      testBundleInvariant0137
+     * @tc.desc      Bundle invariant 137 cross-checks bundle and module fields
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleInvariant0137', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0137', 'app.descriptionId|module.labelId');
+      expect(info.appInfo.descriptionId >= 0).assertTrue();
+      expect(mod.labelId > 0).assertTrue();
+      expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0138', 'targetVersion|module.type');
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0139
+     * @tc.name      testBundleInvariant0139
+     * @tc.desc      Bundle invariant 139 checks that at least one module is reported and module label id is valid
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleInvariant0139', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0139', 'hapModules|module.labelId');
+      expect(info.hapModulesInfo.length >= 1).assertTrue();
+      expect(mod.labelId > 0).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      expect(mod.name.length > 0).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0140', 'app.process|module.type');
+      expect(info.appInfo.process.length > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0141
+     * @tc.name      testBundleInvariant0141
+     * @tc.desc      Bundle invariant 141 checks that default app index is zero and module hash is a 64 character digest
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleInvariant0141', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0141', 'appIndex|module.hash');
+      expect(info.appIndex).assertEqual(0);
+      expect(typeof mod.hashValue === 'string').assertTrue();
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0142', 'signature.fingerprint|ability.iconId');
+      expect(info.signatureInfo.fingerprint.length > 0).assertTrue();
+      expect(mod.abilitiesInfo[0].iconId > 0).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      expect(mod.name.length > 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0143
+     * @tc.name      testBundleInvariant0143
+     * @tc.desc      Bundle invariant 143 cross-checks bundle and module fields
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleInvariant0143', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0143', 'app.labelId|module.hash');
+      expect(info.appInfo.labelId > 0).assertTrue();
+      expect(typeof mod.hashValue === 'string').assertTrue();
+      expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0144', 'bundle.versionName|ability.iconId');
+      expect(info.versionName.length > 0).assertTrue();
+      expect(mod.abilitiesInfo[0].iconId > 0).assertTrue();
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0145
+     * @tc.name      testBundleInvariant0145
+     * @tc.desc      Bundle invariant 145 cross-checks bundle and module fields
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleInvariant0145', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0145', 'app.descriptionId|ability.name');
+      expect(info.appInfo.descriptionId >= 0).assertTrue();
+      expect(mod.abilitiesInfo[0].name).assertEqual(ENTRY_ABILITY);
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      expect(mod.name.length > 0).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0146', 'targetVersion|module.deviceTypes');
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.deviceTypes.length >= 1).assertTrue();
+      expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0147
+     * @tc.name      testBundleInvariant0147
+     * @tc.desc      Bundle invariant 147 checks that at least one module is reported and first ability is EntryAbility
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleInvariant0147', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0147', 'hapModules|ability.name');
+      expect(info.hapModulesInfo.length >= 1).assertTrue();
+      expect(mod.abilitiesInfo[0].name).assertEqual(ENTRY_ABILITY);
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0148', 'app.process|module.deviceTypes');
+      expect(info.appInfo.process.length > 0).assertTrue();
+      expect(mod.deviceTypes.length >= 1).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      expect(mod.name.length > 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0149
+     * @tc.name      testBundleInvariant0149
+     * @tc.desc      Bundle invariant 149 cross-checks bundle and module fields
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleInvariant0149', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0149', 'appIndex|module.installationFree');
+      expect(info.appIndex).assertEqual(0);
+      expect(mod.installationFree).assertFalse();
+      expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0150', 'signature.fingerprint|ability.deviceTypes');
+      expect(info.signatureInfo.fingerprint.length > 0).assertTrue();
+      expect(mod.abilitiesInfo[0].deviceTypes.length >= 1).assertTrue();
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0151
+     * @tc.name      testBundleInvariant0151
+     * @tc.desc      Bundle invariant 151 cross-checks bundle and module fields
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleInvariant0151', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0151', 'app.labelId|module.installationFree');
+      expect(info.appInfo.labelId > 0).assertTrue();
+      expect(mod.installationFree).assertFalse();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      expect(mod.name.length > 0).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0152', 'bundle.versionName|ability.deviceTypes');
+      expect(info.versionName.length > 0).assertTrue();
+      expect(mod.abilitiesInfo[0].deviceTypes.length >= 1).assertTrue();
+      expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0153
+     * @tc.name      testBundleInvariant0153
+     * @tc.desc      Bundle invariant 153 cross-checks bundle and module fields
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleInvariant0153', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0153', 'app.descriptionId|ability.enabled');
+      expect(info.appInfo.descriptionId >= 0).assertTrue();
+      expect(mod.abilitiesInfo[0].enabled).assertTrue();
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0154', 'targetVersion|module.extensions');
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.extensionAbilitiesInfo.length >= 1).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      expect(mod.name.length > 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0155
+     * @tc.name      testBundleInvariant0155
+     * @tc.desc      Bundle invariant 155 checks that at least one module is reported and EntryAbility is enabled
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleInvariant0155', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0155', 'hapModules|ability.enabled');
+      expect(info.hapModulesInfo.length >= 1).assertTrue();
+      expect(mod.abilitiesInfo[0].enabled).assertTrue();
+      expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0156', 'app.process|module.extensions');
+      expect(info.appInfo.process.length > 0).assertTrue();
+      expect(mod.extensionAbilitiesInfo.length >= 1).assertTrue();
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0157
+     * @tc.name      testBundleInvariant0157
+     * @tc.desc      Bundle invariant 157 checks that default app index is zero and module description id is valid
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleInvariant0157', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0157', 'appIndex|module.descriptionId');
+      expect(info.appIndex).assertEqual(0);
+      expect(mod.descriptionId > 0).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      expect(mod.name.length > 0).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0158', 'installTime|module.name');
+      expect(info.installTime > 0).assertTrue();
+      expect(mod.name).assertEqual(ENTRY_MODULE);
+      expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0159
+     * @tc.name      testBundleInvariant0159
+     * @tc.desc      Bundle invariant 159 checks that application label id is valid and module description id is valid
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleInvariant0159', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0159', 'app.labelId|module.descriptionId');
+      expect(info.appInfo.labelId > 0).assertTrue();
+      expect(mod.descriptionId > 0).assertTrue();
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0160', 'bundle.vendor|module.name');
+      expect(info.vendor).assertEqual(VENDOR);
+      expect(mod.name).assertEqual(ENTRY_MODULE);
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      expect(mod.name.length > 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0161
+     * @tc.name      testBundleInvariant0161
+     * @tc.desc      Bundle invariant 161 cross-checks bundle and module fields
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleInvariant0161', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0161', 'app.descriptionId|ability.labelId');
+      expect(info.appInfo.descriptionId >= 0).assertTrue();
+      expect(mod.abilitiesInfo[0].labelId > 0).assertTrue();
+      expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0162', 'targetVersion|module.codePath');
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.codePath.indexOf('..') < 0).assertTrue();
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0163
+     * @tc.name      testBundleInvariant0163
+     * @tc.desc      Bundle invariant 163 checks that at least one module is reported and EntryAbility label id is valid
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleInvariant0163', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0163', 'hapModules|ability.labelId');
+      expect(info.hapModulesInfo.length >= 1).assertTrue();
+      expect(mod.abilitiesInfo[0].labelId > 0).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      expect(mod.name.length > 0).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0164', 'app.process|module.codePath');
+      expect(info.appInfo.process.length > 0).assertTrue();
+      expect(mod.codePath.indexOf('..') < 0).assertTrue();
+      expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0165
+     * @tc.name      testBundleInvariant0165
+     * @tc.desc      Bundle invariant 165 checks that default app index is zero and EntryAbility is exported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleInvariant0165', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0165', 'appIndex|ability.exported');
+      expect(info.appIndex).assertEqual(0);
+      expect(mod.abilitiesInfo[0].exported).assertTrue();
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0166', 'installTime|module.abilities');
+      expect(info.installTime > 0).assertTrue();
+      expect(mod.abilitiesInfo.length >= 1).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      expect(mod.name.length > 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0167
+     * @tc.name      testBundleInvariant0167
+     * @tc.desc      Bundle invariant 167 checks that application label id is valid and EntryAbility is exported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleInvariant0167', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0167', 'app.labelId|ability.exported');
+      expect(info.appInfo.labelId > 0).assertTrue();
+      expect(mod.abilitiesInfo[0].exported).assertTrue();
+      expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0168', 'bundle.vendor|module.abilities');
+      expect(info.vendor).assertEqual(VENDOR);
+      expect(mod.abilitiesInfo.length >= 1).assertTrue();
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEINV_0169
+     * @tc.name      testBundleInvariant0169
+     * @tc.desc      Bundle invariant 169 checks that target version covers the minimum and module label id is valid
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleInvariant0169', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0169', 'targetVersion|module.labelId');
+      expect(info.targetVersion > 0).assertTrue();
+      expect(mod.labelId > 0).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      expect(mod.name.length > 0).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await loadInfo();
+      const mod: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testBundleInvariant0170', 'signature.appId|module.type');
+      expect(info.signatureInfo.appId.length > 0).assertTrue();
+      expect(mod.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      expect(info.signatureInfo.appId.includes(BUNDLE_NAME)).assertTrue();
+      expect(info.appInfo.name).assertEqual(BUNDLE_NAME);
+      }
+    });
+
+  });
+}
+
