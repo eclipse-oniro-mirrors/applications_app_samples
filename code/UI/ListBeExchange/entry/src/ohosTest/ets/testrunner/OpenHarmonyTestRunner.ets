@@ -22,7 +22,6 @@ import testsuite from '../test/List.test';
 interface CoverageGlobals {
   __savePath__: string;
   __readPath__: string;
-  __testMode__: string;
 }
 
 export default class OpenHarmonyTestRunner implements TestRunner {
@@ -39,7 +38,7 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     const uid: number = Math.floor(context.applicationInfo.uid / 200000);
     coverage.__savePath__ = '/data/storage/el2/base/js_coverage.json';
     coverage.__readPath__ = '/data/app/el2/' + uid + '/base/' + args.bundleName + '/js_coverage.json';
-    coverage.__testMode__ = 'ohostest';
+    new Function('testMode', 'this.__testMode__ = testMode;')('ohostest');
 
     try {
       await application.createModuleContext(context.getApplicationContext(), args.parameters['-m']);
