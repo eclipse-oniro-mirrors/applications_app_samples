@@ -5307,3 +5307,1653 @@ export default function contextDirMatrixTest() {
     });
     /**
      * @tc.number    SUB_PREHTTP_CTXDIR_0184
+     * @tc.name      testContextDir0184
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0184', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_04.txt';
+      logCase('testContextDir0184', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0185
+     * @tc.name      testContextDir0185
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0185', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_05.txt';
+      logCase('testContextDir0185', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0186
+     * @tc.name      testContextDir0186
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0186', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_06.txt';
+      logCase('testContextDir0186', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0187
+     * @tc.name      testContextDir0187
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0187', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_07.txt';
+      logCase('testContextDir0187', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0188
+     * @tc.name      testContextDir0188
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0188', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_08.txt';
+      logCase('testContextDir0188', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0189
+     * @tc.name      testContextDir0189
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0189', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_09.txt';
+      logCase('testContextDir0189', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0190
+     * @tc.name      testContextDir0190
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0190', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_10.txt';
+      logCase('testContextDir0190', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0191
+     * @tc.name      testContextDir0191
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0191', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_11.txt';
+      logCase('testContextDir0191', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0192
+     * @tc.name      testContextDir0192
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0192', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_12.txt';
+      logCase('testContextDir0192', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0193
+     * @tc.name      testContextDir0193
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0193', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_13.txt';
+      logCase('testContextDir0193', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0194
+     * @tc.name      testContextDir0194
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0194', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_14.txt';
+      logCase('testContextDir0194', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0195
+     * @tc.name      testContextDir0195
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0195', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_15.txt';
+      logCase('testContextDir0195', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0196
+     * @tc.name      testContextDir0196
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0196', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_16.txt';
+      logCase('testContextDir0196', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0197
+     * @tc.name      testContextDir0197
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0197', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_17.txt';
+      logCase('testContextDir0197', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0198
+     * @tc.name      testContextDir0198
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0198', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_18.txt';
+      logCase('testContextDir0198', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0199
+     * @tc.name      testContextDir0199
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0199', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_19.txt';
+      logCase('testContextDir0199', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0200
+     * @tc.name      testContextDir0200
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_20.txt';
+      logCase('testContextDir0200', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0201
+     * @tc.name      testContextDir0201
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0201', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_21.txt';
+      logCase('testContextDir0201', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0202
+     * @tc.name      testContextDir0202
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0202', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_22.txt';
+      logCase('testContextDir0202', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0203
+     * @tc.name      testContextDir0203
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0203', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_23.txt';
+      logCase('testContextDir0203', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0204
+     * @tc.name      testContextDir0204
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0204', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_24.txt';
+      logCase('testContextDir0204', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0205
+     * @tc.name      testContextDir0205
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0205', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_25.txt';
+      logCase('testContextDir0205', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0206
+     * @tc.name      testContextDir0206
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0206', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_26.txt';
+      logCase('testContextDir0206', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0207
+     * @tc.name      testContextDir0207
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0207', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_27.txt';
+      logCase('testContextDir0207', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0208
+     * @tc.name      testContextDir0208
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0208', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_28.txt';
+      logCase('testContextDir0208', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0209
+     * @tc.name      testContextDir0209
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0209', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_29.txt';
+      logCase('testContextDir0209', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0210
+     * @tc.name      testContextDir0210
+     * @tc.desc      Context resourceDir is empty when the module packages no resfile directory
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextDir0210', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[6].pick(ctx);
+      const marker: string = dir + '/marker_resourcedir_30.txt';
+      logCase('testContextDir0210', `dir=${dir} marker=${marker}`);
+      expect(dir).assertEqual('');
+      expect(ctx.createModuleContext(ENTRY_MODULE).resourceDir).assertEqual(dir);
+      expect(ctx.filesDir === dir).assertFalse();
+      expect(ctx.bundleCodeDir === dir).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0211
+     * @tc.name      testContextDir0211
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0211', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_01.txt';
+      logCase('testContextDir0211', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-01-m');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-01-m');
+        expect(fs.statSync(marker).size).assertEqual(24);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0212
+     * @tc.name      testContextDir0212
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0212', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_02.txt';
+      logCase('testContextDir0212', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-02-mm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-02-mm');
+        expect(fs.statSync(marker).size).assertEqual(25);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0213
+     * @tc.name      testContextDir0213
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0213', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_03.txt';
+      logCase('testContextDir0213', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-03-mmm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-03-mmm');
+        expect(fs.statSync(marker).size).assertEqual(26);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0214
+     * @tc.name      testContextDir0214
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0214', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_04.txt';
+      logCase('testContextDir0214', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-04-mmmm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-04-mmmm');
+        expect(fs.statSync(marker).size).assertEqual(27);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0215
+     * @tc.name      testContextDir0215
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0215', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_05.txt';
+      logCase('testContextDir0215', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-05-mmmmm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-05-mmmmm');
+        expect(fs.statSync(marker).size).assertEqual(28);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0216
+     * @tc.name      testContextDir0216
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0216', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_06.txt';
+      logCase('testContextDir0216', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-06-');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-06-');
+        expect(fs.statSync(marker).size).assertEqual(23);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0217
+     * @tc.name      testContextDir0217
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0217', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_07.txt';
+      logCase('testContextDir0217', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-07-m');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-07-m');
+        expect(fs.statSync(marker).size).assertEqual(24);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0218
+     * @tc.name      testContextDir0218
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0218', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_08.txt';
+      logCase('testContextDir0218', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-08-mm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-08-mm');
+        expect(fs.statSync(marker).size).assertEqual(25);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0219
+     * @tc.name      testContextDir0219
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0219', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_09.txt';
+      logCase('testContextDir0219', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-09-mmm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-09-mmm');
+        expect(fs.statSync(marker).size).assertEqual(26);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0220
+     * @tc.name      testContextDir0220
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0220', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_10.txt';
+      logCase('testContextDir0220', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-10-mmmm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-10-mmmm');
+        expect(fs.statSync(marker).size).assertEqual(27);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0221
+     * @tc.name      testContextDir0221
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0221', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_11.txt';
+      logCase('testContextDir0221', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-11-mmmmm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-11-mmmmm');
+        expect(fs.statSync(marker).size).assertEqual(28);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0222
+     * @tc.name      testContextDir0222
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0222', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_12.txt';
+      logCase('testContextDir0222', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-12-');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-12-');
+        expect(fs.statSync(marker).size).assertEqual(23);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0223
+     * @tc.name      testContextDir0223
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0223', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_13.txt';
+      logCase('testContextDir0223', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-13-m');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-13-m');
+        expect(fs.statSync(marker).size).assertEqual(24);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0224
+     * @tc.name      testContextDir0224
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0224', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_14.txt';
+      logCase('testContextDir0224', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-14-mm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-14-mm');
+        expect(fs.statSync(marker).size).assertEqual(25);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0225
+     * @tc.name      testContextDir0225
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0225', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_15.txt';
+      logCase('testContextDir0225', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-15-mmm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-15-mmm');
+        expect(fs.statSync(marker).size).assertEqual(26);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0226
+     * @tc.name      testContextDir0226
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0226', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_16.txt';
+      logCase('testContextDir0226', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-16-mmmm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-16-mmmm');
+        expect(fs.statSync(marker).size).assertEqual(27);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0227
+     * @tc.name      testContextDir0227
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0227', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_17.txt';
+      logCase('testContextDir0227', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-17-mmmmm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-17-mmmmm');
+        expect(fs.statSync(marker).size).assertEqual(28);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0228
+     * @tc.name      testContextDir0228
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0228', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_18.txt';
+      logCase('testContextDir0228', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-18-');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-18-');
+        expect(fs.statSync(marker).size).assertEqual(23);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0229
+     * @tc.name      testContextDir0229
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0229', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_19.txt';
+      logCase('testContextDir0229', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-19-m');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-19-m');
+        expect(fs.statSync(marker).size).assertEqual(24);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0230
+     * @tc.name      testContextDir0230
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0230', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_20.txt';
+      logCase('testContextDir0230', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-20-mm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-20-mm');
+        expect(fs.statSync(marker).size).assertEqual(25);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0231
+     * @tc.name      testContextDir0231
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0231', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_21.txt';
+      logCase('testContextDir0231', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-21-mmm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-21-mmm');
+        expect(fs.statSync(marker).size).assertEqual(26);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0232
+     * @tc.name      testContextDir0232
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0232', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_22.txt';
+      logCase('testContextDir0232', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-22-mmmm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-22-mmmm');
+        expect(fs.statSync(marker).size).assertEqual(27);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0233
+     * @tc.name      testContextDir0233
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0233', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_23.txt';
+      logCase('testContextDir0233', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-23-mmmmm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-23-mmmmm');
+        expect(fs.statSync(marker).size).assertEqual(28);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0234
+     * @tc.name      testContextDir0234
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0234', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_24.txt';
+      logCase('testContextDir0234', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-24-');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-24-');
+        expect(fs.statSync(marker).size).assertEqual(23);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0235
+     * @tc.name      testContextDir0235
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0235', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_25.txt';
+      logCase('testContextDir0235', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-25-m');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-25-m');
+        expect(fs.statSync(marker).size).assertEqual(24);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0236
+     * @tc.name      testContextDir0236
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0236', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_26.txt';
+      logCase('testContextDir0236', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-26-mm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-26-mm');
+        expect(fs.statSync(marker).size).assertEqual(25);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0237
+     * @tc.name      testContextDir0237
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0237', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_27.txt';
+      logCase('testContextDir0237', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-27-mmm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-27-mmm');
+        expect(fs.statSync(marker).size).assertEqual(26);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0238
+     * @tc.name      testContextDir0238
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0238', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_28.txt';
+      logCase('testContextDir0238', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-28-mmmm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-28-mmmm');
+        expect(fs.statSync(marker).size).assertEqual(27);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0239
+     * @tc.name      testContextDir0239
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0239', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_29.txt';
+      logCase('testContextDir0239', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-29-mmmmm');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-29-mmmmm');
+        expect(fs.statSync(marker).size).assertEqual(28);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0240
+     * @tc.name      testContextDir0240
+     * @tc.desc      Context distributedFilesDir keeps /distributedfiles and accepts marker file work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0240', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[7].pick(ctx);
+      const marker: string = dir + '/marker_distributedfilesdir_30.txt';
+      logCase('testContextDir0240', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/distributedfiles')).assertTrue();
+      if (!fs.accessSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      try {
+        writeText(marker, 'distributedFilesDir-30-');
+        expect(fs.accessSync(marker)).assertTrue();
+        expect(fs.readTextSync(marker)).assertEqual('distributedFilesDir-30-');
+        expect(fs.statSync(marker).size).assertEqual(23);
+      } finally {
+        if (fs.accessSync(marker)) {
+          fs.unlinkSync(marker);
+        }
+      }
+      expect(fs.accessSync(marker)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0241
+     * @tc.name      testContextDir0241
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0241', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_01.txt';
+      logCase('testContextDir0241', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.indexOf('/cloud') >= 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0242
+     * @tc.name      testContextDir0242
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0242', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_02.txt';
+      logCase('testContextDir0242', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.split('/').length >= 4).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0243
+     * @tc.name      testContextDir0243
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0243', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_03.txt';
+      logCase('testContextDir0243', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.lastIndexOf('/') > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0244
+     * @tc.name      testContextDir0244
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0244', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_04.txt';
+      logCase('testContextDir0244', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.indexOf('/cloud') >= 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0245
+     * @tc.name      testContextDir0245
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0245', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_05.txt';
+      logCase('testContextDir0245', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.split('/').length >= 4).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0246
+     * @tc.name      testContextDir0246
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0246', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_06.txt';
+      logCase('testContextDir0246', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.lastIndexOf('/') > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0247
+     * @tc.name      testContextDir0247
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0247', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_07.txt';
+      logCase('testContextDir0247', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.indexOf('/cloud') >= 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0248
+     * @tc.name      testContextDir0248
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0248', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_08.txt';
+      logCase('testContextDir0248', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.split('/').length >= 4).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0249
+     * @tc.name      testContextDir0249
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0249', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_09.txt';
+      logCase('testContextDir0249', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.lastIndexOf('/') > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0250
+     * @tc.name      testContextDir0250
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0250', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_10.txt';
+      logCase('testContextDir0250', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.indexOf('/cloud') >= 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0251
+     * @tc.name      testContextDir0251
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0251', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_11.txt';
+      logCase('testContextDir0251', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.split('/').length >= 4).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0252
+     * @tc.name      testContextDir0252
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0252', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_12.txt';
+      logCase('testContextDir0252', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.lastIndexOf('/') > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0253
+     * @tc.name      testContextDir0253
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
