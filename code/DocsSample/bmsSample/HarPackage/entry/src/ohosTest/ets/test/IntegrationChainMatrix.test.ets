@@ -1067,3 +1067,790 @@ export default function integrationChainMatrixTest() {
       logCase('testIntegration0102', 'I20+I11');
       expect(res().getStringByNameSync('module_desc')).assertEqual('module description');
       expect((await mod()).name).assertEqual(ENTRY_MODULE);
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0103
+     * @tc.name      testIntegration0103
+     * @tc.desc      Integration chain 103 pairs I01 with I14
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testIntegration0103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      logCase('testIntegration0103', 'I01+I14');
+      expect(entryContext().applicationInfo.name).assertEqual(BUNDLE_NAME);
+      expect((await mod()).abilitiesInfo[0].exported).assertTrue();
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0104', 'I12+I23');
+      expect((await mod()).abilitiesInfo[0].name).assertEqual(ENTRY_ABILITY);
+      expect(nativeAdd(21, 34)).assertEqual(55);
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0105
+     * @tc.name      testIntegration0105
+     * @tc.desc      Integration chain 105 pairs I24 with I06
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIntegration0105', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      logCase('testIntegration0105', 'I24+I06');
+      expect((await info()).versionName).assertEqual('1.0.0');
+      expect(entryContext().databaseDir.endsWith('/database')).assertTrue();
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0106', 'I05+I09');
+      expect(typeof entryContext().resourceDir === 'string').assertTrue();
+      expect(entryContext().filesDir.length > 0).assertTrue();
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0107
+     * @tc.name      testIntegration0107
+     * @tc.desc      Integration chain 107 pairs I16 with I18
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testIntegration0107', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logCase('testIntegration0107', 'I16+I18');
+      expect(res().getStringByNameSync('page_show')).assertEqual('page from package');
+      expect(res().getNumberByName('page_text_font_size')).assertEqual(50);
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0108', 'I09+I03');
+      expect(entryContext().filesDir.length > 0).assertTrue();
+      expect(entryContext().filesDir.endsWith('/files')).assertTrue();
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0109
+     * @tc.name      testIntegration0109
+     * @tc.desc      Integration chain 109 pairs I20 with I12
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testIntegration0109', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      logCase('testIntegration0109', 'I20+I12');
+      expect(res().getStringByNameSync('module_desc')).assertEqual('module description');
+      expect((await mod()).abilitiesInfo[0].name).assertEqual(ENTRY_ABILITY);
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0110', 'I01+I15');
+      expect(entryContext().applicationInfo.name).assertEqual(BUNDLE_NAME);
+      expect(res().getStringByNameSync('app_name')).assertEqual(APP_NAME);
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0111
+     * @tc.name      testIntegration0111
+     * @tc.desc      Integration chain 111 pairs I12 with I24
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIntegration0111', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      logCase('testIntegration0111', 'I12+I24');
+      expect((await mod()).abilitiesInfo[0].name).assertEqual(ENTRY_ABILITY);
+      expect((await info()).versionName).assertEqual('1.0.0');
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0112', 'I24+I07');
+      expect((await info()).versionName).assertEqual('1.0.0');
+      expect(entryContext().preferencesDir.endsWith('/preferences')).assertTrue();
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0113
+     * @tc.name      testIntegration0113
+     * @tc.desc      Integration chain 113 pairs I05 with I10
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testIntegration0113', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logCase('testIntegration0113', 'I05+I10');
+      expect(typeof entryContext().resourceDir === 'string').assertTrue();
+      expect(entryContext().cacheDir.length > 0).assertTrue();
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0114', 'I16+I19');
+      expect(res().getStringByNameSync('page_show')).assertEqual('page from package');
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(0xFFFFFFFF);
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0115
+     * @tc.name      testIntegration0115
+     * @tc.desc      Integration chain 115 pairs I09 with I04
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testIntegration0115', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      logCase('testIntegration0115', 'I09+I04');
+      expect(entryContext().filesDir.length > 0).assertTrue();
+      expect(entryContext().cacheDir.endsWith('/cache')).assertTrue();
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0116', 'I20+I13');
+      expect(res().getStringByNameSync('module_desc')).assertEqual('module description');
+      expect((await mod()).extensionAbilitiesInfo[0].metadata[0].name).assertEqual(BACKUP_METADATA);
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0117
+     * @tc.name      testIntegration0117
+     * @tc.desc      Integration chain 117 pairs I01 with I16
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIntegration0117', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      logCase('testIntegration0117', 'I01+I16');
+      expect(entryContext().applicationInfo.name).assertEqual(BUNDLE_NAME);
+      expect(res().getStringByNameSync('page_show')).assertEqual('page from package');
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0118', 'I12+I25');
+      expect((await mod()).abilitiesInfo[0].name).assertEqual(ENTRY_ABILITY);
+      expect((await info()).hapModulesInfo.length >= 1).assertTrue();
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0119
+     * @tc.name      testIntegration0119
+     * @tc.desc      Integration chain 119 pairs I24 with I08
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testIntegration0119', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logCase('testIntegration0119', 'I24+I08');
+      expect((await info()).versionName).assertEqual('1.0.0');
+      expect(entryContext().tempDir.endsWith('/temp')).assertTrue();
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0120', 'I05+I11');
+      expect(typeof entryContext().resourceDir === 'string').assertTrue();
+      expect((await mod()).name).assertEqual(ENTRY_MODULE);
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0121
+     * @tc.name      testIntegration0121
+     * @tc.desc      Integration chain 121 pairs I16 with I20
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testIntegration0121', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      logCase('testIntegration0121', 'I16+I20');
+      expect(res().getStringByNameSync('page_show')).assertEqual('page from package');
+      expect(res().getStringByNameSync('module_desc')).assertEqual('module description');
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0122', 'I09+I05');
+      expect(entryContext().filesDir.length > 0).assertTrue();
+      expect(typeof entryContext().resourceDir === 'string').assertTrue();
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0123
+     * @tc.name      testIntegration0123
+     * @tc.desc      Integration chain 123 pairs I20 with I14
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIntegration0123', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      logCase('testIntegration0123', 'I20+I14');
+      expect(res().getStringByNameSync('module_desc')).assertEqual('module description');
+      expect((await mod()).abilitiesInfo[0].exported).assertTrue();
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0124', 'I01+I17');
+      expect(entryContext().applicationInfo.name).assertEqual(BUNDLE_NAME);
+      expect(res().getColorByNameSync('page_background')).assertEqual(0xFFFFFFFF);
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0125
+     * @tc.name      testIntegration0125
+     * @tc.desc      Integration chain 125 pairs I12 with I26
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testIntegration0125', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logCase('testIntegration0125', 'I12+I26');
+      expect((await mod()).abilitiesInfo[0].name).assertEqual(ENTRY_ABILITY);
+      expect((await info()).appInfo.name).assertEqual(BUNDLE_NAME);
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0126', 'I24+I09');
+      expect((await info()).versionName).assertEqual('1.0.0');
+      expect(entryContext().filesDir.length > 0).assertTrue();
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0127
+     * @tc.name      testIntegration0127
+     * @tc.desc      Integration chain 127 pairs I05 with I12
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testIntegration0127', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      logCase('testIntegration0127', 'I05+I12');
+      expect(typeof entryContext().resourceDir === 'string').assertTrue();
+      expect((await mod()).abilitiesInfo[0].name).assertEqual(ENTRY_ABILITY);
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0128', 'I16+I21');
+      expect(res().getStringByNameSync('page_show')).assertEqual('page from package');
+      expect(func()).assertEqual(LIB_FUNC_RESULT);
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0129
+     * @tc.name      testIntegration0129
+     * @tc.desc      Integration chain 129 pairs I09 with I06
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIntegration0129', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      logCase('testIntegration0129', 'I09+I06');
+      expect(entryContext().filesDir.length > 0).assertTrue();
+      expect(entryContext().databaseDir.endsWith('/database')).assertTrue();
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0130', 'I20+I15');
+      expect(res().getStringByNameSync('module_desc')).assertEqual('module description');
+      expect(res().getStringByNameSync('app_name')).assertEqual(APP_NAME);
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0131
+     * @tc.name      testIntegration0131
+     * @tc.desc      Integration chain 131 pairs I01 with I18
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testIntegration0131', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logCase('testIntegration0131', 'I01+I18');
+      expect(entryContext().applicationInfo.name).assertEqual(BUNDLE_NAME);
+      expect(res().getNumberByName('page_text_font_size')).assertEqual(50);
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0132', 'I13+I01');
+      expect((await mod()).extensionAbilitiesInfo[0].metadata[0].name).assertEqual(BACKUP_METADATA);
+      expect(entryContext().applicationInfo.name).assertEqual(BUNDLE_NAME);
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0133
+     * @tc.name      testIntegration0133
+     * @tc.desc      Integration chain 133 pairs I24 with I10
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testIntegration0133', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      logCase('testIntegration0133', 'I24+I10');
+      expect((await info()).versionName).assertEqual('1.0.0');
+      expect(entryContext().cacheDir.length > 0).assertTrue();
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0134', 'I05+I13');
+      expect(typeof entryContext().resourceDir === 'string').assertTrue();
+      expect((await mod()).extensionAbilitiesInfo[0].metadata[0].name).assertEqual(BACKUP_METADATA);
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0135
+     * @tc.name      testIntegration0135
+     * @tc.desc      Integration chain 135 pairs I16 with I22
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIntegration0135', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      logCase('testIntegration0135', 'I16+I22');
+      expect(res().getStringByNameSync('page_show')).assertEqual('page from package');
+      expect(func2()).assertEqual(LIB_FUNC2_RESULT);
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0136', 'I09+I07');
+      expect(entryContext().filesDir.length > 0).assertTrue();
+      expect(entryContext().preferencesDir.endsWith('/preferences')).assertTrue();
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0137
+     * @tc.name      testIntegration0137
+     * @tc.desc      Integration chain 137 pairs I20 with I16
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testIntegration0137', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logCase('testIntegration0137', 'I20+I16');
+      expect(res().getStringByNameSync('module_desc')).assertEqual('module description');
+      expect(res().getStringByNameSync('page_show')).assertEqual('page from package');
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0138', 'I01+I19');
+      expect(entryContext().applicationInfo.name).assertEqual(BUNDLE_NAME);
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(0xFFFFFFFF);
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0139
+     * @tc.name      testIntegration0139
+     * @tc.desc      Integration chain 139 pairs I13 with I02
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testIntegration0139', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      logCase('testIntegration0139', 'I13+I02');
+      expect((await mod()).extensionAbilitiesInfo[0].metadata[0].name).assertEqual(BACKUP_METADATA);
+      expect(entryContext().bundleCodeDir.length > 0).assertTrue();
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0140', 'I24+I11');
+      expect((await info()).versionName).assertEqual('1.0.0');
+      expect((await mod()).name).assertEqual(ENTRY_MODULE);
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0141
+     * @tc.name      testIntegration0141
+     * @tc.desc      Integration chain 141 pairs I05 with I14
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIntegration0141', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      logCase('testIntegration0141', 'I05+I14');
+      expect(typeof entryContext().resourceDir === 'string').assertTrue();
+      expect((await mod()).abilitiesInfo[0].exported).assertTrue();
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0142', 'I16+I23');
+      expect(res().getStringByNameSync('page_show')).assertEqual('page from package');
+      expect(nativeAdd(21, 34)).assertEqual(55);
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0143
+     * @tc.name      testIntegration0143
+     * @tc.desc      Integration chain 143 pairs I09 with I08
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testIntegration0143', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logCase('testIntegration0143', 'I09+I08');
+      expect(entryContext().filesDir.length > 0).assertTrue();
+      expect(entryContext().tempDir.endsWith('/temp')).assertTrue();
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0144', 'I20+I17');
+      expect(res().getStringByNameSync('module_desc')).assertEqual('module description');
+      expect(res().getColorByNameSync('page_background')).assertEqual(0xFFFFFFFF);
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0145
+     * @tc.name      testIntegration0145
+     * @tc.desc      Integration chain 145 pairs I01 with I20
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testIntegration0145', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      logCase('testIntegration0145', 'I01+I20');
+      expect(entryContext().applicationInfo.name).assertEqual(BUNDLE_NAME);
+      expect(res().getStringByNameSync('module_desc')).assertEqual('module description');
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0146', 'I13+I03');
+      expect((await mod()).extensionAbilitiesInfo[0].metadata[0].name).assertEqual(BACKUP_METADATA);
+      expect(entryContext().filesDir.endsWith('/files')).assertTrue();
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0147
+     * @tc.name      testIntegration0147
+     * @tc.desc      Integration chain 147 pairs I24 with I12
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIntegration0147', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      logCase('testIntegration0147', 'I24+I12');
+      expect((await info()).versionName).assertEqual('1.0.0');
+      expect((await mod()).abilitiesInfo[0].name).assertEqual(ENTRY_ABILITY);
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0148', 'I05+I15');
+      expect(typeof entryContext().resourceDir === 'string').assertTrue();
+      expect(res().getStringByNameSync('app_name')).assertEqual(APP_NAME);
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0149
+     * @tc.name      testIntegration0149
+     * @tc.desc      Integration chain 149 pairs I16 with I24
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testIntegration0149', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logCase('testIntegration0149', 'I16+I24');
+      expect(res().getStringByNameSync('page_show')).assertEqual('page from package');
+      expect((await info()).versionName).assertEqual('1.0.0');
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0150', 'I09+I10');
+      expect(entryContext().filesDir.length > 0).assertTrue();
+      expect(entryContext().cacheDir.length > 0).assertTrue();
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0151
+     * @tc.name      testIntegration0151
+     * @tc.desc      Integration chain 151 pairs I20 with I18
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testIntegration0151', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      logCase('testIntegration0151', 'I20+I18');
+      expect(res().getStringByNameSync('module_desc')).assertEqual('module description');
+      expect(res().getNumberByName('page_text_font_size')).assertEqual(50);
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0152', 'I01+I21');
+      expect(entryContext().applicationInfo.name).assertEqual(BUNDLE_NAME);
+      expect(func()).assertEqual(LIB_FUNC_RESULT);
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0153
+     * @tc.name      testIntegration0153
+     * @tc.desc      Integration chain 153 pairs I13 with I04
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIntegration0153', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      logCase('testIntegration0153', 'I13+I04');
+      expect((await mod()).extensionAbilitiesInfo[0].metadata[0].name).assertEqual(BACKUP_METADATA);
+      expect(entryContext().cacheDir.endsWith('/cache')).assertTrue();
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0154', 'I24+I13');
+      expect((await info()).versionName).assertEqual('1.0.0');
+      expect((await mod()).extensionAbilitiesInfo[0].metadata[0].name).assertEqual(BACKUP_METADATA);
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0155
+     * @tc.name      testIntegration0155
+     * @tc.desc      Integration chain 155 pairs I05 with I16
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testIntegration0155', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logCase('testIntegration0155', 'I05+I16');
+      expect(typeof entryContext().resourceDir === 'string').assertTrue();
+      expect(res().getStringByNameSync('page_show')).assertEqual('page from package');
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0156', 'I16+I25');
+      expect(res().getStringByNameSync('page_show')).assertEqual('page from package');
+      expect((await info()).hapModulesInfo.length >= 1).assertTrue();
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0157
+     * @tc.name      testIntegration0157
+     * @tc.desc      Integration chain 157 pairs I09 with I11
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testIntegration0157', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      logCase('testIntegration0157', 'I09+I11');
+      expect(entryContext().filesDir.length > 0).assertTrue();
+      expect((await mod()).name).assertEqual(ENTRY_MODULE);
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0158', 'I20+I19');
+      expect(res().getStringByNameSync('module_desc')).assertEqual('module description');
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(0xFFFFFFFF);
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0159
+     * @tc.name      testIntegration0159
+     * @tc.desc      Integration chain 159 pairs I01 with I22
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIntegration0159', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      logCase('testIntegration0159', 'I01+I22');
+      expect(entryContext().applicationInfo.name).assertEqual(BUNDLE_NAME);
+      expect(func2()).assertEqual(LIB_FUNC2_RESULT);
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0160', 'I13+I05');
+      expect((await mod()).extensionAbilitiesInfo[0].metadata[0].name).assertEqual(BACKUP_METADATA);
+      expect(typeof entryContext().resourceDir === 'string').assertTrue();
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0161
+     * @tc.name      testIntegration0161
+     * @tc.desc      Integration chain 161 pairs I24 with I14
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testIntegration0161', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logCase('testIntegration0161', 'I24+I14');
+      expect((await info()).versionName).assertEqual('1.0.0');
+      expect((await mod()).abilitiesInfo[0].exported).assertTrue();
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0162', 'I05+I17');
+      expect(typeof entryContext().resourceDir === 'string').assertTrue();
+      expect(res().getColorByNameSync('page_background')).assertEqual(0xFFFFFFFF);
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0163
+     * @tc.name      testIntegration0163
+     * @tc.desc      Integration chain 163 pairs I16 with I26
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testIntegration0163', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      logCase('testIntegration0163', 'I16+I26');
+      expect(res().getStringByNameSync('page_show')).assertEqual('page from package');
+      expect((await info()).appInfo.name).assertEqual(BUNDLE_NAME);
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0164', 'I09+I12');
+      expect(entryContext().filesDir.length > 0).assertTrue();
+      expect((await mod()).abilitiesInfo[0].name).assertEqual(ENTRY_ABILITY);
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0165
+     * @tc.name      testIntegration0165
+     * @tc.desc      Integration chain 165 pairs I20 with I21
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIntegration0165', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      logCase('testIntegration0165', 'I20+I21');
+      expect(res().getStringByNameSync('module_desc')).assertEqual('module description');
+      expect(func()).assertEqual(LIB_FUNC_RESULT);
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0166', 'I01+I23');
+      expect(entryContext().applicationInfo.name).assertEqual(BUNDLE_NAME);
+      expect(nativeAdd(21, 34)).assertEqual(55);
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0167
+     * @tc.name      testIntegration0167
+     * @tc.desc      Integration chain 167 pairs I13 with I06
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testIntegration0167', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logCase('testIntegration0167', 'I13+I06');
+      expect((await mod()).extensionAbilitiesInfo[0].metadata[0].name).assertEqual(BACKUP_METADATA);
+      expect(entryContext().databaseDir.endsWith('/database')).assertTrue();
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0168', 'I24+I15');
+      expect((await info()).versionName).assertEqual('1.0.0');
+      expect(res().getStringByNameSync('app_name')).assertEqual(APP_NAME);
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0169
+     * @tc.name      testIntegration0169
+     * @tc.desc      Integration chain 169 pairs I05 with I18
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testIntegration0169', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      logCase('testIntegration0169', 'I05+I18');
+      expect(typeof entryContext().resourceDir === 'string').assertTrue();
+      expect(res().getNumberByName('page_text_font_size')).assertEqual(50);
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0170', 'I17+I01');
+      expect(res().getColorByNameSync('page_background')).assertEqual(0xFFFFFFFF);
+      expect(entryContext().applicationInfo.name).assertEqual(BUNDLE_NAME);
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0171
+     * @tc.name      testIntegration0171
+     * @tc.desc      Integration chain 171 pairs I09 with I13
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIntegration0171', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      logCase('testIntegration0171', 'I09+I13');
+      expect(entryContext().filesDir.length > 0).assertTrue();
+      expect((await mod()).extensionAbilitiesInfo[0].metadata[0].name).assertEqual(BACKUP_METADATA);
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0172', 'I20+I22');
+      expect(res().getStringByNameSync('module_desc')).assertEqual('module description');
+      expect(func2()).assertEqual(LIB_FUNC2_RESULT);
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0173
+     * @tc.name      testIntegration0173
+     * @tc.desc      Integration chain 173 pairs I01 with I24
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testIntegration0173', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logCase('testIntegration0173', 'I01+I24');
+      expect(entryContext().applicationInfo.name).assertEqual(BUNDLE_NAME);
+      expect((await info()).versionName).assertEqual('1.0.0');
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0174', 'I13+I07');
+      expect((await mod()).extensionAbilitiesInfo[0].metadata[0].name).assertEqual(BACKUP_METADATA);
+      expect(entryContext().preferencesDir.endsWith('/preferences')).assertTrue();
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0175
+     * @tc.name      testIntegration0175
+     * @tc.desc      Integration chain 175 pairs I24 with I16
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testIntegration0175', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      logCase('testIntegration0175', 'I24+I16');
+      expect((await info()).versionName).assertEqual('1.0.0');
+      expect(res().getStringByNameSync('page_show')).assertEqual('page from package');
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0176', 'I05+I19');
+      expect(typeof entryContext().resourceDir === 'string').assertTrue();
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(0xFFFFFFFF);
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0177
+     * @tc.name      testIntegration0177
+     * @tc.desc      Integration chain 177 pairs I17 with I02
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIntegration0177', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      logCase('testIntegration0177', 'I17+I02');
+      expect(res().getColorByNameSync('page_background')).assertEqual(0xFFFFFFFF);
+      expect(entryContext().bundleCodeDir.length > 0).assertTrue();
+      expect(res().getStringByNameSync('EntryAbility_label')).assertEqual('label');
+      {
+      logCase('testIntegration0178', 'I09+I14');
+      expect(entryContext().filesDir.length > 0).assertTrue();
+      expect((await mod()).abilitiesInfo[0].exported).assertTrue();
+      expect((res().getColorByNameSync('text_color') >>> 24) & 0xFF).assertEqual(0xFF);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_INTEGRATION_0179
+     * @tc.name      testIntegration0179
+     * @tc.desc      Integration chain 179 pairs I20 with I23
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testIntegration0179', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      logCase('testIntegration0179', 'I20+I23');
+      expect(res().getStringByNameSync('module_desc')).assertEqual('module description');
+      expect(nativeAdd(21, 34)).assertEqual(55);
+      expect((await info()).vendor).assertEqual('example');
+      {
+      logCase('testIntegration0180', 'I01+I25');
+      expect(entryContext().applicationInfo.name).assertEqual(BUNDLE_NAME);
+      expect((await info()).hapModulesInfo.length >= 1).assertTrue();
+      expect((await mod()).abilitiesInfo.length >= 1).assertTrue();
+      }
+    });
+
+  });
+}
+
