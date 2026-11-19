@@ -495,7 +495,7 @@ export default function modelSnap0002Test() {
      */
     it('testModel0141', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModel0141 begin')
-      const result: string = runModel('AirData', 'A8', 'B8', 'C8', 'D8')
+      const result: string = runModel('AirData', 'A8', 'B8', 'C8', 'Z9')
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String("A8|B8"))
       expect(result).assertEqual("A8|B8")
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.split('|').length >= 2))
@@ -995,9 +995,9 @@ export default function modelSnap0002Test() {
      */
     it('testModel0166', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModel0166 begin')
-      const result: string = runModel('HeaderData', 'A8', 'B8', 'C8', 'D8')
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String("A8|B8|C8|D8|A8|B8|A8B8"))
-      expect(result).assertEqual("A8|B8|C8|D8|A8|B8|A8B8")
+      const result: string = runModel('HeaderData', 'A8', 'B8', 'C8', 'Z9')
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String("A8|B8|C8|Z9|A8|B8|A8B8"))
+      expect(result).assertEqual("A8|B8|C8|Z9|A8|B8|A8B8")
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.split('|').length >= 2))
       expect(result.split('|').length >= 2).assertTrue()
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result === 'null'))
@@ -1497,7 +1497,7 @@ export default function modelSnap0002Test() {
      */
     it('testModel0191', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModel0191 begin')
-      const result: string = runModel('City', 'A8', 'B8', 'C8', 'D8')
+      const result: string = runModel('City', 'A8', 'B8', 'C8', 'Z9')
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String("A8|B8|C8"))
       expect(result).assertEqual("A8|B8|C8")
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.split('|').length >= 2))

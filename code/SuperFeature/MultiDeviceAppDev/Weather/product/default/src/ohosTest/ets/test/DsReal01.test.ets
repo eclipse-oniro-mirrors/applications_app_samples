@@ -215,18 +215,18 @@ export default function dsReal01Test() {
      */
     it('testDs0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testDs0009 begin')
-      const src: string[] = ['v0', 'v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7', 'v8', 'v9']
+      const src: string[] = ['s0', 's1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9']
       const ds = new MyDataSource<string>(src)
       let allOk = true
       for (let i = 0; i < 10; i++) {
-        if (ds.getData(i) !== `v${i}`) {
+        if (ds.getData(i) !== `s${i}`) {
           allOk = false
         }
       }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual allOk=%{public}s', String(allOk))
       expect(allOk).assertTrue()
       expect(ds.totalCount()).assertEqual(10)
-      expect(ds.getData(9)).assertEqual('v9')
+      expect(ds.getData(9)).assertEqual('s9')
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testDs0009 end')
     })
 

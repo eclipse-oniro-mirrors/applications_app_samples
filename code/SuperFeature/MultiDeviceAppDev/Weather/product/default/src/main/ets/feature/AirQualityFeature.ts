@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { AirQualityConfig, CanvasColor } from './CanvasConstants'
+import { AirQualityConfig, CanvasColor } from './CanvasConstants';
 
 /** 空气质量环绘制所需的只读字段，main 的 AirData 与测试桩对象均满足该结构 */
 export interface AirQualityLike {
@@ -27,6 +27,13 @@ export function initRound(context: CanvasRenderingContext2D, air: AirQualityLike
   // 百分比转换
   const percent = +air.airQuality * AirQualityConfig.PERCENT_FACTOR / AirQualityConfig.PERCENT_BASE +
     AirQualityConfig.PERCENT_OFFSET
+  drawRoundBackground(context, width)
+  drawRoundValue(context, width, height, percent)
+  drawRoundCenterTexts(context, air, width, height)
+  drawRoundScaleLabels(context, width, height)
+}
+
+function drawRoundBackground(context: CanvasRenderingContext2D, width: number): void {
   // 背景
   context.save()
   context.beginPath()
@@ -38,7 +45,9 @@ export function initRound(context: CanvasRenderingContext2D, air: AirQualityLike
   context.stroke()
   context.closePath()
   context.restore()
+}
 
+function drawRoundValue(context: CanvasRenderingContext2D, width: number, height: number, percent: number): void {
   // 绘制圆环
   context.save()
   context.lineWidth = AirQualityConfig.LINE_WIDTH
@@ -56,7 +65,10 @@ export function initRound(context: CanvasRenderingContext2D, air: AirQualityLike
   context.stroke()
   context.closePath()
   context.restore()
+}
 
+function drawRoundCenterTexts(context: CanvasRenderingContext2D, air: AirQualityLike, width: number,
+  height: number): void {
   // 中间文字
   context.font = AirQualityConfig.DESC_FONT
   context.fillStyle = CanvasColor.ROUND_VALUE
@@ -70,7 +82,9 @@ export function initRound(context: CanvasRenderingContext2D, air: AirQualityLike
   context.textAlign = 'center'
   context.textBaseline = 'middle'
   context.fillText(air.airQuality, width / 2, height / 2 + AirQualityConfig.VALUE_OFFSET_Y)
+}
 
+function drawRoundScaleLabels(context: CanvasRenderingContext2D, width: number, height: number): void {
   context.font = AirQualityConfig.SCALE_FONT
   context.fillStyle = CanvasColor.ROUND_VALUE_TIP
   context.textAlign = 'center'

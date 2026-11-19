@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { TimeSlotBoundary, TimeSlotLabel, WeekLabel } from '../util/Constants'
+import { TimeSlotBoundary, TimeSlotLabel, WeekLabel } from '../util/Constants';
 
 // 时间格式 调整
 export default class FormDate {

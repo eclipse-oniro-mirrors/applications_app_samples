@@ -6,9 +6,9 @@
 
 | 层 | 用例数 | 套件构成 |
 |---|---|---|
-| L1 真实行为（手写） | 289 | AbilityTest 7 + CanvasReal01 18 + CanvasReal02 17 + CityReal01 22 + DsReal01 20 + DsReal02 20 + FdateReal01 20 + FdateReal02 20 + LoggerReal01 12 + MockReal01 30 + ModelReal01 32 + ReqReal01 28 + ReqReal02 27 + StyleReal01 16 |
-| L1 规格回归（批量覆盖） | 2128 | 41 个套件，按域：CANVAS 107 / CITY 152 / DS 147 / FDATE 887 / MOCK 205 / MODEL 200 / REQ 390 / STYLE 40 |
-| L2 UI 探针（`@kit.TestKit` + `UiTestHelper`） | 28 | UiAddCity0001 5 + UiCityList0001 5 + UiHome0001 6 + UiTitleBar0001 6 + UiWindow0001 6 |
+| 真实行为（手写） | 289 | AbilityTest 7 + CanvasReal01 18 + CanvasReal02 17 + CityReal01 22 + DsReal01 20 + DsReal02 20 + FdateReal01 20 + FdateReal02 20 + LoggerReal01 12 + MockReal01 30 + ModelReal01 32 + ReqReal01 28 + ReqReal02 27 + StyleReal01 16 |
+| 规格回归（批量覆盖） | 2128 | 41 个套件，按域：CANVAS 107 / CITY 152 / DS 147 / FDATE 887 / MOCK 205 / MODEL 200 / REQ 390 / STYLE 40 |
+| UI 探针（`@kit.TestKit` + `UiTestHelper`） | 28 | UiAddCity0001 5 + UiCityList0001 5 + UiHome0001 6 + UiTitleBar0001 6 + UiWindow0001 6 |
 
 `@tc.size` 分布：MEDIUMTEST 2156 / SMALLTEST 289；`@tc.level` 分布：LEVEL1 922 / LEVEL2 1480 / LEVEL3 43。
 
@@ -239,7 +239,7 @@
 | Successive setData calls leave only the last array | - | new MyDataSource<string>(src) | ds.totalCount() = 1；ds.getData(0) = 't1' 等 3 条 | 是 | 通过 |
 | Valid reads still succeed after undefined probes | - | new MyDataSource<string>(src) | probe 为 undefined；ds.getData(0) = 'alive' 等 3 条 | 是 | 通过 |
 | Ten pushes onto an empty source count exactly ten | - | new MyDataSource<string>(empty) | ds.totalCount() = 10；ds.getData(0) = 'k0' 等 3 条 | 是 | 通过 |
-| Sequential middle insertions stack to the left of the cursor | - | new MyDataSource<string>(src) | ds.getData(1) = 'Y'；ds.getData(2) = 'X' 等 4 条 | 是 | 通过 |
+| Sequential middle insertions stack to the left of the insertion point | - | new MyDataSource<string>(src) | ds.getData(1) = 'Y'；ds.getData(2) = 'X' 等 4 条 | 是 | 通过 |
 | Head element survives all later mutations of the source | - | new MyDataSource<string>(src) | ds.getData(0) = 'head'；ds.getData(3) = 'three' 等 4 条 | 是 | 通过 |
 | Twenty-element source exposes correct head and tail reads | - | for (let i = 0; i < 20; i++) { | ds.totalCount() = 20；ds.getData(0) = 'e0' 等 4 条 | 是 | 通过 |
 | Duplicated values are stored as independent entries | - | new MyDataSource<string>(src) | ds.totalCount() = 3；ds.getData(0) = ds.getData(1) 等 3 条 | 是 | 通过 |
@@ -354,7 +354,7 @@
 | Tianjin air quality is rated 良 with 良 sub-descriptors | - | weather[3].aqi | aqi.air = '50'；aqi.air_level = '良' 等 3 条 | 是 | 通过 |
 | Wuhan aqi keeps the frozen low pollution readings | - | weather[4].aqi | aqi.air = '29'；aqi.air_level = '优' 等 3 条 | 是 | 通过 |
 | Daily label combines padded day number and weekday | - | weather[2].data[0] | d0.day = '23日（星期四）'；d6.day = '29日（星期三）' 等 3 条 | 是 | 通过 |
-| Guangzhou surface data keeps frozen rainy readings | - | weather[2].data[1] | d1.wea = '小雨'；String(d1.tem) = '26' 等 3 条 | 是 | 通过 |
+| Guangzhou area data keeps frozen rainy readings | - | weather[2].data[1] | d1.wea = '小雨'；String(d1.tem) = '26' 等 3 条 | 是 | 通过 |
 | all five cities share the same day-two date stamp | - | for (let i = 0; i < weather.length; i++) { | sameDate 为真；weather[3].data[1].date = '2022-06-24' 等 3 条 | 是 | 通过 |
 | Day sequence runs 23rd through 29th without gaps | - | for (let i = 0; i < 7; i++) { | ordered 为真；weather[1].data[0].date = '2022-06-23' 等 3 条 | 是 | 通过 |
 
@@ -990,7 +990,7 @@ UI 探针：窗口尺寸、断点与布局信息快照。
 devecocli build --modules default@ohosTest
 ```
 
-方式三：工程根目录自带的 `hvigorw` / `hvigorw.bat`（wrapper 首次运行会先安装 hvigor，需可访问 npm 源）：
+方式三：工程根目录自带的 `hvigorw` / `hvigorw.bat`（wrapper 第一次运行会先安装 hvigor，需可访问 npm 源）：
 
 ```shell
 # Windows
@@ -1016,6 +1016,18 @@ hvigorw.bat --mode module -p module=default@ohosTest assembleHap --no-daemon
 hdc install product/default/build/default/outputs/ohosTest/default-ohosTest-signed.hap
 ```
 
+真机安装后全量运行：
+
+```shell
+hdc shell aa test -b ohos.samples.weather -m entry_test -s unittest OpenHarmonyTestRunner
+```
+
+按套件分批运行（`-s class` 指定套件的 describe 名）：
+
+```shell
+hdc shell aa test -b ohos.samples.weather -m entry_test -s unittest OpenHarmonyTestRunner -s class AbilityTest
+```
+
 单进程整跑 2445 条用例会触发 App died，按下表分 9 批执行（每批 ≤8 个套件 / ≤350 条用例）：
 
 | 批次 | `-s class` 套件清单 | 套件数 | 用例数 |
@@ -1032,6 +1044,10 @@ hdc install product/default/build/default/outputs/ohosTest/default-ohosTest-sign
 | **合计** | - | **60** | **2445** |
 
 逐批命令示例（第 1 批的第 1 个套件）：
+
+```shell
+hdc shell aa test -b ohos.samples.weather -m entry_test -s unittest OpenHarmonyTestRunner -s class AbilityTest -s timeout 60000
+```
 
 > 执行前置条件：UI 探针用例通过 `@kit.TestKit` 的 `Driver.create()` 连接 AAMS，执行前需保证设备处于解锁状态、
 > 无系统弹窗（如“USB 连接方式”）或其它应用占据顶层窗口；若出现 `Can not connect to AAMS,

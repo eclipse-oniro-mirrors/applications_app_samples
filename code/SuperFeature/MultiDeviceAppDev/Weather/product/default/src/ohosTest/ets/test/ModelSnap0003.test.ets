@@ -295,7 +295,7 @@ export default function modelSnap0003Test() {
      */
     it('testModel0216', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModel0216 begin')
-      const result: string = runModel('CityListData', 'A8', 'B8', 'C8', 'D8')
+      const result: string = runModel('CityListData', 'A8', 'B8', 'C8', 'Z9')
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String("A8|B8|0|0|0"))
       expect(result).assertEqual("A8|B8|0|0|0")
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.split('|').length >= 2))

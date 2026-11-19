@@ -58,7 +58,7 @@ export async function probeComponentBounds(id: string): Promise<string> {
 
 export async function probeComponentsById(id: string): Promise<string> {
   try {
-    const list: Array<Component> = await uiDriver().findComponents(ON.id(id))
+    const list: Component[] = await uiDriver().findComponents(ON.id(id))
     if (list === undefined || list === null) {
       return 'notfound'
     }
@@ -70,7 +70,7 @@ export async function probeComponentsById(id: string): Promise<string> {
 
 export async function probeComponentsByType(type: string): Promise<string> {
   try {
-    const list: Array<Component> = await uiDriver().findComponents(ON.type(type))
+    const list: Component[] = await uiDriver().findComponents(ON.type(type))
     if (list === undefined || list === null) {
       return 'notfound'
     }

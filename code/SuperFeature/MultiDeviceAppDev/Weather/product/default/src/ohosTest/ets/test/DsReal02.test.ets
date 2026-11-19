@@ -297,7 +297,7 @@ export default function dsReal02Test() {
     /**
      * @tc.name   testDs0033
      * @tc.number SUB_WEATHER_DS_0033
-     * @tc.desc   Sequential middle insertions stack to the left of the cursor
+     * @tc.desc   Sequential middle insertions stack to the left of the insertion point
      * @tc.type   FUNCTION
      * @tc.size   SMALLTEST
      * @tc.level  LEVEL3

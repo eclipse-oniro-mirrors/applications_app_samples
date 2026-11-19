@@ -14,7 +14,7 @@
  */
 
 /**
- * Shared helpers for L1 logic suites.
+ * Shared helpers for hand-written logic suites.
  * - CanvasStubContext: records every draw call issued by SunCanvasFeature /
  *   AirQualityFeature so that assertions can target real output of the code
  *   under test without a live canvas.
@@ -28,7 +28,7 @@ import { MyDataSource, Forecast, WeekWeather, AirIndex, SuitData, AirData, Heade
 
 export interface StubCall {
   method: string
-  args: Array<Object>
+  args: Object[]
 }
 
 export interface HourItem {
@@ -37,7 +37,7 @@ export interface HourItem {
   wea_img: string
   tem: string
   win: string
-  win_speed: string
+  winSpeed: string
 }
 
 export interface IndexItem {
@@ -51,8 +51,14 @@ export interface AirStub {
   airDesc: string
 }
 
+/**
+ * 占位图片对象：stub 上下文只记录 drawImage 调用，不消费图片内容
+ */
+class StubImage {
+}
+
 export class CanvasStubGradient {
-  stops: Array<string> = []
+  stops: string[] = []
 
   addColorStop(offset: number, color: string): void {
     this.stops.push(`${offset}|${color}`)
@@ -69,10 +75,10 @@ export class CanvasStubContext {
   textBaseline: string = ''
   lineWidth: number = 1
   lineCap: string = ''
-  calls: Array<StubCall> = []
-  lastGradient: CanvasStubGradient | undefined = undefined
+  calls: StubCall[] = []
+  public lastGradient: CanvasStubGradient | undefined = undefined
 
-  record(method: string, args: Array<Object>): void {
+  record(method: string, args: Object[]): void {
     this.calls.push({ method: method, args: args })
   }
 
@@ -112,7 +118,7 @@ export class CanvasStubContext {
     this.record('restore', [])
   }
 
-  setLineDash(segments: Array<number>): void {
+  setLineDash(segments: number[]): void {
     this.record('setLineDash', [segments.join(',')])
   }
 
@@ -153,7 +159,7 @@ export class CanvasStubContext {
     return index < filtered.length ? filtered[index] : undefined
   }
 
-  texts(): Array<string> {
+  texts(): string[] {
     return this.calls
       .filter((c: StubCall) => c.method === 'fillText')
       .map((c: StubCall) => String(c.args[0]))
@@ -223,7 +229,7 @@ export function resName(res: Resource | string | undefined): string {
     return res
   }
   const resource: Resource = res
-  const params: Array<string | number> | undefined = resource.params
+  const params: (string | number)[] | undefined = resource.params
   if (params !== undefined && params !== null) {
     for (let i = 0; i < params.length; i++) {
       const item = String(params[i])
@@ -264,7 +270,7 @@ export function runInitRound(ctx: CanvasStubContext, airQuality: string, airDesc
  */
 export function runInitSun(ctx: CanvasStubContext): string {
   ctx.reset()
-  initSun(asContext(ctx), new Object())
+  initSun(asContext(ctx), new StubImage())
   const move = ctx.nthOf('moveTo', 0)
   const line = ctx.nthOf('lineTo', 0)
   const arc = ctx.lastOf('arc')
@@ -280,7 +286,7 @@ export function runInitSun(ctx: CanvasStubContext): string {
  */
 export function runInitMoon(ctx: CanvasStubContext): string {
   ctx.reset()
-  initMoon(asContext(ctx), new Object(), new Object())
+  initMoon(asContext(ctx), new StubImage(), new StubImage())
   const arc = ctx.lastOf('arc')
   const radius = arc !== undefined ? String(arc.args[2]) : 'none'
   return `${radius}|${ctx.texts().join(',')}`
@@ -294,7 +300,7 @@ export function runInitMoon(ctx: CanvasStubContext): string {
 export function runDs(n: number, mode: string): string {
   const src: string[] = []
   for (let k = 0; k < n; k++) {
-    src.push('v' + k)
+    src.push('s' + k)
   }
   const ds = new MyDataSource<string>(src)
   if (mode === 'total') {
@@ -388,24 +394,24 @@ export function runMockTop(c: number): string {
 
 export function runMockAqi(c: number): string {
   const a = weather[c].aqi
-  return `${a.air}|${a.air_level}|${a.pm25}|${a.pm10}|${a.o3}|${a.no2}|${a.so2}|${a.co}|`
-    + `${a.kouzhao}|${a.yundong}|${a.jinghuaqi}|${a.cityEn}|${a.update_time}`
+  return `${a.air}|${a.air_level}|${a.pm25}|${a.pm10}|${a.o3}|${a.no2}|${a.so2}|${a.co}|` +
+    `${a.kouzhao}|${a.yundong}|${a.jinghuaqi}|${a.cityEn}|${a.update_time}`
 }
 
 export function runMockDay(c: number, d: number): string {
   const x = weather[c].data[d]
-  return `${x.day}|${x.date}|${x.week}|${x.wea}|${x.wea_img}|${x.tem}|${x.tem1}|${x.tem2}|`
-    + `${x.air}|${x.air_level}|${x.sunrise}|${x.sunset}|${x.win_speed}`
+  return `${x.day}|${x.date}|${x.week}|${x.wea}|${x.wea_img}|${x.tem}|${x.tem1}|${x.tem2}|` +
+    `${x.air}|${x.air_level}|${x.sunrise}|${x.sunset}|${x.winSpeed}`
 }
 
 export function runMockHour(c: number, k: number): string {
-  const hours = weather[c].data[1].hours as Object as Array<HourItem>
+  const hours = weather[c].data[1].hours as Object as HourItem[]
   const h = hours[k]
-  return `${h.hours}|${h.wea}|${h.wea_img}|${h.tem}|${h.win}|${h.win_speed}`
+  return `${h.hours}|${h.wea}|${h.wea_img}|${h.tem}|${h.win}|${h.winSpeed}`
 }
 
 export function runMockIndex(c: number, k: number): string {
-  const list = weather[c].data[1].index as Object as Array<IndexItem>
+  const list = weather[c].data[1].index as Object as IndexItem[]
   const x = list[k]
   return `${x.title}|${x.level}|${x.desc}`
 }

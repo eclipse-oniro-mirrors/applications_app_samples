@@ -118,7 +118,7 @@ The content area iterates `getCityListWeatherData()` with `Swiper` + `ForEach`, 
 ### Test
 
 - Test project: `product/default/src/ohosTest` (bundleName `ohos.samples.weather`, test module `entry_test`, runner `OpenHarmonyTestRunner`).
-- Scale: 60 suites / 2445 cases — L1 hand-written behavior suites (289), `@volume` specification suites (2128) and L2 UI probe suites (28).
+- Scale: 60 suites / 2445 cases — 289 hand-written behavior cases, 2128 specification regression cases and 28 UI probe cases.
 - Result: all 2445 cases passed on a real device (OpenHarmony 7.1.0.21 / API 26) on 2026-11-19, executed in 9 batches.
 
 For the case matrix, the `@tc` metadata, the build/signing steps and the batch commands, see [ohosTest.md](./ohosTest.md).

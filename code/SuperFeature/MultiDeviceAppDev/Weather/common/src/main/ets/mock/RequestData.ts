@@ -91,7 +91,7 @@ function getHeaderDate(cityIndex: number, city?: City) {
 }
 
 function getCityList() {
-  let cities: Array<City> = []
+  let cities: City[] = []
   if (cityData) {
     cityData.forEach(item => {
       cities.push(new City(item.name, item.temp, item.weather))
@@ -137,10 +137,10 @@ function getHoursData(cityIndex: number) {
   weather[cityIndex].data[MockConstants.TODAY_INDEX].hours.forEach(item => {
     const time: string = item.hours.substring(0, item.hours.length - MockConstants.HOUR_UNIT_LENGTH)
     hoursData.push(new Forecast(`${item.tem}${WeatherSymbol.DEGREE}`, `${time}:00`, form.formTimeSlot(parseInt(time)),
-      getTypeIcon(item.wea), item.win, item.win_speed))
+      getTypeIcon(item.wea), item.win, item.winSpeed))
     if (item.hours.indexOf(String(MockConstants.SUNSET_HOUR)) !== -1) {
       hoursData.push(new Forecast(WeatherType.SUNSET, MockConstants.SUNSET_TIME, form.formTimeSlot(parseInt(time)),
-        getTypeIcon(WeatherType.SUNSET), item.win, item.win_speed))
+        getTypeIcon(WeatherType.SUNSET), item.win, item.winSpeed))
     }
   })
   return hoursData

@@ -102,6 +102,7 @@ struct UpdateTimeItem {
     .width('100%')
     .height(Style.TIME_LIST_HEIGHT)
     .padding(this.curBp === BreakpointConstants.LG ?
-      (this.index % Style.UPDATE_TIME_LANES_LG === 0 ? { right: Style.DIALOG_LANE_GAP } : { left: Style.DIALOG_LANE_GAP }) : 0)
+      (this.index % Style.UPDATE_TIME_LANES_LG === 0 ?
+        { right: Style.DIALOG_LANE_GAP } : { left: Style.DIALOG_LANE_GAP }) : 0)
   }
 }

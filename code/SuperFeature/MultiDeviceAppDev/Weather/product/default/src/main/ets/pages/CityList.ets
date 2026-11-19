@@ -19,7 +19,7 @@ import { BreakpointConstants, City, getSideBg, MyDataSource, RouteConstants, Sty
 @Entry
 @Component
 struct CityList {
-  @StorageLink('cityList') cities: Array<City> = []
+  @StorageLink('cityList') cities: City[] = []
   @StorageLink('curBp') curBp: string = BreakpointConstants.LG
   private cityList: MyDataSource<City> = new MyDataSource(this.cities)
 

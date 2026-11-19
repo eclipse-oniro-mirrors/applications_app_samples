@@ -17,7 +17,7 @@ import { AssetPath, City, getSideBg, MyDataSource, StorageKeys, Style } from '@o
 
 @Component
 export default struct SideContent {
-  @StorageLink('cityList') @Watch('cityListChange') cities: Array<City> = []
+  @StorageLink('cityList') @Watch('cityListChange') cities: City[] = []
   @StorageLink('swiperIndex') swiperIndex: number = 0
   private cityList: MyDataSource<City> = new MyDataSource(this.cities)
   @Link showSideBar: boolean

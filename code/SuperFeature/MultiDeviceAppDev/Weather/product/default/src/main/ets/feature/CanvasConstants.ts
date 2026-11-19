@@ -105,5 +105,5 @@ export class AirQualityConfig {
   static readonly MAX_LABEL: string = '500'
   static readonly MIN_LABEL_OFFSET_X: number = 30
   static readonly MAX_LABEL_OFFSET_X: number = 25
-  static readonly LABEL_OFFSET_Y: number = 5
+  static readonly LABEL_OFFSET_Y: number = 5;
 }

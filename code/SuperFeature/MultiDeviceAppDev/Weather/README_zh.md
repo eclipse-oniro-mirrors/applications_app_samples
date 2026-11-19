@@ -118,7 +118,7 @@ Weather
 ### 测试
 
 - 测试工程：`product/default/src/ohosTest`（bundleName `ohos.samples.weather`，测试模块 `entry_test`，runner `OpenHarmonyTestRunner`）。
-- 规模：60 个套件 / 2445 条用例，分 L1 手写行为套件（289 条）、`@volume` 规格回归套件（2128 条）与 L2 UI 探针套件（28 条）。
+- 规模：60 个套件 / 2445 条用例，分手写行为用例（289 条）、规格回归用例（2128 条）与 UI 探针用例（28 条）。
 - 结果：2026-11-19 在真机（OpenHarmony 7.1.0.21 / API 26）分 9 批执行，2445 条全部通过。
 
 用例矩阵、`@tc` 元数据、构建签名与分批命令见 [ohosTest.md](./ohosTest.md)。

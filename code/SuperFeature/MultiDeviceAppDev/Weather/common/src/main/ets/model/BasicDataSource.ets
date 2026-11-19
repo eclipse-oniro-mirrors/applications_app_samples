@@ -17,6 +17,12 @@ import { Logger } from '../util/Logger'
 
 const TAG: string = 'BasicDataSource'
 
+/**
+ * 基础数据源的占位数据项：基类不持有数据，返回空对象供 LazyForEach 例外场景兜底
+ */
+class EmptyData {
+}
+
 class BasicDataSource implements IDataSource {
   private listeners: DataChangeListener[] = []
 
@@ -25,7 +31,7 @@ class BasicDataSource implements IDataSource {
   }
 
   public getData(index: number): Object {
-    return new Object()
+    return new EmptyData()
   }
 
   registerDataChangeListener(listener: DataChangeListener): void {

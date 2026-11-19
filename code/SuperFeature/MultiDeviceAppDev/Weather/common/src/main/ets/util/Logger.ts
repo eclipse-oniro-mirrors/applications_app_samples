@@ -45,6 +45,6 @@ export class Logger {
     for (let i = 0; i < args.length; i++) {
       parts.push(String(args[i]))
     }
-    return parts.join(', ')
+    return parts.join(', ');
   }
 }

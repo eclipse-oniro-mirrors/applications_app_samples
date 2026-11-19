@@ -195,7 +195,7 @@ export default function modelSnap0001Test() {
      */
     it('testModel0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModel0041 begin')
-      const result: string = runModel('Forecast', 'A8', 'B8', 'C8', 'D8')
+      const result: string = runModel('Forecast', 'A8', 'B8', 'C8', 'Z9')
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String("A8|B8|C8|A8|B8"))
       expect(result).assertEqual("A8|B8|C8|A8|B8")
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.split('|').length >= 2))
@@ -696,9 +696,9 @@ export default function modelSnap0001Test() {
      */
     it('testModel0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModel0066 begin')
-      const result: string = runModel('WeekWeather', 'A8', 'B8', 'C8', 'D8')
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String("A8|B8|C8|D8|A8|B8"))
-      expect(result).assertEqual("A8|B8|C8|D8|A8|B8")
+      const result: string = runModel('WeekWeather', 'A8', 'B8', 'C8', 'Z9')
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String("A8|B8|C8|Z9|A8|B8"))
+      expect(result).assertEqual("A8|B8|C8|Z9|A8|B8")
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.split('|').length >= 2))
       expect(result.split('|').length >= 2).assertTrue()
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result === 'null'))
@@ -1197,7 +1197,7 @@ export default function modelSnap0001Test() {
      */
     it('testModel0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModel0091 begin')
-      const result: string = runModel('AirIndex', 'A8', 'B8', 'C8', 'D8')
+      const result: string = runModel('AirIndex', 'A8', 'B8', 'C8', 'Z9')
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String("A8|B8"))
       expect(result).assertEqual("A8|B8")
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.split('|').length >= 2))
@@ -1697,7 +1697,7 @@ export default function modelSnap0001Test() {
      */
     it('testModel0116', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModel0116 begin')
-      const result: string = runModel('SuitData', 'A8', 'B8', 'C8', 'D8')
+      const result: string = runModel('SuitData', 'A8', 'B8', 'C8', 'Z9')
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result), String("A8|B8"))
       expect(result).assertEqual("A8|B8")
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.split('|').length >= 2))

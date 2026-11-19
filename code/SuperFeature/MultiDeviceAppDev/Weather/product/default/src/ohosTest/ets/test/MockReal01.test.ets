@@ -26,7 +26,7 @@ interface HourItem {
   wea_img: string
   tem: string
   win: string
-  win_speed: string
+  winSpeed: string
 }
 
 interface IndexItem {
@@ -314,7 +314,7 @@ export default function mockReal01Test() {
       const hours = weather[1].data[1].hours as HourItem[]
       let shaped = true
       for (let i = 0; i < hours.length; i++) {
-        if (hours[i].hours.length === 0 || hours[i].win_speed.length === 0) {
+        if (hours[i].hours.length === 0 || hours[i].winSpeed.length === 0) {
           shaped = false
         }
       }
@@ -552,7 +552,7 @@ export default function mockReal01Test() {
     /**
      * @tc.name   testMock0028
      * @tc.number SUB_WEATHER_MOCK_0028
-     * @tc.desc   Guangzhou surface data keeps frozen rainy readings
+     * @tc.desc   Guangzhou area data keeps frozen rainy readings
      * @tc.type   FUNCTION
      * @tc.size   SMALLTEST
      * @tc.level  LEVEL1

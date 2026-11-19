@@ -50,7 +50,7 @@ struct AddCity {
 
 @Component
 export struct CityGrid {
-  @StorageLink('cityList') cities: Array<City> = []
+  @StorageLink('cityList') cities: City[] = []
   private cityList: MyDataSource<City> = new MyDataSource(getCityList())
 
   build() {
@@ -62,7 +62,8 @@ export struct CityGrid {
         GridRow({ columns: { sm: Style.HOT_CITY_COLUMN_SM, md: Style.HOT_CITY_COLUMN_MD, lg: Style.HOT_CITY_COLUMN_LG },
           gutter: { x: vp2px(Style.HOT_CITY_GUTTER_X), y: vp2px(Style.HOT_CITY_GUTTER_Y) },
           breakpoints: { reference: BreakpointsReference.WindowSize } }) {
-          GridCol({ span: { sm: Style.HOT_CITY_COLUMN_SM, md: Style.HOT_CITY_COLUMN_MD, lg: Style.HOT_CITY_COLUMN_LG } }) {
+          GridCol({
+            span: { sm: Style.HOT_CITY_COLUMN_SM, md: Style.HOT_CITY_COLUMN_MD, lg: Style.HOT_CITY_COLUMN_LG } }) {
             Text($r('app.string.hot_city'))
               .width('100%')
               .fontSize(Style.FONT_SIZE_NORMAL)

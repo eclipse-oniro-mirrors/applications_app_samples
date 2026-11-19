@@ -29,8 +29,6 @@ function initSun(context: CanvasRenderingContext2D, img: Object) {
    * 绘制
    */
 
-  const begin = SunCanvasConfig.BEGIN_LABEL
-  const final = SunCanvasConfig.END_LABEL
   const now = new Date()
   const time: number = now.getHours()
   let flag = true // 太阳是否绘制
@@ -43,64 +41,14 @@ function initSun(context: CanvasRenderingContext2D, img: Object) {
 
   const width = context.width, height = context.height
 
-  // 下线
-  context.beginPath()
-  context.strokeStyle = CanvasColor.AXIS_LINE
-  context.setLineDash([])
-  context.moveTo(0, height - SunCanvasConfig.BASELINE_OFFSET)
-  context.lineTo(width, height - SunCanvasConfig.BASELINE_OFFSET)
-  context.stroke()
-
-  // 文字
-  context.font = SunCanvasConfig.FONT
-  context.fillStyle = CanvasColor.TEXT
-  context.textAlign = 'center'
-  context.textBaseline = 'middle'
-  context.fillText(begin, width / SunCanvasConfig.TEXT_LEFT_DIVISOR, height - SunCanvasConfig.TEXT_BOTTOM_OFFSET)
-
-  context.font = SunCanvasConfig.FONT
-  context.fillStyle = CanvasColor.TEXT
-  context.textAlign = 'center'
-  context.textBaseline = 'middle'
-  context.fillText(final, width / SunCanvasConfig.TEXT_LEFT_DIVISOR * SunCanvasConfig.TEXT_RIGHT_FACTOR,
-    height - SunCanvasConfig.TEXT_BOTTOM_OFFSET)
-
+  drawSunAxis(context, width, height)
+  drawSunCaptions(context, width, height)
   // 渐变色
-  const color = context.createLinearGradient(0, 0, width, height)
-  color.addColorStop(0, CanvasColor.GRADIENT_START)
-  color.addColorStop(scale / SunCanvasConfig.SCALE_MAX, CanvasColor.GRADIENT_MIDDLE)
-  color.addColorStop(1, CanvasColor.GRADIENT_END)
-  context.save()
-  context.beginPath()
-  context.lineWidth = SunCanvasConfig.LINE_WIDTH
-  if (flag) {
-    context.strokeStyle = color
-  } else {
-    context.strokeStyle = CanvasColor.ARC_INACTIVE
-  }
-  context.arc(width / 2, height - SunCanvasConfig.ARC_BOTTOM_OFFSET, width * SunCanvasConfig.SUN_ARC_RADIUS_RATIO,
-    Math.PI / 180 * SunCanvasConfig.SUN_ARC_START_DEGREE,
-    Math.PI * 2 / 180 * SunCanvasConfig.SUN_ARC_END_DEGREE, false)
-  context.setLineDash([SunCanvasConfig.DASH_LENGTH])
-  context.stroke()
-  context.restore()
+  const color = createArcGradient(context, width, height, scale)
+  strokeSunArc(context, width, height, color, flag)
 
   if (flag) {
-    drawSun()
-  }
-  // color类型string
-  function drawSun() {
-    // x为刻度线
-    context.save()
-    // 弧度*π/180 得到弧度
-    const deg = Math.PI / 180 * (SunCanvasConfig.SUN_ARC_START_DEGREE + scale * SunCanvasConfig.STEP_DEGREE)
-    const offsetX = -(Math.cos(deg) * width * SunCanvasConfig.SUN_ARC_RADIUS_RATIO)
-    const offsetY = -(Math.sin(deg) * width * SunCanvasConfig.SUN_ARC_RADIUS_RATIO)
-
-    context.drawImage(img as ImageBitmap, 0, 0, SunCanvasConfig.ICON_SOURCE_SIZE, SunCanvasConfig.ICON_SOURCE_SIZE,
-      width / 2 - offsetX - SunCanvasConfig.ICON_X_OFFSET,
-      height - SunCanvasConfig.ICON_Y_OFFSET - offsetY,
-      SunCanvasConfig.ICON_SIZE, SunCanvasConfig.ICON_SIZE)
+    drawSunIcon(context, img, width, height, scale)
   }
 }
 
@@ -112,15 +60,13 @@ function initSun(context: CanvasRenderingContext2D, img: Object) {
  */
 function initMoon(context: CanvasRenderingContext2D, img: Object, iconMoon: Object) {
   /*
-    * 根据月出月落时间点绘制
-    * 获取两个时间点
-    * 分割成一个半圆
-    * 角度换算刻度
-    * 绘制
-    */
+   * 根据月出月落时间点绘制
+   * 获取两个时间点
+   * 分割成一个半圆
+   * 角度换算刻度
+   * 绘制
+   */
 
-  const begin = SunCanvasConfig.MOON_BEGIN_LABEL
-  const final = SunCanvasConfig.MOON_END_LABEL
   const now = new Date()
   const time: number = now.getHours()
   let flag = true // 月亮是否绘制
@@ -134,6 +80,57 @@ function initMoon(context: CanvasRenderingContext2D, img: Object, iconMoon: Obje
 
   const width = context.width, height = context.height
 
+  drawMoonCaptions(context, width, height)
+  drawMoonPhaseIcon(context, iconMoon, width, height)
+  // 渐变色
+  const color = createArcGradient(context, width, height, scale)
+  strokeMoonArc(context, width, height, color, flag)
+
+  if (flag) {
+    drawMoonIcon(context, img, width, height, scale)
+  }
+}
+
+/**
+ * 画一条两端对齐的水平轴线作为时间轴
+ */
+function drawSunAxis(context: CanvasRenderingContext2D, width: number, height: number): void {
+  // 下线
+  context.beginPath()
+  context.strokeStyle = CanvasColor.AXIS_LINE
+  context.setLineDash([])
+  context.moveTo(0, height - SunCanvasConfig.BASELINE_OFFSET)
+  context.lineTo(width, height - SunCanvasConfig.BASELINE_OFFSET)
+  context.stroke()
+}
+
+/**
+ * 画日出与日落两个时间文字
+ */
+function drawSunCaptions(context: CanvasRenderingContext2D, width: number, height: number): void {
+  const begin = SunCanvasConfig.BEGIN_LABEL
+  const final = SunCanvasConfig.END_LABEL
+  // 文字
+  context.font = SunCanvasConfig.FONT
+  context.fillStyle = CanvasColor.TEXT
+  context.textAlign = 'center'
+  context.textBaseline = 'middle'
+  context.fillText(begin, width / SunCanvasConfig.TEXT_LEFT_DIVISOR, height - SunCanvasConfig.TEXT_BOTTOM_OFFSET)
+
+  context.font = SunCanvasConfig.FONT
+  context.fillStyle = CanvasColor.TEXT
+  context.textAlign = 'center'
+  context.textBaseline = 'middle'
+  context.fillText(final, width / SunCanvasConfig.TEXT_LEFT_DIVISOR * SunCanvasConfig.TEXT_RIGHT_FACTOR,
+    height - SunCanvasConfig.TEXT_BOTTOM_OFFSET)
+}
+
+/**
+ * 画月出、月相与月落三个文字
+ */
+function drawMoonCaptions(context: CanvasRenderingContext2D, width: number, height: number): void {
+  const begin = SunCanvasConfig.MOON_BEGIN_LABEL
+  const final = SunCanvasConfig.MOON_END_LABEL
   // 文字
   context.font = SunCanvasConfig.FONT
   context.fillStyle = CanvasColor.TEXT
@@ -153,16 +150,46 @@ function initMoon(context: CanvasRenderingContext2D, img: Object, iconMoon: Obje
   context.textBaseline = 'middle'
   context.fillText(final, width / SunCanvasConfig.TEXT_LEFT_DIVISOR * SunCanvasConfig.TEXT_RIGHT_FACTOR,
     height - SunCanvasConfig.MOON_TEXT_BOTTOM_OFFSET)
+}
 
-  context.drawImage(iconMoon as ImageBitmap, 0, 0, SunCanvasConfig.MOON_ICON_SOURCE_SIZE, SunCanvasConfig.MOON_ICON_SOURCE_SIZE,
-    width / 2 - SunCanvasConfig.MOON_ICON_X_OFFSET, height - SunCanvasConfig.MOON_ICON_Y_OFFSET,
-    SunCanvasConfig.MOON_ICON_SIZE, SunCanvasConfig.MOON_ICON_SIZE)
-
-  // 渐变色
+/**
+ * 按当前刻度位置生成圆弧渐变色
+ */
+function createArcGradient(context: CanvasRenderingContext2D, width: number, height: number,
+  scale: number): CanvasGradient {
   const color = context.createLinearGradient(0, 0, width, height)
   color.addColorStop(0, CanvasColor.GRADIENT_START)
   color.addColorStop(scale / SunCanvasConfig.SCALE_MAX, CanvasColor.GRADIENT_MIDDLE)
   color.addColorStop(1, CanvasColor.GRADIENT_END)
+  return color
+}
+
+/**
+ * 画太阳圆弧，未到日出或已过日落时用灰色描边
+ */
+function strokeSunArc(context: CanvasRenderingContext2D, width: number, height: number,
+  color: CanvasGradient, flag: boolean): void {
+  context.save()
+  context.beginPath()
+  context.lineWidth = SunCanvasConfig.LINE_WIDTH
+  if (flag) {
+    context.strokeStyle = color
+  } else {
+    context.strokeStyle = CanvasColor.ARC_INACTIVE
+  }
+  context.arc(width / 2, height - SunCanvasConfig.ARC_BOTTOM_OFFSET, width * SunCanvasConfig.SUN_ARC_RADIUS_RATIO,
+    Math.PI / 180 * SunCanvasConfig.SUN_ARC_START_DEGREE,
+    Math.PI * 2 / 180 * SunCanvasConfig.SUN_ARC_END_DEGREE, false)
+  context.setLineDash([SunCanvasConfig.DASH_LENGTH])
+  context.stroke()
+  context.restore()
+}
+
+/**
+ * 画月亮圆弧，白天用灰色描边
+ */
+function strokeMoonArc(context: CanvasRenderingContext2D, width: number, height: number,
+  color: CanvasGradient, flag: boolean): void {
   context.save()
   context.beginPath()
   context.lineWidth = SunCanvasConfig.LINE_WIDTH
@@ -177,24 +204,52 @@ function initMoon(context: CanvasRenderingContext2D, img: Object, iconMoon: Obje
   context.setLineDash([SunCanvasConfig.DASH_LENGTH])
   context.stroke()
   context.restore()
+}
 
-  if (flag) {
-    drawMoon()
-  }
-  // color类型string
-  function drawMoon() {
-    // x为刻度线
-    context.save()
-    // 弧度*π/180 得到弧度
-    const deg = Math.PI / 180 * (SunCanvasConfig.MOON_ARC_START_DEGREE + scale * SunCanvasConfig.STEP_DEGREE)
-    const offsetX = -(Math.cos(deg) * width * SunCanvasConfig.MOON_ARC_RADIUS_RATIO)
-    const offsetY = -(Math.sin(deg) * width * SunCanvasConfig.MOON_ARC_RADIUS_RATIO)
+/**
+ * 画太阳图标，位置由当前刻度换算出的弧上坐标决定
+ */
+function drawSunIcon(context: CanvasRenderingContext2D, img: Object, width: number, height: number,
+  scale: number): void {
+  // x为刻度线
+  context.save()
+  // 弧度*π/180 得到弧度
+  const deg = Math.PI / 180 * (SunCanvasConfig.SUN_ARC_START_DEGREE + scale * SunCanvasConfig.STEP_DEGREE)
+  const offsetX = -(Math.cos(deg) * width * SunCanvasConfig.SUN_ARC_RADIUS_RATIO)
+  const offsetY = -(Math.sin(deg) * width * SunCanvasConfig.SUN_ARC_RADIUS_RATIO)
 
-    context.drawImage(img as ImageBitmap, 0, 0, SunCanvasConfig.ICON_SOURCE_SIZE, SunCanvasConfig.ICON_SOURCE_SIZE,
-      width / 2 - offsetX - SunCanvasConfig.ICON_X_OFFSET,
-      height - SunCanvasConfig.ICON_Y_OFFSET - offsetY,
-      SunCanvasConfig.ICON_SIZE, SunCanvasConfig.ICON_SIZE)
-  }
+  context.drawImage(img as ImageBitmap, 0, 0, SunCanvasConfig.ICON_SOURCE_SIZE, SunCanvasConfig.ICON_SOURCE_SIZE,
+    width / 2 - offsetX - SunCanvasConfig.ICON_X_OFFSET,
+    height - SunCanvasConfig.ICON_Y_OFFSET - offsetY,
+    SunCanvasConfig.ICON_SIZE, SunCanvasConfig.ICON_SIZE)
+}
+
+/**
+ * 画月相图标
+ */
+function drawMoonPhaseIcon(context: CanvasRenderingContext2D, iconMoon: Object, width: number,
+  height: number): void {
+  context.drawImage(iconMoon as ImageBitmap, 0, 0, SunCanvasConfig.MOON_ICON_SOURCE_SIZE,
+    SunCanvasConfig.MOON_ICON_SOURCE_SIZE, width / 2 - SunCanvasConfig.MOON_ICON_X_OFFSET,
+    height - SunCanvasConfig.MOON_ICON_Y_OFFSET, SunCanvasConfig.MOON_ICON_SIZE, SunCanvasConfig.MOON_ICON_SIZE)
+}
+
+/**
+ * 画月亮图标，位置由当前刻度换算出的弧上坐标决定
+ */
+function drawMoonIcon(context: CanvasRenderingContext2D, img: Object, width: number, height: number,
+  scale: number): void {
+  // x为刻度线
+  context.save()
+  // 弧度*π/180 得到弧度
+  const deg = Math.PI / 180 * (SunCanvasConfig.MOON_ARC_START_DEGREE + scale * SunCanvasConfig.STEP_DEGREE)
+  const offsetX = -(Math.cos(deg) * width * SunCanvasConfig.MOON_ARC_RADIUS_RATIO)
+  const offsetY = -(Math.sin(deg) * width * SunCanvasConfig.MOON_ARC_RADIUS_RATIO)
+
+  context.drawImage(img as ImageBitmap, 0, 0, SunCanvasConfig.ICON_SOURCE_SIZE, SunCanvasConfig.ICON_SOURCE_SIZE,
+    width / 2 - offsetX - SunCanvasConfig.ICON_X_OFFSET,
+    height - SunCanvasConfig.ICON_Y_OFFSET - offsetY,
+    SunCanvasConfig.ICON_SIZE, SunCanvasConfig.ICON_SIZE)
 }
 
 export { initSun, initMoon }
