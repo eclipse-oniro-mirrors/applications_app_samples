@@ -46,3 +46,27 @@ export class ValidationPipeline {
     }
     return findings;
   }
+
+  /**
+   * Validates only the application level rules.
+   */
+  public static validateApp(snapshot: BundleSnapshot): Finding[] {
+    return AppConfigValidator.validate(snapshot.app);
+  }
+
+  /**
+   * Validates only the rules that span more than one module.
+   */
+  public static validateCross(snapshot: BundleSnapshot): Finding[] {
+    return CrossModuleValidator.validate(snapshot);
+  }
+
+  /**
+   * Appends source findings into the destination list.
+   */
+  private static append(destination: Finding[], source: Finding[]): void {
+    for (let index: number = 0; index < source.length; index++) {
+      destination.push(source[index]);
+    }
+  }
+}
