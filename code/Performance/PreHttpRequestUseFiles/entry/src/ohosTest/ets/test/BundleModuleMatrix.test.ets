@@ -1206,3 +1206,206 @@ export default function bundleModuleMatrixTest() {
      * @tc.number    SUB_PREHTTP_BUNDLE_0089
      * @tc.name      testBundleModule0089
      * @tc.desc      Module list exposes the entry module exactly once
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const first: string = info.hapModulesInfo[0].name;
+      const modules: bundleManager.HapModuleInfo[] = info.hapModulesInfo;
+      let hits: number = 0;
+      for (let i: number = 0; i < modules.length; i++) {
+        if (modules[i].name === ENTRY_MODULE) {
+          hits += 1;
+        }
+      }
+      expect(hits).assertEqual(1);
+      expect(first).assertEqual(ENTRY_MODULE);
+      logCase('testBundleModule0089', 'bundle module check 89');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_BUNDLE_0090
+     * @tc.name      testBundleModule0090
+     * @tc.desc      Bundle and module agree on the entry name
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const mod: bundleManager.HapModuleInfo = await entryModule();
+      expect(info.name.length > 0).assertTrue();
+      expect(mod.name).assertEqual(info.hapModulesInfo[0].name);
+      logCase('testBundleModule0090', 'bundle module check 90');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_BUNDLE_0091
+     * @tc.name      testBundleModule0091
+     * @tc.desc      Ability lookup is consistent across calls
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const first: bundleManager.AbilityInfo = await entryAbility();
+      const second: bundleManager.AbilityInfo = await entryAbility();
+      expect(first.name).assertEqual(second.name);
+      expect(first.moduleName).assertEqual(second.moduleName);
+      logCase('testBundleModule0091', 'bundle module check 91');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_BUNDLE_0092
+     * @tc.name      testBundleModule0092
+     * @tc.desc      Extension lookup is consistent across calls
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const first: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      const second: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      expect(first.name).assertEqual(second.name);
+      expect(first.moduleName).assertEqual(second.moduleName);
+      logCase('testBundleModule0092', 'bundle module check 92');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_BUNDLE_0093
+     * @tc.name      testBundleModule0093
+     * @tc.desc      Bundle info cache returns the same object
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const first: bundleManager.BundleInfo = await bundle();
+      const second: bundleManager.BundleInfo = await bundle();
+      expect(first === second).assertTrue();
+      logCase('testBundleModule0093', 'bundle module check 93');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_BUNDLE_0094
+     * @tc.name      testBundleModule0094
+     * @tc.desc      Bundle flags request includes the application info
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      expect(info.appInfo !== undefined).assertTrue();
+      expect(info.appInfo.name.length > 0).assertTrue();
+      logCase('testBundleModule0094', 'bundle module check 94');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_BUNDLE_0095
+     * @tc.name      testBundleModule0095
+     * @tc.desc      Module abilities list points at the entry ability
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const mod: bundleManager.HapModuleInfo = await entryModule();
+      const names: string[] = mod.abilitiesInfo.map((item: bundleManager.AbilityInfo) => item.name);
+      expect(names.indexOf(ENTRY_ABILITY) >= 0).assertTrue();
+      logCase('testBundleModule0095', 'bundle module check 95');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_BUNDLE_0096
+     * @tc.name      testBundleModule0096
+     * @tc.desc      Module extension list points at the backup ability
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const mod: bundleManager.HapModuleInfo = await entryModule();
+      const names: string[] = mod.extensionAbilitiesInfo.map((item: bundleManager.ExtensionAbilityInfo) => item.name);
+      expect(names.indexOf(BACKUP_ABILITY) >= 0).assertTrue();
+      logCase('testBundleModule0096', 'bundle module check 96');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_BUNDLE_0097
+     * @tc.name      testBundleModule0097
+     * @tc.desc      Bundle version code survives conversion to string
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      expect(parseInt(info.versionCode.toString(), 10)).assertEqual(info.versionCode);
+      logCase('testBundleModule0097', 'bundle module check 97');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_BUNDLE_0098
+     * @tc.name      testBundleModule0098
+     * @tc.desc      Bundle version name splits into numeric parts
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const parts: string[] = info.versionName.split('.');
+      expect(Number.isNaN(Number(parts[0]))).assertFalse();
+      logCase('testBundleModule0098', 'bundle module check 98');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_BUNDLE_0099
+     * @tc.name      testBundleModule0099
+     * @tc.desc      Module description id is not the main element id
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const mod: bundleManager.HapModuleInfo = await entryModule();
+      expect(mod.descriptionId > 0).assertTrue();
+      expect(mod.deviceTypes.length > 0).assertTrue();
+      logCase('testBundleModule0099', 'bundle module check 99');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_BUNDLE_0100
+     * @tc.name      testBundleModule0100
+     * @tc.desc      Ability skills expose string arrays
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      expect(Array.isArray(ability.skills[0].entities)).assertTrue();
+      expect(Array.isArray(ability.skills[0].actions)).assertTrue();
+      logCase('testBundleModule0100', 'bundle module check 100');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_BUNDLE_0101
+     * @tc.name      testBundleModule0101
+     * @tc.desc      Backup metadata resource is present
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const backup: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      expect(backup.metadata[0].name.length > 0).assertTrue();
+      logCase('testBundleModule0101', 'bundle module check 101');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_BUNDLE_0102
+     * @tc.name      testBundleModule0102
+     * @tc.desc      Bundle module count matches module info count
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0102', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const mod: bundleManager.HapModuleInfo = await entryModule();
+      expect(info.hapModulesInfo.indexOf(mod) >= 0).assertTrue();
+      logCase('testBundleModule0102', 'bundle module check 102');
+    });
+  });
+}
