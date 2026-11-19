@@ -16,10 +16,10 @@
 | 测试文件 | 用例数 | 说明 |
 |---|---:|---|
 | `Ability.test.ets` | 2 | 启动应用、窗口尺寸约束（UiTest） |
-| `WindowLimitsUi.test.ets` | 521 | 标题/布局/窗口 bounds、顶层 Ability、重启与重复启动、392 组缩放场景矩阵（含边界值、等价类、极端宽高比、扫描、两步缩放、偏移边界）、129 组缩放时序与序列 |
-| `WindowLimitsApi.test.ets` | 730 | 基础 147 条（含异步/并发/时序/字段组合/回读）、583 组参数矩阵（边界值/等价类/特殊数值/精度/倒置/偏移边界）、恢复 |
+| `WindowLimitsUi.test.ets` | 541 | 标题/布局/窗口 bounds、顶层 Ability、重启与重复启动、392 组缩放场景矩阵（含边界值、等价类、极端宽高比、扫描、两步缩放、偏移边界）、129 组缩放时序与序列 |
+| `WindowLimitsApi.test.ets` | 750 | 基础 147 条（含异步/并发/时序/字段组合/回读）、583 组参数矩阵（边界值/等价类/特殊数值/精度/倒置/偏移边界）、恢复 |
 | **ohosTest 合计** | **1253** | |
-| `entry/src/test/LocalUnit.test.ets` | 290 | 本地单元测试：字段构造、缺省/显式 undefined、边界值、特殊数值、大整数/精度、倒置与快照 |
+| `entry/src/test/LocalUnit.test.ets` | 300 | 本地单元测试：字段构造、缺省/显式 undefined、边界值、特殊数值、大整数/精度、倒置与快照 |
 
 ## 一、Ability.test.ets（2 条）
 

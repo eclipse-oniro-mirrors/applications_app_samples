@@ -17,10 +17,10 @@
 | 测试文件 | 用例数 | 说明 |
 |---|---:|---|
 | `Ability.test.ets` | 2 | 启动应用、点击按钮启动 WindowTestAbility |
-| `StartOptionsWindowLimits.test.ets` | 536 | 基础 166 条（全字段/仅 min/仅 max/非法值/NaN/Infinity/连续启动）、370 组 StartOptions 参数矩阵（边界值/字段组合/宽高比/特殊数值/displayId/批量） |
-| `StartOptionsWindowLimitsUi.test.ets` | 512 | 页面与 Ability 启动 149 条（按钮/顶层 Ability/窗口 bounds/重启/缩放时序）、363 组目标窗口缩放矩阵（范围内网格/越界/边界值/扫描/两步/批量） |
+| `StartOptionsWindowLimits.test.ets` | 556 | 基础 166 条（全字段/仅 min/仅 max/非法值/NaN/Infinity/连续启动）、370 组 StartOptions 参数矩阵（边界值/字段组合/宽高比/特殊数值/displayId/批量） |
+| `StartOptionsWindowLimitsUi.test.ets` | 532 | 页面与 Ability 启动 149 条（按钮/顶层 Ability/窗口 bounds/重启/缩放时序）、363 组目标窗口缩放矩阵（范围内网格/越界/边界值/扫描/两步/批量） |
 | **ohosTest 合计** | **1050** | |
-| `entry/src/test/LocalUnit.test.ets` | 340 | 本地单元测试：StartOptions 字段构造、边界值、特殊数值、displayId、派生校验 |
+| `entry/src/test/LocalUnit.test.ets` | 350 | 本地单元测试：StartOptions 字段构造、边界值、特殊数值、displayId、派生校验 |
 
 ## 一、Ability.test.ets（2 条）
 
