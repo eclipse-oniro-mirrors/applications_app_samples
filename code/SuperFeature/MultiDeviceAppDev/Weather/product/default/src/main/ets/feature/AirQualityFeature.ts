@@ -17,85 +17,85 @@ import { AirQualityConfig, CanvasColor } from './CanvasConstants';
 
 /** 空气质量环绘制所需的只读字段，main 的 AirData 与测试桩对象均满足该结构 */
 export interface AirQualityLike {
-  airQuality: string
-  airDesc: string
+  airQuality: string;
+  airDesc: string;
 }
 
 export function initRound(context: CanvasRenderingContext2D, air: AirQualityLike) {
-  const width = context.width
-  const height = context.height
+  const width = context.width;
+  const height = context.height;
   // 百分比转换
   const percent = +air.airQuality * AirQualityConfig.PERCENT_FACTOR / AirQualityConfig.PERCENT_BASE +
-    AirQualityConfig.PERCENT_OFFSET
-  drawRoundBackground(context, width)
-  drawRoundValue(context, width, height, percent)
-  drawRoundCenterTexts(context, air, width, height)
-  drawRoundScaleLabels(context, width, height)
+    AirQualityConfig.PERCENT_OFFSET;
+  drawRoundBackground(context, width);
+  drawRoundValue(context, width, height, percent);
+  drawRoundCenterTexts(context, air, width, height);
+  drawRoundScaleLabels(context, width, height);
 }
 
 function drawRoundBackground(context: CanvasRenderingContext2D, width: number): void {
   // 背景
-  context.save()
-  context.beginPath()
-  context.lineWidth = AirQualityConfig.LINE_WIDTH
-  context.lineCap = 'round'
-  context.strokeStyle = CanvasColor.ROUND_BACKGROUND
+  context.save();
+  context.beginPath();
+  context.lineWidth = AirQualityConfig.LINE_WIDTH;
+  context.lineCap = 'round';
+  context.strokeStyle = CanvasColor.ROUND_BACKGROUND;
   context.arc(width / 2, width / 2, width / 2 - AirQualityConfig.ARC_INSET,
-    Math.PI * AirQualityConfig.BACKGROUND_START, Math.PI * AirQualityConfig.BACKGROUND_END, true)
-  context.stroke()
-  context.closePath()
-  context.restore()
+    Math.PI * AirQualityConfig.BACKGROUND_START, Math.PI * AirQualityConfig.BACKGROUND_END, true);
+  context.stroke();
+  context.closePath();
+  context.restore();
 }
 
 function drawRoundValue(context: CanvasRenderingContext2D, width: number, height: number, percent: number): void {
   // 绘制圆环
-  context.save()
-  context.lineWidth = AirQualityConfig.LINE_WIDTH
-  context.lineCap = 'round'
-  context.beginPath()
+  context.save();
+  context.lineWidth = AirQualityConfig.LINE_WIDTH;
+  context.lineCap = 'round';
+  context.beginPath();
   // 渐变色
-  const color = context.createLinearGradient(0, 0, width, height)
-  color.addColorStop(0, CanvasColor.ROUND_START)
-  color.addColorStop(AirQualityConfig.GRADIENT_MIDDLE_STOP, CanvasColor.ROUND_MIDDLE)
-  color.addColorStop(1, CanvasColor.ROUND_END)
-  context.strokeStyle = color
+  const color = context.createLinearGradient(0, 0, width, height);
+  color.addColorStop(0, CanvasColor.ROUND_START);
+  color.addColorStop(AirQualityConfig.GRADIENT_MIDDLE_STOP, CanvasColor.ROUND_MIDDLE);
+  color.addColorStop(1, CanvasColor.ROUND_END);
+  context.strokeStyle = color;
 
   context.arc(width / 2, width / 2, width / 2 - AirQualityConfig.ARC_INSET,
-    Math.PI * AirQualityConfig.VALUE_START, Math.PI * percent, false)
-  context.stroke()
-  context.closePath()
-  context.restore()
+    Math.PI * AirQualityConfig.VALUE_START, Math.PI * percent, false);
+  context.stroke();
+  context.closePath();
+  context.restore();
 }
 
 function drawRoundCenterTexts(context: CanvasRenderingContext2D, air: AirQualityLike, width: number,
   height: number): void {
   // 中间文字
-  context.font = AirQualityConfig.DESC_FONT
-  context.fillStyle = CanvasColor.ROUND_VALUE
-  context.textAlign = 'center'
-  context.textBaseline = 'middle'
-  context.fillText(air.airDesc, width / 2, height / 2 - AirQualityConfig.DESC_OFFSET_Y)
+  context.font = AirQualityConfig.DESC_FONT;
+  context.fillStyle = CanvasColor.ROUND_VALUE;
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+  context.fillText(air.airDesc, width / 2, height / 2 - AirQualityConfig.DESC_OFFSET_Y);
 
   // 中间文字
-  context.font = AirQualityConfig.VALUE_FONT
-  context.fillStyle = CanvasColor.ROUND_VALUE
-  context.textAlign = 'center'
-  context.textBaseline = 'middle'
-  context.fillText(air.airQuality, width / 2, height / 2 + AirQualityConfig.VALUE_OFFSET_Y)
+  context.font = AirQualityConfig.VALUE_FONT;
+  context.fillStyle = CanvasColor.ROUND_VALUE;
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+  context.fillText(air.airQuality, width / 2, height / 2 + AirQualityConfig.VALUE_OFFSET_Y);
 }
 
 function drawRoundScaleLabels(context: CanvasRenderingContext2D, width: number, height: number): void {
-  context.font = AirQualityConfig.SCALE_FONT
-  context.fillStyle = CanvasColor.ROUND_VALUE_TIP
-  context.textAlign = 'center'
-  context.textBaseline = 'middle'
+  context.font = AirQualityConfig.SCALE_FONT;
+  context.fillStyle = CanvasColor.ROUND_VALUE_TIP;
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
   context.fillText(AirQualityConfig.MIN_LABEL, width / 2 - AirQualityConfig.MIN_LABEL_OFFSET_X,
-    height - AirQualityConfig.LABEL_OFFSET_Y)
+    height - AirQualityConfig.LABEL_OFFSET_Y);
 
-  context.font = AirQualityConfig.SCALE_FONT
-  context.fillStyle = CanvasColor.ROUND_VALUE_TIP
-  context.textAlign = 'center'
-  context.textBaseline = 'middle'
+  context.font = AirQualityConfig.SCALE_FONT;
+  context.fillStyle = CanvasColor.ROUND_VALUE_TIP;
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
   context.fillText(AirQualityConfig.MAX_LABEL, width / 2 + AirQualityConfig.MAX_LABEL_OFFSET_X,
-    height - AirQualityConfig.LABEL_OFFSET_Y)
+    height - AirQualityConfig.LABEL_OFFSET_Y);
 }

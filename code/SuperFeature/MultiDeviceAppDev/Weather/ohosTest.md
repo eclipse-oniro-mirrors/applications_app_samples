@@ -1016,18 +1016,6 @@ hvigorw.bat --mode module -p module=default@ohosTest assembleHap --no-daemon
 hdc install product/default/build/default/outputs/ohosTest/default-ohosTest-signed.hap
 ```
 
-真机安装后全量运行：
-
-```shell
-hdc shell aa test -b ohos.samples.weather -m entry_test -s unittest OpenHarmonyTestRunner
-```
-
-按套件分批运行（`-s class` 指定套件的 describe 名）：
-
-```shell
-hdc shell aa test -b ohos.samples.weather -m entry_test -s unittest OpenHarmonyTestRunner -s class AbilityTest
-```
-
 单进程整跑 2445 条用例会触发 App died，按下表分 9 批执行（每批 ≤8 个套件 / ≤350 条用例）：
 
 | 批次 | `-s class` 套件清单 | 套件数 | 用例数 |
@@ -1042,12 +1030,6 @@ hdc shell aa test -b ohos.samples.weather -m entry_test -s unittest OpenHarmonyT
 | 8 | ReqHours0002、ReqLife0001、ReqReal01、ReqReal02、ReqSide0001、ReqWeek0001、StyleCat0001、StyleReal01 | 8 | 272 |
 | 9 | StyleRel0001、StyleVal0001、UiAddCity0001、UiCityList0001、UiHome0001、UiTitleBar0001、UiWindow0001 | 7 | 52 |
 | **合计** | - | **60** | **2445** |
-
-逐批命令示例（第 1 批的第 1 个套件）：
-
-```shell
-hdc shell aa test -b ohos.samples.weather -m entry_test -s unittest OpenHarmonyTestRunner -s class AbilityTest -s timeout 60000
-```
 
 > 执行前置条件：UI 探针用例通过 `@kit.TestKit` 的 `Driver.create()` 连接 AAMS，执行前需保证设备处于解锁状态、
 > 无系统弹窗（如“USB 连接方式”）或其它应用占据顶层窗口；若出现 `Can not connect to AAMS,

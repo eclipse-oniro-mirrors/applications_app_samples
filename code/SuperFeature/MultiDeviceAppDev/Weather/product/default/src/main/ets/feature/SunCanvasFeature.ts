@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { CanvasColor, SunCanvasConfig } from './CanvasConstants'
+import { CanvasColor, SunCanvasConfig } from './CanvasConstants';
 
 /**
  * 日出日落图
@@ -29,26 +29,26 @@ function initSun(context: CanvasRenderingContext2D, img: Object) {
    * 绘制
    */
 
-  const now = new Date()
-  const time: number = now.getHours()
-  let flag = true // 太阳是否绘制
+  const now = new Date();
+  const time: number = now.getHours();
+  let flag = true; // 太阳是否绘制
   let scale: number = Math.floor((time - SunCanvasConfig.SUNRISE_HOUR) * SunCanvasConfig.SCALE_MAX /
-    SunCanvasConfig.SUN_SCALE_SPAN)
+    SunCanvasConfig.SUN_SCALE_SPAN);
   if (now.getHours() < SunCanvasConfig.SUNRISE_HOUR || now.getHours() >= SunCanvasConfig.SUNSET_HOUR) {
-    flag = false
-    scale = 0
+    flag = false;
+    scale = 0;
   }
 
-  const width = context.width, height = context.height
+  const width = context.width, height = context.height;
 
-  drawSunAxis(context, width, height)
-  drawSunCaptions(context, width, height)
+  drawSunAxis(context, width, height);
+  drawSunCaptions(context, width, height);
   // 渐变色
-  const color = createArcGradient(context, width, height, scale)
-  strokeSunArc(context, width, height, color, flag)
+  const color = createArcGradient(context, width, height, scale);
+  strokeSunArc(context, width, height, color, flag);
 
   if (flag) {
-    drawSunIcon(context, img, width, height, scale)
+    drawSunIcon(context, img, width, height, scale);
   }
 }
 
@@ -67,27 +67,27 @@ function initMoon(context: CanvasRenderingContext2D, img: Object, iconMoon: Obje
    * 绘制
    */
 
-  const now = new Date()
-  const time: number = now.getHours()
-  let flag = true // 月亮是否绘制
+  const now = new Date();
+  const time: number = now.getHours();
+  let flag = true; // 月亮是否绘制
   const index: number = time >= SunCanvasConfig.SUNSET_HOUR ? time - SunCanvasConfig.SUNSET_HOUR :
-    time + SunCanvasConfig.MOON_NIGHT_OFFSET
-  let scale = Math.floor(index * SunCanvasConfig.SCALE_MAX / SunCanvasConfig.MOON_SCALE_SPAN)
+    time + SunCanvasConfig.MOON_NIGHT_OFFSET;
+  let scale = Math.floor(index * SunCanvasConfig.SCALE_MAX / SunCanvasConfig.MOON_SCALE_SPAN);
   if (now.getHours() >= SunCanvasConfig.SUNRISE_HOUR && now.getHours() < SunCanvasConfig.SUNSET_HOUR) {
-    flag = false
-    scale = 0
+    flag = false;
+    scale = 0;
   }
 
-  const width = context.width, height = context.height
+  const width = context.width, height = context.height;
 
-  drawMoonCaptions(context, width, height)
-  drawMoonPhaseIcon(context, iconMoon, width, height)
+  drawMoonCaptions(context, width, height);
+  drawMoonPhaseIcon(context, iconMoon, width, height);
   // 渐变色
-  const color = createArcGradient(context, width, height, scale)
-  strokeMoonArc(context, width, height, color, flag)
+  const color = createArcGradient(context, width, height, scale);
+  strokeMoonArc(context, width, height, color, flag);
 
   if (flag) {
-    drawMoonIcon(context, img, width, height, scale)
+    drawMoonIcon(context, img, width, height, scale);
   }
 }
 
@@ -96,60 +96,60 @@ function initMoon(context: CanvasRenderingContext2D, img: Object, iconMoon: Obje
  */
 function drawSunAxis(context: CanvasRenderingContext2D, width: number, height: number): void {
   // 下线
-  context.beginPath()
-  context.strokeStyle = CanvasColor.AXIS_LINE
-  context.setLineDash([])
-  context.moveTo(0, height - SunCanvasConfig.BASELINE_OFFSET)
-  context.lineTo(width, height - SunCanvasConfig.BASELINE_OFFSET)
-  context.stroke()
+  context.beginPath();
+  context.strokeStyle = CanvasColor.AXIS_LINE;
+  context.setLineDash([]);
+  context.moveTo(0, height - SunCanvasConfig.BASELINE_OFFSET);
+  context.lineTo(width, height - SunCanvasConfig.BASELINE_OFFSET);
+  context.stroke();
 }
 
 /**
  * 画日出与日落两个时间文字
  */
 function drawSunCaptions(context: CanvasRenderingContext2D, width: number, height: number): void {
-  const begin = SunCanvasConfig.BEGIN_LABEL
-  const final = SunCanvasConfig.END_LABEL
+  const begin = SunCanvasConfig.BEGIN_LABEL;
+  const final = SunCanvasConfig.END_LABEL;
   // 文字
-  context.font = SunCanvasConfig.FONT
-  context.fillStyle = CanvasColor.TEXT
-  context.textAlign = 'center'
-  context.textBaseline = 'middle'
-  context.fillText(begin, width / SunCanvasConfig.TEXT_LEFT_DIVISOR, height - SunCanvasConfig.TEXT_BOTTOM_OFFSET)
+  context.font = SunCanvasConfig.FONT;
+  context.fillStyle = CanvasColor.TEXT;
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+  context.fillText(begin, width / SunCanvasConfig.TEXT_LEFT_DIVISOR, height - SunCanvasConfig.TEXT_BOTTOM_OFFSET);
 
-  context.font = SunCanvasConfig.FONT
-  context.fillStyle = CanvasColor.TEXT
-  context.textAlign = 'center'
-  context.textBaseline = 'middle'
+  context.font = SunCanvasConfig.FONT;
+  context.fillStyle = CanvasColor.TEXT;
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
   context.fillText(final, width / SunCanvasConfig.TEXT_LEFT_DIVISOR * SunCanvasConfig.TEXT_RIGHT_FACTOR,
-    height - SunCanvasConfig.TEXT_BOTTOM_OFFSET)
+    height - SunCanvasConfig.TEXT_BOTTOM_OFFSET);
 }
 
 /**
  * 画月出、月相与月落三个文字
  */
 function drawMoonCaptions(context: CanvasRenderingContext2D, width: number, height: number): void {
-  const begin = SunCanvasConfig.MOON_BEGIN_LABEL
-  const final = SunCanvasConfig.MOON_END_LABEL
+  const begin = SunCanvasConfig.MOON_BEGIN_LABEL;
+  const final = SunCanvasConfig.MOON_END_LABEL;
   // 文字
-  context.font = SunCanvasConfig.FONT
-  context.fillStyle = CanvasColor.TEXT
-  context.textAlign = 'center'
-  context.textBaseline = 'middle'
-  context.fillText(begin, width / SunCanvasConfig.TEXT_LEFT_DIVISOR, height - SunCanvasConfig.MOON_TEXT_BOTTOM_OFFSET)
+  context.font = SunCanvasConfig.FONT;
+  context.fillStyle = CanvasColor.TEXT;
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+  context.fillText(begin, width / SunCanvasConfig.TEXT_LEFT_DIVISOR, height - SunCanvasConfig.MOON_TEXT_BOTTOM_OFFSET);
 
-  context.font = SunCanvasConfig.FONT
-  context.fillStyle = CanvasColor.TEXT
-  context.textAlign = 'center'
-  context.textBaseline = 'middle'
-  context.fillText(SunCanvasConfig.MOON_PHASE_LABEL, width / 2, height - SunCanvasConfig.MOON_TEXT_BOTTOM_OFFSET)
+  context.font = SunCanvasConfig.FONT;
+  context.fillStyle = CanvasColor.TEXT;
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+  context.fillText(SunCanvasConfig.MOON_PHASE_LABEL, width / 2, height - SunCanvasConfig.MOON_TEXT_BOTTOM_OFFSET);
 
-  context.font = SunCanvasConfig.FONT
-  context.fillStyle = CanvasColor.TEXT
-  context.textAlign = 'center'
-  context.textBaseline = 'middle'
+  context.font = SunCanvasConfig.FONT;
+  context.fillStyle = CanvasColor.TEXT;
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
   context.fillText(final, width / SunCanvasConfig.TEXT_LEFT_DIVISOR * SunCanvasConfig.TEXT_RIGHT_FACTOR,
-    height - SunCanvasConfig.MOON_TEXT_BOTTOM_OFFSET)
+    height - SunCanvasConfig.MOON_TEXT_BOTTOM_OFFSET);
 }
 
 /**
@@ -157,11 +157,11 @@ function drawMoonCaptions(context: CanvasRenderingContext2D, width: number, heig
  */
 function createArcGradient(context: CanvasRenderingContext2D, width: number, height: number,
   scale: number): CanvasGradient {
-  const color = context.createLinearGradient(0, 0, width, height)
-  color.addColorStop(0, CanvasColor.GRADIENT_START)
-  color.addColorStop(scale / SunCanvasConfig.SCALE_MAX, CanvasColor.GRADIENT_MIDDLE)
-  color.addColorStop(1, CanvasColor.GRADIENT_END)
-  return color
+  const color = context.createLinearGradient(0, 0, width, height);
+  color.addColorStop(0, CanvasColor.GRADIENT_START);
+  color.addColorStop(scale / SunCanvasConfig.SCALE_MAX, CanvasColor.GRADIENT_MIDDLE);
+  color.addColorStop(1, CanvasColor.GRADIENT_END);
+  return color;
 }
 
 /**
@@ -169,20 +169,20 @@ function createArcGradient(context: CanvasRenderingContext2D, width: number, hei
  */
 function strokeSunArc(context: CanvasRenderingContext2D, width: number, height: number,
   color: CanvasGradient, flag: boolean): void {
-  context.save()
-  context.beginPath()
-  context.lineWidth = SunCanvasConfig.LINE_WIDTH
+  context.save();
+  context.beginPath();
+  context.lineWidth = SunCanvasConfig.LINE_WIDTH;
   if (flag) {
-    context.strokeStyle = color
+    context.strokeStyle = color;
   } else {
-    context.strokeStyle = CanvasColor.ARC_INACTIVE
+    context.strokeStyle = CanvasColor.ARC_INACTIVE;
   }
   context.arc(width / 2, height - SunCanvasConfig.ARC_BOTTOM_OFFSET, width * SunCanvasConfig.SUN_ARC_RADIUS_RATIO,
     Math.PI / 180 * SunCanvasConfig.SUN_ARC_START_DEGREE,
-    Math.PI * 2 / 180 * SunCanvasConfig.SUN_ARC_END_DEGREE, false)
-  context.setLineDash([SunCanvasConfig.DASH_LENGTH])
-  context.stroke()
-  context.restore()
+    Math.PI * 2 / 180 * SunCanvasConfig.SUN_ARC_END_DEGREE, false);
+  context.setLineDash([SunCanvasConfig.DASH_LENGTH]);
+  context.stroke();
+  context.restore();
 }
 
 /**
@@ -190,20 +190,20 @@ function strokeSunArc(context: CanvasRenderingContext2D, width: number, height: 
  */
 function strokeMoonArc(context: CanvasRenderingContext2D, width: number, height: number,
   color: CanvasGradient, flag: boolean): void {
-  context.save()
-  context.beginPath()
-  context.lineWidth = SunCanvasConfig.LINE_WIDTH
+  context.save();
+  context.beginPath();
+  context.lineWidth = SunCanvasConfig.LINE_WIDTH;
   if (flag) {
-    context.strokeStyle = color
+    context.strokeStyle = color;
   } else {
-    context.strokeStyle = CanvasColor.ARC_INACTIVE
+    context.strokeStyle = CanvasColor.ARC_INACTIVE;
   }
   context.arc(width / 2, height - SunCanvasConfig.ARC_BOTTOM_OFFSET, width * SunCanvasConfig.MOON_ARC_RADIUS_RATIO,
     Math.PI / 180 * SunCanvasConfig.MOON_ARC_START_DEGREE,
-    Math.PI * 2 / 180 * SunCanvasConfig.MOON_ARC_END_DEGREE, false)
-  context.setLineDash([SunCanvasConfig.DASH_LENGTH])
-  context.stroke()
-  context.restore()
+    Math.PI * 2 / 180 * SunCanvasConfig.MOON_ARC_END_DEGREE, false);
+  context.setLineDash([SunCanvasConfig.DASH_LENGTH]);
+  context.stroke();
+  context.restore();
 }
 
 /**
@@ -212,16 +212,16 @@ function strokeMoonArc(context: CanvasRenderingContext2D, width: number, height:
 function drawSunIcon(context: CanvasRenderingContext2D, img: Object, width: number, height: number,
   scale: number): void {
   // x为刻度线
-  context.save()
+  context.save();
   // 弧度*π/180 得到弧度
-  const deg = Math.PI / 180 * (SunCanvasConfig.SUN_ARC_START_DEGREE + scale * SunCanvasConfig.STEP_DEGREE)
-  const offsetX = -(Math.cos(deg) * width * SunCanvasConfig.SUN_ARC_RADIUS_RATIO)
-  const offsetY = -(Math.sin(deg) * width * SunCanvasConfig.SUN_ARC_RADIUS_RATIO)
+  const deg = Math.PI / 180 * (SunCanvasConfig.SUN_ARC_START_DEGREE + scale * SunCanvasConfig.STEP_DEGREE);
+  const offsetX = -(Math.cos(deg) * width * SunCanvasConfig.SUN_ARC_RADIUS_RATIO);
+  const offsetY = -(Math.sin(deg) * width * SunCanvasConfig.SUN_ARC_RADIUS_RATIO);
 
   context.drawImage(img as ImageBitmap, 0, 0, SunCanvasConfig.ICON_SOURCE_SIZE, SunCanvasConfig.ICON_SOURCE_SIZE,
     width / 2 - offsetX - SunCanvasConfig.ICON_X_OFFSET,
     height - SunCanvasConfig.ICON_Y_OFFSET - offsetY,
-    SunCanvasConfig.ICON_SIZE, SunCanvasConfig.ICON_SIZE)
+    SunCanvasConfig.ICON_SIZE, SunCanvasConfig.ICON_SIZE);
 }
 
 /**
@@ -231,7 +231,7 @@ function drawMoonPhaseIcon(context: CanvasRenderingContext2D, iconMoon: Object, 
   height: number): void {
   context.drawImage(iconMoon as ImageBitmap, 0, 0, SunCanvasConfig.MOON_ICON_SOURCE_SIZE,
     SunCanvasConfig.MOON_ICON_SOURCE_SIZE, width / 2 - SunCanvasConfig.MOON_ICON_X_OFFSET,
-    height - SunCanvasConfig.MOON_ICON_Y_OFFSET, SunCanvasConfig.MOON_ICON_SIZE, SunCanvasConfig.MOON_ICON_SIZE)
+    height - SunCanvasConfig.MOON_ICON_Y_OFFSET, SunCanvasConfig.MOON_ICON_SIZE, SunCanvasConfig.MOON_ICON_SIZE);
 }
 
 /**
@@ -240,16 +240,16 @@ function drawMoonPhaseIcon(context: CanvasRenderingContext2D, iconMoon: Object, 
 function drawMoonIcon(context: CanvasRenderingContext2D, img: Object, width: number, height: number,
   scale: number): void {
   // x为刻度线
-  context.save()
+  context.save();
   // 弧度*π/180 得到弧度
-  const deg = Math.PI / 180 * (SunCanvasConfig.MOON_ARC_START_DEGREE + scale * SunCanvasConfig.STEP_DEGREE)
-  const offsetX = -(Math.cos(deg) * width * SunCanvasConfig.MOON_ARC_RADIUS_RATIO)
-  const offsetY = -(Math.sin(deg) * width * SunCanvasConfig.MOON_ARC_RADIUS_RATIO)
+  const deg = Math.PI / 180 * (SunCanvasConfig.MOON_ARC_START_DEGREE + scale * SunCanvasConfig.STEP_DEGREE);
+  const offsetX = -(Math.cos(deg) * width * SunCanvasConfig.MOON_ARC_RADIUS_RATIO);
+  const offsetY = -(Math.sin(deg) * width * SunCanvasConfig.MOON_ARC_RADIUS_RATIO);
 
   context.drawImage(img as ImageBitmap, 0, 0, SunCanvasConfig.ICON_SOURCE_SIZE, SunCanvasConfig.ICON_SOURCE_SIZE,
     width / 2 - offsetX - SunCanvasConfig.ICON_X_OFFSET,
     height - SunCanvasConfig.ICON_Y_OFFSET - offsetY,
-    SunCanvasConfig.ICON_SIZE, SunCanvasConfig.ICON_SIZE)
+    SunCanvasConfig.ICON_SIZE, SunCanvasConfig.ICON_SIZE);
 }
 
-export { initSun, initMoon }
+export { initSun, initMoon };

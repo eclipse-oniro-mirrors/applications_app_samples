@@ -23,7 +23,7 @@ const LOG_TAG: string = '[Sample_Weather]'
 interface HourItem {
   hours: string
   wea: string
-  wea_img: string
+  weaImg: string
   tem: string
   win: string
   winSpeed: string
@@ -277,7 +277,7 @@ export default function mockReal01Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s|%{public}s|%{public}s', head.tem, head.wea, head.win)
       expect(String(head.tem)).assertEqual('30')
       expect(head.wea).assertEqual('晴')
-      expect(head.wea_img).assertEqual('sunny')
+      expect(head.weaImg).assertEqual('sunny')
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testMock0013 end')
     })
 
@@ -292,10 +292,10 @@ export default function mockReal01Test() {
     it('testMock0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testMock0014 begin')
       const item = (weather[0].data[1].hours as HourItem[])[8]
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s|%{public}s', item.hours, item.wea_img)
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s|%{public}s', item.hours, item.weaImg)
       expect(item.hours).assertEqual('17时')
       expect(item.wea).assertEqual('多云')
-      expect(item.wea_img).assertEqual('cloudy')
+      expect(item.weaImg).assertEqual('cloudy')
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s', String(item.win))
       expect(item.win).assertEqual('西北风')
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testMock0014 end')

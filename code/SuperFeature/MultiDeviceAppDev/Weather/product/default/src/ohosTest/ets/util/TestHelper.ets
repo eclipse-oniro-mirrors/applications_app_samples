@@ -22,33 +22,33 @@
  *   RequestData so that volume cases can compare against frozen literals.
  */
 
-import { initSun, initMoon } from '../../../main/ets/feature/SunCanvasFeature'
-import { initRound } from '../../../main/ets/feature/AirQualityFeature'
-import { MyDataSource, Forecast, WeekWeather, AirIndex, SuitData, AirData, HeaderData, City, CityListData, weather } from '@ohos/common'
+import { initSun, initMoon } from '../../../main/ets/feature/SunCanvasFeature';
+import { initRound } from '../../../main/ets/feature/AirQualityFeature';
+import { MyDataSource, Forecast, WeekWeather, AirIndex, SuitData, AirData, HeaderData, City, CityListData, weather } from '@ohos/common';
 
 export interface StubCall {
-  method: string
-  args: Object[]
+  method: string;
+  args: Object[];
 }
 
 export interface HourItem {
-  hours: string
-  wea: string
-  wea_img: string
-  tem: string
-  win: string
-  winSpeed: string
+  hours: string;
+  wea: string;
+  weaImg: string;
+  tem: string;
+  win: string;
+  winSpeed: string;
 }
 
 export interface IndexItem {
-  title: string
-  level: string
-  desc: string
+  title: string;
+  level: string;
+  desc: string;
 }
 
 export interface AirStub {
-  airQuality: string
-  airDesc: string
+  airQuality: string;
+  airDesc: string;
 }
 
 /**
@@ -58,111 +58,111 @@ class StubImage {
 }
 
 export class CanvasStubGradient {
-  stops: string[] = []
+  public stops: string[] = [];
 
   addColorStop(offset: number, color: string): void {
-    this.stops.push(`${offset}|${color}`)
+    this.stops.push(`${offset}|${color}`);
   }
 }
 
 export class CanvasStubContext {
-  width: number = 300
-  height: number = 200
-  font: string = ''
-  fillStyle: string = ''
-  strokeStyle: Object = ''
-  textAlign: string = ''
-  textBaseline: string = ''
-  lineWidth: number = 1
-  lineCap: string = ''
-  calls: StubCall[] = []
-  public lastGradient: CanvasStubGradient | undefined = undefined
+  public width: number = 300;
+  public height: number = 200;
+  public font: string = '';
+  public fillStyle: string = '';
+  public strokeStyle: Object = '';
+  public textAlign: string = '';
+  public textBaseline: string = '';
+  public lineWidth: number = 1;
+  public lineCap: string = '';
+  public calls: StubCall[] = [];
+  public lastGradient: CanvasStubGradient | undefined = undefined;
 
   record(method: string, args: Object[]): void {
-    this.calls.push({ method: method, args: args })
+    this.calls.push({ method: method, args: args });
   }
 
   beginPath(): void {
-    this.record('beginPath', [])
+    this.record('beginPath', []);
   }
 
   closePath(): void {
-    this.record('closePath', [])
+    this.record('closePath', []);
   }
 
   moveTo(x: number, y: number): void {
-    this.record('moveTo', [x, y])
+    this.record('moveTo', [x, y]);
   }
 
   lineTo(x: number, y: number): void {
-    this.record('lineTo', [x, y])
+    this.record('lineTo', [x, y]);
   }
 
   stroke(): void {
-    this.record('stroke', [])
+    this.record('stroke', []);
   }
 
   fillText(text: string, x: number, y: number): void {
-    this.record('fillText', [text, x, y])
+    this.record('fillText', [text, x, y]);
   }
 
   arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, counterclockwise: boolean): void {
-    this.record('arc', [x, y, radius, startAngle, endAngle, counterclockwise])
+    this.record('arc', [x, y, radius, startAngle, endAngle, counterclockwise]);
   }
 
   save(): void {
-    this.record('save', [])
+    this.record('save', []);
   }
 
   restore(): void {
-    this.record('restore', [])
+    this.record('restore', []);
   }
 
   setLineDash(segments: number[]): void {
-    this.record('setLineDash', [segments.join(',')])
+    this.record('setLineDash', [segments.join(',')]);
   }
 
   drawImage(...args: Object[]): void {
-    this.record('drawImage', args)
+    this.record('drawImage', args);
   }
 
   createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasStubGradient {
-    const gradient = new CanvasStubGradient()
-    this.lastGradient = gradient
-    this.record('createLinearGradient', [x0, y0, x1, y1])
-    return gradient
+    const gradient = new CanvasStubGradient();
+    this.lastGradient = gradient;
+    this.record('createLinearGradient', [x0, y0, x1, y1]);
+    return gradient;
   }
 
   count(method: string): number {
-    return this.calls.filter((c: StubCall) => c.method === method).length
+    return this.calls.filter((c: StubCall) => c.method === method).length;
   }
 
   reset(): void {
-    this.calls = []
-    this.lastGradient = undefined
-    this.font = ''
-    this.fillStyle = ''
-    this.strokeStyle = ''
-    this.textAlign = ''
-    this.textBaseline = ''
-    this.lineWidth = 1
-    this.lineCap = ''
+    this.calls = [];
+    this.lastGradient = undefined;
+    this.font = '';
+    this.fillStyle = '';
+    this.strokeStyle = '';
+    this.textAlign = '';
+    this.textBaseline = '';
+    this.lineWidth = 1;
+    this.lineCap = '';
   }
 
   lastOf(method: string): StubCall | undefined {
-    const filtered = this.calls.filter((c: StubCall) => c.method === method)
-    return filtered.length > 0 ? filtered[filtered.length - 1] : undefined
+    const filtered = this.calls.filter((c: StubCall) => c.method === method);
+    return filtered.length > 0 ? filtered[filtered.length - 1] : undefined;
   }
 
   nthOf(method: string, index: number): StubCall | undefined {
-    const filtered = this.calls.filter((c: StubCall) => c.method === method)
-    return index < filtered.length ? filtered[index] : undefined
+    const filtered = this.calls.filter((c: StubCall) => c.method === method);
+    return index < filtered.length ? filtered[index] : undefined;
   }
 
   texts(): string[] {
     return this.calls
       .filter((c: StubCall) => c.method === 'fillText')
-      .map((c: StubCall) => String(c.args[0]))
+      .map((c: StubCall) => String(c.args[0]));
   }
 }
 
@@ -173,45 +173,45 @@ export class CanvasStubContext {
  */
 function mediaNameById(id: number): string {
   if (id === $r('app.media.sunny_bg').id) {
-    return 'sunny_bg'
+    return 'sunny_bg';
   }
   if (id === $r('app.media.rain_bg').id) {
-    return 'rain_bg'
+    return 'rain_bg';
   }
   if (id === $r('app.media.yin_bg').id) {
-    return 'yin_bg'
+    return 'yin_bg';
   }
   if (id === $r('app.media.weather_fine').id) {
-    return 'weather_fine'
+    return 'weather_fine';
   }
   if (id === $r('app.media.weather_rain').id) {
-    return 'weather_rain'
+    return 'weather_rain';
   }
   if (id === $r('app.media.weather_yin').id) {
-    return 'weather_yin'
+    return 'weather_yin';
   }
   if (id === $r('app.media.ic_weather_sunny').id) {
-    return 'ic_weather_sunny'
+    return 'ic_weather_sunny';
   }
   if (id === $r('app.media.ic_weather_yin').id) {
-    return 'ic_weather_yin'
+    return 'ic_weather_yin';
   }
   if (id === $r('app.media.ic_weather_rain').id) {
-    return 'ic_weather_rain'
+    return 'ic_weather_rain';
   }
   if (id === $r('app.media.ic_weather_cloudy').id) {
-    return 'ic_weather_cloudy'
+    return 'ic_weather_cloudy';
   }
   if (id === $r('app.media.ic_weather_sunset').id) {
-    return 'ic_weather_sunset'
+    return 'ic_weather_sunset';
   }
   if (id === $r('app.media.ic_weather_night').id) {
-    return 'ic_weather_night'
+    return 'ic_weather_night';
   }
   if (id === $r('app.media.ic_weather_lightrain').id) {
-    return 'ic_weather_lightrain'
+    return 'ic_weather_lightrain';
   }
-  return ''
+  return '';
 }
 
 /**
@@ -223,30 +223,30 @@ function mediaNameById(id: number): string {
  */
 export function resName(res: Resource | string | undefined): string {
   if (res === undefined || res === null) {
-    return ''
+    return '';
   }
   if (typeof res === 'string') {
-    return res
+    return res;
   }
-  const resource: Resource = res
-  const params: (string | number)[] | undefined = resource.params
+  const resource: Resource = res;
+  const params: (string | number)[] | undefined = resource.params;
   if (params !== undefined && params !== null) {
     for (let i = 0; i < params.length; i++) {
-      const item = String(params[i])
+      const item = String(params[i]);
       if (item.length > 0 && !/^\d+$/.test(item)) {
-        return item
+        return item;
       }
     }
   }
-  const byId: string = mediaNameById(resource.id)
+  const byId: string = mediaNameById(resource.id);
   if (byId.length > 0) {
-    return byId
+    return byId;
   }
-  return JSON.stringify(resource)
+  return JSON.stringify(resource);
 }
 
 export function asContext(stub: CanvasStubContext): CanvasRenderingContext2D {
-  return stub as Object as CanvasRenderingContext2D
+  return stub as Object as CanvasRenderingContext2D;
 }
 
 /**
@@ -255,13 +255,13 @@ export function asContext(stub: CanvasStubContext): CanvasRenderingContext2D {
  * Pure adapter: all expectations come from frozen literals in the cases.
  */
 export function runInitRound(ctx: CanvasStubContext, airQuality: string, airDesc: string): string {
-  ctx.reset()
-  const air: AirStub = { airQuality: airQuality, airDesc: airDesc }
-  initRound(asContext(ctx), air)
-  const arc = ctx.lastOf('arc')
-  const radius = arc !== undefined ? String(arc.args[2]) : 'none'
-  const endAngle = arc !== undefined ? String(arc.args[4]) : 'none'
-  return `${radius}|${endAngle}|${ctx.texts().join(',')}`
+  ctx.reset();
+  const air: AirStub = { airQuality: airQuality, airDesc: airDesc };
+  initRound(asContext(ctx), air);
+  const arc = ctx.lastOf('arc');
+  const radius = arc !== undefined ? String(arc.args[2]) : 'none';
+  const endAngle = arc !== undefined ? String(arc.args[4]) : 'none';
+  return `${radius}|${endAngle}|${ctx.texts().join(',')}`;
 }
 
 /**
@@ -269,15 +269,15 @@ export function runInitRound(ctx: CanvasStubContext, airQuality: string, airDesc
  * of the canvas-independent drawing: baseline coordinates and text labels.
  */
 export function runInitSun(ctx: CanvasStubContext): string {
-  ctx.reset()
-  initSun(asContext(ctx), new StubImage())
-  const move = ctx.nthOf('moveTo', 0)
-  const line = ctx.nthOf('lineTo', 0)
-  const arc = ctx.lastOf('arc')
-  const moveY = move !== undefined ? String(move.args[1]) : 'none'
-  const lineX = line !== undefined ? String(line.args[0]) : 'none'
-  const radius = arc !== undefined ? String(arc.args[2]) : 'none'
-  return `${moveY}|${lineX}|${radius}|${ctx.texts().join(',')}`
+  ctx.reset();
+  initSun(asContext(ctx), new StubImage());
+  const move = ctx.nthOf('moveTo', 0);
+  const line = ctx.nthOf('lineTo', 0);
+  const arc = ctx.lastOf('arc');
+  const moveY = move !== undefined ? String(move.args[1]) : 'none';
+  const lineX = line !== undefined ? String(line.args[0]) : 'none';
+  const radius = arc !== undefined ? String(arc.args[2]) : 'none';
+  return `${moveY}|${lineX}|${radius}|${ctx.texts().join(',')}`;
 }
 
 /**
@@ -285,11 +285,11 @@ export function runInitSun(ctx: CanvasStubContext): string {
  * of the moon arc radius and the drawn text labels.
  */
 export function runInitMoon(ctx: CanvasStubContext): string {
-  ctx.reset()
-  initMoon(asContext(ctx), new StubImage(), new StubImage())
-  const arc = ctx.lastOf('arc')
-  const radius = arc !== undefined ? String(arc.args[2]) : 'none'
-  return `${radius}|${ctx.texts().join(',')}`
+  ctx.reset();
+  initMoon(asContext(ctx), new StubImage(), new StubImage());
+  const arc = ctx.lastOf('arc');
+  const radius = arc !== undefined ? String(arc.args[2]) : 'none';
+  return `${radius}|${ctx.texts().join(',')}`;
 }
 
 /**
@@ -298,45 +298,45 @@ export function runInitMoon(ctx: CanvasStubContext): string {
  * the cases are frozen literals; this adapter only orchestrates the SUT.
  */
 export function runDs(n: number, mode: string): string {
-  const src: string[] = []
+  const src: string[] = [];
   for (let k = 0; k < n; k++) {
-    src.push('s' + k)
+    src.push('s' + k);
   }
-  const ds = new MyDataSource<string>(src)
+  const ds = new MyDataSource<string>(src);
   if (mode === 'total') {
-    return String(ds.totalCount())
+    return String(ds.totalCount());
   }
   if (mode === 'last') {
-    return n > 0 ? String(ds.getData(n - 1)) : 'empty'
+    return n > 0 ? String(ds.getData(n - 1)) : 'empty';
   }
   if (mode === 'first') {
-    return n > 0 ? String(ds.getData(0)) : 'empty'
+    return n > 0 ? String(ds.getData(0)) : 'empty';
   }
   if (mode === 'oob') {
-    return String(ds.getData(n))
+    return String(ds.getData(n));
   }
   if (mode === 'push') {
-    ds.pushData('new')
-    return `${ds.totalCount()}|${String(ds.getData(n))}`
+    ds.pushData('new');
+    return `${ds.totalCount()}|${String(ds.getData(n))}`;
   }
   if (mode === 'addFront') {
-    ds.addData(0, 'head')
-    return `${ds.totalCount()}|${ds.getData(0)}|${ds.getData(1)}`
+    ds.addData(0, 'head');
+    return `${ds.totalCount()}|${ds.getData(0)}|${ds.getData(1)}`;
   }
   if (mode === 'addMid') {
-    const mid = Math.floor(n / 2)
-    ds.addData(mid, 'mid')
-    return `${ds.totalCount()}|${ds.getData(mid)}`
+    const mid = Math.floor(n / 2);
+    ds.addData(mid, 'mid');
+    return `${ds.totalCount()}|${ds.getData(mid)}`;
   }
   if (mode === 'addEnd') {
-    ds.addData(n, 'tail')
-    return `${ds.totalCount()}|${ds.getData(n)}`
+    ds.addData(n, 'tail');
+    return `${ds.totalCount()}|${ds.getData(n)}`;
   }
   if (mode === 'set') {
-    ds.setData(['x', 'y'])
-    return `${ds.totalCount()}|${ds.getData(0)}|${ds.getData(1)}`
+    ds.setData(['x', 'y']);
+    return `${ds.totalCount()}|${ds.getData(0)}|${ds.getData(1)}`;
   }
-  return 'unknown'
+  return 'unknown';
 }
 
 /**
@@ -346,40 +346,40 @@ export function runDs(n: number, mode: string): string {
  */
 export function runModel(kind: string, a: string, b: string, c: string, d: string): string {
   if (kind === 'Forecast') {
-    const f = new Forecast(a, b, c, d, a, b)
-    return `${f.degree}|${f.date}|${f.desc}|${f.win}|${f.winSpeed}`
+    const f = new Forecast(a, b, c, d, a, b);
+    return `${f.degree}|${f.date}|${f.desc}|${f.win}|${f.winSpeed}`;
   }
   if (kind === 'WeekWeather') {
-    const w = new WeekWeather(a, b, d, c, d, a, b)
-    return `${w.date}|${w.week}|${w.weather}|${w.airLevel}|${w.max}|${w.min}`
+    const w = new WeekWeather(a, b, d, c, d, a, b);
+    return `${w.date}|${w.week}|${w.weather}|${w.airLevel}|${w.max}|${w.min}`;
   }
   if (kind === 'AirIndex') {
-    const x = new AirIndex(a, b)
-    return `${x.index}|${String(x.figure)}`
+    const x = new AirIndex(a, b);
+    return `${x.index}|${String(x.figure)}`;
   }
   if (kind === 'SuitData') {
-    const s = new SuitData($r('app.media.ic_weather_sunny'), a, b)
-    return `${s.desc}|${s.value}`
+    const s = new SuitData($r('app.media.ic_weather_sunny'), a, b);
+    return `${s.desc}|${s.value}`;
   }
   if (kind === 'AirData') {
-    const g = new AirData(a, b)
-    return `${g.airQuality}|${g.airDesc}`
+    const g = new AirData(a, b);
+    return `${g.airQuality}|${g.airDesc}`;
   }
   if (kind === 'HeaderData') {
-    const h = new HeaderData(a, b, c, d, a, d, new AirData(b, c), a + b)
-    return `${h.city}|${h.temp}|${h.weatherType}|${h.max}|${h.min}|${h.airData.airQuality}|${h.airTips}`
+    const h = new HeaderData(a, b, c, d, a, d, new AirData(b, c), a + b);
+    return `${h.city}|${h.temp}|${h.weatherType}|${h.max}|${h.min}|${h.airData.airQuality}|${h.airTips}`;
   }
   if (kind === 'City') {
-    const c2 = new City(a, b, c)
-    return `${c2.name}|${c2.temp}|${c2.weather}`
+    const c2 = new City(a, b, c);
+    return `${c2.name}|${c2.temp}|${c2.weather}`;
   }
   if (kind === 'CityListData') {
-    const air = new AirData(a, b)
-    const header = new HeaderData(a, b, c, d, a, c, air, d)
-    const cl = new CityListData(a, header, [], [], air, [], [])
-    return `${cl.city}|${cl.header.airData.airDesc}|${cl.hoursData.length}|${cl.weekData.length}|${cl.suitDate.length}`
+    const air = new AirData(a, b);
+    const header = new HeaderData(a, b, c, d, a, c, air, d);
+    const cl = new CityListData(a, header, [], [], air, [], []);
+    return `${cl.city}|${cl.header.airData.airDesc}|${cl.hoursData.length}|${cl.weekData.length}|${cl.suitDate.length}`;
   }
-  return 'unknown'
+  return 'unknown';
 }
 
 /**
@@ -388,30 +388,30 @@ export function runModel(kind: string, a: string, b: string, c: string, d: strin
  * touching union-typed mock properties directly from ArkTS strict mode.
  */
 export function runMockTop(c: number): string {
-  const w = weather[c]
-  return `${w.cityid}|${w.city}|${w.cityEn}|${w.country}|${w.countryEn}|${w.update_time}`
+  const w = weather[c];
+  return `${w.cityid}|${w.city}|${w.cityEn}|${w.country}|${w.countryEn}|${w.update_time}`;
 }
 
 export function runMockAqi(c: number): string {
-  const a = weather[c].aqi
+  const a = weather[c].aqi;
   return `${a.air}|${a.air_level}|${a.pm25}|${a.pm10}|${a.o3}|${a.no2}|${a.so2}|${a.co}|` +
-    `${a.kouzhao}|${a.yundong}|${a.jinghuaqi}|${a.cityEn}|${a.update_time}`
+    `${a.kouzhao}|${a.yundong}|${a.jinghuaqi}|${a.cityEn}|${a.update_time}`;
 }
 
 export function runMockDay(c: number, d: number): string {
-  const x = weather[c].data[d]
-  return `${x.day}|${x.date}|${x.week}|${x.wea}|${x.wea_img}|${x.tem}|${x.tem1}|${x.tem2}|` +
-    `${x.air}|${x.air_level}|${x.sunrise}|${x.sunset}|${x.winSpeed}`
+  const x = weather[c].data[d];
+  return `${x.day}|${x.date}|${x.week}|${x.wea}|${x.weaImg}|${x.tem}|${x.tem1}|${x.tem2}|` +
+    `${x.air}|${x.air_level}|${x.sunrise}|${x.sunset}|${x.winSpeed}`;
 }
 
 export function runMockHour(c: number, k: number): string {
-  const hours = weather[c].data[1].hours as Object as HourItem[]
-  const h = hours[k]
-  return `${h.hours}|${h.wea}|${h.wea_img}|${h.tem}|${h.win}|${h.winSpeed}`
+  const hours = weather[c].data[1].hours as Object as HourItem[];
+  const h = hours[k];
+  return `${h.hours}|${h.wea}|${h.weaImg}|${h.tem}|${h.win}|${h.winSpeed}`;
 }
 
 export function runMockIndex(c: number, k: number): string {
-  const list = weather[c].data[1].index as Object as IndexItem[]
-  const x = list[k]
-  return `${x.title}|${x.level}|${x.desc}`
+  const list = weather[c].data[1].index as Object as IndexItem[];
+  const x = list[k];
+  return `${x.title}|${x.level}|${x.desc}`;
 }
