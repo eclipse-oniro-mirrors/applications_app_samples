@@ -1798,3 +1798,1476 @@ export default function vmHeapMatrixTest() {
      * @tc.desc      Keep a four megabyte payload and check the net live bytes never exceed the allocated delta
      *               while the used heap delta stays under the allocated kilobytes plus slack
      * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const statFloor: GcSnapshot = new GcSnapshot();
+      const vmFloor: VmSample = VmSample.read();
+      const block: number[][] = retainArrays(8, 65536);
+      await paceTurn();
+      const vmCeil: VmSample = VmSample.read();
+      const statCeil: GcSnapshot = new GcSnapshot();
+      const ledger: StatPair = new StatPair(statFloor, statCeil);
+      const allocatedKb: number = kbFromBytes(ledger.allocatedDelta());
+      logCase('testVmHeapByteCounter0004', 'allocatedKb=' + allocatedKb + ' netKb=' +
+        kbFromBytes(ledger.netBytes()) + ' usedDeltaKb=' + (vmCeil.usedKb - vmFloor.usedKb));
+      expect(block.length).assertEqual(8);
+      expect(ledger.netBytes() <= ledger.allocatedDelta()).assertTrue();
+      expect(ledger.freedDelta() >= 0).assertTrue();
+      expect(vmCeil.usedKb - vmFloor.usedKb <= allocatedKb + USED_SLACK_KB).assertTrue();
+      expect(vmCeil.ordered()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_6300
+     * @tc.name      testVmHeapByteCounter0005
+     * @tc.desc      Retain a five megabyte payload, then verify the allocated kilobytes cover the payload while
+     *               the used kilobytes delta stays below that same figure plus slack
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const bytesOpen: number = gcStat(KEY_BYTES_ALLOCATED);
+      const beforeHeap: VmSample = VmSample.read();
+      const cargo: number[][] = retainArrays(5, 131072);
+      await paceTurn();
+      const afterHeap: VmSample = VmSample.read();
+      const bytesClose: number = gcStat(KEY_BYTES_ALLOCATED);
+      const allottedKb: number = kbFromBytes(bytesClose - bytesOpen);
+      const consumedKb: number = afterHeap.usedKb - beforeHeap.usedKb;
+      logCase('testVmHeapByteCounter0005', 'allottedKb=' + allottedKb + ' consumedKb=' + consumedKb +
+        ' wantedKb=' + payloadKb(5, 131072));
+      expect(allottedKb >= payloadKb(5, 131072)).assertTrue();
+      expect(consumedKb <= allottedKb + USED_SLACK_KB).assertTrue();
+      expect(cargo.length).assertEqual(5);
+      expect(afterHeap.usedKb <= afterHeap.totalKb).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_6400
+     * @tc.name      testVmHeapByteCounter0006
+     * @tc.desc      Drive one collection cycle and check the allocated counter still moves forward while the GC
+     *               count delta and the heap ordering both hold
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const allocatedStart: number = gcStat(KEY_BYTES_ALLOCATED);
+      const countStart: number = gcStat(KEY_GC_COUNT);
+      const cycles: number = await runGcCycles(1, 20);
+      const countEnd: number = gcStat(KEY_GC_COUNT);
+      const allocatedEnd: number = gcStat(KEY_BYTES_ALLOCATED);
+      const heapNow: VmSample = VmSample.read();
+      logCase('testVmHeapByteCounter0006', 'allocatedKb=' + allocatedStart / KB + '->' + allocatedEnd / KB +
+        ' gcDelta=' + (countEnd - countStart) + ' cycles=' + cycles);
+      expect(cycles >= 1).assertTrue();
+      expect(countEnd - countStart >= 1).assertTrue();
+      expect(allocatedEnd >= allocatedStart).assertTrue();
+      expect(heapNow.usedKb <= heapNow.totalKb).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_6500
+     * @tc.name      testVmHeapByteCounter0007
+     * @tc.desc      Read the long full collection counter around a pressure burst and check it never regresses
+     *               while the heap sample stays non negative and ordered
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const longStart: number = gcStat(KEY_FULL_GC_LONG);
+      const burst: number[][] = retainArrays(4, 100000);
+      allocatePressure();
+      allocatePressure();
+      await paceTurn();
+      const longEnd: number = gcStat(KEY_FULL_GC_LONG);
+      const sample: VmSample = VmSample.read();
+      logCase('testVmHeapByteCounter0007', 'longFull=' + longStart + '->' + longEnd + ' burst=' + burst.length +
+        ' ' + sample.detail());
+      expect(longEnd >= longStart).assertTrue();
+      expect(sample.sane()).assertTrue();
+      expect(sample.ordered()).assertTrue();
+      expect(sample.arrayKb <= sample.totalKb).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_6600
+     * @tc.name      testVmHeapByteCounter0008
+     * @tc.desc      Keep eight arrays of two hundred thousand elements, release them and check the freed
+     *               counter keeps its footing while the allocated counter stays ahead of it
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const freedStart: number = gcStat(KEY_BYTES_FREED);
+      const heavy: number[][] = retainArrays(8, 200000);
+      await paceTurn();
+      const apex: VmSample = VmSample.read();
+      releaseAll(heavy);
+      await runGcCycles(2, 25);
+      const freedEnd: number = gcStat(KEY_BYTES_FREED);
+      const allocatedNow: number = gcStat(KEY_BYTES_ALLOCATED);
+      const resting: VmSample = VmSample.read();
+      logCase('testVmHeapByteCounter0008', 'freedDelta=' + (freedEnd - freedStart) + ' allocatedNow=' +
+        allocatedNow + ' apexKb=' + apex.usedKb + ' restingKb=' + resting.usedKb);
+      expect(freedEnd >= freedStart).assertTrue();
+      expect(allocatedNow >= freedEnd).assertTrue();
+      expect(resting.usedKb <= apex.usedKb + USED_SLACK_KB).assertTrue();
+      expect(resting.ordered()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_6700
+     * @tc.name      testVmHeapByteCounter0009
+     * @tc.desc      Keep a payload and check the used heap delta expressed in kilobytes does not run past the
+     *               allocated byte delta expressed in kilobytes plus slack
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const windowOpenStat: GcSnapshot = new GcSnapshot();
+      const windowOpenHeap: VmSample = VmSample.read();
+      const kept: number[][] = retainArrays(6, 100000);
+      await paceTurn();
+      const windowCloseHeap: VmSample = VmSample.read();
+      const windowCloseStat: GcSnapshot = new GcSnapshot();
+      const span: StatPair = new StatPair(windowOpenStat, windowCloseStat);
+      const heapGrowthKb: number = windowCloseHeap.usedKb - windowOpenHeap.usedKb;
+      const allocatedGrowthKb: number = kbFromBytes(span.allocatedDelta());
+      logCase('testVmHeapByteCounter0009', 'heapGrowthKb=' + heapGrowthKb + ' allocatedGrowthKb=' +
+        allocatedGrowthKb + ' kept=' + kept.length);
+      expect(heapGrowthKb <= allocatedGrowthKb + USED_SLACK_KB).assertTrue();
+      expect(ratioOf(heapGrowthKb, allocatedGrowthKb) <= 1 + SHARE_TOLERANCE).assertTrue();
+      expect(kept.length).assertEqual(6);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_6800
+     * @tc.name      testVmHeapByteCounter0010
+     * @tc.desc      Throw away twenty pressure bursts and check the allocated counter climbs by at least the
+     *               narrow payload of every burst while the used heap grows far less
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const bytesBeforeBursts: number = gcStat(KEY_BYTES_ALLOCATED);
+      const heapBeforeBursts: VmSample = VmSample.read();
+      let sink: number = 0;
+      for (let burst = 0; burst < 20; burst++) {
+        sink += allocatePressure();
+        await paceTurn();
+      }
+      const heapAfterBursts: VmSample = VmSample.read();
+      const bytesAfterBursts: number = gcStat(KEY_BYTES_ALLOCATED);
+      const burstFloorBytes: number = 20 * 20000 * 16 * 8;
+      const thrownKb: number = burstFloorBytes / KB;
+      const grownKb: number = heapAfterBursts.usedKb - heapBeforeBursts.usedKb;
+      logCase('testVmHeapByteCounter0010', 'sink=' + sink + ' allocatedDeltaKb=' +
+        kbFromBytes(bytesAfterBursts - bytesBeforeBursts) + ' grownKb=' + grownKb + ' thrownKb=' + thrownKb);
+      expect(sink > 0).assertTrue();
+      expect(bytesAfterBursts - bytesBeforeBursts >= burstFloorBytes).assertTrue();
+      expect(grownKb < thrownKb).assertTrue();
+      expect(heapAfterBursts.ordered()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_6900
+     * @tc.name      testVmHeapByteCounter0011
+     * @tc.desc      Compare a retained window against a garbage only window and check the retained window lifts
+     *               the used heap more while both windows charge bytes to the allocated counter
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const keepOpen: GcSnapshot = new GcSnapshot();
+      const keepHeapOpen: VmSample = VmSample.read();
+      const stored: number[][] = retainArrays(6, 131072);
+      await paceTurn();
+      const keepHeapClose: VmSample = VmSample.read();
+      const keepClose: GcSnapshot = new GcSnapshot();
+      const junkOpen: GcSnapshot = new GcSnapshot();
+      const junkHeapOpen: VmSample = VmSample.read();
+      allocatePressure();
+      await paceTurn();
+      const junkHeapClose: VmSample = VmSample.read();
+      const junkClose: GcSnapshot = new GcSnapshot();
+      const keepSpan: StatPair = new StatPair(keepOpen, keepClose);
+      const junkSpan: StatPair = new StatPair(junkOpen, junkClose);
+      logCase('testVmHeapByteCounter0011', 'keepUsedKb=' + (keepHeapClose.usedKb - keepHeapOpen.usedKb) +
+        ' junkUsedKb=' + (junkHeapClose.usedKb - junkHeapOpen.usedKb) + ' stored=' + stored.length);
+      expect(keepSpan.allocatedDelta() >= payloadBytes(6, 131072)).assertTrue();
+      expect(junkSpan.allocatedDelta() > 0).assertTrue();
+      expect(keepHeapClose.usedKb - keepHeapOpen.usedKb >=
+        junkHeapClose.usedKb - junkHeapOpen.usedKb).assertTrue();
+      expect(keepHeapClose.ordered()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_7000
+     * @tc.name      testVmHeapByteCounter0012
+     * @tc.desc      Read both byte counters without allocating and check the lifetime freed bytes never run past
+     *               the lifetime allocated bytes while both stay monotone
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testVmHeapByteCounter0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const allocatedA: number = gcStat(KEY_BYTES_ALLOCATED);
+      const freedA: number = gcStat(KEY_BYTES_FREED);
+      await paceTurn();
+      const allocatedB: number = gcStat(KEY_BYTES_ALLOCATED);
+      const freedB: number = gcStat(KEY_BYTES_FREED);
+      const heapNow: VmSample = VmSample.read();
+      logCase('testVmHeapByteCounter0012', 'allocated=' + allocatedA + '/' + allocatedB + ' freed=' + freedA +
+        '/' + freedB + ' ' + heapNow.detail());
+      expect(allocatedB >= allocatedA).assertTrue();
+      expect(freedB >= freedA).assertTrue();
+      expect(freedA <= allocatedA).assertTrue();
+      expect(freedB <= allocatedB).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_7100
+     * @tc.name      testVmHeapByteCounter0013
+     * @tc.desc      Keep two arrays of five hundred thousand elements and check the allocated counter covers the
+     *               payload twice in a row while the heap sample stays usable
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const probeOne: number = gcStat(KEY_BYTES_ALLOCATED);
+      const twins: number[][] = retainArrays(2, 500000);
+      const probeTwo: number = gcStat(KEY_BYTES_ALLOCATED);
+      await paceTurn();
+      const probeThree: number = gcStat(KEY_BYTES_ALLOCATED);
+      const sample: VmSample = VmSample.read();
+      logCase('testVmHeapByteCounter0013', 'probes=' + probeOne + '/' + probeTwo + '/' + probeThree +
+        ' wantedBytes=' + payloadBytes(2, 500000));
+      expect(probeTwo >= probeOne).assertTrue();
+      expect(probeThree >= probeTwo).assertTrue();
+      expect(probeThree - probeOne >= payloadBytes(2, 500000)).assertTrue();
+      expect(twins.length).assertEqual(2);
+      expect(sample.arrayKb >= 0).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_7200
+     * @tc.name      testVmHeapByteCounter0014
+     * @tc.desc      Keep sixteen arrays of sixty four thousand elements and check the allocated delta, the used
+     *               heap delta and the GC count delta tell the same story
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const triStart: GcSnapshot = new GcSnapshot();
+      const heapStart: VmSample = VmSample.read();
+      const sixteen: number[][] = retainArrays(16, 64000);
+      await paceTurn();
+      const heapEnd: VmSample = VmSample.read();
+      const triEnd: GcSnapshot = new GcSnapshot();
+      const span: StatPair = new StatPair(triStart, triEnd);
+      const want: number = payloadBytes(16, 64000);
+      logCase('testVmHeapByteCounter0014', 'wantBytes=' + want + ' allocated=' + span.allocatedDelta() +
+        ' usedDeltaKb=' + (heapEnd.usedKb - heapStart.usedKb) + ' countDelta=' + span.countDelta());
+      expect(span.allocatedDelta() >= want).assertTrue();
+      expect(heapEnd.usedKb - heapStart.usedKb >= want / KB / 2).assertTrue();
+      expect(span.countDelta() >= 0).assertTrue();
+      expect(sixteen.length).assertEqual(16);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_7300
+     * @tc.name      testVmHeapByteCounter0015
+     * @tc.desc      Express the payload of a nine array batch in bytes and kilobytes and check the allocated
+     *               delta and the used heap delta both respect the smaller of the two expectations
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const byteMark: number = gcStat(KEY_BYTES_ALLOCATED);
+      const heapMark: VmSample = VmSample.read();
+      const nine: number[][] = retainArrays(9, 45000);
+      await paceTurn();
+      const heapMarkLater: VmSample = VmSample.read();
+      const byteMarkLater: number = gcStat(KEY_BYTES_ALLOCATED);
+      const wantBytes: number = payloadBytes(9, 45000);
+      const wantKb: number = payloadKb(9, 45000);
+      logCase('testVmHeapByteCounter0015', 'wantBytes=' + wantBytes + ' wantKb=' + wantKb + ' allocated=' +
+        (byteMarkLater - byteMark) + ' usedDeltaKb=' + (heapMarkLater.usedKb - heapMark.usedKb));
+      expect(wantBytes / KB).assertEqual(wantKb);
+      expect(byteMarkLater - byteMark >= wantBytes).assertTrue();
+      expect(heapMarkLater.usedKb - heapMark.usedKb >= wantKb / 2).assertTrue();
+      expect(nine.length).assertEqual(9);
+      expect(heapMarkLater.usedKb <= heapMarkLater.totalKb).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_7400
+     * @tc.name      testVmHeapByteCounter0016
+     * @tc.desc      Ask for a collection over an idle heap and check the used heap does not rise while the freed
+     *               counter and GC counter stay monotone
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testVmHeapByteCounter0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const heapBeforeHint: VmSample = VmSample.read();
+      const freedBeforeHint: number = gcStat(KEY_BYTES_FREED);
+      const countBeforeHint: number = gcStat(KEY_GC_COUNT);
+      hintGC();
+      await paceTurn();
+      const heapAfterHint: VmSample = VmSample.read();
+      const freedAfterHint: number = gcStat(KEY_BYTES_FREED);
+      const countAfterHint: number = gcStat(KEY_GC_COUNT);
+      logCase('testVmHeapByteCounter0016', 'usedKb=' + heapBeforeHint.usedKb + '->' + heapAfterHint.usedKb +
+        ' freedDelta=' + (freedAfterHint - freedBeforeHint) + ' countDelta=' +
+        (countAfterHint - countBeforeHint));
+      expect(heapAfterHint.usedKb <= heapBeforeHint.usedKb + USED_SLACK_KB).assertTrue();
+      expect(freedAfterHint >= freedBeforeHint).assertTrue();
+      expect(countAfterHint >= countBeforeHint).assertTrue();
+      expect(heapAfterHint.sane()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_7500
+     * @tc.name      testVmHeapByteCounter0017
+     * @tc.desc      Keep a five megabyte payload then release it and check the allocated window covers the
+     *               payload while the final heap reading stays under the peak band
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const openLedger: GcSnapshot = new GcSnapshot();
+      const origin: VmSample = VmSample.read();
+      const block: number[][] = retainArrays(5, 131072);
+      await paceTurn();
+      const peak: VmSample = VmSample.read();
+      releaseAll(block);
+      await runGcCycles(1, 20);
+      const closeLedger: GcSnapshot = new GcSnapshot();
+      const finish: VmSample = VmSample.read();
+      const ledger: StatPair = new StatPair(openLedger, closeLedger);
+      logCase('testVmHeapByteCounter0017', 'allocatedKb=' + kbFromBytes(ledger.allocatedDelta()) +
+        ' freedKb=' + kbFromBytes(ledger.freedDelta()) + ' peakKb=' + peak.usedKb + ' finishKb=' + finish.usedKb);
+      expect(ledger.allocatedDelta() >= payloadBytes(5, 131072)).assertTrue();
+      expect(ledger.freedDelta() >= 0).assertTrue();
+      expect(finish.usedKb <= peak.usedKb + USED_SLACK_KB).assertTrue();
+      expect(finish.usedKb >= origin.usedKb - USED_SLACK_KB).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_7600
+     * @tc.name      testVmHeapByteCounter0018
+     * @tc.desc      Keep fourteen arrays of twelve thousand elements and check the allocated bytes, the used
+     *               heap and the array shape report the same batch
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const bytesFirst: number = gcStat(KEY_BYTES_ALLOCATED);
+      const heapFirst: VmSample = VmSample.read();
+      const fourteen: number[][] = retainArrays(14, 12000);
+      await paceTurn();
+      const heapSecond: VmSample = VmSample.read();
+      const bytesSecond: number = gcStat(KEY_BYTES_ALLOCATED);
+      const wanted: number = payloadBytes(14, 12000);
+      const allocatedKbNow: number = kbFromBytes(bytesSecond - bytesFirst);
+      logCase('testVmHeapByteCounter0018', 'wanted=' + wanted + ' allocatedKb=' + allocatedKbNow +
+        ' usedDeltaKb=' + (heapSecond.usedKb - heapFirst.usedKb) + ' fourteen=' + fourteen.length);
+      expect(allocatedKbNow >= wanted / KB).assertTrue();
+      expect(heapSecond.usedKb - heapFirst.usedKb >= 0).assertTrue();
+      expect(shapeHolds(fourteen, 12000)).assertTrue();
+      expect(fourteen.length).assertEqual(14);
+      expect(heapSecond.usedKb <= heapSecond.totalKb).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_7700
+     * @tc.name      testVmHeapByteCounter0019
+     * @tc.desc      Release a six megabyte payload and check the live byte delta matches between the helper and
+     *               the raw counters while collection actually ran
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const freedFirst: number = gcStat(KEY_BYTES_FREED);
+      const bookOpen: GcSnapshot = new GcSnapshot();
+      const cargo: number[][] = retainArrays(3, 262144);
+      await paceTurn();
+      const peak: VmSample = VmSample.read();
+      releaseAll(cargo);
+      const cycles: number = await runGcCycles(1, 20);
+      const bookClose: GcSnapshot = new GcSnapshot();
+      const freedLast: number = gcStat(KEY_BYTES_FREED);
+      const ledger: StatPair = new StatPair(bookOpen, bookClose);
+      const rawLiveDelta: number = (bookClose.allocated - bookClose.freed) - (bookOpen.allocated - bookOpen.freed);
+      const resting: VmSample = VmSample.read();
+      logCase('testVmHeapByteCounter0019', 'cycles=' + cycles + ' helperNet=' + ledger.netBytes() +
+        ' rawNet=' + rawLiveDelta + ' freedDelta=' + (freedLast - freedFirst));
+      expect(ledger.netBytes()).assertEqual(rawLiveDelta);
+      expect(freedLast >= freedFirst).assertTrue();
+      expect(ledger.countDelta() >= 1).assertTrue();
+      expect(resting.usedKb <= peak.usedKb + USED_SLACK_KB).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_7800
+     * @tc.name      testVmHeapByteCounter0020
+     * @tc.desc      Run two identical allocation windows back to back and check both windows charge at least the
+     *               payload while each lifts the used heap by half of it
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const payloadKbEach: number = payloadKb(4, 75000);
+      const byteNeeded: number = payloadBytes(4, 75000);
+      const firstOpen: GcSnapshot = new GcSnapshot();
+      const firstHeap: VmSample = VmSample.read();
+      const firstBatch: number[][] = retainArrays(4, 75000);
+      await paceTurn();
+      const firstHeapEnd: VmSample = VmSample.read();
+      const firstClose: GcSnapshot = new GcSnapshot();
+      const secondOpen: GcSnapshot = new GcSnapshot();
+      const secondHeap: VmSample = VmSample.read();
+      const secondBatch: number[][] = retainArrays(4, 75000);
+      await paceTurn();
+      const secondHeapEnd: VmSample = VmSample.read();
+      const secondClose: GcSnapshot = new GcSnapshot();
+      const firstSpan: StatPair = new StatPair(firstOpen, firstClose);
+      const secondSpan: StatPair = new StatPair(secondOpen, secondClose);
+      logCase('testVmHeapByteCounter0020', 'payloadKbEach=' + payloadKbEach + ' first=' +
+        firstSpan.allocatedDelta() + ' second=' + secondSpan.allocatedDelta() + ' batches=' +
+        (firstBatch.length + secondBatch.length));
+      expect(firstSpan.allocatedDelta() >= byteNeeded).assertTrue();
+      expect(secondSpan.allocatedDelta() >= byteNeeded).assertTrue();
+      expect(firstHeapEnd.usedKb - firstHeap.usedKb >= payloadKbEach / 2).assertTrue();
+      expect(secondHeapEnd.usedKb - secondHeap.usedKb >= payloadKbEach / 2).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_7900
+     * @tc.name      testVmHeapByteCounter0021
+     * @tc.desc      Interleave stat and heap reads around one allocation burst and check the counters stay
+     *               monotone while the heap growth stays inside the byte growth plus slack
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const statOne: GcSnapshot = new GcSnapshot();
+      const heapOne: VmSample = VmSample.read();
+      const burst: number[][] = retainArrays(10, 100000);
+      const statTwo: GcSnapshot = new GcSnapshot();
+      await paceTurn();
+      const heapTwo: VmSample = VmSample.read();
+      const statThree: GcSnapshot = new GcSnapshot();
+      const sampleTrail: VmSample[] = [heapOne, heapTwo];
+      const span: StatPair = new StatPair(statOne, statThree);
+      logCase('testVmHeapByteCounter0021', 'statMiddleAllocated=' + statTwo.allocated + ' allocated=' +
+        statOne.allocated + '/' + statTwo.allocated + '/' + statThree.allocated + ' burst=' + burst.length);
+      expect(statTwo.allocated >= statOne.allocated).assertTrue();
+      expect(statThree.allocated >= statTwo.allocated).assertTrue();
+      expect(allOrdered(sampleTrail)).assertTrue();
+      expect(heapTwo.usedKb - heapOne.usedKb <= kbFromBytes(span.allocatedDelta()) + USED_SLACK_KB).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_8000
+     * @tc.name      testVmHeapByteCounter0022
+     * @tc.desc      Throw a pressure burst with no retained payload and check the allocated counter covers the
+     *               burst floor while the used heap delta remains under the allocated kilobytes plus slack
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapByteCounter0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const byteFloor: number = gcStat(KEY_BYTES_ALLOCATED);
+      const countFloor: number = gcStat(KEY_GC_COUNT);
+      const heapFloor: VmSample = VmSample.read();
+      const sink: number = allocatePressure();
+      await paceTurn();
+      const heapRise: VmSample = VmSample.read();
+      const byteCeil: number = gcStat(KEY_BYTES_ALLOCATED);
+      const countCeil: number = gcStat(KEY_GC_COUNT);
+      const burstFloor: number = 20000 * 16 * 8;
+      logCase('testVmHeapByteCounter0022', 'sink=' + sink + ' allocatedDelta=' + (byteCeil - byteFloor) +
+        ' usedDeltaKb=' + (heapRise.usedKb - heapFloor.usedKb) + ' gcCount=' + countFloor + '->' + countCeil);
+      expect(byteCeil - byteFloor >= burstFloor).assertTrue();
+      expect(countCeil >= countFloor).assertTrue();
+      expect(heapRise.usedKb - heapFloor.usedKb <= kbFromBytes(byteCeil - byteFloor) + USED_SLACK_KB).assertTrue();
+      expect(heapRise.ordered()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_8100
+     * @tc.name      testVmHeapSampling0001
+     * @tc.desc      Take five paced heap readings back to back and check the used spread stays below the largest
+     *               reading while every sample keeps used at or below total
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testVmHeapSampling0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const trail: VmSample[] = [];
+      for (let step = 0; step < 5; step++) {
+        trail.push(VmSample.read());
+        await paceTurn();
+      }
+      const usedTrail: number[] = usedList(trail);
+      const usedSpread: number = spreadOf(usedTrail);
+      logCase('testVmHeapSampling0001', 'usedKb=' + usedTrail.join('/') + ' spreadKb=' + usedSpread +
+        ' peakKb=' + maxOf(usedTrail));
+      expect(trail.length).assertEqual(5);
+      expect(usedSpread <= maxOf(usedTrail)).assertTrue();
+      expect(allOrdered(trail)).assertTrue();
+      expect(minOf(usedTrail) > 0).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_8200
+     * @tc.name      testVmHeapSampling0002
+     * @tc.desc      Take six readings while keeping one megabyte batches and check no reading falls below the
+     *               previous one by more than slack
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapSampling0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const readings: number[] = [];
+      const stash: number[][] = [];
+      for (let step = 0; step < 6; step++) {
+        stash.push(retainArrays(1, 131072)[0]);
+        await paceTurn();
+        readings.push(VmSample.read().usedKb);
+      }
+      const drops: number[] = [];
+      for (let step = 1; step < readings.length; step++) {
+        drops.push(readings[step] - readings[step - 1]);
+      }
+      logCase('testVmHeapSampling0002', 'readingsKb=' + readings.join('/') + ' minStepKb=' + minOf(drops) +
+        ' stashSize=' + stash.length);
+      expect(readings.length).assertEqual(6);
+      expect(stash.length).assertEqual(6);
+      expect(minOf(drops) >= -USED_SLACK_KB).assertTrue();
+      expect(readings[readings.length - 1] - readings[0] >= payloadKb(3, 131072)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_8300
+     * @tc.name      testVmHeapSampling0003
+     * @tc.desc      Take eight readings with a pressure batch before each and check the array size never dips
+     *               below the slack band around the first reading
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapSampling0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const series: VmSample[] = [];
+      for (let round = 0; round < 8; round++) {
+        allocatePressure();
+        await paceTurn();
+        series.push(VmSample.read());
+      }
+      const arrays: number[] = series.map((item: VmSample) => item.arrayKb);
+      logCase('testVmHeapSampling0003', 'arrayTrailKb=' + arrays.join('/') + ' minArrayKb=' + minOf(arrays) +
+        ' firstArrayKb=' + series[0].arrayKb);
+      expect(series.length).assertEqual(8);
+      expect(minOf(arrays) >= series[0].arrayKb - USED_SLACK_KB).assertTrue();
+      expect(allSane(series)).assertTrue();
+      expect(allOrdered(series)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_8400
+     * @tc.name      testVmHeapSampling0004
+     * @tc.desc      Sample the heap four times while the retained set keeps growing and check the last reading
+     *               clears the first by at least half of the total retained payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapSampling0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const growing: number[][] = [];
+      const marks: VmSample[] = [VmSample.read()];
+      for (let stage = 0; stage < 3; stage++) {
+        const pair: number[][] = retainArrays(2, 131072);
+        growing.push(pair[0], pair[1]);
+        await paceTurn();
+        marks.push(VmSample.read());
+      }
+      const flatSeed: number[] = [];
+      const flat: number[] = growing.reduce((acc: number[], part: number[]) => acc.concat(part), flatSeed);
+      logCase('testVmHeapSampling0004', 'marksKb=' + usedList(marks).join('/') + ' flatSize=' + flat.length +
+        ' payloadKb=' + payloadKb(6, 131072));
+      expect(flat.length).assertEqual(6);
+      expect(marks[3].usedKb - marks[0].usedKb >= payloadKb(6, 131072) / 2).assertTrue();
+      expect(marks[3].usedKb > marks[0].usedKb).assertTrue();
+      expect(allOrdered(marks)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_8500
+     * @tc.name      testVmHeapSampling0005
+     * @tc.desc      Take ten rapid readings with no allocation in between and check the spread stays inside twice
+     *               the slack while every ratio stays in the unit interval
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testVmHeapSampling0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const rapid: VmSample[] = [];
+      for (let step = 0; step < 10; step++) {
+        rapid.push(VmSample.read());
+      }
+      const values: number[] = usedList(rapid);
+      logCase('testVmHeapSampling0005', 'count=' + rapid.length + ' spreadKb=' + spreadOf(values) +
+        ' ratios=' + rapid.map((item: VmSample) => item.usedRatio()).length);
+      expect(rapid.length).assertEqual(10);
+      expect(spreadOf(values) <= 2 * USED_SLACK_KB).assertTrue();
+      expect(rapid.every((item: VmSample) => within(item.usedRatio(), 0, 1))).assertTrue();
+      expect(allSane(rapid)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_8600
+     * @tc.name      testVmHeapSampling0006
+     * @tc.desc      Sample before and after a collection hint in four steps and check the post hint reading stays
+     *               inside the pre hint band while the freed counter holds
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapSampling0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const beforeOne: VmSample = VmSample.read();
+      await paceTurn();
+      const beforeTwo: VmSample = VmSample.read();
+      const freedMark: number = gcStat(KEY_BYTES_FREED);
+      hintGC();
+      await paceTurn();
+      const afterOne: VmSample = VmSample.read();
+      const freedLater: number = gcStat(KEY_BYTES_FREED);
+      const preBand: number = maxOf([beforeOne.usedKb, beforeTwo.usedKb]);
+      logCase('testVmHeapSampling0006', 'preKb=' + beforeOne.usedKb + '/' + beforeTwo.usedKb + ' postKb=' +
+        afterOne.usedKb + ' freedDelta=' + (freedLater - freedMark));
+      expect(afterOne.usedKb <= preBand + USED_SLACK_KB).assertTrue();
+      expect(freedLater >= freedMark).assertTrue();
+      expect(afterOne.ordered()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_8700
+     * @tc.name      testVmHeapSampling0007
+     * @tc.desc      Collect seven spaced readings and check the average used heap sits between the smallest and
+     *               largest reading while the total reserve stays positive throughout
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapSampling0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const spaced: VmSample[] = [];
+      for (let slot = 0; slot < 7; slot++) {
+        spaced.push(VmSample.read());
+        allocatePressure();
+        await paceTurn();
+      }
+      const values: number[] = usedList(spaced);
+      const mean: number = avgOf(values);
+      logCase('testVmHeapSampling0007', 'meanKb=' + mean + ' minKb=' + minOf(values) + ' maxKb=' +
+        maxOf(values) + ' slots=' + spaced.length);
+      expect(spaced.length).assertEqual(7);
+      expect(within(mean, minOf(values), maxOf(values))).assertTrue();
+      expect(spreadOf(values) <= maxOf(values)).assertTrue();
+      expect(minOf(values) > 0).assertTrue();
+      expect(spaced.every((item: VmSample) => item.totalKb > 0)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_8800
+     * @tc.name      testVmHeapSampling0008
+     * @tc.desc      Take twelve readings while small arrays come and go and check every reading stays ordered
+     *               with a non negative array size
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapSampling0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const flicker: VmSample[] = [];
+      for (let step = 0; step < 12; step++) {
+        const transient: number[][] = retainArrays(3, 2048);
+        flicker.push(VmSample.read());
+        releaseAll(transient);
+        await paceTurn();
+      }
+      const arraySizes: number[] = flicker.map((item: VmSample) => item.arrayKb);
+      logCase('testVmHeapSampling0008', 'count=' + flicker.length + ' minArrayKb=' + minOf(arraySizes) +
+        ' maxArrayKb=' + maxOf(arraySizes));
+      expect(flicker.length).assertEqual(12);
+      expect(minOf(arraySizes) >= 0).assertTrue();
+      expect(allOrdered(flicker)).assertTrue();
+      expect(flicker.every((item: VmSample) => item.usedKb <= item.totalKb)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_8900
+     * @tc.name      testVmHeapSampling0009
+     * @tc.desc      Sample after five separate collection cycles and check the reserved heap totals never shrink
+     *               past the slack while each reading stays ordered
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapSampling0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const reserves: number[] = [];
+      const heights: number[] = [];
+      for (let round = 0; round < 5; round++) {
+        await runGcCycles(1, 20);
+        const read: VmSample = VmSample.read();
+        reserves.push(read.totalKb);
+        heights.push(read.usedKb);
+      }
+      const reserveDrops: number[] = [];
+      for (let index = 1; index < reserves.length; index++) {
+        reserveDrops.push(reserves[index] - reserves[index - 1]);
+      }
+      logCase('testVmHeapSampling0009', 'reservesKb=' + reserves.join('/') + ' heightsKb=' + heights.join('/'));
+      expect(reserves.length).assertEqual(5);
+      expect(minOf(reserveDrops) >= -TOTAL_SLACK_KB).assertTrue();
+      expect(minOf(heights) > 0).assertTrue();
+      expect(reserves.every((value: number) => value > 0)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_9000
+     * @tc.name      testVmHeapSampling0010
+     * @tc.desc      Keep a payload, release it midway through a five step sampling run and check the readings
+     *               after the release stay under the recorded peak band
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapSampling0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const phase: VmSample[] = [];
+      const load: number[][] = retainArrays(6, 131072);
+      phase.push(VmSample.read());
+      await paceTurn();
+      phase.push(VmSample.read());
+      const peakKb: number = maxOf(usedList(phase));
+      releaseAll(load);
+      await paceTurn();
+      phase.push(VmSample.read());
+      allocatePressure();
+      await paceTurn();
+      phase.push(VmSample.read());
+      await paceTurn();
+      phase.push(VmSample.read());
+      logCase('testVmHeapSampling0010', 'peakKb=' + peakKb + ' trailKb=' + usedList(phase).join('/') +
+        ' loadSize=' + load.length);
+      expect(phase.length).assertEqual(5);
+      expect(phase[4].usedKb <= peakKb + USED_SLACK_KB).assertTrue();
+      expect(phase[2].usedKb <= peakKb + USED_SLACK_KB).assertTrue();
+      expect(load.length).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_9100
+     * @tc.name      testVmHeapSampling0011
+     * @tc.desc      Take nine readings while small batches are created and dropped and check the allocated
+     *               counter grows while every reading keeps its ratio inside the unit interval
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapSampling0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const bytesOpen: number = gcStat(KEY_BYTES_ALLOCATED);
+      const checks: boolean[] = [];
+      let lastSample: VmSample = VmSample.read();
+      for (let step = 0; step < 9; step++) {
+        const batch: number[][] = retainArrays(2, 4096);
+        releaseAll(batch);
+        allocatePressure();
+        await paceTurn();
+        lastSample = VmSample.read();
+        checks.push(lastSample.usedRatio() <= 1 && lastSample.arrayKb >= 0);
+      }
+      const bytesClose: number = gcStat(KEY_BYTES_ALLOCATED);
+      logCase('testVmHeapSampling0011', 'rounds=' + checks.length + ' allocatedDeltaKb=' +
+        kbFromBytes(bytesClose - bytesOpen) + ' lastUsedKb=' + lastSample.usedKb);
+      expect(checks.length).assertEqual(9);
+      expect(checks.every((flag: boolean) => flag)).assertTrue();
+      expect(bytesClose >= bytesOpen).assertTrue();
+      expect(lastSample.ordered()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_9200
+     * @tc.name      testVmHeapSampling0012
+     * @tc.desc      Interleave direct and snapshot based readings six times and check both families stay ordered
+     *               with averages that agree inside the slack
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapSampling0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const directSide: VmSample[] = [];
+      const snapshotSide: VmSample[] = [];
+      for (let slot = 0; slot < 3; slot++) {
+        directSide.push(VmSample.read());
+        await paceTurn();
+        snapshotSide.push(VmSample.fromHeap(new HeapSnapshot()));
+        await paceTurn();
+      }
+      const directMean: number = avgOf(usedList(directSide));
+      const snapshotMean: number = avgOf(usedList(snapshotSide));
+      logCase('testVmHeapSampling0012', 'directMeanKb=' + directMean + ' snapshotMeanKb=' + snapshotMean +
+        ' directCount=' + directSide.length + ' snapshotCount=' + snapshotSide.length);
+      expect(directSide.length).assertEqual(3);
+      expect(snapshotSide.length).assertEqual(3);
+      expect(allOrdered(directSide) && allOrdered(snapshotSide)).assertTrue();
+      expect(Math.abs(directMean - snapshotMean) <= 2 * USED_SLACK_KB).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_9300
+     * @tc.name      testVmHeapSampling0013
+     * @tc.desc      Take readings while garbage accumulates and check the array share of used heap stays inside
+     *               the unit interval with a non negative array size at every step
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapSampling0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const shares: number[] = [];
+      let arrayFloor: number = 0;
+      for (let step = 0; step < 6; step++) {
+        const junk: number[][] = retainArrays(8, 8192);
+        junk.length = 0;
+        allocatePressure();
+        await paceTurn();
+        const read: VmSample = VmSample.read();
+        shares.push(read.arrayShare());
+        arrayFloor = step === 0 ? read.arrayKb : Math.min(arrayFloor, read.arrayKb);
+      }
+      logCase('testVmHeapSampling0013', 'shareSamples=' + shares.length + ' minShare=' + minOf(shares) +
+        ' arrayFloorKb=' + arrayFloor);
+      expect(shares.length).assertEqual(6);
+      expect(minOf(shares) >= 0).assertTrue();
+      expect(maxOf(shares) <= 1).assertTrue();
+      expect(arrayFloor >= 0).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_9400
+     * @tc.name      testVmHeapSampling0014
+     * @tc.desc      Alternate paced readings with pressure batches and check the GC counter finished higher
+     *               while every reading keeps used above zero and below total
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapSampling0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const countOpen: number = gcStat(KEY_GC_COUNT);
+      const collected: VmSample[] = [];
+      for (let turn = 0; turn < 4; turn++) {
+        allocatePressure();
+        allocatePressure();
+        await paceTurn();
+        collected.push(VmSample.read());
+      }
+      const countClose: number = gcStat(KEY_GC_COUNT);
+      const heights: number[] = usedList(collected);
+      logCase('testVmHeapSampling0014', 'gcCount=' + countOpen + '->' + countClose + ' heightsKb=' +
+        heights.join('/'));
+      expect(countClose >= countOpen).assertTrue();
+      expect(minOf(heights) > 0).assertTrue();
+      expect(allOrdered(collected)).assertTrue();
+      expect(collected.every((item: VmSample) => item.usedKb < item.totalKb)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_9500
+     * @tc.name      testVmHeapSampling0015
+     * @tc.desc      Read an empty heap, then load a payload and read four more times to check the loaded band
+     *               stays above the empty reading
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapSampling0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const emptyRead: VmSample = VmSample.read();
+      const cargo: number[][] = retainArrays(8, 100000);
+      const loadedBand: VmSample[] = [];
+      for (let step = 0; step < 4; step++) {
+        await paceTurn();
+        loadedBand.push(VmSample.read());
+      }
+      const bandHeights: number[] = usedList(loadedBand);
+      logCase('testVmHeapSampling0015', 'emptyKb=' + emptyRead.usedKb + ' bandKb=' + bandHeights.join('/') +
+        ' cargo=' + cargo.length);
+      expect(cargo.length).assertEqual(8);
+      expect(minOf(bandHeights) >= emptyRead.usedKb - USED_SLACK_KB).assertTrue();
+      expect(maxOf(bandHeights) - minOf(bandHeights) <= USED_SLACK_KB).assertTrue();
+      expect(loadedBand[3].ordered()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_9600
+     * @tc.name      testVmHeapSampling0016
+     * @tc.desc      Compute free head room for five readings and check each head room is non negative while the
+     *               summed head room and used heap add up to the summed reserve
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapSampling0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const batch: VmSample[] = [];
+      for (let step = 0; step < 5; step++) {
+        batch.push(VmSample.read());
+        await paceTurn();
+      }
+      const headrooms: number[] = batch.map((item: VmSample) => item.headroomKb());
+      const usedSum: number = sumOf(usedList(batch));
+      const totalSum: number = sumOf(batch.map((item: VmSample) => item.totalKb));
+      logCase('testVmHeapSampling0016', 'headroomsKb=' + headrooms.join('/') + ' headroomSum=' +
+        sumOf(headrooms) + ' usedSum=' + usedSum);
+      expect(batch.length).assertEqual(5);
+      expect(minOf(headrooms) >= 0).assertTrue();
+      expect(sumOf(headrooms) + usedSum).assertEqual(totalSum);
+      expect(batch.every((item: VmSample) => item.headroomKb() < item.totalKb)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_9700
+     * @tc.name      testVmHeapInterplay0001
+     * @tc.desc      Allocate a batch, release it and allocate an equal batch again to check the second peak
+     *               lands inside the first peak band while the allocated counter charged both rounds
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const bytesStart: number = gcStat(KEY_BYTES_ALLOCATED);
+      const firstRound: number[][] = retainArrays(4, 163840);
+      await paceTurn();
+      const firstPeak: VmSample = VmSample.read();
+      releaseAll(firstRound);
+      hintGC();
+      await paceTurn();
+      const secondRound: number[][] = retainArrays(4, 163840);
+      await paceTurn();
+      const secondPeak: VmSample = VmSample.read();
+      const bytesEnd: number = gcStat(KEY_BYTES_ALLOCATED);
+      logCase('testVmHeapInterplay0001', 'firstPeakKb=' + firstPeak.usedKb + ' secondPeakKb=' +
+        secondPeak.usedKb + ' allocatedDeltaKb=' + kbFromBytes(bytesEnd - bytesStart));
+      expect(secondRound.length).assertEqual(4);
+      expect(secondPeak.usedKb <= firstPeak.usedKb + USED_SLACK_KB).assertTrue();
+      expect(bytesEnd - bytesStart >= 2 * payloadBytes(4, 163840)).assertTrue();
+      expect(secondPeak.ordered()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_9800
+     * @tc.name      testVmHeapInterplay0002
+     * @tc.desc      Keep a payload, bury it under garbage, hint a collection and check the retained bytes are
+     *               still counted in the used heap afterwards
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ground: VmSample = VmSample.read();
+      const survivor: number[][] = retainArrays(4, 250000);
+      allocatePressure();
+      allocatePressure();
+      hintGC();
+      await paceTurn();
+      const afterBury: VmSample = VmSample.read();
+      const freedNow: number = gcStat(KEY_BYTES_FREED);
+      logCase('testVmHeapInterplay0002', 'survivor=' + survivor.length + ' afterBuryKb=' + afterBury.usedKb +
+        ' groundKb=' + ground.usedKb + ' freedKb=' + freedNow / KB);
+      expect(survivor.length).assertEqual(4);
+      expect(shapeHolds(survivor, 250000)).assertTrue();
+      expect(afterBury.usedKb >= ground.usedKb + payloadKb(4, 250000) / 2).assertTrue();
+      expect(freedNow >= 0).assertTrue();
+      expect(afterBury.ordered()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_9900
+     * @tc.name      testVmHeapInterplay0003
+     * @tc.desc      Ask for two collection hints in a row and then push pressure to check the heap reading does
+     *               not climb past the starting band and the GC counter never regresses
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const opening: VmSample = VmSample.read();
+      const countOpening: number = gcStat(KEY_GC_COUNT);
+      hintGC();
+      hintGC();
+      allocatePressure();
+      await paceTurn();
+      const closing: VmSample = VmSample.read();
+      const countClosing: number = gcStat(KEY_GC_COUNT);
+      logCase('testVmHeapInterplay0003', 'openingKb=' + opening.usedKb + ' closingKb=' + closing.usedKb +
+        ' gcCount=' + countOpening + '->' + countClosing);
+      expect(closing.usedKb <= opening.usedKb + USED_SLACK_KB).assertTrue();
+      expect(countClosing >= countOpening).assertTrue();
+      expect(closing.usedRatio() > 0 && closing.usedRatio() <= 1).assertTrue();
+      expect(closing.sane()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_10000
+     * @tc.name      testVmHeapInterplay0004
+     * @tc.desc      Swap a two megabyte payload for a four megabyte payload and check the second phase lifts the
+     *               used heap while the holders report the right sizes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const origin: VmSample = VmSample.read();
+      let payload: number[][] = retainArrays(2, 131072);
+      await paceTurn();
+      const smallPhase: VmSample = VmSample.read();
+      releaseAll(payload);
+      payload = retainArrays(4, 131072);
+      await paceTurn();
+      const largePhase: VmSample = VmSample.read();
+      logCase('testVmHeapInterplay0004', 'smallKb=' + smallPhase.usedKb + ' largeKb=' + largePhase.usedKb +
+        ' originKb=' + origin.usedKb + ' holder=' + payload.length);
+      expect(payload.length).assertEqual(4);
+      expect(smallPhase.usedKb - origin.usedKb >= payloadKb(2, 131072) / 2).assertTrue();
+      expect(largePhase.usedKb - smallPhase.usedKb >= payloadKb(2, 131072) / 2).assertTrue();
+      expect(largePhase.ordered()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_10100
+     * @tc.name      testVmHeapInterplay0005
+     * @tc.desc      Read all three counters before and after a payload lands and check the count, allocated and
+     *               freed deltas all stay consistent with a fill that keeps every array alive
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const before: GcSnapshot = new GcSnapshot();
+      const heapBefore: VmSample = VmSample.read();
+      const landed: number[][] = retainArrays(6, 150000);
+      await paceTurn();
+      const heapAfter: VmSample = VmSample.read();
+      const after: GcSnapshot = new GcSnapshot();
+      const ledger: StatPair = new StatPair(before, after);
+      const wanted: number = payloadBytes(6, 150000);
+      logCase('testVmHeapInterplay0005', ledger.detail() + ' wanted=' + wanted + ' landed=' + landed.length);
+      expect(ledger.allocatedDelta() >= wanted).assertTrue();
+      expect(ledger.countDelta() >= 0).assertTrue();
+      expect(ledger.freedDelta() >= 0).assertTrue();
+      expect(heapAfter.usedKb - heapBefore.usedKb >= wanted / KB / 2).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_10200
+     * @tc.name      testVmHeapInterplay0006
+     * @tc.desc      Walk a three megabyte payload through four checkpoints, fill, hint, release and settle, and
+     *               check the band never runs past the peak
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const checkpoints: VmSample[] = [];
+      const cargo: number[][] = retainArrays(3, 131072);
+      checkpoints.push(VmSample.read());
+      hintGC();
+      await paceTurn();
+      checkpoints.push(VmSample.read());
+      releaseAll(cargo);
+      hintGC();
+      await paceTurn();
+      checkpoints.push(VmSample.read());
+      await paceTurn();
+      checkpoints.push(VmSample.read());
+      const peakKb: number = maxOf(usedList(checkpoints));
+      logCase('testVmHeapInterplay0006', 'trailKb=' + usedList(checkpoints).join('/') + ' peakKb=' + peakKb +
+        ' cargoLeft=' + cargo.length);
+      expect(checkpoints.length).assertEqual(4);
+      expect(peakKb <= checkpoints[0].usedKb + payloadKb(3, 131072) + USED_SLACK_KB).assertTrue();
+      expect(checkpoints[3].usedKb <= peakKb + USED_SLACK_KB).assertTrue();
+      expect(checkpoints[3].ordered()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_10300
+     * @tc.name      testVmHeapInterplay0007
+     * @tc.desc      Compare a one megabyte window with a four megabyte window and check the larger window lifts
+     *               the used heap more while each window clears half of its own payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const thinOpen: VmSample = VmSample.read();
+      const thin: number[][] = retainArrays(1, 131072);
+      await paceTurn();
+      const thinClose: VmSample = VmSample.read();
+      const thickOpen: VmSample = VmSample.read();
+      const thick: number[][] = retainArrays(4, 131072);
+      await paceTurn();
+      const thickClose: VmSample = VmSample.read();
+      const thinLift: number = thinClose.usedKb - thinOpen.usedKb;
+      const thickLift: number = thickClose.usedKb - thickOpen.usedKb;
+      logCase('testVmHeapInterplay0007', 'thinLiftKb=' + thinLift + ' thickLiftKb=' + thickLift +
+        ' thinSize=' + thin.length + ' thickSize=' + thick.length);
+      expect(thin.length).assertEqual(1);
+      expect(thick.length).assertEqual(4);
+      expect(thinLift >= payloadKb(1, 131072) / 2).assertTrue();
+      expect(thickLift >= payloadKb(4, 131072) / 2).assertTrue();
+      expect(thickLift > thinLift).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_10400
+     * @tc.name      testVmHeapInterplay0008
+     * @tc.desc      Keep a payload across two collection cycles and check the arrays survive while the used heap
+     *               still shows the retained bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const baseLine: VmSample = VmSample.read();
+      const anchored: number[][] = retainArrays(3, 262144);
+      const cycles: number = await runGcCycles(2, 25);
+      const heldLine: VmSample = VmSample.read();
+      logCase('testVmHeapInterplay0008', 'cycles=' + cycles + ' baseKb=' + baseLine.usedKb + ' heldKb=' +
+        heldLine.usedKb + ' anchored=' + anchored.length);
+      expect(cycles >= 1).assertTrue();
+      expect(anchored.length).assertEqual(3);
+      expect(shapeHolds(anchored, 262144)).assertTrue();
+      expect(heldLine.usedKb >= baseLine.usedKb + payloadKb(3, 262144) / 2).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_10500
+     * @tc.name      testVmHeapInterplay0009
+     * @tc.desc      Alternate keep and release four times and check the last reading stays inside the first peak
+     *               band plus the round allowance while the allocated counter advances
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const bytesOpen: number = gcStat(KEY_BYTES_ALLOCATED);
+      const marks: number[] = [];
+      for (let round = 0; round < 4; round++) {
+        const slot: number[][] = retainArrays(2, 100000);
+        await paceTurn();
+        marks.push(VmSample.read().usedKb);
+        releaseAll(slot);
+        await paceTurn();
+      }
+      const bytesClose: number = gcStat(KEY_BYTES_ALLOCATED);
+      const lastRead: VmSample = VmSample.read();
+      logCase('testVmHeapInterplay0009', 'marksKb=' + marks.join('/') + ' lastKb=' + lastRead.usedKb +
+        ' allocatedDeltaKb=' + kbFromBytes(bytesClose - bytesOpen));
+      expect(marks.length).assertEqual(4);
+      expect(lastRead.usedKb <= marks[0] + 4 * USED_SLACK_KB).assertTrue();
+      expect(bytesClose >= bytesOpen).assertTrue();
+      expect(lastRead.ordered()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_10600
+     * @tc.name      testVmHeapInterplay0010
+     * @tc.desc      Run a storm of pressure batches and check the heap reading afterwards keeps the array size
+     *               below the reserve and the used ratio inside the unit interval
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const countAtEntry: number = gcStat(KEY_GC_COUNT);
+      for (let squall = 0; squall < 5; squall++) {
+        allocatePressure();
+      }
+      await paceTurn();
+      const afterStorm: VmSample = VmSample.read();
+      const countAtExit: number = gcStat(KEY_GC_COUNT);
+      logCase('testVmHeapInterplay0010', 'gcCount=' + countAtEntry + '->' + countAtExit + ' ' +
+        afterStorm.detail() + ' share=' + afterStorm.arrayShare());
+      expect(countAtExit >= countAtEntry).assertTrue();
+      expect(afterStorm.arrayKb <= afterStorm.totalKb).assertTrue();
+      expect(afterStorm.usedRatio() > 0 && afterStorm.usedRatio() <= 1).assertTrue();
+      expect(within(afterStorm.arrayShare(), 0, 1)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_10700
+     * @tc.name      testVmHeapInterplay0011
+     * @tc.desc      Downgrade a payload from four megabytes to two megabytes and check the used heap settles at
+     *               or under the larger band while the smaller payload still shows
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const origin: VmSample = VmSample.read();
+      const heavy: number[][] = retainArrays(4, 131072);
+      await paceTurn();
+      const heavyLine: VmSample = VmSample.read();
+      releaseAll(heavy);
+      const light: number[][] = retainArrays(2, 131072);
+      hintGC();
+      await paceTurn();
+      const lightLine: VmSample = VmSample.read();
+      logCase('testVmHeapInterplay0011', 'heavyKb=' + heavyLine.usedKb + ' lightKb=' + lightLine.usedKb +
+        ' originKb=' + origin.usedKb + ' lightCount=' + light.length);
+      expect(light.length).assertEqual(2);
+      expect(lightLine.usedKb <= heavyLine.usedKb + USED_SLACK_KB).assertTrue();
+      expect(lightLine.usedKb >= origin.usedKb + payloadKb(2, 131072) / 4).assertTrue();
+      expect(heavy.length).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_10800
+     * @tc.name      testVmHeapInterplay0012
+     * @tc.desc      Take three checkpoints while adding payload and check the used trail climbs with each step
+     *               while the allocated counter climbs at every checkpoint
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const heaps: VmSample[] = [VmSample.read()];
+      const allocs: number[] = [gcStat(KEY_BYTES_ALLOCATED)];
+      const chunks: number[][] = [];
+      for (let step = 0; step < 2; step++) {
+        const quad: number[][] = retainArrays(4, 131072);
+        chunks.push(quad[0], quad[1], quad[2], quad[3]);
+        await paceTurn();
+        heaps.push(VmSample.read());
+        allocs.push(gcStat(KEY_BYTES_ALLOCATED));
+      }
+      const heights: number[] = usedList(heaps);
+      logCase('testVmHeapInterplay0012', 'heightsKb=' + heights.join('/') + ' allocated=' + allocs.join('/') +
+        ' chunks=' + chunks.length);
+      expect(heights.length).assertEqual(3);
+      expect(heights[1] - heights[0] >= -USED_SLACK_KB).assertTrue();
+      expect(heights[2] - heights[1] >= -USED_SLACK_KB).assertTrue();
+      expect(allocs[1] >= allocs[0] && allocs[2] >= allocs[1]).assertTrue();
+      expect(heights[2] - heights[0] >= payloadKb(4, 131072) / 2).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_10900
+     * @tc.name      testVmHeapInterplay0013
+     * @tc.desc      Read the heap, land a payload, read the byte counters and check both sources agree that the
+     *               batch was charged and mostly kept
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const heapStart: VmSample = VmSample.read();
+      const bytesAtStart: number = gcStat(KEY_BYTES_ALLOCATED);
+      const freedAtStart: number = gcStat(KEY_BYTES_FREED);
+      const payload: number[][] = retainArrays(7, 112000);
+      await paceTurn();
+      const bytesAtEnd: number = gcStat(KEY_BYTES_ALLOCATED);
+      const freedAtEnd: number = gcStat(KEY_BYTES_FREED);
+      const heapEnd: VmSample = VmSample.read();
+      const charged: number = bytesAtEnd - bytesAtStart;
+      logCase('testVmHeapInterplay0013', 'chargedBytes=' + charged + ' wantedBytes='
+        + payloadBytes(7, 112000) + ' freedDelta=' + (freedAtEnd - freedAtStart) + ' heapDeltaKb=' +
+        (heapEnd.usedKb - heapStart.usedKb));
+      expect(payload.length).assertEqual(7);
+      expect(charged >= payloadBytes(7, 112000)).assertTrue();
+      expect(freedAtEnd >= freedAtStart).assertTrue();
+      expect(heapEnd.usedKb - heapStart.usedKb >= payloadBytes(7, 112000) / KB / 2).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_11000
+     * @tc.name      testVmHeapInterplay0014
+     * @tc.desc      Hint a collection while a payload is alive and check the used heap keeps showing at least
+     *               half of that payload afterwards
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const zeroPoint: VmSample = VmSample.read();
+      const countZero: number = gcStat(KEY_GC_COUNT);
+      const alive: number[][] = retainArrays(5, 163840);
+      hintGC();
+      allocatePressure();
+      await paceTurn();
+      const alivePoint: VmSample = VmSample.read();
+      const countNow: number = gcStat(KEY_GC_COUNT);
+      logCase('testVmHeapInterplay0014', 'zeroKb=' + zeroPoint.usedKb + ' aliveKb=' + alivePoint.usedKb +
+        ' gcCount=' + countZero + '->' + countNow + ' alive=' + alive.length);
+      expect(alivePoint.usedKb >= zeroPoint.usedKb + payloadKb(5, 163840) / 2).assertTrue();
+      expect(countNow >= countZero).assertTrue();
+      expect(alivePoint.ordered()).assertTrue();
+      expect(alivePoint.sane()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_11100
+     * @tc.name      testVmHeapInterplay0015
+     * @tc.desc      Replace a large payload with a smaller one and check the heap reading does not run past the
+     *               large band while the freed counter keeps its footing
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const big: number[][] = retainArrays(6, 131072);
+      await paceTurn();
+      const bigBand: VmSample = VmSample.read();
+      const freedBeforeSwap: number = gcStat(KEY_BYTES_FREED);
+      releaseAll(big);
+      const small: number[][] = retainArrays(2, 65536);
+      allocatePressure();
+      await paceTurn();
+      const smallBand: VmSample = VmSample.read();
+      const freedAfterSwap: number = gcStat(KEY_BYTES_FREED);
+      logCase('testVmHeapInterplay0015', 'bigKb=' + bigBand.usedKb + ' smallKb=' + smallBand.usedKb +
+        ' freedDelta=' + (freedAfterSwap - freedBeforeSwap) + ' smallCount=' + small.length);
+      expect(small.length).assertEqual(2);
+      expect(smallBand.usedKb <= bigBand.usedKb + USED_SLACK_KB).assertTrue();
+      expect(freedAfterSwap >= freedBeforeSwap).assertTrue();
+      expect(smallBand.arrayKb >= 0).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_11200
+     * @tc.name      testVmHeapInterplay0016
+     * @tc.desc      Repeat a keep and drop round three times and check each round peak clears the base plus half
+     *               of the round payload while every post round reading keeps its footing
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const base: VmSample = VmSample.read();
+      const peaks: number[] = [];
+      const troughs: number[] = [];
+      const roundKb: number = payloadKb(2, 98304);
+      for (let round = 0; round < 3; round++) {
+        const load: number[][] = retainArrays(2, 98304);
+        await paceTurn();
+        peaks.push(VmSample.read().usedKb);
+        releaseAll(load);
+        await paceTurn();
+        troughs.push(VmSample.read().usedKb);
+      }
+      logCase('testVmHeapInterplay0016', 'peaksKb=' + peaks.join('/') + ' troughsKb=' + troughs.join('/') +
+        ' roundKb=' + roundKb);
+      expect(peaks.length).assertEqual(3);
+      expect(minOf(peaks) >= base.usedKb + roundKb / 2).assertTrue();
+      expect(minOf(troughs) >= base.usedKb - USED_SLACK_KB).assertTrue();
+      expect(maxOf(troughs) <= maxOf(peaks) + USED_SLACK_KB).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_11300
+     * @tc.name      testVmHeapInterplay0017
+     * @tc.desc      Keep a six megabyte payload, pound it with three pressure batches and check the retained
+     *               bytes are still reported while the GC counter only moves forward
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const floor: VmSample = VmSample.read();
+      const countFloor: number = gcStat(KEY_GC_COUNT);
+      const guarded: number[][] = retainArrays(6, 131072);
+      allocatePressure();
+      allocatePressure();
+      allocatePressure();
+      await paceTurn();
+      const afterPound: VmSample = VmSample.read();
+      const countNow: number = gcStat(KEY_GC_COUNT);
+      logCase('testVmHeapInterplay0017', 'floorKb=' + floor.usedKb + ' afterKb=' + afterPound.usedKb +
+        ' gcCount=' + countFloor + '->' + countNow + ' guarded=' + guarded.length);
+      expect(guarded.length).assertEqual(6);
+      expect(afterPound.usedKb >= floor.usedKb + payloadKb(6, 131072) / 2).assertTrue();
+      expect(countNow >= countFloor).assertTrue();
+      expect(afterPound.ordered()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_11400
+     * @tc.name      testVmHeapInterplay0018
+     * @tc.desc      Read the heap, read both byte counters and read the heap again to check that reading the
+     *               runtime stats leaves the heap sample unchanged within slack
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testVmHeapInterplay0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const firstHeap: VmSample = VmSample.read();
+      const allocated: number = gcStat(KEY_BYTES_ALLOCATED);
+      const freed: number = gcStat(KEY_BYTES_FREED);
+      await paceTurn();
+      const secondHeap: VmSample = VmSample.read();
+      logCase('testVmHeapInterplay0018', 'allocatedKb=' + allocated / KB + ' freedKb=' + freed / KB +
+        ' firstKb=' + firstHeap.usedKb + ' secondKb=' + secondHeap.usedKb);
+      expect(Math.abs(secondHeap.usedKb - firstHeap.usedKb) <= USED_SLACK_KB).assertTrue();
+      expect(allocated >= freed).assertTrue();
+      expect(secondHeap.sane() && firstHeap.sane()).assertTrue();
+      expect(secondHeap.arrayKb <= secondHeap.totalKb).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_VMHEAP_11500
+     * @tc.name      testVmHeapInterplay0019
+     * @tc.desc      Combine collection cycles, a retained payload, a release and a hint in one run and check
+     *               every counter source stays inside its own band at the end
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testVmHeapInterplay0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const startHeap: VmSample = VmSample.read();
+      const startFreed: number = gcStat(KEY_BYTES_FREED);
+      const cycles: number = await runGcCycles(1, 20);
+      const keeper: number[][] = retainArrays(4, 120000);
+      await paceTurn();
+      const peak: VmSample = VmSample.read();
+      const spare: number[][] = retainArrays(2, 120000);
+      releaseAll(spare);
+      hintGC();
+      await paceTurn();
+      const finish: VmSample = VmSample.read();
+      const finishFreed: number = gcStat(KEY_BYTES_FREED);
+      logCase('testVmHeapInterplay0019', 'cycles=' + cycles + ' keeper=' + keeper.length + ' peakKb=' +
+        peak.usedKb + ' finishKb=' + finish.usedKb + ' freedDelta=' + (finishFreed - startFreed));
+      expect(cycles >= 1).assertTrue();
+      expect(keeper.length).assertEqual(4);
+      expect(shapeHolds(keeper, 120000)).assertTrue();
+      expect(finishFreed >= startFreed).assertTrue();
+      expect(finish.usedKb <= peak.usedKb + USED_SLACK_KB).assertTrue();
+      expect(finish.usedKb >= startHeap.usedKb - USED_SLACK_KB).assertTrue();
+    });
+  });
+}
