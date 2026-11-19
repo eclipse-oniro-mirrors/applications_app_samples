@@ -13,62 +13,79 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
-import UIAbility from '@ohos.app.ability.UIAbility'
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import { Hypium } from '@ohos/hypium'
-import testsuite from '../test/List.test'
-import Window from '@ohos.window'
-import Want from '@ohos.app.ability.Want';
-import AbilityConstant from '@ohos.app.ability.AbilityConstant';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { UIAbility, Want, AbilityConstant } from '@kit.AbilityKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { Hypium } from '@ohos/hypium';
+import testsuite from '../test/List.test';
+import { window } from '@kit.ArkUI';
+
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[Sample_MultiNavBar]';
 
 export default class TestAbility extends UIAbility {
+  private testStarted: boolean = false;
+  private abilityDelegator: abilityDelegatorRegistry.AbilityDelegator | null = null;
+  private abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs | null = null;
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onCreate');
-    hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
-    hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
-    let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator;
-    abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs;
-    abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-    hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+    hilog.isLoggable(LOG_DOMAIN, LOG_TAG, hilog.LogLevel.INFO);
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'TestAbility onCreate');
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
+    this.abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+    this.abilityDelegatorArguments = abilityDelegatorRegistry.getArguments();
+  }
+
+  /**
+   * The suite registers more than 2000 cases, so Hypium must start after the window stage is
+   * foreground; starting it in onCreate triggers LIFECYCLE_TIMEOUT.
+   */
+  private startTestSuite(): void {
+    if (this.testStarted || this.abilityDelegator === null || this.abilityDelegatorArguments === null) {
+      return;
+    }
+    this.testStarted = true;
+    hilog.isLoggable(LOG_DOMAIN, LOG_TAG, hilog.LogLevel.INFO);
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'start run testcase!!!');
+    Hypium.hypiumTest(this.abilityDelegator, this.abilityDelegatorArguments, testsuite);
   }
 
   onDestroy() {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onDestroy');
+    hilog.isLoggable(LOG_DOMAIN, LOG_TAG, hilog.LogLevel.INFO);
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'TestAbility onDestroy');
   }
 
-  onWindowStageCreate(windowStage: Window.WindowStage) {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageCreate');
+  onWindowStageCreate(windowStage: window.WindowStage) {
+    hilog.isLoggable(LOG_DOMAIN, LOG_TAG, hilog.LogLevel.INFO);
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'TestAbility onWindowStageCreate');
     windowStage.loadContent('testability/pages/Index', (err, data) => {
       if (err.code) {
-        hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.ERROR);
-        hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
+        hilog.isLoggable(LOG_DOMAIN, LOG_TAG, hilog.LogLevel.ERROR);
+        hilog.error(LOG_DOMAIN, LOG_TAG, 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
-      hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-      hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s',
+      hilog.isLoggable(LOG_DOMAIN, LOG_TAG, hilog.LogLevel.INFO);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'Succeeded in loading the content. Data: %{public}s',
         JSON.stringify(data) ?? '');
     });
   }
 
   onWindowStageDestroy() {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageDestroy');
+    hilog.isLoggable(LOG_DOMAIN, LOG_TAG, hilog.LogLevel.INFO);
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'TestAbility onWindowStageDestroy');
   }
 
   onForeground() {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onForeground');
+    hilog.isLoggable(LOG_DOMAIN, LOG_TAG, hilog.LogLevel.INFO);
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'TestAbility onForeground');
+    setTimeout(() => {
+      this.startTestSuite();
+    }, 300);
   }
 
   onBackground() {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onBackground');
+    hilog.isLoggable(LOG_DOMAIN, LOG_TAG, hilog.LogLevel.INFO);
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'TestAbility onBackground');
   }
 }

@@ -13,14 +13,17 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[Sample_MultiNavBar]';
 
 @Entry
 @Component
 struct Index {
   aboutToAppear() {
-    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility index aboutToAppear');
+    hilog.isLoggable(LOG_DOMAIN, LOG_TAG, hilog.LogLevel.INFO);
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'TestAbility index aboutToAppear');
   }
 
   @State message: string = 'Hello World';
