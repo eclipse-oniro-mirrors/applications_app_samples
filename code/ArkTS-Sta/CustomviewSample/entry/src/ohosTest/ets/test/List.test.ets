@@ -1,0 +1,184 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import abilityTest from './Ability.test';
+import animationApiTest from './Api/AnimationApiTest.test';
+import swipeApiTest from './Api/SwipeApiTest.test';
+import tabDataApiTest from './Api/TabDataApiTest.test';
+import transitionApiTest from './Api/TransitionApiTest.test';
+import customViewConcurrencyTest from './CustomView/CustomViewConcurrency.test';
+import customViewConsistencyTest from './CustomView/CustomViewConsistency.test';
+import customViewEndToEndTest from './CustomView/CustomViewEndToEnd.test';
+import customViewErrorRecoveryTest from './CustomView/CustomViewErrorRecovery.test';
+import customViewInputInteractionTest from './CustomView/CustomViewInputInteraction.test';
+import customViewItemInfoModelTest from './CustomView/CustomViewItemInfoModel.test';
+import customViewLifecycleTest from './CustomView/CustomViewLifecycle.test';
+import customViewMenuConfigurationTest from './CustomView/CustomViewMenuConfiguration.test';
+import customViewModelDeepTest from './CustomView/CustomViewModelDeep.test';
+import customViewOperationCatalogTest from './CustomView/CustomViewOperationCatalog.test';
+import customViewOperationFlowTest from './CustomView/CustomViewOperationFlow.test';
+import customViewOperationsTest from './CustomView/CustomViewOperations.test';
+import customViewOperationWorkflowTest from './CustomView/CustomViewOperationWorkflow.test';
+import customViewStateManagementTest from './CustomView/CustomViewStateManagement.test';
+import customViewStressTest from './CustomView/CustomViewStress.test';
+import customViewUITest from './CustomView/CustomViewUI.test';
+import customViewAppVersionTest from './CustomViewValidation/CustomViewAppVersion.test';
+import customViewAuthSessionTest from './CustomViewValidation/CustomViewAuthSession.test';
+import customViewDataSourceValidationTest from './CustomViewValidation/CustomViewDataSourceValidation.test';
+import customViewEventToolValidationTest from './CustomViewValidation/CustomViewEventToolValidation.test';
+import customViewInterruptionRecoveryTest from './CustomViewValidation/CustomViewInterruptionRecovery.test';
+import customViewNotificationTest from './CustomViewValidation/CustomViewNotification.test';
+import customViewOfflineNetworkTest from './CustomViewValidation/CustomViewOfflineNetwork.test';
+import customViewSessionValidationTest from './CustomViewValidation/CustomViewSessionValidation.test';
+import advancedScenariosTest from './Integration/AdvancedScenarios.test';
+import comprehensiveRegressionTest from './Integration/ComprehensiveRegression.test';
+import customViewCompatibilityTest from './Integration/CustomViewCompatibility.test';
+import deviceCompatibilityTest from './Integration/DeviceCompatibility.test';
+import integrationTestingTest from './Integration/IntegrationTesting.test';
+import localizationTestingTest from './Integration/LocalizationTesting.test';
+import networkConnectivityTest from './Integration/NetworkConnectivity.test';
+import systemIntegrationTest from './Integration/SystemIntegration.test';
+import userScenariosTest from './Integration/UserScenarios.test';
+import accessibilityNavigationTest from './Interaction/AccessibilityNavigation.test';
+import buttonInteractionTest from './Interaction/ButtonInteraction.test';
+import contentScalingTest from './Interaction/ContentScaling.test';
+import dataBindingTest from './Interaction/DataBinding.test';
+import eventHandlingTest from './Interaction/EventHandling.test';
+import eventPropagationTest from './Interaction/EventPropagation.test';
+import focusNavigationTest from './Interaction/FocusNavigation.test';
+import focusRingBehaviorTest from './Interaction/FocusRingBehavior.test';
+import gestureRecognitionTest from './Interaction/GestureRecognition.test';
+import tabPositioningTest from './Interaction/TabPositioning.test';
+import themeVariationTest from './Interaction/ThemeVariation.test';
+import touchInteractionTest from './Interaction/TouchInteraction.test';
+import uiComponentRenderingTest from './Interaction/UIComponentRendering.test';
+import visualEffectsTest from './Interaction/VisualEffects.test';
+import abilityLifecycleTest from './LifecycleState/AbilityLifecycle.test';
+import configurationChangesTest from './LifecycleState/ConfigurationChanges.test';
+import errorRecoveryTest from './LifecycleState/ErrorRecovery.test';
+import exceptionHandlingTest from './LifecycleState/ExceptionHandling.test';
+import resourceManagementTest from './LifecycleState/ResourceManagement.test';
+import sessionManagementTest from './LifecycleState/SessionManagement.test';
+import statePersistenceTest from './LifecycleState/StatePersistence.test';
+import stateRecoveryTest from './LifecycleState/StateRecovery.test';
+import tabLifecycleTest from './LifecycleState/TabLifecycle.test';
+import tabStateManagementTest from './LifecycleState/TabStateManagement.test';
+import animationPerformanceTest from './PerformanceStability/AnimationPerformance.test';
+import concurrencyControlTest from './PerformanceStability/ConcurrencyControl.test';
+import customViewConsumptionTest from './PerformanceStability/CustomViewPerformance.test';
+import longTermStabilityTest from './PerformanceStability/LongTermStability.test';
+import memoryLeakDetectionTest from './PerformanceStability/MemoryLeakDetection.test';
+import performanceStressTest from './PerformanceStability/PerformanceStress.test';
+import customViewPerformanceTest from './PerformanceStability/RenderingPerformance.test';
+import customViewSecurityTest from './Security/CustomViewSecurity.test';
+import securityAccessibilityTest from './Security/SecurityAccessibility.test';
+import securityValidationTest from './Security/SecurityValidation.test';
+import animationControllerValidationTest from './Validation/AnimationControllerValidation.test';
+import boundaryErrorTestingTest from './Validation/BoundaryErrorTesting.test';
+import commonEventUtilValidationTest from './Validation/CommonEventUtilValidation.test';
+import configurationManagerValidationTest from './Validation/ConfigurationManagerValidation.test';
+import focusManagerValidationTest from './Validation/FocusManagerValidation.test';
+import inputValidationTest from './Validation/InputValidation.test';
+import keyCodeValidationTest from './Validation/KeyCodeValidation.test';
+import loggerValidationTest from './Validation/LoggerValidation.test';
+import pointerUtilValidationTest from './Validation/PointerUtilValidation.test';
+import resourceLoaderValidationTest from './Validation/ResourceLoaderValidation.test';
+import tabStateManagerValidationTest from './Validation/TabStateManagerValidation.test';
+
+export default function testsuite(): void {
+  abilityTest();
+  animationApiTest();
+  swipeApiTest();
+  tabDataApiTest();
+  transitionApiTest();
+  customViewConcurrencyTest();
+  customViewConsistencyTest();
+  customViewEndToEndTest();
+  customViewErrorRecoveryTest();
+  customViewInputInteractionTest();
+  customViewItemInfoModelTest();
+  customViewLifecycleTest();
+  customViewMenuConfigurationTest();
+  customViewModelDeepTest();
+  customViewOperationCatalogTest();
+  customViewOperationFlowTest();
+  customViewOperationsTest();
+  customViewOperationWorkflowTest();
+  customViewStateManagementTest();
+  customViewStressTest();
+  customViewUITest();
+  customViewAppVersionTest();
+  customViewAuthSessionTest();
+  customViewDataSourceValidationTest();
+  customViewEventToolValidationTest();
+  customViewInterruptionRecoveryTest();
+  customViewNotificationTest();
+  customViewOfflineNetworkTest();
+  customViewSessionValidationTest();
+  advancedScenariosTest();
+  comprehensiveRegressionTest();
+  customViewCompatibilityTest();
+  deviceCompatibilityTest();
+  integrationTestingTest();
+  localizationTestingTest();
+  networkConnectivityTest();
+  systemIntegrationTest();
+  userScenariosTest();
+  accessibilityNavigationTest();
+  buttonInteractionTest();
+  contentScalingTest();
+  dataBindingTest();
+  eventHandlingTest();
+  eventPropagationTest();
+  focusNavigationTest();
+  focusRingBehaviorTest();
+  gestureRecognitionTest();
+  tabPositioningTest();
+  themeVariationTest();
+  touchInteractionTest();
+  uiComponentRenderingTest();
+  visualEffectsTest();
+  abilityLifecycleTest();
+  configurationChangesTest();
+  errorRecoveryTest();
+  exceptionHandlingTest();
+  resourceManagementTest();
+  sessionManagementTest();
+  statePersistenceTest();
+  stateRecoveryTest();
+  tabLifecycleTest();
+  tabStateManagementTest();
+  animationPerformanceTest();
+  concurrencyControlTest();
+  customViewConsumptionTest();
+  longTermStabilityTest();
+  memoryLeakDetectionTest();
+  performanceStressTest();
+  customViewPerformanceTest();
+  customViewSecurityTest();
+  securityAccessibilityTest();
+  securityValidationTest();
+  animationControllerValidationTest();
+  boundaryErrorTestingTest();
+  commonEventUtilValidationTest();
+  configurationManagerValidationTest();
+  focusManagerValidationTest();
+  inputValidationTest();
+  keyCodeValidationTest();
+  loggerValidationTest();
+  pointerUtilValidationTest();
+  resourceLoaderValidationTest();
+  tabStateManagerValidationTest();
+}
