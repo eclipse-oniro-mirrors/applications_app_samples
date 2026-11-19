@@ -1798,3 +1798,765 @@ export default function bundleSelfInfoTest() {
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
+     */
+    it('testBundleModuleSurface0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const deviceTypes: string[] = entry.deviceTypes;
+      logCase('testBundleModuleSurface0005', `deviceTypes=${deviceTypes.join(',')} count=${deviceTypes.length}`);
+      expect(deviceTypes.length).assertEqual(1);
+      expect(deviceTypes.join(',')).assertEqual(DEVICE_TYPE_PHONE);
+      expect(deviceTypes.indexOf(DEVICE_TYPE_PHONE) >= 0).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_7200
+     * @tc.name      testBundleModuleSurface0006
+     * @tc.desc      Check the entry module is installed as a regular module and not as an installation free module
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModuleSurface0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      logCase('testBundleModuleSurface0006', `installationFree=${entry.installationFree} name=${entry.name} ` +
+        `modules=${info.hapModulesInfo.length}`);
+      expect(entry.installationFree).assertFalse();
+      expect(entry.name).assertEqual(ENTRY_MODULE);
+      expect(info.hapModulesInfo.length).assertEqual(MODULE_TOTAL);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_7300
+     * @tc.name      testBundleModuleSurface0007
+     * @tc.desc      Check the entry module owns exactly one page ability and that ability is bound to the module
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleModuleSurface0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const ability: bundleManager.AbilityInfo = firstAbilityOf(entry);
+      logCase('testBundleModuleSurface0007', `abilities=${entry.abilitiesInfo.length} name=${ability.name} ` +
+        `module=${ability.moduleName}`);
+      expect(entry.abilitiesInfo.length).assertEqual(ABILITY_TOTAL);
+      expect(ability.name).assertEqual(ENTRY_ABILITY);
+      expect(ability.moduleName).assertEqual(ENTRY_MODULE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_7400
+     * @tc.name      testBundleModuleSurface0008
+     * @tc.desc      Check the entry module owns exactly one extension ability and that extension is the backup one
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleModuleSurface0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const extension: bundleManager.ExtensionAbilityInfo = firstExtensionOf(entry);
+      logCase('testBundleModuleSurface0008', `extensions=${entry.extensionAbilitiesInfo.length} ` +
+        `name=${extension.name} type=${extension.extensionAbilityType}`);
+      expect(entry.extensionAbilitiesInfo.length).assertEqual(EXTENSION_TOTAL);
+      expect(extension.name).assertEqual(BACKUP_ABILITY);
+      expect(extension.extensionAbilityType).assertEqual(bundleManager.ExtensionAbilityType.BACKUP);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_7500
+     * @tc.name      testBundleModuleSurface0009
+     * @tc.desc      Check the module list carries no duplicated module name
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModuleSurface0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const names: string[] = info.hapModulesInfo.map((item: bundleManager.HapModuleInfo) => item.name);
+      const distinct: number = distinctCount(names);
+      logCase('testBundleModuleSurface0009', `names=${names.join(',')} distinct=${distinct} total=${names.length}`);
+      expect(distinct).assertEqual(names.length);
+      expect(distinct).assertEqual(MODULE_TOTAL);
+      expect(names.indexOf(ENTRY_MODULE) >= 0).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_7600
+     * @tc.name      testBundleModuleSurface0010
+     * @tc.desc      Check a module only query reports the same module list as the full self query
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModuleSurface0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const narrow: bundleManager.BundleInfo = await infoWith(MODULE_ONLY);
+      const wide: bundleManager.BundleInfo = await selfBundle();
+      logCase('testBundleModuleSurface0010', `narrow=${moduleNamesJoined(narrow)} wide=${moduleNamesJoined(wide)} ` +
+        `narrowCount=${narrow.hapModulesInfo.length}`);
+      expect(moduleNamesJoined(narrow)).assertEqual(moduleNamesJoined(wide));
+      expect(narrow.hapModulesInfo.length).assertEqual(wide.hapModulesInfo.length);
+      expect(narrow.hapModulesInfo.length).assertEqual(MODULE_TOTAL);
+    });
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_7700
+     * @tc.name      testBundleAbilityList0001
+     * @tc.desc      Check the page ability collection of the entry module holds exactly EntryAbility
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleAbilityList0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const ability: bundleManager.AbilityInfo = firstAbilityOf(entry);
+      logCase('testBundleAbilityList0001', `count=${entry.abilitiesInfo.length} name=${ability.name} ` +
+        `joined=${abilityNamesJoined(info)}`);
+      expect(entry.abilitiesInfo.length).assertEqual(ABILITY_TOTAL);
+      expect(ability.name).assertEqual(ENTRY_ABILITY);
+      expect(abilityNamesJoined(info).indexOf(ENTRY_ABILITY) >= 0).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_7800
+     * @tc.name      testBundleAbilityList0002
+     * @tc.desc      Check EntryAbility is reported for the self bundle, the entry module and the primary app instance
+     *               with its declared skill
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbilityList0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const ability: bundleManager.AbilityInfo = firstAbilityOf(entry);
+      logCase('testBundleAbilityList0002', `bundleName=${ability.bundleName} module=${ability.moduleName} ` +
+        `appIndex=${ability.appIndex} skills=${ability.skills.length}`);
+      expect(ability.bundleName).assertEqual(BUNDLE_NAME);
+      expect(ability.moduleName).assertEqual(ENTRY_MODULE);
+      expect(ability.appIndex).assertEqual(APP_INDEX);
+      expect(ability.skills.length).assertEqual(ABILITY_TOTAL);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_7900
+     * @tc.name      testBundleAbilityList0003
+     * @tc.desc      Check EntryAbility is exported, enabled and launched as a singleton
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleAbilityList0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const ability: bundleManager.AbilityInfo = firstAbilityOf(entry);
+      logCase('testBundleAbilityList0003', `exported=${ability.exported} enabled=${ability.enabled} ` +
+        `launchType=${ability.launchType}`);
+      expect(ability.exported).assertTrue();
+      expect(ability.enabled).assertTrue();
+      expect(ability.launchType).assertEqual(bundleManager.LaunchType.SINGLETON);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_8000
+     * @tc.name      testBundleAbilityList0004
+     * @tc.desc      Check EntryAbility resolves its label, description and icon resources to positive identifiers
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbilityList0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const ability: bundleManager.AbilityInfo = firstAbilityOf(entry);
+      logCase('testBundleAbilityList0004', `labelId=${ability.labelId} descriptionId=${ability.descriptionId} ` +
+        `iconId=${ability.iconId} icon=${ability.icon}`);
+      expect(ability.labelId > 0).assertTrue();
+      expect(ability.descriptionId > 0).assertTrue();
+      expect(ability.icon.length > EMPTY_LENGTH).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_8100
+     * @tc.name      testBundleAbilityList0005
+     * @tc.desc      Check EntryAbility declares the single home skill with the home action, the home entity and no
+     *               uri pattern
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleAbilityList0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const ability: bundleManager.AbilityInfo = firstAbilityOf(entry);
+      const skills: bundleManager.Skill[] = ability.skills;
+      logCase('testBundleAbilityList0005', `skills=${skills.length} ` +
+        `actions=${skills.map((skill: bundleManager.Skill) => skill.actions.join(',')).join(';')}`);
+      expect(skills.length).assertEqual(ABILITY_TOTAL);
+      expect(skills[0].actions.join(',')).assertEqual(HOME_ACTION);
+      expect(skills[0].entities.join(',')).assertEqual(HOME_ENTITY);
+      expect(skills[0].uris.length).assertEqual(NO_SKILL_URI);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_8200
+     * @tc.name      testBundleAbilityList0006
+     * @tc.desc      Check EntryAbility supports the full, split and floating window modes exactly once each
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbilityList0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const ability: bundleManager.AbilityInfo = firstAbilityOf(entry);
+      const modes: string = ability.supportWindowModes.slice().sort().join(',');
+      logCase('testBundleAbilityList0006', `windowModes=${modes} count=${ability.supportWindowModes.length}`);
+      expect(ability.supportWindowModes.length).assertEqual(WINDOW_MODE_TOTAL);
+      expect(modes).assertEqual(WINDOW_MODE_LIST);
+      expect(modes.indexOf('0') >= 0).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_8300
+     * @tc.name      testBundleAbilityList0007
+     * @tc.desc      Check EntryAbility requests no permission and declares no metadata of its own
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbilityList0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const ability: bundleManager.AbilityInfo = firstAbilityOf(entry);
+      logCase('testBundleAbilityList0007', `permissions=${ability.permissions.length} ` +
+        `metadata=${ability.metadata.length} name=${ability.name}`);
+      expect(ability.permissions.length).assertEqual(EMPTY_LENGTH);
+      expect(ability.metadata.length).assertEqual(EMPTY_LENGTH);
+      expect(ability.name).assertEqual(ENTRY_ABILITY);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_8400
+     * @tc.name      testBundleAbilityList0008
+     * @tc.desc      Check the ability reported by the narrow module plus ability flags matches the full query on name,
+     *               module, export state and enable state
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbilityList0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const narrow: bundleManager.BundleInfo = await infoWith(MODULE_ABILITY);
+      const wide: bundleManager.BundleInfo = await selfBundle();
+      const narrowEntry: bundleManager.HapModuleInfo = findModule(narrow, ENTRY_MODULE);
+      const wideEntry: bundleManager.HapModuleInfo = findModule(wide, ENTRY_MODULE);
+      const narrowAbility: bundleManager.AbilityInfo = firstAbilityOf(narrowEntry);
+      const wideAbility: bundleManager.AbilityInfo = firstAbilityOf(wideEntry);
+      logCase('testBundleAbilityList0008', `narrow=${narrowAbility.name} wide=${wideAbility.name} ` +
+        `enabled=${narrowAbility.enabled} exported=${narrowAbility.exported} ` +
+        `narrowCount=${narrowEntry.abilitiesInfo.length} wideCount=${wideEntry.abilitiesInfo.length}`);
+      expect(narrowEntry.abilitiesInfo.length).assertEqual(wideEntry.abilitiesInfo.length);
+      expect(narrowAbility.name).assertEqual(wideAbility.name);
+      expect(narrowAbility.moduleName).assertEqual(wideAbility.moduleName);
+      expect(narrowAbility.enabled).assertEqual(wideAbility.enabled);
+      expect(narrowAbility.exported).assertEqual(wideAbility.exported);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_8500
+     * @tc.name      testBundleExtensionList0001
+     * @tc.desc      Check the extension collection of the entry module holds exactly EntryBackupAbility
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleExtensionList0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const extension: bundleManager.ExtensionAbilityInfo = firstExtensionOf(entry);
+      logCase('testBundleExtensionList0001', `count=${entry.extensionAbilitiesInfo.length} ` +
+        `name=${extension.name} module=${extension.moduleName}`);
+      expect(entry.extensionAbilitiesInfo.length).assertEqual(EXTENSION_TOTAL);
+      expect(extension.name).assertEqual(BACKUP_ABILITY);
+      expect(extension.moduleName).assertEqual(ENTRY_MODULE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_8600
+     * @tc.name      testBundleExtensionList0002
+     * @tc.desc      Check the only extension is of the backup type in both its numeric and textual form
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleExtensionList0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const extension: bundleManager.ExtensionAbilityInfo = firstExtensionOf(entry);
+      logCase('testBundleExtensionList0002', `type=${extension.extensionAbilityType} ` +
+        `typeName=${extension.extensionAbilityTypeName}`);
+      expect(extension.extensionAbilityType).assertEqual(bundleManager.ExtensionAbilityType.BACKUP);
+      expect(extension.extensionAbilityTypeName).assertEqual(BACKUP_TYPE_NAME);
+      expect(extension.name).assertEqual(BACKUP_ABILITY);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_8700
+     * @tc.name      testBundleExtensionList0003
+     * @tc.desc      Check the backup extension is not exported but is enabled for the current user
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleExtensionList0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const extension: bundleManager.ExtensionAbilityInfo = firstExtensionOf(entry);
+      logCase('testBundleExtensionList0003', `exported=${extension.exported} enabled=${extension.enabled} ` +
+        `name=${extension.name}`);
+      expect(extension.exported).assertFalse();
+      expect(extension.enabled).assertTrue();
+      expect(extension.name).assertEqual(BACKUP_ABILITY);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_8800
+     * @tc.name      testBundleExtensionList0004
+     * @tc.desc      Check the backup extension declares exactly one metadata entry carrying the backup extension name
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleExtensionList0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const extension: bundleManager.ExtensionAbilityInfo = firstExtensionOf(entry);
+      const metadata: bundleManager.Metadata[] = extension.metadata;
+      const firstName: string = metadata.length > 0 ? metadata[0].name : '';
+      logCase('testBundleExtensionList0004', `count=${metadata.length} name=${firstName}`);
+      expect(metadata.length).assertEqual(EXTENSION_TOTAL);
+      expect(metadata[0].name).assertEqual(BACKUP_METADATA);
+      expect(countExtensionMetadata(info)).assertEqual(EXTENSION_TOTAL);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_8900
+     * @tc.name      testBundleExtensionList0005
+     * @tc.desc      Check the backup metadata points at the backup profile resource of the sample
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleExtensionList0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const extension: bundleManager.ExtensionAbilityInfo = firstExtensionOf(entry);
+      const metadata: bundleManager.Metadata[] = extension.metadata;
+      const resource: string = metadata.length > 0 ? metadata[0].resource : '';
+      logCase('testBundleExtensionList0005', `count=${metadata.length} resource=${resource}`);
+      expect(metadata.length).assertEqual(EXTENSION_TOTAL);
+      expect(metadata[0].resource).assertEqual(BACKUP_RESOURCE);
+      expect(metadata[0].name).assertEqual(BACKUP_METADATA);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_9000
+     * @tc.name      testBundleExtensionList0006
+     * @tc.desc      Check the backup extension belongs to the self bundle and requests no permission
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleExtensionList0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const extension: bundleManager.ExtensionAbilityInfo = firstExtensionOf(entry);
+      logCase('testBundleExtensionList0006', `bundleName=${extension.bundleName} ` +
+        `appIndex=${extension.appIndex} permissions=${extension.permissions.length}`);
+      expect(extension.bundleName).assertEqual(BUNDLE_NAME);
+      expect(extension.appIndex).assertEqual(APP_INDEX);
+      expect(extension.permissions.length).assertEqual(EMPTY_LENGTH);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_9100
+     * @tc.name      testBundleExtensionList0007
+     * @tc.desc      Check the test feature module contributes no extension so the whole bundle reports exactly one
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleExtensionList0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const test: bundleManager.HapModuleInfo = findModule(info, TEST_MODULE);
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      logCase('testBundleExtensionList0007', `testExtensions=${test.extensionAbilitiesInfo.length} ` +
+        `entryExtensions=${entry.extensionAbilitiesInfo.length} total=${countExtensions(info)}`);
+      expect(test.extensionAbilitiesInfo.length).assertEqual(EMPTY_LENGTH);
+      expect(entry.extensionAbilitiesInfo.length).assertEqual(EXTENSION_TOTAL);
+      expect(countExtensions(info)).assertEqual(EXTENSION_TOTAL);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_9200
+     * @tc.name      testBundleExtensionList0008
+     * @tc.desc      Check the backup extension declares no skill while its metadata stays available under the widest
+     *               flag set
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleExtensionList0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await infoWith(FULL_FLAGS);
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const extension: bundleManager.ExtensionAbilityInfo = firstExtensionOf(entry);
+      logCase('testBundleExtensionList0008', `skills=${extension.skills.length} ` +
+        `metadata=${extension.metadata.length} type=${extension.extensionAbilityTypeName}`);
+      expect(extension.skills.length).assertEqual(NO_SKILL_URI);
+      expect(extension.metadata.length).assertEqual(EXTENSION_TOTAL);
+      expect(extension.extensionAbilityTypeName).assertEqual(BACKUP_TYPE_NAME);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_9300
+     * @tc.name      testBundleMetadataGate0001
+     * @tc.desc      Check asking for metadata together with the extension ability populates the backup metadata array
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleMetadataGate0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await infoWith(MODULE_EXTENSION_METADATA);
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const extension: bundleManager.ExtensionAbilityInfo = firstExtensionOf(entry);
+      logCase('testBundleMetadataGate0001', `count=${extension.metadata.length} ` +
+        `name=${extension.metadata.length > 0 ? extension.metadata[0].name : ''}`);
+      expect(extension.metadata.length).assertEqual(EXTENSION_TOTAL);
+      expect(extension.metadata[0].name).assertEqual(BACKUP_METADATA);
+      expect(extension.metadata[0].resource).assertEqual(BACKUP_RESOURCE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_9400
+     * @tc.name      testBundleMetadataGate0002
+     * @tc.desc      Check the extension ability without the metadata flag reports an empty metadata array
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleMetadataGate0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await infoWith(MODULE_EXTENSION);
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const extension: bundleManager.ExtensionAbilityInfo = firstExtensionOf(entry);
+      const shape: FlagShape = new FlagShape(info);
+      logCase('testBundleMetadataGate0002', `count=${extension.metadata.length} shape=${shape.key()}`);
+      expect(extension.metadata.length).assertEqual(EMPTY_LENGTH);
+      expect(shape.extensionMetadataCount).assertEqual(EMPTY_LENGTH);
+      expect(shape.extensionCount).assertEqual(EXTENSION_TOTAL);
+      expect(shape.abilityCount).assertEqual(EMPTY_LENGTH);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_9500
+     * @tc.name      testBundleMetadataGate0003
+     * @tc.desc      Check asking for skills together with the module and ability flags exposes the home skill of
+     *               EntryAbility
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleMetadataGate0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await infoWith(MODULE_ABILITY_SKILL);
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const ability: bundleManager.AbilityInfo = firstAbilityOf(entry);
+      logCase('testBundleMetadataGate0003', `skills=${ability.skills.length} ` +
+        `actions=${ability.skills.length > 0 ? ability.skills[0].actions.join(',') : ''}`);
+      expect(ability.skills.length).assertEqual(ABILITY_TOTAL);
+      expect(ability.skills[0].actions.join(',')).assertEqual(HOME_ACTION);
+      expect(ability.skills[0].entities.join(',')).assertEqual(HOME_ENTITY);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_9600
+     * @tc.name      testBundleMetadataGate0004
+     * @tc.desc      Check the ability without the skill flag reports an empty skill array although the ability itself
+     *               is present
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleMetadataGate0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await infoWith(MODULE_ABILITY);
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const ability: bundleManager.AbilityInfo = firstAbilityOf(entry);
+      const shape: FlagShape = new FlagShape(info);
+      logCase('testBundleMetadataGate0004', `skills=${ability.skills.length} shape=${shape.key()}`);
+      expect(entry.abilitiesInfo.length).assertEqual(ABILITY_TOTAL);
+      expect(ability.skills.length).assertEqual(EMPTY_LENGTH);
+      expect(shape.skillCount).assertEqual(EMPTY_LENGTH);
+      expect(ability.metadata.length).assertEqual(EMPTY_LENGTH);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_9700
+     * @tc.name      testBundleMetadataGate0005
+     * @tc.desc      Check the skill flag is the only difference between the skill count of two otherwise identical
+     *               queries
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleMetadataGate0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const without: bundleManager.BundleInfo = await infoWith(MODULE_ABILITY);
+      const withSkill: bundleManager.BundleInfo = await infoWith(MODULE_ABILITY_SKILL);
+      const withoutSkills: number = countSkills(without);
+      const withSkills: number = countSkills(withSkill);
+      const gained: number = withSkills - withoutSkills;
+      logCase('testBundleMetadataGate0005', `without=${withoutSkills} with=${withSkills} gained=${gained}`);
+      expect(withoutSkills).assertEqual(EMPTY_LENGTH);
+      expect(withSkills >= ABILITY_TOTAL).assertTrue();
+      expect(gained).assertEqual(withSkills);
+      expect(countAbilities(withSkill)).assertEqual(countAbilities(without));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_9800
+     * @tc.name      testBundleMetadataGate0006
+     * @tc.desc      Check the metadata flag is the only difference between the extension metadata arrays of two
+     *               otherwise identical queries
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleMetadataGate0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const without: bundleManager.BundleInfo = await infoWith(MODULE_EXTENSION);
+      const withMetadata: bundleManager.BundleInfo = await infoWith(MODULE_EXTENSION_METADATA);
+      const withoutCount: number = countExtensionMetadata(without);
+      const withCount: number = countExtensionMetadata(withMetadata);
+      logCase('testBundleMetadataGate0006', `without=${withoutCount} with=${withCount} ` +
+        `extensions=${countExtensions(withMetadata)}`);
+      expect(withoutCount).assertEqual(EMPTY_LENGTH);
+      expect(withCount).assertEqual(EXTENSION_TOTAL);
+      expect(countExtensions(withMetadata)).assertEqual(countExtensions(without));
+      expect(withCount > withoutCount).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_9900
+     * @tc.name      testBundleMetadataGate0007
+     * @tc.desc      Check the skill flag alone does not unlock metadata: the extension metadata stays empty and no
+     *               skill appears
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleMetadataGate0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await infoWith(MODULE_EXTENSION_SKILL);
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const extension: bundleManager.ExtensionAbilityInfo = firstExtensionOf(entry);
+      logCase('testBundleMetadataGate0007', `metadata=${extension.metadata.length} ` +
+        `skills=${extension.skills.length} abilityTotal=${countAbilities(info)}`);
+      expect(extension.metadata.length).assertEqual(EMPTY_LENGTH);
+      expect(extension.skills.length).assertEqual(EMPTY_LENGTH);
+      expect(countAbilities(info)).assertEqual(EMPTY_LENGTH);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_10000
+     * @tc.name      testBundleMetadataGate0008
+     * @tc.desc      Check the application metadata array is empty with and without the metadata flag because the
+     *               sample declares no application level metadata
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleMetadataGate0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const plain: bundleManager.BundleInfo = await infoWith(FLAG_APPLICATION);
+      const withMeta: bundleManager.BundleInfo = await infoWith(FLAG_APPLICATION | FLAG_METADATA);
+      const plainCount: number = plain.appInfo.metadataArray.length;
+      const metaCount: number = withMeta.appInfo.metadataArray.length;
+      logCase('testBundleMetadataGate0008', `plain=${plainCount} with=${metaCount} ` +
+        `plainName=${plain.appInfo.name} metaName=${withMeta.appInfo.name}`);
+      expect(plainCount).assertEqual(EMPTY_LENGTH);
+      expect(metaCount).assertEqual(EMPTY_LENGTH);
+      expect(withMeta.appInfo.name).assertEqual(plain.appInfo.name);
+      expect(plain.hapModulesInfo.length).assertEqual(EMPTY_LENGTH);
+    });
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_10100
+     * @tc.name      testBundleInvariant0001
+     * @tc.desc      Check the bundle name, the application name and the application process all agree on one
+     *               identifier
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBundleInvariant0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const app: bundleManager.ApplicationInfo = info.appInfo;
+      const processName: string = app.process;
+      logCase('testBundleInvariant0001', `name=${info.name} appName=${app.name} process=${processName} ` +
+        `vendor=${info.vendor}`);
+      expect(app.name).assertEqual(info.name);
+      expect(processName).assertEqual(info.name);
+      expect(info.vendor).assertEqual(APP_VENDOR);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_10200
+     * @tc.name      testBundleInvariant0002
+     * @tc.desc      Check the application is an enabled third party application owned by the running process and
+     *               carrying a valid access token
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleInvariant0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const app: bundleManager.ApplicationInfo = info.appInfo;
+      const ownedByProcess: boolean = app.uid === process.uid;
+      logCase('testBundleInvariant0002', `uid=${app.uid} tokenId=${app.accessTokenId} ` +
+        `ownedByProcess=${ownedByProcess} bundleType=${app.bundleType}`);
+      expect(ownedByProcess).assertTrue();
+      expect(app.accessTokenId > 0).assertTrue();
+      expect(app.bundleType).assertEqual(bundleManager.BundleType.APP);
+      expect(app.enabled).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_10300
+     * @tc.name      testBundleInvariant0003
+     * @tc.desc      Check the version code never exceeds the target version and the minimum compatible version never
+     *               exceeds the version code
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleInvariant0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const codeBelowTarget: boolean = info.versionCode <= info.targetVersion;
+      const minBelowCode: boolean = info.minCompatibleVersionCode <= info.versionCode;
+      logCase('testBundleInvariant0003', `code=${info.versionCode} target=${info.targetVersion} ` +
+        `min=${info.minCompatibleVersionCode} ordered=${codeBelowTarget && minBelowCode}`);
+      expect(codeBelowTarget).assertTrue();
+      expect(minBelowCode).assertTrue();
+      expect(info.versionName.length > EMPTY_LENGTH).assertTrue();
+      expect(info.targetVersion > 0).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_10400
+     * @tc.name      testBundleInvariant0004
+     * @tc.desc      Check the target version of the shared self query encodes the same API level twice, so the
+     *               platform and the application agree on API 26
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleInvariant0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const lowPart: number = info.targetVersion % 1000;
+      const highPart: number = Math.floor(info.targetVersion / 10000000);
+      const bothEqual: boolean = lowPart === highPart;
+      logCase('testBundleInvariant0004', `target=${info.targetVersion} low=${lowPart} high=${highPart} ` +
+        `bothEqual=${bothEqual}`);
+      expect(bothEqual).assertTrue();
+      expect(lowPart).assertEqual(TARGET_API);
+      expect(info.targetVersion).assertEqual(TARGET_VERSION);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_10500
+     * @tc.name      testBundleInvariant0005
+     * @tc.desc      Check the base identity fields are flag independent while the module list is not
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleInvariant0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const bare: bundleManager.BundleInfo = await infoWith(FLAG_DEFAULT);
+      const full: bundleManager.BundleInfo = await infoWith(FULL_FLAGS);
+      const sameScalars: boolean = scalarKey(bare) === scalarKey(full);
+      const moduleGap: number = full.hapModulesInfo.length - bare.hapModulesInfo.length;
+      logCase('testBundleInvariant0005', `sameScalars=${sameScalars} bareModules=${bare.hapModulesInfo.length} ` +
+        `fullModules=${full.hapModulesInfo.length} gap=${moduleGap}`);
+      expect(sameScalars).assertTrue();
+      expect(bare.name).assertEqual(full.name);
+      expect(bare.versionCode).assertEqual(full.versionCode);
+      expect(moduleGap).assertEqual(MODULE_TOTAL);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_10600
+     * @tc.name      testBundleInvariant0006
+     * @tc.desc      Check the shared module lookup helper returns the very same module the linear scan finds for the
+     *               entry module
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleInvariant0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const scanned: bundleManager.HapModuleInfo | undefined = moduleOrNone(info, ENTRY_MODULE);
+      const viaHelper: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const sameModule: boolean = scanned === viaHelper;
+      logCase('testBundleInvariant0006', `scanned=${scanned === undefined ? 'none' : viaHelper.name} ` +
+        `sameModule=${sameModule} total=${info.hapModulesInfo.length}`);
+      expect(sameModule).assertTrue();
+      expect(viaHelper.name).assertEqual(ENTRY_MODULE);
+      expect(info.hapModulesInfo.indexOf(viaHelper) >= 0).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_10700
+     * @tc.name      testBundleInvariant0007
+     * @tc.desc      Check every ability and every extension reports the name of the module that owns it
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleInvariant0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const mismatches: string[] = [];
+      info.hapModulesInfo.forEach((item: bundleManager.HapModuleInfo) => {
+        item.abilitiesInfo.forEach((ability: bundleManager.AbilityInfo) => {
+          if (ability.moduleName !== item.name) {
+            mismatches.push(item.name + '/' + ability.name);
+          }
+        });
+        item.extensionAbilitiesInfo.forEach((extension: bundleManager.ExtensionAbilityInfo) => {
+          if (extension.moduleName !== item.name) {
+            mismatches.push(item.name + '/' + extension.name);
+          }
+        });
+      });
+      logCase('testBundleInvariant0007', `abilities=${countAbilities(info)} extensions=${countExtensions(info)} ` +
+        `mismatches=${mismatches.join(';')}`);
+      expect(mismatches.length).assertEqual(EMPTY_LENGTH);
+      expect(countAbilities(info) >= ABILITY_TOTAL).assertTrue();
+      expect(countExtensions(info)).assertEqual(EXTENSION_TOTAL);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_10800
+     * @tc.name      testBundleInvariant0008
+     * @tc.desc      Check the installed bundle is the primary instance of a three segment bundle name installed as
+     *               two modules
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleInvariant0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const segments: number = info.name.split('.').length;
+      logCase('testBundleInvariant0008', `segments=${segments} appIndex=${info.appIndex} ` +
+        `installTime=${info.installTime} modules=${info.hapModulesInfo.length}`);
+      expect(segments).assertEqual(BUNDLE_SEGMENT_TOTAL);
+      expect(info.appIndex).assertEqual(APP_INDEX);
+      expect(info.hapModulesInfo.length).assertEqual(MODULE_TOTAL);
+      expect(info.installTime > 0).assertTrue();
+    });
+  });
+}

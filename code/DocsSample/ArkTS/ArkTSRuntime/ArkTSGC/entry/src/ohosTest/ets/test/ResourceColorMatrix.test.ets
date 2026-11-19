@@ -1798,3 +1798,1109 @@ export default function resourceColorMatrixTest() {
       expect(values[0]).assertEqual(DARK_COLOR_VALUE);
       expect(Argb.alpha(values[0])).assertEqual(CHANNEL_MAX);
     });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_6300
+     * @tc.name      testResColorRepeatOpaque0063
+     * @tc.desc      Read the color four times and check the opacity predicate holds for every read and that
+     *               the alpha percentages sum to a complete four hundred
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorRepeatOpaque0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const values: number[] = [];
+      for (let round = 0; round < 4; round++) {
+        values.push(lightManager().getColorByNameSync(COLOR_NAME));
+      }
+      const opaque: boolean[] = values.map((value: number) => Argb.isOpaque(value));
+      let percentTotal: number = 0;
+      for (const value of values) {
+        percentTotal += Argb.alphaPercent(value);
+      }
+      logCase('testResColorRepeatOpaque0063', `opaque=${opaque.join(',')} percentTotal=${percentTotal}`);
+      expect(opaque.every((flag: boolean) => flag)).assertTrue();
+      expect(opaque.length).assertEqual(4);
+      expect(percentTotal).assertEqual(PERCENT_SCALE * 4);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_6400
+     * @tc.name      testResColorRepeatParity0064
+     * @tc.desc      Alternate the qualifiers three times and classify the six reads by parity, checking the
+     *               odd blue byte of white against the even black
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorRepeatParity0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const sequence: number[] = [];
+      for (let round = 0; round < 3; round++) {
+        sequence.push(lightManager().getColorByNameSync(COLOR_NAME));
+        sequence.push(darkManager().getColorByNameSync(COLOR_NAME));
+      }
+      const odds: number[] = sequence.filter((value: number) => value % 2 === 1);
+      const evens: number[] = sequence.filter((value: number) => value % 2 === 0);
+      logCase('testResColorRepeatParity0064', `odds=${odds.length} evens=${evens.length} ` +
+        `distinct=${countDistinct(sequence)}`);
+      expect(odds.length).assertEqual(3);
+      expect(evens.length).assertEqual(3);
+      expect(odds[0]).assertEqual(BASE_COLOR_VALUE);
+      expect(evens[0]).assertEqual(DARK_COLOR_VALUE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_6500
+     * @tc.name      testResColorPackTransparent0065
+     * @tc.desc      Pack four zero bytes and check the result is the transparent boundary value with both
+     *               opacity predicates reading it as invisible
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testResColorPackTransparent0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const value: number = Argb.pack(0, 0, 0, 0);
+      logCase('testResColorPackTransparent0065', `value=${value} hex=${Argb.toHex8(value)}`);
+      expect(value).assertEqual(TRANSPARENT_VALUE);
+      expect(Argb.alpha(value)).assertEqual(0);
+      expect(Argb.isTransparent(value)).assertTrue();
+      expect(Argb.isOpaque(value)).assertFalse();
+      expect(Argb.toHex8(value)).assertEqual(oracleHexText(TRANSPARENT_VALUE, 8));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_6600
+     * @tc.name      testResColorPackOpaqueBlack0066
+     * @tc.desc      Pack an opaque black and check it reproduces the dark qualified resource value byte for
+     *               byte
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testResColorPackOpaqueBlack0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const packed: number = Argb.pack(CHANNEL_MAX, 0, 0, 0);
+      const dark: number = darkManager().getColorByNameSync(COLOR_NAME);
+      logCase('testResColorPackOpaqueBlack0066', `packed=${packed} dark=${dark} hex=${Argb.toHex6(packed)}`);
+      expect(packed).assertEqual(DARK_COLOR_VALUE);
+      expect(packed).assertEqual(dark);
+      expect(Argb.channelSet(packed).join(',')).assertEqual('255,0,0,0');
+      expect(Argb.toHex6(packed)).assertEqual(DARK_COLOR_HEX);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_6700
+     * @tc.name      testResColorPackOpaqueWhite0067
+     * @tc.desc      Pack an opaque white and check it reproduces the base resource value and that its
+     *               luminance saturates the scale
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testResColorPackOpaqueWhite0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const packed: number = Argb.pack(CHANNEL_MAX, CHANNEL_MAX, CHANNEL_MAX, CHANNEL_MAX);
+      const light: number = lightManager().getColorByNameSync(COLOR_NAME);
+      logCase('testResColorPackOpaqueWhite0067', `packed=${packed} light=${light} ` +
+        `luma=${Argb.weightedLuma(packed)}`);
+      expect(packed).assertEqual(BASE_COLOR_VALUE);
+      expect(packed).assertEqual(light);
+      expect(Argb.weightedLuma(packed)).assertEqual(CHANNEL_MAX);
+      expect(Argb.toHex6(packed)).assertEqual(BASE_COLOR_HEX);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_6800
+     * @tc.name      testResColorPackHalfAlpha0068
+     * @tc.desc      Pack a half transparent black and check the alpha byte against the division oracle and
+     *               the percentage helper
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorPackHalfAlpha0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const value: number = Argb.pack(128, 0, 0, 0);
+      logCase('testResColorPackHalfAlpha0068', `value=${value} alpha=${Argb.alpha(value)} ` +
+        `percent=${Argb.alphaPercent(value)}`);
+      expect(Argb.alpha(value)).assertEqual(128);
+      expect(oracleAlphaOf(value)).assertEqual(128);
+      expect(value).assertEqual(HALF_ALPHA_BLACK_VALUE);
+      expect(Argb.alphaPercent(value)).assertEqual(50);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_6900
+     * @tc.name      testResColorExtremeRed0069
+     * @tc.desc      Build the red single channel extreme and check it differs from the dark literal by exactly
+     *               one saturated channel
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorExtremeRed0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const value: number = Argb.pack(CHANNEL_MAX, CHANNEL_MAX, 0, 0);
+      const gapToBlack: number = Argb.fullDistance(value, DARK_COLOR_VALUE);
+      logCase('testResColorExtremeRed0069', `value=${value} gapToBlack=${gapToBlack} ` +
+        `redMinusBlue=${Argb.red(value) - Argb.blue(value)}`);
+      expect(value).assertEqual(RED_EXTREME_VALUE);
+      expect(gapToBlack).assertEqual(CHANNEL_MAX);
+      expect(Argb.red(value) - Argb.blue(value)).assertEqual(CHANNEL_MAX);
+      expect(Argb.isGray(value)).assertFalse();
+      expect(Argb.weightedLuma(value) > Argb.weightedLuma(BLUE_EXTREME_VALUE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_7000
+     * @tc.name      testResColorExtremeGreen0070
+     * @tc.desc      Build the green single channel extreme and check its gray projection collapses onto the
+     *               weighted luminance level of the saturated green
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorExtremeGreen0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const value: number = Argb.pack(CHANNEL_MAX, 0, CHANNEL_MAX, 0);
+      const projected: number = Argb.toGray(value);
+      logCase('testResColorExtremeGreen0070', `value=${value} projected=${projected} ` +
+        `level=${Argb.red(projected)}`);
+      expect(value).assertEqual(GREEN_EXTREME_VALUE);
+      expect(Argb.red(projected)).assertEqual(Argb.weightedLuma(value));
+      expect(Argb.isGray(projected)).assertTrue();
+      expect(projected === value).assertFalse();
+      expect(Argb.green(value)).assertEqual(CHANNEL_MAX);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_7100
+     * @tc.name      testResColorExtremeBlue0071
+     * @tc.desc      Build the blue single channel extreme, invert it and check the inversion yields the
+     *               complementary triple while the luminance stays in the low quarter of the scale
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorExtremeBlue0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const value: number = Argb.pack(CHANNEL_MAX, 0, 0, CHANNEL_MAX);
+      const inverted: number = Argb.invert(value);
+      logCase('testResColorExtremeBlue0071', `value=${value} inverted=${inverted} ` +
+        `luma=${Argb.weightedLuma(value)}`);
+      expect(value).assertEqual(BLUE_EXTREME_VALUE);
+      expect(Argb.blue(value)).assertEqual(CHANNEL_MAX);
+      expect(inverted).assertEqual(Argb.pack(CHANNEL_MAX, CHANNEL_MAX, CHANNEL_MAX, 0));
+      expect(Argb.weightedLuma(value) < CHANNEL_MAX / 4).assertTrue();
+      expect(Argb.toHex6(value)).assertEqual('#0000FF');
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_7200
+     * @tc.name      testResColorTransparentWhite0072
+     * @tc.desc      Check the transparent white boundary keeps the base rgb payload while reporting a zero
+     *               alpha
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorTransparentWhite0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const value: number = TRANSPARENT_WHITE_VALUE;
+      const light: number = lightManager().getColorByNameSync(COLOR_NAME);
+      logCase('testResColorTransparentWhite0072', `value=${value} dropAlpha=${Argb.dropAlpha(value)} ` +
+        `luma=${Argb.weightedLuma(value)}`);
+      expect(Argb.alpha(value)).assertEqual(0);
+      expect(Argb.dropAlpha(value)).assertEqual(Argb.dropAlpha(light));
+      expect(Argb.dropAlpha(value)).assertEqual(RGB_SPAN - 1);
+      expect(Argb.isTransparent(value)).assertTrue();
+      expect(Argb.weightedLuma(value)).assertEqual(CHANNEL_MAX);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_7300
+     * @tc.name      testResColorWithAlphaZero0073
+     * @tc.desc      Replace the alpha of the base color with zero and check the color bytes survive while the
+     *               opacity predicate flips
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorWithAlphaZero0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const light: number = lightManager().getColorByNameSync(COLOR_NAME);
+      const faded: number = Argb.withAlpha(light, 0);
+      logCase('testResColorWithAlphaZero0073', `light=${light} faded=${faded}`);
+      expect(faded).assertEqual(TRANSPARENT_WHITE_VALUE);
+      expect(Argb.alpha(faded)).assertEqual(0);
+      expect(Argb.dropAlpha(faded)).assertEqual(Argb.dropAlpha(light));
+      expect(Argb.isOpaque(faded)).assertFalse();
+      expect(Argb.alphaPercent(faded)).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_7400
+     * @tc.name      testResColorWithAlphaHalf0074
+     * @tc.desc      Replace the alpha of the dark color with the half value and check the packed result, the
+     *               alpha percentage and the untouched full alpha case
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorWithAlphaHalf0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const dark: number = darkManager().getColorByNameSync(COLOR_NAME);
+      const half: number = Argb.withAlpha(dark, 128);
+      logCase('testResColorWithAlphaHalf0074', `half=${half} percent=${Argb.alphaPercent(half)} ` +
+        `full=${Argb.withAlpha(dark, CHANNEL_MAX)}`);
+      expect(half).assertEqual(HALF_ALPHA_BLACK_VALUE);
+      expect(half).assertEqual(oraclePack(128, 0, 0, 0));
+      expect(Argb.alphaPercent(half)).assertEqual(50);
+      expect(Argb.withAlpha(dark, CHANNEL_MAX)).assertEqual(dark);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_7500
+     * @tc.name      testResColorInvertBase0075
+     * @tc.desc      Invert the light and the dark branch and check each one turns into the other plus the
+     *               fully transparent corner
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorInvertBase0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const light: number = lightManager().getColorByNameSync(COLOR_NAME);
+      const dark: number = darkManager().getColorByNameSync(COLOR_NAME);
+      logCase('testResColorInvertBase0075', `invertLight=${Argb.invert(light)} invertDark=${Argb.invert(dark)} ` +
+        `invertTransparentWhite=${Argb.invert(TRANSPARENT_WHITE_VALUE)}`);
+      expect(Argb.invert(light)).assertEqual(dark);
+      expect(Argb.invert(dark)).assertEqual(light);
+      expect(Argb.invert(TRANSPARENT_WHITE_VALUE)).assertEqual(TRANSPARENT_VALUE);
+      expect(Argb.alpha(Argb.invert(light))).assertEqual(CHANNEL_MAX);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_7600
+     * @tc.name      testResColorInvertTwice0076
+     * @tc.desc      Invert a red extreme and a half transparent red twice and check the double inversion is
+     *               the identity for both the color bytes and the alpha byte
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorInvertTwice0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const twiceRed: number = Argb.invert(Argb.invert(RED_EXTREME_VALUE));
+      const twiceHalf: number = Argb.invert(Argb.invert(HALF_ALPHA_RED_VALUE));
+      logCase('testResColorInvertTwice0076', `twiceRed=${twiceRed} twiceHalf=${twiceHalf} ` +
+        `alphaHalf=${Argb.alpha(HALF_ALPHA_RED_VALUE)}`);
+      expect(twiceRed).assertEqual(RED_EXTREME_VALUE);
+      expect(twiceHalf).assertEqual(HALF_ALPHA_RED_VALUE);
+      expect(Argb.alpha(twiceHalf)).assertEqual(128);
+      expect(Argb.red(Argb.invert(HALF_ALPHA_RED_VALUE))).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_7700
+     * @tc.name      testResColorLumaGrayMid0077
+     * @tc.desc      Build a mid gray and check the weighted luminance, the plain average and the gray
+     *               predicate all land on the same level
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorLumaGrayMid0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const gray: number = Argb.pack(CHANNEL_MAX, 128, 128, 128);
+      logCase('testResColorLumaGrayMid0077', `gray=${gray} luma=${Argb.weightedLuma(gray)} ` +
+        `average=${Argb.average(gray)}`);
+      expect(Argb.weightedLuma(gray)).assertEqual(128);
+      expect(Argb.average(gray)).assertEqual(128);
+      expect(Argb.isGray(gray)).assertTrue();
+      expect(Argb.toGray(gray)).assertEqual(gray);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_7800
+     * @tc.name      testResColorLumaGreenWeight0078
+     * @tc.desc      Compare the luminance of the green and the red extremes and check the green weight is the
+     *               dominant one of the three coefficients
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorLumaGreenWeight0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const greenLuma: number = Argb.weightedLuma(GREEN_EXTREME_VALUE);
+      const redLuma: number = Argb.weightedLuma(RED_EXTREME_VALUE);
+      logCase('testResColorLumaGreenWeight0078', `greenLuma=${greenLuma} redLuma=${redLuma} ` +
+        `gap=${greenLuma - redLuma}`);
+      expect(greenLuma > redLuma).assertTrue();
+      expect(greenLuma - redLuma).assertEqual(73);
+      expect(greenLuma < CHANNEL_MAX).assertTrue();
+      expect(redLuma).assertEqual(oracleLuma(CHANNEL_MAX, 0, 0));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_7900
+     * @tc.name      testResColorLumaRedWeight0079
+     * @tc.desc      Check the red extreme luminance against the 299 coefficient, the division oracle and the
+     *               channel average of the same color
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorLumaRedWeight0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const redLuma: number = Argb.weightedLuma(RED_EXTREME_VALUE);
+      logCase('testResColorLumaRedWeight0079', `redLuma=${redLuma} ` +
+        `average=${Argb.average(RED_EXTREME_VALUE)}`);
+      expect(redLuma).assertEqual(Math.floor(299 * CHANNEL_MAX / 1000));
+      expect(redLuma).assertEqual(76);
+      expect(Argb.average(RED_EXTREME_VALUE)).assertEqual(85);
+      expect(redLuma < Argb.average(RED_EXTREME_VALUE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_8000
+     * @tc.name      testResColorLumaBlueWeight0080
+     * @tc.desc      Check the blue extreme luminance against the 114 coefficient and against the other two
+     *               single channel extremes
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorLumaBlueWeight0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const blueLuma: number = Argb.weightedLuma(BLUE_EXTREME_VALUE);
+      logCase('testResColorLumaBlueWeight0080', `blueLuma=${blueLuma} whiteLuma=${Argb.weightedLuma(BASE_COLOR_VALUE)}`);
+      expect(blueLuma).assertEqual(29);
+      expect(blueLuma).assertEqual(Math.floor(114 * CHANNEL_MAX / 1000));
+      expect(blueLuma < Argb.weightedLuma(RED_EXTREME_VALUE)).assertTrue();
+      expect(blueLuma < Argb.weightedLuma(GREEN_EXTREME_VALUE)).assertTrue();
+      expect(Argb.weightedLuma(BASE_COLOR_VALUE) - blueLuma).assertEqual(226);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_8100
+     * @tc.name      testResColorAverageChannel0081
+     * @tc.desc      Check the unweighted channel average of a mixed color against the oracle and against the
+     *               two resource literals
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorAverageChannel0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const mixed: number = Argb.pack(CHANNEL_MAX, CHANNEL_MAX, 128, 0);
+      logCase('testResColorAverageChannel0081', `mixed=${mixed} average=${Argb.average(mixed)}`);
+      expect(Argb.average(mixed)).assertEqual(127);
+      expect(Argb.average(mixed)).assertEqual(oracleAverage(CHANNEL_MAX, 128, 0));
+      expect(Argb.average(BASE_COLOR_VALUE)).assertEqual(CHANNEL_MAX);
+      expect(Argb.average(DARK_COLOR_VALUE)).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_8200
+     * @tc.name      testResColorBlendHalf0082
+     * @tc.desc      Blend the two resource literals at half weight and check the midpoint against the
+     *               independent interpolation oracle
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorBlendHalf0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const midpoint: number = Argb.blend(DARK_COLOR_VALUE, BASE_COLOR_VALUE, 50);
+      logCase('testResColorBlendHalf0082', `midpoint=${midpoint} hex=${Argb.toHex6(midpoint)} ` +
+        `oracle=${oracleBlend(DARK_COLOR_VALUE, BASE_COLOR_VALUE, 50)}`);
+      expect(midpoint).assertEqual(Argb.pack(CHANNEL_MAX, 127, 127, 127));
+      expect(midpoint).assertEqual(oracleBlend(DARK_COLOR_VALUE, BASE_COLOR_VALUE, 50));
+      expect(Argb.alpha(midpoint)).assertEqual(CHANNEL_MAX);
+      expect(Argb.toHex6(midpoint)).assertEqual('#7F7F7F');
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_8300
+     * @tc.name      testResColorBlendEndpoints0083
+     * @tc.desc      Blend the base color into the dark color at the two extreme weights and check the
+     *               endpoints are reproduced exactly
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorBlendEndpoints0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const start: number = Argb.blend(BASE_COLOR_VALUE, DARK_COLOR_VALUE, 0);
+      const end: number = Argb.blend(BASE_COLOR_VALUE, DARK_COLOR_VALUE, 100);
+      const middle: number = Argb.blend(BASE_COLOR_VALUE, DARK_COLOR_VALUE, 50);
+      logCase('testResColorBlendEndpoints0083', `start=${start} middle=${middle} end=${end}`);
+      expect(start).assertEqual(BASE_COLOR_VALUE);
+      expect(end).assertEqual(DARK_COLOR_VALUE);
+      expect(middle === start).assertFalse();
+      expect(middle === end).assertFalse();
+      expect(middle).assertEqual(oracleBlend(BASE_COLOR_VALUE, DARK_COLOR_VALUE, 50));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_8400
+     * @tc.name      testResColorBlendAlphaTrack0084
+     * @tc.desc      Blend a fully transparent color into the opaque base color and check the alpha byte is
+     *               interpolated together with the color bytes
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorBlendAlphaTrack0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const faded: number = Argb.blend(TRANSPARENT_VALUE, BASE_COLOR_VALUE, 50);
+      logCase('testResColorBlendAlphaTrack0084', `faded=${faded} alpha=${Argb.alpha(faded)} ` +
+        `percent=${Argb.alphaPercent(faded)}`);
+      expect(faded).assertEqual(Argb.pack(127, 127, 127, 127));
+      expect(Argb.alpha(faded)).assertEqual(127);
+      expect(Argb.alphaPercent(faded)).assertEqual(49);
+      expect(oracleAlphaOf(faded)).assertEqual(127);
+      expect(faded).assertEqual(oracleBlend(TRANSPARENT_VALUE, BASE_COLOR_VALUE, 50));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_8500
+     * @tc.name      testResColorDistanceRgb0085
+     * @tc.desc      Measure the rgb distance of the two resource literals and of two single channel extremes
+     *               and check the self distance is zero
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorDistanceRgb0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const extremeGap: number = Argb.rgbDistance(RED_EXTREME_VALUE, GREEN_EXTREME_VALUE);
+      logCase('testResColorDistanceRgb0085', `resourceGap=${Argb.rgbDistance(BASE_COLOR_VALUE, DARK_COLOR_VALUE)} ` +
+        `extremeGap=${extremeGap}`);
+      expect(Argb.rgbDistance(BASE_COLOR_VALUE, DARK_COLOR_VALUE)).assertEqual(CHANNEL_MAX * 3);
+      expect(Argb.rgbDistance(BASE_COLOR_VALUE, BASE_COLOR_VALUE)).assertEqual(0);
+      expect(extremeGap).assertEqual(CHANNEL_MAX * 2);
+      expect(extremeGap).assertEqual(oracleRgbGap(RED_EXTREME_VALUE, GREEN_EXTREME_VALUE));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_8600
+     * @tc.name      testResColorDistanceFull0086
+     * @tc.desc      Measure the full argb distance from the transparent corner to the base color and check
+     *               the alpha byte adds exactly one saturated channel
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorDistanceFull0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const fullGap: number = Argb.fullDistance(TRANSPARENT_VALUE, BASE_COLOR_VALUE);
+      logCase('testResColorDistanceFull0086', `fullGap=${fullGap} rgbGap=` +
+        `${Argb.rgbDistance(TRANSPARENT_VALUE, BASE_COLOR_VALUE)}`);
+      expect(fullGap).assertEqual(CHANNEL_MAX * 4);
+      expect(fullGap).assertEqual(Argb.rgbDistance(TRANSPARENT_VALUE, BASE_COLOR_VALUE) + CHANNEL_MAX);
+      expect(Argb.fullDistance(BASE_COLOR_VALUE, DARK_COLOR_VALUE)).assertEqual(CHANNEL_MAX * 3);
+      expect(Argb.fullDistance(DARK_COLOR_VALUE, DARK_COLOR_VALUE)).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_8700
+     * @tc.name      testResColorContrastGap0087
+     * @tc.desc      Compare the luminance of the base color, a mid gray and the dark color and check the two
+     *               gaps add up to the full range
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorContrastGap0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const whiteLuma: number = Argb.weightedLuma(BASE_COLOR_VALUE);
+      const grayLuma: number = Argb.weightedLuma(Argb.pack(CHANNEL_MAX, 128, 128, 128));
+      const blackLuma: number = Argb.weightedLuma(DARK_COLOR_VALUE);
+      logCase('testResColorContrastGap0087', `whiteLuma=${whiteLuma} grayLuma=${grayLuma} ` +
+        `blackLuma=${blackLuma}`);
+      expect(whiteLuma - grayLuma).assertEqual(127);
+      expect(whiteLuma - blackLuma).assertEqual(CHANNEL_MAX);
+      expect((whiteLuma - grayLuma) + (grayLuma - blackLuma)).assertEqual(whiteLuma - blackLuma);
+      expect(grayLuma - blackLuma).assertEqual(128);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_8800
+     * @tc.name      testResColorGrayDetection0088
+     * @tc.desc      Check the gray predicate on an equal channel color, on a color one byte off and on the
+     *               gray projection of a mixed color
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorGrayDetection0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const equal: number = Argb.pack(CHANNEL_MAX, 7, 7, 7);
+      const off: number = Argb.pack(CHANNEL_MAX, 7, 7, 8);
+      const projected: number = Argb.toGray(Argb.pack(CHANNEL_MAX, 1, 2, 3));
+      logCase('testResColorGrayDetection0088', `equal=${Argb.isGray(equal)} off=${Argb.isGray(off)} ` +
+        `projected=${projected}`);
+      expect(Argb.isGray(equal)).assertTrue();
+      expect(Argb.isGray(off)).assertFalse();
+      expect(Argb.isGray(projected)).assertTrue();
+      expect(Argb.alpha(projected)).assertEqual(CHANNEL_MAX);
+      expect(Argb.red(projected)).assertEqual(Math.floor((299 + 2 * 587 + 3 * 114) / 1000));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_8900
+     * @tc.name      testResColorHexPadding0089
+     * @tc.desc      Format a small value and check both hex renderers pad with leading zeros and that the
+     *               padded text parses back to an opaque value
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorHexPadding0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const small: number = 10;
+      logCase('testResColorHexPadding0089', `eight=${Argb.toHex8(small)} six=${Argb.toHex6(small)} ` +
+        `parsed=${Argb.parse(Argb.toHex6(small))}`);
+      expect(Argb.toHex8(small)).assertEqual('#0000000A');
+      expect(Argb.toHex6(small)).assertEqual('#00000A');
+      expect(Argb.toHex6(small)).assertEqual(oracleHexText(small, 6));
+      expect(Argb.parse(Argb.toHex6(small))).assertEqual(CHANNEL_MAX * RGB_SPAN + small);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_9000
+     * @tc.name      testResColorHexTransparent0090
+     * @tc.desc      Render the transparent white corner in both widths and check the alpha digits are the
+     *               leading zeros of the eight digit text
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorHexTransparent0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logCase('testResColorHexTransparent0090', `eight=${Argb.toHex8(TRANSPARENT_WHITE_VALUE)} ` +
+        `six=${Argb.toHex6(TRANSPARENT_WHITE_VALUE)}`);
+      expect(Argb.toHex8(TRANSPARENT_WHITE_VALUE)).assertEqual('#00FFFFFF');
+      expect(Argb.toHex6(TRANSPARENT_WHITE_VALUE)).assertEqual(BASE_COLOR_HEX);
+      expect(Argb.toHex8(TRANSPARENT_WHITE_VALUE)).assertEqual(oracleHexText(TRANSPARENT_WHITE_VALUE, 8));
+      expect(Argb.toHex8(TRANSPARENT_WHITE_VALUE).substring(1, 3)).assertEqual('00');
+      expect(Argb.toHex8(TRANSPARENT_WHITE_VALUE).substring(3)).assertEqual(BASE_COLOR_HEX.substring(1));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_9100
+     * @tc.name      testResColorParseResource0091
+     * @tc.desc      Parse both json literals with the local parser and check the results equal the resource
+     *               reads and the multiply and add oracle
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorParseResource0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const baseParsed: number = Argb.parse(BASE_COLOR_HEX);
+      const darkParsed: number = Argb.parse(DARK_COLOR_HEX);
+      logCase('testResColorParseResource0091', `baseParsed=${baseParsed} darkParsed=${darkParsed}`);
+      expect(baseParsed).assertEqual(lightManager().getColorByNameSync(COLOR_NAME));
+      expect(baseParsed).assertEqual(oracleHex(BASE_COLOR_HEX));
+      expect(darkParsed).assertEqual(darkManager().getColorByNameSync(COLOR_NAME));
+      expect(darkParsed).assertEqual(DARK_COLOR_VALUE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_9200
+     * @tc.name      testResColorParseHalfAlpha0092
+     * @tc.desc      Parse an eight digit literal with a half alpha and check the alpha byte, the color bytes
+     *               and the shared helper all agree
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorParseHalfAlpha0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const halfRedHex: string = '#80FF0000';
+      const parsed: number = Argb.parse(halfRedHex);
+      logCase('testResColorParseHalfAlpha0092', `parsed=${parsed} alpha=${Argb.alpha(parsed)} ` +
+        `shared=${argbFromHex(halfRedHex)}`);
+      expect(parsed).assertEqual(HALF_ALPHA_RED_VALUE);
+      expect(Argb.alpha(parsed)).assertEqual(128);
+      expect(Argb.red(parsed)).assertEqual(CHANNEL_MAX);
+      expect(parsed).assertEqual(argbFromHex(halfRedHex));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_9300
+     * @tc.name      testResColorParseCase0093
+     * @tc.desc      Parse the same literal in lower and upper case and check the parser is case insensitive
+     *               and renders the canonical upper case form back
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorParseCase0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const lower: number = Argb.parse('#aabbcc');
+      const upper: number = Argb.parse('#AABBCC');
+      logCase('testResColorParseCase0093', `lower=${lower} upper=${upper} hex=${Argb.toHex6(lower)}`);
+      expect(lower).assertEqual(upper);
+      expect(lower).assertEqual(oracleHex('#AABBCC'));
+      expect(Argb.alpha(lower)).assertEqual(CHANNEL_MAX);
+      expect(Argb.toHex6(lower)).assertEqual('#AABBCC');
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_9400
+     * @tc.name      testResColorParseRejects0094
+     * @tc.desc      Feed four malformed literals to the parser and check each one reports the missing marker
+     *               while a valid literal still parses
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorParseRejects0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const malformed: string[] = ['FFFFFF', '#FFF', '#GGGGGG', ''];
+      const codes: number[] = malformed.map((text: string) => Argb.parse(text));
+      logCase('testResColorParseRejects0094', `codes=${codes.join(',')} valid=${Argb.parse(BASE_COLOR_HEX)}`);
+      expect(codes.every((code: number) => code === MISSING_COLOR)).assertTrue();
+      expect(countDistinct(codes)).assertEqual(1);
+      expect(codes.length).assertEqual(4);
+      expect(Argb.parse(BASE_COLOR_HEX) > 0).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_9500
+     * @tc.name      testResColorClampRange0095
+     * @tc.desc      Push channels outside the byte range through the clamp and the clamping packer and check
+     *               the out of range inputs snap to the two extremes
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorClampRange0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const clamped: number = Argb.packClamped(CHANNEL_MAX, 300, -5, 128);
+      logCase('testResColorClampRange0095', `clamped=${clamped} channels=${Argb.channelSet(clamped).join(',')}`);
+      expect(Argb.clamp(-5)).assertEqual(0);
+      expect(Argb.clamp(300)).assertEqual(CHANNEL_MAX);
+      expect(Argb.clamp(128)).assertEqual(128);
+      expect(clamped).assertEqual(Argb.pack(CHANNEL_MAX, CHANNEL_MAX, 0, 128));
+      expect(Argb.isGray(clamped)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_9600
+     * @tc.name      testResColorPackTruncation0096
+     * @tc.desc      Pass byte wide values beyond the range into the packer and check only the low eight bits
+     *               of each argument survive
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorPackTruncation0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const allOver: number = Argb.pack(256, 256, 256, 256);
+      const blueOver: number = Argb.pack(CHANNEL_MAX, CHANNEL_MAX, CHANNEL_MAX, 256);
+      logCase('testResColorPackTruncation0096', `allOver=${allOver} blueOver=${blueOver}`);
+      expect(allOver).assertEqual(TRANSPARENT_VALUE);
+      expect(Argb.blue(blueOver)).assertEqual(0);
+      expect(Argb.red(blueOver)).assertEqual(CHANNEL_MAX);
+      expect(blueOver).assertEqual(BASE_COLOR_VALUE - CHANNEL_MAX);
+      expect(Argb.pack(511, 511, 511, 511)).assertEqual(BASE_COLOR_VALUE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_9700
+     * @tc.name      testResColorPackUnsigned0097
+     * @tc.desc      Check the packer always yields an unsigned value even for a saturated alpha, so the
+     *               result never turns into a negative number
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorPackUnsigned0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const opaque: number = Argb.pack(CHANNEL_MAX, CHANNEL_MAX, CHANNEL_MAX, CHANNEL_MAX);
+      const translucent: number = Argb.pack(128, 0, 0, 0);
+      logCase('testResColorPackUnsigned0097', `opaque=${opaque} translucent=${translucent}`);
+      expect(opaque >>> 0).assertEqual(BASE_COLOR_VALUE);
+      expect(opaque > 0).assertTrue();
+      expect(translucent >= HALF_ALPHA_BLACK_VALUE).assertTrue();
+      expect(opaque % ARGB_SPAN).assertEqual(BASE_COLOR_VALUE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_9800
+     * @tc.name      testResColorExtremeHexText0098
+     * @tc.desc      Render the three single channel extremes as six digit text and check the three texts are
+     *               distinct one hot strings
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorExtremeHexText0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const redText: string = Argb.toHex6(RED_EXTREME_VALUE);
+      const greenText: string = Argb.toHex6(GREEN_EXTREME_VALUE);
+      const blueText: string = Argb.toHex6(BLUE_EXTREME_VALUE);
+      logCase('testResColorExtremeHexText0098', `red=${redText} green=${greenText} blue=${blueText}`);
+      expect(redText).assertEqual('#FF0000');
+      expect(greenText).assertEqual('#00FF00');
+      expect(blueText).assertEqual('#0000FF');
+      expect(new Set<string>([redText, greenText, blueText]).size).assertEqual(3);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_9900
+     * @tc.name      testResColorResourceHexText0099
+     * @tc.desc      Round trip both resource literals through the six digit renderer and the independent
+     *               parser and check the values survive unchanged
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorResourceHexText0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const light: number = lightManager().getColorByNameSync(COLOR_NAME);
+      const dark: number = darkManager().getColorByNameSync(COLOR_NAME);
+      logCase('testResColorResourceHexText0099', `lightText=${Argb.toHex6(light)} darkText=${Argb.toHex6(dark)}`);
+      expect(Argb.toHex6(light)).assertEqual(BASE_COLOR_HEX);
+      expect(Argb.toHex6(dark)).assertEqual(DARK_COLOR_HEX);
+      expect(oracleHex(Argb.toHex6(light))).assertEqual(light);
+      expect(oracleHex(Argb.toHex6(dark))).assertEqual(dark);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_10000
+     * @tc.name      testResColorAlphaExtremes0100
+     * @tc.desc      Walk the alpha percentage of the four boundary alphas and check the ends of the scale and
+     *               the midpoint land on zero, fifty and one hundred
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorAlphaExtremes0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logCase('testResColorAlphaExtremes0100', `transparent=${Argb.alphaPercent(TRANSPARENT_VALUE)} ` +
+        `half=${Argb.alphaPercent(HALF_ALPHA_BLACK_VALUE)} opaque=${Argb.alphaPercent(BASE_COLOR_VALUE)}`);
+      expect(Argb.alphaPercent(TRANSPARENT_VALUE)).assertEqual(0);
+      expect(Argb.alphaPercent(HALF_ALPHA_BLACK_VALUE)).assertEqual(50);
+      expect(Argb.alphaPercent(BASE_COLOR_VALUE)).assertEqual(PERCENT_SCALE);
+      expect(Argb.alphaPercent(DARK_COLOR_VALUE)).assertEqual(PERCENT_SCALE);
+      expect(Argb.alphaPercent(HALF_ALPHA_RED_VALUE)).assertEqual(50);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_10100
+     * @tc.name      testResColorChannelDeltaSet0101
+     * @tc.desc      Subtract the dark branch from the light branch channel by channel and check every delta is
+     *               saturated and their total covers the rgb range
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorChannelDeltaSet0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const light: number = lightManager().getColorByNameSync(COLOR_NAME);
+      const dark: number = darkManager().getColorByNameSync(COLOR_NAME);
+      const deltas: number[] = [
+        Argb.red(light) - Argb.red(dark),
+        Argb.green(light) - Argb.green(dark),
+        Argb.blue(light) - Argb.blue(dark)
+      ];
+      logCase('testResColorChannelDeltaSet0101', `deltas=${deltas.join(',')}`);
+      expect(deltas.length).assertEqual(3);
+      expect(deltas.every((delta: number) => delta === CHANNEL_MAX)).assertTrue();
+      expect(countDistinct(deltas)).assertEqual(1);
+      expect(deltas[0] + deltas[1] + deltas[2]).assertEqual(RGB_SPAN - 1);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_10200
+     * @tc.name      testResColorGrayResource0102
+     * @tc.desc      Project both resource literals onto the gray axis and check the achromatic colors are
+     *               left untouched while the alpha byte is preserved
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorGrayResource0102', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const light: number = lightManager().getColorByNameSync(COLOR_NAME);
+      const dark: number = darkManager().getColorByNameSync(COLOR_NAME);
+      logCase('testResColorGrayResource0102', `grayLight=${Argb.toGray(light)} grayDark=${Argb.toGray(dark)}`);
+      expect(Argb.toGray(light)).assertEqual(light);
+      expect(Argb.toGray(dark)).assertEqual(dark);
+      expect(Argb.isGray(light) && Argb.isGray(dark)).assertTrue();
+      expect(Argb.alpha(Argb.toGray(light))).assertEqual(CHANNEL_MAX);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_10300
+     * @tc.name      testResColorOpaqueTransparentFlags0103
+     * @tc.desc      Check the two alpha predicates on the opaque, the invisible and the translucent boundary
+     *               values and confirm they can never both be true
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorOpaqueTransparentFlags0103', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      logCase('testResColorOpaqueTransparentFlags0103', `opaqueWhite=${Argb.isOpaque(BASE_COLOR_VALUE)} ` +
+        `transparentWhite=${Argb.isTransparent(TRANSPARENT_WHITE_VALUE)} ` +
+        `half=${Argb.isOpaque(HALF_ALPHA_BLACK_VALUE)}`);
+      expect(Argb.isOpaque(BASE_COLOR_VALUE)).assertTrue();
+      expect(Argb.isOpaque(TRANSPARENT_WHITE_VALUE)).assertFalse();
+      expect(Argb.isTransparent(TRANSPARENT_VALUE)).assertTrue();
+      expect(Argb.isTransparent(BASE_COLOR_VALUE)).assertFalse();
+      expect(Argb.isOpaque(HALF_ALPHA_BLACK_VALUE) || Argb.isTransparent(HALF_ALPHA_BLACK_VALUE)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_10400
+     * @tc.name      testResColorDropAlphaResource0104
+     * @tc.desc      Strip the alpha byte from four colors and check the light branch keeps the full rgb
+     *               payload while the dark branch collapses to zero
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorDropAlphaResource0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const light: number = lightManager().getColorByNameSync(COLOR_NAME);
+      logCase('testResColorDropAlphaResource0104', `light=${Argb.dropAlpha(light)} ` +
+        `dark=${Argb.dropAlpha(DARK_COLOR_VALUE)} halfRed=${Argb.dropAlpha(HALF_ALPHA_RED_VALUE)}`);
+      expect(Argb.dropAlpha(light)).assertEqual(RGB_SPAN - 1);
+      expect(Argb.dropAlpha(DARK_COLOR_VALUE)).assertEqual(0);
+      expect(Argb.dropAlpha(light)).assertEqual(Argb.dropAlpha(TRANSPARENT_WHITE_VALUE));
+      expect(Argb.dropAlpha(HALF_ALPHA_RED_VALUE)).assertEqual(CHANNEL_MAX * GREEN_SPAN);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_10500
+     * @tc.name      testResColorAlphaPercent0105
+     * @tc.desc      Check three small alpha bytes are converted to percentages with truncation and compare
+     *               every result with the division oracle
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorAlphaPercent0105', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const tiny: number = Argb.pack(1, 0, 0, 0);
+      const fifth: number = Argb.pack(51, 0, 0, 0);
+      const most: number = Argb.pack(204, 0, 0, 0);
+      logCase('testResColorAlphaPercent0105', `tiny=${Argb.alphaPercent(tiny)} fifth=${Argb.alphaPercent(fifth)} ` +
+        `most=${Argb.alphaPercent(most)}`);
+      expect(Argb.alphaPercent(tiny)).assertEqual(0);
+      expect(Argb.alphaPercent(fifth)).assertEqual(20);
+      expect(Argb.alphaPercent(most)).assertEqual(80);
+      expect(Argb.alphaPercent(fifth)).assertEqual(
+        Math.floor(oracleAlphaOf(fifth) * PERCENT_SCALE / CHANNEL_MAX));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_10600
+     * @tc.name      testResColorHexDigitTable0106
+     * @tc.desc      Inspect the shared hex digit table and check the digits the renderer and the oracle both
+     *               rely on sit at the documented positions
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorHexDigitTable0106', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      logCase('testResColorHexDigitTable0106', `length=${HEX_DIGITS.length} tenth=${HEX_DIGITS.charAt(10)} ` +
+        `last=${HEX_DIGITS.charAt(15)}`);
+      expect(HEX_DIGITS.length).assertEqual(16);
+      expect(HEX_DIGITS.charAt(0)).assertEqual('0');
+      expect(HEX_DIGITS.charAt(10)).assertEqual('A');
+      expect(HEX_DIGITS.charAt(15)).assertEqual('F');
+      expect(oracleHexText(BASE_COLOR_VALUE, 8)).assertEqual(Argb.toHex8(BASE_COLOR_VALUE));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_10700
+     * @tc.name      testResColorOracleAgreementSweep0107
+     * @tc.desc      Round trip five boundary colors through the oracle renderer and back through the parser
+     *               and check every value survives both directions
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorOracleAgreementSweep0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const boundaries: number[] = [TRANSPARENT_VALUE, DARK_COLOR_VALUE, BASE_COLOR_VALUE, RED_EXTREME_VALUE,
+        HALF_ALPHA_RED_VALUE];
+      let oracleHits: number = 0;
+      let parseHits: number = 0;
+      for (const value of boundaries) {
+        if (oracleHex(oracleHexText(value, 8)) === value) {
+          oracleHits++;
+        }
+        if (Argb.parse(oracleHexText(value, 8)) === value) {
+          parseHits++;
+        }
+      }
+      logCase('testResColorOracleAgreementSweep0107', `oracleHits=${oracleHits} parseHits=${parseHits}`);
+      expect(oracleHits).assertEqual(boundaries.length);
+      expect(parseHits).assertEqual(boundaries.length);
+      expect(boundaries.length).assertEqual(5);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_10800
+     * @tc.name      testResColorSingleChannelSweep0108
+     * @tc.desc      Count how many saturated channels each single channel extreme carries and check every
+     *               extreme is one hot with two dark channels
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorSingleChannelSweep0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const extremes: number[] = [RED_EXTREME_VALUE, GREEN_EXTREME_VALUE, BLUE_EXTREME_VALUE];
+      let hotCount: number = 0;
+      let darkCount: number = 0;
+      for (const value of extremes) {
+        for (const channel of [Argb.red(value), Argb.green(value), Argb.blue(value)]) {
+          if (channel === CHANNEL_MAX) {
+            hotCount++;
+          }
+          if (channel === 0) {
+            darkCount++;
+          }
+        }
+      }
+      logCase('testResColorSingleChannelSweep0108', `hotCount=${hotCount} darkCount=${darkCount}`);
+      expect(hotCount).assertEqual(extremes.length);
+      expect(darkCount).assertEqual(extremes.length * 2);
+      expect(hotCount + darkCount).assertEqual(9);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_10900
+     * @tc.name      testResColorDistanceSymmetry0109
+     * @tc.desc      Measure two channel distances in both directions and check the metric is symmetric for
+     *               opposite extremes and for the two resource literals
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorDistanceSymmetry0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const forward: number = Argb.rgbDistance(BLUE_EXTREME_VALUE, RED_EXTREME_VALUE);
+      const backward: number = Argb.rgbDistance(RED_EXTREME_VALUE, BLUE_EXTREME_VALUE);
+      logCase('testResColorDistanceSymmetry0109', `forward=${forward} backward=${backward}`);
+      expect(forward).assertEqual(backward);
+      expect(forward).assertEqual(CHANNEL_MAX * 2);
+      expect(Argb.rgbDistance(BASE_COLOR_VALUE, DARK_COLOR_VALUE))
+        .assertEqual(Argb.rgbDistance(DARK_COLOR_VALUE, BASE_COLOR_VALUE));
+      expect(Argb.rgbDistance(HALF_ALPHA_RED_VALUE, RED_EXTREME_VALUE)).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_11000
+     * @tc.name      testResColorBlendWeightMonotone0110
+     * @tc.desc      Blend the dark color into the light color with two rising weights and check the luminance
+     *               grows monotonically between the two extremes
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorBlendWeightMonotone0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const quarter: number = Argb.blend(DARK_COLOR_VALUE, BASE_COLOR_VALUE, 25);
+      const threeQuarters: number = Argb.blend(DARK_COLOR_VALUE, BASE_COLOR_VALUE, 75);
+      const quarterLuma: number = Argb.weightedLuma(quarter);
+      const threeQuarterLuma: number = Argb.weightedLuma(threeQuarters);
+      logCase('testResColorBlendWeightMonotone0110', `quarterLuma=${quarterLuma} ` +
+        `threeQuarterLuma=${threeQuarterLuma}`);
+      expect(quarterLuma).assertEqual(63);
+      expect(threeQuarterLuma).assertEqual(191);
+      expect(quarterLuma < threeQuarterLuma).assertTrue();
+      expect(quarterLuma > Argb.weightedLuma(DARK_COLOR_VALUE)).assertTrue();
+      expect(threeQuarterLuma < Argb.weightedLuma(BASE_COLOR_VALUE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_11100
+     * @tc.name      testResColorLumaMonotone0111
+     * @tc.desc      Order the luminances of the single channel extremes against black and white and check the
+     *               full ladder is strictly increasing
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorLumaMonotone0111', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const ladder: number[] = [DARK_COLOR_VALUE, BLUE_EXTREME_VALUE, RED_EXTREME_VALUE, GREEN_EXTREME_VALUE,
+        BASE_COLOR_VALUE];
+      let rising: number = 0;
+      for (let position = 1; position < ladder.length; position++) {
+        if (Argb.weightedLuma(ladder[position]) > Argb.weightedLuma(ladder[position - 1])) {
+          rising++;
+        }
+      }
+      logCase('testResColorLumaMonotone0111', `rising=${rising} ladderLength=${ladder.length}`);
+      expect(rising).assertEqual(ladder.length - 1);
+      expect(Argb.weightedLuma(ladder[0])).assertEqual(0);
+      expect(Argb.weightedLuma(ladder[ladder.length - 1])).assertEqual(CHANNEL_MAX);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_11200
+     * @tc.name      testResColorAlphaIndependence0112
+     * @tc.desc      Pack the same white payload behind four different alpha bytes and check the rgb payload
+     *               never moves while the alpha byte spans the whole scale
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorAlphaIndependence0112', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const alphas: number[] = [0, 85, 170, 255];
+      const alphasSeen: number[] = [];
+      const payloads: number[] = [];
+      for (const alpha of alphas) {
+        const value: number = Argb.pack(alpha, CHANNEL_MAX, CHANNEL_MAX, CHANNEL_MAX);
+        alphasSeen.push(Argb.alpha(value));
+        payloads.push(Argb.dropAlpha(value));
+      }
+      logCase('testResColorAlphaIndependence0112', `alphas=${alphasSeen.join(',')} ` +
+        `payloads=${payloads.join(',')}`);
+      expect(countDistinct(alphasSeen)).assertEqual(4);
+      expect(countDistinct(payloads)).assertEqual(1);
+      expect(payloads[0]).assertEqual(RGB_SPAN - 1);
+      expect(payloads[0]).assertEqual(Argb.dropAlpha(BASE_COLOR_VALUE));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_11300
+     * @tc.name      testResColorPackRoundtrip0113
+     * @tc.desc      Unpack five boundary colors into their four bytes and pack them back and check every
+     *               value is reproduced bit for bit
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorPackRoundtrip0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const boundaries: number[] = [TRANSPARENT_VALUE, DARK_COLOR_VALUE, BASE_COLOR_VALUE,
+        TRANSPARENT_WHITE_VALUE, HALF_ALPHA_RED_VALUE];
+      let reproduced: number = 0;
+      for (const value of boundaries) {
+        const channels: number[] = Argb.channelSet(value);
+        if (Argb.pack(channels[0], channels[1], channels[2], channels[3]) === value) {
+          reproduced++;
+        }
+      }
+      logCase('testResColorPackRoundtrip0113', `reproduced=${reproduced} total=${boundaries.length}`);
+      expect(reproduced).assertEqual(boundaries.length);
+      expect(reproduced).assertEqual(5);
+      expect(Argb.channelSet(HALF_ALPHA_RED_VALUE).join(',')).assertEqual('128,255,0,0');
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_11400
+     * @tc.name      testResColorRgbRoundtrip0114
+     * @tc.desc      Drop the alpha of five boundary colors, render them as six digit text and check the
+     *               collapsed texts and the parsed payloads
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResColorRgbRoundtrip0114', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const boundaries: number[] = [TRANSPARENT_VALUE, DARK_COLOR_VALUE, BASE_COLOR_VALUE, HALF_ALPHA_RED_VALUE,
+        TRANSPARENT_WHITE_VALUE];
+      const texts: string[] = [];
+      for (const value of boundaries) {
+        texts.push(Argb.toHex6(value));
+      }
+      const distinctTexts: number = new Set<string>(texts).size;
+      logCase('testResColorRgbRoundtrip0114', `texts=${texts.join(',')} distinct=${distinctTexts}`);
+      expect(texts.length).assertEqual(5);
+      expect(texts[0]).assertEqual(texts[1]);
+      expect(texts[2]).assertEqual(BASE_COLOR_HEX);
+      expect(Argb.parse(texts[3]) % RGB_SPAN).assertEqual(CHANNEL_MAX * GREEN_SPAN);
+      expect(Argb.parse(texts[4]) % RGB_SPAN).assertEqual(RGB_SPAN - 1);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESCOLOR_11500
+     * @tc.name      testResColorFinalCoherence0115
+     * @tc.desc      Close the matrix by reading the color by name and by id, comparing both qualifier
+     *               branches with their json literals and checking the text rendering stays canonical
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResColorFinalCoherence0115', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const byName: number = lightManager().getColorByNameSync(COLOR_NAME);
+      const byId: number = lightManager().getColorSync(numericColorId());
+      const dark: number = darkManager().getColorByNameSync(COLOR_NAME);
+      logCase('testResColorFinalCoherence0115', `byName=${byName} byId=${byId} dark=${dark} ` +
+        `distinct=${countDistinct([byName, byId, dark])}`);
+      expect(byId).assertEqual(byName);
+      expect(byName).assertEqual(oracleHex(BASE_COLOR_HEX));
+      expect(dark).assertEqual(oracleHex(DARK_COLOR_HEX));
+      expect(countDistinct([byName, byId, dark])).assertEqual(2);
+      expect(Argb.toHex6(byName) + '|' + Argb.toHex6(dark))
+        .assertEqual(BASE_COLOR_HEX + '|' + DARK_COLOR_HEX);
+    });
+  });
+}
