@@ -840,3 +840,1950 @@ export default function ResourceIdTraceLogic(): void {
 
     /**
      * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0011
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0011
+     * @tc.desc Id routing; read phase; value variant 2; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0011',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0011';
+      InterfaceTestLog.begin(name, 'Id; phase=read; variant=2');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8045, type: 10003, params: ['synthetic-2'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "中文";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.readError = 'read-error-2';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "read-error-2", message);
+      expect(message).assertEqual("read-error-2");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-2';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-2", retry);
+      expect(retry).assertEqual("retry-2");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0012
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0012
+     * @tc.desc Id routing; read phase; value variant 3; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0012',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0012';
+      InterfaceTestLog.begin(name, 'Id; phase=read; variant=3');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8063, type: 10003, params: ['synthetic-3'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "A\nB";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.readError = 'read-error-3';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "read-error-3", message);
+      expect(message).assertEqual("read-error-3");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-3';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-3", retry);
+      expect(retry).assertEqual("retry-3");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0013
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0013
+     * @tc.desc Id routing; read phase; value variant 4; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0013',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0013';
+      InterfaceTestLog.begin(name, 'Id; phase=read; variant=4');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8081, type: 10003, params: ['synthetic-4'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "​";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.readError = 'read-error-4';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "read-error-4", message);
+      expect(message).assertEqual("read-error-4");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-4';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-4", retry);
+      expect(retry).assertEqual("retry-4");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0014
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0014
+     * @tc.desc Id routing; read phase; value variant 5; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0014',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0014';
+      InterfaceTestLog.begin(name, 'Id; phase=read; variant=5');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8099, type: 10003, params: ['synthetic-5'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "A\u0000B";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.readError = 'read-error-5';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "read-error-5", message);
+      expect(message).assertEqual("read-error-5");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-5';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-5", retry);
+      expect(retry).assertEqual("retry-5");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0015
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0015
+     * @tc.desc Id routing; read phase; value variant 6; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0015',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0015';
+      InterfaceTestLog.begin(name, 'Id; phase=read; variant=6');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8117, type: 10003, params: ['synthetic-6'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "123.45";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.readError = 'read-error-6';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "read-error-6", message);
+      expect(message).assertEqual("read-error-6");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-6';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-6", retry);
+      expect(retry).assertEqual("retry-6");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0016
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0016
+     * @tc.desc Id routing; read phase; value variant 7; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0016',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0016';
+      InterfaceTestLog.begin(name, 'Id; phase=read; variant=7');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8135, type: 10003, params: ['synthetic-7'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "value-end";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.readError = 'read-error-7';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "read-error-7", message);
+      expect(message).assertEqual("read-error-7");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-7';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-7", retry);
+      expect(retry).assertEqual("retry-7");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0017
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0017
+     * @tc.desc Id routing; start phase; value variant 0; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0017',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0017';
+      InterfaceTestLog.begin(name, 'Id; phase=start; variant=0');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8017, type: 10003, params: ['synthetic-0'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "test";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.startError = 'start-error-0';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "start-error-0", message);
+      expect(message).assertEqual("start-error-0");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        0, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(0);
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-0';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-0", retry);
+      expect(retry).assertEqual("retry-0");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0018
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0018
+     * @tc.desc Id routing; start phase; value variant 1; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0018',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0018';
+      InterfaceTestLog.begin(name, 'Id; phase=start; variant=1');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8035, type: 10003, params: ['synthetic-1'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "text\\path";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.startError = 'start-error-1';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "start-error-1", message);
+      expect(message).assertEqual("start-error-1");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        0, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(0);
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-1';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-1", retry);
+      expect(retry).assertEqual("retry-1");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0019
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0019
+     * @tc.desc Id routing; start phase; value variant 2; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0019',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0019';
+      InterfaceTestLog.begin(name, 'Id; phase=start; variant=2');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8053, type: 10003, params: ['synthetic-2'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "中文";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.startError = 'start-error-2';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "start-error-2", message);
+      expect(message).assertEqual("start-error-2");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        0, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(0);
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-2';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-2", retry);
+      expect(retry).assertEqual("retry-2");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0020
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0020
+     * @tc.desc Id routing; start phase; value variant 3; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0020',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0020';
+      InterfaceTestLog.begin(name, 'Id; phase=start; variant=3');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8071, type: 10003, params: ['synthetic-3'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "A\nB";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.startError = 'start-error-3';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "start-error-3", message);
+      expect(message).assertEqual("start-error-3");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        0, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(0);
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-3';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-3", retry);
+      expect(retry).assertEqual("retry-3");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0021
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0021
+     * @tc.desc Id routing; start phase; value variant 4; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0021',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0021';
+      InterfaceTestLog.begin(name, 'Id; phase=start; variant=4');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8089, type: 10003, params: ['synthetic-4'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "​";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.startError = 'start-error-4';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "start-error-4", message);
+      expect(message).assertEqual("start-error-4");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        0, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(0);
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-4';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-4", retry);
+      expect(retry).assertEqual("retry-4");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0022
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0022
+     * @tc.desc Id routing; start phase; value variant 5; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0022',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0022';
+      InterfaceTestLog.begin(name, 'Id; phase=start; variant=5');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8107, type: 10003, params: ['synthetic-5'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "A\u0000B";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.startError = 'start-error-5';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "start-error-5", message);
+      expect(message).assertEqual("start-error-5");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        0, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(0);
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-5';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-5", retry);
+      expect(retry).assertEqual("retry-5");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0023
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0023
+     * @tc.desc Id routing; start phase; value variant 6; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0023',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0023';
+      InterfaceTestLog.begin(name, 'Id; phase=start; variant=6');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8125, type: 10003, params: ['synthetic-6'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "123.45";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.startError = 'start-error-6';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "start-error-6", message);
+      expect(message).assertEqual("start-error-6");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        0, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(0);
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-6';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-6", retry);
+      expect(retry).assertEqual("retry-6");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0024
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0024
+     * @tc.desc Id routing; start phase; value variant 7; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0024',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0024';
+      InterfaceTestLog.begin(name, 'Id; phase=start; variant=7');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8143, type: 10003, params: ['synthetic-7'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "value-end";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.startError = 'start-error-7';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "start-error-7", message);
+      expect(message).assertEqual("start-error-7");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        0, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(0);
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-7';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-7", retry);
+      expect(retry).assertEqual("retry-7");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|start:getStringSyncAfter:2|r" +
+        "ead|finish:getStringSyncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0025
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0025
+     * @tc.desc Id routing; finish phase; value variant 0; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0025',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0025';
+      InterfaceTestLog.begin(name, 'Id; phase=finish; variant=0');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8025, type: 10003, params: ['synthetic-0'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "test";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.finishError = 'finish-error-0';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "finish-error-0", message);
+      expect(message).assertEqual("finish-error-0");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-0';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-0", retry);
+      expect(retry).assertEqual("retry-0");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0026
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0026
+     * @tc.desc Id routing; finish phase; value variant 1; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0026',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0026';
+      InterfaceTestLog.begin(name, 'Id; phase=finish; variant=1');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8043, type: 10003, params: ['synthetic-1'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "text\\path";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.finishError = 'finish-error-1';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "finish-error-1", message);
+      expect(message).assertEqual("finish-error-1");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-1';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-1", retry);
+      expect(retry).assertEqual("retry-1");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0027
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0027
+     * @tc.desc Id routing; finish phase; value variant 2; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0027',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0027';
+      InterfaceTestLog.begin(name, 'Id; phase=finish; variant=2');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8061, type: 10003, params: ['synthetic-2'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "中文";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.finishError = 'finish-error-2';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "finish-error-2", message);
+      expect(message).assertEqual("finish-error-2");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-2';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-2", retry);
+      expect(retry).assertEqual("retry-2");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0028
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0028
+     * @tc.desc Id routing; finish phase; value variant 3; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0028',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0028';
+      InterfaceTestLog.begin(name, 'Id; phase=finish; variant=3');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8079, type: 10003, params: ['synthetic-3'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "A\nB";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.finishError = 'finish-error-3';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "finish-error-3", message);
+      expect(message).assertEqual("finish-error-3");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-3';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-3", retry);
+      expect(retry).assertEqual("retry-3");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0029
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0029
+     * @tc.desc Id routing; finish phase; value variant 4; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0029',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0029';
+      InterfaceTestLog.begin(name, 'Id; phase=finish; variant=4');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8097, type: 10003, params: ['synthetic-4'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "​";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.finishError = 'finish-error-4';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "finish-error-4", message);
+      expect(message).assertEqual("finish-error-4");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-4';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-4", retry);
+      expect(retry).assertEqual("retry-4");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0030
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0030
+     * @tc.desc Id routing; finish phase; value variant 5; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0030',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0030';
+      InterfaceTestLog.begin(name, 'Id; phase=finish; variant=5');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8115, type: 10003, params: ['synthetic-5'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "A\u0000B";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.finishError = 'finish-error-5';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "finish-error-5", message);
+      expect(message).assertEqual("finish-error-5");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-5';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-5", retry);
+      expect(retry).assertEqual("retry-5");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0031
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0031
+     * @tc.desc Id routing; finish phase; value variant 6; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0031',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0031';
+      InterfaceTestLog.begin(name, 'Id; phase=finish; variant=6');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8133, type: 10003, params: ['synthetic-6'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "123.45";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.finishError = 'finish-error-6';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "finish-error-6", message);
+      expect(message).assertEqual("finish-error-6");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-6';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-6", retry);
+      expect(retry).assertEqual("retry-6");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0032
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0032
+     * @tc.desc Id routing; finish phase; value variant 7; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0032',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0032';
+      InterfaceTestLog.begin(name, 'Id; phase=finish; variant=7');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8151, type: 10003, params: ['synthetic-7'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "value-end";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.finishError = 'finish-error-7';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "finish-error-7", message);
+      expect(message).assertEqual("finish-error-7");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-7';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-7", retry);
+      expect(retry).assertEqual("retry-7");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0033
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0033
+     * @tc.desc Id routing; read-finish phase; value variant 0; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0033',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0033';
+      InterfaceTestLog.begin(name, 'Id; phase=read-finish; variant=0');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8033, type: 10003, params: ['synthetic-0'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "test";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.readError = 'read-error-0';
+      boundary.finishError = 'finish-error-0';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "finish-error-0", message);
+      expect(message).assertEqual("finish-error-0");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-0';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-0", retry);
+      expect(retry).assertEqual("retry-0");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0034
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0034
+     * @tc.desc Id routing; read-finish phase; value variant 1; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0034',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0034';
+      InterfaceTestLog.begin(name, 'Id; phase=read-finish; variant=1');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8051, type: 10003, params: ['synthetic-1'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "text\\path";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.readError = 'read-error-1';
+      boundary.finishError = 'finish-error-1';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "finish-error-1", message);
+      expect(message).assertEqual("finish-error-1");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
+      expect(result).assertEqual("<not returned>");
+      InterfaceTestLog.value(name, "Start read finish operation order",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2");
+      InterfaceTestLog.number(name, "Read exactly once after successful trace start",
+        1, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(1);
+      InterfaceTestLog.flag(name, 'Exact input Id identity',
+        boundary.requests[0] === originalId);
+      expect(boundary.requests[0] === originalId).assertTrue();
+      InterfaceTestLog.number(name, "Resource id not mutated",
+        originalId, resource.id);
+      expect(resource.id).assertEqual(originalId);
+      InterfaceTestLog.value(name, "Resource parameters not mutated",
+        originalParameters, JSON.stringify(resource.params));
+      expect(JSON.stringify(resource.params)).assertEqual(originalParameters);
+      InterfaceTestLog.value(name, "Complete Resource not mutated",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      boundary.startError = '';
+      boundary.readError = '';
+      boundary.finishError = '';
+      boundary.value = 'retry-1';
+      const retry: string = readStringById(boundary, resource, boundary);
+      InterfaceTestLog.value(name, "Retry uses new resource value",
+        "retry-1", retry);
+      expect(retry).assertEqual("retry-1");
+      InterfaceTestLog.number(name, "Retry adds one read",
+        2, boundary.requests.length);
+      expect(boundary.requests.length).assertEqual(2);
+      InterfaceTestLog.value(name, "Retry has balanced trace",
+        "start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2", boundary.events.join("|"));
+      expect(boundary.events.join("|")).assertEqual("start:getStringSyncAfter:2|read|finish:getStringSyncAft" +
+        "er:2|start:getStringSyncAfter:2|read|finish:getStringSy" +
+        "ncAfter:2");
+      InterfaceTestLog.flag(name, 'Retry input Id identity',
+        boundary.requests[1] === originalId);
+      expect(boundary.requests[1] === originalId).assertTrue();
+      InterfaceTestLog.value(name, "Complete Resource unchanged after retry",
+        originalResource, JSON.stringify(resource));
+      expect(JSON.stringify(resource)).assertEqual(originalResource);
+      InterfaceTestLog.end(name);
+    });
+
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0035
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0035
+     * @tc.desc Id routing; read-finish phase; value variant 2; error and retry isolation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0035',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_RESOURCE_ID_0035';
+      InterfaceTestLog.begin(name, 'Id; phase=read-finish; variant=2');
+      const boundary: ResourceBoundary = new ResourceBoundary();
+      const resource: Resource = {
+        id: 8069, type: 10003, params: ['synthetic-2'],
+        bundleName: 'synthetic.bundle', moduleName: 'entry'
+      };
+      boundary.value = "中文";
+      const originalId: number = resource.id;
+      const originalParameters: string = JSON.stringify(resource.params);
+      const originalResource: string = JSON.stringify(resource);
+      boundary.readError = 'read-error-2';
+      boundary.finishError = 'finish-error-2';
+      let result: string = '<not returned>';
+      let message: string = '';
+      try {
+        result = readStringById(boundary, resource, boundary);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      InterfaceTestLog.value(name, "Exact boundary error",
+        "finish-error-2", message);
+      expect(message).assertEqual("finish-error-2");
+      InterfaceTestLog.value(name, "Return only after trace completion",
+        "<not returned>", result);
