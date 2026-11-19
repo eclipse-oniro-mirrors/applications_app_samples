@@ -3,8 +3,10 @@
 /package-lock.json
 /.idea
 /.hvigor
+/.qoder
 **/.preview
 **/build
 **/package-lock.json
 **/node_modules
-/oh_modules
+**/oh_modules
+/common/BuildProfile.ets

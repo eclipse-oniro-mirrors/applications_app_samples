@@ -15,13 +15,28 @@
 
 {
   "app": {
-    "signingConfigs": [],
-    "compileSdkVersion": 9,
-    "compatibleSdkVersion": 9,
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:/Users/ISSUSER/.ohos/config/openharmony/default_Weather_UXyDWS-VwFZRHobnQHJgiUmY76XXBXuaJLMrb9fxJCc=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "000000191387F624BA48AB7162D57B28B349B87FC8F4D924041886D9D16655FFD1A0A6DF9A52AC3432",
+          "profile": "C:/Users/ISSUSER/.ohos/config/openharmony/default_Weather_UXyDWS-VwFZRHobnQHJgiUmY76XXBXuaJLMrb9fxJCc=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:/Users/ISSUSER/.ohos/config/openharmony/default_Weather_UXyDWS-VwFZRHobnQHJgiUmY76XXBXuaJLMrb9fxJCc=.p12",
+          "storePassword": "00000019A12DEA53CDA56EB12FB50570BA80E29E68CC15AA9408735B0B6F93A391EEFCC322F22033ED"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",
         "signingConfig": "default",
+        "targetSdkVersion": '26.0.0',
+        "compileSdkVersion": "26.0.0",
+        "compatibleSdkVersion": "26.0.0",
+        "runtimeOS": "OpenHarmony"
       }
     ]
   },
