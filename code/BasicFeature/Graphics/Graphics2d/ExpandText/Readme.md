@@ -1,74 +1,77 @@
-# 2D引擎接口示例
+# 2D Engine API Sample
 
-### 介绍
+### Introduction
 
-本实例主要测试了当前2D引擎提供的接口功能，主要调用了[@ohos.graphics.drawing](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkgraphics2d/js-apis-graphics-drawing.md)和[@kit.ArkGraphics2D](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkgraphics2d/js-apis-effectKit.md)中的接口，测试了每一个接口的功能。2D引擎渲染的画面会被显示在[Text](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-basic-components-text.md)这一控件中。点击“...展开”会有评论区展开效果，点击“...收起”会展示收起效果。
+This sample tests the APIs provided by the 2D graphics engine, covering [@ohos.graphics.drawing](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-arkgraphics2d/js-apis-graphics-drawing.md) and [@kit.ArkGraphics2D](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-arkgraphics2d/js-apis-effectKit.md). Each API is exercised, and the rendered image is displayed in the [Text](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-arkui/arkui-ts/ts-basic-components-text.md) component. Tapping "...expand" shows the comment area in expanded state, and tapping "...collapse" shows it in collapsed state.
 
-### 使用说明
+### Usage
 
-1. 启动应用，点击“...展开”显示文本展开效果，点击“...收起”显示文本收起效果。
+1. Start the application and tap "...expand" to expand the text, or tap "...collapse" to collapse it.
 
-### 效果预览
+### Preview
 
-| 收起效果                         | 展开效果                          |
+| Collapsed                         | Expanded                          |
 |-------------------------------------|------------------------------------------|
 | ![](./screenshots/collapse.png) | ![](./screenshots/expand.png) |
 
-### 工程目录
+### Project Directory
 
 ```
 entry/src/main/
 ├── ets
-│   ├── entryability
-│   ├── entrybackupability
-│   └── pages
-│       └── TextCollapseEtsDemo.ets
+│   ├── entryability
+│   ├── entrybackupability
+│   └── pages
+│       └── TextCollapseEtsDemo.ets
 └── resources
     ├── base
-    │   ├── element
-    │   ├── media
-    │   └── profile
+    │   ├── element
+    │   ├── media
+    │   └── profile
     ├── en_US
-    │   └── element
+    │   └── element
     ├── rawfile
-    │   ├── FZBWKSJW.TTF
-    │   └── STXINGKA.ttf
+    │   ├── FZBWKSJW.TTF
+    │   └── STXINGKA.ttf
     └── zh_CN
         └── element
 ```
 
-### 具体实现
-* getFoldIndex主要逻辑（根据给定的试图模型列表来设置文本的样式和内容）
-    * 定义一个文本样式（myTextStyle）和一个段落样式（myParagraphStyle），并加载一个自定义字体；
-    * 创建一个段落构造器（ParagraphGraphBuilder），并根据视图模型列表中的每个元素的类型和内容来添加文本或占位符；
-    * 构建段落，并计算段落的布局，如果段落的行数大于2，会计算出在给定宽度下的折叠点；
-    * 创建一个画布，并将段落绘制到画布上，并返回折叠点的索引和行数；
-* getResultFromNdk主要逻辑（由原始列表originViewModelList转换成折叠列表collapseViewModelList）
-    * getFoldIndex获取折叠索引和行数；
-    * 如果行数小于等于2，不需要处理直接返回；
-    * 如果行数大于2，进行裁剪，裁剪过程会根据折叠索引来决定哪些原始列表数据应该被保留，哪些应该被裁剪；
-    * 裁剪规则：如果原始列表的类型为0，直接将其内容长度累加到当前索引上；如果是1，将索引加1；
+### Implementation
 
-### 相关权限
+* `getFoldIndex` (sets text styles and content according to the given view model list):
+    * Defines a text style (`myTextStyle`) and a paragraph style (`myParagraphStyle`), and loads a custom font.
+    * Creates a paragraph builder (`ParagraphGraphBuilder`) and adds text or placeholders according to the type and content of each element in the view model list.
+    * Builds the paragraph and lays it out. If the paragraph has more than two lines, the folding point is calculated for the given width.
+    * Creates a canvas, draws the paragraph on it, and returns the folding index and the line count.
+* `getResultFromNdk` (converts `originViewModelList` into `collapseViewModelList`):
+    * Obtains the folding index and line count through `getFoldIndex`.
+    * Returns directly when the line count is less than or equal to 2.
+    * Trims the list when the line count is greater than 2, keeping or dropping items according to the folding index.
+    * Trimming rule: if the item type is 0, its content length is accumulated to the current index; if the item type is 1, the index is increased by 1.
 
-暂无
+### Permissions
 
-### 依赖
+None.
 
-暂无
+### Dependencies
 
-### 约束与限制
+None.
 
-1. 本示例仅支持标准系统上运行，支持设备：RK3568;
-2. 本示例仅支持API12版本SDK，SDK版本号：(API Version 12 5.0.0.31)，镜像版本号：OpenHarmony 5.0.0.31；
-3. 本示例需要使用DevEco Studio NEXT Developer Preview1(Build Version: 4.1.3.500)才可编译运行；
+### Constraints and Limitations
 
-### 下载
+1. This sample can run only on standard-system devices and has been verified on an RK3568 board.
+2. This sample supports API 26 SDK (26.0.0). The `compileSdkVersion`, `targetSdkVersion`, and `compatibleSdkVersion` are all 26.0.0.
+3. DevEco Studio 26.0.0 Release or later is required to compile and run this sample.
+
+### Download
+
+To download this project separately, run the following commands:
 
 ```
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Graphics/Graphics2d/ExpandText/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

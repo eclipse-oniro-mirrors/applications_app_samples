@@ -17,8 +17,7 @@
   "module": {
     "name": "entry_test",
     "type": "feature",
-    "srcEntrance": "./ets/Application/TestAbilityStage.ts",
-    "description": "$string:entry_test_desc",
+    "description": "$string:module_test_desc",
     "mainElement": "TestAbility",
     "deviceTypes": [
       "default",
@@ -27,7 +26,6 @@
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:test_pages",
-    "uiSyntax": "ets",
     "abilities": [
       {
         "name": "TestAbility",
@@ -35,9 +33,9 @@
         "description": "$string:TestAbility_desc",
         "icon": "$media:icon",
         "label": "$string:TestAbility_label",
-        "visible": true,
+        "exported": true,
         "startWindowIcon": "$media:icon",
-        "startWindowBackground": "$color:white",
+        "startWindowBackground": "$color:start_window_background",
         "skills": [
           {
             "actions": [

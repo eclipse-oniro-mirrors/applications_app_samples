@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,48 +13,56 @@
  * limitations under the License.
  */
 
-import UIAbility from '@ohos.app.ability.UIAbility';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
-import window from '@ohos.window';
-import { BusinessError } from '@ohos.base';
-import Want from '@ohos.app.ability.Want';
-import AbilityConstant from '@ohos.app.ability.AbilityConstant';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_ExpandText]';
+const ON_DESTROY_ERROR: number = -2;
+/**
+ * 从前台回调返回后再做用例注册。hypium 每注册一条用例都会同步写日志，
+ * 大量套件注册会占用主线程，AAFWK 可能因此判定前台超时并回收测试进程。
+ */
+const REGISTER_DELAY_MS: number = 1000;
 
 export default class TestAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
-    console.log('TestAbility onCreate');
-    let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-    console.info('start run testcase!!!');
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+  private abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
+  private registerScheduled: boolean = false;
+
+  constructor() {
+    super();
+    this.abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
   }
 
-  onDestroy() {
-    console.log('TestAbility onDestroy');
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onCreate');
   }
 
-  onWindowStageCreate(windowStage: window.WindowStage) {
-    console.log('TestAbility onWindowStageCreate');
-    windowStage.loadContent('testability/pages/Index', (err: BusinessError, data: void) => {
-      if (err.code) {
-        console.error('Failed to load the content. Cause:' + JSON.stringify(err));
-        return;
-      }
-      console.info('Succeeded in loading the content. Data: ' + JSON.stringify(data));
+  onForeground(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onForeground');
+    if (this.registerScheduled) {
+      return;
+    }
+    this.registerScheduled = true;
+    setTimeout(() => {
+      const abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs =
+        abilityDelegatorRegistry.getArguments();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'start run testcase!!!');
+      Hypium.hypiumTest(this.abilityDelegator, abilityDelegatorArguments, testsuite);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility register end');
+    }, REGISTER_DELAY_MS);
+  }
+
+  onDestroy(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onDestroy');
+    this.abilityDelegator.finishTest('TestAbility onDestroy unexpectedly!', ON_DESTROY_ERROR, () => {
     });
   }
 
-  onWindowStageDestroy() {
-    console.log('TestAbility onWindowStageDestroy');
+  onBackground(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onBackground');
   }
-
-  onForeground() {
-    console.log('TestAbility onForeground');
-  }
-
-  onBackground() {
-    console.log('TestAbility onBackground');
-  }
-};
+}

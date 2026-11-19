@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,67 +13,58 @@
  * limitations under the License.
  */
 
-import TestRunner from '@ohos.application.testRunner';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { abilityDelegatorRegistry, TestRunner } from '@kit.TestKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
-var abilityDelegator = undefined;
-var abilityDelegatorArguments = undefined;
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_ExpandText]';
+const TEST_ABILITY_NAME: string = 'TestAbility';
+/** 开发者模式未解锁屏幕时 aa start 必然失败，用例无从跑起，直接结束测试并带上错误码。 */
+const UNLOCK_ERROR: number = -3;
 
-function translateParamsToString(parameters) {
-    const keySet = new Set([
-        '-s class', '-s notClass', '-s suite', '-s it',
-        '-s level', '-s testType', '-s size', '-s timeout',
-        '-s dryRun'
-    ]);
-    let targetParams = '';
-    for (const key in parameters) {
-        if (keySet.has(key)) {
-            targetParams = `${targetParams} ${key} ${parameters[key]}`;
-        }
-    }
-    return targetParams.trim();
+function onAbilityCreateCallback(): void {
+  hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility created');
 }
 
-async function onAbilityCreateCallback() {
-    console.log("onAbilityCreateCallback");
+function addAbilityMonitorCallback(err: BusinessError): void {
+  hilog.info(DOMAIN, TAG, 'addAbilityMonitorCallback : %{public}s', JSON.stringify(err) ?? '');
 }
 
-async function addAbilityMonitorCallback(err: any) {
-    console.info("addAbilityMonitorCallback : " + JSON.stringify(err));
-}
-
+/** 测试框架的 unittest 参数只负责拉起测试进程，用例注册与执行由 TestAbility 驱动。 */
 export default class OpenHarmonyTestRunner implements TestRunner {
-    constructor() {
-    }
+  onPrepare(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'OpenHarmonyTestRunner onPrepare');
+  }
 
-    onPrepare() {
-        console.info("OpenHarmonyTestRunner OnPrepare ");
+  async onRun(): Promise<void> {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'OpenHarmonyTestRunner onRun');
+    const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator =
+      abilityDelegatorRegistry.getAbilityDelegator();
+    const abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs =
+      abilityDelegatorRegistry.getArguments();
+    const moduleName: string = abilityDelegatorArguments.parameters['-m'] as string;
+    const monitor: abilityDelegatorRegistry.AbilityMonitor = {
+      abilityName: TEST_ABILITY_NAME,
+      moduleName: moduleName,
+      onAbilityCreate: onAbilityCreateCallback
+    };
+    abilityDelegator.addAbilityMonitor(monitor, addAbilityMonitorCallback);
+    const command: string =
+      `aa start -b ${abilityDelegatorArguments.bundleName} -a ${TEST_ABILITY_NAME} -m ${moduleName}`;
+    try {
+      const result = await abilityDelegator.executeShellCommand(command);
+      if (result.stdResult.includes('unlock screen failed in developer mode') ||
+        result.stdResult.includes('10106102')) {
+        hilog.error(DOMAIN, TAG, '%{public}s', `startAbility failed ${result.stdResult}`);
+        abilityDelegator.finishTest('', UNLOCK_ERROR, () => {
+        });
+        return;
+      }
+      hilog.info(DOMAIN, TAG, '%{public}s', `TestAbility started, ${result.stdResult}`);
+    } catch (error) {
+      hilog.error(DOMAIN, TAG, 'startAbility error: %{public}s', JSON.stringify(error) ?? '');
     }
-
-    async onRun() {
-        console.log('OpenHarmonyTestRunner onRun run');
-        abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-        abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-        var testAbilityName = abilityDelegatorArguments.bundleName + '.TestAbility';
-        let lMonitor = {
-            abilityName: testAbilityName,
-            onAbilityCreate: onAbilityCreateCallback,
-        };
-        abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback);
-        var cmd = 'aa start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName;
-        cmd += ' '+translateParamsToString(abilityDelegatorArguments.parameters);
-        var debug = abilityDelegatorArguments.parameters["-D"];
-        if (debug == 'true')
-        {
-            cmd += ' -D';
-        }
-        console.info('cmd : '+cmd);
-        abilityDelegator.executeShellCommand(cmd,
-            (err: any, d: any) => {
-                console.info('executeShellCommand : err : ' + JSON.stringify(err));
-                console.info('executeShellCommand : data : ' + d.stdResult);
-                console.info('executeShellCommand : data : ' + d.exitCode);
-            })
-        console.info('OpenHarmonyTestRunner onRun end');
-    }
-};
+    hilog.info(DOMAIN, TAG, '%{public}s', 'OpenHarmonyTestRunner onRun end');
+  }
+}
