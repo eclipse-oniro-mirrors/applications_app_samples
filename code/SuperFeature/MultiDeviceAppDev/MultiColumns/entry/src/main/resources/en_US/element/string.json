@@ -2,15 +2,303 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "MultiColumns sample module"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "MultiColumns sample"
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "MultiColumns"
+    },
+    {
+      "name": "account",
+      "value": "Accounts"
+    },
+    {
+      "name": "addAccount",
+      "value": "Add account"
+    },
+    {
+      "name": "allAccount",
+      "value": "All accounts"
+    },
+    {
+      "name": "recUser",
+      "value": "To: "
+    },
+    {
+      "name": "nonSense",
+      "value": "xxxx"
+    },
+    {
+      "name": "recvBox",
+      "value": "Inbox"
+    },
+    {
+      "name": "album",
+      "value": "Albums"
+    },
+    {
+      "name": "photo",
+      "value": "Photos"
+    },
+    {
+      "name": "WLAN",
+      "value": "WLAN"
+    },
+    {
+      "name": "bluetooth",
+      "value": "Bluetooth"
+    },
+    {
+      "name": "mobileData",
+      "value": "Mobile data"
+    },
+    {
+      "name": "moreConnections",
+      "value": "More connections"
+    },
+    {
+      "name": "desktopAndWallpaper",
+      "value": "Home screen & wallpaper"
+    },
+    {
+      "name": "displayAndBrightness",
+      "value": "Display & brightness"
+    },
+    {
+      "name": "soundAndVibration",
+      "value": "Sounds & vibration"
+    },
+    {
+      "name": "notice",
+      "value": "Notifications"
+    },
+    {
+      "name": "storage",
+      "value": "Storage"
+    },
+    {
+      "name": "safe",
+      "value": "Security"
+    },
+    {
+      "name": "privacy",
+      "value": "Privacy"
+    },
+    {
+      "name": "userAccounts",
+      "value": "Users & accounts"
+    },
+    {
+      "name": "system",
+      "value": "System"
+    },
+    {
+      "name": "aboutDevice",
+      "value": "About device"
+    },
+    {
+      "name": "settings",
+      "value": "Settings"
+    },
+    {
+      "name": "networkAcceleration",
+      "value": "Network acceleration"
+    },
+    {
+      "name": "moreWLANSettings",
+      "value": "More WLAN settings"
+    },
+    {
+      "name": "wifiName",
+      "value": "xxx-Employee"
+    },
+    {
+      "name": "addNetWork",
+      "value": "Add network"
+    },
+    {
+      "name": "unRead",
+      "value": "Unread"
+    },
+    {
+      "name": "sended",
+      "value": "Sent"
+    },
+    {
+      "name": "allFolders",
+      "value": "Show all folders"
+    },
+    {
+      "name": "textPartOne",
+      "value": "Welcome to your membership space"
+    },
+    {
+      "name": "textPartTwo",
+      "value": "Dear jiaozi, your xxxx membership space has been created..."
+    },
+    {
+      "name": "searchMail",
+      "value": "Search mail"
+    },
+    {
+      "name": "textData",
+      "value": "Want to try xx Mail now?"
+    },
+    {
+      "name": "bodyTextPartOne",
+      "value": "Let's sign in to email together. To add a personal email account: open Email, choose an email provider or tap Other, enter the email address and password, tap Sign in, then follow the prompts. The system connects to the server and checks the server settings automatically."
+    },
+    {
+      "name": "bodyTextPartTwo",
+      "value": "To add an xxxxxx account: xxxxxx is an email exchange system developed by xx for internal enterprise use. If your company email uses an xxxxxx server, you can sign in to your company email on your phone. Open Email > xxxxxx, enter the email address, user name and password, tap Sign in, then follow the prompts. The system connects to the server and checks the server settings automatically."
+    },
+    {
+      "name": "bodyTextPartThree",
+      "value": "After the configuration is complete, the system opens the inbox by default. During sign-in, some email providers require an authorization code. Follow the on-screen prompts to obtain and enter the code. xx Mail can obtain the authorization code and sign in with one tap."
+    },
+    {
+      "name": "mailDesc",
+      "value": "imjiaozi and 3 others"
+    },
+    {
+      "name": "reply",
+      "value": "Reply"
+    },
+    {
+      "name": "replyAll",
+      "value": "Reply all"
+    },
+    {
+      "name": "send",
+      "value": "Forward"
+    },
+    {
+      "name": "delete",
+      "value": "Delete"
+    },
+    {
+      "name": "more",
+      "value": "More"
+    },
+    {
+      "name": "picture",
+      "value": "Photos"
+    },
+    {
+      "name": "video",
+      "value": "Videos"
+    },
+    {
+      "name": "collect",
+      "value": "Favorite"
+    },
+    {
+      "name": "newAlbum",
+      "value": "New album"
+    },
+    {
+      "name": "avatar",
+      "value": "Portraits"
+    },
+    {
+      "name": "address",
+      "value": "Places"
+    },
+    {
+      "name": "category",
+      "value": "Categories"
+    },
+    {
+      "name": "pictureType",
+      "value": "Shooting mode"
+    },
+    {
+      "name": "hidden",
+      "value": "Hidden"
+    },
+    {
+      "name": "placeholderText",
+      "value": "Photos, people, places..."
+    },
+    {
+      "name": "userInfo",
+      "value": "Anqi"
+    },
+    {
+      "name": "aboutUserInfo",
+      "value": "xx account, payments & bills, cloud space, and more"
+    },
+    {
+      "name": "useful",
+      "value": "Saved (can access the Internet)"
+    },
+    {
+      "name": "useless",
+      "value": "Encrypted (no Internet access)"
+    },
+    {
+      "name": "connected",
+      "value": "Connected (good network quality)"
+    },
+    {
+      "name": "wlanUseful",
+      "value": "Available WLAN"
+    },
+    {
+      "name": "wlanConnected",
+      "value": "Connected WLAN"
+    },
+    {
+      "name": "closed",
+      "value": "Off"
+    },
+    {
+      "name": "search",
+      "value": "Search..."
+    },
+    {
+      "name": "caseOne",
+      "value": "A+B+C"
+    },
+    {
+      "name": "caseTwo",
+      "value": "A+C"
+    },
+    {
+      "name": "caseThree",
+      "value": "B+C"
+    },
+    {
+      "name": "mailSenderTitle",
+      "value": "HHHxx UXD"
+    },
+    {
+      "name": "mailSender",
+      "value": "PostMaster"
+    },
+    {
+      "name": "mailTime",
+      "value": "09:42"
+    },
+    {
+      "name": "mailAccount",
+      "value": "jiaozi@xxx.com"
+    },
+    {
+      "name": "mailAccountSecond",
+      "value": "jiaozi@163.com"
+    },
+    {
+      "name": "mailDate",
+      "value": "4/12"
+    },
+    {
+      "name": "unreadBadge",
+      "value": "9"
     }
   ]
 }

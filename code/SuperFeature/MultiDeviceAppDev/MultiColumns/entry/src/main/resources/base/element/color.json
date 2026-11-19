@@ -3,6 +3,70 @@
     {
       "name": "start_window_background",
       "value": "#FFFFFF"
+    },
+    {
+      "name": "white",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "transparent",
+      "value": "#00000000"
+    },
+    {
+      "name": "side_bar_background",
+      "value": "#F1F3F5"
+    },
+    {
+      "name": "main_blue",
+      "value": "#254FF7"
+    },
+    {
+      "name": "add_account_blue",
+      "value": "#0A59F7"
+    },
+    {
+      "name": "switch_blue",
+      "value": "#007DFF"
+    },
+    {
+      "name": "list_selected_background",
+      "value": "#19254FF7"
+    },
+    {
+      "name": "mask_black",
+      "value": "#33000000"
+    },
+    {
+      "name": "font_black",
+      "value": "#000000"
+    },
+    {
+      "name": "font_black_90",
+      "value": "#E5000000"
+    },
+    {
+      "name": "font_grey_60",
+      "value": "#99000000"
+    },
+    {
+      "name": "font_grey_40",
+      "value": "#66000000"
+    },
+    {
+      "name": "font_title",
+      "value": "#18181A"
+    },
+    {
+      "name": "font_deep_grey",
+      "value": "#040404"
+    },
+    {
+      "name": "account_green",
+      "value": "#61CFBE"
+    },
+    {
+      "name": "account_yellow",
+      "value": "#FEC700"
     }
   ]
 }

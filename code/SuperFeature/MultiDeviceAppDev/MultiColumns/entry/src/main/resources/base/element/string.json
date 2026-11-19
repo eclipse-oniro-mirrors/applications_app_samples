@@ -2,31 +2,31 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "MultiColumns sample module"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "MultiColumns sample"
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "MultiColumns"
     },
     {
       "name": "account",
-      "value": "账户"
+      "value": "Accounts"
     },
     {
       "name": "addAccount",
-      "value": "添加账户"
+      "value": "Add account"
     },
     {
       "name": "allAccount",
-      "value": "全部账户"
+      "value": "All accounts"
     },
     {
       "name": "recUser",
-      "value": "收件人："
+      "value": "To: "
     },
     {
       "name": "nonSense",
@@ -34,15 +34,15 @@
     },
     {
       "name": "recvBox",
-      "value": "收件箱"
+      "value": "Inbox"
     },
     {
       "name": "album",
-      "value": "相册"
+      "value": "Albums"
     },
     {
       "name": "photo",
-      "value": "相片"
+      "value": "Photos"
     },
     {
       "name": "WLAN",
@@ -50,67 +50,67 @@
     },
     {
       "name": "bluetooth",
-      "value": "蓝牙"
+      "value": "Bluetooth"
     },
     {
       "name": "mobileData",
-      "value": "移动数据"
+      "value": "Mobile data"
     },
     {
       "name": "moreConnections",
-      "value": "更多连接"
+      "value": "More connections"
     },
     {
       "name": "desktopAndWallpaper",
-      "value": "桌面和壁纸"
+      "value": "Home screen & wallpaper"
     },
     {
       "name": "displayAndBrightness",
-      "value": "显示和亮度"
+      "value": "Display & brightness"
     },
     {
       "name": "soundAndVibration",
-      "value": "声音和振动"
+      "value": "Sounds & vibration"
     },
     {
       "name": "notice",
-      "value": "通知"
+      "value": "Notifications"
     },
     {
       "name": "storage",
-      "value": "存储"
+      "value": "Storage"
     },
     {
       "name": "safe",
-      "value": "安全"
+      "value": "Security"
     },
     {
       "name": "privacy",
-      "value": "隐私"
+      "value": "Privacy"
     },
     {
       "name": "userAccounts",
-      "value": "用户和账户"
+      "value": "Users & accounts"
     },
     {
       "name": "system",
-      "value": "系统"
+      "value": "System"
     },
     {
       "name": "aboutDevice",
-      "value": "关于设备"
+      "value": "About device"
     },
     {
       "name": "settings",
-      "value": "设置"
+      "value": "Settings"
     },
     {
       "name": "networkAcceleration",
-      "value": "网络加速"
+      "value": "Network acceleration"
     },
     {
       "name": "moreWLANSettings",
-      "value": "更多WLAN设置"
+      "value": "More WLAN settings"
     },
     {
       "name": "wifiName",
@@ -118,147 +118,187 @@
     },
     {
       "name": "addNetWork",
-      "value": "添加其他网络"
+      "value": "Add network"
     },
     {
       "name": "unRead",
-      "value": "未读邮件"
+      "value": "Unread"
     },
     {
       "name": "sended",
-      "value": "已发送"
+      "value": "Sent"
     },
     {
       "name": "allFolders",
-      "value": "显示全部文件夹"
+      "value": "Show all folders"
     },
     {
       "name": "textPartOne",
-      "value": "欢迎来到您的会员空间"
+      "value": "Welcome to your membership space"
     },
     {
       "name": "textPartTwo",
-      "value": "亲爱的 jiaozi ，  您的xxxx 会员空间已经创..."
+      "value": "Dear jiaozi, your xxxx membership space has been created..."
     },
     {
       "name": "searchMail",
-      "value": "搜索邮件"
+      "value": "Search mail"
     },
     {
       "name": "textData",
-      "value": "想要马上试用xx邮箱吗？"
+      "value": "Want to try xx Mail now?"
     },
     {
       "name": "bodyTextPartOne",
-      "value": "来我们一起登录电子邮件。添加个人邮箱账户：打开电子邮件，选择一个邮箱服务提供商或点击其他，输入电子邮件地址和密码，点击登录，按照提示进行配置，系统会自动连接服务器并检查服务器设置。"
+      "value": "Let's sign in to email together. To add a personal email account: open Email, choose an email provider or tap Other, enter the email address and password, tap Sign in, then follow the prompts. The system connects to the server and checks the server settings automatically."
     },
     {
       "name": "bodyTextPartTwo",
-      "value": "添加xxxxxx账户：xxxxxx是由xx公司开发，用于企业内部的邮件交换系统，如果您的公司邮箱使用xxxxxx服务器，您可以在手机上登录公司邮箱。打开【电子邮箱】>【xxxxxx】，输入电子邮箱地址，用户名和密码，点击登录，按照提示进行配置，系统会自动连接服务器并检查服务器设置。"
+      "value": "To add an xxxxxx account: xxxxxx is an email exchange system developed by xx for internal enterprise use. If your company email uses an xxxxxx server, you can sign in to your company email on your phone. Open Email > xxxxxx, enter the email address, user name and password, tap Sign in, then follow the prompts. The system connects to the server and checks the server settings automatically."
     },
     {
       "name": "bodyTextPartThree",
-      "value": "配置成功后，系统默认进入收件箱界面。在登录过程中，有些邮箱需要收入授权码，请按照屏幕提示获取并输入授权码，其中xx邮箱可以自动获取授权码并一键登录。"
+      "value": "After the configuration is complete, the system opens the inbox by default. During sign-in, some email providers require an authorization code. Follow the on-screen prompts to obtain and enter the code. xx Mail can obtain the authorization code and sign in with one tap."
     },
     {
       "name": "mailDesc",
-      "value": "imjiaozi以及其他3个"
+      "value": "imjiaozi and 3 others"
     },
     {
       "name": "reply",
-      "value": "回复"
+      "value": "Reply"
     },
     {
       "name": "replyAll",
-      "value": "全部回复"
+      "value": "Reply all"
     },
     {
       "name": "send",
-      "value": "转发"
+      "value": "Forward"
     },
     {
       "name": "delete",
-      "value": "删除"
+      "value": "Delete"
     },
     {
       "name": "more",
-      "value": "更多"
+      "value": "More"
     },
     {
       "name": "picture",
-      "value": "图片"
+      "value": "Photos"
     },
     {
       "name": "video",
-      "value": "视频"
+      "value": "Videos"
     },
     {
       "name": "collect",
-      "value": "收藏"
+      "value": "Favorite"
     },
     {
       "name": "newAlbum",
-      "value": "新建相册"
+      "value": "New album"
     },
     {
       "name": "avatar",
-      "value": "人像"
+      "value": "Portraits"
     },
     {
       "name": "address",
-      "value": "地点"
+      "value": "Places"
     },
     {
       "name": "category",
-      "value": "分类"
+      "value": "Categories"
     },
     {
       "name": "pictureType",
-      "value": "拍摄模式"
+      "value": "Shooting mode"
     },
     {
       "name": "hidden",
-      "value": "已隐藏"
+      "value": "Hidden"
     },
     {
       "name": "placeholderText",
-      "value": "照片、人物、地点..."
+      "value": "Photos, people, places..."
     },
     {
       "name": "userInfo",
-      "value": "安琪"
+      "value": "Anqi"
     },
     {
       "name": "aboutUserInfo",
-      "value": "xx账号、付款与账单、云空间等"
+      "value": "xx account, payments & bills, cloud space, and more"
     },
     {
       "name": "useful",
-      "value": "已保存（可上网）"
+      "value": "Saved (can access the Internet)"
     },
     {
       "name": "useless",
-      "value": "加密（不可上网）"
+      "value": "Encrypted (no Internet access)"
     },
     {
       "name": "connected",
-      "value": "已连接（网络质量好）"
+      "value": "Connected (good network quality)"
     },
     {
       "name": "wlanUseful",
-      "value": "可用WLAN"
+      "value": "Available WLAN"
     },
     {
       "name": "wlanConnected",
-      "value": "已连接WLAN"
+      "value": "Connected WLAN"
     },
     {
       "name": "closed",
-      "value": "已关闭"
+      "value": "Off"
     },
     {
       "name": "search",
-      "value": "搜索..."
+      "value": "Search..."
+    },
+    {
+      "name": "caseOne",
+      "value": "A+B+C"
+    },
+    {
+      "name": "caseTwo",
+      "value": "A+C"
+    },
+    {
+      "name": "caseThree",
+      "value": "B+C"
+    },
+    {
+      "name": "mailSenderTitle",
+      "value": "HHHxx UXD"
+    },
+    {
+      "name": "mailSender",
+      "value": "PostMaster"
+    },
+    {
+      "name": "mailTime",
+      "value": "09:42"
+    },
+    {
+      "name": "mailAccount",
+      "value": "jiaozi@xxx.com"
+    },
+    {
+      "name": "mailAccountSecond",
+      "value": "jiaozi@163.com"
+    },
+    {
+      "name": "mailDate",
+      "value": "4/12"
+    },
+    {
+      "name": "unreadBadge",
+      "value": "9"
     }
   ]
 }
