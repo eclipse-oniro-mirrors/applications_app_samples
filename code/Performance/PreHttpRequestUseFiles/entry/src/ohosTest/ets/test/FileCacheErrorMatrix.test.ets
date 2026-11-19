@@ -4612,3 +4612,113 @@ export default function fileCacheErrorMatrixTest() {
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
+     */
+    it('testCacheError0216', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const path: string = testPath('absent_0216.tmp');
+      let code: number = 0;
+      try {
+        fs.accessSync(path);
+      } catch (error) {
+        code = -1;
+      }
+      logCase('testCacheError0216', `path=${path} code=${code}`);
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.endsWith('absent_0216.tmp')).assertTrue();
+      expect(path.startsWith(appContext().filesDir)).assertTrue();
+      expect(code).assertEqual(0);
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0217
+     * @tc.name      testCacheError0217
+     * @tc.desc      Access check on missing absent_0217.tmp returns false without throwing
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCacheError0217', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const path: string = testPath('absent_0217.tmp');
+      let code: number = 0;
+      try {
+        fs.accessSync(path);
+      } catch (error) {
+        code = -1;
+      }
+      logCase('testCacheError0217', `path=${path} code=${code}`);
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.endsWith('absent_0217.tmp')).assertTrue();
+      expect(path.startsWith(appContext().filesDir)).assertTrue();
+      expect(code).assertEqual(0);
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0218
+     * @tc.name      testCacheError0218
+     * @tc.desc      Access check on missing absent_0218.tmp returns false without throwing
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCacheError0218', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const path: string = testPath('absent_0218.tmp');
+      let code: number = 0;
+      try {
+        fs.accessSync(path);
+      } catch (error) {
+        code = -1;
+      }
+      logCase('testCacheError0218', `path=${path} code=${code}`);
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.endsWith('absent_0218.tmp')).assertTrue();
+      expect(path.startsWith(appContext().filesDir)).assertTrue();
+      expect(code).assertEqual(0);
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0219
+     * @tc.name      testCacheError0219
+     * @tc.desc      Access check on missing absent_0219.tmp returns false without throwing
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCacheError0219', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const path: string = testPath('absent_0219.tmp');
+      let code: number = 0;
+      try {
+        fs.accessSync(path);
+      } catch (error) {
+        code = -1;
+      }
+      logCase('testCacheError0219', `path=${path} code=${code}`);
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.endsWith('absent_0219.tmp')).assertTrue();
+      expect(path.startsWith(appContext().filesDir)).assertTrue();
+      expect(code).assertEqual(0);
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0220
+     * @tc.name      testCacheError0220
+     * @tc.desc      Access check on missing absent_0220.tmp returns false without throwing
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCacheError0220', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const path: string = testPath('absent_0220.tmp');
+      let code: number = 0;
+      try {
+        fs.accessSync(path);
+      } catch (error) {
+        code = -1;
+      }
+      logCase('testCacheError0220', `path=${path} code=${code}`);
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.endsWith('absent_0220.tmp')).assertTrue();
+      expect(path.startsWith(appContext().filesDir)).assertTrue();
+      expect(code).assertEqual(0);
+      expect(fs.accessSync(path)).assertFalse();
+    });
+  });
+}
