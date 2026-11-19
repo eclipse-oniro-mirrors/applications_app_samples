@@ -13,7 +13,17 @@
  * limitations under the License.
  */
 
+/**
+ * @file casesfeature/immersive/src/main/ets/model/GoodsModel.ets
+ * 文件职责：GoodsModel 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ProductDataModel。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 // 设置项的数据类
+/**
+ * ProductDataModel：类定义，承载本文件对应的逻辑与数据。
+ */
 export class ProductDataModel {
   id: number;
   uri: ResourceStr;
@@ -21,6 +31,7 @@ export class ProductDataModel {
   price: ResourceStr;
   views: ResourceStr;
 
+  /** 构造 GoodsModel 实例。 */
   constructor(id: number, uri: ResourceStr, title: ResourceStr, price: ResourceStr, views: ResourceStr) {
     this.id = id;
     this.uri = uri;
