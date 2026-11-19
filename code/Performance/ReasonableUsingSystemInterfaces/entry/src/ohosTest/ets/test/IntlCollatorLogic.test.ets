@@ -3411,3 +3411,1872 @@ export default function IntlCollatorLogic(): void {
       const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
       const first: string = 'a-b';
       const second: string = 'ab';
+      const kitSource: Array<string> = ['ab', 'a-b', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['ab', 'a-b', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', -1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'a-b|ab|item20|item3', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('a-b|ab|item20|item3');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'ab|a-b|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('ab|a-b|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', -1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'a-b|ab|item20|item3', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('a-b|ab|item20|item3');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'ab|a-b|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('ab|a-b|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0048
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0048
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0048',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0048';
+      const input: string = 'en-GB; pair=["x.y","xy"]; options={"usage":"sort","sensitivity":"accent","nu' +
+        'meric":false,"ignorePunctuation":false,"caseFirst":"false"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'accent', numeric: false, ignorePunctuation: false, caseFirst: 'false',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"accent","numeric":false,"ignorePunctuation":f' +
+        'alse,"caseFirst":"false"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'accent', numeric: false, ignorePunctuation: false, caseFirst: 'false',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"accent","numeric":false,"ignorePunctuation":f' +
+        'alse,"caseFirst":"false"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'x.y';
+      const second: string = 'xy';
+      const kitSource: Array<string> = ['xy', 'x.y', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['xy', 'x.y', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', -1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'item20|item3|x.y|xy', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('item20|item3|x.y|xy');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'xy|x.y|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('xy|x.y|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', -1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'item20|item3|x.y|xy', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('item20|item3|x.y|xy');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'xy|x.y|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('xy|x.y|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0049
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0049
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0049',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0049';
+      const input: string = 'en-US; pair=["2","10"]; options={"usage":"sort","sensitivity":"base","numeri' +
+        'c":true,"ignorePunctuation":true,"caseFirst":"false"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = '2';
+      const second: string = '10';
+      const kitSource: Array<string> = ['10', '2', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['10', '2', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', -1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', '2|10|item3|item20', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('2|10|item3|item20');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', '10|2|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('10|2|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', -1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', '2|10|item3|item20', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('2|10|item3|item20');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', '10|2|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('10|2|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0050
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0050
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0050',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0050';
+      const input: string = 'en-US; pair=["9","100"]; options={"usage":"sort","sensitivity":"base","numer' +
+        'ic":true,"ignorePunctuation":true,"caseFirst":"false"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = '9';
+      const second: string = '100';
+      const kitSource: Array<string> = ['100', '9', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['100', '9', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', -1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', '9|100|item3|item20', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('9|100|item3|item20');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', '100|9|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('100|9|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', -1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', '9|100|item3|item20', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('9|100|item3|item20');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', '100|9|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('100|9|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0051
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0051
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0051',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0051';
+      const input: string = 'en-US; pair=["file2","file10"]; options={"usage":"sort","sensitivity":"base"' +
+        ',"numeric":true,"ignorePunctuation":true,"caseFirst":"false"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'file2';
+      const second: string = 'file10';
+      const kitSource: Array<string> = ['file10', 'file2', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['file10', 'file2', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', -1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'file2|file10|item3|item20', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('file2|file10|item3|item20');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'file10|file2|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('file10|file2|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', -1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'file2|file10|item3|item20', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('file2|file10|item3|item20');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'file10|file2|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('file10|file2|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0052
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0052
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0052',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0052';
+      const input: string = 'en-US; pair=["item9","item12"]; options={"usage":"sort","sensitivity":"base"' +
+        ',"numeric":true,"ignorePunctuation":true,"caseFirst":"false"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'item9';
+      const second: string = 'item12';
+      const kitSource: Array<string> = ['item12', 'item9', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['item12', 'item9', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', -1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'item3|item9|item12|item20', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('item3|item9|item12|item20');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'item12|item9|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('item12|item9|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', -1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'item3|item9|item12|item20', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('item3|item9|item12|item20');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'item12|item9|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('item12|item9|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0053
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0053
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0053',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0053';
+      const input: string = 'en-US; pair=["a","b"]; options={"usage":"sort","sensitivity":"base","numeric' +
+        '":true,"ignorePunctuation":true,"caseFirst":"false"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'a';
+      const second: string = 'b';
+      const kitSource: Array<string> = ['b', 'a', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['b', 'a', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', -1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'a|b|item3|item20', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('a|b|item3|item20');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'b|a|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('b|a|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', -1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'a|b|item3|item20', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('a|b|item3|item20');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'b|a|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('b|a|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0054
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0054
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0054',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0054';
+      const input: string = 'en-US; pair=["alpha","beta"]; options={"usage":"sort","sensitivity":"base","' +
+        'numeric":true,"ignorePunctuation":true,"caseFirst":"false"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'alpha';
+      const second: string = 'beta';
+      const kitSource: Array<string> = ['beta', 'alpha', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['beta', 'alpha', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', -1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'alpha|beta|item3|item20', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('alpha|beta|item3|item20');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'beta|alpha|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('beta|alpha|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', -1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'alpha|beta|item3|item20', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('alpha|beta|item3|item20');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'beta|alpha|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('beta|alpha|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0055
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0055
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0055',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0055';
+      const input: string = 'en-US; pair=["same","same"]; options={"usage":"sort","sensitivity":"base","n' +
+        'umeric":true,"ignorePunctuation":true,"caseFirst":"false"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'same';
+      const second: string = 'same';
+      const kitSource: Array<string> = ['same', 'same', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['same', 'same', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', 0, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 0, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'item3|item20|same|same', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('item3|item20|same|same');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'same|same|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('same|same|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', 0, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 0, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'item3|item20|same|same', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('item3|item20|same|same');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'same|same|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('same|same|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0056
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0056
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0056',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0056';
+      const input: string = 'en-US; pair=["",""]; options={"usage":"sort","sensitivity":"base","numeric":' +
+        'true,"ignorePunctuation":true,"caseFirst":"false"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = '';
+      const second: string = '';
+      const kitSource: Array<string> = ['', '', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['', '', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', 0, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 0, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', '||item3|item20', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('||item3|item20');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', '||item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('||item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', 0, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 0, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', '||item3|item20', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('||item3|item20');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', '||item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('||item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0057
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0057
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0057',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0057';
+      const input: string = 'en-US; pair=["A","a"]; options={"usage":"sort","sensitivity":"base","numeric' +
+        '":true,"ignorePunctuation":true,"caseFirst":"false"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'A';
+      const second: string = 'a';
+      const kitSource: Array<string> = ['a', 'A', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['a', 'A', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', 0, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 0, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'a|A|item3|item20', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('a|A|item3|item20');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'a|A|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('a|A|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', 0, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 0, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'a|A|item3|item20', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('a|A|item3|item20');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'a|A|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('a|A|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0058
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0058
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0058',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0058';
+      const input: string = 'en-US; pair=["resume","RESUME"]; options={"usage":"sort","sensitivity":"base' +
+        '","numeric":true,"ignorePunctuation":true,"caseFirst":"false"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'resume';
+      const second: string = 'RESUME';
+      const kitSource: Array<string> = ['RESUME', 'resume', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['RESUME', 'resume', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', 0, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 0, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'item3|item20|RESUME|resume', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('item3|item20|RESUME|resume');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'RESUME|resume|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('RESUME|resume|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', 0, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 0, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'item3|item20|RESUME|resume', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('item3|item20|RESUME|resume');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'RESUME|resume|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('RESUME|resume|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0059
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0059
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0059',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0059';
+      const input: string = 'en-US; pair=["a-b","ab"]; options={"usage":"sort","sensitivity":"base","nume' +
+        'ric":true,"ignorePunctuation":true,"caseFirst":"false"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'a-b';
+      const second: string = 'ab';
+      const kitSource: Array<string> = ['ab', 'a-b', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['ab', 'a-b', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', 0, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 0, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'ab|a-b|item3|item20', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('ab|a-b|item3|item20');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'ab|a-b|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('ab|a-b|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', 0, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 0, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'ab|a-b|item3|item20', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('ab|a-b|item3|item20');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'ab|a-b|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('ab|a-b|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0060
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0060
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0060',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0060';
+      const input: string = 'en-US; pair=["x.y","xy"]; options={"usage":"sort","sensitivity":"base","nume' +
+        'ric":true,"ignorePunctuation":true,"caseFirst":"false"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'base', numeric: true, ignorePunctuation: true, caseFirst: 'false',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"base","numeric":true,"ignorePunctuation":true' +
+        ',"caseFirst":"false"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'x.y';
+      const second: string = 'xy';
+      const kitSource: Array<string> = ['xy', 'x.y', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['xy', 'x.y', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', 0, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 0, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'item3|item20|xy|x.y', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('item3|item20|xy|x.y');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'xy|x.y|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('xy|x.y|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', 0, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 0, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'item3|item20|xy|x.y', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('item3|item20|xy|x.y');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'xy|x.y|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('xy|x.y|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0061
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0061
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0061',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0061';
+      const input: string = 'en-GB; pair=["2","10"]; options={"usage":"sort","sensitivity":"case","numeri' +
+        'c":false,"ignorePunctuation":true,"caseFirst":"lower"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = '2';
+      const second: string = '10';
+      const kitSource: Array<string> = ['10', '2', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['10', '2', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', 1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', -1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', '10|2|item20|item3', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('10|2|item20|item3');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', '10|2|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('10|2|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', 1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', -1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', '10|2|item20|item3', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('10|2|item20|item3');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', '10|2|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('10|2|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0062
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0062
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0062',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0062';
+      const input: string = 'en-GB; pair=["9","100"]; options={"usage":"sort","sensitivity":"case","numer' +
+        'ic":false,"ignorePunctuation":true,"caseFirst":"lower"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = '9';
+      const second: string = '100';
+      const kitSource: Array<string> = ['100', '9', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['100', '9', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', 1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', -1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', '100|9|item20|item3', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('100|9|item20|item3');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', '100|9|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('100|9|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', 1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', -1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', '100|9|item20|item3', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('100|9|item20|item3');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', '100|9|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('100|9|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0063
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0063
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0063',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0063';
+      const input: string = 'en-GB; pair=["file2","file10"]; options={"usage":"sort","sensitivity":"case"' +
+        ',"numeric":false,"ignorePunctuation":true,"caseFirst":"lower"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'file2';
+      const second: string = 'file10';
+      const kitSource: Array<string> = ['file10', 'file2', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['file10', 'file2', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', 1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', -1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'file10|file2|item20|item3', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('file10|file2|item20|item3');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'file10|file2|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('file10|file2|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', 1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', -1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'file10|file2|item20|item3', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('file10|file2|item20|item3');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'file10|file2|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('file10|file2|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0064
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0064
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0064',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0064';
+      const input: string = 'en-GB; pair=["item9","item12"]; options={"usage":"sort","sensitivity":"case"' +
+        ',"numeric":false,"ignorePunctuation":true,"caseFirst":"lower"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'item9';
+      const second: string = 'item12';
+      const kitSource: Array<string> = ['item12', 'item9', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['item12', 'item9', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', 1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', -1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'item12|item20|item3|item9', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('item12|item20|item3|item9');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'item12|item9|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('item12|item9|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', 1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', -1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'item12|item20|item3|item9', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('item12|item20|item3|item9');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'item12|item9|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('item12|item9|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0065
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0065
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0065',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0065';
+      const input: string = 'en-GB; pair=["a","b"]; options={"usage":"sort","sensitivity":"case","numeric' +
+        '":false,"ignorePunctuation":true,"caseFirst":"lower"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'a';
+      const second: string = 'b';
+      const kitSource: Array<string> = ['b', 'a', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['b', 'a', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', -1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'a|b|item20|item3', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('a|b|item20|item3');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'b|a|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('b|a|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', -1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'a|b|item20|item3', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('a|b|item20|item3');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'b|a|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('b|a|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0066
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0066
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0066',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0066';
+      const input: string = 'en-GB; pair=["alpha","beta"]; options={"usage":"sort","sensitivity":"case","' +
+        'numeric":false,"ignorePunctuation":true,"caseFirst":"lower"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'alpha';
+      const second: string = 'beta';
+      const kitSource: Array<string> = ['beta', 'alpha', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['beta', 'alpha', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', -1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'alpha|beta|item20|item3', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('alpha|beta|item20|item3');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'beta|alpha|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('beta|alpha|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', -1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'alpha|beta|item20|item3', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('alpha|beta|item20|item3');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'beta|alpha|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('beta|alpha|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0067
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0067
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0067',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0067';
+      const input: string = 'en-GB; pair=["same","same"]; options={"usage":"sort","sensitivity":"case","n' +
+        'umeric":false,"ignorePunctuation":true,"caseFirst":"lower"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'same';
+      const second: string = 'same';
+      const kitSource: Array<string> = ['same', 'same', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['same', 'same', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', 0, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 0, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'item20|item3|same|same', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('item20|item3|same|same');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'same|same|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('same|same|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', 0, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 0, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'item20|item3|same|same', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('item20|item3|same|same');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'same|same|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('same|same|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0068
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0068
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0068',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0068';
+      const input: string = 'en-GB; pair=["",""]; options={"usage":"sort","sensitivity":"case","numeric":' +
+        'false,"ignorePunctuation":true,"caseFirst":"lower"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = '';
+      const second: string = '';
+      const kitSource: Array<string> = ['', '', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['', '', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', 0, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 0, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', '||item20|item3', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('||item20|item3');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', '||item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('||item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', 0, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 0, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', '||item20|item3', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('||item20|item3');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', '||item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('||item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0069
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0069
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0069',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0069';
+      const input: string = 'en-GB; pair=["A","a"]; options={"usage":"sort","sensitivity":"case","numeric' +
+        '":false,"ignorePunctuation":true,"caseFirst":"lower"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'A';
+      const second: string = 'a';
+      const kitSource: Array<string> = ['a', 'A', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['a', 'A', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', 1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', -1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'a|A|item20|item3', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('a|A|item20|item3');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'a|A|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('a|A|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', 1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', -1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'a|A|item20|item3', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('a|A|item20|item3');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'a|A|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('a|A|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0070
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0070
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0070',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0070';
+      const input: string = 'en-GB; pair=["resume","RESUME"]; options={"usage":"sort","sensitivity":"case' +
+        '","numeric":false,"ignorePunctuation":true,"caseFirst":"lower"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'resume';
+      const second: string = 'RESUME';
+      const kitSource: Array<string> = ['RESUME', 'resume', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['RESUME', 'resume', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', -1, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 1, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'item20|item3|resume|RESUME', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('item20|item3|resume|RESUME');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'RESUME|resume|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('RESUME|resume|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', -1, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(-1);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 1, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(1);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'item20|item3|resume|RESUME', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('item20|item3|resume|RESUME');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'RESUME|resume|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('RESUME|resume|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0071
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0071
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0071',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0071';
+      const input: string = 'en-GB; pair=["a-b","ab"]; options={"usage":"sort","sensitivity":"case","nume' +
+        'ric":false,"ignorePunctuation":true,"caseFirst":"lower"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'a-b';
+      const second: string = 'ab';
+      const kitSource: Array<string> = ['ab', 'a-b', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['ab', 'a-b', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', 0, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 0, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'ab|a-b|item20|item3', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('ab|a-b|item20|item3');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'ab|a-b|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('ab|a-b|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', 0, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 0, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'ab|a-b|item20|item3', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('ab|a-b|item20|item3');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'ab|a-b|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('ab|a-b|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0072
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0072
+     * @tc.desc Check comparator direction/equality, numeric sort and immutable source arrays.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0072',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_COLLATOR_0072';
+      const input: string = 'en-GB; pair=["x.y","xy"]; options={"usage":"sort","sensitivity":"case","nume' +
+        'ric":false,"ignorePunctuation":true,"caseFirst":"lower"}';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const kitOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const runtimeOptions: Intl.CollatorOptions = {
+        usage: 'sort', sensitivity: 'case', numeric: false, ignorePunctuation: true, caseFirst: 'lower',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"usage":"sort","sensitivity":"case","numeric":false,"ignorePunctuation":tru' +
+        'e,"caseFirst":"lower"}';
+      const kit: intl.Collator = new intl.Collator(locale, kitOptions);
+      const runtime: Intl.Collator = new Intl.Collator(locale, runtimeOptions);
+      const first: string = 'x.y';
+      const second: string = 'xy';
+      const kitSource: Array<string> = ['xy', 'x.y', 'item20', 'item3'];
+      const kitSorted: Array<string> = kitSource.slice();
+      kitSorted.sort((a: string, b: string): number => kit.compare(a, b));
+      const kitForward: number = kit.compare(first, second);
+      const kitBackward: number = kit.compare(second, first);
+      const kitEqual: number = kit.compare(first, first);
+      const runtimeSource: Array<string> = ['xy', 'x.y', 'item20', 'item3'];
+      const runtimeSorted: Array<string> = runtimeSource.slice();
+      runtimeSorted.sort((a: string, b: string): number => runtime.compare(a, b));
+      const runtimeForward: number = runtime.compare(first, second);
+      const runtimeBackward: number = runtime.compare(second, first);
+      const runtimeEqual: number = runtime.compare(first, first);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.number(name, 'kit.forwardSign', 0, Math.sign(kitForward));
+      expect(Math.sign(kitForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.backwardSign', 0, Math.sign(kitBackward));
+      expect(Math.sign(kitBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'kit.reflexive', 0, kitEqual);
+      expect(kitEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'kit.sorted', 'item20|item3|xy|x.y', kitSorted.join('|'));
+      expect(kitSorted.join('|')).assertEqual('item20|item3|xy|x.y');
+      InterfaceTestLog.value(name, 'kit.inputUnchanged', 'xy|x.y|item20|item3', kitSource.join('|'));
+      expect(kitSource.join('|')).assertEqual('xy|x.y|item20|item3');
+      InterfaceTestLog.number(name, 'kit.sortLength', 4, kitSorted.length);
+      expect(kitSorted.length).assertEqual(4);
+      InterfaceTestLog.number(name, 'runtime.forwardSign', 0, Math.sign(runtimeForward));
+      expect(Math.sign(runtimeForward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.backwardSign', 0, Math.sign(runtimeBackward));
+      expect(Math.sign(runtimeBackward)).assertEqual(0);
+      InterfaceTestLog.number(name, 'runtime.reflexive', 0, runtimeEqual);
+      expect(runtimeEqual).assertEqual(0);
+      InterfaceTestLog.value(name, 'runtime.sorted', 'item20|item3|xy|x.y', runtimeSorted.join('|'));
+      expect(runtimeSorted.join('|')).assertEqual('item20|item3|xy|x.y');
+      InterfaceTestLog.value(name, 'runtime.inputUnchanged', 'xy|x.y|item20|item3', runtimeSource.join('|'));
+      expect(runtimeSource.join('|')).assertEqual('xy|x.y|item20|item3');
+      InterfaceTestLog.number(name, 'runtime.sortLength', 4, runtimeSorted.length);
+      expect(runtimeSorted.length).assertEqual(4);
+      InterfaceTestLog.end(name);
+    });
+  });
+}
