@@ -81,11 +81,9 @@ ohosTest.md                            测试用例归档
 ### 约束与限制
 
 1. 本示例支持标准系统，支持设备：手机、平板。
-2. 本示例需要使用包含上述公开接口的 **26.1.0** 或后续匹配版本 SDK，运行设备需提供与 SDK 匹配的实现。
+2. `OH_ArkUI_NativeModule_UIAgentGetPageText` 从 **26.2.0** 起提供。本示例需要使用 26.2.0 或后续匹配版本 SDK，运行设备需提供与 SDK 匹配的实现。
 3. 使用 DevEco Studio 26.0.0.461 或后续支持目标 SDK 的版本打开本工程，构建并运行 `entry` 模块。
 4. 页面文本采集必须在目标 UI 实例的 UI 线程同步调用。
-
-版本要求依据公开 SDK 的 [ui_info_collection.h](https://gitcode.com/openharmony/interface_sdk_c/blob/master/arkui/ace_engine/native/ui_info_collection.h)、[ui_json_wrapper.h](https://gitcode.com/openharmony/interface_sdk_c/blob/master/arkui/ace_engine/native/ui_json_wrapper.h) 中的 `@since`，以及 [libace.ndk.json](https://gitcode.com/openharmony/interface_sdk_c/blob/master/arkui/ace_engine/native/libace.ndk.json) 中的 `first_introduced`。页面文本采集和本示例使用的 JSON 读取、销毁接口均标注为 `26.1.0`。
 
 测试用例及结果见 [ohosTest.md](ohosTest.md)。
 
