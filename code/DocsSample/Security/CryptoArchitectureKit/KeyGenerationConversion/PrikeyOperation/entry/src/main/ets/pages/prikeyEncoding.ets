@@ -31,6 +31,9 @@ function prikeyEncoding() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`prikeyEncoding failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude prikey_encoding]
+    throw new Error(`prikeyEncoding failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude prikey_encoding]
   }
 }
 // [End prikey_encoding]

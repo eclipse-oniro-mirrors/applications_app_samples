@@ -1,0 +1,68 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Virtual file drag (C)"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Virtual file drag (C)"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "Virtual file drag (C)"
+    },
+    {
+      "name": "drag_title",
+      "value": "Virtual file drag"
+    },
+    {
+      "name": "document",
+      "value": "Document"
+    },
+    {
+      "name": "directory",
+      "value": "Directory"
+    },
+    {
+      "name": "archive",
+      "value": "Extract on read"
+    },
+    {
+      "name": "source_document",
+      "value": "Document: hold to drag"
+    },
+    {
+      "name": "source_directory",
+      "value": "Nested directory: hold to drag"
+    },
+    {
+      "name": "source_archive",
+      "value": "Archive entry: hold to drag"
+    },
+    {
+      "name": "preparing",
+      "value": "Preparing files…"
+    },
+    {
+      "name": "drop_hint",
+      "value": "Drop files to get URIs"
+    },
+    {
+      "name": "prepare_failed",
+      "value": "Cannot prepare files. Try again."
+    },
+    {
+      "name": "receive_failed",
+      "value": "No file URI received. Try again."
+    },
+    {
+      "name": "drag_failed",
+      "value": "Cannot start drag. Try again."
+    },
+    {
+      "name": "uris_received",
+      "value": "Received %d file URIs"
+    }
+  ]
+}

@@ -1,0 +1,864 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { describe, it, expect } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { TypeUtils } from 'library';
+
+/**
+ * Test suite for TypeUtils.
+ * @since 26.0.0
+ */
+export default function typeUtilsTest(): void {
+  describe('TypeUtilsTest', () => {
+    // ==================== type detection (6 cases) ====================
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_0100
+     * @tc.name: testTypeUtils0001
+     * @tc.desc: Recognise string values and reject other primitives.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0001', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0001', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0001',
+        '#1 assert ' + "expect(TypeUtils.isString('Headset')).assertTrue()");
+      expect(TypeUtils.isString('Headset')).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0001',
+        '#2 assert ' + "expect(TypeUtils.isString('')).assertTrue()");
+      expect(TypeUtils.isString('')).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0001',
+        '#3 assert ' + "expect(TypeUtils.isString(12)).assertFalse()");
+      expect(TypeUtils.isString(12)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0001',
+        '#4 assert ' + "expect(TypeUtils.isString(null)).assertFalse()");
+      expect(TypeUtils.isString(null)).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0001', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_0200
+     * @tc.name: testTypeUtils0002
+     * @tc.desc: Reject text and NaN while accepting every finite number.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0002', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0002', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0002',
+        '#1 assert ' + "expect(TypeUtils.isNumber(0)).assertTrue()");
+      expect(TypeUtils.isNumber(0)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0002',
+        '#2 assert ' + "expect(TypeUtils.isNumber(-1.5)).assertTrue()");
+      expect(TypeUtils.isNumber(-1.5)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0002',
+        '#3 assert ' + "expect(TypeUtils.isNumber('1')).assertFalse()");
+      expect(TypeUtils.isNumber('1')).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0002',
+        '#4 assert ' + "expect(TypeUtils.isNumber(Number.NaN)).assertFalse()");
+      expect(TypeUtils.isNumber(Number.NaN)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0002',
+        '#5 assert ' + "expect(TypeUtils.isNumber(Number.POSITIVE_INFINITY)).assertTrue()");
+      expect(TypeUtils.isNumber(Number.POSITIVE_INFINITY)).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0002', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_0300
+     * @tc.name: testTypeUtils0003
+     * @tc.desc: Distinguish real booleans from their textual counterparts.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0003', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0003', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0003',
+        '#1 assert ' + "expect(TypeUtils.isBoolean(true)).assertTrue()");
+      expect(TypeUtils.isBoolean(true)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0003',
+        '#2 assert ' + "expect(TypeUtils.isBoolean(false)).assertTrue()");
+      expect(TypeUtils.isBoolean(false)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0003',
+        '#3 assert ' + "expect(TypeUtils.isBoolean('true')).assertFalse()");
+      expect(TypeUtils.isBoolean('true')).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0003',
+        '#4 assert ' + "expect(TypeUtils.isBoolean(0)).assertFalse()");
+      expect(TypeUtils.isBoolean(0)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0003',
+        '#5 assert ' + "expect(TypeUtils.isBoolean(null)).assertFalse()");
+      expect(TypeUtils.isBoolean(null)).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0003', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_0400
+     * @tc.name: testTypeUtils0004
+     * @tc.desc: Identify arrays including the empty array.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0004', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0004', 'begin');
+      const names: string[] = ['A2dp', 'Hfp'];
+      const empty: number[] = [];
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0004',
+        '#1 assert ' + "expect(TypeUtils.isArray(names)).assertTrue()");
+      expect(TypeUtils.isArray(names)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0004',
+        '#2 assert ' + "expect(TypeUtils.isArray(empty)).assertTrue()");
+      expect(TypeUtils.isArray(empty)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0004',
+        '#3 assert ' + "expect(TypeUtils.isArray('A2dp')).assertFalse()");
+      expect(TypeUtils.isArray('A2dp')).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0004',
+        '#4 assert ' + "expect(TypeUtils.isArray(null)).assertFalse()");
+      expect(TypeUtils.isArray(null)).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0004', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_0500
+     * @tc.name: testTypeUtils0005
+     * @tc.desc: Exclude null and arrays from the object classification.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 1
+     */
+    it('testTypeUtils0005', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0005', 'begin');
+      const record: Record<string, number> = { 'rssi': -60 };
+      const list: number[] = [1];
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0005',
+        '#1 assert ' + "expect(TypeUtils.isObject(record)).assertTrue()");
+      expect(TypeUtils.isObject(record)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0005',
+        '#2 assert ' + "expect(TypeUtils.isObject(list)).assertFalse()");
+      expect(TypeUtils.isObject(list)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0005',
+        '#3 assert ' + "expect(TypeUtils.isObject(null)).assertFalse()");
+      expect(TypeUtils.isObject(null)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0005',
+        '#4 assert ' + "expect(TypeUtils.isObject('text')).assertFalse()");
+      expect(TypeUtils.isObject('text')).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0005', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_0600
+     * @tc.name: testTypeUtils0006
+     * @tc.desc: Detect callable values and treat null as non callable.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 1
+     */
+    it('testTypeUtils0006', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0006', 'begin');
+      const handler: () => void = (): void => {};
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0006',
+        '#1 assert ' + "expect(TypeUtils.isFunction(handler)).assertTrue()");
+      expect(TypeUtils.isFunction(handler)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0006',
+        '#2 assert ' + "expect(TypeUtils.isFunction('handler')).assertFalse()");
+      expect(TypeUtils.isFunction('handler')).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0006',
+        '#3 assert ' + "expect(TypeUtils.isFunction(null)).assertFalse()");
+      expect(TypeUtils.isFunction(null)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0006',
+        '#4 assert ' + "expect(TypeUtils.isFunction(undefined)).assertFalse()");
+      expect(TypeUtils.isFunction(undefined)).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0006', 'end');
+    });
+
+    // ==================== empty value judge specify (3 cases) ====================
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_0700
+     * @tc.name: testTypeUtils0007
+     * @tc.desc: Flag only null and undefined as absent references.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0007', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0007', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0007',
+        '#1 assert ' + "expect(TypeUtils.isNullOrUndefined(null)).assertTrue()");
+      expect(TypeUtils.isNullOrUndefined(null)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0007',
+        '#2 assert ' + "expect(TypeUtils.isNullOrUndefined(undefined)).assertTrue()");
+      expect(TypeUtils.isNullOrUndefined(undefined)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0007',
+        '#3 assert ' + "expect(TypeUtils.isNullOrUndefined(0)).assertFalse()");
+      expect(TypeUtils.isNullOrUndefined(0)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0007',
+        '#4 assert ' + "expect(TypeUtils.isNullOrUndefined('')).assertFalse()");
+      expect(TypeUtils.isNullOrUndefined('')).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0007',
+        '#5 assert ' + "expect(TypeUtils.isNullOrUndefined(false)).assertFalse()");
+      expect(TypeUtils.isNullOrUndefined(false)).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0007', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_0800
+     * @tc.name: testTypeUtils0008
+     * @tc.desc: Treat empty text as empty but keep zero as content.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0008', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0008', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0008',
+        '#1 assert ' + "expect(TypeUtils.isEmpty('')).assertTrue()");
+      expect(TypeUtils.isEmpty('')).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0008',
+        '#2 assert ' + "expect(TypeUtils.isEmpty('a')).assertFalse()");
+      expect(TypeUtils.isEmpty('a')).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0008',
+        '#3 assert ' + "expect(TypeUtils.isEmpty(0)).assertFalse()");
+      expect(TypeUtils.isEmpty(0)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0008',
+        '#4 assert ' + "expect(TypeUtils.isEmpty(false)).assertFalse()");
+      expect(TypeUtils.isEmpty(false)).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0008', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_0900
+     * @tc.name: testTypeUtils0009
+     * @tc.desc: Report emptiness for empty collections and filled ones otherwise.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 1
+     */
+    it('testTypeUtils0009', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0009', 'begin');
+      const emptyList: number[] = [];
+      const filledList: number[] = [0];
+      const emptyRecord: Record<string, number> = {};
+      const filledRecord: Record<string, number> = { 'count': 0 };
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0009',
+        '#1 assert ' + "expect(TypeUtils.isEmpty(emptyList)).assertTrue()");
+      expect(TypeUtils.isEmpty(emptyList)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0009',
+        '#2 assert ' + "expect(TypeUtils.isEmpty(filledList)).assertFalse()");
+      expect(TypeUtils.isEmpty(filledList)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0009',
+        '#3 assert ' + "expect(TypeUtils.isEmpty(emptyRecord)).assertTrue()");
+      expect(TypeUtils.isEmpty(emptyRecord)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0009',
+        '#4 assert ' + "expect(TypeUtils.isEmpty(filledRecord)).assertFalse()");
+      expect(TypeUtils.isEmpty(filledRecord)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0009',
+        '#5 assert ' + "expect(TypeUtils.isEmpty(null)).assertTrue()");
+      expect(TypeUtils.isEmpty(null)).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0009', 'end');
+    });
+
+    // ==================== number and boolean conversion (4 cases) ====================
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_1000
+     * @tc.name: testTypeUtils0010
+     * @tc.desc: Convert numeric text including decimals and surrounding spaces.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0010', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0010', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0010',
+        '#1 assert ' + "expect(TypeUtils.toNumber('42')).assertEqual(42)");
+      expect(TypeUtils.toNumber('42')).assertEqual(42);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0010',
+        '#2 assert ' + "expect(TypeUtils.toNumber('12.5')).assertEqual(12.5)");
+      expect(TypeUtils.toNumber('12.5')).assertEqual(12.5);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0010',
+        '#3 assert ' + "expect(TypeUtils.toNumber(' 8 ')).assertEqual(8)");
+      expect(TypeUtils.toNumber('  8  ')).assertEqual(8);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0010',
+        '#4 assert ' + "expect(TypeUtils.toNumber('-3')).assertEqual(-3)");
+      expect(TypeUtils.toNumber('-3')).assertEqual(-3);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0010', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_1100
+     * @tc.name: testTypeUtils0011
+     * @tc.desc: Fall back to the requested default for unparsable text.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 1
+     */
+    it('testTypeUtils0011', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0011', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0011',
+        '#1 assert ' + "expect(TypeUtils.toNumber('abc')).assertEqual(0)");
+      expect(TypeUtils.toNumber('abc')).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0011',
+        '#2 assert ' + "expect(TypeUtils.toNumber('abc', -1)).assertEqual(-1)");
+      expect(TypeUtils.toNumber('abc', -1)).assertEqual(-1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0011',
+        '#3 assert ' + "expect(TypeUtils.toNumber('', 7)).assertEqual(0)");
+      expect(TypeUtils.toNumber('', 7)).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0011',
+        '#4 assert ' + "expect(TypeUtils.toNumber('0x10')).assertEqual(16)");
+      expect(TypeUtils.toNumber('0x10')).assertEqual(16);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0011', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_1200
+     * @tc.name: testTypeUtils0012
+     * @tc.desc: Accept true, one and yes in any letter case as positive.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0012', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0012', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0012',
+        '#1 assert ' + "expect(TypeUtils.toBoolean('true')).assertTrue()");
+      expect(TypeUtils.toBoolean('true')).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0012',
+        '#2 assert ' + "expect(TypeUtils.toBoolean('TRUE')).assertTrue()");
+      expect(TypeUtils.toBoolean('TRUE')).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0012',
+        '#3 assert ' + "expect(TypeUtils.toBoolean('1')).assertTrue()");
+      expect(TypeUtils.toBoolean('1')).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0012',
+        '#4 assert ' + "expect(TypeUtils.toBoolean('Yes')).assertTrue()");
+      expect(TypeUtils.toBoolean('Yes')).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0012',
+        '#5 assert ' + "expect(TypeUtils.toBoolean(true)).assertTrue()");
+      expect(TypeUtils.toBoolean(true)).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0012', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_1300
+     * @tc.name: testTypeUtils0013
+     * @tc.desc: Reject other text, zero and non scalar values as negative.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 1
+     */
+    it('testTypeUtils0013', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0013', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0013',
+        '#1 assert ' + "expect(TypeUtils.toBoolean('false')).assertFalse()");
+      expect(TypeUtils.toBoolean('false')).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0013',
+        '#2 assert ' + "expect(TypeUtils.toBoolean('0')).assertFalse()");
+      expect(TypeUtils.toBoolean('0')).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0013',
+        '#3 assert ' + "expect(TypeUtils.toBoolean('no')).assertFalse()");
+      expect(TypeUtils.toBoolean('no')).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0013',
+        '#4 assert ' + "expect(TypeUtils.toBoolean(0)).assertFalse()");
+      expect(TypeUtils.toBoolean(0)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0013',
+        '#5 assert ' + "expect(TypeUtils.toBoolean(-1)).assertTrue()");
+      expect(TypeUtils.toBoolean(-1)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0013',
+        '#6 assert ' + "expect(TypeUtils.toBoolean(null)).assertFalse()");
+      expect(TypeUtils.toBoolean(null)).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0013', 'end');
+    });
+
+    // ==================== string conversion (2 cases) ====================
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_1400
+     * @tc.name: testTypeUtils0014
+     * @tc.desc: Pass strings through and stringify scalars without changes.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0014', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0014', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0014',
+        '#1 assert ' + "expect(TypeUtils.toString('Headset')).assertEqual('Headset')");
+      expect(TypeUtils.toString('Headset')).assertEqual('Headset');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0014',
+        '#2 assert ' + "expect(TypeUtils.toString(12)).assertEqual('12')");
+      expect(TypeUtils.toString(12)).assertEqual('12');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0014',
+        '#3 assert ' + "expect(TypeUtils.toString(true)).assertEqual('true')");
+      expect(TypeUtils.toString(true)).assertEqual('true');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0014',
+        '#4 assert ' + "expect(TypeUtils.toString('')).assertEqual('')");
+      expect(TypeUtils.toString('')).assertEqual('');
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0014', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_1500
+     * @tc.name: testTypeUtils0015
+     * @tc.desc: Substitute the default when the value is absent.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 1
+     */
+    it('testTypeUtils0015', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0015', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0015',
+        '#1 assert ' + "expect(TypeUtils.toString(null, 'n/a')).assertEqual('n/a')");
+      expect(TypeUtils.toString(null, 'n/a')).assertEqual('n/a');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0015',
+        '#2 assert ' + "expect(TypeUtils.toString(undefined, 'n/a')).assertEqual('n/a')");
+      expect(TypeUtils.toString(undefined, 'n/a')).assertEqual('n/a');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0015',
+        '#3 assert ' + "expect(TypeUtils.toString(null)).assertEqual('')");
+      expect(TypeUtils.toString(null)).assertEqual('');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0015',
+        '#4 assert ' + "expect(TypeUtils.toString(undefined, '')).assertEqual('')");
+      expect(TypeUtils.toString(undefined, '')).assertEqual('');
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0015', 'end');
+    });
+
+    // ==================== deep copy (3 cases) ====================
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_1600
+     * @tc.name: testTypeUtils0016
+     * @tc.desc: Return scalar and null inputs from the clone untouched.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0016', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0016', 'begin');
+      const missing: Record<string, number> | null = null;
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0016',
+        '#1 assert ' + "expect(TypeUtils.deepClone<number>(5)).assertEqual(5)");
+      expect(TypeUtils.deepClone<number>(5)).assertEqual(5);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0016',
+        '#2 assert ' + "expect(TypeUtils.deepClone<string>('x')).assertEqual('x')");
+      expect(TypeUtils.deepClone<string>('x')).assertEqual('x');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0016',
+        '#3 assert ' + "expect(TypeUtils.deepClone<boolean>(false)).assertFalse()");
+      expect(TypeUtils.deepClone<boolean>(false)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0016',
+        '#4 assert ' + "expect(TypeUtils.deepClone<Record<string, number> | null>(missing)).assertNull()");
+      expect(TypeUtils.deepClone<Record<string, number> | null>(missing)).assertNull();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0016', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_1700
+     * @tc.name: testTypeUtils0017
+     * @tc.desc: Detach the cloned record from later writes to the original.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0017', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0017', 'begin');
+      const source: Record<string, number> = { 'count': 2, 'total': 8 };
+      const copy: Record<string, number> = TypeUtils.deepClone<Record<string, number>>(source);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0017',
+        '#1 ' + "copy.count" + ' = ' + JSON.stringify(copy.count));
+      expect(copy.count).assertEqual(2);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0017',
+        '#2 ' + "copy.total" + ' = ' + JSON.stringify(copy.total));
+      expect(copy.total).assertEqual(8);
+      copy.count = 9;
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0017',
+        '#3 ' + "source.count" + ' = ' + JSON.stringify(source.count));
+      expect(source.count).assertEqual(2);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0017',
+        '#4 ' + "copy !== source" + ' = ' + JSON.stringify(copy !== source));
+      expect(copy !== source).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0017', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_1800
+     * @tc.name: testTypeUtils0018
+     * @tc.desc: Copy nested arrays into independent inner containers.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 1
+     */
+    it('testTypeUtils0018', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0018', 'begin');
+      const rows: number[][] = [[1, 2], [3]];
+      const copy: number[][] = TypeUtils.deepClone<number[][]>(rows);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0018',
+        '#1 ' + "copy.length" + ' = ' + JSON.stringify(copy.length));
+      expect(copy.length).assertEqual(2);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0018',
+        '#2 ' + "copy[0][1]" + ' = ' + JSON.stringify(copy[0][1]));
+      expect(copy[0][1]).assertEqual(2);
+      copy[0][0] = 100;
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0018',
+        '#3 ' + "rows[0][0]" + ' = ' + JSON.stringify(rows[0][0]));
+      expect(rows[0][0]).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0018',
+        '#4 assert ' + "expect(TypeUtils.deepEquals(rows, copy)).assertFalse()");
+      expect(TypeUtils.deepEquals(rows, copy)).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0018', 'end');
+    });
+
+    // ==================== deep equality (4 cases) ====================
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_1900
+     * @tc.name: testTypeUtils0019
+     * @tc.desc: Compare primitives by identity and reject type mismatches.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0019', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0019', 'begin');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0019',
+        '#1 assert ' + "expect(TypeUtils.deepEquals(1, 1)).assertTrue()");
+      expect(TypeUtils.deepEquals(1, 1)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0019',
+        '#2 assert ' + "expect(TypeUtils.deepEquals('a', 'a')).assertTrue()");
+      expect(TypeUtils.deepEquals('a', 'a')).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0019',
+        '#3 assert ' + "expect(TypeUtils.deepEquals(1, '1')).assertFalse()");
+      expect(TypeUtils.deepEquals(1, '1')).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0019',
+        '#4 assert ' + "expect(TypeUtils.deepEquals(Number.NaN, Number.NaN)).assertFalse()");
+      expect(TypeUtils.deepEquals(Number.NaN, Number.NaN)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0019',
+        '#5 assert ' + "expect(TypeUtils.deepEquals(undefined, undefined)).assertTrue()");
+      expect(TypeUtils.deepEquals(undefined, undefined)).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0019', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_2000
+     * @tc.name: testTypeUtils0020
+     * @tc.desc: Match objects that carry identical keys and values.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0020', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0020', 'begin');
+      const left: Record<string, number> = { 'rssi': -60, 'battery': 80 };
+      const right: Record<string, number> = { 'rssi': -60, 'battery': 80 };
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0020',
+        '#1 assert ' + "expect(TypeUtils.deepEquals(left, right)).assertTrue()");
+      expect(TypeUtils.deepEquals(left, right)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0020',
+        '#2 assert ' + "expect(TypeUtils.deepEquals(left, left)).assertTrue()");
+      expect(TypeUtils.deepEquals(left, left)).assertTrue();
+      right.battery = 70;
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0020',
+        '#3 assert ' + "expect(TypeUtils.deepEquals(left, right)).assertFalse()");
+      expect(TypeUtils.deepEquals(left, right)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0020',
+        '#4 assert ' + "expect(TypeUtils.deepEquals(left, null)).assertFalse()");
+      expect(TypeUtils.deepEquals(left, null)).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0020', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_2100
+     * @tc.name: testTypeUtils0021
+     * @tc.desc: Reject records that differ only by an extra key.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 1
+     */
+    it('testTypeUtils0021', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0021', 'begin');
+      const two: Record<string, number> = { 'a': 1, 'b': 2 };
+      const three: Record<string, number> = { 'a': 1, 'b': 2, 'c': 3 };
+      const none: Record<string, number> = {};
+      const other: Record<string, number> = {};
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0021',
+        '#1 assert ' + "expect(TypeUtils.deepEquals(two, three)).assertFalse()");
+      expect(TypeUtils.deepEquals(two, three)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0021',
+        '#2 assert ' + "expect(TypeUtils.deepEquals(none, two)).assertFalse()");
+      expect(TypeUtils.deepEquals(none, two)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0021',
+        '#3 assert ' + "expect(TypeUtils.deepEquals(none, other)).assertTrue()");
+      expect(TypeUtils.deepEquals(none, other)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0021',
+        '#4 assert ' + "expect(TypeUtils.deepEquals(three, undefined)).assertFalse()");
+      expect(TypeUtils.deepEquals(three, undefined)).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0021', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_2200
+     * @tc.name: testTypeUtils0022
+     * @tc.desc: Walk nested arrays and objects while comparing values.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 1
+     */
+    it('testTypeUtils0022', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0022', 'begin');
+      const rows: number[][] = [[1, 2], [3]];
+      const sameRows: number[][] = [[1, 2], [3]];
+      const otherRows: number[][] = [[1, 2], [4]];
+      const longer: number[] = [1, 2, 3];
+      const shorter: number[] = [1, 2];
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0022',
+        '#1 assert ' + "expect(TypeUtils.deepEquals(rows, sameRows)).assertTrue()");
+      expect(TypeUtils.deepEquals(rows, sameRows)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0022',
+        '#2 assert ' + "expect(TypeUtils.deepEquals(rows, otherRows)).assertFalse()");
+      expect(TypeUtils.deepEquals(rows, otherRows)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0022',
+        '#3 assert ' + "expect(TypeUtils.deepEquals(shorter, longer)).assertFalse()");
+      expect(TypeUtils.deepEquals(shorter, longer)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0022',
+        '#4 assert ' + "expect(TypeUtils.deepEquals(sameRows, otherRows)).assertFalse()");
+      expect(TypeUtils.deepEquals(sameRows, otherRows)).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0022', 'end');
+    });
+
+    // ==================== type name (2 cases) ====================
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_2300
+     * @tc.name: testTypeUtils0023
+     * @tc.desc: Name the nullish values and arrays distinctly from objects.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0023', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0023', 'begin');
+      const list: string[] = [];
+      const record: Record<string, number> = { 'a': 1 };
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0023',
+        '#1 assert ' + "expect(TypeUtils.getTypeName(null)).assertEqual('null')");
+      expect(TypeUtils.getTypeName(null)).assertEqual('null');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0023',
+        '#2 assert ' + "expect(TypeUtils.getTypeName(undefined)).assertEqual('undefined')");
+      expect(TypeUtils.getTypeName(undefined)).assertEqual('undefined');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0023',
+        '#3 assert ' + "expect(TypeUtils.getTypeName(list)).assertEqual('array')");
+      expect(TypeUtils.getTypeName(list)).assertEqual('array');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0023',
+        '#4 assert ' + "expect(TypeUtils.getTypeName(record)).assertEqual('object')");
+      expect(TypeUtils.getTypeName(record)).assertEqual('object');
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0023', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_2400
+     * @tc.name: testTypeUtils0024
+     * @tc.desc: Report the JavaScript type name of every scalar value.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0024', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0024', 'begin');
+      const handler: () => void = (): void => {};
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0024',
+        '#1 assert ' + "expect(TypeUtils.getTypeName('Headset')).assertEqual('string')");
+      expect(TypeUtils.getTypeName('Headset')).assertEqual('string');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0024',
+        '#2 assert ' + "expect(TypeUtils.getTypeName(12)).assertEqual('number')");
+      expect(TypeUtils.getTypeName(12)).assertEqual('number');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0024',
+        '#3 assert ' + "expect(TypeUtils.getTypeName(true)).assertEqual('boolean')");
+      expect(TypeUtils.getTypeName(true)).assertEqual('boolean');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0024',
+        '#4 assert ' + "expect(TypeUtils.getTypeName(handler)).assertEqual('function')");
+      expect(TypeUtils.getTypeName(handler)).assertEqual('function');
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0024', 'end');
+    });
+
+    // ==================== JSON safe parse (2 cases) ====================
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_2500
+     * @tc.name: testTypeUtils0025
+     * @tc.desc: Parse object and array payloads into their typed shapes.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 0
+     */
+    it('testTypeUtils0025', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0025', 'begin');
+      const fallback: Record<string, number> = { 'count': 0 };
+      const parsed: Record<string, number> = TypeUtils.safeParseJson<Record<string, number>>('{"count":3}', fallback);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0025',
+        '#1 ' + "parsed.count" + ' = ' + JSON.stringify(parsed.count));
+      expect(parsed.count).assertEqual(3);
+      const list: number[] = TypeUtils.safeParseJson<number[]>('[1,2,3]', []);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0025',
+        '#2 ' + "list.length" + ' = ' + JSON.stringify(list.length));
+      expect(list.length).assertEqual(3);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0025',
+        '#3 ' + "list[2]" + ' = ' + JSON.stringify(list[2]));
+      expect(list[2]).assertEqual(3);
+      const scalar: number = TypeUtils.safeParseJson<number>('7', 0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0025',
+        '#4 ' + "scalar" + ' = ' + JSON.stringify(scalar));
+      expect(scalar).assertEqual(7);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0025', 'end');
+    });
+
+    /*
+     * @tc.number: SUB_TYPE_UTILS_2600
+     * @tc.name: testTypeUtils0026
+     * @tc.desc: Keep the default value when the payload cannot be parsed.
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 1
+     */
+    it('testTypeUtils0026', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0026', 'begin');
+      const fallback: number = 42;
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0026',
+        '#1 assert ' + "expect(TypeUtils.safeParseJson<number>('not-json', fallback)).assertEqual(42)");
+      expect(TypeUtils.safeParseJson<number>('not-json', fallback)).assertEqual(42);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0026',
+        '#2 assert ' + "expect(TypeUtils.safeParseJson<number>('', fallback)).assertEqual(42)");
+      expect(TypeUtils.safeParseJson<number>('', fallback)).assertEqual(42);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0026',
+        '#3 assert ' + "expect(TypeUtils.safeParseJson<number>('{', fallback)).assertEqual(42)");
+      expect(TypeUtils.safeParseJson<number>('{', fallback)).assertEqual(42);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testTypeUtils0026',
+        '#4 assert ' + "expect(TypeUtils.safeParseJson<number>('null', fallback)).assertNull()");
+      expect(TypeUtils.safeParseJson<number>('null', fallback)).assertNull();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testTypeUtils0026', 'end');
+    });
+  });
+}

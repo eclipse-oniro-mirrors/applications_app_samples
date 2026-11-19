@@ -2,7 +2,7 @@
 
 ### 介绍
 
-本示例使用 [AppManager](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-appManager.md) ，[dataUriUtils](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-ability-dataUriUtils.md)，[WantAgent](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-wantAgent.md)，[ApplicationContext](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-inner-application-applicationContext.md)，[errorManager](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-errorManager.md)，[UIAbilityContext](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-inner-application-uiAbilityContext.md)中的接口进行实现。
+本示例使用 [AppManager](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-appManager.md) ，[dataUriUtils](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-ability-dataUriUtils.md)，[WantAgent](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-wantAgent.md)，[ApplicationContext](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-inner-application-applicationContext.md)，[errorManager](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-errorManager.md)，[UIAbilityContext](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-inner-application-uiAbilityContext.md)中的接口进行实现。
 
 ### 效果预览
 
@@ -174,6 +174,38 @@ entry/src/main/ets/
 * UIAbilityContext对应接口实现：源码参考[UIAbilityContext.ets](entry/src/main/ets/abilitypages/UIAbilityContext.ets)
   * moveAbilityToBackground接口实现：通过调用context.moveAbilityToBackground()接口，将处于前台的Ability移动到后台，调用context.terminateSelf()，停止Ability自身，触发AbilityLifecycleCallback中的生命周期；
 
+### 测试
+
+自动化用例位于 `entry/src/ohosTest/ets/test`，共 51 个套件文件 2740 条，全部在 RK3568 真机上实测通过（`Tests run: 2740, Failure: 0, Error: 0`）。用例元数据统一为 `@tc.number SUB_ABILITY_RUNTIME_<主题>_NNNN` + `@tc.type/@tc.size/@tc.level`，`it` 的第二个参数为 `TestType.FUNCTION | Size.XXX | Level.LEVELn`，每条用例首尾各打一行 hilog、每条断言前打印实际值，单文件不超过 2000 行：
+
+| 套件文件 | 用例数 |
+| -------- | ------ |
+| AbilityLifecycle.test.ets | 23 |
+| ApplicationContextExtended.test.ets | 33 |
+| ApplicationContextMatrix.test.ets | 51 |
+| AppManagerMatrix.test.ets | 16 |
+| BundleConfigMatrix.test.ets | 61 |
+| BundleInfoExtendedMatrixCore / Extended / Tail.test.ets | 84 / 79 / 29 |
+| BundleManagerFlagMatrix.test.ets | 33 |
+| CanOpenLinkMatrix.test.ets | 26 |
+| DataUriUtilsExtended.test.ets | 64 |
+| DataUriUtilsMatrix.test.ets | 43 |
+| ErrorManagerExtended.test.ets | 7 |
+| ErrorManagerMatrix.test.ets | 20 |
+| ResourceLocaleExtendedCore / Extended / Advanced / Tail.test.ets | 79 / 79 / 79 / 11 |
+| ResourceLocaleHugeMatrixA / B / C / D（各 Core / Extended / Advanced / Tail）.test.ets | 73 × 12，尾部 37 / 37 / 21 / 21 |
+| ResourceLocaleMatrixCore / Extended / Advanced / Tail.test.ets | 83 / 82 / 83 / 20 |
+| ResourceLocaleMoreMatrixA / B / C（各 Core / Extended / Tail）.test.ets | 73 × 6，尾部 22 / 22 / 14 |
+| UiSmoke.test.ets | 26 |
+| WantAgentExtendedCore / Tail.test.ets | 79 / 21 |
+| WantAgentMatrix.test.ets | 41 |
+
+测试入口与辅助文件：`test/List.test.ets`（注册 51 个套件）、`test/TestHelper.ets`（取 AbilityDelegator、栈顶 Ability、entry 模块资源、本应用包信息、拉起 Ability 并捕获错误码等）、`test/UiHelper.ets`（UiTest 查找、点击、进出示例页）、`testrunner/OpenHarmonyTestRunner.ets`、`testrunner/AbilityRuntimeTestRunner.ets`、`testability/TestAbility.ets`。
+
+测试运行：在 DevEco Studio 中构建并安装 `entry@default` 与 `entry@ohosTest` 两个包的 HAP，安装后右键 `entry/src/ohosTest` 运行全部用例；也可用设备命令行方式执行测试，测试模块为 `entry_test`，入口为 `/ets/testrunner/OpenHarmonyTestRunner`。签名材料只在本地配置，不入库。
+
+用例设计说明、手工用例与真机实测约束见 [ohosTest.md](ohosTest.md)。
+
 ### 相关权限
 
 不涉及。
@@ -184,11 +216,11 @@ entry/src/main/ets/
 
 ### 约束与限制
 
-1.本示例仅支持标准系统上运行，支持设备：RK3568；
+1.本示例仅支持标准系统上运行，已在 RK3568 真机上验证安装与运行；
 
-2.本示例为Stage模型，支持API12版本SDK，版本号：5.0.0.31；
+2.本示例为 Stage 模型，支持 API 26 版本 SDK（26.0.0），compileSdkVersion / targetSdkVersion / compatibleSdkVersion 均为 26.0.0；
 
-3.本示例需要使用DevEco Studio NEXT Developer Beta1 (Build Version: 5.0.3.502, built on July 28, 2024)才可编译运行；
+3.本示例需要使用 DevEco Studio 26.0.0 Release 及以上版本才可编译运行；
 
 ### 下载
 
@@ -196,7 +228,7 @@ entry/src/main/ets/
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Ability/AbilityRuntime > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
 

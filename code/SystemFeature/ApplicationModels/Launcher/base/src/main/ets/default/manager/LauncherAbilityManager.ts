@@ -14,7 +14,7 @@
  */
 
 import installer from '@ohos.bundle.installer';
-import launcherBundleManager from '@ohos.bundle.launcherBundleManager';
+import { launcherBundleManager } from '@kit.AbilityKit';
 import bundleMonitor from '@ohos.bundle.bundleMonitor';
 import osAccount from '@ohos.account.osAccount'
 import { AppItemInfo } from '../bean/AppItemInfo'
@@ -97,8 +97,8 @@ export class LauncherAbilityManager {
       Logger.info(TAG, `getAppInfoByBundleName from cache: ${JSON.stringify(appItemInfo)}`)
       return appItemInfo
     }
-    // get from system
-    let abilityInfos = await launcherBundleManager.getLauncherAbilityInfo(bundleName, this.mUserId)
+    // get from system，API 26 起同步接口为 getLauncherAbilityInfoSync
+    let abilityInfos = launcherBundleManager.getLauncherAbilityInfoSync(bundleName, this.mUserId)
     if (abilityInfos == undefined || abilityInfos.length == 0) {
       Logger.info(TAG, `${bundleName} has no launcher ability`)
       return undefined

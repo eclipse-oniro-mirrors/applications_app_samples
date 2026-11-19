@@ -29,7 +29,7 @@ export default function logUtilTest() {
     });
 
     /**
-     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0050
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0100
      * @tc.name log_withoutInit_noThrow
      * @tc.desc Verify logging before any init only writes hilog and never throws
      * @tc.size MediumTest
@@ -52,7 +52,7 @@ export default function logUtilTest() {
     });
 
     /**
-     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0100
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0200
      * @tc.name init_deliversToSink
      * @tc.desc Verify LogUtil.init delivers a formatted message to the injected sink
      * @tc.size MediumTest
@@ -72,7 +72,7 @@ export default function logUtilTest() {
     });
 
     /**
-     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0200
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0300
      * @tc.name lineFormat_timestamp
      * @tc.desc Verify log lines start with [HH:mm:ss] and carry the level and tag
      * @tc.size MediumTest
@@ -96,7 +96,7 @@ export default function logUtilTest() {
     });
 
     /**
-     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0300
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0400
      * @tc.name levelFilter
      * @tc.desc Verify the minimum level filters debug/info and passes warn/error
      * @tc.size MediumTest
@@ -119,7 +119,7 @@ export default function logUtilTest() {
     });
 
     /**
-     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0400
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0500
      * @tc.name levelMark_mapping
      * @tc.desc Verify levelMark maps each log level to its single-letter mark
      * @tc.size MediumTest
@@ -134,7 +134,7 @@ export default function logUtilTest() {
     });
 
     /**
-     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0500
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0600
      * @tc.name formatTime_format
      * @tc.desc Verify formatTime returns an HH:mm:ss formatted string
      * @tc.size MediumTest
@@ -149,7 +149,7 @@ export default function logUtilTest() {
     });
 
     /**
-     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0600
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0700
      * @tc.name errorLevel_delivered
      * @tc.desc Verify error level messages reach the sink with the [E] mark
      * @tc.size MediumTest
@@ -167,7 +167,7 @@ export default function logUtilTest() {
     });
 
     /**
-     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0700
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0800
      * @tc.name formatTime_zeroPadding
      * @tc.desc Verify formatTime pads single-digit hours/minutes/seconds with zeros
      * @tc.size MediumTest
@@ -180,7 +180,7 @@ export default function logUtilTest() {
     });
 
     /**
-     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0800
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0900
      * @tc.name init_keepsMinLevelWhenOmitted
      * @tc.desc Verify init without minLevel keeps the previously configured level
      * @tc.size MediumTest
@@ -201,7 +201,7 @@ export default function logUtilTest() {
     });
 
     /**
-     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_0900
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_1000
      * @tc.name init_replacesSink
      * @tc.desc Verify re-initializing replaces the sink and the old sink stops receiving
      * @tc.size MediumTest
@@ -224,7 +224,7 @@ export default function logUtilTest() {
     });
 
     /**
-     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_1000
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_1100
      * @tc.name sink_linesPreserveOrder
      * @tc.desc Verify mixed-level messages arrive at the sink in call order
      * @tc.size MediumTest
@@ -246,7 +246,7 @@ export default function logUtilTest() {
     });
 
     /**
-     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_1100
+     * @tc.number SUB_COMPOSE_LIST_DEMO_LOGUTIL_1200
      * @tc.name levelMark_unknown
      * @tc.desc Verify an out-of-range level falls back to the question-mark mark
      * @tc.size MediumTest

@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog'
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { LOG_DOMAIN, LOG_PREFIX } from '../common/AppConstants';
 
 class Logger {
   private domain: number;
@@ -22,7 +23,7 @@ class Logger {
 
   constructor(prefix: string) {
     this.prefix = prefix;
-    this.domain = 0xFF00;
+    this.domain = LOG_DOMAIN;
     hilog.isLoggable(this.domain, prefix, hilog.LogLevel.INFO);
     hilog.isLoggable(this.domain, prefix, hilog.LogLevel.DEBUG);
     hilog.isLoggable(this.domain, prefix, hilog.LogLevel.WARN);
@@ -46,4 +47,4 @@ class Logger {
   }
 }
 
-export let logger = new Logger('[Basic capabilities are enhanced]');
+export let logger = new Logger(LOG_PREFIX);

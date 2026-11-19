@@ -16,6 +16,7 @@
 // [Start gcm_encrypt_decrypt_aes_symkey_async]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function generateRandom(len: number) {
   let rand = cryptoFramework.createRandom();
@@ -77,17 +78,28 @@ async function genSymKeyByData(symKeyData: Uint8Array) {
 }
 
 async function main() {
-  let keyData = new Uint8Array([83, 217, 231, 76, 28, 113, 23, 219, 250, 71, 209, 210, 205, 97, 32, 159]);
-  let symKey = await genSymKeyByData(keyData);
-  let message = 'This is a test';
-  let plainText: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(message, 'utf-8').buffer) };
-  let encryptText = await encryptMessagePromise(symKey, plainText);
-  let decryptText = await decryptMessagePromise(symKey, encryptText);
-  if (plainText.data.toString() === decryptText.data.toString()) {
-    console.info('decrypt ok.');
-    console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
-  } else {
-    console.error('decrypt failed.');
+  try {
+    let keyData = new Uint8Array([83, 217, 231, 76, 28, 113, 23, 219, 250, 71, 209, 210, 205, 97, 32, 159]);
+    let symKey = await genSymKeyByData(keyData);
+    let message = 'This is a test';
+    let plainText: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(message, 'utf-8').buffer) };
+    let encryptText = await encryptMessagePromise(symKey, plainText);
+    let decryptText = await decryptMessagePromise(symKey, encryptText);
+    if (plainText.data.toString() === decryptText.data.toString()) {
+      console.info('decrypt ok.');
+      console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
+    } else {
+      console.error('decrypt failed.');
+      // [StartExclude gcm_encrypt_decrypt_aes_symkey_async]
+      throw new Error('decrypt failed.');
+      // [EndExclude gcm_encrypt_decrypt_aes_symkey_async]
+    }
+  } catch (error) {
+    let e: BusinessError = error as BusinessError;
+    console.error(`AES GCM failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude gcm_encrypt_decrypt_aes_symkey_async]
+    throw new Error(`AES GCM failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude gcm_encrypt_decrypt_aes_symkey_async]
   }
 }
 // [End gcm_encrypt_decrypt_aes_symkey_async]
@@ -102,9 +114,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_aes_gcm_asynchronous'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            main();
+            await main();
             this.message = 'AES_GCMAsynchronousSuccess';
           } catch {
             this.message = 'AES_GCMAsynchronousFail';

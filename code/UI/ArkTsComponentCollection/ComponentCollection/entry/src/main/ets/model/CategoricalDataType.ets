@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/model/CategoricalDataType.ets
+ * 文件职责：CategoricalDataType 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：FirstLevelCategory、SecondLevelCategory、ThirdLevelCategory、FourthLevelCategory。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 export interface FirstLevelCategory {
   childNodes: SecondLevelCategory[] | ThirdLevelCategory[],
   selectedImage: Resource, // The icon for the first-level category is selected
@@ -20,12 +27,18 @@ export interface FirstLevelCategory {
   tabBarName: Resource // First-level category title
 }
 
+/**
+ * SecondLevelCategory：接口定义，承载本文件对应的逻辑与数据。
+ */
 export interface SecondLevelCategory {
   title: Resource, // Second-level category titles
   childNodes: ThirdLevelCategory[],
   image?: Resource
 }
 
+/**
+ * ThirdLevelCategory：接口定义，承载本文件对应的逻辑与数据。
+ */
 export interface ThirdLevelCategory {
   image: Resource, // Third-level category icon
   title: Resource, // Third-level category headings
@@ -33,6 +46,9 @@ export interface ThirdLevelCategory {
   childNodes?: FourthLevelCategory[]
 }
 
+/**
+ * FourthLevelCategory：接口定义，承载本文件对应的逻辑与数据。
+ */
 export interface FourthLevelCategory {
   title: Resource, // Fourth-level category titles
   url: string // Fourth-level category detail page URL

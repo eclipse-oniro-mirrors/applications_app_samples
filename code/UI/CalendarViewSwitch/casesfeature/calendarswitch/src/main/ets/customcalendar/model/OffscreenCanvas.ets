@@ -14,17 +14,26 @@
  */
 
 /**
+ * @file casesfeature/calendarswitch/src/main/ets/customcalendar/model/OffscreenCanvas.ets
+ * 文件职责：OffscreenCanvas 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：OffscreenCanvas。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
+/**
  * 离屏画布类
  */
 export class OffscreenCanvas {
   public settings: RenderingContextSettings = new RenderingContextSettings(true);
   public context: CanvasRenderingContext2D = new CanvasRenderingContext2D(this.settings);
+
   // OffscreenCanvasRenderingContext2D入参分别是离屏画布的宽度，离屏画布的高度，用来配置OffscreenCanvasRenderingContext2D对象的参数
   public offContext: OffscreenCanvasRenderingContext2D =
     new OffscreenCanvasRenderingContext2D(200, 200, this.settings);
   public year: number;
   public month: number;
 
+  /** 构造 OffscreenCanvas 实例。 */
   constructor(year: number, month: number) {
     this.year = year;
     this.month = month;

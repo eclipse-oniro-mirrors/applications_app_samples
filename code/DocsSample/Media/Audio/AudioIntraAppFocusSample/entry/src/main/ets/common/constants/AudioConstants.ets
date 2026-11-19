@@ -23,6 +23,7 @@ export enum StreamUsageType {
   GAME = 2,
   AUDIOBOOK = 3,
   NAVIGATION = 4,
+  INVALID = 99,
 }
 
 export enum InterruptHintType {

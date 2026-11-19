@@ -45,6 +45,18 @@ entry/src/main/ets/
 |   |---OnIdlePage.ets                      // 首页                                                     
 ```
 
+### ohosTest 目录
+
+```
+entry/src/ohosTest
+├── ets
+│   ├── test                              // 测试套件（List.test、矩阵用例、shared 工具）
+│   ├── testability                       // TestAbility 与测试页面
+│   └── testrunner                        // OpenHarmonyTestRunner
+├── resources
+└── module.json5                          // 测试模块配置
+```
+
 ### 具体实现
 
 1. 在自定义组件复用池中实现预创建。[详细代码](customreusablepool/src/main/ets/utils/BuilderNodePool.ets)
@@ -64,11 +76,11 @@ entry/src/main/ets/
 
 ### 约束与限制
 
-1. 本示例仅支持标准系统上运行;
+1. 本示例仅支持标准系统上运行，deviceTypes 配置为 `default`、`tablet`。
 
-2. 本示例已适配API20版本SDK，SDK版本号(API Version 20 Release),镜像版本号(5.1.0 Release)。
+2. 本示例已适配API20版本SDK，SDK版本号(API Version 20 Release),镜像版本号(5.1.0 Release)；当前已升级至API 26版本SDK，SDK版本号(API Version 26)，镜像版本号(7.1.0.21)。`compileSdkVersion` 为 `26.0.0`，`compatibleSdkVersion` 为 `14`（最低兼容 API 14）。
 
-3. 本示例需要使用DevEco Studio 版本号(5.1.0 Release)及以上版本才可编译运行。
+3. 本示例需要使用DevEco Studio 版本号(5.1.0 Release)及以上版本才可编译运行；当前已升级至DevEco Studio 26.0.0 Release及以上版本。
 
 ### 下载
 

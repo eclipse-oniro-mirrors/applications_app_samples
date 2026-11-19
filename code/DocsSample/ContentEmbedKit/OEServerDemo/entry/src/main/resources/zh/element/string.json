@@ -1,0 +1,64 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "描述"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "OE_A"
+    },
+    {
+      "name": "name",
+      "value": "格式aaa"
+    },
+    {
+      "name": "description",
+      "value": "测试格式aaa描述信息"
+    },
+    {
+      "name": "button_open",
+      "value": "打开"
+    },
+    {
+      "name": "button_save",
+      "value": "保存"
+    },
+    {
+      "name": "button_snapshot",
+      "value": "快照"
+    },
+    {
+      "name": "button_save_as",
+      "value": "另存为"
+    },
+    {
+      "name": "button_ole_save_as",
+      "value": "OLE另存为"
+    },
+    {
+      "name": "button_ok",
+      "value": "确定"
+    },
+    {
+      "name": "dialog_save_success",
+      "value": "保存成功"
+    },
+    {
+      "name": "dialog_save_failed",
+      "value": "保存失败"
+    },
+    {
+      "name": "dialog_write_target_failed",
+      "value": "写入目标文件失败"
+    },
+    {
+      "name": "dialog_error_code",
+      "value": "错误码: %d"
+    }
+  ]
+}

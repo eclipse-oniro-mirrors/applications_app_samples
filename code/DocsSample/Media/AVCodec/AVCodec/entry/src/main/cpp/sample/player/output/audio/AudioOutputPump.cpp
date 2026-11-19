@@ -146,6 +146,10 @@ bool AudioOutputPump::ProcessSyncOutput()
     CHECK_AND_RETURN_RET_LOG(running_, false, "Audio decoder output sync thread out");
     CodecBufferInfo bufferInfo;
     const int32_t ret = decoder_.GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
+    if (ret != AVCODEC_SAMPLE_ERR_OK && ret != AVCODEC_SAMPLE_ERR_AGAIN && ret != AVCODEC_SAMPLE_ERR_END) {
+        MarkPlaybackFailed("Audio decoder output failed");
+        return false;
+    }
     if (!running_) {
         if (ret == AVCODEC_SAMPLE_ERR_OK) {
             (void)ReleaseOutputBuffer(bufferInfo, "audio output worker stopped");
@@ -155,8 +159,9 @@ bool AudioOutputPump::ProcessSyncOutput()
     if (ret == AVCODEC_SAMPLE_ERR_AGAIN) {
         return true;
     }
-    if (ret != AVCODEC_SAMPLE_ERR_OK) {
-        MarkPlaybackFailed("Audio decoder output failed");
+    if (ret == AVCODEC_SAMPLE_ERR_END) {
+        // 同步解码器已调用Free处理EOS，END只表示正常结束，不再归还同一索引。
+        AVCODEC_SAMPLE_LOGI("Catch EOS, audio output thread out");
         return false;
     }
     if (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {

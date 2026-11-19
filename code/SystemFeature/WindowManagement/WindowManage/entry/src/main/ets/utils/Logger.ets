@@ -12,24 +12,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file entry/src/main/ets/utils/Logger.ets
+ * 文件职责：封装 hilog，提供统一 domain 与前缀的日志接口。
+ * 主要声明：Logger。
+ */
+
 import hilog from '@ohos.hilog';
 
+/**
+ * Logger：类定义，承载本文件对应的逻辑与数据。
+ */
 class Logger {
   private domain: number = 0xFF00
   private prefix: string = '[Sample_Window]'
 
+  /**
+   * debug：执行 debug 相关逻辑。
+   */
   public debug(args: string) {
     hilog.debug(this.domain, this.prefix, args)
   }
 
+  /**
+   * info：执行 info 相关逻辑。
+   */
   public info(args: string) {
     hilog.info(this.domain, this.prefix, args)
   }
 
+  /**
+   * warn：执行 warn 相关逻辑。
+   */
   public warn(args: string) {
     hilog.warn(this.domain, this.prefix, args)
   }
 
+  /**
+   * error：执行 error 相关逻辑。
+   */
   public error(args: string) {
     hilog.error(this.domain, this.prefix, args)
   }

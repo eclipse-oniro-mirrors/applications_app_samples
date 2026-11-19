@@ -13,13 +13,13 @@
  * limitations under the License.
  */
 
-import { AbilityConstant, AbilityLifecycleCallback, UIAbility } from '@kit.AbilityKit';
+import { AbilityConstant, AbilityLifecycleCallback, UIAbility, Want } from '@kit.AbilityKit';
 import { BusinessError } from '@ohos.base';
 import { window } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const TAG: string = '[AbilityLifecycleCallback]';
-const DOMAIN: number = 0xFF00;
+const TAG: string = '[Sample_AbilityRuntime]';
+const DOMAIN: number = 0xF811;
 
 export class GlobalContext {
   private constructor() {

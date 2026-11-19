@@ -1,28 +1,30 @@
-/**
+/*
  * Copyright (C) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an 'AS IS' BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+
+import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, ON, ResizeDirection } from '@kit.TestKit';
 import { UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const TAG = 'SetWindowLimits_Test';
-const DOMAIN = 0x0000;
+const TAG: string = 'SetWindowLimits_Test';
+const DOMAIN: number = 0xF811;
 const DELAY_UI_READY = 1000;
 
-const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
+const delegator: abilityDelegatorRegistry.AbilityDelegator =
+  abilityDelegatorRegistry.getAbilityDelegator();
+const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
 const driver = Driver.create();
 
 async function launchEntryAbility(): Promise<void> {
@@ -38,55 +40,68 @@ async function getTopAbilityName(): Promise<string> {
   return ability.context.abilityInfo.name;
 }
 
-export default function abilityTest() {
+export default function SetWindowLimitsTest(): void {
   describe('SetWindowLimitsTest', () => {
     /**
-     * 打开应用，主页正常显示
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_0100
+     * @tc.name      testSetWindowLimitsStartAbility0001
+     * @tc.desc      Start the application and verify the main page is displayed.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
      */
-    it('SetWindowLimits_ui_001', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, 'ui_001 start');
-      await launchEntryAbility();
-      await driver.delayMs(DELAY_UI_READY);
-      const abilityName = await getTopAbilityName();
-      expect(abilityName).assertEqual('EntryAbility');
-      await driver.assertComponentExist(ON.text('setWindowLimits.'));
-      hilog.info(DOMAIN, TAG, 'ui_001 end');
-      done();
-    });
+    it('testSetWindowLimitsStartAbility0001',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        hilog.info(DOMAIN, TAG, '%{public}s', 'testSetWindowLimitsStartAbility0001 begin');
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const abilityName = await getTopAbilityName();
+        expect(abilityName).assertEqual('EntryAbility');
+        const mainText = await driver.findComponent(ON.text('setWindowLimits.'));
+        expect(mainText !== null).assertTrue();
+        hilog.info(DOMAIN, TAG, '%{public}s', 'testSetWindowLimitsStartAbility0001 end');
+        done();
+      });
 
     /**
-     * setWindowLimits接口设置的窗口尺寸限制生效，窗口缩放不超出限定范围
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_0200
+     * @tc.name      testSetWindowLimitsBounds0001
+     * @tc.desc      Verify window bounds stay within the limits or the expected resize error is reported.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
      */
-    it('SetWindowLimits_ui_002', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, 'ui_002 start');
-      await launchEntryAbility();
-      await driver.delayMs(DELAY_UI_READY);
-      const window = await driver.findWindow({ bundleName: bundleName });
-      try {
-        // 尝试将窗口缩放至远大于最大限值的尺寸
-        await window.resize(20000, 20000, ResizeDirection.RIGHT_DOWN);
+    it('testSetWindowLimitsBounds0001',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (done: Function) => {
+        hilog.info(DOMAIN, TAG, '%{public}s', 'testSetWindowLimitsBounds0001 begin');
+        await launchEntryAbility();
         await driver.delayMs(DELAY_UI_READY);
-        let bounds = await window.getBounds();
-        // 窗口宽度、高度被限制在setWindowLimits设置的最大值以内
-        expect(bounds.width < 20000).assertTrue();
-        expect(bounds.height < 20000).assertTrue();
-        // 尝试将窗口缩放至远小于最小限值的尺寸
-        await window.resize(10, 10, ResizeDirection.LEFT_UP);
-        await driver.delayMs(DELAY_UI_READY);
-        bounds = await window.getBounds();
-        // 窗口宽度、高度被限制在setWindowLimits设置的最小值以上
-        expect(bounds.width > 100).assertTrue();
-        expect(bounds.height > 100).assertTrue();
-      } catch (err) {
-        if (err.message == 'this device can not support this action') {
-          // 当前设备不支持自由窗口时，仅校验窗口对象获取成功
-          expect(window != null).assertTrue();
-        } else {
-          expect(false).assertTrue();
+        const window = await driver.findWindow({ bundleName: bundleName });
+        try {
+          await window.resize(20000, 20000, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+          const maxBounds = await window.getBounds();
+          const maxWidth = maxBounds.right - maxBounds.left;
+          const maxHeight = maxBounds.bottom - maxBounds.top;
+          expect(maxWidth < 20000).assertTrue();
+          expect(maxHeight < 20000).assertTrue();
+          await window.resize(10, 10, ResizeDirection.LEFT_UP);
+          await driver.delayMs(DELAY_UI_READY);
+          const minBounds = await window.getBounds();
+          const minWidth = minBounds.right - minBounds.left;
+          const minHeight = minBounds.bottom - minBounds.top;
+          expect(minWidth > 100).assertTrue();
+          expect(minHeight > 100).assertTrue();
+        } catch (err) {
+          const resizeUnsupported: boolean =
+            err.message === 'this device can not support this action' ||
+            err.message === 'Fullscreen window can not resize';
+          expect(resizeUnsupported).assertTrue();
         }
-      }
-      hilog.info(DOMAIN, TAG, 'ui_002 end');
-      done();
-    });
+        hilog.info(DOMAIN, TAG, '%{public}s', 'testSetWindowLimitsBounds0001 end');
+        done();
+      });
   })
 }

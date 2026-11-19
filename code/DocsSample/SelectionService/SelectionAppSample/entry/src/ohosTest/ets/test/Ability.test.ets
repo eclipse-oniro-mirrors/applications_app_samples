@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,66 +13,138 @@
  * limitations under the License.
  */
 
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import { abilityDelegatorRegistry } from '@ohos.app.ability.abilityDelegatorRegistry';
-import { selectionManager, PanelInfo, PanelType, BusinessError } from '@kit.BasicServicesKit';
-import { Driver } from '@ohos.UiTest';
+import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import UIAbility from '@ohos.app.ability.UIAbility';
+import { SelectionFixture } from './Shared/SelectionFixture';
+import { yieldToEventLoop } from './Shared/TestScheduler';
+import { describe, it, expect, beforeAll, beforeEach, afterEach } from '@ohos/hypium';
+import { openProductionPage, requireComponentById, requireComponentByText,
+  runSerializedUiOperation } from './Shared/SharedDriver';
 
-export default function abilityTest() {
-  describe('ActsAbilityTest', () => {
-    /**
-     * 打开应用
-     */
-    it('ArkTSSelectionService_StartAbility_001', 0, async (done: Function) => {
-      hilog.info(0x0000, 'ActsAbilityTest', 'StartAbility_001, begin');
-      let driver = Driver.create();
-      let abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+export default function abilityTest(): void {
+  describe('SelectionAbilityPageTest', () => {
+    let entryAbility: UIAbility | undefined;
+    let testAbility: UIAbility;
+
+    const openEntryPage = async (): Promise<void> => {
+      const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+      const monitor: AbilityDelegatorRegistry.AbilityMonitor = {
+        abilityName: 'EntryAbility',
+        moduleName: 'entry',
+        onAbilityCreate: (ability: UIAbility): void => {
+          entryAbility = ability;
+        }
+      };
+      await delegator.addAbilityMonitor(monitor);
       try {
-        await abilityDelegator.startAbility({
-          bundleName: 'com.selection.selectionapplication',
+        await delegator.startAbility({
+          bundleName: AbilityDelegatorRegistry.getArguments().bundleName,
+          moduleName: 'entry',
           abilityName: 'EntryAbility'
         });
-      } catch (exception) {
-        hilog.info(0x0000, 'ActsAbilityTest', `StartAbility_001 exception = ${JSON.stringify(exception)}`);
-        expect().assertFail();
-      }
-      done();
-      hilog.info(0x0000, 'ActsAbilityTest', 'StartAbility_001 end')
-    })
-
-    /*
-     * 创建弹窗
-     */
-    it('ArkTSSelectionService_CreatePanel', 0, async (done: Function) => {
-      hilog.info(0x0000, 'ActsAbilityTest', 'enter');
-      let abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-      let context = abilityDelegator.getAppContext();
-      context.stageMode = true;
-      let panelInfo: PanelInfo = {
-        panelType: PanelType.MENU_PANEL,
-        x: 0,
-        y: 0,
-        width: 100,
-        height: 100
-      }
-      let panel: selectionManager.Panel | undefined = undefined;
-      let bDestroyed = false;
-      try {
-        panel = await selectionManager.createPanel(context, panelInfo);
-        await panel.moveToGlobalDisplay(20, 20);
-        await selectionManager.destroyPanel(panel);
-        bDestroyed = true;
-      } catch (error) {
-        hilog.info(0x0000, 'ActsAbilityTest', `ArkTSSelectionService_CreatePanel error = ${JSON.stringify(error)}`);
-        expect().assertFail();
-      } finally {
-        if (!bDestroyed) {
-          await selectionManager.destroyPanel(panel);
+        entryAbility = await delegator.waitAbilityMonitor(monitor, 3000);
+        if (entryAbility === undefined || entryAbility === null) {
+          throw new Error('EntryAbility startup timed out');
         }
+        await requireComponentByText('Hello World', 3000);
+      } finally {
+        await delegator.removeAbilityMonitor(monitor);
       }
-      done();
-      hilog.info(0x0000, 'ActsAbilityTest', 'ArkTSSelectionService_CreatePanel end');
-    })
-  })
+    };
+
+    const closeEntryPage = async (): Promise<void> => {
+      const ability = entryAbility;
+      if (ability === undefined) {
+        return;
+      }
+      const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+      let destroyed: boolean = false;
+      const monitor: AbilityDelegatorRegistry.AbilityMonitor = {
+        abilityName: 'EntryAbility',
+        moduleName: 'entry',
+        onAbilityDestroy: (): void => {
+          destroyed = true;
+        }
+      };
+      await delegator.addAbilityMonitor(monitor);
+      try {
+        await ability.context.terminateSelf();
+        const deadline: number = Date.now() + 3000;
+        while (!destroyed && Date.now() < deadline) {
+          await yieldToEventLoop();
+        }
+        if (!destroyed) {
+          throw new Error('EntryAbility destruction timed out');
+        }
+        entryAbility = undefined;
+      } finally {
+        await delegator.removeAbilityMonitor(monitor);
+      }
+    };
+
+    const readGreeting = async (): Promise<string> => {
+      const component = await requireComponentById('MenuPanelHelloWorld', 3000);
+      return await runSerializedUiOperation(async () => component.getText());
+    };
+
+    const clickGreeting = async (): Promise<void> => {
+      const component = await requireComponentById('MenuPanelHelloWorld', 3000);
+      await runSerializedUiOperation(async () => component.click());
+      await requireComponentByText('Welcome', 3000);
+    };
+
+    beforeAll(async () => {
+      testAbility = await AbilityDelegatorRegistry.getAbilityDelegator().getCurrentTopAbility();
+      if (testAbility === undefined || testAbility === null) {
+        throw new Error('TestAbility is unavailable before entry tests');
+      }
+    });
+
+    beforeEach(async () => {
+      await yieldToEventLoop();
+    });
+
+    afterEach(async () => {
+      try {
+        await closeEntryPage();
+      } finally {
+        await AbilityDelegatorRegistry.getAbilityDelegator().doAbilityForeground(testAbility);
+        await yieldToEventLoop();
+        await openProductionPage('testability/pages/Index');
+      }
+    });
+
+    it('SEL_ENTRY_001_initial_greeting', 0, async () => {
+      await openEntryPage();
+      const actual = await readGreeting();
+      expect(actual).assertEqual('Hello World');
+    });
+
+    it('SEL_ENTRY_002_click_changes_greeting', 0, async () => {
+      await openEntryPage();
+      await clickGreeting();
+      expect(await readGreeting()).assertEqual('Welcome');
+      await clickGreeting();
+      expect(await readGreeting()).assertEqual('Welcome');
+      await closeEntryPage();
+      await openEntryPage();
+      expect(await readGreeting()).assertEqual('Hello World');
+    });
+
+    it('SEL_ENTRY_003_click_preserves_selection_content', 0, async () => {
+      const fixture = new SelectionFixture();
+      fixture.install();
+      try {
+        fixture.model.setSelectionContent('Previously selected text');
+        await openEntryPage();
+        await clickGreeting();
+        expect(await readGreeting()).assertEqual('Welcome');
+        expect(fixture.model.getSelectionContent()).assertEqual('Previously selected text');
+        expect(fixture.contentCalls).assertEqual(0);
+        expect(fixture.creates.length).assertEqual(0);
+      } finally {
+        fixture.restore();
+      }
+    });
+  });
 }

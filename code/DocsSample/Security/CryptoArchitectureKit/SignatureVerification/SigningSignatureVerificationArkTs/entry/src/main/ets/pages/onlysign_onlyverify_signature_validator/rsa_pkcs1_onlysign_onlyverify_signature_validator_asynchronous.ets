@@ -16,6 +16,7 @@
 // [Start rsa_pkcs1_onlysign_onlyverify_signature_validator_asynchronous]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 async function signMessagePromise(priKey: cryptoFramework.PriKey, digestBlob: cryptoFramework.DataBlob) {
   let signAlg = 'RSA1024|PKCS1|SHA256|OnlySign';
@@ -36,21 +37,32 @@ async function verifyMessagePromise(digestBlob: cryptoFramework.DataBlob, signMe
 }
 
 async function main() {
-  let messageData: cryptoFramework.DataBlob =
-    { data: new Uint8Array(buffer.from('This is rsa onlySign test', 'utf-8').buffer) };
-  // 先使用 Md 计算 SHA256 摘要（32字节）
-  let md = cryptoFramework.createMd('SHA256');
-  await md.update(messageData);
-  let digestBlob = await md.digest();
-  let keyGenAlg = 'RSA1024';
-  let generator = cryptoFramework.createAsyKeyGenerator(keyGenAlg);
-  let keyPair = await generator.generateKeyPair();
-  let signData = await signMessagePromise(keyPair.priKey, digestBlob);
-  let verifyResult = await verifyMessagePromise(digestBlob, signData, keyPair.pubKey);
-  if (verifyResult === true) {
-    console.info('verify result: success.');
-  } else {
-    console.error('verify result: failed.');
+  try {
+    let messageData: cryptoFramework.DataBlob =
+      { data: new Uint8Array(buffer.from('This is rsa onlySign test', 'utf-8').buffer) };
+    // 先使用 Md 计算 SHA256 摘要（32字节）
+    let md = cryptoFramework.createMd('SHA256');
+    await md.update(messageData);
+    let digestBlob = await md.digest();
+    let keyGenAlg = 'RSA1024';
+    let generator = cryptoFramework.createAsyKeyGenerator(keyGenAlg);
+    let keyPair = await generator.generateKeyPair();
+    let signData = await signMessagePromise(keyPair.priKey, digestBlob);
+    let verifyResult = await verifyMessagePromise(digestBlob, signData, keyPair.pubKey);
+    if (verifyResult === true) {
+      console.info('verify result: success.');
+    } else {
+      console.error('verify result: failed.');
+      // [StartExclude rsa_pkcs1_onlysign_onlyverify_signature_validator_asynchronous]
+      throw new Error('verify result: failed.');
+      // [EndExclude rsa_pkcs1_onlysign_onlyverify_signature_validator_asynchronous]
+    }
+  } catch (error) {
+    let e: BusinessError = error as BusinessError;
+    console.error(`verify failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude rsa_pkcs1_onlysign_onlyverify_signature_validator_asynchronous]
+    throw new Error(`verify failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude rsa_pkcs1_onlysign_onlyverify_signature_validator_asynchronous]
   }
 }
 

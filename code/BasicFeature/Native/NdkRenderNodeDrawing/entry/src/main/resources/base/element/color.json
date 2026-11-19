@@ -3,6 +3,38 @@
     {
       "name": "start_window_background",
       "value": "#FFFFFF"
+    },
+    {
+      "name": "primary",
+      "value": "#1F6FEB"
+    },
+    {
+      "name": "accent",
+      "value": "#F59E0B"
+    },
+    {
+      "name": "panel",
+      "value": "#E2E8F0"
+    },
+    {
+      "name": "canvas_background",
+      "value": "#F8FAFC"
+    },
+    {
+      "name": "text_primary",
+      "value": "#1F2937"
+    },
+    {
+      "name": "text_secondary",
+      "value": "#64748B"
+    },
+    {
+      "name": "card_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "text_on_primary",
+      "value": "#FFFFFF"
     }
   ]
 }

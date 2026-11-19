@@ -57,18 +57,22 @@ export class GattClientManager {
     return descriptor;
   }
 
+  private encodeUtf8Value(value: string): ArrayBuffer {
+    if (value.length === 0) {
+      return new ArrayBuffer(0);
+    }
+    const encoded: Uint8Array = encoder.encodeInto(value);
+    const buffer: ArrayBuffer = new ArrayBuffer(encoded.byteLength);
+    new Uint8Array(buffer).set(encoded);
+    return buffer;
+  }
+
   // 构造BLECharacteristic
   private initCharacteristic(): ble.BLECharacteristic {
     let descriptors: ble.BLEDescriptor[] = [];
-    let desLength = this.myDescriptorValue.length;
-    let descBuffer = new ArrayBuffer(desLength);
-    let descValue = new Uint8Array(descBuffer);
-    encoder.encodeIntoUint8Array(this.myCharacteristicValue, descValue);
+    const descBuffer: ArrayBuffer = this.encodeUtf8Value(this.myDescriptorValue);
     descriptors[0] = this.initDescriptor(this.myDescriptorUuid, descBuffer);
-    let length = this.myCharacteristicValue.length;
-    let charBuffer = new ArrayBuffer(length);
-    let charValue = new Uint8Array(charBuffer);
-    encoder.encodeIntoUint8Array(this.myCharacteristicValue, charValue);
+    const charBuffer: ArrayBuffer = this.encodeUtf8Value(this.myCharacteristicValue);
     let characteristic: ble.BLECharacteristic = {
       serviceUuid: this.myServiceUuid,
       characteristicUuid: this.myCharacteristicUuid,
@@ -138,13 +142,16 @@ export class GattClientManager {
   }
 
   // 1. 订阅连接状态变化事件
+  private connectionListener: (data: ble.BLEConnectionChangeState) => void =
+    (_data: ble.BLEConnectionChangeState): void => {};
+
   public onGattClientStateChange() {
     if (!this.gattClient) {
       console.error(TAG, 'no gattClient');
       return;
     }
     try {
-      this.gattClient.on('BLEConnectionStateChange', (stateInfo: ble.BLEConnectionChangeState) => {
+      const listener = (stateInfo: ble.BLEConnectionChangeState): void => {
         let state = '';
         switch (stateInfo.state) {
           case 0:
@@ -167,7 +174,9 @@ export class GattClientManager {
         if (stateInfo.deviceId == this.device) {
           this.connectState = stateInfo.state;
         }
-      });
+      };
+      this.gattClient.on('BLEConnectionStateChange', listener);
+      this.connectionListener = listener;
     } catch (err) {
       console.error(TAG, 'errCode: ' + (err as BusinessError).code + ', errMessage: ' + (err as BusinessError).message);
     }
@@ -348,10 +357,7 @@ export class GattClientManager {
       return;
     }
 
-    let length = this.myDescriptorValue.length;
-    let descBuffer = new ArrayBuffer(length);
-    let descValue = new Uint8Array(descBuffer);
-    encoder.encodeIntoUint8Array(this.myDescriptorValue, descValue);
+    const descBuffer: ArrayBuffer = this.encodeUtf8Value(this.myDescriptorValue);
     let descriptor = this.initDescriptor(this.myDescriptorUuid, descBuffer);
     console.info(TAG, 'writeDescriptorValue');
     try {
@@ -384,8 +390,7 @@ export class GattClientManager {
     console.info(TAG, 'stopConnect ' + this.device);
     try {
       this.gattClient.disconnect(); // 8.1 断开连接
-      this.gattClient.off('BLEConnectionStateChange', (stateInfo: ble.BLEConnectionChangeState) => {
-      });
+      this.gattClient.off('BLEConnectionStateChange', this.connectionListener);
       this.gattClient.close() // 8.2 如果不再使用此gattClient，则需要close
       // [StartExclude generic_attribute]
       this.toastReport.showResult('stopConnect success');

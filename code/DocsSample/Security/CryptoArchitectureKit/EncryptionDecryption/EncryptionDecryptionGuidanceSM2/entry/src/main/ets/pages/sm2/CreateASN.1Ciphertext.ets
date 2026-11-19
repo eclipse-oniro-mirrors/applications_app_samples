@@ -32,6 +32,9 @@ function testGenCipherTextBySpec() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude sm2_create_asn1_ciphertext]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude sm2_create_asn1_ciphertext]
   }
 }
 

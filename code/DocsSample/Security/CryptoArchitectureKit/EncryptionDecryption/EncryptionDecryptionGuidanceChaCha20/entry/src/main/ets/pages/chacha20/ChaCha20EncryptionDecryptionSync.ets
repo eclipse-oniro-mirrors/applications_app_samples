@@ -17,6 +17,7 @@
 
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function generateRandom(len: number) {
   let rand = cryptoFramework.createRandom();
@@ -73,9 +74,16 @@ function main() {
       console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
     } else {
       console.error('decrypt failed.');
+      // [StartExclude encrypt_decrypt_chacha20_sync]
+      throw new Error('decrypt failed.');
+      // [EndExclude encrypt_decrypt_chacha20_sync]
     }
   } catch (error) {
-    console.error(`decrypt failed: errCode: ${error.code}, message: ${error.message}`);
+    let e: BusinessError = error as BusinessError;
+    console.error(`decrypt failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude encrypt_decrypt_chacha20_sync]
+    throw new Error(`decrypt failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude encrypt_decrypt_chacha20_sync]
   }
 }
 

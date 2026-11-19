@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file casesfeature/calendarswitch/src/main/ets/customcalendar/view/YearViewItem.ets
+ * 文件职责：YearViewItem 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：YearViewItem。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import CommonData from '../common/CommonData';
 import Constants from '../constant/Constants';
 import { OffscreenCanvas } from '../model/OffscreenCanvas'; // 离屏画布类
@@ -21,11 +28,18 @@ import { TimeUtils } from '../utils/TimeUtils'; // 时间计算工具类
 /**
  * 年视图子组件
  */
+/**
+ * YearViewItem：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct YearViewItem {
   // 年视图离屏画布列表
+  // @State yearViewList：组件内部状态
   @State yearViewList: Array<OffscreenCanvas> = [];
+
+  // @Prop year：父组件传入的属性
   @Prop @Watch('updateYearData') year: number;
+
   // 年视图月份点击回调
   onMonthClick: (year: number, month: number) => void = () => {
   };
@@ -40,6 +54,9 @@ export struct YearViewItem {
     }
   }
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear(): void {
     // 添加年视图中每个月的离屏画布对象。一个画布对象绘制一个月数据。
     for (let i = 1; i <= Constants.MONTHS_NUM; i++) {
@@ -47,13 +64,23 @@ export struct YearViewItem {
     }
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Grid：网格容器
+    // 关键属性：onSizeChange
     Grid() {
       ForEach(this.yearViewList, (monthItem: OffscreenCanvas) => {
+        // GridItem：网格项
+        // 关键属性：高度、宽度、点击事件回调、onMonthClick
+        // 交互：可点击交互
         GridItem() {
           // TODO: 高性能知识点: 年视图使用Canvas绘制显示年视图中每个月，以减少节点数量，同时使用OffscreenCanvasRenderingContext2D离
           // 屏绘制，将需要绘制的内容先绘制在缓存区，然后将其转换成图片，一次性绘制到canvas上，以加快绘制速度。
-          Canvas(monthItem.context)
+          // Canvas：画布
+          // 关键属性：宽度、高度、onReady
+          Canvas(monthItem.context).id('year_view_item_canvas_3')
             .width($r('app.string.calendar_switch_full_size'))
             .height($r('app.string.calendar_switch_full_size'))
             .onReady(() => {
@@ -156,14 +183,14 @@ export struct YearViewItem {
               // 显示给定的ImageBitmap对象
               monthItem.context.transferFromImageBitmap(IMAGE);
             })
-        }
+        }.id('year_view_item_grid_item_2')
         .height($r('app.string.calendar_switch_size_twenty_three'))
         .width($r('app.string.calendar_switch_size_twenty_five'))
         .onClick(() => {
           this.onMonthClick(monthItem.year, monthItem.month);
         })
       }, (monthItem: OffscreenCanvas) => monthItem.year + '' + monthItem.month + '' + CommonData.DEVICE_TYPE)
-    }
+    }.id('year_view_item_grid_1')
     .onSizeChange(() => {
       if (CommonData.IS_FOLD) {
         // 折叠屏展开态和折叠态尺寸变化时需要刷新当前年视图

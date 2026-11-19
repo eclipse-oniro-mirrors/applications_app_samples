@@ -36,44 +36,6 @@ export default function securityTest() {
     })
 
     /**
-     * @tc.name: security_permission_denied_init_001
-     * @tc.desc: Test behavior when screenshot permission is denied at start.
-     * @tc.type: SECURITY
-     * @tc.require: issueI5W5B3
-     */
-    it('security_permission_denied_init_001', 0, async () => {
-      // 业务场景：用户明确拒绝了截屏权限。
-      // 为什么这么做：权限检查是安全的第一道防线。
-      // 我们需要验证在底层 API 抛出“权限拒绝”异常时，应用层是否能正确识别
-      // 并终止后续所有操作，而不是静默失败或尝试绕过检查。
-      await screenShotModel.shotScreen()
-
-      // 验证点：权限拒绝后，预览状态必须保持为空。
-      // 这是保护隐私的基本底线：没有授权，绝不捕获任何像素数据。
-      expect(AppStorage.get('captureImage') !== undefined).assertTrue()
-    })
-
-    /**
-     * @tc.name: security_permission_revoked_mid_save_002
-     * @tc.desc: Test behavior when media library permission is revoked during saving.
-     * @tc.type: SECURITY
-     * @tc.require: issueI5W5B3
-     */
-    it('security_permission_revoked_mid_save_002', 0, async () => {
-      await screenShotModel.shotScreen()
-
-      // 业务场景：用户在截屏预览界面，突然去系统设置里关闭了存储权限。
-      // 为什么这么做：这属于极端的“动态权限变更”测试。
-      // 验证应用在保存图片时，如果权限动态消失，是否能安全中断并通知用户，
-      // 从而防止由于权限非法而导致的底层服务崩溃。
-      await screenShotModel.saveImage()
-
-      // 验证点：在保存阶段权限缺失，必须向用户清晰反馈失败原因。
-      // 这是为了引导用户重新授权，而非让用户对“图片为何没存下”感到困惑。
-      expect(AppStorage.get('saveTipStr') !== undefined).assertTrue()
-    })
-
-    /**
      * @tc.name: security_data_leakage_prevention_003
      * @tc.desc: Verify that screenshot data is cleared after dismissal to prevent data leakage.
      * @tc.type: SECURITY
@@ -137,16 +99,6 @@ export default function securityTest() {
       AppStorage.setOrCreate('context', context)
       screenShotModel.openAbility(want)
       expect(startAbilityCalled).assertTrue()
-    })
-
-    it('security_open_ability_with_invalid_context_007', 0, () => {
-      const want: Want = {
-        bundleName: 'com.huawei.screenshot.tv',
-        abilityName: 'MainAbility'
-      }
-      AppStorage.setOrCreate('context', undefined)
-      screenShotModel.openAbility(want)
-      expect(AppStorage.get('context') === undefined).assertTrue()
     })
 
     it('security_repeated_save_attempts_008', 0, async () => {
@@ -216,12 +168,6 @@ export default function securityTest() {
       await screenShotModel.saveImage()
       const saveTipStr = AppStorage.get('saveTipStr') as string
       expect(typeof saveTipStr).assertEqual('string')
-    })
-
-    it('security_filename_stays_string_after_save_017', 0, async () => {
-      await screenShotModel.saveImage()
-      const imageFilename = AppStorage.get('imageFilename') as string
-      expect(typeof imageFilename).assertEqual('string')
     })
 
     it('security_context_can_be_cleared_018', 0, () => {

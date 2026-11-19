@@ -96,22 +96,20 @@ function showEccSpecDetailInfo(key: cryptoFramework.PubKey | cryptoFramework.Pri
 }
 
 // 根据EccCommonSpec实例生成ECC密钥对，获取密钥规格
-function testEccUseCommKeySpecGet() {
+async function testEccUseCommKeySpecGet() {
   try {
     let commKeySpec = genEccCommonSpec(); // 使用参数属性，构造ECC公私钥公共密钥参数对象
     let generatorBySpec = cryptoFramework.createAsyKeyGeneratorBySpec(commKeySpec); // 使用密钥参数对象创建生成器
-    let keyPairPromise = generatorBySpec.generateKeyPair(); // 生成ECC密钥对。
-    keyPairPromise.then(keyPair => { // 使用生成器创建ECC密钥对
-      showEccSpecDetailInfo(keyPair.priKey, 'priKey'); // 对私钥获取相关密钥参数属性
-      showEccSpecDetailInfo(keyPair.pubKey, 'pubKey'); // 对公钥获取相关密钥参数属性
-    }).catch((error: BusinessError) => {
-      // 逻辑错误等异步异常在此捕获
-      console.error(`generateComm failed: errCode: ${error.code}, message: ${error.message}`);
-    })
-  } catch (error) {
-    // 参数错误等同步异常在此捕获
-    let e: BusinessError = error as BusinessError;
+    let keyPair = await generatorBySpec.generateKeyPair(); // 生成ECC密钥对。
+    showEccSpecDetailInfo(keyPair.priKey, 'priKey'); // 对私钥获取相关密钥参数属性
+    showEccSpecDetailInfo(keyPair.pubKey, 'pubKey'); // 对公钥获取相关密钥参数属性
+  } catch (err) {
+    // 参数错误等同步异常、逻辑错误等异步异常均在此捕获
+    let e: BusinessError = err as BusinessError;
     console.error(`ecc comm spec failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude specify_parameter_generate_ecc_keypair]
+    throw new Error(`ecc comm spec failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude specify_parameter_generate_ecc_keypair]
   }
 }
 // [End specify_parameter_generate_ecc_keypair]
@@ -126,9 +124,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_ecc_promise'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            testEccUseCommKeySpecGet();
+            await testEccUseCommKeySpecGet();
             this.message = 'ECC Promise Success';
           } catch {
             this.message = 'ECC Promise Fail';

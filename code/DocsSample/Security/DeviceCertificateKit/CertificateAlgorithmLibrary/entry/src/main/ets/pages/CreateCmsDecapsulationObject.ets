@@ -16,6 +16,7 @@
 // [Start create-cms-decapsulation-object]
 
 import { cert } from '@kit.DeviceCertificateKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 let ECC_256_PUBKEY: string =
   '-----BEGIN CERTIFICATE-----\n' +
@@ -57,7 +58,11 @@ async function createX509Cert(inStream: string): Promise<cert.X509Cert> {
   try {
     x509Cert = await cert.createX509Cert(encodingBlob);
   } catch (error) {
-    console.error(`createX509Cert failed: errCode: ${error.code}, message: ${error.message}`);
+    let e: BusinessError = error as BusinessError;
+    console.error(`createX509Cert failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude create-cms-decapsulation-object]
+    throw new Error(`createX509Cert failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude create-cms-decapsulation-object]
   }
   return x509Cert;
 }
@@ -93,7 +98,11 @@ async function testCmsDecryptTest() {
     let decPlainText: Uint8Array = await cmsDecrypt.decryptEnvelopedData(config);
     console.info('decryptEnvelopedData result: success, decPlainText = ' + decPlainText);
   } catch (error) {
-    console.error(`decryptEnvelopedData failed: errCode: ${error.code}, message: ${error.message}`);
+    let e: BusinessError = error as BusinessError;
+    console.error(`decryptEnvelopedData failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude create-cms-decapsulation-object]
+    throw new Error(`decryptEnvelopedData failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude create-cms-decapsulation-object]
   }
 }
 
@@ -110,9 +119,9 @@ struct Index {
         .fontWeight(FontWeight.Bold)
       Button('Call CreateCmsDecapsulationObject')
         .width('70%')
-        .onClick(()=>{
+        .onClick(async () => {
           try {
-            testCmsDecryptTest();
+            await testCmsDecryptTest();
             this.message = 'Call Success';
           } catch {
             this.message = 'Call Fail';

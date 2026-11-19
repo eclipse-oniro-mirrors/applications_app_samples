@@ -22,7 +22,8 @@
     "description": "$string:module_desc",
     "mainElement": "EntryAbility",
     "deviceTypes": [
-      "tablet"
+      "tablet",
+      "default"
     ],
     // [EndExclude module_atomicService]
     "atomicService": {

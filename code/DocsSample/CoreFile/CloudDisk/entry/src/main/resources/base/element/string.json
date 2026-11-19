@@ -90,6 +90,9 @@
 
     { "name": "update_placeholder_metadata", "value": "更新占位符元数据" },
     { "name": "update_placeholder_btn", "value": "更新占位符" },
+    { "name": "update_on_cloud_size_change_btn", "value": "云侧大小变化修正占位符" },
+    { "name": "new_cloud_size_label", "value": "云侧最新大小：" },
+    { "name": "new_cloud_size_placeholder", "value": "云侧文件变化后的最新大小（字节）" },
     { "name": "update_success", "value": "更新成功" },
     { "name": "update_failed", "value": "更新失败" },
     { "name": "batch_update_50w", "value": "50w次批量更新" },

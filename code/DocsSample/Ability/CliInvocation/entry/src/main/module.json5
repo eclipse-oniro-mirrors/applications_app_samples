@@ -12,29 +12,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start cli_start_module]
 {
   "module": {
     "name": "entry",
     "type": "entry",
+    // [StartExclude cli_start_module]
     "description": "$string:module_desc",
     "mainElement": "EntryAbility",
+    // [EndExclude cli_start_module]
     "deviceTypes": [
       "2in1"
     ],
+    // [StartExclude cli_start_module]
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:main_pages",
+    // [EndExclude cli_start_module]
     "abilities": [
       {
         "name": "EntryAbility",
         "srcEntry": "./ets/entryability/EntryAbility.ets",
+        // [StartExclude cli_start_module]
         "description": "$string:EntryAbility_desc",
         "icon": "$media:layered_image",
         "label": "$string:EntryAbility_label",
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
-        "exported": true,
-        "skills": [
+        // [EndExclude cli_start_module]
+        "exported": true
+        // [StartExclude cli_start_module]
+        , "skills": [
           {
             "entities": [
               "entity.system.home"
@@ -44,8 +52,10 @@
             ]
           }
         ]
+        // [EndExclude cli_start_module]
       }
     ],
+    // [StartExclude cli_start_module]
     "extensionAbilities": [
       {
         "name": "EntryBackupAbility",
@@ -60,10 +70,12 @@
         ],
       }
     ],
+    // [EndExclude cli_start_module]
     "requestPermissions": [
       {
         "name": "ohos.permission.CUSTOM_SANDBOX"
-      },
+      }
     ]
   }
 }
+// [End cli_start_module]

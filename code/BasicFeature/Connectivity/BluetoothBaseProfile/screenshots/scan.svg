@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 720" width="100%" height="100%">
+    <defs>
+        <style>
+            .bg { fill: #f5f6f8; }
+            .card { fill: #ffffff; rx: 12; }
+            .text-main { font-family: -apple-system, sans-serif; fill: #1a1a1a; }
+            .text-sub { font-family: -apple-system, sans-serif; fill: #888888; }
+            .text-blue { font-family: -apple-system, sans-serif; fill: #0a59f7; }
+            .text-green { font-family: -apple-system, sans-serif; fill: #14c93c; }
+            .text-orange { font-family: -apple-system, sans-serif; fill: #ff8c00; }
+        </style>
+    </defs>
+
+    <!-- 状态栏与背景 -->
+    <rect width="360" height="720" class="bg"/>
+    <text x="20" y="30" class="text-main" font-size="14">没有 SIM 卡 <tspan font-size="10">📶</tspan></text>
+    <text x="340" y="30" class="text-main" font-size="14" text-anchor="end">11% 🔋 11:07</text>
+
+    <!-- 标题 -->
+    <text x="15" y="85" class="text-main" font-size="22" font-weight="bold">设备扫描</text>
+
+    <!-- 扫描控制区 -->
+    <rect x="0" y="110" width="360" height="120" fill="#ffffff"/>
+    <text x="180" y="145" class="text-sub" font-size="14" text-anchor="middle">扫描完成</text>
+
+    <rect x="110" y="165" width="90" height="36" rx="18" fill="#0a59f7"/>
+    <text x="155" y="188" fill="#ffffff" font-size="14" text-anchor="middle" font-weight="bold">开始扫描</text>
+
+    <text x="220" y="188" class="text-sub" font-size="14">设备数:   8</text>
+
+    <!-- 扫描到的设备列表 -->
+
+    <!-- 设备 1 -->
+    <rect x="15" y="240" width="330" height="65" class="card"/>
+    <text x="30" y="265" class="text-main" font-size="15" font-weight="bold">JBL Flip 6</text>
+    <text x="115" y="265" class="text-green" font-size="12">已配对</text>
+    <text x="30" y="285" class="text-sub" font-size="13">AA:BB:CC:DD:EE:01</text>
+    <text x="330" y="260" class="text-blue" font-size="13" text-anchor="end">Audio</text>
+    <text x="330" y="280" class="text-sub" font-size="12" text-anchor="end">RSSI: -45 dBm</text>
+    <text x="330" y="297" class="text-green" font-size="12" text-anchor="end">很强</text>
+
+    <!-- 设备 2 -->
+    <rect x="15" y="315" width="330" height="65" class="card"/>
+    <text x="30" y="340" class="text-main" font-size="15" font-weight="bold">Sony WH-1000XM5</text>
+    <text x="155" y="340" class="text-green" font-size="12">已配对</text>
+    <text x="30" y="360" class="text-sub" font-size="13">AA:BB:CC:DD:EE:02</text>
+    <text x="330" y="335" class="text-blue" font-size="13" text-anchor="end">Audio</text>
+    <text x="330" y="355" class="text-sub" font-size="12" text-anchor="end">RSSI: -38 dBm</text>
+    <text x="330" y="372" class="text-green" font-size="12" text-anchor="end">很强</text>
+
+    <!-- 设备 3 -->
+    <rect x="15" y="390" width="330" height="65" class="card"/>
+    <text x="30" y="415" class="text-main" font-size="15" font-weight="bold">Logitech K380</text>
+    <text x="135" y="415" class="text-green" font-size="12">已配对</text>
+    <text x="30" y="435" class="text-sub" font-size="13">AA:BB:CC:DD:EE:10</text>
+    <text x="330" y="410" class="text-blue" font-size="13" text-anchor="end">Input</text>
+    <text x="330" y="430" class="text-sub" font-size="12" text-anchor="end">RSSI: -50 dBm</text>
+    <text x="330" y="447" class="text-green" font-size="12" text-anchor="end">很强</text>
+
+    <!-- 设备 4 -->
+    <rect x="15" y="465" width="330" height="65" class="card"/>
+    <text x="30" y="490" class="text-main" font-size="15" font-weight="bold">Microsoft Arc Mouse</text>
+    <text x="30" y="510" class="text-sub" font-size="13">AA:BB:CC:DD:EE:11</text>
+    <text x="330" y="485" class="text-blue" font-size="13" text-anchor="end">Input</text>
+    <text x="330" y="505" class="text-sub" font-size="12" text-anchor="end">RSSI: -55 dBm</text>
+    <text x="330" y="522" class="text-orange" font-size="12" text-anchor="end">良好</text>
+
+    <!-- 设备 5 -->
+    <rect x="15" y="540" width="330" height="65" class="card"/>
+    <text x="30" y="565" class="text-main" font-size="15" font-weight="bold">Demo Health Watch</text>
+    <text x="155" y="565" class="text-green" font-size="12">已配对</text>
+    <text x="30" y="585" class="text-sub" font-size="13">AA:BB:CC:DD:EE:20</text>
+    <text x="330" y="560" class="text-blue" font-size="13" text-anchor="end">Health</text>
+    <text x="330" y="580" class="text-sub" font-size="12" text-anchor="end">RSSI: -40 dBm</text>
+    <text x="330" y="597" class="text-green" font-size="12" text-anchor="end">很强</text>
+
+    <!-- 设备 6 -->
+    <rect x="15" y="615" width="330" height="65" class="card"/>
+    <text x="30" y="640" class="text-main" font-size="15" font-weight="bold">Samsung Galaxy S24</text>
+    <text x="160" y="640" class="text-green" font-size="12">已配对</text>
+    <text x="30" y="660" class="text-sub" font-size="13">AA:BB:CC:DD:EE:30</text>
+    <text x="330" y="635" class="text-blue" font-size="13" text-anchor="end">Phone</text>
+    <text x="330" y="655" class="text-sub" font-size="12" text-anchor="end">RSSI: -35 dBm</text>
+    <text x="330" y="672" class="text-green" font-size="12" text-anchor="end">很强</text>
+
+    <!-- 设备 7 (部分截断) -->
+    <rect x="15" y="690" width="330" height="65" class="card"/>
+    <text x="30" y="715" class="text-main" font-size="15" font-weight="bold">Unknown Device</text>
+    <text x="30" y="735" class="text-sub" font-size="13">AA:BB:CC:DD:EE:40</text>
+    <text x="330" y="710" class="text-blue" font-size="13" text-anchor="end">Unknown</text>
+    <text x="330" y="730" class="text-sub" font-size="12" text-anchor="end">RSSI: -72 dBm</text>
+    <text x="330" y="747" class="text-orange" font-size="12" text-anchor="end">较弱</text>
+
+    <!-- 设备 8 (部分截断) -->
+    <rect x="15" y="765" width="330" height="65" class="card"/>
+    <text x="30" y="790" class="text-main" font-size="15" font-weight="bold">BT-Gamepad-Pro</text>
+    <text x="30" y="810" class="text-sub" font-size="13">AA:BB:CC:DD:EE:50</text>
+    <text x="330" y="785" class="text-blue" font-size="13" text-anchor="end">Input</text>
+    <text x="330" y="805" class="text-sub" font-size="12" text-anchor="end">RSSI: -60 dBm</text>
+
+    <!-- 底部导航栏 -->
+    <polygon points="110,695 120,705 100,705" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="180" cy="700" r="8" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="245" y="692" width="14" height="14" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+</svg>

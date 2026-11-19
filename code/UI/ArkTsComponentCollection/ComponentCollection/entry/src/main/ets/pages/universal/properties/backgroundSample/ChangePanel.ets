@@ -13,17 +13,34 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/universal/properties/backgroundSample/ChangePanel.ets
+ * 文件职责：ChangePanel 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ChangePanel。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { CommonItemSelect } from '../../../../common/AttributeModificationTool'
 import { selectImageSizeData,selectImageAlignmentData } from '../../UniversialData'
 import { getStringArrayData,getStringData } from '../../../../data/ResourceDataHandle'
 
+/**
+ * ChangePanel：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct ChangePanel {
+  // @Link imageSize：与父组件双向绑定的状态
   @Link imageSize: ImageSize
+  // @Link alignment：与父组件双向绑定的状态
   @Link alignment: Alignment
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
     Column() {
+      // CommonItemSelect：CommonItemSelect 自定义组件
       CommonItemSelect({
         testId: "test_select1",
         name: $r('app.string.set_background_image_size'),
@@ -37,8 +54,9 @@ export struct ChangePanel {
               this.imageSize = ImageSize.Contain
           }
         }
-      })
+      }).id('change_panel_common_item_select_2')
 
+      // CommonItemSelect：CommonItemSelect 自定义组件
       CommonItemSelect({
         testId: "test_select2",
         name: $r('app.string.set_background_image_position'),
@@ -73,7 +91,7 @@ export struct ChangePanel {
               this.alignment = Alignment.BottomEnd
           }
         }
-      })
-    }
+      }).id('change_panel_common_item_select_3')
+    }.id('change_panel_column_1')
   }
 }

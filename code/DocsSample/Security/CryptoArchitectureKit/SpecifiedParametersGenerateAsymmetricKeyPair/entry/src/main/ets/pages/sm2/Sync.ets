@@ -41,9 +41,15 @@ function sm2TestSync() {
       console.info('ECC_CURVE_NAME_STR: ' + sm2CurveName); // NID_sm2
     } else {
       console.error('get key pair result: fail!');
+      // [StartExclude specify_parameter_generate_sm2_keypair_sync]
+      throw new Error('get key pair result: fail!');
+      // [EndExclude specify_parameter_generate_sm2_keypair_sync]
     }
   } catch (e) {
     console.error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude specify_parameter_generate_sm2_keypair_sync]
+    throw new Error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude specify_parameter_generate_sm2_keypair_sync]
   }
 }
 // [End specify_parameter_generate_sm2_keypair_sync]

@@ -41,7 +41,7 @@ export default function resolutionRotationExtremeTest(): void {
       assertArrayLength(harness.getRecords(), 16);
     });
 
-    it('ResolutionExtreme_Unsupported8KSurfacesAreCounted_002', 0, () => {
+    it('ResolutionExtreme_Unsupported8KInputsAreCounted_002', 0, () => {
       const harness = new ResolutionRotationHarness();
       assertNumberEqual(harness.apply(7680, 4320, 0), -1);
       assertNumberEqual(harness.apply(7680, 4320, 90), -1);

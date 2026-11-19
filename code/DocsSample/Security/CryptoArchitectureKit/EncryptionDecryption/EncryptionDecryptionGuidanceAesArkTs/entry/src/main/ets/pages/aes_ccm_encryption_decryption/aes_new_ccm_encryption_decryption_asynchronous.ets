@@ -16,6 +16,7 @@
 // [Start new_ccm_encrypt_decrypt_aes_symkey_async]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function genCcmAeadParamsSpec() {
   let nonce = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; // 12 bytes
@@ -67,12 +68,14 @@ export async function main() : Promise<string> {
     if (plainText.data.toString() === decryptText.data.toString()) {
       console.info('decrypt ok.');
       console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
+      return 'success';
     } else {
       console.error('decrypt failed.');
+      return 'fail';
     }
-    return 'success';
   } catch (error) {
-    console.error('decrypt failed. error: ' + error);
+    let e: BusinessError = error as BusinessError;
+    console.error(`AES CCM failed: errCode: ${e.code}, message: ${e.message}`);
     return 'fail';
   }
 }

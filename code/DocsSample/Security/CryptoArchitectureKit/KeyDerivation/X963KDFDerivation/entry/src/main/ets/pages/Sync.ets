@@ -33,6 +33,9 @@ function kdfSync() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude use_x963kdf_for_key_derivation_sync]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude use_x963kdf_for_key_derivation_sync]
   }
 }
 

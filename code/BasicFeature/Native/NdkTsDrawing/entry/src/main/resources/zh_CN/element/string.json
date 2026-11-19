@@ -11,6 +11,114 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "btn_draw_rect",
+      "value": "Draw Rect"
+    },
+    {
+      "name": "btn_draw_path",
+      "value": "Draw Path"
+    },
+    {
+      "name": "btn_draw_text",
+      "value": "Draw Text"
+    },
+    {
+      "name": "gallery_rects",
+      "value": "Rects"
+    },
+    {
+      "name": "gallery_round_rect",
+      "value": "RoundRect"
+    },
+    {
+      "name": "gallery_circle",
+      "value": "Circle"
+    },
+    {
+      "name": "gallery_arc",
+      "value": "Arc"
+    },
+    {
+      "name": "gallery_points",
+      "value": "Points"
+    },
+    {
+      "name": "gallery_color",
+      "value": "Color"
+    },
+    {
+      "name": "gallery_save_restore",
+      "value": "SaveRestore"
+    },
+    {
+      "name": "gallery_layer",
+      "value": "Layer"
+    },
+    {
+      "name": "gallery_transform",
+      "value": "Transform"
+    },
+    {
+      "name": "gallery_matrix",
+      "value": "Matrix"
+    },
+    {
+      "name": "gallery_clip",
+      "value": "Clip"
+    },
+    {
+      "name": "gallery_clip_reset",
+      "value": "ClipReset"
+    },
+    {
+      "name": "gallery_path_arc",
+      "value": "PathArc"
+    },
+    {
+      "name": "gallery_path_bezier",
+      "value": "PathBezier"
+    },
+    {
+      "name": "gallery_path_conic",
+      "value": "PathConic"
+    },
+    {
+      "name": "gallery_path_relative",
+      "value": "PathRelative"
+    },
+    {
+      "name": "gallery_path_primitive",
+      "value": "PathPrimitive"
+    },
+    {
+      "name": "gallery_path_combined",
+      "value": "PathCombined"
+    },
+    {
+      "name": "gallery_path_polygon",
+      "value": "PathPolygon"
+    },
+    {
+      "name": "gallery_pen_brush",
+      "value": "PenBrush"
+    },
+    {
+      "name": "gallery_text_blob",
+      "value": "TextBlob"
+    },
+    {
+      "name": "gallery_glyph",
+      "value": "Glyph"
+    },
+    {
+      "name": "gallery_effect",
+      "value": "Effect"
+    },
+    {
+      "name": "gallery_matrix_draw",
+      "value": "MatrixDraw"
     }
   ]
 }

@@ -93,7 +93,38 @@ import validationLoggerValidationTest from './Validation/LoggerValidation.test';
 import validationPointerUtilValidationTest from './Validation/PointerUtilValidation.test';
 import validationResourceLoaderValidationTest from './Validation/ResourceLoaderValidation.test';
 
-export default function testsuite() {
+import abilityTest from './Ability.test';
+import sampleWantMatrixTestSuite from './SampleWantMatrix.test';
+import sampleWantFlagMatrixCoreTestSuite from './SampleWantFlagMatrixCore.test';
+import sampleWantFlagMatrixTailTestSuite from './SampleWantFlagMatrixTail.test';
+import sampleWantUriMatrixCoreTestSuite from './SampleWantUriMatrixCore.test';
+import sampleWantUriMatrixExtendedTestSuite from './SampleWantUriMatrixExtended.test';
+import sampleWantUriMatrixAdvancedTestSuite from './SampleWantUriMatrixAdvanced.test';
+import sampleWantUriMatrixTailTestSuite from './SampleWantUriMatrixTail.test';
+import sampleWantUriMatrixExtraTestSuite from './SampleWantUriMatrixExtra.test';
+import sampleWantUriMatrixMoreTestSuite from './SampleWantUriMatrixMore.test';
+import sampleWantUriMatrixFinalTestSuite from './SampleWantUriMatrixFinal.test';
+import sampleWantUriMatrixLastTestSuite from './SampleWantUriMatrixLast.test';
+import sampleBundleFlagMatrixCoreTestSuite from './SampleBundleFlagMatrixCore.test';
+import sampleBundleFlagMatrixExtendedTestSuite from './SampleBundleFlagMatrixExtended.test';
+import sampleBundleFlagMatrixTailTestSuite from './SampleBundleFlagMatrixTail.test';
+import sampleBundleFlagAsyncMatrixCoreTestSuite from './SampleBundleFlagAsyncMatrixCore.test';
+import sampleBundleFlagAsyncMatrixExtendedTestSuite from './SampleBundleFlagAsyncMatrixExtended.test';
+import sampleBundleFlagAsyncMatrixTailTestSuite from './SampleBundleFlagAsyncMatrixTail.test';
+import sampleBundleInfoMatrixTestSuite from './SampleBundleInfoMatrix.test';
+import sampleModuleConfigMatrixTestSuite from './SampleModuleConfigMatrix.test';
+import sampleAbilityInfoMatrixTestSuite from './SampleAbilityInfoMatrix.test';
+import samplePermissionMatrixTestSuite from './SamplePermissionMatrix.test';
+import sampleDeviceMatrixTestSuite from './SampleDeviceMatrix.test';
+import sampleProcessMatrixTestSuite from './SampleProcessMatrix.test';
+import sampleCapabilityMatrixTestSuite from './SampleCapabilityMatrix.test';
+import sampleResourceMatrixTestSuite from './SampleResourceMatrix.test';
+import sysRouterTableMatrixTestSuite from './SysRouterTableMatrix.test';
+import sysRouterConventionMatrixTestSuite from './SysRouterConventionMatrix.test';
+import sysRouterStackMatrixTestSuite from './SysRouterStackMatrix.test';
+import sysRouterHspMatrixTestSuite from './SysRouterHspMatrix.test';
+
+export default function testsuite(): void {
   abilityTest();
   integrationAdvancedScenariosTest();
   integrationComprehensiveRegressionTest();

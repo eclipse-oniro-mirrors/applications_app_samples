@@ -16,6 +16,7 @@
 // [Start create-parse-pkcs12-sync]
 
 import { cert } from '@kit.DeviceCertificateKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 // string转Uint8Array。
 function stringToUint8Array(str: string): Uint8Array {
@@ -38,7 +39,11 @@ async function createX509Cert(certData: string): Promise<cert.X509Cert> {
   try {
     x509Cert = await cert.createX509Cert(encodingBlob);
   } catch (err) {
-    console.error(`createX509Cert failed: errCode: ${err.code}, message: ${err.message}`);
+    let e: BusinessError = err as BusinessError;
+    console.error(`createX509Cert failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude create-parse-pkcs12-sync]
+    throw new Error(`createX509Cert failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude create-parse-pkcs12-sync]
   }
   return x509Cert;
 }
@@ -175,7 +180,11 @@ async function doTestCreatePkcs12Sync() {
       console.info(`otherCerts is empty or not an array.`);
     }
   } catch (err) {
-    console.error(`doTestCreatePkcs12Sync failed: errCode: ${err.code}, message: ${err.message}`);
+    let e: BusinessError = err as BusinessError;
+    console.error(`doTestCreatePkcs12Sync failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude create-parse-pkcs12-sync]
+    throw new Error(`doTestCreatePkcs12Sync failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude create-parse-pkcs12-sync]
   }
 }
 
@@ -192,9 +201,9 @@ struct Index {
         .fontWeight(FontWeight.Bold)
       Button('Call CreateParsePkcs12Sync')
         .width('70%')
-        .onClick(()=>{
+        .onClick(async ()=>{
           try {
-            doTestCreatePkcs12Sync();
+            await doTestCreatePkcs12Sync();
             this.message = 'Call Success';
           } catch {
             this.message = 'Call Fail';

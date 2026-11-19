@@ -112,3 +112,56 @@ hdc shell hilog | grep CanvasShowcaseDemo
 - `entry/src/test/` 目前只有模板自带的 1 条本地用例，工程的功能验证以 `entry/src/ohosTest` 下的 244 条设备侧用例为准。
 - 设备侧用例为无头绘制验证，只断言"不抛异常/输出尺寸与像素值正确"，不校验最终视觉效果；视觉效果由上表中标为「否」的手工用例覆盖。
 - `@tc.number` 前缀按套件区分（如 `SUB_CANVAS_SHOWCASE_DEMO_COLORUTIL_*` 与 `SUB_CANVAS_SHOWCASE_DEMO_COLORUTILMATRIX_*`），编号全局唯一。
+
+## 2026 新增套件
+
+在原有测试之外累计新增 **33 个文件 / 1,234 条 / 约 22,483 行**，原有用例未修改；每条新增用例开始处增加
+`await delayTick()` 让出事件循环，避免长串纯同步用例触发 THREAD_BLOCK_6S。
+
+| 套件 | 覆盖点 | 用例数 | 测试结果 |
+| --- | --- | ---: | --- |
+| ColorUtilExhaustiveMatrixPart1/2 | RGB/ARGB 解析、非法输入、toHex/rgba 打包、alpha 归一化、lerp 各 t、多段色带有效/无效/空 | 75 | pass |
+| GeometryUtilExhaustiveMatrixPart1/2 | 角度弧度互转、圆周点各象限/零或负半径、矩形边界与外部点、clamp 退化区间、距离矩阵 | 57 | pass |
+| DeviceUtilExtraMatrixPart1 | 15 个宽度档（含小数/负数）的断点与双栏判定 | 15 | pass |
+| Matrix2DExtraMatrixPart1 | scale/translate/rotate 各值、逆矩阵、identity 复位 | 22 | pass |
+| PixelMapExtraMatrixPart1 | RGBA 各通道掩码与组合打包 | 11 | pass |
+| LogUtilExtraMatrixPart1 | formatTime 各时段、levelMark、级别过滤顺序 | 14 | pass |
+| ColorPresetGradientMatrixPart1 | SKY/SUNSET/OCEAN/FOREST × 9 个 t 的渐变色带 | 36 | pass |
+| SceneRegistrySceneMatrixPart1 | 1~23 号场景的 id/文案/资源/绘制函数完整性 | 23 | pass |
+| DeviceProfileFlagMatrixPart1 | 形态标志互斥、宽屏一致性、设备档案字段与日志 | 8 | pass |
+| PixelMapChannelMatrixPart1 | 单通道位域位置校验 | 4 | pass |
+| LogUtilSinkMatrixPart1 | sink 过滤序列与标记顺序 | 10 | pass |
+| Matrix2DPropertyMatrixPart1 | 属性式赋值独立性、translate+scale 逆矩阵 | 10 | pass |
+| ColorParseCubeMatrixPart1 | 12 组 RGB 十六进制解析 | 12 | pass |
+| ColorLerpCubeMatrixPart1/2 | 6 组颜色对 × 8 个 t + 4 组边缘 t | 64 | pass |
+| GeometryAngleCubeMatrixPart1/2 | 2 圆心 × 2 半径 × 12 角度圆周点 | 48 | pass |
+| GeometryRectCubeMatrixPart1 | 2 矩形 × 8 个边界/外部点 | 16 | pass |
+| DeviceWidthGridMatrixPart1 | 14 个中高档宽度断点判定 | 14 | pass |
+| LogSinkCubeMatrixPart1 | 4 级别 × 2 tag × 3 消息的 sink 过滤 | 24 | pass |
+| PixelChannelCubeMatrixPart1 | 12 组 RGBA 打包组合 | 12 | pass |
+| SceneRegistryContractMatrixPart1 | count/getAll/首末场景/非法 id 契约 | 7 | pass |
+| MatrixPropertyCubeMatrixPart1 | 6 个属性 × 5 个值 + 3 组逆矩阵 | 33 | pass |
+| CvG1~CvG4 | 颜色解析/RGBA、toHex/toRgbaString、clamp、GradientPreset、颜色对与色带插值 | 367 | pass |
+| CvG5~CvG7 | 圆周点、矩形边界、距离、clamp、HH:mm:ss 与级别标记 | 341 | pass |
+| CvG8 | 剩余参数组合 | 11 | pass |
+| 合计 |  | 1,234 | 1,234/1,234 pass |
+
+新增文件完全重复 body **0 组**；`@tc.desc` 唯一；未使用 `index % N`。
+
+## 全量结果
+
+默认 List 注册 **51 个测试类 / 1,478 条**（包含全部原生 PixelMap 与 Canvas 场景类）。
+
+带 `-s class` 全 51 类执行：
+
+```
+Tests run: 1478, Failure: 0, Error: 0, Pass: 1478
+```
+
+默认 List 全量执行：
+
+```
+Tests run: 1478, Failure: 0, Error: 0, Pass: 1478
+```
+
+工程测试代码总计 **27,336 行**；2026 累计新增 **33 文件 / 1,234 条 / 约 22,483 行**。

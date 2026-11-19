@@ -59,8 +59,9 @@ export class PlaybackUriAccessController {
       return;
     }
     let fetchResult: photoAccessHelper.FetchResult<photoAccessHelper.PhotoAsset> | undefined = undefined;
+    let accessHelper: photoAccessHelper.PhotoAccessHelper | undefined = undefined;
     try {
-      const accessHelper = photoAccessHelper.getPhotoAccessHelper(context);
+      accessHelper = photoAccessHelper.getPhotoAccessHelper(context);
       const predicates = new dataSharePredicates.DataSharePredicates();
       predicates.equalTo(photoAccessHelper.PhotoKeys.URI, uri);
       fetchResult = await accessHelper.getAssets({
@@ -79,6 +80,13 @@ export class PlaybackUriAccessController {
           fetchResult.close();
         } catch (error) {
           Logger.warn(TAG, 'Close PhotoAccessHelper result failed: ' + String(error));
+        }
+      }
+      if (accessHelper !== undefined) {
+        try {
+          await accessHelper.release();
+        } catch (error) {
+          Logger.warn(TAG, 'Release PhotoAccessHelper failed: ' + String(error));
         }
       }
     }

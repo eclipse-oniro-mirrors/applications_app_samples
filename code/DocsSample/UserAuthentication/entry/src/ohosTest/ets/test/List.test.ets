@@ -13,8 +13,19 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test';
+import userAuthTest from './UserAuth.test';
+import userAuthContractTest from './UserAuthContract.test';
+
+import userAuthVolumePart01Test from './UserAuthVolumePart01.test';
+import userAuthVolumePart02Test from './UserAuthVolumePart02.test';
+import userAuthVolumePart03Test from './UserAuthVolumePart03.test';
+import userAuthVolumePart04Test from './UserAuthVolumePart04.test';
 
 export default function testsuite() {
-  abilityTest();
+  userAuthTest();
+  userAuthContractTest();
+  userAuthVolumePart01Test();
+  userAuthVolumePart02Test();
+  userAuthVolumePart03Test();
+  userAuthVolumePart04Test();
 }

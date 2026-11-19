@@ -46,6 +46,7 @@ struct Index {
 
           Row() {
             Button($r('app.string.share_mode_btn'))
+              .id('shareModeBtn')
               .fontSize(12)
               .height(36)
               .backgroundColor(this.currentMode === InterruptMode.SHARE_MODE ? '#4CAF50' : '#E0E0E0')
@@ -56,6 +57,7 @@ struct Index {
               })
 
             Button($r('app.string.independent_mode_btn'))
+              .id('independentModeBtn')
               .fontSize(12)
               .height(36)
               .backgroundColor(this.currentMode === InterruptMode.INDEPENDENT_MODE ? '#F44336' : '#E0E0E0')
@@ -74,6 +76,7 @@ struct Index {
           Text(this.currentMode === InterruptMode.SHARE_MODE
             ? $r('app.string.share_mode_desc')
             : $r('app.string.independent_mode_desc'))
+            .id('modeDesc')
             .fontSize(14)
             .fontWeight(FontWeight.Medium)
             .fontColor(this.currentMode === InterruptMode.SHARE_MODE ? '#4CAF50' : '#F44336')
@@ -116,6 +119,7 @@ struct Index {
               Blank()
 
               Button($r('app.string.enter_btn'))
+                .id('enter_' + item.id)
                 .fontSize(14)
                 .height(36)
                 .backgroundColor('#0A59F7')

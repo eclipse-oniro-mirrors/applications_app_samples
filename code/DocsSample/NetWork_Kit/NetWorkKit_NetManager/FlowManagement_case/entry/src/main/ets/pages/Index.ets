@@ -221,10 +221,10 @@ struct NetworkStatisticsDemo {
       this.logMessage = `Cellular downstream traffic: ${JSON.stringify(stats)}`;
       // [EndExclude flow_management_getCellularRxBytes_and_getCellularTxBytes]
     })
-    // [StartExclude flow_management_getCellularRxBytes_and_getCellularTxBytes]
     .catch((err: BusinessError) => {
       this.logMessage = `Failed to get cellular downstream traffic: ${JSON.stringify(err)}`;
     });
+    // [StartExclude flow_management_getCellularRxBytes_and_getCellularTxBytes]
   }
 
   getCellularTxBytes() {
@@ -236,10 +236,10 @@ struct NetworkStatisticsDemo {
       this.logMessage = `Cellular upstream traffic: ${JSON.stringify(stats)}`;
       // [EndExclude flow_management_getCellularRxBytes_and_getCellularTxBytes]
     })
-    // [StartExclude flow_management_getCellularRxBytes_and_getCellularTxBytes]
     .catch((err: BusinessError) => {
       this.logMessage = `Failed to get cellular upstream traffic: ${JSON.stringify(err)}`;
     });
+    // [StartExclude flow_management_getCellularRxBytes_and_getCellularTxBytes]
   }
   // [EndExclude flow_management_getCellularRxBytes_and_getCellularTxBytes]
   // [End flow_management_getCellularRxBytes_and_getCellularTxBytes]

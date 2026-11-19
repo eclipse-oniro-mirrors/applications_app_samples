@@ -1,0 +1,20 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Distributed softbus conversation sample module."
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Distributed softbus conversation entry ability."
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "Distributed Softbus Conversation"
+    },
+    {
+      "name": "permission_reason",
+      "value": "Used for distributed data sync and trusted device identification."
+    }
+  ]
+}

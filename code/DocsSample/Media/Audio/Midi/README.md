@@ -134,8 +134,8 @@ entry/src/main/
 ### 约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568、手机、平板、2in1设备；
-2. 本示例仅支持API 24版本SDK，SDK版本号(API Version 24 Release)，镜像版本号(6.1 Release)；
-3. 本示例需要使用DevEco Studio 版本号(6.1 Release)才可编译运行；
+2. 本示例仅支持API 26版本SDK，SDK版本号(API Version 26 Release)；
+3. 本示例需要使用DevEco Studio 版本号(26.0 Release)才可编译运行；
 4. 使用蓝牙MIDI功能需要设备支持蓝牙BLE；
 5. MIDI消息使用UMP（Universal MIDI Packet）格式；
 

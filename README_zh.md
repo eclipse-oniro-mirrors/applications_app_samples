@@ -66,7 +66,7 @@
   <td></td>
  </tr>
  <tr height="18" style='height:13.50pt;'>
-  <td height="270" align="center" rowspan="38" style='height:202.50pt' x:str><strong>基础特性</strong></td>
+  <td height="270" align="center" rowspan="39" style='height:202.50pt' x:str><strong>基础特性</strong></td>
   <td x:str><strong>能力增强</strong></td>
   <td x:str><a href="code/BasicFeature/Ability/AbilityFeature">基础能力增强</a></td>
   <td x:str><a href="code/BasicFeature/Ability/AbilityRuntime">基础能力增强</a></td>
@@ -316,8 +316,15 @@
    <td x:str><a href="code/DocsSample/Serial/SerialManagerSample">串口管理服务</a></td>
    <td ></td>
   </tr>
+  <tr height="18" style='height:13.50pt;'>
+   <td x:str><strong>内容嵌入服务</strong></td>
+   <td x:str><a href="code/DocsSample/ContentEmbedKit/OEServerDemo">服务端开发</a></td>
+   <td x:str><a href="code/DocsSample/ContentEmbedKit/OEClientDemo">客户端开发</a></td>
+   <td ></td>
+   <td ></td>
+  </tr>
  <tr height="18" style='height:13.50pt;'>
-<td height="90" align="center" rowspan="26" style='height:67.50pt;' x:str><strong>系统特性（仅对系统应用开放）</strong></td>
+<td height="90" align="center" rowspan="27" style='height:67.50pt;' x:str><strong>系统特性（仅对系统应用开放）</strong></td>
   <td x:str><strong>能力增强</strong></td>
   <td x:str><a href="code/SystemFeature/Ability/AbilityFeatureSystem">基础能力增强</a></td>
   <td ></td>
@@ -346,7 +353,14 @@
  <tr height="18" style='height:13.50pt;'>
   <td x:str><strong>自动填充</strong></td>
   <td x:str><a href="code/SystemFeature/AutoFill/AutoFill">AutoFill自动填充能力</a></td>
-  <td x:str><a href="code/SystemFeature/AutoFill/AutoFillScenarioization">情景化自动填充能力</a></td>
+   <td x:str><a href="code/SystemFeature/AutoFill/AutoFillScenarioization">情景化自动填充能力</a></td>
+   <td ></td>
+   <td ></td>
+  </tr>
+ <tr height="18" style='height:13.50pt;'>
+  <td x:str><strong>兼容</strong></td>
+  <td x:str><a href="code/SystemFeature/Compatibility/CompConfigCenter">兼容配置中心CompConfigCenter</a></td>
+  <td ></td>
   <td ></td>
   <td ></td>
  </tr>
@@ -686,8 +700,9 @@ code
 |---SystemFeature              # 系统特性
   |---Ability                      # 能力增强
   |---ApplicationModels            # 应用模型
-  |---AutoFill                     # 自动填充
-  |---Connectivity                 # 网络与连接
+|---AutoFill                     # 自动填充
+|---Compatibility                 # 兼容
+|---Connectivity                 # 网络与连接
   |---DataManagement               # 数据管理
   |---DeviceManagement             # 设备管理
   |---DeviceUsageStatistics        # 设备使用信息

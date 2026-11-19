@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/globalMethods/dialogs/textPickerDialogSample/TextPickerDialogSample.ets
+ * 文件职责：TextPickerDialogSample 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：TextDialogSample。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { IntroductionTitle } from '../../../../common/IntroductionTitle';
 import ShowToast from '../../../../util/ShowToast';
 import { TitleBar } from '../../../../common/TitleBar';
@@ -34,9 +41,13 @@ import { getStringData } from '../../../../data/ResourceDataHandle';
   .padding({ left: 12, right: 12, top: 8, bottom: 8 })
 }
 
+/**
+ * TextDialogSample：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct TextDialogSample {
+  // @State select：组件内部状态
   @State select: number = 2;
   private apple: string = getStringData($r('app.string.text_picker_text_apple'));
   private orange: string = getStringData($r('app.string.text_picker_text_orange'));
@@ -45,13 +56,29 @@ struct TextDialogSample {
   private banana: string = getStringData($r('app.string.text_picker_text_banana'));
   private fruits: string[] = [this.apple, this.orange, this.peach, this.grape, this.banana];
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：宽度、背景色
     Column() {
-      TitleBar({ title: $r('app.string.text_picker_dialog') })
+      // TitleBar：TitleBar 自定义组件
+      TitleBar({ title: $r('app.string.text_picker_dialog') }).id('text_picker_dialog_sample_title_bar_2')
+      // Scroll：滚动容器
       Scroll() {
+        // Column：垂直布局容器
+        // 关键属性：尺寸约束
         Column() {
+          // IntroductionTitle：IntroductionTitle 自定义组件
           IntroductionTitle({ introduction: $r('app.string.text_picker_show') })
+            .id('text_picker_dialog_sample_introduction_title_5')
+          // Row：水平布局容器
+          // 关键属性：主轴对齐、rowStyle
           Row({ space: 16 }) {
+            // Button：按钮
+            // 关键属性：commonButtonStyle、点击事件回调、show
+            // 交互：可点击交互
             Button($r('app.string.text_picker_click_text'))
               .commonButtonStyle()
               .id('text_pickerButton')
@@ -72,13 +99,13 @@ struct TextDialogSample {
                   defaultPickerItemHeight: 50
                 });
               })
-          }
+          }.id('text_picker_dialog_sample_row_6')
           .justifyContent(FlexAlign.Center)
           .rowStyle()
-        }
+        }.id('text_picker_dialog_sample_column_4')
         .constraintSize({ minHeight: '100%' })
-      }
-    }
+      }.id('text_picker_dialog_sample_scroll_3')
+    }.id('text_picker_dialog_sample_column_1')
     .width('100%')
     .backgroundColor($r('app.color.background_shallow_grey'))
   }
