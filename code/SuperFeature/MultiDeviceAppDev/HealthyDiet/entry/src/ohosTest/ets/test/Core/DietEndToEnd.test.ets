@@ -1984,3 +1984,159 @@ export default function dietEndToEndSuite() {
       expect(m.getFoodById(1000 + 103) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0104
+     * @tc.name    DietEndToEnd104
+     * @tc.desc    Diet food lookup for id 8 probe 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietEndToEnd104', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 8;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 104) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0105
+     * @tc.name    DietEndToEnd105
+     * @tc.desc    Diet add entry weight 106 probe 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietEndToEnd105', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(9, 1, 106);
+      expect(entry.weight).assertEqual(106);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 105) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0106
+     * @tc.name    DietEndToEnd106
+     * @tc.desc    Diet food lookup for id 10 probe 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietEndToEnd106', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 10;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 106) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0107
+     * @tc.name    DietEndToEnd107
+     * @tc.desc    Diet add entry weight 108 probe 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietEndToEnd107', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(11, 3, 108);
+      expect(entry.weight).assertEqual(108);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 107) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0108
+     * @tc.name    DietEndToEnd108
+     * @tc.desc    Diet food lookup for id 0 probe 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietEndToEnd108', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 0;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 108) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0109
+     * @tc.name    DietEndToEnd109
+     * @tc.desc    Diet add entry weight 110 probe 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietEndToEnd109', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(1, 1, 110);
+      expect(entry.weight).assertEqual(110);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 109) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0110
+     * @tc.name    DietEndToEnd110
+     * @tc.desc    Diet food lookup for id 2 probe 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietEndToEnd110', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 2;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 110) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0111
+     * @tc.name    DietEndToEnd111
+     * @tc.desc    Diet add entry weight 112 probe 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietEndToEnd111', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(3, 3, 112);
+      expect(entry.weight).assertEqual(112);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 111) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
