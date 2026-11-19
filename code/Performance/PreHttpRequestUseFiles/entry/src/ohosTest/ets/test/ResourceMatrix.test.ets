@@ -4114,3 +4114,1136 @@ export default function resourceMatrixTest() {
       expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
       expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
     });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0169
+     * @tc.name      testResource0169
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 481
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0169', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 481;
+      logCase('testResource0169', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(3);
+      expect(bytes[probe + 1]).assertEqual(102);
+      expect(bytes[probe + 2]).assertEqual(192);
+      expect(bytes[probe + 3]).assertEqual(12);
+      expect(PngFacts.chunkType(bytes)).assertEqual('IHDR');
+      expect(PngFacts.width(bytes)).assertEqual(288);
+      expect(PngFacts.height(bytes)).assertEqual(288);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0170
+     * @tc.name      testResource0170
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 518
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0170', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 518;
+      logCase('testResource0170', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(25);
+      expect(bytes[probe + 1]).assertEqual(48);
+      expect(bytes[probe + 2]).assertEqual(3);
+      expect(bytes[probe + 3]).assertEqual(102);
+      expect(PngFacts.firstBytesSum(bytes, 16)).assertEqual(733);
+      expect(bytes[24]).assertEqual(8);
+      expect(bytes[25]).assertEqual(6);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0171
+     * @tc.name      testResource0171
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 555
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0171', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 555;
+      logCase('testResource0171', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(204);
+      expect(bytes[probe + 1]).assertEqual(128);
+      expect(bytes[probe + 2]).assertEqual(25);
+      expect(bytes[probe + 3]).assertEqual(48);
+      let sigMatch: boolean = true;
+      for (let i: number = 0; i < 8; i++) {
+        if (bytes[i] !== [137, 80, 78, 71, 13, 10, 26, 10][i]) {
+          sigMatch = false;
+        }
+      }
+      expect(sigMatch).assertTrue();
+      expect(bytes[bytes.length - 1]).assertEqual(130);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0172
+     * @tc.name      testResource0172
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 592
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0172', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 592;
+      logCase('testResource0172', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(96);
+      expect(bytes[probe + 1]).assertEqual(6);
+      expect(bytes[probe + 2]).assertEqual(204);
+      expect(bytes[probe + 3]).assertEqual(128);
+      expect(PngFacts.chunkType(bytes)).assertEqual('IHDR');
+      expect(PngFacts.width(bytes)).assertEqual(288);
+      expect(PngFacts.height(bytes)).assertEqual(288);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0173
+     * @tc.name      testResource0173
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 629
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0173', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 629;
+      logCase('testResource0173', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(1);
+      expect(bytes[probe + 1]).assertEqual(51);
+      expect(bytes[probe + 2]).assertEqual(96);
+      expect(bytes[probe + 3]).assertEqual(6);
+      expect(PngFacts.firstBytesSum(bytes, 16)).assertEqual(733);
+      expect(bytes[24]).assertEqual(8);
+      expect(bytes[25]).assertEqual(6);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0174
+     * @tc.name      testResource0174
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 666
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0174', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 666;
+      logCase('testResource0174', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(12);
+      expect(bytes[probe + 1]).assertEqual(152);
+      expect(bytes[probe + 2]).assertEqual(1);
+      expect(bytes[probe + 3]).assertEqual(51);
+      let sigMatch: boolean = true;
+      for (let i: number = 0; i < 8; i++) {
+        if (bytes[i] !== [137, 80, 78, 71, 13, 10, 26, 10][i]) {
+          sigMatch = false;
+        }
+      }
+      expect(sigMatch).assertTrue();
+      expect(bytes[bytes.length - 1]).assertEqual(130);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0175
+     * @tc.name      testResource0175
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 703
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0175', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 703;
+      logCase('testResource0175', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(102);
+      expect(bytes[probe + 1]).assertEqual(192);
+      expect(bytes[probe + 2]).assertEqual(12);
+      expect(bytes[probe + 3]).assertEqual(152);
+      expect(PngFacts.chunkType(bytes)).assertEqual('IHDR');
+      expect(PngFacts.width(bytes)).assertEqual(288);
+      expect(PngFacts.height(bytes)).assertEqual(288);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0176
+     * @tc.name      testResource0176
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 740
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0176', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 740;
+      logCase('testResource0176', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(48);
+      expect(bytes[probe + 1]).assertEqual(3);
+      expect(bytes[probe + 2]).assertEqual(102);
+      expect(bytes[probe + 3]).assertEqual(192);
+      expect(PngFacts.firstBytesSum(bytes, 16)).assertEqual(733);
+      expect(bytes[24]).assertEqual(8);
+      expect(bytes[25]).assertEqual(6);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0177
+     * @tc.name      testResource0177
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 777
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0177', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 777;
+      logCase('testResource0177', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(128);
+      expect(bytes[probe + 1]).assertEqual(25);
+      expect(bytes[probe + 2]).assertEqual(48);
+      expect(bytes[probe + 3]).assertEqual(3);
+      let sigMatch: boolean = true;
+      for (let i: number = 0; i < 8; i++) {
+        if (bytes[i] !== [137, 80, 78, 71, 13, 10, 26, 10][i]) {
+          sigMatch = false;
+        }
+      }
+      expect(sigMatch).assertTrue();
+      expect(bytes[bytes.length - 1]).assertEqual(130);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0178
+     * @tc.name      testResource0178
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 814
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0178', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 814;
+      logCase('testResource0178', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(6);
+      expect(bytes[probe + 1]).assertEqual(204);
+      expect(bytes[probe + 2]).assertEqual(128);
+      expect(bytes[probe + 3]).assertEqual(25);
+      expect(PngFacts.chunkType(bytes)).assertEqual('IHDR');
+      expect(PngFacts.width(bytes)).assertEqual(288);
+      expect(PngFacts.height(bytes)).assertEqual(288);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0179
+     * @tc.name      testResource0179
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 851
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0179', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 851;
+      logCase('testResource0179', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(249);
+      expect(bytes[probe + 1]).assertEqual(253);
+      expect(bytes[probe + 2]).assertEqual(237);
+      expect(bytes[probe + 3]).assertEqual(56);
+      expect(PngFacts.firstBytesSum(bytes, 16)).assertEqual(733);
+      expect(bytes[24]).assertEqual(8);
+      expect(bytes[25]).assertEqual(6);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0180
+     * @tc.name      testResource0180
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 888
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0180', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 888;
+      logCase('testResource0180', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(218);
+      expect(bytes[probe + 1]).assertEqual(182);
+      expect(bytes[probe + 2]).assertEqual(189);
+      expect(bytes[probe + 3]).assertEqual(29);
+      let sigMatch: boolean = true;
+      for (let i: number = 0; i < 8; i++) {
+        if (bytes[i] !== [137, 80, 78, 71, 13, 10, 26, 10][i]) {
+          sigMatch = false;
+        }
+      }
+      expect(sigMatch).assertTrue();
+      expect(bytes[bytes.length - 1]).assertEqual(130);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0181
+     * @tc.name      testResource0181
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 925
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0181', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 925;
+      logCase('testResource0181', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(153);
+      expect(bytes[probe + 1]).assertEqual(178);
+      expect(bytes[probe + 2]).assertEqual(19);
+      expect(bytes[probe + 3]).assertEqual(216);
+      expect(PngFacts.chunkType(bytes)).assertEqual('IHDR');
+      expect(PngFacts.width(bytes)).assertEqual(288);
+      expect(PngFacts.height(bytes)).assertEqual(288);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0182
+     * @tc.name      testResource0182
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 962
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0182', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 962;
+      logCase('testResource0182', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(215);
+      expect(bytes[probe + 1]).assertEqual(54);
+      expect(bytes[probe + 2]).assertEqual(95);
+      expect(bytes[probe + 3]).assertEqual(9);
+      expect(PngFacts.firstBytesSum(bytes, 16)).assertEqual(733);
+      expect(bytes[24]).assertEqual(8);
+      expect(bytes[25]).assertEqual(6);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0183
+     * @tc.name      testResource0183
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 999
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0183', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 999;
+      logCase('testResource0183', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(233);
+      expect(bytes[probe + 1]).assertEqual(113);
+      expect(bytes[probe + 2]).assertEqual(26);
+      expect(bytes[probe + 3]).assertEqual(90);
+      let sigMatch: boolean = true;
+      for (let i: number = 0; i < 8; i++) {
+        if (bytes[i] !== [137, 80, 78, 71, 13, 10, 26, 10][i]) {
+          sigMatch = false;
+        }
+      }
+      expect(sigMatch).assertTrue();
+      expect(bytes[bytes.length - 1]).assertEqual(130);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0184
+     * @tc.name      testResource0184
+     * @tc.desc      Media foreground keeps 12430 bytes, probe at offset 1036
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0184', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = res().getMediaByNameSync('foreground');
+      const probe: number = 1036;
+      logCase('testResource0184', `media=foreground probe=${probe}`);
+      expect(bytes.length).assertEqual(12430);
+      expect(bytes[0]).assertEqual(0x89);
+      expect(bytes[1]).assertEqual(0x50);
+      expect(bytes[probe]).assertEqual(255);
+      expect(bytes[probe + 1]).assertEqual(26);
+      expect(bytes[probe + 2]).assertEqual(199);
+      expect(bytes[probe + 3]).assertEqual(187);
+      expect(PngFacts.chunkType(bytes)).assertEqual('IHDR');
+      expect(PngFacts.width(bytes)).assertEqual(288);
+      expect(PngFacts.height(bytes)).assertEqual(288);
+      expect(bytes.slice(probe, probe + 4).length).assertEqual(4);
+      expect(PngFacts.width(bytes) * PngFacts.height(bytes)).assertEqual(82944);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0185
+     * @tc.name      testResource0185
+     * @tc.desc      Color start_window_background is opaque white, bit probe 5
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0185', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0185', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 5) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0186
+     * @tc.name      testResource0186
+     * @tc.desc      Color start_window_background is opaque white, bit probe 10
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0186', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0186', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 10) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(value & 0xFF).assertEqual(0xFF);
+      expect((value & 0xFFFFFF) >>> 0).assertEqual(0xFFFFFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0187
+     * @tc.name      testResource0187
+     * @tc.desc      Color start_window_background is opaque white, bit probe 15
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0187', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0187', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 15) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(typeof value).assertEqual('number');
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(value);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0188
+     * @tc.name      testResource0188
+     * @tc.desc      Color start_window_background is opaque white, bit probe 20
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0188', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0188', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 20) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0189
+     * @tc.name      testResource0189
+     * @tc.desc      Color start_window_background is opaque white, bit probe 1
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0189', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0189', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 1) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(value & 0xFF).assertEqual(0xFF);
+      expect((value & 0xFFFFFF) >>> 0).assertEqual(0xFFFFFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0190
+     * @tc.name      testResource0190
+     * @tc.desc      Color start_window_background is opaque white, bit probe 6
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0190', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0190', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 6) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(typeof value).assertEqual('number');
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(value);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0191
+     * @tc.name      testResource0191
+     * @tc.desc      Color start_window_background is opaque white, bit probe 11
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0191', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0191', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 11) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0192
+     * @tc.name      testResource0192
+     * @tc.desc      Color start_window_background is opaque white, bit probe 16
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0192', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0192', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(value & 0xFF).assertEqual(0xFF);
+      expect((value & 0xFFFFFF) >>> 0).assertEqual(0xFFFFFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0193
+     * @tc.name      testResource0193
+     * @tc.desc      Color start_window_background is opaque white, bit probe 21
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0193', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0193', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 21) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(typeof value).assertEqual('number');
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(value);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0194
+     * @tc.name      testResource0194
+     * @tc.desc      Color start_window_background is opaque white, bit probe 2
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0194', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0194', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 2) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0195
+     * @tc.name      testResource0195
+     * @tc.desc      Color start_window_background is opaque white, bit probe 7
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0195', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0195', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 7) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(value & 0xFF).assertEqual(0xFF);
+      expect((value & 0xFFFFFF) >>> 0).assertEqual(0xFFFFFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0196
+     * @tc.name      testResource0196
+     * @tc.desc      Color start_window_background is opaque white, bit probe 12
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0196', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0196', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 12) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(typeof value).assertEqual('number');
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(value);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0197
+     * @tc.name      testResource0197
+     * @tc.desc      Color start_window_background is opaque white, bit probe 17
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0197', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0197', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 17) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0198
+     * @tc.name      testResource0198
+     * @tc.desc      Color start_window_background is opaque white, bit probe 22
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0198', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0198', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 22) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(value & 0xFF).assertEqual(0xFF);
+      expect((value & 0xFFFFFF) >>> 0).assertEqual(0xFFFFFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0199
+     * @tc.name      testResource0199
+     * @tc.desc      Color start_window_background is opaque white, bit probe 3
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0199', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0199', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 3) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(typeof value).assertEqual('number');
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(value);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0200
+     * @tc.name      testResource0200
+     * @tc.desc      Color start_window_background is opaque white, bit probe 8
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testResource0200', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0200', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 8) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0201
+     * @tc.name      testResource0201
+     * @tc.desc      Color start_window_background is opaque white, bit probe 13
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0201', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0201', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 13) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(value & 0xFF).assertEqual(0xFF);
+      expect((value & 0xFFFFFF) >>> 0).assertEqual(0xFFFFFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0202
+     * @tc.name      testResource0202
+     * @tc.desc      Color start_window_background is opaque white, bit probe 18
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0202', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0202', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 18) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(typeof value).assertEqual('number');
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(value);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0203
+     * @tc.name      testResource0203
+     * @tc.desc      Color start_window_background is opaque white, bit probe 23
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0203', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0203', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 23) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0204
+     * @tc.name      testResource0204
+     * @tc.desc      Color start_window_background is opaque white, bit probe 4
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0204', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0204', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 4) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(value & 0xFF).assertEqual(0xFF);
+      expect((value & 0xFFFFFF) >>> 0).assertEqual(0xFFFFFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0205
+     * @tc.name      testResource0205
+     * @tc.desc      Color start_window_background is opaque white, bit probe 9
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0205', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0205', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 9) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(typeof value).assertEqual('number');
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(value);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0206
+     * @tc.name      testResource0206
+     * @tc.desc      Color start_window_background is opaque white, bit probe 14
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0206', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0206', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 14) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0207
+     * @tc.name      testResource0207
+     * @tc.desc      Color start_window_background is opaque white, bit probe 19
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0207', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0207', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 19) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(value & 0xFF).assertEqual(0xFF);
+      expect((value & 0xFFFFFF) >>> 0).assertEqual(0xFFFFFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0208
+     * @tc.name      testResource0208
+     * @tc.desc      Color start_window_background is opaque white, bit probe 0
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0208', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0208', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 0) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(typeof value).assertEqual('number');
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(value);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0209
+     * @tc.name      testResource0209
+     * @tc.desc      Color start_window_background is opaque white, bit probe 5
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0209', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0209', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 5) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0210
+     * @tc.name      testResource0210
+     * @tc.desc      Color start_window_background is opaque white, bit probe 10
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0210', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0210', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 10) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(value & 0xFF).assertEqual(0xFF);
+      expect((value & 0xFFFFFF) >>> 0).assertEqual(0xFFFFFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0211
+     * @tc.name      testResource0211
+     * @tc.desc      Color start_window_background is opaque white, bit probe 15
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0211', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0211', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 15) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(typeof value).assertEqual('number');
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(value);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0212
+     * @tc.name      testResource0212
+     * @tc.desc      Color start_window_background is opaque white, bit probe 20
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0212', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0212', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 20) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0213
+     * @tc.name      testResource0213
+     * @tc.desc      Color start_window_background is opaque white, bit probe 1
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0213', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0213', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 1) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(value & 0xFF).assertEqual(0xFF);
+      expect((value & 0xFFFFFF) >>> 0).assertEqual(0xFFFFFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0214
+     * @tc.name      testResource0214
+     * @tc.desc      Color start_window_background is opaque white, bit probe 6
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0214', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0214', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 6) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(typeof value).assertEqual('number');
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(value);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0215
+     * @tc.name      testResource0215
+     * @tc.desc      Color start_window_background is opaque white, bit probe 11
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0215', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0215', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 11) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0216
+     * @tc.name      testResource0216
+     * @tc.desc      Color start_window_background is opaque white, bit probe 16
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0216', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0216', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(value & 0xFF).assertEqual(0xFF);
+      expect((value & 0xFFFFFF) >>> 0).assertEqual(0xFFFFFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0217
+     * @tc.name      testResource0217
+     * @tc.desc      Color start_window_background is opaque white, bit probe 21
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0217', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0217', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 21) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(typeof value).assertEqual('number');
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(value);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0218
+     * @tc.name      testResource0218
+     * @tc.desc      Color start_window_background is opaque white, bit probe 2
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0218', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0218', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 2) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0219
+     * @tc.name      testResource0219
+     * @tc.desc      Color start_window_background is opaque white, bit probe 7
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0219', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0219', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 7) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(value & 0xFF).assertEqual(0xFF);
+      expect((value & 0xFFFFFF) >>> 0).assertEqual(0xFFFFFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0220
+     * @tc.name      testResource0220
+     * @tc.desc      Color start_window_background is opaque white, bit probe 12
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0220', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0220', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 12) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(typeof value).assertEqual('number');
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(value);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0221
+     * @tc.name      testResource0221
+     * @tc.desc      Color start_window_background is opaque white, bit probe 17
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0221', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0221', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 17) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0222
+     * @tc.name      testResource0222
+     * @tc.desc      Color start_window_background is opaque white, bit probe 22
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0222', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0222', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 22) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(value & 0xFF).assertEqual(0xFF);
+      expect((value & 0xFFFFFF) >>> 0).assertEqual(0xFFFFFF);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0223
+     * @tc.name      testResource0223
+     * @tc.desc      Color start_window_background is opaque white, bit probe 3
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0223', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0223', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 3) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect(typeof value).assertEqual('number');
+      expect(res().getColorByNameSync('start_window_background')).assertEqual(value);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_RES_0224
+     * @tc.name      testResource0224
+     * @tc.desc      Color start_window_background is opaque white, bit probe 8
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResource0224', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const value: number = res().getColorByNameSync('start_window_background');
+      logCase('testResource0224', `color=${value}`);
+      expect(value).assertEqual(0xFFFFFFFF);
+      expect(value >>> 24).assertEqual(0xFF);
+      expect((value >>> 8) & 0xFF).assertEqual(0xFF);
+      expect((value >>> 0) === value).assertTrue();
+      expect((value >>> 16) & 0xFF).assertEqual(0xFF);
+    });
+  });
+}
