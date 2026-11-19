@@ -2702,3 +2702,615 @@ export default function MediaRenameMetadataLogic(): void {
       expect(photo.sets.length).assertEqual(1);
       LogicTestLog.value(name, "Display name native key", "display_name", photo.sets[0].member);
       expect(photo.sets[0].member).assertEqual("display_name");
+      LogicTestLog.value(name, "Requested display name forwarded", "requested-3.mp4", photo.sets[0].value);
+      expect(photo.sets[0].value).assertEqual("requested-3.mp4");
+      LogicTestLog.number(name, "Commit skipped after set rejection", 0, photo.commits);
+      expect(photo.commits).assertEqual(0);
+      LogicTestLog.number(name, "Metadata refresh only follows committed rename", 1, photo.gets.length);
+      expect(photo.gets.length).assertEqual(1);
+      LogicTestLog.value(name, "Published display name follows success only", "old-3.mp4", handle.displayName);
+      expect(handle.displayName).assertEqual("old-3.mp4");
+      LogicTestLog.value(name, "Photo rename never changes URI", "fake://media/photo-rename-3", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/photo-rename-3");
+      LogicTestLog.number(name, "Photo rename keeps media type", 2, handle.mediaType);
+      expect(handle.mediaType).assertEqual(2);
+      LogicTestLog.value(name, "Photo rename native call order", "photo.set", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("photo.set");
+      LogicTestLog.number(name, "No filesystem rename for photo", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No filesystem open for photo rename", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No extra photo fetch", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      LogicTestLog.number(name, "Creation result already closed", 1, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(1);
+      photo.setError = '';
+      photo.commitError = '';
+      photo.getError = '';
+      photo.committedDisplayName = '';
+      await handle.rename("retry-3.mp4");
+      LogicTestLog.value(name, "Successful retry publishes refreshed name", "retry-3.mp4", handle.displayName);
+      expect(handle.displayName).assertEqual("retry-3.mp4");
+      LogicTestLog.number(name, "Retry set request count", 2, photo.sets.length);
+      expect(photo.sets.length).assertEqual(2);
+      LogicTestLog.value(name, "Retry forwards distinct requested name", "retry-3.mp4", photo.sets[1].value);
+      expect(photo.sets[1].value).assertEqual("retry-3.mp4");
+      LogicTestLog.number(name, "Retry commit count", 1, photo.commits);
+      expect(photo.commits).assertEqual(1);
+      LogicTestLog.value(name, "Retry reads native name after commit",
+        "photo.set|photo.set|photo.commit|photo.get", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("photo.set|photo.set|photo.commit|photo.get");
+      LogicTestLog.value(name, "Retry URI remains native URI", "fake://media/photo-rename-3", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/photo-rename-3");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1176
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1176
+     * @tc.nameDesc Photo rename refreshes exposed metadata only after commit: Verify set-commit-get ordering, canonical
+     * native display names, error propagation and retry without fs rename.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1176", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1176";
+      LogicTestLog.begin(name, "FileType.IMAGE; rename stage commit");
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/photo-rename-4", photoAccessHelper.PhotoType.IMAGE, "old-4.jpg");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/photo-rename-4";
+      library.results = [fetch];
+      const handle: MediaAssetHandle = await media.createAndGetUri(FileType.IMAGE);
+      trace.clear();
+      photo.commitError = "synthetic photo commit failure 4";
+      let message: string = '';
+      try {
+        await handle.rename("requested-4.jpg");
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "Photo rename outcome", "synthetic photo commit failure 4", message);
+      expect(message).assertEqual("synthetic photo commit failure 4");
+      LogicTestLog.number(name, "Display name set attempted once", 1, photo.sets.length);
+      expect(photo.sets.length).assertEqual(1);
+      LogicTestLog.value(name, "Display name native key", "display_name", photo.sets[0].member);
+      expect(photo.sets[0].member).assertEqual("display_name");
+      LogicTestLog.value(name, "Requested display name forwarded", "requested-4.jpg", photo.sets[0].value);
+      expect(photo.sets[0].value).assertEqual("requested-4.jpg");
+      LogicTestLog.number(name, "Commit skipped after set rejection", 1, photo.commits);
+      expect(photo.commits).assertEqual(1);
+      LogicTestLog.number(name, "Metadata refresh only follows committed rename", 1, photo.gets.length);
+      expect(photo.gets.length).assertEqual(1);
+      LogicTestLog.value(name, "Published display name follows success only", "old-4.jpg", handle.displayName);
+      expect(handle.displayName).assertEqual("old-4.jpg");
+      LogicTestLog.value(name, "Photo rename never changes URI", "fake://media/photo-rename-4", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/photo-rename-4");
+      LogicTestLog.number(name, "Photo rename keeps media type", 1, handle.mediaType);
+      expect(handle.mediaType).assertEqual(1);
+      LogicTestLog.value(name, "Photo rename native call order", "photo.set|photo.commit", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("photo.set|photo.commit");
+      LogicTestLog.number(name, "No filesystem rename for photo", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No filesystem open for photo rename", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No extra photo fetch", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      LogicTestLog.number(name, "Creation result already closed", 1, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(1);
+      photo.setError = '';
+      photo.commitError = '';
+      photo.getError = '';
+      photo.committedDisplayName = '';
+      await handle.rename("retry-4.jpg");
+      LogicTestLog.value(name, "Successful retry publishes refreshed name", "retry-4.jpg", handle.displayName);
+      expect(handle.displayName).assertEqual("retry-4.jpg");
+      LogicTestLog.number(name, "Retry set request count", 2, photo.sets.length);
+      expect(photo.sets.length).assertEqual(2);
+      LogicTestLog.value(name, "Retry forwards distinct requested name", "retry-4.jpg", photo.sets[1].value);
+      expect(photo.sets[1].value).assertEqual("retry-4.jpg");
+      LogicTestLog.number(name, "Retry commit count", 2, photo.commits);
+      expect(photo.commits).assertEqual(2);
+      LogicTestLog.value(name, "Retry reads native name after commit",
+        "photo.set|photo.commit|photo.set|photo.commit|photo.get", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("photo.set|photo.commit|photo.set|photo.commit|photo.get");
+      LogicTestLog.value(name, "Retry URI remains native URI", "fake://media/photo-rename-4", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/photo-rename-4");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1177
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1177
+     * @tc.nameDesc Photo rename refreshes exposed metadata only after commit: Verify set-commit-get ordering, canonical
+     * native display names, error propagation and retry without fs rename.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1177", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1177";
+      LogicTestLog.begin(name, "FileType.VIDEO; rename stage commit");
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/photo-rename-5", photoAccessHelper.PhotoType.VIDEO, "old-5.mp4");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/photo-rename-5";
+      library.results = [fetch];
+      const handle: MediaAssetHandle = await media.createAndGetUri(FileType.VIDEO);
+      trace.clear();
+      photo.commitError = "synthetic photo commit failure 5";
+      let message: string = '';
+      try {
+        await handle.rename("requested-5.mp4");
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "Photo rename outcome", "synthetic photo commit failure 5", message);
+      expect(message).assertEqual("synthetic photo commit failure 5");
+      LogicTestLog.number(name, "Display name set attempted once", 1, photo.sets.length);
+      expect(photo.sets.length).assertEqual(1);
+      LogicTestLog.value(name, "Display name native key", "display_name", photo.sets[0].member);
+      expect(photo.sets[0].member).assertEqual("display_name");
+      LogicTestLog.value(name, "Requested display name forwarded", "requested-5.mp4", photo.sets[0].value);
+      expect(photo.sets[0].value).assertEqual("requested-5.mp4");
+      LogicTestLog.number(name, "Commit skipped after set rejection", 1, photo.commits);
+      expect(photo.commits).assertEqual(1);
+      LogicTestLog.number(name, "Metadata refresh only follows committed rename", 1, photo.gets.length);
+      expect(photo.gets.length).assertEqual(1);
+      LogicTestLog.value(name, "Published display name follows success only", "old-5.mp4", handle.displayName);
+      expect(handle.displayName).assertEqual("old-5.mp4");
+      LogicTestLog.value(name, "Photo rename never changes URI", "fake://media/photo-rename-5", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/photo-rename-5");
+      LogicTestLog.number(name, "Photo rename keeps media type", 2, handle.mediaType);
+      expect(handle.mediaType).assertEqual(2);
+      LogicTestLog.value(name, "Photo rename native call order", "photo.set|photo.commit", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("photo.set|photo.commit");
+      LogicTestLog.number(name, "No filesystem rename for photo", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No filesystem open for photo rename", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No extra photo fetch", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      LogicTestLog.number(name, "Creation result already closed", 1, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(1);
+      photo.setError = '';
+      photo.commitError = '';
+      photo.getError = '';
+      photo.committedDisplayName = '';
+      await handle.rename("retry-5.mp4");
+      LogicTestLog.value(name, "Successful retry publishes refreshed name", "retry-5.mp4", handle.displayName);
+      expect(handle.displayName).assertEqual("retry-5.mp4");
+      LogicTestLog.number(name, "Retry set request count", 2, photo.sets.length);
+      expect(photo.sets.length).assertEqual(2);
+      LogicTestLog.value(name, "Retry forwards distinct requested name", "retry-5.mp4", photo.sets[1].value);
+      expect(photo.sets[1].value).assertEqual("retry-5.mp4");
+      LogicTestLog.number(name, "Retry commit count", 2, photo.commits);
+      expect(photo.commits).assertEqual(2);
+      LogicTestLog.value(name, "Retry reads native name after commit",
+        "photo.set|photo.commit|photo.set|photo.commit|photo.get", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("photo.set|photo.commit|photo.set|photo.commit|photo.get");
+      LogicTestLog.value(name, "Retry URI remains native URI", "fake://media/photo-rename-5", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/photo-rename-5");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1178
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1178
+     * @tc.nameDesc Photo rename refreshes exposed metadata only after commit: Verify set-commit-get ordering, canonical
+     * native display names, error propagation and retry without fs rename.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1178", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1178";
+      LogicTestLog.begin(name, "FileType.IMAGE; rename stage get");
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/photo-rename-6", photoAccessHelper.PhotoType.IMAGE, "old-6.jpg");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/photo-rename-6";
+      library.results = [fetch];
+      const handle: MediaAssetHandle = await media.createAndGetUri(FileType.IMAGE);
+      trace.clear();
+      photo.getError = "synthetic photo get failure 6";
+      let message: string = '';
+      try {
+        await handle.rename("requested-6.jpg");
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "Photo rename outcome", "synthetic photo get failure 6", message);
+      expect(message).assertEqual("synthetic photo get failure 6");
+      LogicTestLog.number(name, "Display name set attempted once", 1, photo.sets.length);
+      expect(photo.sets.length).assertEqual(1);
+      LogicTestLog.value(name, "Display name native key", "display_name", photo.sets[0].member);
+      expect(photo.sets[0].member).assertEqual("display_name");
+      LogicTestLog.value(name, "Requested display name forwarded", "requested-6.jpg", photo.sets[0].value);
+      expect(photo.sets[0].value).assertEqual("requested-6.jpg");
+      LogicTestLog.number(name, "Commit skipped after set rejection", 1, photo.commits);
+      expect(photo.commits).assertEqual(1);
+      LogicTestLog.number(name, "Metadata refresh only follows committed rename", 2, photo.gets.length);
+      expect(photo.gets.length).assertEqual(2);
+      LogicTestLog.value(name, "Published display name follows success only", "old-6.jpg", handle.displayName);
+      expect(handle.displayName).assertEqual("old-6.jpg");
+      LogicTestLog.value(name, "Photo rename never changes URI", "fake://media/photo-rename-6", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/photo-rename-6");
+      LogicTestLog.number(name, "Photo rename keeps media type", 1, handle.mediaType);
+      expect(handle.mediaType).assertEqual(1);
+      LogicTestLog.value(name, "Photo rename native call order", "photo.set|photo.commit|photo.get",
+        trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("photo.set|photo.commit|photo.get");
+      LogicTestLog.number(name, "No filesystem rename for photo", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No filesystem open for photo rename", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No extra photo fetch", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      LogicTestLog.number(name, "Creation result already closed", 1, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(1);
+      photo.setError = '';
+      photo.commitError = '';
+      photo.getError = '';
+      photo.committedDisplayName = '';
+      await handle.rename("retry-6.jpg");
+      LogicTestLog.value(name, "Successful retry publishes refreshed name", "retry-6.jpg", handle.displayName);
+      expect(handle.displayName).assertEqual("retry-6.jpg");
+      LogicTestLog.number(name, "Retry set request count", 2, photo.sets.length);
+      expect(photo.sets.length).assertEqual(2);
+      LogicTestLog.value(name, "Retry forwards distinct requested name", "retry-6.jpg", photo.sets[1].value);
+      expect(photo.sets[1].value).assertEqual("retry-6.jpg");
+      LogicTestLog.number(name, "Retry commit count", 2, photo.commits);
+      expect(photo.commits).assertEqual(2);
+      LogicTestLog.value(name, "Retry reads native name after commit",
+        "photo.set|photo.commit|photo.get|photo.set|photo.commit|photo.get", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("photo.set|photo.commit|photo.get|photo.set|photo.commit|photo.get");
+      LogicTestLog.value(name, "Retry URI remains native URI", "fake://media/photo-rename-6", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/photo-rename-6");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1179
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1179
+     * @tc.nameDesc Photo rename refreshes exposed metadata only after commit: Verify set-commit-get ordering, canonical
+     * native display names, error propagation and retry without fs rename.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1179", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1179";
+      LogicTestLog.begin(name, "FileType.VIDEO; rename stage get");
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/photo-rename-7", photoAccessHelper.PhotoType.VIDEO, "old-7.mp4");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/photo-rename-7";
+      library.results = [fetch];
+      const handle: MediaAssetHandle = await media.createAndGetUri(FileType.VIDEO);
+      trace.clear();
+      photo.getError = "synthetic photo get failure 7";
+      let message: string = '';
+      try {
+        await handle.rename("requested-7.mp4");
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "Photo rename outcome", "synthetic photo get failure 7", message);
+      expect(message).assertEqual("synthetic photo get failure 7");
+      LogicTestLog.number(name, "Display name set attempted once", 1, photo.sets.length);
+      expect(photo.sets.length).assertEqual(1);
+      LogicTestLog.value(name, "Display name native key", "display_name", photo.sets[0].member);
+      expect(photo.sets[0].member).assertEqual("display_name");
+      LogicTestLog.value(name, "Requested display name forwarded", "requested-7.mp4", photo.sets[0].value);
+      expect(photo.sets[0].value).assertEqual("requested-7.mp4");
+      LogicTestLog.number(name, "Commit skipped after set rejection", 1, photo.commits);
+      expect(photo.commits).assertEqual(1);
+      LogicTestLog.number(name, "Metadata refresh only follows committed rename", 2, photo.gets.length);
+      expect(photo.gets.length).assertEqual(2);
+      LogicTestLog.value(name, "Published display name follows success only", "old-7.mp4", handle.displayName);
+      expect(handle.displayName).assertEqual("old-7.mp4");
+      LogicTestLog.value(name, "Photo rename never changes URI", "fake://media/photo-rename-7", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/photo-rename-7");
+      LogicTestLog.number(name, "Photo rename keeps media type", 2, handle.mediaType);
+      expect(handle.mediaType).assertEqual(2);
+      LogicTestLog.value(name, "Photo rename native call order", "photo.set|photo.commit|photo.get",
+        trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("photo.set|photo.commit|photo.get");
+      LogicTestLog.number(name, "No filesystem rename for photo", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No filesystem open for photo rename", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No extra photo fetch", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      LogicTestLog.number(name, "Creation result already closed", 1, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(1);
+      photo.setError = '';
+      photo.commitError = '';
+      photo.getError = '';
+      photo.committedDisplayName = '';
+      await handle.rename("retry-7.mp4");
+      LogicTestLog.value(name, "Successful retry publishes refreshed name", "retry-7.mp4", handle.displayName);
+      expect(handle.displayName).assertEqual("retry-7.mp4");
+      LogicTestLog.number(name, "Retry set request count", 2, photo.sets.length);
+      expect(photo.sets.length).assertEqual(2);
+      LogicTestLog.value(name, "Retry forwards distinct requested name", "retry-7.mp4", photo.sets[1].value);
+      expect(photo.sets[1].value).assertEqual("retry-7.mp4");
+      LogicTestLog.number(name, "Retry commit count", 2, photo.commits);
+      expect(photo.commits).assertEqual(2);
+      LogicTestLog.value(name, "Retry reads native name after commit",
+        "photo.set|photo.commit|photo.get|photo.set|photo.commit|photo.get", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("photo.set|photo.commit|photo.get|photo.set|photo.commit|photo.get");
+      LogicTestLog.value(name, "Retry URI remains native URI", "fake://media/photo-rename-7", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/photo-rename-7");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1180
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1180
+     * @tc.nameDesc Handle metadata methods retain legacy forwarding behavior: Verify photo metadata get-set-commit
+     * forwarding, sandbox no-ops and rename-specific display refresh.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1180", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1180";
+      LogicTestLog.begin(name, "FileType.IMAGE; metadata duration and display_name");
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/metadata-0", photoAccessHelper.PhotoType.IMAGE, "metadata-0.jpg");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/metadata-0";
+      library.results = [fetch];
+      photo.members.set('duration', 123);
+      photo.members.set('date_added', 456);
+      const handle: MediaAssetHandle = await media.createAndGetUri(FileType.IMAGE);
+      trace.clear();
+      const duration: photoAccessHelper.MemberType = handle.get('duration');
+      const added: photoAccessHelper.MemberType = handle.get('date_added');
+      handle.set('display_name', 'pending metadata');
+      await handle.commitModify();
+      const pending: photoAccessHelper.MemberType = handle.get('display_name');
+      LogicTestLog.number(name, "Duration metadata", 123, Number(duration));
+      expect(Number(duration)).assertEqual(123);
+      LogicTestLog.number(name, "Date added metadata", 456, Number(added));
+      expect(Number(added)).assertEqual(456);
+      LogicTestLog.value(name, "Generic set is forwarded only for photos", "pending metadata", String(pending));
+      expect(String(pending)).assertEqual("pending metadata");
+      LogicTestLog.value(name, "Generic metadata commit preserves exposed handle name", "metadata-0.jpg",
+        handle.displayName);
+      expect(handle.displayName).assertEqual("metadata-0.jpg");
+      LogicTestLog.value(name, "Generic metadata commit preserves URI", "fake://media/metadata-0", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/metadata-0");
+      LogicTestLog.number(name, "Generic metadata commit preserves type", 1, handle.mediaType);
+      expect(handle.mediaType).assertEqual(1);
+      LogicTestLog.number(name, "Native metadata set count", 1, photo.sets.length);
+      expect(photo.sets.length).assertEqual(1);
+      LogicTestLog.number(name, "Native metadata commit count", 1, photo.commits);
+      expect(photo.commits).assertEqual(1);
+      LogicTestLog.value(name, "Generic metadata operation order",
+        "photo.get|photo.get|photo.set|photo.commit|photo.get", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("photo.get|photo.get|photo.set|photo.commit|photo.get");
+      await handle.rename("updated-0.jpg");
+      LogicTestLog.value(name, "Rename refreshes exposed name", "updated-0.jpg", handle.displayName);
+      expect(handle.displayName).assertEqual("updated-0.jpg");
+      LogicTestLog.value(name, "Rename URI behavior matches storage kind", "fake://media/metadata-0", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/metadata-0");
+      LogicTestLog.number(name, "Photo creation fetch count remains stable", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      LogicTestLog.number(name, "File rename happens only for sandbox", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "Metadata does not open descriptors", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Metadata does not unlink files", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 1, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(1);
+      LogicTestLog.number(name, "Time clock calls", 1, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(1);
+      LogicTestLog.value(name, "Complete metadata then rename order",
+        "photo.get|photo.get|photo.set|photo.commit|photo.get|photo.s" +
+        "et|photo.commit|photo.get", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("photo.get|photo.get|photo.set|photo.commit|photo.get|photo.s" +
+        "et|photo.commit|photo.get");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1181
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1181
+     * @tc.nameDesc Handle metadata methods retain legacy forwarding behavior: Verify photo metadata get-set-commit
+     * forwarding, sandbox no-ops and rename-specific display refresh.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1181", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1181";
+      LogicTestLog.begin(name, "FileType.VIDEO; metadata duration and display_name");
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/metadata-1", photoAccessHelper.PhotoType.VIDEO, "metadata-1.mp4");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/metadata-1";
+      library.results = [fetch];
+      photo.members.set('duration', 123);
+      photo.members.set('date_added', 456);
+      const handle: MediaAssetHandle = await media.createAndGetUri(FileType.VIDEO);
+      trace.clear();
+      const duration: photoAccessHelper.MemberType = handle.get('duration');
+      const added: photoAccessHelper.MemberType = handle.get('date_added');
+      handle.set('display_name', 'pending metadata');
+      await handle.commitModify();
+      const pending: photoAccessHelper.MemberType = handle.get('display_name');
+      LogicTestLog.number(name, "Duration metadata", 123, Number(duration));
+      expect(Number(duration)).assertEqual(123);
+      LogicTestLog.number(name, "Date added metadata", 456, Number(added));
+      expect(Number(added)).assertEqual(456);
+      LogicTestLog.value(name, "Generic set is forwarded only for photos", "pending metadata", String(pending));
+      expect(String(pending)).assertEqual("pending metadata");
+      LogicTestLog.value(name, "Generic metadata commit preserves exposed handle name", "metadata-1.mp4",
+        handle.displayName);
+      expect(handle.displayName).assertEqual("metadata-1.mp4");
+      LogicTestLog.value(name, "Generic metadata commit preserves URI", "fake://media/metadata-1", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/metadata-1");
+      LogicTestLog.number(name, "Generic metadata commit preserves type", 2, handle.mediaType);
+      expect(handle.mediaType).assertEqual(2);
+      LogicTestLog.number(name, "Native metadata set count", 1, photo.sets.length);
+      expect(photo.sets.length).assertEqual(1);
+      LogicTestLog.number(name, "Native metadata commit count", 1, photo.commits);
+      expect(photo.commits).assertEqual(1);
+      LogicTestLog.value(name, "Generic metadata operation order",
+        "photo.get|photo.get|photo.set|photo.commit|photo.get", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("photo.get|photo.get|photo.set|photo.commit|photo.get");
+      await handle.rename("updated-1.mp4");
+      LogicTestLog.value(name, "Rename refreshes exposed name", "updated-1.mp4", handle.displayName);
+      expect(handle.displayName).assertEqual("updated-1.mp4");
+      LogicTestLog.value(name, "Rename URI behavior matches storage kind", "fake://media/metadata-1", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/metadata-1");
+      LogicTestLog.number(name, "Photo creation fetch count remains stable", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      LogicTestLog.number(name, "File rename happens only for sandbox", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "Metadata does not open descriptors", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Metadata does not unlink files", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 1, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(1);
+      LogicTestLog.number(name, "Time clock calls", 1, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(1);
+      LogicTestLog.value(name, "Complete metadata then rename order",
+        "photo.get|photo.get|photo.set|photo.commit|photo.get|photo.s" +
+        "et|photo.commit|photo.get", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("photo.get|photo.get|photo.set|photo.commit|photo.get|photo.s" +
+        "et|photo.commit|photo.get");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1182
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1182
+     * @tc.nameDesc Handle metadata methods retain legacy forwarding behavior: Verify photo metadata get-set-commit
+     * forwarding, sandbox no-ops and rename-specific display refresh.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1182", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1182";
+      LogicTestLog.begin(name, "FileType.AUDIO; metadata duration and display_name");
+      const handle: MediaAssetHandle = await media.createAndGetUri(FileType.AUDIO);
+      trace.clear();
+      const duration: photoAccessHelper.MemberType = handle.get('duration');
+      const added: photoAccessHelper.MemberType = handle.get('date_added');
+      handle.set('display_name', 'pending metadata');
+      await handle.commitModify();
+      const pending: photoAccessHelper.MemberType = handle.get('display_name');
+      LogicTestLog.number(name, "Duration metadata", 0, Number(duration));
+      expect(Number(duration)).assertEqual(0);
+      LogicTestLog.number(name, "Date added metadata", 0, Number(added));
+      expect(Number(added)).assertEqual(0);
+      LogicTestLog.value(name, "Generic set is forwarded only for photos", "0", String(pending));
+      expect(String(pending)).assertEqual("0");
+      LogicTestLog.value(name, "Generic metadata commit preserves exposed handle name",
+        "AUD_20261119_080910.mp3", handle.displayName);
+      expect(handle.displayName).assertEqual("AUD_20261119_080910.mp3");
+      LogicTestLog.value(name, "Generic metadata commit preserves URI",
+        "/synthetic/media/alpha/AUD_20261119_080910.mp3", handle.uri);
+      expect(handle.uri).assertEqual("/synthetic/media/alpha/AUD_20261119_080910.mp3");
+      LogicTestLog.number(name, "Generic metadata commit preserves type", 3, handle.mediaType);
+      expect(handle.mediaType).assertEqual(3);
+      LogicTestLog.number(name, "Native metadata set count", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "Native metadata commit count", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.value(name, "Generic metadata operation order", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      await handle.rename("updated-2.mp3");
+      LogicTestLog.value(name, "Rename refreshes exposed name", "updated-2.mp3", handle.displayName);
+      expect(handle.displayName).assertEqual("updated-2.mp3");
+      LogicTestLog.value(name, "Rename URI behavior matches storage kind",
+        "/synthetic/media/alpha/updated-2.mp3", handle.uri);
+      expect(handle.uri).assertEqual("/synthetic/media/alpha/updated-2.mp3");
+      LogicTestLog.number(name, "Photo creation fetch count remains stable", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "File rename happens only for sandbox", 1, files.renames.length);
+      expect(files.renames.length).assertEqual(1);
+      LogicTestLog.number(name, "Metadata does not open descriptors", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Metadata does not unlink files", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 1, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(1);
+      LogicTestLog.number(name, "Time clock calls", 1, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(1);
+      LogicTestLog.value(name, "Complete metadata then rename order", "files.rename", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("files.rename");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1183
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1183
+     * @tc.nameDesc Handle metadata methods retain legacy forwarding behavior: Verify photo metadata get-set-commit
+     * forwarding, sandbox no-ops and rename-specific display refresh.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1183", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1183";
+      LogicTestLog.begin(name, "FileType.FILE; metadata duration and display_name");
+      const handle: MediaAssetHandle = await media.createAndGetUri(FileType.FILE);
+      trace.clear();
+      const duration: photoAccessHelper.MemberType = handle.get('duration');
+      const added: photoAccessHelper.MemberType = handle.get('date_added');
+      handle.set('display_name', 'pending metadata');
+      await handle.commitModify();
+      const pending: photoAccessHelper.MemberType = handle.get('display_name');
+      LogicTestLog.number(name, "Duration metadata", 0, Number(duration));
+      expect(Number(duration)).assertEqual(0);
+      LogicTestLog.number(name, "Date added metadata", 0, Number(added));
+      expect(Number(added)).assertEqual(0);
+      LogicTestLog.value(name, "Generic set is forwarded only for photos", "0", String(pending));
+      expect(String(pending)).assertEqual("0");
+      LogicTestLog.value(name, "Generic metadata commit preserves exposed handle name",
+        "FILE_20261119_080910.txt", handle.displayName);
+      expect(handle.displayName).assertEqual("FILE_20261119_080910.txt");
+      LogicTestLog.value(name, "Generic metadata commit preserves URI",
+        "/synthetic/media/alpha/FILE_20261119_080910.txt", handle.uri);
+      expect(handle.uri).assertEqual("/synthetic/media/alpha/FILE_20261119_080910.txt");
+      LogicTestLog.number(name, "Generic metadata commit preserves type", 4, handle.mediaType);
+      expect(handle.mediaType).assertEqual(4);
+      LogicTestLog.number(name, "Native metadata set count", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "Native metadata commit count", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.value(name, "Generic metadata operation order", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      await handle.rename("updated-3.txt");
+      LogicTestLog.value(name, "Rename refreshes exposed name", "updated-3.txt", handle.displayName);
+      expect(handle.displayName).assertEqual("updated-3.txt");
+      LogicTestLog.value(name, "Rename URI behavior matches storage kind",
+        "/synthetic/media/alpha/updated-3.txt", handle.uri);
+      expect(handle.uri).assertEqual("/synthetic/media/alpha/updated-3.txt");
+      LogicTestLog.number(name, "Photo creation fetch count remains stable", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "File rename happens only for sandbox", 1, files.renames.length);
+      expect(files.renames.length).assertEqual(1);
+      LogicTestLog.number(name, "Metadata does not open descriptors", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Metadata does not unlink files", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 1, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(1);
+      LogicTestLog.number(name, "Time clock calls", 1, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(1);
+      LogicTestLog.value(name, "Complete metadata then rename order", "files.rename", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("files.rename");
+      LogicTestLog.end(name);
+    });
+  });
+}
