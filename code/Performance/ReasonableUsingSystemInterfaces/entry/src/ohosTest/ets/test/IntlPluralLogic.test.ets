@@ -2484,3 +2484,1950 @@ export default function IntlPluralLogic(): void {
       InterfaceTestLog.value(name, 'kit.select.1', 'one', kitCategory1);
       expect(kitCategory1).assertEqual('one');
       InterfaceTestLog.value(name, 'kit.select.2', 'two', kitCategory2);
+      expect(kitCategory2).assertEqual('two');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'one', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('one');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'two', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('two');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0038
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0038
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0038',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0038';
+      const input: string = 'en-GB; value=21; type=ordinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 21;
+      const probe1: number = 22;
+      const probe2: number = 23;
+      const probe3: number = 21.5;
+      const probe4: number = 121;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'one', kitCategory0);
+      expect(kitCategory0).assertEqual('one');
+      InterfaceTestLog.value(name, 'kit.select.1', 'two', kitCategory1);
+      expect(kitCategory1).assertEqual('two');
+      InterfaceTestLog.value(name, 'kit.select.2', 'few', kitCategory2);
+      expect(kitCategory2).assertEqual('few');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'one', kitCategory4);
+      expect(kitCategory4).assertEqual('one');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'one', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('one');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'two', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('two');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'few', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('few');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'one', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('one');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0039
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0039
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0039',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0039';
+      const input: string = 'en-GB; value=22; type=ordinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 22;
+      const probe1: number = 23;
+      const probe2: number = 24;
+      const probe3: number = 22.5;
+      const probe4: number = 122;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'two', kitCategory0);
+      expect(kitCategory0).assertEqual('two');
+      InterfaceTestLog.value(name, 'kit.select.1', 'few', kitCategory1);
+      expect(kitCategory1).assertEqual('few');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'two', kitCategory4);
+      expect(kitCategory4).assertEqual('two');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'two', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('two');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'few', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('few');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'two', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('two');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0040
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0040
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0040',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0040';
+      const input: string = 'en-GB; value=23; type=ordinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 23;
+      const probe1: number = 24;
+      const probe2: number = 25;
+      const probe3: number = 23.5;
+      const probe4: number = 123;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'few', kitCategory0);
+      expect(kitCategory0).assertEqual('few');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'few', kitCategory4);
+      expect(kitCategory4).assertEqual('few');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'few', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('few');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'few', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('few');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0041
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0041
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0041',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0041';
+      const input: string = 'en-GB; value=24; type=ordinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 24;
+      const probe1: number = 25;
+      const probe2: number = 26;
+      const probe3: number = 24.5;
+      const probe4: number = 124;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0042
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0042
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0042',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0042';
+      const input: string = 'en-GB; value=101; type=ordinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 101;
+      const probe1: number = 102;
+      const probe2: number = 103;
+      const probe3: number = 101.5;
+      const probe4: number = 201;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'one', kitCategory0);
+      expect(kitCategory0).assertEqual('one');
+      InterfaceTestLog.value(name, 'kit.select.1', 'two', kitCategory1);
+      expect(kitCategory1).assertEqual('two');
+      InterfaceTestLog.value(name, 'kit.select.2', 'few', kitCategory2);
+      expect(kitCategory2).assertEqual('few');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'one', kitCategory4);
+      expect(kitCategory4).assertEqual('one');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'one', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('one');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'two', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('two');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'few', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('few');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'one', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('one');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0043
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0043
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0043',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0043';
+      const input: string = 'en-GB; value=111; type=ordinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 111;
+      const probe1: number = 112;
+      const probe2: number = 113;
+      const probe3: number = 111.5;
+      const probe4: number = 211;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0044
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0044
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0044',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0044';
+      const input: string = 'en-GB; value=112; type=ordinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 112;
+      const probe1: number = 113;
+      const probe2: number = 114;
+      const probe3: number = 112.5;
+      const probe4: number = 212;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0045
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0045
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0045',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0045';
+      const input: string = 'en-GB; value=113; type=ordinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 113;
+      const probe1: number = 114;
+      const probe2: number = 115;
+      const probe3: number = 113.5;
+      const probe4: number = 213;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0046
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0046
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0046',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0046';
+      const input: string = 'en-GB; value=121; type=ordinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 121;
+      const probe1: number = 122;
+      const probe2: number = 123;
+      const probe3: number = 121.5;
+      const probe4: number = 221;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'one', kitCategory0);
+      expect(kitCategory0).assertEqual('one');
+      InterfaceTestLog.value(name, 'kit.select.1', 'two', kitCategory1);
+      expect(kitCategory1).assertEqual('two');
+      InterfaceTestLog.value(name, 'kit.select.2', 'few', kitCategory2);
+      expect(kitCategory2).assertEqual('few');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'one', kitCategory4);
+      expect(kitCategory4).assertEqual('one');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'one', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('one');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'two', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('two');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'few', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('few');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'one', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('one');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0047
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0047
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0047',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0047';
+      const input: string = 'en-GB; value=1.5; type=ordinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 1.5;
+      const probe1: number = 2.5;
+      const probe2: number = 3.5;
+      const probe3: number = 2;
+      const probe4: number = 101.5;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'two', kitCategory3);
+      expect(kitCategory3).assertEqual('two');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'two', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('two');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0048
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0048
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0048',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0048';
+      const input: string = 'en-GB; value=2.25; type=ordinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-GB';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'ordinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"ordinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 2.25;
+      const probe1: number = 3.25;
+      const probe2: number = 4.25;
+      const probe3: number = 2.75;
+      const probe4: number = 102.25;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0049
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0049
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0049',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0049';
+      const input: string = 'zh-CN; value=-0; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = -0;
+      const probe1: number = 1;
+      const probe2: number = 2;
+      const probe3: number = 0.5;
+      const probe4: number = 100;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0050
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0050
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0050',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0050';
+      const input: string = 'zh-CN; value=0; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 0;
+      const probe1: number = 1;
+      const probe2: number = 2;
+      const probe3: number = 0.5;
+      const probe4: number = 100;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0051
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0051
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0051',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0051';
+      const input: string = 'zh-CN; value=-1; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = -1;
+      const probe1: number = 0;
+      const probe2: number = 1;
+      const probe3: number = -0.5;
+      const probe4: number = 99;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0052
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0052
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0052',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0052';
+      const input: string = 'zh-CN; value=-2; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = -2;
+      const probe1: number = -1;
+      const probe2: number = 0;
+      const probe3: number = -1.5;
+      const probe4: number = 98;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0053
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0053
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0053',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0053';
+      const input: string = 'zh-CN; value=1; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 1;
+      const probe1: number = 2;
+      const probe2: number = 3;
+      const probe3: number = 1.5;
+      const probe4: number = 101;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0054
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0054
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0054',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0054';
+      const input: string = 'zh-CN; value=2; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 2;
+      const probe1: number = 3;
+      const probe2: number = 4;
+      const probe3: number = 2.5;
+      const probe4: number = 102;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0055
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0055
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0055',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0055';
+      const input: string = 'zh-CN; value=3; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 3;
+      const probe1: number = 4;
+      const probe2: number = 5;
+      const probe3: number = 3.5;
+      const probe4: number = 103;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0056
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0056
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0056',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0056';
+      const input: string = 'zh-CN; value=4; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 4;
+      const probe1: number = 5;
+      const probe2: number = 6;
+      const probe3: number = 4.5;
+      const probe4: number = 104;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0057
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0057
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0057',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0057';
+      const input: string = 'zh-CN; value=10; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 10;
+      const probe1: number = 11;
+      const probe2: number = 12;
+      const probe3: number = 10.5;
+      const probe4: number = 110;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0058
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0058
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0058',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0058';
+      const input: string = 'zh-CN; value=11; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 11;
+      const probe1: number = 12;
+      const probe2: number = 13;
+      const probe3: number = 11.5;
+      const probe4: number = 111;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0059
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0059
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0059',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0059';
+      const input: string = 'zh-CN; value=12; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 12;
+      const probe1: number = 13;
+      const probe2: number = 14;
+      const probe3: number = 12.5;
+      const probe4: number = 112;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0060
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0060
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0060',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0060';
+      const input: string = 'zh-CN; value=13; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 13;
+      const probe1: number = 14;
+      const probe2: number = 15;
+      const probe3: number = 13.5;
+      const probe4: number = 113;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0061
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0061
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0061',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0061';
+      const input: string = 'zh-CN; value=20; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 20;
+      const probe1: number = 21;
+      const probe2: number = 22;
+      const probe3: number = 20.5;
+      const probe4: number = 120;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0062
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0062
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0062',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0062';
+      const input: string = 'zh-CN; value=21; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 21;
+      const probe1: number = 22;
+      const probe2: number = 23;
+      const probe3: number = 21.5;
+      const probe4: number = 121;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0063
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0063
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0063',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0063';
+      const input: string = 'zh-CN; value=22; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 22;
+      const probe1: number = 23;
+      const probe2: number = 24;
+      const probe3: number = 22.5;
+      const probe4: number = 122;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0064
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0064
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0064',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0064';
+      const input: string = 'zh-CN; value=23; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 23;
+      const probe1: number = 24;
+      const probe2: number = 25;
+      const probe3: number = 23.5;
+      const probe4: number = 123;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0065
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0065
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0065',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0065';
+      const input: string = 'zh-CN; value=24; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 24;
+      const probe1: number = 25;
+      const probe2: number = 26;
+      const probe3: number = 24.5;
+      const probe4: number = 124;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
+      expect(kitCategory4).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.0', 'other', runtimeCategory0);
+      expect(runtimeCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.1', 'other', runtimeCategory1);
+      expect(runtimeCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.2', 'other', runtimeCategory2);
+      expect(runtimeCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.3', 'other', runtimeCategory3);
+      expect(runtimeCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'runtime.select.4', 'other', runtimeCategory4);
+      expect(runtimeCategory4).assertEqual('other');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0066
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0066
+     * @tc.desc Check independent English cardinal/ordinal or Chinese other-category rules.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0066',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_PLURAL_0066';
+      const input: string = 'zh-CN; value=101; type=cardinal; localeMatcher=lookup';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'zh-CN';
+      const kitOptions: intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const runtimeOptions: Intl.PluralRulesOptions = {
+        localeMatcher: 'lookup', type: 'cardinal',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","type":"cardinal"}';
+      const kit: intl.PluralRules = new intl.PluralRules(locale, kitOptions);
+      const runtime: Intl.PluralRules = new Intl.PluralRules(locale, runtimeOptions);
+      const probe0: number = 101;
+      const probe1: number = 102;
+      const probe2: number = 103;
+      const probe3: number = 101.5;
+      const probe4: number = 201;
+      const kitCategory0: string = kit.select(probe0);
+      const kitCategory1: string = kit.select(probe1);
+      const kitCategory2: string = kit.select(probe2);
+      const kitCategory3: string = kit.select(probe3);
+      const kitCategory4: string = kit.select(probe4);
+      const runtimeCategory0: string = runtime.select(probe0);
+      const runtimeCategory1: string = runtime.select(probe1);
+      const runtimeCategory2: string = runtime.select(probe2);
+      const runtimeCategory3: string = runtime.select(probe3);
+      const runtimeCategory4: string = runtime.select(probe4);
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.select.0', 'other', kitCategory0);
+      expect(kitCategory0).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.1', 'other', kitCategory1);
+      expect(kitCategory1).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.2', 'other', kitCategory2);
+      expect(kitCategory2).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.3', 'other', kitCategory3);
+      expect(kitCategory3).assertEqual('other');
+      InterfaceTestLog.value(name, 'kit.select.4', 'other', kitCategory4);
