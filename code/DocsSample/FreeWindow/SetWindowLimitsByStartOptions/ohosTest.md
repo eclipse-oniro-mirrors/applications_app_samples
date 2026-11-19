@@ -19,7 +19,7 @@
 | `Ability.test.ets` | 2 | 启动应用、点击按钮启动 WindowTestAbility |
 | `StartOptionsWindowLimits.test.ets` | 556 | 基础 166 条（全字段/仅 min/仅 max/非法值/NaN/Infinity/连续启动）、370 组 StartOptions 参数矩阵（边界值/字段组合/宽高比/特殊数值/displayId/批量） |
 | `StartOptionsWindowLimitsUi.test.ets` | 532 | 页面与 Ability 启动 149 条（按钮/顶层 Ability/窗口 bounds/重启/缩放时序）、363 组目标窗口缩放矩阵（范围内网格/越界/边界值/扫描/两步/批量） |
-| **ohosTest 合计** | **1050** | |
+| **ohosTest 合计** | **1090** | |
 | `entry/src/test/LocalUnit.test.ets` | 350 | 本地单元测试：StartOptions 字段构造、边界值、特殊数值、displayId、派生校验 |
 
 ## 一、Ability.test.ets（2 条）
@@ -29,7 +29,7 @@
 | SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_0100 | testSetWindowLimitsByStartOptions0001 | 启动应用，顶层 Ability 为 EntryAbility，"启动测试窗口"按钮存在 | 断言通过 | Pass |
 | SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_0200 | testSetWindowLimitsByStartOptions0002 | 点击按钮后顶层 Ability 为 WindowTestAbility | 断言通过 | Pass |
 
-## 二、StartOptionsWindowLimits.test.ets（536 条）
+## 二、StartOptionsWindowLimits.test.ets（556 条）
 
 ### 基础用例（0300-0310）
 
@@ -88,7 +88,7 @@
 | 0825-0829 | **小数 2**：5 组小数边界组合 | 同上 |
 | 0830-0849 | **等值/四角网格**：四角、等值、中轴、边界倒置等 20 组 | 同上 |
 
-## 三、StartOptionsWindowLimitsUi.test.ets（512 条）
+## 三、StartOptionsWindowLimitsUi.test.ets（532 条）
 
 ### 页面与启动用例（1001-1039）
 

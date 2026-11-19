@@ -18,7 +18,7 @@
 | `Ability.test.ets` | 2 | 启动应用、窗口尺寸约束（UiTest） |
 | `WindowLimitsUi.test.ets` | 541 | 标题/布局/窗口 bounds、顶层 Ability、重启与重复启动、392 组缩放场景矩阵（含边界值、等价类、极端宽高比、扫描、两步缩放、偏移边界）、129 组缩放时序与序列 |
 | `WindowLimitsApi.test.ets` | 750 | 基础 147 条（含异步/并发/时序/字段组合/回读）、583 组参数矩阵（边界值/等价类/特殊数值/精度/倒置/偏移边界）、恢复 |
-| **ohosTest 合计** | **1253** | |
+| **ohosTest 合计** | **1293** | |
 | `entry/src/test/LocalUnit.test.ets` | 300 | 本地单元测试：字段构造、缺省/显式 undefined、边界值、特殊数值、大整数/精度、倒置与快照 |
 
 ## 一、Ability.test.ets（2 条）
@@ -28,7 +28,7 @@
 | SUB_WINDOW_SET_WINDOW_LIMITS_0100 | testSetWindowLimitsStartAbility0001 | 启动应用，顶层 Ability 为 EntryAbility，主页显示 "setWindowLimits." | 断言通过 | Pass |
 | SUB_WINDOW_SET_WINDOW_LIMITS_0200 | testSetWindowLimitsBounds0001 | 拖拽放大/缩小窗口，窗口尺寸受 setWindowLimits 限制 | 放大后宽高小于 20000，缩小后宽高大于 100；不支持缩放时命中预期错误 | Pass |
 
-## 二、WindowLimitsUi.test.ets（521 条）
+## 二、WindowLimitsUi.test.ets（541 条）
 
 ### 页面与窗口基础校验（1001-1008）
 
@@ -110,7 +110,7 @@
 | 1290-1309 | **正方形扫描 3**：605~1175，步长 30 | 超高度上限时按上限限制，或设备不支持缩放 |
 | 1310-1319 | **四角/中心组合**：四角、±1、中心共 10 组 | 按对应边界限制，或设备不支持缩放 |
 
-## 三、WindowLimitsApi.test.ets（730 条）
+## 三、WindowLimitsApi.test.ets（750 条）
 
 ### 基础与异步/并发用例（0001-0009、0072-0079、0080-0086、0090、0091-0095、0096-0103、0441-0444）
 

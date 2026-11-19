@@ -21,7 +21,7 @@
 | `Ability.test.ets` | 4 | 启动应用、隐藏/显示标题栏、窗口尺寸限制（UiTest） |
 | `WindowLimitsModuleJsonApi.test.ets` | 793 | 基础 155 条（含并发/时序/宽高比边界/回读）、618 组参数矩阵（范围网格/字段组合/边界值/特殊数值/倒置/混合比例/偏移网格/批量） |
 | `WindowLimitsModuleJsonUi.test.ets` | 595 | 标题栏显隐 145 条（含时序/重复操作/缩放联动）、430 组缩放矩阵（范围网格/宽高比/边界值/扫描/隐藏态/显隐联动/混合扫描/批量） |
-| **ohosTest 合计** | **1352** | |
+| **ohosTest 合计** | **1392** | |
 | `entry/src/test/LocalUnit.test.ets` | 360 | 本地单元测试：配置字段、上下限、边界值、宽高比、派生范围/面积/中点/比例校验 |
 
 ## 一、Ability.test.ets（4 条）
@@ -33,7 +33,7 @@
 | SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_0300 | testSetWindowLimitsByModuleJson5ShowTitleBar0001 | 隐藏后点击显示按钮 | 标题栏恢复显示 | Pass |
 | SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_0400 | testSetWindowLimitsByModuleJson5WindowLimits0001 | 拖拽放大/缩小窗口，窗口尺寸受 module.json5 限制 | 放大后尺寸受限、缩小后尺寸受限；不支持缩放时命中预期错误 | Pass |
 
-## 二、WindowLimitsModuleJsonApi.test.ets（773 条）
+## 二、WindowLimitsModuleJsonApi.test.ets（793 条）
 
 ### 基础与异步/并发用例（0001-0009、0080-0086、0090、0441-0444、0450-0453、0460-0469、0480-0494）
 
@@ -109,7 +109,7 @@
 | 0646-0655 | **maxWindowHeight 扫描**：200/300/500/999/1000/1200/1299/1300/1301/10000 | 同上 |
 | 0656-0675 | **等值/四角网格**：四角、等值、中轴、边界倒置等 20 组 | 同上 |
 
-## 三、WindowLimitsModuleJsonUi.test.ets（575 条）
+## 三、WindowLimitsModuleJsonUi.test.ets（595 条）
 
 ### 标题栏显隐用例（1001-1065）
 
