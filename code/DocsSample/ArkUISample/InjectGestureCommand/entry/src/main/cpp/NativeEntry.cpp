@@ -14,8 +14,8 @@
  */
 // NativeEntry.cpp
 
-#include <cstdio>
-#include <cstring>
+#include <sstream>
+#include <string>
 
 #include <arkui/native_node_napi.h>
 #include <arkui/ui_event_injection.h>
@@ -25,6 +25,13 @@
 #include "NativeEntry.h"
 
 namespace NativeEntry {
+
+namespace {
+constexpr uint32_t INJECT_ARG_INDEX_CONTEXT = 0;
+constexpr uint32_t INJECT_ARG_INDEX_X = 1;
+constexpr uint32_t INJECT_ARG_INDEX_Y = 2;
+constexpr size_t INJECT_ARG_COUNT = 3;
+} // namespace
 
 // 定义完成回调：命令执行完成后回调一次，result为执行结果。
 static void OnInjectionResult(OH_ArkUI_NativeModule_UIEventInjection_ResultCode result, void* userData)
@@ -39,16 +46,13 @@ static void OnInjectionResult(OH_ArkUI_NativeModule_UIEventInjection_ResultCode 
 void InjectClickCommand(ArkUI_ContextHandle uiContext, double x, double y)
 {
     // 构造命令JSON并创建命令对象。
-    char json[256] = {0};
-    int len = snprintf(json, sizeof(json),
-        R"({"schemaVersion":1,"cmd":{"type":"click","mode":"auto",)"
-        R"("action_info":{"coordinates":{"x1":%.2f,"y1":%.2f}}}})",
-        x, y);
-    if (len <= 0 || len >= static_cast<int>(sizeof(json))) {
-        return; // JSON构造失败。
-    }
+    std::ostringstream oss;
+    oss << R"({"schemaVersion":1,"cmd":{"type":"click","mode":"auto",)"
+        << R"("action_info":{"coordinates":{"x1":)" << x << R"(,"y1":)" << y << R"(}}})";
+    std::string json = oss.str();
     OH_ArkUI_NativeModule_UIJsonWrapper* command = nullptr;
-    ArkUI_ErrorCode ret = OH_ArkUI_NativeModule_UIJsonWrapperCreate(json, static_cast<uint32_t>(len), &command);
+    ArkUI_ErrorCode ret = OH_ArkUI_NativeModule_UIJsonWrapperCreate(
+        json.c_str(), static_cast<uint32_t>(json.length()), &command);
     if (ret != ARKUI_ERROR_CODE_NO_ERROR || command == nullptr) {
         return; // JSON不合法或内存分配失败。
     }
@@ -67,17 +71,17 @@ void InjectClickCommand(ArkUI_ContextHandle uiContext, double x, double y)
 // ArkTS侧调用入口：入参为UIContext、目标坐标x、目标坐标y（相对窗口的物理像素）。
 napi_value InjectClick(napi_env env, napi_callback_info info)
 {
-    size_t argc = 3;
-    napi_value args[3] = {nullptr, nullptr, nullptr};
+    size_t argc = INJECT_ARG_COUNT;
+    napi_value args[INJECT_ARG_COUNT] = {};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     ArkUI_ContextHandle uiContext = nullptr;
-    OH_ArkUI_GetContextFromNapiValue(env, args[0], &uiContext);
+    OH_ArkUI_GetContextFromNapiValue(env, args[INJECT_ARG_INDEX_CONTEXT], &uiContext);
 
     double x = 0.0;
     double y = 0.0;
-    napi_get_value_double(env, args[1], &x);
-    napi_get_value_double(env, args[2], &y);
+    napi_get_value_double(env, args[INJECT_ARG_INDEX_X], &x);
+    napi_get_value_double(env, args[INJECT_ARG_INDEX_Y], &y);
 
     InjectClickCommand(uiContext, x, y);
     return nullptr;
