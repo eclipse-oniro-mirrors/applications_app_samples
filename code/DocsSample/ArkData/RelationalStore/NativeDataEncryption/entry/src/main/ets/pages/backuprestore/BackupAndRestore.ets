@@ -109,6 +109,9 @@ export async function backupManually() {
           }
           hilog.info(DOMAIN, 'BackupAndRestore', JSON.stringify(err));
         }
+      }).catch((err: Error) => {
+        let e = err as BusinessError;
+        hilog.error(DOMAIN, 'BackupAndRestore', `Failed to query. Code:${e.code}, message:${e.message}`);
       })
   }
   // [End databaseExceptionErrorCodeThrown]
