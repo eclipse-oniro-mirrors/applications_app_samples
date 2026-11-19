@@ -3149,3 +3149,738 @@ export default function DataSourceWorkflowLogic(): void {
       expect(other.getData(0).uri).assertEqual('/logic/item-990');
       LogicTestLog.number(name, 'other observer unaffected', 0, otherListener.events.length);
       expect(otherListener.events.length).assertEqual(0);
+      source.setDataArray([]);
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'clear total', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.number(name, 'replacing does not clear old reference', 16, original.length);
+      expect(original.length).assertEqual(16);
+      LogicTestLog.value(name, 'new array identity', String(false), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(false);
+      LogicTestLog.number(name, 'clear stays isolated', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1337
+     * @tc.name MultiMedia_Workflow_1337
+     * @tc.desc Album-style load, insert, rename, delete, reload and instance isolation workflow
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Workflow_1337', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Workflow_1337';
+      LogicTestLog.begin(name, 'length=16;type=1;position=16');
+      const source: MediaDataSource = new MediaDataSource();
+      const other: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const otherListener: DataSourceProbe = new DataSourceProbe();
+      source.registerDataChangeListener(first);
+      source.registerDataChangeListener(second);
+      other.registerDataChangeListener(otherListener);
+      const original: MediaData[] = createMediaRows(16, 661, 1);
+      source.setDataArray(original);
+      other.setDataArray(createMediaRows(1, 990, 4));
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'loaded total', 16, source.totalCount());
+      expect(source.totalCount()).assertEqual(16);
+      LogicTestLog.number(name, 'independent total', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.value(name, 'first load event', String('reload'), String(first.events.join('|')));
+      expect(first.events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'second load event', String('reload'), String(second.events.join('|')));
+      expect(second.events.join('|')).assertEqual('reload');
+      const incoming: MediaData = createMediaRows(1, 950, 1)[0];
+      source.addData(16, incoming);
+      LogicTestLog.number(name, 'insert total', 17, source.totalCount());
+      expect(source.totalCount()).assertEqual(17);
+      const expected165: string =
+        '/logic/item-661|/logic/item-662|/logic/item-663|/logic/item-' +
+        '664|/logic/item-665|/logic/item-666|/logic/item-667|/logic/i' +
+        'tem-668|/logic/item-669|/logic/item-670|/logic/item-671|/log' +
+        'ic/item-672|/logic/item-673|/logic/item-674|/logic/item-675|' +
+        '/logic/item-676|/logic/item-950';
+      LogicTestLog.value(name, 'inserted order',
+        String(expected165),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected165);
+      LogicTestLog.value(name, 'rename item alias', String(true), String(source.getData(16) === incoming));
+      expect(source.getData(16) === incoming).assertEqual(true);
+      incoming.displayName = 'renamed-950';
+      source.notifyDataChange(16);
+      LogicTestLog.value(name, 'renamed display name', String('renamed-950'), String(source.getData(16).displayName));
+      expect(source.getData(16).displayName).assertEqual('renamed-950');
+      LogicTestLog.value(name, 'rename preserves identity', String('/logic/item-950'), String(source.getData(16).uri));
+      expect(source.getData(16).uri).assertEqual('/logic/item-950');
+      LogicTestLog.number(name, 'rename preserves type', 1, source.getData(16).fileType);
+      expect(source.getData(16).fileType).assertEqual(1);
+      LogicTestLog.number(name, 'rename preserves duration', 950950, source.getData(16).duration);
+      expect(source.getData(16).duration).assertEqual(950950);
+      LogicTestLog.number(name, 'rename preserves timestamp', 1700000950, source.getData(16).dateAdded);
+      expect(source.getData(16).dateAdded).assertEqual(1700000950);
+      source.unregisterDataChangeListener(second);
+      source.deleteData(0, 1);
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'delete total', 16, source.totalCount());
+      expect(source.totalCount()).assertEqual(16);
+      LogicTestLog.number(name, 'aliased workflow length', 16, original.length);
+      expect(original.length).assertEqual(16);
+      const expected166: string =
+        '/logic/item-662|/logic/item-663|/logic/item-664|/logic/item-' +
+        '665|/logic/item-666|/logic/item-667|/logic/item-668|/logic/i' +
+        'tem-669|/logic/item-670|/logic/item-671|/logic/item-672|/log' +
+        'ic/item-673|/logic/item-674|/logic/item-675|/logic/item-676|' +
+        '/logic/item-950';
+      LogicTestLog.value(name, 'post-delete order',
+        String(expected166),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected166);
+      LogicTestLog.value(name, 'first full event history',
+        String('reload|add:16|change:16|reload'),
+        String(first.events.join('|')));
+      expect(first.events.join('|')).assertEqual('reload|add:16|change:16|reload');
+      LogicTestLog.value(name, 'removed listener history',
+        String('reload|add:16|change:16'),
+        String(second.events.join('|')));
+      expect(second.events.join('|')).assertEqual('reload|add:16|change:16');
+      LogicTestLog.number(name, 'other count unchanged', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.value(name, 'other identity unchanged', String('/logic/item-990'), String(other.getData(0).uri));
+      expect(other.getData(0).uri).assertEqual('/logic/item-990');
+      LogicTestLog.number(name, 'other observer unaffected', 0, otherListener.events.length);
+      expect(otherListener.events.length).assertEqual(0);
+      source.setDataArray([]);
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'clear total', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.number(name, 'replacing does not clear old reference', 16, original.length);
+      expect(original.length).assertEqual(16);
+      LogicTestLog.value(name, 'new array identity', String(false), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(false);
+      LogicTestLog.number(name, 'clear stays isolated', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1338
+     * @tc.name MultiMedia_Workflow_1338
+     * @tc.desc Album-style load, insert, rename, delete, reload and instance isolation workflow
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Workflow_1338', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Workflow_1338';
+      LogicTestLog.begin(name, 'length=16;type=2;position=0');
+      const source: MediaDataSource = new MediaDataSource();
+      const other: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const otherListener: DataSourceProbe = new DataSourceProbe();
+      source.registerDataChangeListener(first);
+      source.registerDataChangeListener(second);
+      other.registerDataChangeListener(otherListener);
+      const original: MediaData[] = createMediaRows(16, 662, 2);
+      source.setDataArray(original);
+      other.setDataArray(createMediaRows(1, 990, 4));
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'loaded total', 16, source.totalCount());
+      expect(source.totalCount()).assertEqual(16);
+      LogicTestLog.number(name, 'independent total', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.value(name, 'first load event', String('reload'), String(first.events.join('|')));
+      expect(first.events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'second load event', String('reload'), String(second.events.join('|')));
+      expect(second.events.join('|')).assertEqual('reload');
+      const incoming: MediaData = createMediaRows(1, 950, 2)[0];
+      source.addData(0, incoming);
+      LogicTestLog.number(name, 'insert total', 17, source.totalCount());
+      expect(source.totalCount()).assertEqual(17);
+      const expected167: string =
+        '/logic/item-950|/logic/item-662|/logic/item-663|/logic/item-' +
+        '664|/logic/item-665|/logic/item-666|/logic/item-667|/logic/i' +
+        'tem-668|/logic/item-669|/logic/item-670|/logic/item-671|/log' +
+        'ic/item-672|/logic/item-673|/logic/item-674|/logic/item-675|' +
+        '/logic/item-676|/logic/item-677';
+      LogicTestLog.value(name, 'inserted order',
+        String(expected167),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected167);
+      LogicTestLog.value(name, 'rename item alias', String(true), String(source.getData(0) === incoming));
+      expect(source.getData(0) === incoming).assertEqual(true);
+      incoming.displayName = 'renamed-950';
+      source.notifyDataChange(0);
+      LogicTestLog.value(name, 'renamed display name', String('renamed-950'), String(source.getData(0).displayName));
+      expect(source.getData(0).displayName).assertEqual('renamed-950');
+      LogicTestLog.value(name, 'rename preserves identity', String('/logic/item-950'), String(source.getData(0).uri));
+      expect(source.getData(0).uri).assertEqual('/logic/item-950');
+      LogicTestLog.number(name, 'rename preserves type', 2, source.getData(0).fileType);
+      expect(source.getData(0).fileType).assertEqual(2);
+      LogicTestLog.number(name, 'rename preserves duration', 950950, source.getData(0).duration);
+      expect(source.getData(0).duration).assertEqual(950950);
+      LogicTestLog.number(name, 'rename preserves timestamp', 1700000950, source.getData(0).dateAdded);
+      expect(source.getData(0).dateAdded).assertEqual(1700000950);
+      source.unregisterDataChangeListener(second);
+      source.deleteData(0, 1);
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'delete total', 16, source.totalCount());
+      expect(source.totalCount()).assertEqual(16);
+      LogicTestLog.number(name, 'aliased workflow length', 16, original.length);
+      expect(original.length).assertEqual(16);
+      const expected168: string =
+        '/logic/item-662|/logic/item-663|/logic/item-664|/logic/item-' +
+        '665|/logic/item-666|/logic/item-667|/logic/item-668|/logic/i' +
+        'tem-669|/logic/item-670|/logic/item-671|/logic/item-672|/log' +
+        'ic/item-673|/logic/item-674|/logic/item-675|/logic/item-676|' +
+        '/logic/item-677';
+      LogicTestLog.value(name, 'post-delete order',
+        String(expected168),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected168);
+      LogicTestLog.value(name, 'first full event history',
+        String('reload|add:0|change:0|reload'),
+        String(first.events.join('|')));
+      expect(first.events.join('|')).assertEqual('reload|add:0|change:0|reload');
+      LogicTestLog.value(name, 'removed listener history',
+        String('reload|add:0|change:0'),
+        String(second.events.join('|')));
+      expect(second.events.join('|')).assertEqual('reload|add:0|change:0');
+      LogicTestLog.number(name, 'other count unchanged', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.value(name, 'other identity unchanged', String('/logic/item-990'), String(other.getData(0).uri));
+      expect(other.getData(0).uri).assertEqual('/logic/item-990');
+      LogicTestLog.number(name, 'other observer unaffected', 0, otherListener.events.length);
+      expect(otherListener.events.length).assertEqual(0);
+      source.setDataArray([]);
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'clear total', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.number(name, 'replacing does not clear old reference', 16, original.length);
+      expect(original.length).assertEqual(16);
+      LogicTestLog.value(name, 'new array identity', String(false), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(false);
+      LogicTestLog.number(name, 'clear stays isolated', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1339
+     * @tc.name MultiMedia_Workflow_1339
+     * @tc.desc Album-style load, insert, rename, delete, reload and instance isolation workflow
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Workflow_1339', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Workflow_1339';
+      LogicTestLog.begin(name, 'length=16;type=2;position=16');
+      const source: MediaDataSource = new MediaDataSource();
+      const other: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const otherListener: DataSourceProbe = new DataSourceProbe();
+      source.registerDataChangeListener(first);
+      source.registerDataChangeListener(second);
+      other.registerDataChangeListener(otherListener);
+      const original: MediaData[] = createMediaRows(16, 662, 2);
+      source.setDataArray(original);
+      other.setDataArray(createMediaRows(1, 990, 4));
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'loaded total', 16, source.totalCount());
+      expect(source.totalCount()).assertEqual(16);
+      LogicTestLog.number(name, 'independent total', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.value(name, 'first load event', String('reload'), String(first.events.join('|')));
+      expect(first.events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'second load event', String('reload'), String(second.events.join('|')));
+      expect(second.events.join('|')).assertEqual('reload');
+      const incoming: MediaData = createMediaRows(1, 950, 2)[0];
+      source.addData(16, incoming);
+      LogicTestLog.number(name, 'insert total', 17, source.totalCount());
+      expect(source.totalCount()).assertEqual(17);
+      const expected169: string =
+        '/logic/item-662|/logic/item-663|/logic/item-664|/logic/item-' +
+        '665|/logic/item-666|/logic/item-667|/logic/item-668|/logic/i' +
+        'tem-669|/logic/item-670|/logic/item-671|/logic/item-672|/log' +
+        'ic/item-673|/logic/item-674|/logic/item-675|/logic/item-676|' +
+        '/logic/item-677|/logic/item-950';
+      LogicTestLog.value(name, 'inserted order',
+        String(expected169),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected169);
+      LogicTestLog.value(name, 'rename item alias', String(true), String(source.getData(16) === incoming));
+      expect(source.getData(16) === incoming).assertEqual(true);
+      incoming.displayName = 'renamed-950';
+      source.notifyDataChange(16);
+      LogicTestLog.value(name, 'renamed display name', String('renamed-950'), String(source.getData(16).displayName));
+      expect(source.getData(16).displayName).assertEqual('renamed-950');
+      LogicTestLog.value(name, 'rename preserves identity', String('/logic/item-950'), String(source.getData(16).uri));
+      expect(source.getData(16).uri).assertEqual('/logic/item-950');
+      LogicTestLog.number(name, 'rename preserves type', 2, source.getData(16).fileType);
+      expect(source.getData(16).fileType).assertEqual(2);
+      LogicTestLog.number(name, 'rename preserves duration', 950950, source.getData(16).duration);
+      expect(source.getData(16).duration).assertEqual(950950);
+      LogicTestLog.number(name, 'rename preserves timestamp', 1700000950, source.getData(16).dateAdded);
+      expect(source.getData(16).dateAdded).assertEqual(1700000950);
+      source.unregisterDataChangeListener(second);
+      source.deleteData(0, 1);
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'delete total', 16, source.totalCount());
+      expect(source.totalCount()).assertEqual(16);
+      LogicTestLog.number(name, 'aliased workflow length', 16, original.length);
+      expect(original.length).assertEqual(16);
+      const expected170: string =
+        '/logic/item-663|/logic/item-664|/logic/item-665|/logic/item-' +
+        '666|/logic/item-667|/logic/item-668|/logic/item-669|/logic/i' +
+        'tem-670|/logic/item-671|/logic/item-672|/logic/item-673|/log' +
+        'ic/item-674|/logic/item-675|/logic/item-676|/logic/item-677|' +
+        '/logic/item-950';
+      LogicTestLog.value(name, 'post-delete order',
+        String(expected170),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected170);
+      LogicTestLog.value(name, 'first full event history',
+        String('reload|add:16|change:16|reload'),
+        String(first.events.join('|')));
+      expect(first.events.join('|')).assertEqual('reload|add:16|change:16|reload');
+      LogicTestLog.value(name, 'removed listener history',
+        String('reload|add:16|change:16'),
+        String(second.events.join('|')));
+      expect(second.events.join('|')).assertEqual('reload|add:16|change:16');
+      LogicTestLog.number(name, 'other count unchanged', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.value(name, 'other identity unchanged', String('/logic/item-990'), String(other.getData(0).uri));
+      expect(other.getData(0).uri).assertEqual('/logic/item-990');
+      LogicTestLog.number(name, 'other observer unaffected', 0, otherListener.events.length);
+      expect(otherListener.events.length).assertEqual(0);
+      source.setDataArray([]);
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'clear total', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.number(name, 'replacing does not clear old reference', 16, original.length);
+      expect(original.length).assertEqual(16);
+      LogicTestLog.value(name, 'new array identity', String(false), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(false);
+      LogicTestLog.number(name, 'clear stays isolated', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1340
+     * @tc.name MultiMedia_Workflow_1340
+     * @tc.desc Album-style load, insert, rename, delete, reload and instance isolation workflow
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Workflow_1340', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Workflow_1340';
+      LogicTestLog.begin(name, 'length=16;type=3;position=0');
+      const source: MediaDataSource = new MediaDataSource();
+      const other: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const otherListener: DataSourceProbe = new DataSourceProbe();
+      source.registerDataChangeListener(first);
+      source.registerDataChangeListener(second);
+      other.registerDataChangeListener(otherListener);
+      const original: MediaData[] = createMediaRows(16, 663, 3);
+      source.setDataArray(original);
+      other.setDataArray(createMediaRows(1, 990, 4));
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'loaded total', 16, source.totalCount());
+      expect(source.totalCount()).assertEqual(16);
+      LogicTestLog.number(name, 'independent total', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.value(name, 'first load event', String('reload'), String(first.events.join('|')));
+      expect(first.events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'second load event', String('reload'), String(second.events.join('|')));
+      expect(second.events.join('|')).assertEqual('reload');
+      const incoming: MediaData = createMediaRows(1, 950, 3)[0];
+      source.addData(0, incoming);
+      LogicTestLog.number(name, 'insert total', 17, source.totalCount());
+      expect(source.totalCount()).assertEqual(17);
+      const expected171: string =
+        '/logic/item-950|/logic/item-663|/logic/item-664|/logic/item-' +
+        '665|/logic/item-666|/logic/item-667|/logic/item-668|/logic/i' +
+        'tem-669|/logic/item-670|/logic/item-671|/logic/item-672|/log' +
+        'ic/item-673|/logic/item-674|/logic/item-675|/logic/item-676|' +
+        '/logic/item-677|/logic/item-678';
+      LogicTestLog.value(name, 'inserted order',
+        String(expected171),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected171);
+      LogicTestLog.value(name, 'rename item alias', String(true), String(source.getData(0) === incoming));
+      expect(source.getData(0) === incoming).assertEqual(true);
+      incoming.displayName = 'renamed-950';
+      source.notifyDataChange(0);
+      LogicTestLog.value(name, 'renamed display name', String('renamed-950'), String(source.getData(0).displayName));
+      expect(source.getData(0).displayName).assertEqual('renamed-950');
+      LogicTestLog.value(name, 'rename preserves identity', String('/logic/item-950'), String(source.getData(0).uri));
+      expect(source.getData(0).uri).assertEqual('/logic/item-950');
+      LogicTestLog.number(name, 'rename preserves type', 3, source.getData(0).fileType);
+      expect(source.getData(0).fileType).assertEqual(3);
+      LogicTestLog.number(name, 'rename preserves duration', 950950, source.getData(0).duration);
+      expect(source.getData(0).duration).assertEqual(950950);
+      LogicTestLog.number(name, 'rename preserves timestamp', 1700000950, source.getData(0).dateAdded);
+      expect(source.getData(0).dateAdded).assertEqual(1700000950);
+      source.unregisterDataChangeListener(second);
+      source.deleteData(0, 1);
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'delete total', 16, source.totalCount());
+      expect(source.totalCount()).assertEqual(16);
+      LogicTestLog.number(name, 'aliased workflow length', 16, original.length);
+      expect(original.length).assertEqual(16);
+      const expected172: string =
+        '/logic/item-663|/logic/item-664|/logic/item-665|/logic/item-' +
+        '666|/logic/item-667|/logic/item-668|/logic/item-669|/logic/i' +
+        'tem-670|/logic/item-671|/logic/item-672|/logic/item-673|/log' +
+        'ic/item-674|/logic/item-675|/logic/item-676|/logic/item-677|' +
+        '/logic/item-678';
+      LogicTestLog.value(name, 'post-delete order',
+        String(expected172),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected172);
+      LogicTestLog.value(name, 'first full event history',
+        String('reload|add:0|change:0|reload'),
+        String(first.events.join('|')));
+      expect(first.events.join('|')).assertEqual('reload|add:0|change:0|reload');
+      LogicTestLog.value(name, 'removed listener history',
+        String('reload|add:0|change:0'),
+        String(second.events.join('|')));
+      expect(second.events.join('|')).assertEqual('reload|add:0|change:0');
+      LogicTestLog.number(name, 'other count unchanged', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.value(name, 'other identity unchanged', String('/logic/item-990'), String(other.getData(0).uri));
+      expect(other.getData(0).uri).assertEqual('/logic/item-990');
+      LogicTestLog.number(name, 'other observer unaffected', 0, otherListener.events.length);
+      expect(otherListener.events.length).assertEqual(0);
+      source.setDataArray([]);
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'clear total', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.number(name, 'replacing does not clear old reference', 16, original.length);
+      expect(original.length).assertEqual(16);
+      LogicTestLog.value(name, 'new array identity', String(false), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(false);
+      LogicTestLog.number(name, 'clear stays isolated', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1341
+     * @tc.name MultiMedia_Workflow_1341
+     * @tc.desc Album-style load, insert, rename, delete, reload and instance isolation workflow
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Workflow_1341', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Workflow_1341';
+      LogicTestLog.begin(name, 'length=16;type=3;position=16');
+      const source: MediaDataSource = new MediaDataSource();
+      const other: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const otherListener: DataSourceProbe = new DataSourceProbe();
+      source.registerDataChangeListener(first);
+      source.registerDataChangeListener(second);
+      other.registerDataChangeListener(otherListener);
+      const original: MediaData[] = createMediaRows(16, 663, 3);
+      source.setDataArray(original);
+      other.setDataArray(createMediaRows(1, 990, 4));
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'loaded total', 16, source.totalCount());
+      expect(source.totalCount()).assertEqual(16);
+      LogicTestLog.number(name, 'independent total', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.value(name, 'first load event', String('reload'), String(first.events.join('|')));
+      expect(first.events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'second load event', String('reload'), String(second.events.join('|')));
+      expect(second.events.join('|')).assertEqual('reload');
+      const incoming: MediaData = createMediaRows(1, 950, 3)[0];
+      source.addData(16, incoming);
+      LogicTestLog.number(name, 'insert total', 17, source.totalCount());
+      expect(source.totalCount()).assertEqual(17);
+      const expected173: string =
+        '/logic/item-663|/logic/item-664|/logic/item-665|/logic/item-' +
+        '666|/logic/item-667|/logic/item-668|/logic/item-669|/logic/i' +
+        'tem-670|/logic/item-671|/logic/item-672|/logic/item-673|/log' +
+        'ic/item-674|/logic/item-675|/logic/item-676|/logic/item-677|' +
+        '/logic/item-678|/logic/item-950';
+      LogicTestLog.value(name, 'inserted order',
+        String(expected173),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected173);
+      LogicTestLog.value(name, 'rename item alias', String(true), String(source.getData(16) === incoming));
+      expect(source.getData(16) === incoming).assertEqual(true);
+      incoming.displayName = 'renamed-950';
+      source.notifyDataChange(16);
+      LogicTestLog.value(name, 'renamed display name', String('renamed-950'), String(source.getData(16).displayName));
+      expect(source.getData(16).displayName).assertEqual('renamed-950');
+      LogicTestLog.value(name, 'rename preserves identity', String('/logic/item-950'), String(source.getData(16).uri));
+      expect(source.getData(16).uri).assertEqual('/logic/item-950');
+      LogicTestLog.number(name, 'rename preserves type', 3, source.getData(16).fileType);
+      expect(source.getData(16).fileType).assertEqual(3);
+      LogicTestLog.number(name, 'rename preserves duration', 950950, source.getData(16).duration);
+      expect(source.getData(16).duration).assertEqual(950950);
+      LogicTestLog.number(name, 'rename preserves timestamp', 1700000950, source.getData(16).dateAdded);
+      expect(source.getData(16).dateAdded).assertEqual(1700000950);
+      source.unregisterDataChangeListener(second);
+      source.deleteData(0, 1);
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'delete total', 16, source.totalCount());
+      expect(source.totalCount()).assertEqual(16);
+      LogicTestLog.number(name, 'aliased workflow length', 16, original.length);
+      expect(original.length).assertEqual(16);
+      const expected174: string =
+        '/logic/item-664|/logic/item-665|/logic/item-666|/logic/item-' +
+        '667|/logic/item-668|/logic/item-669|/logic/item-670|/logic/i' +
+        'tem-671|/logic/item-672|/logic/item-673|/logic/item-674|/log' +
+        'ic/item-675|/logic/item-676|/logic/item-677|/logic/item-678|' +
+        '/logic/item-950';
+      LogicTestLog.value(name, 'post-delete order',
+        String(expected174),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected174);
+      LogicTestLog.value(name, 'first full event history',
+        String('reload|add:16|change:16|reload'),
+        String(first.events.join('|')));
+      expect(first.events.join('|')).assertEqual('reload|add:16|change:16|reload');
+      LogicTestLog.value(name, 'removed listener history',
+        String('reload|add:16|change:16'),
+        String(second.events.join('|')));
+      expect(second.events.join('|')).assertEqual('reload|add:16|change:16');
+      LogicTestLog.number(name, 'other count unchanged', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.value(name, 'other identity unchanged', String('/logic/item-990'), String(other.getData(0).uri));
+      expect(other.getData(0).uri).assertEqual('/logic/item-990');
+      LogicTestLog.number(name, 'other observer unaffected', 0, otherListener.events.length);
+      expect(otherListener.events.length).assertEqual(0);
+      source.setDataArray([]);
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'clear total', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.number(name, 'replacing does not clear old reference', 16, original.length);
+      expect(original.length).assertEqual(16);
+      LogicTestLog.value(name, 'new array identity', String(false), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(false);
+      LogicTestLog.number(name, 'clear stays isolated', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1342
+     * @tc.name MultiMedia_Workflow_1342
+     * @tc.desc Album-style load, insert, rename, delete, reload and instance isolation workflow
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Workflow_1342', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Workflow_1342';
+      LogicTestLog.begin(name, 'length=16;type=4;position=0');
+      const source: MediaDataSource = new MediaDataSource();
+      const other: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const otherListener: DataSourceProbe = new DataSourceProbe();
+      source.registerDataChangeListener(first);
+      source.registerDataChangeListener(second);
+      other.registerDataChangeListener(otherListener);
+      const original: MediaData[] = createMediaRows(16, 664, 4);
+      source.setDataArray(original);
+      other.setDataArray(createMediaRows(1, 990, 4));
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'loaded total', 16, source.totalCount());
+      expect(source.totalCount()).assertEqual(16);
+      LogicTestLog.number(name, 'independent total', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.value(name, 'first load event', String('reload'), String(first.events.join('|')));
+      expect(first.events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'second load event', String('reload'), String(second.events.join('|')));
+      expect(second.events.join('|')).assertEqual('reload');
+      const incoming: MediaData = createMediaRows(1, 950, 4)[0];
+      source.addData(0, incoming);
+      LogicTestLog.number(name, 'insert total', 17, source.totalCount());
+      expect(source.totalCount()).assertEqual(17);
+      const expected175: string =
+        '/logic/item-950|/logic/item-664|/logic/item-665|/logic/item-' +
+        '666|/logic/item-667|/logic/item-668|/logic/item-669|/logic/i' +
+        'tem-670|/logic/item-671|/logic/item-672|/logic/item-673|/log' +
+        'ic/item-674|/logic/item-675|/logic/item-676|/logic/item-677|' +
+        '/logic/item-678|/logic/item-679';
+      LogicTestLog.value(name, 'inserted order',
+        String(expected175),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected175);
+      LogicTestLog.value(name, 'rename item alias', String(true), String(source.getData(0) === incoming));
+      expect(source.getData(0) === incoming).assertEqual(true);
+      incoming.displayName = 'renamed-950';
+      source.notifyDataChange(0);
+      LogicTestLog.value(name, 'renamed display name', String('renamed-950'), String(source.getData(0).displayName));
+      expect(source.getData(0).displayName).assertEqual('renamed-950');
+      LogicTestLog.value(name, 'rename preserves identity', String('/logic/item-950'), String(source.getData(0).uri));
+      expect(source.getData(0).uri).assertEqual('/logic/item-950');
+      LogicTestLog.number(name, 'rename preserves type', 4, source.getData(0).fileType);
+      expect(source.getData(0).fileType).assertEqual(4);
+      LogicTestLog.number(name, 'rename preserves duration', 950950, source.getData(0).duration);
+      expect(source.getData(0).duration).assertEqual(950950);
+      LogicTestLog.number(name, 'rename preserves timestamp', 1700000950, source.getData(0).dateAdded);
+      expect(source.getData(0).dateAdded).assertEqual(1700000950);
+      source.unregisterDataChangeListener(second);
+      source.deleteData(0, 1);
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'delete total', 16, source.totalCount());
+      expect(source.totalCount()).assertEqual(16);
+      LogicTestLog.number(name, 'aliased workflow length', 16, original.length);
+      expect(original.length).assertEqual(16);
+      const expected176: string =
+        '/logic/item-664|/logic/item-665|/logic/item-666|/logic/item-' +
+        '667|/logic/item-668|/logic/item-669|/logic/item-670|/logic/i' +
+        'tem-671|/logic/item-672|/logic/item-673|/logic/item-674|/log' +
+        'ic/item-675|/logic/item-676|/logic/item-677|/logic/item-678|' +
+        '/logic/item-679';
+      LogicTestLog.value(name, 'post-delete order',
+        String(expected176),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected176);
+      LogicTestLog.value(name, 'first full event history',
+        String('reload|add:0|change:0|reload'),
+        String(first.events.join('|')));
+      expect(first.events.join('|')).assertEqual('reload|add:0|change:0|reload');
+      LogicTestLog.value(name, 'removed listener history',
+        String('reload|add:0|change:0'),
+        String(second.events.join('|')));
+      expect(second.events.join('|')).assertEqual('reload|add:0|change:0');
+      LogicTestLog.number(name, 'other count unchanged', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.value(name, 'other identity unchanged', String('/logic/item-990'), String(other.getData(0).uri));
+      expect(other.getData(0).uri).assertEqual('/logic/item-990');
+      LogicTestLog.number(name, 'other observer unaffected', 0, otherListener.events.length);
+      expect(otherListener.events.length).assertEqual(0);
+      source.setDataArray([]);
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'clear total', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.number(name, 'replacing does not clear old reference', 16, original.length);
+      expect(original.length).assertEqual(16);
+      LogicTestLog.value(name, 'new array identity', String(false), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(false);
+      LogicTestLog.number(name, 'clear stays isolated', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1343
+     * @tc.name MultiMedia_Workflow_1343
+     * @tc.desc Album-style load, insert, rename, delete, reload and instance isolation workflow
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Workflow_1343', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Workflow_1343';
+      LogicTestLog.begin(name, 'length=16;type=4;position=16');
+      const source: MediaDataSource = new MediaDataSource();
+      const other: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const otherListener: DataSourceProbe = new DataSourceProbe();
+      source.registerDataChangeListener(first);
+      source.registerDataChangeListener(second);
+      other.registerDataChangeListener(otherListener);
+      const original: MediaData[] = createMediaRows(16, 664, 4);
+      source.setDataArray(original);
+      other.setDataArray(createMediaRows(1, 990, 4));
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'loaded total', 16, source.totalCount());
+      expect(source.totalCount()).assertEqual(16);
+      LogicTestLog.number(name, 'independent total', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.value(name, 'first load event', String('reload'), String(first.events.join('|')));
+      expect(first.events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'second load event', String('reload'), String(second.events.join('|')));
+      expect(second.events.join('|')).assertEqual('reload');
+      const incoming: MediaData = createMediaRows(1, 950, 4)[0];
+      source.addData(16, incoming);
+      LogicTestLog.number(name, 'insert total', 17, source.totalCount());
+      expect(source.totalCount()).assertEqual(17);
+      const expected177: string =
+        '/logic/item-664|/logic/item-665|/logic/item-666|/logic/item-' +
+        '667|/logic/item-668|/logic/item-669|/logic/item-670|/logic/i' +
+        'tem-671|/logic/item-672|/logic/item-673|/logic/item-674|/log' +
+        'ic/item-675|/logic/item-676|/logic/item-677|/logic/item-678|' +
+        '/logic/item-679|/logic/item-950';
+      LogicTestLog.value(name, 'inserted order',
+        String(expected177),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected177);
+      LogicTestLog.value(name, 'rename item alias', String(true), String(source.getData(16) === incoming));
+      expect(source.getData(16) === incoming).assertEqual(true);
+      incoming.displayName = 'renamed-950';
+      source.notifyDataChange(16);
+      LogicTestLog.value(name, 'renamed display name', String('renamed-950'), String(source.getData(16).displayName));
+      expect(source.getData(16).displayName).assertEqual('renamed-950');
+      LogicTestLog.value(name, 'rename preserves identity', String('/logic/item-950'), String(source.getData(16).uri));
+      expect(source.getData(16).uri).assertEqual('/logic/item-950');
+      LogicTestLog.number(name, 'rename preserves type', 4, source.getData(16).fileType);
+      expect(source.getData(16).fileType).assertEqual(4);
+      LogicTestLog.number(name, 'rename preserves duration', 950950, source.getData(16).duration);
+      expect(source.getData(16).duration).assertEqual(950950);
+      LogicTestLog.number(name, 'rename preserves timestamp', 1700000950, source.getData(16).dateAdded);
+      expect(source.getData(16).dateAdded).assertEqual(1700000950);
+      source.unregisterDataChangeListener(second);
+      source.deleteData(0, 1);
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'delete total', 16, source.totalCount());
+      expect(source.totalCount()).assertEqual(16);
+      LogicTestLog.number(name, 'aliased workflow length', 16, original.length);
+      expect(original.length).assertEqual(16);
+      const expected178: string =
+        '/logic/item-665|/logic/item-666|/logic/item-667|/logic/item-' +
+        '668|/logic/item-669|/logic/item-670|/logic/item-671|/logic/i' +
+        'tem-672|/logic/item-673|/logic/item-674|/logic/item-675|/log' +
+        'ic/item-676|/logic/item-677|/logic/item-678|/logic/item-679|' +
+        '/logic/item-950';
+      LogicTestLog.value(name, 'post-delete order',
+        String(expected178),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected178);
+      LogicTestLog.value(name, 'first full event history',
+        String('reload|add:16|change:16|reload'),
+        String(first.events.join('|')));
+      expect(first.events.join('|')).assertEqual('reload|add:16|change:16|reload');
+      LogicTestLog.value(name, 'removed listener history',
+        String('reload|add:16|change:16'),
+        String(second.events.join('|')));
+      expect(second.events.join('|')).assertEqual('reload|add:16|change:16');
+      LogicTestLog.number(name, 'other count unchanged', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.value(name, 'other identity unchanged', String('/logic/item-990'), String(other.getData(0).uri));
+      expect(other.getData(0).uri).assertEqual('/logic/item-990');
+      LogicTestLog.number(name, 'other observer unaffected', 0, otherListener.events.length);
+      expect(otherListener.events.length).assertEqual(0);
+      source.setDataArray([]);
+      source.notifyDataReload();
+      LogicTestLog.number(name, 'clear total', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.number(name, 'replacing does not clear old reference', 16, original.length);
+      expect(original.length).assertEqual(16);
+      LogicTestLog.value(name, 'new array identity', String(false), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(false);
+      LogicTestLog.number(name, 'clear stays isolated', 1, other.totalCount());
+      expect(other.totalCount()).assertEqual(1);
+      LogicTestLog.end(name);
+    });
+  });
+}
