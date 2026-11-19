@@ -56,12 +56,10 @@ public:
     int32_t AddVideoAuxiliaryTrack();
     // 用OH_AVFormat_Create创建format添加封面轨（文档“方法一”）。
     int32_t AddCoverTrackByCreate();
-    // 用OH_AVFormat_CreateVideoFormat创建format添加封面轨（文档“方法二”）。
-    int32_t AddCoverTrack();
-    // 设置flv文件级元数据，须在Start前调用。
-    int32_t SetFlvFileLevelData();
-    // 以固定参数添加AAC音频轨（flv示例）。
-    int32_t AddAacAudioTrack();
+    int32_t CreateFormat();
+    int32_t AddFileData();
+    int32_t AddAACTrack();
+    int32_t AddVideoTrack();
 
 private:
     // 由OH_AVMuxer_Create创建、由Release() 销毁的封装器句柄。

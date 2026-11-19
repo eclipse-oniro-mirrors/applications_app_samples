@@ -306,22 +306,73 @@ int32_t Muxer::AddCoverTrackByCreate()
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
-// [Start Muxer::AddCoverTrack]
-int32_t Muxer::AddCoverTrack()
+int32_t Muxer::CreateFormat()
 {
-    CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
-
+    // [Start Muxer::CreateFormat]
     int coverTrackId = -1;
     OH_AVFormat *formatCover = OH_AVFormat_CreateVideoFormat(OH_AVCODEC_MIMETYPE_IMAGE_JPG, 1280, 720);
-    CHECK_AND_RETURN_RET_LOG(formatCover != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create cover format failed");
-
+    
     int ret = OH_AVMuxer_AddTrack(muxer_, &coverTrackId, formatCover);
     OH_AVFormat_Destroy(formatCover); // 销毁。
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && coverTrackId >= 0, AVCODEC_SAMPLE_ERR_ERROR,
         "Add cover track failed, ret: %{public}d", ret);
+    // [End Muxer::CreateFormat]
     return AVCODEC_SAMPLE_ERR_OK;
 }
-// [End Muxer::AddCoverTrack]
+ 
+int32_t Muxer::AddFileData()
+{
+    // [Start Muxer::AddFileData]
+    OH_AVFormat *format = OH_AVFormat_Create(); // 使用OH_AVFormat_Create创建format。
+    
+    // 设置已定义的key。
+    // 从API version 14开始支持设置创建时间（使用ISO 8601标准的时间格式且为UTC时间）。
+    OH_AVFormat_SetStringValue(format, OH_MD_KEY_CREATION_TIME, "2024-12-28T00:00:00.000000Z");
+    // 从API version 20开始支持设置备注。值类型为string。
+    OH_AVFormat_SetStringValue(format, OH_MD_KEY_COMMENT, "comment test");
+    
+    // 设置用户自定义key（需要com.openharmony.开头）。
+    OH_AVFormat_SetStringValue(format, "com.openharmony.testString", "string test"); // 值类型为string，长度不超过256个字符。
+    
+    int ret = OH_AVMuxer_SetFormat(muxer_, format); // 设置封装的format。
+    if (ret != AV_ERR_OK) {
+        // 设置format失败，未找到有效待写入的key数据。
+        AVCODEC_SAMPLE_LOGW("Set format failed, ret: %{public}d", ret);
+    }
+    OH_AVFormat_Destroy(format); // 销毁。
+    // [End Muxer::AddFileData]
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+ 
+int32_t Muxer::AddAACTrack()
+{
+    // [Start Muxer::AddAACTrack]
+    int audioTrackId = -1;
+    // 以封装44100Hz采样率、2声道的AAC-LC音频为例。
+    OH_AVFormat *formatAudio = OH_AVFormat_CreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, 44100, 2);
+    OH_AVFormat_SetIntValue(formatAudio, OH_MD_KEY_PROFILE, AAC_PROFILE_LC); // 选填。
+    
+    int ret = OH_AVMuxer_AddTrack(muxer_, &audioTrackId, formatAudio);
+    OH_AVFormat_Destroy(formatAudio);
+    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && audioTrackId >= 0, AVCODEC_SAMPLE_ERR_ERROR,
+        "Add audio track failed, ret: %{public}d", ret);
+    // [End Muxer::AddAACTrack]
+    return AVCODEC_SAMPLE_ERR_OK;
+}
+ 
+int32_t Muxer::AddVideoTrack()
+{
+    OH_AVFormat *formatVideo = OH_AVFormat_CreateAudioFormat(OH_AVCODEC_MIMETYPE_VIDEO_H263, 44100, 2);
+    // [Start Muxer::SetVideoTrack]
+    OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_COLOR_PRIMARIES, OH_ColorPrimary::COLOR_PRIMARY_BT709); // 选填。
+    OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_TRANSFER_CHARACTERISTICS,
+        OH_TransferCharacteristic::TRANSFER_CHARACTERISTIC_BT709); // 选填。
+    OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_MATRIX_COEFFICIENTS,
+        OH_MatrixCoefficient::MATRIX_COEFFICIENT_BT709); // 选填。
+    OH_AVFormat_SetIntValue(formatVideo, OH_MD_KEY_RANGE_FLAG, 1); // 选填。值为0代表limited range，值为1代表full range。
+    // [End Muxer::SetVideoTrack]
+    return AVCODEC_SAMPLE_ERR_OK;
+}
 
 // [Start Muxer::Start]
 int32_t Muxer::Start()
@@ -375,49 +426,6 @@ int32_t Muxer::Release()
     return AVCODEC_SAMPLE_ERR_OK;
 }
 // [End Muxer::Release]
-
-// [Start Muxer::SetFlvFileLevelData]
-int32_t Muxer::SetFlvFileLevelData()
-{
-    CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
-
-    OH_AVFormat *format = OH_AVFormat_Create(); // 使用OH_AVFormat_Create创建format。
-
-    // 设置已定义的key。
-    OH_AVFormat_SetStringValue(format, OH_MD_KEY_CREATION_TIME, "2024-12-28T00:00:00.000000Z"); // 从API version 14开始支持设置创建时间（使用ISO 8601标准的时间格式且为UTC时间）。
-    OH_AVFormat_SetStringValue(format, OH_MD_KEY_COMMENT, "comment test"); // 从API version 20开始支持设置备注。值类型为string。
-
-    // 设置用户自定义key（需要com.openharmony.开头）。
-    OH_AVFormat_SetStringValue(format, "com.openharmony.testString", "string test"); // 值类型为string，长度不超过256个字符。
-
-    int ret = OH_AVMuxer_SetFormat(muxer_, format); // 设置封装的format。
-    if (ret != AV_ERR_OK) {
-        // 设置format失败，未找到有效待写入的key数据。
-        AVCODEC_SAMPLE_LOGW("Set format failed, ret: %{public}d", ret);
-    }
-    OH_AVFormat_Destroy(format); // 销毁。
-    return AVCODEC_SAMPLE_ERR_OK;
-}
-// [End Muxer::SetFlvFileLevelData]
-
-// [Start Muxer::AddAacAudioTrack]
-int32_t Muxer::AddAacAudioTrack()
-{
-    CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
-
-    int audioTrackId = -1;
-    // 以封装44100Hz采样率、2声道的AAC-LC音频为例。
-    OH_AVFormat *formatAudio = OH_AVFormat_CreateAudioFormat(OH_AVCODEC_MIMETYPE_AUDIO_AAC, 44100, 2);
-    CHECK_AND_RETURN_RET_LOG(formatAudio != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Create audio format failed");
-    OH_AVFormat_SetIntValue(formatAudio, OH_MD_KEY_PROFILE, AAC_PROFILE_LC); // 选填。
-
-    int ret = OH_AVMuxer_AddTrack(muxer_, &audioTrackId, formatAudio);
-    OH_AVFormat_Destroy(formatAudio);
-    CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK && audioTrackId >= 0, AVCODEC_SAMPLE_ERR_ERROR,
-        "Add audio track failed, ret: %{public}d", ret);
-    return AVCODEC_SAMPLE_ERR_OK;
-}
-// [End Muxer::AddAacAudioTrack]
 
 int32_t Muxer::GetVideoTrackId()
 {
