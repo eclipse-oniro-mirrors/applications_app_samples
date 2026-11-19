@@ -14,7 +14,7 @@
 
 - 共享驱动层：以 `Shared/CustomShareDriver.ets` 为核心，提供串行化 UI 操作队列（`runSerializedUiOperation`）、非阻塞让出（`serializedDelay`、`yieldTick`）、按键模拟（`triggerSerializedKey`、`pressAndWait`）、分享弹窗探针（`shareDialogComponentCount`、`isShareDialogVisible`、`waitForShareDialogStable`、`shareTemplateExists`）、文本与组件轮询（`checkTextContent`、`findComponentsByType`、`checkComponentExists`）、焦点检查（`getCurrentFocusIndex`）、触摸模拟（`simulateTouch`）以及 `launchShareApp`、`triggerShareDialog`、超时与容差常量（`TIMEOUT_DIALOG_RENDER`、`TIMEOUT_SHARE_OPERATION`、`DELAY_KEY_NAVIGATION`、遥控键码 `KEY_*`）等可复用资产
 - 领域层：围绕分享数据模型与规则（`DialogDataModel`、`RequestRes`/`RequestResContent`、`ShareConst` 常量、`dialogData` 分享模板项 `id 0~5`）、分享常量与请求契约、文本分享/文本编辑/文本接收能力、状态编解码、包元数据等纯逻辑展开确定性单元测试，系统依赖通过桩对象或纯函数隔离
-- 场景层：模拟应用启动、首页三入口（文本+链接分享 / 应用内文件分享 / 其他应用分享）、分享弹窗模板选择、Chat 三方拉起、生成海报与截图分享、文本分享与文本编辑跳转、视频文件分享等真实分享场景
+- 场景层：模拟应用启动、首页三入口（文本+链接分享 / 应用内文件分享 / 第三方应用分享）、分享弹窗模板选择、Chat 三方拉起、生成海报与截图分享、文本分享与文本编辑跳转、视频文件分享等真实分享场景
 - 质量层：补充性能时延、压力与长稳、错误恢复、无障碍、中英文资源、内容缩放与设备兼容、安全与隐私等非功能维度
 
 这一分层设计确保测试既能覆盖基础行为正确性，也能覆盖复杂交互与质量属性。
@@ -37,7 +37,7 @@
 关键场景不只测试单点，而是采用组合矩阵扩展覆盖：
 
 - 分类矩阵：`ShareComponent` 16、`ShareValidation` 8、`Integration` 9、`Interaction` 14、`LifecycleState` 10、`PerformanceStability` 7、`Security` 3、`Validation` 11，共 78 个套件、1600 条用例
-- 分享类型矩阵：`kindId` 文本+链接（`ShareConst.KIND_ID_NUMBER`=1）、应用内文件/图片（`ShareConst.KIND_ID`=2）、其他应用分享；对应首页三入口
+- 分享类型矩阵：`kindId` 文本+链接（`ShareConst.KIND_ID_NUMBER`=1）、应用内文件/图片（`ShareConst.KIND_ID`=2）、第三方应用分享；对应首页三入口
 - 分享模板矩阵：`dialogData` 的 `id 0~5`（Chat、视频分享、复制链接、生成海报、文本分享、文本编辑）与选中态、回调分支
 - 键位矩阵：方向键、`KEY_ENTER`、`KEY_BACK` 与非法键码的合法/非法组合（`KeyCodeValidation` 等）
 - 状态矩阵：弹窗 `IDLE/READY/RUNNING/DONE/FAILED` 迁移、并发打开/关闭、打开失败与恢复
@@ -87,7 +87,7 @@
 
 功能测试不只验证「页面能看到」，而是拆成可验证的细粒度行为：
 
-- 应用启动至首页可交互，标题与三个入口（文本+链接分享 / 应用内文件分享 / 其他应用分享）成对出现
+- 应用启动至首页可交互，标题与三个入口（文本+链接分享 / 应用内文件分享 / 第三方应用分享）成对出现
 - 首页三个入口点击后均可打开分享弹窗（`ButtonDialogBuilder`）
 - 分享弹窗模板项 `id 0~5` 正确渲染，点击分别落入 Chat、视频分享、复制链接、生成海报、文本分享、文本编辑分支
 - 拉起 Chat 的 want 参数（`kindId`、`text`、`srcImg`）正确组装
@@ -214,7 +214,7 @@
 | 文本+链接分享（发给好友） | 位于 Chat 主页 | 点击朋友0 | 好友聊天页出现分享内容 | 否 | Pass |
 | 文本+链接分享（生成海报/截图） | 位于分享弹窗 | 点击生成海报 -> 点击截图并分享 | 出现「截图成功! 分享加载中...」提示 | 否 | Pass |
 | 应用内文件分享 | 位于主页/分享弹窗 | 点击应用内文件分享并按 Chat 流程操作 | 文件分享成功并返回主页 | 否 | Pass |
-| 其他应用分享 | 位于主页/分享弹窗 | 点击其他应用分享并按 Chat 流程操作 | 分享成功并返回主页 | 否 | Pass |
+| 第三方应用分享 | 位于主页/分享弹窗 | 点击第三方应用分享并按 Chat 流程操作 | 分享成功并返回主页 | 否 | Pass |
 | 分享模板（返回） | 位于分享弹窗 | 点击返回 | 回到分享主页 | 否 | Pass |
 | 分享模板（文本分享-返回） | 位于分享弹窗 | 点击文本分享，点击返回 | 回到分享主页 | 否 | Pass |
 | 分享模板（留在文本分享） | 位于分享弹窗 | 点击文本分享，点击留在文本分享 | 进入文本页面 | 否 | Pass |

@@ -91,6 +91,7 @@ import keyCodeValidationTest from './Validation/KeyCodeValidation.test';
 import loggerValidationTest from './Validation/LoggerValidation.test';
 import pointerUtilValidationTest from './Validation/PointerUtilValidation.test';
 import resourceLoaderValidationTest from './Validation/ResourceLoaderValidation.test';
+import shareUIFlowTest from './UI/ShareUIFlow.test';
 
 export default function testsuite(): void {
   advancedScenariosTest();
@@ -171,4 +172,5 @@ export default function testsuite(): void {
   loggerValidationTest();
   pointerUtilValidationTest();
   resourceLoaderValidationTest();
+  shareUIFlowTest();
 }
