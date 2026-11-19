@@ -1404,3 +1404,1950 @@ export default function DisplayLimitLogic(): void {
         expect(input.length).assertEqual(4097);
         InterfaceTestLog.number(name, 'output scalar count', 2000, countScalars(actual));
         expect(countScalars(actual)).assertEqual(2000);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = 'BBBBBBBB';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'x\u90BB\uD83D\uDE80\u000023';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0025
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0025
+     * @tc.desc motif 3, intact 1998 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0025',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0025';
+        InterfaceTestLog.begin(name, 'motif 3, intact 1998 UTF16 units');
+        const input: string = '\u0000\u0009'.repeat(999);
+        const snapshot: string = input;
+        const expected: string = '\u0000\u0009'.repeat(999);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1998, actual.length);
+        expect(actual.length).assertEqual(1998);
+        InterfaceTestLog.number(name, 'UTF16 source length', 1998, input.length);
+        expect(input.length).assertEqual(1998);
+        InterfaceTestLog.number(name, 'output scalar count', 1998, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1998);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u0000\u0009\u0000\u0009\u0000\u0009\u0000\u0009';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'y\u90BB\uD83D\uDE80\u000024';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0026
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0026
+     * @tc.desc motif 3, intact 1999 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0026',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0026';
+        InterfaceTestLog.begin(name, 'motif 3, intact 1999 UTF16 units');
+        const input: string =
+          '\u0000\u0009'.repeat(999) +
+          '~';
+        const snapshot: string = input;
+        const expected: string =
+          '\u0000\u0009'.repeat(999) +
+          '~';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1999, actual.length);
+        expect(actual.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'UTF16 source length', 1999, input.length);
+        expect(input.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u0009\u0000\u0009\u0000\u0009\u0000\u0009~';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'z\u90BB\uD83D\uDE80\u000025';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0027
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0027
+     * @tc.desc motif 3, intact 2000 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0027',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0027';
+        InterfaceTestLog.begin(name, 'motif 3, intact 2000 UTF16 units');
+        const input: string = '\u0000\u0009'.repeat(1000);
+        const snapshot: string = input;
+        const expected: string = '\u0000\u0009'.repeat(1000);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 2000, actual.length);
+        expect(actual.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'UTF16 source length', 2000, input.length);
+        expect(input.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'output scalar count', 2000, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(2000);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u0000\u0009\u0000\u0009\u0000\u0009\u0000\u0009';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'a\u90BB\uD83D\uDE80\u000026';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0028
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0028
+     * @tc.desc motif 3, pair spans cap, input 2001
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0028',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0028';
+        InterfaceTestLog.begin(name, 'motif 3, pair spans cap, input 2001');
+        const input: string =
+          '\u0000\u0009'.repeat(999) +
+          '~' +
+          '\uD83D\uDE42';
+        const snapshot: string = input;
+        const expected: string =
+          '\u0000\u0009'.repeat(999) +
+          '~';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1999, actual.length);
+        expect(actual.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'UTF16 source length', 2001, input.length);
+        expect(input.length).assertEqual(2001);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u0009\u0000\u0009\u0000\u0009\u0000\u0009~';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'b\u90BB\uD83D\uDE80\u000027';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0029
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0029
+     * @tc.desc motif 3, pair ends at cap, input 4000
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0029',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0029';
+        InterfaceTestLog.begin(name, 'motif 3, pair ends at cap, input 4000');
+        const input: string =
+          '\u0000\u0009'.repeat(999) +
+          '\uD83D\uDE42' +
+          '\u000D\u000A'.repeat(1000);
+        const snapshot: string = input;
+        const expected: string =
+          '\u0000\u0009'.repeat(999) +
+          '\uD83D\uDE42';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 2000, actual.length);
+        expect(actual.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'UTF16 source length', 4000, input.length);
+        expect(input.length).assertEqual(4000);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u0000\u0009\u0000\u0009\u0000\u0009\uD83D\uDE42';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'c\u90BB\uD83D\uDE80\u000028';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0030
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0030
+     * @tc.desc motif 3, long tail, input 4097
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0030',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0030';
+        InterfaceTestLog.begin(name, 'motif 3, long tail, input 4097');
+        const input: string =
+          '\u0000\u0009'.repeat(1000) +
+          '\u0001' +
+          'e\u0301'.repeat(1048);
+        const snapshot: string = input;
+        const expected: string = '\u0000\u0009'.repeat(1000);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 2000, actual.length);
+        expect(actual.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'UTF16 source length', 4097, input.length);
+        expect(input.length).assertEqual(4097);
+        InterfaceTestLog.number(name, 'output scalar count', 2000, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(2000);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u0000\u0009\u0000\u0009\u0000\u0009\u0000\u0009';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'd\u90BB\uD83D\uDE80\u000029';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0031
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0031
+     * @tc.desc motif 4, intact 1998 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0031',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0031';
+        InterfaceTestLog.begin(name, 'motif 4, intact 1998 UTF16 units');
+        const input: string = '\u000D\u000A'.repeat(999);
+        const snapshot: string = input;
+        const expected: string = '\u000D\u000A'.repeat(999);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1998, actual.length);
+        expect(actual.length).assertEqual(1998);
+        InterfaceTestLog.number(name, 'UTF16 source length', 1998, input.length);
+        expect(input.length).assertEqual(1998);
+        InterfaceTestLog.number(name, 'output scalar count', 1998, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1998);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u000D\u000A\u000D\u000A\u000D\u000A\u000D\u000A';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'e\u90BB\uD83D\uDE80\u000030';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0032
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0032
+     * @tc.desc motif 4, intact 1999 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0032',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0032';
+        InterfaceTestLog.begin(name, 'motif 4, intact 1999 UTF16 units');
+        const input: string =
+          '\u000D\u000A'.repeat(999) +
+          '~';
+        const snapshot: string = input;
+        const expected: string =
+          '\u000D\u000A'.repeat(999) +
+          '~';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1999, actual.length);
+        expect(actual.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'UTF16 source length', 1999, input.length);
+        expect(input.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u000A\u000D\u000A\u000D\u000A\u000D\u000A~';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'f\u90BB\uD83D\uDE80\u000031';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0033
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0033
+     * @tc.desc motif 4, intact 2000 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0033',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0033';
+        InterfaceTestLog.begin(name, 'motif 4, intact 2000 UTF16 units');
+        const input: string = '\u000D\u000A'.repeat(1000);
+        const snapshot: string = input;
+        const expected: string = '\u000D\u000A'.repeat(1000);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 2000, actual.length);
+        expect(actual.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'UTF16 source length', 2000, input.length);
+        expect(input.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'output scalar count', 2000, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(2000);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u000D\u000A\u000D\u000A\u000D\u000A\u000D\u000A';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'g\u90BB\uD83D\uDE80\u000032';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0034
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0034
+     * @tc.desc motif 4, pair spans cap, input 2001
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0034',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0034';
+        InterfaceTestLog.begin(name, 'motif 4, pair spans cap, input 2001');
+        const input: string =
+          '\u000D\u000A'.repeat(999) +
+          '~' +
+          '\uD83D\uDE42';
+        const snapshot: string = input;
+        const expected: string =
+          '\u000D\u000A'.repeat(999) +
+          '~';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1999, actual.length);
+        expect(actual.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'UTF16 source length', 2001, input.length);
+        expect(input.length).assertEqual(2001);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u000A\u000D\u000A\u000D\u000A\u000D\u000A~';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'h\u90BB\uD83D\uDE80\u000033';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0035
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0035
+     * @tc.desc motif 4, pair ends at cap, input 4000
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0035',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0035';
+        InterfaceTestLog.begin(name, 'motif 4, pair ends at cap, input 4000');
+        const input: string =
+          '\u000D\u000A'.repeat(999) +
+          '\uD83D\uDE42' +
+          '\u200B\u4E2D'.repeat(1000);
+        const snapshot: string = input;
+        const expected: string =
+          '\u000D\u000A'.repeat(999) +
+          '\uD83D\uDE42';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 2000, actual.length);
+        expect(actual.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'UTF16 source length', 4000, input.length);
+        expect(input.length).assertEqual(4000);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u000D\u000A\u000D\u000A\u000D\u000A\uD83D\uDE42';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'i\u90BB\uD83D\uDE80\u000034';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0036
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0036
+     * @tc.desc motif 4, long tail, input 4097
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0036',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0036';
+        InterfaceTestLog.begin(name, 'motif 4, long tail, input 4097');
+        const input: string =
+          '\u000D\u000A'.repeat(1000) +
+          '\u0001' +
+          '\u4E2D7'.repeat(1048);
+        const snapshot: string = input;
+        const expected: string = '\u000D\u000A'.repeat(1000);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 2000, actual.length);
+        expect(actual.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'UTF16 source length', 4097, input.length);
+        expect(input.length).assertEqual(4097);
+        InterfaceTestLog.number(name, 'output scalar count', 2000, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(2000);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u000D\u000A\u000D\u000A\u000D\u000A\u000D\u000A';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'j\u90BB\uD83D\uDE80\u000035';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0037
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0037
+     * @tc.desc motif 5, intact 1998 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0037',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0037';
+        InterfaceTestLog.begin(name, 'motif 5, intact 1998 UTF16 units');
+        const input: string = '\u200B\u4E2D'.repeat(999);
+        const snapshot: string = input;
+        const expected: string = '\u200B\u4E2D'.repeat(999);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1998, actual.length);
+        expect(actual.length).assertEqual(1998);
+        InterfaceTestLog.number(name, 'UTF16 source length', 1998, input.length);
+        expect(input.length).assertEqual(1998);
+        InterfaceTestLog.number(name, 'output scalar count', 1998, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1998);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u200B\u4E2D\u200B\u4E2D\u200B\u4E2D\u200B\u4E2D';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'k\u90BB\uD83D\uDE80\u000036';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0038
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0038
+     * @tc.desc motif 5, intact 1999 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0038',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0038';
+        InterfaceTestLog.begin(name, 'motif 5, intact 1999 UTF16 units');
+        const input: string =
+          '\u200B\u4E2D'.repeat(999) +
+          '~';
+        const snapshot: string = input;
+        const expected: string =
+          '\u200B\u4E2D'.repeat(999) +
+          '~';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1999, actual.length);
+        expect(actual.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'UTF16 source length', 1999, input.length);
+        expect(input.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u4E2D\u200B\u4E2D\u200B\u4E2D\u200B\u4E2D~';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'l\u90BB\uD83D\uDE80\u000037';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0039
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0039
+     * @tc.desc motif 5, intact 2000 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0039',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0039';
+        InterfaceTestLog.begin(name, 'motif 5, intact 2000 UTF16 units');
+        const input: string = '\u200B\u4E2D'.repeat(1000);
+        const snapshot: string = input;
+        const expected: string = '\u200B\u4E2D'.repeat(1000);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 2000, actual.length);
+        expect(actual.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'UTF16 source length', 2000, input.length);
+        expect(input.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'output scalar count', 2000, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(2000);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u200B\u4E2D\u200B\u4E2D\u200B\u4E2D\u200B\u4E2D';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'm\u90BB\uD83D\uDE80\u000038';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0040
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0040
+     * @tc.desc motif 5, pair spans cap, input 2001
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0040',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0040';
+        InterfaceTestLog.begin(name, 'motif 5, pair spans cap, input 2001');
+        const input: string =
+          '\u200B\u4E2D'.repeat(999) +
+          '~' +
+          '\uD83D\uDE42';
+        const snapshot: string = input;
+        const expected: string =
+          '\u200B\u4E2D'.repeat(999) +
+          '~';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1999, actual.length);
+        expect(actual.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'UTF16 source length', 2001, input.length);
+        expect(input.length).assertEqual(2001);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u4E2D\u200B\u4E2D\u200B\u4E2D\u200B\u4E2D~';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'n\u90BB\uD83D\uDE80\u000039';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0041
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0041
+     * @tc.desc motif 5, pair ends at cap, input 4000
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0041',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0041';
+        InterfaceTestLog.begin(name, 'motif 5, pair ends at cap, input 4000');
+        const input: string =
+          '\u200B\u4E2D'.repeat(999) +
+          '\uD83D\uDE42' +
+          'e\u0301'.repeat(1000);
+        const snapshot: string = input;
+        const expected: string =
+          '\u200B\u4E2D'.repeat(999) +
+          '\uD83D\uDE42';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 2000, actual.length);
+        expect(actual.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'UTF16 source length', 4000, input.length);
+        expect(input.length).assertEqual(4000);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u200B\u4E2D\u200B\u4E2D\u200B\u4E2D\uD83D\uDE42';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'o\u90BB\uD83D\uDE80\u000040';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0042
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0042
+     * @tc.desc motif 5, long tail, input 4097
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0042',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0042';
+        InterfaceTestLog.begin(name, 'motif 5, long tail, input 4097');
+        const input: string =
+          '\u200B\u4E2D'.repeat(1000) +
+          '\u0001' +
+          '\u0308Q'.repeat(1048);
+        const snapshot: string = input;
+        const expected: string = '\u200B\u4E2D'.repeat(1000);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 2000, actual.length);
+        expect(actual.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'UTF16 source length', 4097, input.length);
+        expect(input.length).assertEqual(4097);
+        InterfaceTestLog.number(name, 'output scalar count', 2000, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(2000);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u200B\u4E2D\u200B\u4E2D\u200B\u4E2D\u200B\u4E2D';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'p\u90BB\uD83D\uDE80\u000041';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0043
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0043
+     * @tc.desc motif 6, intact 1998 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0043',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0043';
+        InterfaceTestLog.begin(name, 'motif 6, intact 1998 UTF16 units');
+        const input: string = 'e\u0301'.repeat(999);
+        const snapshot: string = input;
+        const expected: string = 'e\u0301'.repeat(999);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1998, actual.length);
+        expect(actual.length).assertEqual(1998);
+        InterfaceTestLog.number(name, 'UTF16 source length', 1998, input.length);
+        expect(input.length).assertEqual(1998);
+        InterfaceTestLog.number(name, 'output scalar count', 1998, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1998);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = 'e\u0301e\u0301e\u0301e\u0301';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'q\u90BB\uD83D\uDE80\u000042';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0044
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0044
+     * @tc.desc motif 6, intact 1999 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0044',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0044';
+        InterfaceTestLog.begin(name, 'motif 6, intact 1999 UTF16 units');
+        const input: string =
+          'e\u0301'.repeat(999) +
+          '~';
+        const snapshot: string = input;
+        const expected: string =
+          'e\u0301'.repeat(999) +
+          '~';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1999, actual.length);
+        expect(actual.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'UTF16 source length', 1999, input.length);
+        expect(input.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u0301e\u0301e\u0301e\u0301~';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'r\u90BB\uD83D\uDE80\u000043';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0045
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0045
+     * @tc.desc motif 6, intact 2000 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0045',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0045';
+        InterfaceTestLog.begin(name, 'motif 6, intact 2000 UTF16 units');
+        const input: string = 'e\u0301'.repeat(1000);
+        const snapshot: string = input;
+        const expected: string = 'e\u0301'.repeat(1000);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 2000, actual.length);
+        expect(actual.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'UTF16 source length', 2000, input.length);
+        expect(input.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'output scalar count', 2000, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(2000);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = 'e\u0301e\u0301e\u0301e\u0301';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 's\u90BB\uD83D\uDE80\u000044';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0046
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0046
+     * @tc.desc motif 6, pair spans cap, input 2001
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0046',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0046';
+        InterfaceTestLog.begin(name, 'motif 6, pair spans cap, input 2001');
+        const input: string =
+          'e\u0301'.repeat(999) +
+          '~' +
+          '\uD83D\uDE42';
+        const snapshot: string = input;
+        const expected: string =
+          'e\u0301'.repeat(999) +
+          '~';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1999, actual.length);
+        expect(actual.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'UTF16 source length', 2001, input.length);
+        expect(input.length).assertEqual(2001);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u0301e\u0301e\u0301e\u0301~';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 't\u90BB\uD83D\uDE80\u000045';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0047
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0047
+     * @tc.desc motif 6, pair ends at cap, input 4000
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0047',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0047';
+        InterfaceTestLog.begin(name, 'motif 6, pair ends at cap, input 4000');
+        const input: string =
+          'e\u0301'.repeat(999) +
+          '\uD83D\uDE42' +
+          '\u4E2D7'.repeat(1000);
+        const snapshot: string = input;
+        const expected: string =
+          'e\u0301'.repeat(999) +
+          '\uD83D\uDE42';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 2000, actual.length);
+        expect(actual.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'UTF16 source length', 4000, input.length);
+        expect(input.length).assertEqual(4000);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = 'e\u0301e\u0301e\u0301\uD83D\uDE42';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'u\u90BB\uD83D\uDE80\u000046';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0048
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0048
+     * @tc.desc motif 6, long tail, input 4097
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0048',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0048';
+        InterfaceTestLog.begin(name, 'motif 6, long tail, input 4097');
+        const input: string =
+          'e\u0301'.repeat(1000) +
+          '\u0001' +
+          '\uD83D\uDE00'.repeat(1048);
+        const snapshot: string = input;
+        const expected: string = 'e\u0301'.repeat(1000);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 2000, actual.length);
+        expect(actual.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'UTF16 source length', 4097, input.length);
+        expect(input.length).assertEqual(4097);
+        InterfaceTestLog.number(name, 'output scalar count', 2000, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(2000);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = 'e\u0301e\u0301e\u0301e\u0301';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'v\u90BB\uD83D\uDE80\u000047';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0049
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0049
+     * @tc.desc motif 7, intact 1998 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0049',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0049';
+        InterfaceTestLog.begin(name, 'motif 7, intact 1998 UTF16 units');
+        const input: string = '\u4E2D7'.repeat(999);
+        const snapshot: string = input;
+        const expected: string = '\u4E2D7'.repeat(999);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1998, actual.length);
+        expect(actual.length).assertEqual(1998);
+        InterfaceTestLog.number(name, 'UTF16 source length', 1998, input.length);
+        expect(input.length).assertEqual(1998);
+        InterfaceTestLog.number(name, 'output scalar count', 1998, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1998);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u4E2D7\u4E2D7\u4E2D7\u4E2D7';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'w\u90BB\uD83D\uDE80\u000048';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0050
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0050
+     * @tc.desc motif 7, intact 1999 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0050',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0050';
+        InterfaceTestLog.begin(name, 'motif 7, intact 1999 UTF16 units');
+        const input: string =
+          '\u4E2D7'.repeat(999) +
+          '~';
+        const snapshot: string = input;
+        const expected: string =
+          '\u4E2D7'.repeat(999) +
+          '~';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1999, actual.length);
+        expect(actual.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'UTF16 source length', 1999, input.length);
+        expect(input.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '7\u4E2D7\u4E2D7\u4E2D7~';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'x\u90BB\uD83D\uDE80\u000049';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0051
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0051
+     * @tc.desc motif 7, intact 2000 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0051',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0051';
+        InterfaceTestLog.begin(name, 'motif 7, intact 2000 UTF16 units');
+        const input: string = '\u4E2D7'.repeat(1000);
+        const snapshot: string = input;
+        const expected: string = '\u4E2D7'.repeat(1000);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 2000, actual.length);
+        expect(actual.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'UTF16 source length', 2000, input.length);
+        expect(input.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'output scalar count', 2000, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(2000);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u4E2D7\u4E2D7\u4E2D7\u4E2D7';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'y\u90BB\uD83D\uDE80\u000050';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0052
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0052
+     * @tc.desc motif 7, pair spans cap, input 2001
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0052',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0052';
+        InterfaceTestLog.begin(name, 'motif 7, pair spans cap, input 2001');
+        const input: string =
+          '\u4E2D7'.repeat(999) +
+          '~' +
+          '\uD83D\uDE42';
+        const snapshot: string = input;
+        const expected: string =
+          '\u4E2D7'.repeat(999) +
+          '~';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1999, actual.length);
+        expect(actual.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'UTF16 source length', 2001, input.length);
+        expect(input.length).assertEqual(2001);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '7\u4E2D7\u4E2D7\u4E2D7~';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'z\u90BB\uD83D\uDE80\u000051';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0053
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0053
+     * @tc.desc motif 7, pair ends at cap, input 4000
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0053',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0053';
+        InterfaceTestLog.begin(name, 'motif 7, pair ends at cap, input 4000');
+        const input: string =
+          '\u4E2D7'.repeat(999) +
+          '\uD83D\uDE42' +
+          '\u0308Q'.repeat(1000);
+        const snapshot: string = input;
+        const expected: string =
+          '\u4E2D7'.repeat(999) +
+          '\uD83D\uDE42';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 2000, actual.length);
+        expect(actual.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'UTF16 source length', 4000, input.length);
+        expect(input.length).assertEqual(4000);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u4E2D7\u4E2D7\u4E2D7\uD83D\uDE42';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'a\u90BB\uD83D\uDE80\u000052';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0054
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0054
+     * @tc.desc motif 7, long tail, input 4097
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0054',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0054';
+        InterfaceTestLog.begin(name, 'motif 7, long tail, input 4097');
+        const input: string =
+          '\u4E2D7'.repeat(1000) +
+          '\u0001' +
+          '\u4E2D\uD83D\uDE80'.repeat(698) +
+          '~'.repeat(2);
+        const snapshot: string = input;
+        const expected: string = '\u4E2D7'.repeat(1000);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 2000, actual.length);
+        expect(actual.length).assertEqual(2000);
+        InterfaceTestLog.number(name, 'UTF16 source length', 4097, input.length);
+        expect(input.length).assertEqual(4097);
+        InterfaceTestLog.number(name, 'output scalar count', 2000, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(2000);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u4E2D7\u4E2D7\u4E2D7\u4E2D7';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'b\u90BB\uD83D\uDE80\u000053';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0055
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0055
+     * @tc.desc motif 8, intact 1998 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0055',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0055';
+        InterfaceTestLog.begin(name, 'motif 8, intact 1998 UTF16 units');
+        const input: string = '\u0308Q'.repeat(999);
+        const snapshot: string = input;
+        const expected: string = '\u0308Q'.repeat(999);
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1998, actual.length);
+        expect(actual.length).assertEqual(1998);
+        InterfaceTestLog.number(name, 'UTF16 source length', 1998, input.length);
+        expect(input.length).assertEqual(1998);
+        InterfaceTestLog.number(name, 'output scalar count', 1998, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1998);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = '\u0308Q\u0308Q\u0308Q\u0308Q';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'c\u90BB\uD83D\uDE80\u000054';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0056
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0056
+     * @tc.desc motif 8, intact 1999 UTF16 units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0056',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_LIMIT_0056';
+        InterfaceTestLog.begin(name, 'motif 8, intact 1999 UTF16 units');
+        const input: string =
+          '\u0308Q'.repeat(999) +
+          '~';
+        const snapshot: string = input;
+        const expected: string =
+          '\u0308Q'.repeat(999) +
+          '~';
+        const actual: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'complete oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'UTF16 output length', 1999, actual.length);
+        expect(actual.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'UTF16 source length', 1999, input.length);
+        expect(input.length).assertEqual(1999);
+        InterfaceTestLog.number(name, 'output scalar count', 1999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(1999);
+        InterfaceTestLog.flag(name, 'within display cap', actual.length <= MAX_DISPLAY_LENGTH);
+        expect(actual.length <= MAX_DISPLAY_LENGTH).assertTrue();
+        InterfaceTestLog.flag(name, 'no new split pair', !hasNewTerminalHighSurrogate(input, actual));
+        expect(!hasNewTerminalHighSurrogate(input, actual)).assertTrue();
+        InterfaceTestLog.value(name, 'source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const last: string = 'Q\u0308Q\u0308Q\u0308Q~';
+        InterfaceTestLog.value(name, 'exact trailing units', last, actual.substring(Math.max(0, actual.length - 8)));
+        expect(actual.substring(Math.max(0, actual.length - 8))).assertEqual(last);
+        const again: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'repeat complete oracle', expected, again);
+        expect(again).assertEqual(expected);
+        const idempotent: string = limitDisplayText(actual);
+        InterfaceTestLog.value(name, 'already limited stays exact', expected, idempotent);
+        expect(idempotent).assertEqual(expected);
+        const empty: string = limitDisplayText('');
+        InterfaceTestLog.value(name, 'empty does not inherit state', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'd\u90BB\uD83D\uDE80\u000055';
+        const neighborResult: string = limitDisplayText(neighbor);
+        InterfaceTestLog.value(name, 'adjacent independent input', neighbor, neighborResult);
+        expect(neighborResult).assertEqual(neighbor);
+        InterfaceTestLog.number(name, 'neighbor UTF16 length', 7, neighborResult.length);
+        expect(neighborResult.length).assertEqual(7);
+        const afterNeighbor: string = limitDisplayText(input);
+        InterfaceTestLog.value(name, 'no adjacent call pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final source immutable', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.flag(name, 'post-call pair boundary', !hasNewTerminalHighSurrogate(input, afterNeighbor));
+        expect(!hasNewTerminalHighSurrogate(input, afterNeighbor)).assertTrue();
+        InterfaceTestLog.end(name);
+      });
