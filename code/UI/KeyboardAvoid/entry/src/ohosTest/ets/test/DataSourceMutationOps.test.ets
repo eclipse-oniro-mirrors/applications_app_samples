@@ -22,7 +22,7 @@ const TAG: string = 'DataSourceMutationOpsTest';
 const DEFAULT_ITEMS: string[] = ['第一条数据', '第二条数据', '第三条数据', '第四条数据', '第五条数据', '第六条数据',
   '第七条数据', '第八条数据', '第九条数据', '第十条数据', '第十一条数据', '第十二条数据'];
 
-class EventLogListener implements DataChangeListener {
+class NotificationRecorder implements DataChangeListener {
   reloadedCount: number = 0;
   addedCount: number = 0;
   lastAddIndex: number = -1;
@@ -160,7 +160,7 @@ export default function dataSourceMutationOpsTest(): void {
     it('testDsMutate0204', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsMutate0204 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.add1stItem();
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.addedCount=${listener.addedCount}, expected=1`);
@@ -272,7 +272,7 @@ export default function dataSourceMutationOpsTest(): void {
     it('testDsMutate0209', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsMutate0209 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.addLastItem();
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.addedCount=${listener.addedCount}, expected=1`);
@@ -429,7 +429,7 @@ export default function dataSourceMutationOpsTest(): void {
     it('testDsMutate0216', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsMutate0216 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.addItem(5);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.addedCount=${listener.addedCount}, expected=1`);
@@ -475,7 +475,7 @@ export default function dataSourceMutationOpsTest(): void {
     it('testDsMutate0218', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsMutate0218 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.delete1stItem();
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.deletedCount=${listener.deletedCount}, expected=1`);
@@ -566,7 +566,7 @@ export default function dataSourceMutationOpsTest(): void {
     it('testDsMutate0222', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsMutate0222 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.delete2ndItem();
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.deletedCount=${listener.deletedCount}, expected=1`);
@@ -654,7 +654,7 @@ export default function dataSourceMutationOpsTest(): void {
     it('testDsMutate0226', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsMutate0226 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.deleteLastItem();
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.deletedCount=${listener.deletedCount}, expected=1`);
@@ -700,7 +700,7 @@ export default function dataSourceMutationOpsTest(): void {
     it('testDsMutate0228', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsMutate0228 begin');
       const source: KeyboardDataSource = new KeyboardDataSource([]);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.deleteLastItem();
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual source.totalCount()=${source.totalCount()}, expected=0`);
@@ -744,7 +744,7 @@ export default function dataSourceMutationOpsTest(): void {
     it('testDsMutate0230', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsMutate0230 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.reload();
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.reloadedCount=${listener.reloadedCount}, expected=1`);
@@ -809,7 +809,7 @@ export default function dataSourceMutationOpsTest(): void {
     it('testDsMutate0233', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsMutate0233 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.modifyAllData(['p0']);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.reloadedCount=${listener.reloadedCount}, expected=1`);
@@ -1213,7 +1213,7 @@ export default function dataSourceMutationOpsTest(): void {
     it('testDsMutate0251', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsMutate0251 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.delete1stItem();
       source.delete2ndItem();

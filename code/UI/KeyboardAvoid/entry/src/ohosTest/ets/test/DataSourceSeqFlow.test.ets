@@ -22,8 +22,8 @@ const TAG: string = 'DataSourceSeqFlowTest';
 const DEFAULT_ITEMS: string[] = ['第一条数据', '第二条数据', '第三条数据', '第四条数据', '第五条数据', '第六条数据',
   '第七条数据', '第八条数据', '第九条数据', '第十条数据', '第十一条数据', '第十二条数据'];
 
-class EventLogListener implements DataChangeListener {
-  eventLog: string[] = [];
+class NotificationRecorder implements DataChangeListener {
+  notificationHistory: string[] = [];
   reloadedCount: number = 0;
   addedCount: number = 0;
   addIndexes: number[] = [];
@@ -36,31 +36,31 @@ class EventLogListener implements DataChangeListener {
 
   onDataReloaded(): void {
     this.reloadedCount++;
-    this.eventLog.push('reload');
+    this.notificationHistory.push('reload');
   }
 
   onDataAdd(index: number): void {
     this.addedCount++;
     this.addIndexes.push(index);
-    this.eventLog.push('add');
+    this.notificationHistory.push('add');
   }
 
   onDataChange(index: number): void {
     this.changedCount++;
     this.changeIndexes.push(index);
-    this.eventLog.push('change');
+    this.notificationHistory.push('change');
   }
 
   onDataDelete(index: number): void {
     this.deletedCount++;
     this.lastDeleteIndex = index;
     this.deleteIndexes.push(index);
-    this.eventLog.push('delete');
+    this.notificationHistory.push('delete');
   }
 
   onDataMove(from: number, to: number): void {
     this.movedCount++;
-    this.eventLog.push('move');
+    this.notificationHistory.push('move');
   }
 
   onDataAdded(index: number): void {
@@ -119,7 +119,7 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0302', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0302 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.modifyAllData(['r0', 'r1']);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.reloadedCount=${listener.reloadedCount}, expected=1`);
@@ -142,7 +142,7 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0303', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0303 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.addLastItem();
       source.unregisterDataChangeListener(listener);
@@ -167,8 +167,8 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0304', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0304 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const first: EventLogListener = new EventLogListener();
-      const second: EventLogListener = new EventLogListener();
+      const first: NotificationRecorder = new NotificationRecorder();
+      const second: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(first);
       source.registerDataChangeListener(second);
       source.add1stItem();
@@ -247,7 +247,7 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0307', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0307 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       for (let i: number = 0; i < 12; i++) {
         source.notifyDataAdd(i);
@@ -321,7 +321,7 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0310', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0310 begin');
       const source: KeyboardDataSource = new KeyboardDataSource([]);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.delete1stItem();
       source.delete2ndItem();
@@ -350,7 +350,7 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0311', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0311 begin');
       const source: KeyboardDataSource = new KeyboardDataSource([]);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       for (let i: number = 0; i < 5; i++) {
         source.addLastItem();
@@ -425,7 +425,7 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0314', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0314 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.notifyDataMove(0, 11);
       source.notifyDataMove(11, 0);
@@ -449,7 +449,7 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0315', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0315 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.reload();
       source.reload();
@@ -475,7 +475,7 @@ export default function dataSourceSeqFlowTest(): void {
       log('testDsSequence0316 begin');
       const replacement: string[] = ['r0', 'r1', 'r2'];
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.modifyAllData(replacement);
       source.modifyAllData(replacement);
@@ -499,8 +499,8 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0317', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0317 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const first: EventLogListener = new EventLogListener();
-      const second: EventLogListener = new EventLogListener();
+      const first: NotificationRecorder = new NotificationRecorder();
+      const second: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(first);
       source.registerDataChangeListener(second);
       source.add1stItem();
@@ -530,7 +530,7 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0318', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0318 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.add1stItem();
       source.notifyDataChange(0);
@@ -561,25 +561,25 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0319', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0319 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.notifyDataReload();
       source.notifyDataAdd(3);
       source.notifyDataChange(1);
       source.notifyDataDelete(2);
       source.notifyDataMove(0, 4);
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog.length=${listener.eventLog.length}`);
-      expect(listener.eventLog.length).assertEqual(5);
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog[0]=${listener.eventLog[0]}`);
-      expect(listener.eventLog[0]).assertEqual('reload');
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog[1]=${listener.eventLog[1]}, expected='add'`);
-      expect(listener.eventLog[1]).assertEqual('add');
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog[2]=${listener.eventLog[2]}`);
-      expect(listener.eventLog[2]).assertEqual('change');
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog[3]=${listener.eventLog[3]}`);
-      expect(listener.eventLog[3]).assertEqual('delete');
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog[4]=${listener.eventLog[4]}`);
-      expect(listener.eventLog[4]).assertEqual('move');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory.length=${listener.notificationHistory.length}`);
+      expect(listener.notificationHistory.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory[0]=${listener.notificationHistory[0]}`);
+      expect(listener.notificationHistory[0]).assertEqual('reload');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory[1]=${listener.notificationHistory[1]}, expected='add'`);
+      expect(listener.notificationHistory[1]).assertEqual('add');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory[2]=${listener.notificationHistory[2]}`);
+      expect(listener.notificationHistory[2]).assertEqual('change');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory[3]=${listener.notificationHistory[3]}`);
+      expect(listener.notificationHistory[3]).assertEqual('delete');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory[4]=${listener.notificationHistory[4]}`);
+      expect(listener.notificationHistory[4]).assertEqual('move');
       log('testDsSequence0319 end');
     })
 
@@ -594,7 +594,7 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0320', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0320 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.add1stItem();
       source.addLastItem();
@@ -744,7 +744,7 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0326', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0326 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       for (let i: number = 0; i < 12; i++) {
         source.notifyDataChange(i);
@@ -771,7 +771,7 @@ export default function dataSourceSeqFlowTest(): void {
       const external: string[] = ['a', 'b', 'c'];
       const source: KeyboardDataSource = new KeyboardDataSource(external);
       source.modifyAllData(external);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       external[0] = 'z';
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual source.getData(0)=${source.getData(0)}, expected='z'`);
@@ -842,7 +842,7 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0330', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0330 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       for (let round: number = 0; round < 5; round++) {
         source.registerDataChangeListener(listener);
         source.notifyDataAdd(round);
@@ -912,13 +912,13 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0333', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0333 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.modifyAllData(['only']);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.reloadedCount=${listener.reloadedCount}, expected=1`);
       expect(listener.reloadedCount).assertEqual(1);
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog[0]=${listener.eventLog[0]}`);
-      expect(listener.eventLog[0]).assertEqual('reload');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory[0]=${listener.notificationHistory[0]}`);
+      expect(listener.notificationHistory[0]).assertEqual('reload');
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual source.getData(0)=${source.getData(0)}, expected='only'`);
       expect(source.getData(0)).assertEqual('only');
       log('testDsSequence0333 end');
@@ -935,22 +935,22 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0334', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0334 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.notifyDataAdd(0);
       source.notifyDataChange(0);
       source.notifyDataAdd(1);
       source.notifyDataChange(1);
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog.length=${listener.eventLog.length}`);
-      expect(listener.eventLog.length).assertEqual(4);
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog[0]=${listener.eventLog[0]}, expected='add'`);
-      expect(listener.eventLog[0]).assertEqual('add');
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog[1]=${listener.eventLog[1]}`);
-      expect(listener.eventLog[1]).assertEqual('change');
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog[2]=${listener.eventLog[2]}, expected='add'`);
-      expect(listener.eventLog[2]).assertEqual('add');
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog[3]=${listener.eventLog[3]}`);
-      expect(listener.eventLog[3]).assertEqual('change');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory.length=${listener.notificationHistory.length}`);
+      expect(listener.notificationHistory.length).assertEqual(4);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory[0]=${listener.notificationHistory[0]}, expected='add'`);
+      expect(listener.notificationHistory[0]).assertEqual('add');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory[1]=${listener.notificationHistory[1]}`);
+      expect(listener.notificationHistory[1]).assertEqual('change');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory[2]=${listener.notificationHistory[2]}, expected='add'`);
+      expect(listener.notificationHistory[2]).assertEqual('add');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory[3]=${listener.notificationHistory[3]}`);
+      expect(listener.notificationHistory[3]).assertEqual('change');
       log('testDsSequence0334 end');
     })
 
@@ -993,15 +993,15 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0336', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0336 begin');
       const source: KeyboardDataSource = new KeyboardDataSource([]);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.notifyDataReload();
       source.notifyDataAdd(0);
       source.notifyDataChange(0);
       source.notifyDataDelete(0);
       source.notifyDataMove(0, 0);
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog.length=${listener.eventLog.length}`);
-      expect(listener.eventLog.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory.length=${listener.notificationHistory.length}`);
+      expect(listener.notificationHistory.length).assertEqual(5);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual source.totalCount()=${source.totalCount()}, expected=0`);
       expect(source.totalCount()).assertEqual(0);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.reloadedCount=${listener.reloadedCount}, expected=1`);
@@ -1020,7 +1020,7 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0337', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0337 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.notifyDataDelete(-5);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.deletedCount=${listener.deletedCount}, expected=1`);
@@ -1043,7 +1043,7 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0338', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0338 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.notifyDataChange(0);
       source.notifyDataChange(11);
@@ -1071,7 +1071,7 @@ export default function dataSourceSeqFlowTest(): void {
         input.push('row' + i);
       }
       const source: KeyboardDataSource = new KeyboardDataSource(input);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       for (let i: number = 0; i < 100; i++) {
         source.deleteLastItem();
@@ -1096,7 +1096,7 @@ export default function dataSourceSeqFlowTest(): void {
     it('testDsSequence0340', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       log('testDsSequence0340 begin');
       const source: KeyboardDataSource = new KeyboardDataSource(DEFAULT_ITEMS);
-      const listener: EventLogListener = new EventLogListener();
+      const listener: NotificationRecorder = new NotificationRecorder();
       source.registerDataChangeListener(listener);
       source.delete1stItem();
       source.delete1stItem();
