@@ -1,116 +1,94 @@
-# 相机和媒体库
+# MultiMedia - 相机和媒体库
 
-### 介绍
+## 介绍
 
-此Demo展示如何在ArkTS中调用相机拍照和录像，以及如何使用媒体库接口进行媒体文件的增、删、改、查操作。  
+本示例使用 ArkTS 和 Stage 模型，包名为 `ohos.samples.multimedia`，展示拍照、录像、录音，以及媒体文件的创建、查询、重命名和删除. 图片、视频通过 `photoAccessHelper` 管理，音频录制文件和文档保存在应用沙箱中.
 
-本示例用到了权限管理能力[@ohos.abilityAccessCtrl](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-abilityAccessCtrl.md )
+## 效果预览
 
-相机模块能力接口[@ohos.multimedia.camera](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-camera-kit/js-apis-camera.md )  
+![首页](screenshots/devices/main.png)
 
-图片处理接口[@ohos.multimedia.image](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-image-kit/js-apis-image.md ) 
+## 使用说明
 
-音视频相关媒体业务能力接口[@ohos.multimedia.media](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-media-kit/js-apis-media.md )  
+1. 启动应用，根据需要授权所使用功能的权限.
+2. 点击 **+**，展开相机、录音和文档入口.
+3. 使用外部相机入口前，安装 `lib/CameraPage-1.0.0.hap`. 拍照或录像后返回首页.
+4. 进入录音页面，开始录音，根据需要暂停、继续，结束录音后返回首页.
+5. 进入文档页面，输入内容并保存到应用沙箱.
+6. 进入相册查看文件. 删除和重命名会改变实际数据，只对可丢弃的测试文件操作.
+7. 调起外部视频播放前，安装 `lib/VideoPlayer.hap`.
 
-用户数据管理接口[@ohos.filemanagement.userFileManager](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-userFileManager-sys.md )  
+## 工程目录
 
-公共文件访问与管理[@ohos.file.fileAccess](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-core-file-kit/js-apis-fileAccess-sys.md )  
-
-设备信息能力接口[@ohos.deviceInfo](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-device-info.md )  
-
-弹窗能力接口[@ohos.promptAction](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/js-apis-promptAction.md)  
-
-### 效果预览
-|首页|
-|-------|
-|![main](screenshots/devices/main.png)|
-
-使用说明
-
-1.启动应用，在权限弹窗中授权后返回应用，首页显示当前设备的相册信息，首页监听相册变化会刷新相册列表。
-
-2.点击 **+** 按钮，弹出相机、录音、文本文件三个图标。
-
-3.安装相机应用[Camera](lib/CameraPage-1.0.0.hap)应用后，点击**相机**图标，进入相机界面，默认是拍照模式，点击底部拍照按钮可以拍照，拍照完成会在底部左侧显示照片预览图。点击**录像**切换到录像模式，点击底部按钮开始录像，点击结束按钮结束录像，结束录像后底部左侧显示视频图标。点击系统**Back**键或界面顶部**返回**按钮返回首页。
-
-4.点击**录音**图标进入录音界面，点击右侧**开始**按钮开始录音，按钮变为暂停按钮，点击可以暂停和继续录音，点击左侧**结束**按钮结束录音返回首页。
-
-5.点击**文本**图标进入文本编辑界面，输入文本内容后点击**Save**按钮，会创建并写入文本文件，完成后返回首页。
-
-6.点击相册进入文件列表界面，展示相册内的文件，列表中有**删除**和**重命名**按钮，点击可以删除文件和重命名文件。
-
-7.安装视频播放[VideoPlayer](lib/VideoPlayer.hap)应用后，点击视频文件可以调起视频播放界面播放该视频。
-
-### 工程目录
-```
+```text
+AppScope/                              应用信息和资源
+build-profile.json5                    产品、SDK 和本机签名配置
 entry/src/main/ets/
-|---MainAbility
-|   |---MainAbility.ts                      // 主程序入口，应用启动时获取相应权限
-|---pages
-|   |---index.ets                           // 首页
-|   |---AlbumPage.ets                       // 相册页面
-|   |---CameraPage.ets                      // 相机页面
-|   |---RecordPage.ets                      // 录音页面
-|   |---DocumentPage.ets                    // 存储文件页面
-|---model                                  
-|   |---CameraService.ts                    // 相机模块（拍照录像模式）
-|   |---DateTimeUtil.ts                     // 日期工具包
-|   |---MediaUtils.ts                       // 媒体工具模块
-|   |---RecordModel.ts                      // 录音模块（底层能力实现）
-|   |---TimeUtils.ts                        // 时间工具包
-|---view                                    
-|   |---BasicDataSource.ets                 // 初始化媒体服务数组
-|   |---MediaItem.ets                       // 定义具体的某一媒体模块页面 
-|   |---MediaView.ets                       // 媒体模块的前置模块(判断是否有展示的媒体内容)
-|   |---RenameDialog.ets                    // 重命名文件模块 
-|   |---TitleBar.ets                        // 标题栏                                                           
+  Application/AbilityStage.ts           Stage 入口
+  MainAbility/MainAbility.ts            主 Ability 和权限申请
+  pages/                               首页、相册、相机、录音、文档页面
+  model/MediaUtils.ts                   媒体库和沙箱文件操作
+  model/RecordModel.ts                  录音生命周期和原生适配器
+  model/DateTimeUtil.ts                 文件名日期、时间格式化
+  model/TimeUtils.ts                    录音时长格式化
+  view/BasicDataSource.ets              数据存储和变化通知
+entry/src/ohosTest/ets/
+  test/List.test.ets                    默认安全测试入口
+  test/*Logic.test.ets                  确定性的真实业务逻辑测试
+  test/MultiMediaUiTest.test.ets         可选的原有 UI 测试
+  utils/                               断言日志和注入式测试依赖
+lib/                                   外部相机、播放器产物及源码归档
 ```
 
-### 具体实现
+## 具体实现
 
-* 布局原理：定义@ObjectLink 装饰的数组变量album存放资源文件，使用list()组件中ListItem()循环数组展示，加号Button()，点击后触发 animateTo({ duration: 500, curve: Curve.Ease })控制动画展示,[源码参考](entry/src/main/ets/pages/Index.ets )。    
-* 获取资源文件：通过引入用户数据管理接口@ohos.filemanagement.userFileManager，获取图片与视频音频类型的文件资源，并通过albums.push()添加至album数组中。  
-* 展示系统资源文件：当album内的值被修改时，只会让用 @ObjectLink 装饰的变量album所在的组件被刷新，当前组件不会刷新。
-* 录音功能：通过引入音视频接口@ohos.multimedia.media，例如通过media.createAudioRecorder()创建音频录制的实例来控制音频的录制，通过this.audioRecorder.on('prepare', () => {this.audioRecorder.start()})异步方式开始音频录制,[源码参考](entry/src/main/ets/model/RecordModel.ts )。
-* 拍照录像功能：通过引入相机模块接口@ohos.multimedia.camera，例如通过this.cameraManager.createCaptureSession()创建相机入口的实例来控制拍照和录像，通过this.captureSession.start()开始会话工作,[源码参考](entry/src/main/ets/model/CameraService.ts )。
-  
+- [MediaUtils](entry/src/main/ets/model/MediaUtils.ts) 管理不同媒体类型的后端选择、文件句柄及查询结果释放. 测试通过类型化依赖替换文件系统和媒体库边界，仍然调用生产实现，而不是复制业务算法.
+- [RecordModel](entry/src/main/ets/model/RecordModel.ts) 使用 `media.createAVRecorder`，处理状态回调和结束、失败时的资源释放. 测试工厂只替换原生录音器边界.
+- [DateTimeUtil](entry/src/main/ets/model/DateTimeUtil.ts) 和 [TimeUtils](entry/src/main/ets/model/TimeUtils.ts) 分别处理文件名日期、时间与录音时长.
+- [BasicDataSource](entry/src/main/ets/view/BasicDataSource.ets) 保留数据数组和条目引用，按既有契约发送显式变化通知.
+- [CameraService](entry/src/main/ets/model/CameraService.ts) 包含依赖相机硬件的实现. 确定性逻辑测试不能替代真实拍照、录像和麦克风验证.
 
-### 相关权限
-相机权限：[ohos.permission.CAMERA](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissioncamera )
+## 相关权限
 
-麦克风权限：[ohos.permission.MICROPHONE](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionmicrophone )
+完整媒体功能需要以下权限；当前本地清单仅保留 CAMERA、MICROPHONE，而 MainAbility 仍申请五项，权限一致性附加检查失败. 本次四条失败修复未覆盖这一外部变更；完整功能验收前需恢复一致的声明、配置合法授权，并验证真实媒体操作：
 
-访问媒体文件地理位置信息权限：[ohos.permission.MEDIA_LOCATION](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all.md#ohospermissionmedia_location )
+- `ohos.permission.CAMERA`
+- `ohos.permission.MICROPHONE`
+- `ohos.permission.MEDIA_LOCATION`
+- `ohos.permission.WRITE_IMAGEVIDEO`
+- `ohos.permission.READ_IMAGEVIDEO`
 
-访问公共目录的图片或视频权限：[ohos.permission.READ_IMAGEVIDEO](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md#ohospermissionread_imagevideo )
+音频录制和文档使用应用沙箱，不需要音频媒体库权限，已从清单和启动申请中移除 `READ_AUDIO`、`WRITE_AUDIO`. API 26 将 `READ_IMAGEVIDEO`、`WRITE_IMAGEVIDEO` 定义为 `user_grant`、`system_basic` 且支持 provision 授权；签名 profile 的权限等级/授权列表（APL/ACL）仍需满足保留的图片和视频功能. 运行时弹窗不能解决安装阶段的权限授权失败. 新增逻辑测试不增加权限，不录制音视频，不打开真实媒体库资产，也不删除设备文件.
 
-修改公共目录的图片或视频权限：[ohos.permission.WRITE_IMAGEVIDEO](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md#ohospermissionwrite_imagevideo )
+## 依赖
 
-访问公共目录的音频权限：[ohos.permission.READ_AUDIO](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md#ohospermissionread_audio )
+测试框架为 `@ohos/hypium` 1.0.6. 外部相机和播放器产物仅用于对应界面功能，逻辑测试不依赖安装它们.
 
-修改公共目录的音频权限：[ohos.permission.WRITE_AUDIO](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-system-apps.md#ohospermissionwrite_audio )
+## 约束与限制
 
+1. 支持标准系统 OpenHarmony 设备，设备类型为 `default` 或 `tablet`.
+2. 使用 OpenHarmony API 26，SDK 26.0.0.38，`runtimeOS` 为 `OpenHarmony`.
+3. 使用支持对应 API 26 SDK 的 DevEco Studio 和 Hvigor 工具链.
+4. 本机通过已忽略的 `local.properties` 配置 SDK，本工作站为 `sdk.dir=E:/sdk`. 不应将本机签名凭据或 SDK 路径作为源码变更分发.
+5. 编译主包：`hvigorw --mode module -p module=entry@default -p product=default -p buildMode=debug assembleHap --no-daemon`.
+6. 编译测试包时，将 `module=entry@default` 改为 `module=entry@ohosTest`.
+7. 修改 SDK 后若 daemon 仍使用旧路径，先执行 `hvigorw --stop-daemon` 再重新编译.
+8. 四条关闭异常用例修复后，两个 signed HAP 已重编成功；仅更新设备 entry_test 测试模块，安装成功，未卸载或清数据. 因当前主清单与运行时权限申请不一致，未部署重新构建的主包，也未修改签名凭据或提升权限等级. 9568320/unsigned、9568289/READ_AUDIO 属于此前安装记录；逻辑测试通过不代表完整主应用功能已验收.
 
-### 依赖
+## 测试说明
 
-不涉及
+用例目录、执行步骤、真实验证结果和覆盖限制见 [ohosTest.md](ohosTest.md). 1196–1199 在设备上发现 try 内 return、finally 关闭抛错时重复关闭；将成功返回移到 finally 后，未删用例或放宽断言. 修复后四条定点设备用例全部通过，随后默认 22 个逻辑套件、958 条设备用例全部通过，0 Failure/Error/Ignore，唯一编号及开始/通过记录与源码一致. 主机 958 条、12,454 条断言通过，两个 HAP 编译成功. UI/硬件交互未执行，当前权限清单不一致仍未解决.
 
-### 约束与限制
+原有 UI 套件包含删除操作，只有 class 选择中全部条目都是 `MultiMediaUiTest` 测试时才注册，IDE “运行全部”的混合选择不会启用该套件. UI 套件还要求 Documents 沙箱为空：存在既有 `.txt` 文件或目录读取失败时会阻止执行. 仅在隔离、可丢弃的测试安装中运行.
 
-1.本示例仅支持标准系统上运行。
+## 下载命令
 
-2.本示例为Stage模型，已适配API version 12版本SDK，版本号：5.0.0。
+下面示例使用上游 `master` 分支. 准备 PR 时，应按实际目标分支调整，当前本机目录不是 Git 仓库，未执行提交或推送.
 
-3.本示例需要使用DevEco Studio NEXT Developer Preview1 (Build Version: 4.1.3.500, built on January 20, 2024)及以上版本才可编译运行。
-
-### 下载
-
-如需单独下载本工程，执行如下命令：
-
-````
+```bash
 git init
-git config core.sparsecheckout true
-echo code/Solutions/Media/MultiMedia/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
+git sparse-checkout init --cone
+git sparse-checkout set code/Solutions/Media/MultiMedia
 git pull origin master
-````
+```
