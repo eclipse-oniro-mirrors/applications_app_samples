@@ -1047,3 +1047,832 @@ export default function DeviceTypeValidationTest(): void {
         }
       }
       const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleDeviceTypesUnknownTvCase', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleDeviceTypesUnknownTvCase', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleDeviceTypesUnknownTvCase', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleDeviceTypesUnknownTvCase', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleDeviceTypesUnknownTvCase', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleDeviceTypesUnknownTvCase', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleDeviceTypesUnknownTvCase', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.number('testModuleDeviceTypesUnknownTvCase', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleDeviceTypesUnknownTvCase', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleDeviceTypesUnknownTvCase', 'case end', 'deviceTypes input unknowntvcase');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1618
+     * @tc.name      testModuleDeviceTypesDuplicate
+     * @tc.desc      Checks that the a duplicated device type is reported with MODULE_DEVICE_TYPE_DUPLICATE
+     * @tc.desc      by the deviceTypes rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleDeviceTypesDuplicate',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['tablet', 'tablet'];
+      TestLog.text('testModuleDeviceTypesDuplicate', 'case begin', 'deviceTypes input duplicate');
+      TestLog.step('testModuleDeviceTypesDuplicate', 'deviceTypes input duplicate');
+      const findings: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.findings('testModuleDeviceTypesDuplicate', 'deviceTypes', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_DEVICE_TYPE_DUPLICATE');
+      TestLog.flag('testModuleDeviceTypesDuplicate', 'has code MODULE_DEVICE_TYPE_DUPLICATE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleDeviceTypesDuplicate', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleDeviceTypesDuplicate', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleDeviceTypesDuplicate', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleDeviceTypesDuplicate', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleDeviceTypesDuplicate', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleDeviceTypesDuplicate', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleDeviceTypesDuplicate', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleDeviceTypesDuplicate', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleDeviceTypesDuplicate', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleDeviceTypesDuplicate', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.number('testModuleDeviceTypesDuplicate', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleDeviceTypesDuplicate', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleDeviceTypesDuplicate', 'case end', 'deviceTypes input duplicate');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1619
+     * @tc.name      testModuleDeviceTypesDuplicateDefault
+     * @tc.desc      Checks that the a duplicated default device type is reported with
+     * @tc.desc      MODULE_DEVICE_TYPE_DUPLICATE by the deviceTypes rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleDeviceTypesDuplicateDefault',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['default', 'default'];
+      TestLog.text('testModuleDeviceTypesDuplicateDefault', 'case begin', 'deviceTypes input duplicatedefault');
+      TestLog.step('testModuleDeviceTypesDuplicateDefault', 'deviceTypes input duplicatedefault');
+      const findings: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.findings('testModuleDeviceTypesDuplicateDefault', 'deviceTypes', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_DEVICE_TYPE_DUPLICATE');
+      TestLog.flag('testModuleDeviceTypesDuplicateDefault', 'has code MODULE_DEVICE_TYPE_DUPLICATE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleDeviceTypesDuplicateDefault', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleDeviceTypesDuplicateDefault', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleDeviceTypesDuplicateDefault', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleDeviceTypesDuplicateDefault', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleDeviceTypesDuplicateDefault', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleDeviceTypesDuplicateDefault', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleDeviceTypesDuplicateDefault', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleDeviceTypesDuplicateDefault', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleDeviceTypesDuplicateDefault', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleDeviceTypesDuplicateDefault', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.number('testModuleDeviceTypesDuplicateDefault', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleDeviceTypesDuplicateDefault', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleDeviceTypesDuplicateDefault', 'case end', 'deviceTypes input duplicatedefault');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1620
+     * @tc.name      testModuleDeviceTypesTripleDuplicate
+     * @tc.desc      Checks that the a device type declared twice inside a longer list is reported with
+     * @tc.desc      MODULE_DEVICE_TYPE_DUPLICATE by the deviceTypes rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleDeviceTypesTripleDuplicate',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['phone', 'tablet', 'phone'];
+      TestLog.text('testModuleDeviceTypesTripleDuplicate', 'case begin', 'deviceTypes input tripleduplicate');
+      TestLog.step('testModuleDeviceTypesTripleDuplicate', 'deviceTypes input tripleduplicate');
+      const findings: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.findings('testModuleDeviceTypesTripleDuplicate', 'deviceTypes', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_DEVICE_TYPE_DUPLICATE');
+      TestLog.flag('testModuleDeviceTypesTripleDuplicate', 'has code MODULE_DEVICE_TYPE_DUPLICATE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleDeviceTypesTripleDuplicate', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleDeviceTypesTripleDuplicate', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleDeviceTypesTripleDuplicate', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleDeviceTypesTripleDuplicate', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleDeviceTypesTripleDuplicate', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleDeviceTypesTripleDuplicate', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleDeviceTypesTripleDuplicate', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleDeviceTypesTripleDuplicate', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleDeviceTypesTripleDuplicate', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleDeviceTypesTripleDuplicate', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.number('testModuleDeviceTypesTripleDuplicate', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleDeviceTypesTripleDuplicate', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleDeviceTypesTripleDuplicate', 'case end', 'deviceTypes input tripleduplicate');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1621
+     * @tc.name      testModuleDeviceTypesBlankEntry
+     * @tc.desc      Checks that the a blank device type entry is reported with MODULE_DEVICE_TYPE_BLANK by
+     * @tc.desc      the deviceTypes rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleDeviceTypesBlankEntry',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['tablet', ''];
+      TestLog.text('testModuleDeviceTypesBlankEntry', 'case begin', 'deviceTypes input blankentry');
+      TestLog.step('testModuleDeviceTypesBlankEntry', 'deviceTypes input blankentry');
+      const findings: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.findings('testModuleDeviceTypesBlankEntry', 'deviceTypes', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_DEVICE_TYPE_BLANK');
+      TestLog.flag('testModuleDeviceTypesBlankEntry', 'has code MODULE_DEVICE_TYPE_BLANK', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleDeviceTypesBlankEntry', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleDeviceTypesBlankEntry', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleDeviceTypesBlankEntry', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleDeviceTypesBlankEntry', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleDeviceTypesBlankEntry', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleDeviceTypesBlankEntry', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleDeviceTypesBlankEntry', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleDeviceTypesBlankEntry', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleDeviceTypesBlankEntry', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleDeviceTypesBlankEntry', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.number('testModuleDeviceTypesBlankEntry', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleDeviceTypesBlankEntry', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleDeviceTypesBlankEntry', 'case end', 'deviceTypes input blankentry');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1622
+     * @tc.name      testModuleDeviceTypesBlankEntries
+     * @tc.desc      Checks that the a device list with blank entries only is reported with
+     * @tc.desc      MODULE_DEVICE_TYPE_BLANK by the deviceTypes rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleDeviceTypesBlankEntries',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['', '  '];
+      TestLog.text('testModuleDeviceTypesBlankEntries', 'case begin', 'deviceTypes input blankentries');
+      TestLog.step('testModuleDeviceTypesBlankEntries', 'deviceTypes input blankentries');
+      const findings: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.findings('testModuleDeviceTypesBlankEntries', 'deviceTypes', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_DEVICE_TYPE_BLANK');
+      TestLog.flag('testModuleDeviceTypesBlankEntries', 'has code MODULE_DEVICE_TYPE_BLANK', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleDeviceTypesBlankEntries', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleDeviceTypesBlankEntries', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleDeviceTypesBlankEntries', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleDeviceTypesBlankEntries', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleDeviceTypesBlankEntries', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleDeviceTypesBlankEntries', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleDeviceTypesBlankEntries', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleDeviceTypesBlankEntries', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleDeviceTypesBlankEntries', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleDeviceTypesBlankEntries', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.number('testModuleDeviceTypesBlankEntries', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleDeviceTypesBlankEntries', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleDeviceTypesBlankEntries', 'case end', 'deviceTypes input blankentries');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1623
+     * @tc.name      testModuleDeviceTypesTooMany
+     * @tc.desc      Checks that the more device types than the supported maximum is reported with
+     * @tc.desc      MODULE_DEVICE_TYPES_TOO_MANY by the deviceTypes rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleDeviceTypesTooMany',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['phone', 'tablet', '2in1', 'tv', 'wearable', 'car', 'default', 'phone', 'tablet'];
+      TestLog.text('testModuleDeviceTypesTooMany', 'case begin', 'deviceTypes input toomany');
+      TestLog.step('testModuleDeviceTypesTooMany', 'deviceTypes input toomany');
+      const findings: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.findings('testModuleDeviceTypesTooMany', 'deviceTypes', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_DEVICE_TYPES_TOO_MANY');
+      TestLog.flag('testModuleDeviceTypesTooMany', 'has code MODULE_DEVICE_TYPES_TOO_MANY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleDeviceTypesTooMany', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleDeviceTypesTooMany', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleDeviceTypesTooMany', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleDeviceTypesTooMany', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleDeviceTypesTooMany', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleDeviceTypesTooMany', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleDeviceTypesTooMany', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleDeviceTypesTooMany', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleDeviceTypesTooMany', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleDeviceTypesTooMany', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.number('testModuleDeviceTypesTooMany', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleDeviceTypesTooMany', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleDeviceTypesTooMany', 'case end', 'deviceTypes input toomany');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1624
+     * @tc.name      testModuleDeviceTypesEightWithDuplicate
+     * @tc.desc      Checks that the eight device types including a duplicate is reported with
+     * @tc.desc      MODULE_DEVICE_TYPE_DUPLICATE by the deviceTypes rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleDeviceTypesEightWithDuplicate',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['phone', 'tablet', '2in1', 'tv', 'wearable', 'car', 'default', 'car'];
+      TestLog.text('testModuleDeviceTypesEightWithDuplicate', 'case begin', 'deviceTypes input eightwithduplicate');
+      TestLog.step('testModuleDeviceTypesEightWithDuplicate', 'deviceTypes input eightwithduplicate');
+      const findings: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.findings('testModuleDeviceTypesEightWithDuplicate', 'deviceTypes', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_DEVICE_TYPE_DUPLICATE');
+      TestLog.flag('testModuleDeviceTypesEightWithDuplicate', 'has code MODULE_DEVICE_TYPE_DUPLICATE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleDeviceTypesEightWithDuplicate', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleDeviceTypesEightWithDuplicate', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleDeviceTypesEightWithDuplicate', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleDeviceTypesEightWithDuplicate', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleDeviceTypesEightWithDuplicate', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleDeviceTypesEightWithDuplicate', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleDeviceTypesEightWithDuplicate', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleDeviceTypesEightWithDuplicate', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleDeviceTypesEightWithDuplicate', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleDeviceTypesEightWithDuplicate', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.number('testModuleDeviceTypesEightWithDuplicate', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleDeviceTypesEightWithDuplicate', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleDeviceTypesEightWithDuplicate', 'case end', 'deviceTypes input eightwithduplicate');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1700
+     * @tc.name      testModuleDeviceTypesPreserveDeclarationOrder
+     * @tc.desc      Checks that the device type list keeps its declaration order.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleDeviceTypesPreserveDeclarationOrder',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['phone', 'tablet', '2in1'];
+      TestLog.text('testModuleDeviceTypesPreserveDeclarationOrder', 'case begin', 'device type order check');
+      TestLog.step('testModuleDeviceTypesPreserveDeclarationOrder', 'device type order check');
+      const findings: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.findings('testModuleDeviceTypesPreserveDeclarationOrder', 'device findings', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testModuleDeviceTypesPreserveDeclarationOrder', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleDeviceTypesPreserveDeclarationOrder', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleDeviceTypesPreserveDeclarationOrder', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleDeviceTypesPreserveDeclarationOrder', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleDeviceTypesPreserveDeclarationOrder', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleDeviceTypesPreserveDeclarationOrder', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleDeviceTypesPreserveDeclarationOrder', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleDeviceTypesPreserveDeclarationOrder', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleDeviceTypesPreserveDeclarationOrder', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.number('testModuleDeviceTypesPreserveDeclarationOrder', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleDeviceTypesPreserveDeclarationOrder', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleDeviceTypesPreserveDeclarationOrder', 'case end', 'device type order check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1701
+     * @tc.name      testModuleDeviceTypesDuplicateAndUnknown
+     * @tc.desc      Checks that duplicate and unknown device types are reported together.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleDeviceTypesDuplicateAndUnknown',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['phone', 'Phone', 'phone'];
+      TestLog.text('testModuleDeviceTypesDuplicateAndUnknown', 'case begin', 'device type duplicate and unknown check');
+      TestLog.step('testModuleDeviceTypesDuplicateAndUnknown', 'device type duplicate and unknown check');
+      const findings: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.findings('testModuleDeviceTypesDuplicateAndUnknown', 'device findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_DEVICE_TYPE_UNKNOWN');
+      TestLog.flag('testModuleDeviceTypesDuplicateAndUnknown', 'has code MODULE_DEVICE_TYPE_UNKNOWN', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_DEVICE_TYPE_DUPLICATE');
+      TestLog.flag('testModuleDeviceTypesDuplicateAndUnknown', 'has code MODULE_DEVICE_TYPE_DUPLICATE', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleDeviceTypesDuplicateAndUnknown', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleDeviceTypesDuplicateAndUnknown', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleDeviceTypesDuplicateAndUnknown', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleDeviceTypesDuplicateAndUnknown', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleDeviceTypesDuplicateAndUnknown', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleDeviceTypesDuplicateAndUnknown', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleDeviceTypesDuplicateAndUnknown', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleDeviceTypesDuplicateAndUnknown', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleDeviceTypesDuplicateAndUnknown', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleDeviceTypesDuplicateAndUnknown', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.number('testModuleDeviceTypesDuplicateAndUnknown', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleDeviceTypesDuplicateAndUnknown', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleDeviceTypesDuplicateAndUnknown', 'case end', 'device type duplicate and unknown check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1702
+     * @tc.name      testModuleDeviceTypesBlankAndDuplicate
+     * @tc.desc      Checks that blank and duplicated device types are reported together.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleDeviceTypesBlankAndDuplicate',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['phone', '', 'phone'];
+      TestLog.text('testModuleDeviceTypesBlankAndDuplicate', 'case begin', 'device type blank and duplicate check');
+      TestLog.step('testModuleDeviceTypesBlankAndDuplicate', 'device type blank and duplicate check');
+      const findings: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.findings('testModuleDeviceTypesBlankAndDuplicate', 'device findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_DEVICE_TYPE_BLANK');
+      TestLog.flag('testModuleDeviceTypesBlankAndDuplicate', 'has code MODULE_DEVICE_TYPE_BLANK', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_DEVICE_TYPE_DUPLICATE');
+      TestLog.flag('testModuleDeviceTypesBlankAndDuplicate', 'has code MODULE_DEVICE_TYPE_DUPLICATE', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleDeviceTypesBlankAndDuplicate', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleDeviceTypesBlankAndDuplicate', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleDeviceTypesBlankAndDuplicate', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleDeviceTypesBlankAndDuplicate', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleDeviceTypesBlankAndDuplicate', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleDeviceTypesBlankAndDuplicate', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleDeviceTypesBlankAndDuplicate', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleDeviceTypesBlankAndDuplicate', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleDeviceTypesBlankAndDuplicate', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleDeviceTypesBlankAndDuplicate', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.number('testModuleDeviceTypesBlankAndDuplicate', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleDeviceTypesBlankAndDuplicate', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleDeviceTypesBlankAndDuplicate', 'case end', 'device type blank and duplicate check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1703
+     * @tc.name      testModuleDeviceTypesHasDeviceTypeHelper
+     * @tc.desc      Checks that the declared device type lookup finds declared and missing types.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleDeviceTypesHasDeviceTypeHelper',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      TestLog.text('testModuleDeviceTypesHasDeviceTypeHelper', 'case begin', 'device type helper check');
+      TestLog.step('testModuleDeviceTypesHasDeviceTypeHelper', 'device type helper check');
+      const findings: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.findings('testModuleDeviceTypesHasDeviceTypeHelper', 'device findings', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testModuleDeviceTypesHasDeviceTypeHelper', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleDeviceTypesHasDeviceTypeHelper', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleDeviceTypesHasDeviceTypeHelper', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleDeviceTypesHasDeviceTypeHelper', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleDeviceTypesHasDeviceTypeHelper', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleDeviceTypesHasDeviceTypeHelper', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleDeviceTypesHasDeviceTypeHelper', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleDeviceTypesHasDeviceTypeHelper', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleDeviceTypesHasDeviceTypeHelper', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.number('testModuleDeviceTypesHasDeviceTypeHelper', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleDeviceTypesHasDeviceTypeHelper', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleDeviceTypesHasDeviceTypeHelper', 'case end', 'device type helper check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1704
+     * @tc.name      testModuleDeviceTypesFeatureModule
+     * @tc.desc      Checks that the feature module declares the sample device types without findings.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleDeviceTypesFeatureModule',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.featureModule();
+      TestLog.text('testModuleDeviceTypesFeatureModule', 'case begin', 'feature device type check');
+      TestLog.step('testModuleDeviceTypesFeatureModule', 'feature device type check');
+      const findings: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.findings('testModuleDeviceTypesFeatureModule', 'device findings', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testModuleDeviceTypesFeatureModule', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleDeviceTypesFeatureModule', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleDeviceTypesFeatureModule', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleDeviceTypesFeatureModule', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleDeviceTypesFeatureModule', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleDeviceTypesFeatureModule', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleDeviceTypesFeatureModule', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleDeviceTypesFeatureModule', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleDeviceTypesFeatureModule', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.number('testModuleDeviceTypesFeatureModule', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleDeviceTypesFeatureModule', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleDeviceTypesFeatureModule', 'case end', 'feature device type check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1705
+     * @tc.name      testModuleDeviceTypesSingleUnknown
+     * @tc.desc      Checks that a single unknown device type is reported with its index path.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleDeviceTypesSingleUnknown',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['watch'];
+      TestLog.text('testModuleDeviceTypesSingleUnknown', 'case begin', 'single unknown device type check');
+      TestLog.step('testModuleDeviceTypesSingleUnknown', 'single unknown device type check');
+      const findings: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.findings('testModuleDeviceTypesSingleUnknown', 'device findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_DEVICE_TYPE_UNKNOWN');
+      TestLog.flag('testModuleDeviceTypesSingleUnknown', 'has code MODULE_DEVICE_TYPE_UNKNOWN', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleDeviceTypesSingleUnknown', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleDeviceTypesSingleUnknown', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleDeviceTypesSingleUnknown', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleDeviceTypesSingleUnknown', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleDeviceTypesSingleUnknown', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleDeviceTypesSingleUnknown', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleDeviceTypesSingleUnknown', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleDeviceTypesSingleUnknown', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleDeviceTypesSingleUnknown', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleDeviceTypesSingleUnknown', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateDeviceTypes(moduleConfig);
+      TestLog.number('testModuleDeviceTypesSingleUnknown', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleDeviceTypesSingleUnknown', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleDeviceTypesSingleUnknown', 'case end', 'single unknown device type check');
+    })
+
+  })
+}
