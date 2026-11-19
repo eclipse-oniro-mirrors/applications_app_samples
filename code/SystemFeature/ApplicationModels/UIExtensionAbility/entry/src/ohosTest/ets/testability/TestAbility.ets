@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,42 +22,79 @@ import window from '@ohos.window';
 import Want from '@ohos.app.ability.Want';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 
+const TAG: string = 'UIExtensionTestAbility';
+const DOMAIN: number = 0x0000;
+const FORMAT: string = '%{public}s';
+
+/**
+ * Lifecycle logger used by the test ability so every callback is traceable
+ * inside the ohosTest hilog output. Messages are kept in English only.
+ */
+function logLifecycle(event: string): void {
+  hilog.info(DOMAIN, TAG, FORMAT, 'lifecycle event: ' + event);
+}
+
+/**
+ * Logs the launch Want payload. The Want passed to a test ability can be
+ * undefined when the framework starts it directly, so the helper guards it.
+ */
+function logWant(want: Want): void {
+  const wantText: string = want === undefined ? '{}' : JSON.stringify(want);
+  hilog.info(DOMAIN, TAG, FORMAT, 'want param: ' + wantText);
+}
+
+/**
+ * Logs the launch parameters supplied by the ability framework. Keeping this
+ * separate makes the onCreate flow easier to follow in the hilog stream.
+ */
+function logLaunchParam(launchParam: AbilityConstant.LaunchParam): void {
+  const paramText: string = launchParam === undefined ? '{}' : JSON.stringify(launchParam);
+  hilog.info(DOMAIN, TAG, FORMAT, 'launch param: ' + paramText);
+}
+
+/**
+ * Loads the test runner page and reports the result. The test ability only
+ * needs the index page so Hypium can drive the suites registered in List.test.
+ */
+function loadTestContent(windowStage: window.WindowStage): void {
+  windowStage.loadContent('testability/pages/Index', (err, data) => {
+    if (err.code) {
+      hilog.error(DOMAIN, TAG, FORMAT, 'Failed to load the content: ' + JSON.stringify(err));
+      return;
+    }
+    hilog.info(DOMAIN, TAG, FORMAT, 'Succeeded in loading the content: ' + JSON.stringify(data));
+  });
+}
+
 export default class TestAbility extends UIAbility {
-    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onCreate');
-        hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
-        hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:'+ JSON.stringify(launchParam) ?? '');
-        let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-        let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-        hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
-        Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
-    }
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    logLifecycle('onCreate');
+    logWant(want);
+    logLaunchParam(launchParam);
+    logLifecycle('start run testcase');
+    const abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+    const abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
+    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+  }
 
-    onDestroy() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onDestroy');
-    }
+  onDestroy(): void {
+    logLifecycle('onDestroy');
+  }
 
-    onWindowStageCreate(windowStage: window.WindowStage) {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageCreate');
-        windowStage.loadContent('testability/pages/Index', (err, data) => {
-            if (err.code) {
-                hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
-                return;
-            }
-            hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s',
-                JSON.stringify(data) ?? '');
-        });
-    }
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    logLifecycle('onWindowStageCreate');
+    loadTestContent(windowStage);
+  }
 
-    onWindowStageDestroy() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageDestroy');
-    }
+  onWindowStageDestroy(): void {
+    logLifecycle('onWindowStageDestroy');
+  }
 
-    onForeground() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onForeground');
-    }
+  onForeground(): void {
+    logLifecycle('onForeground');
+  }
 
-    onBackground() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onBackground');
-    }
+  onBackground(): void {
+    logLifecycle('onBackground');
+  }
 }
