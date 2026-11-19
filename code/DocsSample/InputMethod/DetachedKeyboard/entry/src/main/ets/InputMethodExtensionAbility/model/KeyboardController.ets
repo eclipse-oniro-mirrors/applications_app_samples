@@ -81,7 +81,7 @@ export class InputHandler {
       return;
     }
     let halfWidth = Math.floor(width * KEYBOARD_SPLIT_WIDTH_RATE);
-    let inputRegion: Array<window.Rect> = [
+    let inputRegion: window.Rect[] = [
       { left: 0, top: 0, width: halfWidth, height: height },
       { left: width - halfWidth, top: 0, width: halfWidth, height: height }
     ];
@@ -197,7 +197,7 @@ export class InputHandler {
       this.addLog(`switchToFixedPanel catch error: ${error.code} ${error.message}`);
     }
     // 恢复普通键盘后，将热区重置为整个面板区域
-    let inputRegion: Array<window.Rect> = [
+    let inputRegion: window.Rect[] = [
       { left: 0, top: 0, width: dis.width, height: keyHeight }
     ];
     try {

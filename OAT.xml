@@ -633,6 +633,16 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/BasicFeature/Native/NdkVulkan/screenshots/device/sample.png" desc="Provided by code/BasicFeature/Native/NdkVulkan"/>
 				<filteritem type="filepath" name="code/BasicFeature/Native/NdkVulkan/AppScope/resources/rawfile/shaders/frag.spv" desc="Provided by code/BasicFeature/Native/NdkVulkan"/>
 				<filteritem type="filepath" name="code/BasicFeature/Native/NdkVulkan/entry/src/main/resources/base/media/icon.png" desc="Provided by code/BasicFeature/Native/NdkVulkan"/>
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/DetachedKeyboard/AppScope/resources/base/media/app_icon.png" desc="Provided by code/DocsSample/InputMethod/DetachedKeyboard"/>
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/DetachedKeyboard/entry/src/main/resources/base/media/icon.png" desc="Provided by code/DocsSample/InputMethod/DetachedKeyboard"/>
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/DetachedKeyboard/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/InputMethod/DetachedKeyboard"/>
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/DetachedKeyboard/entry/src/main/resources/rawfile/delete.png" desc="Provided by code/DocsSample/InputMethod/DetachedKeyboard"/>
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/DetachedKeyboard/entry/src/main/resources/rawfile/down.png" desc="Provided by code/DocsSample/InputMethod/DetachedKeyboard"/>
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/DetachedKeyboard/entry/src/main/resources/rawfile/return.png" desc="Provided by code/DocsSample/InputMethod/DetachedKeyboard"/>
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/DetachedKeyboard/entry/src/main/resources/rawfile/shift.png" desc="Provided by code/DocsSample/InputMethod/DetachedKeyboard"/>
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/DetachedKeyboard/entry/src/main/resources/rawfile/shift light.png" desc="Provided by code/DocsSample/InputMethod/DetachedKeyboard"/>
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/DetachedKeyboard/entry/src/main/resources/rawfile/shift light long.png" desc="Provided by code/DocsSample/InputMethod/DetachedKeyboard"/>
+				<filteritem type="filepath" name="code/DocsSample/InputMethod/DetachedKeyboard/screenshots/devices/main.jpeg" desc="Provided by code/DocsSample/InputMethod/DetachedKeyboard"/>
 				<filteritem type="filepath" name="code/BasicFeature/Native/NdkRenderNodeDrawing/screenshots/Index.jpeg" desc="Provided by code/BasicFeature/Native/NdkRenderNodeDrawing"/>
 				<filteritem type="filepath" name="code/BasicFeature/Native/NdkRenderNodeDrawing/screenshots/DrawPath.jpeg" desc="Provided by code/BasicFeature/Native/NdkRenderNodeDrawing"/>
 				<filteritem type="filepath" name="code/BasicFeature/Native/NdkRenderNodeDrawing/screenshots/DrawImage.jpeg" desc="Provided by code/BasicFeature/Native/NdkRenderNodeDrawing"/>
