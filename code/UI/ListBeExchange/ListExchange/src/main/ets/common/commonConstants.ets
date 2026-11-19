@@ -13,11 +13,20 @@
  * limitations under the License.
  */
 
+/**
+ * @file ListExchange/src/main/ets/common/commonConstants.ets
+ * 文件职责：commonConstants 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：CommonConstants。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 export class CommonConstants {
   // 初始化列表项高度
   public static readonly LIST_ITEM_HEIGHT = 50;
+
   // 初始化动画时间
   public static readonly ANIMATE_DURATION = 300;
+
   // 初始化列表项名称
   public static readonly LIST_NAME = '标题1';
 }

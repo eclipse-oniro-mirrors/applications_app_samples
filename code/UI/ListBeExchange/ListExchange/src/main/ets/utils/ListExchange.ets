@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file ListExchange/src/main/ets/utils/ListExchange.ets
+ * 文件职责：ListExchange 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ListExchange。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { ListExchangeCtrl } from '../model/ListExchangeCtrl';
 import { ListInfo } from '../model/ListInfo';
 import { logger } from './Logger';
@@ -32,24 +39,44 @@ import { CommonConstants } from '../common/commonConstants';
  * @param appInfoList - 列表元素交换类
  * @param deductionView - 列表项UI模块
  */
+/**
+ * ListExchange：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct ListExchange {
   // -------------------对外暴露变量-----------------------
+  // @Link appInfoList：与父组件双向绑定的状态
   @Link appInfoList: Object[];
+
   // 控制列表项交换的类
+  // @Link listExchangeCtrl：与父组件双向绑定的状态
   @Link listExchangeCtrl: ListExchangeCtrl<Object>;
+
   // 列表项Builder
+  // @BuilderParam deductionView：构建函数参数
   @BuilderParam deductionView: (listInfo: Object) => void;
+
   // --------------------私有属性----------------------------
   // 当前选定的列表项
+  // @State currentListItem：组件内部状态
   @State currentListItem: Object | undefined = undefined;
+
   // 初始化长按状态
+  // @State isLongPress：组件内部状态
   @State isLongPress: boolean = false;
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
     Column() {
+      // List：列表容器
+      // 关键属性：分割线、滚动条、边框
       List() {
         ForEach(this.appInfoList, (item: Object, index: number) => {
+          // ListItem：列表项
+          // 关键属性：层级、swipeAction、defaultDeleteBuilder、转场动画、attributeModifier、getModifier
           ListItem() {
             this.deductionView(item)
           }
@@ -84,7 +111,7 @@ export struct ListExchange {
               this.listExchangeCtrl.onDrop(item);
             }))
         }, (item: Object) => JSON.stringify(item))
-      }
+      }.id('list_exchange_list_2')
       .divider({ strokeWidth: '1px', color: 0xeaf0ef })
       .scrollBar(BarState.Off)
       .border({
@@ -96,15 +123,21 @@ export struct ListExchange {
       .backgroundColor(Color.White)
       .width('100%')
 
-    }
+    }.id('list_exchange_column_1')
   }
 
   /**
    * 删除按钮
    * @param item: 删除的列表项
    */
+  /**
+   * defaultDeleteBuilder：执行 defaultDeleteBuilder 相关逻辑。
+   */
   @Builder
   defaultDeleteBuilder(item: Object) {
+    // Image：图片
+    // 关键属性：宽度、高度、objectFit、外边距、interpolation、点击事件回调
+    // 交互：可点击交互
     Image($r('app.media.list_exchange_icon_delete'))
       .width($r('app.integer.list_exchange_icon_size'))
       .height($r('app.integer.list_exchange_icon_size'))
@@ -120,22 +153,34 @@ export struct ListExchange {
   /**
    * ListItem自定义组件(默认)
    */
+  /**
+   * defaultDeductionView：执行 defaultDeductionView 相关逻辑。
+   */
   @Builder
   defaultDeductionView(listItemInfo: ListInfo) {
+    // Row：水平布局容器
+    // 关键属性：宽度、高度、背景色、内边距
     Row() {
-      Image(listItemInfo.icon)
+      // Image：图片
+      // 关键属性：宽度、高度、draggable
+      Image(listItemInfo.icon).id('list_exchange_image_4')
         .width($r('app.integer.list_exchange_icon_size'))
         .height($r('app.integer.list_exchange_icon_size'))
         .draggable(false) // TODO：知识点：保持默认值true时，图片有默认拖拽效果，会影响Grid子组件拖拽判断，所以修改为false
-      Text(listItemInfo.name)
+      // Text：文本
+      // 关键属性：外边距
+      Text(listItemInfo.name).id('list_exchange_text_5')
         .margin({ left: $r('app.string.ohos_id_elements_margin_vertical_l') })
-      Blank()
-      Image($r('app.media.list_exchange_ic_public_drawer'))
+      // Blank：占位空白
+      Blank().id('list_exchange_blank_6')
+      // Image：图片
+      // 关键属性：宽度、高度、objectFit、draggable
+      Image($r('app.media.list_exchange_ic_public_drawer')).id('list_exchange_image_7')
         .width($r('app.integer.list_exchange_icon_size'))
         .height($r('app.integer.list_exchange_icon_size'))
         .objectFit(ImageFit.Cover)
         .draggable(false) // TODO：知识点：保持默认值true时，图片有默认拖拽效果，会影响Grid子组件拖拽判断，所以修改为false
-    }
+    }.id('list_exchange_row_3')
     .width('100%')
     .height(CommonConstants.LIST_ITEM_HEIGHT)
     .backgroundColor(Color.White)
@@ -145,6 +190,9 @@ export struct ListExchange {
     })
   }
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear(): void {
     this.checkParam();
   }

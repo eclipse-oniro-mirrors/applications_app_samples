@@ -12,6 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file ListExchange/src/main/ets/view/ListExchangeView.ets
+ * 文件职责：ListExchangeView 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ListExchangeViewComponent。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { ListInfo } from '../model/ListInfo';
 import { MEMO_DATA } from '../model/MockData';
 import { ListExchange } from '../utils/ListExchange';
@@ -71,26 +79,48 @@ const ITEM_HEIGHT: number = 50; // 列表项高度
    })
  */
 
+/**
+ * ListExchangeViewComponent：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct ListExchangeViewComponent {
   // 初始化列表数据
+  // @State appInfoList：组件内部状态
   @State appInfoList: ListInfo[] = MEMO_DATA;
+
   // 列表项元素交换类
+  // @State listExchangeCtrl：组件内部状态
   @State listExchangeCtrl: ListExchangeCtrl<ListInfo> = new ListExchangeCtrl();
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear(): void {
     this.listExchangeCtrl.initData(this.appInfoList);
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：高度、宽度、主轴对齐、背景色、内边距
     Column() {
       // 标题栏
+      // Row：水平布局容器
+      // 关键属性：背景色、边框
       Row() {
+        // Text：文本
+        // 关键属性：文本对齐
         Text($r('app.string.list_exchange_deduction_sort'))
           .textAlign(TextAlign.Start)
-        Blank()
+          .id('list_exchange_title')
+        // Blank：占位空白
+        Blank().id('list_exchange_view_blank_3')
+        // Text：文本
         Text($r('app.string.list_exchange_custom_sort'))
-      }
+          .id('list_exchange_custom_sort')
+      }.id('list_exchange_view_row_2')
       .backgroundColor(Color.White)
       .border({
         radius: {
@@ -111,14 +141,15 @@ export struct ListExchangeViewComponent {
        * listExchangeCtrl: 列表项交换类
        * deductionView: 列表项视图
        */
+      // ListExchange：ListExchange 自定义组件
       ListExchange({
         appInfoList: this.appInfoList,
         listExchangeCtrl: this.listExchangeCtrl,
         deductionView: (listItemInfo: Object) => {
           this.deductionView(listItemInfo as ListInfo)
         }
-      })
-    }
+      }).id('list_exchange_view_list_exchange_4')
+    }.id('list_exchange_view_column_1')
     .height('100%')
     .width('100%')
     .justifyContent(FlexAlign.Center)
@@ -129,22 +160,35 @@ export struct ListExchangeViewComponent {
   /**
    * ListItem自定义组件（开发者可以根据自己的需求设置列表项的UI）
    */
+  /**
+   * deductionView：执行 deductionView 相关逻辑。
+   */
   @Builder
   deductionView(listItemInfo: ListInfo) {
+    // Row：水平布局容器
+    // 关键属性：宽度、高度、背景色、内边距
     Row() {
-      Image(listItemInfo.icon)
+      // Image：图片
+      // 关键属性：宽度、高度、draggable
+      Image(listItemInfo.icon).id('list_exchange_view_image_6')
         .width($r('app.integer.list_exchange_icon_size'))
         .height($r('app.integer.list_exchange_icon_size'))
         .draggable(false) // TODO：知识点：保持默认值true时，图片有默认拖拽效果，会影响Grid子组件拖拽判断，所以修改为false
+      // Text：文本
+      // 关键属性：外边距
       Text(listItemInfo.name)
         .margin({ left: $r('app.string.ohos_id_elements_margin_vertical_l') })
-      Blank()
-      Image($r('app.media.list_exchange_ic_public_drawer'))
+        .id('list_exchange_item_name')
+      // Blank：占位空白
+      Blank().id('list_exchange_view_blank_7')
+      // Image：图片
+      // 关键属性：宽度、高度、objectFit、draggable
+      Image($r('app.media.list_exchange_ic_public_drawer')).id('list_exchange_view_image_8')
         .width($r('app.integer.list_exchange_icon_size'))
         .height($r('app.integer.list_exchange_icon_size'))
         .objectFit(ImageFit.Cover)
         .draggable(false) // TODO：知识点：保持默认值true时，图片有默认拖拽效果，会影响Grid子组件拖拽判断，所以修改为false
-    }
+    }.id('list_exchange_view_row_5')
     .width('100%')
     .height(ITEM_HEIGHT)
     .backgroundColor(Color.White)

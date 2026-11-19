@@ -12,11 +12,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file ListExchange/src/main/ets/FeatureComponent.ets
+ * 文件职责：FeatureComponent 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ListExchangeView。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { ListExchangeViewComponent } from './view/ListExchangeView';
 
+/**
+ * ListExchangeView：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct ListExchangeView {
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
-    ListExchangeViewComponent()
+    // ListExchangeViewComponent：ListExchangeViewComponent 自定义组件
+    ListExchangeViewComponent().id('feature_component_list_exchange_view_component_1')
   }
 }
