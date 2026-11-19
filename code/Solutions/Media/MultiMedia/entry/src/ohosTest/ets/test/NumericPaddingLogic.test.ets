@@ -906,3 +906,26 @@ export default function NumericPaddingLogic(): void {
      * @tc.size MEDIUMTEST
      * @tc.level LEVEL0
      */
+    it('MultiMedia_Padding_1373', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Padding_1373';
+      LogicTestLog.begin(name, 'value=NaN');
+      const dateTime: DateTimeUtil = new DateTimeUtil();
+      const value: number = Number.NaN;
+      const datePadding: string = dateTime.fill(value);
+      const durationPadding: string = tempNum(value);
+      LogicTestLog.value(name, 'date padding result', String('0NaN'), String(datePadding));
+      expect(datePadding).assertEqual('0NaN');
+      LogicTestLog.value(name, 'duration padding result', String('NaN'), String(durationPadding));
+      expect(durationPadding).assertEqual('NaN');
+      LogicTestLog.value(name, 'date result type', String('string'), String(typeof datePadding));
+      expect(typeof datePadding).assertEqual('string');
+      LogicTestLog.value(name, 'duration result type', String('string'), String(typeof durationPadding));
+      expect(typeof durationPadding).assertEqual('string');
+      LogicTestLog.value(name, 'repeat date formatting', String('0NaN'), String(dateTime.fill(value)));
+      expect(dateTime.fill(value)).assertEqual('0NaN');
+      LogicTestLog.value(name, 'repeat duration formatting', String('NaN'), String(tempNum(value)));
+      expect(tempNum(value)).assertEqual('NaN');
+      LogicTestLog.end(name);
+    });
+  });
+}
