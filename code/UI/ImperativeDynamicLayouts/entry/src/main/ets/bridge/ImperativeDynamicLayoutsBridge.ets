@@ -27,4 +27,33 @@
  */
 import data from 'imperativedynamiclayouts/src/main/ets/jsonpage/foo.json';
 
-export const dslData: ESObject = data;
+interface DslInsets {
+  left?: number;
+  right?: number;
+  top?: number;
+  bottom?: number;
+}
+
+interface DslCss {
+  width?: string | number;
+  height?: string | number;
+  fontSize?: number;
+  fontColor?: string;
+  backgroundColor?: string;
+  borderRadius?: number;
+  opacity?: number;
+  alignItems?: string;
+  justifyContent?: string;
+  padding?: DslInsets;
+  margin?: DslInsets;
+}
+
+interface DslNode {
+  type: string;
+  css: DslCss;
+  content?: string;
+  id?: string;
+  children?: DslNode[];
+}
+
+export const dslData: DslNode = data;
