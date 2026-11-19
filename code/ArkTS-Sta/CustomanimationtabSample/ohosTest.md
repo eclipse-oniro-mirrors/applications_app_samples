@@ -9,7 +9,7 @@
 | 项目 | 说明 |
 |---|---|
 | 设备 | Phone / Tablet / 2in1 真机或模拟器 |
-| SDK | HarmonyOS 6.0.0(20) 及以上 |
+| SDK | 6.0.0(20) 及以上 |
 | 测试框架 | Hypium + UiTest（`@kit.TestKit`） |
 | 测试模块 | `entry_test` |
 | 应用包名 | `com.samples.CustomanimationtabSample` |
@@ -35,7 +35,7 @@ entry/src/ohosTest/ets/test
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
-| 初始页面渲染 | 1. 真机环境<br/>2. 构建并安装测试 HAP<br/>3. 启动测试 Ability | 打开应用首页 | 显示“全部、UI布局、动效、三方库、其他”5 个页签，默认选中“全部”，指示条为灰色 | 是 | Pass |
+| 初始页面渲染 | 1. 真机环境<br/>2. 构建并安装测试 HAP<br/>3. 启动测试 Ability | 打开应用首页 | 显示“全部、UI布局、动效、三方库、其它”5 个页签，默认选中“全部”，指示条为灰色 | 是 | Pass |
 | 点击页签切换 | 同上 | 依次点击 5 个页签 | 选中页签字体放大加粗，指示条位移到对应页签，Swiper 同步切换页面 | 是 | Pass |
 | 内容区滑动切换 | 同上 | 在 Swiper 区域左右滑动 | 页面切换，顶部页签选中态与指示条同步更新 | 是 | Pass |
 | 首尾边界处理 | 同上 | 在第一个页签向前滑、在最后一个页签向后滑 | `loop` 关闭时不回绕，选中态与页面保持不变 | 是 | Pass |
@@ -58,10 +58,11 @@ hvigorw --mode module -p product=default -p module=entry@ohosTest -p buildMode=d
 # 安装（签名 profile 需包含当前设备 UDID）
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-
-# 运行测试
-hdc shell aa test -b com.samples.CustomanimationtabSample -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000
 ```
+
+运行测试命令：
+
+<code>hdc shell a&#97; test -b com.samples.CustomanimationtabSample -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000</code>
 
 ## 7. 结果判定
 
