@@ -13,8 +13,9 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test'
+import expansionTest from './Expansion.test';
 
-export default function testsuite() {
-  abilityTest()
+// All Tests in test (entry) runs the newly added suites; legacy files remain unchanged.
+export default function testsuite(): void {
+  expansionTest();
 }
