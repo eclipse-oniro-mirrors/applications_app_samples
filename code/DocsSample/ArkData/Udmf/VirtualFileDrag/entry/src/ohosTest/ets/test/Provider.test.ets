@@ -21,7 +21,7 @@ import { VirtualFileProvider } from '../../../main/ets/model/VirtualFileProvider
 // 验证示例数据源的文件树、元数据及读取回调，不依赖文件管理器。
 export default function providerTest(): void {
   describe('VirtualFileDragProvider', () => {
-    // 核对声明大小、stat 元数据、分段数据与文件末尾，不把短读伪装为完整内容。
+    // 核对声明大小、stat元数据、分段数据与文件末尾，不把短读伪装为完整内容。
     it('VirtualFileDrag_ReadRange_004', 0, async (): Promise<void> => {
       console.info('VirtualFileDrag_ReadRange_004 begin');
       try {
@@ -58,7 +58,7 @@ export default function providerTest(): void {
       }
     });
 
-    // 验证目录包含一个根文件和一个有两个子文件的子目录，每个文件可按 id 读取。
+    // 验证目录包含一个根文件和一个有两个子文件的子目录，每个文件可按id读取。
     it('VirtualFileDrag_DirectoryContent_005', 0, async (): Promise<void> => {
       console.info('VirtualFileDrag_DirectoryContent_005 begin');
       try {
@@ -91,7 +91,7 @@ export default function providerTest(): void {
       }
     });
 
-    // 未知 id、负偏移和超过单次上限的请求必须拒绝，不能用空数据掩盖失败。
+    // 未知id、负偏移和超过单次上限的请求必须拒绝，不能用空数据掩盖失败。
     it('VirtualFileDrag_InvalidRead_006', 0, async (): Promise<void> => {
       console.info('VirtualFileDrag_InvalidRead_006 begin');
       try {

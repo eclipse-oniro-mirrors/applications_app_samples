@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,38 +12,54 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import { sensor } from '@kit.SensorServiceKit';
+import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, Level, Size, TestType } from '@ohos/hypium';
+import { launchSensorApp, requireComponent, readComponentText, assertSensorInventory } from './Shared/SharedDriver';
 
-export default function abilityTest() {
-  describe('ActsAbilityTest', () => {
-    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
-    beforeAll(() => {
-      // Presets an action, which is performed only once before all test cases of the test suite start.
-      // This API supports only one parameter: preset action function.
-    })
-    beforeEach(() => {
-      // Presets an action, which is performed before each unit test case starts.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: preset action function.
-    })
-    afterEach(() => {
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
-    })
-    afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
-    })
-    it('assertContain', 0, () => {
-      // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
-      hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
-      let a = 'abc';
-      let b = 'b';
-      // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
-      expect(a).assertContain(b);
-      expect(a).assertEqual(a);
-    })
-  })
+export default function abilityTest(): void {
+  describe('SensorEntryAbility', () => {
+    beforeAll(() => {});
+    beforeEach(async () => {
+      await launchSensorApp();
+    });
+    afterEach(() => {});
+    afterAll(() => {});
+
+    /**
+     * @tc.name testSensorEntryAbility0001
+     * @tc.number SUB_COMMONLIBRARY_UTIL_SENSOR_JS_SAMPLE_ABILITY_0100
+     * @tc.desc Verify EntryAbility opens the actual sensor selection and result controls
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL2
+     */
+    it('testSensorEntryAbility0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const selector = await requireComponent('sensor_type_selector');
+      const assertionActual1 = await selector.isEnabled();
+      expect(assertionActual1).assertTrue();
+      await requireComponent('callbackText');
+      await requireComponent('deviceText');
+      await requireComponent('sensorApiText');
+      const sensors: sensor.Sensor[] = await sensor.getSensorList();
+      assertSensorInventory(sensors);
+    });
+
+    /**
+     * @tc.name testSensorEntryAbility0002
+     * @tc.number SUB_COMMONLIBRARY_UTIL_SENSOR_JS_SAMPLE_ABILITY_0200
+     * @tc.desc Verify starting EntryAbility again preserves a usable sensor page
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL2
+     */
+    it('testSensorEntryAbility0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      const before: string = await readComponentText('sensorApiText');
+      await launchSensorApp();
+      const assertionActual2 = await readComponentText('sensorApiText');
+      expect(assertionActual2).assertEqual(before);
+      const button = await requireComponent('subscribeId');
+      const assertionActual3 = await button.isEnabled();
+      expect(assertionActual3).assertTrue();
+    });
+  });
 }

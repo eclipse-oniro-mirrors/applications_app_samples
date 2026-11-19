@@ -48,6 +48,8 @@ export class PlaybackSourceController {
   private history: PlaybackHistoryModel;
   private callbacks: PlaybackSourceCallbacks;
   private selectionTimer: number = 0;
+  private selectionRevision: number = 0;
+  private historyLoadRevision: number = 0;
   private sourceLabels: string[] = [
     LocalizedText.get($r('app.string.select_from_filemanager')),
     LocalizedText.get($r('app.string.select_from_album'))
@@ -68,43 +70,60 @@ export class PlaybackSourceController {
     }
   }
 
+  cancelSelection(): void {
+    ++this.selectionRevision;
+    ++this.historyLoadRevision;
+    this.clearSelectionTimer();
+  }
+
+  private beginSelection(): number {
+    ++this.selectionRevision;
+    this.clearSelectionTimer();
+    return this.selectionRevision;
+  }
+
+  private isCurrentSelection(revision: number): boolean {
+    return revision === this.selectionRevision && this.callbacks.isPageActive();
+  }
+
   async loadHistory(): Promise<void> {
+    const revision: number = ++this.historyLoadRevision;
     try {
       const context = this.ui().getHostContext();
       if (context === undefined) {
         return;
       }
       await this.history.load(context as common.UIAbilityContext);
-      this.callbacks.setRecentEntries(this.history.getEntries());
+      if (revision === this.historyLoadRevision && this.callbacks.isPageActive()) {
+        this.callbacks.setRecentEntries(this.history.getEntries());
+      }
     } catch (error) {
       Logger.error(TAG, 'Load playback history failed: ' + JSON.stringify(error));
     }
   }
 
   async persistProgress(positionUs: number, durationUs: number, force: boolean,
-    lastPositionUs: number): Promise<number> {
-    const path = this.callbacks.getPath();
+    lastPositionUs: number, path: string | null = this.callbacks.getPath()): Promise<number> {
     if (path === null || durationUs <= 0 || positionUs < 0) {
       return lastPositionUs;
     }
     if (!force && lastPositionUs >= 0 && Math.abs(positionUs - lastPositionUs) < 2000000) {
       return lastPositionUs;
     }
-    await this.history.update(path, getPlaybackTitle(path), positionUs, durationUs);
-    this.callbacks.setRecentEntries(this.history.getEntries());
-    return positionUs;
+    const saved: boolean = await this.history.update(path, getPlaybackTitle(path), positionUs, durationUs, force);
+    if (this.callbacks.isPageActive()) {
+      this.callbacks.setRecentEntries(this.history.getEntries());
+    }
+    return saved ? positionUs : lastPositionUs;
   }
 
   playRecording(uri: string): void {
-    if (uri.length === 0) {
+    if (uri.length === 0 || !this.callbacks.isPageActive()) {
       return;
     }
+    const revision: number = this.beginSelection();
     this.callbacks.activatePlayer();
-    this.callbacks.setPath(uri);
-    this.queue.paths = [uri];
-    this.queue.index = 0;
-    this.callbacks.setQueueEntries(this.queue.paths.slice());
-    this.scheduleSelectedPath(uri);
+    this.selectPath(uri, revision);
   }
 
   enqueue(path: string): void {
@@ -116,23 +135,32 @@ export class PlaybackSourceController {
   }
 
   clearQueue(): void {
+    this.beginSelection();
     this.queue.paths = [];
     this.queue.index = -1;
     this.queue.pendingIndex = -1;
+    this.queue.pendingPositionUs = 0;
     this.callbacks.setQueueEntries([]);
   }
 
   playQueueEntry(index: number): void {
-    if (index < 0 || index >= this.queue.paths.length) {
+    if (!this.callbacks.isPageActive() || index < 0 || index >= this.queue.paths.length) {
       return;
     }
     const path: string = this.queue.paths[index];
     if (path.length === 0) {
       return;
     }
+    this.beginSelection();
     this.callbacks.activatePlayer();
     this.callbacks.closeQueue();
-    if (index === this.queue.index && !this.callbacks.isButtonEnabled()) {
+    if (index === this.queue.index && !this.callbacks.isButtonEnabled() && !this.callbacks.isStopping()) {
+      return;
+    }
+    if (this.callbacks.isStopping()) {
+      // 停止期间只替换待播目标，由原完成回调继续播放。
+      this.queue.pendingIndex = index;
+      this.queue.pendingPositionUs = 0;
       return;
     }
     if (this.callbacks.isButtonEnabled()) {
@@ -142,29 +170,34 @@ export class PlaybackSourceController {
       this.callbacks.play(0);
       return;
     }
-    if (this.callbacks.isStopping()) {
-      return;
-    }
     this.queue.pendingIndex = index;
+    this.queue.pendingPositionUs = 0;
     this.callbacks.stop();
   }
 
   playRecentEntry(entry: PlaybackHistoryEntry): void {
+    if (!this.callbacks.isPageActive()) {
+      return;
+    }
+    const revision: number = this.beginSelection();
     this.callbacks.activatePlayer();
     this.callbacks.closeQueue();
-    this.callbacks.setPath(entry.uri);
-    this.queue.paths = [entry.uri];
-    this.queue.index = 0;
-    this.callbacks.setQueueEntries(this.queue.paths.slice());
-    this.callbacks.play();
+    this.selectPath(entry.uri, revision, false);
   }
 
   selectFile(): void {
+    if (!this.callbacks.isPageActive()) {
+      return;
+    }
+    const revision: number = this.beginSelection();
     this.ui().showTextPickerDialog({
       range: this.sourceLabels,
       canLoop: false,
       selected: 0,
       onAccept: (value: TextPickerResult): void => {
+        if (!this.isCurrentSelection(revision)) {
+          return;
+        }
         const selectedIndex: number = getPickerSelectedIndex(value.index);
         if (selectedIndex === 0) {
           void this.selectDocument();
@@ -176,16 +209,26 @@ export class PlaybackSourceController {
   }
 
   async selectQueueFiles(): Promise<void> {
+    if (!this.callbacks.isPageActive()) {
+      return;
+    }
+    const revision: number = this.beginSelection();
     try {
       const options = new picker.DocumentSelectOptions();
       options.maxSelectNumber = 20;
       const result: string[] = await new picker.DocumentViewPicker().select(options);
+      if (!this.isCurrentSelection(revision)) {
+        return;
+      }
       if (result.length === 0) {
         this.callbacks.showNoMediaSelected();
         return;
       }
       await Promise.all(result.map((uri: string): Promise<boolean> =>
         PlaybackUriAccessController.persistDocumentUri(uri)));
+      if (!this.isCurrentSelection(revision)) {
+        return;
+      }
       result.forEach((uri: string): void => this.enqueue(uri));
       if (this.callbacks.isButtonEnabled()) {
         this.queue.index = this.queue.index < 0 ? 0 : this.queue.index;
@@ -194,59 +237,100 @@ export class PlaybackSourceController {
       }
     } catch (error) {
       Logger.error(TAG, 'Select queue files failed: ' + JSON.stringify(error));
-      this.callbacks.showNoMediaSelected();
+      if (this.isCurrentSelection(revision)) {
+        this.callbacks.showNoMediaSelected();
+      }
     }
   }
 
-  private scheduleSelectedPath(path: string): void {
+  private selectPath(path: string, revision: number, delayed: boolean = true): void {
+    if (!this.isCurrentSelection(revision)) {
+      return;
+    }
+    this.queue.paths = [path];
+    this.queue.pendingPositionUs = -1;
+    this.callbacks.setQueueEntries(this.queue.paths.slice());
+    if (!this.callbacks.isButtonEnabled() || this.callbacks.isStopping()) {
+      // 旧播放完成前不改路径，其进度仍属于旧文件。
+      this.queue.index = -1;
+      this.queue.pendingIndex = 0;
+      if (!this.callbacks.isStopping()) {
+        this.callbacks.stop();
+      }
+      return;
+    }
+    this.queue.index = 0;
+    this.queue.pendingIndex = -1;
+    this.callbacks.setPath(path);
+    if (delayed) {
+      this.scheduleSelectedPath(path, revision);
+    } else {
+      this.callbacks.play();
+    }
+  }
+
+  private scheduleSelectedPath(path: string, revision: number): void {
     this.clearSelectionTimer();
     this.selectionTimer = setTimeout((): void => {
       this.selectionTimer = 0;
-      if (this.callbacks.isPageActive() && this.callbacks.getPath() === path) {
+      if (this.isCurrentSelection(revision) && this.callbacks.getPath() === path) {
         this.callbacks.play();
       }
     }, PICKER_LAYOUT_SETTLE_DELAY_MS);
   }
 
   private async selectDocument(): Promise<void> {
+    if (!this.callbacks.isPageActive()) {
+      return;
+    }
+    const revision: number = this.beginSelection();
     try {
       const result: string[] = await new picker.DocumentViewPicker().select(new picker.DocumentSelectOptions());
+      if (!this.isCurrentSelection(revision)) {
+        return;
+      }
       if (result.length === 0) {
         this.callbacks.showNoMediaSelected();
         return;
       }
       const path: string = result[0];
       await PlaybackUriAccessController.persistDocumentUri(path);
-      this.callbacks.setPath(path);
-      this.queue.paths = [path];
-      this.queue.index = 0;
-      this.callbacks.setQueueEntries(this.queue.paths.slice());
-      this.scheduleSelectedPath(path);
+      if (!this.isCurrentSelection(revision)) {
+        return;
+      }
+      this.selectPath(path, revision);
     } catch (error) {
       Logger.error(TAG, 'Document selection failed: ' + JSON.stringify(error));
-      this.callbacks.showNoMediaSelected();
+      if (this.isCurrentSelection(revision)) {
+        this.callbacks.showNoMediaSelected();
+      }
     }
   }
 
   private async selectAlbum(): Promise<void> {
+    if (!this.callbacks.isPageActive()) {
+      return;
+    }
+    const revision: number = this.beginSelection();
     try {
       const result = await new photoAccessHelper.PhotoViewPicker().select({
         MIMEType: photoAccessHelper.PhotoViewMIMETypes.VIDEO_TYPE,
         maxSelectNumber: 1
       });
+      if (!this.isCurrentSelection(revision)) {
+        return;
+      }
       if (result.photoUris.length === 0) {
         this.callbacks.showNoMediaSelected();
         return;
       }
       const path: string = result.photoUris[0];
-      this.callbacks.setPath(path);
-      this.queue.paths = [path];
-      this.queue.index = 0;
-      this.callbacks.setQueueEntries(this.queue.paths.slice());
-      this.scheduleSelectedPath(path);
+      this.selectPath(path, revision);
     } catch (error) {
       Logger.error(TAG, 'Album selection failed: ' + JSON.stringify(error));
-      this.callbacks.showNoMediaSelected();
+      if (this.isCurrentSelection(revision)) {
+        this.callbacks.showNoMediaSelected();
+      }
     }
   }
 }

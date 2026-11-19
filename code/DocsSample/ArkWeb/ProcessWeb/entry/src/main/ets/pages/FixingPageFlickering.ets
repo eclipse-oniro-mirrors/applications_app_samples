@@ -20,7 +20,7 @@ struct FixingPageFlickering {
   build() {
     Column() {
       // [Start FixingPageFlickeringButton]
-      Web({ src: $rawfile('xxx.html'),  controller: this.webController})
+      Web({ src: $rawfile('xxx.html'), controller: this.webController})
         .backgroundColor(Color.Gray)
       // [End FixingPageFlickeringButton]
         .width('100%')

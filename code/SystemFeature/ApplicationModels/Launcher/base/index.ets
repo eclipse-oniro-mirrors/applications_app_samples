@@ -23,6 +23,8 @@ export { GridLayoutItemInfo } from './src/main/ets/default/bean/GridLayoutItemIn
 
 export { MenuInfo } from './src/main/ets/default/bean/MenuInfo'
 
+export { default as MissionInfo } from './src/main/ets/default/bean/MisssionInfo'
+
 export { AppMenu } from './src/main/ets/default/components/AppMenu'
 
 export { DeleteDialog } from './src/main/ets/default/components/DeleteDialog'

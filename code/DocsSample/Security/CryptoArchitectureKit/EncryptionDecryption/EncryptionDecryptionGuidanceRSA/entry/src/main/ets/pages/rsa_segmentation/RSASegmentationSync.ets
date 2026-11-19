@@ -78,10 +78,16 @@ function main() {
       console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
     } else {
       console.error('decrypt failed.');
+      // [StartExclude rsa_segmentation_encrypt_decrypt_sync]
+      throw new Error('decrypt failed.');
+      // [EndExclude rsa_segmentation_encrypt_decrypt_sync]
     }
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude rsa_segmentation_encrypt_decrypt_sync]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude rsa_segmentation_encrypt_decrypt_sync]
   }
 }
 

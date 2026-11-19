@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file LoadingProgressSample.ets
+ * 文件职责：LoadingProgressSample 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：LoadingProgressSample。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { TitleBar } from '../../../../common/TitleBar'
 
 @Extend(Text) function leftTitleStyle() {
@@ -45,33 +52,56 @@ import { TitleBar } from '../../../../common/TitleBar'
   .borderRadius(20)
 }
 
-
+/**
+ * LoadingProgressSample：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct LoadingProgressSample {
+  // @State mColor：组件内部状态
   @State mColor: Color = Color.Gray
   private colorArray: Array<Color> = [Color.Gray, Color.Red, Color.Yellow, Color.Pink, Color.Blue, Color.Green, Color.Orange]
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
     Column() {
-      TitleBar({ title: $r('app.string.loading_progress') })
-      Text($r('app.string.normal_display'))
+      // TitleBar：TitleBar 自定义组件
+      TitleBar({ title: $r('app.string.loading_progress') }).id('loading_progress_sample_title_bar_2')
+      // Text：文本
+      // 关键属性：leftTitleStyle
+      Text($r('app.string.normal_display')).id('loading_progress_sample_text_3')
         .leftTitleStyle()
+      // Column：垂直布局容器
+      // 关键属性：cardStyle、宽度
       Column() {
-        LoadingProgress()
+        // LoadingProgress：加载进度
+        // 关键属性：宽度、高度、color
+        LoadingProgress().id('loading_progress_sample_loading_progress_5')
           .width(100)
           .height(100)
           .color(this.mColor)
-      }
+      }.id('loading_progress_sample_column_4')
       .cardStyle()
       .width('100%')
 
-      Text($r('app.string.checkbox_select_color'))
+      // Text：文本
+      // 关键属性：leftTitleStyle
+      Text($r('app.string.checkbox_select_color')).id('loading_progress_sample_text_6')
         .leftTitleStyle()
+      // Column：垂直布局容器
+      // 关键属性：cardStyle、宽度
       Column() {
+        // Row：水平布局容器
+        // 关键属性：宽度
         Row() {
-          Blank()
+          // Blank：占位空白
+          Blank().id('loading_progress_sample_blank_9')
           ForEach(this.colorArray, (item: Color, index) => {
+            // Circle：圆形
+            // 关键属性：colorPicker
             Circle({ width: 20, height: 20 })
               .colorPicker(item, () => {
                 this.mColor = item
@@ -83,16 +113,17 @@ struct LoadingProgressSample {
                   .borderWidth(1)
                 }
               })
-            Blank()
+            // Blank：占位空白
+            Blank().id('loading_progress_sample_blank_10')
           }
 
           )
-        }.width('100%')
-      }
+        }.id('loading_progress_sample_row_8').width('100%')
+      }.id('loading_progress_sample_column_7')
       .cardStyle()
       .width('100%')
 
-    }
+    }.id('loading_progress_sample_column_1')
 
     .height('100%')
     .width('100%')

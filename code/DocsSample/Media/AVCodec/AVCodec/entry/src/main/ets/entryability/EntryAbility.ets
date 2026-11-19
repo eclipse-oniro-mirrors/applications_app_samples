@@ -19,15 +19,28 @@ import { window } from '@kit.ArkUI'
 import Logger from '../common/utils/Logger'
 import player from 'libplayer.so'
 import { LocalizedText } from '../common/LocalizedText'
+import { MediaBuildInfo } from '../model/MediaBuildInfo';
+import { ScreenOnController, ScreenOnWindow } from '../controller/ScreenOnController';
+
+class MainScreenOnWindow implements ScreenOnWindow {
+  private target: window.Window;
+
+  constructor(target: window.Window) { this.target = target; }
+
+  setWindowKeepScreenOn(enabled: boolean): Promise<void> {
+    return this.target.setWindowKeepScreenOn(enabled);
+  }
+}
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     LocalizedText.bind(this.context.resourceManager);
+    MediaBuildInfo.bind(this.context.resourceManager);
     Logger.info('Ability onCreate');
-    globalThis.context = this.context;
   }
 
   onDestroy(): void {
+    void ScreenOnController.unbind();
     Logger.info('Ability onDestroy');
   }
 
@@ -36,7 +49,7 @@ export default class EntryAbility extends UIAbility {
     Logger.info('Ability onWindowStageCreate');
 
     const windowClass: window.Window = windowStage.getMainWindowSync(); // 获取应用主窗口
-    windowClass.setWindowKeepScreenOn(true);
+    void ScreenOnController.bind(new MainScreenOnWindow(windowClass));
     const loadMainPage = (): void => {
       windowStage.loadContent('pages/Index', (err, data) => {
         if (err.code) {
@@ -77,16 +90,19 @@ export default class EntryAbility extends UIAbility {
   }
 
   onWindowStageDestroy(): void {
+    void ScreenOnController.unbind();
     Logger.info('Ability onWindowStageDestroy');
   }
 
   onForeground(): void {
+    void ScreenOnController.setForeground(true);
     // 通知Native播放器进入前台。
     Logger.info('Ability onForeground');
     player.setAppBackground(false);
   }
 
   onBackground(): void {
+    void ScreenOnController.setForeground(false);
     // 通知Native播放器进入后台。
     Logger.info('Ability onBackground');
     player.setAppBackground(true);

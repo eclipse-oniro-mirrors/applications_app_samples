@@ -13,184 +13,180 @@
  * limitations under the License.
  */
 
-#include <chrono>
-#include <thread>
-#include <unistd.h>
-#include <sched.h>
-#include <sys/resource.h>
 #include <hilog/log.h>
 #include "napi/native_api.h"
+
 #include "qos/qos.h"
 
+#include "qos_bench.h"
+#include "qos_core.h"
+#include "qos_history.h"
+#include "qos_napi_util.h"
+#include "qos_sysinfo.h"
+
+namespace {
 const unsigned int LOG_PRINT_DOMAIN = 0xFF00;
-constexpr int DEPTH = 34;
-constexpr int TASKS = 6;   // 负载线程个数
-constexpr long long ONE = 1;
-constexpr long long TWO = 2;
-constexpr int BOUND = 20000;
+constexpr int INVALID_RESULT = QosCore::INVALID_RESULT;
+constexpr double INVALID_DURATION = QosCore::INVALID_DURATION;
 
-constexpr int MASK = 2;
-constexpr int CPUS = 4;
+struct QosAsyncContext {
+    napi_async_work work = nullptr;
+    napi_deferred deferred = nullptr;
+    int level = QosCore::MIN_LEVEL;
+    double duration = INVALID_DURATION;
+};
 
-static bool g_addLoad = false;    // 负载线程是否加载
-static double g_durationTime = 0; // 计算任务耗时时间
-
-// 执行 斐波那契数列 计算
-long long DoFib(double n)
+void ExecuteQosAsync(napi_env env, void* data)
 {
-    if (n == ONE) {
-        return ONE;
-    }
-
-    if (n == TWO) {
-        return TWO;
-    }
-    return DoFib(n - ONE) + DoFib(n - TWO);
-}
-
-void SetQoS(QoS_Level level)
-{
-    // 设置当前线程的QoS等级为level
-    int ret = OH_QoS_SetThreadQoS(level);
-    if (!ret) {                           // ret等于0说明设置成功
-        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "QoS", "set qos level success.");
-        //  查询当前的qos等级
-        QoS_Level queryLevel = QoS_Level::QOS_DEFAULT;
-        ret = OH_QoS_GetThreadQoS(&queryLevel);
-        if (!ret) { // ret等于0说明查询成功
-            OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "QoS", "the qos level of current thread : %{public}d",
-                         queryLevel);
-        } else { // 否则说明查询失败
-            OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "QoS", "get qos level failed.");
-            return;
-        }
-    } else { // ret不等于0说明设置失败
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "QoS", "get level qos failed!");
+    auto* context = static_cast<QosAsyncContext*>(data);
+    if (context == nullptr) {
         return;
     }
-    
-    // 绑定到特定cpu
-    cpu_set_t mask;
-    CPU_SET(MASK, &mask);
-    if (sched_setaffinity(0, sizeof(mask), &mask) != 0) {
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "QoS", "bind work thread failed");
+    context->duration = QosCore::RunWithLevel(context->level);
+}
+
+napi_value RejectWithMessage(napi_env env, napi_deferred deferred, const char* message)
+{
+    napi_value text = QosNapi::CreateString(env, message);
+    napi_value error = nullptr;
+    napi_create_error(env, nullptr, text, &error);
+    napi_reject_deferred(env, deferred, error);
+    napi_value undefined = nullptr;
+    napi_get_undefined(env, &undefined);
+    return undefined;
+}
+
+void CompleteQosAsync(napi_env env, napi_status status, void* data)
+{
+    auto* context = static_cast<QosAsyncContext*>(data);
+    if (context == nullptr) {
+        return;
+    }
+    if (status == napi_ok) {
+        napi_resolve_deferred(env, context->deferred, QosNapi::CreateNumber(env, context->duration));
     } else {
-        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "QoS", "bind work thread success.");
+        RejectWithMessage(env, context->deferred, "qos async work is cancelled");
     }
-    
-    // 执行斐波那契数列计算任务
-    auto startTime = std::chrono::system_clock::now();
-    long long res = DoFib(DEPTH); // 执行斐波那契数列计算任务
-    auto endTime = std::chrono::system_clock::now();
-    g_durationTime = std::chrono::duration<double, std::milli>(endTime - startTime).count();
-    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "QoS", "calculate res is: %{public}llu", res);
-
-    // 重置线程QoS等级
-    ret = OH_QoS_ResetThreadQoS();
-    if (!ret) { // ret等于0说明重置成功
-        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "QoS", "reset qos level success.");
-    } else { // 否则说明重置失败
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "QoS", "reset qos level failed!");
-        return;
-    }
-
-    // 在重置QoS后，再次查询，此时查询会失败
-    QoS_Level queryLevelTwo;
-    ret = OH_QoS_GetThreadQoS(&queryLevelTwo);
-    if (!ret) { // 正常路径
-        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "QoS", "the qos level after: %{public}d", queryLevelTwo);
-        return;
-    } else { // 异常路径
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "QoS", "query qos level failed after reset.");
-        return;
-    }
+    napi_delete_async_work(env, context->work);
+    delete context;
 }
 
-// 负载任务
-void AddLoads(int n)
+napi_value HighQosCalculate(napi_env env, napi_callback_info info)
 {
-    int ret = OH_QoS_SetThreadQoS(QoS_Level::QOS_BACKGROUND); // 设置负载线程的QoS等级
-    if (ret) {                                                // ret不等于0说明设置失败
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "QoS", "set load thread QoS level failed.");
-        return;
-    }
-    
-    // 绑定到特定cpu
-    cpu_set_t mask;
-    CPU_SET(n, &mask);
-    if (sched_setaffinity(0, sizeof(mask), &mask) != 0) {
-        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "QoS", "bind load thread failed");
-        return;
-    } else {
-        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "QoS", "bind load threads success.");
-    }
-    
-    // 执行负载计算
-    for (int i = 0; i < BOUND; i++) {
-        for (int j = 0; j < BOUND; j++) {
-            int x = (i + j) - n;
-            printf("%d", x);
-        }
-    }
-    // 重新初始化负载线程
-    g_addLoad = false;
+    return QosNapi::CreateNumber(env, QosCore::RunWithLevel(QosCore::MAX_LEVEL));
 }
 
-static napi_value highQoSCalculate(napi_env env, napi_callback_info info)
+napi_value LowQosCalculate(napi_env env, napi_callback_info info)
 {
-    g_durationTime = 0;
-    // 没有加载系统负载的情况下，开启TASKS个线程模拟系统负载
-    if (!g_addLoad) {
-        std::vector<std::thread> loadThreads;
-        for (int i = 0; i < TASKS; i++) {
-            // 开启线程执行负载任务
-            loadThreads.emplace_back(std::thread(AddLoads, i % CPUS));
-            loadThreads[i].detach();
-        }
-        g_addLoad = true;
-    }
-    // 开启 QOS_USER_INTERACTIVE 高 QoS 线程进行计算
-    QoS_Level level = QoS_Level::QOS_USER_INTERACTIVE;
-    std::thread task(SetQoS, level);
-    task.join();
-    
-    // 返回计算耗时
-    napi_value res;
-    napi_create_double(env, g_durationTime, &res);
-    return res;
+    return QosNapi::CreateNumber(env, QosCore::RunWithLevel(QosCore::MIN_LEVEL));
 }
 
-static napi_value lowQoSCalculate(napi_env env, napi_callback_info info)
+napi_value UseQos(napi_env env, napi_callback_info info)
 {
-    g_durationTime = 0;
-    // 没有加载系统负载的情况下，开启TASKS个线程模拟系统负载
-    if (!g_addLoad) {
-        std::vector<std::thread> loadThreads;
-        for (int i = 0; i < TASKS; i++) {
-            // 开启线程执行负载任务
-            loadThreads.emplace_back(std::thread(AddLoads, i % CPUS));
-            loadThreads[i].detach();
-        }
-        g_addLoad = true;
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    int level = QosCore::MIN_LEVEL;
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc < 1 ||
+        !QosNapi::ReadIntArg(env, args[0], &level)) {
+        return QosNapi::CreateNumber(env, INVALID_DURATION);
+    }
+    if (level < QosCore::MIN_LEVEL || level > QosCore::MAX_LEVEL) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "QoS", "invalid qos level: %{public}d", level);
+        return QosNapi::CreateNumber(env, INVALID_DURATION);
+    }
+    return QosNapi::CreateNumber(env, QosCore::RunWithLevel(level));
+}
+
+napi_value UseQosAsync(napi_env env, napi_callback_info info)
+{
+    napi_value promise = nullptr;
+    napi_deferred deferred = nullptr;
+    napi_create_promise(env, &deferred, &promise);
+
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    int level = QosCore::MIN_LEVEL;
+    bool valid = (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) == napi_ok) && argc >= 1 &&
+        QosNapi::ReadIntArg(env, args[0], &level) && level >= QosCore::MIN_LEVEL && level <= QosCore::MAX_LEVEL;
+    if (!valid) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "QoS", "async task rejected: invalid qos level");
+        RejectWithMessage(env, deferred, "invalid qos level");
+        return promise;
     }
 
-    // 开启 QOS_BACKGROUND 低 QoS 线程进行计算
-    QoS_Level level = QoS_Level::QOS_BACKGROUND;
-    std::thread task(SetQoS, level);
-    task.join();
-
-    // 返回计算耗时
-    napi_value res;
-    napi_create_double(env, g_durationTime, &res);
-    return res;
+    auto* context = new QosAsyncContext();
+    context->level = level;
+    context->deferred = deferred;
+    napi_value resourceName = QosNapi::CreateString(env, "QosAsyncWork");
+    if (napi_create_async_work(env, nullptr, resourceName, ExecuteQosAsync, CompleteQosAsync, context,
+        &context->work) != napi_ok) {
+        RejectWithMessage(env, deferred, "create async work failed");
+        delete context;
+        return promise;
+    }
+    if (napi_queue_async_work(env, context->work) != napi_ok) {
+        napi_delete_async_work(env, context->work);
+        RejectWithMessage(env, deferred, "queue async work failed");
+        delete context;
+        return promise;
+    }
+    return promise;
 }
+
+napi_value GetLastQosInfo(napi_env env, napi_callback_info info)
+{
+    QosCore::RunInfo snapshot = QosCore::LastRunInfo();
+    napi_value object = nullptr;
+    napi_create_object(env, &object);
+    QosNapi::SetNamedInt(env, object, "setResult", snapshot.setResult);
+    QosNapi::SetNamedInt(env, object, "queryLevel", snapshot.queryLevel);
+    QosNapi::SetNamedInt(env, object, "resetResult", snapshot.resetResult);
+    QosNapi::SetNamedInt(env, object, "bindResult", snapshot.bindResult);
+    QosNapi::SetNamedDouble(env, object, "duration", snapshot.duration);
+    return object;
+}
+
+napi_value GetLevelRange(napi_env env, napi_callback_info info)
+{
+    napi_value range = nullptr;
+    napi_create_object(env, &range);
+    QosNapi::SetNamedInt(env, range, "minLevel", QosCore::MIN_LEVEL);
+    QosNapi::SetNamedInt(env, range, "maxLevel", QosCore::MAX_LEVEL);
+    QosNapi::SetNamedInt(env, range, "levelCount", QosCore::LEVEL_COUNT);
+    QosNapi::SetNamedInt(env, range, "invalidResult", INVALID_RESULT);
+    QosNapi::SetNamedDouble(env, range, "invalidDuration", INVALID_DURATION);
+    return range;
+}
+} // namespace
 
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor desc[] = {
-        {"useHighQos", nullptr, highQoSCalculate, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"useLowQos", nullptr, lowQoSCalculate, nullptr, nullptr, nullptr, napi_default, nullptr}};
+        {"useHighQos", nullptr, HighQosCalculate, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"useLowQos", nullptr, LowQosCalculate, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"useQos", nullptr, UseQos, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"useQosAsync", nullptr, UseQosAsync, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getLastQosInfo", nullptr, GetLastQosInfo, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getLevelRange", nullptr, GetLevelRange, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"runLevelBenchmarkAsync", nullptr, QosBench::RunBenchmarkAsync, nullptr, nullptr, nullptr, napi_default,
+            nullptr},
+        {"runConcurrentAsync", nullptr, QosBench::RunConcurrentAsync, nullptr, nullptr, nullptr, napi_default,
+            nullptr},
+        {"compareLevels", nullptr, QosBench::CompareLevels, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getRunSummary", nullptr, QosBench::GetRunSummary, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"resetRunSummary", nullptr, QosBench::ResetRunSummary, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getCpuTopology", nullptr, QosSysInfo::GetCpuTopology, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"bindCurrentThread", nullptr, QosSysInfo::BindCurrentThread, nullptr, nullptr, nullptr, napi_default,
+            nullptr},
+        {"resetThreadAffinity", nullptr, QosSysInfo::ResetThreadAffinity, nullptr, nullptr, nullptr, napi_default,
+            nullptr},
+        {"appendRunRecord", nullptr, QosHistory::AppendRunRecord, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"readRunRecords", nullptr, QosHistory::ReadRunRecords, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"clearRunRecords", nullptr, QosHistory::ClearRunRecords, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getRecordStats", nullptr, QosHistory::GetRecordStats, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"parseRunRecordLine", nullptr, QosHistory::ParseRunRecordLine, nullptr, nullptr, nullptr, napi_default,
+            nullptr}};
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;
 }

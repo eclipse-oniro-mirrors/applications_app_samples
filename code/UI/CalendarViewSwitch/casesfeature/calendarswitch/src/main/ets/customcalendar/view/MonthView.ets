@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file casesfeature/calendarswitch/src/main/ets/customcalendar/view/MonthView.ets
+ * 文件职责：MonthView 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：MonthView。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import Constants from '../constant/Constants';
 import { CalendarController, CalendarViewType } from '../components/CustomCalendar';
 import { CalendarStyle, CalendarSwitch } from '../model/CalendarModel';
@@ -23,39 +30,62 @@ import CommonData from '../common/CommonData';
 /**
  * 月视图
  */
+/**
+ * MonthView：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct MonthView {
   // 当前显示的年份
+  // @State currentShowYear：组件内部状态
   @State currentShowYear: number = Constants.TODAY_YEAR;
+
   // 当前显示的月份
+  // @State currentShowMonth：组件内部状态
   @State currentShowMonth: number = Constants.TODAY_MONTH;
+
   // 当前显示的年月
+  // @State currentYearMonth：组件内部状态
   @State currentYearMonth: string = Constants.TODAY_YEAR + '-' + Constants.TODAY_MONTH;
+
   // 当前选中的日期
+  // @State currentSelectDate：组件内部状态
   @State @Watch('onSelectDayChange') currentSelectDate: string =
     Constants.TODAY_YEAR + '-' + Constants.TODAY_MONTH + '-' + Constants.TODAY + '-' + '0';
+
   // 下个月对应的年月信息
+  // @State nextYearMonth：组件内部状态
   @State nextYearMonth: string = TimeUtils.getNextYearMonth(this.currentShowYear, this.currentShowMonth);
+
   // 上个月对应的年月信息
+  // @State lastYearMonth：组件内部状态
   @State lastYearMonth: string = TimeUtils.getLastYearMonth(this.currentShowYear, this.currentShowMonth);
+
   // swiper当前显示的子组件索引
+  // @State swiperMonthIndex：组件内部状态
   @State swiperMonthIndex: number = 1;
+
   // 记录swiper上一次显示的子组件索引。
   private oldMonthViewIndex: number = 1;
+
   // 添加日程后，重新刷新月视图的控制器
   private oneController = new CalendarController();
   private twoController = new CalendarController();
   private threeController = new CalendarController();
+
   // 自定义日历样式
   calendarStyle: CalendarStyle = {};
+
   // 年、月、周视图切换场景的相关设置
   calendarSwitch: CalendarSwitch = { isYearMonthHidden: false };
+
   // 日期点击回调
   onDateClick: (year: number, month: number, date: number) => void = () => {
   };
+
   // 年、月、周视图左右滑动切换回调
   onChangeYearMonth: (year: number, month: number) => void = () => {
   };
+
   /**
    * 用于年、月、周视图间切换场景下刷新日期数据
    */
@@ -81,6 +111,7 @@ export struct MonthView {
       }
     }
   }
+
   /**
    * 用于刷新在年视图上点击月后要跳转的月视图数据
    */
@@ -95,6 +126,7 @@ export struct MonthView {
     this.lastYearMonth = TimeUtils.getLastYearMonth(year, month);
     this.nextYearMonth = TimeUtils.getNextYearMonth(year, month);
   }
+
   /**
    * 用于添加日程后，重刷月视图数据
    */
@@ -104,6 +136,9 @@ export struct MonthView {
     this.threeController.schedulePointRefresh();
   }
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear() {
     if (this.calendarSwitch.controller) {
       // 给controller对应的方法赋值
@@ -165,29 +200,44 @@ export struct MonthView {
   /**
    * 星期
    */
+  /**
+   * weeks：执行 weeks 相关逻辑。
+   */
   @Builder
   weeks() {
+    // Row：水平布局容器
+    // 关键属性：宽度、主轴对齐、外边距
     Row() {
       ForEach(Constants.WEEKS, (text: string, index: number) => {
-        Text(text)
+        // Text：文本
+        // 关键属性：字号
+        Text(text).id('month_view_text_2')
           .fontSize(Constants.WEEK_FONT_SIZE *
             (this.calendarStyle.textScaling ? this.calendarStyle.textScaling : Constants.FONT_MULTIPLIER))
           .fontColor((index === 0 || index === 6) ? Color.Grey : Color.Black)
           .width($r('app.integer.calendar_switch_size_forty'))
           .textAlign(TextAlign.Center)
       }, (text: string) => text)
-    }
+    }.id('month_view_row_1')
     .width(Constants.MONTH_VIEW_WIDTH)
     .justifyContent(FlexAlign.SpaceBetween)
     .margin({ bottom: $r('app.integer.calendar_switch_size_ten') })
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
     // 月视图
+    // Column：垂直布局容器
+    // 关键属性：宽度、高度
     Column() {
       if (!this.calendarSwitch.isYearMonthHidden) {
         // 年月信息标题
-        Text(`${this.currentShowYear}年${this.currentShowMonth}月`)
+        // Text：文本
+        // 关键属性：字号
+        Text($r('app.string.calendar_switch_year_month', this.currentShowYear, this.currentShowMonth))
+          .id('month_view_text_4')
           .fontSize(Constants.YEAR_MONTH_FONT_SIZE *
             (this.calendarStyle.textScaling ? this.calendarStyle.textScaling : Constants.FONT_MULTIPLIER))
           .fontWeight(Constants.FONT_WEIGHT_FIVE_HUNDRED)
@@ -198,8 +248,11 @@ export struct MonthView {
       // 星期
       this.weeks()
 
+      // Swiper：轮播容器
+      // 关键属性：onAnimationStart
       Swiper() {
         // 月视图子组件
+        // MonthViewItem：MonthViewItem 自定义组件
         MonthViewItem({
           yearMonth: this.lastYearMonth,
           currentSelectDate: this.currentSelectDate,
@@ -214,7 +267,8 @@ export struct MonthView {
             lunarColor: this.calendarStyle.lunarColor
           },
           controller: this.oneController
-        })
+        }).id('month_view_month_view_item_6')
+        // MonthViewItem：MonthViewItem 自定义组件
         MonthViewItem({
           yearMonth: this.currentYearMonth,
           currentSelectDate: this.currentSelectDate,
@@ -229,7 +283,8 @@ export struct MonthView {
             lunarColor: this.calendarStyle.lunarColor
           },
           controller: this.twoController
-        })
+        }).id('month_view_month_view_item_7')
+        // MonthViewItem：MonthViewItem 自定义组件
         MonthViewItem({
           yearMonth: this.nextYearMonth,
           currentSelectDate: this.currentSelectDate,
@@ -244,8 +299,8 @@ export struct MonthView {
             lunarColor: this.calendarStyle.lunarColor
           },
           controller: this.threeController
-        })
-      }
+        }).id('month_view_month_view_item_8')
+      }.id('month_view_swiper_5')
       .onAnimationStart((index: number, targetIndex: number, extraInfo: SwiperAnimationEvent) => {
         /**
          * TODO 知识点：年视图，月视图和周视图都是根据Swiper的onAnimationStart事件（切换动画开始时触发该回调）进行年，月或周的切换。以月
@@ -305,7 +360,7 @@ export struct MonthView {
       .indicator(false)
       .loop(true)
       .index($$this.swiperMonthIndex)
-    }
+    }.id('month_view_column_3')
     .width(Constants.MONTH_VIEW_WIDTH)
     .height(Constants.MONTH_VIEW_HEIGHT)
   }

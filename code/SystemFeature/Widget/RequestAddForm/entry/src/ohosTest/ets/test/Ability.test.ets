@@ -29,6 +29,10 @@ let addJsButtonId = 'addJsCard';
 let formArkTs = 'widget';
 let formJs = 'JsWidget';
 
+function countFormName(result: string, formName: string): number {
+  return result.split(formName).length - 1;
+}
+
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
     /**
@@ -36,7 +40,15 @@ export default function abilityTest() {
      * Input:Click to open the application, click the button to publish the data agent card.
      * Expected output:An ArkTs card be added to the desktop successfully.
      */
-    it(BUNDLE + 'DataProxyForm_017', 0, async (done: Function) => {
+    /**
+     * @tc.number    SUB_REQUESTADDFORM_LEG_0001
+     * @tc.name      DataProxyForm_017
+     * @tc.desc      Verify legacy case DataProxyForm_017 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('RequestAdd_DataProxyForm_017', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_017 begin');
       let driver = Driver.create();
       await driver.delayMs(1000);
@@ -48,7 +60,7 @@ export default function abilityTest() {
         hilog.info(DOMAIN, TAG, BUNDLE + `DataProxyForm_017 getFormData ArkTs : + ${JSON.stringify(data)}`);
         let result = JSON.stringify(data);
         expect(result !== null).assertTrue();
-        cardArkTsCount = result.split(formArkTs).length - 1;
+        cardArkTsCount = countFormName(result, formArkTs);
         hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_017 cardArkTsCount:' + cardArkTsCount);
       }).catch((err: BusinessError) => {
         hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_017 hilog err is: ' + JSON.stringify(err));
@@ -65,29 +77,29 @@ export default function abilityTest() {
       let point = await app.getBoundsCenter();
       await driver.click(point.x, point.y - height);
       hilog.info(DOMAIN, TAG, BUNDLE + `DataProxyForm_017 open appStore, coordinate:(${point.x},` + `${point.y - height})`);
-      await driver.delayMs(500);
+      await driver.delayMs(1500);
 
       // Find the button and click
       let button = await driver.findComponent(ON.id(addArkTsButtonId));
       await button.click();
       hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_017 click the button');
-      await driver.delayMs(500);
+      await driver.delayMs(2500);
 
       // Verify a card has been added to the desktop
       let cardArkTsCountSecond = 0;
       await abilityDelegator.executeShellCommand("hidumper -s FormMgr -a '-n com.ohos.hag.famanager'").then((data) => {
         hilog.info(DOMAIN, TAG, BUNDLE + `DataProxyForm_017 getFormData ArkTs : + ${JSON.stringify(data)}`);
         let result = JSON.stringify(data);
-        cardArkTsCountSecond = result.split(formArkTs).length - 1;
+        cardArkTsCountSecond = countFormName(result, formArkTs);
       }).catch((err: BusinessError) => {
         hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_017 hilog err is: ' + JSON.stringify(err));
       });
-      hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_017 assert an ArkTs card has been added, ' +
+      hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_017 assert card count increased, ' +
         'cardArkTsCountSecond:' + cardArkTsCountSecond);
-      expect(cardArkTsCount + 1).assertEqual(cardArkTsCountSecond);
+      expect(cardArkTsCountSecond).assertEqual(cardArkTsCount + 1);
       hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_017 ' + (cardArkTsCountSecond - cardArkTsCount) + ' ArkTs card be added');
 
-      await driver.delayMs(500);
+      await driver.delayMs(1000);
       hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_017 end');
       done();
     })
@@ -97,7 +109,15 @@ export default function abilityTest() {
      * Input:Click to open the application, click the button to publish the data agent card.
      * Expected output:A Js card be added to the desktop successfully.
      */
-    it(BUNDLE + 'DataProxyForm_018', 0, async (done: Function) => {
+    /**
+     * @tc.number    SUB_REQUESTADDFORM_LEG_0002
+     * @tc.name      DataProxyForm_018
+     * @tc.desc      Verify legacy case DataProxyForm_018 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('RequestAdd_DataProxyForm_018', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_018 begin');
       let driver = Driver.create();
       await driver.delayMs(500);
@@ -107,7 +127,7 @@ export default function abilityTest() {
         hilog.info(DOMAIN, TAG, BUNDLE + `DataProxyForm_018 getFormData Js: + ${JSON.stringify(data)}`);
         let result = JSON.stringify(data);
         expect(result !== null).assertTrue();
-        cardJsCount = result.split(formJs).length - 1;
+        cardJsCount = countFormName(result, formJs);
         hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_018 cardJsCount:' + cardJsCount);
       }).catch((err: BusinessError) => {
         hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_018 hilog err is: ' + JSON.stringify(err));
@@ -121,29 +141,29 @@ export default function abilityTest() {
       let point = await app.getBoundsCenter();
       await driver.click(point.x, point.y - height);
       hilog.info(DOMAIN, TAG, BUNDLE + `DataProxyForm_018 open appStore, coordinate:(${point.x},` + `${point.y - height})`);
-      await driver.delayMs(500);
+      await driver.delayMs(1500);
 
       // Find the button and click
       let button = await driver.findComponent(ON.id(addJsButtonId));
       await button.click();
       hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_018 click the button');
-      await driver.delayMs(500);
+      await driver.delayMs(2500);
 
       // Verify a card has been added to the desktop
       let formJsCountSecond = 0;
       await abilityDelegator.executeShellCommand("hidumper -s FormMgr -a '-n com.ohos.hag.famanager'").then((data) => {
         let result = JSON.stringify(data);
         hilog.info(DOMAIN, TAG, BUNDLE + `DataProxyForm_018 getFormData Js: + ${JSON.stringify(data)}`);
-        formJsCountSecond = result.split(formJs).length - 1;
+        formJsCountSecond = countFormName(result, formJs);
       }).catch((err: BusinessError) => {
         hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_018 hilog err is: ' + JSON.stringify(err));
       });
-      hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_018 assert an Js card has been added, ' +
+      hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_018 assert card count increased, ' +
         'formJsCountSecond:' + formJsCountSecond);
-      expect(cardJsCount + 1).assertEqual(formJsCountSecond);
+      expect(formJsCountSecond).assertEqual(cardJsCount + 1);
       hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_018 ' + (formJsCountSecond - cardJsCount) + ' Js card be added');
 
-      await driver.delayMs(500);
+      await driver.delayMs(1000);
       hilog.info(DOMAIN, TAG, BUNDLE + 'DataProxyForm_018 end');
       done();
     })

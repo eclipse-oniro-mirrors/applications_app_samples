@@ -72,6 +72,13 @@
       },
       {
         "name": "ohos.permission.EXEC_PUBLIC_CLI_TOOL"
+      },
+      {
+        "name": "ohos.permission.CONTROL_DEVICE",
+        "reason": "$string:reason",
+        "usedScene": {
+          "when": "always"
+        }
       }
     ]
   }

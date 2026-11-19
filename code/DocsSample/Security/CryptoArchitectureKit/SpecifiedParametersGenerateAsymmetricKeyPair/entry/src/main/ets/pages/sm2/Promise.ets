@@ -42,6 +42,9 @@ async function sm2Test() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude specify_parameter_generate_sm2_keypair]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude specify_parameter_generate_sm2_keypair]
   }
 }
 // [End specify_parameter_generate_sm2_keypair]

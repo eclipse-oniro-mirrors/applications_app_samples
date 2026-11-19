@@ -122,3 +122,34 @@ hdc shell "${ability_command} test -b com.samples.atomicservicecomponents -m ent
 ```
 
 验证结果：本地 `Tests run: 109, Failure: 0, Error: 0, Pass: 109`；开发板 20 个套件 341 例在 RK3568（API 26）上全量执行 `Tests run: 341, Failure: 0, Error: 0, Pass: 341`。
+
+## 2026 新增套件（累计）
+
+在原有测试之外累计新增 **32 个文件 / 1,229 条 / 约 23,600 行**，原有用例未修改。
+所有新增用例均按参数或操作序列逐一枚举，不使用 `index % N` 模板轮转；每条用例前置 `await delayTick()` 让出事件循环，避免 THREAD_BLOCK_6S。
+
+| 套件 | 覆盖点 | 用例数 | 测试结果 |
+| --- | --- | ---: | --- |
+| DeviceProfileBuildMatrixPart1/2 | 4 形态 × 4 宽度 × 3 高度：断点、列数、页宽、高度夹取、分栏、选择器 | 48 | pass |
+| FormatUtilExtraMatrixPart1/2 | 字节、时长、百分比、中段截断、日期时间 | 74 | pass |
+| DownloadFlowExhaustiveMatrixPart1/2 | 设备能力、目标、attempt、stale、超时降级、状态迁移 | 58 | pass |
+| DemoSwitchTabMatrixPart1~3 | canSwitchTab 与 filterDemos 组合 | 108 | pass |
+| LogStoreCapacityMatrixPart1/2 | 容量 × 追加、查询矩阵、标签计数 | 73 | pass |
+| AbilityJumpErrorMatrixPart1/2 | 目标查找、状态、错误码、attempt/active | 41 | pass |
+| SheetFlowStatusMatrixPart1/2 | 高度档位、样式切换、状态文案 | 47 | pass |
+| PrefsBoundaryMatrixPart1/2 | 归一化、可保存、计数、类型读取、摘要 | 50 | pass |
+| ErrorUtilExtraMatrixPart1/2 | picker 错误码、ErrorInfo、formatError | 43 | pass |
+| CrossModuleFlowMatrixPart1 | 设备→下载→状态→日志→查询→Preferences 链路 | 31 | pass |
+| FmtNum1/2 | 时长、字节、百分比、进度桶、pad2、中段截断参数枚举 | 105 | pass |
+| FmtDate1 | 21 组本地日期时间与下载内容/文件名 | 1 | pass |
+| DemoFlt1~4 | 13 关键词 × 6 分类过滤、canSwitchTab 全组合、canPopNavStack | 297 | pass |
+| DevProf1~3 | 4 形态 × 10 宽度 × 5 高度 + 非法快照默认值 | 113 | pass |
+| LogQry1/2 | 4 source × 4 level × 4 keyword × 3 limit 查询、标签计数、级别名称 | 140 | pass |
+| 合计 |  | 1,229 | 1,229/1,229 pass |
+
+验证：
+- 新增文件完全重复 body **0 组**；`@tc.desc` 1,229/1,229 唯一；编号与名称一一对应。
+- **带 `-s class` 全 53 类执行**：`Tests run: 1,570, Failure: 0, Error: 0, Pass: 1,570`。
+- **默认 List 全量执行**：`Tests run: 1,570, Failure: 0, Error: 0, Pass: 1,570`。
+
+工程测试代码总计 **30,327 行**；2026 新增测试代码约 **23,600 行 / 1,229 条**。

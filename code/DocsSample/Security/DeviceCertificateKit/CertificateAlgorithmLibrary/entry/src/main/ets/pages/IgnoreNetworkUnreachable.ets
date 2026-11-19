@@ -161,7 +161,8 @@ async function validateCRL() {
     await certChain.validate(param);
     console.info('validateCRL result: success.');
   } catch (err) {
-    console.error(`X509CertChain validate failed: errCode: ${err.code}, message: ${err.message}`);
+    let e: BusinessError = err as BusinessError;
+    console.error(`X509CertChain validate failed: errCode: ${e.code}, message: ${e.message}`);
   }
 }
 

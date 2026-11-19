@@ -65,21 +65,28 @@ function compareRsaPubKeyBySpec(rsaKeySpec: cryptoFramework.RSAPubKeySpec, n: bi
 }
 
 // 根据RSA公钥规格生成RSA公钥，获取密钥规格，并与预期值进行比较
-function rsaUsePubKeySpecGetCallback() {
-  let rsaPubKeySpec = genRsa2048PubKeySpec();
-  let rsaGeneratorSpec = cryptoFramework.createAsyKeyGeneratorBySpec(rsaPubKeySpec);
-  rsaGeneratorSpec.generatePubKey((error, key) => {
-    if (error) {
-      console.error('generate pubKey failed, ' + 'error code: ' + error.code + 'error message' + error.message);
-    }
-    let pubKey = key;
-    let nBN = pubKey.getAsyKeySpec(cryptoFramework.AsyKeySpecItem.RSA_N_BN);
-    let eBN = pubKey.getAsyKeySpec(cryptoFramework.AsyKeySpecItem.RSA_PK_BN);
-    if (compareRsaPubKeyBySpec(rsaPubKeySpec, nBN, eBN) != true) {
-      console.error('error pub key big number');
-    } else {
-      console.info('n, e in the pubKey are same as the spec.');
-    }
+function rsaUsePubKeySpecGetCallback(): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    let rsaPubKeySpec = genRsa2048PubKeySpec();
+    let rsaGeneratorSpec = cryptoFramework.createAsyKeyGeneratorBySpec(rsaPubKeySpec);
+    rsaGeneratorSpec.generatePubKey((error, key) => {
+      if (error) {
+        console.error(`generate pubKey failed: errCode: ${error.code}, message: ${error.message}`);
+        // [StartExclude specify_parameter_generate_rsa_keypair]
+        reject(new Error(`generate pubKey failed: errCode: ${error.code}, message: ${error.message}`));
+        // [EndExclude specify_parameter_generate_rsa_keypair]
+        return;
+      }
+      let pubKey = key;
+      let nBN = pubKey.getAsyKeySpec(cryptoFramework.AsyKeySpecItem.RSA_N_BN);
+      let eBN = pubKey.getAsyKeySpec(cryptoFramework.AsyKeySpecItem.RSA_PK_BN);
+      if (compareRsaPubKeyBySpec(rsaPubKeySpec, nBN, eBN) != true) {
+        console.error('error pub key big number');
+      } else {
+        console.info('n, e in the pubKey are same as the spec.');
+      }
+      resolve();
+    });
   });
 }
 // [End specify_parameter_generate_rsa_keypair]
@@ -94,9 +101,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_rsa_callback'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            rsaUsePubKeySpecGetCallback();
+            await rsaUsePubKeySpecGetCallback();
             this.message = 'RSA Callback Success';
           } catch {
             this.message = 'RSA Callback Fail';

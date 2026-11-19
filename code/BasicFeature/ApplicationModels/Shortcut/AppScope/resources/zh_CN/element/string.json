@@ -1,0 +1,9 @@
+{
+  "string": [
+    {
+      "name": "app_name",
+      "description": "应用显示名称",
+      "value": "快捷方式"
+    }
+  ]
+}

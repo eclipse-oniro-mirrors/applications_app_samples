@@ -33,4 +33,7 @@ find_library(libace-lib ace_ndk.z)
 
 find_library(libnapi-lib ace_napi.z)
 
-target_link_libraries(entry PUBLIC ${libace-lib} ${libnapi-lib})
+# Node image collection converts the collected PixelMap into an ArkTS image object.
+find_library(libpixelmap-lib pixelmap)
+
+target_link_libraries(entry PUBLIC ${libace-lib} ${libnapi-lib} ${libpixelmap-lib})

@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file customanimationtab/src/main/ets/view/CustomAnimationTabView.ets
+ * 文件职责：CustomAnimationTabView 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：testBuilder、CustomAnimationTabView、tabBar。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { BaseInterface } from '../model/BaseInterface';
 import { baseBuilder } from './BasePage';
 import { CustomAnimationTabController } from '../model/CustomAniamtionTabController';
@@ -85,34 +92,54 @@ import ConfigurationConstant from '@ohos.app.ability.ConfigurationConstant';
      scroller: this.scroller
    })
  */
+/**
+ * testBuilder：函数定义，承载本文件对应的逻辑与数据。
+ */
 @Builder
 function testBuilder() {
+  // Column：垂直布局容器
+  // 关键属性：高度、宽度、背景色
+  /**
+   * Column：执行 Column 相关逻辑。
+   */
   Column() {
-  }
+  }.id('custom_animation_tab_view_column_1')
   .height('100%')
   .width('100%')
   .backgroundColor(Color.Gray)
 }
 
+/**
+ * CustomAnimationTabView：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct CustomAnimationTabView {
   // 自定义动效属性，添加了背景条颜色变化
+  // @State animationAttribute：组件内部状态
   @State animationAttribute: MyAnimationAttribute =
     new MyAnimationAttribute($r('app.color.custom_animation_tab_indicator_color'));
+
   // tab数据
   tabsInfo: TabInfo[] = [];
+
   // tabController
   tabController: CustomAnimationTabController = new CustomAnimationTabController();
+
   // indicatorBar
   indicatorBarAttribute: IndicatorBarAttribute = new IndicatorBarAttribute(this.indicatorBar, SizeMode.Normal, 0, 0,
     CustomAnimationTabConfigure.INDICATOR_MAX_LEFT, CustomAnimationTabConfigure.DEFAULT_INDICATOR_EXPAND);
+
   // tabBar
   tabBarAttribute: TabBarAttribute =
     new TabBarAttribute(CustomAnimationTabConfigure.LIST_ITEM_WIDTH, CustomAnimationTabConfigure.TABBAR_HEIGHT,
       true, EdgeEffect.Spring, BarPosition.Start);
+
   // scroller
   scroller: Scroller = new Scroller();
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear(): void {
     this.tabsInfo = [
       new TabInfo(CustomAnimationTabConfigure.DEFAULT_BASE_TAB, wrapBuilder(baseBuilder), wrapBuilder(tabBar)),
@@ -125,16 +152,26 @@ export struct CustomAnimationTabView {
     ]
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // RelativeContainer：相对布局容器
+    // 关键属性：高度、宽度
     RelativeContainer() {
       this.body();
-    }
+    }.id('custom_animation_tab_view_relative_container_2')
     .height('100%')
     .width('100%')
   }
 
+  /**
+   * body：执行 body 相关逻辑。
+   */
   @Builder
   body() {
+    // Column：垂直布局容器
+    // 关键属性：高度、宽度
     Column() {
       /**
        * 构建自定义动效Tab
@@ -145,6 +182,8 @@ export struct CustomAnimationTabView {
        * tabController: 自定义动效tab控制器
        * scroller: 页签条滚动控制器
        */
+      // CustomAnimationTab：CustomAnimationTab 自定义组件
+      // 关键属性：高度
       CustomAnimationTab({
         animationAttribute: this.animationAttribute,
         tabsInfo: this.tabsInfo,
@@ -152,12 +191,18 @@ export struct CustomAnimationTabView {
         tabBarAttribute: this.tabBarAttribute,
         tabController: this.tabController,
         scroller: this.scroller
-      })
+      }).id('custom_animation_tab_view_custom_animation_tab_4')
         .height($r('app.string.custom_animation_tab_ninety_percent'))
       // 更新自定义动效变量——背景条颜色
+      // Column：垂直布局容器
+      // 关键属性：主轴对齐、高度、宽度
       Column() {
+        // Button：按钮
+        // 关键属性：高度、点击事件回调
+        // 交互：可点击交互
         Button($r('app.string.custom_animation_tab_button_text'))
           .height($r('app.string.custom_animation_tab_sixty_percent'))
+          .id('indicatorColorButton')
           .onClick(() => {
             if ((this.animationAttribute.indicatorBarColor as Resource).id ===
             $r('app.color.custom_animation_tab_indicator_color').id) {
@@ -166,18 +211,23 @@ export struct CustomAnimationTabView {
               this.animationAttribute.indicatorBarColor = $r('app.color.custom_animation_tab_indicator_color');
             }
           })
-      }
+      }.id('custom_animation_tab_view_column_5')
       .justifyContent(FlexAlign.Center)
       .height($r('app.string.custom_animation_tab_ten_percent'))
       .width($r('app.string.custom_animation_tab_one_hundred_percent'))
-    }
+    }.id('custom_animation_tab_view_column_3')
     .height($r('app.string.custom_animation_tab_one_hundred_percent'))
     .width($r('app.string.custom_animation_tab_one_hundred_percent'))
   }
 
+  /**
+   * indicatorBar：执行 indicatorBar 相关逻辑。
+   */
   @Builder
   indicatorBar($$: BaseInterface) {
-    Column()
+    // Column：垂直布局容器
+    // 关键属性：高度、宽度、背景色、圆角
+    Column().id('custom_animation_tab_view_column_6')
       .height($r('app.string.custom_animation_tab_one_hundred_percent'))
       .width($r('app.string.custom_animation_tab_one_hundred_percent'))// 绑定自定义动效属性
       .backgroundColor(this.animationAttribute.indicatorBarColor)
@@ -186,18 +236,29 @@ export struct CustomAnimationTabView {
 }
 
 // tabBar样式
+/**
+ * tabBar：函数定义，承载本文件对应的逻辑与数据。
+ */
 @Builder
 function tabBar($$: TabBarItemInterface) {
+  // Column：垂直布局容器
+  /**
+   * Column：执行 Column 相关逻辑。
+   */
   Column() {
-    Image($r('app.media.return_home_fill'))
+    // Image：图片
+    // 关键属性：高度、宽度、objectFit
+    Image($r('app.media.return_home_fill')).id('custom_animation_tab_view_image_8')
       .height(20)
       .width(20)
       .objectFit(ImageFit.Contain)
-    Text($$.title)
+    // Text：文本
+    // 关键属性：字号
+    Text($$.title).id('custom_animation_tab_view_text_9')
       .fontSize($$.curIndex === $$.index ? $r('app.float.custom_animation_tab_list_select_font_size') :
       $r('app.float.custom_animation_tab_list_unselect_font_size'))
       .fontColor($r('app.color.custom_animation_tab_list_font_color'))
       .fontWeight($$.curIndex === $$.index ? FontWeight.Bold : FontWeight.Medium)
       .textAlign(TextAlign.Center)
-  }
+  }.id('custom_animation_tab_view_column_7')
 }

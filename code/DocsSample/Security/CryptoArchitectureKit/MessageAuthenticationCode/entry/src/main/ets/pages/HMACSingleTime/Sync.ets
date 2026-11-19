@@ -43,6 +43,9 @@ function doHmacBySync() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude message_authentication_code_calculated_as_fragmented_hmac_sync]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude message_authentication_code_calculated_as_fragmented_hmac_sync]
   }
 }
 

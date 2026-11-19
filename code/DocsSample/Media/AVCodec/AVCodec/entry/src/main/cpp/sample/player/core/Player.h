@@ -229,7 +229,7 @@ private:
     void PauseForBackground();
     void ResumeFromBackground();
     bool CalculateSyncParameters(CodecBufferInfo& bufferInfo, int64_t framePosition, AvSyncDecision& decision);
-    bool RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame);
+    bool RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame, VideoFramePacer &pacer);
 
     std::unique_ptr<std::ofstream> outputFile_ = nullptr;
     std::chrono::steady_clock::time_point dumpStarted_;

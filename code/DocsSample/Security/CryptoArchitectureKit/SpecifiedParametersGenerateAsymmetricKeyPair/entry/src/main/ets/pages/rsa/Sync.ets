@@ -66,23 +66,33 @@ function compareRsaPubKeyBySpec(rsaKeySpec: cryptoFramework.RSAPubKeySpec, n: bi
 
 // 根据RSA公钥规格生成RSA公钥，获取密钥规格，并与预期值进行比较
 function rsaUsePubKeySpecGetSync() {
-  let rsaPubKeySpec = genRsa2048PubKeySpec();
-  let rsaGeneratorSpec = cryptoFramework.createAsyKeyGeneratorBySpec(rsaPubKeySpec);
+  
   try {
+    let rsaPubKeySpec = genRsa2048PubKeySpec();
+    let rsaGeneratorSpec = cryptoFramework.createAsyKeyGeneratorBySpec(rsaPubKeySpec);
     let pubKey = rsaGeneratorSpec.generatePubKeySync();
     if (pubKey != null) {
       let nBN = pubKey.getAsyKeySpec(cryptoFramework.AsyKeySpecItem.RSA_N_BN);
       let eBN = pubKey.getAsyKeySpec(cryptoFramework.AsyKeySpecItem.RSA_PK_BN);
       if (compareRsaPubKeyBySpec(rsaPubKeySpec, nBN, eBN) != true) {
         console.error('error pub key big number');
+        // [StartExclude specify_parameter_generate_rsa_keypair_sync]
+        throw new Error('error pub key big number');
+        // [EndExclude specify_parameter_generate_rsa_keypair_sync]
       } else {
         console.info('n, e in the pubKey are same as the spec.');
       }
     } else {
       console.error('get pub key result: fail!');
+      // [StartExclude specify_parameter_generate_rsa_keypair_sync]
+      throw new Error('get pub key result: fail!');
+      // [EndExclude specify_parameter_generate_rsa_keypair_sync]
     }
   } catch (e) {
     console.error(`get pub key result failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude specify_parameter_generate_rsa_keypair_sync]
+    throw new Error(`get pub key result failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude specify_parameter_generate_rsa_keypair_sync]
   }
 }
 // [End specify_parameter_generate_rsa_keypair_sync]

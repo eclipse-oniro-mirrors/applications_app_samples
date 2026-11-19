@@ -46,11 +46,11 @@ void Recorder::VideoEncOutputSyncThread()
         if (ret == AVCODEC_SAMPLE_ERR_AGAIN) {
             continue;
         }
+        // [StartExclude encoder_sync_output_buffer]
         if (ret != AVCODEC_SAMPLE_ERR_OK) {
             AbortRecording("Video output buffer retrieval failed");
             break;
         }
-        // [StartExclude encoder_sync_output_buffer]
         const int64_t receivedAtUs = RecorderClockUs();
         primaryStats_.RecordRetrieval(receivedAtUs - waitStart);
         if (!ProcessVideoOutputBuffer(bufferInfo, true, receivedAtUs)) {
@@ -64,15 +64,15 @@ void Recorder::VideoEncOutputSyncThread()
 
 void Recorder::VideoEncOutputAsyncThread()
 {
-    // [Start encoder_output_buffer]
     while (isStarted_) {
-        // 获取输出buffer。
         const int64_t waitStart = RecorderClockUs();
+        // [Start encoder_output_buffer]
+        // 获取输出buffer。
         std::shared_ptr<CodecBufferInfo> bufferInfo = encContext_->outputBufferQueue.Dequeue();
         // 开发者可根据业务需要，对输出数据进行保存/释放处理。
         // 示例：将编码完成帧数据buffer写入到对应输出文件中。
         // outputFile->write(reinterpret_cast<char *>(OH_AVBuffer_GetAddr(bufferInfo->buffer)), bufferInfo->attr.size);
-        // [StartExclude encoder_output_buffer]
+        // [End encoder_output_buffer]
         const int64_t receivedAtUs = RecorderClockUs();
         if (!isStarted_ || encContext_->hasError.load()) {
             if (bufferInfo != nullptr && videoEncoder_->FreeOutputBuffer(*bufferInfo) != AVCODEC_SAMPLE_ERR_OK) {
@@ -86,12 +86,10 @@ void Recorder::VideoEncOutputAsyncThread()
         }
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
         primaryStats_.RecordRetrieval(receivedAtUs - waitStart);
-        // [EndExclude encoder_output_buffer]
         if (!ProcessVideoOutputBuffer(*bufferInfo, true, receivedAtUs)) {
             break;
         }
     }
-    // [End encoder_output_buffer]
     FinishVideoOutputThread(encContext_.get(), true);
 }
 

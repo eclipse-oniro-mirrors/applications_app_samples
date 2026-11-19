@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/Index.ets
+ * 文件职责：Index 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：TitleExpansionView、TitleAttributeModifier、SubTitleAttributeModifier。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { AnimationAttribute } from '../model/AnimationAttribute';
 import { TitleAttribute } from '../model/TitleAttribute';
 import { TitleExpansion } from '../utils/TitleExpansion';
@@ -64,6 +71,9 @@ import { titleMenu } from './TitleMenu'
  *   content: titleContent
  * })
  */
+/**
+ * TitleExpansionView：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 export struct TitleExpansionView {
@@ -74,7 +84,12 @@ export struct TitleExpansionView {
   private animationAttribute: AnimationAttribute = new AnimationAttribute(Configure.NORMAL_TITLE_HEIGHT, Configure.EXPAND_TITLE_HEIGHT,
     Configure.CONTINUE_PULL_THRESHOLD, Configure.TITLE_SCALE_MAX_VALUE, Configure.ANIMATION_DURATION);
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // RelativeContainer：相对布局容器
+    // 关键属性：高度、宽度
     RelativeContainer() {
       /**
        * 构建标题扩展组件
@@ -85,6 +100,8 @@ export struct TitleExpansionView {
        * menu: 菜单栏样式
        * content: 页面内容
        */
+      // TitleExpansion：TitleExpansion 自定义组件
+      // 关键属性：高度、宽度
       TitleExpansion({
         titleAttribute: this.titleAttribute,
         subTitleAttribute: this.subTitleAttribute,
@@ -92,25 +109,37 @@ export struct TitleExpansionView {
         animationAttribute: this.animationAttribute,
         menu: titleMenu,
         content: titleContent
-      })
+      }).id('index_title_expansion_2')
         .height($r('app.string.expanded_title_layout_100_percent'))
         .width($r('app.string.expanded_title_layout_100_percent'))
-    }
+    }.id('index_relative_container_1')
     .height($r('app.string.expanded_title_layout_100_percent'))
     .width($r('app.string.expanded_title_layout_100_percent'))
   }
 }
 
+/**
+ * TitleAttributeModifier：类定义，承载本文件对应的逻辑与数据。
+ */
 class TitleAttributeModifier implements AttributeModifier<TextAttribute> {
 
+  /**
+   * applyNormalAttribute：执行 applyNormalAttribute 相关逻辑。
+   */
   applyNormalAttribute(instance: TextAttribute): void {
     instance
       .fontSize($r('app.string.expanded_title_init_title_font_size'))
   }
 }
 
+/**
+ * SubTitleAttributeModifier：类定义，承载本文件对应的逻辑与数据。
+ */
 class SubTitleAttributeModifier implements AttributeModifier<TextAttribute> {
 
+  /**
+   * applyNormalAttribute：执行 applyNormalAttribute 相关逻辑。
+   */
   applyNormalAttribute(instance: TextAttribute): void {
     instance
       .fontSize($r('app.string.expanded_title_memo_counts_font_size'))

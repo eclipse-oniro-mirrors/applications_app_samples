@@ -13,8 +13,6 @@
  * limitations under the License.
  */
 
+// ohosTest 需要校验真实的 native 绘制能力，不能把 libentry.so 替换为 mock 桩。
 {
-  "libentry.so": {
-    "source": "src/mock/libentry.mock.ets"
-  }
 }

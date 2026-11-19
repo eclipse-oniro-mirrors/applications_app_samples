@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file casesfeature/calendarswitch/src/main/ets/customcalendar/utils/StyleUtils.ets
+ * 文件职责：StyleUtils 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：StyleUtils。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import Constants from '../constant/Constants';
 import { CalendarViewType, DayInfo } from '../components/CustomCalendar';
 import { Day, CalendarStyle } from '../model/CalendarModel';

@@ -15,7 +15,7 @@
 
 import type { BusinessError } from '@kit.BasicServicesKit';
 
-// 只记录有效的 SDK 错误码；普通异常使用受控类别，不输出其原始消息。
+// 只记录有效的SDK错误码；普通异常使用受控类别，不输出其原始消息。
 export function logSampleError(operation: string, error: Error): void {
   const code: number | undefined = (error as BusinessError).code;
   if (typeof code === 'number' && Number.isFinite(code)) {

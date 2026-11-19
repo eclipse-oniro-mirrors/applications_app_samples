@@ -37,6 +37,7 @@ export class CameraSessionController {
   private outputStarted: boolean = false;
 
   prepare(ui: UIContext, data: CameraDataModel, previewOutputId: string): Promise<void> {
+    if (this.closing) { return Promise.reject(new Error('Camera is closing')); }
     if (this.preparing === undefined) { this.preparing = this.configure(ui, data, previewOutputId); }
     return this.preparing;
   }

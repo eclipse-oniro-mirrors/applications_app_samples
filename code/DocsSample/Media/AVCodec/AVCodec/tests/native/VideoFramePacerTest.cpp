@@ -49,6 +49,34 @@ void CheckDeadline(bool passed)
         std::exit(EXIT_FAILURE);
     }
 }
+
+void TestVideoAfterAudioEnd()
+{
+    constexpr int64_t firstTailPtsUs = 68'160'000;
+    constexpr int64_t tailFrameIntervalUs = 40'000;
+    constexpr int tailFrameCount = 14;
+    for (double playbackSpeed : {0.5, 1.0, 2.0}) {
+        VideoFramePacer pacer;
+        const auto origin = VideoFramePacer::Clock::time_point(ORIGIN_TIME);
+        auto now = origin;
+        for (int index = 0; index < tailFrameCount; ++index) {
+            const auto expected = origin + std::chrono::microseconds(
+                static_cast<int64_t>(index * tailFrameIntervalUs / playbackSpeed));
+            const auto deadline = pacer.Deadline(firstTailPtsUs + index * tailFrameIntervalUs, playbackSpeed, now);
+            CheckDeadline(deadline == expected);
+            now = deadline;
+        }
+        CheckDeadline(now - origin == std::chrono::microseconds(
+            static_cast<int64_t>((tailFrameCount - 1) * tailFrameIntervalUs / playbackSpeed)));
+        // 尾部暂停、恢复或Seek后重建锚点，不能累计暂停期间的时长。
+        pacer.SetRevision(RESUME_REVISION);
+        const auto resumeTime = now + RESUME_DELAY;
+        const int64_t resumePtsUs = firstTailPtsUs + tailFrameCount * tailFrameIntervalUs;
+        CheckDeadline(pacer.Deadline(resumePtsUs, playbackSpeed, resumeTime) == resumeTime);
+        CheckDeadline(pacer.Deadline(resumePtsUs + tailFrameIntervalUs, playbackSpeed, resumeTime) ==
+            resumeTime + std::chrono::microseconds(static_cast<int64_t>(tailFrameIntervalUs / playbackSpeed)));
+    }
+}
 } // namespace
 
 int main()
@@ -75,5 +103,6 @@ int main()
     CheckDeadline(pacer.Deadline(INVALID_SPEED_PTS_US, std::numeric_limits<double>::quiet_NaN(), origin) == origin);
     pacer.Reset();
     CheckDeadline(pacer.Deadline(RESET_PTS_US, NORMAL_SPEED, origin) == origin);
+    TestVideoAfterAudioEnd();
     std::cout << "Video frame pacing passed" << std::endl;
 }

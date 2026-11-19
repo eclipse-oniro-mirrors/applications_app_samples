@@ -18,10 +18,11 @@ import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 async function main() {
-  // 创建一个AsyKeyGenerator实例
-  let eccGenerator = cryptoFramework.createAsyKeyGenerator('ECC256');
-  // 使用密钥生成器随机生成非对称密钥对
+ 
   try {
+    // 创建一个AsyKeyGenerator实例
+    let eccGenerator = cryptoFramework.createAsyKeyGenerator('ECC256');
+    // 使用密钥生成器随机生成非对称密钥对
     let keyPair = await eccGenerator.generateKeyPair();
     let pubKey = keyPair.pubKey;
     let priKey = keyPair.priKey;
@@ -29,16 +30,25 @@ async function main() {
     let pubBlob = pubKey.getEncoded();
     let skBlob = priKey.getEncodedDer('PKCS8');
     let generator = cryptoFramework.createAsyKeyGenerator('ECC256');
-    generator.convertKey(pubBlob, skBlob, (error, _keyPair) => {
-      if (error) {
-        console.error(`convertKey failed: errCode: ${error.code}, message: ${error.message}`);
-        return;
-      }
-      console.info('convertKey result: success.');
+    await new Promise<void>((resolve, reject) => {
+      generator.convertKey(pubBlob, skBlob, (error, _keyPair) => {
+        if (error) {
+          console.error(`convertKey failed: errCode: ${error.code}, message: ${error.message}`);
+          // [StartExclude pkcs8_convert_ecc_pri_keypair]
+          reject(new Error(`convertKey failed: errCode: ${error.code}, message: ${error.message}`));
+          // [EndExclude pkcs8_convert_ecc_pri_keypair]
+          return;
+        }
+        console.info('convertKey result: success.');
+        resolve();
+      });
     });
   } catch (err) {
     let e: BusinessError = err as BusinessError;
-    console.error(`generateKeyPair failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude pkcs8_convert_ecc_pri_keypair]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude pkcs8_convert_ecc_pri_keypair]
   }
 }
 // [End pkcs8_convert_ecc_pri_keypair]

@@ -17,8 +17,8 @@ import { appManager } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { promptAction } from '@kit.ArkUI';
 
-const TAG: string = 'AppManager';
-const DOMAIN: number = 0xFF00;
+const TAG: string = '[Sample_AbilityRuntime]';
+const DOMAIN: number = 0xF811;
 
 @Entry
 @Component

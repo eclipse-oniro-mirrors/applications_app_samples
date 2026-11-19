@@ -57,7 +57,38 @@ export class TranscodeQueueModel {
           (item.endTimeMs ?? 0) !== 0 || item.quality.filter !== 0 || item.quality.frameRate !== 0))) { return false; }
       seen.add(item.id);
       return true;
-    }).slice(0, 30);
+    }).slice(0, 30).map((item: TranscodeQueueItem): TranscodeQueueItem => ({
+      id: item.id,
+      uri: item.uri,
+      title: item.title,
+      options: item.options.slice(),
+      grayscale: item.grayscale,
+      state: item.state,
+      progress: item.progress,
+      resultPath: item.resultPath,
+      startTimeMs: item.startTimeMs,
+      endTimeMs: item.endTimeMs,
+      quality: TranscodeQueueModel.copyQuality(item.quality)
+    }));
+  }
+
+  private static copyQuality(quality: TranscodeQualitySnapshot | undefined): TranscodeQualitySnapshot | undefined {
+    if (quality === undefined) { return undefined; }
+    return {
+      operation: quality.operation,
+      filter: quality.filter,
+      frameRate: quality.frameRate,
+      bitrateMode: quality.bitrateMode,
+      keyFrame: quality.keyFrame,
+      audioRate: quality.audioRate,
+      audioChannels: quality.audioChannels,
+      audioBitrate: quality.audioBitrate,
+      codecMode: quality.codecMode,
+      audioSourceLayout: quality.audioSourceLayout,
+      audioResampler: quality.audioResampler,
+      deepValidation: quality.deepValidation,
+      remuxAllAudioTracks: quality.remuxAllAudioTracks
+    };
   }
 
   private static validRange(item: TranscodeQueueItem): boolean {
@@ -81,7 +112,8 @@ export class TranscodeQueueModel {
       progress: 0,
       resultPath: '',
       startTimeMs: startTimeMs,
-      endTimeMs: endTimeMs, quality: quality
+      endTimeMs: endTimeMs,
+      quality: TranscodeQueueModel.copyQuality(quality)
     }]);
   }
   update(id: string, state: string, progress: number, resultPath: string = ''): void {

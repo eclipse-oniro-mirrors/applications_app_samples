@@ -58,7 +58,7 @@
     {"name":"task_export_text","value":"Export TXT"},
     {"name":"task_baseline","value":"Performance baseline"},
     {"name":"task_save_baseline","value":"Save as baseline"},
-    {"name":"task_baseline_hint","value":"Compare only matching device/API, configuration and observed pipeline. API wall times are not hardware execution latency. Use the same media and operating conditions."},
+    {"name":"task_baseline_hint","value":"Calculate the source checksum after completion, then save a baseline. Comparisons require the same device, configuration and source."},
     {"name":"task_no_baseline","value":"No matching baseline"},
     {"name":"task_capability_matrix","value":"Capability snapshots"},
     {"name":"task_capability_save","value":"Save device snapshot"},
@@ -99,6 +99,8 @@
     {"name":"rec_stage_camera_release","value":"Camera released"},
     {"name":"rec_result_open","value":"Result"},
     {"name":"rec_result_title","value":"Recording result"},
+    {"name":"recorder_history_unsaved","value":"Recording history has not been saved. You can still play this file. Saving will retry when you return to the recording page."},
+    {"name":"recorder_close_unconfirmed","value":"Output file closure could not be confirmed. Restart the app before starting another media task to avoid reusing a file descriptor."},
     {"name":"rec_result_complete","value":"Recording finalized"},
     {"name":"rec_result_partial","value":"Review the end reason and timeline; the file may be incomplete."},
     {"name":"rec_result_primary","value":"Play primary"},
@@ -810,6 +812,7 @@
     { "name": "diagnostics_audio_interrupt_idle", "value": "Audio interruptions %d (not interrupted)" },
     { "name": "diagnostics_background_paused", "value": "Background: paused; resumes in foreground" },
     { "name": "setting_advanced", "value": "Advanced settings" },
+    { "name": "setting_resume_last_position", "value": "Resume last playback position" },
     { "name": "playback_section_controls", "value": "Playback controls" },
     { "name": "playback_previous_frame_short", "value": "Previous frame" },
     { "name": "playback_next_frame_short", "value": "Next frame" },
@@ -1118,6 +1121,7 @@
     {"name":"configuration_load_failed","value":"Configuration could not be loaded. Previous settings are unchanged."},
     {"name":"playback_failed_hint","value":"Playback failed. Check the diagnostic report and system log."},
     {"name":"playback_cleanup_busy","value":"Dump cleanup is running. Try playback again shortly."},
+    {"name":"playback_close_unconfirmed","value":"Input file closure could not be confirmed. Restart the app before starting another media task to avoid reusing a file descriptor."},
     {"name":"configuration_updated_hint","value":"Settings updated. You can check the current combination. API 26 preprocessing and dual output require asynchronous Surface encoding. A 30 fps input cannot be reduced to 30 fps."},
     {"name":"configuration_camera_query_failed","value":"Camera capability query failed. Settings were not saved. Check permissions and apply again."},
     {"name":"preprocess_center_crop_prefix","value":"Center crop ("},
@@ -1295,6 +1299,9 @@
     {"name":"recorder_resume","value":"Resume recording"},
     {"name":"recorder_paused","value":"Paused"},
     {"name":"recorder_pause_hint","value":"Pause requires SDR single-output Buffer recording. Camera preview continues while paused; no audio or video is added to the file."},
-    {"name":"recorder_pause_failed","value":"Unable to pause or resume. Retry or end recording."}
+    {"name":"recorder_pause_failed","value":"Unable to pause or resume. Retry or end recording."},
+    {"name":"task_checksum","value":"Calculate source checksum"},
+    {"name":"task_checksum_running","value":"Calculating SHA256. Large files may take a while."},
+    {"name":"task_checksum_failed","value":"Checksum failed. Check that the original file is unchanged and accessible, then retry when media tasks finish. If the file changed, run the task again."}
   ]
 }

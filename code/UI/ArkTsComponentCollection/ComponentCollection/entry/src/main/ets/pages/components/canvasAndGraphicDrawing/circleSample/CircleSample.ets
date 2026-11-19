@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/components/canvasAndGraphicDrawing/circleSample/CircleSample.ets
+ * 文件职责：CircleSample 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：CircleSample。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { IntroductionTitle } from '../../../../common/IntroductionTitle';
 import { TitleBar } from '../../../../common/TitleBar';
 import { LEFT_PADDING, RIGHT_PADDING } from '../../ComponentData';
@@ -26,24 +33,52 @@ import { CircleControlPanel } from './ChangePanel';
   .padding(12)
 }
 
+/**
+ * CircleSample：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct CircleSample {
+  // @State circleRadius：组件内部状态
   @State circleRadius: number = 100;
+
+  // @State fillOpacity：组件内部状态
   @State fillOpacity: number = 50;
+
+  // @State strokeWidth：组件内部状态
   @State strokeWidth: number = 3;
+
+  // @State stroke：组件内部状态
   @State stroke: Color = Color.Blue;
+
+  // @State strokeDashArray：组件内部状态
   @State strokeDashArray: number = 1;
+
+  // @State fill：组件内部状态
   @State fill: Color = Color.Blue;
+
+  // @State strokeOpacity：组件内部状态
   @State strokeOpacity: number = 50;
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：背景色、高度
     Column() {
-      TitleBar({ title: $r('app.string.circle_title') })
+      // TitleBar：TitleBar 自定义组件
+      TitleBar({ title: $r('app.string.circle_title') }).id('circle_sample_title_bar_2')
+      // Column：垂直布局容器
+      // 关键属性：内边距、布局权重
       Column() {
+        // Column：垂直布局容器
+        // 关键属性：cardStyle、高度、外边距
         Column() {
           // 绘制一个直径为100的圆,宽高设置不一致时以短边为直径
-          Circle()
+          // Circle：圆形
+          // 关键属性：宽度、高度、fill、fillOpacity、stroke、strokeWidth
+          Circle().id('circle_sample_circle_5')
             .width(this.circleRadius)
             .height(this.circleRadius)
             .fill(this.fill)
@@ -52,13 +87,19 @@ struct CircleSample {
             .strokeWidth(this.strokeWidth)
             .strokeDashArray([this.strokeDashArray])
             .strokeOpacity(this.strokeOpacity / 100)
-        }.cardStyle()
+        }.id('circle_sample_column_4').cardStyle()
         .height('35%')
         .margin({ bottom: 10 })
 
-        IntroductionTitle({ introduction: $r('app.string.circle_change') })
+        // IntroductionTitle：IntroductionTitle 自定义组件
+        IntroductionTitle({ introduction: $r('app.string.circle_change') }).id('circle_sample_introduction_title_6')
+        // Column：垂直布局容器
+        // 关键属性：cardStyle、布局权重、外边距、内边距
         Column() {
+          // Scroll：滚动容器
+          // 关键属性：cardStyle
           Scroll() {
+            // CircleControlPanel：CircleControlPanel 自定义组件
             CircleControlPanel({
               circleRadius: $circleRadius,
               fill: $fill,
@@ -67,14 +108,14 @@ struct CircleSample {
               strokeWidth: $strokeWidth,
               strokeDashArray: $strokeDashArray,
               strokeOpacity: $strokeOpacity
-            })
-          }
-        }.cardStyle()
+            }).id('circle_sample_circle_control_panel_9')
+          }.id('circle_sample_scroll_8')
+        }.id('circle_sample_column_7').cardStyle()
         .layoutWeight(1)
         .margin({ bottom: 4 })
-      }.padding({ left: LEFT_PADDING, right: RIGHT_PADDING })
+      }.id('circle_sample_column_3').padding({ left: LEFT_PADDING, right: RIGHT_PADDING })
       .layoutWeight(1)
-    }
+    }.id('circle_sample_column_1')
     .backgroundColor($r('app.color.background_light_gray'))
     .height('100%')
   }

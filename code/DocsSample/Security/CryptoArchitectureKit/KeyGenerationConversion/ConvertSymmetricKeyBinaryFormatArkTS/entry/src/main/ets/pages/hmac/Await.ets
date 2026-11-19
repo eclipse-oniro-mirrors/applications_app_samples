@@ -32,6 +32,9 @@ async function testConvertHmacKey() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude generate_hmac_key]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude generate_hmac_key]
   }
 }
 // [End generate_hmac_key]

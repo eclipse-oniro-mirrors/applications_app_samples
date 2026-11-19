@@ -13,29 +13,55 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/uiextensionentry/ContextUIExtensionAbility.ets
+ * 文件职责：ContextUIExtensionAbility 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ContextUIExtensionAbility。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { UIExtensionAbility, UIExtensionContentSession, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG: string = '[UIExtAbility]';
+
 const DOMAIN: number = 0xFF00;
 
+/**
+ * ContextUIExtensionAbility：类定义，承载本文件对应的逻辑与数据。
+ */
 export default class ContextUIExtensionAbility extends UIExtensionAbility {
+  /**
+   * onCreate：Ability 创建时回调。
+   */
   onCreate() {
     hilog.info(DOMAIN, TAG, 'UIExtAbility onCreate');
   }
 
+  /**
+   * onForeground：应用进入前台时回调。
+   */
   onForeground() {
     hilog.info(DOMAIN, TAG, `UIExtAbility onForeground`);
   }
 
+  /**
+   * onBackground：应用退到后台时回调。
+   */
   onBackground() {
     hilog.info(DOMAIN, TAG, `UIExtAbility onBackground`);
   }
 
+  /**
+   * onDestroy：Ability 销毁时回调。
+   */
   onDestroy() {
     hilog.info(DOMAIN, TAG, `UIExtAbility onDestroy`);
   }
 
+  /**
+   * onSessionCreate：执行 onSessionCreate 相关逻辑。
+   */
   onSessionCreate(want: Want, session: UIExtensionContentSession) {
     hilog.info(DOMAIN, TAG, `UIExtAbility onSessionCreate, want: ${JSON.stringify(want)}`);
 
@@ -47,6 +73,9 @@ export default class ContextUIExtensionAbility extends UIExtensionAbility {
     session.loadContent('uiextensionpages/UIExtensionContextPage', storage);
   }
 
+  /**
+   * onSessionDestroy：执行 onSessionDestroy 相关逻辑。
+   */
   onSessionDestroy(session: UIExtensionContentSession) {
     hilog.info(DOMAIN, TAG, `UIExtAbility onSessionDestroy`);
   }

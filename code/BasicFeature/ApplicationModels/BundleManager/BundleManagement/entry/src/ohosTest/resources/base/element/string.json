@@ -14,63 +14,63 @@
     },
     {
       "name": "GetBundleInfoTest",
-      "value": "»ñÈ¡BundleInfo"
+      "value": "ï¿½ï¿½È¡BundleInfo"
     },
     {
       "name": "GetBundleInfoCombinationTest",
-      "value": "»ñÈ¡BundleInfo(×éºÏ²ÎÊý)"
+      "value": "ï¿½ï¿½È¡BundleInfo(ï¿½ï¿½Ï²ï¿½ï¿½ï¿½)"
     },
     {
       "name": "GetBundleInfoSyncTest",
-      "value": "»ñÈ¡BundleInfo(sync)"
+      "value": "ï¿½ï¿½È¡BundleInfo(sync)"
     },
     {
       "name": "GetConfigurationJsonTest",
-      "value": "»ñÈ¡ÅäÖÃjson"
+      "value": "ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½json"
     },
     {
       "name": "GetConfigurationArrayTest",
-      "value": "»ñÈ¡ÅäÖÃÊý×é"
+      "value": "ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
     },
     {
       "name": "GetConfigurationArraySyncTest",
-      "value": "»ñÈ¡ÅäÖÃÊý×é(sync)"
+      "value": "ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(sync)"
     },
     {
       "name": "GetConfigurationSyncTest",
-      "value": "»ñÈ¡ÅäÖÃjson(sync)"
+      "value": "ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½json(sync)"
     },
     {
       "name": "VerifyFileTest",
-      "value": "Ð£Ñé.abcÎÄ¼þ"
+      "value": "Ð£ï¿½ï¿½.abcï¿½Ä¼ï¿½"
     },
     {
       "name": "DeleteFileTest",
-      "value": "É¾³ý.abcÎÄ¼þ"
+      "value": "É¾ï¿½ï¿½.abcï¿½Ä¼ï¿½"
     },
     {
       "name": "VerifyLinkOpenedTest",
-      "value": "Ð£ÑéÁ´½ÓÊÇ·ñ¿É´ò¿ª"
+      "value": "Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½É´ï¿½"
     },
     {
       "name": "DetermineDefaultApplicationTest",
-      "value": "ÅÐ¶ÏÄ¬ÈÏÓ¦ÓÃ"
+      "value": "ï¿½Ð¶ï¿½Ä¬ï¿½ï¿½Ó¦ï¿½ï¿½"
     },
     {
       "name": "DetermineDefaultApplicationSyncTest",
-      "value": "ÅÐ¶ÏÄ¬ÈÏÓ¦ÓÃ(sync)"
+      "value": "ï¿½Ð¶ï¿½Ä¬ï¿½ï¿½Ó¦ï¿½ï¿½(sync)"
     },
     {
       "name": "SetDisableEnableStatusTest",
-      "value": "ÉèÖÃ½ûÓÃÊ¹ÄÜ×´Ì¬"
+      "value": "ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½×´Ì¬"
     },
     {
       "name": "ObtainOverlayModuleInfoInformationTest",
-      "value": "»ñÈ¡overlayModuleInfoÐÅÏ¢"
+      "value": "ï¿½ï¿½È¡overlayModuleInfoï¿½ï¿½Ï¢"
     },
     {
       "name": "ObtainMultipleOverlayModuleInfoInformationTest",
-      "value": "»ñÈ¡¶àÌõoverlayModuleInfoÐÅÏ¢"
+      "value": "ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½overlayModuleInfoï¿½ï¿½Ï¢"
     }
   ]
 }

@@ -25,7 +25,7 @@ import { TranscodeFilesModel, TranscodeHistoryEntry }
   from './TranscodeFilesModel';
 import { MediaTaskCoordinator, MediaTaskLease } from './MediaTaskCoordinator';
 import { MediaSessionStore } from './MediaSessionStore';
-import { MediaReports } from './MediaSessionReport';
+import { MediaReports, MediaInputIdentity } from './MediaSessionReport';
 import { MediaStateFiles } from './MediaStateFiles';
 import { TranscodeQueueModel, TranscodeQueueItem } from './TranscodeQueueModel';
 import { TranscodeSourcePicker } from './TranscodeSourcePicker';
@@ -321,6 +321,7 @@ export class TranscodeModel {
     const sessionId: string = lease?.id ?? id;
     const title: string = this.sourceTitle;
     const sourceUri: string = this.sourceUri;
+    let sourceIdentity: MediaInputIdentity | undefined = undefined;
     const configuration: string = this.configuration();
     let input: fileIo.File | undefined = undefined;
     let output: fileIo.File | undefined = undefined;
@@ -331,7 +332,11 @@ export class TranscodeModel {
         throw new Error('Unsafe output directory');
       }
       await MediaSessionStore.begin(context, { id: sessionId, operation: 'transcode', startedAt: Date.now() });
-      input = await fileIo.open(this.sourceUri, fileIo.OpenMode.READ_ONLY);
+      input = await fileIo.open(sourceUri, fileIo.OpenMode.READ_ONLY);
+      try {
+        const sourceStat: fileIo.Stat = await fileIo.stat(input.fd);
+        sourceIdentity = MediaReports.inputSnapshot(sourceUri, sourceStat.size, sourceStat.mtime);
+      } catch (_error) { /* 无法读取素材属性时继续转码，报告不参与素材基线比较。 */ }
       const preflightRequest: TranscodeRequest = this.request(input.fd, 0);
       const preflight: TranscodeStatus = await transcoder.inspect(preflightRequest);
       if (preflight.state !== 2) { throw new Error(preflight.detail || 'Source preflight failed'); }
@@ -400,7 +405,7 @@ export class TranscodeModel {
       }
       try {
         await MediaSessionStore.finish(context, sessionId,
-          MediaReports.transcode(sessionId, this.status, configuration));
+          MediaReports.transcode(sessionId, this.status, configuration, sourceIdentity));
       } catch (error) {
         this.notice += ' ' + JSON.stringify(error);
       } finally {

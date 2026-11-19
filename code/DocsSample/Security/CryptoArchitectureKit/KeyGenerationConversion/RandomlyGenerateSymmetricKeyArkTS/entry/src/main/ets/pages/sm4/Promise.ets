@@ -17,18 +17,22 @@
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
-function testGenerateSM4Key() {
-  // 创建SymKeyGenerator实例
-  let symKeyGenerator = cryptoFramework.createSymKeyGenerator('SM4_128');
-  // 使用密钥生成器随机生成对称密钥
-  let promiseSymKey = symKeyGenerator.generateSymKey();
-  promiseSymKey.then(key => {
+async function testGenerateSM4Key() {
+  try {
+    // 创建SymKeyGenerator实例
+    let symKeyGenerator = cryptoFramework.createSymKeyGenerator('SM4_128');
+    // 使用密钥生成器随机生成对称密钥
+    let key = await symKeyGenerator.generateSymKey();
     // 获取对称密钥的二进制数据，输出128位字节流。长度为16字节
     let encodedKey = key.getEncoded();
     console.info('key hex: ' + encodedKey.data);
-  }).catch((error: BusinessError) => {
-    console.error(`testGenerateSM4Key failed: errCode: ${error.code}, message: ${error.message}`);
-  });
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`testGenerateSM4Key failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude generate_sm4_key]
+    throw new Error(`testGenerateSM4Key failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude generate_sm4_key]
+  }
 }
 // [End generate_sm4_key]
 
@@ -42,9 +46,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_sm4_promise'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            testGenerateSM4Key();
+            await testGenerateSM4Key();
             this.message = 'SM4 Promise Success';
           } catch {
             this.message = 'SM4 Promise Fail';

@@ -37,7 +37,7 @@ function testParsingContainingBigInts(): boolean {
 
     console.info(typeof (numberObj2 as object)?.['largeNumber']);    // bigint
     console.info((numberObj2 as object)?.['largeNumber']);    // 112233445566778899
-    // [StartExclude containing_bigInt_log]
+    // [StartExclude containing_bigInt]
     let logMsg = 'typeof (numberObj2 as object)?.[\'number\']: ' + typeof (numberObj2 as object)?.['number'] + '\n' +
       '(numberObj2 as object)?.[\'number\']: ' + (numberObj2 as object)?.['number'] + '\n' +
       'typeof (numberObj2 as object)?.[\'largeNumber\']: ' + typeof (numberObj2 as object)?.['largeNumber'] + '\n' +
@@ -46,15 +46,15 @@ function testParsingContainingBigInts(): boolean {
       globalLogUpdate(logMsg, false);
     }
     return true;
-    // [EndExclude containing_bigInt_log]
+    // [EndExclude containing_bigInt]
   } catch(err) {
     console.error('ParsingContainingBigInts error:', err);
-    // [StartExclude containing_bigInt_err]
+    // [StartExclude containing_bigInt]
     if (globalLogUpdate) {
       globalLogUpdate(err, true);
     }
     return false;
-    // [EndExclude containing_bigInt_err]
+    // [EndExclude containing_bigInt]
   }
   // [End containing_bigInt]
 }

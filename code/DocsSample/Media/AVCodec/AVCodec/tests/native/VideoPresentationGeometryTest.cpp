@@ -138,7 +138,7 @@ void TestFitBounds()
     Require(CalculateFitRegion({ LARGE_TARGET, LARGE_TARGET, ROTATION_0, LARGE_TARGET, LARGE_TARGET }, region),
         "Large dimensions rejected");
     ExpectRegion(region, { 0, 0, MAXIMUM_DIMENSION, MAXIMUM_DIMENSION });
-    Require(CalculateFitRegion(MAXIMUM_DIMENSION, DIMENSION_ONE, ROTATION_0, DIMENSION_ONE, DIMENSION_ONE, region),
+    Require(CalculateFitRegion({ MAXIMUM_DIMENSION, DIMENSION_ONE, ROTATION_0, DIMENSION_ONE, DIMENSION_ONE }, region),
         "Single-pixel fit failed");
     ExpectRegion(region, { 0, 0, DIMENSION_ONE, DIMENSION_ONE });
     const FitRegionRequest negativeRotationRequest {

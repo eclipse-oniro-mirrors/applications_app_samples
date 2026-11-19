@@ -17,6 +17,7 @@
 
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function generateRandom(len: number) {
   let rand = cryptoFramework.createRandom();
@@ -68,9 +69,16 @@ async function aesWrapTest() {
       console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
     } else {
       console.error('decrypt failed.');
+      // [StartExclude encrypt_decrypt_aes_wrap_async]
+      throw new Error('decrypt failed.');
+      // [EndExclude encrypt_decrypt_aes_wrap_async]
     }
   } catch (error) {
-    console.error(`AES Wrap failed: errCode: ${error.code}, message: ${error.message}`);
+    let e: BusinessError = error as BusinessError;
+    console.error(`AES Wrap failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude encrypt_decrypt_aes_wrap_async]
+    throw new Error(`AES Wrap failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude encrypt_decrypt_aes_wrap_async]
   }
 }
 
@@ -86,9 +94,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_aes_wrap_asynchronous'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            aesWrapTest();
+            await aesWrapTest();
             this.message = 'AesWrap Async Success';
           } catch {
             this.message = 'AesWrap Async Fail';

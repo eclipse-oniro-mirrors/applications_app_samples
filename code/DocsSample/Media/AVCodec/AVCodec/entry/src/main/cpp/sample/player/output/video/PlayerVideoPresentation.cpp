@@ -339,7 +339,7 @@ bool Player::PresentAndReleaseVideoBuffer(CodecBufferInfo& bufferInfo, bool rend
         diagnostics_.RecordVideoSubmission(bufferInfo.attr.pts,
             std::chrono::duration_cast<std::chrono::microseconds>(presentElapsed).count());
     }
-    if (render && !hasAudioTrack_.load()) {
+    if (render && (!hasAudioTrack_.load() || isAudioDone.load())) {
         playbackPositionUs_.store(bufferInfo.attr.pts);
     }
     return true;

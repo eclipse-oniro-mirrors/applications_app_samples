@@ -1,11 +1,54 @@
-# ShakeFormLiveDemo测试用例归档
+# ShakeLiveFormDemo 测试用例说明
 
-## 用例表
+## 测试环境
 
-| 测试功能     | 预置条件         | 输入                                                                  | 预期输出               |是否自动|测试结果|
-|----------|--------------|---------------------------------------------------------------------|--------------------|--------------------------------|--------------------------------|
-| 手机摇一摇触发互动卡片动效 | 位于只有一个应用的空白页 | 1、长按应用图标点击服务卡片<br/>2、进入卡片预览界面后添加首张卡片<br/>3、摇一摇手机触发场景动效	 | 卡片场景动效触发，图像溢出卡片<br/> |是|Pass|
+- Bundle：`com.example.shakeliveformdemo`
+- 测试模块：`entry_test`
+- 测试框架：`OpenHarmonyTestRunner`
+- SDK：API version 26.0.0
 
-### 使用说明
+## 自动化测试套件
 
-开发板与手机存在桌面差异，此测试套仅支持手机通过。
+| 测试文件 | 用例数 |
+|---|---:|
+| `Ability.test.ets` | 4 |
+| `InteractionForm.test.ets` | 6 |
+| `ShakeLiveFormBundle.test.ets` | 12 |
+| `ShakeLiveFormResource.test.ets` | 8 |
+| `ShakeLiveFormAbility.test.ets` | 10 |
+| `ShakeLiveFormConstants.test.ets` | 10 |
+| `ShakeLiveFormBasicTypes.test.ets` | 10 |
+| `ShakeLiveFormCompositeTypes.test.ets` | 10 |
+| `ShakeLiveFormSpecialTypes.test.ets` | 10 |
+| `ShakeLiveFormBoundaryTypes.test.ets` | 10 |
+| `ShakeLiveFormMaxConst10.test.ets` | 1 |
+| `ShakeLiveFormMaxForm01.test.ets` | 16 |
+| `ShakeLiveFormMaxForm02.test.ets` | 16 |
+| `ShakeLiveFormMaxForm03.test.ets` | 16 |
+| `ShakeLiveFormMaxForm04.test.ets` | 16 |
+| `ShakeLiveFormMaxForm05.test.ets` | 16 |
+| `ShakeLiveFormMaxForm06.test.ets` | 16 |
+| `ShakeLiveFormMaxForm07.test.ets` | 16 |
+| `ShakeLiveFormMaxForm08.test.ets` | 16 |
+| `ShakeLiveFormMaxForm09.test.ets` | 16 |
+| `ShakeLiveFormMaxForm10.test.ets` | 16 |
+| `ShakeLiveFormMaxSeg01.test.ets` | 16 |
+| `ShakeLiveFormMoreConst01.test.ets` | 16 |
+| `ShakeLiveFormMoreConst02.test.ets` | 16 |
+| `ShakeLiveFormMoreConst03.test.ets` | 16 |
+| `ShakeLiveFormMoreConst04.test.ets` | 16 |
+| `ShakeLiveFormMoreConst05.test.ets` | 16 |
+| `ShakeLiveFormMoreConst06.test.ets` | 16 |
+| `ShakeLiveFormMoreConst07.test.ets` | 16 |
+| `ShakeLiveFormMoreForm01.test.ets` | 16 |
+| `ShakeLiveFormMoreForm02.test.ets` | 16 |
+| `ShakeLiveFormMoreForm03.test.ets` | 16 |
+| `ShakeLiveFormMoreForm04.test.ets` | 16 |
+| `ShakeLiveFormMoreForm05.test.ets` | 16 |
+| `ShakeLiveFormMoreForm06.test.ets` | 16 |
+| `ShakeLiveFormMoreSeg01.test.ets` | 16 |
+| `ShakeLiveFormMoreSeg02.test.ets` | 16 |
+
+合计：**37 个测试套件，507 条用例**。
+
+> 以上套件与用例数与 `List.test.ets` 中实际注册内容一致。

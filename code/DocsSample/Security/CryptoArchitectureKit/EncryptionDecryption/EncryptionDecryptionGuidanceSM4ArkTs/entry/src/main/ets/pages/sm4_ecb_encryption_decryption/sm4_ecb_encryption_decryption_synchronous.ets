@@ -16,6 +16,7 @@
 // [Start sync_symmetry_encrypt_decrypt_sm4]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 // 加密消息
 function encryptMessage(symKey: cryptoFramework.SymKey, plainText: cryptoFramework.DataBlob) {
@@ -42,17 +43,28 @@ function genSymKeyByData(symKeyData: Uint8Array) {
 }
 
 function main() {
-  let keyData = new Uint8Array([7, 154, 52, 176, 4, 236, 150, 43, 237, 9, 145, 166, 141, 174, 224, 131]);
-  let symKey = genSymKeyByData(keyData);
-  let message = 'This is a test';
-  let plainText: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(message, 'utf-8').buffer) };
-  let encryptText = encryptMessage(symKey, plainText);
-  let decryptText = decryptMessage(symKey, encryptText);
-  if (plainText.data.toString() === decryptText.data.toString()) {
-    console.info('decrypt ok.');
-    console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
-  } else {
-    console.error('decrypt failed.');
+  try {
+    let keyData = new Uint8Array([7, 154, 52, 176, 4, 236, 150, 43, 237, 9, 145, 166, 141, 174, 224, 131]);
+    let symKey = genSymKeyByData(keyData);
+    let message = 'This is a test';
+    let plainText: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(message, 'utf-8').buffer) };
+    let encryptText = encryptMessage(symKey, plainText);
+    let decryptText = decryptMessage(symKey, encryptText);
+    if (plainText.data.toString() === decryptText.data.toString()) {
+      console.info('decrypt ok.');
+      console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
+    } else {
+      console.error('decrypt failed.');
+      // [StartExclude sync_symmetry_encrypt_decrypt_sm4]
+      throw new Error('decrypt failed.');
+      // [EndExclude sync_symmetry_encrypt_decrypt_sm4]
+    }
+  } catch (error) {
+    let e: BusinessError = error as BusinessError;
+    console.error(`SM4 failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude sync_symmetry_encrypt_decrypt_sm4]
+    throw new Error(`SM4 failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude sync_symmetry_encrypt_decrypt_sm4]
   }
 }
 // [End sync_symmetry_encrypt_decrypt_sm4]

@@ -12,14 +12,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file entry/src/main/ets/entrybackupability/EntryBackupAbility.ets
+ * 文件职责：EntryBackupAbility 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：EntryBackupAbility。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BackupExtensionAbility, BundleVersion } from '@kit.CoreFileKit';
 
+/**
+ * EntryBackupAbility：类定义，承载本文件对应的逻辑与数据。
+ */
 export default class EntryBackupAbility extends BackupExtensionAbility {
+  /**
+   * onBackup：执行 onBackup 相关逻辑。
+   */
   async onBackup() {
     hilog.info(0x0000, 'testTag', 'onBackup ok');
   }
 
+  /**
+   * onRestore：执行 onRestore 相关逻辑。
+   */
   async onRestore(bundleVersion: BundleVersion) {
     hilog.info(0x0000, 'testTag', 'onRestore ok %{public}s', JSON.stringify(bundleVersion));
   }
