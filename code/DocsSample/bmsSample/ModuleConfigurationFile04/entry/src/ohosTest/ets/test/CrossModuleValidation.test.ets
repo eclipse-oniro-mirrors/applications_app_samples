@@ -718,3 +718,579 @@ export default function CrossModuleValidationTest(): void {
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
+    it('testCrossPreloadNotFeature',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const second: ModuleConfig = ConfigFactory.entryModule();
+      second.name = 'entry2';
+      second.atomicService = null;
+      const snapshot: BundleSnapshot = ConfigFactory.snapshotWith([ConfigFactory.entryModule(), second]);
+      const block = ConfigFactory.entryAtomicService();
+      block.preloads = [{ moduleName: 'entry2' }];
+      snapshot.modules[0].atomicService = block;
+      TestLog.text('testCrossPreloadNotFeature', 'case begin', 'crosspreloadnotfeature check');
+      TestLog.step('testCrossPreloadNotFeature', 'crosspreloadnotfeature check');
+      const findings: Finding[] = CrossModuleValidator.validatePreloads(snapshot);
+      TestLog.findings('testCrossPreloadNotFeature', 'cross module findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'BUNDLE_PRELOAD_NOT_FEATURE');
+      TestLog.flag('testCrossPreloadNotFeature', 'has code BUNDLE_PRELOAD_NOT_FEATURE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testCrossPreloadNotFeature', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testCrossPreloadNotFeature', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testCrossPreloadNotFeature', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testCrossPreloadNotFeature', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testCrossPreloadNotFeature', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testCrossPreloadNotFeature', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testCrossPreloadNotFeature', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testCrossPreloadNotFeature', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testCrossPreloadNotFeature', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testCrossPreloadNotFeature', 'first signature', firstSignature);
+      const repeat: Finding[] = CrossModuleValidator.validatePreloads(snapshot);
+      TestLog.number('testCrossPreloadNotFeature', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testCrossPreloadNotFeature', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testCrossPreloadNotFeature', 'case end', 'crosspreloadnotfeature check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_3612
+     * @tc.name      testCrossPreloadCycle
+     * @tc.desc      Checks that a preload dependency cycle is reported.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testCrossPreloadCycle',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const snapshot: BundleSnapshot = ConfigFactory.bundleSnapshot();
+      const block = ConfigFactory.entryAtomicService();
+      block.preloads = [{ moduleName: 'entry' }];
+      snapshot.modules[1].atomicService = block;
+      TestLog.text('testCrossPreloadCycle', 'case begin', 'crosspreloadcycle check');
+      TestLog.step('testCrossPreloadCycle', 'crosspreloadcycle check');
+      const findings: Finding[] = CrossModuleValidator.validatePreloadCycles(snapshot);
+      TestLog.findings('testCrossPreloadCycle', 'cross module findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'BUNDLE_PRELOAD_CYCLE');
+      TestLog.flag('testCrossPreloadCycle', 'has code BUNDLE_PRELOAD_CYCLE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testCrossPreloadCycle', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testCrossPreloadCycle', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testCrossPreloadCycle', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testCrossPreloadCycle', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testCrossPreloadCycle', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testCrossPreloadCycle', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testCrossPreloadCycle', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testCrossPreloadCycle', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testCrossPreloadCycle', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testCrossPreloadCycle', 'first signature', firstSignature);
+      const repeat: Finding[] = CrossModuleValidator.validatePreloadCycles(snapshot);
+      TestLog.number('testCrossPreloadCycle', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testCrossPreloadCycle', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testCrossPreloadCycle', 'case end', 'crosspreloadcycle check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_3613
+     * @tc.name      testCrossNoCycle
+     * @tc.desc      Checks that a linear preload chain produces no cycle.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testCrossNoCycle',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const snapshot: BundleSnapshot = ConfigFactory.bundleSnapshot();
+      TestLog.text('testCrossNoCycle', 'case begin', 'crossnocycle check');
+      TestLog.step('testCrossNoCycle', 'crossnocycle check');
+      const findings: Finding[] = CrossModuleValidator.validatePreloadCycles(snapshot);
+      TestLog.findings('testCrossNoCycle', 'cross module findings', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testCrossNoCycle', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testCrossNoCycle', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testCrossNoCycle', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testCrossNoCycle', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testCrossNoCycle', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testCrossNoCycle', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testCrossNoCycle', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testCrossNoCycle', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testCrossNoCycle', 'first signature', firstSignature);
+      const repeat: Finding[] = CrossModuleValidator.validatePreloadCycles(snapshot);
+      TestLog.number('testCrossNoCycle', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testCrossNoCycle', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testCrossNoCycle', 'case end', 'crossnocycle check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_3614
+     * @tc.name      testCrossValidPreloads
+     * @tc.desc      Checks that the sample preload target resolves without findings.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testCrossValidPreloads',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const snapshot: BundleSnapshot = ConfigFactory.bundleSnapshot();
+      TestLog.text('testCrossValidPreloads', 'case begin', 'crossvalidpreloads check');
+      TestLog.step('testCrossValidPreloads', 'crossvalidpreloads check');
+      const findings: Finding[] = CrossModuleValidator.validatePreloads(snapshot);
+      TestLog.findings('testCrossValidPreloads', 'cross module findings', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testCrossValidPreloads', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testCrossValidPreloads', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testCrossValidPreloads', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testCrossValidPreloads', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testCrossValidPreloads', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testCrossValidPreloads', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testCrossValidPreloads', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testCrossValidPreloads', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testCrossValidPreloads', 'first signature', firstSignature);
+      const repeat: Finding[] = CrossModuleValidator.validatePreloads(snapshot);
+      TestLog.number('testCrossValidPreloads', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testCrossValidPreloads', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testCrossValidPreloads', 'case end', 'crossvalidpreloads check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_3615
+     * @tc.name      testCrossCountEntryModules
+     * @tc.desc      Checks that the sample bundle declares exactly one entry module.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testCrossCountEntryModules',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const snapshot: BundleSnapshot = ConfigFactory.bundleSnapshot();
+      TestLog.text('testCrossCountEntryModules', 'case begin', 'crosscountentrymodules check');
+      TestLog.step('testCrossCountEntryModules', 'crosscountentrymodules check');
+      const actual: number = CrossModuleValidator.countEntryModules(snapshot);
+      TestLog.text('testCrossCountEntryModules', 'actual value', String(actual));
+      expect(actual).assertEqual(1);
+      TestLog.text('testCrossCountEntryModules', 'case end', 'crosscountentrymodules check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_3616
+     * @tc.name      testCrossIndexFeatureModule
+     * @tc.desc      Checks that the feature module is found at the second position.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testCrossIndexFeatureModule',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const snapshot: BundleSnapshot = ConfigFactory.bundleSnapshot();
+      TestLog.text('testCrossIndexFeatureModule', 'case begin', 'crossindexfeaturemodule check');
+      TestLog.step('testCrossIndexFeatureModule', 'crossindexfeaturemodule check');
+      const actual: number = CrossModuleValidator.indexOfModule(snapshot, 'feature');
+      TestLog.text('testCrossIndexFeatureModule', 'actual value', String(actual));
+      expect(actual).assertEqual(1);
+      TestLog.text('testCrossIndexFeatureModule', 'case end', 'crossindexfeaturemodule check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_3617
+     * @tc.name      testCrossUnknownModuleIndex
+     * @tc.desc      Checks that an undeclared module has no index.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testCrossUnknownModuleIndex',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const snapshot: BundleSnapshot = ConfigFactory.bundleSnapshot();
+      TestLog.text('testCrossUnknownModuleIndex', 'case begin', 'crossunknownmoduleindex check');
+      TestLog.step('testCrossUnknownModuleIndex', 'crossunknownmoduleindex check');
+      const actual: number = CrossModuleValidator.indexOfModule(snapshot, 'ghost');
+      TestLog.text('testCrossUnknownModuleIndex', 'actual value', String(actual));
+      expect(actual).assertEqual(-1);
+      TestLog.text('testCrossUnknownModuleIndex', 'case end', 'crossunknownmoduleindex check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_3618
+     * @tc.name      testCrossFindModuleMissing
+     * @tc.desc      Checks that an undeclared module cannot be found.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testCrossFindModuleMissing',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const snapshot: BundleSnapshot = ConfigFactory.bundleSnapshot();
+      TestLog.text('testCrossFindModuleMissing', 'case begin', 'crossfindmodulemissing check');
+      TestLog.step('testCrossFindModuleMissing', 'crossfindmodulemissing check');
+      const actual: boolean = CrossModuleValidator.findModule(snapshot, 'ghost') === null;
+      TestLog.text('testCrossFindModuleMissing', 'actual value', String(actual));
+      expect(actual).assertTrue();
+      TestLog.text('testCrossFindModuleMissing', 'case end', 'crossfindmodulemissing check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_3619
+     * @tc.name      testCrossPreloadTargetsContainsFeature
+     * @tc.desc      Checks that the preload target list contains the feature module.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testCrossPreloadTargetsContainsFeature',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const snapshot: BundleSnapshot = ConfigFactory.bundleSnapshot();
+      TestLog.text('testCrossPreloadTargetsContainsFeature', 'case begin', 'crosspreloadtargetscontainsfeature check');
+      TestLog.step('testCrossPreloadTargetsContainsFeature', 'crosspreloadtargetscontainsfeature check');
+      const actual: boolean = CrossModuleValidator.preloadTargets(snapshot).indexOf('feature') >= 0;
+      TestLog.text('testCrossPreloadTargetsContainsFeature', 'actual value', String(actual));
+      expect(actual).assertTrue();
+      TestLog.text('testCrossPreloadTargetsContainsFeature', 'case end', 'crosspreloadtargetscontainsfeature check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_3620
+     * @tc.name      testCrossEntryModuleCount
+     * @tc.desc      Checks that the entry module helper returns one module.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testCrossEntryModuleCount',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const snapshot: BundleSnapshot = ConfigFactory.bundleSnapshot();
+      TestLog.text('testCrossEntryModuleCount', 'case begin', 'crossentrymodulecount check');
+      TestLog.step('testCrossEntryModuleCount', 'crossentrymodulecount check');
+      const actual: number = CrossModuleValidator.entryModules(snapshot).length;
+      TestLog.text('testCrossEntryModuleCount', 'actual value', String(actual));
+      expect(actual).assertEqual(1);
+      TestLog.text('testCrossEntryModuleCount', 'case end', 'crossentrymodulecount check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_3621
+     * @tc.name      testCrossFeatureModuleCount
+     * @tc.desc      Checks that the feature module helper returns one module.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testCrossFeatureModuleCount',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const snapshot: BundleSnapshot = ConfigFactory.bundleSnapshot();
+      TestLog.text('testCrossFeatureModuleCount', 'case begin', 'crossfeaturemodulecount check');
+      TestLog.step('testCrossFeatureModuleCount', 'crossfeaturemodulecount check');
+      const actual: number = CrossModuleValidator.featureModules(snapshot).length;
+      TestLog.text('testCrossFeatureModuleCount', 'actual value', String(actual));
+      expect(actual).assertEqual(1);
+      TestLog.text('testCrossFeatureModuleCount', 'case end', 'crossfeaturemodulecount check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_3622
+     * @tc.name      testCrossSevenModulesValid
+     * @tc.desc      Checks that a bundle with one entry and six preloaded features passes validation.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testCrossSevenModulesValid',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const entry: ModuleConfig = ConfigFactory.entryModule();
+      entry.atomicService = ConfigFactory.entryAtomicService();
+      entry.atomicService.preloads = [];
+      const modules: ModuleConfig[] = [entry];
+      for (let index: number = 1; index <= 6; index++) {
+        const feature: ModuleConfig = ConfigFactory.featureModuleNamed(`feature_${index}`);
+        feature.abilities[0].name = `FeatureAbility${index}`;
+        feature.mainElement = `FeatureAbility${index}`;
+        feature.atomicService = ConfigFactory.entryAtomicService();
+        feature.atomicService.preloads = [];
+        modules.push(feature);
+        entry.atomicService.preloads.push({ moduleName: `feature_${index}` });
+      }
+      const snapshot: BundleSnapshot = ConfigFactory.snapshotWith(modules);
+      TestLog.text('testCrossSevenModulesValid', 'case begin', 'crosssevenmodulesvalid check');
+      TestLog.step('testCrossSevenModulesValid', 'crosssevenmodulesvalid check');
+      const findings: Finding[] = CrossModuleValidator.validate(snapshot);
+      TestLog.findings('testCrossSevenModulesValid', 'cross module findings', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testCrossSevenModulesValid', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testCrossSevenModulesValid', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testCrossSevenModulesValid', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testCrossSevenModulesValid', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testCrossSevenModulesValid', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testCrossSevenModulesValid', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testCrossSevenModulesValid', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testCrossSevenModulesValid', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testCrossSevenModulesValid', 'first signature', firstSignature);
+      const repeat: Finding[] = CrossModuleValidator.validate(snapshot);
+      TestLog.number('testCrossSevenModulesValid', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testCrossSevenModulesValid', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testCrossSevenModulesValid', 'case end', 'crosssevenmodulesvalid check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_3623
+     * @tc.name      testCrossSevenModulesDuplicateName
+     * @tc.desc      Checks that seven modules with a repeated name are reported.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testCrossSevenModulesDuplicateName',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const entry: ModuleConfig = ConfigFactory.entryModule();
+      entry.atomicService = ConfigFactory.entryAtomicService();
+      entry.atomicService.preloads = [];
+      const modules: ModuleConfig[] = [entry];
+      for (let index: number = 1; index <= 6; index++) {
+        const feature: ModuleConfig = ConfigFactory.featureModuleNamed(`feature_${index}`);
+        feature.abilities[0].name = `FeatureAbility${index}`;
+        feature.mainElement = `FeatureAbility${index}`;
+        feature.atomicService = ConfigFactory.entryAtomicService();
+        feature.atomicService.preloads = [];
+        modules.push(feature);
+        entry.atomicService.preloads.push({ moduleName: `feature_${index}` });
+      }
+      modules[3].name = 'feature_1';
+      const snapshot: BundleSnapshot = ConfigFactory.snapshotWith(modules);
+      TestLog.text('testCrossSevenModulesDuplicateName', 'case begin', 'crosssevenmodulesduplicatename check');
+      TestLog.step('testCrossSevenModulesDuplicateName', 'crosssevenmodulesduplicatename check');
+      const findings: Finding[] = CrossModuleValidator.validateModuleList(snapshot);
+      TestLog.findings('testCrossSevenModulesDuplicateName', 'cross module findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'BUNDLE_DUPLICATE_MODULE_NAME');
+      TestLog.flag('testCrossSevenModulesDuplicateName', 'has code BUNDLE_DUPLICATE_MODULE_NAME', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testCrossSevenModulesDuplicateName', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testCrossSevenModulesDuplicateName', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testCrossSevenModulesDuplicateName', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testCrossSevenModulesDuplicateName', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testCrossSevenModulesDuplicateName', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testCrossSevenModulesDuplicateName', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testCrossSevenModulesDuplicateName', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testCrossSevenModulesDuplicateName', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testCrossSevenModulesDuplicateName', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testCrossSevenModulesDuplicateName', 'first signature', firstSignature);
+      const repeat: Finding[] = CrossModuleValidator.validateModuleList(snapshot);
+      TestLog.number('testCrossSevenModulesDuplicateName', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testCrossSevenModulesDuplicateName', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testCrossSevenModulesDuplicateName', 'case end', 'crosssevenmodulesduplicatename check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_3624
+     * @tc.name      testCrossTooManyModules
+     * @tc.desc      Checks that more than fifty modules are warned.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testCrossTooManyModules',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const modules: ModuleConfig[] = [ConfigFactory.entryModule()];
+      for (let index: number = 0; index < 50; index++) {
+        modules.push(ConfigFactory.featureModuleNamed(`feature_${index}`));
+      }
+      const snapshot: BundleSnapshot = ConfigFactory.snapshotWith(modules);
+      TestLog.text('testCrossTooManyModules', 'case begin', 'crosstoomanymodules check');
+      TestLog.step('testCrossTooManyModules', 'crosstoomanymodules check');
+      const findings: Finding[] = CrossModuleValidator.validateModuleList(snapshot);
+      TestLog.findings('testCrossTooManyModules', 'cross module findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'BUNDLE_TOO_MANY_MODULES');
+      TestLog.flag('testCrossTooManyModules', 'has code BUNDLE_TOO_MANY_MODULES', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testCrossTooManyModules', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testCrossTooManyModules', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testCrossTooManyModules', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testCrossTooManyModules', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testCrossTooManyModules', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testCrossTooManyModules', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testCrossTooManyModules', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testCrossTooManyModules', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testCrossTooManyModules', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.WARN);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testCrossTooManyModules', 'first signature', firstSignature);
+      const repeat: Finding[] = CrossModuleValidator.validateModuleList(snapshot);
+      TestLog.number('testCrossTooManyModules', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testCrossTooManyModules', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testCrossTooManyModules', 'case end', 'crosstoomanymodules check');
+    })
+
+  })
+}
