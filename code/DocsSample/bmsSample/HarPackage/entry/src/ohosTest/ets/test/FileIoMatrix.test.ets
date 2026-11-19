@@ -3733,3 +3733,1680 @@ export default function fileIoMatrixTest() {
     /**
      * @tc.number    SUB_HARPACKAGE_FILEIO_0135
      * @tc.name      testFileIo0135
+     * @tc.desc      File IO copy flow 135 duplicates 43 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFileIo0135', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0135.dat';
+      const content: string = 'har-probe-0135-payload-xxxxxxxxxxxxxxxxxxxx';
+      try {
+        const copyPath: string = ctx.filesDir + '/probe_0135_copy.dat';
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        fs.copyFileSync(path, copyPath);
+        const sourceText: string = fs.readTextSync(path);
+        const copyText: string = fs.readTextSync(copyPath);
+        logCase('testFileIo0135', `copy=${copyText.length}`);
+        expect(copyText).assertEqual(sourceText);
+        expect(copyText).assertEqual(content);
+        expect(fs.statSync(copyPath).size).assertEqual(43);
+        fs.unlinkSync(copyPath);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0136.dat';
+      const content: string = '';
+      try {
+        const copyPath: string = ctx.filesDir + '/probe_0136_copy.dat';
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        fs.copyFileSync(path, copyPath);
+        const sourceText: string = fs.readTextSync(path);
+        const copyText: string = fs.readTextSync(copyPath);
+        logCase('testFileIo0136', `copy=${copyText.length}`);
+        expect(copyText).assertEqual(sourceText);
+        expect(copyText).assertEqual(content);
+        expect(fs.statSync(copyPath).size).assertEqual(0);
+        fs.unlinkSync(copyPath);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0137
+     * @tc.name      testFileIo0137
+     * @tc.desc      File IO copy flow 137 duplicates 45 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileIo0137', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0137.dat';
+      const content: string = 'har-probe-0137-payload-xxxxxxxxxxxxxxxxxxxxxx';
+      try {
+        const copyPath: string = ctx.filesDir + '/probe_0137_copy.dat';
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        fs.copyFileSync(path, copyPath);
+        const sourceText: string = fs.readTextSync(path);
+        const copyText: string = fs.readTextSync(copyPath);
+        logCase('testFileIo0137', `copy=${copyText.length}`);
+        expect(copyText).assertEqual(sourceText);
+        expect(copyText).assertEqual(content);
+        expect(fs.statSync(copyPath).size).assertEqual(45);
+        fs.unlinkSync(copyPath);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0138.dat';
+      const content: string = 'har-probe-0138-payload-';
+      try {
+        const copyPath: string = ctx.filesDir + '/probe_0138_copy.dat';
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        fs.copyFileSync(path, copyPath);
+        const sourceText: string = fs.readTextSync(path);
+        const copyText: string = fs.readTextSync(copyPath);
+        logCase('testFileIo0138', `copy=${copyText.length}`);
+        expect(copyText).assertEqual(sourceText);
+        expect(copyText).assertEqual(content);
+        expect(fs.statSync(copyPath).size).assertEqual(23);
+        fs.unlinkSync(copyPath);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0139
+     * @tc.name      testFileIo0139
+     * @tc.desc      File IO copy flow 139 duplicates 24 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testFileIo0139', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0139.dat';
+      const content: string = 'har-probe-0139-payload-x';
+      try {
+        const copyPath: string = ctx.filesDir + '/probe_0139_copy.dat';
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        fs.copyFileSync(path, copyPath);
+        const sourceText: string = fs.readTextSync(path);
+        const copyText: string = fs.readTextSync(copyPath);
+        logCase('testFileIo0139', `copy=${copyText.length}`);
+        expect(copyText).assertEqual(sourceText);
+        expect(copyText).assertEqual(content);
+        expect(fs.statSync(copyPath).size).assertEqual(24);
+        fs.unlinkSync(copyPath);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0140.dat';
+      const content: string = 'har-probe-0140-payload-xx';
+      try {
+        const copyPath: string = ctx.filesDir + '/probe_0140_copy.dat';
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        fs.copyFileSync(path, copyPath);
+        const sourceText: string = fs.readTextSync(path);
+        const copyText: string = fs.readTextSync(copyPath);
+        logCase('testFileIo0140', `copy=${copyText.length}`);
+        expect(copyText).assertEqual(sourceText);
+        expect(copyText).assertEqual(content);
+        expect(fs.statSync(copyPath).size).assertEqual(25);
+        fs.unlinkSync(copyPath);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0141
+     * @tc.name      testFileIo0141
+     * @tc.desc      File IO copy flow 141 duplicates 26 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFileIo0141', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0141.dat';
+      const content: string = 'har-probe-0141-payload-xxx';
+      try {
+        const copyPath: string = ctx.filesDir + '/probe_0141_copy.dat';
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        fs.copyFileSync(path, copyPath);
+        const sourceText: string = fs.readTextSync(path);
+        const copyText: string = fs.readTextSync(copyPath);
+        logCase('testFileIo0141', `copy=${copyText.length}`);
+        expect(copyText).assertEqual(sourceText);
+        expect(copyText).assertEqual(content);
+        expect(fs.statSync(copyPath).size).assertEqual(26);
+        fs.unlinkSync(copyPath);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0142.dat';
+      const content: string = 'har-probe-0142-payload-xxxx';
+      try {
+        const copyPath: string = ctx.filesDir + '/probe_0142_copy.dat';
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        fs.copyFileSync(path, copyPath);
+        const sourceText: string = fs.readTextSync(path);
+        const copyText: string = fs.readTextSync(copyPath);
+        logCase('testFileIo0142', `copy=${copyText.length}`);
+        expect(copyText).assertEqual(sourceText);
+        expect(copyText).assertEqual(content);
+        expect(fs.statSync(copyPath).size).assertEqual(27);
+        fs.unlinkSync(copyPath);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0143
+     * @tc.name      testFileIo0143
+     * @tc.desc      File IO copy flow 143 duplicates 28 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileIo0143', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0143.dat';
+      const content: string = 'har-probe-0143-payload-xxxxx';
+      try {
+        const copyPath: string = ctx.filesDir + '/probe_0143_copy.dat';
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        fs.copyFileSync(path, copyPath);
+        const sourceText: string = fs.readTextSync(path);
+        const copyText: string = fs.readTextSync(copyPath);
+        logCase('testFileIo0143', `copy=${copyText.length}`);
+        expect(copyText).assertEqual(sourceText);
+        expect(copyText).assertEqual(content);
+        expect(fs.statSync(copyPath).size).assertEqual(28);
+        fs.unlinkSync(copyPath);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0144.dat';
+      const content: string = 'har-probe-0144-payload-xxxxxx';
+      try {
+        const copyPath: string = ctx.filesDir + '/probe_0144_copy.dat';
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        fs.copyFileSync(path, copyPath);
+        const sourceText: string = fs.readTextSync(path);
+        const copyText: string = fs.readTextSync(copyPath);
+        logCase('testFileIo0144', `copy=${copyText.length}`);
+        expect(copyText).assertEqual(sourceText);
+        expect(copyText).assertEqual(content);
+        expect(fs.statSync(copyPath).size).assertEqual(29);
+        fs.unlinkSync(copyPath);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0145
+     * @tc.name      testFileIo0145
+     * @tc.desc      File IO directory flow 145 stores a nested payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testFileIo0145', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0145.dat';
+      const content: string = 'har-probe-0145-payload-xxxxxxx';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0145_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0145', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(30);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0146.dat';
+      const content: string = 'har-probe-0146-payload-xxxxxxxx';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0146_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0146', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(31);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0147
+     * @tc.name      testFileIo0147
+     * @tc.desc      File IO directory flow 147 stores a nested payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFileIo0147', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0147.dat';
+      const content: string = 'har-probe-0147-payload-xxxxxxxxx';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0147_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0147', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(32);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0148.dat';
+      const content: string = 'har-probe-0148-payload-xxxxxxxxxx';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0148_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0148', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(33);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0149
+     * @tc.name      testFileIo0149
+     * @tc.desc      File IO directory flow 149 stores a nested payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileIo0149', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0149.dat';
+      const content: string = 'har-probe-0149-payload-xxxxxxxxxxx';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0149_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0149', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(34);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0150.dat';
+      const content: string = 'har-probe-0150-payload-xxxxxxxxxxxx';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0150_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0150', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(35);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0151
+     * @tc.name      testFileIo0151
+     * @tc.desc      File IO directory flow 151 stores a nested payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testFileIo0151', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0151.dat';
+      const content: string = 'har-probe-0151-payload-xxxxxxxxxxxxx';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0151_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0151', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(36);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0152.dat';
+      const content: string = 'har-probe-0152-payload-xxxxxxxxxxxxxx';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0152_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0152', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(37);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0153
+     * @tc.name      testFileIo0153
+     * @tc.desc      File IO directory flow 153 stores a nested payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFileIo0153', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0153.dat';
+      const content: string = '';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0153_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0153', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(0);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0154.dat';
+      const content: string = 'har-probe-0154-payload-xxxxxxxxxxxxxxxx';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0154_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0154', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(39);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0155
+     * @tc.name      testFileIo0155
+     * @tc.desc      File IO directory flow 155 stores a nested payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileIo0155', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0155.dat';
+      const content: string = 'har-probe-0155-payload-xxxxxxxxxxxxxxxxx';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0155_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0155', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(40);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0156.dat';
+      const content: string = 'har-probe-0156-payload-xxxxxxxxxxxxxxxxxx';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0156_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0156', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(41);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0157
+     * @tc.name      testFileIo0157
+     * @tc.desc      File IO directory flow 157 stores a nested payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testFileIo0157', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0157.dat';
+      const content: string = 'har-probe-0157-payload-xxxxxxxxxxxxxxxxxxx';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0157_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0157', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(42);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0158.dat';
+      const content: string = 'har-probe-0158-payload-xxxxxxxxxxxxxxxxxxxx';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0158_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0158', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(43);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0159
+     * @tc.name      testFileIo0159
+     * @tc.desc      File IO directory flow 159 stores a nested payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFileIo0159', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0159.dat';
+      const content: string = 'har-probe-0159-payload-xxxxxxxxxxxxxxxxxxxxx';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0159_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0159', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(44);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0160.dat';
+      const content: string = 'har-probe-0160-payload-xxxxxxxxxxxxxxxxxxxxxx';
+      try {
+        const dir: string = ctx.filesDir + '/probe_0160_dir';
+        fs.mkdirSync(dir, true);
+        const nested: string = dir + '/nested.dat';
+        const file: fs.File = fs.openSync(nested, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(nested);
+        logCase('testFileIo0160', `nested=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.statSync(nested).size).assertEqual(45);
+        fs.unlinkSync(nested);
+        fs.rmdirSync(dir);
+        expect(fs.accessSync(dir)).assertFalse();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0161
+     * @tc.name      testFileIo0161
+     * @tc.desc      File IO write and read cycle 161 preserves 23 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileIo0161', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0161.dat';
+      const content: string = 'har-probe-0161-payload-';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0161', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(23);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(23);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0162.dat';
+      const content: string = 'har-probe-0162-payload-x';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0162', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(24);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(24);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0163
+     * @tc.name      testFileIo0163
+     * @tc.desc      File IO write and read cycle 163 preserves 25 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testFileIo0163', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0163.dat';
+      const content: string = 'har-probe-0163-payload-xx';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0163', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(25);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(25);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0164.dat';
+      const content: string = 'har-probe-0164-payload-xxx';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0164', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(26);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(26);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0165
+     * @tc.name      testFileIo0165
+     * @tc.desc      File IO write and read cycle 165 preserves 27 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFileIo0165', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0165.dat';
+      const content: string = 'har-probe-0165-payload-xxxx';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0165', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(27);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(27);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0166.dat';
+      const content: string = 'har-probe-0166-payload-xxxxx';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0166', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(28);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(28);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0167
+     * @tc.name      testFileIo0167
+     * @tc.desc      File IO write and read cycle 167 preserves 29 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileIo0167', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0167.dat';
+      const content: string = 'har-probe-0167-payload-xxxxxx';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0167', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(29);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(29);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0168.dat';
+      const content: string = 'har-probe-0168-payload-xxxxxxx';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0168', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(30);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(30);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0169
+     * @tc.name      testFileIo0169
+     * @tc.desc      File IO write and read cycle 169 preserves 31 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testFileIo0169', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0169.dat';
+      const content: string = 'har-probe-0169-payload-xxxxxxxx';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0169', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(31);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(31);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0170.dat';
+      const content: string = '';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0170', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(0);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(0);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0171
+     * @tc.name      testFileIo0171
+     * @tc.desc      File IO write and read cycle 171 preserves 33 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFileIo0171', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0171.dat';
+      const content: string = 'har-probe-0171-payload-xxxxxxxxxx';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0171', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(33);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(33);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0172.dat';
+      const content: string = 'har-probe-0172-payload-xxxxxxxxxxx';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0172', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(34);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(34);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0173
+     * @tc.name      testFileIo0173
+     * @tc.desc      File IO write and read cycle 173 preserves 35 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileIo0173', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0173.dat';
+      const content: string = 'har-probe-0173-payload-xxxxxxxxxxxx';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0173', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(35);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(35);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0174.dat';
+      const content: string = 'har-probe-0174-payload-xxxxxxxxxxxxx';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0174', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(36);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(36);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0175
+     * @tc.name      testFileIo0175
+     * @tc.desc      File IO write and read cycle 175 preserves 37 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testFileIo0175', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0175.dat';
+      const content: string = 'har-probe-0175-payload-xxxxxxxxxxxxxx';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0175', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(37);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(37);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0176.dat';
+      const content: string = 'har-probe-0176-payload-xxxxxxxxxxxxxxx';
+      try {
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        const text: string = fs.readTextSync(path);
+        const stat: fs.Stat = fs.statSync(path);
+        logCase('testFileIo0176', `written=${written} size=${stat.size}`);
+        expect(written).assertEqual(38);
+        expect(text).assertEqual(content);
+        expect(stat.size).assertEqual(38);
+        expect(stat.isFile()).assertTrue();
+        expect(fs.accessSync(path)).assertTrue();
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0177
+     * @tc.name      testFileIo0177
+     * @tc.desc      File IO append flow 177 doubles the payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFileIo0177', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0177.dat';
+      const content: string = 'har-probe-0177-payload-xxxxxxxxxxxxxxxx';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0177', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(78);
+        expect(fs.statSync(path).size).assertEqual(78);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0178.dat';
+      const content: string = 'har-probe-0178-payload-xxxxxxxxxxxxxxxxx';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0178', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(80);
+        expect(fs.statSync(path).size).assertEqual(80);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0179
+     * @tc.name      testFileIo0179
+     * @tc.desc      File IO append flow 179 doubles the payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileIo0179', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0179.dat';
+      const content: string = 'har-probe-0179-payload-xxxxxxxxxxxxxxxxxx';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0179', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(82);
+        expect(fs.statSync(path).size).assertEqual(82);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0180.dat';
+      const content: string = 'har-probe-0180-payload-xxxxxxxxxxxxxxxxxxx';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0180', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(84);
+        expect(fs.statSync(path).size).assertEqual(84);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0181
+     * @tc.name      testFileIo0181
+     * @tc.desc      File IO append flow 181 doubles the payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testFileIo0181', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0181.dat';
+      const content: string = 'har-probe-0181-payload-xxxxxxxxxxxxxxxxxxxx';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0181', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(86);
+        expect(fs.statSync(path).size).assertEqual(86);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0182.dat';
+      const content: string = 'har-probe-0182-payload-xxxxxxxxxxxxxxxxxxxxx';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0182', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(88);
+        expect(fs.statSync(path).size).assertEqual(88);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0183
+     * @tc.name      testFileIo0183
+     * @tc.desc      File IO append flow 183 doubles the payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFileIo0183', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0183.dat';
+      const content: string = 'har-probe-0183-payload-xxxxxxxxxxxxxxxxxxxxxx';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0183', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(90);
+        expect(fs.statSync(path).size).assertEqual(90);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0184.dat';
+      const content: string = 'har-probe-0184-payload-';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0184', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(46);
+        expect(fs.statSync(path).size).assertEqual(46);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0185
+     * @tc.name      testFileIo0185
+     * @tc.desc      File IO append flow 185 doubles the payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileIo0185', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0185.dat';
+      const content: string = 'har-probe-0185-payload-x';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0185', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(48);
+        expect(fs.statSync(path).size).assertEqual(48);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0186.dat';
+      const content: string = 'har-probe-0186-payload-xx';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0186', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(50);
+        expect(fs.statSync(path).size).assertEqual(50);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0187
+     * @tc.name      testFileIo0187
+     * @tc.desc      File IO append flow 187 doubles the payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testFileIo0187', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0187.dat';
+      const content: string = '';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0187', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(0);
+        expect(fs.statSync(path).size).assertEqual(0);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0188.dat';
+      const content: string = 'har-probe-0188-payload-xxxx';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0188', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(54);
+        expect(fs.statSync(path).size).assertEqual(54);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0189
+     * @tc.name      testFileIo0189
+     * @tc.desc      File IO append flow 189 doubles the payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFileIo0189', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0189.dat';
+      const content: string = 'har-probe-0189-payload-xxxxx';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0189', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(56);
+        expect(fs.statSync(path).size).assertEqual(56);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0190.dat';
+      const content: string = 'har-probe-0190-payload-xxxxxx';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0190', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(58);
+        expect(fs.statSync(path).size).assertEqual(58);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0191
+     * @tc.name      testFileIo0191
+     * @tc.desc      File IO append flow 191 doubles the payload
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileIo0191', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0191.dat';
+      const content: string = 'har-probe-0191-payload-xxxxxxx';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0191', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(60);
+        expect(fs.statSync(path).size).assertEqual(60);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0192.dat';
+      const content: string = 'har-probe-0192-payload-xxxxxxxx';
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, content);
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.APPEND);
+        fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        const text: string = fs.readTextSync(path);
+        logCase('testFileIo0192', `len=${text.length}`);
+        expect(text).assertEqual(content + content);
+        expect(text.length).assertEqual(62);
+        expect(fs.statSync(path).size).assertEqual(62);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0193
+     * @tc.name      testFileIo0193
+     * @tc.desc      File IO rename flow 193 keeps payload after relocation
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testFileIo0193', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0193.dat';
+      const content: string = 'har-probe-0193-payload-xxxxxxxxx';
+      try {
+        const moved: string = ctx.filesDir + '/probe_0193_moved.dat';
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        fs.renameSync(path, moved);
+        const text: string = fs.readTextSync(moved);
+        logCase('testFileIo0193', `renamed=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.accessSync(path)).assertFalse();
+        expect(fs.accessSync(moved)).assertTrue();
+        expect(fs.statSync(moved).size).assertEqual(32);
+        fs.unlinkSync(moved);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0194.dat';
+      const content: string = 'har-probe-0194-payload-xxxxxxxxxx';
+      try {
+        const moved: string = ctx.filesDir + '/probe_0194_moved.dat';
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        fs.renameSync(path, moved);
+        const text: string = fs.readTextSync(moved);
+        logCase('testFileIo0194', `renamed=${text.length}`);
+        expect(text).assertEqual(content);
+        expect(fs.accessSync(path)).assertFalse();
+        expect(fs.accessSync(moved)).assertTrue();
+        expect(fs.statSync(moved).size).assertEqual(33);
+        fs.unlinkSync(moved);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_FILEIO_0195
+     * @tc.name      testFileIo0195
+     * @tc.desc      File IO rename flow 195 keeps payload after relocation
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFileIo0195', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = entryContext();
+      const path: string = ctx.filesDir + '/probe_0195.dat';
+      const content: string = 'har-probe-0195-payload-xxxxxxxxxxx';
+      try {
+        const moved: string = ctx.filesDir + '/probe_0195_moved.dat';
+        const file: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(file.fd, content);
