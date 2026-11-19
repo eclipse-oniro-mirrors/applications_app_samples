@@ -109,15 +109,15 @@ async function createSendableData(data: SendableClass): Promise<void> {
 export default function abilityTest() {
   describe('abilityTest', () => {
     /**
-     * @tc.number    : StartAbilityFunction_001
+     * @tc.number    : StartAbilityFunction_00
      * @tc.name      : Start ability
      * @tc.desc      : Start an application
      * @tc.size      : MEDIUM
      * @tc.type      : Function
      * @tc.level     : Level 0
      */
-    it('StartAbilityFunction_001', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbilityFunction_001 begin');
+    it('StartAbilityFunction_00', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbilityFunction_00 begin');
       let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
       try {
         await abilityDelegator.startAbility({
@@ -129,11 +129,11 @@ export default function abilityTest() {
         expect(err.code).assertEqual(0);
         done();
       }
-      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbilityFunction_001 end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbilityFunction_00 end');
     })
 
     /**
-     * @tc.number    : WorkerCopyFileFunction_001
+     * @tc.number    : WorkerCopyFileFunction_01
      * @tc.name      : WorkerCopyFile
      * @tc.desc      : Click the copy file button
      * @tc.size      : MEDIUM
@@ -141,8 +141,8 @@ export default function abilityTest() {
      * @tc.level     : Level 0
      */
     // 点击拷贝文件按钮
-    it('WorkerCopyFileFunction_001', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerCopyFileFunction_001 begin');
+    it('WorkerCopyFileFunction_01', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerCopyFileFunction_01 begin');
       let driver = Driver.create();
       await driver.delayMs(500);
       await driver.assertComponentExist(ON.id('fileCopy'));
@@ -152,11 +152,11 @@ export default function abilityTest() {
       expect(copyFileLog1).assertEqual(await resourceManager.getStringValue($r('app.string.copyFileLog1')));
       await driver.delayMs(200);
       done();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerCopyFileFunction_001 end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerCopyFileFunction_01 end');
     })
 
     /**
-     * @tc.number    : WorkerCopyFileButtonFunction_001
+     * @tc.number    : WorkerCopyFileButtonFunction_02
      * @tc.name      : WorkerCopyFile
      * @tc.desc      : Click the copy file button
      * @tc.size      : MEDIUM
@@ -164,8 +164,8 @@ export default function abilityTest() {
      * @tc.level     : Level 0
      */
     // 进入页面直接点击拷贝文件按钮
-    it('WorkerCopyFileButtonFunction_001', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerCopyFileButtonFunction_001 begin');
+    it('WorkerCopyFileButtonFunction_02', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerCopyFileButtonFunction_02 begin');
       let driver = Driver.create();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.id('copyFile'));
@@ -177,11 +177,11 @@ export default function abilityTest() {
       expect(strValue).assertEqual(await resourceManager.getStringValue($r('app.string.workerLogChooseFile')));
       await driver.delayMs(500);
       done();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerCopyFileButtonFunction_001 end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerCopyFileButtonFunction_02 end');
     })
 
     /**
-     * @tc.number    : WorkerCopyFileFunction_002
+     * @tc.number    : WorkerCopyFileFunction_03
      * @tc.name      : WorkerCopyFile
      * @tc.desc      : Select file copy
      * @tc.size      : MEDIUM
@@ -189,8 +189,8 @@ export default function abilityTest() {
      * @tc.level     : Level 0
      */
     // 选择文件拷贝
-    it('WorkerCopyFileFunction_002', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerCopyFileFunction_002 begin');
+    it('WorkerCopyFileFunction_03', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerCopyFileFunction_03 begin');
       let driver = Driver.create();
       await driver.delayMs(500);
       // 使用id寻找组件并点击，时间超过3min，因此采用坐标点击
@@ -205,11 +205,11 @@ export default function abilityTest() {
       expect(strValue).assertEqual(await resourceManager.getStringValue($r('app.string.workerLogChooseFile')));
       await driver.delayMs(200);
       done();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerCopyFileFunction_002 end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerCopyFileFunction_03 end');
     })
 
     /**
-     * @tc.number    : WorkerFunction_001
+     * @tc.number    : WorkerFunction_04
      * @tc.name      : Worker string sorting
      * @tc.desc      : Enter the string to be sorted
      * @tc.size      : MEDIUM
@@ -217,19 +217,19 @@ export default function abilityTest() {
      * @tc.level     : Level 0
      */
     // worker执行排序字符串
-    it('WorkerFunction_001', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerFunction_001 begin');
+    it('WorkerFunction_04', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerFunction_04 begin');
 
       let value: string = "add,dses,ssdf";
       let arr = value.trim().split(',');
       let outPutStr = await executeWorkerFunc(arr);
       expect(outPutStr).assertEqual('add,dses,ssdf');
       done();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerFunction_001 end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'WorkerFunction_04 end');
     })
 
     /**
-     * @tc.number    : TaskPoolFunction_001
+     * @tc.number    : TaskPoolFunction_05
      * @tc.name      : TaskPool string sorting
      * @tc.desc      : Click on the TaskPool tab
      * @tc.size      : MEDIUM
@@ -237,8 +237,8 @@ export default function abilityTest() {
      * @tc.level     : Level 0
      */
     // TaskPool立即执行字符串排序
-    it('TaskPoolFunction_001', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_001 begin');
+    it('TaskPoolFunction_05', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_05 begin');
       let value: string = "add,dses,ssdf";
       let arr = value.trim().split(',');
       let taskPoolOutPutStr = '';
@@ -251,11 +251,11 @@ export default function abilityTest() {
       }
       expect(taskPoolOutPutStr).assertEqual("Task executed successfully: add,dses,ssdf\n");
       done();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_001 end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_05 end');
     })
 
     /**
-     * @tc.number    : TaskPoolFunction_002
+     * @tc.number    : TaskPoolFunction_06
      * @tc.name      : TaskPool execute string sorting task
      * @tc.desc      : Enter the string to be sorted
      * @tc.size      : MEDIUM
@@ -263,8 +263,8 @@ export default function abilityTest() {
      * @tc.level     : Level 0
      */
     // TaskPool延时执行字符串排序任务
-    it('TaskPoolFunction_002', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_002 begin');
+    it('TaskPoolFunction_06', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_06 begin');
       let value: string = "add,dses,ssdf";
       let arr = value.trim().split(',');
       let taskPoolOutPutStr = '';
@@ -277,11 +277,11 @@ export default function abilityTest() {
       }
       expect(taskPoolOutPutStr).assertEqual("Task executed successfully: add,dses,ssdf\n");
       done();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_002 end')
+      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_06 end')
     })
 
     /**
-     * @tc.number    : TaskPoolFunction_003
+     * @tc.number    : TaskPoolFunction_07
      * @tc.name      : TaskPool execute string sorting func
      * @tc.desc      : Enter the string to be sorted
      * @tc.size      : MEDIUM
@@ -289,8 +289,8 @@ export default function abilityTest() {
      * @tc.level     : Level 0
      */
     // TaskPool延时执行字符串排序任务
-    it('TaskPoolFunction_003', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_002 begin');
+    it('TaskPoolFunction_07', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_06 begin');
       let value: string = "add,dses,ssdf";
       let arr = value.trim().split(',');
       let taskPoolOutPutStr = '';
@@ -302,11 +302,11 @@ export default function abilityTest() {
       }
       expect(taskPoolOutPutStr).assertEqual("Task executed successfully: add,dses,ssdf\n");
       done();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_002 end')
+      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_06 end')
     })
 
     /**
-     * @tc.number    : TaskPoolFunction_004
+     * @tc.number    : TaskPoolFunction_08
      * @tc.name      : TaskPool cancel string sorting task
      * @tc.desc      : Cancel string sorting task
      * @tc.size      : MEDIUM
@@ -314,8 +314,8 @@ export default function abilityTest() {
      * @tc.level     : Level 0
      */
     // TaskPool延时执行字符串排序
-    it('TaskPoolFunction_004', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_002 begin');
+    it('TaskPoolFunction_08', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_06 begin');
       let value: string = "add,dses,ssdf";
       let arr = value.trim().split(',');
       let taskPoolOutPutStr = '';
@@ -332,11 +332,11 @@ export default function abilityTest() {
       }
       expect(taskPoolOutPutStr).assertEqual("");
       done();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_002 end')
+      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_06 end')
     })
 
     /**
-     * @tc.number    : TaskPoolFunction_005
+     * @tc.number    : TaskPoolFunction_09
      * @tc.name      : TaskPool Group execute string sorting
      * @tc.desc      : Execute string sorting TaskPool Group
      * @tc.size      : MEDIUM
@@ -344,8 +344,8 @@ export default function abilityTest() {
      * @tc.level     : Level 0
      */
     // TaskPool Group执行字符串排序
-    it('TaskPoolFunction_005', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_003 begin');
+    it('TaskPoolFunction_09', 0, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_07 begin');
       let value: string = "add,dses,ssdf";
       let arr = value.trim().split(',');
       let value1: string = "mnf,csfg,brsf";
@@ -369,18 +369,18 @@ export default function abilityTest() {
         taskPoolOutPutStr += "TaskGroup executed failed: "+ (e as BusinessError).toString()+ "\n";
       }
       done();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_003 end');
+      hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolFunction_07 end');
     })
 
     /**
-     * @tc.number    : TaskPoolSendable_006
+     * @tc.number    : TaskPoolSendable_10
      * @tc.name      : TaskPool execute SendableClass task
      * @tc.desc      : Inspection results
      * @tc.size      : MEDIUM
      * @tc.type      : Function
      * @tc.level     : Level 0
      */
-    it('TaskPoolSendable_006', 0, async (done: Function) => {
+    it('TaskPoolSendable_10', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'TaskPoolSendable_001 begin');
       let a: SendableClass = new SendableClass();
       // 定义主线程异步锁sendableTask_lock

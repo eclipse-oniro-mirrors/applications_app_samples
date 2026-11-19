@@ -14,6 +14,10 @@
  */
 
 import worker, { ThreadWorkerGlobalScope, MessageEvents, ErrorEvent } from '@ohos.worker';
+import hilog from '@ohos.hilog';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[ConcurrentModule].[Worker]';
 
 let workerPort : ThreadWorkerGlobalScope = worker.workerPort;
 
@@ -36,7 +40,7 @@ workerPort.onmessage = function(e : MessageEvents) {
  * @param e message data
  */
 workerPort.onmessageerror = function(e : MessageEvents) {
-  console.log("worker::error = " + e.data);
+  hilog.error(DOMAIN, TAG, 'Worker message error: %{public}s', e.data.toString());
 }
 
 /**

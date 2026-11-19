@@ -202,6 +202,7 @@ struct Watcher {
                       .fontWeight(400)
                       .width('100%')
                     Text(this.copyFileShowLog)
+                      .constraintSize({ minHeight: 24 })
                       .fontSize(16)
                       .id("copyFileLog")
                       .fontColor('#182431')
@@ -246,7 +247,6 @@ struct Watcher {
           }
           .width('100%')
         }
-        .height('100%')
       }
     }
   }
