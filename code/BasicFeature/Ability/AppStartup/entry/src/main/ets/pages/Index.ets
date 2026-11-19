@@ -21,6 +21,10 @@ import { BusinessError } from '@ohos.base';
 import relationalStore from '@ohos.data.relationalStore';
 import startupManager from '@ohos.app.appstartup.startupManager';
 import router from '@ohos.router';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AppStartup]';
 
 @Entry
 @Component
@@ -62,14 +66,14 @@ struct Index {
         const KEY_TEST_STRING_ELEMENT = 'key_test_string';
         kvStore.get(KEY_TEST_STRING_ELEMENT, (err, data) => {
           if (err != undefined) {
-            console.error(`Failed to get data. Code:${err.code},message:${err.message}`);
+            hilog.error(DOMAIN, TAG, 'Failed to get data, code: %{public}d, message: %{public}s', err.code, err.message);
             return;
           }
           this.kvStoreStr = data as string;
-          console.info(`Succeeded in getting data. Data:${data}`);
+          hilog.info(DOMAIN, TAG, 'Succeeded in getting data, data: %{public}s', JSON.stringify(data));
         });
       }).catch((err: BusinessError) => {
-      console.error(`Failed to create KVManager.message:${err}`);
+      hilog.error(DOMAIN, TAG, 'Failed to create KVManager, message: %{public}s', JSON.stringify(err));
     });
   }
 
@@ -82,24 +86,26 @@ struct Index {
 
         rdbStore.query(predicates, ['ID', 'NAME', 'AGE', 'SALARY'], (err: BusinessError, resultSet) => {
           if (err) {
-            console.error(`Failed to query data. Code:${err.code}, message:${err.message}`);
+            hilog.error(DOMAIN, TAG, 'Failed to query data, code: %{public}d, message: %{public}s', err.code, err.message);
             return;
           }
-          console.info(`ResultSet column names: ${resultSet.columnNames}, column count: ${resultSet.columnCount}`);
+          hilog.info(DOMAIN, TAG, 'ResultSet column names: %{public}s, column count: %{public}d',
+            JSON.stringify(resultSet.columnNames), resultSet.columnCount);
           // resultSet是一个数据集合的游标，默认指向第-1个记录，有效的数据从0开始。
           while (resultSet.goToNextRow()) {
             const id = resultSet.getLong(resultSet.getColumnIndex('ID'));
             const name = resultSet.getString(resultSet.getColumnIndex('NAME'));
             const age = resultSet.getLong(resultSet.getColumnIndex('AGE'));
             const salary = resultSet.getDouble(resultSet.getColumnIndex('SALARY'));
-            console.info(`id=${id}, name=${name}, age=${age}, salary=${salary}`);
+            hilog.info(DOMAIN, TAG, 'id=%{public}d, name=%{public}s, age=%{public}d, salary=%{public}f',
+              id, name, age, salary);
             this.rdbStoreStr = `id=${id}, name=${name}, age=${age}, salary=${salary}`;
           }
           // 释放数据集的内存
           resultSet.close();
         })
       }).catch((err: BusinessError) => {
-      console.error(`Failed to create KVManager.message:${err}`);
+      hilog.error(DOMAIN, TAG, 'Failed to create KVManager, message: %{public}s', JSON.stringify(err));
     });
   }
 
@@ -114,15 +120,14 @@ struct Index {
               startupManager.run(startParams).then(() => {
                 router.pushUrl({ url: 'pages/ImageKnife' })
               }).catch((error: BusinessError) => {
-                console.info("StartupTest promise catch error, error = " + JSON.stringify(error));
-                console.info("StartupTest promise catch error, startParams = "
-                  + JSON.stringify(startParams));
+                hilog.error(DOMAIN, TAG, 'startup run failed, error: %{public}s, startParams: %{public}s',
+                  JSON.stringify(error), JSON.stringify(startParams));
               })
             } catch (error) {
               let errMsg = JSON.stringify(error);
               let errCode: number = error.code;
-              console.log('Startup catch error , errCode= ' + errCode);
-              console.log('Startup catch error ,error= ' + errMsg);
+              hilog.error(DOMAIN, TAG, 'startup run catch error, errCode: %{public}d, error: %{public}s',
+                errCode, errMsg);
             }
           }
 

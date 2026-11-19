@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,23 +13,23 @@
  * limitations under the License.
  */
 
-import UIAbility from '@ohos.app.ability.UIAbility';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import hilog from '@ohos.hilog';
+import { UIAbility } from '@kit.AbilityKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
-import window from '@ohos.window';
-import Want from '@ohos.app.ability.Want';
-import AbilityConstant from '@ohos.app.ability.AbilityConstant';
+import { window } from '@kit.ArkUI';
+import { Want } from '@kit.AbilityKit';
+import { AbilityConstant } from '@kit.AbilityKit';
 
 export default class TestAbility extends UIAbility {
     onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onCreate');
         hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
         hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:'+ JSON.stringify(launchParam) ?? '');
-        let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator
-        abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
-        let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
+        let abilityDelegator: abilityDelegatorRegistry.AbilityDelegator
+        abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator()
+        let abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs = abilityDelegatorRegistry.getArguments()
         hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
         Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
     }
@@ -47,7 +47,8 @@ export default class TestAbility extends UIAbility {
             }
             hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s',
                 JSON.stringify(data) ?? '');
-        });
+        }
+          );
     }
 
     onWindowStageDestroy() {

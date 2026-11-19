@@ -88,6 +88,9 @@ async function sample() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`createX509CertChain failed, errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude certificate_chain_object_creation_and_validation]
+    throw new Error(`createX509CertChain failed, errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude certificate_chain_object_creation_and_validation]
   }
 
   try {
@@ -95,6 +98,9 @@ async function sample() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`X509CertChain getCertList failed, errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude certificate_chain_object_creation_and_validation]
+    throw new Error(`X509CertChain getCertList failed, errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude certificate_chain_object_creation_and_validation]
   }
 
   // 证书链校验数据，需业务自行赋值。
@@ -118,6 +124,9 @@ async function sample() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`X509CertChain validate failed, errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude certificate_chain_object_creation_and_validation]
+    throw new Error(`X509CertChain validate failed, errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude certificate_chain_object_creation_and_validation]
   }
 }
 
@@ -135,9 +144,9 @@ struct Index {
         .fontWeight(FontWeight.Bold)
       Button('Call CreateVerifyCertchainObject')
         .width('70%')
-        .onClick(()=>{
+        .onClick(async ()=>{
           try {
-            sample();
+            await sample();
             this.message = 'Call Success';
           } catch {
             this.message = 'Call Fail';

@@ -11,6 +11,462 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "common_back",
+      "value": "返回"
+    },
+    {
+      "name": "common_ok",
+      "value": "确定"
+    },
+    {
+      "name": "index_title",
+      "value": "QoS 示例"
+    },
+    {
+      "name": "index_btn_high_qos",
+      "value": "高等级 QoS 测试"
+    },
+    {
+      "name": "index_btn_low_qos",
+      "value": "低等级 QoS 测试"
+    },
+    {
+      "name": "index_msg_high",
+      "value": "高等级 QoS 计算耗时：%s ms"
+    },
+    {
+      "name": "index_msg_low",
+      "value": "低等级 QoS 计算耗时：%s ms"
+    },
+    {
+      "name": "index_btn_qos_level",
+      "value": "QoS 等级设置"
+    },
+    {
+      "name": "qos_level_title",
+      "value": "QoS 等级设置"
+    },
+    {
+      "name": "qos_level_label",
+      "value": "选择 QoS 等级"
+    },
+    {
+      "name": "qos_level_background",
+      "value": "BACKGROUND（后台任务）"
+    },
+    {
+      "name": "qos_level_utility",
+      "value": "UTILITY（后台关键任务）"
+    },
+    {
+      "name": "qos_level_default",
+      "value": "DEFAULT（默认等级）"
+    },
+    {
+      "name": "qos_level_user_initiated",
+      "value": "USER_INITIATED（用户触发）"
+    },
+    {
+      "name": "qos_level_deadline_request",
+      "value": "DEADLINE_REQUEST（限时任务）"
+    },
+    {
+      "name": "qos_level_user_interactive",
+      "value": "USER_INTERACTIVE（用户交互）"
+    },
+    {
+      "name": "qos_btn_run",
+      "value": "异步执行计算任务"
+    },
+    {
+      "name": "qos_status_idle",
+      "value": "请先选择等级，再执行计算任务。"
+    },
+    {
+      "name": "qos_status_running",
+      "value": "计算中…"
+    },
+    {
+      "name": "qos_status_done",
+      "value": "计算完成。"
+    },
+    {
+      "name": "qos_status_failed",
+      "value": "本次计算失败，请查看下方返回码。"
+    },
+    {
+      "name": "qos_status_invalid",
+      "value": "异步任务被拒绝，请重新选择等级。"
+    },
+    {
+      "name": "qos_info_set",
+      "value": "OH_QoS_SetThreadQoS"
+    },
+    {
+      "name": "qos_info_query",
+      "value": "OH_QoS_GetThreadQoS 回读等级"
+    },
+    {
+      "name": "qos_info_reset",
+      "value": "OH_QoS_ResetThreadQoS"
+    },
+    {
+      "name": "qos_info_bind",
+      "value": "sched_setaffinity"
+    },
+    {
+      "name": "qos_info_duration",
+      "value": "计算耗时（毫秒）"
+    },
+    {
+      "name": "qos_note",
+      "value": "QoS 等级只作用于当前线程，同一等级在不同负载下耗时不同属正常现象。"
+    },
+    {
+      "name": "index_btn_benchmark",
+      "value": "等级基准测试"
+    },
+    {
+      "name": "index_btn_concurrency",
+      "value": "并发压测"
+    },
+    {
+      "name": "index_btn_device_info",
+      "value": "CPU 拓扑与亲和性"
+    },
+    {
+      "name": "index_btn_history",
+      "value": "实验记录"
+    },
+    {
+      "name": "bench_title",
+      "value": "等级基准测试"
+    },
+    {
+      "name": "bench_rounds_label",
+      "value": "每等级轮次"
+    },
+    {
+      "name": "bench_btn_run",
+      "value": "开始基准测试"
+    },
+    {
+      "name": "bench_btn_refresh",
+      "value": "刷新统计"
+    },
+    {
+      "name": "bench_btn_reset",
+      "value": "清零统计"
+    },
+    {
+      "name": "bench_status_idle",
+      "value": "选择轮次后开始基准测试。"
+    },
+    {
+      "name": "bench_status_running",
+      "value": "基准测试执行中..."
+    },
+    {
+      "name": "bench_status_done",
+      "value": "基准测试完成。"
+    },
+    {
+      "name": "bench_status_failed",
+      "value": "基准测试返回错误码。"
+    },
+    {
+      "name": "bench_status_rejected",
+      "value": "基准测试请求被拒绝。"
+    },
+    {
+      "name": "bench_empty",
+      "value": "暂无样本数据。"
+    },
+    {
+      "name": "bench_col_level",
+      "value": "等级"
+    },
+    {
+      "name": "bench_col_avg",
+      "value": "平均(毫秒)"
+    },
+    {
+      "name": "bench_col_pass",
+      "value": "成功"
+    },
+    {
+      "name": "bench_col_fail",
+      "value": "失败"
+    },
+    {
+      "name": "bench_col_min",
+      "value": "最小"
+    },
+    {
+      "name": "bench_col_max",
+      "value": "最大"
+    },
+    {
+      "name": "bench_summary_runs",
+      "value": "累计次数"
+    },
+    {
+      "name": "bench_summary_last",
+      "value": "最近等级"
+    },
+    {
+      "name": "bench_summary_avg",
+      "value": "累计平均(毫秒)"
+    },
+    {
+      "name": "bench_summary_min",
+      "value": "累计最小(毫秒)"
+    },
+    {
+      "name": "bench_summary_max",
+      "value": "累计最大(毫秒)"
+    },
+    {
+      "name": "bench_summary_fastest",
+      "value": "最快等级"
+    },
+    {
+      "name": "bench_summary_slowest",
+      "value": "最慢等级"
+    },
+    {
+      "name": "bench_summary_total",
+      "value": "总实验次数"
+    },
+    {
+      "name": "concurrency_title",
+      "value": "并发压测"
+    },
+    {
+      "name": "concurrency_level_label",
+      "value": "QoS 等级"
+    },
+    {
+      "name": "concurrency_threads_label",
+      "value": "线程数"
+    },
+    {
+      "name": "concurrency_rounds_label",
+      "value": "每线程轮次"
+    },
+    {
+      "name": "concurrency_btn_run",
+      "value": "开始压测"
+    },
+    {
+      "name": "concurrency_status_idle",
+      "value": "选择等级、线程数与轮次。"
+    },
+    {
+      "name": "concurrency_status_running",
+      "value": "压测执行中..."
+    },
+    {
+      "name": "concurrency_status_done",
+      "value": "压测完成。"
+    },
+    {
+      "name": "concurrency_status_failed",
+      "value": "压测返回错误码。"
+    },
+    {
+      "name": "concurrency_status_rejected",
+      "value": "压测请求被拒绝。"
+    },
+    {
+      "name": "concurrency_total",
+      "value": "请求次数"
+    },
+    {
+      "name": "concurrency_pass",
+      "value": "成功"
+    },
+    {
+      "name": "concurrency_fail",
+      "value": "失败"
+    },
+    {
+      "name": "concurrency_avg",
+      "value": "平均(毫秒)"
+    },
+    {
+      "name": "concurrency_min",
+      "value": "最小(毫秒)"
+    },
+    {
+      "name": "concurrency_max",
+      "value": "最大(毫秒)"
+    },
+    {
+      "name": "concurrency_note",
+      "value": "每个压测线程独立执行一次完整的 QoS 实验。"
+    },
+    {
+      "name": "device_title",
+      "value": "CPU 拓扑与亲和性"
+    },
+    {
+      "name": "device_cpu_count",
+      "value": "CPU 核数"
+    },
+    {
+      "name": "device_selected_cpu",
+      "value": "计算绑定核"
+    },
+    {
+      "name": "device_affinity",
+      "value": "当前可用核"
+    },
+    {
+      "name": "device_bind_cpu",
+      "value": "目标核"
+    },
+    {
+      "name": "device_bind_result",
+      "value": "绑定返回码"
+    },
+    {
+      "name": "device_bind_label",
+      "value": "选择要绑定的核"
+    },
+    {
+      "name": "device_btn_refresh",
+      "value": "刷新拓扑"
+    },
+    {
+      "name": "device_btn_bind",
+      "value": "绑定当前线程"
+    },
+    {
+      "name": "device_btn_reset",
+      "value": "解除绑定"
+    },
+    {
+      "name": "device_status_idle",
+      "value": "刷新拓扑后开始。"
+    },
+    {
+      "name": "device_status_done",
+      "value": "拓扑已刷新。"
+    },
+    {
+      "name": "device_status_bound",
+      "value": "线程已绑定到所选核。"
+    },
+    {
+      "name": "device_status_reset",
+      "value": "已恢复为全部核可用。"
+    },
+    {
+      "name": "device_status_failed",
+      "value": "操作返回错误码。"
+    },
+    {
+      "name": "device_note",
+      "value": "亲和性只作用于调用接口的线程。"
+    },
+    {
+      "name": "history_title",
+      "value": "实验记录"
+    },
+    {
+      "name": "history_level_label",
+      "value": "实验使用的 QoS 等级"
+    },
+    {
+      "name": "history_limit_label",
+      "value": "读取条数"
+    },
+    {
+      "name": "history_btn_record",
+      "value": "运行并记录"
+    },
+    {
+      "name": "history_btn_read",
+      "value": "读取记录"
+    },
+    {
+      "name": "history_btn_stats",
+      "value": "刷新统计"
+    },
+    {
+      "name": "history_btn_clear",
+      "value": "清空记录"
+    },
+    {
+      "name": "history_status_idle",
+      "value": "运行一次记录或读取记录文件。"
+    },
+    {
+      "name": "history_status_running",
+      "value": "记录执行中..."
+    },
+    {
+      "name": "history_status_recorded",
+      "value": "记录已追加。"
+    },
+    {
+      "name": "history_status_read",
+      "value": "记录文件已读取。"
+    },
+    {
+      "name": "history_status_cleared",
+      "value": "记录文件已清空。"
+    },
+    {
+      "name": "history_status_failed",
+      "value": "记录文件不可用。"
+    },
+    {
+      "name": "history_status_rejected",
+      "value": "实验请求被拒绝。"
+    },
+    {
+      "name": "history_empty",
+      "value": "暂无记录。"
+    },
+    {
+      "name": "history_col_level",
+      "value": "等级"
+    },
+    {
+      "name": "history_total",
+      "value": "记录总数"
+    },
+    {
+      "name": "history_capacity",
+      "value": "容量上限"
+    },
+    {
+      "name": "history_pass",
+      "value": "成功"
+    },
+    {
+      "name": "history_fail",
+      "value": "失败"
+    },
+    {
+      "name": "history_avg",
+      "value": "平均(毫秒)"
+    },
+    {
+      "name": "history_min",
+      "value": "最小(毫秒)"
+    },
+    {
+      "name": "history_max",
+      "value": "最大(毫秒)"
+    },
+    {
+      "name": "history_note",
+      "value": "记录存放于应用沙箱，最多保留 200 条。"
     }
   ]
 }

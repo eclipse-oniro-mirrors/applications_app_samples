@@ -16,8 +16,8 @@ import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const TAG: string = 'UIAbilityContext';
-const DOMAIN: number = 0xFF00;
+const TAG: string = '[Sample_AbilityRuntime]';
+const DOMAIN: number = 0xF811;
 
 @Entry
 @Component

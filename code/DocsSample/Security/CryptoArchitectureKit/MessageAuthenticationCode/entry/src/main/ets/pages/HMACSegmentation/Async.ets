@@ -51,6 +51,9 @@ async function doLoopHmac() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude message_authentication_code_calculation_hmac_one_time_incoming]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude message_authentication_code_calculation_hmac_one_time_incoming]
   }
 }
 

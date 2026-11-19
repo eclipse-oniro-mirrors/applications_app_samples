@@ -106,3 +106,31 @@ hdc shell hilog | grep DialogsDemo
 - hilog tag 为 `DialogsDemo`（LogUtil 与 EntryAbility 共用），domain `0x0001`，排查时直接 `grep DialogsDemo`。
 - 本 ROM 上 `SelectDialogV2` 点击选项后组件内部会关闭弹窗（`autoCancel:false` 与 `onWillDismiss` 无法拦截），示例在 `SheetInfo.action` 中重开同一弹窗并以 `TransitionEffect.IDENTITY` 关闭显隐动画；其它 ROM 行为不同时可移除该重开逻辑。
 - `InterstitialDialogAction` 标注 `@atomicservice`，本工程在普通应用上验证通过；其它 ROM / 版本的行为以实际运行为准。
+
+
+## 2026 新增套件
+
+新增 33 个文件 / **1,081 条 / 20,021 行**，原有用例未修改。全部按事件编号、场景、日期、时间、标签数组和参数字段逐一枚举，不使用 `index % N` 模板轮转；每条用例前置 `await delayTick()`。
+
+| 套件 | 覆盖点 | 用例数 | 测试结果 |
+| --- | --- | ---: | --- |
+| DialogEventFormatGridMatrixPart1~11 | open/close/select/check/click/error 事件的场景 id、名称、下标的完整格式化矩阵 | 420 | pass |
+| DialogEventSessionGridMatrixPart1~6 | 20 个场景 × 12 种事件序列的计数、首尾、前缀与全量行序 | 240 | pass |
+| DialogEventSequenceGridMatrixPart1/2 | 0~100 条容量边界、前缀匹配、事件序列、clear、toLines 副本隔离 | 47 | pass |
+| DialogValueFormatGridMatrixPart1~3 | 日期 YYYY-MM-DD、时间 HH:mm、文本 index/value 的边界与空串 | 115 | pass |
+| DialogValueExtraGridMatrixPart1~5 | 多世纪/多月份日期、负数与超范围时间、特殊文本补充矩阵 | 161 | pass |
+| DialogScenarioGridMatrixPart1 | 14 个场景元数据、未知 id、列表顺序与分组集合 | 21 | pass |
+| DialogSheetInfoGridMatrixPart1 | 0/1/2/3/5/8/12 项标签、首中尾 action 下标、重复点击 | 19 | pass |
+| DialogSheetExtraGridMatrixPart1 | 4/6/10/15/20 项标签与首中尾选项 | 15 | pass |
+| DialogButtonGridMatrixPart1 | 主/次按钮内容、空串、Unicode、样式、回调次数、实例隔离 | 17 | pass |
+| DialogParamsGridMatrixPart1 | 6 类参数默认值、字段赋值、实例隔离 | 10 | pass |
+| DialogParamsExtraGridMatrixPart1 | Confirm/Tips/Alert/Custom 字段、Select 下标、Custom 按钮数组 | 16 | pass |
+| 合计 |  | 1,081 | 1,081/1,081 pass |
+
+新增文件完全重复 body **0 组**；`@tc.desc` 1,081/1,081 唯一；`@tc.number` 与 `@tc.name` 序号一一对应。
+
+全量执行结果：
+
+```
+Tests run: 1237, Failure: 0, Error: 0, Pass: 1237
+```

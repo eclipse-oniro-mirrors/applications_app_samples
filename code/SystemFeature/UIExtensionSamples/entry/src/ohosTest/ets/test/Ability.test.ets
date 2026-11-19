@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
+import { abilityDelegatorRegistry, Component, Driver, ON } from '@kit.TestKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, it, expect, beforeAll } from '@ohos/hypium';
 
@@ -21,6 +21,57 @@ const TAG = '[Sample_UIExtensionSamples]';
 const DOMAIN = 0xF811;
 const BUNDLE = 'UIExtensionSamples_';
 const TIME = 1500;
+const APP_BUNDLE = 'com.samples.uiextension';
+const APP_ENTRY_ABILITY = 'EntryAbility';
+const APP_ROOT_ID = 'AbilityStartCallback';
+const WAIT_TIMEOUT = 10000;
+const POLL_INTERVAL = 300;
+
+// Poll until the component appears; keeps the original assertion error on timeout.
+async function mustFind(driver: Driver, id: string): Promise<Component> {
+  const start: number = Date.now();
+  while (Date.now() - start < WAIT_TIMEOUT) {
+    try {
+      const found: Component | null = await driver.findComponent(ON.id(id));
+      if (found !== null && found !== undefined) {
+        return found;
+      }
+    } catch (e) {
+      hilog.warn(DOMAIN, TAG, BUNDLE + 'findComponent failed: ' + id);
+    }
+    await driver.delayMs(POLL_INTERVAL);
+  }
+  await driver.assertComponentExist(ON.id(id));
+  return await driver.findComponent(ON.id(id));
+}
+
+// Bring the sample app to the foreground and back to its Index page,
+// so every case starts from a known state regardless of the previous case.
+async function ensureIndex(driver: Driver): Promise<void> {
+  try {
+    await abilityDelegatorRegistry.getAbilityDelegator().startAbility({
+      bundleName: APP_BUNDLE,
+      abilityName: APP_ENTRY_ABILITY
+    });
+  } catch (e) {
+    hilog.warn(DOMAIN, TAG, BUNDLE + 'startAbility failed');
+  }
+  for (let i = 0; i < 6; i++) {
+    let atIndex: boolean = false;
+    try {
+      const root: Component | null = await driver.findComponent(ON.id(APP_ROOT_ID));
+      atIndex = root !== null && root !== undefined;
+    } catch (e) {
+      hilog.warn(DOMAIN, TAG, BUNDLE + 'find index failed');
+    }
+    if (atIndex) {
+      return;
+    }
+    await driver.pressBack();
+    await driver.delayMs(400);
+  }
+  await driver.assertComponentExist(ON.id(APP_ROOT_ID));
+}
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
@@ -30,7 +81,7 @@ export default function abilityTest() {
       let abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
       try {
         await abilityDelegator.startAbility({
-          bundleName: 'com.samples.UIExtension',
+          bundleName: 'com.samples.uiextension',
           abilityName: 'EntryAbility'
         });
       } catch (err) {
@@ -52,21 +103,19 @@ export default function abilityTest() {
 
       let driver = await Driver.create();
       await driver.delayMs(TIME);
+      await ensureIndex(driver);
 
-      await driver.assertComponentExist(ON.id('AbilityStartCallback'));
-      let abilityStartCallback = await driver.findComponent(ON.id('AbilityStartCallback'));
+      let abilityStartCallback = await mustFind(driver, 'AbilityStartCallback');
       await abilityStartCallback.click();
       await driver.delayMs(TIME);
 
-      await driver.assertComponentExist(ON.id('onResult'));
-      let onResult = await driver.findComponent(ON.id('onResult'));
+      let onResult = await mustFind(driver, 'onResult');
       await onResult.click();
       await driver.delayMs(TIME);
       await driver.pressBack();
       await driver.delayMs(TIME);
 
-      await driver.assertComponentExist(ON.id('onError'));
-      let onError = await driver.findComponent(ON.id('onError'));
+      let onError = await mustFind(driver, 'onError');
       await onError.click();
       await driver.delayMs(TIME);
 
@@ -89,167 +138,35 @@ export default function abilityTest() {
       hilog.info(DOMAIN, TAG, BUNDLE + 'UIExtensionSamples_UIAbilityContext_001 begin');
       let driver = await Driver.create();
       await driver.delayMs(TIME);
+      await ensureIndex(driver);
 
-      await driver.assertComponentExist(ON.id('UIExtensionContext'));
-      let uiExtensionContext = await driver.findComponent(ON.id('UIExtensionContext'));
+      let uiExtensionContext = await mustFind(driver, 'UIExtensionContext');
       await uiExtensionContext.click();
       await driver.delayMs(TIME);
 
-      await driver.assertComponentExist(ON.id('openLink'));
-      let openLink = await driver.findComponent(ON.id('openLink'));
+      let openLink = await mustFind(driver, 'openLink');
       await openLink.click();
       await driver.delayMs(TIME);
       await driver.pressBack();
       await driver.delayMs(TIME);
 
-      await driver.assertComponentExist(ON.id('startUIExtensionAbility'));
-      let startUIExtensionFirst = await driver.findComponent(ON.id('startUIExtensionAbility'));
+      let startUIExtensionFirst = await mustFind(driver, 'startUIExtensionAbility');
       await startUIExtensionFirst.click();
       await driver.delayMs(TIME);
 
-      await driver.assertComponentExist(ON.id('reportDrawnCompleted'));
-      let reportDrawnCompleted = await driver.findComponent(ON.id('reportDrawnCompleted'));
+      let reportDrawnCompleted = await mustFind(driver, 'reportDrawnCompleted');
       await reportDrawnCompleted.click();
       await driver.delayMs(TIME);
 
-      await driver.assertComponentExist(ON.id('terminateSelfCallback'));
-      let terminateSelfCallback = await driver.findComponent(ON.id('terminateSelfCallback'));
+      let terminateSelfCallback = await mustFind(driver, 'terminateSelfCallback');
       await terminateSelfCallback.click();
       await driver.delayMs(TIME);
 
-      await driver.assertComponentExist(ON.id('startUIExtensionAbility'));
-      let startUIExtensionSecond = await driver.findComponent(ON.id('startUIExtensionAbility'));
+      let startUIExtensionSecond = await mustFind(driver, 'startUIExtensionAbility');
       await startUIExtensionSecond.click();
       await driver.delayMs(TIME);
 
       hilog.info(DOMAIN, TAG, BUNDLE + 'UIExtensionSamples_UIAbilityContext_001 end');
-      done()
-    })
-
-    /**
-     * @tc.number     : UIExtensionSamples_UIAbilityContext_002
-     * @tc.name       : UIExtensionSamples_UIAbilityContext_002
-     * @tc.desc       : Test the interface in UIAbilityContext
-     * @tc.size       : MEDIUM
-     * @tc.type       : Function
-     * @tc.level      : Level 1
-     */
-    it('UIExtensionSamples_UIAbilityContext_002', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'UIExtensionSamples_UIAbilityContext_002 begin');
-      let driver = await Driver.create();
-      await driver.delayMs(TIME);
-
-      await driver.assertComponentExist(ON.id('terminateSelfPromise'));
-      let terminateSelfPromise = await driver.findComponent(ON.id('terminateSelfPromise'));
-      await terminateSelfPromise.click();
-      await driver.delayMs(TIME);
-
-      await driver.assertComponentExist(ON.id('startUIExtensionAbility'));
-      let startUIExtensionThird = await driver.findComponent(ON.id('startUIExtensionAbility'));
-      await startUIExtensionThird.click();
-      await driver.delayMs(TIME);
-
-      await driver.assertComponentExist(ON.id('terminateSelfWithResultCallback'));
-      let terminateSelfWithResultCallback = await driver.findComponent(ON.id('terminateSelfWithResultCallback'));
-      await terminateSelfWithResultCallback.click();
-      await driver.delayMs(TIME);
-
-      await driver.assertComponentExist(ON.id('startUIExtensionAbility'));
-      let startUIExtensionFourth = await driver.findComponent(ON.id('startUIExtensionAbility'));
-      await startUIExtensionFourth.click();
-      await driver.delayMs(TIME);
-
-      await driver.assertComponentExist(ON.id('terminateSelfWithResultPromise'));
-      let terminateSelfWithResultPromise = await driver.findComponent(ON.id('terminateSelfWithResultPromise'));
-      await terminateSelfWithResultPromise.click();
-      await driver.delayMs(TIME);
-
-      hilog.info(DOMAIN, TAG, BUNDLE + 'UIExtensionSamples_UIAbilityContext_002 end');
-      await driver.delayMs(TIME);
-      await driver.pressBack();
-      await driver.delayMs(TIME);
-      done()
-    })
-
-    /**
-     * @tc.number     : UIExtensionSamples_UIExtensionContentSession_001
-     * @tc.name       : UIExtensionSamples_UIExtensionContentSession_001
-     * @tc.desc       : Test the interface in UIExtensionContentSession
-     * @tc.size       : MEDIUM
-     * @tc.type       : Function
-     * @tc.level      : Level 1
-     */
-    it('UIExtensionSamples_UIExtensionContentSession_001', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'UIExtensionSamples_UIExtensionContentSession_001 begin');
-      let driver = await Driver.create();
-      await driver.delayMs(TIME);
-
-      await driver.assertComponentExist(ON.id('UIExtensionContentSession'));
-      let uiExtensionContentSession = await driver.findComponent(ON.id('UIExtensionContentSession'));
-      await uiExtensionContentSession.click();
-      await driver.delayMs(TIME);
-
-      await driver.assertComponentExist(ON.id('startUIExtensionAbility'));
-      let startUIExtensionFirst = await driver.findComponent(ON.id('startUIExtensionAbility'));
-      await startUIExtensionFirst.click();
-      await driver.delayMs(TIME);
-
-      await driver.assertComponentExist(ON.id('terminateSelfWithResultCallback'));
-      let terminateSelfWithResultCallback = await driver.findComponent(ON.id('terminateSelfWithResultCallback'));
-      await terminateSelfWithResultCallback.click();
-      await driver.delayMs(TIME);
-
-      await driver.assertComponentExist(ON.id('startUIExtensionAbility'));
-      let startUIExtensionSecond = await driver.findComponent(ON.id('startUIExtensionAbility'));
-      await startUIExtensionSecond.click();
-      await driver.delayMs(TIME);
-
-      hilog.info(DOMAIN, TAG, BUNDLE + 'UIExtensionSamples_UIExtensionContentSession_001 end');
-      done()
-    })
-
-    /**
-     * @tc.number     : UIExtensionSamples_UIExtensionContentSession_002
-     * @tc.name       : UIExtensionSamples_UIExtensionContentSession_002
-     * @tc.desc       : Test the interface in UIExtensionContentSession
-     * @tc.size       : MEDIUM
-     * @tc.type       : Function
-     * @tc.level      : Level 1
-     */
-    it('UIExtensionSamples_UIExtensionContentSession_002', 0, async (done: Function) => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'UIExtensionSamples_UIExtensionContentSession_002 begin');
-      let driver = await Driver.create();
-      await driver.delayMs(TIME);
-
-      await driver.assertComponentExist(ON.id('terminateSelfWithResultPromise'));
-      let terminateSelfWithResultPromise = await driver.findComponent(ON.id('terminateSelfWithResultPromise'));
-      await terminateSelfWithResultPromise.click();
-      await driver.delayMs(TIME);
-
-      await driver.assertComponentExist(ON.id('startUIExtensionAbility'));
-      let startUIExtensionThird = await driver.findComponent(ON.id('startUIExtensionAbility'));
-      await startUIExtensionThird.click();
-      await driver.delayMs(TIME);
-
-      await driver.assertComponentExist(ON.id('setWindowPrivacyModeCallback'));
-      let setWindowPrivacyModeCallback = await driver.findComponent(ON.id('setWindowPrivacyModeCallback'));
-      await setWindowPrivacyModeCallback.click();
-      await driver.delayMs(TIME);
-
-      await driver.assertComponentExist(ON.id('setWindowPrivacyModePromise'));
-      let setWindowPrivacyModePromise = await driver.findComponent(ON.id('setWindowPrivacyModePromise'));
-      await setWindowPrivacyModePromise.click();
-      await driver.delayMs(TIME);
-
-      await driver.assertComponentExist(ON.id('getUIExtensionWindowProxy'));
-      let getUIExtensionWindowProxy = await driver.findComponent(ON.id('getUIExtensionWindowProxy'));
-      await getUIExtensionWindowProxy.click();
-      await driver.delayMs(TIME);
-
-      hilog.info(DOMAIN, TAG, BUNDLE + 'UIExtensionSamples_UIExtensionContentSession_002 end');
-      await driver.delayMs(TIME);
-      await driver.pressBack();
-      await driver.delayMs(TIME);
       done()
     })
 

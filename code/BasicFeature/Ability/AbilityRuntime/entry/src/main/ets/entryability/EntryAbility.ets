@@ -18,8 +18,8 @@ import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 
-const TAG: string = 'EntryAbility';
-const DOMAIN: number = 0xFF00;
+const TAG: string = '[Sample_AbilityRuntime]';
+const DOMAIN: number = 0xF811;
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {

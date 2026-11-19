@@ -11,6 +11,462 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "common_back",
+      "value": "Back"
+    },
+    {
+      "name": "common_ok",
+      "value": "OK"
+    },
+    {
+      "name": "index_title",
+      "value": "QoS Sample"
+    },
+    {
+      "name": "index_btn_high_qos",
+      "value": "High level QoS test"
+    },
+    {
+      "name": "index_btn_low_qos",
+      "value": "Low level QoS test"
+    },
+    {
+      "name": "index_msg_high",
+      "value": "High-level QoS calculation time: %s ms"
+    },
+    {
+      "name": "index_msg_low",
+      "value": "Low-level QoS calculation time: %s ms"
+    },
+    {
+      "name": "index_btn_qos_level",
+      "value": "QoS level settings"
+    },
+    {
+      "name": "qos_level_title",
+      "value": "QoS level settings"
+    },
+    {
+      "name": "qos_level_label",
+      "value": "Select a QoS level"
+    },
+    {
+      "name": "qos_level_background",
+      "value": "BACKGROUND (background task)"
+    },
+    {
+      "name": "qos_level_utility",
+      "value": "UTILITY (background critical task)"
+    },
+    {
+      "name": "qos_level_default",
+      "value": "DEFAULT (default)"
+    },
+    {
+      "name": "qos_level_user_initiated",
+      "value": "USER_INITIATED (user triggered)"
+    },
+    {
+      "name": "qos_level_deadline_request",
+      "value": "DEADLINE_REQUEST (time limited)"
+    },
+    {
+      "name": "qos_level_user_interactive",
+      "value": "USER_INTERACTIVE (user interactive)"
+    },
+    {
+      "name": "qos_btn_run",
+      "value": "Run calculation asynchronously"
+    },
+    {
+      "name": "qos_status_idle",
+      "value": "Select a level and run the calculation."
+    },
+    {
+      "name": "qos_status_running",
+      "value": "Calculating..."
+    },
+    {
+      "name": "qos_status_done",
+      "value": "Calculation finished."
+    },
+    {
+      "name": "qos_status_failed",
+      "value": "Calculation failed. Check the return codes below."
+    },
+    {
+      "name": "qos_status_invalid",
+      "value": "The async task was rejected."
+    },
+    {
+      "name": "qos_info_set",
+      "value": "OH_QoS_SetThreadQoS"
+    },
+    {
+      "name": "qos_info_query",
+      "value": "OH_QoS_GetThreadQoS level"
+    },
+    {
+      "name": "qos_info_reset",
+      "value": "OH_QoS_ResetThreadQoS"
+    },
+    {
+      "name": "qos_info_bind",
+      "value": "sched_setaffinity"
+    },
+    {
+      "name": "qos_info_duration",
+      "value": "Duration (ms)"
+    },
+    {
+      "name": "qos_note",
+      "value": "The QoS level applies to the current thread only."
+    },
+    {
+      "name": "index_btn_benchmark",
+      "value": "Level benchmark"
+    },
+    {
+      "name": "index_btn_concurrency",
+      "value": "Concurrent stress test"
+    },
+    {
+      "name": "index_btn_device_info",
+      "value": "CPU topology and affinity"
+    },
+    {
+      "name": "index_btn_history",
+      "value": "Run records"
+    },
+    {
+      "name": "bench_title",
+      "value": "Level benchmark"
+    },
+    {
+      "name": "bench_rounds_label",
+      "value": "Rounds per level"
+    },
+    {
+      "name": "bench_btn_run",
+      "value": "Run benchmark"
+    },
+    {
+      "name": "bench_btn_refresh",
+      "value": "Refresh summary"
+    },
+    {
+      "name": "bench_btn_reset",
+      "value": "Reset summary"
+    },
+    {
+      "name": "bench_status_idle",
+      "value": "Choose rounds and run the benchmark."
+    },
+    {
+      "name": "bench_status_running",
+      "value": "Running benchmark..."
+    },
+    {
+      "name": "bench_status_done",
+      "value": "Benchmark finished."
+    },
+    {
+      "name": "bench_status_failed",
+      "value": "Benchmark returned an error code."
+    },
+    {
+      "name": "bench_status_rejected",
+      "value": "The benchmark request was rejected."
+    },
+    {
+      "name": "bench_empty",
+      "value": "No samples yet."
+    },
+    {
+      "name": "bench_col_level",
+      "value": "Level"
+    },
+    {
+      "name": "bench_col_avg",
+      "value": "Avg (ms)"
+    },
+    {
+      "name": "bench_col_pass",
+      "value": "Pass"
+    },
+    {
+      "name": "bench_col_fail",
+      "value": "Fail"
+    },
+    {
+      "name": "bench_col_min",
+      "value": "Min"
+    },
+    {
+      "name": "bench_col_max",
+      "value": "Max"
+    },
+    {
+      "name": "bench_summary_runs",
+      "value": "Summary runs"
+    },
+    {
+      "name": "bench_summary_last",
+      "value": "Last level"
+    },
+    {
+      "name": "bench_summary_avg",
+      "value": "Summary avg (ms)"
+    },
+    {
+      "name": "bench_summary_min",
+      "value": "Summary min (ms)"
+    },
+    {
+      "name": "bench_summary_max",
+      "value": "Summary max (ms)"
+    },
+    {
+      "name": "bench_summary_fastest",
+      "value": "Fastest level"
+    },
+    {
+      "name": "bench_summary_slowest",
+      "value": "Slowest level"
+    },
+    {
+      "name": "bench_summary_total",
+      "value": "Total runs"
+    },
+    {
+      "name": "concurrency_title",
+      "value": "Concurrent stress test"
+    },
+    {
+      "name": "concurrency_level_label",
+      "value": "QoS level"
+    },
+    {
+      "name": "concurrency_threads_label",
+      "value": "Threads"
+    },
+    {
+      "name": "concurrency_rounds_label",
+      "value": "Rounds per thread"
+    },
+    {
+      "name": "concurrency_btn_run",
+      "value": "Run stress test"
+    },
+    {
+      "name": "concurrency_status_idle",
+      "value": "Choose level, threads and rounds."
+    },
+    {
+      "name": "concurrency_status_running",
+      "value": "Running stress test..."
+    },
+    {
+      "name": "concurrency_status_done",
+      "value": "Stress test finished."
+    },
+    {
+      "name": "concurrency_status_failed",
+      "value": "Stress test returned an error code."
+    },
+    {
+      "name": "concurrency_status_rejected",
+      "value": "The stress test request was rejected."
+    },
+    {
+      "name": "concurrency_total",
+      "value": "Requested runs"
+    },
+    {
+      "name": "concurrency_pass",
+      "value": "Pass"
+    },
+    {
+      "name": "concurrency_fail",
+      "value": "Fail"
+    },
+    {
+      "name": "concurrency_avg",
+      "value": "Avg (ms)"
+    },
+    {
+      "name": "concurrency_min",
+      "value": "Min (ms)"
+    },
+    {
+      "name": "concurrency_max",
+      "value": "Max (ms)"
+    },
+    {
+      "name": "concurrency_note",
+      "value": "Each thread runs the same QoS experiment on its own thread."
+    },
+    {
+      "name": "device_title",
+      "value": "CPU topology and affinity"
+    },
+    {
+      "name": "device_cpu_count",
+      "value": "CPU count"
+    },
+    {
+      "name": "device_selected_cpu",
+      "value": "Computation CPU"
+    },
+    {
+      "name": "device_affinity",
+      "value": "Affinity CPUs"
+    },
+    {
+      "name": "device_bind_cpu",
+      "value": "Target CPU"
+    },
+    {
+      "name": "device_bind_result",
+      "value": "Bind result"
+    },
+    {
+      "name": "device_bind_label",
+      "value": "Select a CPU to bind"
+    },
+    {
+      "name": "device_btn_refresh",
+      "value": "Refresh topology"
+    },
+    {
+      "name": "device_btn_bind",
+      "value": "Bind current thread"
+    },
+    {
+      "name": "device_btn_reset",
+      "value": "Reset affinity"
+    },
+    {
+      "name": "device_status_idle",
+      "value": "Refresh the topology to start."
+    },
+    {
+      "name": "device_status_done",
+      "value": "Topology refreshed."
+    },
+    {
+      "name": "device_status_bound",
+      "value": "Thread bound to the selected CPU."
+    },
+    {
+      "name": "device_status_reset",
+      "value": "Affinity reset to all CPUs."
+    },
+    {
+      "name": "device_status_failed",
+      "value": "The operation returned an error code."
+    },
+    {
+      "name": "device_note",
+      "value": "Affinity applies to the thread that calls the interface."
+    },
+    {
+      "name": "history_title",
+      "value": "Run records"
+    },
+    {
+      "name": "history_level_label",
+      "value": "QoS level to run"
+    },
+    {
+      "name": "history_limit_label",
+      "value": "Records to read"
+    },
+    {
+      "name": "history_btn_record",
+      "value": "Run and record"
+    },
+    {
+      "name": "history_btn_read",
+      "value": "Read records"
+    },
+    {
+      "name": "history_btn_stats",
+      "value": "Refresh stats"
+    },
+    {
+      "name": "history_btn_clear",
+      "value": "Clear records"
+    },
+    {
+      "name": "history_status_idle",
+      "value": "Run a record or read the record file."
+    },
+    {
+      "name": "history_status_running",
+      "value": "Recording..."
+    },
+    {
+      "name": "history_status_recorded",
+      "value": "Record appended."
+    },
+    {
+      "name": "history_status_read",
+      "value": "Record file read."
+    },
+    {
+      "name": "history_status_cleared",
+      "value": "Record file cleared."
+    },
+    {
+      "name": "history_status_failed",
+      "value": "The record file was not available."
+    },
+    {
+      "name": "history_status_rejected",
+      "value": "The run was rejected."
+    },
+    {
+      "name": "history_empty",
+      "value": "No records yet."
+    },
+    {
+      "name": "history_col_level",
+      "value": "Level"
+    },
+    {
+      "name": "history_total",
+      "value": "Records"
+    },
+    {
+      "name": "history_capacity",
+      "value": "Capacity"
+    },
+    {
+      "name": "history_pass",
+      "value": "Pass"
+    },
+    {
+      "name": "history_fail",
+      "value": "Fail"
+    },
+    {
+      "name": "history_avg",
+      "value": "Avg (ms)"
+    },
+    {
+      "name": "history_min",
+      "value": "Min (ms)"
+    },
+    {
+      "name": "history_max",
+      "value": "Max (ms)"
+    },
+    {
+      "name": "history_note",
+      "value": "Records are stored in the application sandbox and capped at 200 entries."
     }
   ]
 }

@@ -16,6 +16,7 @@
 // [Start create-cms-verify-object]
 
 import { cert } from '@kit.DeviceCertificateKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 let ECC_256_PUB_ENTRY_CERT: string =
   '-----BEGIN CERTIFICATE-----\n' +
@@ -94,7 +95,11 @@ async function createX509Cert(inStream: string): Promise<cert.X509Cert> {
   try {
     x509Cert = await cert.createX509Cert(encodingBlob);
   } catch (error) {
-    console.error(`createX509Cert failed: errCode: ${error.code}, message: ${error.message}`);
+    let e: BusinessError = error as BusinessError;
+    console.error(`createX509Cert failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude create-cms-verify-object]
+    throw new Error(`createX509Cert failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude create-cms-verify-object]
   }
 
   return x509Cert;
@@ -126,7 +131,11 @@ async function testCmsVerifyTest() {
     await verify.verifySignedData(config);
     console.info(`verifySignedData result: success.`);
   } catch (error) {
-    console.error(`verifySignedData failed: errCode: ${error.code}, message: ${error.message}`);
+    let e: BusinessError = error as BusinessError;
+    console.error(`verifySignedData failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude create-cms-verify-object]
+    throw new Error(`verifySignedData failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude create-cms-verify-object]
   }
 }
 
@@ -143,9 +152,9 @@ struct Index {
         .fontWeight(FontWeight.Bold)
       Button('Call CreateCmsVerifyObject')
         .width('70%')
-        .onClick(()=>{
+        .onClick(async ()=>{
           try {
-            testCmsVerifyTest();
+            await testCmsVerifyTest();
             this.message = 'Call Success';
           } catch {
             this.message = 'Call Fail';

@@ -18,8 +18,8 @@ import { common } from '@kit.AbilityKit';
 import { promptAction } from '@kit.ArkUI';
 import OpenLinkOptions from '@ohos.app.ability.OpenLinkOptions';
 
-const TAG: string = 'UniversalLink';
-const DOMAIN: number = 0xFF00;
+const TAG: string = '[Sample_UniversalLink]';
+const DOMAIN: number = 0xF811;
 
 @Entry
 @Component

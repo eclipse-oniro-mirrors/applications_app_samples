@@ -13,18 +13,39 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/components/listAndGrid/gridSample/GridControlPanel.ets
+ * 文件职责：GridControlPanel 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ArgumentsControlPanel。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
 
 import { CommonItemTwoRowSlider, CommonItemSelect } from '../../../../common/AttributeModificationTool';
 
+/**
+ * ArgumentsControlPanel：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct ArgumentsControlPanel {
+  // @Link columnTemplate：与父组件双向绑定的状态
   @Link columnTemplate: string;
+
+  // @Link rowsTemplate：与父组件双向绑定的状态
   @Link rowsTemplate: string;
+
+  // @Link columnsGap：与父组件双向绑定的状态
   @Link columnsGap: number;
+
+  // @Link rowGap：与父组件双向绑定的状态
   @Link rowGap: number;
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
     Column() {
+      // CommonItemSelect：CommonItemSelect 自定义组件
       CommonItemSelect({
         name: $r('app.string.grid_properties_columns_template'),
         selects: ['1', '2', '3'],
@@ -42,8 +63,9 @@ export struct ArgumentsControlPanel {
           }
         },
         testId : `grid_001`
-      })
+      }).id('grid_control_panel_common_item_select_2')
 
+      // CommonItemSelect：CommonItemSelect 自定义组件
       CommonItemSelect({
         name: $r('app.string.grid_properties_rows_template'),
         selects: ['1', '2', '3'],
@@ -61,23 +83,25 @@ export struct ArgumentsControlPanel {
           }
         },
         testId : `grid_002`
-      })
+      }).id('grid_control_panel_common_item_select_3')
 
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         name: $r('app.string.grid_properties_columns_gap'),
         min: 0,
         max: 15,
         changeValue: $columnsGap,
         testId : `grid_003`
-      })
+      }).id('grid_control_panel_common_item_two_row_slider_4')
 
+      // CommonItemTwoRowSlider：CommonItemTwoRowSlider 自定义组件
       CommonItemTwoRowSlider({
         name: $r('app.string.grid_properties_columns_gap'),
         min: 0,
         max: 15,
         changeValue: $rowGap,
         testId : `grid_004`
-      })
-    }
+      }).id('grid_control_panel_common_item_two_row_slider_5')
+    }.id('grid_control_panel_column_1')
   }
 }

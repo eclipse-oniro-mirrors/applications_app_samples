@@ -670,7 +670,7 @@ export default function chipModelsTest() {
     });
 
     /**
-     * @tc.number SUB_CHIP_COUNTER_DEMO_CHIPMODELS_3950
+     * @tc.number SUB_CHIP_COUNTER_DEMO_CHIPMODELS_4000
      * @tc.name factory_buildGroupSuffixItemsLitFlags
      * @tc.desc Verify onFlags only alters the lit path: item structure and index dispatch stay intact
      * @tc.size MediumTest
@@ -698,7 +698,7 @@ export default function chipModelsTest() {
     });
 
     /**
-     * @tc.number SUB_CHIP_COUNTER_DEMO_CHIPMODELS_4000
+     * @tc.number SUB_CHIP_COUNTER_DEMO_CHIPMODELS_4100
      * @tc.name tagStore_getAllShallowCopySemantics
      * @tc.desc Verify getAll is a structural copy whose element objects stay shared with the store
      * @tc.size MediumTest
@@ -717,7 +717,7 @@ export default function chipModelsTest() {
     });
 
     /**
-     * @tc.number SUB_CHIP_COUNTER_DEMO_CHIPMODELS_4100
+     * @tc.number SUB_CHIP_COUNTER_DEMO_CHIPMODELS_4200
      * @tc.name tagStore_whitespaceTextPreserved
      * @tc.desc Verify whitespace-only and padded texts are stored exactly as given
      * @tc.size MediumTest
@@ -735,7 +735,7 @@ export default function chipModelsTest() {
     });
 
     /**
-     * @tc.number SUB_CHIP_COUNTER_DEMO_CHIPMODELS_4200
+     * @tc.number SUB_CHIP_COUNTER_DEMO_CHIPMODELS_4300
      * @tc.name counterLogic_negativeStep
      * @tc.desc Verify a negative step reverses increase/decrease direction while clamps still hold
      * @tc.size MediumTest
@@ -758,7 +758,7 @@ export default function chipModelsTest() {
     });
 
     /**
-     * @tc.number SUB_CHIP_COUNTER_DEMO_CHIPMODELS_4300
+     * @tc.number SUB_CHIP_COUNTER_DEMO_CHIPMODELS_4400
      * @tc.name counterLogic_degenerateRangeFlags
      * @tc.desc Verify min==max range reports both boundary flags and steps stay fixed
      * @tc.size MediumTest
@@ -777,7 +777,7 @@ export default function chipModelsTest() {
     });
 
     /**
-     * @tc.number SUB_CHIP_COUNTER_DEMO_CHIPMODELS_4400
+     * @tc.number SUB_CHIP_COUNTER_DEMO_CHIPMODELS_4500
      * @tc.name tagStore_addWritesLogLine
      * @tc.desc Verify TagStore.add emits a formatted LogUtil line carrying tag, action and id
      * @tc.size MediumTest

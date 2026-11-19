@@ -30,6 +30,14 @@ ohos.permission.NOTIFICATION_CONTROLLER (permission for send notification)
 
 ### Constraints
 
-1. This sample can only be run on standard-system devices.
+1. This sample can only be run on standard-system devices. It has been verified on a 32-bit OpenHarmony board with deviceType `default`.
 
-2. This sample requires DevEco Studio 3.1 Canary1 (Build Version: 3.1.0.100, built on November 3, 2022) to compile and run.
+2. This sample requires DevEco Studio 26.0.0 Release or later to compile and run.
+
+3. This sample has been adapted to API version 26.0.0 (`compileSdkVersion` / `targetSdkVersion` / `compatibleSdkVersion` are all `"26.0.0"`, `runtimeOS: OpenHarmony`, OpenHarmony 26.0.0.38 SDK).
+
+4. The unused system permissions `ohos.permission.NOTIFICATION_CONTROLLER` and `ohos.permission.RUNNING_LOCK` have been removed to avoid debug-signature installation failure.
+
+5. The Settings tab is an in-app page: full screen, keep-screen-on and brightness are implemented with the app window API (`window.setWindowBrightness`), with no external sample dependency.
+
+6. `ohosTest` contains 16 cases covering clock digits, alarm add/delete/cancel, countdown boundaries, reset and auto-finish at zero, the settings page controls, and the DataSource/ContactSource logic.

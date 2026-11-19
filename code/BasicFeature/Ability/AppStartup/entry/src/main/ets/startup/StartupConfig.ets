@@ -22,18 +22,21 @@ import systemDateTime from '@ohos.systemDateTime';
 import Logger from '../util/Logger';
 import { TimeUtils } from '../util/SingleKVStore';
 
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AppStartup]';
+
 export default class MyStartupConfigEntry extends StartupConfigEntry {
   onConfig() {
-    hilog.info(0x0000, 'testTag', `onConfig`);
+    hilog.info(DOMAIN, TAG, `onConfig`);
     let onCompletedCallback = (error: BusinessError<void>) => {
-      hilog.info(0x0000, 'testTag', `onCompletedCallback`);
+      hilog.info(DOMAIN, TAG, `onCompletedCallback`);
       if (error) {
-        hilog.info(0x0000, 'testTag', 'onCompletedCallback: %{public}d, message: %{public}s', error.code, error.message);
+        hilog.info(DOMAIN, TAG, 'onCompletedCallback: %{public}d, message: %{public}s', error.code, error.message);
       } else {
         let time = systemDateTime.getTime(false);
         TimeUtils.endTime = time;
         Logger.info('testTag startup init -> success time--:' + TimeUtils.countTime() + 'ms');
-        hilog.info(0x0000, 'testTag', `onCompletedCallback: success.`);
+        hilog.info(DOMAIN, TAG, `onCompletedCallback: success.`);
       }
     }
     let startupListener: StartupListener = {

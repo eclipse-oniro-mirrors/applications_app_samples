@@ -16,6 +16,7 @@
 // [Start async_symmetry_encrypt_decrypt_sm4_gcm_seg]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function generateRandom(len: number) {
   let rand = cryptoFramework.createRandom();
@@ -101,17 +102,28 @@ async function genSymKeyByData(symKeyData: Uint8Array) {
 }
 
 async function sm4() {
-  let keyData = new Uint8Array([83, 217, 231, 76, 28, 113, 23, 219, 250, 71, 209, 210, 205, 97, 32, 159]);
-  let symKey = await genSymKeyByData(keyData);
-  let message = 'aaaaa.....bbbbb.....ccccc.....ddddd.....eee'; // 假设信息总共43字节，根据utf-8解码后，也是43字节
-  let plainText: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(message, 'utf-8').buffer) };
-  let encryptText = await encryptMessageUpdateBySegment(symKey, plainText);
-  let decryptText = await decryptMessagePromise(symKey, encryptText);
-  if (plainText.data.toString() === decryptText.data.toString()) {
-    console.info('decrypt ok.');
-    console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
-  } else {
-    console.error('decrypt failed.');
+  try {
+    let keyData = new Uint8Array([83, 217, 231, 76, 28, 113, 23, 219, 250, 71, 209, 210, 205, 97, 32, 159]);
+    let symKey = await genSymKeyByData(keyData);
+    let message = 'aaaaa.....bbbbb.....ccccc.....ddddd.....eee'; // 假设信息总共43字节，根据utf-8解码后，也是43字节
+    let plainText: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(message, 'utf-8').buffer) };
+    let encryptText = await encryptMessageUpdateBySegment(symKey, plainText);
+    let decryptText = await decryptMessagePromise(symKey, encryptText);
+    if (plainText.data.toString() === decryptText.data.toString()) {
+      console.info('decrypt ok.');
+      console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
+    } else {
+      console.error('decrypt failed.');
+      // [StartExclude async_symmetry_encrypt_decrypt_sm4_gcm_seg]
+      throw new Error('decrypt failed.');
+      // [EndExclude async_symmetry_encrypt_decrypt_sm4_gcm_seg]
+    }
+  } catch (error) {
+    let e: BusinessError = error as BusinessError;
+    console.error(`SM4 failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude async_symmetry_encrypt_decrypt_sm4_gcm_seg]
+    throw new Error(`SM4 failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude async_symmetry_encrypt_decrypt_sm4_gcm_seg]
   }
 }
 // [End async_symmetry_encrypt_decrypt_sm4_gcm_seg]

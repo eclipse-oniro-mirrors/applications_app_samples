@@ -62,8 +62,8 @@ entry/src/main/ets/
 ### 约束与限制
 
 1. 本示例是否支持取决于卡片使用方的实现(由于桌面差异仅支持特定操作系统)；
-2. 本示例为Stage模型，支持API20版本及以上SDK，SDK版本号(API Version 26 Release),镜像版本号(6.1Release)；
-3. 本示例需要使用DevEco Studio 版本号(6.1.1Release)版本才可编译运行；
+2. 本示例为Stage模型，已适配API 26版本SDK，SDK版本号(API Version 26 Release)。
+3. 本示例需要使用DevEco Studio 版本号(DevEco Studio 6.0.0 Release)及以上版本才可编译运行。
 4. 本示例不涉及系统接口。
 
 ### 使用说明

@@ -18,8 +18,8 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 
-const TAG: string = '[EntryAbility]';
-const DOMAIN: number = 0xFF00;
+const TAG: string = '[Sample_UniversalLink]';
+const DOMAIN: number = 0xF811;
 
 export default class EntryAbility extends UIAbility {
   onCreate(): void {

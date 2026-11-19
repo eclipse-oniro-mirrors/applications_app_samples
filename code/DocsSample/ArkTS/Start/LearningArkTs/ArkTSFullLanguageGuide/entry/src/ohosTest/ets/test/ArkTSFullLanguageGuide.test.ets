@@ -13,149 +13,173 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, beforeAll } from '@ohos/hypium';
-import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
-import { UIAbility, Want } from '@kit.AbilityKit';
+import { describe, it, expect, beforeEach } from '@ohos/hypium';
+import { Driver, ON, Component, MatchPattern } from '@kit.TestKit';
+import { startApp } from './ArkTSGuideUiSupport';
 
-const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
-let want: Want;
+async function findText(driver: Driver, text: string): Promise<Component | null> {
+  return await driver.findComponent(ON.text(text));
+}
+
+async function clickAndCheck(driver: Driver, label: string, finish: string): Promise<void> {
+  const button: Component | null = await findText(driver, label);
+  expect(button === null).assertFalse();
+  await (button as Component).click();
+  await driver.delayMs(500);
+  const status: Component | null = await findText(driver, finish);
+  expect(status === null).assertFalse();
+  expect(await (status as Component).getText()).assertEqual(finish);
+}
 
 export default function ArkTSFullLanguageGuideTest() {
   describe('ArkTSFullLanguageGuideTest', () => {
 
-    beforeAll(async () => {
-      want = {
-        bundleName: bundleName,
-        abilityName: 'EntryAbility'
-      };
-      await delegator.startAbility(want);
-      const driver = Driver.create();
-      await driver.delayMs(1000);
-      const ability: UIAbility = await delegator.getCurrentTopAbility();
-      console.info('get top ability');
-      await driver.delayMs(1000);
-      expect(ability.context.abilityInfo.name).assertEqual('EntryAbility');
+    beforeEach(async () => {
+      const started: boolean = await startApp();
+      expect(started).assertTrue();
     })
 
-    it('testRunSmoke001', 0, async () => {
-      console.info('uitest: testRunSmoke001 begin');
-      const driver = Driver.create();
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_UI_testIndexNav0010001
+     * @tc.name      testIndexNav0010001
+     * @tc.desc      Verify the Index screen shows the title and the four guide tabs
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testIndexNav0010001', 0, async () => {
+      console.info('uitest: testIndexNav0010001 begin');
+      const driver: Driver = Driver.create();
       await driver.delayMs(1000);
-      const button1 = await driver.findComponent(ON.text('Run Smoke'));
-      await driver.delayMs(1000);
-      await button1.click();
-      await driver.delayMs(2000);
-      console.info('uitest: testRunSmoke001 end');
+      const title: Component | null = await findText(driver, 'Index');
+      expect(title === null).assertFalse();
+      expect(await (title as Component).getText()).assertEqual('Index');
+      expect(await findText(driver, '基本知识') === null).assertFalse();
+      expect(await findText(driver, '函数') === null).assertFalse();
+      expect(await findText(driver, '类') === null).assertFalse();
+      expect(await findText(driver, '泛型类型和函数') === null).assertFalse();
+      expect(await findText(driver, 'Run Smoke')).assertNull();
+      console.info('uitest: testIndexNav0010001 end');
     })
 
-    it('testBasicKnowledge001', 0, async () => {
-      console.info('uitest: testBasicKnowledge001 begin');
-      const driver = Driver.create();
-      const button1 = await driver.findComponent(ON.text('基本知识'));
-      await driver.delayMs(1000);
-      await button1.click();
-      await driver.delayMs(1000);
-
-      const button2 = await driver.findComponent(ON.text('测试变量声明'));
-      const button3 = await driver.findComponent(ON.text('测试类型标注'));
-      const button4 = await driver.findComponent(ON.text('测试BigInt'));
-      const button5 = await driver.findComponent(ON.text('测试空安全'));
-      await driver.delayMs(1000);
-
-      await button2.click();
-      await driver.delayMs(500);
-      await button3.click();
-      await driver.delayMs(500);
-      await button4.click();
-      await driver.delayMs(500);
-      await button5.click();
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_UI_testBasicKnowledge0010002
+     * @tc.name      testBasicKnowledge0010002
+     * @tc.desc      Verify the Basics page runs all four sample buttons and prints the documented body
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testBasicKnowledge0010002', 0, async () => {
+      console.info('uitest: testBasicKnowledge0010002 begin');
+      const driver: Driver = Driver.create();
+      const entry: Component | null = await findText(driver, '基本知识');
+      expect(entry === null).assertFalse();
+      await (entry as Component).click();
       await driver.delayMs(1000);
 
-      console.info('uitest: testBasicKnowledge001 end');
+      await clickAndCheck(driver, '测试变量声明', '测试变量声明完成');
+      const body: Component | null = await driver.findComponent(
+        ON.text('count: 10\nname: ArkTS\nisActive: true\nmessage: Hello, ArkTS', MatchPattern.CONTAINS));
+      expect(body === null).assertFalse();
+      await clickAndCheck(driver, '测试类型标注', '测试类型标注完成');
+      await clickAndCheck(driver, '测试BigInt', '测试BigInt完成');
+      await clickAndCheck(driver, '测试空安全', '测试空安全完成');
+
+      console.info('uitest: testBasicKnowledge0010002 end');
       await driver.pressBack();
     })
 
-    it('testFunction002', 0, async () => {
-      console.info('uitest: testFunction002 begin');
-      const driver = Driver.create();
-      const button1 = await driver.findComponent(ON.text('函数'));
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_UI_testFunction0020003
+     * @tc.name      testFunction0020003
+     * @tc.desc      Verify the Functions page runs all four sample buttons and prints the closure counter
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testFunction0020003', 0, async () => {
+      console.info('uitest: testFunction0020003 begin');
+      const driver: Driver = Driver.create();
       await driver.delayMs(1000);
-      await button1.click();
-      await driver.delayMs(1000);
-
-      const button2 = await driver.findComponent(ON.text('测试函数声明'));
-      const button3 = await driver.findComponent(ON.text('测试可选参数'));
-      const button4 = await driver.findComponent(ON.text('测试默认参数'));
-      const button5 = await driver.findComponent(ON.text('测试闭包'));
-      await driver.delayMs(1000);
-
-      await button2.click();
-      await driver.delayMs(500);
-      await button3.click();
-      await driver.delayMs(500);
-      await button4.click();
-      await driver.delayMs(500);
-      await button5.click();
+      const entry: Component | null = await findText(driver, '函数');
+      expect(entry === null).assertFalse();
+      await (entry as Component).click();
       await driver.delayMs(1000);
 
-      console.info('uitest: testFunction002 end');
+      await clickAndCheck(driver, '测试函数声明', '测试函数声明完成');
+      const body: Component | null = await driver.findComponent(
+        ON.text('add(1, 2): 3\nmultiply(5, 3): 15', MatchPattern.CONTAINS));
+      expect(body === null).assertFalse();
+      await clickAndCheck(driver, '测试可选参数', '测试可选参数完成');
+      await clickAndCheck(driver, '测试默认参数', '测试默认参数完成');
+      await clickAndCheck(driver, '测试闭包', '测试闭包完成');
+      const closure: Component | null = await driver.findComponent(
+        ON.text('counter(): 1\ncounter(): 2', MatchPattern.CONTAINS));
+      expect(closure === null).assertFalse();
+
+      console.info('uitest: testFunction0020003 end');
       await driver.pressBack();
     })
 
-    it('testClass003', 0, async () => {
-      console.info('uitest: testClass003 begin');
-      const driver = Driver.create();
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_UI_testClass0030004
+     * @tc.name      testClass0030004
+     * @tc.desc      Verify the Classes page runs all four sample buttons and prints the radius body
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testClass0030004', 0, async () => {
+      console.info('uitest: testClass0030004 begin');
+      const driver: Driver = Driver.create();
       await driver.delayMs(1000);
-      const button1 = await driver.findComponent(ON.text('类'));
-      await driver.delayMs(1000);
-      await button1.click();
-      await driver.delayMs(1000);
-
-      const button2 = await driver.findComponent(ON.text('测试类定义'));
-      const button3 = await driver.findComponent(ON.text('测试静态属性'));
-      const button4 = await driver.findComponent(ON.text('测试GetterSetter'));
-      const button5 = await driver.findComponent(ON.text('测试继承'));
-      await driver.delayMs(1000);
-
-      await button2.click();
-      await driver.delayMs(500);
-      await button3.click();
-      await driver.delayMs(500);
-      await button4.click();
-      await driver.delayMs(500);
-      await button5.click();
+      const entry: Component | null = await findText(driver, '类');
+      expect(entry === null).assertFalse();
+      await (entry as Component).click();
       await driver.delayMs(1000);
 
-      console.info('uitest: testClass003 end');
+      await clickAndCheck(driver, '测试类定义', '测试类定义完成');
+      const beforeRadius: Component | null = await driver.findComponent(
+        ON.text('radius: 5', MatchPattern.CONTAINS));
+      expect(beforeRadius).assertNull();
+      await clickAndCheck(driver, '测试静态属性', '测试静态属性完成');
+      await clickAndCheck(driver, '测试GetterSetter', '测试GetterSetter完成');
+      const radius: Component | null = await driver.findComponent(
+        ON.text('radius: 5', MatchPattern.CONTAINS));
+      expect(radius === null).assertFalse();
+      await clickAndCheck(driver, '测试继承', '测试继承完成');
+
+      console.info('uitest: testClass0030004 end');
       await driver.pressBack();
     })
 
-    it('testGenericTypesAndFunctions004', 0, async () => {
-      console.info('uitest: testGenericTypesAndFunctions004 begin');
-      const driver = Driver.create();
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_UI_testGenericTypesAndFunctions0040005
+     * @tc.name      testGenericTypesAndFunctions0040005
+     * @tc.desc      Verify the Generics page runs all four sample buttons and prints the constraint body
+     * @tc.type      Function
+     * @tc.size      MediumTest
+     * @tc.level     LEVEL0
+     */
+    it('testGenericTypesAndFunctions0040005', 0, async () => {
+      console.info('uitest: testGenericTypesAndFunctions0040005 begin');
+      const driver: Driver = Driver.create();
       await driver.delayMs(1000);
-      const button1 = await driver.findComponent(ON.text('泛型类型和函数'));
-      await driver.delayMs(1000);
-      await button1.click();
-      await driver.delayMs(1000);
-
-      const button2 = await driver.findComponent(ON.text('测试泛型介绍'));
-      const button3 = await driver.findComponent(ON.text('测试泛型类'));
-      const button4 = await driver.findComponent(ON.text('测试泛型函数'));
-      const button5 = await driver.findComponent(ON.text('测试泛型约束'));
-      await driver.delayMs(1000);
-
-      await button2.click();
-      await driver.delayMs(500);
-      await button3.click();
-      await driver.delayMs(500);
-      await button4.click();
-      await driver.delayMs(500);
-      await button5.click();
+      const entry: Component | null = await findText(driver, '泛型类型和函数');
+      expect(entry === null).assertFalse();
+      await (entry as Component).click();
       await driver.delayMs(1000);
 
-      console.info('uitest: testGenericTypesAndFunctions004 end');
+      await clickAndCheck(driver, '测试泛型介绍', '测试泛型介绍完成');
+      await clickAndCheck(driver, '测试泛型类', '测试泛型类完成');
+      await clickAndCheck(driver, '测试泛型函数', '测试泛型函数完成');
+      await clickAndCheck(driver, '测试泛型约束', '测试泛型约束完成');
+      const body: Component | null = await driver.findComponent(
+        ON.text('findById(1).name: Alice', MatchPattern.CONTAINS));
+      expect(body === null).assertFalse();
+
+      console.info('uitest: testGenericTypesAndFunctions0040005 end');
       await driver.pressBack();
     })
   })

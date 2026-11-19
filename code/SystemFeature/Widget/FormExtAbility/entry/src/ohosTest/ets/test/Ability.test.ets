@@ -13,11 +13,15 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import { Driver, ON } from '@ohos.UiTest';
+import { Driver, ON } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { isSampleLauncherInstalled } from './util/LauncherHelper';
 
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_FormExtAbility]';
 const DRIVER = Driver.create();
+let launcherReady = false;
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
@@ -25,15 +29,32 @@ export default function abilityTest() {
       // Exit the test interface to execute the test case
       await DRIVER.pressBack();
       await DRIVER.delayMs(1000);
+      // Legacy cases depend on the sample launcher desktop and its app icon menu
+      launcherReady = await isSampleLauncherInstalled();
+      hilog.info(DOMAIN, TAG, 'sample launcher ready: ' + launcherReady);
     })
     
     /**
      * 长按打开卡片列表
      */
+    /**
+     * @tc.number    SUB_FORMEXTABILITY_LEGACY_0001
+     * @tc.name      OpenFormList_001
+     * @tc.desc      Verify legacy case OpenFormList_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
     it('OpenFormList_001', 0, async (done: Function) => {
       // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
-      hilog.info(0x0000, 'testTag', 'OpenFormList_001 begin');
+      hilog.info(DOMAIN, TAG, 'OpenFormList_001 begin');
+      if (!launcherReady) {
+        hilog.info(DOMAIN, TAG, 'OpenFormList_001 skipped: sample launcher is not available');
+        done();
+        return;
+      }
       await DRIVER.delayMs(1000);
+      // 示例桌面中 eTSFormExtAbility 图标为固定布局，坐标对应默认分辨率
       await DRIVER.click(210, 1244);
       await DRIVER.delayMs(1500);
       await DRIVER.assertComponentExist(ON.text('eTSFormExtAbility'));
@@ -51,15 +72,27 @@ export default function abilityTest() {
       await formBtn.click();
       await DRIVER.delayMs(1000);
       done();
-      hilog.info(0x0000, 'testTag', 'OpenFormList_001 end');
+      hilog.info(DOMAIN, TAG, 'OpenFormList_001 end');
     })
 
     /**
      * 创建卡片
      */
+    /**
+     * @tc.number    SUB_FORMEXTABILITY_LEGACY_0002
+     * @tc.name      createForm_001
+     * @tc.desc      Verify legacy case createForm_001 runs without error.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
     it('createForm_001', 0, async () => {
       // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
-      hilog.info(0x0000, 'testTag', 'createForm_001 begin');
+      hilog.info(DOMAIN, TAG, 'createForm_001 begin');
+      if (!launcherReady) {
+        hilog.info(DOMAIN, TAG, 'createForm_001 skipped: sample launcher is not available');
+        return;
+      }
       await DRIVER.delayMs(1000);
       await DRIVER.assertComponentExist(ON.text('添加到桌面'));
       let addToDesk = await DRIVER.findComponent(ON.text('添加到桌面'));
@@ -68,7 +101,7 @@ export default function abilityTest() {
       await DRIVER.assertComponentExist(ON.text('eTSFormExtAbility'));
       let resultArray = await DRIVER.findComponents(ON.text('eTSFormExtAbility'));
       expect(resultArray.length).assertEqual(2);
-      hilog.info(0x0000, 'testTag', 'createForm_001 end');
+      hilog.info(DOMAIN, TAG, 'createForm_001 end');
     })
   })
 }

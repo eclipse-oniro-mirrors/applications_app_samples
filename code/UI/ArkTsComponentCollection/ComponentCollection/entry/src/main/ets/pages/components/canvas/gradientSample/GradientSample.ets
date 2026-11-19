@@ -13,8 +13,18 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/components/canvas/gradientSample/GradientSample.ets
+ * 文件职责：GradientSample 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ShowBtnType、DataPanelSample。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { TitleBar } from '../../../../common/TitleBar';
 
+/**
+ * ShowBtnType：接口定义，承载本文件对应的逻辑与数据。
+ */
 interface ShowBtnType {
   name: Resource,
   func: Function
@@ -56,6 +66,9 @@ interface ShowBtnType {
   .type(ButtonType.Capsule)
 }
 
+/**
+ * DataPanelSample：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct DataPanelSample {
@@ -66,28 +79,43 @@ struct DataPanelSample {
     {
       name: $r('app.string.canvas_addColorStop'),
       func: () => {
+        // 处理：let grad = this.context.createLinearGradient(50,
         let grad = this.context.createLinearGradient(50, 0, 300, 100);
+        // 处理：grad.addColorStop(0.0, '#ff0000');
         grad.addColorStop(0.0, '#ff0000');
+        // 处理：grad.addColorStop(0.5, '#ffffff');
         grad.addColorStop(0.5, '#ffffff');
+        // 处理：grad.addColorStop(1.0, '#00ff00');
         grad.addColorStop(1.0, '#00ff00');
+        // 处理：this.context.fillStyle = grad;
         this.context.fillStyle = grad;
+        // 处理：this.context.fillRect(0, 0, 400, 400);
         this.context.fillRect(0, 0, 400, 400);
+      // 结束当前组件块
       },
     },
     {
       name: $r('app.string.canvas_createLinearGradient'),
       func: () => {
+        // 处理：let grad = this.context.createLinearGradient(0, 
         let grad = this.context.createLinearGradient(0, 0, 200, 200);
+        // 处理：grad.addColorStop(0.0, '#ff0000');
         grad.addColorStop(0.0, '#ff0000');
+        // 处理：grad.addColorStop(0.5, '#ffffff');
         grad.addColorStop(0.5, '#ffffff');
+        // 处理：grad.addColorStop(1.0, '#00ff00');
         grad.addColorStop(1.0, '#00ff00');
+        // 处理：this.context.fillStyle = grad;
         this.context.fillStyle = grad;
+        // 处理：this.context.fillRect(0, 0, 400, 400);
         this.context.fillRect(0, 0, 400, 400);
+      // 结束当前组件块
       },
     },
     {
       name: $r('app.string.canvas_createRadialGradient'),
       func: () => {
+        // 处理：let grad = this.context.createRadialGradient(100
         let grad = this.context.createRadialGradient(100, 100, 20, 100, 100, 200);
         grad.addColorStop(0.0, '#ff0000');
         grad.addColorStop(0.5, '#ffffff');
@@ -98,50 +126,77 @@ struct DataPanelSample {
     },
   ];
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：宽度、高度、背景色、内边距
     Column() {
-      TitleBar({ title: $r('app.string.canvas_component_gradient') });
+      // TitleBar：TitleBar 自定义组件
+      TitleBar({ title: $r('app.string.canvas_component_gradient') }).id('gradient_sample_title_bar_2');
+      // Scroll：滚动容器
       Scroll(this.scroller) {
+        // Column：垂直布局容器
+        // 关键属性：宽度
         Column() {
-          Text($r('app.string.canvas_canvasZone'))
+          // Text：文本
+          // 关键属性：leftTitleStyle
+          Text($r('app.string.canvas_canvasZone')).id('gradient_sample_text_5')
             .leftTitleStyle();
+          // Column：垂直布局容器
+          // 关键属性：cardStyle
           Column() {
-            Canvas(this.context)
+            // Canvas：画布
+            // 关键属性：宽度、高度、背景色、cardStyle
+            Canvas(this.context).id('gradient_sample_canvas_7')
               .width('100%')
               .height('100%')
               .backgroundColor($r('app.color.canvas_background'))
               .width('100%')
               .height(200)
-          }.cardStyle();
+          }.id('gradient_sample_column_6').cardStyle();
 
-          Text($r('app.string.canvas_attributesOperations'))
+          // Text：文本
+          // 关键属性：leftTitleStyle
+          Text($r('app.string.canvas_attributesOperations')).id('gradient_sample_text_8')
             .leftTitleStyle();
 
+          // Grid：网格容器
+          // 关键属性：Style
           Grid(this.scroller) {
             ForEach(this.Btns, (item: ShowBtnType) => {
+              // GridItem：网格项
               GridItem() {
-                Button(item.name, { type: ButtonType.Capsule, stateEffect: true })
+                // Button：按钮
+                // 关键属性：sampleButton、点击事件回调、func
+                // 交互：可点击交互
+                Button(item.name, { type: ButtonType.Capsule, stateEffect: true }).id('gradient_sample_button_11')
                   .sampleButton()
                   .onClick(() => {
                     item.func();
                   });
-              };
+              }.id('gradient_sample_grid_item_10');
             });
-          }.Style();
+          }.id('gradient_sample_grid_9').Style();
 
-
-          Text($r('app.string.canvas_clearEffects'))
+          // Text：文本
+          // 关键属性：leftTitleStyle
+          Text($r('app.string.canvas_clearEffects')).id('gradient_sample_text_12')
             .leftTitleStyle();
 
-          Button($r('app.string.canvas_clearRect'))
+          // Button：按钮
+          // 关键属性：点击事件回调、clearRect
+          // 交互：可点击交互
+          Button($r('app.string.canvas_clearRect')).id('gradient_sample_button_13')
             .onClick(() => {
               this.context.clearRect(0, 0, 900, 200)
             })
             .sampleButton();
 
-        }.width('100%');
-      };
-    }
+        }.id('gradient_sample_column_4').width('100%');
+      }.id('gradient_sample_scroll_3');
+    }.id('gradient_sample_column_1')
     .width('100%')
     .height('100%')
     .backgroundColor($r('app.color.background_light_gray'))

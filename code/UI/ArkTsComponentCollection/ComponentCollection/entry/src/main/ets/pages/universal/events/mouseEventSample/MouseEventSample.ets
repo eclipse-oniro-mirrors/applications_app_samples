@@ -13,36 +13,69 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/universal/events/mouseEventSample/MouseEventSample.ets
+ * 文件职责：MouseEventSample 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：MouseEventSample。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { TitleBar } from '../../../../common/TitleBar';
 import { IntroductionTitle } from '../../../../common/IntroductionTitle';
 import { getStringData } from '../../../../data/ResourceDataHandle';
 
+/**
+ * MouseEventSample：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct MouseEventSample {
+  // @State hoverText：组件内部状态
   @State hoverText: Resource = $r('app.string.mouse_event_onHover_description');
+
+  // @State mouseText：组件内部状态
   @State mouseText: string = '';
+
+  // @State action：组件内部状态
   @State action: string = '';
+
+  // @State mouseBtn：组件内部状态
   @State mouseBtn: string = '';
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：高度、宽度、背景色
     Column() {
-      TitleBar({ title: $r('app.string.mouse_event') })
+      // TitleBar：TitleBar 自定义组件
+      TitleBar({ title: $r('app.string.mouse_event') }).id('mouse_event_sample_title_bar_2')
+      // Column：垂直布局容器
+      // 关键属性：外边距、宽度
       Column({ space: 12 }) {
+        // Row：水平布局容器
+        // 关键属性：主轴对齐、圆角、背景色、高度、宽度
         Row() {
-          Text(this.mouseText)
+          // Text：文本
+          // 关键属性：宽度、文本对齐、内边距
+          Text(this.mouseText).id('mouse_event_sample_text_5')
             .width('100%')
             .textAlign(TextAlign.Start)
             .padding({ left: 12 })
-        }
+        }.id('mouse_event_sample_row_4')
         .justifyContent(FlexAlign.Center)
         .borderRadius(24)
         .backgroundColor(Color.White)
         .height(150)
         .width('90%')
 
+        // IntroductionTitle：IntroductionTitle 自定义组件
         IntroductionTitle({ introduction: $r('app.string.mouse_event_move_description') })
-        Button(this.hoverText, { type: ButtonType.Capsule, stateEffect: false })
+          .id('mouse_event_sample_introduction_title_6')
+        // Button：按钮
+        // 关键属性：宽度、高度、悬停回调
+        Button(this.hoverText, { type: ButtonType.Capsule, stateEffect: false }).id('mouse_event_sample_button_7')
           .width('90%')
           .height(40)
           .onHover((isHover: boolean) => {
@@ -54,8 +87,13 @@ struct MouseEventSample {
             }
           })
 
+        // IntroductionTitle：IntroductionTitle 自定义组件
         IntroductionTitle({ introduction: $r('app.string.mouse_event_click_description') })
+          .id('mouse_event_sample_introduction_title_8')
+        // Button：按钮
+        // 关键属性：宽度、高度、onMouse
         Button($r('app.string.mouse_event_onMouse_text'), { type: ButtonType.Capsule, stateEffect: false })
+          .id('mouse_event_sample_button_9')
           .width('90%')
           .height(40)
           .onMouse((event: MouseEvent) => {
@@ -97,13 +135,12 @@ struct MouseEventSample {
             '\nAction = ' + this.action + '\nXY=(' + event.x + ',' + event.y + ')' +
             '\nscreenXY=(' + event.screenX + ',' + event.screenY + ')';
           })
-      }
+      }.id('mouse_event_sample_column_3')
       .margin({ top: 12 })
       .width('100%')
-    }
+    }.id('mouse_event_sample_column_1')
     .height('100%')
     .width('100%')
     .backgroundColor($r('app.color.background_shallow_grey'))
   }
 }
-

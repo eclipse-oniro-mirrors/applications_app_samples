@@ -19,6 +19,8 @@ import { RdbStoreUtil } from '../util/SingleKVStore';
 import relationalStore from '@ohos.data.relationalStore';
 import { BusinessError } from '@ohos.base';
 import { ValuesBucket } from '@ohos.data.ValuesBucket';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { DOMAIN, LOG_TAG } from '../util/LogConstants';
 
 @Sendable
 export default class RdbStoreTask extends StartupTask {
@@ -47,14 +49,15 @@ export default class RdbStoreTask extends StartupTask {
 
         rdbStore.insert('EMPLOYEE', valueBucket1, (err: BusinessError, rowId: number) => {
           if (err) {
-            console.error(`Failed to insert data. Code:${err.code}, message:${err.message}`);
+            hilog.error(DOMAIN, LOG_TAG, 'Failed to insert data, code: %{public}d, message: %{public}s',
+              err.code, err.message);
             return;
           }
-          console.info(`Succeeded in inserting data. rowId:${rowId}`);
+          hilog.info(DOMAIN, LOG_TAG, 'Succeeded in inserting data, rowId: %{public}d', rowId);
         })
 
       }).catch((err: BusinessError) => {
-      console.error(`Failed to create KVManager.message:${err}`);
+      hilog.error(DOMAIN, LOG_TAG, 'Failed to create RdbStore, message: %{public}s', JSON.stringify(err));
     });
 
   }

@@ -13,24 +13,38 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/second.ets
+ * 文件职责：second 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：Second。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位。
+ */
+
 import router from '@ohos.router';
 
+/**
+ * Second：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct Second {
   @State message: string = 'Second Page'
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
     Row() {
       Column() {
         Text(this.message)
+          .id('secondMessageText')
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
         Button() {
-          Text('back to index')
+          Text('back to index').id('second_text_3')
             .fontSize(20)
             .fontWeight(FontWeight.Bold)
-        }
+        }.id('secondBackButton')
         .type(ButtonType.Capsule)
         .margin({
           top: 20
@@ -41,9 +55,9 @@ struct Second {
         .onClick(() => {
           router.back()
         })
-      }
+      }.id('second_column_2')
       .width('100%')
-    }
+    }.id('second_row_1')
     .height('100%')
   }
 }

@@ -18,8 +18,8 @@ import { UIAbility } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 
-const TAG: string = '[OpenLinkAbility]';
-const DOMAIN: number = 0xFF00;
+const TAG: string = '[Sample_UniversalLink]';
+const DOMAIN: number = 0xF811;
 
 export default class OpenLinkAbility extends UIAbility {
   onCreate(): void {

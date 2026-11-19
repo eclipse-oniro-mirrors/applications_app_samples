@@ -1,5 +1,4 @@
 /node_modules
-/oh_modules
 **/oh_modules
 /local.properties
 /.idea
@@ -11,3 +10,10 @@
 /.clang-tidy
 **/.test
 /.appanalyzer
+**/oh-package-lock.json5
+/.codegraph
+/codegraph.json
+/AGENTS.md
+/spec
+**/BuildProfile.ets
+/.psacowork/

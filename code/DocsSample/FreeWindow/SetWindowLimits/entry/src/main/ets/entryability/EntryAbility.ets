@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start freeWindow_setWindowLimits]
 import { UIAbility } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 export default class EntryAbility extends UIAbility {
@@ -20,8 +21,8 @@ export default class EntryAbility extends UIAbility {
       let windowClass = windowStage.getMainWindowSync();
       try {
         let windowLimits: window.WindowLimits = {
-          maxWidth: 1500,
-          maxHeight: 1000,
+          maxWidth: 800,
+          maxHeight: 600,
           minWidth: 600,
           minHeight: 500
         };
@@ -37,3 +38,4 @@ export default class EntryAbility extends UIAbility {
     });
   }
 }
+// [End freeWindow_setWindowLimits]

@@ -21,10 +21,8 @@ import Want from '@ohos.app.ability.Want';
 import Bubble from './Bubble';
 import CardItem from './CardItem';
 import { CommonConstants, GridLayoutItemInfo, Logger, LauncherDataSource, ResourceManager,
-  FormCardItem } from '@ohos/base';
-import { CardItemInfo } from '../../../../../../base/index';
+  FormCardItem, CardItemInfo, FormModel } from '@ohos/base';
 import { DesktopLayoutModel, SHOPPING_BUNDLE } from '../model/DesktopLayoutModel';
-import { FormModel } from '../../../../../../base/index';
 
 const TAG: string = 'LauncherGridLayout'
 
@@ -97,7 +95,7 @@ export default struct LauncherGridLayout {
       abilityName: 'EntryAbility',
       flags: wantConstant.Flags.FLAG_INSTALL_ON_DEMAND
     }
-    let context = getContext(this) as common.ServiceExtensionContext
+    let context = getContext(this) as common.AppServiceExtensionContext
     context.startAbility(orangeWant)
   }
 
