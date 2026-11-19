@@ -40,14 +40,14 @@ uint64_t Recorder::GetCameraInputSurfaceId() const
     return id;
 }
 // [Start recorder_buffer_input_first]
-//  获取首帧视频宽跨距和高跨距。
+// 获取首帧视频宽跨距和高跨距。
 bool Recorder::InitSyncVideoInputContext()
 {
     if (!encContext_->isEncFirstFrame) {
         return true;
     }
     std::unique_ptr<OH_AVFormat, decltype(&OH_AVFormat_Destroy)> format(videoEncoder_->GetInputDescription(),
-                                                                        OH_AVFormat_Destroy);
+                                                                           OH_AVFormat_Destroy);
     int32_t pixelFormat = -1;
     // 与同步解码首帧读取输出描述对应：取得首个输入Buffer后，读取编码器的实际输入布局。
     if (format == nullptr ||
@@ -184,10 +184,10 @@ void Recorder::VideoEncInputAsyncThread()
         // [Start recorder_video_buffer_input_async]
         // 异步模式只消费OnNeedInputBuffer回调入队的Buffer和索引，不调用Query/Get接口。
         const auto bufferInfo = encContext_->inputBufferQueue.Dequeue(INPUT_WAIT_MS);
-        if (input == nullptr || input->buffer == nullptr) {
+        if (bufferInfo == nullptr || bufferInfo->buffer == nullptr) {
             continue;
         }
-         /**
+        /**
          * // 示例：读取输入文件数据，将数据写入buffer，设置属性后送入编码器。
          * // 输入文件配置。
          * std::string_view inputFilePath = "/*yourpath*.yuv";
@@ -240,14 +240,9 @@ void Recorder::VideoEncInputAsyncThread()
          * if (parameterRet != AV_ERR_OK) {
          *     // 异常处理。
          * }
-         * // 送入编码输入队列进行编码，index为对应输入队列的下标。
-         * OH_AVErrCode pushInputRet = OH_VideoEncoder_PushInputBuffer(videoEnc, bufferInfo->index);
-         * if (pushInputRet != AV_ERR_OK) {
-         *     // 异常处理。
-         * }
          */
         // [End recorder_video_buffer_input_async]
-        if (!SubmitVideoInputImage(image.get(), *input, state, receivedAtUs)) {
+        if (!SubmitVideoInputImage(image.get(), *bufferInfo, state, receivedAtUs)) {
             break;
         }
     }
