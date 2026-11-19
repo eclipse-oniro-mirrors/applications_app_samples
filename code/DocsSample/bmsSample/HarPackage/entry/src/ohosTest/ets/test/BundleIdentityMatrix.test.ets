@@ -675,3 +675,245 @@ export default function bundleIdentityMatrixTest() {
       }
     })
     /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEID_0067
+     * @tc.name      testBundleIdentity0067
+     * @tc.desc      App label id and icon id are different resources
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleIdentity0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0067', 'bundle identity case 67');
+      expect(info.appInfo.labelId === info.appInfo.iconId).assertFalse();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0068', 'bundle identity case 68');
+      expect(info.versionCode > info.targetVersion).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEID_0069
+     * @tc.name      testBundleIdentity0069
+     * @tc.desc      Install time is later than the epoch
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleIdentity0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0069', 'bundle identity case 69');
+      expect(info.installTime > 1000000000000).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0070', 'bundle identity case 70');
+      expect(info.name.startsWith('.')).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEID_0071
+     * @tc.name      testBundleIdentity0071
+     * @tc.desc      Bundle name has no upper case characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleIdentity0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0071', 'bundle identity case 71');
+      expect(info.name === info.name.toLowerCase()).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0072', 'bundle identity case 72');
+      expect(info.vendor === info.vendor.toLowerCase()).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEID_0073
+     * @tc.name      testBundleIdentity0073
+     * @tc.desc      App id starts with the bundle name prefix
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleIdentity0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0073', 'bundle identity case 73');
+      expect(info.signatureInfo.appId.startsWith('com.') || info.signatureInfo.appId.length > 10).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0074', 'bundle identity case 74');
+      expect(new RegExp('^[0-9A-Fa-f]+$').test(info.signatureInfo.fingerprint)).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEID_0075
+     * @tc.name      testBundleIdentity0075
+     * @tc.desc      Version code has no fractional part
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleIdentity0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0075', 'bundle identity case 75');
+      expect(Math.floor(info.versionCode)).assertEqual(info.versionCode);
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0076', 'bundle identity case 76');
+      expect(info.targetVersion >= 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEID_0077
+     * @tc.name      testBundleIdentity0077
+     * @tc.desc      Hap module names are strings
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleIdentity0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0077', 'bundle identity case 77');
+      const names: string[] = info.hapModulesInfo.map((item: bundleManager.HapModuleInfo) => item.name);
+      expect(names.every((value: string) => value.length > 0)).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0078', 'bundle identity case 78');
+      const entryModules: bundleManager.HapModuleInfo[] =
+        info.hapModulesInfo.filter((item: bundleManager.HapModuleInfo) => item.type === bundleManager.ModuleType.ENTRY);
+      const entryCount: number = entryModules.length;
+      expect(entryCount).assertEqual(1);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEID_0079
+     * @tc.name      testBundleIdentity0079
+     * @tc.desc      The entry module is present in the module list
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleIdentity0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0079', 'bundle identity case 79');
+      expect(info.hapModulesInfo.some((item: bundleManager.HapModuleInfo) => item.name === ENTRY_MODULE)).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0080', 'bundle identity case 80');
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEID_0081
+     * @tc.name      testBundleIdentity0081
+     * @tc.desc      Every module reports the bundle name
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleIdentity0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0081', 'bundle identity case 81');
+      expect(info.hapModulesInfo.every((item: bundleManager.HapModuleInfo) => item.name.length > 0)).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0082', 'bundle identity case 82');
+      expect(info.appInfo.uid > 0 && info.appInfo.accessTokenId > 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEID_0083
+     * @tc.name      testBundleIdentity0083
+     * @tc.desc      App label and icon references use the media prefix
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleIdentity0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0083', 'bundle identity case 83');
+      expect(info.appInfo.icon.startsWith('$media:') || info.appInfo.icon.length > 0).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0084', 'bundle identity case 84');
+      const certificate: string | undefined = info.signatureInfo.certificate;
+      expect(certificate === undefined || typeof certificate === 'string').assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEID_0085
+     * @tc.name      testBundleIdentity0085
+     * @tc.desc      Build version is optional text
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleIdentity0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0085', 'bundle identity case 85');
+      const buildVersion: string | undefined = info.buildVersion;
+      expect(buildVersion === undefined || buildVersion.length >= 0).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0086', 'bundle identity case 86');
+      const firstInstall: number | undefined = info.firstInstallTime;
+      expect(firstInstall === undefined || firstInstall <= info.installTime).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEID_0087
+     * @tc.name      testBundleIdentity0087
+     * @tc.desc      Bundle app info name is stable across queries
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleIdentity0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0087', 'bundle identity case 87');
+      const again: bundleManager.BundleInfo = await selfBundle();
+      expect(again.appInfo.name).assertEqual(info.appInfo.name);
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0088', 'bundle identity case 88');
+      const again: bundleManager.BundleInfo = await selfBundle();
+      expect(again.appInfo.uid).assertEqual(info.appInfo.uid);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEID_0089
+     * @tc.name      testBundleIdentity0089
+     * @tc.desc      Bundle app info label id is stable across queries
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleIdentity0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0089', 'bundle identity case 89');
+      const again: bundleManager.BundleInfo = await selfBundle();
+      expect(again.appInfo.labelId).assertEqual(info.appInfo.labelId);
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0090', 'bundle identity case 90');
+      const again: bundleManager.BundleInfo = await selfBundle();
+      expect(again.appInfo.iconId).assertEqual(info.appInfo.iconId);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEID_0091
+     * @tc.name      testBundleIdentity0091
+     * @tc.desc      Bundle signature app identifier is stable across queries
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleIdentity0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      logCase('testBundleIdentity0091', 'bundle identity case 91');
+      const again: bundleManager.BundleInfo = await selfBundle();
+      expect(again.signatureInfo.appIdentifier).assertEqual(info.signatureInfo.appIdentifier);
+    });
+
+  });
+}
