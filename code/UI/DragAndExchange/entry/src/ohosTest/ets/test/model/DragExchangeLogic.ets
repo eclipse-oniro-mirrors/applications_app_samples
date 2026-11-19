@@ -145,7 +145,7 @@ export function dragParamsText(selectedIndex: number, insertIndex: number): stri
 export class DataSourceModel {
   private listeners: string[] = [];
   private names: string[] = [];
-  private eventLog: string[] = [];
+  private notificationEvents: string[] = [];
 
   totalCount(): number {
     return this.names.length;
@@ -179,25 +179,25 @@ export class DataSourceModel {
 
   notifyDataReload(): void {
     this.listeners.forEach((listener: string) => {
-      this.eventLog.push(`${listener}:reload`);
+      this.notificationEvents.push(`${listener}:reload`);
     });
   }
 
   notifyDataAdd(index: number): void {
     this.listeners.forEach((listener: string) => {
-      this.eventLog.push(`${listener}:add${index}`);
+      this.notificationEvents.push(`${listener}:add${index}`);
     });
   }
 
   notifyDataChange(index: number): void {
     this.listeners.forEach((listener: string) => {
-      this.eventLog.push(`${listener}:change${index}`);
+      this.notificationEvents.push(`${listener}:change${index}`);
     });
   }
 
   notifyDataMove(from: number, to: number): void {
     this.listeners.forEach((listener: string) => {
-      this.eventLog.push(`${listener}:move${from}-${to}`);
+      this.notificationEvents.push(`${listener}:move${from}-${to}`);
     });
   }
 
@@ -210,7 +210,7 @@ export class DataSourceModel {
   }
 
   events(): string[] {
-    return this.eventLog.slice();
+    return this.notificationEvents.slice();
   }
 }
 
