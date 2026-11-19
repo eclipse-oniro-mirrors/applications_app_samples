@@ -400,7 +400,7 @@ export default function loadingTimelineFlow5Test(): void {
       expect(step3).assertEqual(80790);
       const step4: string = subject.text();
       logInfo(`step4 text(): step4=${step4}`);
-      expect(step4).assertEqual('\u5f53\u524d\u5df2\u52a0\u8f7d80790%');
+      expect(step4).assertEqual('当前已加载80790%');
       const step5: string[] = subject.history();
       logInfo(`step5 history(): step5.length=${step5.length}`);
       expect(step5.length).assertEqual(8080);

@@ -1368,13 +1368,13 @@ export default function loadingTimelineFlowTest(): void {
       expect(step2).assertEqual(86400);
       const step3: string = subject.text();
       logInfo(`step3 text(): step3=${step3}`);
-      expect(step3).assertEqual('\u5f53\u524d\u5df2\u52a0\u8f7d86400%');
+      expect(step3).assertEqual('当前已加载86400%');
       const step4: string = subject.view();
       logInfo(`step4 view(): step4=${step4}`);
       expect(step4).assertEqual('CommodityList');
       const step5: string = subject.text();
       logInfo(`step5 text(): step5=${step5}`);
-      expect(step5).assertEqual('\u5f53\u524d\u5df2\u52a0\u8f7d86400%');
+      expect(step5).assertEqual('当前已加载86400%');
       logInfo(`${BUNDLE}LoadingTimelineFlow_0053 end`);
     });
 

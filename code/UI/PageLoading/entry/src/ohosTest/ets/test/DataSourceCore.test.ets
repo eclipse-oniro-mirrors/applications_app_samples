@@ -28,53 +28,53 @@ class CountingListener implements DataChangeListener {
   lastChangeIndex: number = -1000;
   deletedCount: number = 0;
   lastDeleteIndex: number = -1000;
-  eventLog: string[] = [];
+  notificationHistory: string[] = [];
 
   onDataReloaded(): void {
     this.reloadedCount++;
-    this.eventLog.push('reload');
+    this.notificationHistory.push('reload');
   }
 
   onDataAdd(index: number): void {
     this.addedCount++;
     this.lastAddIndex = index;
-    this.eventLog.push('add:' + index);
+    this.notificationHistory.push('add:' + index);
   }
 
   onDataChange(index: number): void {
     this.changedCount++;
     this.lastChangeIndex = index;
-    this.eventLog.push('change:' + index);
+    this.notificationHistory.push('change:' + index);
   }
 
   onDataDelete(index: number): void {
     this.deletedCount++;
     this.lastDeleteIndex = index;
-    this.eventLog.push('delete:' + index);
+    this.notificationHistory.push('delete:' + index);
   }
 
   onDataMove(from: number, to: number): void {
-    this.eventLog.push('move:' + from + '>' + to);
+    this.notificationHistory.push('move:' + from + '>' + to);
   }
 
   onDataAdded(index: number): void {
-    this.eventLog.push('addedNew:' + index);
+    this.notificationHistory.push('addedNew:' + index);
   }
 
   onDataChanged(index: number): void {
-    this.eventLog.push('changedNew:' + index);
+    this.notificationHistory.push('changedNew:' + index);
   }
 
   onDataDeleted(index: number): void {
-    this.eventLog.push('deletedNew:' + index);
+    this.notificationHistory.push('deletedNew:' + index);
   }
 
   onDataMoved(from: number, to: number): void {
-    this.eventLog.push('movedNew:' + from + '>' + to);
+    this.notificationHistory.push('movedNew:' + from + '>' + to);
   }
 
   onDatasetChange(dataOperations: DataOperation[]): void {
-    this.eventLog.push('datasetChange:' + dataOperations.length);
+    this.notificationHistory.push('datasetChange:' + dataOperations.length);
   }
 }
 
@@ -665,8 +665,8 @@ export default function dataSourceCoreTest(): void {
       source.notifyDataReload();
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.reloadedCount=${listener.reloadedCount}, expected=0`);
       expect(listener.reloadedCount).assertEqual(0);
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog.length=${listener.eventLog.length}`);
-      expect(listener.eventLog.length).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory.length=${listener.notificationHistory.length}`);
+      expect(listener.notificationHistory.length).assertEqual(0);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual typeof source=${typeof source}, expected='object'`);
       expect(typeof source).assertEqual('object');
       log('testDsCore0126 end');
@@ -690,8 +690,8 @@ export default function dataSourceCoreTest(): void {
       source.notifyDataReload();
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.reloadedCount=${listener.reloadedCount}, expected=1`);
       expect(listener.reloadedCount).assertEqual(1);
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog[0]=${listener.eventLog[0]}`);
-      expect(listener.eventLog[0]).assertEqual('reload');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory[0]=${listener.notificationHistory[0]}`);
+      expect(listener.notificationHistory[0]).assertEqual('reload');
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual typeof source=${typeof source}, expected='object'`);
       expect(typeof source).assertEqual('object');
       log('testDsCore0127 end');
@@ -817,8 +817,8 @@ export default function dataSourceCoreTest(): void {
       source.notifyDataReload();
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.reloadedCount=${listener.reloadedCount}, expected=1`);
       expect(listener.reloadedCount).assertEqual(1);
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.eventLog[0]=${listener.eventLog[0]}`);
-      expect(listener.eventLog[0]).assertEqual('reload');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual listener.notificationHistory[0]=${listener.notificationHistory[0]}`);
+      expect(listener.notificationHistory[0]).assertEqual('reload');
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual actual=${typeof listener.reloadedCount}, expected='number'`);
       expect(typeof listener.reloadedCount).assertEqual('number');
       log('testDsCore0132 end');
