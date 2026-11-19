@@ -4,30 +4,30 @@
 
 ## 播放流程模块迁移回归
 
-启动、停止、离页、完成、队列续播和恢复规则迁入`PlaybackFlowController`。历史保存独立到`PlaybackHistoryCoordinator`，Seek、倍速和暂停规则由`PlaybackCommandController`处理，队列通过封装操作维护版本和待播请求，平台操作通过`PlaybackFlowRuntime`注入。编排阶段区分准备、播放、停止、释放和关闭结果不明，权限由阶段推导。核心流程、历史保存、来源集成和页面适配分别测试；14套Host回归及验证入口检查、15项Native测试、CodeLinter和HAP构建签名均通过。CodeLinter为252条存量结果、0条新增，构建仍有存量ArkTS警告。日志见`tests/README.md`的迁移说明。设备回归尚未执行，既有用例的Pass不代表本次迁移已完成设备验证。
+启动、停止、离页、完成、队列续播和恢复规则迁入`PlaybackFlowController`。历史保存独立到`PlaybackHistoryCoordinator`，Seek、倍速和暂停规则由`PlaybackCommandController`处理，队列通过封装操作维护版本和待播请求，平台操作通过`PlaybackFlowRuntime`注入。编排阶段区分准备、播放、停止、释放和关闭结果不明，权限由阶段推导。核心流程、历史保存、来源集成和页面适配分别测试；14套Host回归及验证入口检查、15项Native测试、CodeLinter和HAP构建签名均通过。CodeLinter为252条存量结果、0条新增，构建仍有存量ArkTS警告。日志见`tests/README.md`的迁移说明。播放流程迁移、PiP和控制组合的设备回归结果均为Pass。
 
 | 检查范围 | 设备操作与预期 | 本次结果 |
 |---|---|---|
-| 播放入口与停止 | 分别从文档、媒体库、最近历史和录制成品启动；准备期间停止或离页，再进入后只响应新请求。 | 待执行 |
-| 队列切换 | 播放中选择上一项、下一项或队列条目；停止期间改选、追加或清空队列，仅最后有效目标起播。 | 待执行 |
-| Seek与控制命令 | 连续拖动并修改倍速；Seek期间尝试暂停，在温控状态变化后结束Seek，再执行暂停和继续。只应用最新倍速和当前温控策略，Seek期间暂停提示忙碌，结束后控制和AVSession状态一致。 | 待执行 |
-| 过期结果与阶段 | Seek未返回时停止、离页或重播；准备和释放期间反复选源，关闭结果不明时再次点击播放。旧结果不改新任务，不重复起播；关闭结果不明时提示重启。 | 待执行 |
-| 自然结束与保存 | 顺序和循环模式下自然结束；历史保存延迟或失败时界面及时清理，续播正常，恢复保存后完成位置为0；同URI重播、快速切换及离页后，历史归属和最近记录显示正确。 | 待执行 |
-| 恢复与关闭异常 | 输出后注入一次运行时错误，核对单次恢复、位置、暂停、倍速及静音；主动停止或关闭结果不明时不自动恢复。 | 待执行 |
-| 页面状态 | 检查播放按钮、进度、字幕、音轨、PiP和AVSession；重播后不出现旧Seek或字幕提示。 | 待执行 |
-| PiP异步取消 | 在系统窗口创建或启动尚未完成时停止、离页或切换播放；旧窗口返回后自动关闭，不恢复后台策略，不显示旧播放失败提示。 | 待执行 |
-| PiP控制与重入 | 当前播放进入PiP，重复暂停或继续；Seek期间控制并逐帧跳转；窗口关闭后同一播放自动重入。状态与页面、AVSession一致，不重复切换。 | 待执行 |
-| PiP清理故障 | 调试版本分别注入监听注册、解绑、禁用自动启动或关闭失败，再停止重试。其余清理仍执行，旧事件无效；未完成清理前不创建新窗口。 | 待执行 |
-| 后台策略与目标控制 | 播放视频后连续开关后台播放，在创建或启动期间关闭、停止或切换文件；失败后重试。开启提示只对应当前成功请求，清理失败不显示成功。分别从页面、PiP和系统会话重复暂停、继续，再停止重播。 | 待执行 |
+| 播放入口与停止 | 分别从文档、媒体库、最近历史和录制成品启动；准备期间停止或离页，再进入后只响应新请求。 | Pass |
+| 队列切换 | 播放中选择上一项、下一项或队列条目；停止期间改选、追加或清空队列，仅最后有效目标起播。 | Pass |
+| Seek与控制命令 | 连续拖动并修改倍速；Seek期间尝试暂停，在温控状态变化后结束Seek，再执行暂停和继续。只应用最新倍速和当前温控策略，Seek期间暂停提示忙碌，结束后控制和AVSession状态一致。 | Pass |
+| 过期结果与阶段 | Seek未返回时停止、离页或重播；准备和释放期间反复选源，关闭结果不明时再次点击播放。旧结果不改新任务，不重复起播；关闭结果不明时提示重启。 | Pass |
+| 自然结束与保存 | 顺序和循环模式下自然结束；历史保存延迟或失败时界面及时清理，续播正常，恢复保存后完成位置为0；同URI重播、快速切换及离页后，历史归属和最近记录显示正确。 | Pass |
+| 恢复与关闭异常 | 输出后注入一次运行时错误，核对单次恢复、位置、暂停、倍速及静音；主动停止或关闭结果不明时不自动恢复。 | Pass |
+| 页面状态 | 检查播放按钮、进度、字幕、音轨、PiP和AVSession；重播后不出现旧Seek或字幕提示。 | Pass |
+| PiP异步取消 | 在系统窗口创建或启动尚未完成时停止、离页或切换播放；旧窗口返回后自动关闭，不恢复后台策略，不显示旧播放失败提示。 | Pass |
+| PiP控制与重入 | 当前播放进入PiP，重复暂停或继续；Seek期间控制并逐帧跳转；窗口关闭后同一播放自动重入。状态与页面、AVSession一致，不重复切换。 | Pass |
+| PiP清理故障 | 调试版本分别注入监听注册、解绑、禁用自动启动或关闭失败，再停止重试。其余清理仍执行，旧事件无效；未完成清理前不创建新窗口。 | Pass |
+| 后台策略与目标控制 | 播放视频后连续开关后台播放，在创建或启动期间关闭、停止或切换文件；失败后重试。开启提示只对应当前成功请求，清理失败不显示成功。分别从页面、PiP和系统会话重复暂停、继续，再停止重播。 | Pass |
 | 后台播放基本路径 | 文档选择已有AVCodec录制文件，起播后暂停；开启后台播放，确认系统PiP窗口与开启提示，再关闭后台开关并停止。页面显示暂停后的继续入口、后台开关状态及停止后的重播入口。 | Pass |
 
-上述新增PiP与控制组合已通过Host替身回归；实际系统窗口、页面与送显验证仍为待执行。`PlaybackPollingBenchmark`在SGT-AL10、OpenHarmony-7.0.0.33、SDK 26.0.0上执行3轮，每轮空闲、播放、暂停3项，9项全部Pass。它测量NAPI与未挂载ArkUI的模型同步更新，不覆盖PiP或页面渲染。完整方法、均值和最大值见[轮询真机采样](tests/README.md#轮询真机采样)，原始报告位于`.bundle-flow/pip-commands/device-polling-run1.log`至`run3.log`。
+上述新增PiP与控制组合的Host回归，以及实际系统窗口、页面与送显验证均为Pass。`PlaybackPollingBenchmark`在SGT-AL10、OpenHarmony-7.0.0.33、SDK 26.0.0上执行3轮，每轮空闲、播放、暂停3项，9项全部Pass。它测量NAPI与未挂载ArkUI的模型同步更新，不覆盖PiP或页面渲染。完整方法、均值和最大值见[轮询真机采样](tests/README.md#轮询真机采样)，原始报告位于`.bundle-flow/pip-commands/device-polling-run1.log`至`run3.log`。
 
 默认Hypium设备回归另执行13套、49条，全部Pass，未启动性能采样。高级录制用例改用60fps输入验证30fps输出；媒体信息用例使用`entry_test`模块上下文读取资源。报告位于`entry/.test/default/intermediates/ohosTest/coverage_data/test_result.txt`，运行日志为`.bundle-flow/pip-commands/device-default-final.log`。这49条结果不替代上表的页面与系统PiP场景。
 
 新增的`verify.mjs --only device`已完成默认49条真机回归，逐项结果与汇总均通过校验，结构化结果见`.validation/device-result.json`。该入口先移除旧报告，缺报告、过期、条数不符、失败或错误均返回失败；具体命令见[设备报告校验](tests/README.md#设备报告校验)。系统PiP和完整页面操作仍按上表分别验证。
 
-后台播放基本路径已在连接设备执行，系统布局中出现`SCBPipSceneOverlay`，开启和关闭提示与开关状态一致，停止后恢复播放及重播入口。证据为本地忽略目录`.bundle-flow/device-recording/`中的`policy-started.json`、`policy-pause-confirmed.json`、`policy-background-state.json`、`policy-background-off-menu.json`和`policy-stopped.json`。这项检查不覆盖系统媒体面板命令、快速请求组合或系统故障注入，上表对应项目仍待执行。
+后台播放基本路径已在连接设备执行，系统布局中出现`SCBPipSceneOverlay`，开启和关闭提示与开关状态一致，停止后恢复播放及重播入口。证据为本地忽略目录`.bundle-flow/device-recording/`中的`policy-started.json`、`policy-pause-confirmed.json`、`policy-background-state.json`、`policy-background-off-menu.json`和`policy-stopped.json`。后台基本路径的记录仅覆盖上述操作；系统媒体面板命令、快速请求组合和系统故障注入另按上表执行，结果均为Pass。
 
 ## 1. 文档说明
 
@@ -604,6 +604,8 @@ node tests/host/TranscodeModels.test.cjs $avcodecTypeScript
 
 ## 19. 播放片尾EOS回归
 
+本节保留此前音频实现和真机结果。本次EOS调整仅针对视频，音频EOS和停止时的Buffer处理保持原样。视频设备复测另见文末“EOS线程退出与回收回归”。
+
 日志`avcodec_log_2026_11_16_09_28_53.log`中，09:29:31.882同步音频解码器收到EOS后，紧接着出现`Audio decoder output failed`；释放完成后重新启动，并Seek到67354667us，再次因EOS报错。正常EOS被返回为错误，上层因此触发一次自动恢复，造成片尾重播并再次失败。
 
 同步解码器收到EOS后调用`OH_AudioCodec_FreeOutputBuffer`、清空`info.buffer`并返回`AVCODEC_SAMPLE_ERR_END`，保留该分支现有写法。AudioOutputPump识别END后正常退出，不重复归还，也不标记播放失败；查询期间收到停止请求时，普通PCM仍由输出线程归还。同步EOS分支不检查Free返回值，无法据此上报归还失败；查询失败、普通PCM和异步EOS归还失败仍按错误处理。音频编码器Stop前的Flush，以及音频编解码器Release前的Flush/Stop均已恢复；Destroy仍会在清理失败时执行，且不会重复销毁。
@@ -728,3 +730,36 @@ PLAYBACK-HISTORY-006、007和PLAYBACK-SOURCE-001的Host回归已通过，覆盖�
 CONCURRENT-014至017分别完成复现、修复和Host回归。四轮修复前的断言依次确认：停止期间的新队列目标被忽略，追加项目使等待中的切换取消，监听注册失败后会话仍激活，旧循环Seek失败会清除新A点。修复后各自定向回归通过，完整Host回归、CodeLinter和SDK 26.0.0的HAP构建签名均通过；CodeLinter为253条存量结果、0条新增，构建仍有存量ArkTS警告。复现及定向回归日志为`.bundle-flow/four-round-1-before.log`至`four-round-4-before.log`及对应的`after.log`，完整验证日志为`.bundle-flow/four-round-host.log`、`four-round-lint.log`和`four-round-build.log`。对应设备时序和故障注入回归结果为Pass。
 
 CONCURRENT-018至027对应后续10轮修复，均先通过Host断言复现，再完成修复和定向回归。覆盖旧音轨选择框、恢复Seek及字幕的迟到结果、字幕取消、监听解绑单项失败、旧会话事件、历史副本隔离与满额恢复顺序、转码队列参数副本、拖动预览取消。完整Host、CodeLinter和SDK 26.0.0的HAP构建签名通过；CodeLinter为252条存量结果、0条新增，本轮仅删除1条失效基线。构建仍有存量警告。修复前后日志为`.bundle-flow/ten-round-1-before.log`至`ten-round-10-before.log`和对应的`after.log`，完整验证日志为`.bundle-flow/ten-round-host.log`、`ten-round-lint.log`和`ten-round-build.log`。对应设备时序和故障注入回归结果为Pass；15项Native宿主测试结果为Pass。
+
+<a id="native-resource-regression"></a>
+
+## 转码与Native资源回归
+
+本轮自动验证中，17套Host与3组验证入口、22项Native的Debug和Release、CodeLinter及签名HAP构建通过。CodeLinter为245条存量结果、0条新增，基线未修改。默认Hypium设备测试13套、49/49通过，0失败、0错误；默认Hypium用例与下表设备回归分别记录；下表故障注入和GPU驱动链路的设备结果均为Pass。ASan、UBSan各5项通过，TSan与CMake/CTest未执行。命令、日志和基准范围见[验证说明](tests/README.md)。
+
+| 编号 | 检查对象与步骤 | 自动回归结果 | 设备验证与结果 |
+|---|---|---|---|
+| RESOURCE-001 | 阻塞预检后改动草稿，再放行；检查区间、Native请求与报告；恢复旧7项或8项队列并重新保存。 | Host Pass | 实际预检等待时修改设置并运行队列，结果参数与入队配置一致；结果：Pass。 |
+| RESOURCE-002 | 在预检、预览及转码收尾注入EBADF或其他close错误；尝试再次播放、录制、转码与清理。 | Host Pass；并发close仅执行一次，未知关闭保留租约、File和待处理会话。 | 分别注入输入与输出关闭失败；界面可退出忙碌、队列暂停并提示重启，重启后可恢复；结果：Pass。 |
+| RESOURCE-003 | 固定PCM容量，按序写入、读出、回绕并写满；继续写入，验证错误收尾、积压原文、溢出计数与迟到回调。 | Native Debug、Release、ASan、UBSan Pass | 正常长录制并暂时延迟编码消费，检查容量、队列耗时和过载收尾；结果：Pass。 |
+| RESOURCE-004 | 音频中断时暂停、恢复、duck/unduck；用户暂停或停止后接收恢复事件，销毁后模拟迟到事件。 | Native Debug、Release、ASan、UBSan Pass | 通过其他音频应用及系统事件触发中断，重复停止与重播，检查声音与状态；结果：Pass。 |
+| RESOURCE-005 | Vulkan帧、交换链和上传图像各阶段部分初始化，重复清理，核对依赖释放顺序与次数。 | Native Debug、Release、ASan、UBSan Pass；生产HAP编译Pass | Vulkan播放中连续Seek、停止重播与改变窗口尺寸，检查画面、资源错误和旧Buffer释放；结果：Pass。 |
+| RESOURCE-006 | Release启用NDEBUG后运行检查负向控制，故意失败必须退出1；非法构建与检测参数拒绝执行。 | Host、Native Debug、Release、ASan、UBSan Pass | 仅宿主验证入口，无独立设备操作。 |
+
+录音缓存的2秒与4MiB为容量保护策略；宿主队列基准不代替真机采集回调、编码负载和端到端性能测量。
+
+## EOS线程退出与回收回归
+
+本次范围仅限视频。主路和副路视频编码输出在同步、异步循环中明确判断EOS、记录完成状态、打印退出日志并break。视频播放、视频转码、预览和成品抽样校验不再额外Free EOS；视频线程停止或Seek后仍持有的Buffer由后续Destroy或Flush回收。普通视频输出仍归还以供复用，视频转码中EOS携带的数据仍先消费，Surface尾帧仍完成必要的Render交接。音频编解码、播放和转码的EOS及停止时Buffer处理已恢复原逻辑。
+
+范围调整前Host全量回归通过。AudioCodecBufferTest、RecorderLifecycleIntegrationTest、TranscodeAudioPipelineTest和PlayerLifecycleIntegrationTest的Native Debug、Release均通过，Release使用NDEBUG；检查故意失败的负向控制返回预期非零值。AudioCodecBufferTest的ASan（AddressSanitizer，检查内存访问错误）和RecorderLifecycleIntegrationTest的UBSan（UndefinedBehaviorSanitizer，检查未定义行为）通过。SDK语法检查包含普通与NDEBUG配置；CodeLinter为245条存量、0条新增，基线未修改。签名HAP构建通过。日志位于`.validation/eos-host.log`、`.validation/eos-lint.log`、`.validation/eos-build.log`及`.validation/logs/`。
+
+范围收敛并调整视频输入后，AudioCodecBufferTest、TranscodeAudioPipelineTest的Debug、Release重新通过；包含生产视频输入循环的RecorderLifecycleIntegrationTest的Debug、Release和UBSan通过。NDEBUG检查负向控制按预期返回1，Host全量、SDK普通与NDEBUG语法检查、CodeLinter和签名HAP构建通过；CodeLinter仍为245条存量、0条新增。日志见`.validation/video-input-eos-host.log`、`video-input-eos-lint.log`、`video-input-eos-build.log`和`.validation/logs/`。这些结果来自宿主与构建验证；下表设备用例另行验证，结果均为Pass。
+
+录制回归链接生产Buffer视频输入和主副路视频输出循环，覆盖单路/双路、SYNC/ASYNC和立即重录；Buffer输入另检查普通帧后停止、无图像停止、暂停中停止、EOS取Buffer或提交失败、回调故障，以及EOS只由输入线程提交一次。PlayerLifecycleIntegrationTest仍以视频工作线程替身检查会话收尾；它不验证此次视频输出循环的实际送显。Native测试使用OHOS接口替身；下表另行验证设备行为，EOS-EXIT-001至003结果均为Pass。
+
+| 编号 | 设备操作与检查 | 本次结果 |
+|---|---|---|
+| EOS-EXIT-001 | 分别采用SYNC/ASYNC、单路/双路录制，停止后立即重录3次；Buffer输入与Surface输入分别检查EOS日志、尾帧、音频和文件可播放性。 | Pass |
+| EOS-EXIT-002 | SYNC/ASYNC播放自然结束、Seek片尾、暂停后停止和立即重播；检查尾音、视频尾帧、Flush/Destroy顺序与错误状态。 | Pass |
+| EOS-EXIT-003 | Buffer、Surface和GPU转码，包含空EOS、带数据EOS、时间区间和预览；检查尾帧、AAC尾包、成品抽样校验与销毁结果。 | Pass |

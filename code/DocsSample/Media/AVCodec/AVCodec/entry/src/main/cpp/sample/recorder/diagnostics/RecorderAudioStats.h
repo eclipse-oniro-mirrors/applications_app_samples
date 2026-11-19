@@ -22,6 +22,10 @@
 struct RecorderAudioInfo {
     uint64_t capturedFrames = 0;
     double pendingPcmMs = 0;
+    uint64_t peakPendingPcmBytes = 0;
+    uint64_t captureCapacityBytes = 0;
+    uint64_t captureOverflows = 0;
+    StageTimingInfo captureCallback;
     uint64_t outputFrames = 0;
     uint64_t outputBytes = 0;
     double recentBitrate = 0;
@@ -49,6 +53,7 @@ public:
         secondaryTiming_ = {};
         sampleRate_ = rate;
         channels_ = channels;
+        captureTiming_ = {};
         capturedBytes_ = 0;
         stopped_ = false;
         metrics_.Start(RecorderClockUs());
@@ -63,6 +68,22 @@ public:
         info_.capturedFrames = capturedBytes_ / channels_ / sizeof(int16_t);
         info_.pendingPcmMs = static_cast<double>(std::max(0, pendingBytes)) * millisecondsPerSecond /
             sampleRate_ / channels_ / sizeof(int16_t);
+    }
+
+    void CaptureCallback(int32_t bytes, size_t pending, size_t capacity, int64_t elapsedUs, bool overflow)
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        if (stopped_ || sampleRate_ <= 0 || channels_ <= 0) {
+            return;
+        }
+        capturedBytes_ += std::max(0, bytes);
+        info_.capturedFrames = capturedBytes_ / channels_ / sizeof(int16_t);
+        info_.pendingPcmMs = static_cast<double>(pending) * millisecondsPerSecond /
+            sampleRate_ / channels_ / sizeof(int16_t);
+        info_.peakPendingPcmBytes = std::max<uint64_t>(info_.peakPendingPcmBytes, pending);
+        info_.captureCapacityBytes = capacity;
+        info_.captureOverflows += overflow ? 1 : 0;
+        captureTiming_.Record(elapsedUs);
     }
 
     bool Output(int64_t ptsUs, int32_t bytes)
@@ -107,6 +128,7 @@ public:
         const auto live = metrics_.Snapshot(RecorderClockUs());
         info.recentBitrate = live.recentBitrate;
         info.outputIdleMs = live.outputIdleMs;
+        info.captureCallback = captureTiming_.Snapshot();
         info.primaryMuxer = primaryTiming_.Snapshot();
         info.secondaryMuxer = secondaryTiming_.Snapshot();
         return info;
@@ -117,6 +139,7 @@ private:
     mutable std::mutex mutex_;
     RecorderAudioInfo info_;
     RecorderStreamMetrics metrics_;
+    StageTiming captureTiming_;
     StageTiming primaryTiming_;
     StageTiming secondaryTiming_;
     int32_t sampleRate_ = 0;

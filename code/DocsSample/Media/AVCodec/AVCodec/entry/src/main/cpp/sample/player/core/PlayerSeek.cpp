@@ -66,9 +66,9 @@ void Player::WaitIfPaused(bool audioWorker)
             return true;
         }
         if (audioWorker) {
-            return !audioWorkerRunning_.load() || (!paused_.load() && !audioInterrupted_.load());
+            return !audioWorkerRunning_.load() || (!paused_.load() && !audioCallbackContext_.interrupted.load());
         }
-        return (!paused_.load() && !audioInterrupted_.load()) || renderSingleFrameAfterSeek_.load();
+        return (!paused_.load() && !audioCallbackContext_.interrupted.load()) || renderSingleFrameAfterSeek_.load();
     });
 }
 

@@ -381,6 +381,10 @@ bool SetAudioStats(napi_env env, napi_value object, const RecorderAudioInfo &sta
     return napi_create_object(env, &audio) == napi_ok &&
         SetStatNumber(env, audio, "capturedFrames", stats.capturedFrames) &&
         SetStatNumber(env, audio, "pendingPcmMs", stats.pendingPcmMs) &&
+        SetStatNumber(env, audio, "peakPendingPcmBytes", stats.peakPendingPcmBytes) &&
+        SetStatNumber(env, audio, "captureCapacityBytes", stats.captureCapacityBytes) &&
+        SetStatNumber(env, audio, "captureOverflows", stats.captureOverflows) &&
+        SetTiming(env, audio, "captureCallback", stats.captureCallback) &&
         SetStatNumber(env, audio, "outputFrames", stats.outputFrames) &&
         SetStatNumber(env, audio, "outputBytes", stats.outputBytes) &&
         SetStatNumber(env, audio, "recentBitrate", stats.recentBitrate) &&

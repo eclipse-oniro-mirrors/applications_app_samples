@@ -72,11 +72,19 @@ int32_t Recorder::StartVideoInputThread()
     return AVCODEC_SAMPLE_ERR_OK;
 }
 
-OH_ImageNative *Recorder::ReadVideoInputImage(VideoInputState &state)
+bool Recorder::ValidateVideoInputImage(OH_ImageNative *image, VideoInputState &state)
 {
+    // videoInputStopping_请求停止Buffer视频供帧；取图期间收到停止或故障时丢弃当前图像。
+    if (!isStarted_.load() || videoInputStopping_.load()) {
+        return false;
+    }
+    if (isPaused_) {
+        state.lastSubmittedUs = RecorderClockUs();
+        return false;
+    }
     if (encContext_->hasError.load()) {
         AbortRecording("Video input callback failed");
-        return nullptr;
+        return false;
     }
     if (state.pauseRevision != pauseRevision_.load()) {
         state.pauseRevision = pauseRevision_.load();
@@ -84,29 +92,25 @@ OH_ImageNative *Recorder::ReadVideoInputImage(VideoInputState &state)
     }
     if (RecorderClockUs() - state.lastSubmittedUs > INPUT_STALL_US) {
         AbortRecording("Camera Buffer input stalled: check YUV output combination and encoder input");
-        return nullptr;
+        return false;
     }
-    // Receiver容量为3，始终读最新帧；编码输入不足时丢弃本帧，避免采集延迟累积。
-    OH_ImageNative *image = frameReceiver_->ReadLatest(INPUT_WAIT_MS);
     if (image == nullptr) {
-        return nullptr;
+        return false;
     }
     int64_t timestampNs = 0;
     if (OH_ImageNative_GetTimestamp(image, &timestampNs) != IMAGE_SUCCESS || timestampNs < 0 ||
         timestampNs < state.lastTimestampNs) {
-        (void)OH_ImageNative_Release(image);
         AbortRecording("Invalid or regressing camera timestamp");
-        return nullptr;
+        return false;
     }
     // 恢复时相机仍可能交来暂停期间在途的图像；申请编码输入前丢弃旧时间轴上的帧。
     const int64_t projectedPts = state.firstTimestampNs < 0 ? lastVideoInputPtsUs_ + 1 :
         state.firstOffsetUs + (timestampNs - state.firstTimestampNs) / NS_PER_US -
         (pausedDurationUs_ - state.initialPausedUs);
     if (projectedPts <= lastVideoInputPtsUs_) {
-        (void)OH_ImageNative_Release(image);
-        return nullptr;
+        return false;
     }
-    return image;
+    return true;
 }
 
 // [Start recorder_video_buffer_input]
@@ -115,17 +119,35 @@ void Recorder::VideoEncInputSyncThread()
 {
     VideoInputState state;
     state.lastSubmittedUs = RecorderClockUs();
-    // videoInputStopping_单独结束视频输入线程，停止读取相机图像、提交普通帧，让输出线程继续排空编码数据。
-    while (isStarted_.load() && !videoInputStopping_.load()) {
-        std::unique_lock<std::mutex> inputLock(mediaInputMutex_);
-        if (isPaused_) {
-            const CameraImage discarded(frameReceiver_->ReadLatest(INPUT_WAIT_MS), OH_ImageNative_Release);
-            state.lastSubmittedUs = RecorderClockUs();
-            inputLock.unlock();
-            continue;
+    while (isStarted_.load()) {
+        // videoInputStopping_请求停止Buffer视频供帧；在此提交EOS，不清零控制输出排空的isStarted_。
+        if (videoInputStopping_.load()) {
+            // [Start recorder_video_buffer_eos_sync]
+            CodecBufferInfo info;
+            int32_t ret = videoEncoder_->GetInputBuffer(info, DRAIN_WAIT_US);
+            if (!isStarted_.load()) {
+                break;
+            }
+            if (ret == AVCODEC_SAMPLE_ERR_OK) {
+                info.attr.size = 0;
+                info.attr.offset = 0;
+                info.attr.pts = lastVideoInputPtsUs_;
+                info.attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
+                ret = videoEncoder_->PushInputBuffer(info);
+            }
+            if (ret != AVCODEC_SAMPLE_ERR_OK) {
+                failure_.Record("recorder.video.input.eos", ret, "Submit video EOS input buffer failed");
+                AbortRecording("Submit video EOS input buffer failed");
+                break;
+            }
+            AVCODEC_SAMPLE_LOGI("Sync video input submitted EOS, thread exiting");
+            break;
+            // [End recorder_video_buffer_eos_sync]
         }
-        const CameraImage image(ReadVideoInputImage(state), OH_ImageNative_Release);
-        if (image == nullptr) {
+        // 等待相机图像时不占用暂停锁；校验和提交仍与暂停切换串行。
+        const CameraImage image(frameReceiver_->ReadLatest(INPUT_WAIT_MS), OH_ImageNative_Release);
+        std::lock_guard<std::mutex> inputLock(mediaInputMutex_);
+        if (!ValidateVideoInputImage(image.get(), state)) {
             continue;
         }
         const int64_t receivedAtUs = RecorderClockUs();
@@ -151,17 +173,37 @@ void Recorder::VideoEncInputAsyncThread()
 {
     VideoInputState state;
     state.lastSubmittedUs = RecorderClockUs();
-    // videoInputStopping_单独结束视频输入线程，停止读取相机图像、提交普通帧，让输出线程继续排空编码数据。
-    while (isStarted_.load() && !videoInputStopping_.load()) {
-        std::unique_lock<std::mutex> inputLock(mediaInputMutex_);
-        if (isPaused_) {
-            const CameraImage discarded(frameReceiver_->ReadLatest(INPUT_WAIT_MS), OH_ImageNative_Release);
-            state.lastSubmittedUs = RecorderClockUs();
-            inputLock.unlock();
-            continue;
+    while (isStarted_.load()) {
+        // videoInputStopping_请求停止Buffer视频供帧；在此提交EOS，不清零控制输出排空的isStarted_。
+        if (videoInputStopping_.load()) {
+            // [Start recorder_video_buffer_eos_async]
+            const auto input = encContext_->inputBufferQueue.Dequeue(DRAIN_WAIT_MS);
+            if (!isStarted_.load()) {
+                break;
+            }
+            if (input == nullptr || input->buffer == nullptr) {
+                AbortRecording("Get video EOS input buffer failed");
+                break;
+            }
+            CodecBufferInfo info = *input;
+            info.attr.size = 0;
+            info.attr.offset = 0;
+            info.attr.pts = lastVideoInputPtsUs_;
+            info.attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
+            const int32_t ret = videoEncoder_->PushInputBuffer(info);
+            if (ret != AVCODEC_SAMPLE_ERR_OK) {
+                failure_.Record("recorder.video.input.eos", ret, "Submit video EOS input buffer failed");
+                AbortRecording("Submit video EOS input buffer failed");
+                break;
+            }
+            AVCODEC_SAMPLE_LOGI("Async video input submitted EOS, thread exiting");
+            break;
+            // [End recorder_video_buffer_eos_async]
         }
-        const CameraImage image(ReadVideoInputImage(state), OH_ImageNative_Release);
-        if (image == nullptr) {
+        // 等待相机图像时不占用暂停锁；校验和提交仍与暂停切换串行。
+        const CameraImage image(frameReceiver_->ReadLatest(INPUT_WAIT_MS), OH_ImageNative_Release);
+        std::lock_guard<std::mutex> inputLock(mediaInputMutex_);
+        if (!ValidateVideoInputImage(image.get(), state)) {
             continue;
         }
         const int64_t receivedAtUs = RecorderClockUs();
@@ -236,42 +278,13 @@ bool Recorder::SubmitVideoInputImage(OH_ImageNative *image, CodecBufferInfo &inf
 int32_t Recorder::SendBufferVideoEndOfStream()
 {
     std::lock_guard<std::mutex> inputLock(videoInputMutex_);
-    // ArkTS已停止相机输出；先join唯一输入线程，再获取专用于EOS的输入Buffer。
+    // videoInputStopping_通知Buffer视频输入线程停止供帧并提交EOS；输出线程仍由isStarted_控制。
     videoInputStopping_.store(true);
     frameReceiver_->CancelWait();
     videoInputWorker_.Join();
-    if (!isStarted_.load()) {
-        return AVCODEC_SAMPLE_ERR_ERROR;
+    if (isStarted_.load()) {
+        return AVCODEC_SAMPLE_ERR_OK;
     }
-    return sampleInfo_.codec.codecSyncMode ? SendBufferVideoEndOfStreamSync() : SendBufferVideoEndOfStreamAsync();
+    const int32_t ret = failure_.Snapshot().code;
+    return ret != AVCODEC_SAMPLE_ERR_OK ? ret : AVCODEC_SAMPLE_ERR_ERROR;
 }
-
-// [Start recorder_video_buffer_eos_sync]
-int32_t Recorder::SendBufferVideoEndOfStreamSync()
-{
-    CodecBufferInfo info;
-    const int32_t ret = videoEncoder_->GetInputBuffer(info, DRAIN_WAIT_US);
-    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Get video EOS input buffer failed");
-    info.attr.size = 0;
-    info.attr.offset = 0;
-    info.attr.pts = lastVideoInputPtsUs_;
-    info.attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
-    return videoEncoder_->PushInputBuffer(info);
-}
-// [End recorder_video_buffer_eos_sync]
-
-// [Start recorder_video_buffer_eos_async]
-int32_t Recorder::SendBufferVideoEndOfStreamAsync()
-{
-    const auto input = encContext_->inputBufferQueue.Dequeue(DRAIN_WAIT_MS);
-    if (input == nullptr || input->buffer == nullptr) {
-        return AVCODEC_SAMPLE_ERR_ERROR;
-    }
-    CodecBufferInfo info = *input;
-    info.attr.size = 0;
-    info.attr.offset = 0;
-    info.attr.pts = lastVideoInputPtsUs_;
-    info.attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
-    return videoEncoder_->PushInputBuffer(info);
-}
-// [End recorder_video_buffer_eos_async]

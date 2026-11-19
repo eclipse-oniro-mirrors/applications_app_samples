@@ -27,15 +27,26 @@ constexpr size_t INITIAL_CAPACITY = 64 * 1024;
 constexpr size_t GROWTH_FACTOR = 2;
 }
 
-// 由调用方持有outputMutex。只有生产者扩容，渲染回调仅批量读取，不分配内存。
+// 由调用方持有对应队列锁。动态队列仅生产者扩容，固定容量队列的读写均不分配内存。
 class PcmQueue {
 public:
+    explicit PcmQueue(size_t capacity = PcmQueueConstants::INITIAL_CAPACITY,
+        size_t maximum = std::numeric_limits<size_t>::max())
+        : maximum_(maximum), data_(std::min(capacity, maximum))
+    {
+    }
+
+    size_t Capacity() const
+    {
+        return data_.size();
+    }
+
     bool Write(const uint8_t *source, size_t count)
     {
         if (count == 0) {
             return true;
         }
-        if (source == nullptr || count > std::numeric_limits<size_t>::max() - size_) {
+        if (source == nullptr || count > maximum_ - size_) {
             return false;
         }
         EnsureCapacity(size_ + count);
@@ -49,7 +60,7 @@ public:
 
     size_t Read(uint8_t *destination, size_t count)
     {
-        if (destination == nullptr) {
+        if (destination == nullptr || size_ == 0 || count == 0) {
             return 0;
         }
         count = std::min(count, size_);
@@ -83,14 +94,15 @@ private:
         }
         const bool canGrow = data_.size() <= std::numeric_limits<size_t>::max() / PcmQueueConstants::GROWTH_FACTOR;
         const size_t next = canGrow ? std::max(required, data_.size() * PcmQueueConstants::GROWTH_FACTOR) : required;
-        std::vector<uint8_t> grown(next);
+        std::vector<uint8_t> grown(std::min(next, maximum_));
         const size_t preserved = Read(grown.data(), size_);
         data_.swap(grown);
         head_ = 0;
         size_ = preserved;
     }
 
-    std::vector<uint8_t> data_ = std::vector<uint8_t>(PcmQueueConstants::INITIAL_CAPACITY);
+    size_t maximum_;
+    std::vector<uint8_t> data_;
     size_t head_ = 0;
     size_t size_ = 0;
 };

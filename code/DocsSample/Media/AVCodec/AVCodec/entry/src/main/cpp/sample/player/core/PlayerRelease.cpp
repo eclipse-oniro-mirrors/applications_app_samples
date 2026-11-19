@@ -247,10 +247,10 @@ void Player::ResetReleasedPlaybackState()
     hasVideoTrack_.store(false);
     hasAudioTrack_.store(false);
     hasDecodedOutput_ = false;
-    audioInterrupted_ = false;
-    audioResumePending_ = false;
-    audioInterruptHint_ = AUDIOSTREAM_INTERRUPT_HINT_NONE;
-    audioDucked_ = false;
+    audioCallbackContext_.interrupted = false;
+    audioCallbackContext_.resumePending = false;
+    audioCallbackContext_.interruptHint = AUDIOSTREAM_INTERRUPT_HINT_NONE;
+    audioCallbackContext_.ducked = false;
     backgroundPausedPlayback_ = false;
     diagnostics_.SetBackgroundPaused(false);
     seekInProgress_ = false;

@@ -73,6 +73,25 @@ constexpr size_t AUDIO_CALLBACK_BYTES = AUDIO_TAIL_PCM.size() * 2;
 OH_AVCodec g_codec;
 OH_AVFormat g_outputFormat;
 OH_AVFormat g_inputFormat { true };
+int g_rendererStarts = 0;
+int g_rendererPauses = 0;
+float g_rendererVolume = 1.0F;
+
+struct AudioFixture {
+    std::atomic<bool> paused { false };
+    std::atomic<bool> running { true };
+    std::condition_variable changed;
+    std::atomic<uint64_t> underruns { 0 };
+    std::atomic<int64_t> queueDuration { 0 };
+    std::atomic<int64_t> positionUs { 0 };
+    AudioPlaybackCallbackContext audio { paused, running, changed, underruns, queueDuration, positionUs };
+    CodecUserData context;
+
+    AudioFixture()
+    {
+        context.audioPlayback = &audio;
+    }
+};
 
 void Require(bool condition, const char *message)
 {
@@ -201,7 +220,13 @@ void TestAudioTailPosition()
     context.sampleInfo = &sample;
     context.endPosAudioBufferPts = AUDIO_END_PTS_US;
     std::atomic<int64_t> positionUs {INITIAL_AUDIO_POSITION_US};
-    context.playbackPositionUs = &positionUs;
+    std::atomic<bool> paused { false };
+    std::atomic<bool> running { true };
+    std::condition_variable changed;
+    std::atomic<uint64_t> underruns { 0 };
+    std::atomic<int64_t> queueDuration { 0 };
+    AudioPlaybackCallbackContext audio(paused, running, changed, underruns, queueDuration, positionUs);
+    context.audioPlayback = &audio;
     for (uint8_t value : AUDIO_TAIL_PCM) {
         Require(context.renderQueue.Write(&value, 1), "Queue tail PCM");
     }
@@ -217,6 +242,39 @@ void TestAudioTailPosition()
         positionUs == VIDEO_TAIL_POSITION_US && context.audioFramesWritten == 1 &&
         std::all_of(output.begin(), output.end(), [](uint8_t value) { return value == 0; }),
         "Silence after audio EOS must not rewind the position advanced by remaining video");
+}
+void TestAudioInterruptions()
+{
+    AudioFixture fixture;
+    OH_AudioRenderer *renderer = reinterpret_cast<OH_AudioRenderer *>(&fixture);
+    const auto interrupt = [&fixture, renderer](OH_AudioInterrupt_Hint hint) {
+        SampleCallback::OnRenderInterrupt(renderer, &fixture.context, AUDIOSTREAM_INTERRUPT_FORCE, hint);
+    };
+    g_rendererStarts = 0;
+    g_rendererPauses = 0;
+    interrupt(AUDIOSTREAM_INTERRUPT_HINT_PAUSE);
+    Require(fixture.audio.interrupted && fixture.audio.resumePending && g_rendererPauses == 1,
+        "Pause interruption updates the shared state");
+    fixture.paused = true;
+    interrupt(AUDIOSTREAM_INTERRUPT_HINT_RESUME);
+    Require(!fixture.audio.interrupted && !fixture.audio.resumePending && g_rendererStarts == 0,
+        "System resume preserves user pause");
+    fixture.paused = false;
+    interrupt(AUDIOSTREAM_INTERRUPT_HINT_PAUSE);
+    interrupt(AUDIOSTREAM_INTERRUPT_HINT_RESUME);
+    Require(g_rendererStarts == 1, "Active playback resumes after interruption");
+    fixture.audio.volume = 0.5F;
+    interrupt(AUDIOSTREAM_INTERRUPT_HINT_DUCK);
+    Require(fixture.audio.ducked && g_rendererVolume < fixture.audio.volume, "Duck applies attenuation once");
+    interrupt(AUDIOSTREAM_INTERRUPT_HINT_UNDUCK);
+    Require(!fixture.audio.ducked && g_rendererVolume == fixture.audio.volume, "Unduck restores configured volume");
+    interrupt(AUDIOSTREAM_INTERRUPT_HINT_STOP);
+    fixture.running = false;
+    interrupt(AUDIOSTREAM_INTERRUPT_HINT_RESUME);
+    Require(g_rendererStarts == 1 && fixture.audio.interruptCount == 3, "Stopped playback cannot resume");
+    fixture.context.isDestroyed = true;
+    interrupt(AUDIOSTREAM_INTERRUPT_HINT_PAUSE);
+    Require(g_rendererPauses == 2 && fixture.audio.interruptCount == 3, "Late callbacks ignore destroyed contexts");
 }
 } // namespace
 
@@ -333,6 +391,26 @@ extern "C" int FakeLogPrint(LogType, LogLevel, unsigned int, const char *, const
     return 0;
 }
 
+extern "C" OH_AudioStream_Result FakeRendererStart(OH_AudioRenderer *) __asm__("OH_AudioRenderer_Start");
+extern "C" OH_AudioStream_Result FakeRendererStart(OH_AudioRenderer *)
+{
+    ++g_rendererStarts;
+    return AUDIOSTREAM_SUCCESS;
+}
+extern "C" OH_AudioStream_Result FakeRendererPause(OH_AudioRenderer *) __asm__("OH_AudioRenderer_Pause");
+extern "C" OH_AudioStream_Result FakeRendererPause(OH_AudioRenderer *)
+{
+    ++g_rendererPauses;
+    return AUDIOSTREAM_SUCCESS;
+}
+extern "C" OH_AudioStream_Result FakeRendererSetVolume(OH_AudioRenderer *, float)
+    __asm__("OH_AudioRenderer_SetVolume");
+extern "C" OH_AudioStream_Result FakeRendererSetVolume(OH_AudioRenderer *, float volume)
+{
+    g_rendererVolume = volume;
+    return AUDIOSTREAM_SUCCESS;
+}
+
 int main()
 {
     TestInputStatus();
@@ -341,5 +419,6 @@ int main()
     TestStopWithoutFlush();
     TestInputLayoutCallback();
     TestAudioTailPosition();
+    TestAudioInterruptions();
     std::cout << "Encoder Buffers: retry, errors, EOS, independent Stop and isolated input/output layout passed\n";
 }

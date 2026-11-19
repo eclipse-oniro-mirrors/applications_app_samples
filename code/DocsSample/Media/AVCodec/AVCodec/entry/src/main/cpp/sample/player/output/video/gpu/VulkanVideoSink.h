@@ -32,6 +32,7 @@
 
 #include "../sink/BufferVideoSink.h"
 #include "VideoPresentationGeometry.h"
+#include "VulkanResources.h"
 #include "plugin_manager.h"
 
 class VulkanVideoSink final : public VideoSink {
@@ -228,19 +229,14 @@ private:
     VkSurfaceKHR surface_ = VK_NULL_HANDLE;
     VkPhysicalDevice physicalDevice_ = VK_NULL_HANDLE;
     VkDevice device_ = VK_NULL_HANDLE;
+    // device_比资源组更早构造、更晚析构；ReleaseVulkanResources先Reset资源组再销毁device_。
+    VulkanFrameResources frameResources_ { device_ };
+    VulkanSwapchainResources swapchainResources_ { device_ };
+    VulkanUploadResources uploadResources_ { device_ };
     VkQueue queue_ = VK_NULL_HANDLE;
     uint32_t queueFamilyIndex_ = 0;
-    VkSwapchainKHR swapchain_ = VK_NULL_HANDLE;
     VkFormat swapchainFormat_ = VK_FORMAT_UNDEFINED;
     VkExtent2D swapchainExtent_{};
-    std::vector<VkImage> swapchainImages_;
-    std::vector<VkImageLayout> swapchainImageLayouts_;
-    VkCommandPool commandPool_ = VK_NULL_HANDLE;
-    VkCommandBuffer commandBuffer_ = VK_NULL_HANDLE;
-    VkSemaphore imageAvailable_ = VK_NULL_HANDLE;
-    // 图像再次acquire后，才能确定上一次present已消费其等待信号量。
-    std::vector<VkSemaphore> renderFinishedSemaphores_;
-    VkFence frameFence_ = VK_NULL_HANDLE;
     VkRenderPass externalRenderPass_ = VK_NULL_HANDLE;
     std::vector<VkImageView> externalFrameBufferViews_;
     std::vector<VkFramebuffer> externalFramebuffers_;
@@ -298,10 +294,6 @@ private:
     VkBuffer stagingBuffer_ = VK_NULL_HANDLE;
     VkDeviceMemory stagingMemory_ = VK_NULL_HANDLE;
     size_t stagingCapacity_ = 0;
-    VkImage uploadImage_ = VK_NULL_HANDLE;
-    VkDeviceMemory uploadImageMemory_ = VK_NULL_HANDLE;
-    VkExtent2D uploadImageExtent_{};
-    VkImageLayout uploadImageLayout_ = VK_IMAGE_LAYOUT_UNDEFINED;
     bool swapRedBlue_ = false;
     bool swapchainTransferSupported_ = false;
     bool swapchainRecreatePending_ = false;

@@ -49,6 +49,7 @@ void Recorder::ReleaseThread()
     {
         // 错误释放与停止后的EOS提交串行，输入线程join后才允许Destroy。
         std::lock_guard<std::mutex> inputLock(videoInputMutex_);
+        // videoInputStopping_请求停止Buffer视频输入；join保证销毁编码器时已无普通帧提交。
         videoInputStopping_.store(true);
         videoInputWorker_.Join();
     }
@@ -142,6 +143,7 @@ void Recorder::Release()
         std::lock_guard<std::mutex> lock(mutex_);
         isStarted_ = false;
         audioInputStopping_ = true;
+        // videoInputStopping_请求停止Buffer视频输入；isStarted_已清零，此时退出而不再提交EOS。
         videoInputStopping_ = true;
     }
     CancelWorkerWaits();
@@ -203,8 +205,9 @@ void Recorder::AbortRecording(const char *reason)
     AVCODEC_SAMPLE_LOGE("Abort recording: %{public}s", reason);
     const bool wasStopping = isStopping_.exchange(true);
     audioInputStopping_.store(true);
-    videoInputStopping_.store(true);
     isStarted_.store(false);
+    // videoInputStopping_请求停止Buffer视频输入；先清零isStarted_，避免故障被当作正常停止而补发EOS。
+    videoInputStopping_.store(true);
     CancelWorkerWaits();
     if (!wasStopping) {
         StartRelease();
@@ -276,7 +279,7 @@ int32_t Recorder::StopEnd()
 int32_t Recorder::SendVideoEndOfStream()
 {
     if (sampleInfo_.video.bufferInput) { return SendBufferVideoEndOfStream(); }
-    // EOS入队后仍需消费输出，直到每路视频线程归还EOS buffer。
+    // EOS入队后仍需消费输出，直到每路视频线程读到EOS并退出。
     int32_t ret = videoEncoder_->NotifyEndOfStream();
     if (ret != AVCODEC_SAMPLE_ERR_OK || secondaryVideoEncoder_ == nullptr) {
         return ret;

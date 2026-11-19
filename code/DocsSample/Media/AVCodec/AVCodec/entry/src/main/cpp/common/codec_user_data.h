@@ -25,6 +25,7 @@
 #include <vector>
 #include "codec_buffer.h"
 #include "PcmQueue.h"
+#include "AudioPlaybackCallbackContext.h"
 #include "sample_config.h"
 #include "OperationFailure.h"
 
@@ -74,18 +75,8 @@ struct CodecUserData {
     // 注册音频/codec回调前必须完成赋值，并保证其指向的状态晚于回调注销和工作线程退出才销毁。
     std::atomic<bool> *runningFlag = nullptr;
     std::atomic<bool> *playbackFailure = nullptr;
-    // AudioRenderer中断回调共享的播放状态。
-    std::atomic<bool> *pausedFlag = nullptr;
-    std::atomic<bool> *audioInterrupted = nullptr;
-    std::atomic<bool> *audioResumePending = nullptr;
-    std::atomic<uint64_t> *audioInterruptCount = nullptr;
-    std::atomic<int32_t> *audioInterruptHint = nullptr;
-    std::atomic<float> *audioVolume = nullptr;
-    std::atomic<bool> *audioDucked = nullptr;
-    std::condition_variable *pauseCond = nullptr;
-    std::atomic<uint64_t> *audioUnderruns = nullptr;
-    std::atomic<int64_t> *audioQueueDurationUs = nullptr;
-    std::atomic<int64_t> *playbackPositionUs = nullptr;
+    // 仅音频播放借用，注册回调前绑定；Player在renderer释放和工作线程退出后销毁。
+    AudioPlaybackCallbackContext *audioPlayback = nullptr;
 
     // 由会话持有，codec注销回调后才销毁。
     OperationFailure *failureDetails = nullptr;
@@ -123,51 +114,39 @@ struct CodecUserData {
     {
         constexpr int64_t usPerSecond = 1'000'000;
         constexpr int32_t s16BytesPerSample = 2;
-        if (audioQueueDurationUs == nullptr || sampleInfo == nullptr ||
+        if (audioPlayback == nullptr || sampleInfo == nullptr ||
             sampleInfo->audio.audioChannelCount <= 0 || sampleInfo->audio.audioSampleRate <= 0) {
             return;
         }
         const int64_t queuedFrames = static_cast<int64_t>(renderQueue.Size()) /
             sampleInfo->audio.audioChannelCount / s16BytesPerSample;
-        audioQueueDurationUs->store(queuedFrames * usPerSecond / sampleInfo->audio.audioSampleRate);
+        audioPlayback->queueDurationUs.store(queuedFrames * usPerSecond / sampleInfo->audio.audioSampleRate);
     }
 
-    std::vector<char> cache;
-    int32_t remainlen = 0;
+    // inputMutex保护；采集开始前预分配，回调写入时不扩容、不移动已有PCM。
+    PcmQueue captureQueue { 0, 0 };
 
     void ClearCache()
     {
-        cache.clear();
-        remainlen = 0;
+        captureQueue.Clear();
     }
 
-    void WriteCache(void *buffer, int32_t bufferLen)
+    size_t CaptureSize() const
     {
-        if (buffer == nullptr || bufferLen <= 0) {
-            return;
-        }
-        if (bufferLen + remainlen > cache.size()) {
-            cache.resize(remainlen + bufferLen);
-        }
-        // 只在本次调用内读取调用方提供的地址，将数据复制到cache；不保存外部裸指针。
-        const auto *source = static_cast<const char *>(buffer);
-        std::copy_n(source, bufferLen, cache.data() + remainlen);
-        remainlen += bufferLen;
+        return captureQueue.Size();
+    }
+
+    bool WriteCache(void *buffer, int32_t bufferLen)
+    {
+        return bufferLen > 0 && captureQueue.Write(static_cast<const uint8_t *>(buffer), bufferLen);
     }
 
     bool ReadCache(void *buffer, int32_t bufferLen)
     {
-        if (buffer == nullptr || bufferLen <= 0 || remainlen < bufferLen) {
+        if (buffer == nullptr || bufferLen <= 0 || captureQueue.Size() < static_cast<size_t>(bufferLen)) {
             return false;
         }
-        // 目标地址由AudioRenderer回调提供，仅在回调期间有效，复制完成后不保留该地址。
-        auto *destination = static_cast<char *>(buffer);
-        std::copy_n(cache.data(), bufferLen, destination);
-        remainlen -= bufferLen;
-        if (remainlen > 0) {
-            std::move(cache.begin() + bufferLen, cache.begin() + bufferLen + remainlen, cache.begin());
-        }
-        return true;
+        return captureQueue.Read(static_cast<uint8_t *>(buffer), bufferLen) == static_cast<size_t>(bufferLen);
     }
 };
 

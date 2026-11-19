@@ -156,6 +156,10 @@ export interface RecorderDiagnostics {
 export interface RecorderAudioStats {
   capturedFrames: number;
   pendingPcmMs: number;
+  peakPendingPcmBytes: number;
+  captureCapacityBytes: number;
+  captureOverflows: number;
+  captureCallback: RecorderStageTiming;
   outputFrames: number;
   outputBytes: number;
   recentBitrate: number;

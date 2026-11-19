@@ -84,10 +84,10 @@ bool Recorder::WaitForAudioInputFrame(std::chrono::milliseconds timeout)
     std::unique_lock<std::mutex> lock(audioEncContext_->inputMutex);
     audioEncContext_->inputCond.wait_for(lock, timeout, [this]() {
         return !isStarted_ || audioInputStopping_ || audioEncContext_->hasError ||
-            (!isPaused_ && audioEncContext_->remainlen >= sampleInfo_.audio.audioMaxInputSize);
+            (!isPaused_ && audioEncContext_->CaptureSize() >= sampleInfo_.audio.audioMaxInputSize);
     });
     return isStarted_ && !audioInputStopping_ && !audioEncContext_->hasError && !isPaused_ &&
-        audioEncContext_->remainlen >= sampleInfo_.audio.audioMaxInputSize;
+        audioEncContext_->CaptureSize() >= sampleInfo_.audio.audioMaxInputSize;
 }
 
 bool Recorder::SubmitAudioInputFrame(CodecBufferInfo &bufferInfo)
@@ -106,7 +106,7 @@ bool Recorder::SubmitAudioInputFrame(CodecBufferInfo &bufferInfo)
     {
         std::unique_lock<std::mutex> lock(audioEncContext_->inputMutex);
         readSuccess = audioEncContext_->ReadCache(inputBufferAddr, inputSize);
-        audioStats_.Capture(0, audioEncContext_->remainlen);
+        audioStats_.Capture(0, audioEncContext_->CaptureSize());
     }
     if (!readSuccess) {
         AbortRecording("Audio cache read failed");

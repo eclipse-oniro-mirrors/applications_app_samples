@@ -16,6 +16,7 @@
 import { fileIo } from '@kit.CoreFileKit';
 import { image } from '@kit.ImageKit';
 import transcoder, { TranscodeRequest, TranscodeStatus } from 'libtranscoder.so';
+import { TranscodeFileCloser } from './TranscodeFileCloser';
 
 @Observed
 export class TranscodePreviewController {
@@ -67,7 +68,7 @@ export class TranscodePreviewController {
     } finally {
       if (processed !== undefined) { await processed.release().catch((): void => {}); }
       if (original !== undefined) { await original.release().catch((): void => {}); }
-      if (file !== undefined) { await fileIo.close(file).catch((): void => {}); }
+      if (!await TranscodeFileCloser.close(file)) { throw new Error('Transcode file close unconfirmed'); }
     }
   }
 

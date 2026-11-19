@@ -240,7 +240,7 @@ flowchart LR
 
 布局只在首帧读取，解码输出格式变化后重新读取，避免每帧重复申请和销毁 Format。同尺寸 NV12 按行复制 Y、UV，两边 stride 不同时分别计算行地址，不复制源填充区。只有目标 padding 和灰度 UV 需要额外填充，正常彩色像素不再先清空再覆盖。缩放、NV21 和 I420 仍走各自分支。没有增加整帧中间副本，也不将解码 Buffer 的所有权转给编码器。
 
-等待编码器输入时，最多持有一帧解码输出。处理后的图像提交给编码器后，再归还原解码输出索引。每轮先尝试取走编码输出，避免输入、输出队列互相堵住。输入遇到 EOS 只结束投喂，仍要等编码输出 EOS 才能结束。最后一帧同时带有像素和 EOS 时，先送像素，再单独送一个空 EOS，避免漏掉尾帧。
+等待编码器输入时，最多持有一帧解码输出。处理后的图像提交给编码器后，再归还普通解码输出索引；带EOS的输出由解码器销毁时回收。每轮先尝试取走编码输出，避免输入、输出队列互相堵住。输入遇到 EOS 只结束投喂，仍要等编码输出 EOS 才能结束。最后一帧同时带有像素和 EOS 时，先送像素，再单独送一个空 EOS，避免漏掉尾帧。
 
 <a id="transcode-preview"></a>
 
@@ -293,7 +293,7 @@ AAC 转换另有“快速线性”和“低通滤波降采样”两档。后者�
 
 每帧先经过时间段与帧率筛选。`SubmitGpuFrame()` 保存归零后的 PTS，再 Render 解码输出索引，最多保留一帧等待 NativeImage 通知。等待期间，工作线程仍可取走编码输出、处理音轨。帧可用回调只增加原子计数，不操作 GL。工作线程执行 `UpdateSurfaceImage()`，叠加 NativeImage 纹理矩阵与共用的 `PlanGeometry()` 裁剪范围，清空黑边、按内容区域绘制，然后用纳秒单位的展示时间戳提交编码 Surface。纹理采样支持最近邻与双线性；面积采样保留在 Buffer 路径。
 
-带画面的 EOS 要等绘制提交后才通知编码器结束；空 EOS 直接归还。GPU 提交的 PTS 已经归零，封装时不会再减一次起点。释放时先停止并销毁解码器，再完成 GPU 在途工作、注销监听、释放 NativeImage 与 GL/EGL 对象，最后销毁编码器和窗口引用。
+带画面的EOS要等绘制提交后才通知编码器结束；空EOS不绘制，由解码器销毁时回收。GPU 提交的 PTS 已经归零，封装时不会再减一次起点。释放时先停止并销毁解码器，再完成 GPU 在途工作、注销监听、释放 NativeImage 与 GL/EGL 对象，最后销毁编码器和窗口引用。
 
 源文件检查会拒绝 HDR Vivid、PQ/HLG 和不支持的 HEVC Profile。GPU 路径也拒绝明确标为非 BT.709 的 SDR 色域、传递函数或矩阵；缺少或未指定这些描述时，按 BT.709 工作空间处理。编码输入窗口使用 RGBA8888、BT.709 全范围标签，保留原有分配用途并增加 GPU 绘制用途。输入 YUV 到 RGB 的采样由 NativeImage 处理，这里没有通用色彩空间转换、色调映射或动态 HDR 元数据保留。流中分辨率变化会明确失败，不沿用旧裁剪坐标。
 
@@ -896,7 +896,7 @@ PLAYING -> EOS、Stop或错误 -> ReleaseWorker -> 完成回调 -> IDLE
 
 **解码与队列。** Async 模式中，系统回调只负责把 buffer 索引和地址写入线程安全队列，避免在 codec 回调线程执行文件 I/O、睡眠或图形调用；Sync 模式由 worker 主动查询 buffer。两种模式最终都会走同一组输入、输出和释放函数。输入 worker 从 Demuxer 读取一个压缩样本，保留它的 PTS、flags 和 EOS 标志后推给 codec；输入侧 EOS 只表示不会再有压缩样本，codec 仍可能把内部缓存的帧继续输出，因此必须等输出 worker 也收到 EOS 后才能把对应轨道标记为完成。输出 worker 取得解码结果后先识别 EOS、Seek 预滚或普通帧，再进行音画同步与送显。队列结束、错误、Stop 和 Surface 销毁都会唤醒等待者，防止线程永久等待一个不可能到来的 Buffer。
 
-**图形与 Buffer 所有权。** SurfaceMode 的图像所有权始终在 decoder 与 Surface 之间，应用仅使用 Render/Free 接口选择是否显示；BufferMode 中应用只在输出回调期间借用 decoder Buffer，不能把其地址保存到下一帧。`BufferRenderer` 申请的是另一个由 NativeWindow 管理的目标 Buffer：等 fence、map、逐行拷贝、unmap、设置期望显示时间、flush 后，目标 Buffer 已交回图形系统，而 decoder Buffer 随即归还 codec。两者没有 attach/detach 或跨帧共享所有权，因此不会因为显示完成时间不确定而阻塞 decoder 复用。无论是正常送显、同步丢帧、Seek 预滚，还是布局/送显失败，每个输出索引都必须经过一次归还；失败只改变播放结果，不会把 Buffer 所有权留在应用侧。
+**图形与 Buffer 所有权。** SurfaceMode 的图像所有权始终在 decoder 与 Surface 之间，应用仅使用 Render/Free 接口选择是否显示；BufferMode 中应用只在输出回调期间借用 decoder Buffer，不能把其地址保存到下一帧。`BufferRenderer` 申请的是另一个由 NativeWindow 管理的目标 Buffer：等 fence、map、逐行拷贝、unmap、设置期望显示时间、flush 后，目标 Buffer 已交回图形系统，而 decoder Buffer 随即归还 codec。两者没有 attach/detach 或跨帧共享所有权，因此不会因为显示完成时间不确定而阻塞 decoder 复用。正常送显、同步丢帧、Seek预滚和布局/送显失败的普通输出索引都经过一次归还。EOS以及输出线程停止时仍持有的Buffer，由后续codec Destroy或Seek时的Flush回收。
 
 **音频主时钟。** PCM 被写入 `renderQueue` 并不代表已经播放。只有 AudioRenderer 的写回调实际从队列取走的完整采样帧才会累计到 `audioFramesWritten`。播放器同时读取 AudioRenderer 的时间戳、硬件已消费帧数和单调时钟锚点，估算真实播放位置；当时间戳刚启动、路由切换或 Flush 后尚不可靠时，临时退回名义视频间隔，避免用无效值大量丢帧。视频 PTS 相对音频落后过多会被丢弃，提前则等待到接近显示时刻；所有墙上等待时间都按目标倍速换算，避免 X2/X3 把媒体时间误当作真实时间。
 
@@ -916,7 +916,7 @@ PLAYING -> EOS、Stop或错误 -> ReleaseWorker -> 完成回调 -> IDLE
 
 4. **解码器创建和软件回退。** 自动选择先使用系统推荐 decoder，并用它自己的能力对象校验宽高、帧率和像素格式。创建失败、查询不到能力或 `Configure` 失败时，`Player` 才销毁这次失败实例，按 SOFTWARE 类别重新查询、创建和校验一次。回退结果会写入播放信息和媒体信息；它不是每帧重试，也不会覆盖用户明确选择的硬件/软件策略。低时延、按解码顺序输出、停止黑帧等可选 Key 在其适用模式和能力前提满足时才写入 Format，避免将某机型不支持的增强项变成全局播放失败。
 
-5. **Sync/Async 的统一输出。** Async 回调由 `SampleCallback` 把 `CodecBufferInfo` 放进 `inputBufferQueue` 或 `outputBufferQueue`；Sync worker 以可中断的超时主动查询。`VideoPipeline`、`AudioPipeline` 只封装线程创建、启动回滚和 join，不改变两种 codec 模式的处理策略。无论来源如何，视频帧都会进入 `ProcessVideoWithAudio()` 或 `ProcessVideoWithoutAudio()`，音频帧都会经 `AudioOutputPump`；所有正常、EOS、Seek 预滚和错误分支最终都走同一个输出 Buffer 归还点。
+5. **Sync/Async 的统一输出。** Async 回调由 `SampleCallback` 把 `CodecBufferInfo` 放进 `inputBufferQueue` 或 `outputBufferQueue`；Sync worker 以可中断的超时主动查询。`VideoPipeline`、`AudioPipeline` 只封装线程创建、启动回滚和 join，不改变两种 codec 模式的处理策略。无论来源如何，视频帧都会进入 `ProcessVideoWithAudio()` 或 `ProcessVideoWithoutAudio()`，音频帧都会经 `AudioOutputPump`；普通帧、Seek预滚和送显错误共用普通输出Buffer归还路径。视频EOS在输出循环中明确结束线程；视频EOS及视频线程停止时仍持有的Buffer由后续codec Destroy或Seek时的Flush回收。音频保留原有输出Buffer归还逻辑。
 
 6. **SurfaceMode、BufferMode 和画面变换。** SurfaceMode 在准备 decoder 前取得 `PluginManager` 中当前 XComponent window 并调用 `OH_VideoDecoder_SetSurface()`；输出帧使用 render/free 接口完成交接。BufferMode 故意不设置这个 Surface，`BufferVideoSink` 才能读取 `OH_AVBuffer` 的图像内容并委托 `BufferRenderer` 拷贝到 XComponent window。旋转与镜像不会重新编码或修改 Dump 文件，而是通过当前 window 的 `SET_TRANSFORM` hint 改变合成方式。模式切换只能在下一次播放前应用，避免在运行中改变 decoder 输出所有权。
 
@@ -1541,7 +1541,7 @@ recorder.startNative()
 1. Surface 模式下，UI 为 CameraKit 的 `frameEnd` 注册一次停止等待，并调用 `encoderVideoOutput.stop()`；Buffer 模式直接停止 CameraSession，不再产生新的 YUV 帧。
 2. Native `stopBeginNative()`将`isStopping_`置为true，关闭动态参数更新入口；音频继续输入，直到`stopEndNative()`结束输入线程并提交EOS。
 3. Surface 模式等待 CameraKit 触发 `frameEnd`；如果事件异常缺失，超时保护会继续收尾。Buffer 模式没有 VideoOutput，不等待该事件。
-4. UI 调用并等待 `stopEndNative()`；Surface 视频调用 `NotifyEndOfStream()`，Buffer 视频先退出并 join 输入线程，再提交空的 EOS Buffer。Native 等待音视频编码输出排空后销毁 muxer、encoder 和 capturer。
+4. UI 调用并等待 `stopEndNative()`；Surface 视频调用 `NotifyEndOfStream()`，Buffer视频通知输入线程停止供帧，由输入线程提交空EOS后退出，再join输入线程。Native 等待音视频编码输出排空后销毁 muxer、encoder 和 capturer。
 5. `stopEndNative()` 完成后，UI 关闭媒体库输出 fd，再释放 CameraInput、所有 PreviewOutput、可选 VideoOutput 和 VideoSession。
 6. 文件和相机资源全部完成收尾后才返回主页面。停止按钮、系统返回键和页面隐藏共用同一个幂等释放任务，避免重复停止或重复关闭 fd。
 
@@ -1635,7 +1635,7 @@ API 26、相机或编码器能力缺失时，初始化返回不支持当前录�
 
 #### 录制时间线、历史与结束结果
 
-点击停止后，页面先显示“正在收尾”，停止按钮不能重复触发。相机停止输出之后，Native 向主、副视频编码器及音频编码器发送 EOS，等待输出线程归还剩余 Buffer，再释放封装器和编码器。ArkTS 等到 Native 释放完成后才关闭媒体库文件 fd，最后释放相机并进入结果页。返回键也复用这份收尾任务；页面退到后台时先收尾并保存，避免收尾期间突然切换到结果页。
+点击停止后，页面先显示“正在收尾”，停止按钮不能重复触发。相机停止输出之后，Native 向主、副视频编码器及音频编码器发送 EOS，等待输出线程处理完普通输出并读到EOS，再释放封装器和编码器；视频EOS Buffer由编码器销毁时回收，音频保留原有Free调用。ArkTS 等到 Native 释放完成后才关闭媒体库文件 fd，最后释放相机并进入结果页。返回键也复用这份收尾任务；页面退到后台时先收尾并保存，避免收尾期间突然切换到结果页。
 
 结果页可以播放主文件、副文件，并显示基本收尾状态及从成品读取的文件信息。“最近录制”的新记录增加“结果”入口。结果页参数只在页面跳转时传递，不持久化为诊断报告。旧历史没有会话 ID 时，保留原来的播放入口。启动失败或录制时间不足一秒也会保留结果记录，但不会把空文件当成可播放成品。
 
@@ -1647,7 +1647,7 @@ API 26、相机或编码器能力缺失时，初始化返回不支持当前录�
 | 编码器、相机启动 | 分开记录，便于看出编码就绪之后相机多久才开始送帧 |
 | 主路、副路、AAC 最早的输出 | 排除 Codec Config 和 EOS 后，第一次获得媒体数据 |
 | 停止请求、相机 frameEnd | 分清用户请求停止、相机停止调用和尾帧事件；等不到尾帧时单独标为超时 |
-| 主路、副路、音频 EOS | 只有真正处理并归还 EOS Buffer 才记录，不把工作线程退出冒充 EOS |
+| 主路、副路、音频 EOS | 视频线程读到EOS并完成记录后确认收到EOS；音频保留原有处理及Buffer归还逻辑，不能仅凭线程退出判断 |
 | 排空、封装器释放、Native 释放 | 排空超时仍会继续清理，但会保留 timeout 或 ended_without_eos，不能算完整收尾 |
 | 文件关闭、相机释放 | 关闭 fd 失败另记事件，后续清理照常进行 |
 
@@ -1742,7 +1742,7 @@ Native释放Muxer并关闭输出fd后，`RecordingSessionController`为每段主
 
 耗时统计的平均值和最大值覆盖本场录制，P95 只计算最近 256 次样本，读取快照时才排序。短时输出窗口最多保留 1024 个时间/字节样本，不保留 Buffer 和像素内存，长时间录制不会持续扩大诊断记录。文件和空间至多每秒采样一次，结束时额外读取文件尾部更新后的大小。
 
-同步和异步模式均由录制工作线程测量取输出等待，只记录成功取得 Buffer 的样本；超时或取消返回空不计入。共享 `CodecBufferQueue` 仅负责入队、出队和取消唤醒，不包含诊断计时。“应用持有输出 Buffer”从成功取到 Buffer 起计，到归还完成结束。取输出等待包含等下一帧的正常时间，不等于编码计算耗时；Muxer 时间也可能包含等待并发音频写入。EOS 和 Codec Config 不计入短时视频帧率及关键帧统计，阶段耗时仍可包含它们的处理。没有启用 Dump 时，对应的无样本项显示未提供。
+同步和异步模式均由录制工作线程测量取输出等待，只记录成功取得 Buffer 的样本；超时或取消返回空不计入。共享 `CodecBufferQueue` 仅负责入队、出队和取消唤醒，不包含诊断计时。普通输出的“应用持有输出Buffer”从成功取到Buffer起计，到归还完成结束；视频EOS计到结束记录完成，不包含后续Destroy耗时。取输出等待包含等下一帧的正常时间，不等于编码计算耗时；Muxer 时间也可能包含等待并发音频写入。EOS 和 Codec Config 不计入短时视频帧率及关键帧统计，阶段耗时仍可包含它们的处理。没有启用 Dump 时，对应的无样本项显示未提供。
 
 `RecorderStreamMetrics` 负责分路短时窗口和关键帧状态，`RecorderOutputStats` 统一累计统计与只读快照，`StageTiming` 保存有界耗时样本。`RecorderLiveDiagnosticsModel` 只格式化数字和提示，不调用编码器，也不改变 EOS、Buffer 归还或 Muxer 收尾顺序。面板标明编码器描述来自初始化查询，避免把启动时返回的码率误当成动态调整后的码率。
 
@@ -1863,10 +1863,10 @@ CameraKit VideoSession
 | `Recorder::VideoEncInputAsyncThread()` | 获取最新 Image，从 `inputBufferQueue` 读取 `OnNeedInputBuffer` 回调提供的 Buffer/index，再填充并提交；不调用同步 Query/Get 接口 |
 | `Recorder::SubmitVideoInputImage()` | 只处理已取得的 Buffer：检查输入布局、复制像素、计算 PTS 并 Push，不选择同步或异步模式 |
 | `RecorderFrameReceiver::Copy()` | 读取实际 NativeBuffer 格式及 plane offset、rowStride、pixelStride，转换 NV12／NV21／平面 YUV420 到编码器要求的 NV12，并校验两侧容量 |
-| `Recorder::SendBufferVideoEndOfStream()` | 相机停止后结束并 join 输入线程，再通过输入 Buffer 提交空 EOS；输出线程继续排空 |
-| `Recorder::SendBufferVideoEndOfStreamSync()` / `SendBufferVideoEndOfStreamAsync()` | 分别通过主动查询或输入回调队列取得 EOS Buffer，各自设置空 EOS 属性并提交 |
+| `Recorder::SendBufferVideoEndOfStream()` | 相机停止后置位`videoInputStopping_`，唤醒并join输入线程；输入线程提交EOS，输出线程继续排空 |
+| `VideoEncInputSyncThread()` / `VideoEncInputAsyncThread()`的EOS分支 | 分别通过主动查询或输入回调队列取得Buffer，设置空EOS属性、提交、打印退出日志并break；失败时终止录制 |
 
-`StartVideoInputThread()` 在启动时选择一个输入线程，线程内部不再通过统一的取 Buffer 函数切换模式。同步和异步示例分别标记为 `recorder_video_buffer_input_sync`、`recorder_video_buffer_input_async`；EOS 示例分别标记为 `recorder_video_buffer_eos_sync`、`recorder_video_buffer_eos_async`，可独立提取到开发资料。两条输入路径共用相机图像读取、像素复制和 PTS 计算，视频输出仍由 `VideoEncOutputSyncThread()` 和 `VideoEncOutputAsyncThread()` 分别获取 Buffer。
+`StartVideoInputThread()` 在启动时选择一个输入线程，线程内部不再通过统一的取 Buffer 函数切换模式。同步和异步示例分别标记为 `recorder_video_buffer_input_sync`、`recorder_video_buffer_input_async`；EOS 示例分别标记为 `recorder_video_buffer_eos_sync`、`recorder_video_buffer_eos_async`，可独立提取到开发资料。`videoInputStopping_`只请求Buffer视频输入停止。两条输入循环收到请求后先提交EOS再break，不再等待相机图像，因此暂停中或暂无图像时也能停止。此时`isStarted_`保持为true，让输出线程继续排空；若用它停止输入，输出也会提前结束。故障和释放先清零`isStarted_`，输入线程直接退出，不补发EOS。两条输入路径共用相机图像读取、像素复制和PTS计算，视频输出仍由 `VideoEncOutputSyncThread()` 和 `VideoEncOutputAsyncThread()` 分别获取 Buffer。
 
 编码和解码的同步取Buffer接口采用相同约定：`GetInputBuffer(info, timeoutUs)`和`GetOutputBuffer(info, timeoutUs)`返回`int32_t`错误码，Buffer、索引和属性保存在`CodecBufferInfo`中。`AVCODEC_SAMPLE_ERR_OK`表示成功，`AVCODEC_SAMPLE_ERR_AGAIN`表示暂时无Buffer，由线程检查运行状态后重试；其余错误结束本次录制。输出查询连续遇到格式变化时也返回`AGAIN`，避免递归或在封装内部无限等待。停止期间仍继续读取输出，直到收到各路EOS或收尾超时。
 
@@ -1884,7 +1884,7 @@ Receiver 容量设为 3，接收线程持续读取并只保留最新一张 Image
 
 相机时间戳以纳秒提供，Buffer 输入属性使用微秒。视频首帧保留相对 Native 录制启动的时间偏移，后续帧沿用相机时间戳间隔；音频也保留采集启动偏移。Buffer 视频输出不再执行 Surface 路径的纳秒转微秒操作，避免时间戳被重复缩小。这种对齐不等同于硬件采集同步，仍需在真机上检查成品音画关系。
 
-停止时先停整个相机会话，确保两条预览流不再生产图像，再停止视频输入线程并提交 EOS。音频、编码输出、Muxer、文件描述符和分段切换继续走原有录制收尾流程。这里不调用 Surface 输入专用的 `NotifyEndOfStream()`。该路径包含 CPU 像素复制，主要用于演示 Buffer 编码；高分辨率、高帧率录制优先选择 Surface。
+停止时先停整个相机会话，确保两条预览流不再生产图像，再通知视频输入线程提交EOS并退出，随后join输入线程。音频、编码输出、Muxer、文件描述符和分段切换继续走原有录制收尾流程。这里不调用 Surface 输入专用的 `NotifyEndOfStream()`。该路径包含 CPU 像素复制，主要用于演示 Buffer 编码；高分辨率、高帧率录制优先选择 Surface。
 
 <a id="recorder-color"></a>
 
@@ -1906,7 +1906,7 @@ Buffer采集在映射像素前查询NativeBuffer的色彩空间。查询成功�
 
 Native把暂停切换与音视频输入提交放在同一边界内。暂停期间相机预览继续，采集图像被丢弃；新PCM不进入缓存，避免恢复后补写暂停内容。视频PTS扣除累计暂停时间，音频PTS只按实际提交的样本帧推进。暂停前已提交的数据继续编码和封装，不发送EOS，不重建编码器、封装器或文件。
 
-页面计时、历史时长和按时长分段都排除暂停时间。暂停中也可直接结束：停止相机供帧、退出输入线程、提交EOS、排空输出，最后关闭文件描述符。原有采集起点偏移仍保留；暂停边界受相机和音频Buffer粒度限制，不承诺硬件级逐采样同步。
+页面计时、历史时长和按时长分段都排除暂停时间。暂停中也可直接结束：停止相机供帧、由输入线程提交EOS并退出、排空输出，最后关闭文件描述符。原有采集起点偏移仍保留；暂停边界受相机和音频Buffer粒度限制，不承诺硬件级逐采样同步。
 
 <a id="video-encoding"></a>
 
@@ -2000,7 +2000,7 @@ Muxer 写入音频 track
 
 采集器初始化逐项检查Builder创建、参数配置和Capturer生成。失败时回收已创建的采集资源，并让`Recorder::Init()`回滚会话，不等到启动时才暴露空句柄。音频Configure通过RAII管理临时Format，提前返回也会释放。工作线程创建失败同样进入统一收尾：取消等待、join已启动线程、销毁封装器和codec，最后回收回调上下文。Recorder用`unique_ptr`独占这些上下文，SDK回调只在Destroy完成前借用。
 
-输入停止、输出线程结束和输出EOS分开记录。结束输入后输出线程继续运行；只有成功归还EOS Buffer，才把该路视为正常排空。超时、线程未收到EOS就结束、封装写入失败或归还Buffer失败，都让收尾返回失败，不把文件标为完整。线程刚取得输出就收到停止请求时，先归还原索引；归还失败也保留到最终结果。成功提交的PCM输入与已消费输出，在同、异步模式下分别使用相同的计数位置。
+输入停止、输出线程结束和输出EOS分开记录。结束输入后输出线程继续运行；只有读到EOS并完成对应记录，才把该路视为正常排空。超时、线程未收到EOS就结束、封装写入失败或普通Buffer归还失败，都让收尾返回失败，不把文件标为完整。视频线程刚取得输出就收到停止请求时直接退出，Buffer由后续codec Destroy或Seek时的Flush回收。音频保留原有EOS和停止时的Buffer归还逻辑。成功提交的PCM输入与已消费输出，在同、异步模式下分别使用相同的计数位置。
 
 `AudioEncoder::Stop()`先Flush，成功后调用系统Stop；`AudioDecoder::Stop()`只调用系统Stop。两者的Release均按Flush、Stop、Destroy顺序清理，即使前面的清理失败也继续Destroy，并清空句柄以防重复销毁。本次保留这套调用顺序；音频编码器Flush失败时额外记录是否已启动、是否已提交EOS。Muxer释放只调用Destroy，文件描述符保持打开，直到Native收尾完成。销毁失败会传回最终收尾结果。
 
@@ -2742,7 +2742,7 @@ Surface 直连保留原始尺寸，不开放像素缩放、灰度和区间裁切
 | 增加播放设置 | `PlayerSettingsModel` 校验并生成 `PlayOptions` → `PlayerNapiParser` 解析 → `SampleInfo` 保存 → `Player` 或 decoder 创建时应用 | 区分“立即生效”和“下次播放生效”。像音量可以实时调用 Renderer；Surface、解码器类型和低时延配置需要在创建对象时确定。设置面板使用草稿值，取消时不能改动已保存配置。 |
 | 增加媒体详情字段 | `Demuxer` 读取 Source/Track Format → 复制到 `MediaSourceInfo` 或音视频轨结构 → `PlayerNapiSerializer` 转成 JS 对象 → `MediaInfoPanel` 展示 | SDK 的 Format 和 DumpInfo 字符串都是临时对象或临时地址。要复制需要展示的值，不能把 `OH_AVFormat*` 或其内部字符串留到播放后使用。 |
 | 增加播放器实时状态 | Native `PlaybackInfo` 或诊断快照 → `PlayerNapiSerializer` → `PlaybackViewModel` → 对应 UI 面板 | 高频查询只返回小型快照。不要把原始 Format、大块 PCM 数据或 codec Buffer 放进每 250 ms 轮询的对象。跨线程计数使用原子量或短时锁，不要让渲染回调等待 UI。 |
-| 增加送显后端 | 实现 `VideoSink` → 在 `PrepareForPlayback()` 建立 decoder 输出目标 → 通过 `UsesSurfaceDecoder()` 明确输出契约 → `Present()` 消费本帧 → 挂入 `Player` 的模式选择 | sink 必须说明 decoder 输出是 Surface 还是可读 Buffer。输出线程退出后先 `Quiesce()`，codec Flush 后再清理旧时间线帧；只有 codec 不再使用 producer Surface 后才能完整 `Reset()`。每个 decoder 输出索引必须且只能归还一次。 |
+| 增加送显后端 | 实现 `VideoSink` → 在 `PrepareForPlayback()` 建立 decoder 输出目标 → 通过 `UsesSurfaceDecoder()` 明确输出契约 → `Present()` 消费本帧 → 挂入 `Player` 的模式选择 | sink 必须说明 decoder 输出是 Surface 还是可读 Buffer。输出线程退出后先 `Quiesce()`，codec Flush 后再清理旧时间线帧；只有 codec 不再使用 producer Surface 后才能完整 `Reset()`。进入sink的普通decoder输出索引必须且只能归还一次；EOS和线程停止时仍持有的Buffer由后续Destroy或Flush回收。 |
 | 增加录制参数 | 设置草稿 → `RecorderSettingsModel` 校验 → CameraKit profile / encoder capability 查询 → Native `SampleInfo` → encoder `Configure()` | 前置能力查询只能排除已知不支持的组合，最终结果仍以 codec `Configure()` 为准。相机 profile 和 encoder 输入尺寸必须一致；不能只更新 UI 文案而不更新两侧实际参数。 |
 | 增加可重复测试 | 纯数据规则放 Hypium/model 测试；旋转、裁剪等纯几何放 `tests/native`；真实 codec、Surface、相机与系统权限放手工用例 | 纯计算测试不能替代真机验证。设备能力、HDR 色彩链路、系统音频中断和 CameraKit 行为必须在目标设备上检查。 |
 
@@ -2804,7 +2804,7 @@ GPU 后端的每帧回调只应通知送显线程“有新帧”，不应在 cod
 | Seek 返回失败或画面迟迟不动 | 请求是否被 `superseded`、Seek 链路恢复耗时、第一个目标帧耗时、目标附近的同步帧 | 区分“请求被新拖动位置合并”“同步帧索引不可用”“Flush/音频链路恢复慢”和“链路恢复成功但目标帧迟到”。长 GOP 媒体必须从同步帧解码预滚；不要直接显示预滚帧或把 UI 位置当成 Native 已完成位置。 |
 | OpenGL/Vulkan 画面全黑、绿屏或比例不对 | 日志中的 sink 类型、`UsesSurfaceDecoder()`、NativeImage producer Surface 是否传给 decoder、送显失败/耗时 | 确认不是意外走到 Buffer 回退；检查 NativeBuffer acquire 和 fence、外部图像导入、窗口 extent、crop/stride 矩阵及 rotation。问题在 Stop/切视频后持续时，再看上一轮 sink 是否先 Quiesce、旧 Buffer 是否归还、窗口 lease 是否更新。 |
 | HDR Vivid 水印没有出现 | 分开看容器声明、输出 Buffer 的 HDR 类型、动态元数据读取结果和水印状态 | 容器声明仅用于媒体详情；应用水印是对输出元数据的确认。Surface/GPU 路径可能无法直接读到 decoder 输出 Buffer，此时“未确认”不等于系统没有按 HDR 显示。HDR 转 BT.709 的配置结果也不能由水印代替判断。 |
-| 录制文件存在但打不开 | 相机frame-end、视频/音频EOS、Muxer Destroy、fd close的先后日志 | 确认视频和音频输出线程都归还EOS、完成join后再Destroy Muxer，容器收尾完成后才关闭fd。视频停了但音频仍采集或编码时，提前销毁Muxer会留下不完整容器。 |
+| 录制文件存在但打不开 | 相机frame-end、视频/音频EOS、Muxer Destroy、fd close的先后日志 | 确认视频和音频输出线程都读到EOS、完成join后再Destroy Muxer，容器收尾完成后才关闭fd。视频停了但音频仍采集或编码时，提前销毁Muxer会留下不完整容器。 |
 
 采集日志时同时记录设备型号和系统版本、媒体封装与轨道信息、解码/送显模式、同步模式、是否启用倍速或 HDR 选项，以及问题发生在首播、切轨、Seek 还是 Stop。复现步骤尽量从新启动应用开始，只改一个设置再重试；如果先后切过多个媒体和模式，应把每一步的时间点写清楚，避免把上一条任务残留的帧或诊断计数当成本次结果。
 
@@ -2874,7 +2874,7 @@ $env:AVCODEC_WSL_DISTRO = '<wsl --list显示的发行版名>'
 node scripts/verify.mjs
 ```
 
-脚本依次运行Host回归及验证入口测试、20项Native测试、CodeLinter和HAP构建。每个命令均有限时，日志保存在`.validation/logs/`，任一步失败都会返回非零退出码。也可用`--only host|native|lint|build`单独执行一个阶段。Node应使用DevEco Studio随附版本，或先把该版本加入PATH。超时参数、依赖、检查范围、存量告警和PR验证要求见[验证说明](tests/README.md)。脚本可接入CI；远端必需检查需要仓库维护者配置。
+脚本依次运行Host回归及验证入口测试、22项Native测试、CodeLinter和HAP构建。每个命令均有限时，日志保存在`.validation/logs/`，任一步失败都会返回非零退出码。也可用`--only host|native|lint|build`单独执行一个阶段。Node应使用DevEco Studio随附版本，或先把该版本加入PATH。超时参数、依赖、检查范围、存量告警和PR验证要求见[验证说明](tests/README.md)。脚本可接入CI；远端必需检查需要仓库维护者配置。
 
 应用在前台播放视频或实际录制时保持屏幕常亮；暂停、停止、离页和进入后台后恢复系统息屏策略。纯音频播放和空闲页面不主动维持常亮。媒体库查询在成功、失败及结果关闭异常时均尝试释放PhotoAccessHelper；录制初始化失败保留原始错误对象，便于查看阶段、错误码和错误信息。
 
@@ -2894,14 +2894,16 @@ AVSession任一控制监听注册失败时，启动流程停止并清理该会�
 
 PiP启动绑定播放代次，重复启动共用同一请求；停止先让旧回调失效，再等待创建或启动结束。清理时逐项解绑监听，系统关闭失败则保留控制器以便重试。PiP控制和单帧跳转统一经过`PlaybackCommandController`，复用Seek互斥与目标暂停状态。起播结果改为`started`、`releasing`、`rejected`和`close_pending`四类并附具体原因，文件与租约仍由原启动尝试负责归还。
 
-17套Host回归包含生产Flow、Command和Seek控制器的组合测试，以及PiP取消和清理故障。SGT-AL10真机轮询采样重复3轮，9项全部通过；空闲、播放和暂停的完整模型更新均值分别为0.581ms、0.862ms和0.914ms，保留现有250ms刷新周期。采样只覆盖音频与未挂载ArkUI的模型，不包含页面渲染和视频或GPU负载。命令、原始日志和限制见[验证说明](tests/README.md)，系统PiP和页面迁移的设备回归仍按[测试指南](ohosTest.md#playback-flow-migration)中的待执行项验证。
+17套Host回归包含生产Flow、Command和Seek控制器的组合测试，以及PiP取消和清理故障。SGT-AL10真机轮询采样重复3轮，9项全部通过；空闲、播放和暂停的完整模型更新均值分别为0.581ms、0.862ms和0.914ms，保留现有250ms刷新周期。采样只覆盖音频与未挂载ArkUI的模型，不包含页面渲染和视频或GPU负载。命令、原始日志和限制见[验证说明](tests/README.md)，系统PiP和页面迁移的设备回归均为Pass，逐项结果见[测试指南](ohosTest.md#playback-flow-migration)。
 
 | 检查项 | 结果 |
 |---|---|
 | 324条功能、兼容性、稳定性及新增回归用例 | Pass |
-| 17套Host回归与2组验证入口检查 | Pass |
-| 20项Native宿主测试 | Pass |
-| CodeLinter | Pass：250条存量结果，0条新增 |
+| 17套Host回归与3组验证入口检查 | Pass |
+| 22项Native宿主测试：Debug、Release | Pass |
+| ASan、UBSan：各5项Native定向测试 | Pass |
+| 播放流程、PiP、资源归属与EOS设备回归 | Pass |
+| CodeLinter | Pass：245条存量结果，0条新增；基线未修改 |
 | HAP构建与签名 | Pass |
 | 默认Hypium设备测试：49条 | Pass |
 | 音频轮询设备采样：3轮、9项 | Pass |
@@ -2910,4 +2912,14 @@ PiP启动绑定播放代次，重复启动共用同一请求；停止先让旧�
 
 ## 开发约定
 
-代码、测试、注释和文档编写遵守[代码与文档编写约定](CONTRIBUTING.md)，检查函数长度、lambda显式捕获、ArkTS成员访问范围、术语及验证结果。
+代码、测试、注释和文档编写遵守仓库[CodeCommitChecklist.md](../../../../../CodeCommitChecklist.md)与[测试约定](tests/README.md)，检查函数长度、lambda显式捕获、ArkTS成员访问范围、术语及验证结果。
+
+### 转码快照与Native资源归属
+
+转码在首次异步等待前保存请求和配置说明，预检、区间校验、大小预估、提交与报告共用该快照。队列使用具名设置，恢复时兼容并校验旧7项或8项数组。准备、执行与收尾共用任务上下文，文件由该次执行持有至关闭完成。
+
+转码、预检和预览合并同一fd的并发关闭。EBADF视为已关闭；其他错误保留File与任务阻止状态，暂停队列并提示重启应用。界面结束忙碌状态，但不能启动后续媒体任务，转码待处理会话保留。同进程不重复关闭结果不明的fd，避免误关系统已复用的描述符。
+
+录音在采集前按2秒S16LE样本量分配固定PCM环形队列，至少容纳一个最大输入块、最多4MiB；参数无效或所需容量超限时初始化失败。回调不扩容、不前移剩余样本，溢出进入既有错误收尾且保留已排队数据。诊断audio对象增加积压峰值、容量、溢出次数及含锁等待的队列处理耗时，不含后续诊断入账。同步音频EOS和既有Flush/Stop顺序保持原样。
+
+播放音频回调上下文由Player集中持有，renderer释放且工作线程退出后才销毁。Vulkan按帧、交换链与上传图像的有效期分组，支持部分初始化和重复清理；sink仍先等待GPU完成，再释放依赖资源，析构不隐藏等待。NativeBuffer导入缓存沿用原所有权。Host回归、录音缓存基准和设备回归结果分别见[验证说明](tests/README.md#转码与native资源调整)与[测试指南](ohosTest.md#native-resource-regression)。

@@ -106,6 +106,7 @@ const mocks = {
   'libtranscoder.so': { default: transcoder }
 };
 function load(name) {
+  name = path.normalize(name);
   if (cache.has(name)) { return cache.get(name).exports; }
   const module = { exports: {} };
   cache.set(name, module);
@@ -118,7 +119,7 @@ function load(name) {
     Observed: target => target, $r: name => name, setInterval: () => 1, clearInterval: () => {},
     require: name => {
       if (mocks[name]) { return mocks[name]; }
-      if (name === '../common/utils/Logger') { return { default: { warn: () => {} } }; }
+      if (name === '../common/utils/Logger') { return { default: { warn: () => {}, error: () => {} } }; }
       if (name === '@kit.LocalizationKit' || name === '@kit.ArkTS') { return {}; }
       if (name === '../common/LocalizedText') { return { LocalizedText: { get: key => key } }; }
       if (name === './PlaybackHistoryModel') { return { getPlaybackTitle: uri => uri.split('/').pop() }; }
@@ -623,7 +624,8 @@ async function testSessionTasks() {
 async function testQueue() {
   files.set('/private/source.mp4', { kind: 'file' });
   const model = new TranscodeModel();
-  const options = [0, 0, 0, 2, 0, 0, 0, 0];
+  const options = { codecIndex: 0, modeIndex: 0, sizeIndex: 0, bitrateIndex: 2,
+    encoderCategory: 0, audioMode: 0, audioTrack: 0, resizeMode: 0 };
   model.quality.codecMode = 1;
   model.queue.add('/private/source.mp4', 'one.mp4', options, false, 0, 0, model.quality.snapshot());
   model.queue.add('/private/source.mp4', 'two.mp4', options, false);
@@ -634,7 +636,7 @@ async function testQueue() {
   rangeQueue.reassociate(rangeId, '/private/relinked.mp4', 'relinked.mp4');
   assert.equal(rangeQueue.items[0].uri, '/private/relinked.mp4');
   assert.equal(rangeQueue.items[0].title, 'relinked.mp4');
-  assert.deepEqual(rangeQueue.items[0].options, options);
+  assert.equal(TranscodeQueueModel.settings(rangeQueue.items[0]).bitrateIndex, options.bitrateIndex);
   assert.equal(rangeQueue.items[0].grayscale, true);
   assert.equal(rangeQueue.items[0].state, 'waiting');
   assert.equal(rangeQueue.items[0].progress, 0);
@@ -686,7 +688,7 @@ async function testQueue() {
   interrupted.queue.retry(interrupted.queue.items[1].id);
   assert.equal(interrupted.queue.items[1].state, 'waiting');
   const invalid = JSON.parse(JSON.stringify(restored.queue.items));
-  invalid[0].options[0] = 999;
+  invalid[0].settings.codecIndex = 999;
   assert.equal(TranscodeQueueModel.validated(invalid).length, 1);
   assert.equal(TranscodeQueueModel.validated([null, false, {}]).length, 0);
   const abandoned = new TranscodeModel();
@@ -771,7 +773,8 @@ async function testQualityProfiles() {
   assert.equal(request.audioSourceLayout, 2, 'Pass the selected 5.1 layout to Native');
   assert.equal(model.quality.snapshot().audioSourceLayout, 2, 'Persist the selected source layout');
   const queue = new TranscodeQueueModel();
-  queue.add(model.sourceUri, model.sourceTitle, [0, 0, 0, 2, 0, 1, 0, 0], false, 0, 0, model.quality.snapshot());
+  queue.add(model.sourceUri, model.sourceTitle, { codecIndex: 0, modeIndex: 0, sizeIndex: 0, bitrateIndex: 2,
+    encoderCategory: 0, audioMode: 1, audioTrack: 0, resizeMode: 0 }, false, 0, 0, model.quality.snapshot());
   model.quality.filter = 0;
   model.quality.codecMode = 0;
   model.quality.audioSourceLayout = 1;
@@ -792,13 +795,13 @@ async function testQualityProfiles() {
   const legacy = JSON.parse(JSON.stringify(queue.items[0])); delete legacy.quality.codecMode;
   assert.equal(TranscodeQueueModel.validated([legacy]).length, 1, 'Legacy quality remains valid');
   const surfaceAsync = JSON.parse(JSON.stringify(queue.items[0]));
-  surfaceAsync.options[1] = 1; surfaceAsync.quality.filter = 0;
+  surfaceAsync.settings.modeIndex = 1; surfaceAsync.quality.filter = 0;
   assert.equal(TranscodeQueueModel.validated([surfaceAsync]).length, 1, 'Surface supports asynchronous scheduling');
   const surfaceFilter = JSON.parse(JSON.stringify(queue.items[0]));
-  surfaceFilter.options[1] = 1;
+  surfaceFilter.settings.modeIndex = 1;
   assert.equal(TranscodeQueueModel.validated([surfaceFilter]).length, 0, 'Surface cannot restore CPU filtering');
   const remuxFilter = JSON.parse(JSON.stringify(queue.items[0]));
-  remuxFilter.quality.operation = 1; remuxFilter.options[5] = 0;
+  remuxFilter.quality.operation = 1; remuxFilter.settings.audioMode = 0;
   assert.equal(TranscodeQueueModel.validated([remuxFilter]).length, 0, 'Remux cannot restore processing controls');
   model.audioMode = 1; model.rangeEnabled = true; model.sizeIndex = 2; model.grayscale = true;
   model.quality.deepValidation = true;
@@ -835,7 +838,8 @@ async function testBatchOperations() {
   const { TranscodeExportController } = load('../controller/TranscodeExportController');
   const queue = new TranscodeQueueModel();
   for (let index = 0; index < 4; index++) {
-    queue.add('file://' + index, 'Clip ' + index, [0, 0, 0, 2, 0, 0, 0, 0], false);
+    queue.add('file://' + index, 'Clip ' + index, { codecIndex: 0, modeIndex: 0, sizeIndex: 0, bitrateIndex: 2,
+      encoderCategory: 0, audioMode: 0, audioTrack: 0, resizeMode: 0 }, false);
   }
   const ids = queue.items.map(item => item.id);
   queue.update(ids[0], 'running', 10); queue.activeId = ids[0];
@@ -859,8 +863,10 @@ async function testBatchOperations() {
   assert.equal(order.length, 3, 'Continue policy visits every remaining waiting task');
   assert.equal(queue.activeId, '');
   const paused = new TranscodeQueueModel();
-  paused.add('file://a', 'A', [0, 0, 0, 2, 0, 0, 0, 0], false);
-  paused.add('file://b', 'B', [0, 0, 0, 2, 0, 0, 0, 0], false);
+  const pausedSettings = new TranscodeModel().queueSettings();
+  paused.add('file://a', 'A', pausedSettings, false);
+  paused.add('file://b', 'B', pausedSettings, false);
+  assert.equal(JSON.stringify(paused.items[0].settings), JSON.stringify(pausedSettings));
   const current = deferred();
   const entered = deferred();
   const pauseHost = { available: () => true, disposed: () => false, persist: async () => true,
@@ -993,5 +999,121 @@ async function testHistoryController() {
   console.info('History controller: page append, usage, stale requests and disposal passed');
 }
 
-main().then(testQualityProfiles).then(testBatchOperations).then(testPreviewDisposal).then(testHistoryController)
+async function testTaskSnapshot() {
+  files.set('/private/snapshot.mp4', { kind: 'file' });
+  const model = new TranscodeModel();
+  model.sourceUri = '/private/snapshot.mp4';
+  model.sourceTitle = 'snapshot.mp4';
+  const entered = deferred();
+  const gate = deferred();
+  let before, submitted;
+  inspect = async request => { before = { ...request }; entered.resolve(); return gate.promise; };
+  start = async request => { submitted = { ...request }; return status(); };
+  const pending = model.start(ui);
+  await entered.promise;
+  model.bitrateIndex = 3; model.rangeEnabled = true; model.rangeStart = '999'; model.quality.codecMode = 1;
+  gate.resolve(status());
+  await pending;
+  assert.equal(submitted.bitrate, before.bitrate, 'Native request retains the preflight bitrate');
+  assert.equal(submitted.startTimeMs, before.startTimeMs, 'Range validation uses the task snapshot');
+  assert.equal(submitted.codecMode, before.codecMode, 'Scheduling retains the task snapshot');
+  assert.match(model.activeEntry.configuration, /8 Mbps/);
+  const serialized = JSON.parse(JSON.stringify(model.queue.items));
+  assert.equal(TranscodeQueueModel.validated(serialized).length, serialized.length);
+  const legacy = { id: 'queue_900_1', uri: 'source', title: 'old', options: [0, 0, 0, 2, 0, 0, 0],
+    grayscale: false, state: 'waiting', progress: 0, resultPath: '' };
+  const migrated = TranscodeQueueModel.validated([legacy])[0];
+  assert.equal(migrated.settings.resizeMode, 0);
+  assert.equal(migrated.options, undefined, 'New snapshots store named settings only');
+  assert.equal(TranscodeQueueModel.validated([migrated]).length, 1);
+  console.info('Task snapshot: preflight, Native request, report and legacy queue migration passed');
+}
+
+async function testAuxiliaryCloseFailure(mode) {
+  const model = new TranscodeModel();
+  model.sourceUri = '/private/auxiliary.mp4';
+  files.set(model.sourceUri, { kind: 'file' });
+  inspect = async () => status();
+  preview = async () => status({ previewWidth: 2, previewHeight: 2, previewRgba: new ArrayBuffer(16) });
+  io.close = async () => { throw Object.assign(Error('close unknown'), { code: 13900005 }); };
+  await model[mode](ui);
+  assert.equal(model.status.cleanupStage, 'files.close', mode + ' reports the cleanup stage');
+  assert.equal(model.busy, false);
+  assert.equal(model.inspecting, false);
+  assert.equal(model.queue.paused, true);
+  assert.match(model.notice, /transcode_close_unconfirmed/);
+  assert.equal(MediaFileActivity.beginTranscode(), false);
+  assert.equal(MediaFileActivity.beginLaunch(), false);
+  assert.equal(MediaTaskCoordinator.busy(), true);
+  console.info(mode + ': close failure retains the gate and reports restart guidance');
+}
+
+function testAuxiliaryCloseFailures() {
+  const { spawnSync } = require('node:child_process');
+  for (const mode of ['inspect', 'preview']) {
+    const result = spawnSync(process.execPath, [__filename, process.argv[2], mode],
+      { encoding: 'utf8', timeout: 20000 });
+    assert.equal(result.status, 0, result.stdout + result.stderr);
+    process.stdout.write(result.stdout);
+  }
+}
+
+async function testTranscodeCloseFailure() {
+  const { TranscodeFileCloser } = load('../controller/TranscodeFileCloser');
+  const originalClose = io.close;
+  let calls = 0;
+  const entered = deferred();
+  const gate = deferred();
+  io.close = async () => { calls++; entered.resolve(); await gate.promise; };
+  const firstClose = TranscodeFileCloser.close({ fd: 9099 });
+  await entered.promise;
+  const secondClose = TranscodeFileCloser.close({ fd: 9099 });
+  assert.equal(calls, 1, 'Concurrent cleanup shares the same close operation');
+  gate.resolve();
+  assert.deepEqual(await Promise.all([firstClose, secondClose]), [true, true]);
+  io.close = async () => { calls++; throw Object.assign(Error('invalid descriptor'), { code: 13900008 }); };
+  assert.equal(await TranscodeFileCloser.close({ fd: 9100 }), true, 'EBADF confirms closure');
+  assert.equal(MediaTaskCoordinator.busy(), false);
+  files.set('/private/close.mp4', { kind: 'file' });
+  const model = new TranscodeModel(); model.sourceUri = '/private/close.mp4';
+  inspect = async () => status(); start = async () => status();
+  io.close = async file => {
+    const fd = file?.fd ?? file;
+    if (fd === '/private/close.mp4') {
+      calls++; throw Object.assign(Error('close result unknown'), { code: 13900005 });
+    }
+    return originalClose(file);
+  };
+  try {
+    const previous = (await MediaSessionStore.pending(ui.getHostContext())).length;
+    await model.start(ui);
+    assert.equal(model.status.state, 4);
+    assert.equal(model.status.cleanupStage, 'files.close');
+    assert.equal((await MediaSessionStore.pending(ui.getHostContext())).length, previous + 1,
+      'Unconfirmed cleanup retains the pending session');
+    assert.equal(model.busy, false, 'UI completes while the resource gate remains held');
+    assert.equal(model.queue.paused, true);
+    assert.equal(MediaFileActivity.beginTranscode(), false);
+    assert.equal(MediaFileActivity.beginLaunch(), false);
+    assert.equal(MediaTaskCoordinator.busy(), true);
+    let inspections = 0;
+    inspect = async () => { inspections++; return status(); };
+    const blocked = new TranscodeModel(); blocked.sourceUri = '/private/close.mp4';
+    await blocked.inspect(ui);
+    assert.equal(inspections, 0, 'Source inspection respects unconfirmed cleanup');
+    const beforeRetry = calls;
+    assert.equal(await TranscodeFileCloser.close({ fd: '/private/close.mp4' }), false);
+    assert.equal(calls, beforeRetry, 'Unconfirmed descriptors are never retried');
+  } finally { io.close = originalClose; }
+  console.info('Transcode cleanup: EBADF, retained File, blocked lease and no repeated close passed');
+}
+
+(process.argv[3] ? testAuxiliaryCloseFailure(process.argv[3]) : main()
+  .then(testQualityProfiles)
+  .then(testBatchOperations)
+  .then(testPreviewDisposal)
+  .then(testHistoryController)
+  .then(testTaskSnapshot)
+  .then(testAuxiliaryCloseFailures)
+  .then(testTranscodeCloseFailure))
   .catch(error => { console.error(error); process.exitCode = 1; });

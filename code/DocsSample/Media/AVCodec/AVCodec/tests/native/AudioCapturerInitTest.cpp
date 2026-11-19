@@ -14,6 +14,8 @@
  */
 
 #include <cstdlib>
+#include <numeric>
+#include "sample/recorder/diagnostics/RecorderAudioStats.h"
 #include <iostream>
 #include "../../entry/src/main/cpp/capabilities/include/audio_capturer.h"
 #include "av_codec_sample_log.h"
@@ -50,6 +52,9 @@ void TestInitializationFailure(Failure stage)
     g_capturerReleases = 0;
     AudioCapturer wrapper;
     SampleInfo sample;
+    sample.audio.audioMaxInputSize = 3840;
+    sample.audio.audioSampleRate = 48000;
+    sample.audio.audioChannelCount = 2;
     CodecUserData context;
     Require(wrapper.AudioCapturerInit(sample, &context) == AVCODEC_SAMPLE_ERR_ERROR,
         "Initialization failure propagates immediately");
@@ -68,6 +73,9 @@ void TestCaptureAndReuse()
     g_capturerReleases = 0;
     AudioCapturer wrapper;
     SampleInfo sample;
+    sample.audio.audioMaxInputSize = 3840;
+    sample.audio.audioSampleRate = 48000;
+    sample.audio.audioChannelCount = 2;
     CodecUserData context;
     Require(wrapper.AudioCapturerInit(sample, &context) == AVCODEC_SAMPLE_ERR_OK &&
         g_registeredContext == &context && g_registeredCallbacks.OH_AudioCapturer_OnReadData != nullptr,
@@ -78,6 +86,45 @@ void TestCaptureAndReuse()
     wrapper.AudioCapturerRelease();
     Require(g_builderDestroys == CAPTURE_SESSION_COUNT && g_capturerReleases == CAPTURE_SESSION_COUNT,
         "Each generated capture session is released once");
+}
+void TestCaptureBackpressure()
+{
+    g_failure = Failure::NONE;
+    SampleInfo sample;
+    sample.audio.audioMaxInputSize = 3840;
+    sample.audio.audioSampleRate = 48000;
+    sample.audio.audioChannelCount = 2;
+    CodecUserData context;
+    RecorderAudioStats stats;
+    stats.Reset(sample.audio.audioSampleRate, sample.audio.audioChannelCount);
+    context.recordingAudioStats = &stats;
+    AudioCapturer wrapper;
+    Require(wrapper.AudioCapturerInit(sample, &context) == AVCODEC_SAMPLE_ERR_OK, "Initialize bounded capture");
+    const size_t capacity = context.captureQueue.Capacity();
+    std::vector<uint8_t> input(capacity);
+    std::vector<uint8_t> output(capacity);
+    std::iota(input.begin(), input.end(), 0);
+    const auto callback = g_registeredCallbacks.OH_AudioCapturer_OnReadData;
+    context.capturePaused = true;
+    callback(&g_capturer, &context, input.data(), input.size());
+    Require(context.CaptureSize() == 0, "Paused capture discards service data");
+    context.capturePaused = false;
+    callback(&g_capturer, &context, input.data(), input.size());
+    Require(context.CaptureSize() == capacity && !context.hasError, "Fixed capacity accepts its last byte");
+    Require(context.ReadCache(output.data(), output.size()) && output == input, "Capture preserves PCM byte order");
+    callback(&g_capturer, &context, input.data(), input.size());
+    callback(&g_capturer, &context, input.data(), 1);
+    callback(&g_capturer, &context, input.data(), 1);
+    const auto diagnostic = stats.Snapshot();
+    Require(context.hasError && context.CaptureSize() == capacity,
+        "Overflow signals failure without dropping queued PCM");
+    Require(diagnostic.captureOverflows == 1 && diagnostic.peakPendingPcmBytes == capacity &&
+        diagnostic.captureCapacityBytes == capacity && diagnostic.captureCallback.count == 3,
+        "Overflow is recorded once and subsequent callbacks cannot grow the backlog");
+    wrapper.AudioCapturerRelease();
+    context.isDestroyed = true;
+    callback(&g_capturer, &context, input.data(), 1);
+    Require(context.CaptureSize() == capacity, "Destroyed context ignores a late callback");
 }
 } // namespace
 
@@ -183,5 +230,6 @@ int main()
     TestInitializationFailure(Failure::CONFIGURE);
     TestInitializationFailure(Failure::GENERATE);
     TestCaptureAndReuse();
+    TestCaptureBackpressure();
     std::cout << "Audio capture: initialization failures, partial cleanup and reuse passed\n";
 }

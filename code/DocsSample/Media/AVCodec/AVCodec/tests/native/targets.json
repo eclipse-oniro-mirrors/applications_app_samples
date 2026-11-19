@@ -5,6 +5,11 @@
     "sample/recorder/core/Recorder.cpp",
     "sample/recorder/core/RecorderRelease.cpp",
     "sample/recorder/core/RecorderVideoSession.cpp",
+    "sample/recorder/input/video/RecorderVideoInput.cpp",
+    "sample/recorder/input/video/RecorderFrameEffects.cpp",
+    "sample/recorder/output/video/RecorderVideoOutput.cpp",
+    "sample/recorder/output/video/RecorderSecondaryOutput.cpp",
+    "sample/recorder/diagnostics/RecorderDiagnostics.cpp",
     "common/SessionReport.cpp"
   ],
   "PlayerLifecycleIntegrationTest": [
@@ -69,5 +74,7 @@
   ],
   "TranscodeQualityTest": [
     "sample/transcoder/process/video/TranscodeFrameProcessor.cpp"
-  ]
+  ],
+  "NativeCheckTest": [],
+  "VulkanResourcesTest": []
 }

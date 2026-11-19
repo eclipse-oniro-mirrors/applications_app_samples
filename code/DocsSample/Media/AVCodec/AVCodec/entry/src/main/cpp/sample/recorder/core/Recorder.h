@@ -82,6 +82,7 @@ private:
     void SecondaryVideoEncOutputAsyncThread();
     void SecondaryVideoEncOutputSyncThread();
     bool ProcessVideoOutputBuffer(CodecBufferInfo &bufferInfo, bool isPrimary, int64_t receivedAtUs);
+    void RecordVideoOutputEos(CodecBufferInfo &bufferInfo, bool isPrimary, int64_t receivedAtUs);
     void RefreshStreamStorage(bool primary, bool force = false);
     void CaptureEncoderDescription(bool primary);
     void FinishVideoOutputThread(CodecUserData *context, bool isPrimary);
@@ -116,13 +117,11 @@ private:
     int32_t StartVideoInputThread();
     void VideoEncInputSyncThread();
     void VideoEncInputAsyncThread();
-    OH_ImageNative *ReadVideoInputImage(VideoInputState &state);
+    bool ValidateVideoInputImage(OH_ImageNative *image, VideoInputState &state);
     bool SubmitVideoInputImage(OH_ImageNative *image, CodecBufferInfo &info, VideoInputState &state,
         int64_t receivedAtUs);
     bool InitSyncVideoInputContext();
     int32_t SendBufferVideoEndOfStream();
-    int32_t SendBufferVideoEndOfStreamSync();
-    int32_t SendBufferVideoEndOfStreamAsync();
     int32_t SendAudioEndOfStream();
     int32_t SendAudioEndOfStreamSync();
     int32_t SendAudioEndOfStreamAsync();
@@ -150,6 +149,8 @@ private:
     std::atomic<uint64_t> pauseRevision_{0};
     int64_t pauseStartedUs_ = 0;
     int64_t pausedDurationUs_ = 0;
+    // videoInputStopping_是Buffer模式的视频输入停止请求；正常停止时由输入线程提交EOS后退出。
+    // 它不停止视频输出；若改用isStarted_结束输入，输出线程会提前退出，无法排空剩余编码数据和EOS。
     std::atomic<bool> videoInputStopping_{false};
     int64_t captureStartedUs_ = 0;
     int64_t audioCaptureOffsetUs_ = 0;

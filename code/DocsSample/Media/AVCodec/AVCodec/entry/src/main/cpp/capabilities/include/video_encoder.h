@@ -58,7 +58,7 @@ public:
     int32_t QueryInputBuffer(uint32_t &bufferIndex, int64_t timeoutUs);
     // 同步模式下取得一个空闲输入Buffer并写入info；返回OK、AGAIN或ERROR，与解码接口一致。
     int32_t GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
-    // 查询已编码输出Buffer的索引。输出处理完成后必须调用FreeOutputBuffer归还该索引。
+    // 查询已编码输出Buffer的索引。普通输出处理后归还索引，EOS和最终停止时的Buffer可由Destroy回收。
     int32_t QueryOutputBuffer(uint32_t &bufferIndex, int64_t timeoutUs);
     // 同步模式下取得已编码输出；AGAIN表示本次未取到Buffer，由输出线程继续轮询。
     int32_t GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);

@@ -94,6 +94,7 @@ void Recorder::ResetSessionState()
     audioOutputEosReceived_ = false;
     isAudioEncFirstFrame_ = true;
     audioSubmittedFrames_ = 0;
+    // videoInputStopping_控制Buffer视频输入停止；新会话清零，允许输入线程重新取帧。
     videoInputStopping_ = false;
     captureStartedUs_ = 0;
     audioCaptureOffsetUs_ = 0;

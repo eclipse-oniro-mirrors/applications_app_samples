@@ -20,7 +20,7 @@
 #include <thread>
 #include <utility>
 
-// 与播放器的PipelineWorkers一样管理线程创建和join；录制输入需要在提交EOS前单独结束。
+// 与播放器的PipelineWorkers一样管理线程创建和join，保证销毁录制资源前工作线程已经退出。
 class RecorderWorker {
 public:
     ~RecorderWorker() { Join(); }

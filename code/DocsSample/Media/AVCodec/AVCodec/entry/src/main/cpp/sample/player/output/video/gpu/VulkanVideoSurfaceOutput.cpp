@@ -112,9 +112,9 @@ bool VulkanVideoSink::CreateExternalRenderPass()
 
 bool VulkanVideoSink::CreateExternalFramebuffers()
 {
-    externalFrameBufferViews_.reserve(swapchainImages_.size());
-    externalFramebuffers_.reserve(swapchainImages_.size());
-    for (VkImage image : swapchainImages_) {
+    externalFrameBufferViews_.reserve(swapchainResources_.images.size());
+    externalFramebuffers_.reserve(swapchainResources_.images.size());
+    for (VkImage image : swapchainResources_.images) {
         VkImageViewCreateInfo viewInfo{};
         viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
         viewInfo.image = image;
@@ -1107,23 +1107,23 @@ void VulkanVideoSink::DestroyExternalFramebuffers()
 
 bool VulkanVideoSink::SubmitExternalFrame(uint32_t imageIndex)
 {
-    if (imageIndex >= renderFinishedSemaphores_.size()) {
+    if (imageIndex >= swapchainResources_.renderFinished.size()) {
         return false;
     }
-    if (vkResetFences(device_, 1, &frameFence_) != VK_SUCCESS) {
+    if (vkResetFences(device_, 1, &frameResources_.fence) != VK_SUCCESS) {
         return false;
     }
     constexpr VkPipelineStageFlags waitStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
     VkSubmitInfo submit{};
     submit.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
     submit.waitSemaphoreCount = 1;
-    submit.pWaitSemaphores = &imageAvailable_;
+    submit.pWaitSemaphores = &frameResources_.imageAvailable;
     submit.pWaitDstStageMask = &waitStage;
     submit.commandBufferCount = 1;
-    submit.pCommandBuffers = &commandBuffer_;
+    submit.pCommandBuffers = &frameResources_.commandBuffer;
     submit.signalSemaphoreCount = 1;
-    submit.pSignalSemaphores = &renderFinishedSemaphores_[imageIndex];
-    if (vkQueueSubmit(queue_, 1, &submit, frameFence_) != VK_SUCCESS) {
+    submit.pSignalSemaphores = &swapchainResources_.renderFinished[imageIndex];
+    if (vkQueueSubmit(queue_, 1, &submit, frameResources_.fence) != VK_SUCCESS) {
         frameInFlight_ = false;
         swapchainRecreatePending_ = true;
         return false;
@@ -1132,9 +1132,9 @@ bool VulkanVideoSink::SubmitExternalFrame(uint32_t imageIndex)
     VkPresentInfoKHR present{};
     present.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
     present.waitSemaphoreCount = 1;
-    present.pWaitSemaphores = &renderFinishedSemaphores_[imageIndex];
+    present.pWaitSemaphores = &swapchainResources_.renderFinished[imageIndex];
     present.swapchainCount = 1;
-    present.pSwapchains = &swapchain_;
+    present.pSwapchains = &swapchainResources_.handle;
     present.pImageIndices = &imageIndex;
     const VkResult result = vkQueuePresentKHR(queue_, &present);
     // SUBOPTIMAL仍表示当前图像已经成功送显，不需要每帧重建swapchain；只有
@@ -1167,8 +1167,8 @@ bool VulkanVideoSink::RenderNativeImageFrame()
         return true;
     }
     uint32_t imageIndex = 0;
-    const VkResult acquire = vkAcquireNextImageKHR(device_, swapchain_, IMAGE_ACQUIRE_WAIT_NS, imageAvailable_,
-        VK_NULL_HANDLE, &imageIndex);
+    const VkResult acquire = vkAcquireNextImageKHR(device_, swapchainResources_.handle, IMAGE_ACQUIRE_WAIT_NS,
+        frameResources_.imageAvailable, VK_NULL_HANDLE, &imageIndex);
     if (!ValidateAcquiredExternalImage(acquire, imageIndex)) {
         ReleaseCurrentNativeBuffer();
         return IsRecoverableAcquireResult(acquire);
@@ -1179,10 +1179,10 @@ bool VulkanVideoSink::RenderNativeImageFrame()
 bool VulkanVideoSink::WaitForPreviousExternalFrame()
 {
     const auto startedAt = std::chrono::steady_clock::now();
-    if (!frameInFlight_ || frameFence_ == VK_NULL_HANDLE) {
+    if (!frameInFlight_ || frameResources_.fence == VK_NULL_HANDLE) {
         return true;
     }
-    const VkResult result = vkWaitForFences(device_, 1, &frameFence_, VK_TRUE, FRAME_READY_WAIT_NS);
+    const VkResult result = vkWaitForFences(device_, 1, &frameResources_.fence, VK_TRUE, FRAME_READY_WAIT_NS);
     if (result == VK_TIMEOUT) {
         // GPU仍在读取该Buffer，暂不归还；下一次送显继续等待，避免阻塞回调线程。
         RecordVulkanStage(VulkanDiagnosticStage::GPU_WAIT,
@@ -1340,7 +1340,7 @@ bool VulkanVideoSink::RecordAndSubmitNativeFrame(uint32_t imageIndex, const Pres
         static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
             std::chrono::steady_clock::now() - commandStartedAt).count()));
     const auto submitStartedAt = std::chrono::steady_clock::now();
-    if (vkEndCommandBuffer(commandBuffer_) == VK_SUCCESS && SubmitExternalFrame(imageIndex)) {
+    if (vkEndCommandBuffer(frameResources_.commandBuffer) == VK_SUCCESS && SubmitExternalFrame(imageIndex)) {
         externalImageLayout_ = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
         RecordVulkanStage(VulkanDiagnosticStage::SUBMIT,
             static_cast<uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
@@ -1360,17 +1360,17 @@ bool VulkanVideoSink::RecordAndSubmitNativeFrame(uint32_t imageIndex, const Pres
 
 bool VulkanVideoSink::BeginNativeFrameCommands()
 {
-    if (vkResetCommandBuffer(commandBuffer_, 0) != VK_SUCCESS) {
+    if (vkResetCommandBuffer(frameResources_.commandBuffer, 0) != VK_SUCCESS) {
         return false;
     }
     VkCommandBufferBeginInfo beginInfo{};
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-    return vkBeginCommandBuffer(commandBuffer_, &beginInfo) == VK_SUCCESS;
+    return vkBeginCommandBuffer(frameResources_.commandBuffer, &beginInfo) == VK_SUCCESS;
 }
 
 void VulkanVideoSink::RecordNativeImageDraw(uint32_t imageIndex, const PresentRegion &region)
 {
-    TransitionImage(commandBuffer_, { externalImage_, externalImageLayout_,
+    TransitionImage(frameResources_.commandBuffer, { externalImage_, externalImageLayout_,
         VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, 0, VK_ACCESS_SHADER_READ_BIT,
         VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT });
     VkClearValue clearValue{};
@@ -1382,18 +1382,18 @@ void VulkanVideoSink::RecordNativeImageDraw(uint32_t imageIndex, const PresentRe
     renderPassInfo.renderArea.extent = swapchainExtent_;
     renderPassInfo.clearValueCount = 1;
     renderPassInfo.pClearValues = &clearValue;
-    vkCmdBeginRenderPass(commandBuffer_, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
-    vkCmdBindPipeline(commandBuffer_, VK_PIPELINE_BIND_POINT_GRAPHICS, externalPipeline_);
+    vkCmdBeginRenderPass(frameResources_.commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+    vkCmdBindPipeline(frameResources_.commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, externalPipeline_);
     const VkViewport viewport{ static_cast<float>(region.left), static_cast<float>(region.top),
         static_cast<float>(region.width), static_cast<float>(region.height), 0.0F, 1.0F };
     VkRect2D scissor{};
     scissor.extent = swapchainExtent_;
-    vkCmdSetViewport(commandBuffer_, 0, 1, &viewport);
-    vkCmdSetScissor(commandBuffer_, 0, 1, &scissor);
+    vkCmdSetViewport(frameResources_.commandBuffer, 0, 1, &viewport);
+    vkCmdSetScissor(frameResources_.commandBuffer, 0, 1, &scissor);
     constexpr VkDeviceSize vertexOffset = 0;
-    vkCmdBindVertexBuffers(commandBuffer_, 0, 1, &externalVertexBuffer_, &vertexOffset);
-    vkCmdBindDescriptorSets(commandBuffer_, VK_PIPELINE_BIND_POINT_GRAPHICS, externalPipelineLayout_, 0, 1,
-        &externalDescriptorSet_, 0, nullptr);
-    vkCmdDraw(commandBuffer_, EXTERNAL_VERTEX_COUNT, 1, 0, 0);
-    vkCmdEndRenderPass(commandBuffer_);
+    vkCmdBindVertexBuffers(frameResources_.commandBuffer, 0, 1, &externalVertexBuffer_, &vertexOffset);
+    vkCmdBindDescriptorSets(frameResources_.commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
+        externalPipelineLayout_, 0, 1, &externalDescriptorSet_, 0, nullptr);
+    vkCmdDraw(frameResources_.commandBuffer, EXTERNAL_VERTEX_COUNT, 1, 0, 0);
+    vkCmdEndRenderPass(frameResources_.commandBuffer);
 }

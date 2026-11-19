@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+#include "TestCheck.h"
 #include <cstdlib>
 #include <iostream>
 #include <numeric>
@@ -27,13 +28,7 @@ constexpr size_t WRAPPED_SIZE = 30000;
 constexpr size_t REMAINING_FIRST = FIRST_BLOCK_SIZE - PREFIX_SIZE;
 constexpr size_t QUEUED_SIZE = REMAINING_FIRST + SECOND_BLOCK_SIZE;
 constexpr uint8_t SECOND_PATTERN_START = 7;
-void Require(bool condition, const char *message)
-{
-    if (!condition) {
-        std::cerr << message << std::endl;
-        std::exit(EXIT_FAILURE);
-    }
-}
+using TestSupport::Require;
 
 void TestWrapAndGrowth()
 {
@@ -61,10 +56,26 @@ void TestWrapAndGrowth()
     Require(queue.Empty() && queue.Size() == 0, "Seek clears pending PCM");
     Require(!queue.Write(nullptr, 1) && queue.Write(nullptr, 0), "Validate source without changing the queue");
 }
+void TestBoundedQueue()
+{
+    constexpr size_t capacity = 8;
+    const std::vector<uint8_t> input { 1, 2, 3, 4, 5, 6, 7, 8 };
+    std::vector<uint8_t> output(capacity);
+    PcmQueue disabled(0, 0);
+    Require(disabled.Read(output.data(), capacity) == 0 && !disabled.Write(input.data(), 1),
+        "Zero capacity rejects writes and supports empty reads");
+    PcmQueue queue(0, capacity);
+    Require(queue.Write(input.data(), capacity) && queue.Capacity() == capacity, "Grow to the fixed limit");
+    Require(!queue.Write(input.data(), 1) && queue.Size() == capacity, "Overflow preserves queued bytes");
+    Require(queue.Read(output.data(), capacity) == capacity && output == input, "Overflow preserves byte order");
+    queue.Clear();
+    Require(queue.Write(input.data(), capacity), "Clear permits reuse without allocation");
+}
 } // namespace
 
 int main()
 {
     TestWrapAndGrowth();
+    TestBoundedQueue();
     std::cout << "PCM queue: wrapping, growth, byte order and reset passed" << std::endl;
 }

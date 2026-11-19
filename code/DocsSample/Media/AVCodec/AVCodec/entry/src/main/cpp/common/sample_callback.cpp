@@ -79,63 +79,47 @@ void UpdateAudioPlaybackPosition(CodecUserData *codecUserData, size_t writtenByt
     codecUserData->currentPosAudioBufferPts = codecUserData->endPosAudioBufferPts -
         GetQueuedAudioDurationUs(codecUserData->renderQueue.Size(), *codecUserData->sampleInfo);
     codecUserData->UpdateAudioQueueDuration();
-    if (codecUserData->playbackPositionUs != nullptr) {
-        codecUserData->playbackPositionUs->store(codecUserData->currentPosAudioBufferPts);
+    if (codecUserData->audioPlayback != nullptr) {
+        codecUserData->audioPlayback->positionUs.store(codecUserData->currentPosAudioBufferPts);
     }
 }
 
-void HandlePauseInterrupt(OH_AudioRenderer *renderer, CodecUserData *codecUserData)
+void HandlePauseInterrupt(OH_AudioRenderer *renderer, AudioPlaybackCallbackContext &audio)
 {
-    if (codecUserData->audioInterrupted != nullptr) {
-        codecUserData->audioInterrupted->store(true);
-    }
-    if (codecUserData->audioResumePending != nullptr) {
-        codecUserData->audioResumePending->store(true);
-    }
+    audio.interrupted = true;
+    audio.resumePending = true;
     if (renderer != nullptr && OH_AudioRenderer_Pause(renderer) != AUDIOSTREAM_SUCCESS) {
         AVCODEC_SAMPLE_LOGW("Audio renderer was already paused by interruption");
     }
 }
 
-void HandleResumeInterrupt(OH_AudioRenderer *renderer, CodecUserData *codecUserData)
+void HandleResumeInterrupt(OH_AudioRenderer *renderer, AudioPlaybackCallbackContext &audio)
 {
-    if (codecUserData->audioResumePending == nullptr || codecUserData->audioResumePending->exchange(false)) {
-        const bool playbackPaused = codecUserData->pausedFlag != nullptr && codecUserData->pausedFlag->load();
-        const bool playbackRunning = codecUserData->runningFlag == nullptr || codecUserData->runningFlag->load();
-        if (!playbackPaused && playbackRunning && renderer != nullptr &&
-            OH_AudioRenderer_Start(renderer) != AUDIOSTREAM_SUCCESS) {
-            AVCODEC_SAMPLE_LOGW("Audio renderer resume after interruption failed");
-        }
+    if (audio.resumePending.exchange(false) && !audio.paused.load() && audio.running.load() &&
+        renderer != nullptr && OH_AudioRenderer_Start(renderer) != AUDIOSTREAM_SUCCESS) {
+        AVCODEC_SAMPLE_LOGW("Audio renderer resume after interruption failed");
     }
-    if (codecUserData->audioInterrupted != nullptr) {
-        codecUserData->audioInterrupted->store(false);
+    audio.interrupted = false;
+}
+
+void HandleDuckInterrupt(OH_AudioRenderer *renderer, AudioPlaybackCallbackContext &audio)
+{
+    if (!audio.ducked.exchange(true)) {
+        SetRendererVolume(renderer, audio.volume.load() * 0.2F, "duck");
     }
 }
 
-void HandleDuckInterrupt(OH_AudioRenderer *renderer, CodecUserData *codecUserData)
+void HandleUnduckInterrupt(OH_AudioRenderer *renderer, AudioPlaybackCallbackContext &audio)
 {
-    if (codecUserData->audioDucked != nullptr && !codecUserData->audioDucked->exchange(true) &&
-        renderer != nullptr && codecUserData->audioVolume != nullptr) {
-        SetRendererVolume(renderer, codecUserData->audioVolume->load() * 0.2F, "duck");
+    if (audio.ducked.exchange(false)) {
+        SetRendererVolume(renderer, audio.volume.load(), "unduck");
     }
 }
 
-void HandleUnduckInterrupt(OH_AudioRenderer *renderer, CodecUserData *codecUserData)
+void HandleStopInterrupt(AudioPlaybackCallbackContext &audio)
 {
-    if (codecUserData->audioDucked != nullptr && codecUserData->audioDucked->exchange(false) &&
-        renderer != nullptr && codecUserData->audioVolume != nullptr) {
-        SetRendererVolume(renderer, codecUserData->audioVolume->load(), "unduck");
-    }
-}
-
-void HandleStopInterrupt(CodecUserData *codecUserData)
-{
-    if (codecUserData->audioInterrupted != nullptr) {
-        codecUserData->audioInterrupted->store(true);
-    }
-    if (codecUserData->audioResumePending != nullptr) {
-        codecUserData->audioResumePending->store(false);
-    }
+    audio.interrupted = true;
+    audio.resumePending = false;
 }
 
 void UpdateVideoOutputInfo(OH_AVFormat *format, CodecUserData *codecUserData)
@@ -201,8 +185,8 @@ int32_t SampleCallback::OnRenderWriteData(OH_AudioRenderer *renderer, void *user
     const size_t index = DrainRenderQueue(codecUserData, dest, length);
     if (index < static_cast<size_t>(length)) {
         std::fill(dest + index, dest + length, 0);
-        if (codecUserData->audioUnderruns != nullptr) {
-            codecUserData->audioUnderruns->fetch_add(1);
+        if (codecUserData->audioPlayback != nullptr) {
+            codecUserData->audioPlayback->underruns.fetch_add(1);
         }
     }
 
@@ -236,45 +220,41 @@ void SampleCallback::OnRenderInterrupt(OH_AudioRenderer *renderer, void *userDat
     if (codecUserData == nullptr || codecUserData->isDestroyed.load()) {
         return;
     }
-    const bool startsInterruption = hint == AUDIOSTREAM_INTERRUPT_HINT_PAUSE ||
-        hint == AUDIOSTREAM_INTERRUPT_HINT_STOP;
-    if (startsInterruption && codecUserData->audioInterruptCount != nullptr) {
-        codecUserData->audioInterruptCount->fetch_add(1);
+    if (codecUserData->audioPlayback == nullptr) {
+        return;
     }
-    if (codecUserData->audioInterruptHint != nullptr) {
-        codecUserData->audioInterruptHint->store(static_cast<int32_t>(hint));
+    AudioPlaybackCallbackContext &audio = *codecUserData->audioPlayback;
+    if (hint == AUDIOSTREAM_INTERRUPT_HINT_PAUSE || hint == AUDIOSTREAM_INTERRUPT_HINT_STOP) {
+        audio.interruptCount.fetch_add(1);
     }
+    audio.interruptHint = static_cast<int32_t>(hint);
 
     switch (hint) {
         case AUDIOSTREAM_INTERRUPT_HINT_PAUSE:
-            HandlePauseInterrupt(renderer, codecUserData);
+            HandlePauseInterrupt(renderer, audio);
             break;
         case AUDIOSTREAM_INTERRUPT_HINT_RESUME:
-            HandleResumeInterrupt(renderer, codecUserData);
+            HandleResumeInterrupt(renderer, audio);
             break;
         case AUDIOSTREAM_INTERRUPT_HINT_DUCK:
-            HandleDuckInterrupt(renderer, codecUserData);
+            HandleDuckInterrupt(renderer, audio);
             break;
         case AUDIOSTREAM_INTERRUPT_HINT_UNDUCK:
-            HandleUnduckInterrupt(renderer, codecUserData);
+            HandleUnduckInterrupt(renderer, audio);
             break;
         case AUDIOSTREAM_INTERRUPT_HINT_MUTE:
             SetRendererVolume(renderer, 0.0F, "mute");
             break;
         case AUDIOSTREAM_INTERRUPT_HINT_UNMUTE:
-            if (renderer != nullptr && codecUserData->audioVolume != nullptr) {
-                SetRendererVolume(renderer, codecUserData->audioVolume->load(), "unmute");
-            }
+            SetRendererVolume(renderer, audio.volume.load(), "unmute");
             break;
         case AUDIOSTREAM_INTERRUPT_HINT_STOP:
-            HandleStopInterrupt(codecUserData);
+            HandleStopInterrupt(audio);
             break;
         default:
             break;
     }
-    if (codecUserData->pauseCond != nullptr) {
-        codecUserData->pauseCond->notify_all();
-    }
+    audio.pauseChanged.notify_all();
     AVCODEC_SAMPLE_LOGI("Audio interruption handled, type: %{public}d, hint: %{public}d",
         static_cast<int32_t>(type), static_cast<int32_t>(hint));
 }

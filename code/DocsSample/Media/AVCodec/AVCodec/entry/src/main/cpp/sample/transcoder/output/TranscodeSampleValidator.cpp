@@ -179,7 +179,8 @@ bool OutputSampleDecoder::DrainOutput(bool &progressed)
     }
     const bool valid = ValidatePts(attr);
     outputEos_ = (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
-    const int32_t freeRet = OH_VideoDecoder_FreeOutputBuffer(decoder_.get(), index);
+    // 抽样解码读到EOS即结束，EOS Buffer由局部解码器销毁时回收。
+    const int32_t freeRet = outputEos_ ? AV_ERR_OK : OH_VideoDecoder_FreeOutputBuffer(decoder_.get(), index);
     if (!valid) {
         return false;
     }

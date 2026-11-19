@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+#include <new>
 #include "audio_capturer.h"
 #include "sample_callback.h"
 #include "av_codec_sample_log.h"
@@ -39,22 +40,63 @@ static int32_t AudioCapturerOnReadData(OH_AudioCapturer *capturer, void *userDat
         AVCODEC_SAMPLE_LOGW("Invalid audio capture callback buffer");
         return 0;
     }
+    const int64_t startedAtUs = RecorderClockUs();
     std::unique_lock<std::mutex> lock(codecUserData->inputMutex);
-    if (codecUserData->capturePaused) {
+    if (codecUserData->isDestroyed.load() || codecUserData->capturePaused || codecUserData->hasError.load()) {
         return 0;
     }
-    codecUserData->WriteCache(buffer, bufferLen);
+    const bool accepted = codecUserData->WriteCache(buffer, bufferLen);
     if (codecUserData->recordingAudioStats != nullptr) {
-        codecUserData->recordingAudioStats->Capture(bufferLen, codecUserData->remainlen);
+        codecUserData->recordingAudioStats->CaptureCallback(accepted ? bufferLen : 0,
+            codecUserData->CaptureSize(), codecUserData->captureQueue.Capacity(),
+            RecorderClockUs() - startedAtUs, !accepted);
+    }
+    if (!accepted) {
+        if (codecUserData->failureDetails != nullptr) {
+            codecUserData->failureDetails->Record("recorder.audio.capacity", AVCODEC_SAMPLE_ERR_ERROR,
+                "Audio capture backlog exceeded its fixed capacity");
+        }
+        codecUserData->SignalError();
     }
     codecUserData->inputCond.notify_all();
     return 0;
 }
 
+static bool PrepareCaptureQueue(const SampleInfo &sampleInfo, CodecUserData *audioEncContext)
+{
+    // 两秒S16LE缓存，最多4MiB；只在注册回调前分配，超限终止录制而不静默丢样本。
+    constexpr size_t captureSeconds = 2;
+    constexpr size_t maximumCapacity = 4 * 1024 * 1024;
+    if (audioEncContext == nullptr || sampleInfo.audio.audioSampleRate <= 0 ||
+        sampleInfo.audio.audioChannelCount <= 0 || sampleInfo.audio.audioMaxInputSize <= 0) {
+        return false;
+    }
+    const uint64_t bytesPerChannel = static_cast<uint64_t>(sampleInfo.audio.audioSampleRate) *
+        sizeof(int16_t) * captureSeconds;
+    if (bytesPerChannel > maximumCapacity / static_cast<uint32_t>(sampleInfo.audio.audioChannelCount)) {
+        return false;
+    }
+    const uint64_t bytes = bytesPerChannel * sampleInfo.audio.audioChannelCount;
+    const uint64_t capacity = std::max<uint64_t>(bytes, sampleInfo.audio.audioMaxInputSize);
+    if (capacity > maximumCapacity) {
+        return false;
+    }
+    try {
+        audioEncContext->captureQueue = PcmQueue(capacity, capacity);
+    } catch (const std::bad_alloc &) {
+        return false;
+    }
+
+    return true;
+}
+
 int32_t AudioCapturer::AudioCapturerInit(const SampleInfo &sampleInfo, CodecUserData *audioEncContext)
 {
-    // 重复初始化时先释放旧实例，旧回调不再写入新的录制缓存。
+    // 停止旧回调后才允许替换缓存。
     AudioCapturerRelease();
+    if (!PrepareCaptureQueue(sampleInfo, audioEncContext)) {
+        return AVCODEC_SAMPLE_ERR_ERROR;
+    }
 
     const int32_t createRet = OH_AudioStreamBuilder_Create(&builder_, AUDIOSTREAM_TYPE_CAPTURER);
     if (createRet != AUDIOSTREAM_SUCCESS || builder_ == nullptr) {

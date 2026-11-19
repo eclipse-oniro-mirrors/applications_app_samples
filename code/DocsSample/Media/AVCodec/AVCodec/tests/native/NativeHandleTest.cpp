@@ -12,17 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include "TestCheck.h"
 #include <cstdlib>
 #include <iostream>
 #include "NativeHandle.h"
 namespace {
-void Require(bool condition, const char *message)
-{
-    if (!condition) {
-        std::cerr << message << std::endl;
-        std::exit(EXIT_FAILURE);
-    }
-}
+using TestSupport::Require;
 
 constexpr int CLOSE_FAILURE = -17;
 struct Resource {

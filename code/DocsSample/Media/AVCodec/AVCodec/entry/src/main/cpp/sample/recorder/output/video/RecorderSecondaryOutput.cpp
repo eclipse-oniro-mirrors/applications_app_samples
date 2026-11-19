@@ -30,11 +30,7 @@ void Recorder::SecondaryVideoEncOutputSyncThread()
         CodecBufferInfo bufferInfo;
         const int32_t ret = secondaryVideoEncoder_->GetOutputBuffer(bufferInfo, codecBufferTimeoutUs);
         if (!isStarted_) {
-            if (ret == AVCODEC_SAMPLE_ERR_OK &&
-                secondaryVideoEncoder_->FreeOutputBuffer(bufferInfo) != AVCODEC_SAMPLE_ERR_OK) {
-                failure_.Record("recorder.secondary.release", AVCODEC_SAMPLE_ERR_ERROR,
-                    "Return secondary output while stopping failed");
-            }
+            // 输出线程退出后，由副编码器Destroy统一回收未归还的Buffer。
             break;
         }
         if (ret == AVCODEC_SAMPLE_ERR_AGAIN) {
@@ -46,6 +42,11 @@ void Recorder::SecondaryVideoEncOutputSyncThread()
         }
         const int64_t receivedAtUs = RecorderClockUs();
         secondaryStats_.RecordRetrieval(receivedAtUs - waitStart);
+        if (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
+            RecordVideoOutputEos(bufferInfo, false, receivedAtUs);
+            AVCODEC_SAMPLE_LOGI("Catch EOS, secondary video output thread out");
+            break;
+        }
         if (!ProcessVideoOutputBuffer(bufferInfo, false, receivedAtUs)) {
             break;
         }
@@ -60,11 +61,7 @@ void Recorder::SecondaryVideoEncOutputAsyncThread()
         const auto bufferInfo = secondaryEncContext_->outputBufferQueue.Dequeue();
         const int64_t receivedAtUs = RecorderClockUs();
         if (!isStarted_ || secondaryEncContext_->hasError.load()) {
-            if (bufferInfo != nullptr &&
-                secondaryVideoEncoder_->FreeOutputBuffer(*bufferInfo) != AVCODEC_SAMPLE_ERR_OK) {
-                failure_.Record("recorder.secondary.release", AVCODEC_SAMPLE_ERR_ERROR,
-                    "Return secondary output while stopping failed");
-            }
+            // 停止或故障后不再消费输出，未归还的Buffer由副编码器Destroy统一回收。
             if (isStarted_) {
                 AbortRecording("Secondary video codec callback failed");
             }
@@ -72,6 +69,11 @@ void Recorder::SecondaryVideoEncOutputAsyncThread()
         }
         CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
         secondaryStats_.RecordRetrieval(receivedAtUs - waitStart);
+        if (bufferInfo->attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
+            RecordVideoOutputEos(*bufferInfo, false, receivedAtUs);
+            AVCODEC_SAMPLE_LOGI("Catch EOS, secondary video output thread out");
+            break;
+        }
         if (!ProcessVideoOutputBuffer(*bufferInfo, false, receivedAtUs)) {
             break;
         }

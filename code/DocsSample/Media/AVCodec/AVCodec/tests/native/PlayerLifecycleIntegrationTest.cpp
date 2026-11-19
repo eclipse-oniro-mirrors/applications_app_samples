@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include "TestCheck.h"
 #include <cstdlib>
 #include <condition_variable>
 #include <cstdarg>
@@ -22,6 +23,37 @@
 #include "sample/player/output/video/gpu/VulkanVideoSink.h"
 #include "codec_capability.h"
 #include "sample/player/napi/NativePlayerContext.h"
+
+extern "C" VKAPI_ATTR void VKAPI_CALL FakeDestroyFence(VkDevice, VkFence, const VkAllocationCallbacks *)
+    __asm__("vkDestroyFence");
+extern "C" VKAPI_ATTR void VKAPI_CALL FakeDestroyFence(VkDevice, VkFence, const VkAllocationCallbacks *)
+{
+}
+extern "C" VKAPI_ATTR void VKAPI_CALL FakeDestroySemaphore(VkDevice, VkSemaphore, const VkAllocationCallbacks *)
+    __asm__("vkDestroySemaphore");
+extern "C" VKAPI_ATTR void VKAPI_CALL FakeDestroySemaphore(VkDevice, VkSemaphore, const VkAllocationCallbacks *)
+{
+}
+extern "C" VKAPI_ATTR void VKAPI_CALL FakeDestroyCommandPool(VkDevice, VkCommandPool, const VkAllocationCallbacks *)
+    __asm__("vkDestroyCommandPool");
+extern "C" VKAPI_ATTR void VKAPI_CALL FakeDestroyCommandPool(VkDevice, VkCommandPool, const VkAllocationCallbacks *)
+{
+}
+extern "C" VKAPI_ATTR void VKAPI_CALL FakeDestroySwapchainKHR(VkDevice, VkSwapchainKHR, const VkAllocationCallbacks *)
+    __asm__("vkDestroySwapchainKHR");
+extern "C" VKAPI_ATTR void VKAPI_CALL FakeDestroySwapchainKHR(VkDevice, VkSwapchainKHR, const VkAllocationCallbacks *)
+{
+}
+extern "C" VKAPI_ATTR void VKAPI_CALL FakeDestroyImage(VkDevice, VkImage, const VkAllocationCallbacks *)
+    __asm__("vkDestroyImage");
+extern "C" VKAPI_ATTR void VKAPI_CALL FakeDestroyImage(VkDevice, VkImage, const VkAllocationCallbacks *)
+{
+}
+extern "C" VKAPI_ATTR void VKAPI_CALL FakeFreeMemory(VkDevice, VkDeviceMemory, const VkAllocationCallbacks *)
+    __asm__("vkFreeMemory");
+extern "C" VKAPI_ATTR void VKAPI_CALL FakeFreeMemory(VkDevice, VkDeviceMemory, const VkAllocationCallbacks *)
+{
+}
 
 namespace {
 constexpr size_t BUFFER_CAPACITY = 16;
@@ -133,11 +165,14 @@ int32_t OH_NativeWindow_NativeWindowHandleOpt(OHNativeWindow *, int, ...)
 {
     return 0;
 }
-uint8_t *OH_AVBuffer_GetAddr(OH_AVBuffer *buffer)
+// SDK符号通过链接名保留，替身函数遵守项目命名规则。
+uint8_t *FakeAvBufferGetAddr(OH_AVBuffer *buffer) __asm__("OH_AVBuffer_GetAddr");
+uint8_t *FakeAvBufferGetAddr(OH_AVBuffer *buffer)
 {
     return buffer->data;
 }
-int32_t OH_AVBuffer_GetCapacity(OH_AVBuffer *)
+int32_t FakeAvBufferGetCapacity(OH_AVBuffer *buffer) __asm__("OH_AVBuffer_GetCapacity");
+int32_t FakeAvBufferGetCapacity(OH_AVBuffer *)
 {
     return BUFFER_CAPACITY;
 }
@@ -169,13 +204,7 @@ int32_t SampleCallback::OnRenderError(OH_AudioRenderer *, void *, OH_AudioStream
 }
 
 namespace {
-void Require(bool condition, const char *message)
-{
-    if (!condition) {
-        std::cerr << message << std::endl;
-        std::exit(EXIT_FAILURE);
-    }
-}
+using TestSupport::Require;
 
 struct Boundary {
     int create = 0;

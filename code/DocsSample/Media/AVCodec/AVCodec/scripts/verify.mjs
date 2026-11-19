@@ -18,6 +18,7 @@ import { existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runVerification } from './VerificationRunner.mjs';
+import { nativeBuildOptions } from './NativeBuildOptions.mjs';
 import { verifyDeviceRun } from './DeviceVerification.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -60,38 +61,51 @@ function linuxPath(value) {
   if (result.status !== 0) { throw new Error('Cannot convert WSL path: ' + value); }
   return result.stdout.trim();
 }
+function nativeRun(command, values, label, duration, options = {}) {
+  if (process.platform !== 'win32') { return run(command, values, label, duration, options); }
+  return run('wsl.exe',
+    ['-d', distro, '--exec', 'timeout', '--signal=KILL', duration / 1000 + 's', command, ...values],
+    label, duration + 5000, { ...options, timeoutExitCodes: [124, 137] });
+}
+function nativeFlags(sdkRoot, profile) {
+  const source = path.join(root, 'entry/src/main/cpp');
+  const includes = ['', 'common', 'common/dfx/log', 'capabilities/include', 'render/include',
+    'sample/player', 'sample/player/core', 'sample/player/sync', 'sample/recorder/core'].map(part =>
+    '-I' + linuxPath(path.join(source, part)));
+  return [...profile.flags, '-std=c++17', '-pthread', '-ferror-limit=5', '-ffunction-sections', '-fdata-sections',
+    '-Wl,--gc-sections', '-Wno-ignored-attributes',
+    ...includes, '-idirafter', linuxPath(path.join(sdkRoot, 'native/sysroot/usr/include'))];
+}
+async function nativeTarget(name, sources, compiler, flags, binaryDirectory) {
+  const source = path.join(root, 'entry/src/main/cpp');
+  const binary = linuxPath(path.join(binaryDirectory, name));
+  const compile = [...flags, linuxPath(path.join(root, 'tests/native', name + '.cpp')),
+    ...sources.map(file => linuxPath(path.join(source, file))), '-o', binary];
+  console.info('Native: ' + name);
+  await nativeRun(compiler, compile, 'compile-' + name, compileTimeoutMs);
+  await nativeRun(binary, [], 'native-' + name, testTimeoutMs);
+  if (name === 'NativeCheckTest') {
+    await nativeRun(binary, ['--fail-check'], 'native-negative-check', testTimeoutMs, { acceptedExitCodes: [1] });
+  }
+}
 async function native() {
   const sdkRoot = required(sdk, '--sdk or OHOS_SDK_HOME');
   if (process.platform === 'win32' && !distro) { throw new Error('Set --wsl-distro or AVCODEC_WSL_DISTRO'); }
   const targets = JSON.parse(readFileSync(path.join(root, 'tests/native/targets.json'), 'utf8'));
   const compiler = option('--cxx', process.env.CXX || 'clang++');
-  const source = path.join(root, 'entry/src/main/cpp');
-  const includes = ['', 'common', 'common/dfx/log', 'capabilities/include', 'render/include',
-    'sample/player', 'sample/player/core', 'sample/player/sync', 'sample/recorder/core'].map(part =>
-    '-I' + linuxPath(path.join(source, part)));
-  const flags = ['-std=c++17', '-pthread', '-ferror-limit=5', '-ffunction-sections', '-fdata-sections',
-    '-Wl,--gc-sections', '-Wno-ignored-attributes',
-    ...includes, '-idirafter', linuxPath(path.join(sdkRoot, 'native/sysroot/usr/include'))];
+  const profile = nativeBuildOptions(option('--native-build', 'debug'), option('--sanitizer', 'none'));
+  const binaryDirectory = path.join(output, 'native', profile.directory);
+  mkdirSync(binaryDirectory, { recursive: true });
+  const flags = nativeFlags(sdkRoot, profile);
   const selection = option('--native-test', '');
   if (selection && !targets[selection]) { throw new Error('Unknown Native test: ' + selection); }
   for (const [name, sources] of Object.entries(targets)) {
-    if (selection && name !== selection) { continue; }
-    const binary = linuxPath(path.join(output, name));
-    const compile = [...flags, linuxPath(path.join(root, 'tests/native', name + '.cpp')),
-      ...sources.map(file => linuxPath(path.join(source, file))), '-o', binary];
-    console.log('Native: ' + name);
-    if (process.platform === 'win32') {
-      const bounded = (command, values, label, duration) => run('wsl.exe',
-        ['-d', distro, '--exec', 'timeout', '--signal=KILL', duration / 1000 + 's', command, ...values],
-        label, duration + 5000, { timeoutExitCodes: [124, 137] });
-      await bounded(compiler, compile, 'compile-' + name, compileTimeoutMs);
-      await bounded(binary, [], 'native-' + name, testTimeoutMs);
-    } else {
-      await run(compiler, compile, 'compile-' + name, compileTimeoutMs);
-      await run(binary, [], 'native-' + name, testTimeoutMs);
+    if (!selection || name === selection) {
+      await nativeTarget(name, sources, compiler, flags, binaryDirectory);
     }
   }
-  console.log('Native: ' + (selection ? 1 : Object.keys(targets).length) + ' executables passed');
+  console.info('Native profile: ' + profile.directory);
+  console.info('Native: ' + (selection ? 1 : Object.keys(targets).length) + ' executables passed');
 }
 async function host() {
   const compiler = path.join(required(sdk, '--sdk or OHOS_SDK_HOME'),
@@ -104,6 +118,7 @@ async function host() {
     await run(process.execPath, ['tests/host/' + file + '.test.cjs', compiler], 'host-' + file, testTimeoutMs);
   }
   await run(process.execPath, ['tests/host/VerificationRunner.test.mjs'], 'host-VerificationRunner', testTimeoutMs);
+  await run(process.execPath, ['tests/host/NativeBuildOptions.test.mjs'], 'host-NativeBuildOptions', testTimeoutMs);
   await run(process.execPath, ['tests/host/DeviceVerification.test.mjs'], 'host-DeviceVerification', testTimeoutMs);
 }
 async function lint() {

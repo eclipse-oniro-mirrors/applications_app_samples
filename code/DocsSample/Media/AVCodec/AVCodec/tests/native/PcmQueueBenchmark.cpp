@@ -144,6 +144,11 @@ int main()
     std::cout << " runs=" << RUN_COUNT << std::endl;
     std::cout << "PcmQueue_median_ns_per_block=" << ringMedian << std::endl;
     std::cout << "std_queue_median_ns_per_block=" << legacyMedian << std::endl;
-    std::cout << "speedup=" << legacyMedian / ringMedian << " checksum=" << ringChecksum << std::endl;
+    if (ringMedian != 0.0) {
+        const double speedup = legacyMedian / ringMedian;
+        std::cout << "speedup=" << speedup << " checksum=" << ringChecksum << std::endl;
+    } else {
+        return EXIT_FAILURE;
+    }
     return 0;
 }

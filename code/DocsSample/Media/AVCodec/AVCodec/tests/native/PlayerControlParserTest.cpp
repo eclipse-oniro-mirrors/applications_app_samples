@@ -14,6 +14,7 @@
  */
 
 #include <algorithm>
+#include "TestCheck.h"
 #include <cstdlib>
 #include <iostream>
 #include <limits>
@@ -38,22 +39,17 @@ constexpr double UNSAFE_INTEGER = 9007199254740992.0;
 constexpr int32_t TRACK_INDEX = 2;
 constexpr int32_t UNKNOWN_TRANSFORM = 12;
 int g_errors = 0;
-void Require(bool condition, const char *message)
-{
-    if (!condition) {
-        std::cerr << message << std::endl;
-        std::exit(EXIT_FAILURE);
-    }
-}
+using TestSupport::Require;
 
 void TestNumericControls()
 {
     napi_value__ value { napi_number, 1, false };
     napi_callback_info__ info { { &value } };
     double speed = UNCHANGED_NUMBER;
-    for (double invalid :
-        { 0.0, -1.0, std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::infinity(),
-            std::numeric_limits<double>::max(), std::numeric_limits<double>::denorm_min() }) {
+    const std::vector<double> invalidSpeeds { 0.0, -1.0, std::numeric_limits<double>::quiet_NaN(),
+        std::numeric_limits<double>::infinity(), std::numeric_limits<double>::max(),
+        std::numeric_limits<double>::denorm_min() };
+    for (double invalid : invalidSpeeds) {
         value.number = invalid;
         Require(!PlayerNapiParser::ParseSpeed(nullptr, &info, speed) && speed == UNCHANGED_NUMBER,
             "Invalid speed never reaches the player");

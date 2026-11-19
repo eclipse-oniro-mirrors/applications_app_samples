@@ -53,7 +53,9 @@ bool TranscodeJob::DiscardOutsideRange(bool &advanced)
     const bool hasFrame = options_.surface ? !eos || pendingDecodedAttr_.size > 0 : pendingDecodedAttr_.size > 0;
     if (hasFrame && (pendingDecodedAttr_.pts < rangeStartUs_ ||
         pendingDecodedAttr_.pts >= rangeEndUs_)) {
-        if (!Check(OH_VideoDecoder_FreeOutputBuffer(decoder_, pendingDecodedIndex_), "Discard pre-range video")) {
+        // 范围外的普通帧仍需归还；带EOS的输出不再复用，由Destroy回收。
+        if (!eos && !Check(OH_VideoDecoder_FreeOutputBuffer(decoder_, pendingDecodedIndex_),
+            "Discard pre-range video")) {
             return false;
         }
         pendingDecoded_ = nullptr;

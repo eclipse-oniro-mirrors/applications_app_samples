@@ -167,16 +167,18 @@ async function testQueueSnapshots() {
   }, { Observed: value => value });
   const queue = new TranscodeQueueModel(), quality = new TranscodeQualityModel().snapshot();
   quality.codecMode = 1; quality.audioResampler = 1; quality.deepValidation = true;
-  const expected = JSON.parse(JSON.stringify(quality)), options = [0, 0, 0, 0, 0, 0, 0, 0];
+  const expected = JSON.parse(JSON.stringify(quality));
+  const options = { codecIndex: 0, modeIndex: 0, sizeIndex: 0, bitrateIndex: 0,
+    encoderCategory: 0, audioMode: 0, audioTrack: 0, resizeMode: 0 };
   queue.add('one', 'one', options, false, 0, 0, quality);
-  quality.codecMode = 0; options[0] = 1;
+  quality.codecMode = 0; options.codecIndex = 1;
   check(queue.items[0].quality.codecMode, 1, 'Queue owns its quality snapshot after enqueue');
-  check(queue.items[0].options[0], 0, 'Queue owns its options snapshot after enqueue');
+  check(queue.items[0].settings.codecIndex, 0, 'Queue owns its options snapshot after enqueue');
   const input = JSON.parse(JSON.stringify(queue.items[0]));
   const restored = TranscodeQueueModel.validated([input]);
-  input.uri = 'changed'; input.options[0] = 1; input.quality.codecMode = 0;
+  input.uri = 'changed'; input.settings.codecIndex = 1; input.quality.codecMode = 0;
   check(restored[0].uri, 'one', 'Validated queue does not retain the input record reference');
-  check(restored[0].options[0], 0, 'Validated queue owns its option array');
+  check(restored[0].settings.codecIndex, 0, 'Validated queue owns its named settings');
   check(JSON.parse(JSON.stringify(restored[0].quality)), expected, 'All quality settings survive the copy');
 }
 

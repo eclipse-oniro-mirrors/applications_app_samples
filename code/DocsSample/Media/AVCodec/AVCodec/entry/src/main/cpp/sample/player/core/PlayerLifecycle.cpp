@@ -104,7 +104,7 @@ int32_t Player::CreateAudioRenderer()
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
     const int32_t volumeRet = OH_AudioRenderer_SetVolume(audioRenderer_, sampleInfo_.audioPlayback.volume);
-    audioVolume_.store(sampleInfo_.audioPlayback.volume);
+    audioCallbackContext_.volume.store(sampleInfo_.audioPlayback.volume);
     if (volumeRet != AUDIOSTREAM_SUCCESS) {
         AVCODEC_SAMPLE_LOGW("Set initial audio volume failed, ret: %{public}d", volumeRet);
     }
@@ -271,11 +271,11 @@ void Player::ResetPlaybackState()
     sampleInfo_.output.sessionId = CreateCodecSessionId("playback");
     diagnostics_.SetSession(sampleInfo_.output.sessionId, DescribeCodecRequest(sampleInfo_, false));
     playbackFailed_ = false;
-    audioInterrupted_ = false;
-    audioResumePending_ = false;
-    audioInterruptCount_ = 0;
-    audioInterruptHint_ = AUDIOSTREAM_INTERRUPT_HINT_NONE;
-    audioDucked_ = false;
+    audioCallbackContext_.interrupted = false;
+    audioCallbackContext_.resumePending = false;
+    audioCallbackContext_.interruptCount = 0;
+    audioCallbackContext_.interruptHint = AUDIOSTREAM_INTERRUPT_HINT_NONE;
+    audioCallbackContext_.ducked = false;
     appBackgrounded_ = false;
     backgroundPausedPlayback_ = false;
     hasDecodedOutput_ = false;
@@ -664,17 +664,7 @@ void Player::InitializeAudioDecoderContext()
     audioDecContext_->runningFlag = &audioWorkerRunning_;
     audioDecContext_->playbackFailure = &playbackFailed_;
     audioDecContext_->failureDetails = &failure_;
-    audioDecContext_->pausedFlag = &paused_;
-    audioDecContext_->audioInterrupted = &audioInterrupted_;
-    audioDecContext_->audioResumePending = &audioResumePending_;
-    audioDecContext_->audioInterruptCount = &audioInterruptCount_;
-    audioDecContext_->audioInterruptHint = &audioInterruptHint_;
-    audioDecContext_->audioVolume = &audioVolume_;
-    audioDecContext_->audioDucked = &audioDucked_;
-    audioDecContext_->pauseCond = &pauseCond_;
-    audioDecContext_->audioUnderruns = &diagnostics_.audioUnderruns;
-    audioDecContext_->audioQueueDurationUs = &diagnostics_.audioQueueDurationUs;
-    audioDecContext_->playbackPositionUs = &playbackPositionUs_;
+    audioDecContext_->audioPlayback = &audioCallbackContext_;
     audioDecContext_->sampleInfo = &sampleInfo_;
 }
 

@@ -1302,6 +1302,7 @@
     {"name":"recorder_pause_failed","value":"Unable to pause or resume. Retry or end recording."},
     {"name":"task_checksum","value":"Calculate source checksum"},
     {"name":"task_checksum_running","value":"Calculating SHA256. Large files may take a while."},
-    {"name":"task_checksum_failed","value":"Checksum failed. Check that the original file is unchanged and accessible, then retry when media tasks finish. If the file changed, run the task again."}
+    {"name":"task_checksum_failed","value":"Checksum failed. Check that the original file is unchanged and accessible, then retry when media tasks finish. If the file changed, run the task again."},
+    {"name": "transcode_close_unconfirmed", "value": "File cleanup is unconfirmed. Restart the application before starting another media task."}
   ]
 }

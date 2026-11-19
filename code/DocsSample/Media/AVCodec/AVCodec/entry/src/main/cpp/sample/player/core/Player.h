@@ -252,12 +252,6 @@ private:
     std::atomic<bool> isAudioDone { false };
     std::atomic<bool> isVideoDone { false };
     std::atomic<bool> playbackFailed_ { false };
-    std::atomic<bool> audioInterrupted_ { false };
-    std::atomic<bool> audioResumePending_ { false };
-    std::atomic<uint64_t> audioInterruptCount_ { 0 };
-    std::atomic<int32_t> audioInterruptHint_ { 0 };
-    std::atomic<float> audioVolume_ { 1.0f };
-    std::atomic<bool> audioDucked_ { false };
     std::atomic<bool> appBackgrounded_ { false };
     std::atomic<bool> backgroundPlaybackEnabled_ { false };
     // 仅当后台播放关闭且播放器主动暂停时为true，用于区分用户暂停与后台暂停。
@@ -332,6 +326,8 @@ private:
     PlaybackDiagnostics diagnostics_;
     AvSyncController avSyncController_;
     SeekController seekController_;
+    AudioPlaybackCallbackContext audioCallbackContext_ { paused_, audioWorkerRunning_, pauseCond_,
+        diagnostics_.audioUnderruns, diagnostics_.audioQueueDurationUs, playbackPositionUs_ };
 };
 
 #endif // VIDEO_CODEC_PLAYER_H

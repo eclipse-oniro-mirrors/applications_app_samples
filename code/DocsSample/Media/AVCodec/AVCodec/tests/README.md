@@ -7,9 +7,11 @@
 | 检查项 | 结果 |
 |---|---|
 | 324条功能、兼容性、稳定性及新增回归用例 | Pass |
-| 17套Host回归及2组验证入口检查 | Pass |
-| 20项Native宿主测试 | Pass |
-| CodeLinter | Pass：250条存量结果，0条新增 |
+| 17套Host回归及3组验证入口检查 | Pass |
+| 22项Native宿主测试：Debug、Release | Pass |
+| ASan、UBSan：各5项Native定向测试 | Pass |
+| 播放流程、PiP、资源归属与EOS设备回归 | Pass |
+| CodeLinter | Pass：245条存量结果，0条新增；基线未修改 |
 | HAP构建与签名 | Pass |
 | 默认Hypium设备测试：13套、49条 | Pass |
 | 音频轮询设备采样：3轮、9项 | Pass |
@@ -20,7 +22,7 @@
 
 以下命令使用Linux或WSL中的C++17编译器驱动；也可用当前工具链的驱动路径替换`c++`。
 
-在Linux或WSL的仓库根目录编译并运行：
+在Linux或WSL的AVCodec示例目录编译并运行：
 
 ```sh
 c++ -std=c++17 -O2 -Ientry/src/main/cpp tests/native/PcmQueueBenchmark.cpp \
@@ -30,7 +32,7 @@ c++ -std=c++17 -O2 -Ientry/src/main/cpp tests/native/PcmQueueBenchmark.cpp \
 
 基准每次处理4096字节、重复2000块，运行7轮并比较中位数；两种队列使用相同输入和输出校验和。Windows主机通过WSL Ubuntu 22.04、LLVM 14工具链、`-O2`的一次结果为：`PcmQueue` 1.14µs/块，原`std::queue<uint8_t>`操作11.89µs/块，约10.47倍。结果只描述主机上的PCM队列操作，受编译器和运行环境影响，不代表真机AudioRenderer、codec或GPU性能。
 
-本轮SDK 26.0.0复验中，17套Host和2项验证入口检查、20项Native宿主测试、CodeLinter及签名HAP构建均通过。CodeLinter记录250条存量结果、0条新增。默认Hypium设备测试为13套、49/49通过，0失败、0错误；结构化报告为`.validation/device-result.json`，逐项报告为`entry/.test/default/intermediates/ohosTest/coverage_data/test_result.txt`。命令日志位于`.validation/logs/`。HAP构建保留CMake和ArkTS告警；系统PiP、完整页面迁移及实际送显场景仍按测试指南单独验证。
+SDK 26.0.0本轮复验：17套Host及3组入口检查、22项Native的Debug与Release构建、CodeLinter、签名HAP构建均通过。CodeLinter为245条存量结果、0条新增，未修改基线。默认Hypium设备测试13套、49/49通过，0失败、0错误；结构化结果为`.validation/device-result.json`，逐项报告为`entry/.test/default/intermediates/ohosTest/coverage_data/test_result.txt`。本轮日志为`.validation/current-host.log`、`current-native-debug.log`、`current-native-release.log`、`current-lint.log`、`current-build.log`和`current-device.log`。构建仍有存量警告；新增故障注入、系统PiP、完整页面迁移和实际GPU送显设备回归均为Pass，逐项结果见测试指南。
 
 ## 环境和参数
 
@@ -42,6 +44,44 @@ c++ -std=c++17 -O2 -Ientry/src/main/cpp tests/native/PcmQueueBenchmark.cpp \
 
 单阶段可用`--only host`、`--only native`、`--only lint`、`--only build`。定位单个Native测试可再传`--native-test TranscodeAudioPipelineTest`；单项通过不能代替完整验证。CI可直接调用默认命令，远端必需检查由仓库维护者设置。
 
+### Native构建与检测参数
+
+在AVCodec示例目录执行；先配置上述SDK、WSL和编译器参数。
+
+```sh
+node scripts/verify.mjs --only native --native-build debug
+node scripts/verify.mjs --only native --native-build release
+node scripts/verify.mjs --only native --native-build release --sanitizer address --native-test PcmQueueTest
+node scripts/verify.mjs --only native --native-build release --sanitizer undefined --native-test VulkanResourcesTest
+```
+
+`--native-build`只接受`debug`或`release`，后者使用`-O2 -DNDEBUG`。`--sanitizer`接受`none`、`address`、`undefined`或`thread`，分别为无检测、AddressSanitizer（ASan，地址检查）、UndefinedBehaviorSanitizer（UBSan，未定义行为检查）和ThreadSanitizer（TSan，数据竞争检查）。检测器需要相应编译器运行库；缺库、无法启动或测试失败均返回非零，不自动跳过。产物分别存入`.validation/native/<build>-<sanitizer>/`。
+
+ASan宿主可执行文件关闭PIE（Position Independent Executable，位置无关可执行文件），保持地址检查开启。本机WSL上，默认装载方式连空检查程序也偶发在ASan初始化前崩溃；固定装载后正向控制连续20次退出0，负向控制退出1，记录为`.validation/current-asan-control.log`。UBSan使用`-fno-sanitize-recover=all`，发现问题即失败。`NativeCheckTest --fail-check`必须退出1，验证脚本只接受该退出码；这项检查在Release中同样执行。
+
+本轮`PcmQueueTest`、`AudioCapturerInitTest`、`VideoEncoderBufferTest`、`VulkanResourcesTest`和`NativeCheckTest`分别通过ASan与UBSan，共10项，日志为`.validation/current-sanitizers.log`及对应的`current-address-*.log`、`current-undefined-*.log`。TSan和CMake/CTest路径尚未执行；不能据此写为通过。
+
+### 转码与Native资源调整
+
+转码在首次异步等待前保存请求和配置说明的值快照，预检、区间校验、大小预估、Native提交和报告均读取同一份输入。执行按准备、运行、收尾和持久化拆分，共用任务上下文持有文件和输入身份。队列保存8个具名设置；旧7项或8项数组只在恢复时转换，缺少的缩放方式使用默认值0。Host覆盖等待预检时修改草稿、请求和报告保持原值，以及旧格式迁移和新格式往返。
+
+转码、预检和预览共用文件关闭器。同一fd并发关闭合并为一次；EBADF表示已关闭，其他错误保留File并阻止同进程继续播放、录制、转码或清理。界面结束忙碌状态、队列暂停并提示重启；转码待处理会话保留。不重复关闭结果不明的fd，避免误关被系统复用的描述符。Host分别注入预检、预览和正式转码关闭错误，使用独立进程隔离永久门控，验证租约、门控与会话归属。
+
+录音采集缓存改用固定容量PCM环形队列，S16LE格式按2秒采样量预分配，至少容纳一个`audioMaxInputSize`块，最多4MiB；容量超限或参数无效时初始化失败。该容量是保护策略，并非真机性能结论。回调中不扩容、不前移剩余PCM；溢出首次记录`recorder.audio.capacity`并进入既有错误收尾，保留已排队数据。诊断`audio`对象增加`peakPendingPcmBytes`、`captureCapacityBytes`、`captureOverflows`和`captureCallback`。最后一项统计尝试获取队列锁至完成队列处理的耗时，包含锁等待，不含后续诊断入账；没有新增UI行。同步音频EOS和既有Flush/Stop约定保留。
+
+`AudioPlaybackCallbackContext`集中音频中断、恢复、音量及诊断引用，由Player持有，回调只借用；renderer释放并等待工作线程退出后才销毁。Native回归覆盖用户暂停时系统恢复、正常恢复、duck/unduck、停止后不恢复和销毁后迟到回调。
+
+Vulkan按帧资源、交换链和上传图像分组；资源组不可复制，部分初始化也可重复清理。sink仍先显式等待GPU完成，再归还子资源，最后销毁device、surface和窗口引用；析构不隐藏GPU等待。NativeBuffer导入缓存维持原所有权，本轮未迁入资源组。`VulkanResourcesTest`检查各阶段失败、释放顺序与重复清理，真实驱动的Stop、Seek和窗口重建设备回归结果为Pass。
+
+### 录音PCM基准
+
+```sh
+c++ -std=c++17 -O2 -Ientry/src/main/cpp tests/native/CaptureQueueBenchmark.cpp -o /tmp/avcodec-capture-queue-benchmark
+/tmp/avcodec-capture-queue-benchmark
+```
+
+对照实现为原录音缓存的vector前移算法。固定积压192000字节，每次读写4096字节，重复2000次，交替顺序运行7轮，输出校验和一致。WSL Ubuntu 22.04、LLVM 14、`-O2`本轮中位数：环形队列1309.35ns/块，原实现5608.85ns/块，约4.28倍；原始记录为`.validation/current-CaptureQueueBenchmark.log`。这是宿主容器操作测量，不包含设备采集、编码或回调调度，不能换算成真机端到端提升。
+
 ### 设备报告校验
 
 连接设备后执行`node scripts/verify.mjs --only device --studio <DevEco安装目录>`。该阶段调用Hvigor的`onDeviceTest`构建、签名、安装并运行entry测试，默认要求49条全部通过。它不进入默认`all`，Host验证环境不需要连接设备。运行可能重新安装测试HAP，缓存素材应在安装后按对应场景重新准备。
@@ -52,13 +92,13 @@ c++ -std=c++17 -O2 -Ientry/src/main/cpp tests/native/PcmQueueBenchmark.cpp \
 
 ### 后台策略与流程契约
 
-设备另完成文档起播、重播、暂停、开启后台播放、确认系统PiP窗口、关闭后台开关及停止检查，页面状态和提示一致。系统控制面板、快速请求与故障注入仍待验证，证据路径及范围见`ohosTest.md`的后台播放基本路径。
+设备另完成文档起播、重播、暂停、开启后台播放、确认系统PiP窗口、关闭后台开关及停止检查，页面状态和提示一致。系统控制面板、快速请求与故障注入回归结果均为Pass，基本路径的证据及范围见`ohosTest.md`的后台播放基本路径。
 
 `PlaybackPictureInPicture`补充后台开启、关闭、自动启动失败、清理未完成、创建或启动期间关闭、重复请求和播放代次变化。`PlaybackCommand`先复现页面状态滞后导致Native暂停被跳过，再检查Native状态控制、重复目标和停止阶段拒绝。`PlaybackControlFlow`直接组合真实Flow、Command、Seek检查各阶段权限；页面适配另检查AVSession目标命令和过期后台提示。
 
-`PlaybackContracts`使用SDK的TypeScript编译器检查只读消费接口和事件必需参数，运行时同时核对代次、活动源只读以及重播代次递增。它不能替代ArkTS构建；HAP构建负责验证平台类型限制和页面初始化。新增接口检查后共有17套Host回归，验证入口另有进程运行器和设备报告检查两组。
+`PlaybackContracts`使用SDK的TypeScript编译器检查只读消费接口和事件必需参数，运行时同时核对代次、活动源只读以及重播代次递增。它不能替代ArkTS构建；HAP构建负责验证平台类型限制和页面初始化。共有17套Host回归，验证入口另有进程运行器、Native构建参数和设备报告检查三组。
 
-本轮17套Host回归及两项验证入口检查、20项Native测试、CodeLinter、签名HAP构建和默认设备测试均通过。CodeLinter记录250条存量结果、0条新增；设备测试13套、49/49通过。各阶段日志位于`.validation/logs/`，设备结构化结果为`.validation/device-result.json`。HAP构建包含CMake与ArkTS告警。系统PiP、完整页面迁移和实际送显仍需按设备待执行表验证。
+各阶段的最新结果见本文开头的验证表。Host替身、默认Hypium和新增设备回归分别记录；故障注入、实际送显、播放流程迁移及EOS退出用例的设备结果均为Pass。
 
 每个Host或Native测试默认限时60秒，单项Native编译180秒，CodeLinter 300秒，HAP构建600秒。可用`--test-timeout-ms`、`--compile-timeout-ms`、`--lint-timeout-ms`和`--build-timeout-ms`传入正整数毫秒值。阶段和测试日志保存在`.validation/logs/`，失败信息包含名称、退出码或超时原因及日志路径。WSL内同时使用系统`timeout`终止超时命令，外层再清理启动进程；CTest每项默认限时60秒，可用`-DAVCODEC_TEST_TIMEOUT_SECONDS=120`调整。
 
@@ -92,7 +132,7 @@ API 26真机另完成5次进入预览后取消，历史标题与操作前一致�
 
 `PlaybackSourceFlow.test.cjs`保留文档、媒体库、最近记录、录制成品与流程的集成测试，覆盖停止期间改选、追加和清空队列。它与`PlaybackPageLifecycle.test.cjs`使用`helpers/PlaybackPageFixture.cjs`，执行生产页面的事件适配、提示映射及生命周期方法；共享的运行时替身来自`helpers/PlaybackFlowFixture.cjs`，不再另写一套页面事件分支。核心流程测试只使用后者，页面字段或提示文字调整不会影响核心断言。
 
-播放流程、命令、队列与历史职责拆分的前次完整验证记录在`.bundle-flow/playback-design-all.log`。本次完整验证日志为`.bundle-flow/pip-commands/all-final.log`，检查16套Host回归及验证入口、15项Native测试、CodeLinter和HAP构建签名；PiP补充回归的最新Host日志为同目录的`host-final.log`。CodeLinter报告250条存量结果、0条新增，未扩大基线；构建仍有存量ArkTS警告。Host不渲染ArkUI，不验证设备授权、真实编解码器或送显；设备操作及待执行状态见[播放流程模块迁移回归](../ohosTest.md#playback-flow-migration)。
+播放流程、命令、队列与历史职责拆分的前次完整验证记录在`.bundle-flow/playback-design-all.log`。本次完整验证日志为`.bundle-flow/pip-commands/all-final.log`，检查16套Host回归及验证入口、15项Native测试、CodeLinter和HAP构建签名；PiP补充回归的最新Host日志为同目录的`host-final.log`。CodeLinter报告250条存量结果、0条新增，未扩大基线；构建仍有存量ArkTS警告。Host不渲染ArkUI，不验证设备授权、真实编解码器或送显；设备操作及结果见[播放流程模块迁移回归](../ohosTest.md#playback-flow-migration)。
 
 `PlaybackControlFlow.test.cjs`组合生产Flow、Command和Seek控制器，覆盖停止等待实际Seek结束、停止被拒绝、自然完成或错误先于Seek返回、重播、离页、请求合并及单帧跳转。`PlaybackPictureInPicture.test.cjs`运行生产PiP控制器，覆盖创建和启动期间取消、播放代次变化、重复启动共用请求、过期系统事件、部分监听注册失败、解绑失败、关闭失败后重试，以及同一播放的自动PiP重入。系统窗口接口使用替身，实际窗口回归仍需执行。
 
@@ -100,11 +140,11 @@ API 26真机另完成5次进入预览后取消，历史标题与操作前一致�
 
 ### 轮询真机采样
 
-`PlaybackPollingBenchmark`仅在显式指定该套件时注册，不进入默认13套、49条Hypium功能回归。使用大于10秒的本地AAC音频作为`polling-fixture.m4a`，放入测试应用的cacheDir；准备素材后直接执行Ability Assistant（系统Ability管理工具）的`aa test`命令，不要再次运行会重装并清理cacheDir的`onDeviceTest`。素材和生成结果不合入仓库。
+`PlaybackPollingBenchmark`仅在显式指定该套件时注册，不进入默认13套、49条Hypium功能回归。使用大于10秒的本地AAC音频作为`polling-fixture.m4a`，放入测试应用的cacheDir；准备素材后直接执行Ability Assistant（系统Ability管理工具）的测试命令，不要再次运行会重装并清理cacheDir的`onDeviceTest`。素材和生成结果不合入仓库。
 
 ```powershell
 # 先使用onDeviceTest构建安装测试HAP，再复制素材。
-# hdc是设备连接工具，aa是Ability Assistant；以下命令运行已安装的测试。
+# hdc是设备连接工具；以下命令通过Ability Assistant运行已安装的测试。
 hdc shell aa test -b com.samples.avcodecsample -m entry_test -s unittest OpenHarmonyTestRunner `
   -s class PlaybackPollingBenchmark -s timeout 10000 -w 30
 ```
@@ -143,13 +183,17 @@ Host回归使用SDK中的TypeScript转译器和文件/Native替身，覆盖模�
 
 A-B循环回归运行生产控制器，在一次Seek等待期间分别重新设置A、重设A和B、仅重设B及清除循环，再返回旧请求的失败、完成、取消和被替换结果，共16种组合。检查旧结果不覆盖新端点或开关，停用后无轮询，启用的新循环仍能向当前A点发出Seek；当前请求失败仍清除循环。计时器、播放信息和Seek为Host替身；实际送显与设备Seek回归结果为Pass。
 
-Native入口按[targets.json](native/targets.json)编译并执行全部20个测试，复用生产实现和SDK声明，由测试提供OHOS函数替身。宿主编译器直接解析SDK版本可用性属性，不再通过宏重定义保留标识符。`-Wno-ignored-attributes`仅关闭宿主平台无法应用的SDK属性提示，`--gc-sections`排除测试没有调用的设备代码；运行通过不能代替设备上的编码、图形或驱动验证。测试产物写入已忽略的`.validation/`。
+Native入口按[targets.json](native/targets.json)编译并执行全部22个测试，复用生产实现和SDK声明，由测试提供OHOS函数替身。宿主编译器直接解析SDK版本可用性属性，不再通过宏重定义保留标识符。`-Wno-ignored-attributes`仅关闭宿主平台无法应用的SDK属性提示，`--gc-sections`排除测试没有调用的设备代码；运行通过不能代替设备上的编码、图形或驱动验证。测试产物写入已忽略的`.validation/`。
 
 `AudioCodecBufferTest`直接组合AudioDecoder与AudioOutputPump，检查同步EOS在解码器内调用Free并返回END、异步EOS在输出线程归还、尾部PCM顺序、EOS不进入PCM回调、Buffer归还调用次数，以及查询超时、查询失败和查询期间停止的区别。新增组合覆盖暂停期间不消费输出、重建时丢弃待送PCM、EOS归还后释放并重建解码器；同步和异步模式各重复20次。同步EOS按当前接口约定不检查Free返回值，测试只确认调用一次、清空Buffer且不重复归还；异步EOS和普通PCM归还失败仍按错误处理。同时检查音频编码器Stop前Flush、编解码器Release前Flush/Stop，以及清理失败后仍执行Destroy且不重复销毁。
 
+范围调整前验证：AudioCodecBufferTest、RecorderLifecycleIntegrationTest、TranscodeAudioPipelineTest及`PlayerLifecycleIntegrationTest`的Debug、Release均通过；Release使用NDEBUG，`NativeCheckTest --fail-check`负向控制按预期返回1。音频Buffer回归的ASan和录制生命周期回归的UBSan通过；Host全量、CodeLinter和签名HAP构建通过，CodeLinter为245条存量、0条新增。SDK对本次修改的C++执行普通与NDEBUG语法检查。播放器视频工作线程在生命周期测试中仍为替身，生产视频输出循环、GPU和设备codec的EOS回收设备验证结果见[设备回归说明](../ohosTest.md#eos线程退出与回收回归)，对应3项用例均为Pass；TSan未执行。
+
+范围收敛后验证：音频EOS和停止时Buffer处理已恢复；AudioCodecBufferTest、TranscodeAudioPipelineTest的Debug、Release重新通过。RecorderLifecycleIntegrationTest新增链接生产视频输入循环，在SYNC/ASYNC下检查普通帧后停止、无图像停止、暂停中停止、EOS取Buffer和提交失败、回调故障；确认EOS由输入线程提交一次，输入退出后输出继续排空，普通帧仍写入并归还。新增回归的Debug、Release和UBSan均通过，NDEBUG失败检查负向控制按预期返回1。Host全量通过，CodeLinter为245条存量、0条新增；SDK普通与NDEBUG语法检查、签名HAP构建通过。日志见`.validation/video-input-eos-host.log`、`video-input-eos-lint.log`、`video-input-eos-build.log`及`.validation/logs/`。设备EOS回收验证的3项用例均为Pass；TSan未执行。
+
 同步视频查询返回TRY_AGAIN_LATER时按AGAIN重试，调用层等待日志改为每120次一次的DEBUG，查询失败仍报错。真机回放日志未再出现原输入等待超时ERROR和重复WARN；本次设备未显示DEBUG，未据此验证限频次数。此前预览取消时仍能复现音频Flush返回8，当时的临时诊断字段记录为started=0、eosSubmitted=0。当前已撤回音频编码器的临时状态字段和日志修改，Flush/Stop顺序和同步音频EOS分支保持原样。
 
-`VideoFramePacerTest`使用片尾日志中的14帧PTS，检查0.5x、1x和2x的帧间隔与总时长，以及暂停恢复或Seek后重建时钟锚点。`VideoEncoderBufferTest`调用生产音频回调，检查最后一包PCM不足回调长度时的补零、有效帧计数，以及音频结束后的纯补零回调不会覆盖视频推进的播放位置。这些宿主测试覆盖计时器和回调；Player在音频结束时唤醒等待、保留当前视频帧并切换时钟的完整链路仍需按真机用例验证。
+`VideoFramePacerTest`使用片尾日志中的14帧PTS，检查0.5x、1x和2x的帧间隔与总时长，以及暂停恢复或Seek后重建时钟锚点。`VideoEncoderBufferTest`调用生产音频回调，检查最后一包PCM不足回调长度时的补零、有效帧计数，以及音频结束后的纯补零回调不会覆盖视频推进的播放位置。这些宿主测试覆盖计时器和回调；Player在音频结束时唤醒等待、保留当前视频帧并切换时钟的完整链路真机回归结果为Pass。
 
 `PlaybackLifecycleTest`组合生产状态机、音视频工作线程容器和视频计时器，使用条件变量屏障控制片尾时机，在同步和异步模式下各执行完成、暂停恢复、Seek重建状态、切轨重建状态、停止后立即重播，每种组合重复20次。它检查线程退出、模式分发、状态转换和时钟重建；不调用真实解码器、Player完成回调或设备送显。Buffer归还仍由`AudioCodecBufferTest`检查，完整链路按`ohosTest.md`新增用例验证。
 
@@ -188,10 +232,22 @@ CodeLinter使用正式配置[code-linter.json5](../code-linter.json5)，检查�
 
 ## 测试代码编写约定
 
-测试代码与说明同样遵守[代码与文档编写约定](../CONTRIBUTING.md)。C++测试函数有效代码不超过50行，lambda显式捕获；拆分测试时保留同步边界、断言和重复次数。
+测试代码与说明同样遵守仓库[CodeCommitChecklist.md](../../../../../../CodeCommitChecklist.md)及本文约定。C++测试函数有效代码不超过50行，lambda显式捕获；拆分测试时保留同步边界、断言和重复次数。
 
-告警修复后的Host回归、20项Native测试、CodeLinter和HAP构建签名均通过；CodeLinter为250条存量结果、0条新增，基线未修改。NativeHandle、PcmQueue、PlayerControlParser、PlayerLifecycleIntegration和RecorderLifecycleIntegration的测试另以`-O2 -DNDEBUG`构建并运行通过；故意失败的检查仍返回非零，PCM基准也正常完成。日志见`.validation/warning-host.log`、`warning-native.log`、`warning-lint.log`、`warning-build-final.log`和`warning-release.log`；最后调整的转码等待常量另以`warning-transcode.log`复验通过。
+前次告警修复的Host回归、20项Native测试、CodeLinter和HAP构建签名均通过；当次CodeLinter为250条存量结果、0条新增，基线未修改。NativeHandle、PcmQueue、PlayerControlParser、PlayerLifecycleIntegration和RecorderLifecycleIntegration的测试另以`-O2 -DNDEBUG`构建并运行通过；故意失败的检查仍返回非零，PCM基准也正常完成。日志见`.validation/warning-host.log`、`warning-native.log`、`warning-lint.log`、`warning-build-final.log`和`warning-release.log`；最后调整的转码等待常量另以`warning-transcode.log`复验通过。
 
-测试检查使用不受`NDEBUG`影响的失败退出路径，等待操作先执行再核对结果。录制器测试通过生产输出队列传递模拟EOS，并由生产取消路径唤醒等待线程。`OH_AVBuffer_GetAddr`和`OH_AVBuffer_GetCapacity`两处命名告警已按SDK声明复核为误报，替身保留系统接口名称和签名。本轮未重跑设备测试及告警报告来源平台的C++、WordsTool扫描，本地结果不能视为平台告警已清零。
+测试检查使用不受`NDEBUG`影响的失败退出路径，等待操作先执行再核对结果。录制器测试通过生产输出队列传递模拟EOS，并由生产取消路径唤醒等待线程。`OH_AVBuffer_GetAddr`和`OH_AVBuffer_GetCapacity`的替身现使用`FakeAvBufferGetAddr`和`FakeAvBufferGetCapacity`作为C++标识符，通过汇编链接名保留SDK符号、C链接和函数签名；Debug与Release均已编译链接并运行。本轮默认设备测试49条通过，告警来源平台的C++与WordsTool扫描未重跑，本地复核不代表平台告警已经清零。
 
 `PlaybackLifecycleTest`的工作线程按值捕获共享状态，线程对象保留在外层上下文，停止处理使用普通函数。启动函数返回后回调仍持有有效状态；各轮退出和重播均Join，并检查回调释放共享状态的所有权，避免悬空引用和所有权环。返回、保存或异步执行的回调按`G.RES.05-CPP`核对捕获方式与对象有效期，文档说明回调执行及结束条件。
+
+## 本轮告警逐项复核
+
+| 报告项 | 处理与验证 |
+|---|---|
+| G.NAM.03-CPP：两个Buffer接口替身 | C++标识符改为项目命名，用链接别名保留SDK符号和ABI；Native Debug、Release编译链接通过。 |
+| G.EXP.22-CPP：基准除数 | 实际计算比值的分支显式检查`ringMedian != 0.0`，保留有限性和正值校验；基准运行通过。 |
+| G.FMT.03-CPP：范围for初始化列表 | 将输入提为具名`invalidSpeeds`容器，再执行循环；相关测试Debug、Release通过。 |
+| WordsTool.297：两处工具说明 | 改用Ability Assistant全称，说明执行阶段与工具用途。 |
+| WordsTool.297：真实系统命令 | 保留可运行的系统命令；命令名仍可能命中词语扫描，需平台按误报复核。 |
+
+报告共7条，以上按相同处理合并展示。对应预防规则已写入本地开发约定：SDK替身保持ABI、实际除法附近防零、具名范围集合，以及保留真实命令。没有放宽CodeLinter基线，也没有用拆字符、编码或伪造命令规避检查。原平台复扫尚未执行。
