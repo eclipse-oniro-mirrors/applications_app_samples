@@ -1348,3 +1348,880 @@ export default function DeviceMatrixTest(): void {
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
+    it('testDeviceMatrixTvBadAbilityName',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['tv'];
+      moduleConfig.abilities[0].name = 'entryAbility';
+      TestLog.text('testDeviceMatrixTvBadAbilityName', 'case begin', 'device tv with mutation badabilityname');
+      TestLog.step('testDeviceMatrixTvBadAbilityName', 'device tv with mutation badabilityname');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testDeviceMatrixTvBadAbilityName', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_NOT_PASCAL');
+      TestLog.flag('testDeviceMatrixTvBadAbilityName', 'has code MODULE_ABILITY_NAME_NOT_PASCAL', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testDeviceMatrixTvBadAbilityName', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testDeviceMatrixTvBadAbilityName', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testDeviceMatrixTvBadAbilityName', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testDeviceMatrixTvBadAbilityName', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testDeviceMatrixTvBadAbilityName', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testDeviceMatrixTvBadAbilityName', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testDeviceMatrixTvBadAbilityName', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testDeviceMatrixTvBadAbilityName', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testDeviceMatrixTvBadAbilityName', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testDeviceMatrixTvBadAbilityName', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testDeviceMatrixTvBadAbilityName', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testDeviceMatrixTvBadAbilityName', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testDeviceMatrixTvBadAbilityName', 'case end', 'device tv with mutation badabilityname');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6422
+     * @tc.name      testDeviceMatrixTvBadPages
+     * @tc.desc      Checks that a Tv module with mutation BadPages is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDeviceMatrixTvBadPages',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['tv'];
+      moduleConfig.pages = 'main_pages';
+      TestLog.text('testDeviceMatrixTvBadPages', 'case begin', 'device tv with mutation badpages');
+      TestLog.step('testDeviceMatrixTvBadPages', 'device tv with mutation badpages');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testDeviceMatrixTvBadPages', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_PAGES_NOT_PROFILE_REF');
+      TestLog.flag('testDeviceMatrixTvBadPages', 'has code MODULE_PAGES_NOT_PROFILE_REF', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testDeviceMatrixTvBadPages', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testDeviceMatrixTvBadPages', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testDeviceMatrixTvBadPages', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testDeviceMatrixTvBadPages', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testDeviceMatrixTvBadPages', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testDeviceMatrixTvBadPages', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testDeviceMatrixTvBadPages', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testDeviceMatrixTvBadPages', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testDeviceMatrixTvBadPages', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testDeviceMatrixTvBadPages', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testDeviceMatrixTvBadPages', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testDeviceMatrixTvBadPages', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testDeviceMatrixTvBadPages', 'case end', 'device tv with mutation badpages');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6423
+     * @tc.name      testDeviceMatrixTvEmptyAbilities
+     * @tc.desc      Checks that a Tv module with mutation EmptyAbilities is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDeviceMatrixTvEmptyAbilities',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['tv'];
+      moduleConfig.abilities = [];
+      TestLog.text('testDeviceMatrixTvEmptyAbilities', 'case begin', 'device tv with mutation emptyabilities');
+      TestLog.step('testDeviceMatrixTvEmptyAbilities', 'device tv with mutation emptyabilities');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testDeviceMatrixTvEmptyAbilities', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITIES_EMPTY');
+      TestLog.flag('testDeviceMatrixTvEmptyAbilities', 'has code MODULE_ABILITIES_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testDeviceMatrixTvEmptyAbilities', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testDeviceMatrixTvEmptyAbilities', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testDeviceMatrixTvEmptyAbilities', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testDeviceMatrixTvEmptyAbilities', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testDeviceMatrixTvEmptyAbilities', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testDeviceMatrixTvEmptyAbilities', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testDeviceMatrixTvEmptyAbilities', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testDeviceMatrixTvEmptyAbilities', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testDeviceMatrixTvEmptyAbilities', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testDeviceMatrixTvEmptyAbilities', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testDeviceMatrixTvEmptyAbilities', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testDeviceMatrixTvEmptyAbilities', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testDeviceMatrixTvEmptyAbilities', 'case end', 'device tv with mutation emptyabilities');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6424
+     * @tc.name      testDeviceMatrixTvEmptyAtomicPreloads
+     * @tc.desc      Checks that a Tv module with mutation EmptyAtomicPreloads is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDeviceMatrixTvEmptyAtomicPreloads',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['tv'];
+      const block = ConfigFactory.entryAtomicService();
+      block.preloads = [];
+      moduleConfig.atomicService = block;
+      TestLog.text('testDeviceMatrixTvEmptyAtomicPreloads', 
+        'case begin', 'device tv with mutation emptyatomicpreloads');
+      TestLog.step('testDeviceMatrixTvEmptyAtomicPreloads', 'device tv with mutation emptyatomicpreloads');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testDeviceMatrixTvEmptyAtomicPreloads', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ATOMIC_PRELOADS_EMPTY');
+      TestLog.flag('testDeviceMatrixTvEmptyAtomicPreloads', 'has code MODULE_ATOMIC_PRELOADS_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testDeviceMatrixTvEmptyAtomicPreloads', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testDeviceMatrixTvEmptyAtomicPreloads', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testDeviceMatrixTvEmptyAtomicPreloads', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testDeviceMatrixTvEmptyAtomicPreloads', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testDeviceMatrixTvEmptyAtomicPreloads', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testDeviceMatrixTvEmptyAtomicPreloads', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testDeviceMatrixTvEmptyAtomicPreloads', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testDeviceMatrixTvEmptyAtomicPreloads', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testDeviceMatrixTvEmptyAtomicPreloads', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.WARN);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testDeviceMatrixTvEmptyAtomicPreloads', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testDeviceMatrixTvEmptyAtomicPreloads', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testDeviceMatrixTvEmptyAtomicPreloads', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testDeviceMatrixTvEmptyAtomicPreloads', 'case end', 'device tv with mutation emptyatomicpreloads');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6425
+     * @tc.name      testDeviceMatrixWearablePlain
+     * @tc.desc      Checks that a Wearable module with mutation Plain is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDeviceMatrixWearablePlain',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['wearable'];
+      TestLog.text('testDeviceMatrixWearablePlain', 'case begin', 'device wearable with mutation plain');
+      TestLog.step('testDeviceMatrixWearablePlain', 'device wearable with mutation plain');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testDeviceMatrixWearablePlain', 'matrix findings', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testDeviceMatrixWearablePlain', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testDeviceMatrixWearablePlain', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testDeviceMatrixWearablePlain', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testDeviceMatrixWearablePlain', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testDeviceMatrixWearablePlain', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testDeviceMatrixWearablePlain', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testDeviceMatrixWearablePlain', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testDeviceMatrixWearablePlain', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testDeviceMatrixWearablePlain', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testDeviceMatrixWearablePlain', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testDeviceMatrixWearablePlain', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testDeviceMatrixWearablePlain', 'case end', 'device wearable with mutation plain');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6426
+     * @tc.name      testDeviceMatrixWearableBadAbilityName
+     * @tc.desc      Checks that a Wearable module with mutation BadAbilityName is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDeviceMatrixWearableBadAbilityName',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['wearable'];
+      moduleConfig.abilities[0].name = 'entryAbility';
+      TestLog.text('testDeviceMatrixWearableBadAbilityName', 
+        'case begin', 'device wearable with mutation badabilityname');
+      TestLog.step('testDeviceMatrixWearableBadAbilityName', 'device wearable with mutation badabilityname');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testDeviceMatrixWearableBadAbilityName', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_NOT_PASCAL');
+      TestLog.flag('testDeviceMatrixWearableBadAbilityName', 'has code MODULE_ABILITY_NAME_NOT_PASCAL', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testDeviceMatrixWearableBadAbilityName', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testDeviceMatrixWearableBadAbilityName', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testDeviceMatrixWearableBadAbilityName', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testDeviceMatrixWearableBadAbilityName', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testDeviceMatrixWearableBadAbilityName', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testDeviceMatrixWearableBadAbilityName', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testDeviceMatrixWearableBadAbilityName', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testDeviceMatrixWearableBadAbilityName', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testDeviceMatrixWearableBadAbilityName', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testDeviceMatrixWearableBadAbilityName', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testDeviceMatrixWearableBadAbilityName', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testDeviceMatrixWearableBadAbilityName', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testDeviceMatrixWearableBadAbilityName', 
+        'case end', 'device wearable with mutation badabilityname');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6427
+     * @tc.name      testDeviceMatrixWearableBadPages
+     * @tc.desc      Checks that a Wearable module with mutation BadPages is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDeviceMatrixWearableBadPages',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['wearable'];
+      moduleConfig.pages = 'main_pages';
+      TestLog.text('testDeviceMatrixWearableBadPages', 'case begin', 'device wearable with mutation badpages');
+      TestLog.step('testDeviceMatrixWearableBadPages', 'device wearable with mutation badpages');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testDeviceMatrixWearableBadPages', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_PAGES_NOT_PROFILE_REF');
+      TestLog.flag('testDeviceMatrixWearableBadPages', 'has code MODULE_PAGES_NOT_PROFILE_REF', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testDeviceMatrixWearableBadPages', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testDeviceMatrixWearableBadPages', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testDeviceMatrixWearableBadPages', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testDeviceMatrixWearableBadPages', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testDeviceMatrixWearableBadPages', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testDeviceMatrixWearableBadPages', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testDeviceMatrixWearableBadPages', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testDeviceMatrixWearableBadPages', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testDeviceMatrixWearableBadPages', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testDeviceMatrixWearableBadPages', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testDeviceMatrixWearableBadPages', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testDeviceMatrixWearableBadPages', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testDeviceMatrixWearableBadPages', 'case end', 'device wearable with mutation badpages');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6428
+     * @tc.name      testDeviceMatrixWearableEmptyAbilities
+     * @tc.desc      Checks that a Wearable module with mutation EmptyAbilities is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDeviceMatrixWearableEmptyAbilities',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['wearable'];
+      moduleConfig.abilities = [];
+      TestLog.text('testDeviceMatrixWearableEmptyAbilities', 
+        'case begin', 'device wearable with mutation emptyabilities');
+      TestLog.step('testDeviceMatrixWearableEmptyAbilities', 'device wearable with mutation emptyabilities');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testDeviceMatrixWearableEmptyAbilities', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITIES_EMPTY');
+      TestLog.flag('testDeviceMatrixWearableEmptyAbilities', 'has code MODULE_ABILITIES_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testDeviceMatrixWearableEmptyAbilities', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testDeviceMatrixWearableEmptyAbilities', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testDeviceMatrixWearableEmptyAbilities', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testDeviceMatrixWearableEmptyAbilities', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testDeviceMatrixWearableEmptyAbilities', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testDeviceMatrixWearableEmptyAbilities', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testDeviceMatrixWearableEmptyAbilities', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testDeviceMatrixWearableEmptyAbilities', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testDeviceMatrixWearableEmptyAbilities', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testDeviceMatrixWearableEmptyAbilities', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testDeviceMatrixWearableEmptyAbilities', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testDeviceMatrixWearableEmptyAbilities', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testDeviceMatrixWearableEmptyAbilities', 
+        'case end', 'device wearable with mutation emptyabilities');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6429
+     * @tc.name      testDeviceMatrixWearableEmptyAtomicPreloads
+     * @tc.desc      Checks that a Wearable module with mutation EmptyAtomicPreloads is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDeviceMatrixWearableEmptyAtomicPreloads',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['wearable'];
+      const block = ConfigFactory.entryAtomicService();
+      block.preloads = [];
+      moduleConfig.atomicService = block;
+      TestLog.text('testDeviceMatrixWearableEmptyAtomicPreloads', 
+        'case begin', 'device wearable with mutation emptyatomicpreloads');
+      TestLog.step('testDeviceMatrixWearableEmptyAtomicPreloads', 'device wearable with mutation emptyatomicpreloads');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testDeviceMatrixWearableEmptyAtomicPreloads', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ATOMIC_PRELOADS_EMPTY');
+      TestLog.flag('testDeviceMatrixWearableEmptyAtomicPreloads', 'has code MODULE_ATOMIC_PRELOADS_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testDeviceMatrixWearableEmptyAtomicPreloads', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testDeviceMatrixWearableEmptyAtomicPreloads', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testDeviceMatrixWearableEmptyAtomicPreloads', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testDeviceMatrixWearableEmptyAtomicPreloads', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testDeviceMatrixWearableEmptyAtomicPreloads', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testDeviceMatrixWearableEmptyAtomicPreloads', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testDeviceMatrixWearableEmptyAtomicPreloads', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testDeviceMatrixWearableEmptyAtomicPreloads', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testDeviceMatrixWearableEmptyAtomicPreloads', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.WARN);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testDeviceMatrixWearableEmptyAtomicPreloads', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testDeviceMatrixWearableEmptyAtomicPreloads', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testDeviceMatrixWearableEmptyAtomicPreloads', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testDeviceMatrixWearableEmptyAtomicPreloads', 
+        'case end', 'device wearable with mutation emptyatomicpreloads');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6430
+     * @tc.name      testDeviceMatrixCarPlain
+     * @tc.desc      Checks that a Car module with mutation Plain is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDeviceMatrixCarPlain',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['car'];
+      TestLog.text('testDeviceMatrixCarPlain', 'case begin', 'device car with mutation plain');
+      TestLog.step('testDeviceMatrixCarPlain', 'device car with mutation plain');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testDeviceMatrixCarPlain', 'matrix findings', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testDeviceMatrixCarPlain', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testDeviceMatrixCarPlain', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testDeviceMatrixCarPlain', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testDeviceMatrixCarPlain', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testDeviceMatrixCarPlain', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testDeviceMatrixCarPlain', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testDeviceMatrixCarPlain', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testDeviceMatrixCarPlain', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testDeviceMatrixCarPlain', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testDeviceMatrixCarPlain', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testDeviceMatrixCarPlain', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testDeviceMatrixCarPlain', 'case end', 'device car with mutation plain');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6431
+     * @tc.name      testDeviceMatrixCarBadAbilityName
+     * @tc.desc      Checks that a Car module with mutation BadAbilityName is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDeviceMatrixCarBadAbilityName',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['car'];
+      moduleConfig.abilities[0].name = 'entryAbility';
+      TestLog.text('testDeviceMatrixCarBadAbilityName', 'case begin', 'device car with mutation badabilityname');
+      TestLog.step('testDeviceMatrixCarBadAbilityName', 'device car with mutation badabilityname');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testDeviceMatrixCarBadAbilityName', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_NOT_PASCAL');
+      TestLog.flag('testDeviceMatrixCarBadAbilityName', 'has code MODULE_ABILITY_NAME_NOT_PASCAL', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testDeviceMatrixCarBadAbilityName', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testDeviceMatrixCarBadAbilityName', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testDeviceMatrixCarBadAbilityName', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testDeviceMatrixCarBadAbilityName', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testDeviceMatrixCarBadAbilityName', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testDeviceMatrixCarBadAbilityName', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testDeviceMatrixCarBadAbilityName', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testDeviceMatrixCarBadAbilityName', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testDeviceMatrixCarBadAbilityName', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testDeviceMatrixCarBadAbilityName', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testDeviceMatrixCarBadAbilityName', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testDeviceMatrixCarBadAbilityName', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testDeviceMatrixCarBadAbilityName', 'case end', 'device car with mutation badabilityname');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6432
+     * @tc.name      testDeviceMatrixCarBadPages
+     * @tc.desc      Checks that a Car module with mutation BadPages is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDeviceMatrixCarBadPages',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['car'];
+      moduleConfig.pages = 'main_pages';
+      TestLog.text('testDeviceMatrixCarBadPages', 'case begin', 'device car with mutation badpages');
+      TestLog.step('testDeviceMatrixCarBadPages', 'device car with mutation badpages');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testDeviceMatrixCarBadPages', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_PAGES_NOT_PROFILE_REF');
+      TestLog.flag('testDeviceMatrixCarBadPages', 'has code MODULE_PAGES_NOT_PROFILE_REF', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testDeviceMatrixCarBadPages', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testDeviceMatrixCarBadPages', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testDeviceMatrixCarBadPages', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testDeviceMatrixCarBadPages', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testDeviceMatrixCarBadPages', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testDeviceMatrixCarBadPages', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testDeviceMatrixCarBadPages', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testDeviceMatrixCarBadPages', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testDeviceMatrixCarBadPages', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testDeviceMatrixCarBadPages', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testDeviceMatrixCarBadPages', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testDeviceMatrixCarBadPages', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testDeviceMatrixCarBadPages', 'case end', 'device car with mutation badpages');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6433
+     * @tc.name      testDeviceMatrixCarEmptyAbilities
+     * @tc.desc      Checks that a Car module with mutation EmptyAbilities is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDeviceMatrixCarEmptyAbilities',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['car'];
+      moduleConfig.abilities = [];
+      TestLog.text('testDeviceMatrixCarEmptyAbilities', 'case begin', 'device car with mutation emptyabilities');
+      TestLog.step('testDeviceMatrixCarEmptyAbilities', 'device car with mutation emptyabilities');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testDeviceMatrixCarEmptyAbilities', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITIES_EMPTY');
+      TestLog.flag('testDeviceMatrixCarEmptyAbilities', 'has code MODULE_ABILITIES_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testDeviceMatrixCarEmptyAbilities', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testDeviceMatrixCarEmptyAbilities', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testDeviceMatrixCarEmptyAbilities', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testDeviceMatrixCarEmptyAbilities', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testDeviceMatrixCarEmptyAbilities', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testDeviceMatrixCarEmptyAbilities', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testDeviceMatrixCarEmptyAbilities', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testDeviceMatrixCarEmptyAbilities', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testDeviceMatrixCarEmptyAbilities', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testDeviceMatrixCarEmptyAbilities', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testDeviceMatrixCarEmptyAbilities', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testDeviceMatrixCarEmptyAbilities', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testDeviceMatrixCarEmptyAbilities', 'case end', 'device car with mutation emptyabilities');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_6434
+     * @tc.name      testDeviceMatrixCarEmptyAtomicPreloads
+     * @tc.desc      Checks that a Car module with mutation EmptyAtomicPreloads is validated.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testDeviceMatrixCarEmptyAtomicPreloads',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.deviceTypes = ['car'];
+      const block = ConfigFactory.entryAtomicService();
+      block.preloads = [];
+      moduleConfig.atomicService = block;
+      TestLog.text('testDeviceMatrixCarEmptyAtomicPreloads', 
+        'case begin', 'device car with mutation emptyatomicpreloads');
+      TestLog.step('testDeviceMatrixCarEmptyAtomicPreloads', 'device car with mutation emptyatomicpreloads');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testDeviceMatrixCarEmptyAtomicPreloads', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ATOMIC_PRELOADS_EMPTY');
+      TestLog.flag('testDeviceMatrixCarEmptyAtomicPreloads', 'has code MODULE_ATOMIC_PRELOADS_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testDeviceMatrixCarEmptyAtomicPreloads', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testDeviceMatrixCarEmptyAtomicPreloads', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testDeviceMatrixCarEmptyAtomicPreloads', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testDeviceMatrixCarEmptyAtomicPreloads', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testDeviceMatrixCarEmptyAtomicPreloads', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testDeviceMatrixCarEmptyAtomicPreloads', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testDeviceMatrixCarEmptyAtomicPreloads', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testDeviceMatrixCarEmptyAtomicPreloads', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testDeviceMatrixCarEmptyAtomicPreloads', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.WARN);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testDeviceMatrixCarEmptyAtomicPreloads', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testDeviceMatrixCarEmptyAtomicPreloads', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testDeviceMatrixCarEmptyAtomicPreloads', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testDeviceMatrixCarEmptyAtomicPreloads', 
+        'case end', 'device car with mutation emptyatomicpreloads');
+    })
+
+  })
+}
