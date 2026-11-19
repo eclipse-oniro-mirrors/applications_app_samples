@@ -135,17 +135,6 @@ const FOLD_STATUS_VALUES: number[] = [
   Number(display.FoldStatus.FOLD_STATUS_FOLDED)
 ];
 
-const DISPLAY_STATE_VALUES: number[] = [
-  Number(display.DisplayState.STATE_UNKNOWN),
-  Number(display.DisplayState.STATE_OFF),
-  Number(display.DisplayState.STATE_ON),
-  Number(display.DisplayState.STATE_DOZE),
-  Number(display.DisplayState.STATE_DOZE_SUSPEND),
-  Number(display.DisplayState.STATE_ON_SUSPEND),
-  Number(display.DisplayState.STATE_VR)
-];
-
-
 function defaultDisplay(): display.Display {
   return display.getDefaultDisplaySync();
 }
