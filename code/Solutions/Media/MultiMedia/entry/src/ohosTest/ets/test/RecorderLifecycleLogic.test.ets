@@ -4436,3 +4436,100 @@ export default function RecorderLifecycleLogicTest(): void {
           callbacks++;
         });
         r1.emitState('started');
+        const gate: RecorderGate = new RecorderGate();
+        r1.defer('stop', gate);
+        let finished: boolean = false;
+        const finishing: Promise<void> = model.finish().then((): void => { finished = true; });
+        await recorderTick();
+        r1.emitState('prepared');
+        r1.emitState('started');
+        r1.emitState('paused');
+        r1.emitError('detached diagnostic');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.flag(name, 'finishStillBlockedAfterLateEvents', finished);
+        expect(finished).assertFalse();
+        LogicTestLog.number(name, 'latePreparedNoStart', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        LogicTestLog.number(name, 'lateActiveNoCallback', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        LogicTestLog.number(name, 'detachedPrepareIgnored', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'detachedPauseIgnored', 0, r1.callCount('pause'));
+        expect(r1.callCount('pause')).assertEqual(0);
+        LogicTestLog.number(name, 'detachedResumeIgnored', 0, r1.callCount('resume'));
+        expect(r1.callCount('resume')).assertEqual(0);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError', 'r1.stop.enter'
+        ];
+        LogicTestLog.value(name, 'lateEventsCannotReachDetachedPort', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        gate.open();
+        await finishing;
+        LogicTestLog.flag(name, 'finishCompletedAfterGate', finished);
+        expect(finished).assertTrue();
+        LogicTestLog.number(name, 'contractRespectedDespiteLateEvents', 0, r1.contractViolations.length);
+        expect(r1.contractViolations.length).assertEqual(0);
+        LogicTestLog.number(name, 'stopOnceAfterLateEvents', 1, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'resetOnceAfterLateEvents', 1, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'releaseOnceAfterLateEvents', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        LogicTestLog.number(name, 'factoryCountAfterReplacement', 2, factory.calls);
+        expect(factory.calls).assertEqual(2);
+        await model.startRecorder(1611);
+        r2.emitState('prepared');
+        await recorderTick();
+        r2.emitState('started');
+        r1.emitState('prepared');
+        r1.emitState('started');
+        LogicTestLog.number(name, 'latestCallbacksOnly', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        LogicTestLog.number(name, 'oldNeverPrepared', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'oldNeverStarted', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        LogicTestLog.number(name, 'latestPreparedOnce', 1, r2.configs.length);
+        expect(r2.configs.length).assertEqual(1);
+        LogicTestLog.number(name, 'latestStartedOnce', 1, r2.callCount('start'));
+        expect(r2.callCount('start')).assertEqual(1);
+        LogicTestLog.value(name, 'latestDescriptor', 'fd://1611', r2.configs[0].url);
+        expect(r2.configs[0].url).assertEqual('fd://1611');
+        await model.finish();
+        r2.emitState('prepared');
+        r2.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'latestStopOnce', 1, r2.callCount('stop'));
+        expect(r2.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'latestResetOnce', 1, r2.callCount('reset'));
+        expect(r2.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'latestReleaseOnce', 1, r2.callCount('release'));
+        expect(r2.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'latestCallbacksAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve', 'factory.2.enter', 'factory.2.resolve',
+          'r2.onStateChange', 'r2.onError', 'r2.prepare.enter', 'r2.prepare.resolve',
+          'r2.start.enter', 'r2.start.resolve', 'r2.stop.enter', 'r2.stop.resolve',
+          'r2.reset.enter', 'r2.reset.resolve', 'r2.release.enter', 'r2.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+  });
+}
