@@ -612,7 +612,7 @@ export default function TextDecoderStreamLogic(): void {
         const otherText: string = otherDecoder.decodeToString(new Uint8Array([0x58, 0xC2, 0xA2]));
         InterfaceTestLog.value(name, 'different decoder cannot see pending', 'X\u00A2', otherText);
         expect(otherText).assertEqual('X\u00A2');
-        const secondExpected: string = '\u4E2D8\u0000';
+        const secondExpected: string = '\u4E2D' + '8' + '\u0000';
         const second: string = decoder.decodeToString(secondBytes, { stream: true });
         InterfaceTestLog.value(name, 'scalar completed without splitting', secondExpected, second);
         expect(second).assertEqual(secondExpected);
@@ -622,7 +622,7 @@ export default function TextDecoderStreamLogic(): void {
         InterfaceTestLog.value(name, 'complete stream empty flush', '', flush);
         expect(flush).assertEqual('');
         const joined: string = first + middleEmpty + second + flush;
-        const joinedExpected: string = 'I\u4E2D\u4E2D8\u0000';
+        const joinedExpected: string = 'I\u4E2D\u4E2D' + '8' + '\u0000';
         InterfaceTestLog.value(name, 'complete stream fixed oracle', joinedExpected, joined);
         expect(joined).assertEqual(joinedExpected);
         InterfaceTestLog.flag(name, 'valid input no replacement', joined.indexOf('\uFFFD') < 0);

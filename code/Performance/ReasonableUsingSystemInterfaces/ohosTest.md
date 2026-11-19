@@ -2,7 +2,7 @@
 
 ## 一、范围与运行方式
 
-保留原有 30 条自动化用例，新增 13 套、984 条逻辑用例。默认注册 16 套、1010 条用例；应用信息和入口启动的 4 条 `EntryAbilityTest` 用例仅在显式选择该测试类时注册。混合选择其他类不会注册 Ability 套件，不以删除 UI 功能降低测试依赖。
+保留原有 30 条自动化用例，新增 13 套、984 条逻辑用例。默认注册 16 套、1010 条用例；应用信息和入口启动的 4 条 `EntryAbilityTest` 用例仅在显式选择该测试类时注册。混合选择其余类不会注册 Ability 套件，不以删除 UI 功能降低测试依赖。
 
 ```bash
 hvigorw --mode module -p module=entry@default -p product=default assembleHap
@@ -102,7 +102,7 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap
 - 资源封装和两种国际化 benchmark 在异常路径使用 finally 结束打点，原有构造类型、选项、每类 100 次及 trace 名称/ID 保留。
 - 修复旧异步用例混用 Promise/done 的问题，失败交给 Hypium；补齐开始、结束及断言前日志，避免日志重复调用 SDK。
 - runner 等待 monitor 注册与启动 Promise，去除公开 Want/Ability/mock 内容日志；保留可选 mock 功能，非法 mock 内容明确失败。
-- 强化原始类型、options、全部 Date 输入和完整 Resource 首次/重试后的保护，不以字符串化掩盖数字或布尔类型错误。
+- 强化原始类型、options、全部 Date 输入和完整 Resource 初次创建及重试后的保护，不以字符串化掩盖数字或布尔类型错误。
 - 本轮测试扩展未修改签名、包名、权限和静态资源。最终 SHA-256 检查中，35 个保护文件有 34 个与基线一致；根 build-profile.json5 与基线不同，当前存在 default 签名配置并成功生成签名包，未覆盖该配置。基线一致性审计因此仍报告这一差异，不把它当作全量一致通过。
 - 未提交或推送。无 PR 链接和 Git 元数据，提交格式/目标分支、下载分支及二进制合入策略不能据此验收。保留原多页面性能演示布局和相关截图，未为结构/截图数量建议搬移页面或删减示例。
 
@@ -132,7 +132,7 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap
 - 本设备 Array.from(string) 的快捷实现按 UTF-16 码元拆分，不能用作代理对的处理或码点计数。生产插入函数改为显式合并合法代理对及 CRLF；四套文本测试使用独立 UTF-16 计数，固定输出、字节、快照及用例编号保留。
 - 修复前完整设备回归实际执行 1010 条：Pass 661、Failure 349、Error 0，OHOS_REPORT_CODE -1；仅收到 990 条终结事件，不能误写为只执行 990 条。修复后本地整轮回归已中断，未取得最终汇总。
 - 16:04 附件列出 75 条不同用例失败，全部堆栈对应当前源码的断言行；没有新增失败编号，Locale、显示限长/解码及零宽插入的旧错误未再出现。附件只有测试完成提示，没有各套件通过数及整轮汇总，不能据此宣称其余 935 条通过、所有终结事件已收到或 1010 条全量验收完成。
-- 附件同时选择 EntryAbilityTest 和其他类，按现有路由不注册 Ability 套件；不能把这次混合选择作为 4 条 Ability 的验证证据。
+- 附件同时选择 EntryAbilityTest 和其余类，按现有路由不注册 Ability 套件；不能把这次混合选择作为 4 条 Ability 的验证证据。
 
 以下编号后缀均接在 SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_ 后，失败预期保持原样：
 

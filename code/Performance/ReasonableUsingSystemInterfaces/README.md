@@ -155,7 +155,7 @@ try {
   hiTraceMeter.finishTrace('RelativeTimeFormat-100', 1);
 }
 
-// 同样的过程创建DateTimeFormat、NumberFormat等其他类的实例
+// 同样的过程创建DateTimeFormat、NumberFormat等其余类的实例
 ```
 
 #### 使用Localization Kit接口intl([源码示例链接](entry/src/main/ets/pages/LocalizationKitInterface.ets))
@@ -183,7 +183,7 @@ try {
   hiTraceMeter.finishTrace('RelativeTimeFormat-100', 1);
 }
 
-// 同样的过程创建DateTimeFormat、NumberFormat等其他类的实例
+// 同样的过程创建DateTimeFormat、NumberFormat等其余类的实例
 ```
 
 ## 工程目录
@@ -238,7 +238,7 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap
 
 在 DevEco Studio 中配置合法签名并连接设备后，选中 entry 模块，右键选择 `Run 'test'`。编译通过不等于安装或设备测试通过。
 
-新增 13 套、984 条逻辑用例，共 71,774 物理行、63,618 行去注释及空行的有效测试代码、15,801 个断言；检视补强后的规模高于约五万行目标。统计仅包含新增测试文件，不是 Git 净改动量。原有 30 条用例保留；默认注册 16 套、1010 条逻辑/SDK 用例，不启动主界面。需要应用信息及入口启动验证时，显式选择 `EntryAbilityTest`，执行原有 4 条 Ability 用例。混合选择其他测试类不会注册 Ability 套件，以免引入主界面依赖。
+新增 13 套、984 条逻辑用例，共 71,774 物理行、63,618 行去注释及空行的有效测试代码、15,801 个断言；检视补强后的规模高于约五万行目标。统计仅包含新增测试文件，不是 Git 净改动量。原有 30 条用例保留；默认注册 16 套、1010 条逻辑/SDK 用例，不启动主界面。需要应用信息及入口启动验证时，显式选择 `EntryAbilityTest`，执行原有 4 条 Ability 用例。混合选择其余测试类不会注册 Ability 套件，以免引入主界面依赖。
 
 覆盖范围：
 

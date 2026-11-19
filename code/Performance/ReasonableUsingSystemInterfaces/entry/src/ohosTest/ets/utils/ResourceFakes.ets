@@ -16,30 +16,30 @@
 import type { InterfaceTrace, StringResourceReader } from '../../../main/ets/utils/TracedResources';
 
 export class ResourceBoundary implements InterfaceTrace, StringResourceReader {
-  events: string[] = [];
-  requests: Array<number | Resource> = [];
-  value: string = '';
-  startError: string = '';
-  readError: string = '';
-  finishError: string = '';
+  public events: string[] = [];
+  public requests: Array<number | Resource> = [];
+  public value: string = '';
+  public startError: string = '';
+  public readError: string = '';
+  public finishError: string = '';
 
-  startTrace(name: string, id: number): void {
+  public startTrace(name: string, id: number): void {
     this.events.push(`start:${name}:${id}`);
     if (this.startError !== '') {
       throw new Error(this.startError);
     }
   }
 
-  finishTrace(name: string, id: number): void {
+  public finishTrace(name: string, id: number): void {
     this.events.push(`finish:${name}:${id}`);
     if (this.finishError !== '') {
       throw new Error(this.finishError);
     }
   }
 
-  getStringSync(id: number): string;
-  getStringSync(resource: Resource): string;
-  getStringSync(resource: number | Resource): string {
+  public getStringSync(id: number): string;
+  public getStringSync(resource: Resource): string;
+  public getStringSync(resource: number | Resource): string {
     this.events.push('read');
     this.requests.push(resource);
     if (this.readError !== '') {
