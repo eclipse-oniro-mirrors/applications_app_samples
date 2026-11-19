@@ -1989,3 +1989,1033 @@ export default function dietLocalizationTestingSuite() {
       expect(m.getFoodById(1000 + 465) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0466
+     * @tc.name    DietLocalizationTesting466
+     * @tc.desc    Diet group count consistency 466 probe 466
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting466', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(1) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 466) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0467
+     * @tc.name    DietLocalizationTesting467
+     * @tc.desc    Diet group count consistency 467 probe 467
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting467', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(2) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 467) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0468
+     * @tc.name    DietLocalizationTesting468
+     * @tc.desc    Diet group count consistency 468 probe 468
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting468', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(3) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 468) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0469
+     * @tc.name    DietLocalizationTesting469
+     * @tc.desc    Diet group count consistency 469 probe 469
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting469', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(4) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 469) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0470
+     * @tc.name    DietLocalizationTesting470
+     * @tc.desc    Diet group count consistency 470 probe 470
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting470', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(0) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 470) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0471
+     * @tc.name    DietLocalizationTesting471
+     * @tc.desc    Diet group count consistency 471 probe 471
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting471', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(1) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 471) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0472
+     * @tc.name    DietLocalizationTesting472
+     * @tc.desc    Diet group count consistency 472 probe 472
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting472', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(2) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 472) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0473
+     * @tc.name    DietLocalizationTesting473
+     * @tc.desc    Diet group count consistency 473 probe 473
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting473', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(3) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 473) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0474
+     * @tc.name    DietLocalizationTesting474
+     * @tc.desc    Diet group count consistency 474 probe 474
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting474', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(4) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 474) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0475
+     * @tc.name    DietLocalizationTesting475
+     * @tc.desc    Diet group count consistency 475 probe 475
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting475', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(0) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 475) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0476
+     * @tc.name    DietLocalizationTesting476
+     * @tc.desc    Diet group count consistency 476 probe 476
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting476', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(1) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 476) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0477
+     * @tc.name    DietLocalizationTesting477
+     * @tc.desc    Diet group count consistency 477 probe 477
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting477', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(2) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 477) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0478
+     * @tc.name    DietLocalizationTesting478
+     * @tc.desc    Diet group count consistency 478 probe 478
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting478', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(3) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 478) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0479
+     * @tc.name    DietLocalizationTesting479
+     * @tc.desc    Diet group count consistency 479 probe 479
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting479', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(4) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 479) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0480
+     * @tc.name    DietLocalizationTesting480
+     * @tc.desc    Diet group count consistency 480 probe 480
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting480', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(0) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 480) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0481
+     * @tc.name    DietLocalizationTesting481
+     * @tc.desc    Diet group count consistency 481 probe 481
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting481', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(1) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 481) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0482
+     * @tc.name    DietLocalizationTesting482
+     * @tc.desc    Diet group count consistency 482 probe 482
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting482', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(2) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 482) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0483
+     * @tc.name    DietLocalizationTesting483
+     * @tc.desc    Diet group count consistency 483 probe 483
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting483', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(3) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 483) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0484
+     * @tc.name    DietLocalizationTesting484
+     * @tc.desc    Diet group count consistency 484 probe 484
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting484', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(4) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 484) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0485
+     * @tc.name    DietLocalizationTesting485
+     * @tc.desc    Diet group count consistency 485 probe 485
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting485', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(0) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 485) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0486
+     * @tc.name    DietLocalizationTesting486
+     * @tc.desc    Diet group count consistency 486 probe 486
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting486', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(1) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 486) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0487
+     * @tc.name    DietLocalizationTesting487
+     * @tc.desc    Diet group count consistency 487 probe 487
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting487', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(2) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 487) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0488
+     * @tc.name    DietLocalizationTesting488
+     * @tc.desc    Diet group count consistency 488 probe 488
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting488', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(3) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 488) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0489
+     * @tc.name    DietLocalizationTesting489
+     * @tc.desc    Diet group count consistency 489 probe 489
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting489', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(4) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 489) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0490
+     * @tc.name    DietLocalizationTesting490
+     * @tc.desc    Diet group count consistency 490 probe 490
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting490', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(0) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 490) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0491
+     * @tc.name    DietLocalizationTesting491
+     * @tc.desc    Diet group count consistency 491 probe 491
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting491', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(1) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 491) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0492
+     * @tc.name    DietLocalizationTesting492
+     * @tc.desc    Diet group count consistency 492 probe 492
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting492', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(2) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 492) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0493
+     * @tc.name    DietLocalizationTesting493
+     * @tc.desc    Diet group count consistency 493 probe 493
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting493', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(3) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 493) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0494
+     * @tc.name    DietLocalizationTesting494
+     * @tc.desc    Diet group count consistency 494 probe 494
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting494', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(4) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 494) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0495
+     * @tc.name    DietLocalizationTesting495
+     * @tc.desc    Diet group count consistency 495 probe 495
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting495', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(0) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 495) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0496
+     * @tc.name    DietLocalizationTesting496
+     * @tc.desc    Diet group count consistency 496 probe 496
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting496', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(1) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 496) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0497
+     * @tc.name    DietLocalizationTesting497
+     * @tc.desc    Diet group count consistency 497 probe 497
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting497', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(2) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 497) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0498
+     * @tc.name    DietLocalizationTesting498
+     * @tc.desc    Diet group count consistency 498 probe 498
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting498', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(3) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 498) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0499
+     * @tc.name    DietLocalizationTesting499
+     * @tc.desc    Diet group count consistency 499 probe 499
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting499', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(4) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 499) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0500
+     * @tc.name    DietLocalizationTesting500
+     * @tc.desc    Diet group count consistency 500 probe 500
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting500', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(0) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 500) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0501
+     * @tc.name    DietLocalizationTesting501
+     * @tc.desc    Diet group count consistency 501 probe 501
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting501', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(1) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 501) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0502
+     * @tc.name    DietLocalizationTesting502
+     * @tc.desc    Diet group count consistency 502 probe 502
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting502', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(2) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 502) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0503
+     * @tc.name    DietLocalizationTesting503
+     * @tc.desc    Diet group count consistency 503 probe 503
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting503', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(3) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 503) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0504
+     * @tc.name    DietLocalizationTesting504
+     * @tc.desc    Diet group count consistency 504 probe 504
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting504', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(4) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 504) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0505
+     * @tc.name    DietLocalizationTesting505
+     * @tc.desc    Diet group count consistency 505 probe 505
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting505', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(0) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 505) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0506
+     * @tc.name    DietLocalizationTesting506
+     * @tc.desc    Diet group count consistency 506 probe 506
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting506', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(1) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 506) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0507
+     * @tc.name    DietLocalizationTesting507
+     * @tc.desc    Diet group count consistency 507 probe 507
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting507', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(2) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 507) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0508
+     * @tc.name    DietLocalizationTesting508
+     * @tc.desc    Diet group count consistency 508 probe 508
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting508', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(3) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 508) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0509
+     * @tc.name    DietLocalizationTesting509
+     * @tc.desc    Diet group count consistency 509 probe 509
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting509', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(4) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 509) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0510
+     * @tc.name    DietLocalizationTesting510
+     * @tc.desc    Diet group count consistency 510 probe 510
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting510', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(0) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 510) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0511
+     * @tc.name    DietLocalizationTesting511
+     * @tc.desc    Diet group count consistency 511 probe 511
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting511', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(1) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 511) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0512
+     * @tc.name    DietLocalizationTesting512
+     * @tc.desc    Diet group count consistency 512 probe 512
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting512', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(2) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 512) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0513
+     * @tc.name    DietLocalizationTesting513
+     * @tc.desc    Diet group count consistency 513 probe 513
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting513', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(3) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 513) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0514
+     * @tc.name    DietLocalizationTesting514
+     * @tc.desc    Diet group count consistency 514 probe 514
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting514', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(4) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 514) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0515
+     * @tc.name    DietLocalizationTesting515
+     * @tc.desc    Diet group count consistency 515 probe 515
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting515', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(0) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 515) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0516
+     * @tc.name    DietLocalizationTesting516
+     * @tc.desc    Diet group count consistency 516 probe 516
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting516', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(1) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 516) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0517
+     * @tc.name    DietLocalizationTesting517
+     * @tc.desc    Diet group count consistency 517 probe 517
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting517', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(2) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 517) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0518
+     * @tc.name    DietLocalizationTesting518
+     * @tc.desc    Diet group count consistency 518 probe 518
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting518', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(3) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 518) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0519
+     * @tc.name    DietLocalizationTesting519
+     * @tc.desc    Diet group count consistency 519 probe 519
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting519', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(4) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 519) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0520
+     * @tc.name    DietLocalizationTesting520
+     * @tc.desc    Diet group count consistency 520 probe 520
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting520', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(0) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 520) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0521
+     * @tc.name    DietLocalizationTesting521
+     * @tc.desc    Diet group count consistency 521 probe 521
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting521', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(1) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 521) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0522
+     * @tc.name    DietLocalizationTesting522
+     * @tc.desc    Diet group count consistency 522 probe 522
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietLocalizationTesting522', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      expect(m.groupByLetter().length).assertEqual(m.getGroupCount());
+      expect(m.calorieRatios().length <= 4).assertEqual(true);
+      expect(m.countByCategory(2) >= 0).assertEqual(true);
+      expect(m.getFoodById(1000 + 522) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
