@@ -25,7 +25,7 @@
  * enough. Content.ets stacks the cover column above the list column, and on a
  * compact (sm) window the square cover takes the whole content band, which
  * pushes the list past the band edge; the List is then not part of the
- * accessibility tree at all. Each case therefore asks listInViewport() first and
+ * UI component tree at all. Each case therefore asks listInViewport() first and
  * asserts the arrangement that the current window really shows: the rows when
  * the column is reachable, the band geometry when it is not.
  */

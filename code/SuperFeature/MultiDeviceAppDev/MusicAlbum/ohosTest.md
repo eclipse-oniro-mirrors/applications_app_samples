@@ -122,7 +122,7 @@
 | 注销（4 条） | - | `runListenerRegister(kind)`（`testLsnReal0005`..`testLsnReal0008`） | 未注册实例收不到通知；注销未知实例不影响已注册实例；重复注销无害；注销后再注册恢复订阅 等 3 条 | 是 | 通过 |
 | reload 广播（3 条） | - | `runListenerNotify('reload', i, k)`（`testLsnReal0009`..`testLsnReal0011`） | 1 / 2 / 3 个监听器各收到 1 次 `onDataReloaded` 等 3 条 | 是 | 通过 |
 | add / change / delete 透传（10 条） | - | `runListenerNotify(kind, index, k)`（`testLsnReal0012`..`testLsnReal0021`） | 原始下标原样透传（含负下标与 100），广播次数等于监听器数 等 3 条 | 是 | 通过 |
-| move、未知 kind 与极值（14 条） | - | `runListenerNotify('move'/其他, index, k)`（`testLsnReal0022`..`testLsnReal0035`） | move 透传 from 与 from+1；未知 kind 不触发任何回调；`MAX_SAFE_INTEGER` / -100 不做钳制 等 3 条 | 是 | 通过 |
+| move、未知 kind 与极值（14 条） | - | `runListenerNotify('move' 或未知 kind, index, k)`（`testLsnReal0022`..`testLsnReal0035`） | move 透传 from 与 from+1；未知 kind 不触发任何回调；`MAX_SAFE_INTEGER` / -100 不做钳制 等 3 条 | 是 | 通过 |
 
 ## RealSongTable01 套件（`RealSongTable01.test.ets`，35 条）
 
@@ -132,7 +132,7 @@
 |---|---|---|---|---|---|
 | 24 行逐行核对（24 条） | - | `runSongRow(0)`..`runSongRow(23)`（`testTableReal0001`..`testTableReal0024`） | 首行 id 1 且 label 为 vip；第 12 行 id 12 同样为 vip；第 22 行 id 从 21 跳到 23；末行 id 25 等 3 条 | 是 | 通过 |
 | 越界与字段读取（4 条） | - | `runSongField(24, field)`、`runSongRow(-1 / 60)`（`testTableReal0025`..`testTableReal0028`） | 行 24 / 负下标 / 远越界均为 undefined，字段读取同样为 undefined 等 3 条 | 是 | 通过 |
-| 表级统计一致性（7 条） | - | `runSongStats(kind)`（`testTableReal0029`..`testTableReal0035`） | id 缺口仅 22；`不知道` 出现 2 次；`小安安` 8 行、我是小树 4 行；vip 仅 2 行 等 3 条 | 是 | 通过 |
+| 表级统计一致性（7 条） | - | `runSongStats(kind)`（`testTableReal0029`..`testTableReal0035`） | id 缺口仅 22；`不知道` 出现 2 次；`小安安` 8 行、歌手计数次高值为 4 行；vip 仅 2 行 等 3 条 | 是 | 通过 |
 
 ## RealOption01 套件（`RealOption01.test.ets`，35 条）
 
@@ -155,7 +155,7 @@
 |---|---|---|---|---|---|
 | 基础统计（14 条） | - | `runSongStats(kind)`（`testStatsReal0001`..`testStatsReal0014`） | 24 行、id 1..25 且和为 303、缺口 22；10 个标题 / 8 个歌手；`安心安心` 5 行、`小安安` 8 行；vip 2 行、SQ 22 行 等 3 条 | 是 | 通过 |
 | 未知 kind 与守恒式（6 条） | - | `runSongStats(kind)`（`testStatsReal0015`..`testStatsReal0020`） | 未知 kind 返回 unknown；vip + SQ = 24；去重 + 重复 = 24；id 和 = 全段和 − 缺口 等 3 条 | 是 | 通过 |
-| 交叉校验与逐值计数（15 条） | - | `runSongCount(value, field)`、`runSongStats(kind)`（`testStatsReal0021`..`testStatsReal0035`） | 头名计数互等；我是小树 4 行；缺席标题 / 歌手计 0；`Notebook` 3 次；7 个两行标题合计 14 行 等 3 条 | 是 | 通过 |
+| 交叉校验与逐值计数（15 条） | - | `runSongCount(value, field)`、`runSongStats(kind)`（`testStatsReal0021`..`testStatsReal0035`） | 头名计数互等；歌手计数次高值为 4 行；缺席标题 / 歌手计 0；`Notebook` 3 次；7 个两行标题合计 14 行 等 3 条 | 是 | 通过 |
 
 ## RealEdge01 套件（`RealEdge01.test.ets`，35 条）
 
@@ -167,7 +167,7 @@
 | pushData 极值（4 条） | - | `runDataSourcePush(count, times)`（`testEdgeReal0007`..`testEdgeReal0010`） | 1 行 2 次 push → 尾 9101、通知下标 2；3 行 4 次 push → 末位 6；24 行 1 次 push → 25 行 等 3 条 | 是 | 通过 |
 | 索引边界（4 条） | - | `runDataSourceIndex(n, i)`（`testEdgeReal0011`..`testEdgeReal0014`） | 24 行的末位是 23、24 即越界；1 行只有下标 0；100 行的末位保持等差 id 等 3 条 | 是 | 通过 |
 | 混合序列（6 条） | - | `runDataSourceMixed(count, k, times)`（`testEdgeReal0015`..`testEdgeReal0020`） | 头插 + 3 次 push 共 4 次通知；尾插 + 2 次 push 保留种子首行；空源可插入后再 push 等 3 条 | 是 | 通过 |
-| 监听器数量与通知透传（12 条） | - | `runListenerNotify(kind, index, k)`、`runDataSourceBoundary(kind)`（`testEdgeReal0021`..`testEdgeReal0032`） | 监听器数量为 0 时仍注册首个实例、上限 3；move 透传 index 与 index+1；`MAX_SAFE_INTEGER` / -1 原样转发；未知 kind 无回调 等 3 条 | 是 | 通过 |
+| 监听器数量与通知透传（12 条） | - | `runListenerNotify(kind, index, k)`、`runDataSourceBoundary(kind)`（`testEdgeReal0021`..`testEdgeReal0032`） | 监听器数量为 0 时仍注册第一个实例、上限 3；move 透传 index 与 index+1；`MAX_SAFE_INTEGER` / -1 原样转发；未知 kind 无回调 等 3 条 | 是 | 通过 |
 | 种子形态（3 条） | - | `runDataSource(24)`、`runDataSource(100)`（`testEdgeReal0033`..`testEdgeReal0035`） | 探针种子长度等于冻结表 24 行；id 逐行 +1；24 行追加后报告第 25 行下标 等 3 条 | 是 | 通过 |
 
 ## DsSizeVolume01 套件（`DsSizeVolume01.test.ets`，85 条）
@@ -463,7 +463,7 @@
 | Anchor: a row id outside the table is reported as missing | 同上 | `geometryOfId('song_item_99')`、`typeOfId('song_item_99')` | 均为 'notfound' | 是 | 通过 |
 | at most one list container is mounted on the page | 同上 | `countId('song_list')` | = 视口可达 ? 1 : 0 | 是 | 通过 |
 | the list column sits inside the display rectangle on both axes | 同上 | `geometryOfId('song_list')`、`displaySize()` | 落在显示矩形内；否则 'notfound' | 是 | 通过 |
-| the list column is rebuilt in the same shape after a full reset | 同上 | `resetToHome()`、`listInViewport()`、行几何 | 复位后可见性与首个行 id 与复位前一致 | 是 | 通过 |
+| the list column is rebuilt in the same shape after a full reset | 同上 | `resetToHome()`、`listInViewport()`、行几何 | 复位后可见性与第一行的 id 均与复位前一致 | 是 | 通过 |
 | tapping a song row keeps the page bands mounted | 同上 | `clickId('song_item_1')`、`waitId('header_root')` | 点击结果 = 可达 ? 'ok' : 'notfound'；三段容器仍在 | 是 | 通过 |
 | two swipes do not detach the play-all row from the list | 同上 | `swipeUpInId('song_list')` 两次、`aboveOfId` | 两次滑动后 play_all_row 与列表的相对顺序不变 | 是 | 通过 |
 | the list geometry is stable across two consecutive reads | 同上 | `geometryOfId('song_list')` 连读两次 | 两次矩形相等 | 是 | 通过 |

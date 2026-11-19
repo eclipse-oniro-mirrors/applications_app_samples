@@ -118,7 +118,7 @@ No third-party dependencies.
 1. This sample can only be run on standard-system devices.
 2. This sample is a Stage model project; `targetSdkVersion`, `compileSdkVersion` and `compatibleSdkVersion` in `build-profile.json5` are all `23` (runtimeOS: OpenHarmony).
 3. This sample can be compiled and run only with a DevEco Studio version that supports `modelVersion` 6.0.2.
-4. `MainAbility` declares `minWindowWidth` 320 and `minWindowHeight` 240. Below 600vp the cover and the list are stacked, and the 1:1 cover pushes the list column out of the content band, so `song_list` / `song_item_*` do not enter the accessibility tree — this is the real arrangement of that window size.
+4. `MainAbility` declares `minWindowWidth` 320 and `minWindowHeight` 240. Below 600vp the cover and the list are stacked, and the 1:1 cover pushes the list column out of the content band, so `song_list` / `song_item_*` do not enter the UI component tree — this is the real arrangement of that window size.
 5. Running all 2633 cases in a single process triggers App died, so the automated regression must follow the 15-batch plan in [ohosTest.md](./ohosTest.md).
 6. The UI probe cases are driven by `@ohos.UiTest`; the device must be unlocked and free of system dialogs before running them.
 

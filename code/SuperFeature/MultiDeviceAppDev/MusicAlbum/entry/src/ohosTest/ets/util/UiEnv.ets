@@ -108,7 +108,7 @@ export async function waitId(id: string, timeoutMs: number): Promise<boolean> {
 export async function countId(id: string): Promise<number> {
   try {
     const driver: Driver = await Driver.create();
-    const list: Array<Component> = await driver.findComponents(ON.id(id));
+    const list: Component[] = await driver.findComponents(ON.id(id));
     if (list === undefined || list === null) {
       return 0;
     }
@@ -290,7 +290,7 @@ export async function countIds(ids: string): Promise<number> {
  *
  * On a compact (sm) window the cover column grows to the full band height, so
  * the playlist column is pushed past the bottom of the content band and the
- * List is no longer part of the accessibility tree. Suites branch on this
+ * List is no longer part of the UI component tree. Suites branch on this
  * probe instead of assuming a single window size.
  */
 export async function listInViewport(): Promise<boolean> {
