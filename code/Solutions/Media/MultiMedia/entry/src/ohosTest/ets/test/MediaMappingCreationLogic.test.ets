@@ -2521,3 +2521,1074 @@ export default function MediaMappingCreationLogic(): void {
       expect(files.opens[0].mode).assertEqual(fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
       LogicTestLog.flag(name, "Descriptor identity is preserved", descriptor === files.descriptors[0]);
       expect(descriptor === files.descriptors[0]).assertTrue();
+      LogicTestLog.number(name, "No automatic close", 0, files.closes.length);
+      expect(files.closes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 1, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(1);
+      LogicTestLog.number(name, "Time clock calls", 1, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(1);
+      LogicTestLog.number(name, "No library creation", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No library fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "No library deletion", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.value(name, "Descriptor lock operation order",
+        "clock.date|clock.time|files.open|descriptor.parent|descripto" +
+        "r.lock:true|descriptor.unlock", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("clock.date|clock.time|files.open|descriptor.parent|descripto" +
+        "r.lock:true|descriptor.unlock");
+      let callbackCount: number = 0;
+      let callbackFailed: boolean = false;
+      descriptor.lock((error: BusinessError): void => {
+        callbackCount++;
+        callbackFailed = error !== undefined;
+      });
+      LogicTestLog.number(name, "Shared lock callback is asynchronous", 0, callbackCount);
+      expect(callbackCount).assertEqual(0);
+      await new Promise<void>((resolve: () => void) => { setTimeout(resolve, 1); });
+      LogicTestLog.number(name, "Shared lock callback completes once", 1, callbackCount);
+      expect(callbackCount).assertEqual(1);
+      LogicTestLog.flag(name, "Shared lock callback succeeds", callbackFailed);
+      expect(callbackFailed).assertFalse();
+      descriptor.lock(true, (error: BusinessError): void => {
+        callbackCount++;
+        callbackFailed = error !== undefined;
+      });
+      LogicTestLog.number(name, "Exclusive lock callback is asynchronous", 1, callbackCount);
+      expect(callbackCount).assertEqual(1);
+      await new Promise<void>((resolve: () => void) => { setTimeout(resolve, 1); });
+      LogicTestLog.number(name, "Exclusive lock callback completes once", 2, callbackCount);
+      expect(callbackCount).assertEqual(2);
+      LogicTestLog.flag(name, "Exclusive lock callback succeeds", callbackFailed);
+      expect(callbackFailed).assertFalse();
+      descriptor.unlock();
+      files.closeSync(descriptor.fd);
+      LogicTestLog.number(name, "Caller can close returned fd", 710, files.closes[0]);
+      expect(files.closes[0]).assertEqual(710);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1034
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1034
+     * @tc.nameDesc createFile returns a usable native shaped descriptor: Check explicit context path, generated file
+     * type, descriptor parent and injected lock operations.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1034", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1034";
+      LogicTestLog.begin(name, "createFile FileType.AUDIO; alternate context /synthetic/media/space folder");
+      clock.date = "20260109";
+      clock.time = "090807";
+      const alternate: common.UIAbilityContext = mediaContext("/synthetic/media/space folder");
+      const descriptor: fileIo.File | null = await media.createFile(FileType.AUDIO, alternate);
+      LogicTestLog.flag(name, "Descriptor is not null", descriptor !== null);
+      expect(descriptor !== null).assertTrue();
+      if (descriptor === null) {
+        throw new Error('Expected a fake descriptor');
+      }
+      LogicTestLog.number(name, "Returned descriptor fd", 710, descriptor.fd);
+      expect(descriptor.fd).assertEqual(710);
+      LogicTestLog.value(name, "Returned descriptor path",
+        "/synthetic/media/space folder/AUD_20260109_090807.mp3", descriptor.path);
+      expect(descriptor.path).assertEqual("/synthetic/media/space folder/AUD_20260109_090807.mp3");
+      LogicTestLog.value(name, "Returned descriptor name", "AUD_20260109_090807.mp3", descriptor.name);
+      expect(descriptor.name).assertEqual("AUD_20260109_090807.mp3");
+      const parent: string = descriptor.getParent();
+      await descriptor.lock(true);
+      descriptor.unlock();
+      LogicTestLog.value(name, "Descriptor parent", "/synthetic/media/space folder", parent);
+      expect(parent).assertEqual("/synthetic/media/space folder");
+      LogicTestLog.number(name, "Open request count", 1, files.opens.length);
+      expect(files.opens.length).assertEqual(1);
+      LogicTestLog.value(name, "Explicit context is used",
+        "/synthetic/media/space folder/AUD_20260109_090807.mp3", files.opens[0].path);
+      expect(files.opens[0].path).assertEqual("/synthetic/media/space folder/AUD_20260109_090807.mp3");
+      LogicTestLog.number(name, "File creation flags", fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE,
+        files.opens[0].mode);
+      expect(files.opens[0].mode).assertEqual(fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
+      LogicTestLog.flag(name, "Descriptor identity is preserved", descriptor === files.descriptors[0]);
+      expect(descriptor === files.descriptors[0]).assertTrue();
+      LogicTestLog.number(name, "No automatic close", 0, files.closes.length);
+      expect(files.closes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 1, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(1);
+      LogicTestLog.number(name, "Time clock calls", 1, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(1);
+      LogicTestLog.number(name, "No library creation", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No library fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "No library deletion", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.value(name, "Descriptor lock operation order",
+        "clock.date|clock.time|files.open|descriptor.parent|descripto" +
+        "r.lock:true|descriptor.unlock", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("clock.date|clock.time|files.open|descriptor.parent|descripto" +
+        "r.lock:true|descriptor.unlock");
+      let callbackCount: number = 0;
+      let callbackFailed: boolean = false;
+      descriptor.lock((error: BusinessError): void => {
+        callbackCount++;
+        callbackFailed = error !== undefined;
+      });
+      LogicTestLog.number(name, "Shared lock callback is asynchronous", 0, callbackCount);
+      expect(callbackCount).assertEqual(0);
+      await new Promise<void>((resolve: () => void) => { setTimeout(resolve, 1); });
+      LogicTestLog.number(name, "Shared lock callback completes once", 1, callbackCount);
+      expect(callbackCount).assertEqual(1);
+      LogicTestLog.flag(name, "Shared lock callback succeeds", callbackFailed);
+      expect(callbackFailed).assertFalse();
+      descriptor.lock(true, (error: BusinessError): void => {
+        callbackCount++;
+        callbackFailed = error !== undefined;
+      });
+      LogicTestLog.number(name, "Exclusive lock callback is asynchronous", 1, callbackCount);
+      expect(callbackCount).assertEqual(1);
+      await new Promise<void>((resolve: () => void) => { setTimeout(resolve, 1); });
+      LogicTestLog.number(name, "Exclusive lock callback completes once", 2, callbackCount);
+      expect(callbackCount).assertEqual(2);
+      LogicTestLog.flag(name, "Exclusive lock callback succeeds", callbackFailed);
+      expect(callbackFailed).assertFalse();
+      descriptor.unlock();
+      files.closeSync(descriptor.fd);
+      LogicTestLog.number(name, "Caller can close returned fd", 710, files.closes[0]);
+      expect(files.closes[0]).assertEqual(710);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1035
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1035
+     * @tc.nameDesc createFile returns a usable native shaped descriptor: Check explicit context path, generated file
+     * type, descriptor parent and injected lock operations.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1035", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1035";
+      LogicTestLog.begin(name, "createFile FileType.FILE; alternate context /synthetic/media/nested/gamma");
+      clock.date = "20261010";
+      clock.time = "101010";
+      const alternate: common.UIAbilityContext = mediaContext("/synthetic/media/nested/gamma");
+      const descriptor: fileIo.File | null = await media.createFile(FileType.FILE, alternate);
+      LogicTestLog.flag(name, "Descriptor is not null", descriptor !== null);
+      expect(descriptor !== null).assertTrue();
+      if (descriptor === null) {
+        throw new Error('Expected a fake descriptor');
+      }
+      LogicTestLog.number(name, "Returned descriptor fd", 710, descriptor.fd);
+      expect(descriptor.fd).assertEqual(710);
+      LogicTestLog.value(name, "Returned descriptor path",
+        "/synthetic/media/nested/gamma/FILE_20261010_101010.txt", descriptor.path);
+      expect(descriptor.path).assertEqual("/synthetic/media/nested/gamma/FILE_20261010_101010.txt");
+      LogicTestLog.value(name, "Returned descriptor name", "FILE_20261010_101010.txt", descriptor.name);
+      expect(descriptor.name).assertEqual("FILE_20261010_101010.txt");
+      const parent: string = descriptor.getParent();
+      await descriptor.lock(true);
+      descriptor.unlock();
+      LogicTestLog.value(name, "Descriptor parent", "/synthetic/media/nested/gamma", parent);
+      expect(parent).assertEqual("/synthetic/media/nested/gamma");
+      LogicTestLog.number(name, "Open request count", 1, files.opens.length);
+      expect(files.opens.length).assertEqual(1);
+      LogicTestLog.value(name, "Explicit context is used",
+        "/synthetic/media/nested/gamma/FILE_20261010_101010.txt", files.opens[0].path);
+      expect(files.opens[0].path).assertEqual("/synthetic/media/nested/gamma/FILE_20261010_101010.txt");
+      LogicTestLog.number(name, "File creation flags", fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE,
+        files.opens[0].mode);
+      expect(files.opens[0].mode).assertEqual(fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
+      LogicTestLog.flag(name, "Descriptor identity is preserved", descriptor === files.descriptors[0]);
+      expect(descriptor === files.descriptors[0]).assertTrue();
+      LogicTestLog.number(name, "No automatic close", 0, files.closes.length);
+      expect(files.closes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 1, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(1);
+      LogicTestLog.number(name, "Time clock calls", 1, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(1);
+      LogicTestLog.number(name, "No library creation", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No library fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "No library deletion", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.value(name, "Descriptor lock operation order",
+        "clock.date|clock.time|files.open|descriptor.parent|descripto" +
+        "r.lock:true|descriptor.unlock", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("clock.date|clock.time|files.open|descriptor.parent|descripto" +
+        "r.lock:true|descriptor.unlock");
+      let callbackCount: number = 0;
+      let callbackFailed: boolean = false;
+      descriptor.lock((error: BusinessError): void => {
+        callbackCount++;
+        callbackFailed = error !== undefined;
+      });
+      LogicTestLog.number(name, "Shared lock callback is asynchronous", 0, callbackCount);
+      expect(callbackCount).assertEqual(0);
+      await new Promise<void>((resolve: () => void) => { setTimeout(resolve, 1); });
+      LogicTestLog.number(name, "Shared lock callback completes once", 1, callbackCount);
+      expect(callbackCount).assertEqual(1);
+      LogicTestLog.flag(name, "Shared lock callback succeeds", callbackFailed);
+      expect(callbackFailed).assertFalse();
+      descriptor.lock(true, (error: BusinessError): void => {
+        callbackCount++;
+        callbackFailed = error !== undefined;
+      });
+      LogicTestLog.number(name, "Exclusive lock callback is asynchronous", 1, callbackCount);
+      expect(callbackCount).assertEqual(1);
+      await new Promise<void>((resolve: () => void) => { setTimeout(resolve, 1); });
+      LogicTestLog.number(name, "Exclusive lock callback completes once", 2, callbackCount);
+      expect(callbackCount).assertEqual(2);
+      LogicTestLog.flag(name, "Exclusive lock callback succeeds", callbackFailed);
+      expect(callbackFailed).assertFalse();
+      descriptor.unlock();
+      files.closeSync(descriptor.fd);
+      LogicTestLog.number(name, "Caller can close returned fd", 710, files.closes[0]);
+      expect(files.closes[0]).assertEqual(710);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1036
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1036
+     * @tc.nameDesc Unsupported create types fail before clock or native work: Check both create APIs reject unsupported
+     * numeric values without accidentally creating video text assets.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1036", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1036";
+      LogicTestLog.begin(name, "invalid media type 0");
+      let message: string = '';
+      try {
+        await media.createAndGetUri(0);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createAndGetUri rejection", "Unsupported create media type: 0", message);
+      expect(message).assertEqual("Unsupported create media type: 0");
+      LogicTestLog.number(name, "No file open", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No file rename", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No file unlink", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No directory listing", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No file stat", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.number(name, "No library creation", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No library fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "No library deletion", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Rejected type produces no operation trace", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      message = '';
+      try {
+        await media.createFile(0, context);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createFile rejection", "Unsupported create media type: 0", message);
+      expect(message).assertEqual("Unsupported create media type: 0");
+      LogicTestLog.number(name, "Still no descriptors", 0, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no open request", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no native create", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      const fallback: MediaTypeInfo = media.getInfoFromType(0);
+      LogicTestLog.value(name, "Mapping default remains compatible", "FILE_", fallback.prefix);
+      expect(fallback.prefix).assertEqual("FILE_");
+      LogicTestLog.value(name, "Mapping default extension remains compatible", ".txt", fallback.suffix);
+      expect(fallback.suffix).assertEqual(".txt");
+      LogicTestLog.value(name, "Mapping fallback is side effect free", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1037
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1037
+     * @tc.nameDesc Unsupported create types fail before clock or native work: Check both create APIs reject unsupported
+     * numeric values without accidentally creating video text assets.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1037", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1037";
+      LogicTestLog.begin(name, "invalid media type -1");
+      let message: string = '';
+      try {
+        await media.createAndGetUri(-1);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createAndGetUri rejection", "Unsupported create media type: -1", message);
+      expect(message).assertEqual("Unsupported create media type: -1");
+      LogicTestLog.number(name, "No file open", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No file rename", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No file unlink", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No directory listing", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No file stat", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.number(name, "No library creation", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No library fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "No library deletion", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Rejected type produces no operation trace", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      message = '';
+      try {
+        await media.createFile(-1, context);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createFile rejection", "Unsupported create media type: -1", message);
+      expect(message).assertEqual("Unsupported create media type: -1");
+      LogicTestLog.number(name, "Still no descriptors", 0, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no open request", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no native create", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      const fallback: MediaTypeInfo = media.getInfoFromType(-1);
+      LogicTestLog.value(name, "Mapping default remains compatible", "FILE_", fallback.prefix);
+      expect(fallback.prefix).assertEqual("FILE_");
+      LogicTestLog.value(name, "Mapping default extension remains compatible", ".txt", fallback.suffix);
+      expect(fallback.suffix).assertEqual(".txt");
+      LogicTestLog.value(name, "Mapping fallback is side effect free", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1038
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1038
+     * @tc.nameDesc Unsupported create types fail before clock or native work: Check both create APIs reject unsupported
+     * numeric values without accidentally creating video text assets.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1038", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1038";
+      LogicTestLog.begin(name, "invalid media type 5");
+      let message: string = '';
+      try {
+        await media.createAndGetUri(5);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createAndGetUri rejection", "Unsupported create media type: 5", message);
+      expect(message).assertEqual("Unsupported create media type: 5");
+      LogicTestLog.number(name, "No file open", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No file rename", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No file unlink", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No directory listing", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No file stat", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.number(name, "No library creation", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No library fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "No library deletion", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Rejected type produces no operation trace", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      message = '';
+      try {
+        await media.createFile(5, context);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createFile rejection", "Unsupported create media type: 5", message);
+      expect(message).assertEqual("Unsupported create media type: 5");
+      LogicTestLog.number(name, "Still no descriptors", 0, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no open request", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no native create", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      const fallback: MediaTypeInfo = media.getInfoFromType(5);
+      LogicTestLog.value(name, "Mapping default remains compatible", "FILE_", fallback.prefix);
+      expect(fallback.prefix).assertEqual("FILE_");
+      LogicTestLog.value(name, "Mapping default extension remains compatible", ".txt", fallback.suffix);
+      expect(fallback.suffix).assertEqual(".txt");
+      LogicTestLog.value(name, "Mapping fallback is side effect free", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1039
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1039
+     * @tc.nameDesc Unsupported create types fail before clock or native work: Check both create APIs reject unsupported
+     * numeric values without accidentally creating video text assets.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1039", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1039";
+      LogicTestLog.begin(name, "invalid media type 99");
+      let message: string = '';
+      try {
+        await media.createAndGetUri(99);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createAndGetUri rejection", "Unsupported create media type: 99", message);
+      expect(message).assertEqual("Unsupported create media type: 99");
+      LogicTestLog.number(name, "No file open", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No file rename", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No file unlink", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No directory listing", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No file stat", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.number(name, "No library creation", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No library fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "No library deletion", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Rejected type produces no operation trace", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      message = '';
+      try {
+        await media.createFile(99, context);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createFile rejection", "Unsupported create media type: 99", message);
+      expect(message).assertEqual("Unsupported create media type: 99");
+      LogicTestLog.number(name, "Still no descriptors", 0, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no open request", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no native create", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      const fallback: MediaTypeInfo = media.getInfoFromType(99);
+      LogicTestLog.value(name, "Mapping default remains compatible", "FILE_", fallback.prefix);
+      expect(fallback.prefix).assertEqual("FILE_");
+      LogicTestLog.value(name, "Mapping default extension remains compatible", ".txt", fallback.suffix);
+      expect(fallback.suffix).assertEqual(".txt");
+      LogicTestLog.value(name, "Mapping fallback is side effect free", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1040
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1040
+     * @tc.nameDesc Unsupported create types fail before clock or native work: Check both create APIs reject unsupported
+     * numeric values without accidentally creating video text assets.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1040", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1040";
+      LogicTestLog.begin(name, "invalid media type 1.5");
+      let message: string = '';
+      try {
+        await media.createAndGetUri(1.5);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createAndGetUri rejection", "Unsupported create media type: 1.5", message);
+      expect(message).assertEqual("Unsupported create media type: 1.5");
+      LogicTestLog.number(name, "No file open", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No file rename", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No file unlink", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No directory listing", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No file stat", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.number(name, "No library creation", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No library fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "No library deletion", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Rejected type produces no operation trace", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      message = '';
+      try {
+        await media.createFile(1.5, context);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createFile rejection", "Unsupported create media type: 1.5", message);
+      expect(message).assertEqual("Unsupported create media type: 1.5");
+      LogicTestLog.number(name, "Still no descriptors", 0, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no open request", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no native create", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      const fallback: MediaTypeInfo = media.getInfoFromType(1.5);
+      LogicTestLog.value(name, "Mapping default remains compatible", "FILE_", fallback.prefix);
+      expect(fallback.prefix).assertEqual("FILE_");
+      LogicTestLog.value(name, "Mapping default extension remains compatible", ".txt", fallback.suffix);
+      expect(fallback.suffix).assertEqual(".txt");
+      LogicTestLog.value(name, "Mapping fallback is side effect free", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1041
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1041
+     * @tc.nameDesc Unsupported create types fail before clock or native work: Check both create APIs reject unsupported
+     * numeric values without accidentally creating video text assets.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1041", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1041";
+      LogicTestLog.begin(name, "invalid media type 3.25");
+      let message: string = '';
+      try {
+        await media.createAndGetUri(3.25);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createAndGetUri rejection", "Unsupported create media type: 3.25", message);
+      expect(message).assertEqual("Unsupported create media type: 3.25");
+      LogicTestLog.number(name, "No file open", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No file rename", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No file unlink", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No directory listing", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No file stat", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.number(name, "No library creation", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No library fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "No library deletion", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Rejected type produces no operation trace", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      message = '';
+      try {
+        await media.createFile(3.25, context);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createFile rejection", "Unsupported create media type: 3.25", message);
+      expect(message).assertEqual("Unsupported create media type: 3.25");
+      LogicTestLog.number(name, "Still no descriptors", 0, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no open request", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no native create", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      const fallback: MediaTypeInfo = media.getInfoFromType(3.25);
+      LogicTestLog.value(name, "Mapping default remains compatible", "FILE_", fallback.prefix);
+      expect(fallback.prefix).assertEqual("FILE_");
+      LogicTestLog.value(name, "Mapping default extension remains compatible", ".txt", fallback.suffix);
+      expect(fallback.suffix).assertEqual(".txt");
+      LogicTestLog.value(name, "Mapping fallback is side effect free", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1042
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1042
+     * @tc.nameDesc Unsupported create types fail before clock or native work: Check both create APIs reject unsupported
+     * numeric values without accidentally creating video text assets.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1042", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1042";
+      LogicTestLog.begin(name, "invalid media type NaN");
+      let message: string = '';
+      try {
+        await media.createAndGetUri(Number.NaN);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createAndGetUri rejection", "Unsupported create media type: NaN", message);
+      expect(message).assertEqual("Unsupported create media type: NaN");
+      LogicTestLog.number(name, "No file open", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No file rename", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No file unlink", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No directory listing", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No file stat", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.number(name, "No library creation", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No library fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "No library deletion", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Rejected type produces no operation trace", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      message = '';
+      try {
+        await media.createFile(Number.NaN, context);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createFile rejection", "Unsupported create media type: NaN", message);
+      expect(message).assertEqual("Unsupported create media type: NaN");
+      LogicTestLog.number(name, "Still no descriptors", 0, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no open request", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no native create", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      const fallback: MediaTypeInfo = media.getInfoFromType(Number.NaN);
+      LogicTestLog.value(name, "Mapping default remains compatible", "FILE_", fallback.prefix);
+      expect(fallback.prefix).assertEqual("FILE_");
+      LogicTestLog.value(name, "Mapping default extension remains compatible", ".txt", fallback.suffix);
+      expect(fallback.suffix).assertEqual(".txt");
+      LogicTestLog.value(name, "Mapping fallback is side effect free", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1043
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1043
+     * @tc.nameDesc Unsupported create types fail before clock or native work: Check both create APIs reject unsupported
+     * numeric values without accidentally creating video text assets.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1043", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1043";
+      LogicTestLog.begin(name, "invalid media type Infinity");
+      let message: string = '';
+      try {
+        await media.createAndGetUri(Number.POSITIVE_INFINITY);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createAndGetUri rejection", "Unsupported create media type: Infinity", message);
+      expect(message).assertEqual("Unsupported create media type: Infinity");
+      LogicTestLog.number(name, "No file open", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No file rename", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No file unlink", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No directory listing", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No file stat", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.number(name, "No library creation", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No library fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "No library deletion", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Rejected type produces no operation trace", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      message = '';
+      try {
+        await media.createFile(Number.POSITIVE_INFINITY, context);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createFile rejection", "Unsupported create media type: Infinity", message);
+      expect(message).assertEqual("Unsupported create media type: Infinity");
+      LogicTestLog.number(name, "Still no descriptors", 0, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no open request", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no native create", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      const fallback: MediaTypeInfo = media.getInfoFromType(Number.POSITIVE_INFINITY);
+      LogicTestLog.value(name, "Mapping default remains compatible", "FILE_", fallback.prefix);
+      expect(fallback.prefix).assertEqual("FILE_");
+      LogicTestLog.value(name, "Mapping default extension remains compatible", ".txt", fallback.suffix);
+      expect(fallback.suffix).assertEqual(".txt");
+      LogicTestLog.value(name, "Mapping fallback is side effect free", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1044
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1044
+     * @tc.nameDesc Unsupported create types fail before clock or native work: Check both create APIs reject unsupported
+     * numeric values without accidentally creating video text assets.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1044", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1044";
+      LogicTestLog.begin(name, "invalid media type -Infinity");
+      let message: string = '';
+      try {
+        await media.createAndGetUri(Number.NEGATIVE_INFINITY);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createAndGetUri rejection", "Unsupported create media type: -Infinity", message);
+      expect(message).assertEqual("Unsupported create media type: -Infinity");
+      LogicTestLog.number(name, "No file open", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No file rename", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No file unlink", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No directory listing", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No file stat", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.number(name, "No library creation", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No library fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "No library deletion", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Rejected type produces no operation trace", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      message = '';
+      try {
+        await media.createFile(Number.NEGATIVE_INFINITY, context);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createFile rejection", "Unsupported create media type: -Infinity", message);
+      expect(message).assertEqual("Unsupported create media type: -Infinity");
+      LogicTestLog.number(name, "Still no descriptors", 0, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no open request", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no native create", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      const fallback: MediaTypeInfo = media.getInfoFromType(Number.NEGATIVE_INFINITY);
+      LogicTestLog.value(name, "Mapping default remains compatible", "FILE_", fallback.prefix);
+      expect(fallback.prefix).assertEqual("FILE_");
+      LogicTestLog.value(name, "Mapping default extension remains compatible", ".txt", fallback.suffix);
+      expect(fallback.suffix).assertEqual(".txt");
+      LogicTestLog.value(name, "Mapping fallback is side effect free", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1045
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1045
+     * @tc.nameDesc Unsupported create types fail before clock or native work: Check both create APIs reject unsupported
+     * numeric values without accidentally creating video text assets.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1045", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1045";
+      LogicTestLog.begin(name, "invalid media type 9007199254740991");
+      let message: string = '';
+      try {
+        await media.createAndGetUri(Number.MAX_SAFE_INTEGER);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createAndGetUri rejection", "Unsupported create media type: 9007199254740991", message);
+      expect(message).assertEqual("Unsupported create media type: 9007199254740991");
+      LogicTestLog.number(name, "No file open", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No file rename", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No file unlink", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No directory listing", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No file stat", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.number(name, "No library creation", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No library fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "No library deletion", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Rejected type produces no operation trace", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      message = '';
+      try {
+        await media.createFile(Number.MAX_SAFE_INTEGER, context);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createFile rejection", "Unsupported create media type: 9007199254740991", message);
+      expect(message).assertEqual("Unsupported create media type: 9007199254740991");
+      LogicTestLog.number(name, "Still no descriptors", 0, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no open request", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no native create", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      const fallback: MediaTypeInfo = media.getInfoFromType(Number.MAX_SAFE_INTEGER);
+      LogicTestLog.value(name, "Mapping default remains compatible", "FILE_", fallback.prefix);
+      expect(fallback.prefix).assertEqual("FILE_");
+      LogicTestLog.value(name, "Mapping default extension remains compatible", ".txt", fallback.suffix);
+      expect(fallback.suffix).assertEqual(".txt");
+      LogicTestLog.value(name, "Mapping fallback is side effect free", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1046
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1046
+     * @tc.nameDesc Unsupported create types fail before clock or native work: Check both create APIs reject unsupported
+     * numeric values without accidentally creating video text assets.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1046", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1046";
+      LogicTestLog.begin(name, "invalid media type -2147483648");
+      let message: string = '';
+      try {
+        await media.createAndGetUri(-2147483648);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createAndGetUri rejection", "Unsupported create media type: -2147483648", message);
+      expect(message).assertEqual("Unsupported create media type: -2147483648");
+      LogicTestLog.number(name, "No file open", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No file rename", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No file unlink", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No directory listing", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No file stat", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.number(name, "No library creation", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No library fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "No library deletion", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Rejected type produces no operation trace", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      message = '';
+      try {
+        await media.createFile(-2147483648, context);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createFile rejection", "Unsupported create media type: -2147483648", message);
+      expect(message).assertEqual("Unsupported create media type: -2147483648");
+      LogicTestLog.number(name, "Still no descriptors", 0, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no open request", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no native create", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      const fallback: MediaTypeInfo = media.getInfoFromType(-2147483648);
+      LogicTestLog.value(name, "Mapping default remains compatible", "FILE_", fallback.prefix);
+      expect(fallback.prefix).assertEqual("FILE_");
+      LogicTestLog.value(name, "Mapping default extension remains compatible", ".txt", fallback.suffix);
+      expect(fallback.suffix).assertEqual(".txt");
+      LogicTestLog.value(name, "Mapping fallback is side effect free", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1047
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1047
+     * @tc.nameDesc Unsupported create types fail before clock or native work: Check both create APIs reject unsupported
+     * numeric values without accidentally creating video text assets.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1047", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1047";
+      LogicTestLog.begin(name, "invalid media type 0.0001");
+      let message: string = '';
+      try {
+        await media.createAndGetUri(0.0001);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createAndGetUri rejection", "Unsupported create media type: 0.0001", message);
+      expect(message).assertEqual("Unsupported create media type: 0.0001");
+      LogicTestLog.number(name, "No file open", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No file rename", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No file unlink", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No directory listing", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No file stat", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.number(name, "No library creation", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No library fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "No library deletion", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Rejected type produces no operation trace", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      message = '';
+      try {
+        await media.createFile(0.0001, context);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "createFile rejection", "Unsupported create media type: 0.0001", message);
+      expect(message).assertEqual("Unsupported create media type: 0.0001");
+      LogicTestLog.number(name, "Still no descriptors", 0, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no open request", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Still no native create", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      const fallback: MediaTypeInfo = media.getInfoFromType(0.0001);
+      LogicTestLog.value(name, "Mapping default remains compatible", "FILE_", fallback.prefix);
+      expect(fallback.prefix).assertEqual("FILE_");
+      LogicTestLog.value(name, "Mapping default extension remains compatible", ".txt", fallback.suffix);
+      expect(fallback.suffix).assertEqual(".txt");
+      LogicTestLog.value(name, "Mapping fallback is side effect free", "", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("");
+      LogicTestLog.end(name);
+    });
+  });
+}
