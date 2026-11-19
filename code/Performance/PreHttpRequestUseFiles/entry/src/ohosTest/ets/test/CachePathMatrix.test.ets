@@ -8795,3 +8795,1803 @@ export default function cachePathMatrixTest() {
         if (fs.accessSync(full)) {
           fs.unlinkSync(full);
         }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0215
+     * @tc.name      testCachePath0215
+     * @tc.desc      Count sprite_0215.jpg cache name length and sandbox write of 20 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0215', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0215.jpg';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0215-ppppppppz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0215', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(20);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(20);
+        expect(checksum).assertEqual(1808);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(15);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(11);
+        expect(name.substring(11)).assertEqual('.jpg');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(19)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0216
+     * @tc.name      testCachePath0216
+     * @tc.desc      Count sprite_0216.webp cache name length and sandbox write of 13 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0216', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0216.webp';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0216-zz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0216', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(13);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(13);
+        expect(checksum).assertEqual(1035);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(16);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(11);
+        expect(name.substring(11)).assertEqual('.webp');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(12)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0217
+     * @tc.name      testCachePath0217
+     * @tc.desc      Count sprite_0217.bin cache name length and sandbox write of 14 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0217', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0217.bin';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0217-pzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0217', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(14);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(14);
+        expect(checksum).assertEqual(1148);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(15);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.indexOf('.')).assertEqual(11);
+        expect(content.charAt(0)).assertEqual('c');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(13)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0218
+     * @tc.name      testCachePath0218
+     * @tc.desc      Count sprite_0218.cache cache name length and sandbox write of 15 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0218', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0218.cache';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0218-ppzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0218', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(15);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(15);
+        expect(checksum).assertEqual(1261);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(17);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(full.length).assertEqual(ctx.filesDir.length + 1 + name.length);
+        expect(name.includes('cache')).assertTrue();
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(14)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0219
+     * @tc.name      testCachePath0219
+     * @tc.desc      Count sprite_0219.dat cache name length and sandbox write of 17 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0219', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0219.dat';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0219-pppzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0219', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(17);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(17);
+        expect(checksum).assertEqual(1496);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(15);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.indexOf('.')).assertEqual(11);
+        expect(content.charAt(0)).assertEqual('c');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(16)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0220
+     * @tc.name      testCachePath0220
+     * @tc.desc      Count sprite_0220.png cache name length and sandbox write of 18 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0220', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0220.png';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0220-ppppzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0220', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(18);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(18);
+        expect(checksum).assertEqual(1600);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(15);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(11);
+        expect(name.substring(11)).assertEqual('.png');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(17)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0221
+     * @tc.name      testCachePath0221
+     * @tc.desc      Count sprite_0221.jpg cache name length and sandbox write of 19 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0221', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0221.jpg';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0221-pppppzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0221', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(19);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(19);
+        expect(checksum).assertEqual(1713);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(15);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(11);
+        expect(name.substring(11)).assertEqual('.jpg');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(18)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0222
+     * @tc.name      testCachePath0222
+     * @tc.desc      Count sprite_0222.webp cache name length and sandbox write of 21 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0222', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0222.webp';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0222-ppppppzzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0222', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(21);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(21);
+        expect(checksum).assertEqual(1948);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(16);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(11);
+        expect(name.substring(11)).assertEqual('.webp');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(20)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0223
+     * @tc.name      testCachePath0223
+     * @tc.desc      Count sprite_0223.bin cache name length and sandbox write of 22 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0223', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0223.bin';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0223-pppppppzzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0223', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(22);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(22);
+        expect(checksum).assertEqual(2061);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(15);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.indexOf('.')).assertEqual(11);
+        expect(content.charAt(0)).assertEqual('c');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(21)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0224
+     * @tc.name      testCachePath0224
+     * @tc.desc      Count sprite_0224.cache cache name length and sandbox write of 23 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0224', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0224.cache';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0224-ppppppppzzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0224', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(23);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(23);
+        expect(checksum).assertEqual(2174);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(17);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(full.length).assertEqual(ctx.filesDir.length + 1 + name.length);
+        expect(name.includes('cache')).assertTrue();
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(22)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0225
+     * @tc.name      testCachePath0225
+     * @tc.desc      Count sprite_0225.dat cache name length and sandbox write of 11 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0225', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0225.dat';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0225-';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0225', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(11);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(11);
+        expect(checksum).assertEqual(791);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(15);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.indexOf('.')).assertEqual(11);
+        expect(content.charAt(0)).assertEqual('c');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(10)).assertEqual('-');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0226
+     * @tc.name      testCachePath0226
+     * @tc.desc      Count sprite_0226.png cache name length and sandbox write of 12 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0226', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0226.png';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0226-p';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0226', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(12);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(12);
+        expect(checksum).assertEqual(904);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(15);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(11);
+        expect(name.substring(11)).assertEqual('.png');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(11)).assertEqual(112);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0227
+     * @tc.name      testCachePath0227
+     * @tc.desc      Count sprite_0227.jpg cache name length and sandbox write of 13 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0227', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0227.jpg';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0227-pp';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0227', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(13);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(13);
+        expect(checksum).assertEqual(1017);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(15);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(11);
+        expect(name.substring(11)).assertEqual('.jpg');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(12)).assertEqual('p');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0228
+     * @tc.name      testCachePath0228
+     * @tc.desc      Count sprite_0228.webp cache name length and sandbox write of 15 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0228', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0228.webp';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0228-pppz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0228', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(15);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(15);
+        expect(checksum).assertEqual(1252);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(16);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(11);
+        expect(name.substring(11)).assertEqual('.webp');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(14)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0229
+     * @tc.name      testCachePath0229
+     * @tc.desc      Count sprite_0229.bin cache name length and sandbox write of 16 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0229', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0229.bin';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0229-ppppz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0229', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(16);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(16);
+        expect(checksum).assertEqual(1365);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(15);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.indexOf('.')).assertEqual(11);
+        expect(content.charAt(0)).assertEqual('c');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(15)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0230
+     * @tc.name      testCachePath0230
+     * @tc.desc      Count sprite_0230.cache cache name length and sandbox write of 17 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0230', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0230.cache';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0230-pppppz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0230', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(17);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(17);
+        expect(checksum).assertEqual(1469);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(17);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(full.length).assertEqual(ctx.filesDir.length + 1 + name.length);
+        expect(name.includes('cache')).assertTrue();
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(16)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0231
+     * @tc.name      testCachePath0231
+     * @tc.desc      Count sprite_0231.dat cache name length and sandbox write of 19 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0231', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'sprite_0231.dat';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0231-ppppppzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0231', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(19);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(19);
+        expect(checksum).assertEqual(1704);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(15);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.indexOf('.')).assertEqual(11);
+        expect(content.charAt(0)).assertEqual('c');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(18)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0232
+     * @tc.name      testCachePath0232
+     * @tc.desc      Count glyph_0232.png cache name length and sandbox write of 20 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0232', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0232.png';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0232-pppppppzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0232', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(20);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(20);
+        expect(checksum).assertEqual(1817);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(10);
+        expect(name.substring(10)).assertEqual('.png');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(19)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0233
+     * @tc.name      testCachePath0233
+     * @tc.desc      Count glyph_0233.jpg cache name length and sandbox write of 21 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0233', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0233.jpg';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0233-ppppppppzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0233', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(21);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(21);
+        expect(checksum).assertEqual(1930);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(10);
+        expect(name.substring(10)).assertEqual('.jpg');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(20)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0234
+     * @tc.name      testCachePath0234
+     * @tc.desc      Count glyph_0234.bin cache name length and sandbox write of 14 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0234', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0234.bin';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0234-zzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0234', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(14);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(14);
+        expect(checksum).assertEqual(1157);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.indexOf('.')).assertEqual(10);
+        expect(content.charAt(0)).assertEqual('c');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(13)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0235
+     * @tc.name      testCachePath0235
+     * @tc.desc      Count glyph_0235.cache cache name length and sandbox write of 15 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0235', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0235.cache';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0235-pzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0235', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(15);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(15);
+        expect(checksum).assertEqual(1270);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(16);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(full.length).assertEqual(ctx.filesDir.length + 1 + name.length);
+        expect(name.includes('cache')).assertTrue();
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(14)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0236
+     * @tc.name      testCachePath0236
+     * @tc.desc      Count glyph_0236.dat cache name length and sandbox write of 16 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0236', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0236.dat';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0236-ppzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0236', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(16);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(16);
+        expect(checksum).assertEqual(1383);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.indexOf('.')).assertEqual(10);
+        expect(content.charAt(0)).assertEqual('c');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(15)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0237
+     * @tc.name      testCachePath0237
+     * @tc.desc      Count glyph_0237.png cache name length and sandbox write of 18 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0237', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0237.png';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0237-pppzzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0237', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(18);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(18);
+        expect(checksum).assertEqual(1618);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(10);
+        expect(name.substring(10)).assertEqual('.png');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(17)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0238
+     * @tc.name      testCachePath0238
+     * @tc.desc      Count glyph_0238.jpg cache name length and sandbox write of 19 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0238', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0238.jpg';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0238-ppppzzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0238', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(19);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(19);
+        expect(checksum).assertEqual(1731);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(10);
+        expect(name.substring(10)).assertEqual('.jpg');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(18)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0239
+     * @tc.name      testCachePath0239
+     * @tc.desc      Count glyph_0239.webp cache name length and sandbox write of 20 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0239', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0239.webp';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0239-pppppzzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0239', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(20);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(20);
+        expect(checksum).assertEqual(1844);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(15);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(10);
+        expect(name.substring(10)).assertEqual('.webp');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(19)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0240
+     * @tc.name      testCachePath0240
+     * @tc.desc      Count glyph_0240.bin cache name length and sandbox write of 17 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0240', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0240.bin';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0240-pppppp';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0240', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(17);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(17);
+        expect(checksum).assertEqual(1460);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.indexOf('.')).assertEqual(10);
+        expect(content.charAt(0)).assertEqual('c');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(16)).assertEqual('p');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0241
+     * @tc.name      testCachePath0241
+     * @tc.desc      Count glyph_0241.cache cache name length and sandbox write of 18 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0241', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0241.cache';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0241-ppppppp';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0241', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(18);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(18);
+        expect(checksum).assertEqual(1573);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(16);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(full.length).assertEqual(ctx.filesDir.length + 1 + name.length);
+        expect(name.includes('cache')).assertTrue();
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(17)).assertEqual(112);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0242
+     * @tc.name      testCachePath0242
+     * @tc.desc      Count glyph_0242.dat cache name length and sandbox write of 19 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0242', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0242.dat';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0242-pppppppp';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0242', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(19);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(19);
+        expect(checksum).assertEqual(1686);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.indexOf('.')).assertEqual(10);
+        expect(content.charAt(0)).assertEqual('c');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(18)).assertEqual('p');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0243
+     * @tc.name      testCachePath0243
+     * @tc.desc      Count glyph_0243.png cache name length and sandbox write of 12 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0243', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0243.png';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0243-z';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0243', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(12);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(12);
+        expect(checksum).assertEqual(913);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(10);
+        expect(name.substring(10)).assertEqual('.png');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(11)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0244
+     * @tc.name      testCachePath0244
+     * @tc.desc      Count glyph_0244.jpg cache name length and sandbox write of 13 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0244', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0244.jpg';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0244-pz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0244', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(13);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(13);
+        expect(checksum).assertEqual(1026);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(10);
+        expect(name.substring(10)).assertEqual('.jpg');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(12)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0245
+     * @tc.name      testCachePath0245
+     * @tc.desc      Count glyph_0245.webp cache name length and sandbox write of 14 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0245', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0245.webp';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0245-ppz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0245', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(14);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(14);
+        expect(checksum).assertEqual(1139);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(15);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(10);
+        expect(name.substring(10)).assertEqual('.webp');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(13)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0246
+     * @tc.name      testCachePath0246
+     * @tc.desc      Count glyph_0246.bin cache name length and sandbox write of 16 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0246', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0246.bin';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0246-pppzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0246', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(16);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(16);
+        expect(checksum).assertEqual(1374);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.indexOf('.')).assertEqual(10);
+        expect(content.charAt(0)).assertEqual('c');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(15)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0247
+     * @tc.name      testCachePath0247
+     * @tc.desc      Count glyph_0247.cache cache name length and sandbox write of 17 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0247', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0247.cache';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0247-ppppzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0247', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(17);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(17);
+        expect(checksum).assertEqual(1487);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(16);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(full.length).assertEqual(ctx.filesDir.length + 1 + name.length);
+        expect(name.includes('cache')).assertTrue();
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(16)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0248
+     * @tc.name      testCachePath0248
+     * @tc.desc      Count glyph_0248.dat cache name length and sandbox write of 18 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0248', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0248.dat';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0248-pppppzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0248', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(18);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(18);
+        expect(checksum).assertEqual(1600);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.indexOf('.')).assertEqual(10);
+        expect(content.charAt(0)).assertEqual('c');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(17)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0249
+     * @tc.name      testCachePath0249
+     * @tc.desc      Count glyph_0249.png cache name length and sandbox write of 20 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0249', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0249.png';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0249-ppppppzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0249', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(20);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(20);
+        expect(checksum).assertEqual(1835);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(10);
+        expect(name.substring(10)).assertEqual('.png');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(19)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0250
+     * @tc.name      testCachePath0250
+     * @tc.desc      Count glyph_0250.jpg cache name length and sandbox write of 21 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0250', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0250.jpg';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0250-pppppppzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0250', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(21);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(21);
+        expect(checksum).assertEqual(1939);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(10);
+        expect(name.substring(10)).assertEqual('.jpg');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(20)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0251
+     * @tc.name      testCachePath0251
+     * @tc.desc      Count glyph_0251.webp cache name length and sandbox write of 22 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0251', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0251.webp';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0251-ppppppppzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0251', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(22);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(22);
+        expect(checksum).assertEqual(2052);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(15);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(10);
+        expect(name.substring(10)).assertEqual('.webp');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(21)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0252
+     * @tc.name      testCachePath0252
+     * @tc.desc      Count glyph_0252.bin cache name length and sandbox write of 15 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0252', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0252.bin';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0252-zzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0252', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(15);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(15);
+        expect(checksum).assertEqual(1279);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.indexOf('.')).assertEqual(10);
+        expect(content.charAt(0)).assertEqual('c');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(14)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0253
+     * @tc.name      testCachePath0253
+     * @tc.desc      Count glyph_0253.cache cache name length and sandbox write of 16 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0253', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0253.cache';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0253-pzzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0253', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(16);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(16);
+        expect(checksum).assertEqual(1392);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(16);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(full.length).assertEqual(ctx.filesDir.length + 1 + name.length);
+        expect(name.includes('cache')).assertTrue();
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(15)).assertEqual(122);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0254
+     * @tc.name      testCachePath0254
+     * @tc.desc      Count glyph_0254.dat cache name length and sandbox write of 17 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0254', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0254.dat';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0254-ppzzzz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0254', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(17);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(17);
+        expect(checksum).assertEqual(1505);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.indexOf('.')).assertEqual(10);
+        expect(content.charAt(0)).assertEqual('c');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(16)).assertEqual('z');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0255
+     * @tc.name      testCachePath0255
+     * @tc.desc      Count glyph_0255.png cache name length and sandbox write of 14 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0255', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0255.png';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0255-ppp';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0255', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(14);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(14);
+        expect(checksum).assertEqual(1130);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(10);
+        expect(name.substring(10)).assertEqual('.png');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(13)).assertEqual(112);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0256
+     * @tc.name      testCachePath0256
+     * @tc.desc      Count glyph_0256.jpg cache name length and sandbox write of 15 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0256', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0256.jpg';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0256-pppp';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0256', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(15);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(15);
+        expect(checksum).assertEqual(1243);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(10);
+        expect(name.substring(10)).assertEqual('.jpg');
+        expect(content.length % 2).assertEqual(1);
+        expect(content.charAt(14)).assertEqual('p');
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0257
+     * @tc.name      testCachePath0257
+     * @tc.desc      Count glyph_0257.webp cache name length and sandbox write of 16 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0257', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0257.webp';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0257-ppppp';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0257', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(16);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(16);
+        expect(checksum).assertEqual(1356);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(15);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.lastIndexOf('.')).assertEqual(10);
+        expect(name.substring(10)).assertEqual('.webp');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(15)).assertEqual(112);
+      } finally {
+        if (fs.accessSync(full)) {
+          fs.unlinkSync(full);
+        }
+      }
+      expect(fs.accessSync(full)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEPATH_0258
+     * @tc.name      testCachePath0258
+     * @tc.desc      Count glyph_0258.bin cache name length and sandbox write of 18 bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCachePath0258', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const name: string = 'glyph_0258.bin';
+      const full: string = ctx.filesDir + '/' + name;
+      const content: string = 'cache-0258-ppppppz';
+      let checksum: number = 0;
+      for (let k: number = 0; k < content.length; k++) {
+        checksum += content.charCodeAt(k);
+      }
+      logCase('testCachePath0258', `name=${name} checksum=${checksum}`);
+      try {
+        const file: fs.File = fs.openSync(full, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        const written: number = fs.writeSync(file.fd, content);
+        fs.closeSync(file);
+        expect(written).assertEqual(18);
+        expect(fs.readTextSync(full)).assertEqual(content);
+        expect(fs.statSync(full).size).assertEqual(18);
+        expect(checksum).assertEqual(1591);
+        expect(full.endsWith(name)).assertTrue();
+        expect(full.startsWith(ctx.filesDir + '/')).assertTrue();
+        expect(name.length).assertEqual(14);
+        expect(fs.accessSync(full)).assertTrue();
+        expect(name.indexOf('.')).assertEqual(10);
+        expect(content.charAt(0)).assertEqual('c');
+        expect(content.length % 2).assertEqual(0);
+        expect(fs.readTextSync(full).charCodeAt(17)).assertEqual(122);
