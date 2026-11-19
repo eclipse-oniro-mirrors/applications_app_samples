@@ -13,26 +13,38 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog'
+import { hilog } from '@kit.PerformanceAnalysisKit'
 
 export class Logger {
   static PREFIX: string = '[Sample_Weather]'
   static DOMAIN: number = 0xFF00
+  /** 双占位符格式串，作为对外契约保留，供既有调用方与用例断言引用 */
   static FORMAT: string = '%{public}s, %{public}s'
+  /** 单占位符格式串，承载按调用顺序拼接后的日志正文 */
+  static SINGLE_FORMAT: string = '%{public}s'
 
-  static debug(...args: any[]) {
-    hilog.debug(Logger.DOMAIN, Logger.PREFIX, Logger.FORMAT, args)
+  static debug(...args: Object[]): void {
+    hilog.debug(Logger.DOMAIN, Logger.PREFIX, Logger.SINGLE_FORMAT, Logger.join(args))
   }
 
-  static info(...args: any[]) {
-    hilog.info(Logger.DOMAIN, Logger.PREFIX, Logger.FORMAT, args)
+  static info(...args: Object[]): void {
+    hilog.info(Logger.DOMAIN, Logger.PREFIX, Logger.SINGLE_FORMAT, Logger.join(args))
   }
 
-  static warn(...args: any[]) {
-    hilog.warn(Logger.DOMAIN, Logger.PREFIX, Logger.FORMAT, args)
+  static warn(...args: Object[]): void {
+    hilog.warn(Logger.DOMAIN, Logger.PREFIX, Logger.SINGLE_FORMAT, Logger.join(args))
   }
 
-  static error(...args: any[]) {
-    hilog.error(Logger.DOMAIN, Logger.PREFIX, Logger.FORMAT, args)
+  static error(...args: Object[]): void {
+    hilog.error(Logger.DOMAIN, Logger.PREFIX, Logger.SINGLE_FORMAT, Logger.join(args))
+  }
+
+  // 把可变参数按顺序拼成单条正文，保证格式串占位符数量与实参数量始终一致
+  private static join(args: Object[]): string {
+    const parts: string[] = []
+    for (let i = 0; i < args.length; i++) {
+      parts.push(String(args[i]))
+    }
+    return parts.join(', ')
   }
 }

@@ -14,12 +14,13 @@
  */
 
 {
-  "license": "ISC",
+  "modelVersion": "26.0.0",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@ohos/hypium": "1.0.6"
   },
-  "name": "adaptivepage",
-  "description": "example description",
+  "name": "weather",
+  "description": "Multi-device adaptive layout sample of the weather application.",
   "repository": {},
   "version": "1.0.0",
   "dependencies": {}

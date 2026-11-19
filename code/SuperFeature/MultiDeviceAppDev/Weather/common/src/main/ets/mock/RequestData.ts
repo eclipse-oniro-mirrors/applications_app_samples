@@ -19,70 +19,75 @@ import MenuData from '../model/MenuData'
 import { AirData, AirIndex, City, CityListData, Forecast, HeaderData, WeekWeather, SuitData } from '../model/Main'
 import { cityData } from '../mock/CityInfo'
 import { weather } from '../mock/Mock'
-
+import {
+  MenuLabel,
+  MenuUrl,
+  MockConstants,
+  RouteConstants,
+  StorageKeys,
+  UpdateInterval,
+  WeatherSymbol,
+  WeatherType
+} from '../util/Constants'
 
 const form = new FormDate() // 时间格式修正
 
 // 获取天气类型对应的icon
-function getTypeIcon(data: string) {
+function getTypeIcon(data: string): Resource {
   switch (data) {
-    case '晴':
+    case WeatherType.SUNNY:
       return $r('app.media.ic_weather_sunny')
-      break;
-    case '多云':
+    case WeatherType.CLOUDY:
       return $r('app.media.ic_weather_cloudy')
-      break;
-    case '阴':
+    case WeatherType.OVERCAST:
       return $r('app.media.ic_weather_yin')
-      break;
-    case '小雨':
+    case WeatherType.LIGHT_RAIN:
       return $r('app.media.ic_weather_lightrain')
-      break;
-    case '雷阵雨':
+    case WeatherType.THUNDER_SHOWER:
       return $r('app.media.ic_weather_lightrain')
-      break;
-    case '日落':
+    case WeatherType.SUNSET:
       return $r('app.media.ic_weather_sunset')
-      break;
-    case '中雨':
+    case WeatherType.MODERATE_RAIN:
       return $r('app.media.ic_weather_rain')
-      break;
-    case '大雨':
+    case WeatherType.HEAVY_RAIN:
       return $r('app.media.ic_weather_rain')
-      break;
     default:
       return $r('app.media.ic_weather_cloudy')
-      break;
   }
 }
 
 function getUpdateTimes() {
-  let times: string[] = [
-    '1小时',
-    '2小时',
-    '4小时',
-    '6小时',
-    '12小时',
-    '24小时',
-    '不更新'
+  const times: string[] = [
+    UpdateInterval.ONE_HOUR,
+    UpdateInterval.TWO_HOURS,
+    UpdateInterval.FOUR_HOURS,
+    UpdateInterval.SIX_HOURS,
+    UpdateInterval.TWELVE_HOURS,
+    UpdateInterval.ONE_DAY,
+    UpdateInterval.NEVER
   ]
   return times
 }
 
 function getMenuInfo() {
-  let data: MenuData[] =
+  const data: MenuData[] =
     [
-      new MenuData('管理城市', 'pages/CityList'),
-      new MenuData('更新间隔', '')
+      new MenuData(MenuLabel.MANAGE_CITY, RouteConstants.CITY_LIST),
+      new MenuData(MenuLabel.UPDATE_INTERVAL, MenuUrl.NONE)
     ]
-  return data;
+  return data
 }
 
 // 获取首页顶部显示信息
 function getHeaderDate(cityIndex: number, city?: City) {
   // 生成空气质量对象
-  let air: AirData = { airQuality: weather[cityIndex].aqi.air, airDesc: weather[cityIndex].aqi.air_level }
-  return new HeaderData(city ? city.name : weather[cityIndex].city, weather[cityIndex].data[1].tem, weather[cityIndex].data[1].wea, weather[cityIndex].data[1].tem1, weather[cityIndex].data[1].tem2, getTypeIcon(weather[cityIndex].data[1].wea), air, weather[cityIndex].data[1].air_tips)
+  const air: AirData = {
+    airQuality: weather[cityIndex].aqi.air,
+    airDesc: weather[cityIndex].aqi.air_level
+  }
+  const today = weather[cityIndex].data[MockConstants.TODAY_INDEX]
+  return new HeaderData(city ? city.name : weather[cityIndex].city, today.tem, today.wea, today.tem1, today.tem2,
+    getTypeIcon(today.wea), air, today.air_tips)
 }
 
 function getCityList() {
@@ -96,45 +101,46 @@ function getCityList() {
 }
 
 function addCity(city: City) {
-  let cities: City[] = AppStorage.Get('cityList')
-  let cityIndex = cities.length % 5
-  city.weather = weather[cityIndex].data[1].wea
-  city.temp = weather[cityIndex].data[1].tem
+  let cities: City[] = AppStorage.get(StorageKeys.CITY_LIST)
+  const cityIndex: number = cities.length % MockConstants.WEATHER_CYCLE
+  city.weather = weather[cityIndex].data[MockConstants.TODAY_INDEX].wea
+  city.temp = weather[cityIndex].data[MockConstants.TODAY_INDEX].tem
   cities.push(city)
-  AppStorage.SetOrCreate('cityList', cities)
+  AppStorage.setOrCreate(StorageKeys.CITY_LIST, cities)
 }
 
 function getCityListWeatherData() {
-  let cityListWeatherData = new Array<CityListData>()
+  const cityListWeatherData: CityListData[] = []
   // 生成空气质量对象
-
-  let cities: City[] = AppStorage.Get('cityList')
+  let cities: City[] = AppStorage.get(StorageKeys.CITY_LIST)
   if (cities === undefined || cities.length === 0) {
-    cities = getCityList().splice(0, 2)
-    AppStorage.SetOrCreate('cityList', cities)
+    cities = getCityList().splice(0, MockConstants.DEFAULT_CITY_COUNT)
+    AppStorage.setOrCreate(StorageKeys.CITY_LIST, cities)
   }
-  let titles = []
+  const titles: string[] = []
   if (cities) {
     cities.forEach((item, cityIndex) => {
-      let index = cityIndex % 5
-      let air: AirData = { airQuality: weather[index].aqi.air, airDesc: weather[index].aqi.air_level }
-      cityListWeatherData.push(new CityListData(item.name, getHeaderDate(index, item), getHoursData(index), getWeekWeatherData(index), air, getAirIndexData(index), getLifeData(index)))
+      const index: number = cityIndex % MockConstants.WEATHER_CYCLE
+      const air: AirData = { airQuality: weather[index].aqi.air, airDesc: weather[index].aqi.air_level }
+      cityListWeatherData.push(new CityListData(item.name, getHeaderDate(index, item), getHoursData(index),
+        getWeekWeatherData(index), air, getAirIndexData(index), getLifeData(index)))
       titles.push('')
     })
   }
-  AppStorage.SetOrCreate('titleText', titles)
+  AppStorage.setOrCreate(StorageKeys.TITLE_TEXT, titles)
   return cityListWeatherData
 }
 
-
 // 获取逐小时天气情况
 function getHoursData(cityIndex: number) {
-  let hoursData = new Array<Forecast>()
-  weather[cityIndex].data[1].hours.forEach(item => {
-    let time = item.hours.substring(0, item.hours.length - 1)
-    hoursData.push(new Forecast(`${item.tem}°`, `${time}:00`, form.formTimeSlot(parseInt(time)), getTypeIcon(item.wea), item.win, item.win_speed))
-    if (item.hours.indexOf('17') !== -1) {
-      hoursData.push(new Forecast('日落', '17:32', form.formTimeSlot(parseInt(time)), getTypeIcon('日落'), item.win, item.win_speed))
+  const hoursData: Forecast[] = []
+  weather[cityIndex].data[MockConstants.TODAY_INDEX].hours.forEach(item => {
+    const time: string = item.hours.substring(0, item.hours.length - MockConstants.HOUR_UNIT_LENGTH)
+    hoursData.push(new Forecast(`${item.tem}${WeatherSymbol.DEGREE}`, `${time}:00`, form.formTimeSlot(parseInt(time)),
+      getTypeIcon(item.wea), item.win, item.win_speed))
+    if (item.hours.indexOf(String(MockConstants.SUNSET_HOUR)) !== -1) {
+      hoursData.push(new Forecast(WeatherType.SUNSET, MockConstants.SUNSET_TIME, form.formTimeSlot(parseInt(time)),
+        getTypeIcon(WeatherType.SUNSET), item.win, item.win_speed))
     }
   })
   return hoursData
@@ -142,17 +148,29 @@ function getHoursData(cityIndex: number) {
 
 // 获取一周天气情况 根据获取到的数据格式化成需要的样式
 function getWeekWeatherData(cityIndex: number) {
-  let weekData = new Array<WeekWeather>()
+  const weekData: WeekWeather[] = []
   weather[cityIndex].data.forEach(item => {
-    weekData.push(new WeekWeather(form.formMonthDay(item.date), item.week, getTypeIcon(item.wea), item.wea, item.air_level, item.tem1, item.tem2))
+    weekData.push(new WeekWeather(form.formMonthDay(item.date), item.week, getTypeIcon(item.wea), item.wea,
+      item.air_level, item.tem1, item.tem2))
   })
   return weekData
 }
 
+// 空气质量原始数据结构，mock 数据中各指标以字符串形式给出
+interface AqiData {
+  pm25: string
+  pm10: string
+  o3: string
+  no2: string
+  so2: string
+  co: string
+}
+
 // 获取首页空气质量部分 右侧数据
 function getAirIndexData(cityIndex: number) {
-  let aqi: any = weather[cityIndex].aqi
-  let indexDate: AirIndex[] = [
+  const aqi: AqiData = weather[cityIndex].aqi
+  // mock 数据中指标为字符串，AirIndex.figure 同时接受 string 与 number，此处保持原值
+  const indexDate: AirIndex[] = [
     new AirIndex('PM10', aqi.pm10),
     new AirIndex('PM2.5', aqi.pm25),
     new AirIndex('NO2', aqi.no2),
@@ -165,8 +183,8 @@ function getAirIndexData(cityIndex: number) {
 
 // 获取生活指数 下方数据
 function getLifeData(cityIndex: number) {
-  let suitDate: SuitData[] = new Array<SuitData>()
-  let iconList = [
+  const suitDate: SuitData[] = []
+  const iconList: Resource[] = [
     $r('app.media.icon_humidity'),
     $r('app.media.icon_cloth'),
     $r('app.media.icon_temperature'),
@@ -176,29 +194,28 @@ function getLifeData(cityIndex: number) {
     $r('app.media.icon_southerly'),
     $r('app.media.icon_uv')
   ]
-  weather[cityIndex].data[1].index.forEach((item, index) => {
+  weather[cityIndex].data[MockConstants.TODAY_INDEX].index.forEach((item, index) => {
     suitDate.push(new SuitData(iconList[index], item.title, item.level))
   })
   return suitDate
 }
 
 // 根据天气类型 获取背景图片
-function getSideBg(weatherType: string) {
-  if (weatherType === '晴') {
+function getSideBg(weatherType: string): Resource {
+  if (weatherType === WeatherType.SUNNY) {
     return $r('app.media.weather_fine')
-  } else if (weatherType.includes('雨')) {
+  } else if (weatherType.includes(WeatherType.RAIN)) {
     return $r('app.media.weather_rain')
   } else {
     return $r('app.media.weather_yin')
   }
 }
 
-
 // 根据天气类型 获取背景图片
-function getBg(weatherType: string) {
-  if (weatherType === '晴') {
+function getBg(weatherType: string): Resource {
+  if (weatherType === WeatherType.SUNNY) {
     return $r('app.media.sunny_bg')
-  } else if (weatherType.includes('雨')) {
+  } else if (weatherType.includes(WeatherType.RAIN)) {
     return $r('app.media.rain_bg')
   } else {
     return $r('app.media.yin_bg')

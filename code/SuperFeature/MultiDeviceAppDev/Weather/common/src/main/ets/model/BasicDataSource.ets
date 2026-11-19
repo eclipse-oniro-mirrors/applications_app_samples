@@ -13,6 +13,10 @@
  * limitations under the License.
  */
 
+import { Logger } from '../util/Logger'
+
+const TAG: string = 'BasicDataSource'
+
 class BasicDataSource implements IDataSource {
   private listeners: DataChangeListener[] = []
 
@@ -20,22 +24,22 @@ class BasicDataSource implements IDataSource {
     return 0
   }
 
-  public getData(index: number): any {
-    return undefined
+  public getData(index: number): Object {
+    return new Object()
   }
 
   registerDataChangeListener(listener: DataChangeListener): void {
     if (this.listeners.indexOf(listener) < 0) {
-      console.info('add listener')
       this.listeners.push(listener)
+      Logger.info(TAG, `register data change listener, count=${this.listeners.length}`)
     }
   }
 
   unregisterDataChangeListener(listener: DataChangeListener): void {
-    const pos = this.listeners.indexOf(listener);
+    const pos: number = this.listeners.indexOf(listener)
     if (pos >= 0) {
-      console.info('remove listener')
       this.listeners.splice(pos, 1)
+      Logger.info(TAG, `unregister data change listener, count=${this.listeners.length}`)
     }
   }
 
@@ -70,10 +74,10 @@ class BasicDataSource implements IDataSource {
   }
 }
 
-export class MyDataSource extends BasicDataSource {
-  private dataArray: any[] = []
+export class MyDataSource<T extends Object> extends BasicDataSource {
+  private dataArray: T[] = []
 
-  constructor(data: any[]) {
+  constructor(data: T[]) {
     super()
     this.dataArray = data
   }
@@ -82,16 +86,20 @@ export class MyDataSource extends BasicDataSource {
     return this.dataArray.length
   }
 
-  public getData(index: number): any {
+  public getData(index: number): T {
     return this.dataArray[index]
   }
 
-  public addData(index: number, data: any): void {
+  public setData(data: T[]): void {
+    this.dataArray = data
+  }
+
+  public addData(index: number, data: T): void {
     this.dataArray.splice(index, 0, data)
     this.notifyDataAdd(index)
   }
 
-  public pushData(data: any): void {
+  public pushData(data: T): void {
     this.dataArray.push(data)
     this.notifyDataAdd(this.dataArray.length - 1)
   }

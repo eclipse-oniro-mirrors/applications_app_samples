@@ -13,54 +13,44 @@
  * limitations under the License.
  */
 
+import { TimeSlotBoundary, TimeSlotLabel, WeekLabel } from '../util/Constants'
+
 // 时间格式 调整
 export default class FormDate {
   // 月+日
-  formMonthDay(goal?: string) {
-    let date = goal ? new Date(goal) : new Date()
+  formMonthDay(goal?: string): string {
+    const date: Date = goal ? new Date(goal) : new Date()
     return `${this.fill(date.getMonth() + 1)}/${date.getDate()}`
   }
 
-  // 换算当前星期几
-  formDay() {
-    let day = new Date().getDay()
-    if (day === 1) {
-      return '星期一'
-    } else if (day === 2) {
-      return '星期二'
-    } else if (day === 3) {
-      return '星期三'
-    } else if (day === 4) {
-      return '星期四'
-    } else if (day === 5) {
-      return '星期五'
-    } else if (day === 6) {
-      return '星期六'
-    } else if (day === 7) {
-      return '星期日'
-    }
+  // 换算当前星期几，Date.getDay() 返回 0-6，0 为星期日
+  formDay(): string {
+    return WeekLabel.ALL[new Date().getDay()]
   }
 
-  // 格式化 当前分钟
-  fill(num?: number) {
-    return num > 9 ? '' : '0' + num
+  // 格式化 当前分钟：个位数补前导零，两位数及以上保持原值
+  // 入参声明为可选是历史调用约定，缺省调用会拼出 '0undefined'，该行为已被
+  // FdateReal02::testFdate0029 作为冻结基线固定，修改前需同步重算断言
+  fill(num?: number): string {
+    return num > 9 ? `${num}` : `0${num}`
   }
 
   // 当前时间节点称谓
-  formTimeSlot(hour?: number) {
-    let now = hour ? hour : new Date().getHours()
-    if (now >= 0 && now <= 8) {
-      return '早上'
-    } else if (now >= 9 && now < 11) {
-      return '上午'
-    } else if (now >= 11 && now <= 13) {
-      return '中午'
-    } else if (now >= 14 && now <= 16) {
-      return '下午'
-    } else if (now >= 17 && now <= 19) {
-      return '傍晚'
-    } else if (now >= 19 && now <= 23) {
-      return '晚上'
+  formTimeSlot(hour?: number): string | undefined {
+    const now: number = hour ?? new Date().getHours()
+    if (now >= TimeSlotBoundary.DAY_START && now <= TimeSlotBoundary.EARLY_MORNING_END) {
+      return TimeSlotLabel.EARLY_MORNING
+    } else if (now >= TimeSlotBoundary.FORENOON_START && now < TimeSlotBoundary.FORENOON_END) {
+      return TimeSlotLabel.FORENOON
+    } else if (now >= TimeSlotBoundary.NOON_START && now <= TimeSlotBoundary.NOON_END) {
+      return TimeSlotLabel.NOON
+    } else if (now >= TimeSlotBoundary.AFTERNOON_START && now <= TimeSlotBoundary.AFTERNOON_END) {
+      return TimeSlotLabel.AFTERNOON
+    } else if (now >= TimeSlotBoundary.EVENING_START && now <= TimeSlotBoundary.EVENING_END) {
+      return TimeSlotLabel.EVENING
+    } else if (now >= TimeSlotBoundary.NIGHT_START && now <= TimeSlotBoundary.DAY_END) {
+      return TimeSlotLabel.NIGHT
     }
+    return undefined
   }
 }
