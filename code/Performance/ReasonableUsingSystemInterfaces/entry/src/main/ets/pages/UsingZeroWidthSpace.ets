@@ -14,19 +14,31 @@
  */
 
 import { BusinessError } from '@kit.BasicServicesKit';
-import { util } from '@kit.ArkTS';
+import { decodeDisplayText, insertZeroWidthSpaces } from '../utils/DisplayText';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0x0000;
+const TAG: string = 'UsingZeroWidthSpace';
+const RAW_FILE_NAME: string = 'sanguo.txt';
 
 @Entry
 @Component
 struct UsingZeroWidthSpace {
   @State message: string = 'Using Zero Width Space';
+  @State zeroWidthText: string = '';
 
   aboutToAppear(): void {
-    getContext().resourceManager.getRawFileContent('sanguo.txt', (error: BusinessError, value: Uint8Array) => {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'page appeared');
+    getContext().resourceManager.getRawFileContent(RAW_FILE_NAME, (error: BusinessError, value: Uint8Array): void => {
       if (error != null) {
-        console.error('error is ' + error);
-      } else {
-        this.message = util.TextDecoder.create().decodeWithStream(value);
+        hilog.error(DOMAIN, TAG, 'Failed to read raw file. Cause: %{public}s', JSON.stringify(error));
+        return;
+      }
+      try {
+        this.message = decodeDisplayText(value);
+        this.zeroWidthText = insertZeroWidthSpaces(this.message);
+      } catch (decodeError) {
+        hilog.error(DOMAIN, TAG, 'Failed to decode raw file: %{private}s', JSON.stringify(decodeError));
       }
     })
   }
@@ -34,7 +46,7 @@ struct UsingZeroWidthSpace {
   build() {
     Column() {
       Scroll() {
-        Text(this.message.split('').join('\u200B'))
+        Text(this.zeroWidthText)
           .fontSize(12)
       }
     }

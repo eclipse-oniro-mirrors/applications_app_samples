@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2025-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,94 +14,75 @@
  */
 
 import { abilityDelegatorRegistry, TestRunner } from '@kit.TestKit';
-import { UIAbility, Want } from '@kit.AbilityKit';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { common, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { resourceManager } from '@kit.LocalizationKit';
 import { util } from '@kit.ArkTS';
 
-let abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
-let abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs;
-let jsonPath: string = 'mock/mock-config.json';
-let tag: string = 'testTag';
+const DOMAIN: number = 0xF812;
+const TAG: string = 'InterfaceTestRunner';
+const MOCK_JSON_PATH: string = 'mock/mock-config.json';
 
-async function onAbilityCreateCallback(data: UIAbility) {
-  hilog.info(0x0000, 'testTag', 'onAbilityCreateCallback, data: ${}', JSON.stringify(data));
+interface MockSource {
+  source: string;
 }
 
-async function addAbilityMonitorCallback(err: BusinessError) {
-  hilog.info(0x0000, 'testTag', 'addAbilityMonitorCallback : %{public}s', JSON.stringify(err) ?? '');
+function onAbilityCreateCallback(): void {
+  hilog.info(DOMAIN, TAG, 'Test ability created');
 }
 
 export default class OpenHarmonyTestRunner implements TestRunner {
-  constructor() {
+  onPrepare(): void {
+    hilog.info(DOMAIN, TAG, 'Test runner prepared');
   }
 
-  onPrepare() {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner OnPrepare');
-  }
-
-  async onRun() {
-    let tag = 'testTag';
-    hilog.info(0x0000, tag, '%{public}s', 'OpenHarmonyTestRunner onRun run');
-    abilityDelegatorArguments = abilityDelegatorRegistry.getArguments()
-    abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator()
-    let moduleName = abilityDelegatorArguments.parameters['-m'];
-    let context = abilityDelegator.getAppContext().getApplicationContext().createModuleContext(moduleName);
-    let mResourceManager = context.resourceManager;
-    await checkMock(abilityDelegator, mResourceManager);
-    const bundleName = abilityDelegatorArguments.bundleName;
-    const testAbilityName: string = 'TestAbility';
-    let lMonitor: abilityDelegatorRegistry.AbilityMonitor = {
-      abilityName: testAbilityName,
+  async onRun(): Promise<void> {
+    hilog.info(DOMAIN, TAG, 'Test runner started');
+    const argumentsValue: abilityDelegatorRegistry.AbilityDelegatorArgs = abilityDelegatorRegistry.getArguments();
+    const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+    const moduleName: string = argumentsValue.parameters['-m'];
+    const context: common.Context = delegator.getAppContext().getApplicationContext().createModuleContext(moduleName);
+    checkMock(delegator, context.resourceManager);
+    const monitor: abilityDelegatorRegistry.AbilityMonitor = {
+      abilityName: 'TestAbility',
       onAbilityCreate: onAbilityCreateCallback,
       moduleName: moduleName
     };
-    abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback)
+    await delegator.addAbilityMonitor(monitor);
     const want: Want = {
-      bundleName: bundleName,
-      abilityName: testAbilityName,
+      bundleName: argumentsValue.bundleName,
+      abilityName: 'TestAbility',
       moduleName: moduleName
     };
-    abilityDelegator.startAbility(want, (err: BusinessError, data: void) => {
-      hilog.info(0x0000, tag, 'startAbility : err : %{public}s', JSON.stringify(err) ?? '');
-      hilog.info(0x0000, tag, 'startAbility : data : %{public}s', JSON.stringify(data) ?? '');
-    })
-    hilog.info(0x0000, tag, '%{public}s', 'OpenHarmonyTestRunner onRun end');
+    await delegator.startAbility(want);
+    hilog.info(DOMAIN, TAG, 'Test ability started');
   }
 }
 
-async function checkMock(abilityDelegator: abilityDelegatorRegistry.AbilityDelegator,
-  resourceManager: resourceManager.ResourceManager) {
+function checkMock(delegator: abilityDelegatorRegistry.AbilityDelegator,
+  manager: resourceManager.ResourceManager): void {
   let rawFile: Uint8Array;
   try {
-    rawFile = resourceManager.getRawFileContentSync(jsonPath);
-    hilog.info(0x0000, tag, 'MockList file exists');
-    let mockStr: string = util.TextDecoder.create('utf-8', { ignoreBOM: true }).decodeWithStream(rawFile);
-    let mockMap: Record<string, string> = getMockList(mockStr);
-    try {
-      abilityDelegator.setMockList(mockMap)
-    } catch (error) {
-      let code = (error as BusinessError).code;
-      let message = (error as BusinessError).message;
-      hilog.error(0x0000, tag, `abilityDelegator.setMockList failed, error code: ${code}, message: ${message}.`);
-    }
+    rawFile = manager.getRawFileContentSync(MOCK_JSON_PATH);
   } catch (error) {
-    let code = (error as BusinessError).code;
-    let message = (error as BusinessError).message;
-    hilog.error(0x0000, tag,
-      `ResourceManager:callback getRawFileContent failed, error code: ${code}, message: ${message}.`);
+    hilog.info(DOMAIN, TAG, 'Optional mock configuration unavailable');
+    return;
   }
+  const mockText: string = util.TextDecoder.create('utf-8').decodeToString(rawFile);
+  const mockMap: Record<string, string> = getMockList(mockText);
+  delegator.setMockList(mockMap);
+  hilog.info(DOMAIN, TAG, 'Mock configuration applied');
 }
 
-function getMockList(jsonStr: string) {
-  let jsonObj: Record<string, Object> = JSON.parse(jsonStr);
-  let map: Map<string, object> = new Map<string, object>(Object.entries(jsonObj));
-  let mockList: Record<string, string> = {};
-  map.forEach((value: object, key: string) => {
-    let realValue: string = value['source'].toString();
-    mockList[key] = realValue;
+function getMockList(jsonText: string): Record<string, string> {
+  const jsonObject: Record<string, MockSource> = JSON.parse(jsonText);
+  const mockList: Record<string, string> = {};
+  Object.keys(jsonObject).forEach((key: string): void => {
+    const source: string = jsonObject[key].source;
+    if (typeof source !== 'string') {
+      throw new Error('Mock source must be a string');
+    }
+    mockList[key] = source;
   });
-  hilog.info(0x0000, tag, '%{public}s', 'mock-json value:' + JSON.stringify(mockList) ?? '');
   return mockList;
 }

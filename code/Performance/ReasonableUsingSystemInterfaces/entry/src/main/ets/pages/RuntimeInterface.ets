@@ -14,70 +14,114 @@
  */
 
 // 导入自定义打点模块
-import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
+import { hiTraceMeter, hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0x0000;
+const TAG: string = 'RuntimeInterface';
+const LOOP_COUNT: number = 100;
 
 /**
  * “国际化使用Localization Kit接口替换ArkTS运行时接口” - 反例：使用ArkTS运行时接口Intl
+ * 循环创建国际化对象，记录每次创建的耗时和总执行耗时
  */
+function runIntlBenchmark(): void {
+  hiTraceMeter.startTrace('RelativeTimeFormat-100', 1);
+  try {
+    for (let i: number = 0; i < LOOP_COUNT; i++) {
+      hiTraceMeter.startTrace('RelativeTimeFormat-single', 2);
+      try {
+        new Intl.RelativeTimeFormat('zh-CN', { numeric: 'auto' });
+      } finally {
+        hiTraceMeter.finishTrace('RelativeTimeFormat-single', 2);
+      }
+    }
+  } finally {
+    hiTraceMeter.finishTrace('RelativeTimeFormat-100', 1);
+  }
 
-// 循环创建100次RelativeTimeFormat对象，记录每次创建的耗时和总执行耗时
-hiTraceMeter.startTrace('RelativeTimeFormat-100', 1);
-for (let i = 0; i < 100; i++) {
-  hiTraceMeter.startTrace('RelativeTimeFormat-single', 2);
-  let relativeTimeFormat = new Intl.RelativeTimeFormat('zh-CN', { numeric: 'auto' });
-  hiTraceMeter.finishTrace('RelativeTimeFormat-single', 2);
-}
-hiTraceMeter.finishTrace('RelativeTimeFormat-100', 1);
+  hiTraceMeter.startTrace('Locale-100', 3);
+  try {
+    for (let i: number = 0; i < LOOP_COUNT; i++) {
+      hiTraceMeter.startTrace('Locale-single', 4);
+      try {
+        new Intl.Locale('zh-CN');
+      } finally {
+        hiTraceMeter.finishTrace('Locale-single', 4);
+      }
+    }
+  } finally {
+    hiTraceMeter.finishTrace('Locale-100', 3);
+  }
 
-// 循环创建100次Locale对象，记录每次创建的耗时和总执行耗时
-hiTraceMeter.startTrace('Locale-100', 3);
-for (let i = 0; i < 100; i++) {
-  hiTraceMeter.startTrace('Locale-single', 4);
-  let locale = new Intl.Locale('zh-CN');
-  hiTraceMeter.finishTrace('Locale-single', 4);
-}
-hiTraceMeter.finishTrace('Locale-100', 3);
+  hiTraceMeter.startTrace('DateTimeFormat-100', 5);
+  try {
+    for (let i: number = 0; i < LOOP_COUNT; i++) {
+      hiTraceMeter.startTrace('DateTimeFormat-single', 6);
+      try {
+        new Intl.DateTimeFormat('zh-CN', { dateStyle: 'full', timeStyle: 'medium' });
+      } finally {
+        hiTraceMeter.finishTrace('DateTimeFormat-single', 6);
+      }
+    }
+  } finally {
+    hiTraceMeter.finishTrace('DateTimeFormat-100', 5);
+  }
 
-// 循环创建100次DateTimeFormat对象，记录每次创建的耗时和总执行耗时
-hiTraceMeter.startTrace('DateTimeFormat-100', 5);
-for (let i = 0; i < 100; i++) {
-  hiTraceMeter.startTrace('DateTimeFormat-single', 6);
-  let dateTimeFormat = new Intl.DateTimeFormat('zh-CN', { dateStyle: 'full', timeStyle: 'medium' });
-  hiTraceMeter.finishTrace('DateTimeFormat-single', 6);
-}
-hiTraceMeter.finishTrace('DateTimeFormat-100', 5);
+  hiTraceMeter.startTrace('NumberFormat-100', 7);
+  try {
+    for (let i: number = 0; i < LOOP_COUNT; i++) {
+      hiTraceMeter.startTrace('NumberFormat-single', 8);
+      try {
+        new Intl.NumberFormat('en-GB', { style: 'decimal', notation: 'scientific' });
+      } finally {
+        hiTraceMeter.finishTrace('NumberFormat-single', 8);
+      }
+    }
+  } finally {
+    hiTraceMeter.finishTrace('NumberFormat-100', 7);
+  }
 
-// 循环创建100次NumberFormat对象，记录每次创建的耗时和总执行耗时
-hiTraceMeter.startTrace('NumberFormat-100', 7);
-for (let i = 0; i < 100; i++) {
-  hiTraceMeter.startTrace('NumberFormat-single', 8);
-  let numberFormat = new Intl.NumberFormat('en-GB', { style: 'decimal', notation: 'scientific' });
-  hiTraceMeter.finishTrace('NumberFormat-single', 8);
-}
-hiTraceMeter.finishTrace('NumberFormat-100', 7);
+  hiTraceMeter.startTrace('Collator-100', 9);
+  try {
+    for (let i: number = 0; i < LOOP_COUNT; i++) {
+      hiTraceMeter.startTrace('Collator-single', 10);
+      try {
+        new Intl.Collator('zh-CN', { localeMatcher: 'lookup', usage: 'sort' });
+      } finally {
+        hiTraceMeter.finishTrace('Collator-single', 10);
+      }
+    }
+  } finally {
+    hiTraceMeter.finishTrace('Collator-100', 9);
+  }
 
-// 循环创建100次Collator对象，记录每次创建的耗时和总执行耗时
-hiTraceMeter.startTrace('Collator-100', 9);
-for (let i = 0; i < 100; i++) {
-  hiTraceMeter.startTrace('Collator-single', 10);
-  let collator = new Intl.Collator('zh-CN', { localeMatcher: 'lookup', usage: 'sort' });
-  hiTraceMeter.finishTrace('Collator-single', 10);
+  hiTraceMeter.startTrace('PluralRules-100', 11);
+  try {
+    for (let i: number = 0; i < LOOP_COUNT; i++) {
+      hiTraceMeter.startTrace('PluralRules-single', 12);
+      try {
+        new Intl.PluralRules('zh-CN', { localeMatcher: 'lookup', type: 'cardinal' });
+      } finally {
+        hiTraceMeter.finishTrace('PluralRules-single', 12);
+      }
+    }
+  } finally {
+    hiTraceMeter.finishTrace('PluralRules-100', 11);
+  }
 }
-hiTraceMeter.finishTrace('Collator-100', 9);
-
-// 循环创建100次PluralRules对象，记录每次创建的耗时和总执行耗时
-hiTraceMeter.startTrace('PluralRules-100', 11);
-for (let i = 0; i < 100; i++) {
-  hiTraceMeter.startTrace('PluralRules-single', 12);
-  let pluralRules = new Intl.PluralRules('zh-CN', { localeMatcher: 'lookup', type: 'cardinal' });
-  hiTraceMeter.finishTrace('PluralRules-single', 12);
-}
-hiTraceMeter.finishTrace('PluralRules-100', 11);
 
 @Entry
 @Component
 struct RuntimeInterface {
   @State message: string = 'RuntimeInterface';
+
+  aboutToAppear(): void {
+    try {
+      runIntlBenchmark();
+    } catch (error) {
+      hilog.error(DOMAIN, TAG, 'Failed to create Intl objects: %{private}s', JSON.stringify(error));
+    }
+  }
 
   build() {
     RelativeContainer() {

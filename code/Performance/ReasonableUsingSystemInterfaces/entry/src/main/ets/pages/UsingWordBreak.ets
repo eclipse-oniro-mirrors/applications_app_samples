@@ -14,7 +14,12 @@
  */
 
 import { BusinessError } from '@kit.BasicServicesKit';
-import { util } from '@kit.ArkTS';
+import { decodeDisplayText } from '../utils/DisplayText';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0x0000;
+const TAG: string = 'UsingWordBreak';
+const RAW_FILE_NAME: string = 'sanguo.txt';
 
 @Entry
 @Component
@@ -22,18 +27,23 @@ struct UsingWordBreak {
   @State message: string = 'Using Word Break';
 
   aboutToAppear(): void {
-    getContext().resourceManager.getRawFileContent('sanguo.txt', (error: BusinessError, value: Uint8Array) => {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'page appeared');
+    getContext().resourceManager.getRawFileContent(RAW_FILE_NAME, (error: BusinessError, value: Uint8Array): void => {
       if (error != null) {
-        console.error('error is ' + error);
-      } else {
-        this.message = util.TextDecoder.create().decodeWithStream(value);
+        hilog.error(DOMAIN, TAG, 'Failed to read raw file. Cause: %{public}s', JSON.stringify(error));
+        return;
+      }
+      try {
+        this.message = decodeDisplayText(value);
+      } catch (decodeError) {
+        hilog.error(DOMAIN, TAG, 'Failed to decode raw file: %{private}s', JSON.stringify(decodeError));
       }
     })
   }
 
   build() {
     Column() {
-      Scroll(){
+      Scroll() {
         Text(this.message)
           .fontSize(12)
           .wordBreak(WordBreak.BREAK_ALL)

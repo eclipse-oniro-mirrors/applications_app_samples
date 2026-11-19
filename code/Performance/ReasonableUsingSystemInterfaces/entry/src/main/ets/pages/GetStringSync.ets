@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import hiTraceMeter from '@ohos.hiTraceMeter';
+import { NativeStringResourceReader, readStringByResource } from '../utils/TracedResources';
 
 @Entry
 @Component
@@ -21,9 +21,8 @@ struct GetStringSync {
   @State message: string = 'getStringSync';
 
   aboutToAppear(): void {
-    hiTraceMeter.startTrace('getStringSync', 1);
-    getContext().resourceManager.getStringSync($r('app.string.test'));
-    hiTraceMeter.finishTrace('getStringSync', 1);
+    const reader: NativeStringResourceReader = new NativeStringResourceReader(getContext().resourceManager);
+    readStringByResource(reader, $r('app.string.test'));
   }
 
   build() {
