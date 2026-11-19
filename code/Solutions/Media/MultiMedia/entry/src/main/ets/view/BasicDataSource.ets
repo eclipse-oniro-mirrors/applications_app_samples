@@ -104,4 +104,10 @@ export default class MediaDataSource extends BasicDataSource {
   public addData(index: number, data: MediaData): void {
     this.dataArray.splice(index, 0, data)
     this.notifyDataAdd(index)
-  }
+  }
+
+  public pushData(data: MediaData): void {
+    this.dataArray.push(data)
+    this.notifyDataAdd(this.dataArray.length - 1)
+  }
+}
