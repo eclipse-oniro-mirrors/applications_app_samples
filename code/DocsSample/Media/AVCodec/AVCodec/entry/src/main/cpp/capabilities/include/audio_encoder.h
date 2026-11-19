@@ -16,10 +16,12 @@
 #ifndef AUDIOENCODER_H
 #define AUDIOENCODER_H
 
+// [Start AudioEncoder::IncludeHeaders]
 #include "multimedia/player_framework/native_avcodec_audiocodec.h"
 #include "multimedia/player_framework/native_avcapability.h"
 #include "multimedia/player_framework/native_avbuffer_info.h"
 #include "multimedia/native_audio_channel_layout.h"
+// [End AudioEncoder::IncludeHeaders]
 #include "sample_info.h"
 #include "sample_callback.h"
 #include "dfx/error/av_codec_sample_error.h"
