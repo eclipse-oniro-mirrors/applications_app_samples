@@ -1892,5 +1892,134 @@ export default function adaptOwnerLabelTests(): void {
       expect(finalOwners.count('owners-sibling-label')).assertEqual(1);
       expect(finalOwners.count('owners-sibling-footer')).assertEqual(1);
     });
+
+    // @tc.number SUB_SAMPLE_ADAPTOWNERLABEL_0032
+    // @tc.name AdaptOwnerLabel_0032
+    // @tc.desc Verify owners {"mode":"Label","renamed":true,"remount":true,"coordinates":true,"before":2,"resume":true}
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('AdaptOwnerLabel_0032', 0, async (): Promise<void> => {
+      await openHistory('owners');
+      const coordinates: boolean = true;
+      const initialOwners = await observeUiLayout();
+      const siblingCaption = initialOwners.text('owners-sibling-caption');
+      const siblingBefore = initialOwners.bounds('owners-sibling-container');
+      expect(siblingCaption).assertEqual('Sibling owner');
+      let checkedOwners = await ownerStates([
+        { prefix: 'owners-primary', labels: 0, footers: 0, event: 'None' },
+        { prefix: 'owners-sibling', labels: 0, footers: 0, event: 'None' },
+      ], initialOwners);
+      expect(initialOwners.count('owners-primary-container')).assertEqual(1);
+      expect(initialOwners.count('owners-sibling-container')).assertEqual(1);
+      await activateObservedOwner('owners-primary-label', coordinates, checkedOwners);
+      checkedOwners = await ownerStates([
+        { prefix: 'owners-primary', labels: 1, footers: 0, event: 'Primary owner:label' },
+      ]);
+      await activateObservedOwner('owners-primary-label', coordinates, checkedOwners);
+      checkedOwners = await ownerStates([
+        { prefix: 'owners-primary', labels: 2, footers: 0, event: 'Primary owner:label' },
+        { prefix: 'owners-sibling', labels: 0, footers: 0, event: 'None' },
+      ]);
+      await activateObservedOwner('owners-sibling-footer', coordinates, checkedOwners);
+      checkedOwners = await ownerStates([
+        { prefix: 'owners-sibling', labels: 0, footers: 1, event: 'Sibling owner:footer' },
+      ]);
+      await click('owners-rename-primary');
+      await waitText('owners-primary-caption', 'Renamed owner');
+      checkedOwners = await ownerStates([
+        { prefix: 'owners-primary', labels: 2, footers: 0, event: 'Primary owner:label' },
+      ]);
+      await backgroundAndRestore('FixtureAbility', 'owners-primary-caption', 'Renamed owner');
+      checkedOwners = await ownerStates([
+        { prefix: 'owners-primary', labels: 2, footers: 0, event: 'Primary owner:label' },
+        { prefix: 'owners-sibling', labels: 0, footers: 1, event: 'Sibling owner:footer' },
+      ]);
+      await click('owners-toggle-primary');
+      await waitText('owners-primary-state', 'Removed');
+      await assertIdAbsent('owners-primary-container');
+      await activateObservedOwner('owners-sibling-label', coordinates, await observeUiLayout());
+      checkedOwners = await ownerStates([
+        { prefix: 'owners-sibling', labels: 1, footers: 1, event: 'Sibling owner:label' },
+      ]);
+      await click('owners-toggle-primary');
+      await waitText('owners-primary-state', 'Mounted');
+      await waitText('owners-primary-caption', 'Renamed owner');
+      checkedOwners = await ownerStates([
+        { prefix: 'owners-primary', labels: 0, footers: 0, event: 'None' },
+      ]);
+      await activateObservedOwner('owners-primary-label', coordinates, checkedOwners);
+      checkedOwners = await ownerStates([
+        { prefix: 'owners-primary', labels: 1, footers: 0, event: 'Renamed owner:label' },
+      ]);
+      await activateObservedOwner('owners-primary-footer', coordinates, checkedOwners);
+      checkedOwners = await ownerStates([
+        { prefix: 'owners-primary', labels: 1, footers: 1, event: 'Renamed owner:footer' },
+        { prefix: 'owners-sibling', labels: 1, footers: 1, event: 'Sibling owner:label' },
+      ]);
+      const finalOwners = checkedOwners;
+      expect(finalOwners.text('owners-sibling-caption')).assertEqual(siblingCaption);
+      assertRectClose(finalOwners.bounds('owners-sibling-container'), siblingBefore);
+      expect(finalOwners.text('owners-primary-caption')).assertEqual('Renamed owner');
+      expect(finalOwners.count('owners-primary-label')).assertEqual(1);
+      expect(finalOwners.count('owners-primary-footer')).assertEqual(1);
+      expect(finalOwners.count('owners-sibling-label')).assertEqual(1);
+      expect(finalOwners.count('owners-sibling-footer')).assertEqual(1);
+    });
+
+    // @tc.number SUB_SAMPLE_ADAPTOWNERLABEL_0033
+    // @tc.name AdaptOwnerLabel_0033
+    // @tc.desc Verify owners {"mode":"Label","renamed":false,"remount":false,"coordinates":false,"before":3,"resume":false}
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('AdaptOwnerLabel_0033', 0, async (): Promise<void> => {
+      await openHistory('owners');
+      const coordinates: boolean = false;
+      const initialOwners = await observeUiLayout();
+      const siblingCaption = initialOwners.text('owners-sibling-caption');
+      const siblingBefore = initialOwners.bounds('owners-sibling-container');
+      expect(siblingCaption).assertEqual('Sibling owner');
+      let checkedOwners = await ownerStates([
+        { prefix: 'owners-primary', labels: 0, footers: 0, event: 'None' },
+        { prefix: 'owners-sibling', labels: 0, footers: 0, event: 'None' },
+      ], initialOwners);
+      expect(initialOwners.count('owners-primary-container')).assertEqual(1);
+      expect(initialOwners.count('owners-sibling-container')).assertEqual(1);
+      await activateObservedOwner('owners-primary-label', coordinates, checkedOwners);
+      checkedOwners = await ownerStates([
+        { prefix: 'owners-primary', labels: 1, footers: 0, event: 'Primary owner:label' },
+      ]);
+      await activateObservedOwner('owners-primary-label', coordinates, checkedOwners);
+      checkedOwners = await ownerStates([
+        { prefix: 'owners-primary', labels: 2, footers: 0, event: 'Primary owner:label' },
+      ]);
+      await activateObservedOwner('owners-primary-label', coordinates, checkedOwners);
+      checkedOwners = await ownerStates([
+        { prefix: 'owners-primary', labels: 3, footers: 0, event: 'Primary owner:label' },
+        { prefix: 'owners-sibling', labels: 0, footers: 0, event: 'None' },
+      ]);
+      await activateObservedOwner('owners-sibling-footer', coordinates, checkedOwners);
+      checkedOwners = await ownerStates([
+        { prefix: 'owners-sibling', labels: 0, footers: 1, event: 'Sibling owner:footer' },
+      ]);
+      await activateObservedOwner('owners-primary-label', coordinates, checkedOwners);
+      checkedOwners = await ownerStates([
+        { prefix: 'owners-primary', labels: 4, footers: 0, event: 'Primary owner:label' },
+      ]);
+      await activateObservedOwner('owners-primary-footer', coordinates, checkedOwners);
+      checkedOwners = await ownerStates([
+        { prefix: 'owners-primary', labels: 4, footers: 1, event: 'Primary owner:footer' },
+        { prefix: 'owners-sibling', labels: 0, footers: 1, event: 'Sibling owner:footer' },
+      ]);
+      const finalOwners = checkedOwners;
+      expect(finalOwners.text('owners-sibling-caption')).assertEqual(siblingCaption);
+      assertRectClose(finalOwners.bounds('owners-sibling-container'), siblingBefore);
+      expect(finalOwners.text('owners-primary-caption')).assertEqual('Primary owner');
+      expect(finalOwners.count('owners-primary-label')).assertEqual(1);
+      expect(finalOwners.count('owners-primary-footer')).assertEqual(1);
+      expect(finalOwners.count('owners-sibling-label')).assertEqual(1);
+      expect(finalOwners.count('owners-sibling-footer')).assertEqual(1);
+    });
   });
 }
