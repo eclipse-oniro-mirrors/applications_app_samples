@@ -14,7 +14,7 @@
 1. 使用 DevEco Studio 打开工程，以同一产品、版本和签名编译 `entry@default` 与 `entry@ohosTest`。
 2. 设备安装 `entry-default-signed.hap` 与 `entry-ohosTest-signed.hap` 即可运行当前测试，支持 IDE 默认仅部署 entry 和 entry_test 的流程。
 3. 已移除四条依赖设备安装 feature 的集成用例；feature 配置、预加载、设备类型与跨模块规则的逻辑用例仍保留。
-4. 可从工程根目录使用 Git Bash 执行以下命令，安装两个 HAP 后启动全量测试。feature HAP 仅在体验完整多模块应用时另外安装。
+4. 可从工程根目录使用 Git Bash 执行以下命令安装两个 HAP。安装完成后在 DevEco Studio 中选择 `entry_test` 测试配置运行全部用例，测试框架参数为 `-s unittest /ets/testrunner/OpenHarmonyTestRunner`；feature HAP 仅在体验完整多模块应用时另外安装。
 
 ```bash
 export MSYS_NO_PATHCONV=1
@@ -22,8 +22,6 @@ hdc shell mkdir -p /data/local/tmp/moduleconfig04-tests
 hdc file send 'entry\build\default\outputs\default\entry-default-signed.hap' /data/local/tmp/moduleconfig04-tests/entry-default-signed.hap
 hdc file send 'entry\build\default\outputs\ohosTest\entry-ohosTest-signed.hap' /data/local/tmp/moduleconfig04-tests/entry-ohosTest-signed.hap
 hdc shell bm install -p /data/local/tmp/moduleconfig04-tests
-hdc shell aa force-stop com.example.moduleconfigurationfile04
-hdc shell aa test -b com.example.moduleconfigurationfile04 -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 15000 -w 300
 ```
 
 5. 全部用例的测试编号以 `SUB_SYS_MODULE_CONFIG_` 开头，可按编号或测试套件筛选执行。保留的安装包检查仅校验应用身份与 entry 模块；逻辑用例仍按构造的配置对象校验。

@@ -1638,7 +1638,7 @@ export default function AppConfigValidationTest(): void {
     it('testAppVendorWithSpace',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const appConfig: AppConfig = ConfigFactory.appConfig();
-      appConfig.vendor = 'Huawei Device';
+      appConfig.vendor = 'Example Device';
       TestLog.text('testAppVendorWithSpace', 'case begin', 'vendor input withspace');
       TestLog.step('testAppVendorWithSpace', 'vendor input withspace');
       const findings: Finding[] = AppConfigValidator.validateVendor(appConfig);
@@ -1694,7 +1694,7 @@ export default function AppConfigValidationTest(): void {
     it('testAppVendorWithHyphen',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const appConfig: AppConfig = ConfigFactory.appConfig();
-      appConfig.vendor = 'huawei-device';
+      appConfig.vendor = 'example-device';
       TestLog.text('testAppVendorWithHyphen', 'case begin', 'vendor input withhyphen');
       TestLog.step('testAppVendorWithHyphen', 'vendor input withhyphen');
       const findings: Finding[] = AppConfigValidator.validateVendor(appConfig);
@@ -1750,7 +1750,7 @@ export default function AppConfigValidationTest(): void {
     it('testAppVendorWithUnderscore',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const appConfig: AppConfig = ConfigFactory.appConfig();
-      appConfig.vendor = 'huawei_device';
+      appConfig.vendor = 'example_device';
       TestLog.text('testAppVendorWithUnderscore', 'case begin', 'vendor input withunderscore');
       TestLog.step('testAppVendorWithUnderscore', 'vendor input withunderscore');
       const findings: Finding[] = AppConfigValidator.validateVendor(appConfig);
