@@ -1312,3 +1312,1653 @@ export default function fileCacheErrorMatrixTest() {
       expect(fs.accessSync(path)).assertFalse();
       expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
     });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0061
+     * @tc.name      testCacheError0061
+     * @tc.desc      Stat of missing absent_0061.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0061.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0061', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0062
+     * @tc.name      testCacheError0062
+     * @tc.desc      Stat of missing absent_0062.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0062.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0062', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0063
+     * @tc.name      testCacheError0063
+     * @tc.desc      Stat of missing absent_0063.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0063.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0063', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0064
+     * @tc.name      testCacheError0064
+     * @tc.desc      Stat of missing absent_0064.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0064.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0064', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0065
+     * @tc.name      testCacheError0065
+     * @tc.desc      Stat of missing absent_0065.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0065.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0065', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0066
+     * @tc.name      testCacheError0066
+     * @tc.desc      Stat of missing absent_0066.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0066.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0066', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0067
+     * @tc.name      testCacheError0067
+     * @tc.desc      Stat of missing absent_0067.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0067.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0067', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0068
+     * @tc.name      testCacheError0068
+     * @tc.desc      Stat of missing absent_0068.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0068.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0068', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0069
+     * @tc.name      testCacheError0069
+     * @tc.desc      Stat of missing absent_0069.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0069.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0069', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0070
+     * @tc.name      testCacheError0070
+     * @tc.desc      Stat of missing absent_0070.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0070.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0070', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0071
+     * @tc.name      testCacheError0071
+     * @tc.desc      Stat of missing absent_0071.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0071.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0071', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0072
+     * @tc.name      testCacheError0072
+     * @tc.desc      Stat of missing absent_0072.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0072.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0072', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0073
+     * @tc.name      testCacheError0073
+     * @tc.desc      Stat of missing absent_0073.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0073.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0073', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0074
+     * @tc.name      testCacheError0074
+     * @tc.desc      Stat of missing absent_0074.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0074.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0074', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0075
+     * @tc.name      testCacheError0075
+     * @tc.desc      Stat of missing absent_0075.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0075.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0075', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0076
+     * @tc.name      testCacheError0076
+     * @tc.desc      Stat of missing absent_0076.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0076.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0076', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0077
+     * @tc.name      testCacheError0077
+     * @tc.desc      Stat of missing absent_0077.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0077.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0077', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0078
+     * @tc.name      testCacheError0078
+     * @tc.desc      Stat of missing absent_0078.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0078.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0078', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0079
+     * @tc.name      testCacheError0079
+     * @tc.desc      Stat of missing absent_0079.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0079.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0079', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0080
+     * @tc.name      testCacheError0080
+     * @tc.desc      Stat of missing absent_0080.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0080.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0080', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0081
+     * @tc.name      testCacheError0081
+     * @tc.desc      Stat of missing absent_0081.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0081.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0081', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0082
+     * @tc.name      testCacheError0082
+     * @tc.desc      Stat of missing absent_0082.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0082.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0082', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0083
+     * @tc.name      testCacheError0083
+     * @tc.desc      Stat of missing absent_0083.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0083.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0083', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0084
+     * @tc.name      testCacheError0084
+     * @tc.desc      Stat of missing absent_0084.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0084.tmp');
+      const code: number = errorCode(() => {
+        fs.statSync(path);
+      });
+      logCase('testCacheError0084', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0085
+     * @tc.name      testCacheError0085
+     * @tc.desc      Unlink of missing absent_0085.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0085.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0085', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0086
+     * @tc.name      testCacheError0086
+     * @tc.desc      Unlink of missing absent_0086.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0086.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0086', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0087
+     * @tc.name      testCacheError0087
+     * @tc.desc      Unlink of missing absent_0087.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0087.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0087', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0088
+     * @tc.name      testCacheError0088
+     * @tc.desc      Unlink of missing absent_0088.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0088.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0088', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0089
+     * @tc.name      testCacheError0089
+     * @tc.desc      Unlink of missing absent_0089.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0089.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0089', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0090
+     * @tc.name      testCacheError0090
+     * @tc.desc      Unlink of missing absent_0090.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testCacheError0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const path: string = testPath('absent_0090.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0090', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0091
+     * @tc.name      testCacheError0091
+     * @tc.desc      Unlink of missing absent_0091.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0091.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0091', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0092
+     * @tc.name      testCacheError0092
+     * @tc.desc      Unlink of missing absent_0092.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0092.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0092', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0093
+     * @tc.name      testCacheError0093
+     * @tc.desc      Unlink of missing absent_0093.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0093.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0093', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0094
+     * @tc.name      testCacheError0094
+     * @tc.desc      Unlink of missing absent_0094.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0094.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0094', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0095
+     * @tc.name      testCacheError0095
+     * @tc.desc      Unlink of missing absent_0095.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0095.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0095', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0096
+     * @tc.name      testCacheError0096
+     * @tc.desc      Unlink of missing absent_0096.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0096.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0096', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0097
+     * @tc.name      testCacheError0097
+     * @tc.desc      Unlink of missing absent_0097.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0097.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0097', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0098
+     * @tc.name      testCacheError0098
+     * @tc.desc      Unlink of missing absent_0098.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0098.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0098', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0099
+     * @tc.name      testCacheError0099
+     * @tc.desc      Unlink of missing absent_0099.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0099.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0099', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0100
+     * @tc.name      testCacheError0100
+     * @tc.desc      Unlink of missing absent_0100.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0100.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0100', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0101
+     * @tc.name      testCacheError0101
+     * @tc.desc      Unlink of missing absent_0101.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0101.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0101', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0102
+     * @tc.name      testCacheError0102
+     * @tc.desc      Unlink of missing absent_0102.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0102', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0102.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0102', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0103
+     * @tc.name      testCacheError0103
+     * @tc.desc      Unlink of missing absent_0103.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0103.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0103', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0104
+     * @tc.name      testCacheError0104
+     * @tc.desc      Unlink of missing absent_0104.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0104', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0104.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0104', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0105
+     * @tc.name      testCacheError0105
+     * @tc.desc      Unlink of missing absent_0105.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0105', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0105.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0105', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0106
+     * @tc.name      testCacheError0106
+     * @tc.desc      Unlink of missing absent_0106.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0106', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0106.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0106', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0107
+     * @tc.name      testCacheError0107
+     * @tc.desc      Unlink of missing absent_0107.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0107', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0107.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0107', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0108
+     * @tc.name      testCacheError0108
+     * @tc.desc      Unlink of missing absent_0108.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0108', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0108.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0108', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0109
+     * @tc.name      testCacheError0109
+     * @tc.desc      Unlink of missing absent_0109.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0109', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0109.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0109', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0110
+     * @tc.name      testCacheError0110
+     * @tc.desc      Unlink of missing absent_0110.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0110', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0110.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0110', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0111
+     * @tc.name      testCacheError0111
+     * @tc.desc      Unlink of missing absent_0111.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0111', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0111.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0111', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0112
+     * @tc.name      testCacheError0112
+     * @tc.desc      Unlink of missing absent_0112.tmp reports a non-zero error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0112', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0112.tmp');
+      const code: number = errorCode(() => {
+        fs.unlinkSync(path);
+      });
+      logCase('testCacheError0112', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0113
+     * @tc.name      testCacheError0113
+     * @tc.desc      Copy into missing folder for absent_0113.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0113', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0113.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0113', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0114
+     * @tc.name      testCacheError0114
+     * @tc.desc      Copy into missing folder for absent_0114.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0114', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0114.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0114', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0115
+     * @tc.name      testCacheError0115
+     * @tc.desc      Copy into missing folder for absent_0115.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0115', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0115.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0115', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0116
+     * @tc.name      testCacheError0116
+     * @tc.desc      Copy into missing folder for absent_0116.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0116', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0116.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0116', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0117
+     * @tc.name      testCacheError0117
+     * @tc.desc      Copy into missing folder for absent_0117.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0117', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0117.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0117', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0118
+     * @tc.name      testCacheError0118
+     * @tc.desc      Copy into missing folder for absent_0118.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0118', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0118.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0118', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0119
+     * @tc.name      testCacheError0119
+     * @tc.desc      Copy into missing folder for absent_0119.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0119', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0119.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0119', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0120
+     * @tc.name      testCacheError0120
+     * @tc.desc      Copy into missing folder for absent_0120.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0120', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0120.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0120', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0121
+     * @tc.name      testCacheError0121
+     * @tc.desc      Copy into missing folder for absent_0121.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0121', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0121.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0121', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0122
+     * @tc.name      testCacheError0122
+     * @tc.desc      Copy into missing folder for absent_0122.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0122', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0122.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0122', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0123
+     * @tc.name      testCacheError0123
+     * @tc.desc      Copy into missing folder for absent_0123.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0123', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0123.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0123', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0124
+     * @tc.name      testCacheError0124
+     * @tc.desc      Copy into missing folder for absent_0124.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0124', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0124.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0124', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0125
+     * @tc.name      testCacheError0125
+     * @tc.desc      Copy into missing folder for absent_0125.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0125', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0125.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0125', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0126
+     * @tc.name      testCacheError0126
+     * @tc.desc      Copy into missing folder for absent_0126.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0126', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0126.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0126', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0127
+     * @tc.name      testCacheError0127
+     * @tc.desc      Copy into missing folder for absent_0127.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0127', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0127.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0127', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0128
+     * @tc.name      testCacheError0128
+     * @tc.desc      Copy into missing folder for absent_0128.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0128', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0128.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0128', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0129
+     * @tc.name      testCacheError0129
+     * @tc.desc      Copy into missing folder for absent_0129.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0129', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0129.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0129', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0130
+     * @tc.name      testCacheError0130
+     * @tc.desc      Copy into missing folder for absent_0130.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0130', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0130.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0130', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0131
+     * @tc.name      testCacheError0131
+     * @tc.desc      Copy into missing folder for absent_0131.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0131', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0131.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0131', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0132
+     * @tc.name      testCacheError0132
+     * @tc.desc      Copy into missing folder for absent_0132.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0132', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0132.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0132', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0133
+     * @tc.name      testCacheError0133
+     * @tc.desc      Copy into missing folder for absent_0133.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0133', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0133.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0133', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0134
+     * @tc.name      testCacheError0134
+     * @tc.desc      Copy into missing folder for absent_0134.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0134', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0134.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0134', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0135
+     * @tc.name      testCacheError0135
+     * @tc.desc      Copy into missing folder for absent_0135.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0135', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0135.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0135', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0136
+     * @tc.name      testCacheError0136
+     * @tc.desc      Copy into missing folder for absent_0136.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0136', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0136.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0136', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0137
+     * @tc.name      testCacheError0137
+     * @tc.desc      Copy into missing folder for absent_0137.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0137', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0137.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0137', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0138
+     * @tc.name      testCacheError0138
+     * @tc.desc      Copy into missing folder for absent_0138.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0138', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0138.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
+      });
+      logCase('testCacheError0138', `path=${path} code=${code}`);
+      expect(code !== 0).assertTrue();
+      if (code !== 0) {
+        expect(code).assertEqual(ERR_NO_SUCH_FILE);
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      expect(path.length).assertEqual(appContext().filesDir.length + 1 + 15);
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CACHEERR_0139
+     * @tc.name      testCacheError0139
+     * @tc.desc      Copy into missing folder for absent_0139.tmp reports an error code
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCacheError0139', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('absent_0139.tmp');
+      const code: number = errorCode(() => {
+        fs.copyFileSync(path, path + '.bak');
