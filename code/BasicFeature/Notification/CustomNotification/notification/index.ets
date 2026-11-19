@@ -21,6 +21,8 @@ export { notificationContentUtil } from './src/main/ets/notification/Notificatio
 
 export { notificationManagement } from './src/main/ets/notification/NotificationManagementUtil'
 
+export { GetAllNotificationsResultType } from './src/main/ets/notification/NotificationManagementUtil'
+
 export { wantAgentUtil } from './src/main/ets/notification/WantAgentUtil'
 
 export { logger } from './src/main/ets/util/Logger'

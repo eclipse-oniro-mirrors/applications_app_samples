@@ -13,15 +13,33 @@
  * limitations under the License.
  */
 
-import notification from '@ohos.notificationManager'
+import { notificationManager as notification } from '@kit.NotificationKit';
 import { logger } from '../util/Logger'
 import { notificationManagement } from '../notification/NotificationManagementUtil';
 
-const TAG: string = 'NotificationUtil'
+const TAG: string = '[Sample_CustomNotification]'
 
 class NotificationUtil {
   private isPromptTone: boolean = false;
   private isVibrationEffect: boolean = false;
+  private lastPublishedRequest: notification.NotificationRequest | undefined = undefined;
+  private lastNotificationSlot: notification.NotificationSlot | undefined = undefined;
+  private lastCancelledIds: number[] = [];
+
+  /** 最近一次提交发布的通知请求（供界面与测试观测发布链路） */
+  getLastPublishedRequest(): notification.NotificationRequest | undefined {
+    return this.lastPublishedRequest;
+  }
+
+  /** 最近一次发布组装的通知槽位意图（sound/vibration 随开关联动） */
+  getLastNotificationSlot(): notification.NotificationSlot | undefined {
+    return this.lastNotificationSlot;
+  }
+
+  /** 最近一次按 id 取消的通知 id 列表副本 */
+  getLastCancelledIds(): number[] {
+    return this.lastCancelledIds.slice();
+  }
 
   promptTone(flag: boolean = this.isPromptTone): boolean {
     this.isPromptTone = flag;
@@ -36,7 +54,7 @@ class NotificationUtil {
   /**
    * enable notification
    */
-  async enableNotification() {
+  async enableNotification(): Promise<void> {
     try {
       await notification.requestEnableNotification();
       logger.info(TAG, `enableNotification success`);
@@ -50,14 +68,15 @@ class NotificationUtil {
    * @param notificationRequest
    * @param id, Support specifying notification id when publishing notifications
    */
-  async publishNotification(notificationRequest: notification.NotificationRequest, id?: number) {
+  async publishNotification(notificationRequest: notification.NotificationRequest,
+    id?: number): Promise<void> {
     if (id && id > 0) {
       notificationRequest.id = id;
     }
     try {
       let notificationSlot: notification.NotificationSlot = {
-        type: notification.SlotType.CONTENT_INFORMATION,
-        level: notification.SlotLevel.LEVEL_DEFAULT
+        notificationType: notification.SlotType.CONTENT_INFORMATION,
+        notificationLevel: notification.SlotLevel.LEVEL_DEFAULT
       };
       if (this.isPromptTone) {
         notificationSlot.sound = 'file:///system/etc/capture.ogg';
@@ -66,8 +85,10 @@ class NotificationUtil {
         notificationSlot.vibrationEnabled = true;
         notificationSlot.vibrationValues = [200];
       }
+      this.lastNotificationSlot = notificationSlot;
       await notification.removeAllSlots();
-      await notification.addSlot(notificationSlot.type);
+      await notification.addSlot(notification.SlotType.CONTENT_INFORMATION);
+      this.lastPublishedRequest = notificationRequest;
       await notification.publish(notificationRequest);
       // 通知管理器添加新通知
       await notificationManagement.addNotification(notificationRequest);
@@ -82,8 +103,9 @@ class NotificationUtil {
   /**
    * cancel notification by id
    */
-  async cancelNotificationById(id: number) {
+  async cancelNotificationById(id: number): Promise<void> {
     try {
+      this.lastCancelledIds.push(id);
       await notification.cancel(id);
       logger.info(TAG, `cancel success`);
     } catch (err) {
@@ -96,8 +118,9 @@ class NotificationUtil {
   /**
    * cancel all notification
    */
-  async cancelAllNotifications() {
+  async cancelAllNotifications(): Promise<void> {
     try {
+      this.lastCancelledIds = [];
       await notification.cancelAll();
       logger.info(TAG, `cancel all success`);
     } catch (err) {
@@ -108,4 +131,4 @@ class NotificationUtil {
   }
 }
 
-export let notificationUtil = new NotificationUtil();
+export let notificationUtil: NotificationUtil = new NotificationUtil();

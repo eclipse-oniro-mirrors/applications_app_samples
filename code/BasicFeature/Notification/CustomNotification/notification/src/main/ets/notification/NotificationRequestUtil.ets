@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import notification from '@ohos.notificationManager'
-import { WantAgent } from '@ohos.wantAgent'
+import { notificationManager as notification } from '@kit.NotificationKit';
+import { WantAgent } from '@kit.AbilityKit';
 
 class NotificationRequestUtil {
   /**
@@ -23,9 +23,10 @@ class NotificationRequestUtil {
    * @return return the created NotificationRequest
    */
 
-  initBasicNotificationRequest(notificationContent: notification.NotificationContent): notification.NotificationRequest {
+  initBasicNotificationRequest(notificationContent: notification.NotificationContent):
+    notification.NotificationRequest {
     return {
-      slotType: notification.SlotType.CONTENT_INFORMATION,
+      notificationSlotType: notification.SlotType.CONTENT_INFORMATION,
       id: 1, // 通知id，默认为1
       content: notificationContent
     };
@@ -38,9 +39,10 @@ class NotificationRequestUtil {
    * @return return the created NotificationRequest
    */
 
-  initWantAgentNotificationRequest(notificationContent: notification.NotificationContent, notificationWantAgent: WantAgent): notification.NotificationRequest {
+  initWantAgentNotificationRequest(notificationContent: notification.NotificationContent,
+    notificationWantAgent: WantAgent): notification.NotificationRequest {
     return {
-      slotType: notification.SlotType.CONTENT_INFORMATION,
+      notificationSlotType: notification.SlotType.CONTENT_INFORMATION,
       id: 1, // 通知id，默认为1
       content: notificationContent,
       wantAgent: notificationWantAgent
@@ -53,13 +55,14 @@ class NotificationRequestUtil {
    * @param notificationActionButtons
    * @return return the created NotificationRequest
    */
-  initButtonNotificationRequest(notificationContent: notification.NotificationContent, notificationActionButtons: notification.NotificationActionButton[]): notification.NotificationRequest {
-    let actionButtons = notificationActionButtons
+  initButtonNotificationRequest(notificationContent: notification.NotificationContent,
+    notificationActionButtons: notification.NotificationActionButton[]): notification.NotificationRequest {
+    let actionButtons: notification.NotificationActionButton[] = notificationActionButtons;
     if (notificationActionButtons.length > 2) { // 当前通知接口最大允许有两个按钮，超过两个按钮不展示
-      actionButtons = notificationActionButtons.splice(0, 2)
+      actionButtons = notificationActionButtons.slice(0, 2);
     }
     return {
-      slotType: notification.SlotType.CONTENT_INFORMATION,
+      notificationSlotType: notification.SlotType.CONTENT_INFORMATION,
       id: 1, // 通知id，默认为1
       content: notificationContent,
       actionButtons: actionButtons
@@ -67,4 +70,4 @@ class NotificationRequestUtil {
   }
 }
 
-export let notificationRequestUtil = new NotificationRequestUtil();
+export let notificationRequestUtil: NotificationRequestUtil = new NotificationRequestUtil();
