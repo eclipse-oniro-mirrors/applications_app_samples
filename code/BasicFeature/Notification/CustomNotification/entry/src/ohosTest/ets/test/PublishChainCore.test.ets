@@ -56,7 +56,7 @@ async function publishQuietly(req: notification.NotificationRequest, id?: number
     try {
         await notificationUtil.publishNotification(req, id);
     } catch (error) {
-        hilog.warn(DOMAIN, TAG, 'publish rejected after intent recorded');
+        hilog.warn(DOMAIN, TAG, 'publish rejected after the request was recorded');
     }
 }
 

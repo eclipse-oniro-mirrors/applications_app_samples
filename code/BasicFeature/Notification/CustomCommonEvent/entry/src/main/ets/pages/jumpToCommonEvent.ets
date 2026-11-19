@@ -59,7 +59,8 @@ struct CardExample {
     }
   }
   private eventCallBackPrompt = () => {
-    const action: number = CardEventFeature.resolveToastAction(this.eventData, this.eventDataBundleName, this.isSubscribeEvents);
+    const action: number = CardEventFeature.resolveToastAction(this.eventData, this.eventDataBundleName,
+      this.isSubscribeEvents);
     if (action === CardEventFeature.TOAST_BUNDLE_NAME_EVENT_RECEIVE) {
       prompt.showToast({ message: $r('app.string.BundleNameEventReceive'), duration: 3000 });
     }

@@ -38,10 +38,10 @@ export default class LaunchFeature {
 
   static buildDetail(params: Record<string, string>): Array<string> {
     const detail: Array<string> = [];
-    detail.push(params['startTime']);
-    detail.push(params['endTime']);
-    detail.push(params['totalTime']);
-    detail.push(params['totalEvents']);
+    detail.push(params.startTime);
+    detail.push(params.endTime);
+    detail.push(params.totalTime);
+    detail.push(params.totalEvents);
     return detail;
   }
 
@@ -75,10 +75,10 @@ export default class LaunchFeature {
     // refresh database
     this.pref.put(consts.DATA_BASE_KEY_TOTAL_TIMES, value).then(() => {
       let params: Record<string, string> = {
-        'startTime': event.parameters['startTime'],
-        'endTime': event.parameters['endTime'],
-        'totalTime': event.parameters['totalTime'],
-        'totalEvents': event.parameters['totalEvents']
+        'startTime': event.parameters.startTime,
+        'endTime': event.parameters.endTime,
+        'totalTime': event.parameters.totalTime,
+        'totalEvents': event.parameters.totalEvents
       };
       let detail: Array<string> = LaunchFeature.buildDetail(params);
       this.pref.put(event.parameters[consts.DATA_BASE_KEY_START_TIME], detail).then(() => {

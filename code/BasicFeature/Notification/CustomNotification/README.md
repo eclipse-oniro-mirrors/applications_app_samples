@@ -18,7 +18,7 @@ The notification capabilities are encapsulated in the `notification` HAR module:
 
 2. On the notification sending page, touch the button of the required type to publish a notification. Swipe down from the status bar to view the published notifications.
 
-3. Turn on the prompt tone or vibration switch before publishing. The notification slot intent for CONTENT_INFORMATION is assembled with the prompt tone (file:///system/etc/capture.ogg) and vibration values ([200]) according to the switches. Whether the device actually plays the tone or vibrates depends on its notification slot policy.
+3. Turn on the prompt tone or vibration switch before publishing. The notification slot for CONTENT_INFORMATION is assembled with the prompt tone (file:///system/etc/capture.ogg) and vibration values ([200]) according to the switches. Whether the device actually plays the tone or vibrates depends on its notification slot policy.
 
 4. Switch to the notification list page to view the notifications grouped by type, and the number of notifications of each type is displayed on the right of the item. Touching an item cancels all notifications of that type and decreases the desktop badge.
 
@@ -70,10 +70,10 @@ notification/
 
 * Authorization, publishing, cancellation and the switch state are encapsulated in NotificationUtil, see [NotificationUtil.ets](notification/src/main/ets/notification/NotificationUtil.ets)
     * Requesting the notification permission: enableNotification() is called in aboutToAppear of [NotificationPublish.ets](entry/src/main/ets/components/NotificationPublish.ets), and it calls notification.requestEnableNotification() internally.
-    * Publishing a notification: publishNotification() assembles a NotificationSlot intent according to the switches, calls removeAllSlots() and addSlot(SlotType.CONTENT_INFORMATION), then calls notification.publish() and finally asks NotificationManagementUtil to record the request.
+    * Publishing a notification: publishNotification() assembles a NotificationSlot according to the switches, calls removeAllSlots() and addSlot(SlotType.CONTENT_INFORMATION), then calls notification.publish() and finally asks NotificationManagementUtil to record the request.
     * Cancelling notifications: cancelAllNotifications() cancels all notifications of the app, and cancelNotificationById() cancels the notification of the specified id.
     * Switch state: promptTone(flag) and vibrationEffect(flag) keep the switch state, which decides whether the prompt tone and vibration values are assembled when publishing.
-    * Observation points: getLastPublishedRequest(), getLastNotificationSlot() and getLastCancelledIds() expose the latest request, slot intent and cancelled ids for the UI and the automated test cases.
+    * Observation points: getLastPublishedRequest(), getLastNotificationSlot() and getLastCancelledIds() expose the latest request, slot settings and cancelled ids for the UI and the automated test cases.
 
 * Notification content is encapsulated in NotificationContentUtil, see [NotificationContentUtil.ets](notification/src/main/ets/notification/NotificationContentUtil.ets)
     * initBasicNotificationContent() builds the basic text content.

@@ -70,7 +70,7 @@ async function publishQuietly(request: notification.NotificationRequest): Promis
     try {
         await notificationUtil.publishNotification(request);
     } catch (error) {
-        hilog.warn(DOMAIN, TAG, 'publish rejected after intent recorded');
+        hilog.warn(DOMAIN, TAG, 'publish rejected after the request was recorded');
     }
 }
 

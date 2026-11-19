@@ -70,7 +70,7 @@ export class HomeStateModel {
     /**
      * Source code kept while no event has been received.
      */
-    static readonly NO_SOURCE: number = -1;
+    public static readonly NO_SOURCE: number = -1;
 
     private manager: EventRecordManager;
     private publisher: EventPublisherLike;

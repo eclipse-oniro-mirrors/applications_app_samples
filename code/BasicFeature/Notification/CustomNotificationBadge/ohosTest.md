@@ -101,7 +101,7 @@
 ### 口径说明
 
 - 1,044 例（本文档与静态审计）**不含**既有 `Ability.test.ets` 的 `ActsAbilityTest` 6 例（用例名为拼接字符串，静态统计不计），故单进程全量 `Tests run` 显示 1,050。
-- 既有 `ActsAbilityTest` 真机结果 5 通过 / 1 失败：`Badge_RequestPermissionFunction_001` 报 `Component not exist matching ... text=允许`。授权弹窗由 `com.ohos.systemui` 渲染（`uitest dumpLayout` 可见“允许‘自定义通知角标’向你发送通知？”），应用进程的 Driver 匹配不到该窗口；手动点击“允许”后复跑，仅该例失败、其余 5 例通过。属系统窗口/环境问题，套件未改动。
+- 既有 `ActsAbilityTest` 真机结果 5 通过 / 1 失败：`Badge_RequestPermissionFunction_001` 报 `Component not exist matching ... text=允许`。授权弹窗由 `com.ohos.systemui` 渲染（`uitest dumpLayout` 可见“允许‘自定义通知角标’发送通知”的授权文案），应用进程的 Driver 匹配不到该窗口；手动点击“允许”后复跑，仅该例失败、其余 5 例通过。属系统窗口/环境问题，套件未改动。
 - 运行日志保存在 `.qoder/testcast/run-logs/`（各批基线、增量复跑、干净重装复跑），随 `.qoder/` 不提交仓库。
 
 ## 测试结论
