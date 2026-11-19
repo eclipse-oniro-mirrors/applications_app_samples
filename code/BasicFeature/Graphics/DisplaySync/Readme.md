@@ -1,119 +1,115 @@
-# DisplaySync分级管控
+# DisplaySync Hierarchical Control
 
-### 介绍
+### Introduction
 
-本示例通过DisplaySync分级管控功能对自绘制、属性动画、XComponent的绘制内容设置开发者所期望的帧率
-### 效果预览
+This sample uses the DisplaySync hierarchical control capability to set the expected frame rate of self-drawn content, property animations, and XComponent content.
 
-|初始页|自绘制|属性动画|XComponent|Animator|
-|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
-| <img src="./screenshots/device/initPage.jpg" width="360" /> | <img src="./screenshots/device/customDraw.jpg" width="360"/> | <img src="./screenshots/device/propertyAnimation.jpg" width="360" /> | <img src="./screenshots/device/xcomponent.jpg" width="360"/> |<img src="./screenshots/device/animator.jpg" width="360"/> |
+### Preview
 
-使用说明
+| Initial Page | Custom Draw | Property Animation | XComponent |
+|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
+| <img src="./screenshots/device/initPage.jpg" width="360" /> | <img src="./screenshots/device/customDraw.jpg" width="360"/> | <img src="./screenshots/device/propertyAnimation.jpg" width="360" /> | <img src="./screenshots/device/xcomponent.jpg" width="360"/> |
 
-1.在初始页面点击“**CustomDraw**”，进入自绘制页面，点击“**Start**”，数字“**30**”按照30Hz帧率放大缩小，数字“**60**”按照60Hz帧率放大缩小；点击“**Stop**”绘制停止；点击“**Back**”返回初始页面
+### Usage
 
-2.在初始页面点击“**PropertyAnimation**”，进入属性动画页面，点击“**Start**”，三个方块分别按照30Hz、40Hz、60Hz移动；点击“**Back**”返回初始页面
+1. On the initial page, tap **CustomDraw** to go to the custom draw page, and tap **Start**. The number **30** scales at 30 Hz and the number **60** scales at 60 Hz. Tap **Stop** to stop drawing, and tap **Back** to return to the initial page.
 
-3.在初始页面点击“**XComponent**”，进入属性动画页面，点击“**Start**”，两个方块分别按照30Hz、120Hz移动；点击“**Stop**”动画停止；点击“**Back**”返回初始页面
+2. On the initial page, tap **PropertyAnimation** to go to the property animation page, and tap **Start**. The three squares move at 30 Hz, 40 Hz, and 60 Hz respectively. Tap **Back** to return to the initial page.
 
-4.在初始页面点击“**Animator**”，进入Animator动画页面，先点击“**Create**”，再点击“**Play**”三个方块分别按照10Hz、30Hz、60Hz变大；点击“**Back**”返回初始页面
+3. On the initial page, tap **XComponent** to go to the XComponent page, and tap **Start**. Two squares move at 30 Hz and 120 Hz respectively. Tap **Stop** to stop the animation, and tap **Back** to return to the initial page.
 
-### 工程目录
+4. On the initial page, tap **Animator** to go to the animator page. Tap **Create** and then **Play**. The three squares scale at 10 Hz, 30 Hz, and 60 Hz respectively. Tap **Back** to return to the initial page.
+
+### Project Directory
+
 ```
 ├──entry/src/main
-│  ├──cpp                                       // C++代码区
-│  │  ├──CMakeLists.txt                         // CMake配置文件
-│  │  ├──hello.cpp                              // Napi模块注册
+│  ├──cpp                                       // C++ code
+│  │  ├──CMakeLists.txt                         // CMake configuration file
+│  │  ├──hello.cpp                              // NAPI module registration
 │  │  ├──common
-│  │  │  └──log_common.h                        // 日志封装定义文件
-│  │  ├──plugin                                 // 生命周期管理模块
+│  │  │  └──log_common.h                        // Log definition file
+│  │  ├──plugin                                 // Lifecycle management module
 │  │  │  ├──plugin_manager.cpp
 │  │  │  └──plugin_manager.h
-│  │  ├──samples                                // samples渲染模块
+│  │  ├──samples                                // Samples rendering module
 │  │  │  ├──sample_xcomponent.cpp
 │  │  │  └──sample_xcomponent.h
-│  ├──ets                                       // ets代码区
+│  ├──ets                                       // ArkTS code
 │  │  ├──entryability
-│  │  │  ├──EntryAbility.ts                     // 程序入口类
-|  |  |  └──EntryAbility.ets
-|  |  ├──interface
+│  │  │  ├──EntryAbility.ts                     // Entry ability
+│  │  │  └──EntryAbility.ets
+│  │  ├──interface
 │  │  │  └──XComponentContext.ts                // XComponentContext
-│  │  ├──pages                                  // 页面文件
-│  │  |  ├──Index.ets                           // 初始页面
-│  │  |  ├──CustomDrawDisplaySync.ets           // 自绘制页面
-│  │  |  ├──PropertyAnimationDisplaySync.ets    // 属性动画页面
-│  │  |  ├──XComponentDisplaySync.ets           // XComponent页面
-|  |  |  └──AnimatorDisplaySync.ets             // Animator动画
-│  │  ├──utils                                  // 工具类
-|  ├──resources         			                  // 资源文件目录
+│  │  ├──pages                                  // Pages
+│  │  │  ├──Index.ets                           // Initial page
+│  │  │  ├──CustomDrawDisplaySync.ets           // Custom draw page
+│  │  │  ├──PropertyAnimationDisplaySync.ets    // Property animation page
+│  │  │  ├──XComponentDisplaySync.ets           // XComponent page
+│  │  │  └──AnimatorDisplaySync.ets             // Animator page
+│  │  ├──utils                                  // Utilities
+│  ├──resources                                 // Resource files
 ```
 
-### 具体实现
+### Implementation
 
-* 自绘制：通过调用[@ohos.graphics.displaySync](https://docs.openharmony.cn/pages/v4.1/zh-cn/application-dev/reference/apis-arkgraphics2d/js-apis-graphics-displaySync.md)接口，通过注册回调和设置刷新了区间控制回调周期
-    * 涉及到的相关接口：
-      
-      通过`import displaySync from '@ohos.graphics.displaySync'`引入
-      
-      | 接口名 | 描述 |
+* Custom draw: Uses the [@ohos.graphics.displaySync](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-arkgraphics2d/js-apis-graphics-displaySync.md) APIs. A frame callback is registered and the refresh rate range is set to control the callback period.
+    * Related APIs (import with `import displaySync from '@ohos.graphics.displaySync'`):
+
+      | API | Description |
       | -------- | -------- |
-      | Create(): DisplaySync | 创建一个DisplaySync实例 |
-      | setExpectedFrameRateRange(rateRange: ExpectedFrameRateRange): void | 设置期望帧率 |
-      | on(type: 'frame', callback: Callback<IntervalInfo>): void | 设置自定义绘制内容回调函数 |
-      | off(type: 'frame', callback?: Callback<IntervalInfo>): void | 清除自定义绘制内容回调函数 |
-      | start(): void | DisplaySync使能 |
-      | stop(): void | DisplaySync失能 |
-    
-* 属性动画：通过[animation](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-animatorproperty.md)和[animateTo](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkui-ts/ts-explicit-animation.md)接口新增的参数expectedFrameRateRange，设置动画刷新率的区间，预期设置的刷新率，作为动画的属性之一，作用于动画场景
-    * 涉及到的相关接口：
-      
-      | 新增动画属性 | 描述 |
+      | Create(): DisplaySync | Creates a DisplaySync instance. |
+      | setExpectedFrameRateRange(rateRange: ExpectedFrameRateRange): void | Sets the expected frame rate. |
+      | on(type: 'frame', callback: Callback\<IntervalInfo\>): void | Sets the callback for custom drawing. |
+      | off(type: 'frame', callback?: Callback\<IntervalInfo\>): void | Removes the callback for custom drawing. |
+      | start(): void | Enables DisplaySync. |
+      | stop(): void | Disables DisplaySync. |
+
+* Property animation: Uses the `expectedFrameRateRange` parameter added to the [animation](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-arkui/arkui-ts/ts-animatorproperty.md) and [animateTo](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-arkui/arkui-ts/ts-explicit-animation.md) APIs to set the refresh rate range of the animation.
+    * Related API:
+
+      | API | Description |
       | -------- | -------- |
-      | expectedFrameRateRange | animation和animateTo接口的动画属性参数中可选配置expectedFrameRateRange参数 |
+      | expectedFrameRateRange | Optional animation attribute of `animation` and `animateTo` that specifies the expected frame rate range. |
 
-* XComponent：通过在IDE中的Native c++ 工程，在c++代码中定义对外接口为register和unregister，并调用新增的CAPI接口,可在页面上使用drawing根据设定的期望帧率来绘制
-    * 涉及到的相关接口([CAPI接口链接](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/_o_h___native_x_component.md))：
+* XComponent: A Native C++ project created in DevEco Studio exposes the `register` and `unregister` interfaces from the C++ code and calls the C APIs, so that the page can draw with the expected frame rate by using drawing.
+    * Related APIs ([C API reference](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-arkui/_o_h___native_x_component.md)):
 
-      | 接口名 | 描述 | 
+      | API | Description |
       | -------- | -------- |
-      | OH_NativeXComponent_SetExpectedFrameRateRange| 设置期望帧率范围 |
-      | OH_NativeXComponent_RegisterOnFrameCallback  | 注册更新回调 |
-      | OH_NativeXComponent_UnregisterOnFrameCallback  | 取消更新回调 |
+      | OH_NativeXComponent_SetExpectedFrameRateRange | Sets the expected frame rate range. |
+      | OH_NativeXComponent_RegisterOnFrameCallback | Registers the frame update callback. |
+      | OH_NativeXComponent_UnregisterOnFrameCallback | Unregisters the frame update callback. |
 
-* 动画：通过[animator](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/js-apis-animator.md)新增的接口setExpectedFrameRateRange，设置期望的帧率范围，作用于动画场景
-    * 涉及到的相关接口：
-      
-      | 接口名 | 描述 |
-      | ----------------------------------------------------------------- | -------- |
-      | setExpectedFrameRateRange: (rateRange: ExpectedFrameRateRange): void | 设置期望的帧率范围 |
+* Animator: Uses the `setExpectedFrameRateRange` API added to [animator](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-arkui/js-apis-animator.md) to set the expected frame rate range of the animation.
+    * Related API:
 
+      | API | Description |
+      | -------- | -------- |
+      | setExpectedFrameRateRange: (rateRange: ExpectedFrameRateRange): void | Sets the expected frame rate range. |
 
-### 相关权限
+### Permissions
 
-不涉及
+None.
 
-### 依赖
+### Dependencies
 
-不涉及
+None.
 
-### 约束与限制
+### Constraints and Limitations
 
-1.本示例仅支持在标准系统上运行，支持设备：RK3568。
+1. This sample can run only on standard-system devices and has been verified on an RK3568 board.
+2. This sample uses the Stage model and supports API 26 SDK (26.0.0). The `compileSdkVersion`, `targetSdkVersion`, and `compatibleSdkVersion` are all 26.0.0.
+3. DevEco Studio 26.0.0 Release or later is required to compile and run this sample.
 
-2.本示例为Stage模型，已适配API version 12版本SDK，SDK版本号(API Version 12 5.0.0.18),镜像版本号(5.0.0.18)。
+### Download
 
-3.本示例需要使用DevEco Studio 版本号(3.1.0.501)及以上版本才可编译运行。
+To download this project separately, run the following commands:
 
-
-### 下载
-
-如需单独下载本工程，执行如下命令：
 ```
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Graphics/DisplaySync/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
-
 ```

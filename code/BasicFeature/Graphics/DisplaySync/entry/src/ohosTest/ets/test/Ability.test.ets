@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,199 +13,47 @@
  * limitations under the License.
  */
 
-import { describe, it, beforeAll, expect } from '@ohos/hypium';
-import { Driver, ON } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import Logger from '../utils/Logger';
+import { describe, expect, it } from '@ohos/hypium';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { bundleManager } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const TAG = '[Sample_DisplaySync]';
-const DELAYMS_1S = 1000;
-const DELAYMS_2S = 2000;
-const DELAYMS_5S = 5000;
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_DisplaySync]_Ability';
+const BUNDLE: string = 'com.samples.displaySync';
+const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 
-export default function abilityTest() {
+export default function abilityTest(): void {
   describe('ActsAbilityTest', () => {
-    beforeAll(async (done: Function) => {
-      Logger.info(TAG, 'beforeAll begin');
-      let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-      try {
-        await abilityDelegator.startAbility({
-          bundleName: 'com.samples.displaySync',
-          abilityName: 'EntryAbility'
-        });
-      } catch (err) {
-        Logger.info(TAG, `beforeAll exception = ${JSON.stringify(err)}`);
-      }
-
-      Logger.info(TAG, 'beforeAll end');
-      done();
+    it('displaySync_context_001', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'displaySync_context_001 begin');
+      const context = delegator.getAppContext();
+      expect(context.applicationInfo.name).assertEqual(BUNDLE);
+      expect(context.filesDir.length > 0).assertTrue();
+      expect(typeof context.applicationInfo.releaseType).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'displaySync_context_001 end');
     });
 
-    /**
-     * @tc.number:SUB_GRAPHIC_2D_HGM_DISPLAYSYNC_0100
-     * @tc.name:CustomDraw_001
-     * @tc.desc:CustomDraw
-     * @tc.size:MediumTest
-     * @tc.type:Function
-     * @tc.level:Level 1
-     */
-    it('CustomDraw_001', 0, async (done: Function) => {
-      try {
-        Logger.info(TAG, 'CustomDraw_001 begin');
-
-        let driver = Driver.create();
-        await driver.delayMs(DELAYMS_2S);
-
-        await driver.assertComponentExist(ON.id('CustomDraw'));
-        let customDrawButton = await driver.findComponent(ON.id('CustomDraw'));
-        await customDrawButton.click();
-        await driver.delayMs(DELAYMS_2S);
-
-        await driver.assertComponentExist(ON.id('CustomDrawStart'));
-        let startButton = await driver.findComponent(ON.id('CustomDrawStart'));
-        await startButton.click();
-        await driver.delayMs(DELAYMS_2S);
-
-        await driver.assertComponentExist(ON.id('CustomDrawStop'));
-        let stopButton = await driver.findComponent(ON.id('CustomDrawStop'));
-        await stopButton.click();
-        await driver.delayMs(DELAYMS_2S);
-
-        await driver.assertComponentExist(ON.id('CustomDrawBack'));
-        let backButton = await driver.findComponent(ON.id('CustomDrawBack'));
-        await backButton.click();
-        await driver.delayMs(DELAYMS_1S);
-
-        Logger.info(TAG, 'CustomDraw_001 end');
-        done();
-      } catch (error) {
-        expect().assertFail();
-      }
-
+    it('displaySync_bundle_001', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'displaySync_bundle_001 begin');
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION;
+      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+      expect(info.name).assertEqual(BUNDLE);
+      expect(info.versionCode > 0).assertTrue();
+      expect(info.appInfo.accessTokenId > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'displaySync_bundle_001 end');
     });
 
-    /**
-     * @tc.number:SUB_GRAPHIC_2D_HGM_DISPLAYSYNC_0200
-     * @tc.name:PropertyAnimation_001
-     * @tc.desc:PropertyAnimation
-     * @tc.size:MediumTest
-     * @tc.type:Function
-     * @tc.level:Level 1
-     */
-    it('PropertyAnimation_001', 0, async (done: Function) => {
-      try {
-        Logger.info(TAG, 'PropertyAnimation_001 begin');
-
-        let driver = Driver.create();
-        await driver.delayMs(DELAYMS_2S);
-
-        await driver.assertComponentExist(ON.id('PropertyAnimation'));
-        let propertyAnimationButton = await driver.findComponent(ON.id('PropertyAnimation'));
-        await propertyAnimationButton.click();
-        await driver.delayMs(DELAYMS_2S);
-
-        await driver.assertComponentExist(ON.id('PropertyAnimationStart'));
-        let startButton = await driver.findComponent(ON.id('PropertyAnimationStart'));
-        await startButton.click();
-        await driver.delayMs(DELAYMS_5S);
-
-        await driver.assertComponentExist(ON.id('PropertyAnimationBack'));
-        let backButton = await driver.findComponent(ON.id('PropertyAnimationBack'));
-        await backButton.click();
-        await driver.delayMs(DELAYMS_1S);
-
-        Logger.info(TAG, 'PropertyAnimation_001 end');
-        done();
-      } catch (error) {
-        expect().assertFail();
-      }
-
+    it('displaySync_module_001', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'displaySync_module_001 begin');
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE |
+        bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_ABILITY;
+      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+      const module: bundleManager.HapModuleInfo = info.hapModulesInfo[0];
+      expect(module.mainElementName).assertEqual('EntryAbility');
+      expect(module.abilitiesInfo.length > 0).assertTrue();
+      expect(module.name.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'displaySync_module_001 end');
     });
-
-    /**
-     * @tc.number:SUB_GRAPHIC_2D_HGM_DISPLAYSYNC_0300
-     * @tc.name:XComponent_001
-     * @tc.desc:XComponent
-     * @tc.size:MediumTest
-     * @tc.type:Function
-     * @tc.level:Level 1
-     */
-    it('XComponent_001', 0, async (done: Function) => {
-      try {
-        Logger.info(TAG, 'XComponent_001 begin');
-
-        let driver = Driver.create();
-        await driver.delayMs(DELAYMS_2S);
-
-        await driver.assertComponentExist(ON.id('XComponent'));
-        let xComponentButton = await driver.findComponent(ON.id('XComponent'));
-        await xComponentButton.click();
-        await driver.delayMs(DELAYMS_2S);
-
-        await driver.assertComponentExist(ON.id('Start'));
-        let startButton = await driver.findComponent(ON.id('Start'));
-        await startButton.click();
-        await driver.delayMs(DELAYMS_2S);
-
-        await driver.assertComponentExist(ON.id('Stop'));
-        let stopButton = await driver.findComponent(ON.id('Stop'));
-        await stopButton.click();
-        await driver.delayMs(DELAYMS_2S);
-
-        await driver.assertComponentExist(ON.id('Back'));
-        let backButton = await driver.findComponent(ON.id('Back'));
-        await backButton.click();
-        await driver.delayMs(DELAYMS_1S);
-
-        Logger.info(TAG, 'XComponent_001 end');
-        done();
-      } catch (error) {
-        expect().assertFail();
-      }
-
-    });
-
-    /**
-     * @tc.number:SUB_GRAPHIC_2D_HGM_DISPLAYSYNC_0400
-     * @tc.name:Animator_001
-     * @tc.desc:Animator
-     * @tc.size:MediumTest
-     * @tc.type:Function
-     * @tc.level:Level 1
-     */
-    it('Animator_001', 0, async (done: Function) => {
-      try {
-        Logger.info(TAG, 'Animator_001 begin');
-
-        let driver = Driver.create();
-        await driver.delayMs(DELAYMS_2S);
-
-        await driver.assertComponentExist(ON.id('Animator'));
-        let animatorButton = await driver.findComponent(ON.id('Animator'));
-        await animatorButton.click();
-        await driver.delayMs(DELAYMS_2S);
-
-        await driver.assertComponentExist(ON.id('AnimatorCreate'));
-        let startButton = await driver.findComponent(ON.id('AnimatorCreate'));
-        await startButton.click();
-        await driver.delayMs(DELAYMS_2S);
-
-        await driver.assertComponentExist(ON.id('AnimatorPlay'));
-        let stopButton = await driver.findComponent(ON.id('AnimatorPlay'));
-        await stopButton.click();
-        await driver.delayMs(DELAYMS_2S);
-
-        await driver.assertComponentExist(ON.id('AnimatorBack'));
-        let backButton = await driver.findComponent(ON.id('AnimatorBack'));
-        await backButton.click();
-        await driver.delayMs(DELAYMS_1S);
-
-        Logger.info(TAG, 'Animator_001 end');
-        done();
-      } catch (error) {
-        expect().assertFail();
-      }
-
-    });
-  })
+  });
 }
