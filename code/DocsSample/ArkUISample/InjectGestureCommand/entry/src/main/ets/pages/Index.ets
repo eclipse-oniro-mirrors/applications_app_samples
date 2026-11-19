@@ -18,6 +18,8 @@ import nativeInject from 'libentry.so';
 @Component
 struct Index {
   @State clickCount: number = 0;
+  private targetX: number = 0;
+  private targetY: number = 0;
 
   build() {
     Column({ space: 16 }) {
@@ -27,6 +29,12 @@ struct Index {
 
       Button('目标组件')
         .width('90%')
+        .onAreaChange((_oldArea: Area, newArea: Area) => {
+          // 记录目标组件中心点，转换为相对窗口的物理像素（px），供注入命令使用。
+          const uiContext = this.getUIContext();
+          this.targetX = uiContext.vp2px(Number(newArea.globalPosition.x) + Number(newArea.width) / 2);
+          this.targetY = uiContext.vp2px(Number(newArea.globalPosition.y) + Number(newArea.height) / 2);
+        })
         .onClick(() => {
           this.clickCount += 1;
         })
@@ -37,7 +45,7 @@ struct Index {
       Button('注入点击命令')
         .width('90%')
         .onClick(() => {
-          nativeInject.injectClick(this.getUIContext());
+          nativeInject.injectClick(this.getUIContext(), this.targetX, this.targetY);
         })
     }
     .width('100%')

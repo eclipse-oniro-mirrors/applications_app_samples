@@ -12,9 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 // NativeEntry.cpp
 
+#include <cstdio>
 #include <cstring>
 
 #include <arkui/native_node_napi.h>
@@ -35,14 +35,20 @@ static void OnInjectionResult(OH_ArkUI_NativeModule_UIEventInjection_ResultCode 
     }
 }
 
-// 通过ArkUI_ContextHandle注入一次点击手势命令。
-void InjectClickCommand(ArkUI_ContextHandle uiContext)
+// 通过ArkUI_ContextHandle在指定坐标（相对窗口的物理像素）注入一次点击手势命令。
+void InjectClickCommand(ArkUI_ContextHandle uiContext, double x, double y)
 {
     // 构造命令JSON并创建命令对象。
-    const char* json = R"({"schemaVersion":1,"cmd":{"type":"click","mode":"auto",)"
-                      R"("action_info":{"coordinates":{"x1":100.0,"y1":200.0}}}})";
+    char json[256] = {0};
+    int len = snprintf(json, sizeof(json),
+        R"({"schemaVersion":1,"cmd":{"type":"click","mode":"auto",)"
+        R"("action_info":{"coordinates":{"x1":%.2f,"y1":%.2f}}}})",
+        x, y);
+    if (len <= 0 || len >= static_cast<int>(sizeof(json))) {
+        return; // JSON构造失败。
+    }
     OH_ArkUI_NativeModule_UIJsonWrapper* command = nullptr;
-    ArkUI_ErrorCode ret = OH_ArkUI_NativeModule_UIJsonWrapperCreate(json, strlen(json), &command);
+    ArkUI_ErrorCode ret = OH_ArkUI_NativeModule_UIJsonWrapperCreate(json, static_cast<uint32_t>(len), &command);
     if (ret != ARKUI_ERROR_CODE_NO_ERROR || command == nullptr) {
         return; // JSON不合法或内存分配失败。
     }
@@ -58,17 +64,22 @@ void InjectClickCommand(ArkUI_ContextHandle uiContext)
     }
 }
 
-// ArkTS侧调用入口：入参为UIContext。
+// ArkTS侧调用入口：入参为UIContext、目标坐标x、目标坐标y（相对窗口的物理像素）。
 napi_value InjectClick(napi_env env, napi_callback_info info)
 {
-    size_t argc = 1;
-    napi_value args[1] = {nullptr};
+    size_t argc = 3;
+    napi_value args[3] = {nullptr, nullptr, nullptr};
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
 
     ArkUI_ContextHandle uiContext = nullptr;
     OH_ArkUI_GetContextFromNapiValue(env, args[0], &uiContext);
 
-    InjectClickCommand(uiContext);
+    double x = 0.0;
+    double y = 0.0;
+    napi_get_value_double(env, args[1], &x);
+    napi_get_value_double(env, args[2], &y);
+
+    InjectClickCommand(uiContext, x, y);
     return nullptr;
 }
 
