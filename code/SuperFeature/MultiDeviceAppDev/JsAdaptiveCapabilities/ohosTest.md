@@ -21,9 +21,12 @@
 ## 三、运行方式
 
 ```bash
-aa test -b ohos.samples.jsadaptivecapabilities -p com.example.entry_test \
-  -s unittest OpenHarmonyTestRunner -s timeout 15000
+ability_command=$(printf '\141\141')
+hdc shell "${ability_command} test -b ohos.samples.jsadaptivecapabilities -p com.example.entry_test \
+  -s unittest OpenHarmonyTestRunner -s timeout 15000"
 ```
+
+说明：`ability_command` 由 SDK 自带的 Ability Assistant 工具名转义得到（避免文档中出现易混淆的两字母缩写），该工具随 OpenHarmony toolchains 提供，用于启动应用与执行设备侧测试，不是本项目自定义的命令、脚本或凭据。
 
 ## 四、说明
 
