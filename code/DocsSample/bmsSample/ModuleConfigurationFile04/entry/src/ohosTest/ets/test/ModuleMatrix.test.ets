@@ -3405,3 +3405,561 @@ export default function ModuleMatrixTest(): void {
       TestLog.number('testModuleMatrixReservedFeature', 'report count', reportCount);
       expect(reportCount).assertEqual(findings.length);
       const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixReservedFeature', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixReservedFeature', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixReservedFeature', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixReservedFeature', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixReservedFeature', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixReservedFeature', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixReservedFeature', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixReservedFeature', 'case end', 'module name reserved with type feature');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5752
+     * @tc.name      testModuleMatrixReservedShared
+     * @tc.desc      Checks that module name Reserved with type Shared is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixReservedShared',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'app';
+      moduleConfig.type = 'shared';
+      TestLog.text('testModuleMatrixReservedShared', 'case begin', 'module name reserved with type shared');
+      TestLog.step('testModuleMatrixReservedShared', 'module name reserved with type shared');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixReservedShared', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_RESERVED');
+      TestLog.flag('testModuleMatrixReservedShared', 'has code MODULE_NAME_RESERVED', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixReservedShared', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixReservedShared', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixReservedShared', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixReservedShared', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixReservedShared', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixReservedShared', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixReservedShared', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixReservedShared', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixReservedShared', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixReservedShared', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixReservedShared', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixReservedShared', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixReservedShared', 'case end', 'module name reserved with type shared');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5753
+     * @tc.name      testModuleMatrixReservedPlugin
+     * @tc.desc      Checks that module name Reserved with type Plugin is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixReservedPlugin',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'app';
+      moduleConfig.type = 'plugin';
+      TestLog.text('testModuleMatrixReservedPlugin', 'case begin', 'module name reserved with type plugin');
+      TestLog.step('testModuleMatrixReservedPlugin', 'module name reserved with type plugin');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixReservedPlugin', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_RESERVED');
+      TestLog.flag('testModuleMatrixReservedPlugin', 'has code MODULE_NAME_RESERVED', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_UNKNOWN');
+      TestLog.flag('testModuleMatrixReservedPlugin', 'has code MODULE_TYPE_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixReservedPlugin', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixReservedPlugin', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixReservedPlugin', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixReservedPlugin', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixReservedPlugin', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixReservedPlugin', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixReservedPlugin', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixReservedPlugin', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixReservedPlugin', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixReservedPlugin', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixReservedPlugin', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixReservedPlugin', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixReservedPlugin', 'case end', 'module name reserved with type plugin');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5754
+     * @tc.name      testModuleMatrixReservedEmpty
+     * @tc.desc      Checks that module name Reserved with type Empty is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixReservedEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = 'app';
+      moduleConfig.type = '';
+      TestLog.text('testModuleMatrixReservedEmpty', 'case begin', 'module name reserved with type empty');
+      TestLog.step('testModuleMatrixReservedEmpty', 'module name reserved with type empty');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixReservedEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_RESERVED');
+      TestLog.flag('testModuleMatrixReservedEmpty', 'has code MODULE_NAME_RESERVED', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_EMPTY');
+      TestLog.flag('testModuleMatrixReservedEmpty', 'has code MODULE_TYPE_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixReservedEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixReservedEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixReservedEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixReservedEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixReservedEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixReservedEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixReservedEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixReservedEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixReservedEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixReservedEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixReservedEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixReservedEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixReservedEmpty', 'case end', 'module name reserved with type empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5755
+     * @tc.name      testModuleMatrixTooLongEntry
+     * @tc.desc      Checks that module name TooLong with type Entry is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixTooLongEntry',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = ('a'.repeat(33));
+      moduleConfig.type = 'entry';
+      TestLog.text('testModuleMatrixTooLongEntry', 'case begin', 'module name toolong with type entry');
+      TestLog.step('testModuleMatrixTooLongEntry', 'module name toolong with type entry');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixTooLongEntry', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_TOO_LONG');
+      TestLog.flag('testModuleMatrixTooLongEntry', 'has code MODULE_NAME_TOO_LONG', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixTooLongEntry', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixTooLongEntry', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixTooLongEntry', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixTooLongEntry', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixTooLongEntry', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixTooLongEntry', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixTooLongEntry', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixTooLongEntry', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixTooLongEntry', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixTooLongEntry', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixTooLongEntry', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixTooLongEntry', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixTooLongEntry', 'case end', 'module name toolong with type entry');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5756
+     * @tc.name      testModuleMatrixTooLongFeature
+     * @tc.desc      Checks that module name TooLong with type Feature is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixTooLongFeature',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = ('a'.repeat(33));
+      moduleConfig.type = 'feature';
+      TestLog.text('testModuleMatrixTooLongFeature', 'case begin', 'module name toolong with type feature');
+      TestLog.step('testModuleMatrixTooLongFeature', 'module name toolong with type feature');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixTooLongFeature', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_TOO_LONG');
+      TestLog.flag('testModuleMatrixTooLongFeature', 'has code MODULE_NAME_TOO_LONG', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixTooLongFeature', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixTooLongFeature', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixTooLongFeature', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixTooLongFeature', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixTooLongFeature', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixTooLongFeature', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixTooLongFeature', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixTooLongFeature', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixTooLongFeature', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixTooLongFeature', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixTooLongFeature', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixTooLongFeature', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixTooLongFeature', 'case end', 'module name toolong with type feature');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5757
+     * @tc.name      testModuleMatrixTooLongShared
+     * @tc.desc      Checks that module name TooLong with type Shared is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixTooLongShared',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = ('a'.repeat(33));
+      moduleConfig.type = 'shared';
+      TestLog.text('testModuleMatrixTooLongShared', 'case begin', 'module name toolong with type shared');
+      TestLog.step('testModuleMatrixTooLongShared', 'module name toolong with type shared');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixTooLongShared', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_TOO_LONG');
+      TestLog.flag('testModuleMatrixTooLongShared', 'has code MODULE_NAME_TOO_LONG', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixTooLongShared', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixTooLongShared', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixTooLongShared', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixTooLongShared', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixTooLongShared', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixTooLongShared', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixTooLongShared', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixTooLongShared', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixTooLongShared', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixTooLongShared', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixTooLongShared', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixTooLongShared', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixTooLongShared', 'case end', 'module name toolong with type shared');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5758
+     * @tc.name      testModuleMatrixTooLongPlugin
+     * @tc.desc      Checks that module name TooLong with type Plugin is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixTooLongPlugin',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = ('a'.repeat(33));
+      moduleConfig.type = 'plugin';
+      TestLog.text('testModuleMatrixTooLongPlugin', 'case begin', 'module name toolong with type plugin');
+      TestLog.step('testModuleMatrixTooLongPlugin', 'module name toolong with type plugin');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixTooLongPlugin', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_TOO_LONG');
+      TestLog.flag('testModuleMatrixTooLongPlugin', 'has code MODULE_NAME_TOO_LONG', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_UNKNOWN');
+      TestLog.flag('testModuleMatrixTooLongPlugin', 'has code MODULE_TYPE_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixTooLongPlugin', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixTooLongPlugin', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixTooLongPlugin', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixTooLongPlugin', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixTooLongPlugin', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixTooLongPlugin', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixTooLongPlugin', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixTooLongPlugin', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixTooLongPlugin', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixTooLongPlugin', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixTooLongPlugin', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixTooLongPlugin', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixTooLongPlugin', 'case end', 'module name toolong with type plugin');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5759
+     * @tc.name      testModuleMatrixTooLongEmpty
+     * @tc.desc      Checks that module name TooLong with type Empty is reported by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleMatrixTooLongEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = ('a'.repeat(33));
+      moduleConfig.type = '';
+      TestLog.text('testModuleMatrixTooLongEmpty', 'case begin', 'module name toolong with type empty');
+      TestLog.step('testModuleMatrixTooLongEmpty', 'module name toolong with type empty');
+      const findings: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.findings('testModuleMatrixTooLongEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_TOO_LONG');
+      TestLog.flag('testModuleMatrixTooLongEmpty', 'has code MODULE_NAME_TOO_LONG', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_EMPTY');
+      TestLog.flag('testModuleMatrixTooLongEmpty', 'has code MODULE_TYPE_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleMatrixTooLongEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleMatrixTooLongEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleMatrixTooLongEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleMatrixTooLongEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleMatrixTooLongEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleMatrixTooLongEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleMatrixTooLongEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleMatrixTooLongEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleMatrixTooLongEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleMatrixTooLongEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        ModuleConfigValidator.validateName(moduleConfig).concat(ModuleConfigValidator.validateType(moduleConfig));
+      TestLog.number('testModuleMatrixTooLongEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleMatrixTooLongEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleMatrixTooLongEmpty', 'case end', 'module name toolong with type empty');
+    })
+
+  })
+}
