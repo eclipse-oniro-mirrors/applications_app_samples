@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/utils/TitleExpansion.ets
+ * 文件职责：TitleExpansion 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：TitleExpansion、TitleAttributeModifier、SubTitleAttributeModifier。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { Callback } from '@kit.BasicServicesKit';
 import { AnimationAttribute } from '../model/AnimationAttribute';
 import Constants from '../constants/Constants';
@@ -36,57 +43,92 @@ import { TitleAttribute } from '../model/TitleAttribute';
  * @param {() => void} [menu] - 菜单栏样式
  * @param {() => void} [content] - 页面内容样式
  */
+/**
+ * TitleExpansion：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct TitleExpansion {
   // 主标题属性
   titleAttribute: TitleAttribute = new TitleAttribute(Constants.MEMO_TITLE, new TitleAttributeModifier());
+
   // 子标题属性
   subTitleAttribute: TitleAttribute = new TitleAttribute(Constants.MEMO_SUB_TITLE, new SubTitleAttributeModifier());
+
   // 主标题及子标题位置
   titlePosition: HorizontalAlign = HorizontalAlign.Start;
+
   // 动效属性
   animationAttribute: AnimationAttribute = new AnimationAttribute(Constants.NORMAL_TITLE_HEIGHT,
     Constants.EXPAND_TITLE_HEIGHT, Constants.CONTINUE_PULL_THRESHOLD,
     Constants.TITLE_SCALE_MAX_VALUE, Constants.ANIMATION_DURATION);
+
   // 菜单栏样式
+  // @BuilderParam menu：构建函数参数
   @BuilderParam menu: () => void = this.titleExpansionMenu;
+
   // 页面内容样式
+  // @BuilderParam content：构建函数参数
   @BuilderParam content: () => void = this.titleExpansionContent;
 
   // ---------私有变量---------
   // 标题栏高度
+  // @State heightValue：组件内部状态
   @State heightValue: number = this.animationAttribute.normalTitleHeight;
+
   // 子标题显隐参数
+  // @State textOpacity：组件内部状态
   @State textOpacity: number = 1;
+
   // 标题扩展后，继续下拉的偏移
+  // @State curOffset：组件内部状态
   @State curOffset: number = 0;
+
   // 动画持续时间
   private animationDuration: number = this.animationAttribute.animationDuration;
+
   // 节流器状态
   private throttleStatus: boolean = true;
+
   // 节流器延迟时间
   private delay: number = 240;
+
   // 标题栏扩展或收缩阈值
   private thresholdValue: number = (this.animationAttribute.normalTitleHeight +
   this.animationAttribute.expandTitleHeight) / 2;
+
   // 滚动控制器
   private scroller: ListScroller = new ListScroller();
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // RelativeContainer：相对布局容器
+    // 关键属性：背景色
     RelativeContainer() {
+      // RelativeContainer：相对布局容器
+      // 关键属性：高度、宽度、内边距
       RelativeContainer() {
         // 标题
+        // Column：垂直布局容器
+        // 关键属性：高度、主轴对齐、交叉轴对齐、相对对齐规则
         Column() {
+          // Text：文本
+          // 关键属性：attributeModifier、缩放、getTitleScaleOptions、平移、getTitleTranslateOptions
           Text(this.titleAttribute.text)
             .attributeModifier(this.titleAttribute.attribute)
             .scale(this.getTitleScaleOptions())
             .translate(this.getTitleTranslateOptions())
+            .id('titleMainText')
           // 子标题
+          // Text：文本
+          // 关键属性：attributeModifier、透明度、getTitleOpacityOptions、平移、getTitleTranslateOptions
           Text(this.subTitleAttribute.text)
             .attributeModifier(this.subTitleAttribute.attribute)
             .opacity(this.getTitleOpacityOptions())
             .translate(this.getTitleTranslateOptions())
-        }
+            .id('titleSubText')
+        }.id('title_expansion_column_2')
         .height(Constants.ONE_HUNDRED_PERCENT)
         .justifyContent(FlexAlign.Start)
         .alignItems(this.titlePosition)
@@ -96,10 +138,11 @@ export struct TitleExpansion {
         })
 
         // 菜单
+        // Column：垂直布局容器
+        // 关键属性：高度、主轴对齐、平移、getMenuTranslateOptions、相对对齐规则
         Column() {
           this.menu();
-        }
-        .id('titleImage')
+        }.id('titleImage')
         .height(Constants.ONE_HUNDRED_PERCENT)
         .justifyContent(FlexAlign.Start)
         .translate(this.getMenuTranslateOptions()) // TODO：知识点：配置菜单平移参数
@@ -112,12 +155,15 @@ export struct TitleExpansion {
       .width(Constants.ONE_HUNDRED_PERCENT)
       .padding(Constants.TITLE_LAYOUT_PADDING)
 
+      // List：列表容器
+      // 关键属性：滚动条、宽度
       List({ space: Constants.SEARCH_MEMO_SPACE, scroller: this.scroller }) {
+        // ListItem：列表项
         ListItem() {
           // 内容
           this.content();
-        }
-      }
+        }.id('title_expansion_list_item_3')
+      }.id('contentList')
       .scrollBar(BarState.Off)
       .width(Constants.ONE_HUNDRED_PERCENT)
       // 获取标题展开后，标题继续下拉及下拉回弹偏移
@@ -155,13 +201,16 @@ export struct TitleExpansion {
         top: {anchor: 'title', align: VerticalAlign.Bottom},
         bottom: {anchor: '__container__', align: VerticalAlign.Bottom}
       })
-    }
+    }.id('title_expansion_relative_container_1')
     .backgroundColor(Constants.BACKGROUND_COLOR)
   }
 
   /**
    * 默认菜单样式
    * @returns
+   */
+  /**
+   * titleExpansionMenu：执行 titleExpansionMenu 相关逻辑。
    */
   @Builder
   titleExpansionMenu(): void {
@@ -171,10 +220,15 @@ export struct TitleExpansion {
    * 默认内容样式
    * @returns
    */
+  /**
+   * titleExpansionContent：执行 titleExpansionContent 相关逻辑。
+   */
   @Builder
   titleExpansionContent(): void {
+    // Column：垂直布局容器
+    // 关键属性：高度、宽度
     Column() {
-    }
+    }.id('title_expansion_column_4')
       .height(Constants.ONE_HUNDRED_PERCENT)
       .width(Constants.ONE_HUNDRED_PERCENT)
   }
@@ -259,6 +313,9 @@ export struct TitleExpansion {
  */
 class TitleAttributeModifier implements AttributeModifier<TextAttribute> {
 
+  /**
+   * applyNormalAttribute：执行 applyNormalAttribute 相关逻辑。
+   */
   applyNormalAttribute(instance: TextAttribute): void {
     instance
       .fontSize(Constants.TITLE_FONT_SIZE)
@@ -270,6 +327,9 @@ class TitleAttributeModifier implements AttributeModifier<TextAttribute> {
  */
 class SubTitleAttributeModifier implements AttributeModifier<TextAttribute> {
 
+  /**
+   * applyNormalAttribute：执行 applyNormalAttribute 相关逻辑。
+   */
   applyNormalAttribute(instance: TextAttribute): void {
     instance
       .fontSize(Constants.SUB_TITLE_FONT_SIZE)
