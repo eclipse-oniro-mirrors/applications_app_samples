@@ -4804,6 +4804,431 @@ export default function windowLimitsUiTest(): void {
         }
         await verifyTitle();
       });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1151
+     * @tc.name      testResizeLifeCycle1151
+     * @tc.desc      Resize to a boundary size and verify bounds.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1151',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(600, 500, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+          const bounds: Rect = await appWindow.getBounds();
+          expect((bounds.right - bounds.left) > 0).assertTrue();
+          expect((bounds.bottom - bounds.top) > 0).assertTrue();
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1152
+     * @tc.name      testResizeLifeCycle1152
+     * @tc.desc      Resize, restart the app and verify the title.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1152',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(640, 530, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(300);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1153
+     * @tc.name      testResizeLifeCycle1153
+     * @tc.desc      Resize beyond the maximum and verify the title.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1153',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(1600, 1200, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1154
+     * @tc.name      testResizeLifeCycle1154
+     * @tc.desc      Resize below the minimum and verify the title.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1154',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(300, 200, ResizeDirection.LEFT_UP);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1155
+     * @tc.name      testResizeLifeCycle1155
+     * @tc.desc      Resize to a boundary size and verify bounds.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1155',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(760, 500, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+          const bounds: Rect = await appWindow.getBounds();
+          expect((bounds.right - bounds.left) > 0).assertTrue();
+          expect((bounds.bottom - bounds.top) > 0).assertTrue();
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1156
+     * @tc.name      testResizeLifeCycle1156
+     * @tc.desc      Resize, restart the app and verify the title.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1156',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(600, 530, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(300);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1157
+     * @tc.name      testResizeLifeCycle1157
+     * @tc.desc      Resize beyond the maximum and verify the title.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1157',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(1600, 1200, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1158
+     * @tc.name      testResizeLifeCycle1158
+     * @tc.desc      Resize below the minimum and verify the title.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1158',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(300, 200, ResizeDirection.LEFT_UP);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1159
+     * @tc.name      testResizeLifeCycle1159
+     * @tc.desc      Resize to a boundary size and verify bounds.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1159',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(720, 500, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+          const bounds: Rect = await appWindow.getBounds();
+          expect((bounds.right - bounds.left) > 0).assertTrue();
+          expect((bounds.bottom - bounds.top) > 0).assertTrue();
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1160
+     * @tc.name      testResizeLifeCycle1160
+     * @tc.desc      Resize, restart the app and verify the title.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1160',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(760, 530, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(300);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1161
+     * @tc.name      testResizeLifeCycle1161
+     * @tc.desc      Resize beyond the maximum and verify the title.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1161',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(1600, 1200, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1162
+     * @tc.name      testResizeLifeCycle1162
+     * @tc.desc      Resize below the minimum and verify the title.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1162',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(300, 200, ResizeDirection.LEFT_UP);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1163
+     * @tc.name      testResizeLifeCycle1163
+     * @tc.desc      Resize to a boundary size and verify bounds.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1163',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(680, 500, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+          const bounds: Rect = await appWindow.getBounds();
+          expect((bounds.right - bounds.left) > 0).assertTrue();
+          expect((bounds.bottom - bounds.top) > 0).assertTrue();
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1164
+     * @tc.name      testResizeLifeCycle1164
+     * @tc.desc      Resize, restart the app and verify the title.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1164',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(720, 530, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(300);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1165
+     * @tc.name      testResizeLifeCycle1165
+     * @tc.desc      Resize beyond the maximum and verify the title.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1165',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(1600, 1200, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1166
+     * @tc.name      testResizeLifeCycle1166
+     * @tc.desc      Resize below the minimum and verify the title.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1166',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(300, 200, ResizeDirection.LEFT_UP);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1167
+     * @tc.name      testResizeLifeCycle1167
+     * @tc.desc      Resize to a boundary size and verify bounds.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1167',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(640, 500, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+          const bounds: Rect = await appWindow.getBounds();
+          expect((bounds.right - bounds.left) > 0).assertTrue();
+          expect((bounds.bottom - bounds.top) > 0).assertTrue();
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1168
+     * @tc.name      testResizeLifeCycle1168
+     * @tc.desc      Resize, restart the app and verify the title.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1168',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(680, 530, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(300);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1169
+     * @tc.name      testResizeLifeCycle1169
+     * @tc.desc      Resize beyond the maximum and verify the title.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1169',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(1600, 1200, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await verifyTitle();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1170
+     * @tc.name      testResizeLifeCycle1170
+     * @tc.desc      Resize below the minimum and verify the title.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testResizeLifeCycle1170',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(300, 200, ResizeDirection.LEFT_UP);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await verifyTitle();
+      });
     RESIZE_CASES.forEach((resizeCase: ResizeCase) => {
       /**
        * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_UI_1010-1049_1070-1099_1100-1119_1120-1319

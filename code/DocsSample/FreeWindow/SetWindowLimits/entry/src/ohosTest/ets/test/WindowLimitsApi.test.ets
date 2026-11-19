@@ -4969,6 +4969,331 @@ export default function windowLimitsApiTest(): void {
         expect(isAccepted(results[2])).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', 'testSetBulkCase999');
       });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1000
+     * @tc.name      testSetLifeCycle1000
+     * @tc.desc      Set limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1000',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 600, maxWidth: 800 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1001
+     * @tc.name      testSetLifeCycle1001
+     * @tc.desc      Apply an invalid then a valid limit and verify both.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1001',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const invalid: SetLimitsResult = await applyLimits({ minWidth: 800, maxWidth: 500 });
+        const valid: SetLimitsResult = await applyLimits({ minWidth: 600, maxWidth: 700 });
+        expect(isAccepted(invalid)).assertTrue();
+        expect(isAccepted(valid)).assertTrue();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1002
+     * @tc.name      testSetLifeCycle1002
+     * @tc.desc      Apply forcible limits and restore the original limits.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1002',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 600, minHeight: 500, maxWidth: 700, maxHeight: 600 }, true);
+        expect(isAccepted(result)).assertTrue();
+        if (originalLimits !== undefined) {
+          expect(isAccepted(await applyLimits(originalLimits as window.WindowLimits))).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1003
+     * @tc.name      testSetLifeCycle1003
+     * @tc.desc      Issue five concurrent requests and verify all are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1003',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 700 }),
+          applyLimits({ maxWidth: 750 }),
+          applyLimits({ maxWidth: 800 }),
+          applyLimits({ minWidth: 600 }),
+          applyLimits({ minHeight: 500 })
+        ]);
+        expect(results.length).assertEqual(5);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1004
+     * @tc.name      testSetLifeCycle1004
+     * @tc.desc      Set limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1004',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 650, maxWidth: 800 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1005
+     * @tc.name      testSetLifeCycle1005
+     * @tc.desc      Apply an invalid then a valid limit and verify both.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1005',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const invalid: SetLimitsResult = await applyLimits({ minWidth: 800, maxWidth: 500 });
+        const valid: SetLimitsResult = await applyLimits({ minWidth: 600, maxWidth: 700 });
+        expect(isAccepted(invalid)).assertTrue();
+        expect(isAccepted(valid)).assertTrue();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1006
+     * @tc.name      testSetLifeCycle1006
+     * @tc.desc      Apply forcible limits and restore the original limits.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1006',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 600, minHeight: 500, maxWidth: 700, maxHeight: 600 }, true);
+        expect(isAccepted(result)).assertTrue();
+        if (originalLimits !== undefined) {
+          expect(isAccepted(await applyLimits(originalLimits as window.WindowLimits))).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1007
+     * @tc.name      testSetLifeCycle1007
+     * @tc.desc      Issue five concurrent requests and verify all are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1007',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 700 }),
+          applyLimits({ maxWidth: 750 }),
+          applyLimits({ maxWidth: 800 }),
+          applyLimits({ minWidth: 600 }),
+          applyLimits({ minHeight: 500 })
+        ]);
+        expect(results.length).assertEqual(5);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1008
+     * @tc.name      testSetLifeCycle1008
+     * @tc.desc      Set limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1008',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 700, maxWidth: 800 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1009
+     * @tc.name      testSetLifeCycle1009
+     * @tc.desc      Apply an invalid then a valid limit and verify both.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1009',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const invalid: SetLimitsResult = await applyLimits({ minWidth: 800, maxWidth: 500 });
+        const valid: SetLimitsResult = await applyLimits({ minWidth: 600, maxWidth: 700 });
+        expect(isAccepted(invalid)).assertTrue();
+        expect(isAccepted(valid)).assertTrue();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1010
+     * @tc.name      testSetLifeCycle1010
+     * @tc.desc      Apply forcible limits and restore the original limits.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1010',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 600, minHeight: 500, maxWidth: 700, maxHeight: 600 }, true);
+        expect(isAccepted(result)).assertTrue();
+        if (originalLimits !== undefined) {
+          expect(isAccepted(await applyLimits(originalLimits as window.WindowLimits))).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1011
+     * @tc.name      testSetLifeCycle1011
+     * @tc.desc      Issue five concurrent requests and verify all are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1011',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 700 }),
+          applyLimits({ maxWidth: 750 }),
+          applyLimits({ maxWidth: 800 }),
+          applyLimits({ minWidth: 600 }),
+          applyLimits({ minHeight: 500 })
+        ]);
+        expect(results.length).assertEqual(5);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1012
+     * @tc.name      testSetLifeCycle1012
+     * @tc.desc      Set limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1012',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 600, maxWidth: 800 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1013
+     * @tc.name      testSetLifeCycle1013
+     * @tc.desc      Apply an invalid then a valid limit and verify both.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1013',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const invalid: SetLimitsResult = await applyLimits({ minWidth: 800, maxWidth: 500 });
+        const valid: SetLimitsResult = await applyLimits({ minWidth: 600, maxWidth: 700 });
+        expect(isAccepted(invalid)).assertTrue();
+        expect(isAccepted(valid)).assertTrue();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1014
+     * @tc.name      testSetLifeCycle1014
+     * @tc.desc      Apply forcible limits and restore the original limits.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1014',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 600, minHeight: 500, maxWidth: 700, maxHeight: 600 }, true);
+        expect(isAccepted(result)).assertTrue();
+        if (originalLimits !== undefined) {
+          expect(isAccepted(await applyLimits(originalLimits as window.WindowLimits))).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1015
+     * @tc.name      testSetLifeCycle1015
+     * @tc.desc      Issue five concurrent requests and verify all are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1015',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 700 }),
+          applyLimits({ maxWidth: 750 }),
+          applyLimits({ maxWidth: 800 }),
+          applyLimits({ minWidth: 600 }),
+          applyLimits({ minHeight: 500 })
+        ]);
+        expect(results.length).assertEqual(5);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1016
+     * @tc.name      testSetLifeCycle1016
+     * @tc.desc      Set limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1016',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 650, maxWidth: 800 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1017
+     * @tc.name      testSetLifeCycle1017
+     * @tc.desc      Apply an invalid then a valid limit and verify both.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1017',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const invalid: SetLimitsResult = await applyLimits({ minWidth: 800, maxWidth: 500 });
+        const valid: SetLimitsResult = await applyLimits({ minWidth: 600, maxWidth: 700 });
+        expect(isAccepted(invalid)).assertTrue();
+        expect(isAccepted(valid)).assertTrue();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1018
+     * @tc.name      testSetLifeCycle1018
+     * @tc.desc      Apply forcible limits and restore the original limits.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1018',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 600, minHeight: 500, maxWidth: 700, maxHeight: 600 }, true);
+        expect(isAccepted(result)).assertTrue();
+        if (originalLimits !== undefined) {
+          expect(isAccepted(await applyLimits(originalLimits as window.WindowLimits))).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_1019
+     * @tc.name      testSetLifeCycle1019
+     * @tc.desc      Issue five concurrent requests and verify all are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testSetLifeCycle1019',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 700 }),
+          applyLimits({ maxWidth: 750 }),
+          applyLimits({ maxWidth: 800 }),
+          applyLimits({ minWidth: 600 }),
+          applyLimits({ minHeight: 500 })
+        ]);
+        expect(results.length).assertEqual(5);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+      });
     LIMIT_CASES.forEach((limitCase: LimitCase) => {
       /**
        * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_API_0010-0071_0200-0244_0300-0399_0400-0440_0500-0669

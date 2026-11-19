@@ -2503,5 +2503,95 @@ export default function localUnitTest() {
       expect(725).assertEqual(725);
       expect(1460 >= 725).assertTrue();
       expect(1460 - 725 > 0).assertTrue();
-    });  });
+    });    /**
+     * Verify lifecycle limit configuration 291.
+     */
+    it('WindowLimits_life_param_291', 0, () => {
+      const limits: window.WindowLimits = { minWidth: 600, maxWidth: 700 };
+      expect(limits.minWidth).assertEqual(600);
+      expect(limits.maxWidth).assertEqual(700);
+      expect((limits.maxWidth as number) >= (limits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle limit configuration 292.
+     */
+    it('WindowLimits_life_param_292', 0, () => {
+      const limits: window.WindowLimits = { minWidth: 650, maxWidth: 750 };
+      expect(limits.minWidth).assertEqual(650);
+      expect(limits.maxWidth).assertEqual(750);
+      expect((limits.maxWidth as number) >= (limits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle limit configuration 293.
+     */
+    it('WindowLimits_life_param_293', 0, () => {
+      const limits: window.WindowLimits = { minWidth: 700, maxWidth: 800 };
+      expect(limits.minWidth).assertEqual(700);
+      expect(limits.maxWidth).assertEqual(800);
+      expect((limits.maxWidth as number) >= (limits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle limit configuration 294.
+     */
+    it('WindowLimits_life_param_294', 0, () => {
+      const limits: window.WindowLimits = { minWidth: 750, maxWidth: 700 };
+      expect(limits.minWidth).assertEqual(750);
+      expect(limits.maxWidth).assertEqual(700);
+      expect((limits.maxWidth as number) >= (limits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle limit configuration 295.
+     */
+    it('WindowLimits_life_param_295', 0, () => {
+      const limits: window.WindowLimits = { minWidth: 600, maxWidth: 750 };
+      expect(limits.minWidth).assertEqual(600);
+      expect(limits.maxWidth).assertEqual(750);
+      expect((limits.maxWidth as number) >= (limits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle limit configuration 296.
+     */
+    it('WindowLimits_life_param_296', 0, () => {
+      const limits: window.WindowLimits = { minWidth: 650, maxWidth: 800 };
+      expect(limits.minWidth).assertEqual(650);
+      expect(limits.maxWidth).assertEqual(800);
+      expect((limits.maxWidth as number) >= (limits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle limit configuration 297.
+     */
+    it('WindowLimits_life_param_297', 0, () => {
+      const limits: window.WindowLimits = { minWidth: 700, maxWidth: 700 };
+      expect(limits.minWidth).assertEqual(700);
+      expect(limits.maxWidth).assertEqual(700);
+      expect((limits.maxWidth as number) >= (limits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle limit configuration 298.
+     */
+    it('WindowLimits_life_param_298', 0, () => {
+      const limits: window.WindowLimits = { minWidth: 750, maxWidth: 750 };
+      expect(limits.minWidth).assertEqual(750);
+      expect(limits.maxWidth).assertEqual(750);
+      expect((limits.maxWidth as number) >= (limits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle limit configuration 299.
+     */
+    it('WindowLimits_life_param_299', 0, () => {
+      const limits: window.WindowLimits = { minWidth: 600, maxWidth: 800 };
+      expect(limits.minWidth).assertEqual(600);
+      expect(limits.maxWidth).assertEqual(800);
+      expect((limits.maxWidth as number) >= (limits.minWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle limit configuration 300.
+     */
+    it('WindowLimits_life_param_300', 0, () => {
+      const limits: window.WindowLimits = { minWidth: 650, maxWidth: 700 };
+      expect(limits.minWidth).assertEqual(650);
+      expect(limits.maxWidth).assertEqual(700);
+      expect((limits.maxWidth as number) >= (limits.minWidth as number)).assertTrue();
+    });
+  });
 }
