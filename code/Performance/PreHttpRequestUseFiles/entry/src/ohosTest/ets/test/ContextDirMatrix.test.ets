@@ -6957,3 +6957,339 @@ export default function contextDirMatrixTest() {
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
+    it('testContextDir0253', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_13.txt';
+      logCase('testContextDir0253', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.indexOf('/cloud') >= 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0254
+     * @tc.name      testContextDir0254
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0254', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_14.txt';
+      logCase('testContextDir0254', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.split('/').length >= 4).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0255
+     * @tc.name      testContextDir0255
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0255', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_15.txt';
+      logCase('testContextDir0255', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.lastIndexOf('/') > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0256
+     * @tc.name      testContextDir0256
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0256', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_16.txt';
+      logCase('testContextDir0256', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.indexOf('/cloud') >= 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0257
+     * @tc.name      testContextDir0257
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0257', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_17.txt';
+      logCase('testContextDir0257', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.split('/').length >= 4).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0258
+     * @tc.name      testContextDir0258
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0258', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_18.txt';
+      logCase('testContextDir0258', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.lastIndexOf('/') > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0259
+     * @tc.name      testContextDir0259
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0259', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_19.txt';
+      logCase('testContextDir0259', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.indexOf('/cloud') >= 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0260
+     * @tc.name      testContextDir0260
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0260', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_20.txt';
+      logCase('testContextDir0260', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.split('/').length >= 4).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0261
+     * @tc.name      testContextDir0261
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0261', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_21.txt';
+      logCase('testContextDir0261', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.lastIndexOf('/') > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0262
+     * @tc.name      testContextDir0262
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0262', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_22.txt';
+      logCase('testContextDir0262', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.indexOf('/cloud') >= 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0263
+     * @tc.name      testContextDir0263
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0263', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_23.txt';
+      logCase('testContextDir0263', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.split('/').length >= 4).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0264
+     * @tc.name      testContextDir0264
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0264', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_24.txt';
+      logCase('testContextDir0264', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.lastIndexOf('/') > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0265
+     * @tc.name      testContextDir0265
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0265', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_25.txt';
+      logCase('testContextDir0265', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.indexOf('/cloud') >= 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0266
+     * @tc.name      testContextDir0266
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0266', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_26.txt';
+      logCase('testContextDir0266', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.split('/').length >= 4).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0267
+     * @tc.name      testContextDir0267
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0267', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_27.txt';
+      logCase('testContextDir0267', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.lastIndexOf('/') > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0268
+     * @tc.name      testContextDir0268
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0268', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_28.txt';
+      logCase('testContextDir0268', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.indexOf('/cloud') >= 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0269
+     * @tc.name      testContextDir0269
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0269', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_29.txt';
+      logCase('testContextDir0269', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.split('/').length >= 4).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_CTXDIR_0270
+     * @tc.name      testContextDir0270
+     * @tc.desc      Context cloudFileDir keeps /cloud and stays read only
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextDir0270', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ctx: common.Context = appContext();
+      const dir: string = DIR_CASES[8].pick(ctx);
+      const marker: string = dir + '/marker_cloudfiledir_30.txt';
+      logCase('testContextDir0270', `dir=${dir} marker=${marker}`);
+      expect(dir.length > 0).assertTrue();
+      expect(dir.startsWith('/data/storage')).assertTrue();
+      expect(dir.endsWith('/cloud')).assertTrue();
+      expect(typeof fs.accessSync(dir)).assertEqual('boolean');
+      expect(dir.lastIndexOf('/') > 0).assertTrue();
+    });
+  });
+}
