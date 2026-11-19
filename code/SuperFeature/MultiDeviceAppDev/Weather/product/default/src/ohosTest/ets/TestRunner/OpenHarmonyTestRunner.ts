@@ -13,20 +13,20 @@
  * limitations under the License.
  */
 
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import type TestRunner from '@ohos.application.testRunner';
-import { logger } from '../util/Logger';
+import { abilityDelegatorRegistry } from '@kit.TestKit'
+import type { TestRunner } from '@kit.TestKit'
+import { logger } from '../util/Logger'
 
-let abilityDelegator = undefined;
-let abilityDelegatorArguments = undefined;
-const TAG: string = 'OpenHarmonyTestRunner';
+let abilityDelegator = undefined
+let abilityDelegatorArguments = undefined
+const TAG: string = 'OpenHarmonyTestRunner'
 
 async function onAbilityCreateCallback() {
-  logger.info(TAG, 'onAbilityCreateCallback');
+  logger.info(TAG, 'onAbilityCreateCallback')
 }
 
-async function addAbilityMonitorCallback(err: any) {
-  logger.info(TAG, `addAbilityMonitorCallback : ${JSON.stringify(err) ?? ''} `);
+async function addAbilityMonitorCallback(err: Error) {
+  logger.info(TAG, `addAbilityMonitorCallback : ${JSON.stringify(err) ?? ''} `)
 }
 
 export default class OpenHarmonyTestRunner implements TestRunner {
@@ -34,32 +34,47 @@ export default class OpenHarmonyTestRunner implements TestRunner {
   }
 
   onPrepare() {
-    logger.info(TAG, 'OpenHarmonyTestRunner OnPrepare ');
+    logger.info(TAG, 'OpenHarmonyTestRunner OnPrepare ')
   }
 
   async onRun() {
-    logger.info(TAG, 'OpenHarmonyTestRunner onRun run');
-    abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-    abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let testAbilityName = abilityDelegatorArguments.bundleName + '.TestAbility';
-    let lMonitor = {
+    logger.info(TAG, 'OpenHarmonyTestRunner onRun run')
+    abilityDelegatorArguments = abilityDelegatorRegistry.getArguments()
+    abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator()
+    const testAbilityName = abilityDelegatorArguments.bundleName + '.TestAbility'
+    const lMonitor = {
       abilityName: testAbilityName,
       onAbilityCreate: onAbilityCreateCallback,
-    };
-    abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback);
-    let cmd = 'aa start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName;
-    let debug = abilityDelegatorArguments.parameters['-D'];
-    if (debug == 'true') {
-      cmd += ' -D';
     }
-    logger.info(TAG, `cmd : ${cmd}`);
+    abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback)
+    let cmd = 'aa start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName
+    const debug = abilityDelegatorArguments.parameters['-D']
+    if (debug === 'true') {
+      cmd += ' -D'
+    }
+    // Pass Hypium filter parameters (-s class/suite/it/level/size/timeout) through to
+    // TestAbility so that `aa test -s class <Describe>` can select a single suite.
+    // Without this, batch execution of large suites silently runs everything.
+    const params = abilityDelegatorArguments.parameters
+    const passThrough = ['class', 'suite', 'it', 'level', 'size', 'timeout']
+    for (let key of passThrough) {
+      const value = params['-s ' + key] !== undefined ? params['-s ' + key] : params[key]
+      if (value !== undefined && value !== '') {
+        cmd += ` -s ${key} ${value}`
+      }
+    }
+    const breakpoint = params['breakpoint-list']
+    if (breakpoint !== undefined && breakpoint !== '') {
+      cmd += ` -s breakpoint-list ${breakpoint}`
+    }
+    logger.info(TAG, `cmd : ${cmd}`)
     abilityDelegator.executeShellCommand(cmd,
       (err: Error, d: {
         stdResult: string,
         exitCode: number
       }) => {
-        logger.info(TAG, `executeShellCommand : err : ${JSON.stringify(err) ?? ''},data: ${d.stdResult ?? ''}, ${d.exitCode ?? ''}`);
-      });
-    logger.info(TAG, 'OpenHarmonyTestRunner onRun end');
+        logger.info(TAG, `executeShellCommand : err : ${JSON.stringify(err) ?? ''},data: ${d.stdResult ?? ''}, ${d.exitCode ?? ''}`)
+      })
+    logger.info(TAG, 'OpenHarmonyTestRunner onRun end')
   }
 }
