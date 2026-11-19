@@ -1798,3 +1798,1864 @@ export default function gcObjectGraphTest() {
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
+    it('testGraphRing0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const head: RingNode = buildRing(300, 4, 900);
+      hintGC();
+      const cycles: number = await runGcCycles(2, COLLECT_ROUNDS);
+      const walked: number = ringLength(head, 301);
+      logCase('testGraphRing0015', `cycles=${cycles} walked=${walked} sum=${ringIdSum(head, 300)} ` +
+        `headId=${head.id}`);
+      expect(cycles >= 2).assertTrue();
+      expect(walked).assertEqual(300);
+      expect(ringIdSum(head, 300)).assertEqual(expectedIdSum(900, 300));
+      expect(ringFull(head)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_3700
+     * @tc.name      testGraphRing0016
+     * @tc.desc      Hold a four thousand node ring across ten hintGC calls and check the closure and id sum after each
+     *               hint while the GC counters stay ordered
+     * @tc.size      LARGETEST
+     * @tc.type      PERFORMANCE
+     * @tc.level     LEVEL2
+     */
+    it('testGraphRing0016', TestType.PERFORMANCE | Size.LARGETEST | Level.LEVEL2, () => {
+      const head: RingNode = buildRing(4000, 2, 0);
+      const before: GcSnapshot = new GcSnapshot();
+      let closed: number = 0;
+      let sumsOk: boolean = true;
+      for (let round = 0; round < HINT_REPEATS; round++) {
+        hintGC();
+        if (ringLength(head, 4001) === 4000) {
+          closed++;
+        }
+        sumsOk = sumsOk && ringIdSum(head, 4000) === expectedIdSum(0, 4000);
+      }
+      const after: GcSnapshot = new GcSnapshot();
+      logCase('testGraphRing0016', `closed=${closed} sumsOk=${sumsOk} ordered=${after.notBefore(before)} ` +
+        `countDelta=${after.count - before.count}`);
+      expect(closed).assertEqual(HINT_REPEATS);
+      expect(sumsOk).assertTrue();
+      expect(after.notBefore(before)).assertTrue();
+      expect(after.freed <= after.allocated).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_3800
+     * @tc.name      testGraphMesh0001
+     * @tc.desc      Build the smallest full mesh of two mutually referencing nodes, hint GC and check both edge
+     *               directions survive and the edge total matches the hand computed value
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testGraphMesh0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const nodes: MeshNode[] = buildMesh(2, 0, 0);
+      hintGC();
+      const edges: number = meshEdgeTotal(nodes);
+      const intact: boolean = meshPeersIntact(nodes, 2);
+      const mutual: boolean = nodes[0].peers[0] === nodes[1] && nodes[1].peers[0] === nodes[0];
+      logCase('testGraphMesh0001', `edges=${edges} intact=${intact} mutual=${mutual} nodes=${nodes.length}`);
+      expect(edges).assertEqual(2);
+      expect(intact).assertTrue();
+      expect(mutual).assertTrue();
+      expect(meshPayloadOk(nodes)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_3900
+     * @tc.name      testGraphMesh0002
+     * @tc.desc      Build a three node full mesh, hint GC and check each node holds two distinct peers, the edge total
+     *               is six and the id sum matches the series
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testGraphMesh0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const nodes: MeshNode[] = buildMesh(3, 1, 10);
+      hintGC();
+      const intact: boolean = meshPeersIntact(nodes, 3);
+      const edges: number = meshEdgeTotal(nodes);
+      const sum: number = meshIdSum(nodes);
+      logCase('testGraphMesh0002', `intact=${intact} edges=${edges} sum=${sum} oracle=${expectedIdSum(10, 3)}`);
+      expect(intact).assertTrue();
+      expect(edges).assertEqual(6);
+      expect(sum).assertEqual(expectedIdSum(10, 3));
+      expect(nodes[0].peers.length).assertEqual(2);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_4000
+     * @tc.name      testGraphMesh0003
+     * @tc.desc      Build a five node full mesh with two slot payloads, hint GC and check the peer counts, the twenty
+     *               directed edges and the payload of every node
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphMesh0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const nodes: MeshNode[] = buildMesh(5, 2, 0);
+      hintGC();
+      const edges: number = meshEdgeTotal(nodes);
+      const payloadOk: boolean = meshPayloadOk(nodes);
+      const expected: number = 5 * 4;
+      logCase('testGraphMesh0003', `edges=${edges} expected=${expected} payloadOk=${payloadOk} ` +
+        `intact=${meshPeersIntact(nodes, 5)}`);
+      expect(edges).assertEqual(expected);
+      expect(payloadOk).assertTrue();
+      expect(meshPeersIntact(nodes, 5)).assertTrue();
+      expect(meshIdSum(nodes)).assertEqual(expectedIdSum(0, 5));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_4100
+     * @tc.name      testGraphMesh0004
+     * @tc.desc      Build an eight node full mesh of payload free nodes, hint GC twice and check the edge total, the
+     *               distinct peer count and the id sum stay exact
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphMesh0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const nodes: MeshNode[] = buildMesh(8, 0, 100);
+      hintGC();
+      const first: number = meshEdgeTotal(nodes);
+      hintGC();
+      const second: number = meshEdgeTotal(nodes);
+      const stable: boolean = first === second;
+      logCase('testGraphMesh0004', `first=${first} second=${second} stable=${stable} ` +
+        `payloadWidth=${nodes[0].payload.length}`);
+      expect(first).assertEqual(56);
+      expect(stable).assertTrue();
+      expect(meshPeersIntact(nodes, 8)).assertTrue();
+      expect(meshIdSum(nodes)).assertEqual(expectedIdSum(100, 8));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_4200
+     * @tc.name      testGraphMesh0005
+     * @tc.desc      Build a ten node full mesh with four slot payloads, hint GC and check ninety directed edges, the
+     *               intact peer sets and the payload mirroring
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphMesh0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const nodes: MeshNode[] = buildMesh(10, 4, 0);
+      hintGC();
+      const edges: number = meshEdgeTotal(nodes);
+      const expected: number = 10 * 9;
+      const intact: boolean = meshPeersIntact(nodes, 10);
+      logCase('testGraphMesh0005', `edges=${edges} expected=${expected} intact=${intact} ` +
+        `sum=${meshIdSum(nodes)}`);
+      expect(edges).assertEqual(expected);
+      expect(intact).assertTrue();
+      expect(meshPayloadOk(nodes)).assertTrue();
+      expect(meshIdSum(nodes)).assertEqual(expectedIdSum(0, 10));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_4300
+     * @tc.name      testGraphMesh0006
+     * @tc.desc      Build a twelve node full mesh, hint GC and check one hundred thirty two directed edges, the intact
+     *               peer sets and the arithmetic id sum
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphMesh0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const nodes: MeshNode[] = buildMesh(12, 1, 200);
+      hintGC();
+      const edges: number = meshEdgeTotal(nodes);
+      const expected: number = 12 * 11;
+      logCase('testGraphMesh0006', `edges=${edges} expected=${expected} nodes=${nodes.length} ` +
+        `intact=${meshPeersIntact(nodes, 12)}`);
+      expect(edges).assertEqual(expected);
+      expect(meshPeersIntact(nodes, 12)).assertTrue();
+      expect(nodes.length).assertEqual(12);
+      expect(meshIdSum(nodes)).assertEqual(expectedIdSum(200, 12));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_4400
+     * @tc.name      testGraphMesh0007
+     * @tc.desc      Build full meshes of two to ten nodes, hint GC once per mesh and check the edge total of each one
+     *               equals size times size minus one
+     * @tc.size      LARGETEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphMesh0007', TestType.FUNCTION | Size.LARGETEST | Level.LEVEL2, () => {
+      const edges: number[] = [];
+      const oracles: number[] = [];
+      const intact: boolean[] = [];
+      for (const size of MESH_SIZES) {
+        const nodes: MeshNode[] = buildMesh(size, 1, 0);
+        hintGC();
+        edges.push(meshEdgeTotal(nodes));
+        oracles.push(size * (size - 1));
+        intact.push(meshPeersIntact(nodes, size));
+      }
+      const edgesOk: boolean = sameNumbers(edges, oracles);
+      logCase('testGraphMesh0007', `sizes=${MESH_SIZES.join(',')} edges=${edges.join(',')} ` +
+        `oracles=${oracles.join(',')} edgesOk=${edgesOk}`);
+      expect(edgesOk).assertTrue();
+      expect(intact.every((ok: boolean) => ok)).assertTrue();
+      expect(edges.length).assertEqual(MESH_SIZES.length);
+      expect(oracles[0]).assertEqual(2);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_4500
+     * @tc.name      testGraphMesh0008
+     * @tc.desc      Build a six node full mesh per payload width from empty to one thousand twenty four slots, hint GC
+     *               each time and check the payload widths and edge totals are unchanged
+     * @tc.size      LARGETEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphMesh0008', TestType.FUNCTION | Size.LARGETEST | Level.LEVEL2, () => {
+      const widths: number[] = [];
+      const edges: number[] = [];
+      const payloadOk: boolean[] = [];
+      for (const width of PAYLOAD_WIDTHS) {
+        const nodes: MeshNode[] = buildMesh(6, width, 0);
+        widths.push(nodes[0].payload.length);
+        hintGC();
+        edges.push(meshEdgeTotal(nodes));
+        payloadOk.push(meshPayloadOk(nodes));
+      }
+      const widthsOk: boolean = sameNumbers(widths, PAYLOAD_WIDTHS);
+      const edgesFixed: boolean = edges.every((value: number) => value === 30);
+      logCase('testGraphMesh0008', `widths=${widths.join(',')} edges=${edges.join(',')} ` +
+        `widthsOk=${widthsOk} edgesFixed=${edgesFixed}`);
+      expect(widthsOk).assertTrue();
+      expect(edgesFixed).assertTrue();
+      expect(payloadOk.every((ok: boolean) => ok)).assertTrue();
+      expect(edges.length).assertEqual(PAYLOAD_WIDTHS.length);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_4600
+     * @tc.name      testGraphGrid0001
+     * @tc.desc      Build a single row grid of twelve cells, hint GC and check the neighbour edge count, the row
+     *               layout and the intact adjacency
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphGrid0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const rows: number = 1;
+      const cols: number = 12;
+      const cells: GridCell[] = buildGrid(rows, cols, 0, 0);
+      hintGC();
+      let edges: number = 0;
+      for (const cell of cells) {
+        edges += cell.peers.length;
+      }
+      const oracle: number = gridNeighborEdges(rows, cols);
+      logCase('testGraphGrid0001', `cells=${cells.length} edges=${edges} oracle=${oracle} rows=${rows} cols=${cols}`);
+      expect(cells.length).assertEqual(12);
+      expect(edges).assertEqual(oracle);
+      expect(gridEdgesIntact(cells, rows, cols)).assertTrue();
+      expect(cells[0].peers.length).assertEqual(1);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_4700
+     * @tc.name      testGraphGrid0002
+     * @tc.desc      Build a single column grid of twelve cells, hint GC and check the neighbour edge count, the
+     *               column layout and the intact vertical adjacency
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphGrid0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const rows: number = 12;
+      const cols: number = 1;
+      const cells: GridCell[] = buildGrid(rows, cols, 1, 0);
+      hintGC();
+      let edges: number = 0;
+      for (const cell of cells) {
+        edges += cell.peers.length;
+      }
+      const oracle: number = gridNeighborEdges(rows, cols);
+      const corner: number = cells[0].peers.length;
+      logCase('testGraphGrid0002', `cells=${cells.length} edges=${edges} oracle=${oracle} corner=${corner}`);
+      expect(cells.length).assertEqual(12);
+      expect(edges).assertEqual(oracle);
+      expect(corner).assertEqual(1);
+      expect(gridEdgesIntact(cells, rows, cols)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_4800
+     * @tc.name      testGraphGrid0003
+     * @tc.desc      Build an eight by eight square grid, hint GC and check the cell count, the one hundred twelve
+     *               neighbour edges and the interior cell degree of four
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphGrid0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const rows: number = 8;
+      const cols: number = 8;
+      const cells: GridCell[] = buildGrid(rows, cols, 2, 0);
+      hintGC();
+      let edges: number = 0;
+      for (const cell of cells) {
+        edges += cell.peers.length;
+      }
+      const interior: GridCell = cells[3 * cols + 3];
+      logCase('testGraphGrid0003', `cells=${cells.length} edges=${edges} oracle=${gridNeighborEdges(rows, cols)} ` +
+        `interiorDegree=${interior.peers.length}`);
+      expect(cells.length).assertEqual(64);
+      expect(edges).assertEqual(112);
+      expect(interior.peers.length).assertEqual(4);
+      expect(gridEdgesIntact(cells, rows, cols)).assertTrue();
+      expect(gridPayloadOk(cells)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_4900
+     * @tc.name      testGraphGrid0004
+     * @tc.desc      Build a six by eleven rectangular grid plus a two by three grid, hint GC between them and check
+     *               each edge total and id sum against the neighbour and series oracles
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphGrid0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const wideCells: GridCell[] = buildGrid(6, 11, 0, 0);
+      hintGC();
+      let wideEdges: number = 0;
+      for (const cell of wideCells) {
+        wideEdges += cell.peers.length;
+      }
+      const tallCells: GridCell[] = buildGrid(2, 3, 1, 500);
+      hintGC();
+      let tallEdges: number = 0;
+      for (const cell of tallCells) {
+        tallEdges += cell.peers.length;
+      }
+      logCase('testGraphGrid0004', `wideCells=${wideCells.length} wideEdges=${wideEdges} ` +
+        `tallCells=${tallCells.length} tallEdges=${tallEdges}`);
+      expect(wideCells.length).assertEqual(66);
+      expect(wideEdges).assertEqual(gridNeighborEdges(6, 11));
+      expect(tallEdges).assertEqual(gridNeighborEdges(2, 3));
+      expect(gridIdSum(wideCells)).assertEqual(expectedIdSum(0, 66));
+      expect(gridEdgesIntact(tallCells, 2, 3)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_5000
+     * @tc.name      testGraphTree0001
+     * @tc.desc      Build a tree with only the root, hint GC and check the node count, the leaf count and the absence
+     *               of any child pointer or back reference
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testGraphTree0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const root: BranchNode = buildBranchTree(1, 0, 0);
+      hintGC();
+      const nodes: number = countBranch(root);
+      const leaves: number = countBranchLeaves(root);
+      const bare: boolean = root.left === null && root.right === null && root.parent === null;
+      logCase('testGraphTree0001', `nodes=${nodes} leaves=${leaves} bare=${bare} level=${root.level}`);
+      expect(nodes).assertEqual(1);
+      expect(leaves).assertEqual(1);
+      expect(bare).assertTrue();
+      expect(root.level).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_5100
+     * @tc.name      testGraphTree0002
+     * @tc.desc      Build a two level tree with one slot payloads, hint GC and check three nodes, two back links and
+     *               the sequential ids of the two children
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testGraphTree0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const root: BranchNode = buildBranchTree(2, 1, 0);
+      hintGC();
+      const nodes: number = countBranch(root);
+      const backLinks: number = countBranchBackLinks(root);
+      const left: BranchNode = root.left as BranchNode;
+      const right: BranchNode = root.right as BranchNode;
+      const childrenPointBack: boolean = left.parent === root && right.parent === root;
+      logCase('testGraphTree0002', `nodes=${nodes} backLinks=${backLinks} leftId=${left.id} rightId=${right.id}`);
+      expect(nodes).assertEqual(3);
+      expect(backLinks).assertEqual(2);
+      expect(left.id).assertEqual(1);
+      expect(right.id).assertEqual(2);
+      expect(childrenPointBack).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_5200
+     * @tc.name      testGraphTree0003
+     * @tc.desc      Build a four level tree of payload free nodes, hint GC and check fifteen nodes, fourteen back
+     *               links and eight leaves against the perfect tree formulas
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphTree0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const root: BranchNode = buildBranchTree(4, 0, 0);
+      hintGC();
+      const nodes: number = countBranch(root);
+      const backLinks: number = countBranchBackLinks(root);
+      const leaves: number = countBranchLeaves(root);
+      logCase('testGraphTree0003', `nodes=${nodes} backLinks=${backLinks} leaves=${leaves} ` +
+        `oracleNodes=${Math.pow(2, 4) - 1}`);
+      expect(nodes).assertEqual(15);
+      expect(backLinks).assertEqual(14);
+      expect(leaves).assertEqual(8);
+      expect(branchIdSum(root)).assertEqual(expectedIdSum(0, 15));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_5300
+     * @tc.name      testGraphTree0004
+     * @tc.desc      Build a six level tree with two slot payloads, hint GC and check sixty three nodes, sixty two back
+     *               links and the uniform payload across every node
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphTree0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const root: BranchNode = buildBranchTree(6, 2, 0);
+      hintGC();
+      const nodes: number = countBranch(root);
+      const backLinks: number = countBranchBackLinks(root);
+      const payloadOk: boolean = branchPayloadOk(root);
+      logCase('testGraphTree0004', `nodes=${nodes} backLinks=${backLinks} payloadOk=${payloadOk} ` +
+        `leaves=${countBranchLeaves(root)}`);
+      expect(nodes).assertEqual(63);
+      expect(backLinks).assertEqual(62);
+      expect(payloadOk).assertTrue();
+      expect(countBranchLeaves(root)).assertEqual(32);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_5400
+     * @tc.name      testGraphTree0005
+     * @tc.desc      Build an eight level tree of payload free nodes, hint GC twice and check two hundred fifty five
+     *               nodes, one hundred twenty eight leaves and the first level ids
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphTree0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const root: BranchNode = buildBranchTree(8, 0, 0);
+      hintGC();
+      const firstCount: number = countBranch(root);
+      hintGC();
+      const secondCount: number = countBranch(root);
+      const firstLeft: BranchNode = root.left as BranchNode;
+      logCase('testGraphTree0005', `firstCount=${firstCount} secondCount=${secondCount} ` +
+        `leaves=${countBranchLeaves(root)} firstLeftId=${firstLeft.id}`);
+      expect(firstCount).assertEqual(255);
+      expect(secondCount).assertEqual(255);
+      expect(countBranchLeaves(root)).assertEqual(128);
+      expect(firstLeft.id).assertEqual(1);
+      expect(firstLeft.level).assertEqual(1);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_5500
+     * @tc.name      testGraphTree0006
+     * @tc.desc      Build perfect trees from one to eight levels, hint GC after each build and check the node count of
+     *               every tree equals two to the level minus one
+     * @tc.size      LARGETEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphTree0006', TestType.FUNCTION | Size.LARGETEST | Level.LEVEL2, () => {
+      const counts: number[] = [];
+      const oracles: number[] = [];
+      for (const levels of TREE_LEVELS) {
+        const root: BranchNode = buildBranchTree(levels, 0, 0);
+        hintGC();
+        counts.push(countBranch(root));
+        oracles.push(Math.pow(2, levels) - 1);
+      }
+      const countsOk: boolean = sameNumbers(counts, oracles);
+      logCase('testGraphTree0006', `levels=${TREE_LEVELS.join(',')} counts=${counts.join(',')} ` +
+        `oracles=${oracles.join(',')} countsOk=${countsOk}`);
+      expect(countsOk).assertTrue();
+      expect(counts.length).assertEqual(TREE_LEVELS.length);
+      expect(counts[7]).assertEqual(255);
+      expect(oracles[0]).assertEqual(1);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_5600
+     * @tc.name      testGraphTree0007
+     * @tc.desc      Build a seven level tree, hint GC and check the back link count equals node count minus one while
+     *               every child reports the same parent from both directions
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphTree0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const root: BranchNode = buildBranchTree(7, 1, 0);
+      hintGC();
+      const nodes: number = countBranch(root);
+      const backLinks: number = countBranchBackLinks(root);
+      const consistent: boolean = backLinks === nodes - 1;
+      const depths: boolean = branchDepthsOk(root);
+      logCase('testGraphTree0007', `nodes=${nodes} backLinks=${backLinks} consistent=${consistent} ` +
+        `depths=${depths}`);
+      expect(nodes).assertEqual(127);
+      expect(consistent).assertTrue();
+      expect(depths).assertTrue();
+      expect(branchPayloadOk(root)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_5700
+     * @tc.name      testGraphTree0008
+     * @tc.desc      Build trees of three to seven levels, hint GC between them and check the leaf count of each tree
+     *               equals two to the level minus one power
+     * @tc.size      LARGETEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphTree0008', TestType.FUNCTION | Size.LARGETEST | Level.LEVEL2, () => {
+      const leaves: number[] = [];
+      const oracles: number[] = [];
+      for (let levels = 3; levels <= 7; levels++) {
+        const root: BranchNode = buildBranchTree(levels, 0, 0);
+        hintGC();
+        leaves.push(countBranchLeaves(root));
+        oracles.push(Math.pow(2, levels - 1));
+      }
+      const leavesOk: boolean = sameNumbers(leaves, oracles);
+      logCase('testGraphTree0008', `leaves=${leaves.join(',')} oracles=${oracles.join(',')} leavesOk=${leavesOk}`);
+      expect(leavesOk).assertTrue();
+      expect(leaves.length).assertEqual(5);
+      expect(leaves[4]).assertEqual(64);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_5800
+     * @tc.name      testGraphTree0009
+     * @tc.desc      Build a five level tree per payload width from empty to one thousand twenty four slots, hint GC
+     *               each time and check the payload width set and the uniform payload rule
+     * @tc.size      LARGETEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphTree0009', TestType.FUNCTION | Size.LARGETEST | Level.LEVEL2, () => {
+      const widths: number[] = [];
+      const payloadOk: boolean[] = [];
+      const counts: number[] = [];
+      for (const width of PAYLOAD_WIDTHS) {
+        const root: BranchNode = buildBranchTree(5, width, 0);
+        widths.push(root.payload.length);
+        hintGC();
+        payloadOk.push(branchPayloadOk(root));
+        counts.push(countBranch(root));
+      }
+      const widthsOk: boolean = sameNumbers(widths, PAYLOAD_WIDTHS);
+      const countsFixed: boolean = counts.every((value: number) => value === 31);
+      logCase('testGraphTree0009', `widths=${widths.join(',')} counts=${counts.join(',')} ` +
+        `widthsOk=${widthsOk} countsFixed=${countsFixed}`);
+      expect(widthsOk).assertTrue();
+      expect(countsFixed).assertTrue();
+      expect(payloadOk.every((ok: boolean) => ok)).assertTrue();
+      expect(widths.length).assertEqual(PAYLOAD_WIDTHS.length);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_5900
+     * @tc.name      testGraphTree0010
+     * @tc.desc      Build a six level tree from id one thousand, hint GC and check the recursive id sum against the
+     *               series oracle and the root id itself
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphTree0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const first: number = 1000;
+      const root: BranchNode = buildBranchTree(6, 0, first);
+      hintGC();
+      const sum: number = branchIdSum(root);
+      const nodes: number = countBranch(root);
+      logCase('testGraphTree0010', `sum=${sum} nodes=${nodes} oracle=${expectedIdSum(first, 63)} ` +
+        `rootId=${root.id}`);
+      expect(sum).assertEqual(expectedIdSum(first, 63));
+      expect(nodes).assertEqual(63);
+      expect(root.id).assertEqual(first);
+      expect(branchDepthsOk(root)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_6000
+     * @tc.name      testGraphFork0001
+     * @tc.desc      Build a three level tree with fanout three, hint GC and check thirteen nodes, twelve back links
+     *               and the four leaf parents pointing back
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphFork0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const root: ForkNode = buildForkTree(3, 3, 0, 0);
+      hintGC();
+      const nodes: number = countFork(root);
+      const backLinks: number = countForkBackLinks(root);
+      const oneLinkPerChild: boolean = countForkBackLinks(root) === nodes - 1;
+      logCase('testGraphFork0001', `nodes=${nodes} backLinks=${backLinks} rootChildren=${root.children.length}`);
+      expect(nodes).assertEqual(13);
+      expect(backLinks).assertEqual(12);
+      expect(root.children.length).assertEqual(3);
+      expect(oneLinkPerChild).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_6100
+     * @tc.name      testGraphFork0002
+     * @tc.desc      Build a four level tree with fanout two and one slot payloads, hint GC and check fifteen nodes,
+     *               fourteen back links and the uniform payload
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphFork0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const root: ForkNode = buildForkTree(4, 2, 1, 0);
+      hintGC();
+      const nodes: number = countFork(root);
+      const backLinks: number = countForkBackLinks(root);
+      const payloadOk: boolean = forkPayloadOk(root);
+      logCase('testGraphFork0002', `nodes=${nodes} backLinks=${backLinks} payloadOk=${payloadOk} ` +
+        `childCount=${root.children.length}`);
+      expect(nodes).assertEqual(15);
+      expect(backLinks).assertEqual(14);
+      expect(payloadOk).assertTrue();
+      expect(root.children.length).assertEqual(2);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_6200
+     * @tc.name      testGraphFork0003
+     * @tc.desc      Build a four level tree with fanout four, hint GC and check eighty five nodes, eighty four back
+     *               links and the sixteen leaf nodes at the last level
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphFork0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const root: ForkNode = buildForkTree(4, 4, 0, 0);
+      hintGC();
+      const nodes: number = countFork(root);
+      const backLinks: number = countForkBackLinks(root);
+      let oracle: number = 0;
+      for (let level = 0; level < 4; level++) {
+        oracle += Math.pow(4, level);
+      }
+      logCase('testGraphFork0003', `nodes=${nodes} backLinks=${backLinks} oracle=${oracle} ` +
+        `payloadOk=${forkPayloadOk(root)}`);
+      expect(nodes).assertEqual(oracle);
+      expect(backLinks).assertEqual(84);
+      expect(oracle).assertEqual(85);
+      expect(forkPayloadOk(root)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_6300
+     * @tc.name      testGraphTree0011
+     * @tc.desc      Keep a six level tree reachable during two forced collections and check the node count, the back
+     *               links and the id sum are unchanged after the collections
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphTree0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const root: BranchNode = buildBranchTree(6, 2, 0);
+      hintGC();
+      const cycles: number = await runGcCycles(2, COLLECT_ROUNDS);
+      const nodes: number = countBranch(root);
+      logCase('testGraphTree0011', `cycles=${cycles} nodes=${nodes} backLinks=${countBranchBackLinks(root)} ` +
+        `sum=${branchIdSum(root)}`);
+      expect(cycles >= 2).assertTrue();
+      expect(nodes).assertEqual(63);
+      expect(countBranchBackLinks(root)).assertEqual(62);
+      expect(branchIdSum(root)).assertEqual(expectedIdSum(0, 63));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_6400
+     * @tc.name      testGraphList0001
+     * @tc.desc      Build a doubly linked list of one node, hint GC and check the forward and backward walks both
+     *               return one node while both link fields stay empty
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testGraphList0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const head: LinkNode = buildDoubleList(1, 0, 0);
+      hintGC();
+      const forward: number = doubleForwardLength(head, 10);
+      const backward: number = doubleBackwardLength(head, 10);
+      const bare: boolean = head.next === null && head.prev === null;
+      logCase('testGraphList0001', `forward=${forward} backward=${backward} bare=${bare} id=${head.id}`);
+      expect(forward).assertEqual(1);
+      expect(backward).assertEqual(1);
+      expect(bare).assertTrue();
+      expect(head.id).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_6500
+     * @tc.name      testGraphList0002
+     * @tc.desc      Build a two node doubly linked list from id ten, hint GC and check the forward length, the backward
+     *               length from the tail and the mutual prev and next agreement
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testGraphList0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const head: LinkNode = buildDoubleList(2, 1, 10);
+      hintGC();
+      const tail: LinkNode | null = doubleTail(head, 10);
+      const tailLength: number = tail === null ? -1 : doubleBackwardLength(tail, 10);
+      const mutual: boolean = (head.next as LinkNode).prev === head;
+      logCase('testGraphList0002', `forward=${doubleForwardLength(head, 10)} tailLength=${tailLength} ` +
+        `mutual=${mutual} ids=${head.id},${(head.next as LinkNode).id}`);
+      expect(doubleForwardLength(head, 10)).assertEqual(2);
+      expect(tailLength).assertEqual(2);
+      expect(mutual).assertTrue();
+      expect(doubleBackLinksOk(head, 2)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_6600
+     * @tc.name      testGraphList0003
+     * @tc.desc      Build a ten node doubly linked list with four slot payloads, hint GC and check the forward length,
+     *               the back link rule and the uniform payload
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphList0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const head: LinkNode = buildDoubleList(10, 4, 0);
+      hintGC();
+      const forward: number = doubleForwardLength(head, 10);
+      const backLinks: boolean = doubleBackLinksOk(head, 10);
+      const payload: boolean = doublePayloadUniform(head, 10);
+      logCase('testGraphList0003', `forward=${forward} backLinks=${backLinks} payload=${payload} ` +
+        `sum=${doubleIdSum(head, 10)}`);
+      expect(forward).assertEqual(10);
+      expect(backLinks).assertTrue();
+      expect(payload).assertTrue();
+      expect(doubleIdSum(head, 10)).assertEqual(expectedIdSum(0, 10));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_6700
+     * @tc.name      testGraphList0004
+     * @tc.desc      Build a sixty four node doubly linked list of payload free nodes, hint GC twice and check the
+     *               forward and backward lengths stay equal to the requested size
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphList0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const head: LinkNode = buildDoubleList(64, 0, 0);
+      hintGC();
+      const first: number = doubleForwardLength(head, 64);
+      hintGC();
+      const second: number = doubleForwardLength(head, 64);
+      const tail: LinkNode | null = doubleTail(head, 64);
+      const backward: number = tail === null ? -1 : doubleBackwardLength(tail, 64);
+      logCase('testGraphList0004', `first=${first} second=${second} backward=${backward} ` +
+        `payloadWidth=${head.payload.length}`);
+      expect(first).assertEqual(64);
+      expect(second).assertEqual(64);
+      expect(backward).assertEqual(64);
+      expect(head.payload.length).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_6800
+     * @tc.name      testGraphList0005
+     * @tc.desc      Build a two hundred fifty six node doubly linked list with two slot payloads, hint GC and check
+     *               the forward length, the back link rule and the id sum against the series
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphList0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const head: LinkNode = buildDoubleList(256, 2, 50);
+      hintGC();
+      const forward: number = doubleForwardLength(head, 256);
+      const backLinks: boolean = doubleBackLinksOk(head, 256);
+      const sum: number = doubleIdSum(head, 256);
+      logCase('testGraphList0005', `forward=${forward} backLinks=${backLinks} sum=${sum} ` +
+        `oracle=${expectedIdSum(50, 256)}`);
+      expect(forward).assertEqual(256);
+      expect(backLinks).assertTrue();
+      expect(sum).assertEqual(expectedIdSum(50, 256));
+      expect(doublePayloadUniform(head, 256)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_6900
+     * @tc.name      testGraphList0006
+     * @tc.desc      Build a one thousand node doubly linked list, hint GC and check the forward walk does not hit the
+     *               limit, the tail reports the closing id and the id sum matches the series
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphList0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const head: LinkNode = buildDoubleList(1000, 1, 0);
+      hintGC();
+      const forward: number = doubleForwardLength(head, 1000);
+      const tail: LinkNode | null = doubleTail(head, 1000);
+      const tailId: number = tail === null ? -1 : tail.id;
+      const tailFound: number = tail === null ? 0 : 1;
+      logCase('testGraphList0006', `forward=${forward} tailId=${tailId} sum=${doubleIdSum(head, 1000)}`);
+      expect(forward).assertEqual(1000);
+      expect(tailId).assertEqual(999);
+      expect(doubleIdSum(head, 1000)).assertEqual(expectedIdSum(0, 1000));
+      expect(tailFound).assertEqual(1);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_7000
+     * @tc.name      testGraphList0007
+     * @tc.desc      Build a one hundred twenty eight node list, hint GC and check every next pointer agrees with the
+     *               following prev pointer while the head and tail stay open
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphList0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const head: LinkNode = buildDoubleList(128, 3, 0);
+      hintGC();
+      let mismatched: number = 0;
+      let current: LinkNode | null = head;
+      while (current !== null) {
+        const node: LinkNode = current;
+        const nextNode: LinkNode | null = node.next;
+        if (nextNode !== null && nextNode.prev !== node) {
+          mismatched++;
+        }
+        current = nextNode;
+      }
+      const backLinks: boolean = doubleBackLinksOk(head, 128);
+      const headOpen: boolean = head.prev === null;
+      logCase('testGraphList0007', `mismatched=${mismatched} backLinks=${backLinks} headOpen=${headOpen}`);
+      expect(mismatched).assertEqual(0);
+      expect(backLinks).assertTrue();
+      expect(headOpen).assertTrue();
+      expect(doubleForwardLength(head, 128)).assertEqual(128);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_7100
+     * @tc.name      testGraphList0008
+     * @tc.desc      Build a two hundred node list, hint GC and check a forward walk followed by a backward walk from
+     *               the tail both report the same length and the same id sum
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphList0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const head: LinkNode = buildDoubleList(200, 1, 600);
+      const forwardBefore: number = doubleForwardLength(head, 200);
+      hintGC();
+      const tail: LinkNode | null = doubleTail(head, 200);
+      let backward: number = 0;
+      let backwardSum: number = 0;
+      let cursor: LinkNode | null = tail;
+      while (cursor !== null) {
+        backward++;
+        backwardSum += cursor.id;
+        cursor = cursor.prev;
+      }
+      const sameLength: boolean = forwardBefore === backward;
+      logCase('testGraphList0008', `forwardBefore=${forwardBefore} backward=${backward} ` +
+        `backwardSum=${backwardSum} sameLength=${sameLength}`);
+      expect(forwardBefore).assertEqual(200);
+      expect(sameLength).assertTrue();
+      expect(backwardSum).assertEqual(expectedIdSum(600, 200));
+      expect(doubleBackLinksOk(head, 200)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_7200
+     * @tc.name      testGraphList0009
+     * @tc.desc      Build a thirty two node list per payload width from empty to one thousand twenty four slots, hint
+     *               GC each time and check the payload widths and the forward lengths
+     * @tc.size      LARGETEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphList0009', TestType.FUNCTION | Size.LARGETEST | Level.LEVEL2, () => {
+      const widths: number[] = [];
+      const lengths: number[] = [];
+      const backLinks: boolean[] = [];
+      for (const width of PAYLOAD_WIDTHS) {
+        const head: LinkNode = buildDoubleList(32, width, 0);
+        widths.push(head.payload.length);
+        hintGC();
+        lengths.push(doubleForwardLength(head, 32));
+        backLinks.push(doubleBackLinksOk(head, 32));
+      }
+      const widthsOk: boolean = sameNumbers(widths, PAYLOAD_WIDTHS);
+      const lengthsOk: boolean = lengths.every((value: number) => value === 32);
+      logCase('testGraphList0009', `widths=${widths.join(',')} lengths=${lengths.join(',')} ` +
+        `widthsOk=${widthsOk} lengthsOk=${lengthsOk}`);
+      expect(widthsOk).assertTrue();
+      expect(lengthsOk).assertTrue();
+      expect(backLinks.every((ok: boolean) => ok)).assertTrue();
+      expect(widths.length).assertEqual(PAYLOAD_WIDTHS.length);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_7300
+     * @tc.name      testGraphList0010
+     * @tc.desc      Build lists from one to one thousand twenty four nodes, hint GC after each build and check every
+     *               forward length equals its requested size and every backward length matches
+     * @tc.size      LARGETEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphList0010', TestType.FUNCTION | Size.LARGETEST | Level.LEVEL2, () => {
+      const forward: number[] = [];
+      const backward: number[] = [];
+      for (const size of LIST_LENGTHS) {
+        const head: LinkNode = buildDoubleList(size, 1, 0);
+        hintGC();
+        forward.push(doubleForwardLength(head, size));
+        const tail: LinkNode | null = doubleTail(head, size);
+        backward.push(tail === null ? -1 : doubleBackwardLength(tail, size));
+      }
+      const forwardOk: boolean = sameNumbers(forward, LIST_LENGTHS);
+      const backwardOk: boolean = sameNumbers(backward, LIST_LENGTHS);
+      logCase('testGraphList0010', `sizes=${LIST_LENGTHS.join(',')} forward=${forward.join(',')} ` +
+        `backward=${backward.join(',')} forwardOk=${forwardOk} backwardOk=${backwardOk}`);
+      expect(forwardOk).assertTrue();
+      expect(backwardOk).assertTrue();
+      expect(forward.length).assertEqual(LIST_LENGTHS.length);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_7400
+     * @tc.name      testGraphList0011
+     * @tc.desc      Build a three hundred node list from id one hundred, hint GC and check the forward id sum against
+     *               an independent series while the head and tail ids stay exact
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphList0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const first: number = 100;
+      const head: LinkNode = buildDoubleList(300, 0, first);
+      hintGC();
+      const sum: number = doubleIdSum(head, 300);
+      const tail: LinkNode | null = doubleTail(head, 300);
+      const tailId: number = tail === null ? -1 : tail.id;
+      logCase('testGraphList0011', `sum=${sum} oracle=${expectedIdSum(first, 300)} tailId=${tailId} ` +
+        `headId=${head.id}`);
+      expect(sum).assertEqual(expectedIdSum(first, 300));
+      expect(tailId).assertEqual(399);
+      expect(head.id).assertEqual(100);
+      expect(doubleForwardLength(head, 300)).assertEqual(300);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_7500
+     * @tc.name      testGraphList0012
+     * @tc.desc      Keep a four hundred node list reachable across two forced collections plus ten hintGC calls and
+     *               check the forward length, the back link rule and the id sum after every hint
+     * @tc.size      MEDIUMTEST
+     * @tc.type      PERFORMANCE
+     * @tc.level     LEVEL2
+     */
+    it('testGraphList0012', TestType.PERFORMANCE | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const head: LinkNode = buildDoubleList(400, 2, 0);
+      const before: GcSnapshot = new GcSnapshot();
+      const cycles: number = await runGcCycles(2, COLLECT_ROUNDS);
+      let lengths: number = 0;
+      let sumsOk: boolean = true;
+      for (let round = 0; round < HINT_REPEATS; round++) {
+        hintGC();
+        lengths = doubleForwardLength(head, 400);
+        sumsOk = sumsOk && doubleIdSum(head, 400) === expectedIdSum(0, 400);
+      }
+      const after: GcSnapshot = new GcSnapshot();
+      logCase('testGraphList0012', `cycles=${cycles} lengths=${lengths} sumsOk=${sumsOk} ` +
+        `backLinks=${doubleBackLinksOk(head, 400)} ordered=${after.notBefore(before)}`);
+      expect(cycles >= 2).assertTrue();
+      expect(lengths).assertEqual(400);
+      expect(sumsOk).assertTrue();
+      expect(doubleBackLinksOk(head, 400)).assertTrue();
+      expect(after.notBefore(before)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_7600
+     * @tc.name      testGraphNest0001
+     * @tc.desc      Build a nested container of depth one, hint GC and check the node count is one, the map holds no
+     *               entry and no ring payload was attached at zero width
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testGraphNest0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const bag: BagNode = buildBagTree(1, 3, 0, new IdCounter(0));
+      hintGC();
+      const nodes: number = countBag(bag);
+      const entries: number = countBagEntries(bag);
+      const rings: number = countBagRings(bag);
+      logCase('testGraphNest0001', `nodes=${nodes} entries=${entries} rings=${rings} items=${bag.items.length}`);
+      expect(nodes).assertEqual(1);
+      expect(entries).assertEqual(0);
+      expect(rings).assertEqual(0);
+      expect(bag.items.length).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_7700
+     * @tc.name      testGraphNest0002
+     * @tc.desc      Build a depth two container with fanout two and one slot payloads, hint GC and check three nodes,
+     *               two map entries and one ring payload per node
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphNest0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const bag: BagNode = buildBagTree(2, 2, 1, new IdCounter(0));
+      hintGC();
+      const nodes: number = countBag(bag);
+      const entries: number = countBagEntries(bag);
+      const rings: number = countBagRings(bag);
+      logCase('testGraphNest0002', `nodes=${nodes} entries=${entries} rings=${rings} ` +
+        `agree=${bagMapsAgree(bag)}`);
+      expect(nodes).assertEqual(3);
+      expect(entries).assertEqual(2);
+      expect(rings).assertEqual(3);
+      expect(bagMapsAgree(bag)).assertTrue();
+      expect(bagRingsUniform(bag)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_7800
+     * @tc.name      testGraphNest0003
+     * @tc.desc      Build a depth three container with payload free nodes, hint GC and check seven nodes, six map
+     *               entries and the absence of any ring payload
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphNest0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const bag: BagNode = buildBagTree(3, 2, 0, new IdCounter(0));
+      hintGC();
+      const nodes: number = countBag(bag);
+      const entries: number = countBagEntries(bag);
+      const rings: number = countBagRings(bag);
+      logCase('testGraphNest0003', `nodes=${nodes} entries=${entries} rings=${rings} ` +
+        `idSum=${bagIdSum(bag)}`);
+      expect(nodes).assertEqual(7);
+      expect(entries).assertEqual(6);
+      expect(rings).assertEqual(0);
+      expect(bagIdSum(bag)).assertEqual(expectedIdSum(0, 7));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_7900
+     * @tc.name      testGraphNest0004
+     * @tc.desc      Build a depth four container with one slot payloads, hint GC and check fifteen nodes, fourteen
+     *               entries and fifteen ring payloads with matching ids
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphNest0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bag: BagNode = buildBagTree(4, 2, 1, new IdCounter(0));
+      hintGC();
+      const nodes: number = countBag(bag);
+      const entries: number = countBagEntries(bag);
+      const rings: number = countBagRings(bag);
+      logCase('testGraphNest0004', `nodes=${nodes} entries=${entries} rings=${rings} ` +
+        `uniform=${bagRingsUniform(bag)}`);
+      expect(nodes).assertEqual(15);
+      expect(entries).assertEqual(14);
+      expect(rings).assertEqual(15);
+      expect(bagRingsUniform(bag)).assertTrue();
+      expect(bagMapsAgree(bag)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_8000
+     * @tc.name      testGraphNest0005
+     * @tc.desc      Build a depth four container with fanout three, hint GC and check forty nodes, thirty nine map
+     *               entries and the summed ids against the series oracle
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphNest0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const bag: BagNode = buildBagTree(4, 3, 0, new IdCounter(0));
+      hintGC();
+      const nodes: number = countBag(bag);
+      const entries: number = countBagEntries(bag);
+      logCase('testGraphNest0005', `nodes=${nodes} entries=${entries} idSum=${bagIdSum(bag)} ` +
+        `oracle=${expectedIdSum(0, 40)}`);
+      expect(nodes).assertEqual(40);
+      expect(entries).assertEqual(39);
+      expect(bagIdSum(bag)).assertEqual(expectedIdSum(0, 40));
+      expect(bagMapsAgree(bag)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_8100
+     * @tc.name      testGraphNest0006
+     * @tc.desc      Build a depth five container with fanout two and no payload, hint GC twice and check sixty three
+     *               nodes with sixty two map entries both times
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphNest0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const bag: BagNode = buildBagTree(5, 2, 0, new IdCounter(0));
+      hintGC();
+      const first: number = countBag(bag);
+      hintGC();
+      const second: number = countBag(bag);
+      const entries: number = countBagEntries(bag);
+      logCase('testGraphNest0006', `first=${first} second=${second} entries=${entries} ` +
+        `oracle=${Math.pow(2, 5) - 1}`);
+      expect(first).assertEqual(63);
+      expect(second).assertEqual(63);
+      expect(entries).assertEqual(62);
+      expect(countBagRings(bag)).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_8200
+     * @tc.name      testGraphNest0007
+     * @tc.desc      Build a depth four container and check the total map entry count equals the node count minus one
+     *               while every map value is the same object as the parallel array entry
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphNest0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const bag: BagNode = buildBagTree(4, 2, 2, new IdCounter(0));
+      hintGC();
+      const nodes: number = countBag(bag);
+      const entries: number = countBagEntries(bag);
+      const entriesMatch: boolean = entries === nodes - 1;
+      logCase('testGraphNest0007', `nodes=${nodes} entries=${entries} entriesMatch=${entriesMatch} ` +
+        `agree=${bagMapsAgree(bag)}`);
+      expect(entriesMatch).assertTrue();
+      expect(bagMapsAgree(bag)).assertTrue();
+      expect(bag.table.size).assertEqual(bag.items.length);
+      expect(countBagRings(bag)).assertEqual(nodes);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_8300
+     * @tc.name      testGraphNest0008
+     * @tc.desc      Build a depth three container, hint GC and check that each map key resolves to the array entry at
+     *               the same position for every level of the tree
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphNest0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const bag: BagNode = buildBagTree(3, 4, 0, new IdCounter(0));
+      hintGC();
+      let lookups: number = 0;
+      let hits: number = 0;
+      const stack: BagNode[] = [bag];
+      while (stack.length > 0) {
+        const node: BagNode = stack[stack.length - 1];
+        stack.pop();
+        for (let i = 0; i < node.items.length; i++) {
+          lookups++;
+          if (node.table.get('k' + i) === node.items[i]) {
+            hits++;
+          }
+          stack.push(node.items[i]);
+        }
+      }
+      logCase('testGraphNest0008', `lookups=${lookups} hits=${hits} idSum=${bagIdSum(bag)}`);
+      expect(lookups).assertEqual(20);
+      expect(hits).assertEqual(20);
+      expect(lookups).assertEqual(hits);
+      expect(countBag(bag)).assertEqual(21);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_8400
+     * @tc.name      testGraphNest0009
+     * @tc.desc      Build a depth three container per payload width, hint GC each time and check the ring node count
+     *               is either zero or equal to the node count and the ids stay uniform
+     * @tc.size      LARGETEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphNest0009', TestType.FUNCTION | Size.LARGETEST | Level.LEVEL2, () => {
+      const widths: number[] = [0, 1, 4, 64];
+      const rings: number[] = [];
+      const nodes: number[] = [];
+      const uniform: boolean[] = [];
+      for (const width of widths) {
+        const bag: BagNode = buildBagTree(3, 2, width, new IdCounter(0));
+        hintGC();
+        nodes.push(countBag(bag));
+        rings.push(countBagRings(bag));
+        uniform.push(bagRingsUniform(bag));
+      }
+      const ringRuleOk: boolean = rings[0] === 0 && rings[1] === 7 && rings[2] === 7 && rings[3] === 7;
+      logCase('testGraphNest0009', `widths=${widths.join(',')} nodes=${nodes.join(',')} ` +
+        `rings=${rings.join(',')} ringRuleOk=${ringRuleOk}`);
+      expect(ringRuleOk).assertTrue();
+      expect(uniform.every((ok: boolean) => ok)).assertTrue();
+      expect(nodes.every((value: number) => value === 7)).assertTrue();
+      expect(rings.length).assertEqual(widths.length);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_8500
+     * @tc.name      testGraphNest0010
+     * @tc.desc      Build depth one to five containers with fanout two, hint GC after each build and check the node
+     *               count of every depth equals two to the depth minus one
+     * @tc.size      LARGETEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphNest0010', TestType.FUNCTION | Size.LARGETEST | Level.LEVEL2, () => {
+      const counts: number[] = [];
+      const oracles: number[] = [];
+      for (const depth of BAG_DEPTHS) {
+        const bag: BagNode = buildBagTree(depth, 2, 0, new IdCounter(0));
+        hintGC();
+        counts.push(countBag(bag));
+        oracles.push(Math.pow(2, depth) - 1);
+      }
+      const countsOk: boolean = sameNumbers(counts, oracles);
+      logCase('testGraphNest0010', `depths=${BAG_DEPTHS.join(',')} counts=${counts.join(',')} ` +
+        `oracles=${oracles.join(',')} countsOk=${countsOk}`);
+      expect(countsOk).assertTrue();
+      expect(counts.length).assertEqual(BAG_DEPTHS.length);
+      expect(counts[4]).assertEqual(31);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_8600
+     * @tc.name      testGraphNest0011
+     * @tc.desc      Store twenty five node chains in a string keyed Map, hint GC and check the table size, the summed
+     *               chain lengths and the series id sum of every chain
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphNest0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const table: Map<string, ChainNode> = new Map<string, ChainNode>();
+      for (let i = 0; i < 20; i++) {
+        table.set('c' + i, buildChain(5, 2, i * 5));
+      }
+      hintGC();
+      let walked: number = 0;
+      let sumsOk: boolean = true;
+      table.forEach((head: ChainNode) => {
+        walked += chainLength(head, 5);
+        let chainSum: number = 0;
+        let cursor: ChainNode | null = head;
+        while (cursor !== null) {
+          chainSum += cursor.id;
+          cursor = cursor.next;
+        }
+        sumsOk = sumsOk && chainSum === expectedIdSum(head.id, 5);
+      });
+      logCase('testGraphNest0011', `size=${table.size} walked=${walked} sumsOk=${sumsOk} ` +
+        `firstKey=${table.has('c0')}`);
+      expect(table.size).assertEqual(20);
+      expect(walked).assertEqual(100);
+      expect(sumsOk).assertTrue();
+      expect(table.has('c19')).assertTrue();
+      expect(table.has('c20')).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_8700
+     * @tc.name      testGraphNest0012
+     * @tc.desc      Keep a depth four container reachable across two forced collections and check the node count, the
+     *               map agreement and the ring payload rule afterwards
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphNest0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const bag: BagNode = buildBagTree(4, 3, 2, new IdCounter(100));
+      hintGC();
+      const cycles: number = await runGcCycles(2, COLLECT_ROUNDS);
+      const nodes: number = countBag(bag);
+      logCase('testGraphNest0012', `cycles=${cycles} nodes=${nodes} entries=${countBagEntries(bag)} ` +
+        `rings=${countBagRings(bag)} idSum=${bagIdSum(bag)}`);
+      expect(cycles >= 2).assertTrue();
+      expect(nodes).assertEqual(40);
+      expect(countBagEntries(bag)).assertEqual(39);
+      expect(countBagRings(bag)).assertEqual(40);
+      expect(bagIdSum(bag)).assertEqual(expectedIdSum(100, 40));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_8800
+     * @tc.name      testGraphShare0001
+     * @tc.desc      Build two owners sharing two leaves, hint GC and check the owner edges, the leaf back reference
+     *               count and the object identity of the shared leaves
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testGraphShare0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const owners: SharedOwner[] = buildSharedGraph(2, 2, 0, 0);
+      hintGC();
+      const edges: number = sharedEdgeTotal(owners);
+      const countsOk: boolean = sharedOwnerCountsOk(owners, 2, 2);
+      const sharedIdentity: boolean = owners[0].leaves[0] === owners[1].leaves[0];
+      logCase('testGraphShare0001', `edges=${edges} countsOk=${countsOk} sharedIdentity=${sharedIdentity}`);
+      expect(edges).assertEqual(4);
+      expect(countsOk).assertTrue();
+      expect(sharedIdentity).assertTrue();
+      expect(owners.length).assertEqual(2);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_8900
+     * @tc.name      testGraphShare0002
+     * @tc.desc      Build three owners sharing five leaves with one slot payloads, hint GC and check the fifteen owner
+     *               edges, the leaf back references and the uniform payload
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphShare0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const owners: SharedOwner[] = buildSharedGraph(3, 5, 1, 0);
+      hintGC();
+      const edges: number = sharedEdgeTotal(owners);
+      let payloadOk: boolean = true;
+      for (const leaf of owners[0].leaves) {
+        payloadOk = payloadOk && leaf.payload.every((value: number) => value === leaf.id);
+      }
+      logCase('testGraphShare0002', `edges=${edges} countsOk=${sharedOwnerCountsOk(owners, 3, 5)} ` +
+        `payloadOk=${payloadOk}`);
+      expect(edges).assertEqual(15);
+      expect(sharedOwnerCountsOk(owners, 3, 5)).assertTrue();
+      expect(payloadOk).assertTrue();
+      expect(owners[0].leaves.length).assertEqual(5);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_9000
+     * @tc.name      testGraphShare0003
+     * @tc.desc      Build ten owners sharing twenty leaves, hint GC and check two hundred owner edges, ten back
+     *               references on every leaf and the distinct leaf count
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphShare0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const owners: SharedOwner[] = buildSharedGraph(10, 20, 0, 0);
+      hintGC();
+      const edges: number = sharedEdgeTotal(owners);
+      const distinct: number = owners[0].leaves.length;
+      logCase('testGraphShare0003', `owners=${owners.length} edges=${edges} distinct=${distinct} ` +
+        `leafOwners=${owners[0].leaves[0].owners.length}`);
+      expect(edges).assertEqual(200);
+      expect(distinct).assertEqual(20);
+      expect(owners[0].leaves[0].owners.length).assertEqual(10);
+      expect(sharedOwnerCountsOk(owners, 10, 20)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_9100
+     * @tc.name      testGraphShare0004
+     * @tc.desc      Build owner and leaf count combinations, hint GC after each build and check the edge total of each
+     *               combination equals owner count times leaf count
+     * @tc.size      LARGETEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphShare0004', TestType.FUNCTION | Size.LARGETEST | Level.LEVEL2, () => {
+      const edges: number[] = [];
+      const oracles: number[] = [];
+      for (let i = 0; i < OWNER_COUNTS.length; i++) {
+        const owners: SharedOwner[] = buildSharedGraph(OWNER_COUNTS[i], LEAF_COUNTS[i], 1, 0);
+        hintGC();
+        edges.push(sharedEdgeTotal(owners));
+        oracles.push(OWNER_COUNTS[i] * LEAF_COUNTS[i]);
+      }
+      const edgesOk: boolean = sameNumbers(edges, oracles);
+      logCase('testGraphShare0004', `owners=${OWNER_COUNTS.join(',')} leaves=${LEAF_COUNTS.join(',')} ` +
+        `edges=${edges.join(',')} oracles=${oracles.join(',')} edgesOk=${edgesOk}`);
+      expect(edgesOk).assertTrue();
+      expect(edges.length).assertEqual(OWNER_COUNTS.length);
+      expect(oracles[4]).assertEqual(96);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_9200
+     * @tc.name      testGraphShare0005
+     * @tc.desc      Build five owners sharing eight leaves, hint GC and check every leaf lists all five owners in the
+     *               same order and each owner lists every leaf object
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphShare0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const owners: SharedOwner[] = buildSharedGraph(5, 8, 2, 100);
+      hintGC();
+      let ordered: number = 0;
+      const probeLeaf: SharedLeaf = owners[0].leaves[0];
+      for (let i = 0; i < owners.length; i++) {
+        if (probeLeaf.owners[i] === owners[i]) {
+          ordered++;
+        }
+      }
+      const allListed: boolean = owners[4].leaves.length === 8 && owners[4].leaves[7] === probeLeaf;
+      logCase('testGraphShare0005', `ordered=${ordered} allListed=${allListed} ` +
+        `probeOwners=${probeLeaf.owners.length} leafId=${probeLeaf.id}`);
+      expect(ordered).assertEqual(5);
+      expect(allListed).assertTrue();
+      expect(probeLeaf.owners.length).assertEqual(5);
+      expect(probeLeaf.id).assertEqual(105);
+      expect(sharedEdgeTotal(owners)).assertEqual(40);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_9300
+     * @tc.name      testGraphDiamond0001
+     * @tc.desc      Build the smallest diamond of one root, two middle nodes and one sink, hint GC and check the reach
+     *               count, the four edges and the shared sink identity
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testGraphDiamond0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const widths: number[] = [1, 2, 1];
+      const first: DiamondNode[] = buildDiamond(widths, 0, 0);
+      hintGC();
+      const reach: number = diamondReachCount(first);
+      const edges: number = diamondEdgeTotal(first);
+      const sharedSink: boolean = first[0].children[0].children[0] === first[0].children[1].children[0];
+      logCase('testGraphDiamond0001', `reach=${reach} edges=${edges} sharedSink=${sharedSink} ` +
+        `oracleEdges=${diamondEdgeOracle(widths)}`);
+      expect(reach).assertEqual(4);
+      expect(edges).assertEqual(4);
+      expect(sharedSink).assertTrue();
+      expect(edges).assertEqual(diamondEdgeOracle(widths));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_9400
+     * @tc.name      testGraphDiamond0002
+     * @tc.desc      Build a four layer diamond with one slot payloads, hint GC and check eight nodes, ten edges, the
+     *               back reference rule and the uniform payload
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphDiamond0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const widths: number[] = [1, 3, 3, 1];
+      const first: DiamondNode[] = buildDiamond(widths, 1, 0);
+      hintGC();
+      const reach: number = diamondReachCount(first);
+      const edges: number = diamondEdgeTotal(first);
+      const backRefs: boolean = diamondBackRefsOk(first);
+      logCase('testGraphDiamond0002', `reach=${reach} edges=${edges} backRefs=${backRefs} ` +
+        `payloadOk=${diamondPayloadOk(first)}`);
+      expect(reach).assertEqual(8);
+      expect(edges).assertEqual(15);
+      expect(backRefs).assertTrue();
+      expect(diamondPayloadOk(first)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_9500
+     * @tc.name      testGraphDiamond0003
+     * @tc.desc      Build the widening then narrowing diamond over seven layers, hint GC and check twenty two nodes,
+     *               the edge oracle and the layer of the sink
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphDiamond0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const widths: number[] = [1, 2, 4, 8, 4, 2, 1];
+      const first: DiamondNode[] = buildDiamond(widths, 0, 0);
+      hintGC();
+      const reach: number = diamondReachCount(first);
+      const edges: number = diamondEdgeTotal(first);
+      const sink: DiamondNode = first[0].children[0].children[0].children[0];
+      logCase('testGraphDiamond0003', `reach=${reach} edges=${edges} oracle=${diamondEdgeOracle(widths)} ` +
+        `sinkLayer=${sink.layer}`);
+      expect(reach).assertEqual(diamondWidthTotal(widths));
+      expect(reach).assertEqual(22);
+      expect(edges).assertEqual(diamondEdgeOracle(widths));
+      expect(sink.layer).assertEqual(3);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_9600
+     * @tc.name      testGraphDiamond0004
+     * @tc.desc      Build four diamond shapes, hint GC after each build and check the edge total of every shape equals
+     *               the neighbouring width products summed by hand
+     * @tc.size      LARGETEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphDiamond0004', TestType.FUNCTION | Size.LARGETEST | Level.LEVEL2, () => {
+      const edges: number[] = [];
+      const oracles: number[] = [];
+      const reaches: number[] = [];
+      for (const shape of DIAMOND_SHAPES) {
+        const first: DiamondNode[] = buildDiamond(shape, 0, 0);
+        hintGC();
+        edges.push(diamondEdgeTotal(first));
+        oracles.push(diamondEdgeOracle(shape));
+        reaches.push(diamondReachCount(first));
+      }
+      const edgesOk: boolean = sameNumbers(edges, oracles);
+      logCase('testGraphDiamond0004', `edges=${edges.join(',')} oracles=${oracles.join(',')} ` +
+        `reaches=${reaches.join(',')} edgesOk=${edgesOk}`);
+      expect(edgesOk).assertTrue();
+      expect(edges.length).assertEqual(DIAMOND_SHAPES.length);
+      expect(reaches[0]).assertEqual(4);
+      expect(reaches[3]).assertEqual(10);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_9700
+     * @tc.name      testGraphDiamond0005
+     * @tc.desc      Build a wide diamond of one root, eight middle nodes and one sink, hint GC and check the reach
+     *               count, the sixteen edges and the sink parent count
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphDiamond0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const widths: number[] = [1, 8, 8, 1];
+      const first: DiamondNode[] = buildDiamond(widths, 0, 0);
+      hintGC();
+      const reach: number = diamondReachCount(first);
+      const edges: number = diamondEdgeTotal(first);
+      const sink: DiamondNode = first[0].children[0].children[0];
+      logCase('testGraphDiamond0005', `reach=${reach} edges=${edges} sinkParents=${sink.parents.length} ` +
+        `rootChildren=${first[0].children.length}`);
+      expect(reach).assertEqual(18);
+      expect(edges).assertEqual(80);
+      expect(sink.parents.length).assertEqual(8);
+      expect(first[0].children.length).assertEqual(8);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_9800
+     * @tc.name      testGraphDiamond0006
+     * @tc.desc      Build a six layer diamond, hint GC and check the reach count equals the width sum while every
+     *               reachable node reports its layer and the payload mirrors its id
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphDiamond0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const widths: number[] = [1, 3, 5, 5, 3, 1];
+      const first: DiamondNode[] = buildDiamond(widths, 2, 0);
+      hintGC();
+      const reach: number = diamondReachCount(first);
+      const widthSum: number = diamondWidthTotal(widths);
+      const reachOk: boolean = reach === widthSum;
+      logCase('testGraphDiamond0006', `reach=${reach} widthSum=${widthSum} reachOk=${reachOk} ` +
+        `edges=${diamondEdgeTotal(first)}`);
+      expect(reachOk).assertTrue();
+      expect(reach).assertEqual(18);
+      expect(diamondEdgeTotal(first)).assertEqual(diamondEdgeOracle(widths));
+      expect(diamondPayloadOk(first)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_9900
+     * @tc.name      testGraphDiamond0007
+     * @tc.desc      Build a five layer diamond, hint GC and check every child lists the parent that reaches it while
+     *               the root keeps no parent and the sink keeps no child
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphDiamond0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const widths: number[] = [1, 4, 6, 4, 1];
+      const first: DiamondNode[] = buildDiamond(widths, 1, 0);
+      hintGC();
+      const backRefs: boolean = diamondBackRefsOk(first);
+      const root: DiamondNode = first[0];
+      const sink: DiamondNode = root.children[0].children[0].children[0].children[0];
+      logCase('testGraphDiamond0007', `backRefs=${backRefs} rootParents=${root.parents.length} ` +
+        `sinkChildren=${sink.children.length} sinkParents=${sink.parents.length}`);
+      expect(backRefs).assertTrue();
+      expect(root.parents.length).assertEqual(0);
+      expect(sink.children.length).assertEqual(0);
+      expect(sink.parents.length).assertEqual(4);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_10000
+     * @tc.name      testGraphDiamond0008
+     * @tc.desc      Keep a five layer diamond reachable across two forced collections and check the reach count, the
+     *               edge total and the back reference rule afterwards
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphDiamond0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const widths: number[] = [1, 2, 4, 4, 2, 1];
+      const first: DiamondNode[] = buildDiamond(widths, 2, 0);
+      hintGC();
+      const cycles: number = await runGcCycles(2, COLLECT_ROUNDS);
+      const reach: number = diamondReachCount(first);
+      logCase('testGraphDiamond0008', `cycles=${cycles} reach=${reach} edges=${diamondEdgeTotal(first)} ` +
+        `backRefs=${diamondBackRefsOk(first)}`);
+      expect(cycles >= 2).assertTrue();
+      expect(reach).assertEqual(14);
+      expect(diamondEdgeTotal(first)).assertEqual(diamondEdgeOracle(widths));
+      expect(diamondBackRefsOk(first)).assertTrue();
+      expect(diamondPayloadOk(first)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_10100
+     * @tc.name      testGraphMix0001
+     * @tc.desc      Hold a chain and a ring of the same size in one test, hint GC and check both independent walks and
+     *               both id sums match the series oracle
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphMix0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const size: number = 120;
+      const head: ChainNode = buildChain(size, 2, 0);
+      const ring: RingNode = buildRing(size, 2, 0);
+      hintGC();
+      const chainWalk: number = chainLength(head, WALK_LIMIT);
+      const ringWalk: number = ringLength(ring, size + 1);
+      logCase('testGraphMix0001', `chainWalk=${chainWalk} ringWalk=${ringWalk} ` +
+        `chainSum=${chainIdSum(head, size)} ringSum=${ringIdSum(ring, size)}`);
+      expect(chainWalk).assertEqual(size);
+      expect(ringWalk).assertEqual(size);
+      expect(chainIdSum(head, size)).assertEqual(expectedIdSum(0, size));
+      expect(ringIdSum(ring, size)).assertEqual(expectedIdSum(0, size));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_10200
+     * @tc.name      testGraphMix0002
+     * @tc.desc      Hold a five level tree and a two hundred node list together, hint GC and check the tree node count,
+     *               the tree back links and the list length and back link rule
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testGraphMix0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const root: BranchNode = buildBranchTree(5, 0, 0);
+      const listHead: LinkNode = buildDoubleList(200, 0, 0);
+      hintGC();
+      const nodes: number = countBranch(root);
+      const listLength: number = doubleForwardLength(listHead, 200);
+      logCase('testGraphMix0002', `nodes=${nodes} backLinks=${countBranchBackLinks(root)} ` +
+        `listLength=${listLength} listBackLinks=${doubleBackLinksOk(listHead, 200)}`);
+      expect(nodes).assertEqual(31);
+      expect(countBranchBackLinks(root)).assertEqual(30);
+      expect(listLength).assertEqual(200);
+      expect(doubleBackLinksOk(listHead, 200)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_10300
+     * @tc.name      testGraphMix0003
+     * @tc.desc      Hold a six node mesh and a five layer diamond together, hint GC and check the mesh edge total, the
+     *               diamond edge total and both reachable node counts
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphMix0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const nodes: MeshNode[] = buildMesh(6, 0, 0);
+      const widths: number[] = [1, 3, 3, 1];
+      const first: DiamondNode[] = buildDiamond(widths, 0, 0);
+      hintGC();
+      const meshEdges: number = meshEdgeTotal(nodes);
+      const diamondEdges: number = diamondEdgeTotal(first);
+      logCase('testGraphMix0003', `meshNodes=${nodes.length} meshEdges=${meshEdges} ` +
+        `diamondReach=${diamondReachCount(first)} diamondEdges=${diamondEdges}`);
+      expect(meshEdges).assertEqual(30);
+      expect(diamondEdges).assertEqual(diamondEdgeOracle(widths));
+      expect(diamondReachCount(first)).assertEqual(8);
+      expect(meshPeersIntact(nodes, 6)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_10400
+     * @tc.name      testGraphMix0004
+     * @tc.desc      Hold a nested bag and a shared leaf graph together, hint GC and check the bag node count, the bag
+     *               entry count and the shared graph edge total
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphMix0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const bag: BagNode = buildBagTree(3, 3, 1, new IdCounter(0));
+      const owners: SharedOwner[] = buildSharedGraph(4, 6, 1, 0);
+      hintGC();
+      const nodes: number = countBag(bag);
+      const entries: number = countBagEntries(bag);
+      logCase('testGraphMix0004', `nodes=${nodes} entries=${entries} rings=${countBagRings(bag)} ` +
+        `sharedEdges=${sharedEdgeTotal(owners)}`);
+      expect(nodes).assertEqual(13);
+      expect(entries).assertEqual(12);
+      expect(sharedEdgeTotal(owners)).assertEqual(24);
+      expect(sharedOwnerCountsOk(owners, 4, 6)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_10500
+     * @tc.name      testGraphMix0005
+     * @tc.desc      Hold a grid, a fanout tree and a ring at the same time, hint GC and check each structure against
+     *               its own oracle in a single assertion sweep
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphMix0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const cells: GridCell[] = buildGrid(5, 7, 0, 0);
+      const fork: ForkNode = buildForkTree(3, 3, 0, 0);
+      const ring: RingNode = buildRing(64, 1, 0);
+      hintGC();
+      let gridEdges: number = 0;
+      for (const cell of cells) {
+        gridEdges += cell.peers.length;
+      }
+      const forkNodes: number = countFork(fork);
+      const ringWalk: number = ringLength(ring, 65);
+      logCase('testGraphMix0005', `gridCells=${cells.length} gridEdges=${gridEdges} forkNodes=${forkNodes} ` +
+        `ringWalk=${ringWalk}`);
+      expect(gridEdges).assertEqual(gridNeighborEdges(5, 7));
+      expect(forkNodes).assertEqual(13);
+      expect(ringWalk).assertEqual(64);
+      expect(gridEdgesIntact(cells, 5, 7)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_10600
+     * @tc.name      testGraphMix0006
+     * @tc.desc      Hold a chain and a ring across ten hintGC calls and check both walks stay complete on every round
+     *               while the snapshot stays ordered
+     * @tc.size      MEDIUMTEST
+     * @tc.type      PERFORMANCE
+     * @tc.level     LEVEL2
+     */
+    it('testGraphMix0006', TestType.PERFORMANCE | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const head: ChainNode = buildChain(150, 1, 0);
+      const ring: RingNode = buildRing(150, 1, 0);
+      const before: GcSnapshot = new GcSnapshot();
+      let chainClosed: number = 0;
+      let ringClosed: number = 0;
+      for (let round = 0; round < HINT_REPEATS; round++) {
+        hintGC();
+        if (chainLength(head, WALK_LIMIT) === 150) {
+          chainClosed++;
+        }
+        if (ringLength(ring, 151) === 150) {
+          ringClosed++;
+        }
+      }
+      const after: GcSnapshot = new GcSnapshot();
+      logCase('testGraphMix0006', `chainClosed=${chainClosed} ringClosed=${ringClosed} ` +
+        `ordered=${after.notBefore(before)}`);
+      expect(chainClosed).assertEqual(HINT_REPEATS);
+      expect(ringClosed).assertEqual(HINT_REPEATS);
+      expect(after.notBefore(before)).assertTrue();
+      expect(chainIdSum(head, 150)).assertEqual(ringIdSum(ring, 150));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_10700
+     * @tc.name      testGraphMix0007
+     * @tc.desc      Interleave forced collections and pressure allocation while a tree, a list and a bag stay
+     *               reachable and check each structure against its oracle afterwards
+     * @tc.size      LARGETEST
+     * @tc.type      PERFORMANCE
+     * @tc.level     LEVEL2
+     */
+    it('testGraphMix0007', TestType.PERFORMANCE | Size.LARGETEST | Level.LEVEL2, async () => {
+      const root: BranchNode = buildBranchTree(6, 1, 0);
+      const listHead: LinkNode = buildDoubleList(300, 1, 0);
+      const bag: BagNode = buildBagTree(3, 2, 1, new IdCounter(0));
+      let sink: number = 0;
+      for (let round = 0; round < 3; round++) {
+        sink += allocatePressure();
+        hintGC();
+      }
+      const cycles: number = await runGcCycles(2, COLLECT_ROUNDS);
+      logCase('testGraphMix0007', `sink=${sink} cycles=${cycles} treeNodes=${countBranch(root)} ` +
+        `listLength=${doubleForwardLength(listHead, 300)} bagNodes=${countBag(bag)}`);
+      expect(sink > 0).assertTrue();
+      expect(cycles >= 2).assertTrue();
+      expect(countBranch(root)).assertEqual(63);
+      expect(doubleForwardLength(listHead, 300)).assertEqual(300);
+      expect(countBag(bag)).assertEqual(7);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_GRAPH_10800
+     * @tc.name      testGraphMix0008
+     * @tc.desc      Build every supported structure in one case, hint GC five times and run the full oracle sweep over
+     *               the chain, ring, mesh, tree, list, bag, shared graph and diamond
+     * @tc.size      LARGETEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testGraphMix0008', TestType.FUNCTION | Size.LARGETEST | Level.LEVEL2, () => {
+      const chainHead: ChainNode = buildChain(64, 1, 0);
+      const ring: RingNode = buildRing(64, 1, 0);
+      const mesh: MeshNode[] = buildMesh(5, 1, 0);
+      const tree: BranchNode = buildBranchTree(5, 1, 0);
+      const listHead: LinkNode = buildDoubleList(64, 1, 0);
+      const bag: BagNode = buildBagTree(2, 3, 1, new IdCounter(0));
+      const owners: SharedOwner[] = buildSharedGraph(3, 3, 1, 0);
+      const widths: number[] = [1, 2, 1];
+      const diamond: DiamondNode[] = buildDiamond(widths, 1, 0);
+      const before: GcSnapshot = new GcSnapshot();
+      for (let round = 0; round < 5; round++) {
+        hintGC();
+      }
+      const after: GcSnapshot = new GcSnapshot();
+      const checks: boolean[] = [];
+      checks.push(chainLength(chainHead, 64) === 64);
+      checks.push(ringLength(ring, 65) === 64);
+      checks.push(meshEdgeTotal(mesh) === 20);
+      checks.push(countBranch(tree) === 31);
+      checks.push(doubleForwardLength(listHead, 64) === 64);
+      checks.push(countBag(bag) === 4);
+      checks.push(sharedEdgeTotal(owners) === 9);
+      checks.push(diamondReachCount(diamond) === 4);
+      const allOk: boolean = checks.every((ok: boolean) => ok);
+      logCase('testGraphMix0008', `checks=${checks.length} allOk=${allOk} ` +
+        `ordered=${after.notBefore(before)} freed=${after.freed} allocated=${after.allocated}`);
+      expect(checks.length).assertEqual(8);
+      expect(allOk).assertTrue();
+      expect(after.notBefore(before)).assertTrue();
+      expect(after.freed <= after.allocated).assertTrue();
+      expect(branchPayloadOk(tree)).assertTrue();
+    });
+  });
+}
