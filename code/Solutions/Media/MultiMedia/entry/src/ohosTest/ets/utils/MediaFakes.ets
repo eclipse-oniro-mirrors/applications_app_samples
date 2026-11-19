@@ -16,8 +16,8 @@
 import type { fileIo } from '@kit.CoreFileKit';
 import type { AsyncCallback } from '@kit.BasicServicesKit';
 import type { photoAccessHelper } from '@kit.MediaLibraryKit';
-import type common from '@ohos.app.ability.common';
-import dataSharePredicates from '@ohos.data.dataSharePredicates';
+import type { common } from '@kit.AbilityKit';
+import { dataSharePredicates } from '@kit.ArkData';
 import type { ValueType } from '@kit.ArkData';
 import type {
   MediaClock, MediaFileOperations, MediaFileStat, MediaPhotoAsset, MediaFetchResult, MediaLibraryOperations

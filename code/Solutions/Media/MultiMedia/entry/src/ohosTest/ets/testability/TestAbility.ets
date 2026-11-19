@@ -14,19 +14,32 @@
  */
 
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
+import { Hypium } from '@ohos/hypium';
+import testsuite from '../test/List.test';
 
-const TAG: string = 'TestAbility';
 const DOMAIN: number = 0xF811;
+const TAG: string = '[Samples_MultiMedia]';
+const ON_DESTROY_ERROR: number = -2;
 
 export default class TestAbility extends UIAbility {
+  private abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
+  private testStarted: boolean = false;
+
+  constructor() {
+    super();
+    this.abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+  }
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(DOMAIN, TAG, 'TestAbility onCreate');
   }
 
   onDestroy(): void {
     hilog.info(DOMAIN, TAG, 'TestAbility onDestroy');
+    this.abilityDelegator.finishTest('TestAbility onDestroy unexpectedly!', ON_DESTROY_ERROR, () => {});
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
@@ -46,6 +59,14 @@ export default class TestAbility extends UIAbility {
 
   onForeground(): void {
     hilog.info(DOMAIN, TAG, 'TestAbility onForeground');
+    if (!this.testStarted) {
+      this.testStarted = true;
+      setTimeout(() => {
+        const abilityDelegatorArguments = abilityDelegatorRegistry.getArguments();
+        hilog.info(DOMAIN, TAG, 'start run testcase!!!');
+        Hypium.hypiumTest(this.abilityDelegator, abilityDelegatorArguments, testsuite);
+      }, 300);
+    }
   }
 
   onBackground(): void {

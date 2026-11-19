@@ -204,7 +204,7 @@ export default class CameraService {
     Logger.info(this.tag, 'captureSession start');
   }
 
-  setTakePictureCallback(callback) {
+  setTakePictureCallback(callback: (photoUri: string) => void): void {
     this.handleTakePicture = callback;
   }
 
@@ -213,7 +213,7 @@ export default class CameraService {
     if (this.curMode === CameraMode.MODE_VIDEO) {
       this.curMode = CameraMode.MODE_PHOTO;
     }
-    let photoSettings = {
+    const photoSettings = {
       rotation: camera.ImageRotation.ROTATION_0,
       quality: camera.QualityLevel.QUALITY_LEVEL_MEDIUM,
       location: { // 位置信息，经纬度

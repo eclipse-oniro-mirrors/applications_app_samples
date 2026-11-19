@@ -16,7 +16,7 @@
 import { describe, it, expect, beforeEach } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
-import type common from '@ohos.app.ability.common';
+import type { common } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
 import MediaUtils, { FileType } from '../../../main/ets/model/MediaUtils';
 import type { MediaAssetHandle, MediaTypeInfo } from '../../../main/ets/model/MediaUtils';

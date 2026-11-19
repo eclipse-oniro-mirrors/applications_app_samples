@@ -15,7 +15,7 @@
 
 import { describe, it, expect, beforeEach } from '@ohos/hypium';
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
-import type common from '@ohos.app.ability.common';
+import type { common } from '@kit.AbilityKit';
 import MediaUtils, { FileType } from '../../../main/ets/model/MediaUtils';
 import type { MediaAssetHandle, MediaPhotoAsset, FileInfo, AlbumInfo } from '../../../main/ets/model/MediaUtils';
 import { LogicTestLog } from '../utils/LogicTestLog';

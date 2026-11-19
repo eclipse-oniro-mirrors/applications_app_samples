@@ -12,18 +12,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
 
-const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export function getString(resource: Resource): string {
-  let manage = delegator.getAppContext().resourceManager
-  return manage.getStringSync(resource)
+  const manage = delegator.getAppContext().resourceManager;
+  return manage.getStringSync(resource);
 }
 
 
 export async function getStringArray(resource: Resource): Promise<Array<string>> {
-  let manage = delegator.getAppContext().resourceManager
-  let menuList: Array<string> = await manage.getStringArrayValue(resource);
+  const manage = delegator.getAppContext().resourceManager;
+  const menuList: Array<string> = await manage.getStringArrayValue(resource);
   return menuList;
 }

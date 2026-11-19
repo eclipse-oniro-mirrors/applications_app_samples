@@ -15,18 +15,17 @@
 
 import { beforeAll, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { fileIo } from '@kit.CoreFileKit';
-import { Driver, ON, Component, On } from '@ohos.UiTest';
-import hilog from '@ohos.hilog';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { Driver, ON, Component, On, abilityDelegatorRegistry } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import Logger from '../utils/Logger';
 import { getString } from '../utils/ResourceUtil';
 import MediaUtils, { AlbumInfo } from '../../../main/ets/model/MediaUtils';
-import common from '@ohos.app.ability.common';
+import type { common } from '@kit.AbilityKit';
 
 const TAG: string = 'MultiMediaUiTest';
-const DOMAIN = 0xF811;
-const BUNDLE = 'MultiMedia_';
-const abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const DOMAIN: number = 0xF811;
+const BUNDLE: string = 'MultiMedia_';
+const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 async function getAlbums(): Promise<AlbumInfo[]> {
   Logger.info(TAG, 'getAlbums start');
