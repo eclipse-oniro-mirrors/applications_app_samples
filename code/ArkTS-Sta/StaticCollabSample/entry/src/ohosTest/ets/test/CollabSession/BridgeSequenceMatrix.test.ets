@@ -7798,3 +7798,357 @@ export default function bridgeSequenceMatrixTest(): void {
       expect(bridge.getEventCount(CollabEventType.ERROR)).assertEqual(0);
       expect(session.getMessageCount()).assertEqual(0);
       expect(session.getDataCount()).assertEqual(1);
+    });
+
+    it('bridge_seq3_210', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const session = bridge.getSession(sid) as MockCollabSession;
+      expect(sid).assertEqual(0);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(bridge.getSessionCount()).assertEqual(1);
+      const r0 = bridge.acceptConnect(sid, 'tok');
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = bridge.acceptConnect(sid, 'tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r2 = bridge.connect(sid);
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(bridge.getSessionCount()).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.CREATE)).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.CONNECT)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.DISCONNECT)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.DESTROY)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.SEND_MESSAGE)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.SEND_DATA)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.ACCEPT)).assertEqual(2);
+      expect(bridge.getEventCount(CollabEventType.ERROR)).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('bridge_seq3_211', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const session = bridge.getSession(sid) as MockCollabSession;
+      expect(sid).assertEqual(0);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(bridge.getSessionCount()).assertEqual(1);
+      const r0 = bridge.acceptConnect(sid, 'tok');
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = bridge.acceptConnect(sid, 'tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r2 = bridge.disconnect(sid);
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DISCONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      expect(bridge.getSessionCount()).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.CREATE)).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.CONNECT)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.DISCONNECT)).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.DESTROY)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.SEND_MESSAGE)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.SEND_DATA)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.ACCEPT)).assertEqual(2);
+      expect(bridge.getEventCount(CollabEventType.ERROR)).assertEqual(0);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('bridge_seq3_212', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const session = bridge.getSession(sid) as MockCollabSession;
+      expect(sid).assertEqual(0);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(bridge.getSessionCount()).assertEqual(1);
+      const r0 = bridge.acceptConnect(sid, 'tok');
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = bridge.acceptConnect(sid, 'tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r2 = bridge.destroyAbilityConnectionSession(sid);
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      expect(bridge.getSessionCount()).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.CREATE)).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.CONNECT)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.DISCONNECT)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.DESTROY)).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.SEND_MESSAGE)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.SEND_DATA)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.ACCEPT)).assertEqual(2);
+      expect(bridge.getEventCount(CollabEventType.ERROR)).assertEqual(0);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('bridge_seq3_213', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const session = bridge.getSession(sid) as MockCollabSession;
+      expect(sid).assertEqual(0);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(bridge.getSessionCount()).assertEqual(1);
+      const r0 = bridge.acceptConnect(sid, 'tok');
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = bridge.acceptConnect(sid, 'tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r2 = bridge.sendMessage(sid, 'hi');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      expect(bridge.getSessionCount()).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.CREATE)).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.CONNECT)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.DISCONNECT)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.DESTROY)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.SEND_MESSAGE)).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.SEND_DATA)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.ACCEPT)).assertEqual(2);
+      expect(bridge.getEventCount(CollabEventType.ERROR)).assertEqual(0);
+      expect(session.getMessageCount()).assertEqual(1);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('bridge_seq3_214', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const session = bridge.getSession(sid) as MockCollabSession;
+      expect(sid).assertEqual(0);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(bridge.getSessionCount()).assertEqual(1);
+      const r0 = bridge.acceptConnect(sid, 'tok');
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = bridge.acceptConnect(sid, 'tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r2 = bridge.sendData(sid, encodeUtf8('x'));
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      expect(bridge.getSessionCount()).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.CREATE)).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.CONNECT)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.DISCONNECT)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.DESTROY)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.SEND_MESSAGE)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.SEND_DATA)).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.ACCEPT)).assertEqual(2);
+      expect(bridge.getEventCount(CollabEventType.ERROR)).assertEqual(0);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(1);
+    });
+
+    it('bridge_seq3_215', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const session = bridge.getSession(sid) as MockCollabSession;
+      expect(sid).assertEqual(0);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(bridge.getSessionCount()).assertEqual(1);
+      const r0 = bridge.acceptConnect(sid, 'tok');
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = bridge.acceptConnect(sid, 'tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r2 = bridge.acceptConnect(sid, 'tok');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(0);
+      expect(bridge.getSessionCount()).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.CREATE)).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.CONNECT)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.DISCONNECT)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.DESTROY)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.SEND_MESSAGE)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.SEND_DATA)).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.ACCEPT)).assertEqual(3);
+      expect(bridge.getEventCount(CollabEventType.ERROR)).assertEqual(0);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('bridge_create_valid', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      expect(sid).assertEqual(0);
+      expect(bridge.getSessionCount()).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.CREATE)).assertEqual(1);
+    });
+
+    it('bridge_create_empty_name', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession('', buildPeerInfo('dev'), buildConnectOptions(true));
+      expect(sid).assertEqual(INVALID_SESSION_ID);
+      expect(bridge.getSessionCount()).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.CREATE)).assertEqual(1);
+    });
+
+    it('bridge_create_incomplete_peer', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, new PeerInfoModel(''), buildConnectOptions(true));
+      expect(sid).assertEqual(INVALID_SESSION_ID);
+      expect(bridge.getSessionCount()).assertEqual(0);
+    });
+
+    it('bridge_create_fail_injection', 0, async () => {
+      const bridge = new MockCollabBridge();
+      bridge.failCreate = true;
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      expect(sid).assertEqual(INVALID_SESSION_ID);
+      expect(bridge.getSessionCount()).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.CREATE)).assertEqual(1);
+    });
+
+    it('bridge_failConnect_created', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const session = bridge.getSession(sid) as MockCollabSession;
+      bridge.failConnect = true;
+      const result = bridge.connect(sid);
+      expect(result).assertFalse();
+      expect(bridge.getSessionCount()).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.ERROR)).assertEqual(1);
+    });
+
+    it('bridge_failConnect_connected', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const session = bridge.getSession(sid) as MockCollabSession;
+      bridge.connect(sid);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      bridge.failConnect = true;
+      const result = bridge.connect(sid);
+      expect(result).assertFalse();
+      expect(bridge.getSessionCount()).assertEqual(1);
+      expect(bridge.getEventCount(CollabEventType.ERROR)).assertEqual(1);
+    });
+
+    it('bridge_failSendMessage_created', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const session = bridge.getSession(sid) as MockCollabSession;
+      bridge.failSendMessage = true;
+      const result = bridge.sendMessage(sid, 'hi');
+      expect(result).assertFalse();
+      expect(bridge.getSessionCount()).assertEqual(1);
+    });
+
+    it('bridge_failSendMessage_connected', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const session = bridge.getSession(sid) as MockCollabSession;
+      bridge.connect(sid);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      bridge.failSendMessage = true;
+      const result = bridge.sendMessage(sid, 'hi');
+      expect(result).assertFalse();
+      expect(bridge.getSessionCount()).assertEqual(1);
+    });
+
+    it('bridge_failSendData_created', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const session = bridge.getSession(sid) as MockCollabSession;
+      bridge.failSendData = true;
+      const result = bridge.sendData(sid, encodeUtf8('x'));
+      expect(result).assertFalse();
+      expect(bridge.getSessionCount()).assertEqual(1);
+    });
+
+    it('bridge_failSendData_connected', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const session = bridge.getSession(sid) as MockCollabSession;
+      bridge.connect(sid);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      bridge.failSendData = true;
+      const result = bridge.sendData(sid, encodeUtf8('x'));
+      expect(result).assertFalse();
+      expect(bridge.getSessionCount()).assertEqual(1);
+    });
+
+    it('bridge_missing_session_operations', 0, async () => {
+      const bridge = new MockCollabBridge();
+      expect(bridge.connect(99)).assertFalse();
+      expect(bridge.disconnect(99)).assertFalse();
+      expect(bridge.destroyAbilityConnectionSession(99)).assertFalse();
+      expect(bridge.sendMessage(99, 'hi')).assertFalse();
+      expect(bridge.sendData(99, encodeUtf8('x'))).assertFalse();
+      expect(bridge.acceptConnect(99, 'tok')).assertFalse();
+      expect(bridge.getSessionCount()).assertEqual(0);
+    });
+
+    it('bridge_session_ids_insertion_order', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const a = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('a'), buildConnectOptions(true));
+      const b = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('b'), buildConnectOptions(true));
+      const c = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('c'), buildConnectOptions(true));
+      expect(a).assertEqual(0);
+      expect(b).assertEqual(1);
+      expect(c).assertEqual(2);
+      const ids = bridge.getAllSessionIds();
+      expect(ids.length).assertEqual(3);
+      expect(ids[0]).assertEqual(0);
+      expect(ids[1]).assertEqual(1);
+      expect(ids[2]).assertEqual(2);
+    });
+
+    it('bridge_clear_events', 0, async () => {
+      const bridge = new MockCollabBridge();
+      bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      expect(bridge.getEvents().length).assertEqual(1);
+      bridge.clearEvents();
+      expect(bridge.getEvents().length).assertEqual(0);
+      expect(bridge.getEventCount(CollabEventType.CREATE)).assertEqual(0);
+    });
+
+    it('bridge_reset_clears_state', 0, async () => {
+      const bridge = new MockCollabBridge();
+      bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      bridge.failCreate = true;
+      bridge.reset();
+      expect(bridge.getSessionCount()).assertEqual(0);
+      expect(bridge.getEvents().length).assertEqual(0);
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      expect(sid).assertEqual(0);
+    });
+
+    it('bridge_destroy_twice_reports_once', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      expect(bridge.destroyAbilityConnectionSession(sid)).assertTrue();
+      expect(bridge.destroyAbilityConnectionSession(sid)).assertFalse();
+      expect(bridge.getEventCount(CollabEventType.DESTROY)).assertEqual(1);
+      const session = bridge.getSession(sid) as MockCollabSession;
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getLastError()).assertEqual('destroy twice');
+    });
+
+  });
+}
+
