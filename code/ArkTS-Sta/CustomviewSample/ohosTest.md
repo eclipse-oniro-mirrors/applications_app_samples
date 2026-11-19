@@ -79,7 +79,7 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 
 运行测试命令：
 
-<code>hdc shell a&#97; test -b com.samples.CustomviewSample -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000</code>
+在 `hdc shell` 中执行系统测试子命令，参数为 `-b com.samples.CustomviewSample -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000`。
 
 ## 7. 结果判定
 
