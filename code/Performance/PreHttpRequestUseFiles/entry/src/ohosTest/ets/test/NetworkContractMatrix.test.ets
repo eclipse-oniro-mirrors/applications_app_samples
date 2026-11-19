@@ -1328,3 +1328,1197 @@ export default function networkContractMatrixTest() {
      * @tc.number    SUB_PREHTTP_NET_0084
      * @tc.name      testNetwork0084
      * @tc.desc      Refused endpoint http://0.0.0.0:1 with timeout 1200 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://0.0.0.0:1/image-0014.jpg',
+        http.RequestMethod.GET, 1200, 1200);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0084', 'contract case 84');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0085
+     * @tc.name      testNetwork0085
+     * @tc.desc      Refused endpoint http://127.0.0.1:1 with timeout 1400 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://127.0.0.1:1/image-0015.jpg',
+        http.RequestMethod.HEAD, 1400, 1400);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0085', 'contract case 85');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0086
+     * @tc.name      testNetwork0086
+     * @tc.desc      Refused endpoint http://localhost:1 with timeout 1600 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://localhost:1/image-0016.jpg',
+        http.RequestMethod.GET, 1600, 1600);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0086', 'contract case 86');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0087
+     * @tc.name      testNetwork0087
+     * @tc.desc      Refused endpoint http://0.0.0.0:1 with timeout 1800 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://0.0.0.0:1/image-0017.jpg',
+        http.RequestMethod.HEAD, 1800, 1800);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0087', 'contract case 87');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0088
+     * @tc.name      testNetwork0088
+     * @tc.desc      Refused endpoint http://127.0.0.1:1 with timeout 2000 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://127.0.0.1:1/image-0018.jpg',
+        http.RequestMethod.GET, 2000, 2000);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0088', 'contract case 88');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0089
+     * @tc.name      testNetwork0089
+     * @tc.desc      Refused endpoint http://localhost:1 with timeout 2200 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://localhost:1/image-0019.jpg',
+        http.RequestMethod.HEAD, 2200, 2200);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0089', 'contract case 89');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0090
+     * @tc.name      testNetwork0090
+     * @tc.desc      Refused endpoint http://0.0.0.0:1 with timeout 2400 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://0.0.0.0:1/image-0020.jpg',
+        http.RequestMethod.GET, 2400, 2400);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0090', 'contract case 90');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0091
+     * @tc.name      testNetwork0091
+     * @tc.desc      Refused endpoint http://127.0.0.1:1 with timeout 2600 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://127.0.0.1:1/image-0021.jpg',
+        http.RequestMethod.HEAD, 2600, 2600);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0091', 'contract case 91');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0092
+     * @tc.name      testNetwork0092
+     * @tc.desc      Refused endpoint http://localhost:1 with timeout 2800 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://localhost:1/image-0022.jpg',
+        http.RequestMethod.GET, 2800, 2800);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0092', 'contract case 92');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0093
+     * @tc.name      testNetwork0093
+     * @tc.desc      Refused endpoint http://0.0.0.0:1 with timeout 3000 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://0.0.0.0:1/image-0023.jpg',
+        http.RequestMethod.HEAD, 3000, 3000);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0093', 'contract case 93');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0094
+     * @tc.name      testNetwork0094
+     * @tc.desc      Refused endpoint http://127.0.0.1:1 with timeout 3200 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://127.0.0.1:1/image-0024.jpg',
+        http.RequestMethod.GET, 3200, 3200);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0094', 'contract case 94');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0095
+     * @tc.name      testNetwork0095
+     * @tc.desc      Refused endpoint http://localhost:1 with timeout 3400 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://localhost:1/image-0025.jpg',
+        http.RequestMethod.HEAD, 3400, 3400);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0095', 'contract case 95');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0096
+     * @tc.name      testNetwork0096
+     * @tc.desc      Refused endpoint http://0.0.0.0:1 with timeout 3600 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://0.0.0.0:1/image-0026.jpg',
+        http.RequestMethod.GET, 3600, 3600);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0096', 'contract case 96');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0097
+     * @tc.name      testNetwork0097
+     * @tc.desc      Refused endpoint http://127.0.0.1:1 with timeout 3800 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://127.0.0.1:1/image-0027.jpg',
+        http.RequestMethod.HEAD, 3800, 3800);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0097', 'contract case 97');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0098
+     * @tc.name      testNetwork0098
+     * @tc.desc      Refused endpoint http://localhost:1 with timeout 4000 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://localhost:1/image-0028.jpg',
+        http.RequestMethod.GET, 4000, 4000);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0098', 'contract case 98');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0099
+     * @tc.name      testNetwork0099
+     * @tc.desc      Refused endpoint http://0.0.0.0:1 with timeout 5000 never yields status 200
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const outcome: NetOutcome = await probe('http://0.0.0.0:1/image-0029.jpg',
+        http.RequestMethod.HEAD, 5000, 5000);
+      expect(outcome.code !== http.ResponseCode.OK).assertTrue();
+      expect(outcome.elapsed >= 0).assertTrue();
+      expect(outcome.elapsed < 30000).assertTrue();
+      logCase('testNetwork0099', 'contract case 99');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0100
+     * @tc.name      testNetwork0100
+     * @tc.desc      Declared permission count is one
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(info.reqPermissionDetails.length).assertEqual(1);
+      logCase('testNetwork0100', 'contract case 100');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0101
+     * @tc.name      testNetwork0101
+     * @tc.desc      Declared permission name is INTERNET
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.name).assertEqual(INTERNET_PERMISSION);
+      logCase('testNetwork0101', 'contract case 101');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0102
+     * @tc.name      testNetwork0102
+     * @tc.desc      Declared permission name keeps twenty two characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0102', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.name.length).assertEqual(INTERNET_PERMISSION.length);
+      logCase('testNetwork0102', 'contract case 102');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0103
+     * @tc.name      testNetwork0103
+     * @tc.desc      Declared permission name starts with ohos.permission
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.name.startsWith('ohos.permission.')).assertTrue();
+      logCase('testNetwork0103', 'contract case 103');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0104
+     * @tc.name      testNetwork0104
+     * @tc.desc      Declared permission name ends with INTERNET
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0104', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.name.endsWith('INTERNET')).assertTrue();
+      logCase('testNetwork0104', 'contract case 104');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0105
+     * @tc.name      testNetwork0105
+     * @tc.desc      Declared permission name has three dots
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0105', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.name.split('.').length).assertEqual(3);
+      logCase('testNetwork0105', 'contract case 105');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0106
+     * @tc.name      testNetwork0106
+     * @tc.desc      Declared permission reason is not empty
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0106', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.reason.length > 0).assertTrue();
+      logCase('testNetwork0106', 'contract case 106');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0107
+     * @tc.name      testNetwork0107
+     * @tc.desc      Declared permission reason is longer than ten characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0107', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.reason.length > 10).assertTrue();
+      logCase('testNetwork0107', 'contract case 107');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0108
+     * @tc.name      testNetwork0108
+     * @tc.desc      Declared permission reason starts with a visible character
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0108', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.reason.charAt(0) !== ' ').assertTrue();
+      logCase('testNetwork0108', 'contract case 108');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0109
+     * @tc.name      testNetwork0109
+     * @tc.desc      Declared permission reason id is assigned
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0109', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.reasonId > 0).assertTrue();
+      logCase('testNetwork0109', 'contract case 109');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0110
+     * @tc.name      testNetwork0110
+     * @tc.desc      Used scene timing is in use
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0110', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.usedScene.when).assertEqual('inuse');
+      logCase('testNetwork0110', 'contract case 110');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0111
+     * @tc.name      testNetwork0111
+     * @tc.desc      Used scene names EntryAbility
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0111', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.usedScene.abilities.indexOf(ENTRY_ABILITY) >= 0).assertTrue();
+      logCase('testNetwork0111', 'contract case 111');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0112
+     * @tc.name      testNetwork0112
+     * @tc.desc      Used scene holds exactly one ability
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0112', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.usedScene.abilities.length).assertEqual(1);
+      logCase('testNetwork0112', 'contract case 112');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0113
+     * @tc.name      testNetwork0113
+     * @tc.desc      Used scene ability name matches entry module ability
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0113', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.usedScene.abilities[0]).assertEqual(ENTRY_ABILITY);
+      logCase('testNetwork0113', 'contract case 113');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0114
+     * @tc.name      testNetwork0114
+     * @tc.desc      Grant states align with permission details
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0114', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(info.permissionGrantStates.length).assertEqual(info.reqPermissionDetails.length);
+      logCase('testNetwork0114', 'contract case 114');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0115
+     * @tc.name      testNetwork0115
+     * @tc.desc      Grant state is a non negative number
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0115', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(info.permissionGrantStates[0] >= 0).assertTrue();
+      logCase('testNetwork0115', 'contract case 115');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0116
+     * @tc.name      testNetwork0116
+     * @tc.desc      Grant state is an integer
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0116', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(Number.isInteger(info.permissionGrantStates[0])).assertTrue();
+      logCase('testNetwork0116', 'contract case 116');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0117
+     * @tc.name      testNetwork0117
+     * @tc.desc      Permission name begins with the ohos segment
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0117', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.name.indexOf('ohos')).assertEqual(0);
+      logCase('testNetwork0117', 'contract case 117');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0118
+     * @tc.name      testNetwork0118
+     * @tc.desc      InterNET permission contains no white space
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0118', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.name.indexOf(' ')).assertEqual(-1);
+      logCase('testNetwork0118', 'contract case 118');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0119
+     * @tc.name      testNetwork0119
+     * @tc.desc      Internet permission keeps the declared profile name
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0119', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo =
+        await bundleManager.getBundleInfoForSelf(PERMISSION_FLAGS);
+      const detail: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[0];
+      expect(detail.name).assertEqual(INTERNET_PERMISSION);
+      logCase('testNetwork0119', 'contract case 119');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0120
+     * @tc.name      testNetwork0120
+     * @tc.desc      Pre request cache gate 1 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0120', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0000.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0000');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0000');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(48);
+        expect('pre-request-cache-0000'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0120', 'contract case 120');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0121
+     * @tc.name      testNetwork0121
+     * @tc.desc      Pre request cache gate 2 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0121', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0001.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0001');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0001');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(49);
+        expect('pre-request-cache-0001'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0121', 'contract case 121');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0122
+     * @tc.name      testNetwork0122
+     * @tc.desc      Pre request cache gate 3 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0122', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0002.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0002');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0002');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(50);
+        expect('pre-request-cache-0002'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0122', 'contract case 122');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0123
+     * @tc.name      testNetwork0123
+     * @tc.desc      Pre request cache gate 4 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0123', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0003.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0003');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0003');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(51);
+        expect('pre-request-cache-0003'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0123', 'contract case 123');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0124
+     * @tc.name      testNetwork0124
+     * @tc.desc      Pre request cache gate 5 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0124', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0004.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0004');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0004');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(52);
+        expect('pre-request-cache-0004'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0124', 'contract case 124');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0125
+     * @tc.name      testNetwork0125
+     * @tc.desc      Pre request cache gate 6 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0125', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0005.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0005');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0005');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(53);
+        expect('pre-request-cache-0005'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0125', 'contract case 125');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0126
+     * @tc.name      testNetwork0126
+     * @tc.desc      Pre request cache gate 7 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0126', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0006.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0006');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0006');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(54);
+        expect('pre-request-cache-0006'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0126', 'contract case 126');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0127
+     * @tc.name      testNetwork0127
+     * @tc.desc      Pre request cache gate 8 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0127', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0007.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0007');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0007');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(55);
+        expect('pre-request-cache-0007'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0127', 'contract case 127');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0128
+     * @tc.name      testNetwork0128
+     * @tc.desc      Pre request cache gate 9 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0128', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0008.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0008');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0008');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(56);
+        expect('pre-request-cache-0008'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0128', 'contract case 128');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0129
+     * @tc.name      testNetwork0129
+     * @tc.desc      Pre request cache gate 10 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0129', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0009.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0009');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0009');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(57);
+        expect('pre-request-cache-0009'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0129', 'contract case 129');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0130
+     * @tc.name      testNetwork0130
+     * @tc.desc      Pre request cache gate 11 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0130', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0010.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0010');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0010');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(48);
+        expect('pre-request-cache-0010'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0130', 'contract case 130');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0131
+     * @tc.name      testNetwork0131
+     * @tc.desc      Pre request cache gate 12 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0131', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0011.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0011');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0011');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(49);
+        expect('pre-request-cache-0011'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0131', 'contract case 131');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0132
+     * @tc.name      testNetwork0132
+     * @tc.desc      Pre request cache gate 13 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0132', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0012.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0012');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0012');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(50);
+        expect('pre-request-cache-0012'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0132', 'contract case 132');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0133
+     * @tc.name      testNetwork0133
+     * @tc.desc      Pre request cache gate 14 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0133', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0013.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0013');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0013');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(51);
+        expect('pre-request-cache-0013'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0133', 'contract case 133');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0134
+     * @tc.name      testNetwork0134
+     * @tc.desc      Pre request cache gate 15 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0134', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0014.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0014');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0014');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(52);
+        expect('pre-request-cache-0014'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0134', 'contract case 134');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0135
+     * @tc.name      testNetwork0135
+     * @tc.desc      Pre request cache gate 16 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0135', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0015.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0015');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0015');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(53);
+        expect('pre-request-cache-0015'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0135', 'contract case 135');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0136
+     * @tc.name      testNetwork0136
+     * @tc.desc      Pre request cache gate 17 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0136', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0016.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0016');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0016');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(54);
+        expect('pre-request-cache-0016'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0136', 'contract case 136');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0137
+     * @tc.name      testNetwork0137
+     * @tc.desc      Pre request cache gate 18 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0137', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0017.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0017');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0017');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(55);
+        expect('pre-request-cache-0017'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0137', 'contract case 137');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0138
+     * @tc.name      testNetwork0138
+     * @tc.desc      Pre request cache gate 19 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0138', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0018.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0018');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0018');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(56);
+        expect('pre-request-cache-0018'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0138', 'contract case 138');
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_NET_0139
+     * @tc.name      testNetwork0139
+     * @tc.desc      Pre request cache gate 20 treats a missing file as absent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNetwork0139', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const path: string = testPath('gate_0019.jpg');
+      try {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+        expect(fs.accessSync(path)).assertFalse();
+        const written: number = writeText(path, 'pre-request-cache-0019');
+        expect(written).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.statSync(path).size).assertEqual(22);
+        expect(fs.readTextSync(path)).assertEqual('pre-request-cache-0019');
+        expect(fs.readTextSync(path).length).assertEqual(22);
+        expect(fs.readTextSync(path).charCodeAt(0)).assertEqual(112);
+        expect(fs.readTextSync(path).charCodeAt(21)).assertEqual(57);
+        expect('pre-request-cache-0019'.length).assertEqual(22);
+      } finally {
+        if (fs.accessSync(path)) {
+          fs.unlinkSync(path);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+      logCase('testNetwork0139', 'contract case 139');
+    });
+  });
+}
