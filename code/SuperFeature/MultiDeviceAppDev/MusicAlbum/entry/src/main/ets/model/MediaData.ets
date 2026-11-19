@@ -12,55 +12,62 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import mediaQuery from '@ohos.mediaquery'
+import { mediaquery, UIContext } from '@kit.ArkUI'
 
 export default class BreakpointSystem {
+  private uiContext: UIContext
   private currentBreakpoint: string = 'md'
-  private smListener: mediaQuery.MediaQueryListener
-  private mdListener: mediaQuery.MediaQueryListener
-  private lgListener: mediaQuery.MediaQueryListener
+  private smListener?: mediaquery.MediaQueryListener
+  private mdListener?: mediaquery.MediaQueryListener
+  private lgListener?: mediaquery.MediaQueryListener
 
-  private updateCurrentBreakpoint(breakpoint: string) {
+  constructor(uiContext: UIContext) {
+    this.uiContext = uiContext
+  }
+
+  private updateCurrentBreakpoint(breakpoint: string): void {
     if (this.currentBreakpoint !== breakpoint) {
       this.currentBreakpoint = breakpoint
-      AppStorage.Set<string>('currentBreakpoint', this.currentBreakpoint)
+      AppStorage.set<string>('currentBreakpoint', this.currentBreakpoint)
     }
   }
 
-  private isBreakpointSM = (mediaQueryResult) => {
+  private isBreakpointSM = (mediaQueryResult: mediaquery.MediaQueryResult): void => {
     if (mediaQueryResult.matches) {
       this.updateCurrentBreakpoint('sm')
-      AppStorage.Set<number>('fontSize', 14)
-      AppStorage.Set<number>('coverMargin', 10)
+      AppStorage.set<number>('fontSize', 14)
+      AppStorage.set<number>('coverMargin', 10)
     }
   }
-  private isBreakpointMD = (mediaQueryResult) => {
+
+  private isBreakpointMD = (mediaQueryResult: mediaquery.MediaQueryResult): void => {
     if (mediaQueryResult.matches) {
       this.updateCurrentBreakpoint('md')
-      AppStorage.Set<number>('fontSize', 16)
-      AppStorage.Set<number>('coverMargin', 30)
+      AppStorage.set<number>('fontSize', 16)
+      AppStorage.set<number>('coverMargin', 30)
     }
   }
-  private isBreakpointLG = (mediaQueryResult) => {
+
+  private isBreakpointLG = (mediaQueryResult: mediaquery.MediaQueryResult): void => {
     if (mediaQueryResult.matches) {
       this.updateCurrentBreakpoint('lg')
-      AppStorage.Set<number>('fontSize', 18)
-      AppStorage.Set<number>('coverMargin', 40)
+      AppStorage.set<number>('fontSize', 18)
+      AppStorage.set<number>('coverMargin', 40)
     }
   }
 
-  public register() {
-    this.smListener = mediaQuery.matchMediaSync('(320vp<=width<600vp)')
-    this.smListener.on('change', this.isBreakpointSM)
-    this.mdListener = mediaQuery.matchMediaSync('(600vp<=width<840vp)')
-    this.mdListener.on('change', this.isBreakpointMD)
-    this.lgListener = mediaQuery.matchMediaSync('(840vp<=width)')
-    this.lgListener.on('change', this.isBreakpointLG)
+  public register(): void {
+    this.smListener = this.uiContext.getMediaQuery().matchMediaSync('(320vp<=width<600vp)')
+    this.smListener?.on('change', this.isBreakpointSM)
+    this.mdListener = this.uiContext.getMediaQuery().matchMediaSync('(600vp<=width<840vp)')
+    this.mdListener?.on('change', this.isBreakpointMD)
+    this.lgListener = this.uiContext.getMediaQuery().matchMediaSync('(840vp<=width)')
+    this.lgListener?.on('change', this.isBreakpointLG)
   }
 
-  public unregister() {
-    this.smListener.off('change', this.isBreakpointSM)
-    this.mdListener.off('change', this.isBreakpointMD)
-    this.lgListener.off('change', this.isBreakpointLG)
+  public unregister(): void {
+    this.smListener?.off('change', this.isBreakpointSM)
+    this.mdListener?.off('change', this.isBreakpointMD)
+    this.lgListener?.off('change', this.isBreakpointLG)
   }
 }

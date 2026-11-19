@@ -1,113 +1,135 @@
-# 一多音乐专辑主页
+# MusicAlbum
 
-### 介绍
+### Introduction
 
-本示例展示了音乐专辑主页。
+This sample demonstrates one-time development for multi-device deployment by showing how to build a music album (playlist) home page. The page consists of a title bar, the playlist cover, the song list and a bottom player band. Following [One-time development for multi-device deployment](https://gitcode.com/openharmony/docs/tree/master/en/application-dev/key-features/multi-device-app-dev), it uses the responsive grid breakpoint system and the adaptive stretch capabilities to reflow the cover column and the list column at SM (320vp to 600vp), MD (600vp to 840vp) and LG (above 840vp) window sizes.
 
-* 头部返回栏: 因元素单一、位置固定在顶部，因此适合采用自适应拉伸，充分利用顶部区域。
+The project is organized as a complete sample that is both runnable and teachable:
 
-* 专辑封面: 使用栅格组件控制占比，在小尺寸屏幕下封面图与歌单描述在同一行。
+- **Title bar** holds the back icon, the playlist title and the more button. A `Blank` between them absorbs the remaining space, so only the gaps change across breakpoints.
+- **Content area** splits the page into a cover column and a list column with `GridRow` / `GridCol`: 12 + 12 spans stacked at SM, 6 + 6 side by side at MD, and 4 + 8 at LG.
+- **Playlist cover** combines a 1:1 album image, the playlist name and introduction, and the four actions (collect, download, comment, share). At SM the introduction block takes the measured height of the cover, and the action strip slides below the cover.
+- **Song list** pairs a play-all row with 24 rows rendered by `LazyForEach`; `lanes` is 2 at LG and 1 on the other breakpoints. At SM the measured cover height becomes the bottom padding of the list so that the last rows are not hidden by the player band.
+- **Player band** keeps a fixed height of 48vp: the album thumbnail and the song/singer copy on the left, the play, next and playlist buttons on the right, and a `Blank` in between.
+- **Breakpoint system** `BreakpointSystem` registers three `mediaquery` listeners (320vp to 600vp / 600vp to 840vp / above 840vp) and writes the matched value to `currentBreakpoint` in `AppStorage`, together with the font size (14 / 16 / 18) and the cover margin (10 / 30 / 40).
+- **Data layer** `MyDataSource` implements `IDataSource` with `addData` / `pushData` and five change notifications; `songList` is a frozen table of 24 rows (ids 1 to 21 and 23 to 25, id 22 is absent) and `optionList` holds the four actions.
+- **Automated tests** cover 39 suites / 2633 cases; see [ohosTest.md](./ohosTest.md) for the case matrix and how to run them.
 
-* 歌曲列表: 使用栅格组件控制宽度，在小尺寸屏幕下宽度为屏幕的100%，中尺寸屏幕下宽度为屏幕的50%，大尺寸屏幕下宽度为屏幕的75%。
+Across the three breakpoints only layout parameters change: the page background is `#e4ecf7` with a stacked layout at SM, `#f6f9fc` with two columns at MD / LG, and the list turns into two lanes at LG. Dragging the window across a breakpoint refreshes the column widths, the lane count and the font size immediately.
 
-* 播放器: 采用自适应拉伸，充分使用底部区域。
+### Display Effect
 
-本示例使用[一次开发多端部署](https://gitee.com/openharmony/docs/tree/master/zh-cn/application-dev/key-features/multi-device-app-dev)中介绍的自适应布局能力和响应式布局能力进行多设备（或多窗口尺寸）适配，保证应用在不同设备或不同窗口尺寸下可以正常显示。  
-
-用到了媒体查询接口[@ohos.mediaquery](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/js-apis-mediaquery.md)。  
-
-### 效果预览
-
-本示例在预览器中的效果：
+The previewer shows:
 
 ![](screenshots/device/img3.png)
 
-本示例在开发板上运行的效果：
+The device shows:
 
-|全屏展示               |窗口操作按钮          |悬浮窗口显示          |
-|---------------------|--------------------|--------------------|
+|Full Screen                        |Window Control                     |Floating Window                    |
+|-----------------------------------|-----------------------------------|-----------------------------------|
 |![](screenshots/device/index.png)|![](screenshots/device/img1.png)|![](screenshots/device/img2.png)|
 
-使用说明：
+### How to Use
 
-1.启动应用，查看本应用在全屏状态下的效果。
+1. Start the app; the home page renders the title bar, the content area and the player band from top to bottom. On a compact window the cover and the list are stacked, on MD / LG they sit side by side.
+2. Swipe down at the top of the app to reveal the window control button (a mouse is recommended, only standard devices such as RK3568 are supported).
+3. Tap the floating icon to show the app on top of other windows.
+4. Drag the four corners of the floating window to resize it; crossing 600vp / 840vp changes the cover width, the list width and the font size, and at LG the list turns into two lanes.
+5. Scroll the song list to browse the 24 rows; the row ids jump from 21 to 23 because id 22 is absent in the frozen data. Tapping a row, the play button, the next button or the playlist button keeps the page on the same screen.
 
-2.在应用顶部，下滑出现窗口操作按钮。（建议通过外接鼠标操作，接入鼠标只需要将鼠标移动至顶部即可出现窗口，仅支持标准设备：RK3568）
+### Project Structure
 
-3.点击悬浮图标，将应用悬浮在其他界面上显示。
-
-4.拖动应用悬浮窗口的四个顶角，改变窗口尺寸，触发应用显示刷新。改变窗口尺寸的过程中，窗口尺寸可能超出屏幕尺寸，此时在屏幕中只能看到应用部分区域的显示。可以通过移动窗口位置，查看应用其它区域的显示。
-
-### 工程目录
 ```
-AppMarket/entry/src/main/ets/
-|---model
-|   |---MediaData.ets                      // 主页用到的图片资源
-|   |---SongList.ets                       // 歌曲数据
-|   |---SongModule.ets                     // 事件监听函数模块
-|---pages                                  
-|   |---index.ets                          // 首页
-|---common                                    
-|   |---Content.ets                        // 内容组件
-|   |---Header.ets                         // 标题栏
-|   |---Player.ets                         // app模块(包含安装，展示图片，更多功能)
-|   |---PlayList.ets                       // 歌单列表
-|   |---PlayListCover.ets                  // 歌单封面                                          
+MusicAlbum
+├──AppScope
+│  ├──app.json5                               // App config, bundleName ohos.samples.MusicAlbum
+│  └──resources/base/media/app_icon.png
+└──entry/src
+   ├──main/ets
+   │  ├──Application
+   │  │  └──MyAbilityStage.ts                 // Custom AbilityStage
+   │  ├──MainAbility
+   │  │  └──MainAbility.ets                   // Main window, loads pages/index
+   │  ├──common
+   │  │  ├──Header.ets                        // Title bar: back icon, playlist title, more button
+   │  │  ├──Content.ets                       // Content area: GridRow with cover and list columns
+   │  │  ├──PlayListCover.ets                 // Album cover, introduction and the four actions
+   │  │  ├──PlayList.ets                      // Play-all row + song list
+   │  │  └──Player.ets                        // Bottom player band
+   │  ├──model
+   │  │  ├──MediaData.ets                     // BreakpointSystem with three mediaquery listeners
+   │  │  ├──SongList.ets                      // Frozen songList (24 rows) and optionList (4 items)
+   │  │  └──SongModule.ets                    // SongItem and MyDataSource
+   │  └──pages
+   │     └──index.ets                         // Entry page, composes the three bands
+   ├──main/resources                          // Strings, colors, icons and main_pages
+   └──ohosTest                                // Automated tests, see ohosTest.md
+      └──ets
+         ├──test                              // 39 suites / 2633 cases, registered in List.test.ets
+         ├──testability                       // UIAbility and page used by the test HAP
+         ├──testrunner                        // OpenHarmonyTestRunner
+         └──util                              // DataSourceProbe, ListenerProbe, SongTableProbe, UiEnv
 ```
 
-### 具体实现
-本示例介绍如何使用自适应布局能力和响应式布局能力适配不同尺寸窗口，将页面分拆为4个部分。
-#### 标题栏
-由于在不同断点下，标题栏始终只显示“返回按钮”、“歌单”以及“更多按钮”，但“歌单”与“更多按钮”之间的间距不同。  
-通过栅格实现：将标题栏划分为“返回按钮及歌单”和“更多按钮”两部分，这两部分在不同断点下占据的列数不同。
-#### 歌单封面
-通过栅格实现歌单封面，它由封面图片、歌单介绍及常用操作三部分组成这三部分的布局在md和lg断点下完全相同，但在sm断点下有较大差异，[源码参考](entry/src/main/ets/common/PlayListCover.ets )。  
-1、在sm断点下，封面图片和歌单介绍占满12列，常用操作此时会自动换行显示。  
-2、在lg和md断点下，封面图片，歌单和常用操作各占一行中显示。
-#### 歌单列表
-通过List组件的lanes属性实现：在不同断点下，歌单列表的样式一致，但sm和md断点下是歌单列表是单列显示，lg断点下是双列显示，[源码参考](entry/src/main/ets/common/PlayList.ets )。  
-#### 播放控制栏
-通过Blank组件实现拉伸能力：在不同断点下，播放控制栏显示的内容完全一致，唯一的区别是歌曲信息与播放控制按钮之间的间距有差异。
-#### 总体运行效果
-通过在首页Column()中引用上述各组件后，可实现首页的组件整合渲染，即可完成整体页面开发，[源码参考](entry/src/main/ets/common/PlayList.ets )。
+### How to Implement
 
-### 相关权限
+**Breakpoint system and responsive tokens**
 
-不涉及。
+`BreakpointSystem` in [MediaData.ets](entry/src/main/ets/model/MediaData.ets) registers `(320vp<=width<600vp)`, `(600vp<=width<840vp)` and `(840vp<=width)` with `uiContext.getMediaQuery().matchMediaSync()`; when a query matches, `updateCurrentBreakpoint` writes `currentBreakpoint` to `AppStorage` and stores the font size (14 / 16 / 18) and the cover margin (10 / 30 / 40) as well. [index.ets](entry/src/main/ets/pages/index.ets) creates and registers the system in `aboutToAppear`, unregisters it in `aboutToDisappear`, and switches the page background between `#e4ecf7` (SM) and `#f6f9fc` (MD / LG).
 
-### 依赖
+**Title bar**
 
-不涉及。
+[Header.ets](entry/src/main/ets/common/Header.ets) is a 50vp `Row`: `ic_back` (`header_back`) and the playlist title (`header_title`, text from `app.string.play_list`) on the left, a `Blank` in the middle and `ic_more` (`header_more`) on the right. All three elements keep a fixed size, so a breakpoint only changes the side margins and the stretched space.
 
-### 约束与限制
+**Playlist cover**
 
-1. 本示例仅支持在标准系统上运行。
+[PlayListCover.ets](entry/src/main/ets/common/PlayListCover.ets) lays the cover, the introduction and the action strip out with three `GridCol`s (`span` 4 / 8 / 12, `offset` 1 / 2 / 2 at MD), and the outer `GridRow` takes its side margins from `coverMargin`. The cover uses `Image($r('app.media.pic_album'))` with `aspectRatio(1)` and reports its measured height through `onAreaChange`: at SM the introduction block equals `imgHeight`, on the other breakpoints it is fixed at 70vp. The action strip renders the four `optionList` items with `ForEach` and `justifyContent: SpaceBetween`.
 
-2. 本示例已适配API version 9版本SDK，版本号：3.2.11.9。
+**Song list**
 
-3. 本示例需要使用DevEco Studio 3.1 Beta2 (Build Version: 3.1.0.400, built on April 7, 2023)及以上版本才可编译运行。
+[PlayList.ets](entry/src/main/ets/common/PlayList.ets) draws the play-all row (`play_all_row` with `play_all_text`, `play_order_btn` and `play_sort_btn`) above a `Scroll` that hosts the `List` (`song_list`); `lanes` is 2 at LG and 1 otherwise. Rows come from `LazyForEach(new MyDataSource(songList))`, each row is `song_item_<id>` with a height of 50vp and a 0.5vp `Divider` in between. The outer `Column` takes `@Consume coverHeight` (provided by [Content.ets](entry/src/main/ets/common/Content.ets) through `@Provide`) as its bottom padding at SM, so the stacked layout keeps the list clear of the player band.
 
-4. 本示例在开发板上运行时，需要修改开发板系统配置文件以使能应用窗口能力。
+**Player band**
+
+[Player.ets](entry/src/main/ets/common/Player.ets) is a 48vp `Row`: the 32vp rounded `player_cover`, the song name (`player_song_name`) and the VIP badge (`player_vip`) plus the singer (`player_singer`), a `Blank`, and then the play (`player_play_btn`), next (`player_next_btn`) and playlist (`player_list_btn`) buttons.
+
+**Data layer**
+
+[SongModule.ets](entry/src/main/ets/model/SongModule.ets) defines `SongItem` and `MyDataSource`: `addData` splices the row in and calls `notifyDataAdd` with the raw index, `pushData` appends and notifies the new last index, `registerDataChangeListener` de-duplicates with `indexOf`, and four more notify methods (`notifyDataReload / Change / Delete / Move`) fan out to the registered listeners. [SongList.ets](entry/src/main/ets/model/SongList.ets) ships the 24 frozen `songList` rows (ids 1 to 21 and 23 to 25) and the 4 `optionList` items, and both the app and ohosTest reference this single baseline.
+
+### Test
+
+- Test project: `entry/src/ohosTest` (bundleName `ohos.samples.MusicAlbum`, test module `entry_test`, runner `OpenHarmonyTestRunner`).
+- Scale: 39 suites / 2633 cases — 213 hand-written behavior cases, 2300 specification regression cases and 120 UI probe cases.
+- Result: all 2633 cases passed on a real device (OpenHarmony 7.1.0.21 / API 26) on 2026-11-19, executed in 15 batches.
+
+For the case matrix, the `@tc` metadata, the build/signing steps and the batch commands, see [ohosTest.md](./ohosTest.md).
+
+### Required Permissions
+
+N/A
+
+### Dependency
+
+No third-party dependencies.
+
+### Constraints
+
+1. This sample can only be run on standard-system devices.
+2. This sample is a Stage model project; `targetSdkVersion`, `compileSdkVersion` and `compatibleSdkVersion` in `build-profile.json5` are all `23` (runtimeOS: OpenHarmony).
+3. This sample can be compiled and run only with a DevEco Studio version that supports `modelVersion` 6.0.2.
+4. `MainAbility` declares `minWindowWidth` 320 and `minWindowHeight` 240. Below 600vp the cover and the list are stacked, and the 1:1 cover pushes the list column out of the content band, so `song_list` / `song_item_*` do not enter the accessibility tree — this is the real arrangement of that window size.
+5. Running all 2633 cases in a single process triggers App died, so the automated regression must follow the 15-batch plan in [ohosTest.md](./ohosTest.md).
+6. The UI probe cases are driven by `@ohos.UiTest`; the device must be unlocked and free of system dialogs before running them.
+
+### How to Download
+
+If you need to download this project separately, run the following commands:
 
 ```shell
-# 将开发板文件系统的权限配置为可读写
-hdc shell mount -o rw,remount /
-# 取出原始配置文件
-hdc file recv system/etc/window/resources/window_manager_config.xml C:\
-# 将文件中<decor enable="false"></decor>改为<decor enable="true"></decor>
-# 用修改后的文件替换系统中的原始文件
-hdc file send C:\window_manager_config.xml system/etc/window/resources/window_manager_config.xml
-# 重启后生效
-hdc shell reboot
-```
-
-### 下载
-
-如需单独下载本工程，执行如下命令：
-```
 git init
 git config core.sparsecheckout true
 echo code/SuperFeature/MultiDeviceAppDev/MusicAlbum/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-type SongItem = {
+export interface SongItem {
   id: number,
   title: string,
   singer: string,

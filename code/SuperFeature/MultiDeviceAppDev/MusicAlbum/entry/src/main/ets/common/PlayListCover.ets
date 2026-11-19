@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { optionList } from '../model/SongList'
+import { optionList, OptionItem } from '../model/SongList'
 
 @Component
 export default struct PlayListCover {
@@ -26,6 +26,7 @@ export default struct PlayListCover {
   CoverImage() {
     Stack({ alignContent: Alignment.BottomStart }) {
       Image($r('app.media.pic_album'))
+        .id('cover_album')
         .width('100%')
         .aspectRatio(1)
         .borderRadius(8)
@@ -33,6 +34,7 @@ export default struct PlayListCover {
           this.imgHeight = newArea.height as number
         })
       Text($r('app.string.collection_num'))
+        .id('cover_collection_num')
         .letterSpacing(1)
         .fontColor('#fff')
         .fontSize(this.fontSize - 4)
@@ -47,6 +49,7 @@ export default struct PlayListCover {
   CoverIntroduction() {
     Column() {
       Text($r('app.string.list_name'))
+        .id('cover_list_name')
         .opacity(0.9)
         .fontWeight(500)
         .fontColor('#556B89')
@@ -54,6 +57,7 @@ export default struct PlayListCover {
         .margin({ bottom: 10 })
 
       Text($r('app.string.playlist_Introduction'))
+        .id('cover_intro')
         .opacity(0.6)
         .width('100%')
         .fontWeight(400)
@@ -74,7 +78,7 @@ export default struct PlayListCover {
   @Builder
   CoverOptions() {
     Row() {
-      ForEach(optionList, item => {
+      ForEach(optionList, (item: OptionItem) => {
         Column({ space: 4 }) {
           Image(item.image).height(30).width(30)
           Text(item.text)
@@ -83,6 +87,7 @@ export default struct PlayListCover {
         }
       })
     }
+    .id('cover_options')
     .width('100%')
     .height(70)
     .padding({

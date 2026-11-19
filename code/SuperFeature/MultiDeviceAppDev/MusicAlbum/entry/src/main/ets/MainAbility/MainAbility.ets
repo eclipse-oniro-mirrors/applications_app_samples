@@ -13,41 +13,43 @@
  * limitations under the License.
  */
 
-import UIAbility from '@ohos.app.ability.UIAbility'
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit'
+import { window } from '@kit.ArkUI'
+import { BusinessError } from '@kit.BasicServicesKit'
 
 export default class MainAbility extends UIAbility {
-  onCreate(want, launchParam) {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     console.log('[Sample_MusicAlbum] MainAbility onCreate')
   }
 
-  onDestroy() {
+  onDestroy(): void {
     console.log('[Sample_MusicAlbum] MainAbility onDestroy')
   }
 
-  onWindowStageCreate(windowStage) {
+  onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     console.log('[Sample_MusicAlbum] MainAbility onWindowStageCreate')
 
-    windowStage.loadContent("pages/index", (err, data) => {
+    windowStage.loadContent('pages/index', (err: BusinessError) => {
       if (err.code) {
         console.error('[Sample_MusicAlbum] Failed to load the content. Cause:' + JSON.stringify(err))
         return
       }
-      console.info('[Sample_MusicAlbum] Succeeded in loading the content. Data: ' + JSON.stringify(data))
+      console.info('[Sample_MusicAlbum] Succeeded in loading the content.')
     })
   }
 
-  onWindowStageDestroy() {
+  onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
     console.log('[Sample_MusicAlbum] MainAbility onWindowStageDestroy')
   }
 
-  onForeground() {
+  onForeground(): void {
     // Ability has brought to foreground
     console.log('[Sample_MusicAlbum] MainAbility onForeground')
   }
 
-  onBackground() {
+  onBackground(): void {
     // Ability has back to background
     console.log('[Sample_MusicAlbum] MainAbility onBackground')
   }

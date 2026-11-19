@@ -13,78 +13,117 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import { Driver, ON } from '@ohos.UiTest';
-import UIAbility from '@ohos.app.ability.UIAbility';
+import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import {
+  BUNDLE_NAME,
+  WAIT_MS,
+  clickId,
+  countId,
+  displaySize,
+  expectedText,
+  existsId,
+  launchApp,
+  listInViewport,
+  pressBack,
+  resetToHome,
+  textOfId,
+  unlockIfNeeded,
+  waitId
+} from '../util/UiEnv';
 
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_MusicAlbum]';
-const DOMAIN = 0xF811;
-const BUNDLE = 'MusicAlbum_';
-let ability: UIAbility;
 
 export default function abilityTest() {
-  describe('ActsAbilityTest', function () {
+  describe('MusicAlbumUiAbility01', () => {
+    beforeAll(async () => {
+      await unlockIfNeeded();
+      await launchApp();
+    });
+
     /**
-     * 打开应用
+     * @tc.name   testAbility0001
+     * @tc.number SUB_MUSICALBUM_UI_ABILITY_0001
+     * @tc.desc   Anchor: the launched main ability renders the header root and the playlist title
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL1
      */
-    it(BUNDLE + 'StartAbility_001', 0, async function (done) {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001 begin');
-      let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-      try {
-        await abilityDelegator.startAbility({
-          bundleName: 'ohos.samples.MusicAlbum',
-          abilityName: 'MainAbility'
-        });
-        done();
-      } catch (expection) {
-        expect(0).assertEqual(expection.code);
-        hilog.info(DOMAIN, TAG, 'StartAbility end err:' + JSON.stringify(expection));
-        done();
-      }
-      ability = await abilityDelegator.getCurrentTopAbility();
-      hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001 end');
+    it('testAbility0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAbility0001 begin');
+      const launch: string = await launchApp();
+      hilog.info(DOMAIN, TAG, 'actual=%{public}s expected=%{public}s', String(launch), 'ok');
+      expect(launch).assertEqual('ok');
+      const rootFound: boolean = await waitId('header_root', WAIT_MS);
+      hilog.info(DOMAIN, TAG, 'actual=%{public}s expected=%{public}s', String(rootFound), 'true');
+      expect(rootFound).assertTrue();
+      const title: string = await textOfId('header_title');
+      const titleExpected: string = 'ok:' + expectedText('play_list');
+      hilog.info(DOMAIN, TAG, 'actual=%{public}s expected=%{public}s', title, titleExpected);
+      expect(title).assertEqual(titleExpected);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAbility0001 end');
     })
 
     /**
-     * 点击窗口化
+     * @tc.name   testAbility0002
+     * @tc.number SUB_MUSICALBUM_UI_ABILITY_0002
+     * @tc.desc   the home page exposes cover, the list column when it fits and the player after launch
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL1
      */
-    it(BUNDLE + 'WindowSplitFunction_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'WindowSplitFunction_001 begin');
-      let driver = await Driver.create();
-      await driver.click(500, 500);
-      await driver.delayMs(1000);
-      hilog.info(DOMAIN, TAG, BUNDLE + 'WindowSplitFunction_001 end');
+    it('testAbility0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAbility0002 begin');
+      const cover: boolean = await existsId('cover_album');
+      const reachable: boolean = await listInViewport();
+      const listCount: number = await countId('song_list');
+      const player: boolean = await existsId('player_root');
+      hilog.info(DOMAIN, TAG, 'actual=%{public}s expected=%{public}s', String(cover), 'true');
+      expect(cover).assertTrue();
+      hilog.info(DOMAIN, TAG, 'actual=%{public}s expected=%{public}s', String(player), 'true');
+      expect(player).assertTrue();
+      // the list column is mounted once when it fits the band and not at all
+      // when the square cover pushes it out of the compact window
+      hilog.info(DOMAIN, TAG, 'reachable=%{public}s listCount=%{public}d', String(reachable), listCount);
+      expect(listCount).assertEqual(reachable ? 1 : 0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAbility0002 end');
     })
 
     /**
-     * 检查窗口
+     * @tc.name   testAbility0003
+     * @tc.number SUB_MUSICALBUM_UI_ABILITY_0003
+     * @tc.desc   the display snapshot is well formed and keeps a positive width and height
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL1
      */
-    it(BUNDLE + 'WindowResumeFunction_001', 0, async () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'WindowResumeFunction_001 begin');
-      let driver = await Driver.create();
-      let window = await driver.findWindow({
-        bundleName: 'ohos.samples.MusicAlbum'
-      });
-      let boundsBefore = await window.getBounds();
-      hilog.info(DOMAIN, TAG, BUNDLE + JSON.stringify(boundsBefore));
-      // 检查窗口化
-      await window.resume();
-      await driver.delayMs(1000);
-      let boundsAfter = await window.getBounds();
-      expect(boundsBefore.bottom - boundsBefore.top).assertLarger(boundsAfter.bottom - boundsAfter.top);
-      expect(boundsBefore.right - boundsBefore.left).assertLarger(boundsAfter.right - boundsAfter.left);
-      // 检查窗口拖动
-      await driver.drag(boundsAfter.left + 30, boundsAfter.top + 15, 100, 100, 100);
-      await driver.delayMs(1000);
-      let boundsMove = await window.getBounds();
-      expect(boundsAfter.top).assertLarger(boundsMove.top);
-      expect(boundsAfter.right).assertLarger(boundsMove.right);
-      await driver.delayMs(1000);
-      await window.resume();
-      await driver.delayMs(1000);
-      hilog.info(DOMAIN, TAG, BUNDLE + 'WindowResumeFunction_001 end');
+    it('testAbility0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAbility0003 begin');
+      const snapshot: string = await displaySize();
+      hilog.info(DOMAIN, TAG, 'actual=%{public}s expected=%{public}s', snapshot, 'ok:<w>,<h>');
+      expect(snapshot.startsWith('ok:')).assertTrue();
+      const parts: string[] = snapshot.split(',');
+      const width: number = parts.length === 2 ? Number(parts[0].substring(3)) : -1;
+      const height: number = parts.length === 2 ? Number(parts[1]) : -1;
+      hilog.info(DOMAIN, TAG, 'actual=%{public}s expected=%{public}s', String(width), '>0');
+      expect(width > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, 'actual=%{public}s expected=%{public}s', String(height), '>0');
+      expect(height > 0).assertTrue();
+      const back: string = await pressBack();
+      expect(back).assertEqual('ok');
+      // the sample owns a single page, so back leaves the ability instead of
+      // popping one; the page has to be brought back before the header is usable
+      const relaunch: string = await launchApp();
+      hilog.info(DOMAIN, TAG, 'actual=%{public}s expected=%{public}s', relaunch, 'ok');
+      expect(relaunch).assertEqual('ok');
+      const header: boolean = await waitId('header_root', WAIT_MS);
+      expect(header).assertTrue();
+      const click: string = await clickId('header_more');
+      hilog.info(DOMAIN, TAG, 'actual=%{public}s expected=%{public}s', click, 'ok');
+      expect(click).assertEqual('ok');
+      await resetToHome();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAbility0003 end');
     })
   })
 }

@@ -13,7 +13,14 @@
  * limitations under the License.
  */
 
-const songList = [
+import { SongItem } from './SongModule'
+
+export interface OptionItem {
+  image: Resource,
+  text: ResourceStr
+}
+
+const songList: SongItem[] = [
   { id: 1, title: '不知道', singer: '小碗你好', label: $r('app.media.ic_vip') },
   { id: 2, title: '歌名你好', singer: '张三-你好我好都好', label: $r('app.media.ic_SQ') },
   { id: 3, title: '还是歌名', singer: '不知道你是谁', label: $r('app.media.ic_SQ') },
@@ -39,7 +46,7 @@ const songList = [
   { id: 24, title: '安心安心', singer: '小安安', label: $r('app.media.ic_SQ') },
   { id: 25, title: 'Notebook', singer: '小安安', label: $r('app.media.ic_SQ') }
 ]
-const optionList = [
+const optionList: OptionItem[] = [
   { image: $r('app.media.ic_collect'), text: '999+' },
   { image: $r('app.media.ic_download'), text: $r('app.string.download') },
   { image: $r("app.media.icon_comments"), text: $r('app.string.comment') },
