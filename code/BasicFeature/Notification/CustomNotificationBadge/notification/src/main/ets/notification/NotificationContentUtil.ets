@@ -13,26 +13,34 @@
  * limitations under the License.
  */
 
-import image from '@ohos.multimedia.image';
-import notification from '@ohos.notificationManager';
-
-interface NotificationContentUtilResultType {
-  contentType: notification.ContentType
-  normal?: notification.NotificationBasicContent
-  longText?: notification.NotificationLongTextContent
-  multiLine?: notification.NotificationMultiLineContent
-  picture?: notification.NotificationPictureContent
-}
+import { image } from '@kit.ImageKit';
+import { notificationManager as notification } from '@kit.NotificationKit';
 
 class NotificationContentUtil {
+  /**
+   * get the content type id of the notification content
+   * the deprecated contentType field is used as a fallback
+   * @param content
+   * @return return the content type id
+   */
+  getContentTypeId(content: notification.NotificationContent): number {
+    if (content.notificationContentType !== undefined) {
+      return content.notificationContentType;
+    }
+    if (content.contentType !== undefined) {
+      return content.contentType;
+    }
+    return notification.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT;
+  }
+
   /**
    * init basic notification content
    * @param basicContent
    * @return return the created NotificationContent
    */
-  initBasicNotificationContent(basicContent: notification.NotificationBasicContent) {
-    let result: NotificationContentUtilResultType = {
-      contentType: notification.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT, // 通知内容类型
+  initBasicNotificationContent(basicContent: notification.NotificationBasicContent): notification.NotificationContent {
+    let result: notification.NotificationContent = {
+      notificationContentType: notification.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT, // 通知内容类型
       normal: basicContent // 基本类型通知内容
     }
     return result;
@@ -47,9 +55,10 @@ class NotificationContentUtil {
    * @param notificationExpandedTitle
    * @return return the created NotificationContent
    */
-  initNotificationLongTextContent(basicContent: notification.NotificationBasicContent, notificationLongText: string, notificationBriefText: string, notificationExpandedTitle: string) {
-    let result: NotificationContentUtilResultType = {
-      contentType: notification.ContentType.NOTIFICATION_CONTENT_LONG_TEXT, // 通知内容类型
+  initNotificationLongTextContent(basicContent: notification.NotificationBasicContent, notificationLongText: string,
+    notificationBriefText: string, notificationExpandedTitle: string): notification.NotificationContent {
+    let result: notification.NotificationContent = {
+      notificationContentType: notification.ContentType.NOTIFICATION_CONTENT_LONG_TEXT, // 通知内容类型
       longText: {
         title: basicContent.title, // 通知标题
         text: basicContent.text, // 通知内容
@@ -70,9 +79,10 @@ class NotificationContentUtil {
    * @param notificationLines
    * @return return the created NotificationContent
    */
-  initNotificationMultiLineContent(basicContent: notification.NotificationBasicContent, notificationBriefText: string, notificationLongTitle: string, notificationLines: Array<string>) {
-    let result: NotificationContentUtilResultType = {
-      contentType: notification.ContentType.NOTIFICATION_CONTENT_MULTILINE, // 通知内容类型
+  initNotificationMultiLineContent(basicContent: notification.NotificationBasicContent, notificationBriefText: string,
+    notificationLongTitle: string, notificationLines: string[]): notification.NotificationContent {
+    let result: notification.NotificationContent = {
+      notificationContentType: notification.ContentType.NOTIFICATION_CONTENT_MULTILINE, // 通知内容类型
       multiLine: {
         title: basicContent.title, // 通知标题
         text: basicContent.text, // 通知内容
@@ -93,9 +103,10 @@ class NotificationContentUtil {
    * @param notificationPicture
    * @return return the created NotificationContent
    */
-  initNotificationPictureContent(basicContent: notification.NotificationBasicContent, notificationBriefText: string, notificationExpandedTitle: string, notificationPicture: image.PixelMap) {
-    let result: NotificationContentUtilResultType = {
-      contentType: notification.ContentType.NOTIFICATION_CONTENT_PICTURE, // 通知内容类型
+  initNotificationPictureContent(basicContent: notification.NotificationBasicContent, notificationBriefText: string,
+    notificationExpandedTitle: string, notificationPicture: image.PixelMap): notification.NotificationContent {
+    let result: notification.NotificationContent = {
+      notificationContentType: notification.ContentType.NOTIFICATION_CONTENT_PICTURE, // 通知内容类型
       picture: {
         title: basicContent.title, // 通知标题
         text: basicContent.text, // 通知内容
@@ -114,9 +125,10 @@ class NotificationContentUtil {
    * @param basicContent
    * @return return the created NotificationContent
    */
-  initNotificationConversationContent(basicContent: notification.NotificationBasicContent) {
-    let result: NotificationContentUtilResultType = {
-      contentType: notification.ContentType.NOTIFICATION_CONTENT_CONVERSATION, // 通知内容类型
+  initNotificationConversationContent(
+    basicContent: notification.NotificationBasicContent): notification.NotificationContent {
+    let result: notification.NotificationContent = {
+      notificationContentType: notification.ContentType.NOTIFICATION_CONTENT_CONVERSATION, // 通知内容类型
       normal: basicContent // 基本类型通知内容
     };
     return result;

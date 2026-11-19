@@ -13,31 +13,34 @@
  * limitations under the License.
  */
 
-import notification from '@ohos.notificationManager';
+import { notificationManager as notification } from '@kit.NotificationKit';
+import { notificationContentUtil } from './NotificationContentUtil';
 import { logger } from '../util/Logger';
 
-const NOTIFICATION_TYPE_SIZE = 5;
+// ContentType 枚举共 7 个成员（0~6，含 SYSTEM_LIVE_VIEW 与 LIVE_VIEW）
+const NOTIFICATION_TYPE_SIZE: number = 6;
 
-interface getAllNotificationsResultType {
-  groupNotifications: Array<Array<notification.NotificationRequest>>
-  countsByType: Array<number>
+export interface GetAllNotificationsResultType {
+  groupNotifications: notification.NotificationRequest[][]
+  countsByType: number[]
 }
 
 // 通知管理
 class NotificationManagementUtil {
-  typeNotifications: Array<Array<notification.NotificationRequest>> = new Array(NOTIFICATION_TYPE_SIZE + 1);
-  countsByType: Array<number> = new Array(NOTIFICATION_TYPE_SIZE + 1);
-  badgeNum: number = 0;
+  public typeNotifications: notification.NotificationRequest[][] =
+    new Array<notification.NotificationRequest[]>(NOTIFICATION_TYPE_SIZE + 1);
+  public countsByType: number[] = new Array<number>(NOTIFICATION_TYPE_SIZE + 1);
+  public badgeNum: number = 0;
 
   constructor() {
-    this.countsByType.fill(0);
-    for (let i = 0; i < NOTIFICATION_TYPE_SIZE + 1; i++) {
-      this.typeNotifications[i] = new Array();
-    }
+    this.resetLocalState();
     // 获取当前应用所有通知
     notification.getActiveNotifications().then((notifications) => {
       for (let i = 0; i < notifications.length; i++) {
-        let typeId = notifications[i].content.contentType;
+        const typeId: number = notificationContentUtil.getContentTypeId(notifications[i].content);
+        if (typeId < 0 || typeId >= this.typeNotifications.length) {
+          continue;
+        }
         this.countsByType[typeId] += 1;
         this.typeNotifications[typeId].push(notifications[i]);
       }
@@ -49,19 +52,39 @@ class NotificationManagementUtil {
     })
   }
 
+  // 重置本地缓存的分组与角标计数（不影响系统已发布的通知）
+  resetLocalState(): void {
+    this.countsByType.fill(0);
+    for (let i = 0; i < NOTIFICATION_TYPE_SIZE + 1; i++) {
+      this.typeNotifications[i] = [];
+    }
+    this.badgeNum = 0;
+  }
+
   // 取消属于该类型的通知
-  cancelNotificationType(typeId: number) {
-    this.typeNotifications[typeId].forEach(item => {
+  cancelNotificationType(typeId: number): void {
+    if (typeId < 0 || typeId >= this.typeNotifications.length) {
+      return;
+    }
+    this.typeNotifications[typeId].forEach((item: notification.NotificationRequest) => {
       notification.cancel(item.id);
     })
+    // 同步清空本地缓存，避免取消后仍从本地列表中查询到已取消的通知
+    this.badgeNum -= this.countsByType[typeId];
+    this.badgeNum = this.badgeNum < 0 ? 0 : this.badgeNum;
+    this.countsByType[typeId] = 0;
+    this.typeNotifications[typeId] = [];
   }
 
   // 设置角标
-  async setBadgeNumber(num: number) {
-    await notification.setBadgeNumber(num).then(() => {
+  async setBadgeNumber(num: number): Promise<void> {
+    try {
+      await notification.setBadgeNumber(num);
       this.badgeNum = num;
       logger.info("displayBadge success");
-    });
+    } catch (err) {
+      logger.info(`displayBadge failed, error = ${JSON.stringify(err)}`);
+    }
   }
 
   // 获取角标数量
@@ -70,18 +93,20 @@ class NotificationManagementUtil {
   }
 
   // 添加一条消息
-  async addNotification(notification: notification.NotificationRequest) {
-    const typeId = notification.content.contentType;
-    this.typeNotifications[typeId].push(notification);
-    this.countsByType[typeId] += 1;
-    this.badgeNum += 1;
-    await notificationManagement.setBadgeNumber(this.badgeNum);
+  async addNotification(notificationRequest: notification.NotificationRequest): Promise<void> {
+    const typeId: number = notificationContentUtil.getContentTypeId(notificationRequest.content);
+    if (typeId >= 0 && typeId < this.typeNotifications.length) {
+      this.typeNotifications[typeId].push(notificationRequest);
+      this.countsByType[typeId] += 1;
+      this.badgeNum += 1;
+    }
+    await this.setBadgeNumber(this.badgeNum);
     logger.info("add Message success");
   }
 
   // 获取当前所有消息及数量
-  async getAllNotifications() {
-    let result: getAllNotificationsResultType = {
+  async getAllNotifications(): Promise<GetAllNotificationsResultType> {
+    let result: GetAllNotificationsResultType = {
       groupNotifications: this.typeNotifications,
       countsByType: this.countsByType
     }
@@ -89,4 +114,4 @@ class NotificationManagementUtil {
   }
 }
 
-export let notificationManagement = new NotificationManagementUtil();
+export let notificationManagement: NotificationManagementUtil = new NotificationManagementUtil();

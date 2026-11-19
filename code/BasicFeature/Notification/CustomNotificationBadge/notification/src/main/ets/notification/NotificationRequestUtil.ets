@@ -13,13 +13,7 @@
  * limitations under the License.
  */
 
-import notification from '@ohos.notificationManager';
-
-interface NotificationRequestUtilResultType {
-  slotType: notification.SlotType,
-  id: number, // 通知id，默认为1
-  content: notification.NotificationContent
-}
+import { notificationManager as notification } from '@kit.NotificationKit';
 
 class NotificationRequestUtil {
   /**
@@ -27,9 +21,10 @@ class NotificationRequestUtil {
    * @param notificationContent
    * @return return the created NotificationRequest
    */
-  initBasicNotificationRequest(notificationContent: notification.NotificationContent) {
-    let result: NotificationRequestUtilResultType = {
-      slotType: notification.SlotType.CONTENT_INFORMATION,
+  initBasicNotificationRequest(
+    notificationContent: notification.NotificationContent): notification.NotificationRequest {
+    let result: notification.NotificationRequest = {
+      notificationSlotType: notification.SlotType.CONTENT_INFORMATION, // 通知类型，默认为内容信息类
       id: 1, // 通知id，默认为1
       content: notificationContent
     }

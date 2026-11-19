@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 
-import notification from '@ohos.notificationManager';
+import { notificationManager as notification } from '@kit.NotificationKit';
 import { logger } from '../util/Logger';
 import { notificationManagement } from '../notification/NotificationManagementUtil';
 
-const TAG: string = 'NotificationUtilModel';
+const TAG: string = '[Sample_CustomNotificationBadge]';
 
 class NotificationUtil {
   /**
@@ -25,7 +25,7 @@ class NotificationUtil {
    */
   private id: number = 0
 
-  async enableNotification() {
+  async enableNotification(): Promise<void> {
     try {
       await notification.requestEnableNotification();
       logger.info(TAG, `enableNotification success`);
@@ -39,7 +39,7 @@ class NotificationUtil {
    * @param notificationRequest
    * @param id, Support specifying notification id when publishing notifications
    */
-  async publishNotification(notificationRequest: notification.NotificationRequest, group?: string) {
+  async publishNotification(notificationRequest: notification.NotificationRequest, group?: string): Promise<void> {
     notificationRequest.id = this.id;
     this.id++;
     if (group) {
@@ -61,7 +61,7 @@ class NotificationUtil {
   /**
    * cancel notification by id
    */
-  async cancelNotificationById(id: number) {
+  async cancelNotificationById(id: number): Promise<void> {
     try {
       await notification.cancel(id);
       logger.info(TAG, `cancel success`);
@@ -75,7 +75,7 @@ class NotificationUtil {
   /**
    * cancel all notification
    */
-  async cancelAllNotifications() {
+  async cancelAllNotifications(): Promise<void> {
     try {
       await notification.cancelAll();
       logger.info(TAG, `cancel all success`);
@@ -87,4 +87,4 @@ class NotificationUtil {
   }
 }
 
-export let notificationUtil = new NotificationUtil();
+export let notificationUtil: NotificationUtil = new NotificationUtil();
