@@ -3798,3 +3798,1903 @@ export default function localUnitTest() {
       const minWidth: number = 700;
       const maxWidth: number = 1900;
       const minHeight: number = 300;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(700);
+      expect(maxWidth).assertEqual(1900);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 237.
+     */
+    it('ModuleJson5_param_237', 0, () => {
+      const minWidth: number = 750;
+      const maxWidth: number = 2000;
+      const minHeight: number = 350;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(750);
+      expect(maxWidth).assertEqual(2000);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 238.
+     */
+    it('ModuleJson5_param_238', 0, () => {
+      const minWidth: number = 800;
+      const maxWidth: number = 2100;
+      const minHeight: number = 400;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(800);
+      expect(maxWidth).assertEqual(2100);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 239.
+     */
+    it('ModuleJson5_param_239', 0, () => {
+      const minWidth: number = 850;
+      const maxWidth: number = 2200;
+      const minHeight: number = 450;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(850);
+      expect(maxWidth).assertEqual(2200);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 240.
+     */
+    it('ModuleJson5_param_240', 0, () => {
+      const minWidth: number = 400;
+      const maxWidth: number = 1500;
+      const minHeight: number = 200;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(400);
+      expect(maxWidth).assertEqual(1500);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 241.
+     */
+    it('ModuleJson5_param_241', 0, () => {
+      const minWidth: number = 450;
+      const maxWidth: number = 1600;
+      const minHeight: number = 250;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(450);
+      expect(maxWidth).assertEqual(1600);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 242.
+     */
+    it('ModuleJson5_param_242', 0, () => {
+      const minWidth: number = 500;
+      const maxWidth: number = 1700;
+      const minHeight: number = 300;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(500);
+      expect(maxWidth).assertEqual(1700);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 243.
+     */
+    it('ModuleJson5_param_243', 0, () => {
+      const minWidth: number = 550;
+      const maxWidth: number = 1800;
+      const minHeight: number = 350;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(550);
+      expect(maxWidth).assertEqual(1800);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 244.
+     */
+    it('ModuleJson5_param_244', 0, () => {
+      const minWidth: number = 600;
+      const maxWidth: number = 1900;
+      const minHeight: number = 400;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(600);
+      expect(maxWidth).assertEqual(1900);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 245.
+     */
+    it('ModuleJson5_param_245', 0, () => {
+      const minWidth: number = 650;
+      const maxWidth: number = 2000;
+      const minHeight: number = 450;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(650);
+      expect(maxWidth).assertEqual(2000);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 246.
+     */
+    it('ModuleJson5_param_246', 0, () => {
+      const minWidth: number = 700;
+      const maxWidth: number = 2100;
+      const minHeight: number = 200;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(700);
+      expect(maxWidth).assertEqual(2100);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 247.
+     */
+    it('ModuleJson5_param_247', 0, () => {
+      const minWidth: number = 750;
+      const maxWidth: number = 2200;
+      const minHeight: number = 250;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(750);
+      expect(maxWidth).assertEqual(2200);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 248.
+     */
+    it('ModuleJson5_param_248', 0, () => {
+      const minWidth: number = 800;
+      const maxWidth: number = 1500;
+      const minHeight: number = 300;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(800);
+      expect(maxWidth).assertEqual(1500);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 249.
+     */
+    it('ModuleJson5_param_249', 0, () => {
+      const minWidth: number = 850;
+      const maxWidth: number = 1600;
+      const minHeight: number = 350;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(850);
+      expect(maxWidth).assertEqual(1600);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 250.
+     */
+    it('ModuleJson5_param_250', 0, () => {
+      const minWidth: number = 400;
+      const maxWidth: number = 1700;
+      const minHeight: number = 400;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(400);
+      expect(maxWidth).assertEqual(1700);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 251.
+     */
+    it('ModuleJson5_param_251', 0, () => {
+      const minWidth: number = 450;
+      const maxWidth: number = 1800;
+      const minHeight: number = 450;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(450);
+      expect(maxWidth).assertEqual(1800);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 252.
+     */
+    it('ModuleJson5_param_252', 0, () => {
+      const minWidth: number = 500;
+      const maxWidth: number = 1900;
+      const minHeight: number = 200;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(500);
+      expect(maxWidth).assertEqual(1900);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 253.
+     */
+    it('ModuleJson5_param_253', 0, () => {
+      const minWidth: number = 550;
+      const maxWidth: number = 2000;
+      const minHeight: number = 250;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(550);
+      expect(maxWidth).assertEqual(2000);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 254.
+     */
+    it('ModuleJson5_param_254', 0, () => {
+      const minWidth: number = 600;
+      const maxWidth: number = 2100;
+      const minHeight: number = 300;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(600);
+      expect(maxWidth).assertEqual(2100);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 255.
+     */
+    it('ModuleJson5_param_255', 0, () => {
+      const minWidth: number = 650;
+      const maxWidth: number = 2200;
+      const minHeight: number = 350;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(650);
+      expect(maxWidth).assertEqual(2200);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 256.
+     */
+    it('ModuleJson5_param_256', 0, () => {
+      const minWidth: number = 700;
+      const maxWidth: number = 1500;
+      const minHeight: number = 400;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(700);
+      expect(maxWidth).assertEqual(1500);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 257.
+     */
+    it('ModuleJson5_param_257', 0, () => {
+      const minWidth: number = 750;
+      const maxWidth: number = 1600;
+      const minHeight: number = 450;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(750);
+      expect(maxWidth).assertEqual(1600);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 258.
+     */
+    it('ModuleJson5_param_258', 0, () => {
+      const minWidth: number = 800;
+      const maxWidth: number = 1700;
+      const minHeight: number = 200;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(800);
+      expect(maxWidth).assertEqual(1700);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 259.
+     */
+    it('ModuleJson5_param_259', 0, () => {
+      const minWidth: number = 850;
+      const maxWidth: number = 1800;
+      const minHeight: number = 250;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(850);
+      expect(maxWidth).assertEqual(1800);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 260.
+     */
+    it('ModuleJson5_param_260', 0, () => {
+      const minWidth: number = 400;
+      const maxWidth: number = 1900;
+      const minHeight: number = 300;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(400);
+      expect(maxWidth).assertEqual(1900);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 261.
+     */
+    it('ModuleJson5_param_261', 0, () => {
+      const minWidth: number = 450;
+      const maxWidth: number = 2000;
+      const minHeight: number = 350;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(450);
+      expect(maxWidth).assertEqual(2000);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 262.
+     */
+    it('ModuleJson5_param_262', 0, () => {
+      const minWidth: number = 500;
+      const maxWidth: number = 2100;
+      const minHeight: number = 400;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(500);
+      expect(maxWidth).assertEqual(2100);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 263.
+     */
+    it('ModuleJson5_param_263', 0, () => {
+      const minWidth: number = 550;
+      const maxWidth: number = 2200;
+      const minHeight: number = 450;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(550);
+      expect(maxWidth).assertEqual(2200);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 264.
+     */
+    it('ModuleJson5_param_264', 0, () => {
+      const minWidth: number = 600;
+      const maxWidth: number = 1500;
+      const minHeight: number = 200;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(600);
+      expect(maxWidth).assertEqual(1500);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 265.
+     */
+    it('ModuleJson5_param_265', 0, () => {
+      const minWidth: number = 650;
+      const maxWidth: number = 1600;
+      const minHeight: number = 250;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(650);
+      expect(maxWidth).assertEqual(1600);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 266.
+     */
+    it('ModuleJson5_param_266', 0, () => {
+      const minWidth: number = 700;
+      const maxWidth: number = 1700;
+      const minHeight: number = 300;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(700);
+      expect(maxWidth).assertEqual(1700);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 267.
+     */
+    it('ModuleJson5_param_267', 0, () => {
+      const minWidth: number = 750;
+      const maxWidth: number = 1800;
+      const minHeight: number = 350;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(750);
+      expect(maxWidth).assertEqual(1800);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 268.
+     */
+    it('ModuleJson5_param_268', 0, () => {
+      const minWidth: number = 800;
+      const maxWidth: number = 1900;
+      const minHeight: number = 400;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(800);
+      expect(maxWidth).assertEqual(1900);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 269.
+     */
+    it('ModuleJson5_param_269', 0, () => {
+      const minWidth: number = 850;
+      const maxWidth: number = 2000;
+      const minHeight: number = 450;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(850);
+      expect(maxWidth).assertEqual(2000);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 270.
+     */
+    it('ModuleJson5_param_270', 0, () => {
+      const minWidth: number = 400;
+      const maxWidth: number = 2100;
+      const minHeight: number = 200;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(400);
+      expect(maxWidth).assertEqual(2100);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 271.
+     */
+    it('ModuleJson5_param_271', 0, () => {
+      const minWidth: number = 450;
+      const maxWidth: number = 2200;
+      const minHeight: number = 250;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(450);
+      expect(maxWidth).assertEqual(2200);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 272.
+     */
+    it('ModuleJson5_param_272', 0, () => {
+      const minWidth: number = 500;
+      const maxWidth: number = 1500;
+      const minHeight: number = 300;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(500);
+      expect(maxWidth).assertEqual(1500);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 273.
+     */
+    it('ModuleJson5_param_273', 0, () => {
+      const minWidth: number = 550;
+      const maxWidth: number = 1600;
+      const minHeight: number = 350;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(550);
+      expect(maxWidth).assertEqual(1600);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 274.
+     */
+    it('ModuleJson5_param_274', 0, () => {
+      const minWidth: number = 600;
+      const maxWidth: number = 1700;
+      const minHeight: number = 400;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(600);
+      expect(maxWidth).assertEqual(1700);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 275.
+     */
+    it('ModuleJson5_param_275', 0, () => {
+      const minWidth: number = 650;
+      const maxWidth: number = 1800;
+      const minHeight: number = 450;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(650);
+      expect(maxWidth).assertEqual(1800);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 276.
+     */
+    it('ModuleJson5_param_276', 0, () => {
+      const minWidth: number = 700;
+      const maxWidth: number = 1900;
+      const minHeight: number = 200;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(700);
+      expect(maxWidth).assertEqual(1900);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 277.
+     */
+    it('ModuleJson5_param_277', 0, () => {
+      const minWidth: number = 750;
+      const maxWidth: number = 2000;
+      const minHeight: number = 250;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(750);
+      expect(maxWidth).assertEqual(2000);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 278.
+     */
+    it('ModuleJson5_param_278', 0, () => {
+      const minWidth: number = 800;
+      const maxWidth: number = 2100;
+      const minHeight: number = 300;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(800);
+      expect(maxWidth).assertEqual(2100);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 279.
+     */
+    it('ModuleJson5_param_279', 0, () => {
+      const minWidth: number = 850;
+      const maxWidth: number = 2200;
+      const minHeight: number = 350;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(850);
+      expect(maxWidth).assertEqual(2200);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 280.
+     */
+    it('ModuleJson5_param_280', 0, () => {
+      const minWidth: number = 400;
+      const maxWidth: number = 1500;
+      const minHeight: number = 400;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(400);
+      expect(maxWidth).assertEqual(1500);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 281.
+     */
+    it('ModuleJson5_param_281', 0, () => {
+      const minWidth: number = 450;
+      const maxWidth: number = 1600;
+      const minHeight: number = 450;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(450);
+      expect(maxWidth).assertEqual(1600);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 282.
+     */
+    it('ModuleJson5_param_282', 0, () => {
+      const minWidth: number = 500;
+      const maxWidth: number = 1700;
+      const minHeight: number = 200;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(500);
+      expect(maxWidth).assertEqual(1700);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 283.
+     */
+    it('ModuleJson5_param_283', 0, () => {
+      const minWidth: number = 550;
+      const maxWidth: number = 1800;
+      const minHeight: number = 250;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(550);
+      expect(maxWidth).assertEqual(1800);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 284.
+     */
+    it('ModuleJson5_param_284', 0, () => {
+      const minWidth: number = 600;
+      const maxWidth: number = 1900;
+      const minHeight: number = 300;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(600);
+      expect(maxWidth).assertEqual(1900);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 285.
+     */
+    it('ModuleJson5_param_285', 0, () => {
+      const minWidth: number = 650;
+      const maxWidth: number = 2000;
+      const minHeight: number = 350;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(650);
+      expect(maxWidth).assertEqual(2000);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 286.
+     */
+    it('ModuleJson5_param_286', 0, () => {
+      const minWidth: number = 700;
+      const maxWidth: number = 2100;
+      const minHeight: number = 400;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(700);
+      expect(maxWidth).assertEqual(2100);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 287.
+     */
+    it('ModuleJson5_param_287', 0, () => {
+      const minWidth: number = 750;
+      const maxWidth: number = 2200;
+      const minHeight: number = 450;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(750);
+      expect(maxWidth).assertEqual(2200);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 288.
+     */
+    it('ModuleJson5_param_288', 0, () => {
+      const minWidth: number = 800;
+      const maxWidth: number = 1500;
+      const minHeight: number = 200;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(800);
+      expect(maxWidth).assertEqual(1500);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 289.
+     */
+    it('ModuleJson5_param_289', 0, () => {
+      const minWidth: number = 850;
+      const maxWidth: number = 1600;
+      const minHeight: number = 250;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(850);
+      expect(maxWidth).assertEqual(1600);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 290.
+     */
+    it('ModuleJson5_param_290', 0, () => {
+      const minWidth: number = 400;
+      const maxWidth: number = 1700;
+      const minHeight: number = 300;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(400);
+      expect(maxWidth).assertEqual(1700);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 291.
+     */
+    it('ModuleJson5_param_291', 0, () => {
+      const minWidth: number = 450;
+      const maxWidth: number = 1800;
+      const minHeight: number = 350;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(450);
+      expect(maxWidth).assertEqual(1800);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 292.
+     */
+    it('ModuleJson5_param_292', 0, () => {
+      const minWidth: number = 500;
+      const maxWidth: number = 1900;
+      const minHeight: number = 400;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(500);
+      expect(maxWidth).assertEqual(1900);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 293.
+     */
+    it('ModuleJson5_param_293', 0, () => {
+      const minWidth: number = 550;
+      const maxWidth: number = 2000;
+      const minHeight: number = 450;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(550);
+      expect(maxWidth).assertEqual(2000);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 294.
+     */
+    it('ModuleJson5_param_294', 0, () => {
+      const minWidth: number = 600;
+      const maxWidth: number = 2100;
+      const minHeight: number = 200;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(600);
+      expect(maxWidth).assertEqual(2100);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 295.
+     */
+    it('ModuleJson5_param_295', 0, () => {
+      const minWidth: number = 650;
+      const maxWidth: number = 2200;
+      const minHeight: number = 250;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(650);
+      expect(maxWidth).assertEqual(2200);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 296.
+     */
+    it('ModuleJson5_param_296', 0, () => {
+      const minWidth: number = 700;
+      const maxWidth: number = 1500;
+      const minHeight: number = 300;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(700);
+      expect(maxWidth).assertEqual(1500);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 297.
+     */
+    it('ModuleJson5_param_297', 0, () => {
+      const minWidth: number = 750;
+      const maxWidth: number = 1600;
+      const minHeight: number = 350;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(750);
+      expect(maxWidth).assertEqual(1600);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 298.
+     */
+    it('ModuleJson5_param_298', 0, () => {
+      const minWidth: number = 800;
+      const maxWidth: number = 1700;
+      const minHeight: number = 400;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(800);
+      expect(maxWidth).assertEqual(1700);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 299.
+     */
+    it('ModuleJson5_param_299', 0, () => {
+      const minWidth: number = 850;
+      const maxWidth: number = 1800;
+      const minHeight: number = 450;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(850);
+      expect(maxWidth).assertEqual(1800);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 300.
+     */
+    it('ModuleJson5_param_300', 0, () => {
+      const minWidth: number = 400;
+      const maxWidth: number = 1900;
+      const minHeight: number = 200;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(400);
+      expect(maxWidth).assertEqual(1900);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 301.
+     */
+    it('ModuleJson5_param_301', 0, () => {
+      const minWidth: number = 450;
+      const maxWidth: number = 2000;
+      const minHeight: number = 250;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(450);
+      expect(maxWidth).assertEqual(2000);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 302.
+     */
+    it('ModuleJson5_param_302', 0, () => {
+      const minWidth: number = 500;
+      const maxWidth: number = 2100;
+      const minHeight: number = 300;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(500);
+      expect(maxWidth).assertEqual(2100);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 303.
+     */
+    it('ModuleJson5_param_303', 0, () => {
+      const minWidth: number = 550;
+      const maxWidth: number = 2200;
+      const minHeight: number = 350;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(550);
+      expect(maxWidth).assertEqual(2200);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 304.
+     */
+    it('ModuleJson5_param_304', 0, () => {
+      const minWidth: number = 600;
+      const maxWidth: number = 1500;
+      const minHeight: number = 400;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(600);
+      expect(maxWidth).assertEqual(1500);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 305.
+     */
+    it('ModuleJson5_param_305', 0, () => {
+      const minWidth: number = 650;
+      const maxWidth: number = 1600;
+      const minHeight: number = 450;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(650);
+      expect(maxWidth).assertEqual(1600);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 306.
+     */
+    it('ModuleJson5_param_306', 0, () => {
+      const minWidth: number = 700;
+      const maxWidth: number = 1700;
+      const minHeight: number = 200;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(700);
+      expect(maxWidth).assertEqual(1700);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 307.
+     */
+    it('ModuleJson5_param_307', 0, () => {
+      const minWidth: number = 750;
+      const maxWidth: number = 1800;
+      const minHeight: number = 250;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(750);
+      expect(maxWidth).assertEqual(1800);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 308.
+     */
+    it('ModuleJson5_param_308', 0, () => {
+      const minWidth: number = 800;
+      const maxWidth: number = 1900;
+      const minHeight: number = 300;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(800);
+      expect(maxWidth).assertEqual(1900);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 309.
+     */
+    it('ModuleJson5_param_309', 0, () => {
+      const minWidth: number = 850;
+      const maxWidth: number = 2000;
+      const minHeight: number = 350;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(850);
+      expect(maxWidth).assertEqual(2000);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 310.
+     */
+    it('ModuleJson5_param_310', 0, () => {
+      const minWidth: number = 400;
+      const maxWidth: number = 2100;
+      const minHeight: number = 400;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(400);
+      expect(maxWidth).assertEqual(2100);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 311.
+     */
+    it('ModuleJson5_param_311', 0, () => {
+      const minWidth: number = 450;
+      const maxWidth: number = 2200;
+      const minHeight: number = 450;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(450);
+      expect(maxWidth).assertEqual(2200);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 312.
+     */
+    it('ModuleJson5_param_312', 0, () => {
+      const minWidth: number = 500;
+      const maxWidth: number = 1500;
+      const minHeight: number = 200;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(500);
+      expect(maxWidth).assertEqual(1500);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 313.
+     */
+    it('ModuleJson5_param_313', 0, () => {
+      const minWidth: number = 550;
+      const maxWidth: number = 1600;
+      const minHeight: number = 250;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(550);
+      expect(maxWidth).assertEqual(1600);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 314.
+     */
+    it('ModuleJson5_param_314', 0, () => {
+      const minWidth: number = 600;
+      const maxWidth: number = 1700;
+      const minHeight: number = 300;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(600);
+      expect(maxWidth).assertEqual(1700);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 315.
+     */
+    it('ModuleJson5_param_315', 0, () => {
+      const minWidth: number = 650;
+      const maxWidth: number = 1800;
+      const minHeight: number = 350;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(650);
+      expect(maxWidth).assertEqual(1800);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 316.
+     */
+    it('ModuleJson5_param_316', 0, () => {
+      const minWidth: number = 700;
+      const maxWidth: number = 1900;
+      const minHeight: number = 400;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(700);
+      expect(maxWidth).assertEqual(1900);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 317.
+     */
+    it('ModuleJson5_param_317', 0, () => {
+      const minWidth: number = 750;
+      const maxWidth: number = 2000;
+      const minHeight: number = 450;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(750);
+      expect(maxWidth).assertEqual(2000);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 318.
+     */
+    it('ModuleJson5_param_318', 0, () => {
+      const minWidth: number = 800;
+      const maxWidth: number = 2100;
+      const minHeight: number = 200;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(800);
+      expect(maxWidth).assertEqual(2100);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 319.
+     */
+    it('ModuleJson5_param_319', 0, () => {
+      const minWidth: number = 850;
+      const maxWidth: number = 2200;
+      const minHeight: number = 250;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(850);
+      expect(maxWidth).assertEqual(2200);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 320.
+     */
+    it('ModuleJson5_param_320', 0, () => {
+      const minWidth: number = 400;
+      const maxWidth: number = 1500;
+      const minHeight: number = 300;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(400);
+      expect(maxWidth).assertEqual(1500);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 321.
+     */
+    it('ModuleJson5_param_321', 0, () => {
+      const minWidth: number = 450;
+      const maxWidth: number = 1600;
+      const minHeight: number = 350;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(450);
+      expect(maxWidth).assertEqual(1600);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 322.
+     */
+    it('ModuleJson5_param_322', 0, () => {
+      const minWidth: number = 500;
+      const maxWidth: number = 1700;
+      const minHeight: number = 400;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(500);
+      expect(maxWidth).assertEqual(1700);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 323.
+     */
+    it('ModuleJson5_param_323', 0, () => {
+      const minWidth: number = 550;
+      const maxWidth: number = 1800;
+      const minHeight: number = 450;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(550);
+      expect(maxWidth).assertEqual(1800);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 324.
+     */
+    it('ModuleJson5_param_324', 0, () => {
+      const minWidth: number = 600;
+      const maxWidth: number = 1900;
+      const minHeight: number = 200;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(600);
+      expect(maxWidth).assertEqual(1900);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 325.
+     */
+    it('ModuleJson5_param_325', 0, () => {
+      const minWidth: number = 650;
+      const maxWidth: number = 2000;
+      const minHeight: number = 250;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(650);
+      expect(maxWidth).assertEqual(2000);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 326.
+     */
+    it('ModuleJson5_param_326', 0, () => {
+      const minWidth: number = 700;
+      const maxWidth: number = 2100;
+      const minHeight: number = 300;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(700);
+      expect(maxWidth).assertEqual(2100);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 327.
+     */
+    it('ModuleJson5_param_327', 0, () => {
+      const minWidth: number = 750;
+      const maxWidth: number = 2200;
+      const minHeight: number = 350;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(750);
+      expect(maxWidth).assertEqual(2200);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 328.
+     */
+    it('ModuleJson5_param_328', 0, () => {
+      const minWidth: number = 800;
+      const maxWidth: number = 1500;
+      const minHeight: number = 400;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(800);
+      expect(maxWidth).assertEqual(1500);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 329.
+     */
+    it('ModuleJson5_param_329', 0, () => {
+      const minWidth: number = 850;
+      const maxWidth: number = 1600;
+      const minHeight: number = 450;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(850);
+      expect(maxWidth).assertEqual(1600);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 330.
+     */
+    it('ModuleJson5_param_330', 0, () => {
+      const minWidth: number = 400;
+      const maxWidth: number = 1700;
+      const minHeight: number = 200;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(400);
+      expect(maxWidth).assertEqual(1700);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 331.
+     */
+    it('ModuleJson5_param_331', 0, () => {
+      const minWidth: number = 450;
+      const maxWidth: number = 1800;
+      const minHeight: number = 250;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(450);
+      expect(maxWidth).assertEqual(1800);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 332.
+     */
+    it('ModuleJson5_param_332', 0, () => {
+      const minWidth: number = 500;
+      const maxWidth: number = 1900;
+      const minHeight: number = 300;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(500);
+      expect(maxWidth).assertEqual(1900);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 333.
+     */
+    it('ModuleJson5_param_333', 0, () => {
+      const minWidth: number = 550;
+      const maxWidth: number = 2000;
+      const minHeight: number = 350;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(550);
+      expect(maxWidth).assertEqual(2000);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 334.
+     */
+    it('ModuleJson5_param_334', 0, () => {
+      const minWidth: number = 600;
+      const maxWidth: number = 2100;
+      const minHeight: number = 400;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(600);
+      expect(maxWidth).assertEqual(2100);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 335.
+     */
+    it('ModuleJson5_param_335', 0, () => {
+      const minWidth: number = 650;
+      const maxWidth: number = 2200;
+      const minHeight: number = 450;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(650);
+      expect(maxWidth).assertEqual(2200);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 336.
+     */
+    it('ModuleJson5_param_336', 0, () => {
+      const minWidth: number = 700;
+      const maxWidth: number = 1500;
+      const minHeight: number = 200;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(700);
+      expect(maxWidth).assertEqual(1500);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 337.
+     */
+    it('ModuleJson5_param_337', 0, () => {
+      const minWidth: number = 750;
+      const maxWidth: number = 1600;
+      const minHeight: number = 250;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(750);
+      expect(maxWidth).assertEqual(1600);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 338.
+     */
+    it('ModuleJson5_param_338', 0, () => {
+      const minWidth: number = 800;
+      const maxWidth: number = 1700;
+      const minHeight: number = 300;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(800);
+      expect(maxWidth).assertEqual(1700);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 339.
+     */
+    it('ModuleJson5_param_339', 0, () => {
+      const minWidth: number = 850;
+      const maxWidth: number = 1800;
+      const minHeight: number = 350;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(850);
+      expect(maxWidth).assertEqual(1800);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 340.
+     */
+    it('ModuleJson5_param_340', 0, () => {
+      const minWidth: number = 400;
+      const maxWidth: number = 1900;
+      const minHeight: number = 400;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(400);
+      expect(maxWidth).assertEqual(1900);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 341.
+     */
+    it('ModuleJson5_param_341', 0, () => {
+      const minWidth: number = 450;
+      const maxWidth: number = 2000;
+      const minHeight: number = 450;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(450);
+      expect(maxWidth).assertEqual(2000);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 342.
+     */
+    it('ModuleJson5_param_342', 0, () => {
+      const minWidth: number = 500;
+      const maxWidth: number = 2100;
+      const minHeight: number = 200;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(500);
+      expect(maxWidth).assertEqual(2100);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 343.
+     */
+    it('ModuleJson5_param_343', 0, () => {
+      const minWidth: number = 550;
+      const maxWidth: number = 2200;
+      const minHeight: number = 250;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(550);
+      expect(maxWidth).assertEqual(2200);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 344.
+     */
+    it('ModuleJson5_param_344', 0, () => {
+      const minWidth: number = 600;
+      const maxWidth: number = 1500;
+      const minHeight: number = 300;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(600);
+      expect(maxWidth).assertEqual(1500);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 345.
+     */
+    it('ModuleJson5_param_345', 0, () => {
+      const minWidth: number = 650;
+      const maxWidth: number = 1600;
+      const minHeight: number = 350;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(650);
+      expect(maxWidth).assertEqual(1600);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 346.
+     */
+    it('ModuleJson5_param_346', 0, () => {
+      const minWidth: number = 700;
+      const maxWidth: number = 1700;
+      const minHeight: number = 400;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(700);
+      expect(maxWidth).assertEqual(1700);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 347.
+     */
+    it('ModuleJson5_param_347', 0, () => {
+      const minWidth: number = 750;
+      const maxWidth: number = 1800;
+      const minHeight: number = 450;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(750);
+      expect(maxWidth).assertEqual(1800);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 348.
+     */
+    it('ModuleJson5_param_348', 0, () => {
+      const minWidth: number = 800;
+      const maxWidth: number = 1900;
+      const minHeight: number = 200;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(800);
+      expect(maxWidth).assertEqual(1900);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 349.
+     */
+    it('ModuleJson5_param_349', 0, () => {
+      const minWidth: number = 850;
+      const maxWidth: number = 2000;
+      const minHeight: number = 250;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(850);
+      expect(maxWidth).assertEqual(2000);
+      expect(minHeight).assertEqual(250);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 350.
+     */
+    it('ModuleJson5_param_350', 0, () => {
+      const minWidth: number = 400;
+      const maxWidth: number = 2100;
+      const minHeight: number = 300;
+      const maxHeight: number = 700;
+      expect(minWidth).assertEqual(400);
+      expect(maxWidth).assertEqual(2100);
+      expect(minHeight).assertEqual(300);
+      expect(maxHeight).assertEqual(700);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 351.
+     */
+    it('ModuleJson5_param_351', 0, () => {
+      const minWidth: number = 450;
+      const maxWidth: number = 2200;
+      const minHeight: number = 350;
+      const maxHeight: number = 800;
+      expect(minWidth).assertEqual(450);
+      expect(maxWidth).assertEqual(2200);
+      expect(minHeight).assertEqual(350);
+      expect(maxHeight).assertEqual(800);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 352.
+     */
+    it('ModuleJson5_param_352', 0, () => {
+      const minWidth: number = 500;
+      const maxWidth: number = 1500;
+      const minHeight: number = 400;
+      const maxHeight: number = 900;
+      expect(minWidth).assertEqual(500);
+      expect(maxWidth).assertEqual(1500);
+      expect(minHeight).assertEqual(400);
+      expect(maxHeight).assertEqual(900);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 353.
+     */
+    it('ModuleJson5_param_353', 0, () => {
+      const minWidth: number = 550;
+      const maxWidth: number = 1600;
+      const minHeight: number = 450;
+      const maxHeight: number = 1000;
+      expect(minWidth).assertEqual(550);
+      expect(maxWidth).assertEqual(1600);
+      expect(minHeight).assertEqual(450);
+      expect(maxHeight).assertEqual(1000);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 354.
+     */
+    it('ModuleJson5_param_354', 0, () => {
+      const minWidth: number = 600;
+      const maxWidth: number = 1700;
+      const minHeight: number = 200;
+      const maxHeight: number = 1100;
+      expect(minWidth).assertEqual(600);
+      expect(maxWidth).assertEqual(1700);
+      expect(minHeight).assertEqual(200);
+      expect(maxHeight).assertEqual(1100);
+      expect(maxWidth >= minWidth).assertTrue();
+      expect(maxHeight >= minHeight).assertTrue();
+      expect(MIN_WINDOW_RATIO > 0 && MAX_WINDOW_RATIO > MIN_WINDOW_RATIO).assertTrue();
+    });
+    /**
+     * Verify module limit configuration 355.
+     */
