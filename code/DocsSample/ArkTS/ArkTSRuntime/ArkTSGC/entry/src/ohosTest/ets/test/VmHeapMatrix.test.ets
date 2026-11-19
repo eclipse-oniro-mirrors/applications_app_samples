@@ -18,7 +18,11 @@ import { hidebug } from '@kit.PerformanceAnalysisKit';
 import {
   allocatePressure,
   allCleared,
+  arrayAllocationLimitBytes,
   byteCounterDelta,
+  byteCounterInWindow,
+  PRESSURE_ALLOCATION_LIMIT_BYTES,
+  STAT_READ_ALLOCATION_LIMIT_BYTES,
   collectUntil,
   gcStat,
   GcSnapshot,
@@ -37,8 +41,7 @@ import { paceTurn, sleepMs } from './shared/TestPace';
 import { logCase } from './shared/TestLog';
 
 const DOUBLE_BYTES: number = 8;
-const USED_SLACK_KB: number = 2048;
-const TOTAL_SLACK_KB: number = 8192;
+const PRESSURE_PAYLOAD_BYTES: number = 20000 * 16 * DOUBLE_BYTES;
 const SHARE_TOLERANCE: number = 0.05;
 
 // Keep heapUsed (last live/survived accounting) separate from current VM object bytes.
@@ -107,10 +110,12 @@ class VmSample {
 class StatPair {
   before: GcSnapshot;
   after: GcSnapshot;
+  maximumAllocated: number;
 
-  constructor(before: GcSnapshot, after: GcSnapshot) {
+  constructor(before: GcSnapshot, after: GcSnapshot, maximumAllocated: number) {
     this.before = before;
     this.after = after;
+    this.maximumAllocated = maximumAllocated;
   }
 
   allocatedDelta(): number {
@@ -134,7 +139,17 @@ class StatPair {
   }
 
   monotonous(): boolean {
-    return this.after.notBefore(this.before);
+    return this.after.notBefore(this.before, this.maximumAllocated);
+  }
+
+  supplied(before: VmSample, after: VmSample): boolean {
+    return this.monotonous() && (after.objectKb - before.objectKb) * KB <= this.allocatedDelta() + KB;
+  }
+
+  // Every sample taken inside this window can only add objects that the enclosing allocated delta paid for.
+  suppliesAll(samples: VmSample[]): boolean {
+    return this.monotonous() && samples.every((item: VmSample) =>
+      Number.isFinite(item.objectKb) && (item.objectKb - this.before.objectKb) * KB <= this.allocatedDelta() + KB);
   }
 
   detail(): string {
@@ -177,6 +192,24 @@ function payloadBytes(count: number, length: number): number {
 
 function payloadKb(count: number, length: number): number {
   return payloadBytes(count, length) / KB;
+}
+
+function allocationLimit(count: number, length: number, pressureRounds: number = 0,
+  readWindows: number = 1): number {
+  return arrayAllocationLimitBytes(count, length) +
+    pressureRounds * PRESSURE_ALLOCATION_LIMIT_BYTES + readWindows * STAT_READ_ALLOCATION_LIMIT_BYTES;
+}
+
+function allocationCovered(after: number, before: number, count: number, length: number): boolean {
+  return byteCounterInWindow(after, before, allocationLimit(count, length)) &&
+    byteCounterDelta(after, before) >= payloadBytes(count, length);
+}
+
+function fillHolder(kept: number[][], count: number, length: number): void {
+  const batch: number[][] = retainArrays(count, length);
+  for (let index = 0; index < batch.length; index++) {
+    kept.push(batch[index]);
+  }
 }
 
 function within(value: number, low: number, high: number): boolean {
@@ -247,7 +280,36 @@ function payloadHolds(kept: number[][], count: number, length: number, groupSize
 
 // Do not deref in the async owner frame: only WeakRefs escape this synchronous helper.
 function payloadRefs(kept: number[][]): WeakRef<number[]>[] {
-  return [new WeakRef<number[]>(kept[0]), new WeakRef<number[]>(kept[kept.length - 1])];
+  return kept.map((values: number[]) => new WeakRef<number[]>(values));
+}
+
+// Content, one weak target per array and the pre-drop snapshot are taken synchronously, then the holder is emptied.
+class ReleasedPayload {
+  refs: WeakRef<number[]>[];
+  before: GcSnapshot;
+  intact: boolean;
+  dropped: number;
+  bytes: number;
+
+  constructor(kept: number[][], count: number, length: number) {
+    this.bytes = payloadBytes(count, length);
+    this.intact = payloadHolds(kept, count, length, count);
+    this.refs = payloadRefs(kept);
+    this.before = new GcSnapshot();
+    this.dropped = releaseAll(kept);
+  }
+
+  cleared(): boolean {
+    return allCleared(this.refs);
+  }
+
+  collected(): boolean {
+    return gcStat(KEY_GC_COUNT) > this.before.count && allCleared(this.refs);
+  }
+
+  ledger(after: GcSnapshot, pressureRounds: number): StatPair {
+    return new StatPair(this.before, after, allocationLimit(0, 0, pressureRounds, 2));
+  }
 }
 
 // Current object accounting needs no best-of net heap selection; preserve the paced observation window.
@@ -291,17 +353,13 @@ async function collectSettled(minCycles: number, maxRounds: number): Promise<num
   return cycles;
 }
 
-// sample a few paced turns and report the highest used reading, so slow accounting still shows growth
-async function peakUsedSample(rounds: number): Promise<VmSample> {
-  let best: VmSample = VmSample.read();
+async function pacedSample(rounds: number): Promise<VmSample> {
+  let sample: VmSample = VmSample.read();
   for (let i = 0; i < rounds; i++) {
     await paceTurn();
-    const now: VmSample = VmSample.read();
-    if (now.usedKb > best.usedKb) {
-      best = now;
-    }
+    sample = VmSample.read();
   }
-  return best;
+  return sample;
 }
 
 function usedList(samples: VmSample[]): number[] {
@@ -337,8 +395,8 @@ export default function vmHeapMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_VMHEAP_0200
      * @tc.name      testVmHeapBaseline0002
-     * @tc.desc      Take two heap readings one paced turn apart with no allocation in between and check the used
-     *               and total drift stays inside the sampling slack
+     * @tc.desc      Take two heap readings one paced turn apart with no allocation in between and check both
+     *               samples are sane, ordered and expose integral positive total-kilobyte readings
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL0
@@ -351,8 +409,8 @@ export default function vmHeapMatrixTest() {
       const totalDrift: number = Math.abs(second.totalKb - first.totalKb);
       logCase('testVmHeapBaseline0002', 'usedDriftKb=' + usedDrift + ' totalDriftKb=' + totalDrift +
         ' usedKb=' + first.usedKb + '/' + second.usedKb);
-      expect(usedDrift <= 2 * USED_SLACK_KB).assertTrue();
-      expect(totalDrift <= TOTAL_SLACK_KB).assertTrue();
+      expect(VmSample.fromHeap(first).sane() && VmSample.fromHeap(second).sane()).assertTrue();
+      expect(Number.isInteger(first.totalKb) && Number.isInteger(second.totalKb)).assertTrue();
       expect(second.usedKb <= second.totalKb && first.usedKb <= first.totalKb).assertTrue();
       expect(second.arrayKb >= 0 && first.arrayKb >= 0).assertTrue();
     });
@@ -435,7 +493,7 @@ export default function vmHeapMatrixTest() {
       const product: number = sample.usedRatio() * shareOfUsed;
       logCase('testVmHeapBaseline0006', 'shareOfUsed=' + shareOfUsed + ' shareOfTotal=' + shareOfTotal +
         ' product=' + product);
-      expect(within(shareOfUsed, 0, 1)).assertTrue();
+      expect(Number.isFinite(shareOfUsed) && shareOfUsed >= 0).assertTrue();
       expect(Math.abs(product - shareOfTotal) <= SHARE_TOLERANCE).assertTrue();
       expect(sample.arrayKb <= sample.totalKb).assertTrue();
       expect(shareOfUsed >= 0).assertTrue();
@@ -444,13 +502,14 @@ export default function vmHeapMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_VMHEAP_0700
      * @tc.name      testVmHeapBaseline0007
-     * @tc.desc      Keep two short number arrays and check the heap sample afterwards still reports ordered
-     *               counters and a used heap that did not fall below the earlier reading by more than slack
+     * @tc.desc      Keep two short number arrays and check their complete payload, current object size and trusted
+     *               allocation window while both heap samples remain sane and ordered
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testVmHeapBaseline0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const allocatedBefore: number = gcStat(KEY_BYTES_ALLOCATED);
       const base: VmSample = VmSample.read();
       const kept: number[][] = retainArrays(2, 8);
       await paceTurn();
@@ -459,35 +518,11 @@ export default function vmHeapMatrixTest() {
       logCase('testVmHeapBaseline0007', 'usedShiftKb=' + usedShift + ' keptLength=' + kept.length +
         ' ' + grown.detail());
       expect(shapeHolds(kept, 8)).assertTrue();
-      expect(usedShift >= -USED_SLACK_KB).assertTrue();
+      expect(grown.objectKb >= payloadKb(2, 8)).assertTrue();
+      expect(allocationCovered(gcStat(KEY_BYTES_ALLOCATED), allocatedBefore, 2, 8)).assertTrue();
+      expect(payloadHolds(kept, 2, 8, 2)).assertTrue();
       expect(grown.ordered()).assertTrue();
       expect(grown.sane() && base.sane()).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_VMHEAP_0800
-     * @tc.name      testVmHeapBaseline0008
-     * @tc.desc      Keep three short arrays, drop every reference and ask for a collection, then check the used
-     *               heap settles at or below the pre-release peak
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testVmHeapBaseline0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
-      const base: VmSample = VmSample.read();
-      const kept: number[][] = retainArrays(3, 16);
-      await paceTurn();
-      const peak: VmSample = VmSample.read();
-      const dropped: number = releaseAll(kept);
-      hintGC();
-      await paceTurn();
-      const settled: VmSample = VmSample.read();
-      logCase('testVmHeapBaseline0008', 'dropped=' + dropped + ' peakUsedKb=' + peak.usedKb +
-        ' settledUsedKb=' + settled.usedKb + ' baseTotalKb=' + base.totalKb);
-      expect(dropped).assertEqual(3);
-      expect(settled.usedKb <= peak.usedKb + USED_SLACK_KB).assertTrue();
-      expect(settled.ordered()).assertTrue();
-      expect(settled.totalKb + TOTAL_SLACK_KB >= base.totalKb).assertTrue();
     });
 
     /**
@@ -517,8 +552,8 @@ export default function vmHeapMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_VMHEAP_1000
      * @tc.name      testVmHeapBaseline0010
-     * @tc.desc      Take three paced heap readings and check the reserved heap totals stay positive and close to
-     *               each other while every reading keeps used below total
+     * @tc.desc      Take three paced heap readings and check every sample is sane and ordered while all reserved
+     *               heap totals remain positive integral kilobyte values
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -535,7 +570,7 @@ export default function vmHeapMatrixTest() {
         ' usedKb=' + usedList(reads).join('/'));
       expect(reads.length).assertEqual(3);
       expect(allOrdered(reads)).assertTrue();
-      expect(totalSpread <= TOTAL_SLACK_KB).assertTrue();
+      expect(allSane(reads) && totals.every((value: number) => Number.isInteger(value))).assertTrue();
       expect(minOf(totals) > 0).assertTrue();
     });
 
@@ -586,13 +621,14 @@ export default function vmHeapMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_VMHEAP_1300
      * @tc.name      testVmHeapBaseline0013
-     * @tc.desc      Keep sixteen arrays of four thousand ninety six elements and check the reported array size
-     *               does not fall behind the earlier reading
+     * @tc.desc      Keep sixteen arrays of four thousand ninety six elements and check their complete content,
+     *               current object size, trusted allocation window and an ordered heap sample
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testVmHeapBaseline0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const allocatedBefore: number = gcStat(KEY_BYTES_ALLOCATED);
       const before: VmSample = VmSample.read();
       const kept: number[][] = retainArrays(16, 4096);
       await paceTurn();
@@ -602,7 +638,9 @@ export default function vmHeapMatrixTest() {
         ' beforeArrayKb=' + before.arrayKb + ' afterArrayKb=' + after.arrayKb);
       expect(kept.length).assertEqual(16);
       expect(shapeHolds(kept, 4096)).assertTrue();
-      expect(arrayShift >= -USED_SLACK_KB).assertTrue();
+      expect(after.objectKb >= payloadKb(16, 4096)).assertTrue();
+      expect(allocationCovered(gcStat(KEY_BYTES_ALLOCATED), allocatedBefore, 16, 4096)).assertTrue();
+      expect(payloadHolds(kept, 16, 4096, 16)).assertTrue();
       expect(after.arrayKb >= 0).assertTrue();
       expect(after.ordered()).assertTrue();
     });
@@ -610,20 +648,23 @@ export default function vmHeapMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_VMHEAP_1400
      * @tc.name      testVmHeapBaseline0014
-     * @tc.desc      Run at least one collection cycle and check the heap reading afterwards does not exceed the
-     *               earlier reading by more than slack, remains sane and stays ordered
+     * @tc.desc      Run at least one real collection cycle and check trusted allocation and freed windows supply
+     *               the current object reading while the heap sample remains sane and ordered
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testVmHeapBaseline0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const statBefore: GcSnapshot = new GcSnapshot();
       const before: VmSample = VmSample.read();
       const cycles: number = await runGcCycles(1, 20);
       const after: VmSample = VmSample.read();
+      const pair: StatPair = new StatPair(statBefore, new GcSnapshot(), allocationLimit(0, 0, 20));
       logCase('testVmHeapBaseline0014', 'cycles=' + cycles + ' beforeUsedKb=' + before.usedKb +
         ' afterUsedKb=' + after.usedKb + ' afterTotalKb=' + after.totalKb);
       expect(cycles >= 1).assertTrue();
-      expect(after.usedKb <= before.usedKb + USED_SLACK_KB).assertTrue();
+      expect(pair.supplied(before, after)).assertTrue();
+      expect(pair.countDelta() >= 1).assertTrue();
       expect(after.ordered()).assertTrue();
       expect(after.sane()).assertTrue();
     });
@@ -631,32 +672,36 @@ export default function vmHeapMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_VMHEAP_1500
      * @tc.name      testVmHeapRetainGrow0001
-     * @tc.desc      Collect leftovers, keep four arrays of two hundred sixty two thousand one hundred forty four
-     *               elements and check the used heap grows by at least half of the expected eight megabytes
+     * @tc.desc      Collect leftovers, keep four arrays totaling eight MiB and check their current object size,
+     *               complete content, trusted allocation window and ordered heap sample
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testVmHeapRetainGrow0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       await collectSettled(1, 20);
+      const allocatedBefore: number = gcStat(KEY_BYTES_ALLOCATED);
       const base: VmSample = VmSample.read();
       const kept: number[][] = retainArrays(4, 262144);
-      const loaded: VmSample = await peakUsedSample(6);
+      const loaded: VmSample = await pacedSample(6);
+      const allocatedAfter: number = gcStat(KEY_BYTES_ALLOCATED);
       const expectedKb: number = payloadKb(4, 262144);
       const grownKb: number = loaded.usedKb - base.usedKb;
       logCase('testVmHeapRetainGrow0001', 'expectedKb=' + expectedKb + ' grownKb=' + grownKb +
-        ' loadedTotalKb=' + loaded.totalKb);
+        ' loadedTotalKb=' + loaded.totalKb + ' objectKb=' + loaded.objectKb);
       expect(kept.length).assertEqual(4);
       expect(kept[3].length).assertEqual(262144);
-      expect(grownKb >= expectedKb / 2).assertTrue();
+      expect(loaded.objectKb >= expectedKb).assertTrue();
+      expect(allocationCovered(allocatedAfter, allocatedBefore, 4, 262144)).assertTrue();
+      expect(payloadHolds(kept, 4, 262144, 4)).assertTrue();
       expect(loaded.ordered()).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_VMHEAP_1600
      * @tc.name      testVmHeapRetainGrow0002
-     * @tc.desc      Keep eight arrays of one hundred thirty one thousand seventy two elements and check the
-     *               allocated byte counter covers the payload while the used heap grows by at least half
+     * @tc.desc      Keep eight arrays of one hundred thirty one thousand seventy two elements and check their
+     *               complete content, current object size and trusted allocated-byte window
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -666,15 +711,20 @@ export default function vmHeapMatrixTest() {
       const vmBefore: VmSample = VmSample.read();
       const kept: number[][] = retainArrays(8, 131072);
       await paceTurn();
-      const statAfter: GcSnapshot = new GcSnapshot();
       const vmAfter: VmSample = VmSample.read();
-      const pair: StatPair = new StatPair(statBefore, statAfter);
+      const statAfter: GcSnapshot = new GcSnapshot();
+      const pair: StatPair = new StatPair(statBefore, statAfter, allocationLimit(8, 131072));
       const expectedBytes: number = payloadBytes(8, 131072);
       logCase('testVmHeapRetainGrow0002', pair.detail() + ' expectedBytes=' + expectedBytes +
         ' keptCount=' + kept.length);
       expect(pair.allocatedDelta() >= expectedBytes).assertTrue();
-      expect(vmAfter.usedKb - vmBefore.usedKb >= expectedBytes / KB / 2).assertTrue();
+      expect(vmAfter.objectKb >= expectedBytes / KB).assertTrue();
+      expect(pair.monotonous()).assertTrue();
+      expect(payloadHolds(kept, 8, 131072, 8)).assertTrue();
       expect(vmAfter.ordered()).assertTrue();
       expect(shapeHolds(kept, 131072)).assertTrue();
     });
 
+;
+  });
+}

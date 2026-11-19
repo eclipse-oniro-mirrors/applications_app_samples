@@ -29,7 +29,15 @@ import {
   stopHome,
   topAbility
 } from './shared/AppProbe';
-import { GcSnapshot, gcStat, hintGC, KEY_GC_COUNT, KEY_GC_TIME } from './shared/GcProbe';
+import {
+  byteCounterDelta,
+  GcSnapshot,
+  gcStat,
+  hintGC,
+  KEY_GC_COUNT,
+  KEY_GC_TIME,
+  STAT_READ_ALLOCATION_LIMIT_BYTES
+} from './shared/GcProbe';
 import { paceTurn, sleepMs } from './shared/TestPace';
 import { logCase } from './shared/TestLog';
 
@@ -41,6 +49,10 @@ import { logCase } from './shared/TestLog';
 const EVENT_WAIT_MS: number = 4000;
 const POLL_MS: number = 100;
 const SETTLE_MS: number = 800;
+// Conservative UI framework allowance for one launch, stop, background, resume or terminate observation.
+// It is a lifecycle specific bound kept far below 2^32, not a generic wrap tolerance.
+const UI_STEP_BYTES: number = 128 * 1024 * 1024;
+const UI_CYCLE_BYTES: number = 2 * UI_STEP_BYTES;
 
 const EVENT_CREATE: string = 'create';
 const EVENT_WINDOW_STAGE_CREATE: string = 'windowStageCreate';
@@ -448,37 +460,38 @@ function snapshot(): GcSnapshot {
   return new GcSnapshot();
 }
 
-function statsMonotone(before: GcSnapshot, after: GcSnapshot): boolean {
-  return after.notBefore(before);
+function statsMonotone(before: GcSnapshot, after: GcSnapshot, maximumAllocated: number): boolean {
+  return after.notBefore(before, maximumAllocated);
 }
 
 function countDelta(before: GcSnapshot, after: GcSnapshot): number {
   return after.count - before.count;
 }
 
-function allocatedDelta(before: GcSnapshot, after: GcSnapshot): number {
-  return after.allocated - before.allocated;
+// -1 marks an untrusted byte window so non negative checks fail instead of accepting a modular difference
+function allocatedDelta(before: GcSnapshot, after: GcSnapshot, maximumAllocated: number): number {
+  return after.bytesInWindow(before, maximumAllocated) ? byteCounterDelta(after.allocated, before.allocated) : -1;
 }
 
 function timeDelta(before: GcSnapshot, after: GcSnapshot): number {
   return after.time - before.time;
 }
 
-function freedDelta(before: GcSnapshot, after: GcSnapshot): number {
-  return after.freed - before.freed;
+function freedDelta(before: GcSnapshot, after: GcSnapshot, maximumAllocated: number): number {
+  return after.bytesInWindow(before, maximumAllocated) ? byteCounterDelta(after.freed, before.freed) : -1;
 }
 
 function longFullGcDelta(before: GcSnapshot, after: GcSnapshot): number {
   return after.longFullGc - before.longFullGc;
 }
 
-function deltasOf(before: GcSnapshot, after: GcSnapshot): number[] {
-  return [countDelta(before, after), timeDelta(before, after), allocatedDelta(before, after),
-    freedDelta(before, after), longFullGcDelta(before, after)];
+function deltasOf(before: GcSnapshot, after: GcSnapshot, maximumAllocated: number): number[] {
+  return [countDelta(before, after), timeDelta(before, after), allocatedDelta(before, after, maximumAllocated),
+    freedDelta(before, after, maximumAllocated), longFullGcDelta(before, after)];
 }
 
-function deltaText(before: GcSnapshot, after: GcSnapshot): string {
-  return deltasOf(before, after).join(SEPARATOR);
+function deltaText(before: GcSnapshot, after: GcSnapshot, maximumAllocated: number): string {
+  return deltasOf(before, after, maximumAllocated).join(SEPARATOR);
 }
 
 async function entryModuleInfo(): Promise<bundleManager.HapModuleInfo> {
@@ -878,3 +891,6 @@ export default function abilityLifecycleMatrixTest() {
       expect(tap.has(EVENT_WINDOW_STAGE_CREATE)).assertTrue();
     });
 
+;
+  });
+}

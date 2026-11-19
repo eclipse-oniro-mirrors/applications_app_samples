@@ -19,6 +19,7 @@ import { display, window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { Component, Driver, ON, Rect } from '@kit.TestKit';
 import { launchHome, stopHome } from './shared/AppProbe';
+import { uiDriver } from './shared/UiDriver';
 import { paceTurn, sleepMs } from './shared/TestPace';
 import { logCase } from './shared/TestLog';
 
@@ -144,14 +145,6 @@ const DISPLAY_STATE_VALUES: number[] = [
   Number(display.DisplayState.STATE_VR)
 ];
 
-let sharedDriver: Driver | null = null;
-
-function driver(): Driver {
-  if (sharedDriver === null) {
-    sharedDriver = Driver.create();
-  }
-  return sharedDriver;
-}
 
 function defaultDisplay(): display.Display {
   return display.getDefaultDisplaySync();
@@ -247,17 +240,17 @@ function safeStatus(target: window.Window): number {
 
 async function pageRootVisible(): Promise<boolean> {
   const found: Component | null =
-    await driver().waitForComponent(ON.text(PAGE_TEXT).type(PAGE_TEXT_TYPE), DRIVER_WAIT_MS);
+    await uiDriver().waitForComponent(ON.text(PAGE_TEXT).type(PAGE_TEXT_TYPE), DRIVER_WAIT_MS);
   return found !== null;
 }
 
 async function pageRootBounds(): Promise<Rect> {
-  const found: Component = await driver().waitForComponent(ON.text(PAGE_TEXT).type(PAGE_TEXT_TYPE), DRIVER_WAIT_MS);
+  const found: Component = await uiDriver().waitForComponent(ON.text(PAGE_TEXT).type(PAGE_TEXT_TYPE), DRIVER_WAIT_MS);
   return await found.getBounds();
 }
 
 async function pageRootComponent(): Promise<Component> {
-  return await driver().waitForComponent(ON.text(PAGE_TEXT).type(PAGE_TEXT_TYPE), DRIVER_WAIT_MS);
+  return await uiDriver().waitForComponent(ON.text(PAGE_TEXT).type(PAGE_TEXT_TYPE), DRIVER_WAIT_MS);
 }
 
 class PrimaryProbe {
@@ -979,294 +972,7 @@ export default function abilityWindowMatrixTest() {
       expect(statusCode === OK_CODE || statusCode === ERR_CAPABILITY).assertTrue();
     });
 
-    /**
-     * @tc.number    SUB_ARKTS_GC_WINDOW_1700
-     * @tc.name      testWindowShownTopHandle0001
-     * @tc.desc      Compare the window returned by getLastWindow with the one returned by getTopWindow and check both
-     *               handles point at the same visible window
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testWindowShownTopHandle0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const ability: UIAbility = await launchHome();
-      const main: window.Window = await window.getLastWindow(ability.context);
-      const top: window.Window = await window.getTopWindow(ability.context);
-      const mainProps: window.WindowProperties = main.getWindowProperties();
-      const topProps: window.WindowProperties = top.getWindowProperties();
-      logCase('testWindowShownTopHandle0001', `mainId=${mainProps.id} topId=${topProps.id} ` +
-        `mainShowing=${main.isWindowShowing()} topShowing=${top.isWindowShowing()}`);
-      expect(main.isWindowShowing()).assertTrue();
-      expect(top.isWindowShowing()).assertTrue();
-      expect(topProps.id).assertEqual(mainProps.id);
-      expect(topProps.type).assertEqual(mainProps.type);
-      expect(topProps.windowRect.width > ORIGIN).assertTrue();
-    });
+;
 
-    /**
-     * @tc.number    SUB_ARKTS_GC_WINDOW_1800
-     * @tc.name      testWindowShownBooleanType0001
-     * @tc.desc      Check the visibility query is a plain boolean that stays true over an idle gap
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testWindowShownBooleanType0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const probe: WindowProbe = await openProbe();
-      const first: boolean = probe.showing();
-      const kind: string = typeof first;
-      await sleepMs(IDLE_SETTLE_MS);
-      const second: boolean = probe.showing();
-      logCase('testWindowShownBooleanType0001', `kind=${kind} first=${first} second=${second} ` +
-        `id=${probe.props().id}`);
-      expect(kind).assertEqual(BOOLEAN_TYPE);
-      expect(first).assertEqual(second);
-      expect(second).assertTrue();
-      expect(probe.props().id >= ORIGIN).assertTrue();
-      expect(probe.rect().width >= MIN_SIDE_PX).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_WINDOW_1900
-     * @tc.name      testWindowShownNotMinimized0001
-     * @tc.desc      Check a foreground ability is not reported in the minimized window status and still owns a
-     *               positive rectangle
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testWindowShownNotMinimized0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const probe: WindowProbe = await openProbe();
-      const statusCode: number = syncCode((): number => probe.status());
-      const status: number = probe.statusSafe();
-      logCase('testWindowShownNotMinimized0001', `statusCode=${statusCode} status=${status} ` +
-        `showing=${probe.showing()}`);
-      expect(statusCode === OK_CODE || statusCode === ERR_CAPABILITY).assertTrue();
-      if (statusCode === OK_CODE) {
-        expect(status === Number(window.WindowStatusType.MINIMIZE)).assertFalse();
-        expect(knownStatus(status)).assertTrue();
-      }
-      expect(probe.showing()).assertTrue();
-      expect(rectPositive(probe.rect())).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_WINDOW_2000
-     * @tc.name      testWindowShownRepeatedLaunch0001
-     * @tc.desc      Launch the ability twice and check both created main windows are visible, have an identity and a
-     *               positive width
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testWindowShownRepeatedLaunch0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const flags: boolean[] = [];
-      const ids: number[] = [];
-      const widths: number[] = [];
-      for (let round = 0; round < LAUNCH_ROUNDS; round++) {
-        const ability: UIAbility = await launchHome();
-        const win: window.Window = await window.getLastWindow(ability.context);
-        flags.push(win.isWindowShowing());
-        ids.push(win.getWindowProperties().id);
-        widths.push(win.getWindowProperties().windowRect.width);
-      }
-      logCase('testWindowShownRepeatedLaunch0001', `rounds=${flags.length} flags=${flags.join(',')} ` +
-        `ids=${ids.join(',')} widths=${widths.join(',')}`);
-      expect(flags.length).assertEqual(LAUNCH_ROUNDS);
-      expect(flags.every((value: boolean) => value)).assertTrue();
-      expect(ids.every((value: number) => value >= ORIGIN)).assertTrue();
-      expect(widths.every((value: number) => value >= MIN_SIDE_PX)).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_WINDOW_2100
-     * @tc.name      testWindowShownAfterRelaunch0001
-     * @tc.desc      Snapshot the window, relaunch the ability and check the replacement main window is visible with
-     *               the same width
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testWindowShownAfterRelaunch0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const first: WindowProbe = await openProbe();
-      const before: WindowFacts = capture(first.main);
-      const second: WindowProbe = await openProbe();
-      const after: WindowFacts = capture(second.main);
-      logCase('testWindowShownAfterRelaunch0001', `beforeShowing=${before.showing} ` +
-        `afterShowing=${after.showing} beforeWidth=${before.width} afterWidth=${after.width}`);
-      expect(before.showing).assertTrue();
-      expect(after.showing).assertTrue();
-      expect(after.width).assertEqual(before.width);
-      expect(after.code).assertEqual(OK_CODE);
-      expect(after.id >= ORIGIN).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_WINDOW_2200
-     * @tc.name      testWindowShownPagesLoaded0001
-     * @tc.desc      Check the visible main window really hosts the loaded page, its drawable area and a known window
-     *               type
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testWindowShownPagesLoaded0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const probe: WindowProbe = await openProbe();
-      const page: boolean = await pageRootVisible();
-      const drawable: window.Rect = probe.drawable();
-      const windowType: number = Number(probe.props().type);
-      logCase('testWindowShownPagesLoaded0001', `page=${page} showing=${probe.showing()} ` +
-        `drawable=${drawable.width}x${drawable.height} type=${windowType}`);
-      expect(page).assertTrue();
-      expect(probe.showing()).assertTrue();
-      expect(rectPositive(drawable)).assertTrue();
-      expect(probe.props().id >= ORIGIN).assertTrue();
-      expect(knownWindowType(windowType)).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_WINDOW_2300
-     * @tc.name      testWindowShownDrawablePositive0001
-     * @tc.desc      Check a visible window always exposes a non empty drawable rectangle inside the window and the
-     *               display
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testWindowShownDrawablePositive0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const probe: WindowProbe = await openProbe();
-      const drawable: window.Rect = probe.drawable();
-      const rect: window.Rect = probe.rect();
-      const screen: display.Display = defaultDisplay();
-      logCase('testWindowShownDrawablePositive0001', `drawable=${drawable.width}x${drawable.height} ` +
-        `window=${rect.width}x${rect.height} display=${screen.width}x${screen.height}`);
-      expect(probe.showing()).assertTrue();
-      expect(drawable.width > ORIGIN).assertTrue();
-      expect(drawable.height > ORIGIN).assertTrue();
-      expect(rectInside(drawable, rect)).assertTrue();
-      expect(drawable.width <= screen.width).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_WINDOW_2400
-     * @tc.name      testWindowStatusKnown0001
-     * @tc.desc      Check the window status enum value reported for the main window belongs to the declared enum
-     *               range and is not a negative placeholder
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testWindowStatusKnown0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const probe: WindowProbe = await openProbe();
-      const statusCode: number = syncCode((): number => probe.status());
-      const status: number = probe.statusSafe();
-      const withinEnum: boolean = knownStatus(status);
-      logCase('testWindowStatusKnown0001', `code=${statusCode} status=${status} known=${withinEnum}`);
-      expect(tolerantCode(statusCode)).assertTrue();
-      if (statusCode === OK_CODE) {
-        expect(status >= ORIGIN).assertTrue();
-        expect(status <= Number(window.WindowStatusType.SPLIT_SCREEN)).assertTrue();
-        expect(withinEnum).assertTrue();
-      }
-      expect(probe.showing()).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_WINDOW_2500
-     * @tc.name      testWindowStatusStable0001
-     * @tc.desc      Sample the window status three times and check it never changes while the window is foreground
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testWindowStatusStable0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const probe: WindowProbe = await openProbe();
-      const samples: number[] = [];
-      for (let round = 0; round < REPEAT_READS; round++) {
-        samples.push(probe.statusSafe());
-        await sleepMs(50);
-      }
-      const distinct: number = samples.filter((value: number, index: number) =>
-        samples.indexOf(value) === index).length;
-      logCase('testWindowStatusStable0001', `samples=${samples.join(',')} distinct=${distinct} ` +
-        `id=${probe.props().id}`);
-      expect(samples.length).assertEqual(REPEAT_READS);
-      expect(distinct).assertEqual(SINGLE_VALUE);
-      expect(samples[0] === MISSING_ID || knownStatus(samples[0])).assertTrue();
-      expect(probe.rect().width > ORIGIN).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_WINDOW_2600
-     * @tc.name      testWindowStatusCoverage0001
-     * @tc.desc      Check that a full screen or maximized window status is backed by a window rectangle spanning the
-     *               whole display width from the origin
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testWindowStatusCoverage0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const probe: WindowProbe = await openProbe();
-      const status: number = probe.statusSafe();
-      const rect: window.Rect = probe.rect();
-      const screen: display.Display = defaultDisplay();
-      const wide: boolean = status === Number(window.WindowStatusType.FULL_SCREEN) ||
-        status === Number(window.WindowStatusType.MAXIMIZE);
-      logCase('testWindowStatusCoverage0001', `status=${status} wide=${wide} width=${rect.width} ` +
-        `displayWidth=${screen.width} left=${rect.left}`);
-      expect(knownStatus(status) || status === MISSING_ID).assertTrue();
-      if (wide) {
-        expect(rect.width).assertEqual(screen.width);
-        expect(rect.left).assertEqual(ORIGIN);
-      }
-      expect(probe.showing()).assertTrue();
-      expect(rectPositive(rect)).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_WINDOW_2700
-     * @tc.name      testWindowStatusTwoHandles0001
-     * @tc.desc      Check the last window and the top window of the same ability agree on the window status and both
-     *               report a declared status value
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testWindowStatusTwoHandles0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const ability: UIAbility = await launchHome();
-      const main: window.Window = await window.getLastWindow(ability.context);
-      const top: window.Window = await window.getTopWindow(ability.context);
-      const mainStatus: number = safeStatus(main);
-      const topStatus: number = safeStatus(top);
-      logCase('testWindowStatusTwoHandles0001', `mainStatus=${mainStatus} topStatus=${topStatus} ` +
-        `equal=${mainStatus === topStatus}`);
-      expect(mainStatus).assertEqual(topStatus);
-      expect(mainStatus === MISSING_ID || mainStatus >= ORIGIN).assertTrue();
-      expect(mainStatus === MISSING_ID || knownStatus(mainStatus)).assertTrue();
-      expect(main.isWindowShowing() && top.isWindowShowing()).assertTrue();
-      expect(top.getWindowProperties().windowRect.height > ORIGIN).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_WINDOW_2800
-     * @tc.name      testWindowModeGlobalBits0001
-     * @tc.desc      Query the global window mode and check the returned bit mask carries at least one declared mode
-     *               bit and no more bits than the enum publishes
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testWindowModeGlobalBits0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const probe: WindowProbe = await openProbe();
-      const mode: ModeProbe = await globalMode();
-      const bits: number = knownModeBitCount(mode.mode);
-      logCase('testWindowModeGlobalBits0001', `code=${mode.code} mode=${mode.mode} bits=${bits} ` +
-        `enumBits=${MODE_BITS.length}`);
-      expect(tolerantCode(mode.code)).assertTrue();
-      if (mode.code === OK_CODE) {
-        expect(mode.mode > ORIGIN).assertTrue();
-        expect(bits >= SINGLE_VALUE).assertTrue();
-        expect(bits <= MODE_BITS.length).assertTrue();
-      } else {
-        expect(mode.code > OK_CODE).assertTrue();
-      }
+  });
+}

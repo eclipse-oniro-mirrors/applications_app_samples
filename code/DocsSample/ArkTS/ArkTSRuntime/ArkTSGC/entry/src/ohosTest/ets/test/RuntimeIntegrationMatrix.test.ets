@@ -20,8 +20,12 @@ import { util, process } from '@kit.ArkTS';
 import {
   allocatePressure,
   allCleared,
+  arrayPayloadAllocationLimitBytes,
   buildRing,
   byteCounterDelta,
+  byteCounterInWindow,
+  PRESSURE_ALLOCATION_LIMIT_BYTES,
+  STAT_READ_ALLOCATION_LIMIT_BYTES,
   collectUntil,
   COLLECT_ROUNDS,
   CycleParent,
@@ -33,7 +37,6 @@ import {
   HeapSnapshot,
   hintGC,
   isCleared,
-  KEY_BYTES_FREED,
   KEY_GC_COUNT,
   linkPair,
   pairIsLinked,
@@ -115,10 +118,23 @@ function rowsFilled(rows: number[][], length: number): boolean {
     row.length === length && row[ZERO] === index && row[length - ONE] === index);
 }
 
-function snapshotDrops(series: GcSnapshot[]): number[] {
+// Upper bounds come from the scheduled workload, never from a candidate counter delta.
+function allocationLimit(payload: number, arrays: number, pressureRounds: number): number {
+  return arrayPayloadAllocationLimitBytes(payload, arrays) +
+    pressureRounds * PRESSURE_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES;
+}
+
+function repeatedLimits(count: number, maximum: number): number[] {
+  return new Array<number>(count).fill(maximum);
+}
+
+function snapshotDrops(series: GcSnapshot[], limits: number[]): number[] {
   const drops: number[] = [];
+  if (limits.length !== series.length - ONE) {
+    return [MISSING];
+  }
   for (let i = ONE; i < series.length; i++) {
-    if (!series[i].notBefore(series[i - ONE])) {
+    if (!series[i].notBefore(series[i - ONE], limits[i - ONE])) {
       drops.push(i);
     }
   }
@@ -129,12 +145,21 @@ function countSeries(series: GcSnapshot[]): number[] {
   return series.map((snap: GcSnapshot) => snap.count);
 }
 
-function allocatedSeries(series: GcSnapshot[]): number[] {
-  return series.map((snap: GcSnapshot) => snap.allocated);
+function unfoldedBytes(series: GcSnapshot[], limits: number[], allocated: boolean): number[] {
+  const values: number[] = [ZERO];
+  if (snapshotDrops(series, limits).length !== ZERO) {
+    return [ONE, ZERO];
+  }
+  for (let i = ONE; i < series.length; i++) {
+    const delta: number = allocated ? byteCounterDelta(series[i].allocated, series[i - ONE].allocated) :
+      byteCounterDelta(series[i].freed, series[i - ONE].freed);
+    values.push(values[i - ONE] + delta);
+  }
+  return values;
 }
 
-function freedSeries(series: GcSnapshot[]): number[] {
-  return series.map((snap: GcSnapshot) => snap.freed);
+function allocatedSeries(series: GcSnapshot[], limits: number[]): number[] {
+  return unfoldedBytes(series, limits, true);
 }
 
 function timeSeries(series: GcSnapshot[]): number[] {
@@ -266,6 +291,65 @@ async function collectSettled(minCycles: number, maxRounds: number): Promise<num
   return cycles;
 }
 
+class TerminalWait {
+  rounds: number;
+  terminal: GcSnapshot;
+
+  constructor(rounds: number, terminal: GcSnapshot) {
+    this.rounds = rounds;
+    this.terminal = terminal;
+  }
+}
+
+// wait until the targets are gone and the GC count moved past the baseline, keeping that same snapshot for asserts
+async function collectUntilProgress(done: () => boolean, before: GcSnapshot, minCount: number,
+  extra?: (current: GcSnapshot) => boolean): Promise<TerminalWait> {
+  let terminal: GcSnapshot = before;
+  const rounds: number = await collectUntil(() => {
+    if (!done()) {
+      return false;
+    }
+    const current: GcSnapshot = new GcSnapshot();
+    if (current.count - before.count >= minCount && (extra === undefined || extra(current))) {
+      terminal = current;
+      return true;
+    }
+    return false;
+  }, COLLECT_ROUNDS);
+  return new TerminalWait(rounds, terminal);
+}
+
+// built, probed and released in one synchronous frame so only the weak reference and scalars leave it
+class ReleasedRingProbe {
+  ref: WeakRef<RingNode>;
+  liveBefore: boolean;
+  length: number;
+  idSum: number;
+
+  constructor(ref: WeakRef<RingNode>, liveBefore: boolean, length: number, idSum: number) {
+    this.ref = ref;
+    this.liveBefore = liveBefore;
+    this.length = length;
+    this.idSum = idSum;
+  }
+}
+
+function releasedIdentityRing(size: number, payloadLength: number, firstId: number): ReleasedRingProbe {
+  let head: RingNode | null = buildRing(size, payloadLength, firstId);
+  const ref: WeakRef<RingNode> = new WeakRef<RingNode>(head);
+  const liveBefore: boolean = ref.deref() === head;
+  const probed: number[] = probeRing(ref, size);
+  head = null;
+  return new ReleasedRingProbe(ref, liveBefore && head === null, probed[ZERO], probed[ONE]);
+}
+
+// the churn batch lives only inside this frame; the weak reference observes the real first row of that batch
+function churnBatch(count: number, length: number, refs: WeakRef<number[]>[]): number {
+  const rows: number[][] = retainArrays(count, length);
+  refs.push(new WeakRef<number[]>(rows[ZERO]));
+  return rowsFilled(rows, length) ? slotTotal(rows) : MISSING;
+}
+
 function lightResources(): resourceManager.ResourceManager {
   const manager: resourceManager.ResourceManager = resources();
   const config: resourceManager.Configuration = manager.getOverrideConfiguration();
@@ -306,53 +390,55 @@ export default function runtimeIntegrationMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_0100
      * @tc.name      testRintAllocHeapSmall0001
-     * @tc.desc      Keep 40 arrays of 2048 slots and check the GC allocated counter and the app heap used counter both
-     *               move past the independently computed payload lower bound
+     * @tc.desc      Keep 40 arrays of 2048 slots and check the rows are filled, the allocated counter moved inside a
+     *               trusted window by at least the payload and the live object size covers the held payload
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testRintAllocHeapSmall0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const gcBefore: GcSnapshot = new GcSnapshot();
-      const heapBefore: HeapSnapshot = new HeapSnapshot();
       const kept: number[][] = retainArrays(40, 2048);
       await paceTurn();
       const gcAfter: GcSnapshot = new GcSnapshot();
       const heapAfter: HeapSnapshot = new HeapSnapshot();
       const lower: number = payloadBytes(40, 2048);
-      const gcDelta: number = gcAfter.allocated - gcBefore.allocated;
-      const heapDeltaKb: number = heapAfter.usedKb - heapBefore.usedKb;
+      const maxA: number = allocationLimit(lower, 40, ZERO);
+      const gcDelta: number = byteCounterDelta(gcAfter.allocated, gcBefore.allocated);
       logCase('testRintAllocHeapSmall0001', `slots=${slotTotal(kept)} lower=${lower} gcDelta=${gcDelta} ` +
-        `heapDeltaKb=${heapDeltaKb} usedKb=${heapAfter.usedKb} totalKb=${heapAfter.totalKb}`);
-      expect(kept.length).assertEqual(40);
+        `objectKb=${heapAfter.objectKb} usedKb=${heapAfter.usedKb} totalKb=${heapAfter.totalKb}`);
+      expect(rowsFilled(kept, 2048)).assertTrue();
+      expect(byteCounterInWindow(gcAfter.allocated, gcBefore.allocated, maxA)).assertTrue();
       expect(gcDelta >= lower).assertTrue();
-      expect(heapDeltaKb >= lower / KB / TWO).assertTrue();
+      expect(heapAfter.objectKb >= lower / KB).assertTrue();
       expect(heapOk(heapAfter)).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_0200
      * @tc.name      testRintAllocHeapWide0001
-     * @tc.desc      Keep eight arrays of 65536 slots and check the GC byte counter covers the payload while the app
-     *               heap keeps used within total
+     * @tc.desc      Keep eight arrays of 65536 slots and check the GC byte counter covers the payload inside a trusted
+     *               window while the live object size holds the payload and used stays within total
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testRintAllocHeapWide0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const gcBefore: GcSnapshot = new GcSnapshot();
-      const heapBefore: HeapSnapshot = new HeapSnapshot();
       const kept: number[][] = retainArrays(8, 65536);
       await paceTurn();
       const gcAfter: GcSnapshot = new GcSnapshot();
       const heapAfter: HeapSnapshot = new HeapSnapshot();
       const lowerKb: number = payloadKb(8, 65536);
-      logCase('testRintAllocHeapWide0001', `lowerKb=${lowerKb} gcDelta=${gcAfter.allocated - gcBefore.allocated} ` +
-        `heapDeltaKb=${heapAfter.usedKb - heapBefore.usedKb} arrayKb=${heapAfter.arrayKb}`);
+      const maxA: number = allocationLimit(lowerKb * KB, 8, ZERO);
+      const gcDelta: number = byteCounterDelta(gcAfter.allocated, gcBefore.allocated);
+      logCase('testRintAllocHeapWide0001', `lowerKb=${lowerKb} gcDelta=${gcDelta} ` +
+        `objectKb=${heapAfter.objectKb} arrayKb=${heapAfter.arrayKb}`);
       expect(rowsFilled(kept, 65536)).assertTrue();
-      expect(gcAfter.allocated - gcBefore.allocated >= lowerKb * KB).assertTrue();
-      expect(heapAfter.usedKb - heapBefore.usedKb >= lowerKb / FOUR).assertTrue();
-      expect(heapAfter.usedKb <= heapAfter.totalKb && heapAfter.totalKb > ZERO).assertTrue();
+      expect(byteCounterInWindow(gcAfter.allocated, gcBefore.allocated, maxA)).assertTrue();
+      expect(gcDelta >= lowerKb * KB).assertTrue();
+      expect(heapAfter.objectKb >= lowerKb).assertTrue();
+      expect(heapOk(heapAfter)).assertTrue();
       expect(heapAfter.arrayKb >= ZERO).assertTrue();
     });
 
@@ -360,8 +446,8 @@ export default function runtimeIntegrationMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_0400
      * @tc.name      testRintAllocHeapSingle0001
-     * @tc.desc      Keep one four megabyte array, then a second one, and check each heap sample grows over the
-     *               collected baseline in step with the arrays that are still reachable
+     * @tc.desc      Keep one two megabyte array, then a second one, and check each batch has its own trusted
+     *               allocation window while the live object size covers every array that is still reachable
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -369,30 +455,32 @@ export default function runtimeIntegrationMatrixTest() {
     it('testRintAllocHeapSingle0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       await runGcCycles(ONE, COLLECT_ROUNDS);
       const gcBefore: GcSnapshot = new GcSnapshot();
-      const base: HeapSnapshot = new HeapSnapshot();
       const first: number[][] = retainArrays(ONE, 262144);
       await paceTurn();
+      const gcMiddle: GcSnapshot = new GcSnapshot();
       const middle: HeapSnapshot = new HeapSnapshot();
       const second: number[][] = retainArrays(ONE, 262144);
       await paceTurn();
-      const top: HeapSnapshot = new HeapSnapshot();
       const gcAfter: GcSnapshot = new GcSnapshot();
+      const top: HeapSnapshot = new HeapSnapshot();
       const perArrayKb: number = 262144 * DOUBLE_BYTES / KB;
+      const maxA: number = allocationLimit(perArrayKb * KB, ONE, ZERO);
       logCase('testRintAllocHeapSingle0001', `perArrayKb=${perArrayKb} ` +
-        `usedKb=${base.usedKb}/${middle.usedKb}/${top.usedKb} ` +
-        `gcDelta=${gcAfter.allocated - gcBefore.allocated}`);
-      expect(first[ZERO].length + second[ZERO].length).assertEqual(524288);
-      expect(middle.usedKb - base.usedKb >= perArrayKb / FOUR).assertTrue();
-      expect(top.usedKb - base.usedKb >= perArrayKb).assertTrue();
-      expect(gcAfter.allocated - gcBefore.allocated >= perArrayKb * KB * TWO).assertTrue();
+        `objectKb=${middle.objectKb}/${top.objectKb} firstA=${byteCounterDelta(gcMiddle.allocated, gcBefore.allocated)} ` +
+        `secondA=${byteCounterDelta(gcAfter.allocated, gcMiddle.allocated)}`);
+      expect(rowsFilled(first, 262144) && rowsFilled(second, 262144)).assertTrue();
+      expect(gcMiddle.notBefore(gcBefore, maxA) && gcAfter.notBefore(gcMiddle, maxA)).assertTrue();
+      expect(byteCounterDelta(gcMiddle.allocated, gcBefore.allocated) >= perArrayKb * KB).assertTrue();
+      expect(byteCounterDelta(gcAfter.allocated, gcMiddle.allocated) >= perArrayKb * KB).assertTrue();
+      expect(middle.objectKb >= perArrayKb && top.objectKb >= perArrayKb * TWO).assertTrue();
       expect(heapOk(top)).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_0500
      * @tc.name      testRintAllocAfterCollectBaseline0001
-     * @tc.desc      Collect leftovers first, then keep 24 arrays of 8192 slots and check the counters grow from that
-     *               cleaner baseline while the heap invariant still holds
+     * @tc.desc      Collect at least one cycle first, then keep 24 arrays of 8192 slots and check the allocation
+     *               window covers the payload while the live object size holds it and the heap invariant still holds
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -400,76 +488,84 @@ export default function runtimeIntegrationMatrixTest() {
     it('testRintAllocAfterCollectBaseline0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const cycles: number = await runGcCycles(ONE, COLLECT_ROUNDS);
       const gcBefore: GcSnapshot = new GcSnapshot();
-      const heapBefore: HeapSnapshot = new HeapSnapshot();
       const kept: number[][] = retainArrays(24, 8192);
       await paceTurn();
       const gcAfter: GcSnapshot = new GcSnapshot();
       const heapAfter: HeapSnapshot = new HeapSnapshot();
       const lowerKb: number = payloadKb(24, 8192);
+      const maxA: number = allocationLimit(lowerKb * KB, 24, ZERO);
+      const allocated: number = byteCounterDelta(gcAfter.allocated, gcBefore.allocated);
       logCase('testRintAllocAfterCollectBaseline0001', `cycles=${cycles} lowerKb=${lowerKb} ` +
-        `gcDelta=${gcAfter.allocated - gcBefore.allocated} heapDeltaKb=${heapAfter.usedKb - heapBefore.usedKb}`);
-      expect(cycles >= ZERO).assertTrue();
-      expect(kept.length).assertEqual(24);
-      expect(gcAfter.allocated - gcBefore.allocated >= lowerKb * KB / TWO).assertTrue();
-      expect(heapAfter.usedKb - heapBefore.usedKb >= lowerKb / FOUR).assertTrue();
+        `allocated=${allocated} objectKb=${heapAfter.objectKb}`);
+      expect(cycles >= ONE).assertTrue();
+      expect(rowsFilled(kept, 8192)).assertTrue();
+      expect(byteCounterInWindow(gcAfter.allocated, gcBefore.allocated, maxA)).assertTrue();
+      expect(allocated >= lowerKb * KB).assertTrue();
+      expect(heapAfter.objectKb >= lowerKb).assertTrue();
       expect(heapOk(heapAfter)).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_0600
      * @tc.name      testRintAllocThreeStepLadder0001
-     * @tc.desc      Keep three successive batches of ten arrays of 4096 slots and check every heap sample grows over
-     *               the collected baseline in step with the cumulative payload
+     * @tc.desc      Hold three successive batches of ten arrays of 4096 slots and check every batch stays filled, has
+     *               its own trusted allocation window and the live object size covers the cumulative payload
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testRintAllocThreeStepLadder0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       await runGcCycles(ONE, COLLECT_ROUNDS);
-      const base: HeapSnapshot = new HeapSnapshot();
-      const gcBase: GcSnapshot = new GcSnapshot();
+      const gcSeries: GcSnapshot[] = [new GcSnapshot()];
       const stages: HeapSnapshot[] = [];
+      const held: number[][][] = [];
       const stepKb: number = payloadKb(10, 4096);
+      const maxA: number = allocationLimit(stepKb * KB, 10, ZERO);
       for (let step = ZERO; step < THREE; step++) {
-        retainArrays(10, 4096);
+        held.push(retainArrays(10, 4096));
         await paceTurn();
+        gcSeries.push(new GcSnapshot());
         stages.push(new HeapSnapshot());
       }
-      const gcTop: GcSnapshot = new GcSnapshot();
       const last: HeapSnapshot = stages[stages.length - ONE];
-      logCase('testRintAllocThreeStepLadder0001', `stepKb=${stepKb} usedKb=${usedSeries(stages).join('/')} ` +
-        `gcDelta=${gcTop.allocated - gcBase.allocated}`);
-      expect(stages.length).assertEqual(THREE);
-      expect(stages[ZERO].usedKb - base.usedKb >= stepKb / FOUR).assertTrue();
-      expect(last.usedKb - base.usedKb >= stepKb * THREE / TWO).assertTrue();
-      expect(gcTop.allocated - gcBase.allocated >= stepKb * THREE * KB / TWO).assertTrue();
+      const deltas: number[] = [];
+      for (let step = ONE; step < gcSeries.length; step++) {
+        deltas.push(byteCounterDelta(gcSeries[step].allocated, gcSeries[step - ONE].allocated));
+      }
+      logCase('testRintAllocThreeStepLadder0001', `stepKb=${stepKb} objectKb=${stages.map((heap: HeapSnapshot) =>
+        heap.objectKb).join('/')} allocated=${deltas.join('/')}`);
+      expect(held.length).assertEqual(THREE);
+      expect(held.every((batch: number[][]) => rowsFilled(batch, 4096))).assertTrue();
+      expect(snapshotDrops(gcSeries, [maxA, maxA, maxA]).length).assertEqual(NO_DROPS);
+      expect(deltas.every((delta: number) => delta >= stepKb * KB)).assertTrue();
+      expect(stages.every((heap: HeapSnapshot, index: number) => heap.objectKb >= stepKb * (index + ONE))).assertTrue();
       expect(heapOk(last)).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_0700
      * @tc.name      testRintAllocHeapDeltaBounded0001
-     * @tc.desc      Keep 32 arrays of 4096 slots and check the heap growth stays inside a band derived from the
-     *               GC allocated delta instead of trusting one counter alone
+     * @tc.desc      Hold 32 arrays of 4096 slots and check the allocation delta stays inside a budget derived from the
+     *               workload while covering the payload and the live object size holds the retained rows
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testRintAllocHeapDeltaBounded0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const gcBefore: GcSnapshot = new GcSnapshot();
-      const heapBefore: HeapSnapshot = new HeapSnapshot();
-      retainArrays(32, 4096);
+      const held: number[][] = retainArrays(32, 4096);
       await paceTurn();
       const gcAfter: GcSnapshot = new GcSnapshot();
       const heapAfter: HeapSnapshot = new HeapSnapshot();
-      const gcDelta: number = gcAfter.allocated - gcBefore.allocated;
-      const heapDeltaKb: number = heapAfter.usedKb - heapBefore.usedKb;
+      const lower: number = payloadBytes(32, 4096);
+      const maxA: number = allocationLimit(lower, 32, ZERO);
+      const gcDelta: number = byteCounterDelta(gcAfter.allocated, gcBefore.allocated);
       logCase('testRintAllocHeapDeltaBounded0001', `gcDelta=${gcDelta} gcDeltaKb=${gcDelta / KB} ` +
-        `heapDeltaKb=${heapDeltaKb} lowerKb=${payloadKb(32, 4096)}`);
-      expect(gcDelta >= payloadBytes(32, 4096)).assertTrue();
-      expect(heapDeltaKb > ZERO).assertTrue();
-      expect(heapDeltaKb <= gcDelta / KB * TWO).assertTrue();
-      expect(gcAfter.notBefore(gcBefore)).assertTrue();
+        `objectKb=${heapAfter.objectKb} lowerKb=${lower / KB}`);
+      expect(rowsFilled(held, 4096)).assertTrue();
+      expect(gcDelta >= lower).assertTrue();
+      expect(heapAfter.objectKb >= lower / KB).assertTrue();
+      expect(gcAfter.notBefore(gcBefore, maxA)).assertTrue();
     });
 
     /**
@@ -488,13 +584,16 @@ export default function runtimeIntegrationMatrixTest() {
       kept = [];
       const cycles: number = await runGcCycles(TWO, COLLECT_ROUNDS);
       const after: GcSnapshot = new GcSnapshot();
+      const maxA: number = allocationLimit(held * DOUBLE_BYTES, 20, COLLECT_ROUNDS);
+      const freed: number = byteCounterDelta(after.freed, before.freed);
+      const allocated: number = byteCounterDelta(after.allocated, before.allocated);
       logCase('testRintFreedGrowsAfterRelease0001', `heldSlots=${held} cycles=${cycles} ` +
-        `freedDelta=${after.freed - before.freed} allocatedDelta=${after.allocated - before.allocated}`);
+        `freedDelta=${freed} allocatedDelta=${allocated}`);
       expect(kept.length).assertEqual(ZERO);
-      expect(cycles >= ZERO).assertTrue();
-      expect(after.freed - before.freed > ZERO).assertTrue();
-      expect(after.allocated - before.allocated >= held * DOUBLE_BYTES).assertTrue();
-      expect(after.notBefore(before)).assertTrue();
+      expect(cycles >= TWO).assertTrue();
+      expect(freed > ZERO).assertTrue();
+      expect(allocated >= held * DOUBLE_BYTES).assertTrue();
+      expect(after.notBefore(before, maxA)).assertTrue();
     });
 
     /**
@@ -513,19 +612,22 @@ export default function runtimeIntegrationMatrixTest() {
       const gcAfter: GcSnapshot = new GcSnapshot();
       const slots: number = slotTotal(kept);
       const fromSlots: number = slots * DOUBLE_BYTES;
+      const allocated: number = byteCounterDelta(gcAfter.allocated, gcBefore.allocated);
       logCase('testRintAllocKbAndSlots0001', `slots=${slots} fromSlots=${fromSlots} ` +
-        `payload=${payloadBytes(48, 1024)} gcDelta=${gcAfter.allocated - gcBefore.allocated}`);
+        `payload=${payloadBytes(48, 1024)} gcDelta=${allocated}`);
       expect(slots).assertEqual(48 * 1024);
       expect(fromSlots).assertEqual(payloadBytes(48, 1024));
-      expect(gcAfter.allocated - gcBefore.allocated >= fromSlots / TWO).assertTrue();
+      expect(byteCounterInWindow(gcAfter.allocated, gcBefore.allocated, allocationLimit(fromSlots, 48, ZERO)))
+        .assertTrue();
+      expect(allocated >= fromSlots).assertTrue();
       expect(payloadKb(48, 1024) * KB).assertEqual(fromSlots);
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_1000
      * @tc.name      testRintReleaseKeepsHeapBounded0001
-     * @tc.desc      Keep twenty arrays of 8192 slots, release them, collect twice and check the used heap is still
-     *               inside the total and the freed counter covers the released slots
+     * @tc.desc      Keep twenty arrays of 8192 slots, release them, collect twice and check the loaded live object size
+     *               covers the payload while the freed counter advances inside its physical bound
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -536,13 +638,21 @@ export default function runtimeIntegrationMatrixTest() {
       const releasedKb: number = payloadKb(20, 8192);
       await paceTurn();
       const loaded: HeapSnapshot = new HeapSnapshot();
+      const loadedFilled: boolean = rowsFilled(rows, 8192);
       rows = [];
       await runGcCycles(TWO, COLLECT_ROUNDS);
       const settled: HeapSnapshot = new HeapSnapshot();
-      const freedDelta: number = gcStat(KEY_BYTES_FREED) - gcBefore.freed;
-      logCase('testRintReleaseKeepsHeapBounded0001', `releasedKb=${releasedKb} loadedKb=${loaded.usedKb} ` +
-        `settledKb=${settled.usedKb} freedDelta=${freedDelta}`);
+      const gcAfter: GcSnapshot = new GcSnapshot();
+      const maxA: number = allocationLimit(releasedKb * KB, 20, COLLECT_ROUNDS);
+      const allocatedDelta: number = byteCounterDelta(gcAfter.allocated, gcBefore.allocated);
+      const freedDelta: number = byteCounterDelta(gcAfter.freed, gcBefore.freed);
+      logCase('testRintReleaseKeepsHeapBounded0001', `releasedKb=${releasedKb} loadedObjectKb=${loaded.objectKb} ` +
+        `settledKb=${settled.usedKb} allocatedDelta=${allocatedDelta} freedDelta=${freedDelta}`);
       expect(rows.length).assertEqual(ZERO);
+      expect(loadedFilled).assertTrue();
+      expect(loaded.objectKb >= releasedKb).assertTrue();
+      expect(gcAfter.bytesInWindow(gcBefore, maxA)).assertTrue();
+      expect(allocatedDelta >= releasedKb * KB).assertTrue();
       expect(freedDelta > ZERO).assertTrue();
       expect(heapOk(loaded) && heapOk(settled)).assertTrue();
       expect(settled.totalKb > ZERO).assertTrue();
@@ -564,13 +674,17 @@ export default function runtimeIntegrationMatrixTest() {
       await paceTurn();
       const gcAfter: GcSnapshot = new GcSnapshot();
       const writtenSlots: number = slotTotal(kept);
+      const allocated: number = byteCounterDelta(gcAfter.allocated, gcBefore.allocated);
+      const heap: HeapSnapshot = new HeapSnapshot();
       logCase('testRintAllocRowFillOracle0001', `filled=${filled} writtenSlots=${writtenSlots} ` +
-        `gcDelta=${gcAfter.allocated - gcBefore.allocated} heapUsedKb=${new HeapSnapshot().usedKb}`);
+        `gcDelta=${allocated} objectKb=${heap.objectKb}`);
       expect(kept[ZERO][ZERO]).assertEqual(ZERO);
       expect(kept[35][511]).assertEqual(35);
       expect(filled).assertTrue();
-      expect(gcAfter.allocated - gcBefore.allocated >= writtenSlots * DOUBLE_BYTES / TWO).assertTrue();
-      expect(heapOk(new HeapSnapshot())).assertTrue();
+      expect(byteCounterInWindow(gcAfter.allocated, gcBefore.allocated,
+        allocationLimit(writtenSlots * DOUBLE_BYTES, 36, ZERO))).assertTrue();
+      expect(allocated >= writtenSlots * DOUBLE_BYTES).assertTrue();
+      expect(heapOk(heap) && heap.objectKb >= writtenSlots * DOUBLE_BYTES / KB).assertTrue();
     });
 
     /**
@@ -584,21 +698,25 @@ export default function runtimeIntegrationMatrixTest() {
      */
     it('testRintAllocTwoBatchesHeap0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       await runGcCycles(ONE, COLLECT_ROUNDS);
-      const base: HeapSnapshot = new HeapSnapshot();
       const gcBase: GcSnapshot = new GcSnapshot();
       const first: number[][] = retainArrays(12, 2048);
       await paceTurn();
+      const gcMiddle: GcSnapshot = new GcSnapshot();
       const middle: HeapSnapshot = new HeapSnapshot();
       const second: number[][] = retainArrays(12, 2048);
       await paceTurn();
-      const top: HeapSnapshot = new HeapSnapshot();
       const gcTop: GcSnapshot = new GcSnapshot();
+      const top: HeapSnapshot = new HeapSnapshot();
+      const batchBytes: number = payloadBytes(12, 2048);
+      const maxA: number = allocationLimit(batchBytes, 12, ZERO);
+      const firstA: number = byteCounterDelta(gcMiddle.allocated, gcBase.allocated);
+      const secondA: number = byteCounterDelta(gcTop.allocated, gcMiddle.allocated);
       logCase('testRintAllocTwoBatchesHeap0001', `firstRows=${first.length} secondRows=${second.length} ` +
-        `usedKb=${base.usedKb}/${middle.usedKb}/${top.usedKb} gcDelta=${gcTop.allocated - gcBase.allocated}`);
-      expect(first.length + second.length).assertEqual(24);
-      expect(middle.usedKb - base.usedKb >= payloadKb(12, 2048) / FOUR).assertTrue();
-      expect(top.usedKb - base.usedKb >= payloadKb(24, 2048) / TWO).assertTrue();
-      expect(gcTop.allocated - gcBase.allocated >= payloadBytes(24, 2048) / TWO).assertTrue();
+        `objectKb=${middle.objectKb}/${top.objectKb} allocated=${firstA}/${secondA}`);
+      expect(rowsFilled(first, 2048) && rowsFilled(second, 2048)).assertTrue();
+      expect(gcMiddle.notBefore(gcBase, maxA) && gcTop.notBefore(gcMiddle, maxA)).assertTrue();
+      expect(firstA >= batchBytes && secondA >= batchBytes).assertTrue();
+      expect(middle.objectKb >= payloadKb(12, 2048) && top.objectKb >= payloadKb(24, 2048)).assertTrue();
       expect(heapOk(top)).assertTrue();
     });
 
@@ -613,18 +731,21 @@ export default function runtimeIntegrationMatrixTest() {
      */
     it('testRintAllocPerRowPayload0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const gcBefore: GcSnapshot = new GcSnapshot();
-      const heapBefore: HeapSnapshot = new HeapSnapshot();
       const kept: number[][] = retainArrays(16, 16384);
       await paceTurn();
       const gcAfter: GcSnapshot = new GcSnapshot();
       const heapAfter: HeapSnapshot = new HeapSnapshot();
       const perRow: number = 16384 * DOUBLE_BYTES;
       const total: number = perRow * kept.length;
+      const allocated: number = byteCounterDelta(gcAfter.allocated, gcBefore.allocated);
       logCase('testRintAllocPerRowPayload0001', `perRow=${perRow} total=${total} ` +
-        `gcDelta=${gcAfter.allocated - gcBefore.allocated} heapDeltaKb=${heapAfter.usedKb - heapBefore.usedKb}`);
+        `gcDelta=${allocated} objectKb=${heapAfter.objectKb}`);
       expect(perRow * 16).assertEqual(total);
-      expect(gcAfter.allocated - gcBefore.allocated >= total).assertTrue();
-      expect(heapAfter.usedKb - heapBefore.usedKb >= total / KB / FOUR).assertTrue();
+      expect(rowsFilled(kept, 16384)).assertTrue();
+      expect(byteCounterInWindow(gcAfter.allocated, gcBefore.allocated, allocationLimit(total, 16, ZERO)))
+        .assertTrue();
+      expect(allocated >= total).assertTrue();
+      expect(heapAfter.objectKb >= total / KB).assertTrue();
       expect(heapAfter.usedKb <= heapAfter.totalKb).assertTrue();
     });
 
@@ -646,21 +767,26 @@ export default function runtimeIntegrationMatrixTest() {
         await sleepMs(SETTLE_WAIT_MS);
         series.push(new GcSnapshot());
       }
-      const drops: number[] = snapshotDrops(series);
+      const limits: number[] = repeatedLimits(6, allocationLimit(ZERO, ZERO, ONE));
+      const drops: number[] = snapshotDrops(series, limits);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const perWindowPayload: boolean = allocated.every((value: number, index: number) =>
+        index === ZERO || value - allocated[index - ONE] >= pressureBytes(ONE));
       logCase('testRintCountSixHintBursts0001', `sink=${sink} samples=${series.length} drops=${drops.join(',')} ` +
-        `count=${countSeries(series).join('/')} allocated=${allocatedSeries(series).join('/')}`);
+        `count=${countSeries(series).join('/')} allocated=${allocated.join('/')}`);
       expect(series.length).assertEqual(6 + ONE);
       expect(drops.length).assertEqual(NO_DROPS);
       expect(nonDecreasing(countSeries(series))).assertTrue();
-      expect(nonDecreasing(allocatedSeries(series))).assertTrue();
+      expect(perWindowPayload).assertTrue();
+      expect(allocated[6] >= pressureBytes(6)).assertTrue();
       expect(series[6].count >= series[ZERO].count).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_1500
      * @tc.name      testRintCountHintThenAlloc0001
-     * @tc.desc      Take a hint burst first and a pure allocation burst second and check the count and allocated
-     *               counters never fall across the two phases while a real collection was observed
+     * @tc.desc      Take a hint burst first and a pure allocation burst second and check each phase stays in its trusted
+     *               byte window, the scheduled payload is allocated and a real collection is observed
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -676,18 +802,21 @@ export default function runtimeIntegrationMatrixTest() {
       const settled: GcSnapshot = new GcSnapshot();
       logCase('testRintCountHintThenAlloc0001', `sink=${sink} rounds=${rounds} ` +
         `count=${start.count}/${middle.count}/${end.count}/${settled.count} ` +
-        `allocatedDelta=${settled.allocated - start.allocated}`);
-      expect(middle.notBefore(start)).assertTrue();
-      expect(end.notBefore(middle)).assertTrue();
+        `allocatedDelta=${byteCounterDelta(settled.allocated, start.allocated)}`);
+      expect(middle.notBefore(start, allocationLimit(ZERO, ZERO, THREE))).assertTrue();
+      expect(end.notBefore(middle, allocationLimit(ZERO, ZERO, THREE))).assertTrue();
+      expect(settled.notBefore(end, allocationLimit(ZERO, ZERO, COLLECT_ROUNDS))).assertTrue();
       expect(rounds > ZERO).assertTrue();
-      expect(settled.allocated - start.allocated >= pressureBytes(THREE)).assertTrue();
+      expect(byteCounterInWindow(settled.allocated, start.allocated,
+        allocationLimit(ZERO, ZERO, THREE + THREE + COLLECT_ROUNDS))).assertTrue();
+      expect(byteCounterDelta(settled.allocated, start.allocated) >= pressureBytes(THREE + THREE)).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_1600
      * @tc.name      testRintCountAlternateHintPressure0001
-     * @tc.desc      Alternate a hint and an allocation burst eight times and check the count series has no drop, the
-     *               count advanced and the freed counter never exceeded the allocated counter
+     * @tc.desc      Alternate a hint and an allocation burst eight times and check every step stays inside its trusted
+     *               byte window with no counter drop and the unfolded allocated series grows by one burst per step
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -701,22 +830,25 @@ export default function runtimeIntegrationMatrixTest() {
         await paceTurn();
         series.push(new GcSnapshot());
       }
-      const drops: number[] = snapshotDrops(series);
-      const bounded: boolean = series.every((snap: GcSnapshot) => snap.freed <= snap.allocated);
+      const limits: number[] = repeatedLimits(8, allocationLimit(ZERO, ZERO, ONE));
+      const drops: number[] = snapshotDrops(series, limits);
+      const unfolded: number[] = allocatedSeries(series, limits);
+      const perStepPressure: boolean = unfolded.every((value: number, index: number) =>
+        index === ZERO || value - unfolded[index - ONE] >= pressureBytes(ONE));
       const grew: number = series[series.length - ONE].count - series[ZERO].count;
       logCase('testRintCountAlternateHintPressure0001', `samples=${series.length} drops=${drops.join(',')} ` +
-        `countGrew=${grew} bounded=${bounded}`);
+        `countGrew=${grew} allocated=${unfolded.join('/')}`);
       expect(drops.length).assertEqual(NO_DROPS);
-      expect(bounded).assertTrue();
-      expect(grew >= ZERO).assertTrue();
-      expect(series[series.length - ONE].allocated > series[ZERO].allocated).assertTrue();
+      expect(unfolded.length).assertEqual(8 + ONE);
+      expect(perStepPressure).assertTrue();
+      expect(unfolded[8] >= pressureBytes(8)).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_1700
      * @tc.name      testRintCountPressureOnly0001
-     * @tc.desc      Allocate ten short lived pressure bursts without any explicit hint and check the GC count never
-     *               decreases while the allocated counter grows by at least one burst payload
+     * @tc.desc      Allocate ten short lived pressure bursts without an explicit hint and check the count series stays
+     *               monotonic while the allocated counter covers all ten payloads inside a trusted window
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -731,625 +863,15 @@ export default function runtimeIntegrationMatrixTest() {
       }
       const after: GcSnapshot = new GcSnapshot();
       logCase('testRintCountPressureOnly0001', `samples=${counts.length} counts=${counts.join(',')} ` +
-        `allocatedDelta=${after.allocated - before.allocated} freed=${after.freed}`);
+        `allocatedDelta=${byteCounterDelta(after.allocated, before.allocated)} ` +
+        `freedDelta=${byteCounterDelta(after.freed, before.freed)}`);
       expect(counts.length).assertEqual(10 + ONE);
       expect(nonDecreasing(counts)).assertTrue();
-      expect(after.allocated - before.allocated > ZERO).assertTrue();
-      expect(after.freed <= after.allocated).assertTrue();
-      expect(after.notBefore(before)).assertTrue();
+      expect(byteCounterDelta(after.allocated, before.allocated) >= pressureBytes(10)).assertTrue();
+      expect(byteCounterInWindow(after.allocated, before.allocated, allocationLimit(ZERO, ZERO, 10))).assertTrue();
+      expect(after.notBefore(before, allocationLimit(ZERO, ZERO, 10))).assertTrue();
     });
 
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_1800
-     * @tc.name      testRintCountHintWhileRetained0001
-     * @tc.desc      Hold twenty arrays of 4096 slots reachable while four hint bursts run and check the GC counters
-     *               still advance monotonically and the heap stays inside its total
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testRintCountHintWhileRetained0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const held: number[][] = retainArrays(20, 4096);
-      const start: GcSnapshot = new GcSnapshot();
-      const series: GcSnapshot[] = [start];
-      const heaps: HeapSnapshot[] = [];
-      for (let burst = ZERO; burst < FOUR; burst++) {
-        hintGC();
-        allocatePressure();
-        await sleepMs(SETTLE_WAIT_MS);
-        series.push(new GcSnapshot());
-        heaps.push(new HeapSnapshot());
-      }
-      const intact: boolean = rowsFilled(held, 4096);
-      logCase('testRintCountHintWhileRetained0001', `heldRows=${held.length} intact=${intact} ` +
-        `counts=${countSeries(series).join('/')} heapSamples=${heaps.length}`);
-      expect(held.length).assertEqual(20);
-      expect(intact).assertTrue();
-      expect(snapshotDrops(series).length).assertEqual(NO_DROPS);
-      expect(allHeapOk(heaps)).assertTrue();
-      expect(series[FOUR].count >= series[ZERO].count).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_1900
-     * @tc.name      testRintCountAfterReleaseCollect0001
-     * @tc.desc      Retain then release sixteen arrays of 8192 slots, collect at least two cycles and check the count
-     *               advanced with both byte counters while nothing regressed
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testRintCountAfterReleaseCollect0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const before: GcSnapshot = new GcSnapshot();
-      let rows: number[][] = retainArrays(16, 8192);
-      const heldSlots: number = slotTotal(rows);
-      rows = [];
-      const rounds: number = await collectUntil(() => gcStat(KEY_GC_COUNT) - before.count >= TWO, COLLECT_ROUNDS);
-      const after: GcSnapshot = new GcSnapshot();
-      logCase('testRintCountAfterReleaseCollect0001', `rounds=${rounds} heldSlots=${heldSlots} ` +
-        `count=${before.count}->${after.count} allocatedDelta=${after.allocated - before.allocated} ` +
-        `freedDelta=${after.freed - before.freed}`);
-      expect(rounds > ZERO).assertTrue();
-      expect(after.count - before.count >= TWO).assertTrue();
-      expect(after.allocated - before.allocated >= heldSlots * DOUBLE_BYTES).assertTrue();
-      expect(after.freed - before.freed > ZERO).assertTrue();
-      expect(after.notBefore(before)).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_2000
-     * @tc.name      testRintCountAllFiveKeys0001
-     * @tc.desc      Sample all five GC counters over five hint plus allocation rounds and check none of the five series
-     *               ever falls back from one sample to the next
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testRintCountAllFiveKeys0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const series: GcSnapshot[] = [new GcSnapshot()];
-      for (let round = ZERO; round < FIVE; round++) {
-        hintGC();
-        allocatePressure();
-        await paceTurn();
-        series.push(new GcSnapshot());
-      }
-      const perField: number[] = [snapshotDrops(series).length,
-        nonDecreasing(timeSeries(series)) ? ZERO : ONE,
-        nonDecreasing(freedSeries(series)) ? ZERO : ONE,
-        nonDecreasing(longFullSeries(series)) ? ZERO : ONE,
-        nonDecreasing(allocatedSeries(series)) ? ZERO : ONE];
-      logCase('testRintCountAllFiveKeys0001', `samples=${series.length} perField=${perField.join(',')} ` +
-        `counts=${countSeries(series).join('/')}`);
-      expect(series.length).assertEqual(FIVE + ONE);
-      expect(perField.every((value: number) => value === ZERO)).assertTrue();
-      expect(series[FIVE].count >= series[ZERO].count).assertTrue();
-      expect(series[FIVE].time >= series[ZERO].time).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_2100
-     * @tc.name      testRintCountTimeAccompanies0001
-     * @tc.desc      Check that every observed increase of the GC count is accompanied by a non decreasing pause time and
-     *               that the time counter only moves when allocations happened
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testRintCountTimeAccompanies0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const start: GcSnapshot = new GcSnapshot();
-      await burstHintPressure(TWO);
-      const afterHints: GcSnapshot = new GcSnapshot();
-      const sink: number = burstPressure(TWO);
-      await paceTurn();
-      const end: GcSnapshot = new GcSnapshot();
-      logCase('testRintCountTimeAccompanies0001', `sink=${sink} ` +
-        `count=${start.count}->${afterHints.count}->${end.count} ` +
-        `time=${start.time}->${afterHints.time}->${end.time}`);
-      expect(afterHints.time >= start.time).assertTrue();
-      expect(afterHints.count >= start.count).assertTrue();
-      expect(end.time >= afterHints.time).assertTrue();
-      expect(end.count >= afterHints.count).assertTrue();
-      expect(end.allocated - start.allocated >= end.allocated - afterHints.allocated).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_2200
-     * @tc.name      testRintCountLongFullBounded0001
-     * @tc.desc      Sample the long full collection counter across six allocation rounds and check it never exceeds the
-     *               total collection count and never decreases
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testRintCountLongFullBounded0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const series: GcSnapshot[] = [];
-      for (let round = ZERO; round < 6; round++) {
-        allocatePressure();
-        await paceTurn();
-        series.push(new GcSnapshot());
-      }
-      const bounded: boolean = series.every((snap: GcSnapshot) => snap.longFullGc <= snap.count);
-      logCase('testRintCountLongFullBounded0001', `samples=${series.length} bounded=${bounded} ` +
-        `longFull=${longFullSeries(series).join('/')} count=${countSeries(series).join('/')}`);
-      expect(series.length).assertEqual(6);
-      expect(bounded).assertTrue();
-      expect(nonDecreasing(longFullSeries(series))).assertTrue();
-      expect(nonDecreasing(countSeries(series))).assertTrue();
-      expect(longFullSeries(series)[ZERO] >= ZERO).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_2300
-     * @tc.name      testRintCountTwoGroupsOfBursts0001
-     * @tc.desc      Run five hint bursts, take a sample, run five more and check both halves keep the counters moving
-     *               forward and the second half allocates on top of the first
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testRintCountTwoGroupsOfBursts0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const start: GcSnapshot = new GcSnapshot();
-      await burstHintPressure(FIVE);
-      const halfway: GcSnapshot = new GcSnapshot();
-      await burstHintPressure(FIVE);
-      const end: GcSnapshot = new GcSnapshot();
-      const firstHalfDrops: number = snapshotDrops([start, halfway]).length;
-      const secondHalfDrops: number = snapshotDrops([halfway, end]).length;
-      logCase('testRintCountTwoGroupsOfBursts0001', `firstHalfDrops=${firstHalfDrops} ` +
-        `secondHalfDrops=${secondHalfDrops} count=${start.count}/${halfway.count}/${end.count} ` +
-        `allocatedDelta=${end.allocated - start.allocated}`);
-      expect(firstHalfDrops).assertEqual(NO_DROPS);
-      expect(secondHalfDrops).assertEqual(NO_DROPS);
-      expect(end.allocated - halfway.allocated > ZERO).assertTrue();
-      expect(halfway.allocated - start.allocated > ZERO).assertTrue();
-      expect(end.count >= start.count).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_2400
-     * @tc.name      testRintCountAllocHintAlloc0001
-     * @tc.desc      Run allocation, then hints, then allocation again and check the three phases each keep the counters
-     *               non decreasing with the byte total growing in both allocation phases
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testRintCountAllocHintAlloc0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const phaseA: GcSnapshot = new GcSnapshot();
-      burstPressure(TWO);
-      await paceTurn();
-      const phaseB: GcSnapshot = new GcSnapshot();
-      hintGC();
-      hintGC();
-      await sleepMs(SETTLE_WAIT_MS);
-      const phaseC: GcSnapshot = new GcSnapshot();
-      burstPressure(TWO);
-      await paceTurn();
-      const phaseD: GcSnapshot = new GcSnapshot();
-      const series: GcSnapshot[] = [phaseA, phaseB, phaseC, phaseD];
-      logCase('testRintCountAllocHintAlloc0001', `drops=${snapshotDrops(series).join(',')} ` +
-        `allocated=${allocatedSeries(series).join('/')} counts=${countSeries(series).join('/')}`);
-      expect(snapshotDrops(series).length).assertEqual(NO_DROPS);
-      expect(phaseB.allocated > phaseA.allocated).assertTrue();
-      expect(phaseC.freed >= phaseB.freed).assertTrue();
-      expect(phaseD.allocated > phaseC.allocated).assertTrue();
-      expect(phaseD.freed <= phaseD.allocated).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_2500
-     * @tc.name      testRintCountWithCyclePressure0001
-     * @tc.desc      Create and drop linked parent child cycles in five rounds and check the collection counters advance
-     *               without ever decreasing while the created pairs were really linked
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testRintCountWithCyclePressure0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const before: GcSnapshot = new GcSnapshot();
-      const counts: number[] = [before.count];
-      let linkedPairs: number = ZERO;
-      for (let round = ZERO; round < FIVE; round++) {
-        for (let item = ZERO; item < 200; item++) {
-          if (pairIsLinked(linkPair(round * 200 + item))) {
-            linkedPairs++;
-          }
-        }
-        hintGC();
-        await paceTurn();
-        counts.push(gcStat(KEY_GC_COUNT));
-      }
-      const after: GcSnapshot = new GcSnapshot();
-      logCase('testRintCountWithCyclePressure0001', `linkedPairs=${linkedPairs} samples=${counts.length} ` +
-        `allocatedDelta=${after.allocated - before.allocated} countDelta=${after.count - before.count}`);
-      expect(linkedPairs).assertEqual(1000);
-      expect(counts.length).assertEqual(5 + ONE);
-      expect(nonDecreasing(counts)).assertTrue();
-      expect(after.allocated - before.allocated > ZERO).assertTrue();
-      expect(after.notBefore(before)).assertTrue();
-    });
-
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_2700
-     * @tc.name      testRintWeakRingCleared0001
-     * @tc.desc      Drop a six node ring and check its weak reference clears only after the collection count advanced
-     *               while the probe reported the ring shape before release
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testRintWeakRingCleared0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const before: GcSnapshot = new GcSnapshot();
-      const probe: RingProbe = releasedRing(6, ONE, 41);
-      const rounds: number = await collectUntil(() => isCleared(probe.ref), COLLECT_ROUNDS);
-      const after: GcSnapshot = new GcSnapshot();
-      logCase('testRintWeakRingCleared0001', `rounds=${rounds} probeLength=${probe.length} ` +
-        `probeIdSum=${probe.idSum} countDelta=${after.count - before.count} ` +
-        `allocatedDelta=${after.allocated - before.allocated}`);
-      expect(probe.length).assertEqual(6);
-      expect(probe.idSum).assertEqual(expectedIdSum(41, 6));
-      expect(rounds > ZERO).assertTrue();
-      expect(isCleared(probe.ref)).assertTrue();
-      expect(after.count - before.count >= ONE).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_2800
-     * @tc.name      testRintWeakFiveRingsCleared0001
-     * @tc.desc      Drop five rings of three nodes and check every weak reference clears within the round budget while
-     *               the GC count grew and the heap stayed inside its total
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testRintWeakFiveRingsCleared0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const before: GcSnapshot = new GcSnapshot();
-      const refs: WeakRef<RingNode>[] = releasedRings(FIVE, THREE, 51);
-      const rounds: number = await collectUntil(() => allCleared(refs), COLLECT_ROUNDS);
-      const after: GcSnapshot = new GcSnapshot();
-      const heap: HeapSnapshot = new HeapSnapshot();
-      logCase('testRintWeakFiveRingsCleared0001', `rounds=${rounds} refs=${refs.length} ` +
-        `cleared=${clearedCount(refs)} countDelta=${after.count - before.count}`);
-      expect(refs.length).assertEqual(FIVE);
-      expect(rounds > ZERO).assertTrue();
-      expect(clearedCount(refs)).assertEqual(FIVE);
-      expect(after.count - before.count >= ONE).assertTrue();
-      expect(heapOk(heap)).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_2900
-     * @tc.name      testRintWeakPairCleared0001
-     * @tc.desc      Drop a parent child cycle and check the weak reference through the parent clears while the
-     *               allocated counter grew past one pressure burst
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testRintWeakPairCleared0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const before: GcSnapshot = new GcSnapshot();
-      const ref: WeakRef<CycleParent> = releasedPair(417);
-      const rounds: number = await collectUntil(() => isCleared(ref), COLLECT_ROUNDS);
-      const after: GcSnapshot = new GcSnapshot();
-      logCase('testRintWeakPairCleared0001', `rounds=${rounds} cleared=${isCleared(ref)} ` +
-        `allocatedDelta=${after.allocated - before.allocated} freedDelta=${after.freed - before.freed}`);
-      expect(rounds > ZERO).assertTrue();
-      expect(isCleared(ref)).assertTrue();
-      expect(after.allocated - before.allocated > ZERO).assertTrue();
-      expect(after.freed - before.freed >= ZERO).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_3000
-     * @tc.name      testRintWeakChildCleared0001
-     * @tc.desc      Drop the children of two separate linked pairs and check both weak references clear while the
-     *               heap invariant holds and the pause time counter did not move backwards
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testRintWeakChildCleared0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const before: GcSnapshot = new GcSnapshot();
-      const first: WeakRef<CycleChild> = releasedChild(428);
-      const second: WeakRef<CycleChild> = releasedChild(439);
-      const rounds: number = await collectUntil(() => isCleared(first) && isCleared(second), COLLECT_ROUNDS);
-      const after: GcSnapshot = new GcSnapshot();
-      const heap: HeapSnapshot = new HeapSnapshot();
-      logCase('testRintWeakChildCleared0001', `rounds=${rounds} firstCleared=${isCleared(first)} ` +
-        `secondCleared=${isCleared(second)} timeDelta=${after.time - before.time} usedKb=${heap.usedKb}`);
-      expect(rounds > ZERO).assertTrue();
-      expect(isCleared(first) && isCleared(second)).assertTrue();
-      expect(after.time >= before.time).assertTrue();
-      expect(heapOk(heap)).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_3100
-     * @tc.name      testRintWeakRetainedAlive0001
-     * @tc.desc      Hold two rings in a local list across four collection rounds and check both weak references stay
-     *               live while the GC counters advanced underneath them
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testRintWeakRetainedAlive0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const held: RingNode[] = retainedRingHolder();
-      const refs: WeakRef<RingNode>[] = [new WeakRef<RingNode>(held[ZERO]), new WeakRef<RingNode>(held[ONE])];
-      const before: GcSnapshot = new GcSnapshot();
-      const rounds: number = await collectUntil(() => gcStat(KEY_GC_COUNT) - before.count >= FOUR, COLLECT_ROUNDS);
-      const live: number = refs.filter((ref: WeakRef<RingNode>) => ref.deref() !== undefined).length;
-      const after: GcSnapshot = new GcSnapshot();
-      logCase('testRintWeakRetainedAlive0001', `rounds=${rounds} live=${live} ` +
-        `lengths=${ringLength(held[ZERO], 8)}/${ringLength(held[ONE], 12)} countDelta=${after.count - before.count}`);
-      expect(rounds > ZERO).assertTrue();
-      expect(live).assertEqual(TWO);
-      expect(ringLength(held[ZERO], 8)).assertEqual(6);
-      expect(ringLength(held[ONE], 12)).assertEqual(9);
-      expect(after.count - before.count >= FOUR).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_3200
-     * @tc.name      testRintWeakReleaseThenClear0001
-     * @tc.desc      Confirm a locally held ring is reachable through its weak reference, drop the strong reference and
-     *               check the reference clears with the collection count rising
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testRintWeakReleaseThenClear0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      let head: RingNode | null = buildRing(5, TWO, 63);
-      const ref: WeakRef<RingNode> = new WeakRef<RingNode>(head as RingNode);
-      const liveBefore: boolean = ref.deref() === (head as RingNode);
-      const idSum: number = ringIdSum(head as RingNode, 5);
-      const before: GcSnapshot = new GcSnapshot();
-      head = null;
-      const rounds: number = await collectUntil(() => isCleared(ref), COLLECT_ROUNDS);
-      const after: GcSnapshot = new GcSnapshot();
-      logCase('testRintWeakReleaseThenClear0001', `liveBefore=${liveBefore} rounds=${rounds} ` +
-        `idSum=${idSum} cleared=${isCleared(ref)} countDelta=${after.count - before.count}`);
-      expect(liveBefore).assertTrue();
-      expect(idSum).assertEqual(expectedIdSum(63, 5));
-      expect(rounds > ZERO).assertTrue();
-      expect(isCleared(ref)).assertTrue();
-      expect(after.count > before.count).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_3300
-     * @tc.name      testRintWeakClearedCountGrew0001
-     * @tc.desc      Record the counters before dropping a ring and check that the observed clearing is accompanied by
-     *               both a collection count gain and a freed byte gain
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testRintWeakClearedCountGrew0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const beforeHeap: HeapSnapshot = new HeapSnapshot();
-      const before: GcSnapshot = new GcSnapshot();
-      const probe: RingProbe = releasedRing(8, TWO, 71);
-      const minimumBytes: number = payloadBytes(8, ONE);
-      let after: GcSnapshot = before;
-      const rounds: number = await collectUntil(() => {
-        const current: GcSnapshot = new GcSnapshot();
-        const freed: number = byteCounterDelta(current.freed, before.freed);
-        const allocated: number = byteCounterDelta(current.allocated, before.allocated);
-        if (isCleared(probe.ref) && current.count > before.count && freed >= minimumBytes &&
-          freed <= beforeHeap.objectKb * KB + allocated + KB) {
-          after = current;
-          return true;
-        }
-        return false;
-      }, COLLECT_ROUNDS);
-      const cleared: boolean = isCleared(probe.ref);
-      const countGain: number = after.count - before.count;
-      const freedGain: number = byteCounterDelta(after.freed, before.freed);
-      const allocatedGain: number = byteCounterDelta(after.allocated, before.allocated);
-      logCase('testRintWeakClearedCountGrew0001', `rounds=${rounds} cleared=${cleared} countGain=${countGain} ` +
-        `freedGain=${freedGain} allocatedGain=${allocatedGain} beforeObjectKb=${beforeHeap.objectKb}`);
-      expect(cleared).assertTrue();
-      expect(rounds > ZERO).assertTrue();
-      expect(countGain >= ONE).assertTrue();
-      expect(freedGain >= minimumBytes).assertTrue();
-      expect(allocatedGain >= minimumBytes).assertTrue();
-      expect(freedGain <= beforeHeap.objectKb * KB + allocatedGain + KB).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_3400
-     * @tc.name      testRintWeakClearedAllocGrew0001
-     * @tc.desc      Drop twelve small rings and check the cleared count matches the registered rings while the
-     *               allocated counter grew by far more than the rings themselves
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testRintWeakClearedAllocGrew0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const before: GcSnapshot = new GcSnapshot();
-      // twelve WeakRefs in one job keep their targets alive on device, so the batch is tracked via tokens
-      const tracker: FinalizeTracker = new FinalizeTracker();
-      tracker.registerReleasedRings(12, TWO, 81);
-      const rounds: number = await collectUntil(() => tracker.count() >= 12, COLLECT_ROUNDS);
-      const after: GcSnapshot = new GcSnapshot();
-      const allocatedGain: number = after.allocated - before.allocated;
-      logCase('testRintWeakClearedAllocGrew0001', `rounds=${rounds} cleared=${tracker.count()} ` +
-        `allocatedGain=${allocatedGain} ringBytes=${payloadBytes(12, TWO)}`);
-      expect(rounds > ZERO).assertTrue();
-      expect(tracker.count()).assertEqual(12);
-      expect(allocatedGain >= payloadBytes(12, TWO)).assertTrue();
-      expect(allocatedGain > ZERO && after.freed <= after.allocated).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_3500
-     * @tc.name      testRintWeakSequentialBatches0001
-     * @tc.desc      Clear two rings, then clear two more in a second batch and check each batch clears fully and the
-     *               GC count only moves forward between the batches
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testRintWeakSequentialBatches0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const firstRefs: WeakRef<RingNode>[] = releasedRings(TWO, THREE, 91);
-      const firstRounds: number = await collectUntil(() => allCleared(firstRefs), COLLECT_ROUNDS);
-      const between: GcSnapshot = new GcSnapshot();
-      const secondRefs: WeakRef<RingNode>[] = releasedRings(TWO, FOUR, 95);
-      const secondRounds: number = await collectUntil(() => allCleared(secondRefs), COLLECT_ROUNDS);
-      const after: GcSnapshot = new GcSnapshot();
-      logCase('testRintWeakSequentialBatches0001', `firstRounds=${firstRounds} secondRounds=${secondRounds} ` +
-        `firstCleared=${clearedCount(firstRefs)} secondCleared=${clearedCount(secondRefs)} ` +
-        `countDelta=${after.count - between.count}`);
-      expect(firstRounds > ZERO && secondRounds > ZERO).assertTrue();
-      expect(clearedCount(firstRefs)).assertEqual(TWO);
-      expect(clearedCount(secondRefs)).assertEqual(TWO);
-      expect(after.notBefore(between)).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_3600
-     * @tc.name      testRintWeakLargeRingCleared0001
-     * @tc.desc      Drop a forty node ring together with a twelve node ring and check both walk lengths and id sums are
-     *               reported before release and both references clear under the same pressure
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testRintWeakLargeRingCleared0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const before: GcSnapshot = new GcSnapshot();
-      const large: RingProbe = releasedRing(40, TWO, 101);
-      const small: RingProbe = releasedRing(12, TWO, 151);
-      const rounds: number = await collectUntil(() => isCleared(large.ref) && isCleared(small.ref), COLLECT_ROUNDS);
-      const after: GcSnapshot = new GcSnapshot();
-      const walks: number[] = [large.length, small.length];
-      const sums: number[] = [large.idSum, small.idSum];
-      logCase('testRintWeakLargeRingCleared0001', `rounds=${rounds} walks=${walks.join('/')} ` +
-        `sums=${sums.join('/')} allocatedDelta=${after.allocated - before.allocated}`);
-      expect(walks[ZERO]).assertEqual(40);
-      expect(sums[ONE]).assertEqual(expectedIdSum(151, 12));
-      expect(walks[ZERO] > walks[ONE]).assertTrue();
-      expect(rounds > ZERO).assertTrue();
-      expect(isCleared(large.ref) && isCleared(small.ref)).assertTrue();
-      expect(after.allocated > before.allocated).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_3700
-     * @tc.name      testRintWeakUnderRetainPressure0001
-     * @tc.desc      Keep sixteen arrays of 4096 slots reachable while a dropped ring clears and check the heap stayed
-     *               bounded and the kept arrays were untouched by the collections
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testRintWeakUnderRetainPressure0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const held: number[][] = retainArrays(16, 4096);
-      const before: GcSnapshot = new GcSnapshot();
-      const ref: WeakRef<RingNode> = releasedRing(7, ONE, 111).ref;
-      const rounds: number = await collectUntil(() => isCleared(ref), COLLECT_ROUNDS);
-      const after: GcSnapshot = new GcSnapshot();
-      const heap: HeapSnapshot = new HeapSnapshot();
-      logCase('testRintWeakUnderRetainPressure0001', `rounds=${rounds} cleared=${isCleared(ref)} ` +
-        `heldSlots=${slotTotal(held)} usedKb=${heap.usedKb} totalKb=${heap.totalKb}`);
-      expect(rounds > ZERO).assertTrue();
-      expect(isCleared(ref)).assertTrue();
-      expect(rowsFilled(held, 4096)).assertTrue();
-      expect(heapOk(heap)).assertTrue();
-      expect(after.allocated - before.allocated >= payloadBytes(16, 4096) / TWO).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_3800
-     * @tc.name      testRintWeakDerefIdentity0001
-     * @tc.desc      Read the ring back through a live weak reference and check the walked length and id sum match the
-     *               construction parameters before the ring is dropped and cleared
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testRintWeakDerefIdentity0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      let head: RingNode | null = buildRing(9, THREE, 121);
-      const ref: WeakRef<RingNode> = new WeakRef<RingNode>(head as RingNode);
-      const probed: number[] = probeRing(ref, 9);
-      const seenLength: number = probed[ZERO];
-      const seenSum: number = probed[ONE];
-      const before: GcSnapshot = new GcSnapshot();
-      head = null;
-      const rounds: number = await collectUntil(() => isCleared(ref), COLLECT_ROUNDS);
-      const after: GcSnapshot = new GcSnapshot();
-      logCase('testRintWeakDerefIdentity0001', `seenLength=${seenLength} seenSum=${seenSum} rounds=${rounds} ` +
-        `cleared=${isCleared(ref)} countDelta=${after.count - before.count}`);
-      expect(seenLength).assertEqual(9);
-      expect(seenSum).assertEqual(expectedIdSum(121, 9));
-      expect(rounds > ZERO).assertTrue();
-      expect(isCleared(ref)).assertTrue();
-      expect(after.count >= before.count).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_3900
-     * @tc.name      testRintWeakRoundsBounded0001
-     * @tc.desc      Drop an eighteen node ring and check it clears inside the shared round budget with the count and
-     *               allocated counters both ahead of their starting values
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testRintWeakRoundsBounded0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const before: GcSnapshot = new GcSnapshot();
-      const refs: WeakRef<RingNode>[] = releasedRings(ONE, 18, 131);
-      const rounds: number = await collectUntil(() => allCleared(refs), COLLECT_ROUNDS);
-      const after: GcSnapshot = new GcSnapshot();
-      logCase('testRintWeakRoundsBounded0001', `rounds=${rounds} budget=${COLLECT_ROUNDS} ` +
-        `cleared=${clearedCount(refs)} count=${before.count}->${after.count}`);
-      expect(rounds > ZERO).assertTrue();
-      expect(rounds <= COLLECT_ROUNDS).assertTrue();
-      expect(clearedCount(refs)).assertEqual(ONE);
-      expect(after.count > before.count).assertTrue();
-      expect(after.allocated > before.allocated).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_4000
-     * @tc.name      testRintFinalPairsAfterPressure0001
-     * @tc.desc      Register four dropped pairs with consecutive tokens and check every token arrives once while the
-     *               collection count advanced over the same rounds
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testRintFinalPairsAfterPressure0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const tracker: FinalizeTracker = new FinalizeTracker();
-      const before: GcSnapshot = new GcSnapshot();
-      tracker.registerReleasedPairs(FOUR, 401);
-      const rounds: number = await collectUntil(() => tracker.count() >= FOUR, COLLECT_ROUNDS);
-      const after: GcSnapshot = new GcSnapshot();
-      logCase('testRintFinalPairsAfterPressure0001', `rounds=${rounds} count=${tracker.count()} ` +
-        `tokens=${tracker.sortedTokens().join(',')} countDelta=${after.count - before.count}`);
-      expect(rounds > ZERO).assertTrue();
-      expect(tracker.count()).assertEqual(FOUR);
-      expect(sameNumbers(tracker.sortedTokens(), range(401, FOUR))).assertTrue();
-      expect(after.count - before.count >= ONE).assertTrue();
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GC_RUNTIMEINT_4100
-     * @tc.name      testRintFinalRingsAfterPressure0001
-     * @tc.desc      Register three dropped rings of five nodes and check the tokens fall inside the registration range
-     *               and the freed counter stayed below the allocated counter
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testRintFinalRingsAfterPressure0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const tracker: FinalizeTracker = new FinalizeTracker();
-      tracker.registerReleasedRings(THREE, FIVE, 411);
-      const rounds: number = await collectUntil(() => tracker.count() >= THREE, COLLECT_ROUNDS);
-      const tokens: number[] = tracker.sortedTokens();
-      const stat: GcSnapshot = new GcSnapshot();
-      logCase('testRintFinalRingsAfterPressure0001', `rounds=${rounds} count=${tracker.count()} ` +
-        `tokens=${tokens.join(',')} freed=${stat.freed} allocated=${stat.allocated}`);
-      expect(rounds > ZERO).assertTrue();
       expect(tokens.length).assertEqual(THREE);
       expect(insideRange(tokens, 411, THREE)).assertTrue();
       expect(stat.freed <= stat.allocated).assertTrue();
