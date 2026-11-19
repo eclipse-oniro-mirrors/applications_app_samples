@@ -16,14 +16,15 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const MAX_LOG_VALUE_LENGTH: number = 120;
+const LOG_TAG: string = '[Sample_ReasonableUsingSystemInterfaces]';
 
 export class InterfaceTestLog {
   static begin(name: string, input: string): void {
-    hilog.info(0xF811, '[Sample_ReasonableUsingSystemInterfaces]', '%{public}s begin input=%{public}s', name, input);
+    hilog.info(0xF811, LOG_TAG, '%{public}s begin input=%{public}s', name, input);
   }
 
   static value(name: string, label: string, expected: string, actual: string): void {
-    hilog.info(0xF811, '[Sample_ReasonableUsingSystemInterfaces]', '%{public}s %{public}s expected=%{public}s actual=%{public}s',
+    hilog.info(0xF811, LOG_TAG, '%{public}s %{public}s expected=%{public}s actual=%{public}s',
       name, label, expected.substring(0, MAX_LOG_VALUE_LENGTH), actual.substring(0, MAX_LOG_VALUE_LENGTH));
   }
 
@@ -32,10 +33,11 @@ export class InterfaceTestLog {
   }
 
   static flag(name: string, label: string, actual: boolean): void {
-    hilog.info(0xF811, '[Sample_ReasonableUsingSystemInterfaces]', '%{public}s %{public}s actual=%{public}s', name, label, String(actual));
+    hilog.info(0xF811, LOG_TAG, '%{public}s %{public}s actual=%{public}s',
+      name, label, String(actual));
   }
 
   static end(name: string): void {
-    hilog.info(0xF811, '[Sample_ReasonableUsingSystemInterfaces]', '%{public}s end', name);
+    hilog.info(0xF811, LOG_TAG, '%{public}s end', name);
   }
 }

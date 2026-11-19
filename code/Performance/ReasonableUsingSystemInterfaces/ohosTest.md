@@ -2,7 +2,7 @@
 
 ## 一、范围与运行方式
 
-保留原有 30 条自动化用例，新增 13 套、984 条逻辑用例。默认注册 16 套、1010 条用例；应用信息和入口启动的 4 条 `EntryAbilityTest` 用例仅在显式选择该测试类时注册。混合选择其余类不会注册 Ability 套件，不以删除 UI 功能降低测试依赖。
+保留原有 30 条自动化用例，新增 13 套、978 条逻辑用例。默认注册 16 套、1004 条用例；应用信息和入口启动的 4 条 `EntryAbilityTest` 用例仅在显式选择该测试类时注册。混合选择其余类不会注册 Ability 套件，不以删除 UI 功能降低测试依赖。
 
 ```bash
 hvigorw --mode module -p module=entry@default -p product=default assembleHap
@@ -22,7 +22,7 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap
 | [DisplayLimitLogic.test.ets](entry/src/ohosTest/ets/test/DisplayLimitLogic.test.ets) | LOGIC_TEXT_LIMIT_0001–0096 | 96 | 空、单字符、控制符、组合符、代理对、1998/1999/2000/2001/4000 等边界；固定完整输出、截断不新拆合法代理对、源不变及重复调用一致 |
 | [DisplayDecodeLogic.test.ets](entry/src/ohosTest/ets/test/DisplayDecodeLogic.test.ets) | LOGIC_TEXT_DISPLAYDECODE_0001–0096 | 96 | 明确 UTF-8 字节经真实页面共用函数解码；固定限长结果、字节输入不变、独立调用隔离 |
 | [ZeroWidthSpaceLogic.test.ets](entry/src/ohosTest/ets/test/ZeroWidthSpaceLogic.test.ets) | LOGIC_TEXT_ZEROWIDTH_0001–0096 | 96 | 按码点插入、已有零宽字符保留、CRLF 相邻、代理对、长度与字符计数、源不变及调用隔离；不承诺字素簇完整 |
-| [TextDecoderStreamLogic.test.ets](entry/src/ohosTest/ets/test/TextDecoderStreamLogic.test.ets) | LOGIC_TEXT_DECODERSTREAM_0001–0096 | 96 | 48 条多字节拆分、16 条逐字节流、16 条 replacement、16 条 fatal 错误及恢复；手工字节对应固定文本、空流及 flush 边界 |
+| [TextDecoderStreamLogic.test.ets](entry/src/ohosTest/ets/test/TextDecoderStreamLogic.test.ets) | LOGIC_TEXT_DECODERSTREAM_0001–0096（缺 0072–0074、0088–0090） | 90 | 多字节拆分、逐字节流、replacement、fatal 错误及恢复；手工字节对应固定文本、空流及 flush 边界 |
 | [IntlNumberLogic.test.ets](entry/src/ohosTest/ets/test/IntlNumberLogic.test.ets) | LOGIC_INTL_NUMBER_0001–0072 | 72 | 十进制、正负零、分组、舍入、符号与有效位；两实现分别对具体常量断言 |
 | [IntlScientificLogic.test.ets](entry/src/ohosTest/ets/test/IntlScientificLogic.test.ets) | LOGIC_INTL_SCIENTIFIC_0001–0072 | 72 | 科学/工程记数、1/3/21 有效位、大小数量级和邻接值；固定格式及选项预期 |
 | [IntlLocaleLogic.test.ets](entry/src/ohosTest/ets/test/IntlLocaleLogic.test.ets) | LOGIC_INTL_LOCALE_0001–0072 | 72 | 规范化、地区、日历、小时制、编号系统、numeric、caseFirst 与独立实例；原始类型及值均符合预期 |
@@ -112,7 +112,7 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap
 |---|---|
 | 主包 assembleHap | 设备修复后 BUILD SUCCESSFUL，17 秒 792 毫秒，签名步骤完成 |
 | ohosTest assembleHap | 设备修复后 BUILD SUCCESSFUL，22 秒 991 毫秒，签名步骤完成 |
-| 新增逻辑矩阵主机回归 | 13 套，984/984 条通过，15,801 个断言，无意外原生调用 |
+| 新增逻辑矩阵主机回归 | 13 套，978/978 条通过，15,801 个断言，无意外原生调用 |
 | benchmark / runner 主机边界 | 46/46 项通过；含每类构造第 1/50/100 次异常及 mock/monitor/start 错误 |
 | 源码审计 | 用例名称和编号、断言前日志、120 列行宽、异步完成方式及六种套件选择路由通过 |
 | 新增测试源码量 | 71,774 物理行，63,618 行去注释及空行有效测试代码；高于约五万行目标，不等于 Git 净改动量 |
@@ -122,7 +122,7 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap
 | 16:04 设备附件 | 报告 75 条不同用例失败，均可对应当前源码断言；无完整执行/通过数量汇总，不声明全量通过 |
 | 修复后本地设备整轮回归 | 已中断，未取得最终汇总；不作为完整结果 |
 
-本轮主机回归仅覆盖新增矩阵及生产函数/runner 的主机边界执行。Node Intl/TextDecoder 是替身，不能证明真实 OpenHarmony SDK、ArkUI 或设备性能正确。原有 30 条用例保留，原有 59 处断言语义保留；默认 1010 条、总计 1014 条登记数量不等于设备执行结果。
+本轮主机回归仅覆盖新增矩阵及生产函数/runner 的主机边界执行。Node Intl/TextDecoder 是替身，不能证明真实 OpenHarmony SDK、ArkUI 或设备性能正确。原有 30 条用例保留，原有 59 处断言语义保留；默认 1004 条、总计 1008 条登记数量不等于设备执行结果。
 
 最终构建已生成 entry-default-signed.hap 和 entry-ohosTest-signed.hap，两个包均已更新安装成功。本轮修复使用更新安装，未卸载、清数据或修改授权；16:04 附件记录的 IDE 部署流程另有卸载重装，两者是不同执行记录。编译和安装成功不等于设备全部通过。
 

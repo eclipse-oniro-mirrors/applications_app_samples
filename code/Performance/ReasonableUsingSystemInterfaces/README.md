@@ -238,7 +238,7 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap
 
 在 DevEco Studio 中配置合法签名并连接设备后，选中 entry 模块，右键选择 `Run 'test'`。编译通过不等于安装或设备测试通过。
 
-新增 13 套、984 条逻辑用例，共 71,774 物理行、63,618 行去注释及空行的有效测试代码、15,801 个断言；检视补强后的规模高于约五万行目标。统计仅包含新增测试文件，不是 Git 净改动量。原有 30 条用例保留；默认注册 16 套、1010 条逻辑/SDK 用例，不启动主界面。需要应用信息及入口启动验证时，显式选择 `EntryAbilityTest`，执行原有 4 条 Ability 用例。混合选择其余测试类不会注册 Ability 套件，以免引入主界面依赖。
+新增 13 套、978 条逻辑用例，共 71,774 物理行、63,618 行去注释及空行的有效测试代码、15,801 个断言；检视补强后的规模高于约五万行目标。统计仅包含新增测试文件，不是 Git 净改动量。原有 30 条用例保留；默认注册 16 套、1004 条逻辑/SDK 用例，不启动主界面。需要应用信息及入口启动验证时，显式选择 `EntryAbilityTest`，执行原有 4 条 Ability 用例。混合选择其余测试类不会注册 Ability 套件，以免引入主界面依赖。
 
 覆盖范围：
 
@@ -249,11 +249,11 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap
 5. 七套 `Intl*Logic`：六类 intl/Intl 对象的固定预期、正负零、舍入与有效位、UTC 日期、排序、复数及相对时间。
 6. 原有 `ResourceManagerSyncTest`、`TextDecodeTest`、`IntlInterfaceTest`：真实资源与原 SDK 行为；`EntryAbilityTest` 保留为显式选择。
 
-2026-11-19 设备修复后复验：主包和 ohosTest 均编译成功、生成签名包并更新安装；新增 984/984 条主机用例、15,801 个断言通过，另有 46/46 项 benchmark 异常及 runner 边界检查通过。主机使用 Node Intl/TextDecoder 替身，不代表 OpenHarmony SDK、UI 或性能测试通过。Locale 测试改为完整序列化标签的规范化语义校验及独立 baseName 校验，单套设备 72/72 条通过；零宽字符插入显式保留合法代理对和 CRLF，文本测试使用独立 UTF-16 扫描计数，保留固定预期。
+2026-11-19 设备修复后复验：主包和 ohosTest 均编译成功、生成签名包并更新安装；新增 978/978 条主机用例、15,801 个断言通过，另有 46/46 项 benchmark 异常及 runner 边界检查通过。主机使用 Node Intl/TextDecoder 替身，不代表 OpenHarmony SDK、UI 或性能测试通过。Locale 测试改为完整序列化标签的规范化语义校验及独立 baseName 校验，单套设备 72/72 条通过；零宽字符插入显式保留合法代理对和 CRLF，文本测试使用独立 UTF-16 扫描计数，保留固定预期。
 
 16:04 最新设备附件列出 75 条失败：科学/工程计数 40 条、数值格式 29 条、TextDecoder 空输入终结 6 条，均对应当前源码，未新增失败编号。Locale、显示限长/解码及零宽插入的旧错误未再出现，但附件没有完整执行及通过数量汇总；此前修复后本地整轮回归已中断，不能声明全量通过。剩余数值有效位、默认舍入、整数补零及空流终结与 SDK 规格冲突，保留正确预期，不删除用例或回填实际结果掩盖失败。Ability 4 条仍需单独选择验证，手工 UI 和性能验证未完成。
 
-原始基线保护审计仍为 34/35 一致：现有 build-profile.json5 的 default 签名配置与初始无签名基线不同，未覆盖该配置。本轮设备修复前后的独立保护快照为 35/35 一致，全部 1014 个用例名称及编号保留，不用新快照抹平原始差异。完整目录、编号范围及验证边界见 [ohosTest.md](ohosTest.md)。
+原始基线保护审计仍为 34/35 一致：现有 build-profile.json5 的 default 签名配置与初始无签名基线不同，未覆盖该配置。本轮设备修复前后的独立保护快照为 35/35 一致，全部 1008 个用例名称及编号保留，不用新快照抹平原始差异。完整目录、编号范围及验证边界见 [ohosTest.md](ohosTest.md)。
 
 ## 相关权限
 不涉及
@@ -262,3 +262,13 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap
 1. 本示例仅支持标准系统上运行。
 2. 本示例使用 OpenHarmony SDK 26.0.0（API 26）编译。
 3. 本示例需要使用DevEco Studio 版本号(DevEco Studio 6.0.0 Release)及以上版本才可编译运行。
+
+## 下载
+
+```bash
+git init
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
+git sparse-checkout init --cone
+git sparse-checkout set code/Performance/ReasonableUsingSystemInterfaces
+git pull origin master
+```
