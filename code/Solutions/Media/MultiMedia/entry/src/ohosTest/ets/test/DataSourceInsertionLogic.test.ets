@@ -2729,3 +2729,176 @@ export default function DataSourceInsertionLogic(): void {
       LogicTestLog.number(name, 'subsequent append total', 18, source.totalCount());
       expect(source.totalCount()).assertEqual(18);
       LogicTestLog.value(name, 'append position', String('/logic/item-901'), String(source.getData(17).uri));
+      expect(source.getData(17).uri).assertEqual('/logic/item-901');
+      LogicTestLog.value(name, 'append notification order', String('add:16|add:17'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('add:16|add:17');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1244
+     * @tc.name MultiMedia_Insert_1244
+     * @tc.desc Insert with normalized splice position but notify the original position
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Insert_1244', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Insert_1244';
+      LogicTestLog.begin(name, 'length=16;index=18');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(16, 316, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      const inserted: MediaData = createMediaRows(1, 900, 3)[0];
+      source.addData(18, inserted);
+      LogicTestLog.number(name, 'insert total', 17, source.totalCount());
+      expect(source.totalCount()).assertEqual(17);
+      LogicTestLog.number(name, 'aliased length', 17, original.length);
+      expect(original.length).assertEqual(17);
+      LogicTestLog.value(name, 'inserted reference', String(true), String(source.getData(16) === inserted));
+      expect(source.getData(16) === inserted).assertEqual(true);
+      LogicTestLog.value(name, 'inserted URI', String('/logic/item-900'), String(source.getData(16).uri));
+      expect(source.getData(16).uri).assertEqual('/logic/item-900');
+      LogicTestLog.number(name, 'inserted type', 3, source.getData(16).fileType);
+      expect(source.getData(16).fileType).assertEqual(3);
+      LogicTestLog.number(name, 'inserted duration', 900900, source.getData(16).duration);
+      expect(source.getData(16).duration).assertEqual(900900);
+      LogicTestLog.number(name, 'inserted timestamp', 1700000900, source.getData(16).dateAdded);
+      expect(source.getData(16).dateAdded).assertEqual(1700000900);
+      const expected120: string =
+        '/logic/item-316|/logic/item-317|/logic/item-318|/logic/item-' +
+        '319|/logic/item-320|/logic/item-321|/logic/item-322|/logic/i' +
+        'tem-323|/logic/item-324|/logic/item-325|/logic/item-326|/log' +
+        'ic/item-327|/logic/item-328|/logic/item-329|/logic/item-330|' +
+        '/logic/item-331|/logic/item-900';
+      LogicTestLog.value(name, 'complete insertion order',
+        String(expected120),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected120);
+      LogicTestLog.value(name, 'original notified index', String('add:18'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('add:18');
+      source.pushData(createMediaRows(1, 901, 4)[0]);
+      LogicTestLog.number(name, 'subsequent append total', 18, source.totalCount());
+      expect(source.totalCount()).assertEqual(18);
+      LogicTestLog.value(name, 'append position', String('/logic/item-901'), String(source.getData(17).uri));
+      expect(source.getData(17).uri).assertEqual('/logic/item-901');
+      LogicTestLog.value(name, 'append notification order', String('add:18|add:17'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('add:18|add:17');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1248
+     * @tc.name MultiMedia_Insert_1248
+     * @tc.desc Insert with normalized splice position but notify the original position
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Insert_1248', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Insert_1248';
+      LogicTestLog.begin(name, 'length=16;index=Infinity');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(16, 316, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      const inserted: MediaData = createMediaRows(1, 900, 3)[0];
+      source.addData(Number.POSITIVE_INFINITY, inserted);
+      LogicTestLog.number(name, 'insert total', 17, source.totalCount());
+      expect(source.totalCount()).assertEqual(17);
+      LogicTestLog.number(name, 'aliased length', 17, original.length);
+      expect(original.length).assertEqual(17);
+      LogicTestLog.value(name, 'inserted reference', String(true), String(source.getData(16) === inserted));
+      expect(source.getData(16) === inserted).assertEqual(true);
+      LogicTestLog.value(name, 'inserted URI', String('/logic/item-900'), String(source.getData(16).uri));
+      expect(source.getData(16).uri).assertEqual('/logic/item-900');
+      LogicTestLog.number(name, 'inserted type', 3, source.getData(16).fileType);
+      expect(source.getData(16).fileType).assertEqual(3);
+      LogicTestLog.number(name, 'inserted duration', 900900, source.getData(16).duration);
+      expect(source.getData(16).duration).assertEqual(900900);
+      LogicTestLog.number(name, 'inserted timestamp', 1700000900, source.getData(16).dateAdded);
+      expect(source.getData(16).dateAdded).assertEqual(1700000900);
+      const expected127: string =
+        '/logic/item-316|/logic/item-317|/logic/item-318|/logic/item-' +
+        '319|/logic/item-320|/logic/item-321|/logic/item-322|/logic/i' +
+        'tem-323|/logic/item-324|/logic/item-325|/logic/item-326|/log' +
+        'ic/item-327|/logic/item-328|/logic/item-329|/logic/item-330|' +
+        '/logic/item-331|/logic/item-900';
+      LogicTestLog.value(name, 'complete insertion order',
+        String(expected127),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected127);
+      LogicTestLog.value(name, 'original notified index', String('add:Infinity'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('add:Infinity');
+      source.pushData(createMediaRows(1, 901, 4)[0]);
+      LogicTestLog.number(name, 'subsequent append total', 18, source.totalCount());
+      expect(source.totalCount()).assertEqual(18);
+      LogicTestLog.value(name, 'append position', String('/logic/item-901'), String(source.getData(17).uri));
+      expect(source.getData(17).uri).assertEqual('/logic/item-901');
+      LogicTestLog.value(name, 'append notification order',
+        String('add:Infinity|add:17'),
+        String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('add:Infinity|add:17');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1252
+     * @tc.name MultiMedia_Insert_1252
+     * @tc.desc Insert with normalized splice position but notify the original position
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Insert_1252', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Insert_1252';
+      LogicTestLog.begin(name, 'length=16;index=NaN');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(16, 316, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      const inserted: MediaData = createMediaRows(1, 900, 3)[0];
+      source.addData(Number.NaN, inserted);
+      LogicTestLog.number(name, 'insert total', 17, source.totalCount());
+      expect(source.totalCount()).assertEqual(17);
+      LogicTestLog.number(name, 'aliased length', 17, original.length);
+      expect(original.length).assertEqual(17);
+      LogicTestLog.value(name, 'inserted reference', String(true), String(source.getData(0) === inserted));
+      expect(source.getData(0) === inserted).assertEqual(true);
+      LogicTestLog.value(name, 'inserted URI', String('/logic/item-900'), String(source.getData(0).uri));
+      expect(source.getData(0).uri).assertEqual('/logic/item-900');
+      LogicTestLog.number(name, 'inserted type', 3, source.getData(0).fileType);
+      expect(source.getData(0).fileType).assertEqual(3);
+      LogicTestLog.number(name, 'inserted duration', 900900, source.getData(0).duration);
+      expect(source.getData(0).duration).assertEqual(900900);
+      LogicTestLog.number(name, 'inserted timestamp', 1700000900, source.getData(0).dateAdded);
+      expect(source.getData(0).dateAdded).assertEqual(1700000900);
+      const expected134: string =
+        '/logic/item-900|/logic/item-316|/logic/item-317|/logic/item-' +
+        '318|/logic/item-319|/logic/item-320|/logic/item-321|/logic/i' +
+        'tem-322|/logic/item-323|/logic/item-324|/logic/item-325|/log' +
+        'ic/item-326|/logic/item-327|/logic/item-328|/logic/item-329|' +
+        '/logic/item-330|/logic/item-331';
+      LogicTestLog.value(name, 'complete insertion order',
+        String(expected134),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected134);
+      LogicTestLog.value(name, 'original notified index', String('add:NaN'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('add:NaN');
+      source.pushData(createMediaRows(1, 901, 4)[0]);
+      LogicTestLog.number(name, 'subsequent append total', 18, source.totalCount());
+      expect(source.totalCount()).assertEqual(18);
+      LogicTestLog.value(name, 'append position', String('/logic/item-901'), String(source.getData(17).uri));
+      expect(source.getData(17).uri).assertEqual('/logic/item-901');
+      LogicTestLog.value(name, 'append notification order',
+        String('add:NaN|add:17'),
+        String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('add:NaN|add:17');
+      LogicTestLog.end(name);
+    });
+  });
+}
