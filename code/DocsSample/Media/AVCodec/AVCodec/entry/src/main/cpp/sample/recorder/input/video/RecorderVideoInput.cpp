@@ -40,7 +40,7 @@ uint64_t Recorder::GetCameraInputSurfaceId() const
     return id;
 }
 // [Start recorder_buffer_input_first]
-//  获取首帧视频宽跨距和高跨距。
+// 获取首帧视频宽跨距和高跨距。
 bool Recorder::InitSyncVideoInputContext()
 {
     if (!encContext_->isEncFirstFrame) {
@@ -242,7 +242,7 @@ void Recorder::VideoEncInputAsyncThread()
          * }
          */
         // [End recorder_video_buffer_input_async]
-        if (!SubmitVideoInputImage(image.get(), *input, state, receivedAtUs)) {
+        if (!SubmitVideoInputImage(image.get(), *bufferInfo, state, receivedAtUs)) {
             break;
         }
     }
