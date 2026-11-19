@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { UIContext } from '@kit.ArkUI';
+import type { UIContext } from '@kit.ArkUI';
 
 /** Collect on the UI thread; returns copied JSON or throws an error with a numeric code. */
 export const getPageText: (context: UIContext) => string;

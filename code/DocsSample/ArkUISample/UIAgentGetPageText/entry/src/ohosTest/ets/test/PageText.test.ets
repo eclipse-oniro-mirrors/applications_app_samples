@@ -12,7 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect, beforeAll } from '@ohos/hypium';
+import { describe, it, expect, beforeAll, beforeEach, afterEach } from '@ohos/hypium';
+import type { UIAbility } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
 import type { Component as TestComponent } from '@kit.TestKit';
@@ -32,11 +33,51 @@ function assertContent(contents: string[], target: string, expected: boolean, la
 export default function pageTextTest(): void {
   describe('UIAgentGetPageText', (): void => {
     const driver: Driver = Driver.create();
+    let originalText: string = '';
 
     const click: (id: string) => Promise<void> = async (id: string): Promise<void> => {
       const component: TestComponent = await driver.findComponent(ON.id(id));
       await component.click();
       await driver.delayMs(500);
+    };
+
+    const restoreSamplePage: (phase: string) => Promise<void> = async (phase: string): Promise<void> => {
+      hilog.info(DOMAIN, TAG, 'restoreSamplePage phase=%{public}s begin', phase);
+      const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+      const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
+      await delegator.startAbility({ bundleName: bundleName, abilityName: 'EntryAbility' });
+      await driver.delayMs(500);
+
+      // A failed collection assertion may leave the result component visible.
+      const backButtons: TestComponent[] | null = await driver.findComponents(ON.id('backToSample'));
+      if (backButtons !== null && backButtons.length > 0) {
+        await click('backToSample');
+      }
+      const input: TestComponent = await driver.findComponent(ON.id('sampleInput'));
+      await input.clearText();
+      await input.click();
+      await driver.delayMs(300);
+      await driver.pressBack();
+      // Without a soft keyboard, Back can leave the ability; bring it to the foreground again.
+      await delegator.startAbility({ bundleName: bundleName, abilityName: 'EntryAbility' });
+      await driver.delayMs(500);
+
+      const sample: TestComponent = await driver.findComponent(ON.id('sampleText'));
+      const currentText: string = await sample.getText();
+      if (currentText !== originalText) {
+        await click('updateText');
+      }
+      const restoredInput: TestComponent = await driver.findComponent(ON.id('sampleInput'));
+      const restoredInputText: string = await restoredInput.getText();
+      hilog.info(DOMAIN, TAG, 'phase=%{public}s inputLength=%{public}d expected=0', phase, restoredInputText.length);
+      expect(restoredInputText.length).assertEqual(0);
+      const restoredSample: TestComponent = await driver.findComponent(ON.id('sampleText'));
+      const restoredText: string = await restoredSample.getText();
+      const originalRestored: boolean = restoredText === originalText;
+      hilog.info(DOMAIN, TAG, 'phase=%{public}s originalRestored=%{public}s expected=true',
+        phase, String(originalRestored));
+      expect(originalRestored).assertTrue();
+      hilog.info(DOMAIN, TAG, 'restoreSamplePage phase=%{public}s end', phase);
     };
 
     const collect: () => Promise<string[]> = async (): Promise<string[]> => {
@@ -59,12 +100,12 @@ export default function pageTextTest(): void {
         for (let coordinateIndex: number = 0; coordinateIndex < item.rect.length; coordinateIndex++) {
           const coordinate: number = item.rect[coordinateIndex];
           const finite: boolean = Number.isFinite(coordinate);
-          hilog.info(DOMAIN, TAG, 'coordinate=%{public}f isFinite=%{public}s expected=true',
-            coordinate, String(finite));
+          hilog.info(DOMAIN, TAG, 'coordinate=%{public}s isFinite=%{public}s expected=true',
+            String(coordinate), String(finite));
           expect(finite).assertTrue();
         }
-        hilog.info(DOMAIN, TAG, 'width=%{public}f height=%{public}f expectedNonNegative=true',
-          item.rect[2], item.rect[3]);
+        hilog.info(DOMAIN, TAG, 'width=%{public}s height=%{public}s expectedNonNegative=true',
+          String(item.rect[2]), String(item.rect[3]));
         expect(item.rect[2] >= 0 && item.rect[3] >= 0).assertTrue();
       }
       await click('backToSample');
@@ -76,6 +117,17 @@ export default function pageTextTest(): void {
       const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
       await delegator.startAbility({ bundleName: bundleName, abilityName: 'EntryAbility' });
       await driver.delayMs(1000);
+      const ability: UIAbility = await delegator.getCurrentTopAbility();
+      originalText = ability.context.resourceManager.getStringByNameSync('original_text');
+    });
+
+    beforeEach(async (): Promise<void> => {
+      // Also recover a failed case when the runner skips its afterEach hook.
+      await restoreSamplePage('beforeEach');
+    });
+
+    afterEach(async (): Promise<void> => {
+      await restoreSamplePage('afterEach');
     });
 
     // Verify initial text, Unicode and the visible placeholder.
