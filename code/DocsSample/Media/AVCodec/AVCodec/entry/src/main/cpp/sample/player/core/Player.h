@@ -227,6 +227,7 @@ private:
     int32_t RebuildPlaybackForSeek(bool hadVideo, bool hadAudio, float speedSnapshot, int64_t targetUs,
         bool forwardSeek);
     void ResetReleasedPlaybackState();
+    // 调用方持有mutex_，与初始化、起播及前后台状态变更串行。
     void PauseForBackground();
     void ResumeFromBackground();
     bool CalculateSyncParameters(CodecBufferInfo& bufferInfo, int64_t framePosition, AvSyncDecision& decision);
@@ -252,6 +253,7 @@ private:
     std::atomic<bool> isAudioDone { false };
     std::atomic<bool> isVideoDone { false };
     std::atomic<bool> playbackFailed_ { false };
+    // 应用状态跨播放任务保留；原子写入先记录事件，持有mutex_后按最新状态执行策略。
     std::atomic<bool> appBackgrounded_ { false };
     std::atomic<bool> backgroundPlaybackEnabled_ { false };
     // 仅当后台播放关闭且播放器主动暂停时为true，用于区分用户暂停与后台暂停。

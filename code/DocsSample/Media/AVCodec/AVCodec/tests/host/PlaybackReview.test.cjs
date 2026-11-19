@@ -54,7 +54,8 @@ function audioFixture() {
   f.controller = new PlaybackAudioController(() => ({ showTextPickerDialog: options => f.dialogs.push(options),
     getPromptAction: () => ({ showToast: toast => f.toasts.push(toast) }) }), f.settings, () => false,
     key => key, () => { f.changes++; }, () => f.muted, value => { f.muted = value; },
-    () => 100, () => {}, () => f.session);
+    () => 100, () => {}, () => f.session,
+    async index => { f.selections.push(index); return true; });
   return f;
 }
 async function testAudioDialogOwnership() {

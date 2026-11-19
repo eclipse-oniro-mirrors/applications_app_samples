@@ -7,7 +7,7 @@
 | 检查项 | 结果 |
 |---|---|
 | 324条功能、兼容性、稳定性及新增回归用例 | Pass |
-| 17套Host回归及3组验证入口检查 | Pass |
+| 19套Host回归及3组验证入口检查 | Pass |
 | 23项Native宿主测试：Debug、Release | Pass |
 | ASan、UBSan：各5项Native定向测试 | Pass |
 | 播放流程、PiP、资源归属与EOS设备回归 | Pass |
@@ -18,7 +18,29 @@
 
 设备用例和逐项结果见[ohosTest.md](../ohosTest.md)。Host替身验证控制流程，设备测试覆盖实际系统接口和媒体链路；两者的验证范围分别保留。
 
+### 检视修复回归
+
+2026-11-19修复PR检视的5项问题：切轨期间控制命令丢失、异步起播覆盖后台事件、基准清理异常覆盖原异常，以及基准用例的日志和注释、常量和字符串规范。切轨通过`PlaybackCommandController`与Seek共用占用状态；等待期间保留最新倍速和温控策略，暂停与静音提示忙碌。停止使旧结果失效，并等待已提交的Native操作结束后再释放输入。
+
+Native保留跨播放任务的应用前后台状态，后台事件先写入原子状态，再持锁应用最新策略；启动解码器和音频渲染器时重新核对后台播放许可。应用已后台且未获许可时以暂停状态起播，不启动音频渲染器；返回前台或启用后台播放时只恢复后台自动暂停，保留用户手动暂停。
+
+轮询基准的finally只执行清理并记录失败，处理异常与清理失败同时发生时保留原处理异常；写入摘要和关闭文件也遵守同一规则。超时后仍等待Native完成通知，迟到回调只关闭一次输入。3条设备用例保留原名称，补齐注释、起止日志及断言前的实际值和预期值日志，等待时间与单位换算改用语义常量。
+
+| 验证范围 | 本轮结果与边界 |
+|---|---|
+| Host默认入口 | 19套业务回归及3组验证入口检查全部Pass。新增`PlaybackTrackSwitch.test.cjs`组合生产Flow、Command、Seek和Audio，覆盖切轨成功、失败、拒绝、等待Seek、停止及迟到结果；`PlaybackBenchmark.test.cjs`覆盖主失败叠加清理失败、仅清理失败、迟到回调，以及摘要写入和关闭双失败。 |
+| Native | 23项Debug、Release全量Pass，Release使用`-O2 -DNDEBUG`，失败检查负向控制按预期退出1。最后调整后台事件记录顺序后，`PlayerLifecycleIntegrationTest`再次通过Debug、Release、ASan和UBSan；覆盖排队起播、READY后起播、重播、前后台恢复、许可开关和手动暂停。Native使用OHOS接口替身。 |
+| CodeLinter与构建 | 245条存量结果、0条新增，基线未修改。SDK 26.0.0的HAP构建及签名Pass，保留存量ArkTS警告；最后代码版本也通过设备测试前的构建和签名。 |
+| 默认设备套件 | 13套、49/49 Pass，0失败、0错误、0忽略。 |
+| 显式轮询基准 | 空闲、播放、暂停3/3 Pass，断言参数日志正常。本轮仅执行1轮，不替换上表历史3轮、9项的性能记录。首次两次运行因素材未复制到目标文件位置而失败，改用绝对文件路径并校正属主后重跑通过。 |
+
+日志保存在本机`%TEMP%/codex-pr12197-fix-20261119/`：`host-final.log`、`native-debug.log`、`native-release.log`、`final-debug.log`、`final-release.log`、`final-address.log`、`final-undefined.log`、`lint-final.log`、`build.log`、`device-final.log`、`device-benchmark-final.log`和`device-benchmark-final-hilog.log`。默认设备套件与显式基准分别运行，测试结果及范围见[本轮测试记录](../ohosTest.md#pr检视修复回归)。
+
+本轮未重跑手工后台页面、系统PiP、GPU送显或录制EOS整链，未运行TSan，也未执行原告警平台复扫。历史设备Pass及宿主替身结果不作为这些场景的本轮设备结论。
+
 ### 告警修复与预览收尾
+
+该节及下方历史记录中的17套Host结果对应修复前的验证入口。新增的切轨和基准收尾回归已接入默认Host入口，当前共19套业务回归及3组验证入口检查，见[检视修复回归](#检视修复回归)。
 
 本次报告共28条。按报告位置完成27条修改：12条语义常量、7条SDK替身命名、1条C++缩进、1条finally异常控制和6条文档措辞。SDK替身使用项目函数名，汇编链接名保留系统符号，C链接及参数、返回类型不变。输入PCM块大小由采样率、声道数、S16LE样本宽度和20ms时长推导；中断与回调计数使用语义常量。
 
@@ -114,7 +136,7 @@ c++ -std=c++17 -O2 -Ientry/src/main/cpp tests/native/CaptureQueueBenchmark.cpp -
 
 `PlaybackPictureInPicture`补充后台开启、关闭、自动启动失败、清理未完成、创建或启动期间关闭、重复请求和播放代次变化。`PlaybackCommand`先复现页面状态滞后导致Native暂停被跳过，再检查Native状态控制、重复目标和停止阶段拒绝。`PlaybackControlFlow`直接组合真实Flow、Command、Seek检查各阶段权限；页面适配另检查AVSession目标命令和过期后台提示。
 
-`PlaybackContracts`使用SDK的TypeScript编译器检查只读消费接口和事件必需参数，运行时同时核对代次、活动源只读以及重播代次递增。它不能替代ArkTS构建；HAP构建负责验证平台类型限制和页面初始化。共有17套Host回归，验证入口另有进程运行器、Native构建参数和设备报告检查三组。
+`PlaybackContracts`使用SDK的TypeScript编译器检查只读消费接口和事件必需参数，运行时同时核对代次、活动源只读以及重播代次递增。它不能替代ArkTS构建；HAP构建负责验证平台类型限制和页面初始化。当前共有19套Host回归，验证入口另有进程运行器、Native构建参数和设备报告检查三组。
 
 各阶段的最新结果见本文开头的验证表。Host替身、默认Hypium和新增设备回归分别记录；故障注入、实际送显、播放流程迁移及EOS退出用例的设备结果均为Pass。
 

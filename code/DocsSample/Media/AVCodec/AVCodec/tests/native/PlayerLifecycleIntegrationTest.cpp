@@ -69,6 +69,7 @@ constexpr int AUDIO_SAMPLE_RATE = 48000;
 constexpr int AUDIO_CHANNEL_COUNT = 2;
 constexpr int64_t SOURCE_DURATION_US = 1000000;
 constexpr int64_t SEEK_POSITION_US = 200000;
+std::atomic<int> g_rendererStarts { 0 };
 }
 
 struct OH_AudioStreamBuilderStruct { };
@@ -109,6 +110,7 @@ OH_AudioStream_Result OH_AudioRenderer_Release(OH_AudioRenderer *value)
 }
 OH_AudioStream_Result OH_AudioRenderer_Start(OH_AudioRenderer *)
 {
+    ++g_rendererStarts;
     return AUDIOSTREAM_SUCCESS;
 }
 OH_AudioStream_Result OH_AudioRenderer_Stop(OH_AudioRenderer *)
@@ -359,6 +361,71 @@ void TestCommandStopOwnership()
     Require(!session.StopPending(), "!session.StopPending()");
     session.Finish();
 }
+
+// 排队期间的后台状态必须跨Init保留，后台起播不能提前启动renderer。
+void TestBackgroundQueuedStart()
+{
+    g_boundary = {};
+    g_rendererStarts = 0;
+    Completion done;
+    NativePlayerSession session;
+    auto info = Input(done);
+    session.player.SetBackgroundPlaybackEnabled(false);
+    Require(session.Begin(NativePlayerSession::Operation::START), "Begin queued startup");
+    session.player.SetAppBackground(true);
+    Require(StartPlayerPlayback(session, info, Completion::OnDone, &done) == 0, "Start queued playback");
+    session.Finish();
+    Require(session.player.GetState() == PLAYER_STATE_PAUSED, "Background startup remains paused");
+    Require(g_rendererStarts.load() == 0, "Background startup does not start the renderer");
+    session.player.SetAppBackground(false);
+    Require(session.player.GetState() == PLAYER_STATE_PLAYING, "Foreground resumes background startup");
+    Require(g_rendererStarts.load() == 1, "Foreground starts the renderer once");
+    Require(session.player.Stop() == 0, "Stop queued playback");
+    done.Wait();
+}
+
+void TestBackgroundReadyAndReplay()
+{
+    g_boundary = {};
+    Player player;
+    for (int iteration = 0; iteration < REPLAY_COUNT; ++iteration) {
+        Completion done;
+        auto info = Input(done);
+        Require(player.Init(info) == 0, "Initialize playback for background policy");
+        player.SetAppBackground(false);
+        player.SetAppBackground(true);
+        g_rendererStarts = 0;
+        Require(player.Start() == 0, "Start background playback in READY state");
+        Require(player.GetState() == PLAYER_STATE_PAUSED, "Background playback remains paused");
+        Require(g_rendererStarts.load() == 0, "No renderer start before background permission");
+        player.SetBackgroundPlaybackEnabled(true);
+        Require(player.GetState() == PLAYER_STATE_PLAYING, "Enabling background playback resumes");
+        player.SetBackgroundPlaybackEnabled(false);
+        Require(player.GetState() == PLAYER_STATE_PAUSED, "Disabling background playback pauses");
+        Require(player.Stop() == 0, "Stop background playback");
+        done.Wait();
+    }
+}
+
+void TestAllowedBackgroundStart()
+{
+    g_boundary = {};
+    Completion done;
+    Player player;
+    auto info = Input(done);
+    player.SetAppBackground(true);
+    player.SetBackgroundPlaybackEnabled(true);
+    Require(player.Init(info) == 0, "Initialize allowed background playback");
+    g_rendererStarts = 0;
+    Require(player.Start() == 0, "Start allowed background playback");
+    Require(player.GetState() == PLAYER_STATE_PLAYING, "Allowed background startup plays");
+    Require(g_rendererStarts.load() == 1, "Allowed background startup starts the renderer once");
+    Require(player.Pause() == 0, "Pause playback manually");
+    player.SetAppBackground(false);
+    Require(player.GetState() == PLAYER_STATE_PAUSED, "Foreground preserves a manual pause");
+    Require(player.Stop() == 0, "Stop allowed background playback");
+    done.Wait();
+}
 }
 
 // 替换设备能力边界；Init、Start、Stop、Seek和Release编排链接生产实现。
@@ -573,5 +640,8 @@ int main()
     TestNaturalCompletionAndCleanupFailure();
     TestSeekAndTrackFailures();
     TestCommandStopOwnership();
+    TestBackgroundQueuedStart();
+    TestBackgroundReadyAndReplay();
+    TestAllowedBackgroundStart();
     std::cout << "Player production lifecycle integration passed" << std::endl;
 }

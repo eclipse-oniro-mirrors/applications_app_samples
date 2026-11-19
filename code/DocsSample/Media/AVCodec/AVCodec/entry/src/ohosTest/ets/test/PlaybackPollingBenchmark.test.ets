@@ -28,6 +28,11 @@ const TAG: string = '[Sample_AVCodec]';
 const SAMPLE_COUNT: number = 8;
 const POLL_INTERVAL_MS: number = 250;
 const BENCHMARK_SUITE: string = 'PlaybackPollingBenchmark';
+const BUNDLE: string = 'AVCodec_';
+const CLEANUP_TIMEOUT_MS: number = 1500;
+const WARMUP_COUNT: number = 4;
+const STARTUP_SETTLE_MS: number = 150;
+const NANOSECONDS_PER_MICROSECOND: number = 1000;
 
 interface PlaybackPollingSummary {
   mode: string;
@@ -40,7 +45,7 @@ interface PlaybackPollingSummary {
 }
 
 function nowUs(): number {
-  return systemDateTime.getUptime(systemDateTime.TimeType.ACTIVE, true) / 1000;
+  return systemDateTime.getUptime(systemDateTime.TimeType.ACTIVE, true) / NANOSECONDS_PER_MICROSECOND;
 }
 
 function delay(ms: number): Promise<void> {
@@ -97,7 +102,7 @@ class BenchmarkPlayback {
     this.closeRequested = true;
     if (!this.submitted || this.finished) { this.closeInput(); return; }
     player.stop();
-    await Promise.race([this.completion, delay(1500)]);
+    await Promise.race([this.completion, delay(CLEANUP_TIMEOUT_MS)]);
     if (!this.finished) { throw new Error('Benchmark playback cleanup is still pending'); }
   }
 
@@ -115,7 +120,7 @@ async function measure(mode: string): Promise<PlaybackPollingSummary> {
   const model: PlaybackViewModel = new PlaybackViewModel();
   const reads: number[] = [];
   const updates: number[] = [];
-  for (let warmup: number = 0; warmup < 4; ++warmup) { model.update(); }
+  for (let warmup: number = 0; warmup < WARMUP_COUNT; ++warmup) { model.update(); }
   let characters: number = 0;
   for (let sample: number = 0; sample < SAMPLE_COUNT; ++sample) {
     await delay(POLL_INTERVAL_MS);
@@ -135,54 +140,94 @@ async function measure(mode: string): Promise<PlaybackPollingSummary> {
 function saveSummary(cacheDir: string, summary: PlaybackPollingSummary): void {
   const text: string = JSON.stringify(summary);
   hilog.info(DOMAIN, TAG, 'Polling benchmark: %{public}s', text);
-  const output: fileIo.File = fileIo.openSync(cacheDir + '/polling-' + summary.mode + '.json',
+  const output: fileIo.File = fileIo.openSync(`${cacheDir}/polling-${summary.mode}.json`,
     fileIo.OpenMode.CREATE | fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC);
-  try { fileIo.writeSync(output.fd, text); } finally { fileIo.closeSync(output); }
+  let closeFailure: Error | undefined = undefined;
+  try {
+    fileIo.writeSync(output.fd, text);
+  } finally {
+    try { fileIo.closeSync(output); } catch (error) {
+      closeFailure = error as Error;
+      hilog.error(DOMAIN, TAG, 'Close benchmark summary failed: %{public}s', String(error));
+    }
+  }
+  if (closeFailure !== undefined) { throw closeFailure; }
 }
 
-async function runBenchmark(mode: string): Promise<void> {
-  const context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+function assertState(caseName: string, stage: string, expected: number): void {
+  const actual: number = player.getState();
+  hilog.info(DOMAIN, TAG, '%{public}s %{public}s state=%{public}d expected=%{public}d',
+    caseName, stage, actual, expected);
+  expect(actual).assertEqual(expected);
+}
+
+async function preparePlayback(caseName: string, cacheDir: string, mode: string,
+  playback: BenchmarkPlayback): Promise<void> {
+  if (mode === 'idle') { return; }
+  const started: boolean = playback.start(`${cacheDir}/polling-fixture.m4a`);
+  hilog.info(DOMAIN, TAG, '%{public}s startup started=%{public}s expected=true', caseName, String(started));
+  expect(started).assertTrue();
+  await delay(STARTUP_SETTLE_MS);
+  assertState(caseName, 'startup', player.PlayerState.PLAYING);
+  if (mode === 'paused') {
+    const paused: boolean = player.pause();
+    hilog.info(DOMAIN, TAG, '%{public}s pause result=%{public}s expected=true', caseName, String(paused));
+    expect(paused).assertTrue();
+  }
+}
+
+function assertSummary(caseName: string, mode: string, summary: PlaybackPollingSummary): void {
+  hilog.info(DOMAIN, TAG, '%{public}s samples=%{public}d expected=%{public}d', caseName, summary.samples, SAMPLE_COUNT);
+  expect(summary.samples).assertEqual(SAMPLE_COUNT);
+  const finite: boolean = Number.isFinite(summary.updateMeanUs);
+  hilog.info(DOMAIN, TAG, '%{public}s updateMeanUs=%{public}s finite=%{public}s expected=true',
+    caseName, String(summary.updateMeanUs), String(finite));
+  expect(finite).assertTrue();
+  const expectedState: number = mode === 'idle' ? player.PlayerState.IDLE :
+    mode === 'paused' ? player.PlayerState.PAUSED : player.PlayerState.PLAYING;
+  assertState(caseName, 'completed', expectedState);
+}
+
+async function runBenchmark(caseName: string, mode: string): Promise<void> {
+  const cacheDir: string = abilityDelegatorRegistry.getAbilityDelegator().getAppContext().cacheDir;
   const playback: BenchmarkPlayback = new BenchmarkPlayback();
-  hilog.info(DOMAIN, TAG, 'Polling parameters: mode=%{public}s samples=%{public}d intervalMs=%{public}d',
-    mode, SAMPLE_COUNT, POLL_INTERVAL_MS);
-  expect(player.getState()).assertEqual(player.PlayerState.IDLE);
+  let cleanupFailure: Error | undefined = undefined;
+  hilog.info(DOMAIN, TAG, '%{public}s mode=%{public}s samples=%{public}d intervalMs=%{public}d',
+    caseName, mode, SAMPLE_COUNT, POLL_INTERVAL_MS);
+  assertState(caseName, 'initial', player.PlayerState.IDLE);
   try {
-    if (mode !== 'idle') {
-      const started: boolean = playback.start(context.cacheDir + '/polling-fixture.m4a');
-      const state: number = player.getState();
-      hilog.info(DOMAIN, TAG, 'Polling startup: started=%{public}s state=%{public}d',
-        String(started), state);
-      expect(started).assertTrue();
-      await delay(150);
-      expect(player.getState()).assertEqual(player.PlayerState.PLAYING);
-      if (mode === 'paused') { expect(player.pause()).assertTrue(); }
-    }
+    await preparePlayback(caseName, cacheDir, mode, playback);
     const summary: PlaybackPollingSummary = await measure(mode);
-    saveSummary(context.cacheDir, summary);
-    expect(summary.samples).assertEqual(SAMPLE_COUNT);
-    expect(Number.isFinite(summary.updateMeanUs)).assertTrue();
-    const expectedState: number = mode === 'idle' ? player.PlayerState.IDLE :
-      mode === 'paused' ? player.PlayerState.PAUSED : player.PlayerState.PLAYING;
-    expect(player.getState()).assertEqual(expectedState);
-  } finally { await playback.stopAndClose(); }
+    saveSummary(cacheDir, summary);
+    assertSummary(caseName, mode, summary);
+  } finally {
+    try { await playback.stopAndClose(); } catch (error) {
+      cleanupFailure = error as Error;
+      hilog.error(DOMAIN, TAG, '%{public}s cleanup failed: %{public}s', caseName, String(error));
+    }
+  }
+  if (cleanupFailure !== undefined) { throw cleanupFailure; }
 }
 
 export default function playbackPollingBenchmarkTest(): void {
   if (!isBenchmarkSelected()) { return; }
   describe(BENCHMARK_SUITE, (): void => {
-    it('AVCodec_Polling_Idle_001', 0, async (): Promise<void> => {
-      await runAsyncTestCase('AVCodec_Polling_Idle_001', async (): Promise<void> => {
-        await runBenchmark('idle');
+    // 无播放任务时测量轮询，不打开外部素材。
+    it(`${BUNDLE}Polling_Idle_001`, 0, async (): Promise<void> => {
+      await runAsyncTestCase(`${BUNDLE}Polling_Idle_001`, async (): Promise<void> => {
+        await runBenchmark(`${BUNDLE}Polling_Idle_001`, 'idle');
       });
     });
-    it('AVCodec_Polling_Playing_002', 0, async (): Promise<void> => {
-      await runAsyncTestCase('AVCodec_Polling_Playing_002', async (): Promise<void> => {
-        await runBenchmark('playing');
+    // cacheDir中已有音频素材，保持播放并测量轮询。
+    it(`${BUNDLE}Polling_Playing_002`, 0, async (): Promise<void> => {
+      await runAsyncTestCase(`${BUNDLE}Polling_Playing_002`, async (): Promise<void> => {
+        await runBenchmark(`${BUNDLE}Polling_Playing_002`, 'playing');
       });
     });
-    it('AVCodec_Polling_Paused_003', 0, async (): Promise<void> => {
-      await runAsyncTestCase('AVCodec_Polling_Paused_003', async (): Promise<void> => {
-        await runBenchmark('paused');
+    // cacheDir中已有音频素材，起播后暂停并测量轮询。
+    it(`${BUNDLE}Polling_Paused_003`, 0, async (): Promise<void> => {
+      await runAsyncTestCase(`${BUNDLE}Polling_Paused_003`, async (): Promise<void> => {
+        await runBenchmark(`${BUNDLE}Polling_Paused_003`, 'paused');
       });
     });
   });

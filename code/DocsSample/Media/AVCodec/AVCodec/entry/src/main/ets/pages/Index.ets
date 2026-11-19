@@ -183,7 +183,9 @@ export struct Player {
     (): number => this.volumeBeforeMute,
     (volume: number): void => { this.volumeBeforeMute = volume; },
     (): number => this.pageActive && this.playbackFlowState.canControl ?
-      this.playbackFlowState.session : -1);
+      this.playbackFlowState.session : -1,
+    (index: number): Promise<boolean> => this.playbackCommands.selectTrack(
+      (): Promise<boolean> => player.selectAudioTrackAsync(index)));
   private playbackAbLoop: PlaybackAbLoopController = new PlaybackAbLoopController(
     this.playbackViewModel,
     this.seekRequests,

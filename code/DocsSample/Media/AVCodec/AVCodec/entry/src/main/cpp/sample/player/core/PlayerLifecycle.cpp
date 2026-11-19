@@ -276,7 +276,6 @@ void Player::ResetPlaybackState()
     audioCallbackContext_.interruptCount = 0;
     audioCallbackContext_.interruptHint = AUDIOSTREAM_INTERRUPT_HINT_NONE;
     audioCallbackContext_.ducked = false;
-    appBackgrounded_ = false;
     backgroundPausedPlayback_ = false;
     hasDecodedOutput_ = false;
     stopRequested_ = false;
@@ -610,6 +609,8 @@ int32_t Player::Start()
         isVideoDone = videoDecContext_ == nullptr;
     }
     isStarted_ = true;
+    paused_ = appBackgrounded_.load() && !backgroundPlaybackEnabled_.load();
+    backgroundPausedPlayback_ = paused_.load();
     audioWorkerRunning_ = audioDecContext_ != nullptr;
     bool videoStarted = false;
     const int32_t ret = StartPlaybackDecoders(videoStarted);
@@ -620,6 +621,10 @@ int32_t Player::Start()
     }
     CHECK_AND_RETURN_RET_LOG(stateMachine_.BeginPlayback(), AVCODEC_SAMPLE_ERR_ERROR,
         "Failed to enter playing state");
+    if (backgroundPausedPlayback_.load()) {
+        stateMachine_.BeginPause();
+        diagnostics_.SetBackgroundPaused(true);
+    }
     AVCODEC_SAMPLE_LOGI("Player started successfully");
     StartRelease();
     return AVCODEC_SAMPLE_ERR_OK;
@@ -647,8 +652,13 @@ int32_t Player::StartPlaybackDecoders(bool &videoStarted)
     if (ret != AVCODEC_SAMPLE_ERR_OK) {
         return ret;
     }
+    if (appBackgrounded_.load() && !backgroundPlaybackEnabled_.load()) {
+        paused_ = true;
+        backgroundPausedPlayback_ = true;
+    }
     std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
-    if (audioRenderer_ != nullptr && OH_AudioRenderer_Start(audioRenderer_) != AUDIOSTREAM_SUCCESS) {
+    if (!paused_.load() && audioRenderer_ != nullptr &&
+        OH_AudioRenderer_Start(audioRenderer_) != AUDIOSTREAM_SUCCESS) {
         AVCODEC_SAMPLE_LOGE("Start audio renderer failed");
         return AVCODEC_SAMPLE_ERR_ERROR;
     }

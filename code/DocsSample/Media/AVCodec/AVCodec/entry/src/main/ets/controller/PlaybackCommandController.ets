@@ -77,12 +77,29 @@ export class PlaybackCommandController {
     return result;
   }
 
-  // Seek期间只更新期望倍速，最后一次有效Seek结束后再应用。
+  // 切轨与Seek期间只更新期望倍速，最后一次有效操作结束后再应用。
   setSpeed(speed: number): void {
     if (!this.canControl() || !Number.isFinite(speed) || speed <= 0) { return; }
     this.state.setRequestedSpeed(speed);
     if (!this.seeks.isBusy()) { this.runtime.setSpeed(speed); }
     this.host.onEvent({ type: 'updated' });
+  }
+
+  // 回调立即提交Native切轨，Promise完成前与Seek和暂停命令互斥。
+  async selectTrack(execute: () => Promise<boolean>): Promise<boolean> {
+    if (!this.canControl()) { return false; }
+    if (this.seeks.isBusy()) { this.host.onEvent({ type: 'busy' }); return false; }
+    const session: number = this.state.session;
+    const revision: number = this.state.commandRevision;
+    const success: boolean = await this.seeks.runExclusive(execute);
+    if (session !== this.state.session || revision !== this.state.commandRevision || !this.canControl()) {
+      return false;
+    }
+    if (!this.seeks.isBusy()) {
+      this.runtime.restoreAfterSeek(this.state.requestedSpeed, this.host.getSnapshot().thermalWarning);
+    }
+    this.host.onEvent({ type: 'updated' });
+    return success;
   }
 
   // 暂停和继续共用Seek互斥规则，提示资源由页面处理。

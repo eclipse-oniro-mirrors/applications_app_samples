@@ -2539,3 +2539,9 @@ Player owns one audio callback context until the renderer is released and worker
 ### Merge regression fixes
 
 The asynchronous video input worker checks and submits the same callback Buffer. The index-based audio output release delegates to the existing checked release path. Muxer keeps its existing release behavior: call Destroy, clear the handle and return success. The audio output example loads its atomic frame counter before logging. Native regression tests exercise the production implementations; see [merge verification](tests/README.md#合并回归验证) for results and device coverage.
+
+### Asynchronous playback controls and benchmark cleanup
+
+Track switching and Seek share the same operation gate. Pause and mute report busy during a track switch; speed changes update the requested value and apply after the current operation finishes. A queued Seek then follows the existing queue rules. Stop invalidates results and waits for submitted work, so an old completion cannot update the next playback session.
+
+Application foreground state survives playback initialization and uses the same mutex as startup. When background playback is disabled, starting in the background keeps playback paused without starting the audio renderer; returning to the foreground resumes it. Explicit background playback and manual pause retain their separate behavior. The polling benchmark preserves the processing error when cleanup also fails, logs the cleanup result and retains its input until Native completion. See [review regression coverage](tests/README.md#检视修复回归).

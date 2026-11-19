@@ -206,26 +206,16 @@ int32_t Player::Resume()
 void Player::SetBackgroundPlaybackEnabled(bool enabled)
 {
     backgroundPlaybackEnabled_ = enabled;
-    if (!enabled || !appBackgrounded_.load() || !backgroundPausedPlayback_.load()) {
-        return;
-    }
     std::lock_guard<std::mutex> lock(mutex_);
-    if (stateMachine_.GetState() != PLAYER_STATE_PAUSED) {
+    if (!appBackgrounded_.load()) {
         return;
     }
-    {
-        std::lock_guard<std::mutex> rendererLock(audioRendererMutex_);
-        if (audioRenderer_ != nullptr && OH_AudioRenderer_Start(audioRenderer_) != AUDIOSTREAM_SUCCESS) {
-            AVCODEC_SAMPLE_LOGW("Resume audio renderer after enabling background playback failed");
-            return;
-        }
+    if (!backgroundPlaybackEnabled_.load()) {
+        PauseForBackground();
+    } else if (backgroundPausedPlayback_.load()) {
+        ResumeFromBackground();
     }
-    if (stateMachine_.BeginResume()) {
-        paused_ = false;
-        backgroundPausedPlayback_ = false;
-        diagnostics_.SetBackgroundPaused(false);
-        NotifyPlaybackTimingChanged();
-    }
+    NotifyPlaybackTimingChanged();
 }
 
 void Player::PauseForBackground()
@@ -233,7 +223,6 @@ void Player::PauseForBackground()
     if (backgroundPlaybackEnabled_.load()) {
         return;
     }
-    std::lock_guard<std::mutex> lock(mutex_);
     if (stateMachine_.GetState() != PLAYER_STATE_PLAYING) {
         return;
     }
@@ -256,7 +245,6 @@ void Player::PauseForBackground()
 
 void Player::ResumeFromBackground()
 {
-    std::lock_guard<std::mutex> lock(mutex_);
     if (stateMachine_.GetState() != PLAYER_STATE_PAUSED) {
         backgroundPausedPlayback_ = false;
         diagnostics_.SetBackgroundPaused(false);
@@ -277,7 +265,8 @@ void Player::ResumeFromBackground()
 void Player::SetAppBackground(bool background)
 {
     appBackgrounded_ = background;
-    if (background) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    if (appBackgrounded_.load()) {
         PauseForBackground();
     } else if (backgroundPausedPlayback_.load()) {
         ResumeFromBackground();

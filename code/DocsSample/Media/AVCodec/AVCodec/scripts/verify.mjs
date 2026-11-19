@@ -114,7 +114,7 @@ async function host() {
     'PlaybackFlow', 'PlaybackQueueState', 'PlaybackCommand', 'PlaybackOrdering', 'PlaybackHistoryCoordinator',
     'PlaybackSourceFlow', 'PlaybackPageLifecycle', 'PlaybackPictureInPicture', 'PlaybackControlFlow',
     'PlaybackContracts',
-    'RecordingPageLifecycle', 'RecordingPersistence', 'PlaybackReview']) {
+    'RecordingPageLifecycle', 'RecordingPersistence', 'PlaybackReview', 'PlaybackTrackSwitch', 'PlaybackBenchmark']) {
     await run(process.execPath, ['tests/host/' + file + '.test.cjs', compiler], 'host-' + file, testTimeoutMs);
   }
   await run(process.execPath, ['tests/host/VerificationRunner.test.mjs'], 'host-VerificationRunner', testTimeoutMs);
