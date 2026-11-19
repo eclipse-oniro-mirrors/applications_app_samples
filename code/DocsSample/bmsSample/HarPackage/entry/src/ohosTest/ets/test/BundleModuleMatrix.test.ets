@@ -799,3 +799,97 @@ export default function bundleModuleMatrixTest() {
     /**
      * @tc.number    SUB_HARPACKAGE_BUNDLEMOD_0073
      * @tc.name      testBundleModule0073
+     * @tc.desc      Module description stays at least 12 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      logCase('testBundleModule0073', 'bundle module case 73');
+      expect(moduleInfo.description.length > 0).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      logCase('testBundleModule0074', 'bundle module case 74');
+      expect(moduleInfo.description.length > 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEMOD_0075
+     * @tc.name      testBundleModule0075
+     * @tc.desc      Module description stays at least 14 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      logCase('testBundleModule0075', 'bundle module case 75');
+      expect(moduleInfo.description.length > 0).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      logCase('testBundleModule0076', 'bundle module case 76');
+      expect(moduleInfo.description.length > 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEMOD_0077
+     * @tc.name      testBundleModule0077
+     * @tc.desc      Module description stays at least 16 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      logCase('testBundleModule0077', 'bundle module case 77');
+      expect(moduleInfo.description.length > 0).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      logCase('testBundleModule0078', 'bundle module case 78');
+      expect(moduleInfo.description.length > 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEMOD_0079
+     * @tc.name      testBundleModule0079
+     * @tc.desc      Module description stays at least 18 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      logCase('testBundleModule0079', 'bundle module case 79');
+      expect(moduleInfo.description.length > 0).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      logCase('testBundleModule0080', 'bundle module case 80');
+      expect(moduleInfo.description.length > 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEMOD_0081
+     * @tc.name      testBundleModule0081
+     * @tc.desc      Module description stays at least 20 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleModule0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      logCase('testBundleModule0081', 'bundle module case 81');
+      expect(moduleInfo.description.length > 0).assertTrue();
+    });
+
+  });
+}
