@@ -463,349 +463,18 @@ class ShareDialogLifecycleTrack11 {
     this.seen = [];
   }
 }
-class ShareDialogLifecycleMap12 {
-  private values: Map<string, number> = new Map<string, number>();
-
-  public add(key: string, value: number): boolean {
-    if (key.length === 0) {
-      return false;
-    }
-    this.values.set(key, value);
-    return true;
-  }
-
-  public get(key: string): number {
-    return this.values.get(key) ?? 0;
-  }
-
-  public size(): number {
-    return this.values.size;
-  }
-
-  public total(): number {
-    let sum: number = 0;
-    this.values.forEach((value: number) => {
-      sum += value;
-    });
-    return sum;
-  }
-}
-class ShareDialogLifecycleQueue13 {
-  private items: string[] = [];
-
-  public push(item: string): void {
-    this.items.push(item);
-  }
-
-  public shift(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items.shift() ?? '';
-  }
-
-  public peek(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items[0];
-  }
-
-  public size(): number {
-    return this.items.length;
-  }
-
-  public isEmpty(): boolean {
-    return this.items.length === 0;
-  }
-}
-class ShareDialogLifecycleCheck14 {
-  private limit: number;
-
-  constructor(limit: number = 10) {
-    this.limit = limit;
-  }
-
-  public within(value: number): boolean {
-    return value >= 0 && value <= this.limit;
-  }
-
-  public nonEmpty(value: string): boolean {
-    return value.length > 0;
-  }
-
-  public rate(valid: number, total: number): number {
-    if (total === 0) {
-      return 0;
-    }
-    return valid / total;
-  }
-}
-class ShareDialogLifecycleTrack15 {
-  private seen: string[] = [];
-
-  public mark(key: string): boolean {
-    if (this.seen.indexOf(key) >= 0) {
-      return false;
-    }
-    this.seen.push(key);
-    return true;
-  }
-
-  public has(key: string): boolean {
-    return this.seen.indexOf(key) >= 0;
-  }
-
-  public size(): number {
-    return this.seen.length;
-  }
-
-  public reset(): void {
-    this.seen = [];
-  }
-}
-class ShareDialogLifecycleMap16 {
-  private values: Map<string, number> = new Map<string, number>();
-
-  public add(key: string, value: number): boolean {
-    if (key.length === 0) {
-      return false;
-    }
-    this.values.set(key, value);
-    return true;
-  }
-
-  public get(key: string): number {
-    return this.values.get(key) ?? 0;
-  }
-
-  public size(): number {
-    return this.values.size;
-  }
-
-  public total(): number {
-    let sum: number = 0;
-    this.values.forEach((value: number) => {
-      sum += value;
-    });
-    return sum;
-  }
-}
-class ShareDialogLifecycleQueue17 {
-  private items: string[] = [];
-
-  public push(item: string): void {
-    this.items.push(item);
-  }
-
-  public shift(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items.shift() ?? '';
-  }
-
-  public peek(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items[0];
-  }
-
-  public size(): number {
-    return this.items.length;
-  }
-
-  public isEmpty(): boolean {
-    return this.items.length === 0;
-  }
-}
-class ShareDialogLifecycleCheck18 {
-  private limit: number;
-
-  constructor(limit: number = 10) {
-    this.limit = limit;
-  }
-
-  public within(value: number): boolean {
-    return value >= 0 && value <= this.limit;
-  }
-
-  public nonEmpty(value: string): boolean {
-    return value.length > 0;
-  }
-
-  public rate(valid: number, total: number): number {
-    if (total === 0) {
-      return 0;
-    }
-    return valid / total;
-  }
-}
-class ShareDialogLifecycleTrack19 {
-  private seen: string[] = [];
-
-  public mark(key: string): boolean {
-    if (this.seen.indexOf(key) >= 0) {
-      return false;
-    }
-    this.seen.push(key);
-    return true;
-  }
-
-  public has(key: string): boolean {
-    return this.seen.indexOf(key) >= 0;
-  }
-
-  public size(): number {
-    return this.seen.length;
-  }
-
-  public reset(): void {
-    this.seen = [];
-  }
-}
-class ShareDialogLifecycleMap20 {
-  private values: Map<string, number> = new Map<string, number>();
-
-  public add(key: string, value: number): boolean {
-    if (key.length === 0) {
-      return false;
-    }
-    this.values.set(key, value);
-    return true;
-  }
-
-  public get(key: string): number {
-    return this.values.get(key) ?? 0;
-  }
-
-  public size(): number {
-    return this.values.size;
-  }
-
-  public total(): number {
-    let sum: number = 0;
-    this.values.forEach((value: number) => {
-      sum += value;
-    });
-    return sum;
-  }
-}
-class ShareDialogLifecycleQueue21 {
-  private items: string[] = [];
-
-  public push(item: string): void {
-    this.items.push(item);
-  }
-
-  public shift(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items.shift() ?? '';
-  }
-
-  public peek(): string {
-    if (this.items.length === 0) {
-      return '';
-    }
-    return this.items[0];
-  }
-
-  public size(): number {
-    return this.items.length;
-  }
-
-  public isEmpty(): boolean {
-    return this.items.length === 0;
-  }
-}
-class ShareDialogLifecycleCheck22 {
-  private limit: number;
-
-  constructor(limit: number = 10) {
-    this.limit = limit;
-  }
-
-  public within(value: number): boolean {
-    return value >= 0 && value <= this.limit;
-  }
-
-  public nonEmpty(value: string): boolean {
-    return value.length > 0;
-  }
-
-  public rate(valid: number, total: number): number {
-    if (total === 0) {
-      return 0;
-    }
-    return valid / total;
-  }
-}
-class ShareDialogLifecycleTrack23 {
-  private seen: string[] = [];
-
-  public mark(key: string): boolean {
-    if (this.seen.indexOf(key) >= 0) {
-      return false;
-    }
-    this.seen.push(key);
-    return true;
-  }
-
-  public has(key: string): boolean {
-    return this.seen.indexOf(key) >= 0;
-  }
-
-  public size(): number {
-    return this.seen.length;
-  }
-
-  public reset(): void {
-    this.seen = [];
-  }
-}
-class ShareDialogLifecycleMap24 {
-  private values: Map<string, number> = new Map<string, number>();
-
-  public add(key: string, value: number): boolean {
-    if (key.length === 0) {
-      return false;
-    }
-    this.values.set(key, value);
-    return true;
-  }
-
-  public get(key: string): number {
-    return this.values.get(key) ?? 0;
-  }
-
-  public size(): number {
-    return this.values.size;
-  }
-
-  public total(): number {
-    let sum: number = 0;
-    this.values.forEach((value: number) => {
-      sum += value;
-    });
-    return sum;
-  }
-}
 
 export default function shareDialogLifecycleTest() {
   describe('ShareDialogLifecycle_Test', () => {
-
     it('shareDialogLifecycleTest_share_registry_0', 0, async () => {
-      await yieldTick();
+      if (0 % 25 === 0) { await yieldTick(); }
       const registry = new ShareDialogLifecycleRegistry();
       expect(registry.register({ id: 0, label: 'share_0', kind: ShareDialogLifecycleKind.LINK, enabled: true })).assertTrue();
       expect(registry.contains(0)).assertTrue();
       expect(registry.size()).assertEqual(1);
     });
     it('shareDialogLifecycleTest_share_metrics_1', 0, async () => {
-      await yieldTick();
+      if (1 % 25 === 0) { await yieldTick(); }
       const metrics = new ShareDialogLifecycleMetrics();
       metrics.record('link', 2);
       metrics.record('file', 3);
@@ -814,7 +483,7 @@ export default function shareDialogLifecycleTest() {
       expect(metrics.distinct()).assertEqual(2);
     });
     it('shareDialogLifecycleTest_share_validate_2', 0, async () => {
-      await yieldTick();
+      if (2 % 25 === 0) { await yieldTick(); }
       const validator = new ShareDialogLifecycleValidator(8);
       expect(validator.validate('').ok).assertFalse();
       expect(validator.validate('share').ok).assertTrue();
@@ -822,7 +491,7 @@ export default function shareDialogLifecycleTest() {
       expect(validator.isUrl('https://example.com/share')).assertTrue();
     });
     it('shareDialogLifecycleTest_share_state_3', 0, async () => {
-      await yieldTick();
+      if (3 % 25 === 0) { await yieldTick(); }
       const machine = new ShareDialogLifecycleStateMachine();
       machine.transition(ShareDialogLifecycleState.READY);
       machine.transition(ShareDialogLifecycleState.RUNNING);
@@ -830,6 +499,136 @@ export default function shareDialogLifecycleTest() {
       expect(machine.current()).assertEqual(ShareDialogLifecycleState.RUNNING);
       machine.transition(ShareDialogLifecycleState.DONE);
       expect(machine.isTerminal()).assertTrue();
+    });
+    it('shareDialogLifecycleTest_share_render_budget_4', 0, async () => {
+      if (4 % 25 === 0) { await yieldTick(); }
+      expect(TIMEOUT_DIALOG_RENDER).assertLarger(0);
+      expect(TIMEOUT_DIALOG_RENDER >= 1000).assertTrue();
+      const budget: number = TIMEOUT_DIALOG_RENDER - 1000;
+      expect(budget >= 0).assertTrue();
+    });
+    it('shareDialogLifecycleTest_share_registry_5', 0, async () => {
+      if (5 % 25 === 0) { await yieldTick(); }
+      const registry = new ShareDialogLifecycleRegistry();
+      expect(registry.register({ id: 5, label: 'share_5', kind: ShareDialogLifecycleKind.LINK, enabled: true })).assertTrue();
+      expect(registry.contains(5)).assertTrue();
+      expect(registry.size()).assertEqual(1);
+    });
+    it('shareDialogLifecycleTest_share_metrics_6', 0, async () => {
+      if (6 % 25 === 0) { await yieldTick(); }
+      const metrics = new ShareDialogLifecycleMetrics();
+      metrics.record('link', 2);
+      metrics.record('file', 3);
+      expect(metrics.total()).assertEqual(5);
+      expect(metrics.count('link')).assertEqual(2);
+      expect(metrics.distinct()).assertEqual(2);
+    });
+    it('shareDialogLifecycleTest_share_validate_7', 0, async () => {
+      if (7 % 25 === 0) { await yieldTick(); }
+      const validator = new ShareDialogLifecycleValidator(8);
+      expect(validator.validate('').ok).assertFalse();
+      expect(validator.validate('share').ok).assertTrue();
+      expect(validator.validate('oversized').ok).assertFalse();
+      expect(validator.isUrl('https://example.com/share')).assertTrue();
+    });
+    it('shareDialogLifecycleTest_share_state_8', 0, async () => {
+      if (8 % 25 === 0) { await yieldTick(); }
+      const machine = new ShareDialogLifecycleStateMachine();
+      machine.transition(ShareDialogLifecycleState.READY);
+      machine.transition(ShareDialogLifecycleState.RUNNING);
+      expect(machine.count()).assertEqual(2);
+      expect(machine.current()).assertEqual(ShareDialogLifecycleState.RUNNING);
+      machine.transition(ShareDialogLifecycleState.DONE);
+      expect(machine.isTerminal()).assertTrue();
+    });
+    it('shareDialogLifecycleTest_share_render_budget_9', 0, async () => {
+      if (9 % 25 === 0) { await yieldTick(); }
+      expect(TIMEOUT_DIALOG_RENDER).assertLarger(0);
+      expect(TIMEOUT_DIALOG_RENDER >= 1000).assertTrue();
+      const budget: number = TIMEOUT_DIALOG_RENDER - 1000;
+      expect(budget >= 0).assertTrue();
+    });
+    it('shareDialogLifecycleTest_share_registry_10', 0, async () => {
+      if (10 % 25 === 0) { await yieldTick(); }
+      const registry = new ShareDialogLifecycleRegistry();
+      expect(registry.register({ id: 10, label: 'share_10', kind: ShareDialogLifecycleKind.LINK, enabled: true })).assertTrue();
+      expect(registry.contains(10)).assertTrue();
+      expect(registry.size()).assertEqual(1);
+    });
+    it('shareDialogLifecycleTest_share_metrics_11', 0, async () => {
+      if (11 % 25 === 0) { await yieldTick(); }
+      const metrics = new ShareDialogLifecycleMetrics();
+      metrics.record('link', 2);
+      metrics.record('file', 3);
+      expect(metrics.total()).assertEqual(5);
+      expect(metrics.count('link')).assertEqual(2);
+      expect(metrics.distinct()).assertEqual(2);
+    });
+    it('shareDialogLifecycleTest_share_validate_12', 0, async () => {
+      if (12 % 25 === 0) { await yieldTick(); }
+      const validator = new ShareDialogLifecycleValidator(8);
+      expect(validator.validate('').ok).assertFalse();
+      expect(validator.validate('share').ok).assertTrue();
+      expect(validator.validate('oversized').ok).assertFalse();
+      expect(validator.isUrl('https://example.com/share')).assertTrue();
+    });
+    it('shareDialogLifecycleTest_share_state_13', 0, async () => {
+      if (13 % 25 === 0) { await yieldTick(); }
+      const machine = new ShareDialogLifecycleStateMachine();
+      machine.transition(ShareDialogLifecycleState.READY);
+      machine.transition(ShareDialogLifecycleState.RUNNING);
+      expect(machine.count()).assertEqual(2);
+      expect(machine.current()).assertEqual(ShareDialogLifecycleState.RUNNING);
+      machine.transition(ShareDialogLifecycleState.DONE);
+      expect(machine.isTerminal()).assertTrue();
+    });
+    it('shareDialogLifecycleTest_share_render_budget_14', 0, async () => {
+      if (14 % 25 === 0) { await yieldTick(); }
+      expect(TIMEOUT_DIALOG_RENDER).assertLarger(0);
+      expect(TIMEOUT_DIALOG_RENDER >= 1000).assertTrue();
+      const budget: number = TIMEOUT_DIALOG_RENDER - 1000;
+      expect(budget >= 0).assertTrue();
+    });
+    it('shareDialogLifecycleTest_share_registry_15', 0, async () => {
+      if (15 % 25 === 0) { await yieldTick(); }
+      const registry = new ShareDialogLifecycleRegistry();
+      expect(registry.register({ id: 15, label: 'share_15', kind: ShareDialogLifecycleKind.LINK, enabled: true })).assertTrue();
+      expect(registry.contains(15)).assertTrue();
+      expect(registry.size()).assertEqual(1);
+    });
+    it('shareDialogLifecycleTest_share_metrics_16', 0, async () => {
+      if (16 % 25 === 0) { await yieldTick(); }
+      const metrics = new ShareDialogLifecycleMetrics();
+      metrics.record('link', 2);
+      metrics.record('file', 3);
+      expect(metrics.total()).assertEqual(5);
+      expect(metrics.count('link')).assertEqual(2);
+      expect(metrics.distinct()).assertEqual(2);
+    });
+    it('shareDialogLifecycleTest_share_validate_17', 0, async () => {
+      if (17 % 25 === 0) { await yieldTick(); }
+      const validator = new ShareDialogLifecycleValidator(8);
+      expect(validator.validate('').ok).assertFalse();
+      expect(validator.validate('share').ok).assertTrue();
+      expect(validator.validate('oversized').ok).assertFalse();
+      expect(validator.isUrl('https://example.com/share')).assertTrue();
+    });
+    it('shareDialogLifecycleTest_share_state_18', 0, async () => {
+      if (18 % 25 === 0) { await yieldTick(); }
+      const machine = new ShareDialogLifecycleStateMachine();
+      machine.transition(ShareDialogLifecycleState.READY);
+      machine.transition(ShareDialogLifecycleState.RUNNING);
+      expect(machine.count()).assertEqual(2);
+      expect(machine.current()).assertEqual(ShareDialogLifecycleState.RUNNING);
+      machine.transition(ShareDialogLifecycleState.DONE);
+      expect(machine.isTerminal()).assertTrue();
+    });
+    it('shareDialogLifecycleTest_share_render_budget_19', 0, async () => {
+      if (19 % 25 === 0) { await yieldTick(); }
+      expect(TIMEOUT_DIALOG_RENDER).assertLarger(0);
+      expect(TIMEOUT_DIALOG_RENDER >= 1000).assertTrue();
+      const budget: number = TIMEOUT_DIALOG_RENDER - 1000;
+      expect(budget >= 0).assertTrue();
     });
   });
 }
