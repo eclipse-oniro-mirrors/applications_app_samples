@@ -19,7 +19,7 @@ import { bundleManager } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const DOMAIN: number = 0xF811;
-const TAG: string = '[Sample_DisplaySync]_Ability';
+const TAG: string = '[Sample_DisplaySync]';
 const BUNDLE: string = 'com.samples.displaySync';
 const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 
