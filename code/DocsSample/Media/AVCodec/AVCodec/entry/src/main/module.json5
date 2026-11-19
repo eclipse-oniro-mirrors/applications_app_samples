@@ -67,6 +67,9 @@
       },
       {
         "name": "ohos.permission.FILE_ACCESS_PERSIST"
+      },
+      {
+        "name": "ohos.permission.INTERNET"
       }
     ]
   }
