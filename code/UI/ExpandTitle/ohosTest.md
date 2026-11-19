@@ -14,7 +14,7 @@
 
 ohosTest 用例位于 `entry/src/ohosTest/ets/test/`，共 56 个套件、2551 条用例（能力套件 1 条 + 核心/UI 套件 184 条 + 数据驱动逻辑用例 2366 条），全部带 `@tc.number/@tc.name/@tc.desc/@tc.type/@tc.size/@tc.level` 六项元数据，在 `List.test.ets` 注册，由 `testability/TestAbility.ets` 加载执行。
 
-运行方式：在 DevEco Studio 中右键 `entry/src/ohosTest/ets/test` 选择 "Run All Tests"（IDE 静态发现器只识别字符串字面量用例名，模板字符串用例不会进入 `-s class` 白名单）；设备连接后也可手工执行 `aa test -b com.samples.expandtitle -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s class <套件名> -s timeout 15000`。
+运行方式：在 DevEco Studio 中右键 `entry/src/ohosTest/ets/test` 选择 "Run All Tests"，IDE 会构建 entry_test 测试模块并运行全部 56 个套件（静态发现器只识别字符串字面量用例名，模板字符串用例不会进入套件白名单）；设备连接后也可以按 entry_test 模块、`/ets/TestRunner/OpenHarmonyTestRunner` 运行器和 15000ms 超时手工运行。
 
 | 套件 | 编号段 | 层级/size | 覆盖内容 |
 |---|---|---|---|

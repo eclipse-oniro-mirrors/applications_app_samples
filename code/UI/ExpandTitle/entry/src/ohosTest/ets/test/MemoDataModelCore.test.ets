@@ -284,8 +284,8 @@ export default function memoDataModelCoreTest(): void {
       expect(item.title).assertEqual(EXPECTED_TITLES[4]);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual item.imageSrc=${item.imageSrc}, expected=''`);
       expect(item.imageSrc).assertEqual('');
-      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual item.content=${item.content}, expected='Learning HarmonyOS'`);
-      expect(item.content).assertEqual('Learning HarmonyOS');
+      hilog.info(DOMAIN, TAG, '%{public}s', `assertEqual item.content=${item.content}, expected='Practice typing daily'`);
+      expect(item.content).assertEqual('Practice typing daily');
       log('testMemoDataModelCore0512 end');
     })
 
