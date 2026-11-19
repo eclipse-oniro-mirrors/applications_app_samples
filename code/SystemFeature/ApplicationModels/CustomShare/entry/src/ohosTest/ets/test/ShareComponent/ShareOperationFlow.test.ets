@@ -1,0 +1,1492 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the License);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an AS IS BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { describe, it, expect } from '@ohos/hypium';
+import { TIMEOUT_DIALOG_RENDER, yieldTick } from '../Shared/CustomShareDriver';
+enum ShareOperationFlowKind {
+  LINK = 'link',
+  FILE = 'file',
+  OTHER = 'other',
+  TEXT = 'text',
+  EDIT = 'edit'
+}
+
+interface ShareOperationFlowEntry {
+  id: number;
+  label: string;
+  kind: ShareOperationFlowKind;
+  enabled: boolean;
+}
+
+class ShareOperationFlowRegistry {
+  private entries: Map<number, ShareOperationFlowEntry> = new Map<number, ShareOperationFlowEntry>();
+
+  public register(entry: ShareOperationFlowEntry): boolean {
+    if (entry.id < 0 || entry.label.length === 0) {
+      return false;
+    }
+    this.entries.set(entry.id, entry);
+    return true;
+  }
+
+  public contains(id: number): boolean {
+    return this.entries.has(id);
+  }
+
+  public size(): number {
+    return this.entries.size;
+  }
+
+  public enabledCount(): number {
+    let count: number = 0;
+    this.entries.forEach((entry: ShareOperationFlowEntry) => {
+      if (entry.enabled) {
+        count++;
+      }
+    });
+    return count;
+  }
+}
+class ShareOperationFlowMetrics {
+  private counts: Map<string, number> = new Map<string, number>();
+  private totalAmount: number = 0;
+
+  public record(key: string, amount: number = 1): void {
+    const current: number = this.counts.get(key) ?? 0;
+    this.counts.set(key, current + amount);
+    this.totalAmount += amount;
+  }
+
+  public count(key: string): number {
+    return this.counts.get(key) ?? 0;
+  }
+
+  public total(): number {
+    return this.totalAmount;
+  }
+
+  public distinct(): number {
+    return this.counts.size;
+  }
+
+  public average(): number {
+    if (this.counts.size === 0) {
+      return 0;
+    }
+    return this.totalAmount / this.counts.size;
+  }
+}
+enum ShareOperationFlowErrorCode {
+  OK = 0,
+  EMPTY = 1,
+  TOO_LONG = 2,
+  INVALID = 3
+}
+
+interface ShareOperationFlowValidationResult {
+  ok: boolean;
+  code: ShareOperationFlowErrorCode;
+  message: string;
+}
+
+class ShareOperationFlowValidator {
+  private maxLength: number;
+
+  constructor(maxLength: number = 64) {
+    this.maxLength = maxLength;
+  }
+
+  public validate(value: string): ShareOperationFlowValidationResult {
+    if (value.length === 0) {
+      return { ok: false, code: ShareOperationFlowErrorCode.EMPTY, message: 'empty value' };
+    }
+    if (value.length > this.maxLength) {
+      return { ok: false, code: ShareOperationFlowErrorCode.TOO_LONG, message: 'value too long' };
+    }
+    return { ok: true, code: ShareOperationFlowErrorCode.OK, message: 'valid value' };
+  }
+
+  public isUrl(value: string): boolean {
+    return value.indexOf('http://') === 0 || value.indexOf('https://') === 0;
+  }
+
+  public isEmpty(value: string): boolean {
+    return value.length === 0;
+  }
+}
+enum ShareOperationFlowState {
+  IDLE = 'idle',
+  READY = 'ready',
+  RUNNING = 'running',
+  DONE = 'done',
+  FAILED = 'failed'
+}
+
+class ShareOperationFlowStateMachine {
+  private state: ShareOperationFlowState = ShareOperationFlowState.IDLE;
+  private transitionCount: number = 0;
+
+  public transition(to: ShareOperationFlowState): boolean {
+    this.state = to;
+    this.transitionCount++;
+    return true;
+  }
+
+  public current(): ShareOperationFlowState {
+    return this.state;
+  }
+
+  public count(): number {
+    return this.transitionCount;
+  }
+
+  public isTerminal(): boolean {
+    return this.state === ShareOperationFlowState.DONE || this.state === ShareOperationFlowState.FAILED;
+  }
+
+  public reset(): void {
+    this.state = ShareOperationFlowState.IDLE;
+    this.transitionCount = 0;
+  }
+}
+class ShareOperationFlowMap0 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class ShareOperationFlowQueue1 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class ShareOperationFlowCheck2 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class ShareOperationFlowTrack3 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class ShareOperationFlowMap4 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class ShareOperationFlowQueue5 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class ShareOperationFlowCheck6 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class ShareOperationFlowTrack7 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class ShareOperationFlowMap8 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class ShareOperationFlowQueue9 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class ShareOperationFlowCheck10 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class ShareOperationFlowTrack11 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class ShareOperationFlowMap12 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class ShareOperationFlowQueue13 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class ShareOperationFlowCheck14 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class ShareOperationFlowTrack15 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class ShareOperationFlowMap16 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class ShareOperationFlowQueue17 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class ShareOperationFlowCheck18 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class ShareOperationFlowTrack19 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class ShareOperationFlowMap20 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class ShareOperationFlowQueue21 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class ShareOperationFlowCheck22 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class ShareOperationFlowTrack23 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class ShareOperationFlowMap24 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class ShareOperationFlowQueue25 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class ShareOperationFlowCheck26 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class ShareOperationFlowTrack27 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class ShareOperationFlowMap28 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class ShareOperationFlowQueue29 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class ShareOperationFlowCheck30 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class ShareOperationFlowTrack31 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class ShareOperationFlowMap32 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class ShareOperationFlowQueue33 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class ShareOperationFlowCheck34 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class ShareOperationFlowTrack35 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class ShareOperationFlowMap36 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class ShareOperationFlowQueue37 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class ShareOperationFlowCheck38 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class ShareOperationFlowTrack39 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class ShareOperationFlowMap40 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class ShareOperationFlowQueue41 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class ShareOperationFlowCheck42 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class ShareOperationFlowTrack43 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class ShareOperationFlowMap44 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class ShareOperationFlowQueue45 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class ShareOperationFlowCheck46 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class ShareOperationFlowTrack47 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class ShareOperationFlowMap48 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class ShareOperationFlowQueue49 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class ShareOperationFlowCheck50 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+
+export default function shareOperationFlowTest() {
+  describe('ShareOperationFlow_Test', () => {
+
+    it('shareOperationFlowTest_share_registry_0', 0, async () => {
+      await yieldTick();
+      const registry = new ShareOperationFlowRegistry();
+      expect(registry.register({ id: 0, label: 'share_0', kind: ShareOperationFlowKind.LINK, enabled: true })).assertTrue();
+      expect(registry.contains(0)).assertTrue();
+      expect(registry.size()).assertEqual(1);
+    });
+    it('shareOperationFlowTest_share_metrics_1', 0, async () => {
+      await yieldTick();
+      const metrics = new ShareOperationFlowMetrics();
+      metrics.record('link', 2);
+      metrics.record('file', 3);
+      expect(metrics.total()).assertEqual(5);
+      expect(metrics.count('link')).assertEqual(2);
+      expect(metrics.distinct()).assertEqual(2);
+    });
+    it('shareOperationFlowTest_share_validate_2', 0, async () => {
+      await yieldTick();
+      const validator = new ShareOperationFlowValidator(8);
+      expect(validator.validate('').ok).assertFalse();
+      expect(validator.validate('share').ok).assertTrue();
+      expect(validator.validate('oversized').ok).assertFalse();
+      expect(validator.isUrl('https://example.com/share')).assertTrue();
+    });
+    it('shareOperationFlowTest_share_state_3', 0, async () => {
+      await yieldTick();
+      const machine = new ShareOperationFlowStateMachine();
+      machine.transition(ShareOperationFlowState.READY);
+      machine.transition(ShareOperationFlowState.RUNNING);
+      expect(machine.count()).assertEqual(2);
+      expect(machine.current()).assertEqual(ShareOperationFlowState.RUNNING);
+      machine.transition(ShareOperationFlowState.DONE);
+      expect(machine.isTerminal()).assertTrue();
+    });
+  });
+}
