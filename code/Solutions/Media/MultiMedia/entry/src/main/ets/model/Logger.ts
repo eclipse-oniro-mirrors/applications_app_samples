@@ -12,33 +12,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import hilog from '@ohos.hilog'
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 class Logger {
-  private domain: number
-  private prefix: string
-  private format: string = "%{public}s, %{public}s"
+  private readonly domain: number = 0xFF00;
+  private readonly prefix: string;
+  private readonly format: string = '%{public}s: %{private}s';
 
   constructor(prefix: string) {
-    this.prefix = prefix
-    this.domain = 0xFF00
+    this.prefix = prefix;
   }
 
-  debug(...args: any[]) {
-    hilog.debug(this.domain, this.prefix, this.format, args)
+  debug(tag: string, message: string): void {
+    hilog.debug(this.domain, this.prefix, this.format, tag, message);
   }
 
-  info(...args: any[]) {
-    hilog.info(this.domain, this.prefix, this.format, args)
+  info(tag: string, message: string): void {
+    hilog.info(this.domain, this.prefix, this.format, tag, message);
   }
 
-  warn(...args: any[]) {
-    hilog.warn(this.domain, this.prefix, this.format, args)
+  warn(tag: string, message: string): void {
+    hilog.warn(this.domain, this.prefix, this.format, tag, message);
   }
 
-  error(...args: any[]) {
-    hilog.error(this.domain, this.prefix, this.format, args)
+  error(tag: string, message: string): void {
+    hilog.error(this.domain, this.prefix, this.format, tag, message);
   }
 }
 
-export default new Logger('[Samples_MultiMedia]')
+export default new Logger('[Samples_MultiMedia]');

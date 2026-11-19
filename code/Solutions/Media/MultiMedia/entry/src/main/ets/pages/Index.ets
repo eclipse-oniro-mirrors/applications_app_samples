@@ -17,7 +17,7 @@ import common from '@ohos.app.ability.common';
 import Want from '@ohos.app.ability.Want';
 import router from '@ohos.router';
 import TitleBar from '../view/TitleBar';
-import MediaUtils from '../model/MediaUtils';
+import MediaUtils, { AlbumInfo } from '../model/MediaUtils';
 import { MediaView } from '../view/MediaView';
 import Logger from '../model/Logger';
 
@@ -26,9 +26,9 @@ export default class Album {
 
   public albumName: string;
   public count: number;
-  public mediaType?: string;
+  public mediaType: number;
 
-  constructor(albumName: string, count: number, mediaType?: string) {
+  constructor(albumName: string, count: number, mediaType: number) {
     this.albumName = albumName;
     this.count = count;
     this.mediaType = mediaType;
@@ -46,7 +46,8 @@ struct Index {
   async onPageShow() {
     this.albums = [];
     let context = getContext(this) as common.UIAbilityContext;
-    this.albums = await this.mediaUtils.getAlbums(context);
+    const albumInfos: AlbumInfo[] = await this.mediaUtils.getAlbums(context);
+    this.albums = albumInfos.map((item: AlbumInfo) => new Album(item.albumName, item.count, item.mediaType));
   }
 
   build() {

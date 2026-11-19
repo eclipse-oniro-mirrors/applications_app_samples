@@ -26,16 +26,19 @@ struct DocumentPage {
   private mediaUtils: MediaUtils = MediaUtils.getInstance(getContext(this))
   @State fileContent: string = ''
 
-  async saveFile() {
-    Logger.info(this.tag, 'saveFile')
-    let context = this.getUIContext().getHostContext() as common.UIAbilityContext
-    let file: fileIo.File|null = await this.mediaUtils.createFile(4, context)
-    if(file){
-      Logger.info(this.tag, `fd = ${file.fd}`)
-      let writeResult=fileIo.writeSync(file.fd, this.fileContent)
-      Logger.info(this.tag, `writeResult = ${writeResult}`)
-      fileIo.closeSync(file.fd)
-      this.getUIContext().getRouter().back()
+  async saveFile(): Promise<void> {
+    Logger.info(this.tag, 'saveFile');
+    const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    const file: fileIo.File | null = await this.mediaUtils.createFile(4, context);
+    if (file) {
+      Logger.info(this.tag, `fd = ${file.fd}`);
+      try {
+        const writeResult: number = fileIo.writeSync(file.fd, this.fileContent);
+        Logger.info(this.tag, `writeResult = ${writeResult}`);
+      } finally {
+        fileIo.closeSync(file.fd);
+      }
+      this.getUIContext().getRouter().back();
     }
   }
 
@@ -64,7 +67,9 @@ struct DocumentPage {
       .margin({ top: 10 })
       .onClick(() => {
         Logger.info(this.tag, 'saveFile onClick')
-        this.saveFile()
+        this.saveFile().catch((error: Error): void => {
+          Logger.error(this.tag, `saveFile failed: ${error.message}`);
+        });
       })
     }
     .height('100%')

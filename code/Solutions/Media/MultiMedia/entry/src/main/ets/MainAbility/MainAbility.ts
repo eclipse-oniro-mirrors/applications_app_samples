@@ -23,12 +23,8 @@ const PERMISSIONS: Array<Permissions> = [
   'ohos.permission.CAMERA',
   'ohos.permission.MICROPHONE',
   'ohos.permission.MEDIA_LOCATION',
-  'ohos.permission.READ_AUDIO',
-  'ohos.permission.WRITE_AUDIO',
   'ohos.permission.READ_IMAGEVIDEO',
-  'ohos.permission.WRITE_IMAGEVIDEO',
-  'ohos.permission.FILE_ACCESS_MANAGER',
-  'ohos.permission.GET_BUNDLE_INFO_PRIVILEGED'];
+  'ohos.permission.WRITE_IMAGEVIDEO'];
 
 export default class MainAbility extends UIAbility {
   onCreate(want, launchParam) {

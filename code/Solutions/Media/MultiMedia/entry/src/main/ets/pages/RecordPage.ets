@@ -12,10 +12,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import userFileManager from '@ohos.filemanagement.userFileManager'
 import router from '@ohos.router'
+import Logger from '../model/Logger';
 import DateTimeUtil from '../model/DateTimeUtil'
-import MediaUtils, { FileType } from '../model/MediaUtils'
+import MediaUtils, { FileType, MediaAssetHandle } from '../model/MediaUtils'
 import RecordModel from '../model/RecordModel'
 import TitleBar from '../view/TitleBar'
 
@@ -26,7 +26,7 @@ struct Record {
   private isStartRecord: boolean = false
   private mediaUtils: MediaUtils = MediaUtils.getInstance(getContext(this))
   private intervalId: number = -1
-  private fileAsset: userFileManager.FileAsset = {} as userFileManager.FileAsset
+  private fileAsset: MediaAssetHandle | undefined = undefined
   private fd: number = -1
   @State format: string = 'hh:mm:ss.ms'
   @State isRecording: boolean = false
@@ -62,8 +62,26 @@ struct Record {
     }
   }
 
-  aboutToAppear() {
-    this.recordModel.initAudioRecorder(this.handleStateChange)
+  aboutToAppear(): void {
+    this.recordModel.initAudioRecorder(this.handleStateChange).catch((error: Error): void => {
+      Logger.error('RecordPage', `Recorder initialization failed: ${error.message}`);
+    });
+  }
+
+  private async finishRecord(): Promise<void> {
+    this.isStartRecord = false;
+    this.isRecording = false;
+    clearInterval(this.intervalId);
+    this.intervalId = -1;
+    try {
+      await this.recordModel.finish();
+    } finally {
+      const fd: number = this.fd;
+      this.fd = -1;
+      if (fd !== -1 && this.fileAsset !== undefined) {
+        await this.fileAsset.close(fd);
+      }
+    }
   }
 
   build() {
@@ -83,13 +101,11 @@ struct Record {
         .backgroundColor('#FFFFFF')
         .id('endOfRecording')
         .onClick(() => {
-          this.recordModel.finish()
-          this.isStartRecord = false
-          this.isRecording = false
-          // 关闭录制文件fd
-          this.fileAsset.close(this.fd).then(() =>{
-            router.back()
-          })
+          this.finishRecord().then((): void => {
+            router.back();
+          }).catch((error: Error): void => {
+            Logger.error('RecordPage', `Recorder finish failed: ${error.message}`);
+          });
         })
 
         Blank()
@@ -142,13 +158,14 @@ struct Record {
     }
   }
 
-  async aboutToDisappear() {
-    this.recordModel.finish()
-    if (this.millisecond < 1000) {
-      if (this.fd !== -1) {
-        this.fileAsset.close(this.fd)
-      }
-      await this.mediaUtils.deleteFile(FileType.AUDIO, this.fileAsset.uri)
+  async aboutToDisappear(): Promise<void> {
+    try {
+      await this.finishRecord();
+    } catch (error) {
+      Logger.error('RecordPage', `Recorder cleanup failed: ${error}`);
+    }
+    if (this.millisecond < 1000 && this.fileAsset !== undefined) {
+      await this.mediaUtils.deleteFile(FileType.AUDIO, this.fileAsset.uri);
     }
   }
 }

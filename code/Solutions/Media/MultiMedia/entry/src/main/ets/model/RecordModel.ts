@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,108 +12,218 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import media from '@ohos.multimedia.media'
-import Logger from '../model/Logger'
+import { media } from '@kit.MediaKit';
+import type { BusinessError } from '@kit.BasicServicesKit';
+import Logger from './Logger';
 
-const avProfile = {
-  audioBitrate: 48000, // set audioBitrate according to device ability
-  audioChannels: 2, // set audioChannels, valid value 1-8
-  audioCodec: media.CodecMimeType.AUDIO_AAC, // set audioCodec, AUDIO_AAC is the only choice
-  audioSampleRate: 48000, // set audioSampleRate according to device ability
-  fileFormat: media.ContainerFormatType.CFT_MPEG_4A, // set fileFormat, for video is m4a
+export interface AudioRecorderPort {
+  onStateChange(callback: (state: string) => void): void;
+  onError(callback: (message: string) => void): void;
+  prepare(config: media.AVRecorderConfig): Promise<void>;
+  start(): Promise<void>;
+  pause(): Promise<void>;
+  resume(): Promise<void>;
+  stop(): Promise<void>;
+  reset(): Promise<void>;
+  release(): Promise<void>;
 }
-const audioConfig = {
-  audioSourceType: media.AudioSourceType.AUDIO_SOURCE_TYPE_MIC,
-  profile: avProfile,
-  url: 'fd://'
+
+export type AudioRecorderFactory = () => Promise<AudioRecorderPort>;
+
+class NativeAudioRecorderPort implements AudioRecorderPort {
+  private recorder: media.AVRecorder;
+
+  constructor(recorder: media.AVRecorder) {
+    this.recorder = recorder;
+  }
+
+  onStateChange(callback: (state: string) => void): void {
+    this.recorder.on('stateChange', (state: media.AVRecorderState): void => callback(state));
+  }
+
+  onError(callback: (message: string) => void): void {
+    this.recorder.on('error', (error: BusinessError): void => callback(error.message));
+  }
+
+  prepare(config: media.AVRecorderConfig): Promise<void> {
+    return this.recorder.prepare(config);
+  }
+
+  start(): Promise<void> {
+    return this.recorder.start();
+  }
+
+  pause(): Promise<void> {
+    return this.recorder.pause();
+  }
+
+  resume(): Promise<void> {
+    return this.recorder.resume();
+  }
+
+  stop(): Promise<void> {
+    return this.recorder.stop();
+  }
+
+  reset(): Promise<void> {
+    return this.recorder.reset();
+  }
+
+  release(): Promise<void> {
+    return this.recorder.release();
+  }
+}
+
+async function createAudioRecorder(): Promise<AudioRecorderPort> {
+  return new NativeAudioRecorderPort(await media.createAVRecorder());
 }
 
 export default class RecordModel {
-  private tag: string = 'RecordModel'
-  private audioRecorder: media.AVRecorder = undefined
+  private tag: string = 'RecordModel';
+  private audioRecorder: AudioRecorderPort | undefined = undefined;
+  private factory: AudioRecorderFactory;
+  private initialization: number = 0;
+  private state: string = 'idle';
+  private teardown: Promise<void> | undefined = undefined;
 
-  async initAudioRecorder(handleStateChange: () => void) {
-    this.release();
-    this.audioRecorder = await media.createAVRecorder()
-    Logger.info(this.tag, 'create audioRecorder success')
+  constructor(factory: AudioRecorderFactory = createAudioRecorder) {
+    this.factory = factory;
+  }
 
-    this.audioRecorder.on('stateChange', (state, reason) => {
-      Logger.info(this.tag, 'case state has changed, new state is' + state);
+  async initAudioRecorder(handleStateChange: () => void): Promise<void> {
+    const initialization: number = ++this.initialization;
+    await this.cleanup(false);
+    if (initialization !== this.initialization) {
+      return;
+    }
+    const recorder: AudioRecorderPort = await this.factory();
+    if (initialization !== this.initialization) {
+      await recorder.release();
+      return;
+    }
+    this.audioRecorder = recorder;
+    this.state = 'idle';
+    Logger.info(this.tag, 'create audioRecorder success');
+
+    recorder.onStateChange((state: string): void => {
+      if (this.audioRecorder !== recorder) {
+        return;
+      }
+      this.state = state;
+      Logger.info(this.tag, 'case state has changed, new state is ' + state);
       switch (state) {
         case 'idle':
           break;
         case 'prepared':
-          Logger.info(this.tag, 'setCallback  prepare case callback is called')
-          this.audioRecorder.start()
+          Logger.info(this.tag, 'setCallback prepare case callback is called');
+          recorder.start().catch((error: Error): void => {
+            Logger.error(this.tag, 'audioRecorder start failed: ' + error.message);
+          });
           break;
         case 'started':
-          Logger.info(this.tag, 'setCallback start case callback is called')
-          handleStateChange()
+          Logger.info(this.tag, 'setCallback start case callback is called');
+          handleStateChange();
           break;
         case 'paused':
-          Logger.info(this.tag, 'audioRecorder pause finish')
-          handleStateChange()
+          Logger.info(this.tag, 'audioRecorder pause finish');
+          handleStateChange();
           break;
         case 'stopped':
-          Logger.info(this.tag, 'audioRecorder stop called')
+          Logger.info(this.tag, 'audioRecorder stop called');
           break;
         case 'released':
           break;
         case 'error':
-          Logger.info(this.tag, 'case error state!!!');
+          Logger.info(this.tag, 'case error state');
           break;
         default:
-          Logger.info(this.tag, 'case start is unknown');
+          Logger.info(this.tag, 'case state is unrecognized');
           break;
       }
     });
-    this.audioRecorder.on('error', (err) => {
-      Logger.info(this.tag, 'audioRecorder error:' + JSON.stringify(err))
+    recorder.onError((message: string): void => {
+      if (this.audioRecorder === recorder) {
+        Logger.info(this.tag, 'audioRecorder error: ' + message);
+      }
     });
   }
 
-  async release() {
-    if (typeof (this.audioRecorder) !== `undefined`) {
-      Logger.info(this.tag, 'audioRecorder  release')
-      this.audioRecorder.release()
+  async release(): Promise<void> {
+    this.initialization++;
+    await this.cleanup(false);
+  }
+
+  private async cleanup(finish: boolean): Promise<void> {
+    if (this.teardown !== undefined) {
+      await this.teardown;
+      return;
+    }
+    const recorder: AudioRecorderPort | undefined = this.audioRecorder;
+    if (recorder === undefined) {
+      return;
+    }
+    const state: string = this.state;
+    this.audioRecorder = undefined;
+    this.state = 'idle';
+    const teardown: Promise<void> = (async (): Promise<void> => {
+      try {
+        if (finish && (state === 'started' || state === 'paused')) {
+          await recorder.stop();
+          await recorder.reset();
+        }
+      } finally {
+        await recorder.release();
+      }
+    })();
+    this.teardown = teardown;
+    try {
+      await teardown;
+    } finally {
+      this.teardown = undefined;
     }
   }
 
-  async startRecorder(fd: number) {
-    Logger.info(this.tag, `startRecorder, fd = ${fd}`)
-    let fdPath = "fd://" + fd
-    if (typeof (this.audioRecorder) !== 'undefined') {
-      Logger.info(this.tag, 'start prepare')
-      audioConfig.url = fdPath
-      await this.audioRecorder.prepare(audioConfig)
+  async startRecorder(fd: number): Promise<void> {
+    Logger.info(this.tag, `startRecorder, fd = ${fd}`);
+    if (this.audioRecorder !== undefined) {
+      const config: media.AVRecorderConfig = {
+        audioSourceType: media.AudioSourceType.AUDIO_SOURCE_TYPE_MIC,
+        profile: {
+          audioBitrate: 48000,
+          audioChannels: 2,
+          audioCodec: media.CodecMimeType.AUDIO_AAC,
+          audioSampleRate: 48000,
+          fileFormat: media.ContainerFormatType.CFT_MPEG_4A
+        },
+        url: 'fd://' + fd
+      };
+      Logger.info(this.tag, 'start prepare');
+      await this.audioRecorder.prepare(config);
     } else {
-      Logger.error(this.tag, 'case failed, audioRecorder is null')
+      Logger.error(this.tag, 'case failed, audioRecorder is null');
     }
   }
 
-  pause() {
-    Logger.info(this.tag, 'audioRecorder pause called')
-    if (typeof (this.audioRecorder) !== `undefined`) {
-      this.audioRecorder.pause()
+  pause(): void {
+    Logger.info(this.tag, 'audioRecorder pause called');
+    if (this.audioRecorder !== undefined) {
+      this.audioRecorder.pause().catch((error: Error): void => {
+        Logger.error(this.tag, 'audioRecorder pause failed: ' + error.message);
+      });
     }
   }
 
-  resume() {
-    Logger.info(this.tag, 'audioRecorder resume called')
-    if (typeof (this.audioRecorder) !== `undefined`) {
-      this.audioRecorder.resume()
+  resume(): void {
+    Logger.info(this.tag, 'audioRecorder resume called');
+    if (this.audioRecorder !== undefined) {
+      this.audioRecorder.resume().catch((error: Error): void => {
+        Logger.error(this.tag, 'audioRecorder resume failed: ' + error.message);
+      });
     }
   }
 
-  async finish() {
-    if (typeof (this.audioRecorder) !== `undefined`) {
-      // 1. 停止录制
-      await this.audioRecorder.stop()
-      // 2.重置
-      await this.audioRecorder.reset();
-      // 3.释放录制实例
-      await this.audioRecorder.release();
-      this.audioRecorder = undefined;
-    }
+  async finish(): Promise<void> {
+    this.initialization++;
+    await this.cleanup(true);
   }
 }

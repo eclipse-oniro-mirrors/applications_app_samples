@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,12 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import userFileManager from '@ohos.filemanagement.userFileManager'
-import { fileAccess, fileIo, ListFileOptions } from '@kit.CoreFileKit';
+import { photoAccessHelper } from '@kit.MediaLibraryKit';
+import { fileIo } from '@kit.CoreFileKit';
 import dataSharePredicates from '@ohos.data.dataSharePredicates';
-import DateTimeUtil from '../model/DateTimeUtil'
-import Logger from '../model/Logger'
-import common from '@ohos.app.ability.common';
+import DateTimeUtil from '../model/DateTimeUtil';
+import Logger from '../model/Logger';
+import type common from '@ohos.app.ability.common';
 
 export enum FileType {
   IMAGE = 1,
@@ -26,191 +26,402 @@ export enum FileType {
   FILE = 4
 }
 
+export interface AlbumInfo {
+  albumName: string;
+  count: number;
+  mediaType: number;
+}
+
 export interface FileInfo {
   uri: string;
   fileName: string;
   mtime: number;
 }
 
+export interface MediaTypeInfo {
+  prefix: string;
+  suffix: string;
+}
+
+export type MediaPredicatesFactory = () => dataSharePredicates.DataSharePredicates;
+
+export interface MediaClock {
+  getDate(): string;
+  getTime(): string;
+}
+
+export interface MediaFileStat {
+  mtime: number;
+}
+
+export interface MediaFileOperations {
+  openSync(path: string, mode: number): fileIo.File;
+  closeSync(fd: number): void;
+  renameSync(source: string, target: string): void;
+  listFileSync(path: string): string[];
+  statSync(path: string): MediaFileStat;
+  unlinkSync(path: string): void;
+}
+
+export interface MediaPhotoAsset {
+  uri: string;
+  photoType: photoAccessHelper.PhotoType;
+  get(member: string): photoAccessHelper.MemberType;
+  set(member: string, value: string): void;
+  commitModify(): Promise<void>;
+}
+
+export interface MediaFetchResult {
+  getAllObjects(): Promise<MediaPhotoAsset[]>;
+  close(): void;
+}
+
+export interface MediaLibraryOperations {
+  createAsset(photoType: photoAccessHelper.PhotoType, extension: string): Promise<string>;
+  getAssets(options: photoAccessHelper.FetchOptions): Promise<MediaFetchResult>;
+  deleteAssets(context: common.UIAbilityContext, uris: string[]): Promise<void>;
+}
+
+class NativeFileOperations implements MediaFileOperations {
+  openSync(path: string, mode: number): fileIo.File {
+    return fileIo.openSync(path, mode);
+  }
+
+  closeSync(fd: number): void {
+    fileIo.closeSync(fd);
+  }
+
+  renameSync(source: string, target: string): void {
+    fileIo.renameSync(source, target);
+  }
+
+  listFileSync(path: string): string[] {
+    return fileIo.listFileSync(path);
+  }
+
+  statSync(path: string): MediaFileStat {
+    return fileIo.statSync(path);
+  }
+
+  unlinkSync(path: string): void {
+    fileIo.unlinkSync(path);
+  }
+}
+
+class NativeLibraryOperations implements MediaLibraryOperations {
+  private helper: photoAccessHelper.PhotoAccessHelper;
+
+  constructor(context: common.Context) {
+    this.helper = photoAccessHelper.getPhotoAccessHelper(context);
+  }
+
+  async createAsset(photoType: photoAccessHelper.PhotoType, extension: string): Promise<string> {
+    return this.helper.createAsset(photoType, extension);
+  }
+
+  async getAssets(options: photoAccessHelper.FetchOptions): Promise<MediaFetchResult> {
+    return this.helper.getAssets(options);
+  }
+
+  async deleteAssets(context: common.UIAbilityContext, uris: string[]): Promise<void> {
+    await photoAccessHelper.MediaAssetChangeRequest.deleteAssets(context, uris);
+  }
+}
+
+/**
+ * Unified asset handle shaped like the legacy FileAsset so callers keep
+ * working against both media-library assets and sandbox files.
+ */
+export interface MediaAssetHandle {
+  uri: string;
+  mediaType: number;
+  displayName: string;
+  open(mode: string): Promise<number>;
+  close(fd: number): Promise<void>;
+  set(member: string, value: string): void;
+  commitModify(): Promise<void>;
+  get(member: string): photoAccessHelper.MemberType;
+  rename(displayName: string): Promise<void>;
+}
+
+class PhotoAssetHandle implements MediaAssetHandle {
+  uri: string;
+  mediaType: number;
+  displayName: string;
+  private asset: MediaPhotoAsset;
+  private files: MediaFileOperations;
+
+  constructor(asset: MediaPhotoAsset, mediaType: number, files: MediaFileOperations) {
+    this.asset = asset;
+    this.files = files;
+    this.uri = asset.uri;
+    this.mediaType = mediaType;
+    this.displayName = `${asset.get(photoAccessHelper.PhotoKeys.DISPLAY_NAME)}`;
+  }
+
+  async open(mode: string): Promise<number> {
+    return this.files.openSync(this.uri, fileIo.OpenMode.READ_WRITE).fd;
+  }
+
+  async close(fd: number): Promise<void> {
+    this.files.closeSync(fd);
+  }
+
+  set(member: string, value: string): void {
+    this.asset.set(member, value);
+  }
+
+  async commitModify(): Promise<void> {
+    await this.asset.commitModify();
+  }
+
+  get(member: string): photoAccessHelper.MemberType {
+    return this.asset.get(member);
+  }
+
+  async rename(displayName: string): Promise<void> {
+    this.asset.set(photoAccessHelper.PhotoKeys.DISPLAY_NAME, displayName);
+    await this.asset.commitModify();
+    this.displayName = `${this.asset.get(photoAccessHelper.PhotoKeys.DISPLAY_NAME)}`;
+  }
+}
+
+class SandboxFileHandle implements MediaAssetHandle {
+  uri: string;
+  mediaType: number;
+  displayName: string;
+  private files: MediaFileOperations;
+
+  constructor(uri: string, mediaType: number, files: MediaFileOperations) {
+    this.uri = uri;
+    this.mediaType = mediaType;
+    this.files = files;
+    this.displayName = uri.substring(uri.lastIndexOf('/') + 1);
+  }
+
+  async open(mode: string): Promise<number> {
+    return this.files.openSync(this.uri, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE).fd;
+  }
+
+  async close(fd: number): Promise<void> {
+    this.files.closeSync(fd);
+  }
+
+  set(member: string, value: string): void {
+  }
+
+  async commitModify(): Promise<void> {
+  }
+
+  get(member: string): photoAccessHelper.MemberType {
+    return 0;
+  }
+
+  async rename(displayName: string): Promise<void> {
+    if (displayName.length === 0 || displayName === '.' || displayName === '..' ||
+      /[/\\\u0000-\u001f\u007f-\u009f]/.test(displayName)) {
+      throw new Error('Invalid sandbox display name');
+    }
+    const dir = this.uri.substring(0, this.uri.lastIndexOf('/') + 1);
+    const oldName = this.uri.substring(this.uri.lastIndexOf('/') + 1);
+    const dot = oldName.lastIndexOf('.');
+    const ext = dot > 0 ? oldName.substring(dot) : '';
+    const newName = ext.length > 0 && !displayName.endsWith(ext) ? displayName + ext : displayName;
+    const target = `${dir}${newName}`;
+    this.files.renameSync(this.uri, target);
+    this.uri = target;
+    this.displayName = newName;
+  }
+}
+
 export default class MediaUtils {
-  private tag: string = 'MediaUtils'
-  private mediaTest: userFileManager.UserFileManager = undefined
-  private static instance: MediaUtils = undefined
+  private tag: string = 'MediaUtils';
+  private mediaLibrary: MediaLibraryOperations;
+  private files: MediaFileOperations;
+  private clock: MediaClock;
+  private predicatesFactory: MediaPredicatesFactory;
+  private sandboxDirPath: string;
+  private static instance: MediaUtils | undefined = undefined;
 
-  public static getInstance(context: any) {
+  public static getInstance(context: common.Context): MediaUtils {
     if (this.instance === undefined) {
-      this.instance = new MediaUtils(context)
+      this.instance = new MediaUtils(context);
     }
-    return this.instance
+    return this.instance;
   }
 
-  constructor(context: any) {
-    this.mediaTest = userFileManager.getUserFileMgr(context)
+  constructor(context: common.Context, files?: MediaFileOperations,
+    mediaLibrary?: MediaLibraryOperations, clock?: MediaClock,
+    predicatesFactory: MediaPredicatesFactory = (): dataSharePredicates.DataSharePredicates =>
+      new dataSharePredicates.DataSharePredicates()) {
+    this.predicatesFactory = predicatesFactory;
+    this.files = files === undefined ? new NativeFileOperations() : files;
+    this.mediaLibrary = mediaLibrary === undefined ? new NativeLibraryOperations(context) : mediaLibrary;
+    this.clock = clock === undefined ? new DateTimeUtil() : clock;
+    this.sandboxDirPath = context.filesDir;
   }
 
-  async createAndGetUri(mediaType: number): Promise<userFileManager.FileAsset> {
-    let info = this.getInfoFromType(mediaType)
-    let dateTimeUtil = new DateTimeUtil()
-    let name = `${dateTimeUtil.getDate()}_${dateTimeUtil.getTime()}`
-    let displayName = `${info.prefix}${name}${info.suffix}`
-    Logger.info(this.tag, `displayName = ${displayName},mediaType = ${mediaType}`)
-    let fetchFileResult: userFileManager.FileAsset = undefined;
-    // 新建音频资源
-    if (mediaType === FileType.AUDIO) {
-      fetchFileResult = await this.mediaTest.createAudioAsset(displayName);
-    } else {
-      // 新建图片/视频资源
-      fetchFileResult = await this.mediaTest.createPhotoAsset(displayName);
+  private validateCreateType(mediaType: number): void {
+    if (mediaType !== FileType.IMAGE && mediaType !== FileType.VIDEO &&
+      mediaType !== FileType.AUDIO && mediaType !== FileType.FILE) {
+      throw new Error(`Unsupported create media type: ${mediaType}`);
     }
-    return fetchFileResult;
   }
 
-  async getFdPath(fileAsset: any) {
-    let fd = await fileAsset.open('Rw')
-    Logger.info(this.tag, `fd = ${fd}`)
-    return fd
+  async createAndGetUri(mediaType: number): Promise<MediaAssetHandle> {
+    this.validateCreateType(mediaType);
+    const info = this.getInfoFromType(mediaType);
+    const name = `${this.clock.getDate()}_${this.clock.getTime()}`;
+    const displayName = `${info.prefix}${name}${info.suffix}`;
+    Logger.info(this.tag, `displayName = ${displayName},mediaType = ${mediaType}`);
+    // Audio and text records stay in the application sandbox; photos and videos use the media library.
+    if (mediaType === FileType.AUDIO || mediaType === FileType.FILE) {
+      return new SandboxFileHandle(`${this.sandboxDirPath}/${displayName}`, mediaType, this.files);
+    }
+    const photoType = mediaType === FileType.IMAGE ? photoAccessHelper.PhotoType.IMAGE :
+      photoAccessHelper.PhotoType.VIDEO;
+    const uri = await this.mediaLibrary.createAsset(photoType, info.suffix.substring(1));
+    return new PhotoAssetHandle(await this.getAssetByUri(uri), mediaType, this.files);
   }
 
-  async createFile(mediaType: number, context: common.UIAbilityContext) {
-    let info = this.getInfoFromType(mediaType)
-    let dateTimeUtil = new DateTimeUtil()
-    let name = `${dateTimeUtil.getDate()}_${dateTimeUtil.getTime()}`
-    let displayName = `${info.prefix}${name}${info.suffix}`
-    Logger.info(this.tag, `displayName = ${displayName},mediaType = ${mediaType}`)
-    let fd: number = -1;
-    Logger.info(this.tag, `filePath = ${context.filesDir}`)
+  private async getAssetByUri(uri: string): Promise<MediaPhotoAsset> {
+    const predicates = this.predicatesFactory();
+    predicates.equalTo(photoAccessHelper.PhotoKeys.URI, uri);
+    const result = await this.mediaLibrary.getAssets({ fetchColumns: ['duration', 'date_added'], predicates });
+    let assets: MediaPhotoAsset[];
     try {
-      let file =
-        fileIo.openSync(context.filesDir + "/" + displayName, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
-      Logger.info(this.tag, `openFile success, fd = ${fd}`)
+      assets = await result.getAllObjects();
+      if (assets.length === 0) {
+        throw new Error(`Media asset not found: ${uri}`);
+      }
+    } finally {
+      result.close();
+    }
+    return assets[0];
+  }
+
+  async getFdPath(fileAsset: MediaAssetHandle): Promise<number> {
+    const fd = await fileAsset.open('Rw');
+    Logger.info(this.tag, `fd = ${fd}`);
+    return fd;
+  }
+
+  async createFile(mediaType: number, context: common.UIAbilityContext): Promise<fileIo.File | null> {
+    this.validateCreateType(mediaType);
+    const info = this.getInfoFromType(mediaType);
+    const name = `${this.clock.getDate()}_${this.clock.getTime()}`;
+    const displayName = `${info.prefix}${name}${info.suffix}`;
+    Logger.info(this.tag, `displayName = ${displayName},mediaType = ${mediaType}`);
+    Logger.info(this.tag, `filePath = ${context.filesDir}`);
+    try {
+      const file = this.files.openSync(context.filesDir + '/' + displayName,
+        fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
+      Logger.info(this.tag, `openFile success, fd = ${file.fd}`);
       return file;
     } catch (err) {
-      Logger.info(this.tag, "createFile failed, err:" + JSON.stringify(err));
+      Logger.error(this.tag, 'createFile failed, err:' + JSON.stringify(err));
     }
     return null;
   }
 
-  async getFileAssetsFromType(mediaType: number): Promise<userFileManager.FileAsset[]> {
+  async getFileAssetsFromType(mediaType: number): Promise<MediaAssetHandle[]> {
     Logger.info(this.tag, `getFileAssetsFromType,mediaType = ${mediaType}`);
-    let fileAssets: Array<userFileManager.FileAsset> = [];
-
+    const fileAssets: MediaAssetHandle[] = [];
     try {
-      let predicates: dataSharePredicates.DataSharePredicates = new dataSharePredicates.DataSharePredicates();
-      let fetchOptions: userFileManager.FetchOptions = {
-        fetchColumns: ['duration', 'date_added'],
-        predicates: predicates
-      }
-      let fetchFileResult: userFileManager.FetchResult<userFileManager.FileAsset> = undefined;
-      // 获取音频资源
-      if (mediaType === FileType.AUDIO) {
-        fetchFileResult = await this.mediaTest.getAudioAssets(fetchOptions);
-        fileAssets = await fetchFileResult.getAllObject();
+      if (mediaType === FileType.AUDIO || mediaType === FileType.FILE) {
+        const names = this.files.listFileSync(this.sandboxDirPath);
+        names.filter(name => name.endsWith(mediaType === FileType.AUDIO ? '.mp3' : '.txt')).forEach(name => {
+          fileAssets.push(new SandboxFileHandle(`${this.sandboxDirPath}/${name}`, mediaType, this.files));
+        });
       } else {
-        // 获取图片/视频资源
-        fetchFileResult = await this.mediaTest.getPhotoAssets(fetchOptions);
-        fileAssets = await fetchFileResult.getAllObject();
-        // 过滤资源
-        fileAssets = fileAssets.filter(item => item.fileType === mediaType)
+        const predicates = this.predicatesFactory();
+        const fetchOptions: photoAccessHelper.FetchOptions = {
+          fetchColumns: ['duration', 'date_added'],
+          predicates: predicates
+        };
+        const fetchResult = await this.mediaLibrary.getAssets(fetchOptions);
+        try {
+          const assets = await fetchResult.getAllObjects();
+          assets.filter(item => item.photoType === mediaType).forEach(item => {
+            fileAssets.push(new PhotoAssetHandle(item, mediaType, this.files));
+          });
+        } finally {
+          fetchResult.close();
+        }
       }
     } catch (err) {
       Logger.info(this.tag, `err ${JSON.stringify(err)}`);
     }
     Logger.info(this.tag, `getFileAssetsFromType = ${mediaType},fileAssets.count = ${fileAssets.length}`);
-    return fileAssets
+    return fileAssets;
   }
 
-  async getFileAssets(context: common.UIAbilityContext, mediaType?: number): Promise<FileInfo[]> {
-    let isDone: boolean = false;
-    const pathDir: string = context.filesDir;
-    let fileInfos: Array<FileInfo> = [];
+  async getFileAssets(context: common.Context, mediaType?: number): Promise<FileInfo[]> {
+    const pathDir = this.sandboxDirPath;
+    const fileInfos: FileInfo[] = [];
     try {
-      let listFileOption: ListFileOptions = {
-        recursion: false,
-        listNum: 0,
-        filter: {
-          suffix: ["txt"],
-          excludeMedia: true
-        }
-      }
-      fileIo.listFileSync(pathDir).forEach((fileName: string) => {
-        let fileStat: fileIo.Stat = fileIo.statSync(pathDir + "/" + fileName);
+      const names = this.files.listFileSync(pathDir);
+      const suffix = mediaType === undefined ? '' : this.getInfoFromType(mediaType).suffix;
+      names.filter(name => suffix === '' || name.endsWith(suffix)).forEach((fileName: string) => {
+        const fileStat = this.files.statSync(pathDir + '/' + fileName);
         fileInfos.push({
-          uri: pathDir + "/" + fileName,
+          uri: pathDir + '/' + fileName,
           fileName: fileName,
           mtime: fileStat.mtime
         });
-      })
+      });
     } catch (error) {
-      Logger.info(this.tag, "getRoots failed, errCode:" + error.code + ", errMessage:" + error.message);
+      Logger.info(this.tag, 'getRoots failed, err:' + JSON.stringify(error));
     }
     return fileInfos;
   }
 
-  async getAlbums(context: common.UIAbilityContext) {
-    Logger.info(this.tag, 'getAlbums begin')
-
-    let albums = []
+  async getAlbums(context: common.Context): Promise<AlbumInfo[]> {
+    Logger.info(this.tag, 'getAlbums begin');
     const [images, videos, audios, fileInfos] = await Promise.all([
       this.getFileAssetsFromType(FileType.IMAGE),
       this.getFileAssetsFromType(FileType.VIDEO),
       this.getFileAssetsFromType(FileType.AUDIO),
-      this.getFileAssets(context)
-    ])
-    albums.push({
-      albumName: 'Documents', count: fileInfos.length, mediaType: FileType.FILE
-    })
-    albums.push({
-      albumName: 'Pictures', count: images.length, mediaType: FileType.IMAGE
-    })
-    albums.push({
-      albumName: 'Videos', count: videos.length, mediaType: FileType.VIDEO
-    })
-    albums.push({
-      albumName: 'Audios', count: audios.length, mediaType: FileType.AUDIO
-    })
-    return albums
+      this.getFileAssets(context, FileType.FILE)
+    ]);
+    return [
+      { albumName: 'Documents', count: fileInfos.length, mediaType: FileType.FILE },
+      { albumName: 'Pictures', count: images.length, mediaType: FileType.IMAGE },
+      { albumName: 'Videos', count: videos.length, mediaType: FileType.VIDEO },
+      { albumName: 'Audios', count: audios.length, mediaType: FileType.AUDIO }
+    ];
   }
 
   async deleteFile(mediaType: number, uri: string, context?: common.UIAbilityContext): Promise<void> {
-    // 删除文件资源
-    if (mediaType === 4 && context !== undefined) {
+    if (mediaType === FileType.AUDIO || mediaType === FileType.FILE) {
       try {
-        let fileAccessHelper = fileAccess.createFileAccessHelper(context);
-        let code = await fileAccessHelper.delete(uri);
-        if (code != 0) {
-          Logger.info(this.tag, `delete failed, code: ${code}`);
-        }
+        this.files.unlinkSync(uri);
+      } catch (err) {
+        Logger.info(this.tag, `delete failed, err: ${err}`);
+      }
+      return;
+    }
+    if (context !== undefined) {
+      try {
+        await this.mediaLibrary.deleteAssets(context, [uri]);
       } catch (err) {
         Logger.info(this.tag, `delete failed, err: ${err}`);
       }
     } else {
-      // 删除图片/视频/音频资源
-      return this.mediaTest.delete(uri);
+      Logger.info(this.tag, 'delete skipped, no context for media asset');
     }
   }
 
-  getInfoFromType(mediaType: number) {
-    let result = {
-      prefix: '', suffix: ''
-    }
+  getInfoFromType(mediaType: number): MediaTypeInfo {
     switch (mediaType) {
       case FileType.IMAGE:
-        result.prefix = 'IMG_'
-        result.suffix = '.jpg'
-        break
+        return { prefix: 'IMG_', suffix: '.jpg' };
       case FileType.VIDEO:
-        result.prefix = 'VID_'
-        result.suffix = '.mp4'
-        break
+        return { prefix: 'VID_', suffix: '.mp4' };
       case FileType.AUDIO:
-        result.prefix = 'AUD_'
-        result.suffix = '.mp3'
-        break
+        return { prefix: 'AUD_', suffix: '.mp3' };
       default:
-        result.prefix = 'FILE_'
-        result.suffix = '.txt'
-        break
+        return { prefix: 'FILE_', suffix: '.txt' };
     }
-    return result
   }
 }

@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-import userFileManager from '@ohos.filemanagement.userFileManager'
-import fileAccess from '@ohos.file.fileAccess';
+import { MediaAssetHandle } from '../model/MediaUtils'
 import router from '@ohos.router'
 import Logger from '../model/Logger'
 import MediaUtils, { FileType } from '../model/MediaUtils'
@@ -57,14 +56,9 @@ struct AlbumPage {
     this.selectMedia = selectMediaArray[0];
     if (operate === 'delete') {
       this.deleteMedia(() => {
-        this.mediaUtils.deleteFile(this.mediaType, this.selectMedia.uri, context);
-        this.mediaDataSource.getDataArray().forEach((item: MediaData, index: number) => {
-          if (item.uri === mediaItemUri) {
-            this.mediaDataSource.deleteData(index, 1);
-            this.mediaDataSource.notifyDataReload();
-          }
-        })
-      })
+        this.mediaUtils.deleteFile(this.mediaType, mediaItemUri, context)
+          .then(() => this.refreshData());
+      });
     } else {
       this.renameDialogController.open()
     }
@@ -72,32 +66,18 @@ struct AlbumPage {
 
   async renameMedia(selectMedia: MediaData): Promise<void> {
     Logger.info(this.tag, `renameMedia newName = ${this.selectMedia.displayName}`)
-    // 重命名文件资源
-    if (this.mediaType === 4) {
-      let fileAccessHelper = fileAccess.createFileAccessHelper(context);
-      try {
-        await fileAccessHelper.rename(selectMedia.uri, selectMedia.displayName);
+    // 重命名文件资源(沙箱文件走路径重命名,媒体库资产走 display_name 提交)
+    try {
+      let fileAssetList: MediaAssetHandle[] = await this.mediaUtils.getFileAssetsFromType(this.mediaType)
+      let fileAsset: MediaAssetHandle | undefined = fileAssetList.find(item => item.uri === selectMedia.uri)
+      if (fileAsset !== undefined) {
+        await fileAsset.rename(selectMedia.displayName);
         Logger.info(this.tag, 'commitModify success')
         this.renameDialogController.close()
         this.refreshData()
-      } catch (err) {
-        Logger.info(this.tag, `commitModify,err: ${err}`)
       }
-    } else {
-      // 重命名图片/视频/音频资源
-      let fileAssetList: userFileManager.FileAsset[] = await this.mediaUtils.getFileAssetsFromType(this.mediaType)
-      let fileAsset: userFileManager.FileAsset | undefined = fileAssetList.find(item => item.uri === selectMedia.uri)
-      if (fileAsset !== undefined) {
-        try {
-          fileAsset.set('display_name', selectMedia.displayName)
-          await fileAsset.commitModify();
-          Logger.info(this.tag, 'commitModify success')
-          this.renameDialogController.close()
-          this.refreshData()
-        } catch (err) {
-          Logger.info(this.tag, `commitModify,err: ${err}`)
-        }
-      }
+    } catch (err) {
+      Logger.error(this.tag, `commitModify failed: ${err}`);
     }
   }
 
@@ -122,9 +102,9 @@ struct AlbumPage {
     )
   }
 
-  refreshData() {
-    if (this.mediaType === 4) {
-      let fileInfos = this.mediaUtils.getFileAssets(context)
+  refreshData(): void {
+    if (this.mediaType === FileType.FILE) {
+      const fileInfos = this.mediaUtils.getFileAssets(context, FileType.FILE);
       fileInfos.then(fileList => {
         Logger.info(this.tag, 'getFileList callback')
         let mediaDataList: MediaData[] = fileList.map(file => {
@@ -149,7 +129,7 @@ struct AlbumPage {
         let mediaDataList: MediaData[] = fileList.map(file => {
          let mediaData: MediaData = {
             uri: file.uri,
-            fileType: file.fileType as number,
+            fileType: file.mediaType,
             displayName: file.displayName,
             duration: file.get('duration') as number,
             dateAdded: file.get('date_added') as number
@@ -183,7 +163,6 @@ struct AlbumPage {
           }
           .id(`mediaId${index}`)
           .onClick(() => {
-            console.log("item.fileType："+item.fileType)
             if (item.fileType === FileType.VIDEO) {
               Logger.info(this.tag, `onClick,item.id=${item.uri}`)
               context.startAbility({
@@ -199,7 +178,7 @@ struct AlbumPage {
               )
             }
           })
-        }, (item: userFileManager.FileAsset) => JSON.stringify(item.displayName))
+        }, (item: MediaData) => JSON.stringify(item.displayName))
       }
       .layoutWeight(1)
     }

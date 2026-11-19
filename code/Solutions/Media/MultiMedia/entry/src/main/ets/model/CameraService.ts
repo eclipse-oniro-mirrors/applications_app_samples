@@ -18,9 +18,9 @@ import deviceInfo from '@ohos.deviceInfo';
 import fileio from '@ohos.file.fs';
 import image from '@ohos.multimedia.image';
 import media from '@ohos.multimedia.media';
-import userFileManager from '@ohos.filemanagement.userFileManager';
+
 import Logger from '../model/Logger';
-import MediaUtils, { FileType } from '../model/MediaUtils';
+import MediaUtils, { FileType, MediaAssetHandle } from '../model/MediaUtils';
 import { Size } from '@kit.ArkUI';
 
 const CameraMode = {
@@ -46,7 +46,7 @@ export default class CameraService {
   private captureSession: camera.CaptureSession = undefined;
   private mReceiver: image.ImageReceiver = undefined;
   private photoUri: string = '';
-  private fileAsset: userFileManager.FileAsset = undefined;
+  private fileAsset: MediaAssetHandle = undefined;
   private fd: number = -1;
   private curMode = CameraMode.MODE_PHOTO;
   private videoRecorder: media.VideoRecorder = undefined;
