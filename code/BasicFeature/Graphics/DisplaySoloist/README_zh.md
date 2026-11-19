@@ -9,7 +9,7 @@
 |---------------------------------------------------------------|
 | <img src="./screenshots/device/displaySoloist.jpg" width="100%"/> |
 
-使用说明
+### 使用说明
 
 1.进入XComponent页面，依次点击“**Start**”，三个方块分别按照30Hz、60Hz、120Hz移动；点击“**Stop**”动画停止；
 
@@ -65,9 +65,9 @@
 
 1.本示例仅支持在标准系统上运行，支持设备：RK3568。
 
-2.本示例为Stage模型，已适配API version 12版本SDK，SDK版本号(API Version 12 5.0.0.26),镜像版本号(5.0.0.26)。
+2.本示例为 Stage 模型，支持 API 26 版本 SDK（26.0.0），compileSdkVersion、targetSdkVersion、compatibleSdkVersion 均为 26.0.0。
 
-3.本示例需要使用DevEco Studio 版本号(4.1.3.500)及以上版本才可编译运行。
+3.本示例需要使用 DevEco Studio 26.0.0 Release 及以上版本才可编译运行。
 
 
 ### 下载

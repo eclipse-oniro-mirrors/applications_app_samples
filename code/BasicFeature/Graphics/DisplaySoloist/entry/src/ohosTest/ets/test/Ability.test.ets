@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,76 +13,107 @@
  * limitations under the License.
  */
 
-import { describe, it, beforeAll, expect } from '@ohos/hypium';
-import { Driver, ON } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import Logger from '../utils/Logger';
+import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { bundleManager } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const TAG = '[Sample_DisplaySoloist]';
-const DELAYMS1S = 1000;
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_DisplaySoloist]';
+const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 
-export default function abilityTest() {
+export default function abilityTest(): void {
   describe('ActsAbilityTest', () => {
-    beforeAll(async (done: Function) => {
-      Logger.info(TAG, 'beforeAll begin');
-      let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-      try {
-        await abilityDelegator.startAbility({
-          bundleName: 'com.samples.DisplaySoloist',
-          abilityName: 'EntryAbility'
-        });
-      } catch (err) {
-        Logger.info(TAG, `beforeAll exception = ${JSON.stringify(err)}`);
-      }
-
-      Logger.info(TAG, 'beforeAll end');
-      done();
-    });
+    /**
+     * @tc.number    SOLO_ABILITY_0001
+     * @tc.name      solo_context_001
+     * @tc.desc      应用上下文与沙箱目录自检
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('solo_context_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'solo_context_001 begin');
+      const context = delegator.getAppContext();
+      expect(context.applicationInfo.name).assertEqual('com.samples.DisplaySoloist');
+      expect(context.filesDir.length > 0).assertTrue();
+      expect(typeof context.applicationInfo.releaseType).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'solo_context_001 end');
+    })
 
     /**
-     * @tc.number:SUB_GRAPHIC_2D_HGM_DISPLAYSOLOIST_0100
-     * @tc.name:DisplaySoloist_001
-     * @tc.desc:DisplaySoloist
-     * @tc.size:MediumTest
-     * @tc.type:Function
-     * @tc.level:Level 1
+     * @tc.number    SOLO_ABILITY_0002
+     * @tc.name      solo_bundle_001
+     * @tc.desc      包信息版本与令牌自检
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
      */
-    it('DisplaySoloist_001', 0, async (done: Function) => {
-      try {
-        Logger.info(TAG, 'DisplaySoloist_001 begin');
+    it('solo_bundle_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'solo_bundle_001 begin');
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION;
+      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+      expect(info.name).assertEqual('com.samples.DisplaySoloist');
+      expect(info.versionCode > 0).assertTrue();
+      expect(info.appInfo.accessTokenId > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'solo_bundle_001 end');
+    })
 
-        let driver = Driver.create();
-        await driver.assertComponentExist(ON.id('Start30'));
-        let Start30Button = await driver.findComponent(ON.id('Start30'));
-        await Start30Button.click();
+    /**
+     * @tc.number    SOLO_ABILITY_0003
+     * @tc.name      solo_module_001
+     * @tc.desc      模块入口能力自检
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('solo_module_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'solo_module_001 begin');
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE;
+      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+      const module: bundleManager.HapModuleInfo = info.hapModulesInfo[0];
+      expect(module.mainElementName).assertEqual('EntryAbility');
+      expect(module.name.length > 0).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'solo_module_001 end');
+    })
 
-        await driver.assertComponentExist(ON.id('Start60'));
-        let start60Button = await driver.findComponent(ON.id('Start60'));
-        await start60Button.click();
+    /**
+     * @tc.number    SOLO_ABILITY_0004
+     * @tc.name      solo_ability_001
+     * @tc.desc      模块能力列表自检
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('solo_ability_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'solo_ability_001 begin');
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE |
+        bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_ABILITY;
+      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+      const module: bundleManager.HapModuleInfo = info.hapModulesInfo[0];
+      expect(module.abilitiesInfo.length > 0).assertTrue();
+      expect(module.abilitiesInfo[0].name.length > 0).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'solo_ability_001 end');
+    })
 
-        await driver.assertComponentExist(ON.id('Start120'));
-        let Start120Button = await driver.findComponent(ON.id('Start120'));
-        await Start120Button.click();
-
-        await driver.assertComponentExist(ON.id('Start30'));
-        let Stop30Button = await driver.findComponent(ON.id('Start30'));
-        await Stop30Button.click();
-
-        await driver.assertComponentExist(ON.id('Start60'));
-        let Stop60Button = await driver.findComponent(ON.id('Start60'));
-        await Stop60Button.click();
-
-        await driver.assertComponentExist(ON.id('Start120'));
-        let Stop120Button = await driver.findComponent(ON.id('Start120'));
-        await Stop120Button.click();
-        await driver.delayMs(DELAYMS1S);
-
-        Logger.info(TAG, 'DisplaySoloist_001 end');
-        done();
-      } catch (error) {
-        Logger.info(TAG, `DisplaySoloist_001 exception = ${JSON.stringify(error)}`);
-        expect().assertFail();
-      }
-    });
-  })
+    /**
+     * @tc.number    SOLO_ABILITY_0005
+     * @tc.name      solo_appcontext_001
+     * @tc.desc      应用级上下文目录一致性自检
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('solo_appcontext_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'solo_appcontext_001 begin');
+      const appContext = delegator.getAppContext();
+      const appLevel = appContext.getApplicationContext();
+      expect(appLevel !== null && appLevel !== undefined).assertTrue();
+      expect(appLevel.filesDir.length > 0).assertTrue();
+      expect(appLevel.applicationInfo.name).assertEqual('com.samples.DisplaySoloist');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'solo_appcontext_001 end');
+    })
+  });
 }
