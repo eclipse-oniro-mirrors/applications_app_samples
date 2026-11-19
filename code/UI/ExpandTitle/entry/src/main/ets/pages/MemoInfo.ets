@@ -14,6 +14,13 @@
  */
 
 /**
+ * @file entry/src/main/ets/pages/MemoInfo.ets
+ * 文件职责：MemoInfo 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：MemoInfo。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
+/**
  * 笔记信息类型
  */
 export class MemoInfo {
@@ -23,6 +30,7 @@ export class MemoInfo {
   public imageSrc: string;
   public content: string;
 
+  /** 构造 MemoInfo 实例。 */
   constructor(memoId: string, title: string, time: string, imageSrc: string, content: string) {
     this.memoId = memoId;
     this.title = title;

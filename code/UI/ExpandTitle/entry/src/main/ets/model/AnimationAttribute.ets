@@ -14,21 +14,33 @@
  */
 
 /**
+ * @file entry/src/main/ets/model/AnimationAttribute.ets
+ * 文件职责：AnimationAttribute 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：AnimationAttribute。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
+/**
  * 动效属性
  *
  */
 export class AnimationAttribute {
   // 标准标题栏高度
   private normalTitleHeightVar: number;
+
   // 扩展标题栏高度
   private expandTitleHeightVar: number;
+
   // 扩展后标题继续下拉阈值
   private continuePullThresholdVar: number;
+
   // 标题放缩系数
   private titleScaleVar: number;
+
   // 动画持续时间
   private animationDurationVar: number;
 
+  /** 构造 AnimationAttribute 实例。 */
   constructor(normalTitleHeight: number, expandTitleHeight: number, continuePullThreshold: number,
     titleScale: number, animationDuration: number) {
     this.normalTitleHeightVar = normalTitleHeight;

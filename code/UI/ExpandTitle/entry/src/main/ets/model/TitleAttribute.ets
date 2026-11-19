@@ -14,15 +14,24 @@
  */
 
 /**
+ * @file entry/src/main/ets/model/TitleAttribute.ets
+ * 文件职责：TitleAttribute 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：TitleAttribute。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
+/**
  * 标题属性
  *
  */
 export class TitleAttribute {
   // 标题内容
   private textTmp: string | Resource;
+
   // 标题样式
   private attributeTmp: AttributeModifier<TextAttribute>;
 
+  /** 构造 TitleAttribute 实例。 */
   constructor(text: string | Resource, attribute: AttributeModifier<TextAttribute>) {
     this.textTmp = text;
     this.attributeTmp = attribute;
