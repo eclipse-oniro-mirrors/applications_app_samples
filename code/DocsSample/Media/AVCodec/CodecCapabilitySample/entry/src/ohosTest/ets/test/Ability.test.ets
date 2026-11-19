@@ -13,8 +13,12 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { UIAbility, Want } from '@kit.AbilityKit';
+import { CapabilityController } from '../../../../main/ets/controller/CapabilityController';
+import { CodecBrief, CodecCategoryConstants, SCENARIO_GROUPS } from '../../../../main/ets/model/CodecModel';
 
 const DOMAIN = 0xF811;
 const TAG = '[Sample_CodecCapability]';
@@ -36,27 +40,36 @@ export default function abilityTest() {
     })
 
     /**
-     * Verify that the application starts successfully.
+     * Verify that the application starts successfully and the top ability is EntryAbility.
      */
-    it(BUNDLE + 'StartAbility_001', 0, () => {
+    it(BUNDLE + 'StartAbility_001', 0, async () => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001 begin');
-      let a = 'CodecCapability';
-      let b = 'Capability';
-      expect(a).assertContain(b);
-      expect(a).assertEqual(a);
+      const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator =
+        abilityDelegatorRegistry.getAbilityDelegator();
+      const want: Want = {
+        bundleName: 'com.samples.codeccapabilitysample',
+        abilityName: 'EntryAbility'
+      };
+      await abilityDelegator.startAbility(want);
+      const ability: UIAbility = await abilityDelegator.getCurrentTopAbility();
+      const abilityName: string = ability.context.abilityInfo.name;
+      hilog.info(DOMAIN, TAG, 'assertEqual params, abilityName: %{public}s', abilityName);
+      expect(abilityName).assertEqual('EntryAbility');
       hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001 end');
     })
 
     /**
-     * Verify that codec category values are valid.
+     * Verify that codec category constants match the native side definition.
      */
     it(BUNDLE + 'CodecCategory_001', 0, () => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'CodecCategory_001 begin');
-      // 0: video decoder, 1: video encoder, 2: audio decoder, 3: audio encoder
-      let videoDecoder = 0;
-      let videoEncoder = 1;
-      let audioDecoder = 2;
-      let audioEncoder = 3;
+      const videoDecoder: number = CodecCategoryConstants.VIDEO_DECODER;
+      const videoEncoder: number = CodecCategoryConstants.VIDEO_ENCODER;
+      const audioDecoder: number = CodecCategoryConstants.AUDIO_DECODER;
+      const audioEncoder: number = CodecCategoryConstants.AUDIO_ENCODER;
+      hilog.info(DOMAIN, TAG, 'assertEqual params, videoDecoder: %{public}d, videoEncoder: %{public}d, ' +
+        'audioDecoder: %{public}d, audioEncoder: %{public}d',
+        videoDecoder, videoEncoder, audioDecoder, audioEncoder);
       expect(videoDecoder).assertEqual(0);
       expect(videoEncoder).assertEqual(1);
       expect(audioDecoder).assertEqual(2);
@@ -65,13 +78,20 @@ export default function abilityTest() {
     })
 
     /**
-     * Verify that all codec categories are distinct.
+     * Verify that all codec category constants are distinct.
      */
     it(BUNDLE + 'CodecCategory_002', 0, () => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'CodecCategory_002 begin');
-      let categories = [0, 1, 2, 3];
+      const categories: number[] = [
+        CodecCategoryConstants.VIDEO_DECODER,
+        CodecCategoryConstants.VIDEO_ENCODER,
+        CodecCategoryConstants.AUDIO_DECODER,
+        CodecCategoryConstants.AUDIO_ENCODER
+      ];
       for (let i = 0; i < categories.length; i++) {
         for (let j = i + 1; j < categories.length; j++) {
+          hilog.info(DOMAIN, TAG, 'assertTrue params, categories[%{public}d]: %{public}d, ' +
+            'categories[%{public}d]: %{public}d', i, categories[i], j, categories[j]);
           expect(categories[i] !== categories[j]).assertTrue();
         }
       }
@@ -79,57 +99,33 @@ export default function abilityTest() {
     })
 
     /**
-     * Verify that the native capability library name is correct.
+     * Verify that the native capability library is loaded and returns a codec list.
      */
     it(BUNDLE + 'NativeLibrary_001', 0, () => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'NativeLibrary_001 begin');
-      let nativeLibrary = 'libcapability.so';
-      expect(nativeLibrary).assertContain('capability');
-      expect(nativeLibrary).assertEqual('libcapability.so');
+      const codecList: CodecBrief[] = CapabilityController.getCodecList(CodecCategoryConstants.VIDEO_DECODER);
+      const listSize: number = codecList.length;
+      hilog.info(DOMAIN, TAG, 'assertTrue params, isArray: %{public}s, listSize: %{public}d',
+        `${Array.isArray(codecList)}`, listSize);
+      expect(Array.isArray(codecList)).assertTrue();
       hilog.info(DOMAIN, TAG, BUNDLE + 'NativeLibrary_001 end');
     })
 
     /**
-     * Verify that the scenario group count matches the guide sections.
+     * Verify that scenario group count and item count match the guide sections.
      */
     it(BUNDLE + 'ScenarioGroups_001', 0, () => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'ScenarioGroups_001 begin');
-      // 19 scenario groups: obtain-supported-codecs (13) + typical-scenarios (3)
-      // + b-frame (1) + temporal-scalability (2)
-      let scenarioGroupCount = 19;
-      let scenarioCount = 38;
-      expect(scenarioGroupCount).assertEqual(19);
-      expect(scenarioCount).assertEqual(38);
+      const groupCount: number = SCENARIO_GROUPS.length;
+      let scenarioCount: number = 0;
+      for (const group of SCENARIO_GROUPS) {
+        scenarioCount += group.items.length;
+      }
+      hilog.info(DOMAIN, TAG, 'assertEqual params, groupCount: %{public}d, scenarioCount: %{public}d',
+        groupCount, scenarioCount);
+      expect(groupCount).assertEqual(19);
+      expect(scenarioCount).assertEqual(39);
       hilog.info(DOMAIN, TAG, BUNDLE + 'ScenarioGroups_001 end');
-    })
-
-    /**
-     * Verify MIME type constant strings.
-     */
-    it(BUNDLE + 'MimeType_001', 0, () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'MimeType_001 begin');
-      let videoAvc = 'video/avc';
-      let audioAac = 'audio/mp4a-latm';
-      expect(videoAvc).assertContain('video');
-      expect(audioAac).assertContain('audio');
-      hilog.info(DOMAIN, TAG, BUNDLE + 'MimeType_001 end');
-    })
-
-    /**
-     * Verify bitrate mode constant values.
-     */
-    it(BUNDLE + 'BitrateMode_001', 0, () => {
-      hilog.info(DOMAIN, TAG, BUNDLE + 'BitrateMode_001 begin');
-      // BITRATE_MODE_CBR = 0, VBR = 1, CQ = 2, CBRHQ = 4
-      let cbr = 0;
-      let vbr = 1;
-      let cq = 2;
-      let cbrhq = 4;
-      expect(cbr).assertEqual(0);
-      expect(vbr).assertEqual(1);
-      expect(cq).assertEqual(2);
-      expect(cbrhq).assertEqual(4);
-      hilog.info(DOMAIN, TAG, BUNDLE + 'BitrateMode_001 end');
     })
   })
 }

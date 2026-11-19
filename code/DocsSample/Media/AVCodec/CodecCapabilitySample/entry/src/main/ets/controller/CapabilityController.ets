@@ -17,7 +17,7 @@ import { getCodecList, getCodecDetail, runScenario } from 'libcapability.so';
 import { CodecBrief } from '../model/CodecModel';
 import Logger from '../common/utils/Logger';
 
-const TAG: string = '[CapabilityController]';
+const TAG: string = '[Sample_CodecCapabilityController]';
 
 /**
  * 编解码器详情查询失败时的错误码，由页面层映射为本地化文案。

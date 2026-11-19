@@ -17,7 +17,7 @@ import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import Logger from '../common/utils/Logger';
 
-const TAG: string = '[CodecCapabilitySample]';
+const TAG: string = '[Sample_CodecCapability]';
 
 export default class EntryAbility extends UIAbility {
   onCreate(_: Want, __: AbilityConstant.LaunchParam): void {

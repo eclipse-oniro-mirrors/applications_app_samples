@@ -13,24 +13,24 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0x0002B67;
+const DOMAIN: number = 0xF811;
 
 export default class Logger {
   static debug(tag: string, format: string, ...args: Array<string | number | boolean>): void {
-    hilog.debug(DOMAIN, tag, format, args);
+    hilog.debug(DOMAIN, tag, format, ...args);
   }
 
   static info(tag: string, format: string, ...args: Array<string | number | boolean>): void {
-    hilog.info(DOMAIN, tag, format, args);
+    hilog.info(DOMAIN, tag, format, ...args);
   }
 
   static warn(tag: string, format: string, ...args: Array<string | number | boolean>): void {
-    hilog.warn(DOMAIN, tag, format, args);
+    hilog.warn(DOMAIN, tag, format, ...args);
   }
 
   static error(tag: string, format: string, ...args: Array<string | number | boolean>): void {
-    hilog.error(DOMAIN, tag, format, args);
+    hilog.error(DOMAIN, tag, format, ...args);
   }
 }

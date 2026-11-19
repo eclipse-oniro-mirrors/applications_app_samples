@@ -17,7 +17,10 @@ import { CapabilityController, QUERY_CODEC_DETAIL_FAILED } from '../controller/C
 import { CodecBrief, ScenarioItem, ScenarioGroup, CodecCategoryConstants, SCENARIO_GROUPS } from '../model/CodecModel';
 import Logger from '../common/utils/Logger';
 
-const TAG: string = '[CodecCapabilityIndex]';
+const TAG: string = '[Sample_CodecCapabilityIndex]';
+
+// Sentinel value indicating that no scenario is currently running.
+const NONE_RUNNING_SCENARIO: number = -1;
 
 @Entry
 @Component
@@ -29,7 +32,7 @@ struct Index {
   @State codecDetailText: string | Resource = $r('app.string.codec_detail_hint');
   @State scenarioResultTitle: string | Resource = $r('app.string.scenario_result_title_default');
   @State scenarioResultText: string | Resource = $r('app.string.scenario_result_hint');
-  @State runningScenarioId: number = -1;
+  @State runningScenarioId: number = NONE_RUNNING_SCENARIO;
 
   aboutToAppear(): void {
     this.refreshCodecList(this.codecCategory);
@@ -54,7 +57,7 @@ struct Index {
   }
 
   private onScenarioClicked(item: ScenarioItem): void {
-    if (this.runningScenarioId !== -1) {
+    if (this.runningScenarioId !== NONE_RUNNING_SCENARIO) {
       return;
     }
     this.runningScenarioId = item.id;
@@ -63,12 +66,12 @@ struct Index {
       .then((result: string) => {
         this.scenarioResultTitle = item.name;
         this.scenarioResultText = result;
-        this.runningScenarioId = -1;
+        this.runningScenarioId = NONE_RUNNING_SCENARIO;
       })
       .catch((err: Error) => {
         this.scenarioResultTitle = item.name;
         this.scenarioResultText = this.getFormattedString($r('app.string.scenario_execute_failed'), err.message);
-        this.runningScenarioId = -1;
+        this.runningScenarioId = NONE_RUNNING_SCENARIO;
       });
   }
 
@@ -114,7 +117,7 @@ struct Index {
       }
       .width('100%')
 
-      Text(item.mime + this.getFormattedString($r('app.string.max_instances_format'), item.maxInstances))
+      Text(`${item.mime}${this.getFormattedString($r('app.string.max_instances_format'), item.maxInstances)}`)
         .fontSize(12)
         .fontColor('#999999')
         .maxLines(1)

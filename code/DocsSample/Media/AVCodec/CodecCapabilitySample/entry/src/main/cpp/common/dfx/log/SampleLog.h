@@ -29,8 +29,7 @@
 
 #define SAMPLE_LOG(func, fmt, args...)                                                    \
     do {                                                                                  \
-        (void)func(LOG_APP, "{%{public}s():%{public}d} " fmt,                            \
-                   __FUNCTION__, __LINE__, ##args);                                       \
+        (void)func(LOG_APP, fmt, ##args);                                                 \
     } while (0)
 
 #define SAMPLE_LOGF(fmt, ...) SAMPLE_LOG(OH_LOG_FATAL, fmt, ##__VA_ARGS__)
