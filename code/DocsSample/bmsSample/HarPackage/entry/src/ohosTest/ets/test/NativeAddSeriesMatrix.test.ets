@@ -1090,3 +1090,1277 @@ export default function nativeAddSeriesMatrixTest() {
       }
       logCase('testNativeSeriesSum0064', `total=${total}`);
       expect(total).assertEqual(605);
+      expect(nativeAdd(319, 22 * 13)).assertEqual(605);
+      expect(nativeAdd(605, -(22 * 13))).assertEqual(319);
+      expect(nativeAdd(605, -(605))).assertEqual(0);
+      expect(nativeAdd(319, 605)).assertEqual(605 + 319);
+      expect(nativeAdd(319, 22 * 13) > 319).assertTrue();
+      expect(nativeAdd(319, 286)).assertEqual(605);
+      {
+      let total: number = 332;
+      for (let stepIndex: number = 0; stepIndex < 23; stepIndex++) {
+        total = nativeAdd(total, 14);
+      }
+      logCase('testNativeSeriesSum0065', `total=${total}`);
+      expect(total).assertEqual(654);
+      expect(nativeAdd(332, 23 * 14)).assertEqual(654);
+      expect(nativeAdd(654, -(23 * 14))).assertEqual(332);
+      expect(nativeAdd(654, -(654))).assertEqual(0);
+      expect(Math.abs(nativeAdd(332, 23 * 14)) % 2).assertEqual(0);
+      expect(nativeAdd(332, 23 * 14) > 332).assertTrue();
+      expect(nativeAdd(332, 322)).assertEqual(654);
+      }
+      {
+      let total: number = 345;
+      for (let stepIndex: number = 0; stepIndex < 24; stepIndex++) {
+        total = nativeAdd(total, 15);
+      }
+      logCase('testNativeSeriesSum0066', `total=${total}`);
+      expect(total).assertEqual(705);
+      expect(nativeAdd(345, 24 * 15)).assertEqual(705);
+      expect(nativeAdd(705, -(24 * 15))).assertEqual(345);
+      expect(nativeAdd(705, -(705))).assertEqual(0);
+      expect(nativeAdd(345, 705)).assertEqual(705 + 345);
+      expect(nativeAdd(345, 24 * 15) > 345).assertTrue();
+      expect(nativeAdd(345, 360)).assertEqual(705);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0067
+     * @tc.name      testNativeSeriesSum0067
+     * @tc.desc      Accumulate 25 steps of 16 from 358 through the HAR NAPI add and expect 758
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNativeSeriesSum0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      let total: number = 358;
+      for (let stepIndex: number = 0; stepIndex < 25; stepIndex++) {
+        total = nativeAdd(total, 16);
+      }
+      logCase('testNativeSeriesSum0067', `total=${total}`);
+      expect(total).assertEqual(758);
+      expect(nativeAdd(358, 25 * 16)).assertEqual(758);
+      expect(nativeAdd(758, -(25 * 16))).assertEqual(358);
+      expect(nativeAdd(758, -(758))).assertEqual(0);
+      expect(Math.abs(nativeAdd(358, 25 * 16)) % 2).assertEqual(0);
+      expect(nativeAdd(358, 25 * 16) > 358).assertTrue();
+      expect(nativeAdd(358, 400)).assertEqual(758);
+      {
+      let total: number = 371;
+      for (let stepIndex: number = 0; stepIndex < 26; stepIndex++) {
+        total = nativeAdd(total, 17);
+      }
+      logCase('testNativeSeriesSum0068', `total=${total}`);
+      expect(total).assertEqual(813);
+      expect(nativeAdd(371, 26 * 17)).assertEqual(813);
+      expect(nativeAdd(813, -(26 * 17))).assertEqual(371);
+      expect(nativeAdd(813, -(813))).assertEqual(0);
+      expect(nativeAdd(371, 813)).assertEqual(813 + 371);
+      expect(nativeAdd(371, 26 * 17) > 371).assertTrue();
+      expect(nativeAdd(371, 442)).assertEqual(813);
+      }
+      {
+      let total: number = 384;
+      for (let stepIndex: number = 0; stepIndex < 27; stepIndex++) {
+        total = nativeAdd(total, 1);
+      }
+      logCase('testNativeSeriesSum0069', `total=${total}`);
+      expect(total).assertEqual(411);
+      expect(nativeAdd(384, 27 * 1)).assertEqual(411);
+      expect(nativeAdd(411, -(27 * 1))).assertEqual(384);
+      expect(nativeAdd(411, -(411))).assertEqual(0);
+      expect(Math.abs(nativeAdd(384, 27 * 1)) % 2).assertEqual(1);
+      expect(nativeAdd(384, 27 * 1) > 384).assertTrue();
+      expect(nativeAdd(384, 27)).assertEqual(411);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0070
+     * @tc.name      testNativeSeriesSum0070
+     * @tc.desc      Accumulate 28 steps of 2 from 397 through the HAR NAPI add and expect 453
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNativeSeriesSum0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      let total: number = 397;
+      for (let stepIndex: number = 0; stepIndex < 28; stepIndex++) {
+        total = nativeAdd(total, 2);
+      }
+      logCase('testNativeSeriesSum0070', `total=${total}`);
+      expect(total).assertEqual(453);
+      expect(nativeAdd(397, 28 * 2)).assertEqual(453);
+      expect(nativeAdd(453, -(28 * 2))).assertEqual(397);
+      expect(nativeAdd(453, -(453))).assertEqual(0);
+      expect(nativeAdd(397, 453)).assertEqual(453 + 397);
+      expect(nativeAdd(397, 28 * 2) > 397).assertTrue();
+      expect(nativeAdd(397, 56)).assertEqual(453);
+      {
+      let total: number = 410;
+      for (let stepIndex: number = 0; stepIndex < 29; stepIndex++) {
+        total = nativeAdd(total, 3);
+      }
+      logCase('testNativeSeriesSum0071', `total=${total}`);
+      expect(total).assertEqual(497);
+      expect(nativeAdd(410, 29 * 3)).assertEqual(497);
+      expect(nativeAdd(497, -(29 * 3))).assertEqual(410);
+      expect(nativeAdd(497, -(497))).assertEqual(0);
+      expect(Math.abs(nativeAdd(410, 29 * 3)) % 2).assertEqual(1);
+      expect(nativeAdd(410, 29 * 3) > 410).assertTrue();
+      expect(nativeAdd(410, 87)).assertEqual(497);
+      }
+      {
+      let total: number = 423;
+      for (let stepIndex: number = 0; stepIndex < 30; stepIndex++) {
+        total = nativeAdd(total, 4);
+      }
+      logCase('testNativeSeriesSum0072', `total=${total}`);
+      expect(total).assertEqual(543);
+      expect(nativeAdd(423, 30 * 4)).assertEqual(543);
+      expect(nativeAdd(543, -(30 * 4))).assertEqual(423);
+      expect(nativeAdd(543, -(543))).assertEqual(0);
+      expect(nativeAdd(423, 543)).assertEqual(543 + 423);
+      expect(nativeAdd(423, 30 * 4) > 423).assertTrue();
+      expect(nativeAdd(423, 120)).assertEqual(543);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0073
+     * @tc.name      testNativeSeriesSum0073
+     * @tc.desc      Accumulate 31 steps of 5 from 436 through the HAR NAPI add and expect 591
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNativeSeriesSum0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      let total: number = 436;
+      for (let stepIndex: number = 0; stepIndex < 31; stepIndex++) {
+        total = nativeAdd(total, 5);
+      }
+      logCase('testNativeSeriesSum0073', `total=${total}`);
+      expect(total).assertEqual(591);
+      expect(nativeAdd(436, 31 * 5)).assertEqual(591);
+      expect(nativeAdd(591, -(31 * 5))).assertEqual(436);
+      expect(nativeAdd(591, -(591))).assertEqual(0);
+      expect(Math.abs(nativeAdd(436, 31 * 5)) % 2).assertEqual(1);
+      expect(nativeAdd(436, 31 * 5) > 436).assertTrue();
+      expect(nativeAdd(436, 155)).assertEqual(591);
+      {
+      let total: number = 449;
+      for (let stepIndex: number = 0; stepIndex < 32; stepIndex++) {
+        total = nativeAdd(total, 6);
+      }
+      logCase('testNativeSeriesSum0074', `total=${total}`);
+      expect(total).assertEqual(641);
+      expect(nativeAdd(449, 32 * 6)).assertEqual(641);
+      expect(nativeAdd(641, -(32 * 6))).assertEqual(449);
+      expect(nativeAdd(641, -(641))).assertEqual(0);
+      expect(nativeAdd(449, 641)).assertEqual(641 + 449);
+      expect(nativeAdd(449, 32 * 6) > 449).assertTrue();
+      expect(nativeAdd(449, 192)).assertEqual(641);
+      }
+      {
+      let total: number = 462;
+      for (let stepIndex: number = 0; stepIndex < 33; stepIndex++) {
+        total = nativeAdd(total, 7);
+      }
+      logCase('testNativeSeriesSum0075', `total=${total}`);
+      expect(total).assertEqual(693);
+      expect(nativeAdd(462, 33 * 7)).assertEqual(693);
+      expect(nativeAdd(693, -(33 * 7))).assertEqual(462);
+      expect(nativeAdd(693, -(693))).assertEqual(0);
+      expect(Math.abs(nativeAdd(462, 33 * 7)) % 2).assertEqual(1);
+      expect(nativeAdd(462, 33 * 7) > 462).assertTrue();
+      expect(nativeAdd(462, 231)).assertEqual(693);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0076
+     * @tc.name      testNativeSeriesSum0076
+     * @tc.desc      Accumulate 34 steps of 8 from 475 through the HAR NAPI add and expect 747
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNativeSeriesSum0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      let total: number = 475;
+      for (let stepIndex: number = 0; stepIndex < 34; stepIndex++) {
+        total = nativeAdd(total, 8);
+      }
+      logCase('testNativeSeriesSum0076', `total=${total}`);
+      expect(total).assertEqual(747);
+      expect(nativeAdd(475, 34 * 8)).assertEqual(747);
+      expect(nativeAdd(747, -(34 * 8))).assertEqual(475);
+      expect(nativeAdd(747, -(747))).assertEqual(0);
+      expect(nativeAdd(475, 747)).assertEqual(747 + 475);
+      expect(nativeAdd(475, 34 * 8) > 475).assertTrue();
+      expect(nativeAdd(475, 272)).assertEqual(747);
+      {
+      let total: number = 488;
+      for (let stepIndex: number = 0; stepIndex < 35; stepIndex++) {
+        total = nativeAdd(total, 9);
+      }
+      logCase('testNativeSeriesSum0077', `total=${total}`);
+      expect(total).assertEqual(803);
+      expect(nativeAdd(488, 35 * 9)).assertEqual(803);
+      expect(nativeAdd(803, -(35 * 9))).assertEqual(488);
+      expect(nativeAdd(803, -(803))).assertEqual(0);
+      expect(Math.abs(nativeAdd(488, 35 * 9)) % 2).assertEqual(1);
+      expect(nativeAdd(488, 35 * 9) > 488).assertTrue();
+      expect(nativeAdd(488, 315)).assertEqual(803);
+      }
+      {
+      let total: number = 501;
+      for (let stepIndex: number = 0; stepIndex < 36; stepIndex++) {
+        total = nativeAdd(total, 10);
+      }
+      logCase('testNativeSeriesSum0078', `total=${total}`);
+      expect(total).assertEqual(861);
+      expect(nativeAdd(501, 36 * 10)).assertEqual(861);
+      expect(nativeAdd(861, -(36 * 10))).assertEqual(501);
+      expect(nativeAdd(861, -(861))).assertEqual(0);
+      expect(nativeAdd(501, 861)).assertEqual(861 + 501);
+      expect(nativeAdd(501, 36 * 10) > 501).assertTrue();
+      expect(nativeAdd(501, 360)).assertEqual(861);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0079
+     * @tc.name      testNativeSeriesSum0079
+     * @tc.desc      Accumulate 37 steps of 11 from 514 through the HAR NAPI add and expect 921
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNativeSeriesSum0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      let total: number = 514;
+      for (let stepIndex: number = 0; stepIndex < 37; stepIndex++) {
+        total = nativeAdd(total, 11);
+      }
+      logCase('testNativeSeriesSum0079', `total=${total}`);
+      expect(total).assertEqual(921);
+      expect(nativeAdd(514, 37 * 11)).assertEqual(921);
+      expect(nativeAdd(921, -(37 * 11))).assertEqual(514);
+      expect(nativeAdd(921, -(921))).assertEqual(0);
+      expect(Math.abs(nativeAdd(514, 37 * 11)) % 2).assertEqual(1);
+      expect(nativeAdd(514, 37 * 11) > 514).assertTrue();
+      expect(nativeAdd(514, 407)).assertEqual(921);
+      {
+      let total: number = 527;
+      for (let stepIndex: number = 0; stepIndex < 38; stepIndex++) {
+        total = nativeAdd(total, 12);
+      }
+      logCase('testNativeSeriesSum0080', `total=${total}`);
+      expect(total).assertEqual(983);
+      expect(nativeAdd(527, 38 * 12)).assertEqual(983);
+      expect(nativeAdd(983, -(38 * 12))).assertEqual(527);
+      expect(nativeAdd(983, -(983))).assertEqual(0);
+      expect(nativeAdd(527, 983)).assertEqual(983 + 527);
+      expect(nativeAdd(527, 38 * 12) > 527).assertTrue();
+      expect(nativeAdd(527, 456)).assertEqual(983);
+      }
+      {
+      let total: number = 540;
+      for (let stepIndex: number = 0; stepIndex < 39; stepIndex++) {
+        total = nativeAdd(total, 13);
+      }
+      logCase('testNativeSeriesSum0081', `total=${total}`);
+      expect(total).assertEqual(1047);
+      expect(nativeAdd(540, 39 * 13)).assertEqual(1047);
+      expect(nativeAdd(1047, -(39 * 13))).assertEqual(540);
+      expect(nativeAdd(1047, -(1047))).assertEqual(0);
+      expect(Math.abs(nativeAdd(540, 39 * 13)) % 2).assertEqual(1);
+      expect(nativeAdd(540, 39 * 13) > 540).assertTrue();
+      expect(nativeAdd(540, 507)).assertEqual(1047);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0082
+     * @tc.name      testNativeSeriesSum0082
+     * @tc.desc      Accumulate 40 steps of 14 from 553 through the HAR NAPI add and expect 1113
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNativeSeriesSum0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      let total: number = 553;
+      for (let stepIndex: number = 0; stepIndex < 40; stepIndex++) {
+        total = nativeAdd(total, 14);
+      }
+      logCase('testNativeSeriesSum0082', `total=${total}`);
+      expect(total).assertEqual(1113);
+      expect(nativeAdd(553, 40 * 14)).assertEqual(1113);
+      expect(nativeAdd(1113, -(40 * 14))).assertEqual(553);
+      expect(nativeAdd(1113, -(1113))).assertEqual(0);
+      expect(nativeAdd(553, 1113)).assertEqual(1113 + 553);
+      expect(nativeAdd(553, 40 * 14) > 553).assertTrue();
+      expect(nativeAdd(553, 560)).assertEqual(1113);
+      {
+      let total: number = 566;
+      for (let stepIndex: number = 0; stepIndex < 41; stepIndex++) {
+        total = nativeAdd(total, 15);
+      }
+      logCase('testNativeSeriesSum0083', `total=${total}`);
+      expect(total).assertEqual(1181);
+      expect(nativeAdd(566, 41 * 15)).assertEqual(1181);
+      expect(nativeAdd(1181, -(41 * 15))).assertEqual(566);
+      expect(nativeAdd(1181, -(1181))).assertEqual(0);
+      expect(Math.abs(nativeAdd(566, 41 * 15)) % 2).assertEqual(1);
+      expect(nativeAdd(566, 41 * 15) > 566).assertTrue();
+      expect(nativeAdd(566, 615)).assertEqual(1181);
+      }
+      {
+      let total: number = 579;
+      for (let stepIndex: number = 0; stepIndex < 42; stepIndex++) {
+        total = nativeAdd(total, 16);
+      }
+      logCase('testNativeSeriesSum0084', `total=${total}`);
+      expect(total).assertEqual(1251);
+      expect(nativeAdd(579, 42 * 16)).assertEqual(1251);
+      expect(nativeAdd(1251, -(42 * 16))).assertEqual(579);
+      expect(nativeAdd(1251, -(1251))).assertEqual(0);
+      expect(nativeAdd(579, 1251)).assertEqual(1251 + 579);
+      expect(nativeAdd(579, 42 * 16) > 579).assertTrue();
+      expect(nativeAdd(579, 672)).assertEqual(1251);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0085
+     * @tc.name      testNativeSeriesSum0085
+     * @tc.desc      Accumulate 43 steps of 17 from 592 through the HAR NAPI add and expect 1323
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNativeSeriesSum0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      let total: number = 592;
+      for (let stepIndex: number = 0; stepIndex < 43; stepIndex++) {
+        total = nativeAdd(total, 17);
+      }
+      logCase('testNativeSeriesSum0085', `total=${total}`);
+      expect(total).assertEqual(1323);
+      expect(nativeAdd(592, 43 * 17)).assertEqual(1323);
+      expect(nativeAdd(1323, -(43 * 17))).assertEqual(592);
+      expect(nativeAdd(1323, -(1323))).assertEqual(0);
+      expect(Math.abs(nativeAdd(592, 43 * 17)) % 2).assertEqual(1);
+      expect(nativeAdd(592, 43 * 17) > 592).assertTrue();
+      expect(nativeAdd(592, 731)).assertEqual(1323);
+      {
+      let total: number = 605;
+      for (let stepIndex: number = 0; stepIndex < 44; stepIndex++) {
+        total = nativeAdd(total, 1);
+      }
+      logCase('testNativeSeriesSum0086', `total=${total}`);
+      expect(total).assertEqual(649);
+      expect(nativeAdd(605, 44 * 1)).assertEqual(649);
+      expect(nativeAdd(649, -(44 * 1))).assertEqual(605);
+      expect(nativeAdd(649, -(649))).assertEqual(0);
+      expect(nativeAdd(605, 649)).assertEqual(649 + 605);
+      expect(nativeAdd(605, 44 * 1) > 605).assertTrue();
+      expect(nativeAdd(605, 44)).assertEqual(649);
+      }
+      {
+      let total: number = 618;
+      for (let stepIndex: number = 0; stepIndex < 45; stepIndex++) {
+        total = nativeAdd(total, 2);
+      }
+      logCase('testNativeSeriesSum0087', `total=${total}`);
+      expect(total).assertEqual(708);
+      expect(nativeAdd(618, 45 * 2)).assertEqual(708);
+      expect(nativeAdd(708, -(45 * 2))).assertEqual(618);
+      expect(nativeAdd(708, -(708))).assertEqual(0);
+      expect(Math.abs(nativeAdd(618, 45 * 2)) % 2).assertEqual(0);
+      expect(nativeAdd(618, 45 * 2) > 618).assertTrue();
+      expect(nativeAdd(618, 90)).assertEqual(708);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0088
+     * @tc.name      testNativeSeriesSum0088
+     * @tc.desc      Accumulate 46 steps of 3 from 631 through the HAR NAPI add and expect 769
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNativeSeriesSum0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      let total: number = 631;
+      for (let stepIndex: number = 0; stepIndex < 46; stepIndex++) {
+        total = nativeAdd(total, 3);
+      }
+      logCase('testNativeSeriesSum0088', `total=${total}`);
+      expect(total).assertEqual(769);
+      expect(nativeAdd(631, 46 * 3)).assertEqual(769);
+      expect(nativeAdd(769, -(46 * 3))).assertEqual(631);
+      expect(nativeAdd(769, -(769))).assertEqual(0);
+      expect(nativeAdd(631, 769)).assertEqual(769 + 631);
+      expect(nativeAdd(631, 46 * 3) > 631).assertTrue();
+      expect(nativeAdd(631, 138)).assertEqual(769);
+      {
+      let total: number = 644;
+      for (let stepIndex: number = 0; stepIndex < 47; stepIndex++) {
+        total = nativeAdd(total, 4);
+      }
+      logCase('testNativeSeriesSum0089', `total=${total}`);
+      expect(total).assertEqual(832);
+      expect(nativeAdd(644, 47 * 4)).assertEqual(832);
+      expect(nativeAdd(832, -(47 * 4))).assertEqual(644);
+      expect(nativeAdd(832, -(832))).assertEqual(0);
+      expect(Math.abs(nativeAdd(644, 47 * 4)) % 2).assertEqual(0);
+      expect(nativeAdd(644, 47 * 4) > 644).assertTrue();
+      expect(nativeAdd(644, 188)).assertEqual(832);
+      }
+      {
+      let total: number = 657;
+      for (let stepIndex: number = 0; stepIndex < 48; stepIndex++) {
+        total = nativeAdd(total, 5);
+      }
+      logCase('testNativeSeriesSum0090', `total=${total}`);
+      expect(total).assertEqual(897);
+      expect(nativeAdd(657, 48 * 5)).assertEqual(897);
+      expect(nativeAdd(897, -(48 * 5))).assertEqual(657);
+      expect(nativeAdd(897, -(897))).assertEqual(0);
+      expect(nativeAdd(657, 897)).assertEqual(897 + 657);
+      expect(nativeAdd(657, 48 * 5) > 657).assertTrue();
+      expect(nativeAdd(657, 240)).assertEqual(897);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0091
+     * @tc.name      testNativeSeriesSum0091
+     * @tc.desc      Accumulate 49 steps of 6 from 670 through the HAR NAPI add and expect 964
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNativeSeriesSum0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      let total: number = 670;
+      for (let stepIndex: number = 0; stepIndex < 49; stepIndex++) {
+        total = nativeAdd(total, 6);
+      }
+      logCase('testNativeSeriesSum0091', `total=${total}`);
+      expect(total).assertEqual(964);
+      expect(nativeAdd(670, 49 * 6)).assertEqual(964);
+      expect(nativeAdd(964, -(49 * 6))).assertEqual(670);
+      expect(nativeAdd(964, -(964))).assertEqual(0);
+      expect(Math.abs(nativeAdd(670, 49 * 6)) % 2).assertEqual(0);
+      expect(nativeAdd(670, 49 * 6) > 670).assertTrue();
+      expect(nativeAdd(670, 294)).assertEqual(964);
+      {
+      let total: number = 683;
+      for (let stepIndex: number = 0; stepIndex < 50; stepIndex++) {
+        total = nativeAdd(total, 7);
+      }
+      logCase('testNativeSeriesSum0092', `total=${total}`);
+      expect(total).assertEqual(1033);
+      expect(nativeAdd(683, 50 * 7)).assertEqual(1033);
+      expect(nativeAdd(1033, -(50 * 7))).assertEqual(683);
+      expect(nativeAdd(1033, -(1033))).assertEqual(0);
+      expect(nativeAdd(683, 1033)).assertEqual(1033 + 683);
+      expect(nativeAdd(683, 50 * 7) > 683).assertTrue();
+      expect(nativeAdd(683, 350)).assertEqual(1033);
+      }
+      {
+      let total: number = 696;
+      for (let stepIndex: number = 0; stepIndex < 51; stepIndex++) {
+        total = nativeAdd(total, 8);
+      }
+      logCase('testNativeSeriesSum0093', `total=${total}`);
+      expect(total).assertEqual(1104);
+      expect(nativeAdd(696, 51 * 8)).assertEqual(1104);
+      expect(nativeAdd(1104, -(51 * 8))).assertEqual(696);
+      expect(nativeAdd(1104, -(1104))).assertEqual(0);
+      expect(Math.abs(nativeAdd(696, 51 * 8)) % 2).assertEqual(0);
+      expect(nativeAdd(696, 51 * 8) > 696).assertTrue();
+      expect(nativeAdd(696, 408)).assertEqual(1104);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0094
+     * @tc.name      testNativeSeriesSum0094
+     * @tc.desc      Accumulate 52 steps of 9 from 709 through the HAR NAPI add and expect 1177
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNativeSeriesSum0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      let total: number = 709;
+      for (let stepIndex: number = 0; stepIndex < 52; stepIndex++) {
+        total = nativeAdd(total, 9);
+      }
+      logCase('testNativeSeriesSum0094', `total=${total}`);
+      expect(total).assertEqual(1177);
+      expect(nativeAdd(709, 52 * 9)).assertEqual(1177);
+      expect(nativeAdd(1177, -(52 * 9))).assertEqual(709);
+      expect(nativeAdd(1177, -(1177))).assertEqual(0);
+      expect(nativeAdd(709, 1177)).assertEqual(1177 + 709);
+      expect(nativeAdd(709, 52 * 9) > 709).assertTrue();
+      expect(nativeAdd(709, 468)).assertEqual(1177);
+      {
+      let total: number = 722;
+      for (let stepIndex: number = 0; stepIndex < 53; stepIndex++) {
+        total = nativeAdd(total, 10);
+      }
+      logCase('testNativeSeriesSum0095', `total=${total}`);
+      expect(total).assertEqual(1252);
+      expect(nativeAdd(722, 53 * 10)).assertEqual(1252);
+      expect(nativeAdd(1252, -(53 * 10))).assertEqual(722);
+      expect(nativeAdd(1252, -(1252))).assertEqual(0);
+      expect(Math.abs(nativeAdd(722, 53 * 10)) % 2).assertEqual(0);
+      expect(nativeAdd(722, 53 * 10) > 722).assertTrue();
+      expect(nativeAdd(722, 530)).assertEqual(1252);
+      }
+      {
+      let total: number = 735;
+      for (let stepIndex: number = 0; stepIndex < 54; stepIndex++) {
+        total = nativeAdd(total, 11);
+      }
+      logCase('testNativeSeriesSum0096', `total=${total}`);
+      expect(total).assertEqual(1329);
+      expect(nativeAdd(735, 54 * 11)).assertEqual(1329);
+      expect(nativeAdd(1329, -(54 * 11))).assertEqual(735);
+      expect(nativeAdd(1329, -(1329))).assertEqual(0);
+      expect(nativeAdd(735, 1329)).assertEqual(1329 + 735);
+      expect(nativeAdd(735, 54 * 11) > 735).assertTrue();
+      expect(nativeAdd(735, 594)).assertEqual(1329);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0097
+     * @tc.name      testNativeSeriesSum0097
+     * @tc.desc      Accumulate 55 steps of 12 from 748 through the HAR NAPI add and expect 1408
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNativeSeriesSum0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      let total: number = 748;
+      for (let stepIndex: number = 0; stepIndex < 55; stepIndex++) {
+        total = nativeAdd(total, 12);
+      }
+      logCase('testNativeSeriesSum0097', `total=${total}`);
+      expect(total).assertEqual(1408);
+      expect(nativeAdd(748, 55 * 12)).assertEqual(1408);
+      expect(nativeAdd(1408, -(55 * 12))).assertEqual(748);
+      expect(nativeAdd(1408, -(1408))).assertEqual(0);
+      expect(Math.abs(nativeAdd(748, 55 * 12)) % 2).assertEqual(0);
+      expect(nativeAdd(748, 55 * 12) > 748).assertTrue();
+      expect(nativeAdd(748, 660)).assertEqual(1408);
+      {
+      let total: number = 761;
+      for (let stepIndex: number = 0; stepIndex < 56; stepIndex++) {
+        total = nativeAdd(total, 13);
+      }
+      logCase('testNativeSeriesSum0098', `total=${total}`);
+      expect(total).assertEqual(1489);
+      expect(nativeAdd(761, 56 * 13)).assertEqual(1489);
+      expect(nativeAdd(1489, -(56 * 13))).assertEqual(761);
+      expect(nativeAdd(1489, -(1489))).assertEqual(0);
+      expect(nativeAdd(761, 1489)).assertEqual(1489 + 761);
+      expect(nativeAdd(761, 56 * 13) > 761).assertTrue();
+      expect(nativeAdd(761, 728)).assertEqual(1489);
+      }
+      {
+      let total: number = 774;
+      for (let stepIndex: number = 0; stepIndex < 57; stepIndex++) {
+        total = nativeAdd(total, 14);
+      }
+      logCase('testNativeSeriesSum0099', `total=${total}`);
+      expect(total).assertEqual(1572);
+      expect(nativeAdd(774, 57 * 14)).assertEqual(1572);
+      expect(nativeAdd(1572, -(57 * 14))).assertEqual(774);
+      expect(nativeAdd(1572, -(1572))).assertEqual(0);
+      expect(Math.abs(nativeAdd(774, 57 * 14)) % 2).assertEqual(0);
+      expect(nativeAdd(774, 57 * 14) > 774).assertTrue();
+      expect(nativeAdd(774, 798)).assertEqual(1572);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0100
+     * @tc.name      testNativeSeriesSum0100
+     * @tc.desc      Accumulate 58 steps of 15 from 787 through the HAR NAPI add and expect 1657
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNativeSeriesSum0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      let total: number = 787;
+      for (let stepIndex: number = 0; stepIndex < 58; stepIndex++) {
+        total = nativeAdd(total, 15);
+      }
+      logCase('testNativeSeriesSum0100', `total=${total}`);
+      expect(total).assertEqual(1657);
+      expect(nativeAdd(787, 58 * 15)).assertEqual(1657);
+      expect(nativeAdd(1657, -(58 * 15))).assertEqual(787);
+      expect(nativeAdd(1657, -(1657))).assertEqual(0);
+      expect(nativeAdd(787, 1657)).assertEqual(1657 + 787);
+      expect(nativeAdd(787, 58 * 15) > 787).assertTrue();
+      expect(nativeAdd(787, 870)).assertEqual(1657);
+      {
+      let total: number = 800;
+      for (let stepIndex: number = 0; stepIndex < 59; stepIndex++) {
+        total = nativeAdd(total, 16);
+      }
+      logCase('testNativeSeriesSum0101', `total=${total}`);
+      expect(total).assertEqual(1744);
+      expect(nativeAdd(800, 59 * 16)).assertEqual(1744);
+      expect(nativeAdd(1744, -(59 * 16))).assertEqual(800);
+      expect(nativeAdd(1744, -(1744))).assertEqual(0);
+      expect(Math.abs(nativeAdd(800, 59 * 16)) % 2).assertEqual(0);
+      expect(nativeAdd(800, 59 * 16) > 800).assertTrue();
+      expect(nativeAdd(800, 944)).assertEqual(1744);
+      }
+      {
+      let total: number = 813;
+      for (let stepIndex: number = 0; stepIndex < 60; stepIndex++) {
+        total = nativeAdd(total, 17);
+      }
+      logCase('testNativeSeriesSum0102', `total=${total}`);
+      expect(total).assertEqual(1833);
+      expect(nativeAdd(813, 60 * 17)).assertEqual(1833);
+      expect(nativeAdd(1833, -(60 * 17))).assertEqual(813);
+      expect(nativeAdd(1833, -(1833))).assertEqual(0);
+      expect(nativeAdd(813, 1833)).assertEqual(1833 + 813);
+      expect(nativeAdd(813, 60 * 17) > 813).assertTrue();
+      expect(nativeAdd(813, 1020)).assertEqual(1833);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0103
+     * @tc.name      testNativeSeriesSum0103
+     * @tc.desc      Accumulate 10 steps of 1 from 826 through the HAR NAPI add and expect 836
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNativeSeriesSum0103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      let total: number = 826;
+      for (let stepIndex: number = 0; stepIndex < 10; stepIndex++) {
+        total = nativeAdd(total, 1);
+      }
+      logCase('testNativeSeriesSum0103', `total=${total}`);
+      expect(total).assertEqual(836);
+      expect(nativeAdd(826, 10 * 1)).assertEqual(836);
+      expect(nativeAdd(836, -(10 * 1))).assertEqual(826);
+      expect(nativeAdd(836, -(836))).assertEqual(0);
+      expect(Math.abs(nativeAdd(826, 10 * 1)) % 2).assertEqual(0);
+      expect(nativeAdd(826, 836)).assertEqual(836 + 826);
+      expect(nativeAdd(826, 10 * 1) > 826).assertTrue();
+      expect(nativeAdd(826, 10)).assertEqual(836);
+      {
+      let total: number = 839;
+      for (let stepIndex: number = 0; stepIndex < 11; stepIndex++) {
+        total = nativeAdd(total, 2);
+      }
+      logCase('testNativeSeriesSum0104', `total=${total}`);
+      expect(total).assertEqual(861);
+      expect(nativeAdd(839, 11 * 2)).assertEqual(861);
+      expect(nativeAdd(861, -(11 * 2))).assertEqual(839);
+      expect(nativeAdd(861, -(861))).assertEqual(0);
+      expect(nativeAdd(839, 11 * 2) > 839).assertTrue();
+      expect(nativeAdd(839, 22)).assertEqual(861);
+      }
+      {
+      let total: number = 852;
+      for (let stepIndex: number = 0; stepIndex < 12; stepIndex++) {
+        total = nativeAdd(total, 3);
+      }
+      logCase('testNativeSeriesSum0105', `total=${total}`);
+      expect(total).assertEqual(888);
+      expect(nativeAdd(852, 12 * 3)).assertEqual(888);
+      expect(nativeAdd(888, -(12 * 3))).assertEqual(852);
+      expect(nativeAdd(888, -(888))).assertEqual(0);
+      expect(Math.abs(nativeAdd(852, 12 * 3)) % 2).assertEqual(0);
+      expect(nativeAdd(852, 888)).assertEqual(888 + 852);
+      expect(nativeAdd(852, 12 * 3) > 852).assertTrue();
+      expect(nativeAdd(852, 36)).assertEqual(888);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0106
+     * @tc.name      testNativeSeriesSum0106
+     * @tc.desc      Accumulate 13 steps of 4 from 865 through the HAR NAPI add and expect 917
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNativeSeriesSum0106', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      let total: number = 865;
+      for (let stepIndex: number = 0; stepIndex < 13; stepIndex++) {
+        total = nativeAdd(total, 4);
+      }
+      logCase('testNativeSeriesSum0106', `total=${total}`);
+      expect(total).assertEqual(917);
+      expect(nativeAdd(865, 13 * 4)).assertEqual(917);
+      expect(nativeAdd(917, -(13 * 4))).assertEqual(865);
+      expect(nativeAdd(917, -(917))).assertEqual(0);
+      expect(nativeAdd(865, 13 * 4) > 865).assertTrue();
+      expect(nativeAdd(865, 52)).assertEqual(917);
+      {
+      let total: number = 878;
+      for (let stepIndex: number = 0; stepIndex < 14; stepIndex++) {
+        total = nativeAdd(total, 5);
+      }
+      logCase('testNativeSeriesSum0107', `total=${total}`);
+      expect(total).assertEqual(948);
+      expect(nativeAdd(878, 14 * 5)).assertEqual(948);
+      expect(nativeAdd(948, -(14 * 5))).assertEqual(878);
+      expect(nativeAdd(948, -(948))).assertEqual(0);
+      expect(Math.abs(nativeAdd(878, 14 * 5)) % 2).assertEqual(0);
+      expect(nativeAdd(878, 948)).assertEqual(948 + 878);
+      expect(nativeAdd(878, 14 * 5) > 878).assertTrue();
+      expect(nativeAdd(878, 70)).assertEqual(948);
+      }
+      {
+      let total: number = 891;
+      for (let stepIndex: number = 0; stepIndex < 15; stepIndex++) {
+        total = nativeAdd(total, 6);
+      }
+      logCase('testNativeSeriesSum0108', `total=${total}`);
+      expect(total).assertEqual(981);
+      expect(nativeAdd(891, 15 * 6)).assertEqual(981);
+      expect(nativeAdd(981, -(15 * 6))).assertEqual(891);
+      expect(nativeAdd(981, -(981))).assertEqual(0);
+      expect(nativeAdd(891, 15 * 6) > 891).assertTrue();
+      expect(nativeAdd(891, 90)).assertEqual(981);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0109
+     * @tc.name      testNativeSeriesSum0109
+     * @tc.desc      Accumulate 16 steps of 7 from 904 through the HAR NAPI add and expect 1016
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testNativeSeriesSum0109', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      let total: number = 904;
+      for (let stepIndex: number = 0; stepIndex < 16; stepIndex++) {
+        total = nativeAdd(total, 7);
+      }
+      logCase('testNativeSeriesSum0109', `total=${total}`);
+      expect(total).assertEqual(1016);
+      expect(nativeAdd(904, 16 * 7)).assertEqual(1016);
+      expect(nativeAdd(1016, -(16 * 7))).assertEqual(904);
+      expect(nativeAdd(1016, -(1016))).assertEqual(0);
+      expect(Math.abs(nativeAdd(904, 16 * 7)) % 2).assertEqual(0);
+      expect(nativeAdd(904, 1016)).assertEqual(1016 + 904);
+      expect(nativeAdd(904, 16 * 7) > 904).assertTrue();
+      expect(nativeAdd(904, 112)).assertEqual(1016);
+      {
+      let total: number = 917;
+      for (let stepIndex: number = 0; stepIndex < 17; stepIndex++) {
+        total = nativeAdd(total, 8);
+      }
+      logCase('testNativeSeriesSum0110', `total=${total}`);
+      expect(total).assertEqual(1053);
+      expect(nativeAdd(917, 17 * 8)).assertEqual(1053);
+      expect(nativeAdd(1053, -(17 * 8))).assertEqual(917);
+      expect(nativeAdd(1053, -(1053))).assertEqual(0);
+      expect(nativeAdd(917, 17 * 8) > 917).assertTrue();
+      expect(nativeAdd(917, 136)).assertEqual(1053);
+      }
+      {
+      let total: number = 930;
+      for (let stepIndex: number = 0; stepIndex < 18; stepIndex++) {
+        total = nativeAdd(total, 9);
+      }
+      logCase('testNativeSeriesSum0111', `total=${total}`);
+      expect(total).assertEqual(1092);
+      expect(nativeAdd(930, 18 * 9)).assertEqual(1092);
+      expect(nativeAdd(1092, -(18 * 9))).assertEqual(930);
+      expect(nativeAdd(1092, -(1092))).assertEqual(0);
+      expect(Math.abs(nativeAdd(930, 18 * 9)) % 2).assertEqual(0);
+      expect(nativeAdd(930, 1092)).assertEqual(1092 + 930);
+      expect(nativeAdd(930, 18 * 9) > 930).assertTrue();
+      expect(nativeAdd(930, 162)).assertEqual(1092);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0112
+     * @tc.name      testNativeSeriesSum0112
+     * @tc.desc      Accumulate 19 steps of 10 from 943 through the HAR NAPI add and expect 1133
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSeriesSum0112', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      let total: number = 943;
+      for (let stepIndex: number = 0; stepIndex < 19; stepIndex++) {
+        total = nativeAdd(total, 10);
+      }
+      logCase('testNativeSeriesSum0112', `total=${total}`);
+      expect(total).assertEqual(1133);
+      expect(nativeAdd(943, 19 * 10)).assertEqual(1133);
+      expect(nativeAdd(1133, -(19 * 10))).assertEqual(943);
+      expect(nativeAdd(1133, -(1133))).assertEqual(0);
+      expect(nativeAdd(943, 19 * 10) > 943).assertTrue();
+      expect(nativeAdd(943, 190)).assertEqual(1133);
+      {
+      let total: number = 956;
+      for (let stepIndex: number = 0; stepIndex < 20; stepIndex++) {
+        total = nativeAdd(total, 11);
+      }
+      logCase('testNativeSeriesSum0113', `total=${total}`);
+      expect(total).assertEqual(1176);
+      expect(nativeAdd(956, 20 * 11)).assertEqual(1176);
+      expect(nativeAdd(1176, -(20 * 11))).assertEqual(956);
+      expect(nativeAdd(1176, -(1176))).assertEqual(0);
+      expect(Math.abs(nativeAdd(956, 20 * 11)) % 2).assertEqual(0);
+      expect(nativeAdd(956, 1176)).assertEqual(1176 + 956);
+      expect(nativeAdd(956, 20 * 11) > 956).assertTrue();
+      expect(nativeAdd(956, 220)).assertEqual(1176);
+      }
+      {
+      let total: number = 969;
+      for (let stepIndex: number = 0; stepIndex < 21; stepIndex++) {
+        total = nativeAdd(total, 12);
+      }
+      logCase('testNativeSeriesSum0114', `total=${total}`);
+      expect(total).assertEqual(1221);
+      expect(nativeAdd(969, 21 * 12)).assertEqual(1221);
+      expect(nativeAdd(1221, -(21 * 12))).assertEqual(969);
+      expect(nativeAdd(1221, -(1221))).assertEqual(0);
+      expect(nativeAdd(969, 21 * 12) > 969).assertTrue();
+      expect(nativeAdd(969, 252)).assertEqual(1221);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0115
+     * @tc.name      testNativeSeriesSum0115
+     * @tc.desc      Accumulate 22 steps of 13 from 982 through the HAR NAPI add and expect 1268
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSeriesSum0115', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      let total: number = 982;
+      for (let stepIndex: number = 0; stepIndex < 22; stepIndex++) {
+        total = nativeAdd(total, 13);
+      }
+      logCase('testNativeSeriesSum0115', `total=${total}`);
+      expect(total).assertEqual(1268);
+      expect(nativeAdd(982, 22 * 13)).assertEqual(1268);
+      expect(nativeAdd(1268, -(22 * 13))).assertEqual(982);
+      expect(nativeAdd(1268, -(1268))).assertEqual(0);
+      expect(Math.abs(nativeAdd(982, 22 * 13)) % 2).assertEqual(0);
+      expect(nativeAdd(982, 1268)).assertEqual(1268 + 982);
+      expect(nativeAdd(982, 22 * 13) > 982).assertTrue();
+      expect(nativeAdd(982, 286)).assertEqual(1268);
+      {
+      let total: number = 995;
+      for (let stepIndex: number = 0; stepIndex < 23; stepIndex++) {
+        total = nativeAdd(total, 14);
+      }
+      logCase('testNativeSeriesSum0116', `total=${total}`);
+      expect(total).assertEqual(1317);
+      expect(nativeAdd(995, 23 * 14)).assertEqual(1317);
+      expect(nativeAdd(1317, -(23 * 14))).assertEqual(995);
+      expect(nativeAdd(1317, -(1317))).assertEqual(0);
+      expect(nativeAdd(995, 23 * 14) > 995).assertTrue();
+      expect(nativeAdd(995, 322)).assertEqual(1317);
+      }
+      {
+      let total: number = 1008;
+      for (let stepIndex: number = 0; stepIndex < 24; stepIndex++) {
+        total = nativeAdd(total, 15);
+      }
+      logCase('testNativeSeriesSum0117', `total=${total}`);
+      expect(total).assertEqual(1368);
+      expect(nativeAdd(1008, 24 * 15)).assertEqual(1368);
+      expect(nativeAdd(1368, -(24 * 15))).assertEqual(1008);
+      expect(nativeAdd(1368, -(1368))).assertEqual(0);
+      expect(Math.abs(nativeAdd(1008, 24 * 15)) % 2).assertEqual(0);
+      expect(nativeAdd(1008, 1368)).assertEqual(1368 + 1008);
+      expect(nativeAdd(1008, 24 * 15) > 1008).assertTrue();
+      expect(nativeAdd(1008, 360)).assertEqual(1368);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0118
+     * @tc.name      testNativeSeriesSum0118
+     * @tc.desc      Accumulate 25 steps of 16 from 1021 through the HAR NAPI add and expect 1421
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSeriesSum0118', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      let total: number = 1021;
+      for (let stepIndex: number = 0; stepIndex < 25; stepIndex++) {
+        total = nativeAdd(total, 16);
+      }
+      logCase('testNativeSeriesSum0118', `total=${total}`);
+      expect(total).assertEqual(1421);
+      expect(nativeAdd(1021, 25 * 16)).assertEqual(1421);
+      expect(nativeAdd(1421, -(25 * 16))).assertEqual(1021);
+      expect(nativeAdd(1421, -(1421))).assertEqual(0);
+      expect(nativeAdd(1021, 25 * 16) > 1021).assertTrue();
+      expect(nativeAdd(1021, 400)).assertEqual(1421);
+      {
+      let total: number = 1034;
+      for (let stepIndex: number = 0; stepIndex < 26; stepIndex++) {
+        total = nativeAdd(total, 17);
+      }
+      logCase('testNativeSeriesSum0119', `total=${total}`);
+      expect(total).assertEqual(1476);
+      expect(nativeAdd(1034, 26 * 17)).assertEqual(1476);
+      expect(nativeAdd(1476, -(26 * 17))).assertEqual(1034);
+      expect(nativeAdd(1476, -(1476))).assertEqual(0);
+      expect(Math.abs(nativeAdd(1034, 26 * 17)) % 2).assertEqual(0);
+      expect(nativeAdd(1034, 1476)).assertEqual(1476 + 1034);
+      expect(nativeAdd(1034, 26 * 17) > 1034).assertTrue();
+      expect(nativeAdd(1034, 442)).assertEqual(1476);
+      }
+      {
+      let total: number = 1047;
+      for (let stepIndex: number = 0; stepIndex < 27; stepIndex++) {
+        total = nativeAdd(total, 1);
+      }
+      logCase('testNativeSeriesSum0120', `total=${total}`);
+      expect(total).assertEqual(1074);
+      expect(nativeAdd(1047, 27 * 1)).assertEqual(1074);
+      expect(nativeAdd(1074, -(27 * 1))).assertEqual(1047);
+      expect(nativeAdd(1074, -(1074))).assertEqual(0);
+      expect(nativeAdd(1047, 27 * 1) > 1047).assertTrue();
+      expect(nativeAdd(1047, 27)).assertEqual(1074);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0121
+     * @tc.name      testNativeSeriesSum0121
+     * @tc.desc      Accumulate 28 steps of 2 from 1060 through the HAR NAPI add and expect 1116
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSeriesSum0121', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      let total: number = 1060;
+      for (let stepIndex: number = 0; stepIndex < 28; stepIndex++) {
+        total = nativeAdd(total, 2);
+      }
+      logCase('testNativeSeriesSum0121', `total=${total}`);
+      expect(total).assertEqual(1116);
+      expect(nativeAdd(1060, 28 * 2)).assertEqual(1116);
+      expect(nativeAdd(1116, -(28 * 2))).assertEqual(1060);
+      expect(nativeAdd(1116, -(1116))).assertEqual(0);
+      expect(Math.abs(nativeAdd(1060, 28 * 2)) % 2).assertEqual(0);
+      expect(nativeAdd(1060, 1116)).assertEqual(1116 + 1060);
+      expect(nativeAdd(1060, 28 * 2) > 1060).assertTrue();
+      expect(nativeAdd(1060, 56)).assertEqual(1116);
+      {
+      let total: number = 1073;
+      for (let stepIndex: number = 0; stepIndex < 29; stepIndex++) {
+        total = nativeAdd(total, 3);
+      }
+      logCase('testNativeSeriesSum0122', `total=${total}`);
+      expect(total).assertEqual(1160);
+      expect(nativeAdd(1073, 29 * 3)).assertEqual(1160);
+      expect(nativeAdd(1160, -(29 * 3))).assertEqual(1073);
+      expect(nativeAdd(1160, -(1160))).assertEqual(0);
+      expect(nativeAdd(1073, 29 * 3) > 1073).assertTrue();
+      expect(nativeAdd(1073, 87)).assertEqual(1160);
+      }
+      {
+      let total: number = 1086;
+      for (let stepIndex: number = 0; stepIndex < 30; stepIndex++) {
+        total = nativeAdd(total, 4);
+      }
+      logCase('testNativeSeriesSum0123', `total=${total}`);
+      expect(total).assertEqual(1206);
+      expect(nativeAdd(1086, 30 * 4)).assertEqual(1206);
+      expect(nativeAdd(1206, -(30 * 4))).assertEqual(1086);
+      expect(nativeAdd(1206, -(1206))).assertEqual(0);
+      expect(Math.abs(nativeAdd(1086, 30 * 4)) % 2).assertEqual(0);
+      expect(nativeAdd(1086, 1206)).assertEqual(1206 + 1086);
+      expect(nativeAdd(1086, 30 * 4) > 1086).assertTrue();
+      expect(nativeAdd(1086, 120)).assertEqual(1206);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0124
+     * @tc.name      testNativeSeriesSum0124
+     * @tc.desc      Accumulate 31 steps of 5 from 1099 through the HAR NAPI add and expect 1254
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSeriesSum0124', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      let total: number = 1099;
+      for (let stepIndex: number = 0; stepIndex < 31; stepIndex++) {
+        total = nativeAdd(total, 5);
+      }
+      logCase('testNativeSeriesSum0124', `total=${total}`);
+      expect(total).assertEqual(1254);
+      expect(nativeAdd(1099, 31 * 5)).assertEqual(1254);
+      expect(nativeAdd(1254, -(31 * 5))).assertEqual(1099);
+      expect(nativeAdd(1254, -(1254))).assertEqual(0);
+      expect(nativeAdd(1099, 31 * 5) > 1099).assertTrue();
+      expect(nativeAdd(1099, 155)).assertEqual(1254);
+      {
+      let total: number = 1112;
+      for (let stepIndex: number = 0; stepIndex < 32; stepIndex++) {
+        total = nativeAdd(total, 6);
+      }
+      logCase('testNativeSeriesSum0125', `total=${total}`);
+      expect(total).assertEqual(1304);
+      expect(nativeAdd(1112, 32 * 6)).assertEqual(1304);
+      expect(nativeAdd(1304, -(32 * 6))).assertEqual(1112);
+      expect(nativeAdd(1304, -(1304))).assertEqual(0);
+      expect(Math.abs(nativeAdd(1112, 32 * 6)) % 2).assertEqual(0);
+      expect(nativeAdd(1112, 1304)).assertEqual(1304 + 1112);
+      expect(nativeAdd(1112, 32 * 6) > 1112).assertTrue();
+      expect(nativeAdd(1112, 192)).assertEqual(1304);
+      }
+      {
+      let total: number = 1125;
+      for (let stepIndex: number = 0; stepIndex < 33; stepIndex++) {
+        total = nativeAdd(total, 7);
+      }
+      logCase('testNativeSeriesSum0126', `total=${total}`);
+      expect(total).assertEqual(1356);
+      expect(nativeAdd(1125, 33 * 7)).assertEqual(1356);
+      expect(nativeAdd(1356, -(33 * 7))).assertEqual(1125);
+      expect(nativeAdd(1356, -(1356))).assertEqual(0);
+      expect(nativeAdd(1125, 33 * 7) > 1125).assertTrue();
+      expect(nativeAdd(1125, 231)).assertEqual(1356);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0127
+     * @tc.name      testNativeSeriesSum0127
+     * @tc.desc      Accumulate 34 steps of 8 from 1138 through the HAR NAPI add and expect 1410
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSeriesSum0127', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      let total: number = 1138;
+      for (let stepIndex: number = 0; stepIndex < 34; stepIndex++) {
+        total = nativeAdd(total, 8);
+      }
+      logCase('testNativeSeriesSum0127', `total=${total}`);
+      expect(total).assertEqual(1410);
+      expect(nativeAdd(1138, 34 * 8)).assertEqual(1410);
+      expect(nativeAdd(1410, -(34 * 8))).assertEqual(1138);
+      expect(nativeAdd(1410, -(1410))).assertEqual(0);
+      expect(Math.abs(nativeAdd(1138, 34 * 8)) % 2).assertEqual(0);
+      expect(nativeAdd(1138, 1410)).assertEqual(1410 + 1138);
+      expect(nativeAdd(1138, 34 * 8) > 1138).assertTrue();
+      expect(nativeAdd(1138, 272)).assertEqual(1410);
+      {
+      let total: number = 1151;
+      for (let stepIndex: number = 0; stepIndex < 35; stepIndex++) {
+        total = nativeAdd(total, 9);
+      }
+      logCase('testNativeSeriesSum0128', `total=${total}`);
+      expect(total).assertEqual(1466);
+      expect(nativeAdd(1151, 35 * 9)).assertEqual(1466);
+      expect(nativeAdd(1466, -(35 * 9))).assertEqual(1151);
+      expect(nativeAdd(1466, -(1466))).assertEqual(0);
+      expect(nativeAdd(1151, 35 * 9) > 1151).assertTrue();
+      expect(nativeAdd(1151, 315)).assertEqual(1466);
+      }
+      {
+      let total: number = 1164;
+      for (let stepIndex: number = 0; stepIndex < 36; stepIndex++) {
+        total = nativeAdd(total, 10);
+      }
+      logCase('testNativeSeriesSum0129', `total=${total}`);
+      expect(total).assertEqual(1524);
+      expect(nativeAdd(1164, 36 * 10)).assertEqual(1524);
+      expect(nativeAdd(1524, -(36 * 10))).assertEqual(1164);
+      expect(nativeAdd(1524, -(1524))).assertEqual(0);
+      expect(Math.abs(nativeAdd(1164, 36 * 10)) % 2).assertEqual(0);
+      expect(nativeAdd(1164, 1524)).assertEqual(1524 + 1164);
+      expect(nativeAdd(1164, 36 * 10) > 1164).assertTrue();
+      expect(nativeAdd(1164, 360)).assertEqual(1524);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0130
+     * @tc.name      testNativeSeriesSum0130
+     * @tc.desc      Accumulate 37 steps of 11 from 1177 through the HAR NAPI add and expect 1584
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSeriesSum0130', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      let total: number = 1177;
+      for (let stepIndex: number = 0; stepIndex < 37; stepIndex++) {
+        total = nativeAdd(total, 11);
+      }
+      logCase('testNativeSeriesSum0130', `total=${total}`);
+      expect(total).assertEqual(1584);
+      expect(nativeAdd(1177, 37 * 11)).assertEqual(1584);
+      expect(nativeAdd(1584, -(37 * 11))).assertEqual(1177);
+      expect(nativeAdd(1584, -(1584))).assertEqual(0);
+      expect(nativeAdd(1177, 37 * 11) > 1177).assertTrue();
+      expect(nativeAdd(1177, 407)).assertEqual(1584);
+      {
+      let total: number = 1190;
+      for (let stepIndex: number = 0; stepIndex < 38; stepIndex++) {
+        total = nativeAdd(total, 12);
+      }
+      logCase('testNativeSeriesSum0131', `total=${total}`);
+      expect(total).assertEqual(1646);
+      expect(nativeAdd(1190, 38 * 12)).assertEqual(1646);
+      expect(nativeAdd(1646, -(38 * 12))).assertEqual(1190);
+      expect(nativeAdd(1646, -(1646))).assertEqual(0);
+      expect(Math.abs(nativeAdd(1190, 38 * 12)) % 2).assertEqual(0);
+      expect(nativeAdd(1190, 1646)).assertEqual(1646 + 1190);
+      expect(nativeAdd(1190, 38 * 12) > 1190).assertTrue();
+      expect(nativeAdd(1190, 456)).assertEqual(1646);
+      }
+      {
+      let total: number = 1203;
+      for (let stepIndex: number = 0; stepIndex < 39; stepIndex++) {
+        total = nativeAdd(total, 13);
+      }
+      logCase('testNativeSeriesSum0132', `total=${total}`);
+      expect(total).assertEqual(1710);
+      expect(nativeAdd(1203, 39 * 13)).assertEqual(1710);
+      expect(nativeAdd(1710, -(39 * 13))).assertEqual(1203);
+      expect(nativeAdd(1710, -(1710))).assertEqual(0);
+      expect(nativeAdd(1203, 39 * 13) > 1203).assertTrue();
+      expect(nativeAdd(1203, 507)).assertEqual(1710);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0133
+     * @tc.name      testNativeSeriesSum0133
+     * @tc.desc      Accumulate 40 steps of 14 from 1216 through the HAR NAPI add and expect 1776
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSeriesSum0133', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      let total: number = 1216;
+      for (let stepIndex: number = 0; stepIndex < 40; stepIndex++) {
+        total = nativeAdd(total, 14);
+      }
+      logCase('testNativeSeriesSum0133', `total=${total}`);
+      expect(total).assertEqual(1776);
+      expect(nativeAdd(1216, 40 * 14)).assertEqual(1776);
+      expect(nativeAdd(1776, -(40 * 14))).assertEqual(1216);
+      expect(nativeAdd(1776, -(1776))).assertEqual(0);
+      expect(Math.abs(nativeAdd(1216, 40 * 14)) % 2).assertEqual(0);
+      expect(nativeAdd(1216, 1776)).assertEqual(1776 + 1216);
+      expect(nativeAdd(1216, 40 * 14) > 1216).assertTrue();
+      expect(nativeAdd(1216, 560)).assertEqual(1776);
+      {
+      let total: number = 1229;
+      for (let stepIndex: number = 0; stepIndex < 41; stepIndex++) {
+        total = nativeAdd(total, 15);
+      }
+      logCase('testNativeSeriesSum0134', `total=${total}`);
+      expect(total).assertEqual(1844);
+      expect(nativeAdd(1229, 41 * 15)).assertEqual(1844);
+      expect(nativeAdd(1844, -(41 * 15))).assertEqual(1229);
+      expect(nativeAdd(1844, -(1844))).assertEqual(0);
+      expect(nativeAdd(1229, 41 * 15) > 1229).assertTrue();
+      expect(nativeAdd(1229, 615)).assertEqual(1844);
+      }
+      {
+      let total: number = 1242;
+      for (let stepIndex: number = 0; stepIndex < 42; stepIndex++) {
+        total = nativeAdd(total, 16);
+      }
+      logCase('testNativeSeriesSum0135', `total=${total}`);
+      expect(total).assertEqual(1914);
+      expect(nativeAdd(1242, 42 * 16)).assertEqual(1914);
+      expect(nativeAdd(1914, -(42 * 16))).assertEqual(1242);
+      expect(nativeAdd(1914, -(1914))).assertEqual(0);
+      expect(Math.abs(nativeAdd(1242, 42 * 16)) % 2).assertEqual(0);
+      expect(nativeAdd(1242, 1914)).assertEqual(1914 + 1242);
+      expect(nativeAdd(1242, 42 * 16) > 1242).assertTrue();
+      expect(nativeAdd(1242, 672)).assertEqual(1914);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0136
+     * @tc.name      testNativeSeriesSum0136
+     * @tc.desc      Accumulate 43 steps of 17 from 1255 through the HAR NAPI add and expect 1986
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSeriesSum0136', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      let total: number = 1255;
+      for (let stepIndex: number = 0; stepIndex < 43; stepIndex++) {
+        total = nativeAdd(total, 17);
+      }
+      logCase('testNativeSeriesSum0136', `total=${total}`);
+      expect(total).assertEqual(1986);
+      expect(nativeAdd(1255, 43 * 17)).assertEqual(1986);
+      expect(nativeAdd(1986, -(43 * 17))).assertEqual(1255);
+      expect(nativeAdd(1986, -(1986))).assertEqual(0);
+      expect(nativeAdd(1255, 43 * 17) > 1255).assertTrue();
+      expect(nativeAdd(1255, 731)).assertEqual(1986);
+      {
+      let total: number = 1268;
+      for (let stepIndex: number = 0; stepIndex < 44; stepIndex++) {
+        total = nativeAdd(total, 1);
+      }
+      logCase('testNativeSeriesSum0137', `total=${total}`);
+      expect(total).assertEqual(1312);
+      expect(nativeAdd(1268, 44 * 1)).assertEqual(1312);
+      expect(nativeAdd(1312, -(44 * 1))).assertEqual(1268);
+      expect(nativeAdd(1312, -(1312))).assertEqual(0);
+      expect(Math.abs(nativeAdd(1268, 44 * 1)) % 2).assertEqual(0);
+      expect(nativeAdd(1268, 1312)).assertEqual(1312 + 1268);
+      expect(nativeAdd(1268, 44 * 1) > 1268).assertTrue();
+      expect(nativeAdd(1268, 44)).assertEqual(1312);
+      }
+      {
+      let total: number = 1281;
+      for (let stepIndex: number = 0; stepIndex < 45; stepIndex++) {
+        total = nativeAdd(total, 2);
+      }
+      logCase('testNativeSeriesSum0138', `total=${total}`);
+      expect(total).assertEqual(1371);
+      expect(nativeAdd(1281, 45 * 2)).assertEqual(1371);
+      expect(nativeAdd(1371, -(45 * 2))).assertEqual(1281);
+      expect(nativeAdd(1371, -(1371))).assertEqual(0);
+      expect(nativeAdd(1281, 45 * 2) > 1281).assertTrue();
+      expect(nativeAdd(1281, 90)).assertEqual(1371);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_SERIES_0139
+     * @tc.name      testNativeSeriesSum0139
+     * @tc.desc      Accumulate 46 steps of 3 from 1294 through the HAR NAPI add and expect 1432
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSeriesSum0139', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      let total: number = 1294;
+      for (let stepIndex: number = 0; stepIndex < 46; stepIndex++) {
+        total = nativeAdd(total, 3);
+      }
+      logCase('testNativeSeriesSum0139', `total=${total}`);
+      expect(total).assertEqual(1432);
+      expect(nativeAdd(1294, 46 * 3)).assertEqual(1432);
+      expect(nativeAdd(1432, -(46 * 3))).assertEqual(1294);
+      expect(nativeAdd(1432, -(1432))).assertEqual(0);
+      expect(Math.abs(nativeAdd(1294, 46 * 3)) % 2).assertEqual(0);
+      expect(nativeAdd(1294, 1432)).assertEqual(1432 + 1294);
+      expect(nativeAdd(1294, 46 * 3) > 1294).assertTrue();
+      expect(nativeAdd(1294, 138)).assertEqual(1432);
+      {
+      let total: number = 1307;
+      for (let stepIndex: number = 0; stepIndex < 47; stepIndex++) {
+        total = nativeAdd(total, 4);
+      }
+      logCase('testNativeSeriesSum0140', `total=${total}`);
+      expect(total).assertEqual(1495);
+      expect(nativeAdd(1307, 47 * 4)).assertEqual(1495);
+      expect(nativeAdd(1495, -(47 * 4))).assertEqual(1307);
+      expect(nativeAdd(1495, -(1495))).assertEqual(0);
+      expect(nativeAdd(1307, 47 * 4) > 1307).assertTrue();
+      expect(nativeAdd(1307, 188)).assertEqual(1495);
+      }
+    });
+
+  });
+}
