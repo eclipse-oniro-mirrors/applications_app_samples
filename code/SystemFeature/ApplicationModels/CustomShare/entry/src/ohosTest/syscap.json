@@ -1,0 +1,25 @@
+{
+  "devices": {
+    "general": ["default"],
+    "custom": []
+  },
+  "production": {
+    "addedSysCaps": [],
+    "removedSysCaps": [
+      "SystemCapability.Startup.BoardInfo",
+      "SystemCapability.Window.SessionManager",
+      "SystemCapability.PowerManager.BatteryManager.Extension",
+      "SystemCapability.PowerManager.PowerManager.Extension",
+      "SystemCapability.Multimedia.MediaLibrary.Core",
+      "SystemCapability.Multimedia.MediaLibrary.DistributedCore",
+      "SystemCapability.HiviewDFX.HiDumper",
+      "SystemCapability.Security.DeviceAuth",
+      "SystemCapability.Security.DataTransitManager",
+      "SystemCapability.Security.DeviceSecurityLevel",
+      "SystemCapability.UserIAM.UserAuth.PinAuth"
+    ]
+  },
+  "development": {
+    "addedSysCaps": []
+  }
+}
