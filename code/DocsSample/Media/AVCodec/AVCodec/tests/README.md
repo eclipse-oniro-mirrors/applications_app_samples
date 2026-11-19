@@ -254,9 +254,9 @@ CodeLinter使用正式配置[code-linter.json5](../code-linter.json5)，检查�
 
 ## 合并回归验证
 
-本次在`c77adf42`内容基础上修复异步视频输入变量名不一致、音频索引归还接口空实现、Muxer销毁错误被忽略，以及音频输出示例将原子计数直接传入日志接口的问题。音频编解码EOS及Flush/Stop顺序不变。视频输入示例路径改为不含嵌套注释起始符的沙箱路径，消除编译器注释告警。
+本次在`c77adf42`内容基础上修复异步视频输入变量名不一致、音频索引归还接口空实现，以及音频输出示例将原子计数直接传入日志接口的问题。Muxer按本地版本保留调用Destroy后清空句柄并返回成功的释放约定。音频编解码EOS及Flush/Stop顺序不变。视频输入示例路径改为不含嵌套注释起始符的沙箱路径，消除编译器注释告警。
 
-`AudioCodecBufferTest`新增按索引归还的未创建、普通帧、EOS、系统接口失败和销毁后调用检查；每次有效归还只调用一次系统接口并保留原索引。新增`MuxerLifecycleTest`直接链接生产Muxer，覆盖空对象释放、销毁成功、销毁失败返回、重复释放及析构不重复销毁。既有`RecorderLifecycleIntegrationTest`继续链接生产视频输入循环，覆盖SYNC/ASYNC普通帧、暂停、无图像停止及EOS失败路径。
+`AudioCodecBufferTest`新增按索引归还的未创建、普通帧、EOS、系统接口失败和销毁后调用检查；每次有效归还只调用一次系统接口并保留原索引。新增`MuxerLifecycleTest`直接链接生产Muxer，覆盖空对象释放、系统Destroy成功或失败时保留既有返回约定、重复释放及析构不重复销毁。既有`RecorderLifecycleIntegrationTest`继续链接生产视频输入循环，覆盖SYNC/ASYNC普通帧、暂停、无图像停止及EOS失败路径。
 
 | 检查项 | 本次结果 |
 |---|---|
@@ -272,3 +272,7 @@ CodeLinter使用正式配置[code-linter.json5](../code-linter.json5)，检查�
 环境使用SDK 26.0.0、DevEco Studio和WSL Ubuntu 22.04的LLVM工具链。日志为`.validation/merge-fix-host.log`、`merge-fix-native-debug.log`、`merge-fix-native-release.log`、`merge-fix-lint.log`、`merge-fix-build.log`、`merge-fix-device.log`及对应`merge-fix-address-*`、`merge-fix-undefined-*`日志。设备结构化结果为`.validation/device-result.json`。
 
 本次默认设备套件不覆盖录制页面完整操作与真实codec的EOS排空，未重新执行手工EOS、系统PiP、GPU送显或性能采样。TSan与CMake/CTest路径本次未执行；既有设备和性能记录保留原适用范围。
+
+### Muxer本地行为复验
+
+Muxer按本地版本保留直接调用Destroy、清空句柄并返回成功的行为；相关测试检查系统Destroy成功或失败时都不重复销毁，不要求改变生产返回约定。该调整后，MuxerLifecycleTest的Debug、Release、ASan、UBSan及HAP构建签名重新通过，日志为`.validation/muxer-local-*`。本次未重新执行完整Host、全部Native或设备套件，前表结果保留原验证范围。

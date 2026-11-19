@@ -25,7 +25,7 @@ OH_AVErrCode g_destroyStatus = AV_ERR_OK;
 int32_t g_destroyCalls = 0;
 using TestSupport::Require;
 
-// 直接调用生产Muxer，检查销毁错误上报及显式释放后的幂等清理。
+// 直接调用生产Muxer，检查显式释放和析构均不重复销毁句柄。
 void TestExplicitRelease(OH_AVErrCode destroyStatus)
 {
     g_destroyStatus = destroyStatus;
@@ -35,8 +35,8 @@ void TestExplicitRelease(OH_AVErrCode destroyStatus)
         Require(muxer.Release() == AVCODEC_SAMPLE_ERR_OK && g_destroyCalls == 0,
             "Empty muxer release does not call Destroy");
         Require(muxer.Create(OUTPUT_FD, AV_OUTPUT_FORMAT_MPEG_4) == AVCODEC_SAMPLE_ERR_OK, "Create muxer");
-        const int32_t expected = destroyStatus == AV_ERR_OK ? AVCODEC_SAMPLE_ERR_OK : AVCODEC_SAMPLE_ERR_ERROR;
-        Require(muxer.Release() == expected && g_destroyCalls == 1, "Destroy result reaches the caller");
+        Require(muxer.Release() == AVCODEC_SAMPLE_ERR_OK && g_destroyCalls == 1,
+            "Release keeps its existing return contract and destroys the handle once");
         Require(muxer.Release() == AVCODEC_SAMPLE_ERR_OK && g_destroyCalls == 1,
             "Repeated release does not retry the consumed handle");
     }
