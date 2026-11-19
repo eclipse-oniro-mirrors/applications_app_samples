@@ -2078,3 +2078,302 @@ export default function nativeAddNegativeMatrixTest() {
       expect(nativeAdd(-5337, 20) - 20).assertEqual(-5337);
       expect(sum - -5337).assertEqual(20);
       }
+      {
+      const sum: number = nativeAdd(-5378, 49);
+      logCase('testNativeSigned0132', `sum=${sum}`);
+      expect(sum).assertEqual(-5329);
+      expect(nativeAdd(49, -5378)).assertEqual(-5329);
+      expect(nativeAdd(-5329, -(49))).assertEqual(-5378);
+      expect(nativeAdd(-5329, -(-5378))).assertEqual(49);
+      expect(nativeAdd(-5329, -(-5329))).assertEqual(0);
+      expect(nativeAdd(-5378, 49) < 49).assertTrue();
+      expect(nativeAdd(-5378, 0)).assertEqual(-5378);
+      expect(nativeAdd(-5378, 49) - 49).assertEqual(-5378);
+      expect(sum - -5378).assertEqual(49);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_NEGATIVE_0133
+     * @tc.name      testNativeSigned0133
+     * @tc.desc      Add signed values -5419 and 78 and expect -5341
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSigned0133', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const sum: number = nativeAdd(-5419, 78);
+      logCase('testNativeSigned0133', `sum=${sum}`);
+      expect(sum).assertEqual(-5341);
+      expect(nativeAdd(78, -5419)).assertEqual(-5341);
+      expect(nativeAdd(-5341, -(78))).assertEqual(-5419);
+      expect(nativeAdd(-5341, -(-5419))).assertEqual(78);
+      expect(nativeAdd(-5341, -(-5341))).assertEqual(0);
+      expect(nativeAdd(-5419, 78) < 78).assertTrue();
+      expect(nativeAdd(-5419, 0)).assertEqual(-5419);
+      expect(nativeAdd(-5419, 78) - 78).assertEqual(-5419);
+      expect(sum - -5419).assertEqual(78);
+      {
+      const sum: number = nativeAdd(-5460, 107);
+      logCase('testNativeSigned0134', `sum=${sum}`);
+      expect(sum).assertEqual(-5353);
+      expect(nativeAdd(107, -5460)).assertEqual(-5353);
+      expect(nativeAdd(-5353, -(107))).assertEqual(-5460);
+      expect(nativeAdd(-5353, -(-5460))).assertEqual(107);
+      expect(nativeAdd(-5353, -(-5353))).assertEqual(0);
+      expect(nativeAdd(-5460, 107) < 107).assertTrue();
+      expect(nativeAdd(-5460, 0)).assertEqual(-5460);
+      expect(nativeAdd(-5460, 107) - 107).assertEqual(-5460);
+      expect(sum - -5460).assertEqual(107);
+      }
+      {
+      const sum: number = nativeAdd(-5501, 136);
+      logCase('testNativeSigned0135', `sum=${sum}`);
+      expect(sum).assertEqual(-5365);
+      expect(nativeAdd(136, -5501)).assertEqual(-5365);
+      expect(nativeAdd(-5365, -(136))).assertEqual(-5501);
+      expect(nativeAdd(-5365, -(-5501))).assertEqual(136);
+      expect(nativeAdd(-5365, -(-5365))).assertEqual(0);
+      expect(nativeAdd(-5501, 136) < 136).assertTrue();
+      expect(nativeAdd(-5501, 0)).assertEqual(-5501);
+      expect(nativeAdd(-5501, 136) - 136).assertEqual(-5501);
+      expect(sum - -5501).assertEqual(136);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_NEGATIVE_0136
+     * @tc.name      testNativeSigned0136
+     * @tc.desc      Add signed values -5542 and 165 and expect -5377
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSigned0136', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const sum: number = nativeAdd(-5542, 165);
+      logCase('testNativeSigned0136', `sum=${sum}`);
+      expect(sum).assertEqual(-5377);
+      expect(nativeAdd(165, -5542)).assertEqual(-5377);
+      expect(nativeAdd(-5377, -(165))).assertEqual(-5542);
+      expect(nativeAdd(-5377, -(-5542))).assertEqual(165);
+      expect(nativeAdd(-5377, -(-5377))).assertEqual(0);
+      expect(nativeAdd(-5542, 165) < 165).assertTrue();
+      expect(nativeAdd(-5542, 0)).assertEqual(-5542);
+      expect(nativeAdd(-5542, 165) - 165).assertEqual(-5542);
+      expect(sum - -5542).assertEqual(165);
+      {
+      const sum: number = nativeAdd(-5583, 194);
+      logCase('testNativeSigned0137', `sum=${sum}`);
+      expect(sum).assertEqual(-5389);
+      expect(nativeAdd(194, -5583)).assertEqual(-5389);
+      expect(nativeAdd(-5389, -(194))).assertEqual(-5583);
+      expect(nativeAdd(-5389, -(-5583))).assertEqual(194);
+      expect(nativeAdd(-5389, -(-5389))).assertEqual(0);
+      expect(nativeAdd(-5583, 194) < 194).assertTrue();
+      expect(nativeAdd(-5583, 0)).assertEqual(-5583);
+      expect(nativeAdd(-5583, 194) - 194).assertEqual(-5583);
+      expect(sum - -5583).assertEqual(194);
+      }
+      {
+      const sum: number = nativeAdd(-5624, 223);
+      logCase('testNativeSigned0138', `sum=${sum}`);
+      expect(sum).assertEqual(-5401);
+      expect(nativeAdd(223, -5624)).assertEqual(-5401);
+      expect(nativeAdd(-5401, -(223))).assertEqual(-5624);
+      expect(nativeAdd(-5401, -(-5624))).assertEqual(223);
+      expect(nativeAdd(-5401, -(-5401))).assertEqual(0);
+      expect(nativeAdd(-5624, 223) < 223).assertTrue();
+      expect(nativeAdd(-5624, 0)).assertEqual(-5624);
+      expect(nativeAdd(-5624, 223) - 223).assertEqual(-5624);
+      expect(sum - -5624).assertEqual(223);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_NEGATIVE_0139
+     * @tc.name      testNativeSigned0139
+     * @tc.desc      Add signed values -5665 and -248 and expect -5913
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSigned0139', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const sum: number = nativeAdd(-5665, -248);
+      logCase('testNativeSigned0139', `sum=${sum}`);
+      expect(sum).assertEqual(-5913);
+      expect(nativeAdd(-248, -5665)).assertEqual(-5913);
+      expect(nativeAdd(-5913, -(-248))).assertEqual(-5665);
+      expect(nativeAdd(-5913, -(-5665))).assertEqual(-248);
+      expect(nativeAdd(-5913, -(-5913))).assertEqual(0);
+      expect(nativeAdd(-5665, -248) < -248).assertTrue();
+      expect(nativeAdd(-5665, 0)).assertEqual(-5665);
+      expect(nativeAdd(-5665, -248) - -248).assertEqual(-5665);
+      expect(sum - -5665).assertEqual(-248);
+      {
+      const sum: number = nativeAdd(-5706, -219);
+      logCase('testNativeSigned0140', `sum=${sum}`);
+      expect(sum).assertEqual(-5925);
+      expect(nativeAdd(-219, -5706)).assertEqual(-5925);
+      expect(nativeAdd(-5925, -(-219))).assertEqual(-5706);
+      expect(nativeAdd(-5925, -(-5706))).assertEqual(-219);
+      expect(nativeAdd(-5925, -(-5925))).assertEqual(0);
+      expect(nativeAdd(-5706, -219) < -219).assertTrue();
+      expect(nativeAdd(-5706, 0)).assertEqual(-5706);
+      expect(nativeAdd(-5706, -219) - -219).assertEqual(-5706);
+      expect(sum - -5706).assertEqual(-219);
+      }
+      {
+      const sum: number = nativeAdd(-5747, -190);
+      logCase('testNativeSigned0141', `sum=${sum}`);
+      expect(sum).assertEqual(-5937);
+      expect(nativeAdd(-190, -5747)).assertEqual(-5937);
+      expect(nativeAdd(-5937, -(-190))).assertEqual(-5747);
+      expect(nativeAdd(-5937, -(-5747))).assertEqual(-190);
+      expect(nativeAdd(-5937, -(-5937))).assertEqual(0);
+      expect(nativeAdd(-5747, -190) < -190).assertTrue();
+      expect(nativeAdd(-5747, 0)).assertEqual(-5747);
+      expect(nativeAdd(-5747, -190) - -190).assertEqual(-5747);
+      expect(sum - -5747).assertEqual(-190);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_NEGATIVE_0142
+     * @tc.name      testNativeSigned0142
+     * @tc.desc      Add signed values -5788 and -161 and expect -5949
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSigned0142', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const sum: number = nativeAdd(-5788, -161);
+      logCase('testNativeSigned0142', `sum=${sum}`);
+      expect(sum).assertEqual(-5949);
+      expect(nativeAdd(-161, -5788)).assertEqual(-5949);
+      expect(nativeAdd(-5949, -(-161))).assertEqual(-5788);
+      expect(nativeAdd(-5949, -(-5788))).assertEqual(-161);
+      expect(nativeAdd(-5949, -(-5949))).assertEqual(0);
+      expect(nativeAdd(-5788, -161) < -161).assertTrue();
+      expect(nativeAdd(-5788, 0)).assertEqual(-5788);
+      expect(nativeAdd(-5788, -161) - -161).assertEqual(-5788);
+      expect(sum - -5788).assertEqual(-161);
+      {
+      const sum: number = nativeAdd(-5829, -132);
+      logCase('testNativeSigned0143', `sum=${sum}`);
+      expect(sum).assertEqual(-5961);
+      expect(nativeAdd(-132, -5829)).assertEqual(-5961);
+      expect(nativeAdd(-5961, -(-132))).assertEqual(-5829);
+      expect(nativeAdd(-5961, -(-5829))).assertEqual(-132);
+      expect(nativeAdd(-5961, -(-5961))).assertEqual(0);
+      expect(nativeAdd(-5829, -132) < -132).assertTrue();
+      expect(nativeAdd(-5829, 0)).assertEqual(-5829);
+      expect(nativeAdd(-5829, -132) - -132).assertEqual(-5829);
+      expect(sum - -5829).assertEqual(-132);
+      }
+      {
+      const sum: number = nativeAdd(-5870, -103);
+      logCase('testNativeSigned0144', `sum=${sum}`);
+      expect(sum).assertEqual(-5973);
+      expect(nativeAdd(-103, -5870)).assertEqual(-5973);
+      expect(nativeAdd(-5973, -(-103))).assertEqual(-5870);
+      expect(nativeAdd(-5973, -(-5870))).assertEqual(-103);
+      expect(nativeAdd(-5973, -(-5973))).assertEqual(0);
+      expect(nativeAdd(-5870, -103) < -103).assertTrue();
+      expect(nativeAdd(-5870, 0)).assertEqual(-5870);
+      expect(nativeAdd(-5870, -103) - -103).assertEqual(-5870);
+      expect(sum - -5870).assertEqual(-103);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_NEGATIVE_0145
+     * @tc.name      testNativeSigned0145
+     * @tc.desc      Add signed values -5911 and -74 and expect -5985
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSigned0145', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const sum: number = nativeAdd(-5911, -74);
+      logCase('testNativeSigned0145', `sum=${sum}`);
+      expect(sum).assertEqual(-5985);
+      expect(nativeAdd(-74, -5911)).assertEqual(-5985);
+      expect(nativeAdd(-5985, -(-74))).assertEqual(-5911);
+      expect(nativeAdd(-5985, -(-5911))).assertEqual(-74);
+      expect(nativeAdd(-5985, -(-5985))).assertEqual(0);
+      expect(nativeAdd(-5911, -74) < -74).assertTrue();
+      expect(nativeAdd(-5911, 0)).assertEqual(-5911);
+      expect(nativeAdd(-5911, -74) - -74).assertEqual(-5911);
+      expect(sum - -5911).assertEqual(-74);
+      {
+      const sum: number = nativeAdd(-5952, -45);
+      logCase('testNativeSigned0146', `sum=${sum}`);
+      expect(sum).assertEqual(-5997);
+      expect(nativeAdd(-45, -5952)).assertEqual(-5997);
+      expect(nativeAdd(-5997, -(-45))).assertEqual(-5952);
+      expect(nativeAdd(-5997, -(-5952))).assertEqual(-45);
+      expect(nativeAdd(-5997, -(-5997))).assertEqual(0);
+      expect(nativeAdd(-5952, -45) < -45).assertTrue();
+      expect(nativeAdd(-5952, 0)).assertEqual(-5952);
+      expect(nativeAdd(-5952, -45) - -45).assertEqual(-5952);
+      expect(sum - -5952).assertEqual(-45);
+      }
+      {
+      const sum: number = nativeAdd(-5993, -16);
+      logCase('testNativeSigned0147', `sum=${sum}`);
+      expect(sum).assertEqual(-6009);
+      expect(nativeAdd(-16, -5993)).assertEqual(-6009);
+      expect(nativeAdd(-6009, -(-16))).assertEqual(-5993);
+      expect(nativeAdd(-6009, -(-5993))).assertEqual(-16);
+      expect(nativeAdd(-6009, -(-6009))).assertEqual(0);
+      expect(nativeAdd(-5993, -16) < -16).assertTrue();
+      expect(nativeAdd(-5993, 0)).assertEqual(-5993);
+      expect(nativeAdd(-5993, -16) - -16).assertEqual(-5993);
+      expect(sum - -5993).assertEqual(-16);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_NADD_NEGATIVE_0148
+     * @tc.name      testNativeSigned0148
+     * @tc.desc      Add signed values -6034 and 13 and expect -6021
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNativeSigned0148', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const sum: number = nativeAdd(-6034, 13);
+      logCase('testNativeSigned0148', `sum=${sum}`);
+      expect(sum).assertEqual(-6021);
+      expect(nativeAdd(13, -6034)).assertEqual(-6021);
+      expect(nativeAdd(-6021, -(13))).assertEqual(-6034);
+      expect(nativeAdd(-6021, -(-6034))).assertEqual(13);
+      expect(nativeAdd(-6021, -(-6021))).assertEqual(0);
+      expect(nativeAdd(-6034, 13) < 13).assertTrue();
+      expect(nativeAdd(-6034, 0)).assertEqual(-6034);
+      expect(nativeAdd(-6034, 13) - 13).assertEqual(-6034);
+      expect(sum - -6034).assertEqual(13);
+      {
+      const sum: number = nativeAdd(-6075, 42);
+      logCase('testNativeSigned0149', `sum=${sum}`);
+      expect(sum).assertEqual(-6033);
+      expect(nativeAdd(42, -6075)).assertEqual(-6033);
+      expect(nativeAdd(-6033, -(42))).assertEqual(-6075);
+      expect(nativeAdd(-6033, -(-6075))).assertEqual(42);
+      expect(nativeAdd(-6033, -(-6033))).assertEqual(0);
+      expect(nativeAdd(-6075, 42) < 42).assertTrue();
+      expect(nativeAdd(-6075, 0)).assertEqual(-6075);
+      expect(nativeAdd(-6075, 42) - 42).assertEqual(-6075);
+      expect(sum - -6075).assertEqual(42);
+      }
+      {
+      const sum: number = nativeAdd(-6116, 71);
+      logCase('testNativeSigned0150', `sum=${sum}`);
+      expect(sum).assertEqual(-6045);
+      expect(nativeAdd(71, -6116)).assertEqual(-6045);
+      expect(nativeAdd(-6045, -(71))).assertEqual(-6116);
+      expect(nativeAdd(-6045, -(-6116))).assertEqual(71);
+      expect(nativeAdd(-6045, -(-6045))).assertEqual(0);
+      expect(nativeAdd(-6116, 71) < 71).assertTrue();
+      expect(nativeAdd(-6116, 0)).assertEqual(-6116);
+      expect(nativeAdd(-6116, 71) - 71).assertEqual(-6116);
+      expect(sum - -6116).assertEqual(71);
+      }
+    });
+
+  });
+}
