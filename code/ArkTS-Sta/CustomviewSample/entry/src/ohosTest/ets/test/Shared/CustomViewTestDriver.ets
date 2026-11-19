@@ -486,7 +486,7 @@ export async function selectTitleElement(driver: Driver, index: number): Promise
   });
 }
 
-/** Assert the accessibility selected state of a title item. */
+/** Assert that the title item reports itself as selected. */
 export async function assertTitleSelectedState(driver: Driver, index: number): Promise<boolean> {
   return await runSerializedUiOperation(async () => {
     const title = await driver.findComponent(ON.id('custom_view_title_' + String(index)));
