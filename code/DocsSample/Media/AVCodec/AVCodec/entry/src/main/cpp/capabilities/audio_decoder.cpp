@@ -77,7 +77,7 @@ int32_t AudioDecoder::SetCallback(CodecUserData *codecUserData)
 // [Start AudioDecoder::SetDecryptionConfig]
 int32_t AudioDecoder::SetDecryptionConfig()
 {
-    // 根据DRM信息创建指定的DRM系统，以创建"com.clearplay.drm"为例。
+    // 根据DRM信息创建指定的DRM系统，以创建“com.clearplay.drm”为例。
     MediaKeySystem *system = nullptr;
     int32_t ret = OH_MediaKeySystem_Create("com.clearplay.drm", &system);
     CHECK_AND_RETURN_RET_LOG(ret == DRM_ERR_OK && system != nullptr, AVCODEC_SAMPLE_ERR_ERROR,
