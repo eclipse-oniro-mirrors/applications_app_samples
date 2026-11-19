@@ -12,6 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file casesfeature/imperativedynamiclayouts/src/main/ets/view/ImperativeView.ets
+ * 文件职责：ImperativeView 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：VM、frameNodeFactory、setColumnNodeAttr、setRowNodeAttr、ImperativeController、ImperativeViewComponent。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { FrameNode, NodeController, UIContext } from '@kit.ArkUI';
 import data from '../jsonpage/foo.json';
 import { typeNode } from '@ohos.arkui.node';
@@ -85,6 +93,8 @@ function frameNodeFactory(vm: VM, context: UIContext): FrameNode | null {
     node.attribute.textAlign(TextAlign.Center);
     // 使用id来标识特殊节点，方便抽出来单独操作
     if (vm.id === 'refreshImage') {
+      // 测试标识：为参与UI断言的刷新按钮补充testable id
+      node.attribute.id('refreshImage');
       // 因为frameNode暂时没有Button组件，因此使用Text代替，给该组件绑定点击事件
       node.attribute.onClick(() => {
         carouselNodes[1].initialize($r('app.media.movie6'));
@@ -101,6 +111,9 @@ function frameNodeFactory(vm: VM, context: UIContext): FrameNode | null {
   return null;
 }
 
+/**
+ * setColumnNodeAttr：函数定义，承载本文件对应的逻辑与数据。
+ */
 function setColumnNodeAttr(node: typeNode.Column, css: ESObject) {
   node.attribute.width(css.width);
   node.attribute.height(css.height);
@@ -110,6 +123,9 @@ function setColumnNodeAttr(node: typeNode.Column, css: ESObject) {
   }
 }
 
+/**
+ * setRowNodeAttr：函数定义，承载本文件对应的逻辑与数据。
+ */
 function setRowNodeAttr(node: typeNode.Row, css: ESObject) {
   node.attribute.width(css.width);
   if (css.padding !== undefined) {
@@ -125,6 +141,9 @@ function setRowNodeAttr(node: typeNode.Row, css: ESObject) {
  * 继承NodeController，用于绘制组件树
  */
 class ImperativeController extends NodeController {
+  /**
+   * makeNode：执行 makeNode 相关逻辑。
+   */
   makeNode(uiContext: UIContext): FrameNode | null {
     carouselNodes = [];
     return frameNodeFactory(data, uiContext);
@@ -146,16 +165,27 @@ class ImperativeController extends NodeController {
  * 3. 自定义DSL解析逻辑，且使用carouselNodes保存轮播图节点，方便后续操作节点更新
  * 4. 使用NodeContainer组件占位，将创建的组件加载到页面中。
  */
+/**
+ * ImperativeViewComponent：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct ImperativeViewComponent {
   controller: ImperativeController = new ImperativeController();
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：高度、宽度、背景色
     Column() {
+      // NodeContainer：NodeContainer 自定义组件
       NodeContainer(this.controller)
+        .id('imperativeNodeContainer')
     }
     .height('100%')
     .width('100%')
     .backgroundColor(Color.Black)
+    .id('imperativeRootColumn')
   }
 }
