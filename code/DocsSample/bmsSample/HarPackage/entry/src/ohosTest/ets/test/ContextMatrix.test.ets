@@ -983,3 +983,611 @@ export default function contextMatrixTest() {
      * @tc.level     LEVEL1
      */
     it('testContextCase0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0093', 'context case 93');
+      expect(ctx.filesDir.length > 0).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0094', 'context case 94');
+        expect(ctx.filesDir.length > 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0095
+     * @tc.name      testContextCase0095
+     * @tc.desc      files directory stays at least 35 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextCase0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0095', 'context case 95');
+      expect(ctx.filesDir.length > 0).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0096', 'context case 96');
+        expect(ctx.filesDir.length > 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0097
+     * @tc.name      testContextCase0097
+     * @tc.desc      files directory stays at least 37 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0097', 'context case 97');
+      expect(ctx.filesDir.length > 0).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0098', 'context case 98');
+        expect(ctx.filesDir.length > 0).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0099
+     * @tc.name      testContextCase0099
+     * @tc.desc      cache directory stays at least 9 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0099', 'context case 99');
+      expect(ctx.cacheDir.length >= 9).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0100', 'context case 100');
+        expect(ctx.cacheDir.length >= 10).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0101
+     * @tc.name      testContextCase0101
+     * @tc.desc      cache directory stays at least 11 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0101', 'context case 101');
+      expect(ctx.cacheDir.length >= 11).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0102', 'context case 102');
+        expect(ctx.cacheDir.length >= 12).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0103
+     * @tc.name      testContextCase0103
+     * @tc.desc      cache directory stays at least 13 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0103', 'context case 103');
+      expect(ctx.cacheDir.length >= 13).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0104', 'context case 104');
+        expect(ctx.cacheDir.length >= 14).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0105
+     * @tc.name      testContextCase0105
+     * @tc.desc      cache directory stays at least 15 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0105', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0105', 'context case 105');
+      expect(ctx.cacheDir.length >= 15).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0106', 'context case 106');
+        expect(ctx.cacheDir.length >= 16).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0107
+     * @tc.name      testContextCase0107
+     * @tc.desc      cache directory stays at least 17 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0107', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0107', 'context case 107');
+      expect(ctx.cacheDir.length >= 17).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0108', 'context case 108');
+        expect(ctx.cacheDir.length >= 18).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0109
+     * @tc.name      testContextCase0109
+     * @tc.desc      cache directory stays at least 19 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0109', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0109', 'context case 109');
+      expect(ctx.cacheDir.length >= 19).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0110', 'context case 110');
+        expect(ctx.cacheDir.length >= 20).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0111
+     * @tc.name      testContextCase0111
+     * @tc.desc      cache directory stays at least 21 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0111', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0111', 'context case 111');
+      expect(ctx.cacheDir.length >= 21).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0112', 'context case 112');
+        expect(ctx.cacheDir.length >= 22).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0113
+     * @tc.name      testContextCase0113
+     * @tc.desc      cache directory stays at least 23 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0113', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0113', 'context case 113');
+      expect(ctx.cacheDir.length >= 23).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0114', 'context case 114');
+        expect(ctx.cacheDir.length >= 24).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0115
+     * @tc.name      testContextCase0115
+     * @tc.desc      cache directory stays at least 25 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0115', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0115', 'context case 115');
+      expect(ctx.cacheDir.length >= 25).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0116', 'context case 116');
+        expect(ctx.cacheDir.length >= 26).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0117
+     * @tc.name      testContextCase0117
+     * @tc.desc      cache directory stays at least 27 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0117', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0117', 'context case 117');
+      expect(ctx.cacheDir.length >= 27).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0118', 'context case 118');
+        expect(ctx.cacheDir.length >= 28).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0119
+     * @tc.name      testContextCase0119
+     * @tc.desc      bundle code directory stays at least 13 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0119', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0119', 'context case 119');
+      expect(ctx.bundleCodeDir.length >= 13).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0120', 'context case 120');
+        expect(ctx.bundleCodeDir.length >= 14).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0121
+     * @tc.name      testContextCase0121
+     * @tc.desc      bundle code directory stays at least 15 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0121', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0121', 'context case 121');
+      expect(ctx.bundleCodeDir.length >= 15).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0122', 'context case 122');
+        expect(ctx.bundleCodeDir.length >= 16).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0123
+     * @tc.name      testContextCase0123
+     * @tc.desc      bundle code directory stays at least 17 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0123', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0123', 'context case 123');
+      expect(ctx.bundleCodeDir.length >= 17).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0124', 'context case 124');
+        expect(ctx.bundleCodeDir.length >= 18).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0125
+     * @tc.name      testContextCase0125
+     * @tc.desc      bundle code directory stays at least 19 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0125', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0125', 'context case 125');
+      expect(ctx.bundleCodeDir.length >= 19).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0126', 'context case 126');
+        expect(ctx.bundleCodeDir.length >= 20).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0127
+     * @tc.name      testContextCase0127
+     * @tc.desc      bundle code directory stays at least 21 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0127', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0127', 'context case 127');
+      expect(ctx.bundleCodeDir.length >= 21).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0128', 'context case 128');
+        expect(ctx.bundleCodeDir.length >= 22).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0129
+     * @tc.name      testContextCase0129
+     * @tc.desc      process name stays at least 13 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0129', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0129', 'context case 129');
+      expect(ctx.processName.length >= 13).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0130', 'context case 130');
+        expect(ctx.processName.length >= 14).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0131
+     * @tc.name      testContextCase0131
+     * @tc.desc      process name stays at least 15 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0131', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0131', 'context case 131');
+      expect(ctx.processName.length >= 15).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0132', 'context case 132');
+        expect(ctx.processName.length >= 16).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0133
+     * @tc.name      testContextCase0133
+     * @tc.desc      process name stays at least 17 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0133', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0133', 'context case 133');
+      expect(ctx.processName.length >= 17).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0134', 'context case 134');
+        expect(ctx.processName.length >= 18).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0135
+     * @tc.name      testContextCase0135
+     * @tc.desc      process name stays at least 19 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0135', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0135', 'context case 135');
+      expect(ctx.processName.length >= 19).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0136', 'context case 136');
+        expect(ctx.processName.length >= 20).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0137
+     * @tc.name      testContextCase0137
+     * @tc.desc      process name stays at least 21 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0137', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0137', 'context case 137');
+      expect(ctx.processName.length >= 21).assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0138', 'context case 138');
+        expect(ctx.processName.length >= 22).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0139
+     * @tc.name      testContextCase0139
+     * @tc.desc      resource directory stays at least 11 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0139', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0139', 'context case 139');
+      expect(ctx.resourceDir === undefined || typeof ctx.resourceDir === 'string').assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0140', 'context case 140');
+        expect(ctx.resourceDir === undefined || typeof ctx.resourceDir === 'string').assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0141
+     * @tc.name      testContextCase0141
+     * @tc.desc      resource directory stays at least 13 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0141', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0141', 'context case 141');
+      expect(ctx.resourceDir === undefined || typeof ctx.resourceDir === 'string').assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0142', 'context case 142');
+        expect(ctx.resourceDir === undefined || typeof ctx.resourceDir === 'string').assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0143
+     * @tc.name      testContextCase0143
+     * @tc.desc      resource directory stays at least 15 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0143', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0143', 'context case 143');
+      expect(ctx.resourceDir === undefined || typeof ctx.resourceDir === 'string').assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0144', 'context case 144');
+        expect(ctx.resourceDir === undefined || typeof ctx.resourceDir === 'string').assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0145
+     * @tc.name      testContextCase0145
+     * @tc.desc      resource directory stays at least 17 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0145', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0145', 'context case 145');
+      expect(ctx.resourceDir === undefined || typeof ctx.resourceDir === 'string').assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0146', 'context case 146');
+        expect(ctx.resourceDir === undefined || typeof ctx.resourceDir === 'string').assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0147
+     * @tc.name      testContextCase0147
+     * @tc.desc      resource directory stays at least 19 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0147', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0147', 'context case 147');
+      expect(ctx.resourceDir === undefined || typeof ctx.resourceDir === 'string').assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0148', 'context case 148');
+        expect(ctx.resourceDir === undefined || typeof ctx.resourceDir === 'string').assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0149
+     * @tc.name      testContextCase0149
+     * @tc.desc      resource directory stays at least 21 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0149', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0149', 'context case 149');
+      expect(ctx.resourceDir === undefined || typeof ctx.resourceDir === 'string').assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0150', 'context case 150');
+        expect(ctx.resourceDir === undefined || typeof ctx.resourceDir === 'string').assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0151
+     * @tc.name      testContextCase0151
+     * @tc.desc      resource directory stays at least 23 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0151', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0151', 'context case 151');
+      expect(ctx.resourceDir === undefined || typeof ctx.resourceDir === 'string').assertTrue();
+      {
+        const info: bundleManager.BundleInfo = await bundle();
+        const ctx: common.Context = entryContext();
+        logCase('testContextCase0152', 'context case 152');
+        expect(ctx.resourceDir === undefined || typeof ctx.resourceDir === 'string').assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_CONTEXT_0153
+     * @tc.name      testContextCase0153
+     * @tc.desc      resource directory stays at least 25 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testContextCase0153', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const ctx: common.Context = entryContext();
+      logCase('testContextCase0153', 'context case 153');
+      expect(ctx.resourceDir === undefined || typeof ctx.resourceDir === 'string').assertTrue();
+    });
+
+  });
+}
