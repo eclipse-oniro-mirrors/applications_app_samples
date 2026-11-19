@@ -67,8 +67,8 @@ import shareMenuConfigurationTest from './ShareComponent/ShareMenuConfiguration.
 import shareModelDeepTest from './ShareComponent/ShareModelDeep.test';
 import shareOperationCatalogTest from './ShareComponent/ShareOperationCatalog.test';
 import shareOperationFlowTest from './ShareComponent/ShareOperationFlow.test';
-import shareOperationsTest from './ShareComponent/ShareOperations.test';
 import shareOperationWorkflowTest from './ShareComponent/ShareOperationWorkflow.test';
+import shareOperationsTest from './ShareComponent/ShareOperations.test';
 import shareAppVersionTest from './ShareValidation/ShareAppVersion.test';
 import shareAuthSessionTest from './ShareValidation/ShareAuthSession.test';
 import shareDataSourceValidationTest from './ShareValidation/ShareDataSourceValidation.test';
@@ -147,8 +147,8 @@ export default function testsuite(): void {
   shareModelDeepTest();
   shareOperationCatalogTest();
   shareOperationFlowTest();
-  shareOperationsTest();
   shareOperationWorkflowTest();
+  shareOperationsTest();
   shareAppVersionTest();
   shareAuthSessionTest();
   shareDataSourceValidationTest();
