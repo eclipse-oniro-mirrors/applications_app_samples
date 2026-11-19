@@ -15,7 +15,7 @@
 
 import abilityTest from './Ability.test';
 
-// 将本工程的验证用例注册到 Hypium 测试运行器。
+// 将本工程的验证用例注册到Hypium测试运行器。
 export default function testsuite(): void {
   abilityTest();
 }

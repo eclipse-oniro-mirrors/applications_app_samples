@@ -15,7 +15,7 @@
 
 import type { NodeContent } from '@kit.ArkUI';
 
-// 创建原生拖起区和落入区，onReceive 接收 URI 列表，dropLabel 为本地化文字。
+// 创建原生拖起区和落入区，onReceive接收URI列表，dropLabel为本地化文字。
 export const createNativeNode:
   (content: NodeContent, onReceive: (uris: string[]) => void, dropLabel: string) => void;
 // 释放当前页面创建的原生节点与业务回调引用。

@@ -19,7 +19,7 @@
 #include <string>
 #include <vector>
 
-// 将落入数据中的 URI 复制到输出列表，不读取文件内容；成功时返回 true。
+// 将落入数据中的URI复制到输出列表，不读取文件内容；成功时返回true。
 bool GetDroppedFileUris(ArkUI_DragEvent* event, std::vector<std::string>& uris);
 
 #endif

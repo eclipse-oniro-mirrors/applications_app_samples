@@ -28,7 +28,7 @@ bool GetDroppedFileUris(ArkUI_DragEvent* event, std::vector<std::string>& uris)
         return false;
     }
     unsigned int count = 0;
-    // records 及各 record 由 data 持有，不能单独销毁。
+    // records及各record由data持有，不能单独销毁。
     OH_UdmfRecord** records = OH_UdmfData_GetRecords(data.get(), &count);
     if (records == nullptr) {
         return false;
