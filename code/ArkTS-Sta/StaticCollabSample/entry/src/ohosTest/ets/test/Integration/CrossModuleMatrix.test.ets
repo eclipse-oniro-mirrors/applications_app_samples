@@ -7798,3 +7798,104 @@ export default function crossModuleMatrixTest(): void {
       collector.record(true, 5);
       collector.record(true, 5);
       collector.record(true, 5);
+      collector.record(true, 5);
+      expect(collector.snapshot().operationCount).assertEqual(8);
+      expect(collector.snapshot().successCount).assertEqual(8);
+      expect(collector.snapshot().totalCostMs).assertEqual(40);
+      expect(collector.snapshot().minCostMs).assertEqual(5);
+      expect(collector.snapshot().maxCostMs).assertEqual(5);
+    });
+
+    it('metrics_matches_operations_9', 0, async () => {
+      const collector = new CollabMetricsCollector();
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      bridge.connect(sid);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      expect(collector.snapshot().operationCount).assertEqual(9);
+      expect(collector.snapshot().successCount).assertEqual(9);
+      expect(collector.snapshot().totalCostMs).assertEqual(45);
+      expect(collector.snapshot().minCostMs).assertEqual(5);
+      expect(collector.snapshot().maxCostMs).assertEqual(5);
+    });
+
+    it('metrics_matches_operations_10', 0, async () => {
+      const collector = new CollabMetricsCollector();
+      const bridge = new MockCollabBridge();
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      bridge.connect(sid);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      collector.record(true, 5);
+      expect(collector.snapshot().operationCount).assertEqual(10);
+      expect(collector.snapshot().successCount).assertEqual(10);
+      expect(collector.snapshot().totalCostMs).assertEqual(50);
+      expect(collector.snapshot().minCostMs).assertEqual(5);
+      expect(collector.snapshot().maxCostMs).assertEqual(5);
+    });
+
+    it('cross_module_full_lifecycle', 0, async () => {
+      const bridge = new MockCollabBridge();
+      const storage = new AppStorageModel();
+      const recorder = new CollabEventRecorder();
+      const logger = CollabTestLogger.getInstance();
+      const collector = new CollabMetricsCollector();
+      logger.clear();
+      const peer = buildPeerInfo('device_full');
+      const options = buildConnectOptions(true);
+      const sid = bridge.createAbilityConnectionSession(COLLAB_SESSION_NAME, peer, options);
+      recorder.record(CollabEventType.CREATE, sid, COLLAB_SESSION_NAME);
+      storage.setOrCreate(STORAGE_KEY_SESSION_ID, sid);
+      expect(bridge.connect(sid)).assertTrue();
+      recorder.record(CollabEventType.CONNECT, sid, 'connect');
+      storage.setOrCreate(STORAGE_KEY_IS_CONNECTED, true);
+      collector.record(true, 12);
+      const session = bridge.getSession(sid) as MockCollabSession;
+      expect(session.sendMessage(MESSAGE_HELLO)).assertTrue();
+      recorder.record(CollabEventType.SEND_MESSAGE, sid, MESSAGE_HELLO);
+      storage.setOrCreate(STORAGE_KEY_RECEIVE_MESSAGE, MESSAGE_HELLO);
+      expect(session.sendData(encodeUtf8(DATA_PAYLOAD))).assertTrue();
+      recorder.record(CollabEventType.SEND_DATA, sid, DATA_PAYLOAD);
+      collector.record(true, 8);
+      expect(bridge.disconnect(sid)).assertTrue();
+      recorder.record(CollabEventType.DISCONNECT, sid, 'disconnect');
+      storage.setOrCreate(STORAGE_KEY_IS_CONNECTED, false);
+      expect(bridge.destroyAbilityConnectionSession(sid)).assertTrue();
+      recorder.record(CollabEventType.DESTROY, sid, 'destroyed');
+      collector.record(true, 3);
+      logger.info('lifecycle complete');
+      expect(storage.getSessionId()).assertEqual(sid);
+      expect(storage.isConnected()).assertFalse();
+      expect(storage.getReceiveMessage()).assertEqual(MESSAGE_HELLO);
+      expect(recorder.size()).assertEqual(6);
+      expect(recorder.countOf(CollabEventType.CREATE)).assertEqual(1);
+      expect(recorder.countOf(CollabEventType.CONNECT)).assertEqual(1);
+      expect(recorder.countOf(CollabEventType.SEND_MESSAGE)).assertEqual(1);
+      expect(recorder.countOf(CollabEventType.SEND_DATA)).assertEqual(1);
+      expect(recorder.countOf(CollabEventType.DISCONNECT)).assertEqual(1);
+      expect(recorder.countOf(CollabEventType.DESTROY)).assertEqual(1);
+      expect(collector.snapshot().operationCount).assertEqual(3);
+      expect(collector.snapshot().totalCostMs).assertEqual(23);
+      expect(collector.successRate()).assertEqual(1);
+      expect(logger.contains('lifecycle complete')).assertTrue();
+      expect(session.isDestroyed()).assertTrue();
+    });
+
+  });
+}
+
