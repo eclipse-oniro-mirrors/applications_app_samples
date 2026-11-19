@@ -208,3 +208,45 @@ int32_t Recorder::StartAudioPipeline()
     CHECK_AND_RETURN_RET_LOG(started, AVCODEC_SAMPLE_ERR_ERROR, "Create audio encoding workers failed");
     return AVCODEC_SAMPLE_ERR_OK;
 }
+
+// [Start Recorder::AudioEncOutputThread]
+void Recorder::AudioEncOutputThread()
+{
+    while (true) {
+        CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
+ 
+        std::shared_ptr<CodecBufferInfo> bufferInfo = audioEncContext_->outputBufferQueue.Dequeue();
+        std::shared_lock<std::shared_mutex> codecLock(audioEncContext_->codecMutex);
+        CHECK_AND_BREAK_LOG(isStarted_, "Work done, thread out");
+        CHECK_AND_CONTINUE_LOG(bufferInfo != nullptr, "Buffer queue is empty, continue");
+ 
+        audioEncContext_->outputFrameCount++;
+        AVCODEC_SAMPLE_LOGW(
+            "Audio Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
+            audioEncContext_->outputFrameCount, bufferInfo->attr.size, bufferInfo->attr.flags, bufferInfo->attr.pts);
+        const bool isEosBuffer = (bufferInfo->attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0;
+        int32_t writeRet = AVCODEC_SAMPLE_ERR_OK;
+        if (!isEosBuffer && bufferInfo->attr.size > 0) {
+            // AAC只编码一次；同一输出Buffer依次写入两个Muxer，之后仍按原索引归还。
+            writeRet = muxer_->WriteSample(muxer_->GetAudioTrackId(), bufferInfo->buffer, bufferInfo->attr);
+            if (writeRet == AVCODEC_SAMPLE_ERR_OK && secondaryMuxer_ != nullptr) {
+                writeRet = secondaryMuxer_->WriteSample(secondaryMuxer_->GetAudioTrackId(), bufferInfo->buffer,
+                    bufferInfo->attr);
+            }
+        }
+        int32_t ret = audioEncoder_->FreeOutputData(bufferInfo->bufferIndex);
+        CHECK_AND_BREAK_LOG(ret == AVCODEC_SAMPLE_ERR_OK, "Encoder output thread out");
+        if (writeRet != AVCODEC_SAMPLE_ERR_OK) {
+            AbortRecording("Write encoded audio sample failed");
+            break;
+        }
+        if (isEosBuffer) {
+            AVCODEC_SAMPLE_LOGI("Audio EOS processed, exiting output thread");
+            isAudioEos_.store(true);
+            videoEosCond_.notify_all();
+            break;
+        }
+    }
+    AVCODEC_SAMPLE_LOGI("Exit, frame count: %{public}u", audioEncContext_->inputFrameCount);
+}
+// [End Recorder::AudioEncOutputThread]

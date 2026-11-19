@@ -66,6 +66,7 @@ public:
     {
         return primary ? primaryStats_.Snapshot() : secondaryStats_.Snapshot();
     }
+    void AudioEncOutputThread();
 
 private:
     static constexpr int64_t codecBufferTimeoutUs = 100000;
@@ -169,7 +170,9 @@ private:
     std::atomic<bool> secondaryVideoOutputEosReceived_{false};
     std::atomic<bool> audioOutputEosReceived_{false};
     std::atomic<bool> isStopping_{false};
+    std::atomic<bool> isAudioEos_{false};
     std::condition_variable outputDoneCond_;
+    std::condition_variable videoEosCond_;
     std::mutex outputDoneMutex_;
     std::atomic<bool> isStarted_{false};
     std::atomic<bool> sessionActive_{false};
