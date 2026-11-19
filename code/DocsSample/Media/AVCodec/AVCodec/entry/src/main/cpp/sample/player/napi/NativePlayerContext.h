@@ -31,35 +31,42 @@ struct NativePlayerSession {
     bool Begin(Operation operation)
     {
         std::lock_guard<std::mutex> lock(commandMutex);
-        if (operation_ != Operation::NONE) { return false; }
-        stopPending_ = false;
-        operation_ = operation;
+        if (currentOperation != Operation::NONE) {
+            return false;
+        }
+        stopPending = false;
+        currentOperation = operation;
         seeking = true;
         return true;
     }
     bool StopPending()
     {
         std::lock_guard<std::mutex> lock(commandMutex);
-        return stopPending_;
+        return stopPending;
     }
     bool RequestStop()
     {
         std::lock_guard<std::mutex> lock(commandMutex);
-        if (operation_ == Operation::NONE) { return player.Stop() == 0; }
-        stopPending_ = true;
+        if (currentOperation == Operation::NONE) {
+            return player.Stop() == 0;
+        }
+        stopPending = true;
         return true;
     }
     void Finish()
     {
         std::lock_guard<std::mutex> lock(commandMutex);
-        if (stopPending_) { (void)player.Stop(); }
-        operation_ = Operation::NONE;
+        if (stopPending) {
+            (void)player.Stop();
+        }
+        currentOperation = Operation::NONE;
         seeking = false;
     }
+
 private:
     std::mutex commandMutex;
-    Operation operation_ = Operation::NONE;
-    bool stopPending_ = false;
+    Operation currentOperation = Operation::NONE;
+    bool stopPending = false;
 };
 
 struct NativePlayerContext {

@@ -18,14 +18,17 @@
 
 ### PCM队列基准
 
+以下命令使用Linux或WSL中的C++17编译器驱动；也可用当前工具链的驱动路径替换`c++`。
+
 在Linux或WSL的仓库根目录编译并运行：
 
 ```sh
-clang++ -std=c++17 -O2 -Ientry/src/main/cpp tests/native/PcmQueueBenchmark.cpp -o /tmp/avcodec-pcm-queue-benchmark
+c++ -std=c++17 -O2 -Ientry/src/main/cpp tests/native/PcmQueueBenchmark.cpp \
+  -o /tmp/avcodec-pcm-queue-benchmark
 /tmp/avcodec-pcm-queue-benchmark
 ```
 
-基准每次处理4096字节、重复2000块，运行7轮并比较中位数；两种队列使用相同输入和输出校验和。Windows主机通过WSL Ubuntu 22.04、clang 14、`-O2`的一次结果为：`PcmQueue` 1.14µs/块，原`std::queue<uint8_t>`操作11.89µs/块，约10.47倍。结果只描述主机上的PCM队列操作，受编译器和运行环境影响，不代表真机AudioRenderer、codec或GPU性能。
+基准每次处理4096字节、重复2000块，运行7轮并比较中位数；两种队列使用相同输入和输出校验和。Windows主机通过WSL Ubuntu 22.04、LLVM 14工具链、`-O2`的一次结果为：`PcmQueue` 1.14µs/块，原`std::queue<uint8_t>`操作11.89µs/块，约10.47倍。结果只描述主机上的PCM队列操作，受编译器和运行环境影响，不代表真机AudioRenderer、codec或GPU性能。
 
 本轮SDK 26.0.0复验中，17套Host和2项验证入口检查、20项Native宿主测试、CodeLinter及签名HAP构建均通过。CodeLinter记录250条存量结果、0条新增。默认Hypium设备测试为13套、49/49通过，0失败、0错误；结构化报告为`.validation/device-result.json`，逐项报告为`entry/.test/default/intermediates/ohosTest/coverage_data/test_result.txt`。命令日志位于`.validation/logs/`。HAP构建保留CMake和ArkTS告警；系统PiP、完整页面迁移及实际送显场景仍按测试指南单独验证。
 
@@ -97,10 +100,11 @@ API 26真机另完成5次进入预览后取消，历史标题与操作前一致�
 
 ### 轮询真机采样
 
-`PlaybackPollingBenchmark`仅在显式指定该套件时注册，不进入默认13套、49条Hypium功能回归。使用大于10秒的本地AAC音频作为`polling-fixture.m4a`，放入测试应用的cacheDir；准备素材后直接执行`aa test`，不要再次运行会重装并清理cacheDir的`onDeviceTest`。素材和生成结果不合入仓库。
+`PlaybackPollingBenchmark`仅在显式指定该套件时注册，不进入默认13套、49条Hypium功能回归。使用大于10秒的本地AAC音频作为`polling-fixture.m4a`，放入测试应用的cacheDir；准备素材后直接执行Ability Assistant（系统Ability管理工具）的`aa test`命令，不要再次运行会重装并清理cacheDir的`onDeviceTest`。素材和生成结果不合入仓库。
 
 ```powershell
-# 先使用onDeviceTest构建安装测试HAP，再复制素材并运行已安装的测试。
+# 先使用onDeviceTest构建安装测试HAP，再复制素材。
+# hdc是设备连接工具，aa是Ability Assistant；以下命令运行已安装的测试。
 hdc shell aa test -b com.samples.avcodecsample -m entry_test -s unittest OpenHarmonyTestRunner `
   -s class PlaybackPollingBenchmark -s timeout 10000 -w 30
 ```
@@ -185,5 +189,9 @@ CodeLinter使用正式配置[code-linter.json5](../code-linter.json5)，检查�
 ## 测试代码编写约定
 
 测试代码与说明同样遵守[代码与文档编写约定](../CONTRIBUTING.md)。C++测试函数有效代码不超过50行，lambda显式捕获；拆分测试时保留同步边界、断言和重复次数。
+
+告警修复后的Host回归、20项Native测试、CodeLinter和HAP构建签名均通过；CodeLinter为250条存量结果、0条新增，基线未修改。NativeHandle、PcmQueue、PlayerControlParser、PlayerLifecycleIntegration和RecorderLifecycleIntegration的测试另以`-O2 -DNDEBUG`构建并运行通过；故意失败的检查仍返回非零，PCM基准也正常完成。日志见`.validation/warning-host.log`、`warning-native.log`、`warning-lint.log`、`warning-build-final.log`和`warning-release.log`；最后调整的转码等待常量另以`warning-transcode.log`复验通过。
+
+测试检查使用不受`NDEBUG`影响的失败退出路径，等待操作先执行再核对结果。录制器测试通过生产输出队列传递模拟EOS，并由生产取消路径唤醒等待线程。`OH_AVBuffer_GetAddr`和`OH_AVBuffer_GetCapacity`两处命名告警已按SDK声明复核为误报，替身保留系统接口名称和签名。本轮未重跑设备测试及告警报告来源平台的C++、WordsTool扫描，本地结果不能视为平台告警已清零。
 
 `PlaybackLifecycleTest`的工作线程按值捕获共享状态，线程对象保留在外层上下文，停止处理使用普通函数。启动函数返回后回调仍持有有效状态；各轮退出和重播均Join，并检查回调释放共享状态的所有权，避免悬空引用和所有权环。返回、保存或异步执行的回调按`G.RES.05-CPP`核对捕获方式与对象有效期，文档说明回调执行及结束条件。

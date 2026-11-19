@@ -12,43 +12,60 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <cassert>
+#include <cstdlib>
+#include <iostream>
 #include "NativeHandle.h"
 namespace {
-struct Resource { int closes = 0; int result = 0; };
-int Close(Resource *resource) { ++resource->closes; return resource->result; }
+void Require(bool condition, const char *message)
+{
+    if (!condition) {
+        std::cerr << message << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
+}
+
+constexpr int CLOSE_FAILURE = -17;
+struct Resource {
+    int closes = 0;
+    int result = 0;
+};
+int Close(Resource *resource)
+{
+    ++resource->closes;
+    return resource->result;
+}
 using Owner = NativeHandle<Resource, Close>;
 void TestMoveAndReplace()
 {
     Resource first;
-    Resource second;
-    Owner source;
-    source = &first;
+    Owner source(&first);
     Owner target(std::move(source));
-    assert(source.Get() == nullptr);
-    assert(target.Get() == &first);
+    Require(source.Get() == nullptr, "source.Get() == nullptr");
+    Require(target.Get() == &first, "target.Get() == &first");
+    Resource second;
     *target.Put() = &second;
-    assert(first.closes == 1);
+    Require(first.closes == 1, "first.closes == 1");
     source = std::move(target);
-    assert(target.Get() == nullptr);
-    assert(source.Close() == 0);
-    assert(source.Close() == 0);
-    assert(second.closes == 1);
+    Require(target.Get() == nullptr, "target.Get() == nullptr");
+    Require(source.Close() == 0, "source.Close() == 0");
+    Require(source.Close() == 0, "source.Close() == 0");
+    Require(second.closes == 1, "second.closes == 1");
 }
 void TestFailedCloseAndDestructor()
 {
     Resource resource;
-    resource.result = -17;
+    resource.result = CLOSE_FAILURE;
     {
-        Owner owner;
-        owner = &resource;
-        assert(owner.Close() == -17);
-        assert(owner.Get() == nullptr);
+        Owner owner(&resource);
+        Require(owner.Close() == CLOSE_FAILURE, "owner.Close() == CLOSE_FAILURE");
+        Require(owner.Get() == nullptr, "owner.Get() == nullptr");
     }
-    assert(resource.closes == 1);
+    Require(resource.closes == 1, "resource.closes == 1");
     Resource partial;
-    { Owner owner; owner = &partial; }
-    assert(partial.closes == 1);
+    {
+        Owner owner(&partial);
+    }
+    Require(partial.closes == 1, "partial.closes == 1");
 }
 }
 int main()

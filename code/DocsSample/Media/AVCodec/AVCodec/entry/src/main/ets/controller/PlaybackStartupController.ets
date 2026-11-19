@@ -105,8 +105,10 @@ class PlaybackStartupAttempt {
         MediaTaskCoordinator.currentPhase() !== 'cancelling') {
         MediaTaskCoordinator.running(this.lease);
         result = PlaybackStartupResult.started();
-      } else { result = this.completionHandled && !this.closed ? PlaybackStartupResult.closePending() :
-        this.failedResult('invalid'); }
+      } else {
+        result = this.completionHandled && !this.closed ? PlaybackStartupResult.closePending() :
+          this.failedResult('invalid');
+      }
       return result;
     }).catch((error: Error): PlaybackStartupResult => {
       Logger.error('PlaybackStartup', 'Launch failed: ' + String(error));
