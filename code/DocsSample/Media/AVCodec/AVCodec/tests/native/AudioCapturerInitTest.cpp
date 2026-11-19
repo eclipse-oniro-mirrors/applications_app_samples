@@ -27,6 +27,13 @@ struct OH_AudioCapturerStruct {};
 namespace {
 enum class Failure { NONE, CREATE, CONFIGURE, GENERATE };
 constexpr int32_t CAPTURE_SESSION_COUNT = 2;
+constexpr int32_t CAPTURE_SAMPLE_RATE = 48000;
+constexpr int32_t CAPTURE_CHANNEL_COUNT = 2;
+constexpr int32_t CAPTURE_INPUT_DURATION_MS = 20;
+constexpr int32_t MILLISECONDS_PER_SECOND = 1000;
+constexpr int32_t CAPTURE_INPUT_BYTES = CAPTURE_SAMPLE_RATE * CAPTURE_CHANNEL_COUNT * sizeof(int16_t) *
+    CAPTURE_INPUT_DURATION_MS / MILLISECONDS_PER_SECOND;
+constexpr uint64_t CALLBACKS_THROUGH_OVERFLOW = 3;
 OH_AudioStreamBuilder g_builder;
 OH_AudioCapturer g_capturer;
 Failure g_failure = Failure::NONE;
@@ -52,9 +59,9 @@ void TestInitializationFailure(Failure stage)
     g_capturerReleases = 0;
     AudioCapturer wrapper;
     SampleInfo sample;
-    sample.audio.audioMaxInputSize = 3840;
-    sample.audio.audioSampleRate = 48000;
-    sample.audio.audioChannelCount = 2;
+    sample.audio.audioMaxInputSize = CAPTURE_INPUT_BYTES;
+    sample.audio.audioSampleRate = CAPTURE_SAMPLE_RATE;
+    sample.audio.audioChannelCount = CAPTURE_CHANNEL_COUNT;
     CodecUserData context;
     Require(wrapper.AudioCapturerInit(sample, &context) == AVCODEC_SAMPLE_ERR_ERROR,
         "Initialization failure propagates immediately");
@@ -73,9 +80,9 @@ void TestCaptureAndReuse()
     g_capturerReleases = 0;
     AudioCapturer wrapper;
     SampleInfo sample;
-    sample.audio.audioMaxInputSize = 3840;
-    sample.audio.audioSampleRate = 48000;
-    sample.audio.audioChannelCount = 2;
+    sample.audio.audioMaxInputSize = CAPTURE_INPUT_BYTES;
+    sample.audio.audioSampleRate = CAPTURE_SAMPLE_RATE;
+    sample.audio.audioChannelCount = CAPTURE_CHANNEL_COUNT;
     CodecUserData context;
     Require(wrapper.AudioCapturerInit(sample, &context) == AVCODEC_SAMPLE_ERR_OK &&
         g_registeredContext == &context && g_registeredCallbacks.OH_AudioCapturer_OnReadData != nullptr,
@@ -91,9 +98,9 @@ void TestCaptureBackpressure()
 {
     g_failure = Failure::NONE;
     SampleInfo sample;
-    sample.audio.audioMaxInputSize = 3840;
-    sample.audio.audioSampleRate = 48000;
-    sample.audio.audioChannelCount = 2;
+    sample.audio.audioMaxInputSize = CAPTURE_INPUT_BYTES;
+    sample.audio.audioSampleRate = CAPTURE_SAMPLE_RATE;
+    sample.audio.audioChannelCount = CAPTURE_CHANNEL_COUNT;
     CodecUserData context;
     RecorderAudioStats stats;
     stats.Reset(sample.audio.audioSampleRate, sample.audio.audioChannelCount);
@@ -119,7 +126,7 @@ void TestCaptureBackpressure()
     Require(context.hasError && context.CaptureSize() == capacity,
         "Overflow signals failure without dropping queued PCM");
     Require(diagnostic.captureOverflows == 1 && diagnostic.peakPendingPcmBytes == capacity &&
-        diagnostic.captureCapacityBytes == capacity && diagnostic.captureCallback.count == 3,
+        diagnostic.captureCapacityBytes == capacity && diagnostic.captureCallback.count == CALLBACKS_THROUGH_OVERFLOW,
         "Overflow is recorded once and subsequent callbacks cannot grow the backlog");
     wrapper.AudioCapturerRelease();
     context.isDestroyed = true;

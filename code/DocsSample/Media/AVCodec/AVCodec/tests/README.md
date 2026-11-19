@@ -18,6 +18,20 @@
 
 设备用例和逐项结果见[ohosTest.md](../ohosTest.md)。Host替身验证控制流程，设备测试覆盖实际系统接口和媒体链路；两者的验证范围分别保留。
 
+### 告警修复与预览收尾
+
+本次报告共28条。按报告位置完成27条修改：12条语义常量、7条SDK替身命名、1条C++缩进、1条finally异常控制和6条文档措辞。SDK替身使用项目函数名，汇编链接名保留系统符号，C链接及参数、返回类型不变。输入PCM块大小由采样率、声道数、S16LE样本宽度和20ms时长推导；中断与回调计数使用语义常量。
+
+预览将文件关闭与解码、位图处理分开。finally只清理资源并记录关闭结果，关闭失败在其结束后上报；处理异常与关闭失败同时发生时保留原处理异常，关闭器仍保留File并阻止后续媒体任务。Host覆盖打开失败、解码失败、第二张位图创建失败、打开与解码等待期间取消，以及成功、失败或结果过期时叠加关闭失败；关闭失败测试通过独立进程隔离永久门控。
+
+17套Host回归及3组验证入口检查、23项Native宿主测试的Debug与Release构建、CodeLinter和签名HAP构建均为Pass。Debug和Release均验证`NativeCheckTest --fail-check`按预期退出1。CodeLinter为245条存量结果、0条新增，基线未修改。默认Hypium设备回归13套、49/49为Pass，0失败、0错误、0忽略。设备默认套件不包含本次预览关闭故障注入，这部分结果仅来自Host。
+
+`AudioCapturerInitTest`、`VideoEncoderBufferTest`和`RecorderLifecycleIntegrationTest`分别通过Release配置的ASan与UBSan，共6项；日志为`.validation/warning-173154-address-<测试名>.log`和`warning-173154-undefined-<测试名>.log`。
+
+本次日志为`.validation/warning-173154-host.log`、`warning-173154-native-debug.log`、`warning-173154-native-release.log`、`warning-173154-lint.log`、`warning-173154-build.log`和`warning-173154-device.log`。设备结构化结果为`.validation/device-result.json`。构建仍有存量警告。原告警平台尚未复扫，不能据本地结果宣称平台已清零。
+
+剩余1条`WordsTool.297`命中下方真实的Ability Assistant测试命令。保留可运行的`aa test`及其用途说明，按误报待平台复核；不拆字符或编造替代命令。
+
 ### PCM队列基准
 
 以下命令使用Linux或WSL中的C++17编译器驱动；也可用当前工具链的驱动路径替换`c++`。
@@ -63,11 +77,11 @@ ASan宿主可执行文件关闭PIE（Position Independent Executable，位置无
 
 ### 转码与Native资源调整
 
-转码在首次异步等待前保存请求和配置说明的值快照，预检、区间校验、大小预估、Native提交和报告均读取同一份输入。执行按准备、运行、收尾和持久化拆分，共用任务上下文持有文件和输入身份。队列保存8个具名设置；旧7项或8项数组只在恢复时转换，缺少的缩放方式使用默认值0。Host覆盖等待预检时修改草稿、请求和报告保持原值，以及旧格式迁移和新格式往返。
+转码开始后，在进入异步预检前保存请求和配置说明的值快照，预检、区间校验、大小预估、Native提交和报告均读取同一份输入。执行按准备、运行、收尾和持久化拆分，共用任务上下文持有文件和输入身份。队列保存8个具名设置；旧7项或8项数组只在恢复时转换，缺少的缩放方式使用默认值0。Host覆盖等待预检时修改草稿、请求和报告保持原值，以及旧格式迁移和新格式往返。
 
-转码、预检和预览共用文件关闭器。同一fd并发关闭合并为一次；EBADF表示已关闭，其他错误保留File并阻止同进程继续播放、录制、转码或清理。界面结束忙碌状态、队列暂停并提示重启；转码待处理会话保留。不重复关闭结果不明的fd，避免误关被系统复用的描述符。Host分别注入预检、预览和正式转码关闭错误，使用独立进程隔离永久门控，验证租约、门控与会话归属。
+转码、预检和预览共用文件关闭器。同一fd并发关闭合并为一次；EBADF表示已关闭，非EBADF关闭错误保留File并阻止同进程继续播放、录制、转码或清理。界面结束忙碌状态、队列暂停并提示重启；转码待处理会话保留。不重复关闭结果不明的fd，避免误关被系统复用的描述符。Host分别注入预检、预览和正式转码关闭错误，使用独立进程隔离永久门控，验证租约、门控与会话归属。
 
-录音采集缓存改用固定容量PCM环形队列，S16LE格式按2秒采样量预分配，至少容纳一个`audioMaxInputSize`块，最多4MiB；容量超限或参数无效时初始化失败。该容量是保护策略，并非真机性能结论。回调中不扩容、不前移剩余PCM；溢出首次记录`recorder.audio.capacity`并进入既有错误收尾，保留已排队数据。诊断`audio`对象增加`peakPendingPcmBytes`、`captureCapacityBytes`、`captureOverflows`和`captureCallback`。最后一项统计尝试获取队列锁至完成队列处理的耗时，包含锁等待，不含后续诊断入账；没有新增UI行。同步音频EOS和既有Flush/Stop约定保留。
+录音采集缓存改用固定容量PCM环形队列，S16LE格式按2秒采样量预分配，至少容纳一个`audioMaxInputSize`块，最多4MiB；容量超限或参数无效时初始化失败。该容量是保护策略，并非真机性能结论。回调中不扩容、不前移剩余PCM；检测到溢出后记录一次`recorder.audio.capacity`并进入既有错误收尾，保留已排队数据。诊断`audio`对象增加`peakPendingPcmBytes`、`captureCapacityBytes`、`captureOverflows`和`captureCallback`。最后一项统计尝试获取队列锁至完成队列处理的耗时，包含锁等待，不含后续诊断入账；没有新增UI行。同步音频EOS和既有Flush/Stop约定保留。
 
 `AudioPlaybackCallbackContext`集中音频中断、恢复、音量及诊断引用，由Player持有，回调只借用；renderer释放并等待工作线程退出后才销毁。Native回归覆盖用户暂停时系统恢复、正常恢复、duck/unduck、停止后不恢复和销毁后迟到回调。
 

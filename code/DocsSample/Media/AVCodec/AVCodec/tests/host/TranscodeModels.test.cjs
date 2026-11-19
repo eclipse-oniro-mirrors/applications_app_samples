@@ -944,6 +944,79 @@ async function testPreviewDisposal() {
   } finally { images.createPixelMap = originalCreate; preview = originalPreview; }
   console.info('Preview lifecycle: disposal during bitmap creation and paired image release passed');
 }
+async function testPreviewLoadFailures() {
+  const { TranscodePreviewController } = load('../controller/TranscodePreviewController');
+  const images = mocks['@kit.ImageKit'].image;
+  const originalCreate = images.createPixelMap;
+  const originalPreview = preview;
+  const originalOpen = io.open;
+  const originalClose = io.close;
+  const controller = new TranscodePreviewController();
+  const failure = new Error('Preview processing failed');
+  let closed = 0;
+  let released = 0;
+  try {
+    io.close = async () => { closed++; };
+    io.open = async () => { throw failure; };
+    await assert.rejects(controller.load('/source.mp4', {}, 'open'), error => error === failure);
+    assert.equal(closed, 0, 'An unsuccessful open has no descriptor to close');
+    io.open = originalOpen;
+    preview = async () => { throw failure; };
+    await assert.rejects(controller.load('/source.mp4', {}, 'decode'), error => error === failure);
+    assert.equal(closed, 1, 'Decoder rejection still closes the source');
+    preview = async () => status({ previewWidth: 2, previewHeight: 2, previewRgba: new ArrayBuffer(16) });
+    let created = 0;
+    images.createPixelMap = async () => {
+      if (++created === 2) { throw failure; }
+      return { release: async () => { released++; } };
+    };
+    await assert.rejects(controller.load('/source.mp4', {}, 'bitmap'), error => error === failure);
+    assert.equal(closed, 2, 'Bitmap rejection still closes the source');
+    assert.equal(released, 1, 'A partially created pair releases the first PixelMap');
+    assert.equal(controller.processed, undefined);
+    assert.equal(controller.original, undefined);
+  } finally {
+    images.createPixelMap = originalCreate; preview = originalPreview;
+    io.open = originalOpen; io.close = originalClose;
+  }
+  console.info('Preview cleanup: open, decoder and bitmap errors retain their original result');
+}
+
+async function testPreviewEarlyCancellation() {
+  const { TranscodePreviewController } = load('../controller/TranscodePreviewController');
+  const controller = new TranscodePreviewController();
+  const originalOpen = io.open;
+  const originalClose = io.close;
+  const originalPreview = preview;
+  let closed = 0;
+  let decoded = 0;
+  try {
+    const opening = deferred();
+    io.open = async () => opening.promise;
+    io.close = async () => { closed++; };
+    preview = async () => { decoded++; return status(); };
+    const staleOpen = controller.load('/source.mp4', {}, 'stale open');
+    controller.clear();
+    opening.resolve({ fd: '/source.mp4' });
+    await staleOpen;
+    assert.equal(closed, 1, 'Cancellation while opening still closes the acquired source');
+    assert.equal(decoded, 0, 'Cancellation before decoding skips Native preview');
+    io.open = originalOpen;
+    const decoding = deferred();
+    const entered = deferred();
+    preview = () => { entered.resolve(); return decoding.promise; };
+    const staleDecode = controller.load('/source.mp4', {}, 'stale decode');
+    await entered.promise;
+    controller.clear();
+    decoding.resolve(status());
+    await staleDecode;
+    assert.equal(closed, 2, 'Cancellation while decoding still closes the source');
+    assert.equal(controller.processed, undefined);
+    assert.equal(controller.original, undefined);
+  } finally { io.open = originalOpen; io.close = originalClose; preview = originalPreview; }
+  console.info('Preview cleanup: cancellation while opening and decoding passed');
+}
+
 async function testHistoryController() {
   const { TranscodeHistoryController } = load('../controller/TranscodeHistoryController');
   const { TranscodeFilesModel } = load('TranscodeFilesModel');
@@ -1050,12 +1123,56 @@ async function testAuxiliaryCloseFailure(mode) {
 
 function testAuxiliaryCloseFailures() {
   const { spawnSync } = require('node:child_process');
-  for (const mode of ['inspect', 'preview']) {
+  const modes = ['inspect', 'preview', 'preview-close-success', 'preview-close-decode',
+    'preview-close-bitmap', 'preview-close-stale-open', 'preview-close-stale-bitmap'];
+  for (const mode of modes) {
     const result = spawnSync(process.execPath, [__filename, process.argv[2], mode],
       { encoding: 'utf8', timeout: 20000 });
     assert.equal(result.status, 0, result.stdout + result.stderr);
     process.stdout.write(result.stdout);
   }
+}
+
+async function testPreviewCloseFailure(mode) {
+  const { TranscodePreviewController } = load('../controller/TranscodePreviewController');
+  const controller = new TranscodePreviewController();
+  const failure = new Error('Preview processing failed');
+  const stale = mode.includes('stale');
+  const operationFails = mode === 'preview-close-decode' || mode === 'preview-close-bitmap';
+  let closed = 0;
+  let released = 0;
+  let created = 0;
+  files.set('/source.mp4', { kind: 'file' });
+  io.open = async () => {
+    if (mode === 'preview-close-stale-open') { controller.clear(); }
+    return { fd: '/source.mp4' };
+  };
+  io.close = async () => {
+    closed++;
+    throw Object.assign(new Error('close unknown'), { code: 13900005 });
+  };
+  preview = async () => {
+    if (mode === 'preview-close-decode') { throw failure; }
+    return status({ previewWidth: 2, previewHeight: 2, previewRgba: new ArrayBuffer(16) });
+  };
+  mocks['@kit.ImageKit'].image.createPixelMap = async () => {
+    if (++created === 2 && mode === 'preview-close-bitmap') { throw failure; }
+    if (mode === 'preview-close-stale-bitmap') { controller.clear(); }
+    return { release: async () => { released++; } };
+  };
+  await assert.rejects(controller.load('/source.mp4', {}, 'preview'), error =>
+    operationFails ? error === failure : /Transcode file close unconfirmed/.test(error.message));
+  assert.equal(closed, 1, 'Every opened source is closed once, including stale results');
+  assert.equal(MediaFileActivity.isCleanupUnconfirmed(), true);
+  assert.equal(MediaFileActivity.beginTranscode(), false);
+  assert.equal(MediaFileActivity.beginLaunch(), false);
+  if (stale || operationFails) {
+    assert.equal(controller.processed, undefined);
+    assert.equal(controller.original, undefined);
+    assert.equal(released, created - (mode === 'preview-close-bitmap' ? 1 : 0));
+  }
+  controller.clear();
+  console.info(mode + ': cleanup blocks further tasks and preserves the operation error');
 }
 
 async function testTranscodeCloseFailure() {
@@ -1108,10 +1225,13 @@ async function testTranscodeCloseFailure() {
   console.info('Transcode cleanup: EBADF, retained File, blocked lease and no repeated close passed');
 }
 
-(process.argv[3] ? testAuxiliaryCloseFailure(process.argv[3]) : main()
+(process.argv[3] ? (process.argv[3].startsWith('preview-close-') ?
+  testPreviewCloseFailure(process.argv[3]) : testAuxiliaryCloseFailure(process.argv[3])) : main()
   .then(testQualityProfiles)
   .then(testBatchOperations)
   .then(testPreviewDisposal)
+  .then(testPreviewLoadFailures)
+  .then(testPreviewEarlyCancellation)
   .then(testHistoryController)
   .then(testTaskSnapshot)
   .then(testAuxiliaryCloseFailures)

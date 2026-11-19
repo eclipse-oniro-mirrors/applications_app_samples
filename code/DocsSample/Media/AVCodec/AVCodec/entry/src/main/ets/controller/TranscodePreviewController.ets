@@ -43,10 +43,21 @@ export class TranscodePreviewController {
     this.clear();
     const sequence: number = this.sequence;
     let file: fileIo.File | undefined = undefined;
+    let closed: boolean = true;
+    try {
+      file = await fileIo.open(uri, fileIo.OpenMode.READ_ONLY);
+      await this.loadFile(file, sequence, request, configuration);
+    } finally {
+      closed = await TranscodeFileCloser.close(file);
+    }
+    if (!closed) { throw new Error('Transcode file close unconfirmed'); }
+  }
+
+  private async loadFile(file: fileIo.File, sequence: number, request: TranscodeRequest,
+    configuration: string): Promise<void> {
     let processed: image.PixelMap | undefined = undefined;
     let original: image.PixelMap | undefined = undefined;
     try {
-      file = await fileIo.open(uri, fileIo.OpenMode.READ_ONLY);
       if (sequence !== this.sequence) { return; }
       request.inputFd = file.fd;
       request.audioMode = 2;
@@ -68,7 +79,6 @@ export class TranscodePreviewController {
     } finally {
       if (processed !== undefined) { await processed.release().catch((): void => {}); }
       if (original !== undefined) { await original.release().catch((): void => {}); }
-      if (!await TranscodeFileCloser.close(file)) { throw new Error('Transcode file close unconfirmed'); }
     }
   }
 

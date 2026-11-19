@@ -742,7 +742,7 @@ CONCURRENT-018至027对应后续10轮修复，均先通过Host断言复现，再
 | RESOURCE-001 | 阻塞预检后改动草稿，再放行；检查区间、Native请求与报告；恢复旧7项或8项队列并重新保存。 | Host Pass | 实际预检等待时修改设置并运行队列，结果参数与入队配置一致；结果：Pass。 |
 | RESOURCE-002 | 在预检、预览及转码收尾注入EBADF或其他close错误；尝试再次播放、录制、转码与清理。 | Host Pass；并发close仅执行一次，未知关闭保留租约、File和待处理会话。 | 分别注入输入与输出关闭失败；界面可退出忙碌、队列暂停并提示重启，重启后可恢复；结果：Pass。 |
 | RESOURCE-003 | 固定PCM容量，按序写入、读出、回绕并写满；继续写入，验证错误收尾、积压原文、溢出计数与迟到回调。 | Native Debug、Release、ASan、UBSan Pass | 正常长录制并暂时延迟编码消费，检查容量、队列耗时和过载收尾；结果：Pass。 |
-| RESOURCE-004 | 音频中断时暂停、恢复、duck/unduck；用户暂停或停止后接收恢复事件，销毁后模拟迟到事件。 | Native Debug、Release、ASan、UBSan Pass | 通过其他音频应用及系统事件触发中断，重复停止与重播，检查声音与状态；结果：Pass。 |
+| RESOURCE-004 | 音频中断时暂停、恢复、duck/unduck；用户暂停或停止后接收恢复事件，销毁后模拟迟到事件。 | Native Debug、Release、ASan、UBSan Pass | 通过另一音频应用的播放操作及系统事件触发中断，重复停止与重播，检查声音与状态；结果：Pass。 |
 | RESOURCE-005 | Vulkan帧、交换链和上传图像各阶段部分初始化，重复清理，核对依赖释放顺序与次数。 | Native Debug、Release、ASan、UBSan Pass；生产HAP编译Pass | Vulkan播放中连续Seek、停止重播与改变窗口尺寸，检查画面、资源错误和旧Buffer释放；结果：Pass。 |
 | RESOURCE-006 | Release启用NDEBUG后运行检查负向控制，故意失败必须退出1；非法构建与检测参数拒绝执行。 | Host、Native Debug、Release、ASan、UBSan Pass | 仅宿主验证入口，无独立设备操作。 |
 
@@ -776,3 +776,17 @@ CONCURRENT-018至027对应后续10轮修复，均先通过Host断言复现，再
 | MERGE-004 | 合并版本构建、静态检查与默认设备套件。 | HAP构建及签名Pass；CodeLinter为245条存量、0条新增；默认Hypium设备13套、49/49 Pass，0失败、0错误。 |
 
 Host全量及3组入口检查通过，Native共23项Debug、Release通过，失败检查负向控制按预期退出1。上述Native测试使用OHOS接口替身；本次默认设备套件不覆盖实际录制EOS、完整页面或GPU送显，未重新执行这些手工场景，也未进行性能复测。既有场景的历史Pass记录不作为本次重新执行的结果。命令、日志及范围见[合并回归验证](tests/README.md#合并回归验证)。
+
+## 告警修复后的预览收尾回归
+
+| 编号 | 检查对象与步骤 | 本轮结果 | 验证边界 |
+|---|---|---|---|
+| PREVIEW-CLEANUP-001 | 注入打开、解码和第二张位图创建失败；检查原异常、源文件关闭次数及已创建位图释放。 | Host Pass | 使用文件和图像接口替身，未执行设备故障注入。 |
+| PREVIEW-CLEANUP-002 | 分别在等待打开、解码和位图创建时取消；放行迟到结果，检查图片不发布、临时资源释放和文件关闭。 | Host Pass | 验证异步结果归属与清理顺序。 |
+| PREVIEW-CLEANUP-003 | 预览成功、解码失败、位图失败、打开结果过期和位图结果过期时叠加非EBADF关闭失败。 | Host Pass | 保留原处理异常，或在处理成功、过期时上报关闭异常；File与任务阻止状态保留。 |
+| WARNING-REGRESSION-001 | 运行17套Host及3组入口检查、23项Native的Debug和Release构建；故意失败检查必须退出1。 | Pass | Native为宿主替身验证。 |
+| WARNING-REGRESSION-002 | 执行CodeLinter及SDK 26.0.0签名HAP构建。 | Pass | 245条存量结果、0条新增，基线未修改；构建保留存量警告。 |
+| WARNING-REGRESSION-003 | 连接设备后运行默认Hypium套件，校验新生成报告的用例数及失败数。 | Pass：13套、49/49 | 0失败、0错误、0忽略；未替代上方预览故障注入的设备验证。 |
+| WARNING-REGRESSION-004 | 对AudioCapturerInitTest、VideoEncoderBufferTest和RecorderLifecycleIntegrationTest分别执行Release配置的ASan与UBSan。 | Pass：6项 | 仅宿主检测，未执行设备检测器。 |
+
+本轮告警报告28条中，27条完成代码或文档修改；真实`aa test`命令的词语命中按误报待平台复核。原平台尚未复扫。命令、日志和回归范围见[验证说明](tests/README.md#告警修复与预览收尾)。

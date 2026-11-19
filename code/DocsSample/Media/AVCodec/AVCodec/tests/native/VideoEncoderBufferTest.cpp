@@ -65,6 +65,8 @@ constexpr int32_t INPUT_HEIGHT_STRIDE = 736;
 constexpr int32_t FORMAT_CHANGE_QUERY_LIMIT = 2;
 constexpr int32_t AUDIO_CHANNEL_COUNT = 2;
 constexpr int32_t AUDIO_SAMPLE_RATE = 48000;
+constexpr int32_t AUDIO_PAUSE_INTERRUPTS = 2;
+constexpr int32_t AUDIO_INTERRUPTS_WITH_STOP = AUDIO_PAUSE_INTERRUPTS + 1;
 constexpr int64_t AUDIO_END_PTS_US = 68'136'000;
 constexpr int64_t INITIAL_AUDIO_POSITION_US = 68'000'000;
 constexpr int64_t VIDEO_TAIL_POSITION_US = 68'400'000;
@@ -271,10 +273,12 @@ void TestAudioInterruptions()
     interrupt(AUDIOSTREAM_INTERRUPT_HINT_STOP);
     fixture.running = false;
     interrupt(AUDIOSTREAM_INTERRUPT_HINT_RESUME);
-    Require(g_rendererStarts == 1 && fixture.audio.interruptCount == 3, "Stopped playback cannot resume");
+    Require(g_rendererStarts == 1 && fixture.audio.interruptCount == AUDIO_INTERRUPTS_WITH_STOP,
+        "Stopped playback cannot resume");
     fixture.context.isDestroyed = true;
     interrupt(AUDIOSTREAM_INTERRUPT_HINT_PAUSE);
-    Require(g_rendererPauses == 2 && fixture.audio.interruptCount == 3, "Late callbacks ignore destroyed contexts");
+    Require(g_rendererPauses == AUDIO_PAUSE_INTERRUPTS && fixture.audio.interruptCount == AUDIO_INTERRUPTS_WITH_STOP,
+        "Late callbacks ignore destroyed contexts");
 }
 } // namespace
 

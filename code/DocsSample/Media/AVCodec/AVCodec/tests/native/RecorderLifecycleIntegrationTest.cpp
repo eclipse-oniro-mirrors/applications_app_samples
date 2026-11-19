@@ -292,20 +292,28 @@ int OH_LOG_Print(LogType, LogLevel, unsigned int, const char *, const char *, ..
 {
     return 0;
 }
-OH_AVFormat *OH_AVFormat_Create()
+OH_AVFormat *FakeAvFormatCreate() __asm__("OH_AVFormat_Create");
+OH_AVFormat *FakeAvFormatCreate()
 {
     return nullptr;
 }
-void OH_AVFormat_Destroy(OH_AVFormat *) { }
-uint8_t *OH_AVBuffer_GetAddr(OH_AVBuffer *)
+void FakeAvFormatDestroy(OH_AVFormat *) __asm__("OH_AVFormat_Destroy");
+void FakeAvFormatDestroy(OH_AVFormat *)
+{
+}
+uint8_t *FakeAvBufferGetAddr(OH_AVBuffer *) __asm__("OH_AVBuffer_GetAddr");
+uint8_t *FakeAvBufferGetAddr(OH_AVBuffer *)
 {
     return nullptr;
 }
-int32_t OH_AVBuffer_GetCapacity(OH_AVBuffer *)
+int32_t FakeAvBufferGetCapacity(OH_AVBuffer *) __asm__("OH_AVBuffer_GetCapacity");
+int32_t FakeAvBufferGetCapacity(OH_AVBuffer *)
 {
     return FRAME_BYTES;
 }
-bool OH_AVFormat_GetIntValue(OH_AVFormat *format, const char *key, int32_t *value)
+bool FakeAvFormatGetIntValue(OH_AVFormat *format, const char *key, int32_t *value)
+    __asm__("OH_AVFormat_GetIntValue");
+bool FakeAvFormatGetIntValue(OH_AVFormat *format, const char *key, int32_t *value)
 {
     if (format != &g_inputFormat) {
         return false;
@@ -321,11 +329,13 @@ bool OH_AVFormat_GetIntValue(OH_AVFormat *format, const char *key, int32_t *valu
     }
     return true;
 }
-bool OH_AVFormat_GetLongValue(OH_AVFormat *, const char *, int64_t *)
+bool FakeAvFormatGetLongValue(OH_AVFormat *, const char *, int64_t *) __asm__("OH_AVFormat_GetLongValue");
+bool FakeAvFormatGetLongValue(OH_AVFormat *, const char *, int64_t *)
 {
     return false;
 }
-bool OH_AVFormat_GetDoubleValue(OH_AVFormat *, const char *, double *)
+bool FakeAvFormatGetDoubleValue(OH_AVFormat *, const char *, double *) __asm__("OH_AVFormat_GetDoubleValue");
+bool FakeAvFormatGetDoubleValue(OH_AVFormat *, const char *, double *)
 {
     return false;
 }
