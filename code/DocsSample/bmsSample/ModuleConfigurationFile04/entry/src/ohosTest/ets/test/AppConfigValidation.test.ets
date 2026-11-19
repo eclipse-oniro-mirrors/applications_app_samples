@@ -5040,3 +5040,358 @@ export default function AppConfigValidationTest(): void {
         expect(firstPath.length > 0).assertTrue();
         const paths: string[] = FindingUtils.paths(findings);
         for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppFullValidationInvalidLabel', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppFullValidationInvalidLabel', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppFullValidationInvalidLabel', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppFullValidationInvalidLabel', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppFullValidationInvalidLabel', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppFullValidationInvalidLabel', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppFullValidationInvalidLabel', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppFullValidationInvalidLabel', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(appConfig);
+      TestLog.number('testAppFullValidationInvalidLabel', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppFullValidationInvalidLabel', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppFullValidationInvalidLabel', 'case end', 'full app validation invalidlabel');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1107
+     * @tc.name      testAppFullValidationMultipleViolations
+     * @tc.desc      Checks that multiple application violations are reported together.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppFullValidationMultipleViolations',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const appConfig: AppConfig = ConfigFactory.appConfig();
+      appConfig.bundleName = 'Ohos.app';
+      appConfig.vendor = '';
+      appConfig.versionName = '1';
+      TestLog.text('testAppFullValidationMultipleViolations', 'case begin', 'full app validation multipleviolations');
+      TestLog.step('testAppFullValidationMultipleViolations', 'full app validation multipleviolations');
+      const findings: Finding[] = AppConfigValidator.validate(appConfig);
+      TestLog.findings('testAppFullValidationMultipleViolations', 'app findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_UPPERCASE');
+      TestLog.flag('testAppFullValidationMultipleViolations', 'has code APP_BUNDLE_NAME_UPPERCASE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VENDOR_EMPTY');
+      TestLog.flag('testAppFullValidationMultipleViolations', 'has code APP_VENDOR_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const hasExpected3: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_NOT_SEMVER');
+      TestLog.flag('testAppFullValidationMultipleViolations', 'has code APP_VERSION_NAME_NOT_SEMVER', hasExpected3);
+      expect(hasExpected3).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppFullValidationMultipleViolations', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppFullValidationMultipleViolations', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppFullValidationMultipleViolations', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppFullValidationMultipleViolations', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppFullValidationMultipleViolations', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppFullValidationMultipleViolations', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppFullValidationMultipleViolations', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppFullValidationMultipleViolations', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppFullValidationMultipleViolations', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppFullValidationMultipleViolations', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(appConfig);
+      TestLog.number('testAppFullValidationMultipleViolations', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppFullValidationMultipleViolations', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppFullValidationMultipleViolations', 'case end', 'full app validation multipleviolations');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1108
+     * @tc.name      testAppFullValidationUppercaseAndIcon
+     * @tc.desc      Checks that independent bundle name and icon violations are reported together.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppFullValidationUppercaseAndIcon',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const appConfig: AppConfig = ConfigFactory.appConfig();
+      appConfig.bundleName = 'ohos.app.Hap';
+      appConfig.icon = 'media:icon';
+      TestLog.text('testAppFullValidationUppercaseAndIcon', 'case begin', 'full app validation uppercaseandicon');
+      TestLog.step('testAppFullValidationUppercaseAndIcon', 'full app validation uppercaseandicon');
+      const findings: Finding[] = AppConfigValidator.validate(appConfig);
+      TestLog.findings('testAppFullValidationUppercaseAndIcon', 'app findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_UPPERCASE');
+      TestLog.flag('testAppFullValidationUppercaseAndIcon', 'has code APP_BUNDLE_NAME_UPPERCASE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_NO_DOLLAR');
+      TestLog.flag('testAppFullValidationUppercaseAndIcon', 'has code RESOURCE_REF_NO_DOLLAR', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppFullValidationUppercaseAndIcon', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppFullValidationUppercaseAndIcon', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppFullValidationUppercaseAndIcon', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppFullValidationUppercaseAndIcon', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppFullValidationUppercaseAndIcon', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppFullValidationUppercaseAndIcon', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppFullValidationUppercaseAndIcon', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppFullValidationUppercaseAndIcon', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppFullValidationUppercaseAndIcon', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppFullValidationUppercaseAndIcon', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(appConfig);
+      TestLog.number('testAppFullValidationUppercaseAndIcon', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppFullValidationUppercaseAndIcon', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppFullValidationUppercaseAndIcon', 'case end', 'full app validation uppercaseandicon');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1109
+     * @tc.name      testAppFullValidationVersionAndLabel
+     * @tc.desc      Checks that independent version code and label violations are reported together.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppFullValidationVersionAndLabel',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const appConfig: AppConfig = ConfigFactory.appConfig();
+      appConfig.versionCode = -5;
+      appConfig.label = 'app_name';
+      TestLog.text('testAppFullValidationVersionAndLabel', 'case begin', 'full app validation versionandlabel');
+      TestLog.step('testAppFullValidationVersionAndLabel', 'full app validation versionandlabel');
+      const findings: Finding[] = AppConfigValidator.validate(appConfig);
+      TestLog.findings('testAppFullValidationVersionAndLabel', 'app findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_POSITIVE');
+      TestLog.flag('testAppFullValidationVersionAndLabel', 'has code APP_VERSION_CODE_NOT_POSITIVE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_NO_DOLLAR');
+      TestLog.flag('testAppFullValidationVersionAndLabel', 'has code RESOURCE_REF_NO_DOLLAR', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppFullValidationVersionAndLabel', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppFullValidationVersionAndLabel', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppFullValidationVersionAndLabel', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppFullValidationVersionAndLabel', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppFullValidationVersionAndLabel', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppFullValidationVersionAndLabel', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppFullValidationVersionAndLabel', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppFullValidationVersionAndLabel', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppFullValidationVersionAndLabel', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppFullValidationVersionAndLabel', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(appConfig);
+      TestLog.number('testAppFullValidationVersionAndLabel', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppFullValidationVersionAndLabel', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppFullValidationVersionAndLabel', 'case end', 'full app validation versionandlabel');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1110
+     * @tc.name      testAppFullValidationMaxBoundaries
+     * @tc.desc      Checks that all application fields accept their maximum boundary values.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppFullValidationMaxBoundaries',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const appConfig: AppConfig = ConfigFactory.appConfig();
+      appConfig.versionCode = 2147483647;
+      TestLog.text('testAppFullValidationMaxBoundaries', 'case begin', 'full app validation maxboundaries');
+      TestLog.step('testAppFullValidationMaxBoundaries', 'full app validation maxboundaries');
+      const findings: Finding[] = AppConfigValidator.validate(appConfig);
+      TestLog.findings('testAppFullValidationMaxBoundaries', 'app findings', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testAppFullValidationMaxBoundaries', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppFullValidationMaxBoundaries', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppFullValidationMaxBoundaries', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppFullValidationMaxBoundaries', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppFullValidationMaxBoundaries', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppFullValidationMaxBoundaries', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppFullValidationMaxBoundaries', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppFullValidationMaxBoundaries', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppFullValidationMaxBoundaries', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(appConfig);
+      TestLog.number('testAppFullValidationMaxBoundaries', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppFullValidationMaxBoundaries', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppFullValidationMaxBoundaries', 'case end', 'full app validation maxboundaries');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1111
+     * @tc.name      testAppFullValidationNoDuplicateCodes
+     * @tc.desc      Checks that an empty bundle name produces a single stable finding.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppFullValidationNoDuplicateCodes',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const appConfig: AppConfig = ConfigFactory.appConfig();
+      appConfig.bundleName = '';
+      TestLog.text('testAppFullValidationNoDuplicateCodes', 'case begin', 'full app validation noduplicatecodes');
+      TestLog.step('testAppFullValidationNoDuplicateCodes', 'full app validation noduplicatecodes');
+      const findings: Finding[] = AppConfigValidator.validate(appConfig);
+      TestLog.findings('testAppFullValidationNoDuplicateCodes', 'app findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_EMPTY');
+      TestLog.flag('testAppFullValidationNoDuplicateCodes', 'has code APP_BUNDLE_NAME_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppFullValidationNoDuplicateCodes', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppFullValidationNoDuplicateCodes', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppFullValidationNoDuplicateCodes', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppFullValidationNoDuplicateCodes', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppFullValidationNoDuplicateCodes', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppFullValidationNoDuplicateCodes', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppFullValidationNoDuplicateCodes', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppFullValidationNoDuplicateCodes', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppFullValidationNoDuplicateCodes', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppFullValidationNoDuplicateCodes', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(appConfig);
+      TestLog.number('testAppFullValidationNoDuplicateCodes', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppFullValidationNoDuplicateCodes', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppFullValidationNoDuplicateCodes', 'case end', 'full app validation noduplicatecodes');
+    })
+
+  })
+}
