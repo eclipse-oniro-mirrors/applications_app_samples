@@ -1788,3 +1788,882 @@ export default function RecorderStateLogicTest(): void {
         r1.emitState('prepared');
         await recorderTick();
         LogicTestLog.number(name, 'stillRequiresStartedEvent', 0, callbacks);
+        expect(callbacks).assertEqual(0);
+        r1.emitState('started');
+        r1.emitState('paused');
+        LogicTestLog.number(name, 'realStateCallbacks', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        await model.finish();
+        r1.emitState('prepared');
+        r1.emitState('started');
+        await recorderTick();
+        LogicTestLog.number(name, 'noStartAfterFinish', 2, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(2);
+        LogicTestLog.number(name, 'noCallbackAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.start.enter', 'r1.start.reject', 'r1.start.enter', 'r1.start.resolve',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1025
+     * @tc.name PreparedStartFailure2
+     * @tc.desc Prepared-start rejection is handled without fabricated callbacks and a later start can recover.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1025';
+        const input: string =
+          'attempts=2; failure=Recorder start service unavailable; gated=false';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        r1.fail('start', 'Recorder start service unavailable');
+        for (let attempt: number = 0; attempt < 2; attempt++) {
+          r1.emitState('prepared');
+        }
+        await recorderTick();
+        LogicTestLog.number(name, 'attemptedStarts', 2, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(2);
+        LogicTestLog.number(name, 'noFabricatedStartedCallback', 0, callbacks);
+        expect(callbacks).assertEqual(0);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.start.enter', 'r1.start.reject', 'r1.start.enter', 'r1.start.reject'
+        ];
+        LogicTestLog.value(name, 'rejectedStarts', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        r1.recover('start');
+        r1.emitState('prepared');
+        await recorderTick();
+        LogicTestLog.number(name, 'stillRequiresStartedEvent', 0, callbacks);
+        expect(callbacks).assertEqual(0);
+        r1.emitState('started');
+        r1.emitState('paused');
+        LogicTestLog.number(name, 'realStateCallbacks', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        await model.finish();
+        r1.emitState('prepared');
+        r1.emitState('started');
+        await recorderTick();
+        LogicTestLog.number(name, 'noStartAfterFinish', 3, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(3);
+        LogicTestLog.number(name, 'noCallbackAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.start.enter', 'r1.start.reject', 'r1.start.enter', 'r1.start.reject',
+          'r1.start.enter', 'r1.start.resolve', 'r1.stop.enter', 'r1.stop.resolve',
+          'r1.reset.enter', 'r1.reset.resolve', 'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1026
+     * @tc.name PreparedStartFailure3
+     * @tc.desc Prepared-start rejection is handled without fabricated callbacks and a later start can recover.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1026';
+        const input: string =
+          'attempts=3; failure=Recorder start interrupted; gated=false';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        r1.fail('start', 'Recorder start interrupted');
+        for (let attempt: number = 0; attempt < 3; attempt++) {
+          r1.emitState('prepared');
+        }
+        await recorderTick();
+        LogicTestLog.number(name, 'attemptedStarts', 3, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(3);
+        LogicTestLog.number(name, 'noFabricatedStartedCallback', 0, callbacks);
+        expect(callbacks).assertEqual(0);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.start.enter', 'r1.start.reject', 'r1.start.enter', 'r1.start.reject',
+          'r1.start.enter', 'r1.start.reject'
+        ];
+        LogicTestLog.value(name, 'rejectedStarts', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        r1.recover('start');
+        r1.emitState('prepared');
+        await recorderTick();
+        LogicTestLog.number(name, 'stillRequiresStartedEvent', 0, callbacks);
+        expect(callbacks).assertEqual(0);
+        r1.emitState('started');
+        r1.emitState('paused');
+        LogicTestLog.number(name, 'realStateCallbacks', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        await model.finish();
+        r1.emitState('prepared');
+        r1.emitState('started');
+        await recorderTick();
+        LogicTestLog.number(name, 'noStartAfterFinish', 4, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(4);
+        LogicTestLog.number(name, 'noCallbackAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.start.enter', 'r1.start.reject', 'r1.start.enter', 'r1.start.reject',
+          'r1.start.enter', 'r1.start.reject', 'r1.start.enter', 'r1.start.resolve',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1027
+     * @tc.name PreparedStartFailure4
+     * @tc.desc Prepared-start rejection is handled without fabricated callbacks and a later start can recover.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1027';
+        const input: string =
+          'attempts=1; failure=Recorder start resource exhausted; gated=true';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        r1.fail('start', 'Recorder start resource exhausted');
+        const gate: RecorderGate = new RecorderGate();
+        r1.defer('start', gate);
+        for (let attempt: number = 0; attempt < 1; attempt++) {
+          r1.emitState('prepared');
+        }
+        await recorderTick();
+        LogicTestLog.number(name, 'attemptedStarts', 1, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(1);
+        LogicTestLog.number(name, 'noFabricatedStartedCallback', 0, callbacks);
+        expect(callbacks).assertEqual(0);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError', 'r1.start.enter'
+        ];
+        LogicTestLog.value(name, 'pendingStartCalls', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        gate.open();
+        await recorderTick();
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.start.enter', 'r1.start.reject'
+        ];
+        LogicTestLog.value(name, 'rejectedStarts', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        r1.recover('start');
+        r1.emitState('prepared');
+        await recorderTick();
+        LogicTestLog.number(name, 'stillRequiresStartedEvent', 0, callbacks);
+        expect(callbacks).assertEqual(0);
+        r1.emitState('started');
+        r1.emitState('paused');
+        LogicTestLog.number(name, 'realStateCallbacks', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        await model.finish();
+        r1.emitState('prepared');
+        r1.emitState('started');
+        await recorderTick();
+        LogicTestLog.number(name, 'noStartAfterFinish', 2, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(2);
+        LogicTestLog.number(name, 'noCallbackAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        const expectedHistory3: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.start.enter', 'r1.start.reject', 'r1.start.enter', 'r1.start.resolve',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory3.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory3.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1028
+     * @tc.name PreparedStartFailure5
+     * @tc.desc Prepared-start rejection is handled without fabricated callbacks and a later start can recover.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1028';
+        const input: string =
+          'attempts=2; failure=Recorder start output not writable; gated=true';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        r1.fail('start', 'Recorder start output not writable');
+        const gate: RecorderGate = new RecorderGate();
+        r1.defer('start', gate);
+        for (let attempt: number = 0; attempt < 2; attempt++) {
+          r1.emitState('prepared');
+        }
+        await recorderTick();
+        LogicTestLog.number(name, 'attemptedStarts', 2, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(2);
+        LogicTestLog.number(name, 'noFabricatedStartedCallback', 0, callbacks);
+        expect(callbacks).assertEqual(0);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.start.enter', 'r1.start.enter'
+        ];
+        LogicTestLog.value(name, 'pendingStartCalls', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        gate.open();
+        await recorderTick();
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.start.enter', 'r1.start.enter', 'r1.start.reject', 'r1.start.reject'
+        ];
+        LogicTestLog.value(name, 'rejectedStarts', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        r1.recover('start');
+        r1.emitState('prepared');
+        await recorderTick();
+        LogicTestLog.number(name, 'stillRequiresStartedEvent', 0, callbacks);
+        expect(callbacks).assertEqual(0);
+        r1.emitState('started');
+        r1.emitState('paused');
+        LogicTestLog.number(name, 'realStateCallbacks', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        await model.finish();
+        r1.emitState('prepared');
+        r1.emitState('started');
+        await recorderTick();
+        LogicTestLog.number(name, 'noStartAfterFinish', 3, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(3);
+        LogicTestLog.number(name, 'noCallbackAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        const expectedHistory3: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.start.enter', 'r1.start.enter', 'r1.start.reject', 'r1.start.reject',
+          'r1.start.enter', 'r1.start.resolve', 'r1.stop.enter', 'r1.stop.resolve',
+          'r1.reset.enter', 'r1.reset.resolve', 'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory3.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory3.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1029
+     * @tc.name CommandStateSequence1
+     * @tc.desc Pause and resume remain void and only subsequent paused or started events notify callers.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1029';
+        const input: string =
+          'commands=pause/resume';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        await model.startRecorder(301);
+        r1.emitState('prepared');
+        await recorderTick();
+        r1.emitState('started');
+        LogicTestLog.number(name, 'initialStartedCallback', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const result0: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'command0Void', 'undefined', String(result0));
+        expect(String(result0)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState0', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        r1.emitState('paused');
+        LogicTestLog.number(name, 'afterState0', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        const result1: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'command1Void', 'undefined', String(result1));
+        expect(String(result1)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState1', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        r1.emitState('started');
+        LogicTestLog.number(name, 'afterState1', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.start.enter', 'r1.start.resolve',
+          'r1.pause.enter', 'r1.pause.resolve', 'r1.resume.enter', 'r1.resume.resolve'
+        ];
+        LogicTestLog.value(name, 'commandsInOrder', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        await model.finish();
+        r1.emitState('started');
+        r1.emitState('paused');
+        await recorderTick();
+        LogicTestLog.number(name, 'callbacksAfterFinish', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.start.enter', 'r1.start.resolve',
+          'r1.pause.enter', 'r1.pause.resolve', 'r1.resume.enter', 'r1.resume.resolve',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'finishAndNoFurtherCommands', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1030
+     * @tc.name CommandStateSequence2
+     * @tc.desc Pause and resume remain void and only subsequent paused or started events notify callers.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1030';
+        const input: string =
+          'commands=pause/pause/resume';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        await model.startRecorder(302);
+        r1.emitState('prepared');
+        await recorderTick();
+        r1.emitState('started');
+        LogicTestLog.number(name, 'initialStartedCallback', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const result0: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'command0Void', 'undefined', String(result0));
+        expect(String(result0)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState0', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        r1.emitState('paused');
+        LogicTestLog.number(name, 'afterState0', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        const result1: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'command1Void', 'undefined', String(result1));
+        expect(String(result1)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState1', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        r1.emitState('paused');
+        LogicTestLog.number(name, 'afterState1', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        const result2: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'command2Void', 'undefined', String(result2));
+        expect(String(result2)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState2', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        r1.emitState('started');
+        LogicTestLog.number(name, 'afterState2', 4, callbacks);
+        expect(callbacks).assertEqual(4);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.start.enter', 'r1.start.resolve',
+          'r1.pause.enter', 'r1.pause.resolve', 'r1.pause.enter', 'r1.pause.resolve',
+          'r1.resume.enter', 'r1.resume.resolve'
+        ];
+        LogicTestLog.value(name, 'commandsInOrder', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        await model.finish();
+        r1.emitState('started');
+        r1.emitState('paused');
+        await recorderTick();
+        LogicTestLog.number(name, 'callbacksAfterFinish', 4, callbacks);
+        expect(callbacks).assertEqual(4);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.start.enter', 'r1.start.resolve',
+          'r1.pause.enter', 'r1.pause.resolve', 'r1.pause.enter', 'r1.pause.resolve',
+          'r1.resume.enter', 'r1.resume.resolve', 'r1.stop.enter', 'r1.stop.resolve',
+          'r1.reset.enter', 'r1.reset.resolve', 'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'finishAndNoFurtherCommands', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1031
+     * @tc.name CommandStateSequence3
+     * @tc.desc Pause and resume remain void and only subsequent paused or started events notify callers.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1031';
+        const input: string =
+          'commands=resume/pause/resume';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        await model.startRecorder(303);
+        r1.emitState('prepared');
+        await recorderTick();
+        r1.emitState('started');
+        LogicTestLog.number(name, 'initialStartedCallback', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const result0: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'command0Void', 'undefined', String(result0));
+        expect(String(result0)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState0', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        r1.emitState('started');
+        LogicTestLog.number(name, 'afterState0', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        const result1: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'command1Void', 'undefined', String(result1));
+        expect(String(result1)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState1', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        r1.emitState('paused');
+        LogicTestLog.number(name, 'afterState1', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        const result2: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'command2Void', 'undefined', String(result2));
+        expect(String(result2)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState2', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        r1.emitState('started');
+        LogicTestLog.number(name, 'afterState2', 4, callbacks);
+        expect(callbacks).assertEqual(4);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.start.enter', 'r1.start.resolve',
+          'r1.resume.enter', 'r1.resume.resolve', 'r1.pause.enter', 'r1.pause.resolve',
+          'r1.resume.enter', 'r1.resume.resolve'
+        ];
+        LogicTestLog.value(name, 'commandsInOrder', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        await model.finish();
+        r1.emitState('started');
+        r1.emitState('paused');
+        await recorderTick();
+        LogicTestLog.number(name, 'callbacksAfterFinish', 4, callbacks);
+        expect(callbacks).assertEqual(4);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.start.enter', 'r1.start.resolve',
+          'r1.resume.enter', 'r1.resume.resolve', 'r1.pause.enter', 'r1.pause.resolve',
+          'r1.resume.enter', 'r1.resume.resolve', 'r1.stop.enter', 'r1.stop.resolve',
+          'r1.reset.enter', 'r1.reset.resolve', 'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'finishAndNoFurtherCommands', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1032
+     * @tc.name CommandStateSequence4
+     * @tc.desc Pause and resume remain void and only subsequent paused or started events notify callers.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1032';
+        const input: string =
+          'commands=pause/resume/pause/resume';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        await model.startRecorder(304);
+        r1.emitState('prepared');
+        await recorderTick();
+        r1.emitState('started');
+        LogicTestLog.number(name, 'initialStartedCallback', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const result0: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'command0Void', 'undefined', String(result0));
+        expect(String(result0)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState0', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        r1.emitState('paused');
+        LogicTestLog.number(name, 'afterState0', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        const result1: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'command1Void', 'undefined', String(result1));
+        expect(String(result1)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState1', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        r1.emitState('started');
+        LogicTestLog.number(name, 'afterState1', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        const result2: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'command2Void', 'undefined', String(result2));
+        expect(String(result2)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState2', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        r1.emitState('paused');
+        LogicTestLog.number(name, 'afterState2', 4, callbacks);
+        expect(callbacks).assertEqual(4);
+        const result3: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'command3Void', 'undefined', String(result3));
+        expect(String(result3)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState3', 4, callbacks);
+        expect(callbacks).assertEqual(4);
+        r1.emitState('started');
+        LogicTestLog.number(name, 'afterState3', 5, callbacks);
+        expect(callbacks).assertEqual(5);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.start.enter', 'r1.start.resolve',
+          'r1.pause.enter', 'r1.pause.resolve', 'r1.resume.enter', 'r1.resume.resolve',
+          'r1.pause.enter', 'r1.pause.resolve', 'r1.resume.enter', 'r1.resume.resolve'
+        ];
+        LogicTestLog.value(name, 'commandsInOrder', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        await model.finish();
+        r1.emitState('started');
+        r1.emitState('paused');
+        await recorderTick();
+        LogicTestLog.number(name, 'callbacksAfterFinish', 5, callbacks);
+        expect(callbacks).assertEqual(5);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.start.enter', 'r1.start.resolve',
+          'r1.pause.enter', 'r1.pause.resolve', 'r1.resume.enter', 'r1.resume.resolve',
+          'r1.pause.enter', 'r1.pause.resolve', 'r1.resume.enter', 'r1.resume.resolve',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'finishAndNoFurtherCommands', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1033
+     * @tc.name CommandStateSequence5
+     * @tc.desc Pause and resume remain void and only subsequent paused or started events notify callers.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1033';
+        const input: string =
+          'commands=resume/resume/pause';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        await model.startRecorder(305);
+        r1.emitState('prepared');
+        await recorderTick();
+        r1.emitState('started');
+        LogicTestLog.number(name, 'initialStartedCallback', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const result0: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'command0Void', 'undefined', String(result0));
+        expect(String(result0)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState0', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        r1.emitState('started');
+        LogicTestLog.number(name, 'afterState0', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        const result1: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'command1Void', 'undefined', String(result1));
+        expect(String(result1)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState1', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        r1.emitState('started');
+        LogicTestLog.number(name, 'afterState1', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        const result2: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'command2Void', 'undefined', String(result2));
+        expect(String(result2)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState2', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        r1.emitState('paused');
+        LogicTestLog.number(name, 'afterState2', 4, callbacks);
+        expect(callbacks).assertEqual(4);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.start.enter', 'r1.start.resolve',
+          'r1.resume.enter', 'r1.resume.resolve', 'r1.resume.enter', 'r1.resume.resolve',
+          'r1.pause.enter', 'r1.pause.resolve'
+        ];
+        LogicTestLog.value(name, 'commandsInOrder', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        await model.finish();
+        r1.emitState('started');
+        r1.emitState('paused');
+        await recorderTick();
+        LogicTestLog.number(name, 'callbacksAfterFinish', 4, callbacks);
+        expect(callbacks).assertEqual(4);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.start.enter', 'r1.start.resolve',
+          'r1.resume.enter', 'r1.resume.resolve', 'r1.resume.enter', 'r1.resume.resolve',
+          'r1.pause.enter', 'r1.pause.resolve', 'r1.stop.enter', 'r1.stop.resolve',
+          'r1.reset.enter', 'r1.reset.resolve', 'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'finishAndNoFurtherCommands', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1034
+     * @tc.name CommandStateSequence6
+     * @tc.desc Pause and resume remain void and only subsequent paused or started events notify callers.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1034';
+        const input: string =
+          'commands=pause/resume/resume/pause/resume';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        await model.startRecorder(306);
+        r1.emitState('prepared');
+        await recorderTick();
+        r1.emitState('started');
+        LogicTestLog.number(name, 'initialStartedCallback', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const result0: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'command0Void', 'undefined', String(result0));
+        expect(String(result0)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState0', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        r1.emitState('paused');
+        LogicTestLog.number(name, 'afterState0', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        const result1: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'command1Void', 'undefined', String(result1));
+        expect(String(result1)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState1', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        r1.emitState('started');
+        LogicTestLog.number(name, 'afterState1', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        const result2: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'command2Void', 'undefined', String(result2));
+        expect(String(result2)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState2', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        r1.emitState('started');
+        LogicTestLog.number(name, 'afterState2', 4, callbacks);
+        expect(callbacks).assertEqual(4);
+        const result3: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'command3Void', 'undefined', String(result3));
+        expect(String(result3)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState3', 4, callbacks);
+        expect(callbacks).assertEqual(4);
+        r1.emitState('paused');
+        LogicTestLog.number(name, 'afterState3', 5, callbacks);
+        expect(callbacks).assertEqual(5);
+        const result4: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'command4Void', 'undefined', String(result4));
+        expect(String(result4)).assertEqual('undefined');
+        LogicTestLog.number(name, 'beforeState4', 5, callbacks);
+        expect(callbacks).assertEqual(5);
+        r1.emitState('started');
+        LogicTestLog.number(name, 'afterState4', 6, callbacks);
+        expect(callbacks).assertEqual(6);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.start.enter', 'r1.start.resolve',
+          'r1.pause.enter', 'r1.pause.resolve', 'r1.resume.enter', 'r1.resume.resolve',
+          'r1.resume.enter', 'r1.resume.resolve', 'r1.pause.enter', 'r1.pause.resolve',
+          'r1.resume.enter', 'r1.resume.resolve'
+        ];
+        LogicTestLog.value(name, 'commandsInOrder', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        await model.finish();
+        r1.emitState('started');
+        r1.emitState('paused');
+        await recorderTick();
+        LogicTestLog.number(name, 'callbacksAfterFinish', 6, callbacks);
+        expect(callbacks).assertEqual(6);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.start.enter', 'r1.start.resolve',
+          'r1.pause.enter', 'r1.pause.resolve', 'r1.resume.enter', 'r1.resume.resolve',
+          'r1.resume.enter', 'r1.resume.resolve', 'r1.pause.enter', 'r1.pause.resolve',
+          'r1.resume.enter', 'r1.resume.resolve', 'r1.stop.enter', 'r1.stop.resolve',
+          'r1.reset.enter', 'r1.reset.resolve', 'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'finishAndNoFurtherCommands', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+  });
+}
