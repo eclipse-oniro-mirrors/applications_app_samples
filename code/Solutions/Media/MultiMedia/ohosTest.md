@@ -84,7 +84,7 @@
 ## 编译与设备执行步骤
 
 1. 准备支持 API 26 的 DevEco Studio、SDK 和 `@ohos/hypium` 1.0.6 依赖.
-2. 在本机已忽略的 local.properties 配置 SDK 根目录；当前工作站使用 `sdk.dir=E:/sdk`.
+2. 在已忽略的 local.properties 配置本机 SDK 根目录（`sdk.dir=<本机 SDK 根目录>`）.
 3. 在工程根目录编译主包和测试包：
 
 ```bash

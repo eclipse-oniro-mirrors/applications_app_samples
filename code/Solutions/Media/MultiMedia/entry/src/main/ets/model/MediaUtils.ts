@@ -14,10 +14,10 @@
  */
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
 import { fileIo } from '@kit.CoreFileKit';
-import dataSharePredicates from '@ohos.data.dataSharePredicates';
+import { dataSharePredicates } from '@kit.ArkData';
 import DateTimeUtil from '../model/DateTimeUtil';
 import Logger from '../model/Logger';
-import type common from '@ohos.app.ability.common';
+import type { common } from '@kit.AbilityKit';
 
 export enum FileType {
   IMAGE = 1,
