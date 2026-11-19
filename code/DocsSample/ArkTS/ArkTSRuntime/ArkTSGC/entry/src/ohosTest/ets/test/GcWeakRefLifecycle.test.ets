@@ -1798,3 +1798,1412 @@ export default function gcWeakRefLifecycleTest() {
       expect(isCleared(ref)).assertTrue();
       expect(inline.innerId()).assertEqual(expectedInnerId);
       expect(inline.meta.total()).assertEqual(expectedMetaTotal);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_5000
+     * @tc.name      testWeakRefShapePayloadMatrix0001
+     * @tc.desc      Release records whose payload grows through the size matrix one at a time and check every release is
+     *               cleared within the round budget
+     * @tc.size      LARGETEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefShapePayloadMatrix0001', TestType.FUNCTION | Size.LARGETEST | Level.LEVEL1, async () => {
+      const rounds: number[] = [];
+      for (const payload of PAYLOAD_SIZES) {
+        const ref: WeakRef<WeakRecord> = releasedRecord(payload, payload);
+        rounds.push(await collectWeak(ref, WEAK_ROUNDS));
+      }
+      const expectedRuns: number = 5;
+      logCase('testWeakRefShapePayloadMatrix0001', `rounds=${rounds.join(',')} runs=${rounds.length}`);
+      expect(rounds.length).assertEqual(expectedRuns);
+      expect(rounds.every((value: number) => value > 0)).assertTrue();
+      expect(rounds.every((value: number) => value <= WEAK_ROUNDS)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_5100
+     * @tc.name      testWeakRefShapePayloadRelease0001
+     * @tc.desc      Release records sized by the batch table and check the observed collection rounds stay inside the
+     *               budget for every size
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWeakRefShapePayloadRelease0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const results: number[] = [];
+      const payloadUnit: number = PAYLOAD_SIZES[2];
+      for (const size of BATCH_SIZES) {
+        const ref: WeakRef<WeakRecord> = releasedRecord(size, size * payloadUnit);
+        results.push(await collectWeak(ref, WEAK_ROUNDS));
+      }
+      const expectedRuns: number = 3;
+      logCase('testWeakRefShapePayloadRelease0001', `results=${results.join(',')} payloadUnit=${payloadUnit}`);
+      expect(results.length).assertEqual(expectedRuns);
+      expect(results.every((value: number) => value > 0)).assertTrue();
+      expect(results.every((value: number) => value <= WEAK_ROUNDS)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_5200
+     * @tc.name      testWeakRefShapeEmptyRecord0001
+     * @tc.desc      Release a record whose payload array is empty and check both the released view and an inline empty
+     *               record agree on a zero length and zero total
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefShapeEmptyRecord0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const emptyLength: number = PAYLOAD_SIZES[0];
+      const ref: WeakRef<WeakRecord> = releasedRecord(130, emptyLength);
+      const rounds: number = await collectWeak(ref, WEAK_ROUNDS);
+      const inline: WeakRecord = new WeakRecord(130, emptyLength);
+      logCase('testWeakRefShapeEmptyRecord0001', `payload=${emptyLength} rounds=${rounds} ` +
+        `inlineSize=${inline.size()}`);
+      expect(inline.size()).assertEqual(ZERO);
+      expect(inline.total()).assertEqual(ZERO);
+      expect(rounds > 0).assertTrue();
+      expect(isCleared(ref)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_5300
+     * @tc.name      testWeakRefShapeWideRecord0001
+     * @tc.desc      Release a record with the widest payload in the matrix and check the release is cleared while an
+     *               inline copy keeps the expected element count and total
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefShapeWideRecord0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const wide: number = PAYLOAD_SIZES[PAYLOAD_SIZES.length - 1];
+      const ref: WeakRef<WeakRecord> = releasedRecord(131, wide);
+      const rounds: number = await collectWeak(ref, WEAK_ROUNDS);
+      const inline: WeakRecord = new WeakRecord(131, wide);
+      const expectedSize: number = 2048;
+      const expectedTotal: number = 131 * 2048;
+      logCase('testWeakRefShapeWideRecord0001', `wide=${wide} rounds=${rounds} inlineSize=${inline.size()}`);
+      expect(inline.size()).assertEqual(expectedSize);
+      expect(inline.total()).assertEqual(expectedTotal);
+      expect(rounds > 0).assertTrue();
+      expect(isCleared(ref)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_5400
+     * @tc.name      testWeakRefShapePairGraph0001
+     * @tc.desc      Observe both halves of the Parent and Child cycle through WeakRefs while the graph stays retained and
+     *               check the links and tags are unchanged
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefShapePairGraph0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const tag: number = PAIR_TAGS[0];
+      const parent: CycleParent = linkPair(tag);
+      const parentRef: WeakRef<CycleParent> = new WeakRef<CycleParent>(parent);
+      const childRef: WeakRef<CycleChild> = new WeakRef<CycleChild>(parent.child as CycleChild);
+      hintGC();
+      sweepPressure();
+      const liveParent: CycleParent | undefined = parentRef.deref();
+      const liveChild: CycleChild | undefined = childRef.deref();
+      const expectedTag: number = 3;
+      logCase('testWeakRefShapePairGraph0001', `tag=${tag} parentAlive=${liveParent !== undefined} ` +
+        `childAlive=${liveChild !== undefined}`);
+      expect(liveParent === parent).assertTrue();
+      expect(liveParent !== undefined && pairIsLinked(liveParent as CycleParent)).assertTrue();
+      expect((liveChild as CycleChild).parent === parent).assertTrue();
+      expect(parent.tag).assertEqual(expectedTag);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_5500
+     * @tc.name      testWeakRefShapeRingGraph0001
+     * @tc.desc      Observe a six node ring through a WeakRef to its head while the ring stays retained and check the ring
+     *               length and id sum are still exact after a hint
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefShapeRingGraph0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const size: number = RING_SIZES[2];
+      const head: RingNode = buildRing(size, 8, 5);
+      const ref: WeakRef<RingNode> = new WeakRef<RingNode>(head);
+      hintGC();
+      sweepPressure();
+      const live: RingNode | undefined = ref.deref();
+      const expectedLength: number = 6;
+      const expectedSum: number = expectedIdSum(5, size);
+      logCase('testWeakRefShapeRingGraph0001', `size=${size} alive=${live !== undefined} ` +
+        `length=${ringLength(head, size + 1)} sum=${ringIdSum(head, size)}`);
+      expect(live === head).assertTrue();
+      expect(ringLength(head, size + 1)).assertEqual(expectedLength);
+      expect(ringIdSum(head, size)).assertEqual(expectedSum);
+      expect(head.payload.length).assertEqual(8);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_5600
+     * @tc.name      testWeakRefShapeMixedBatch0001
+     * @tc.desc      Build points, records and envelopes in one loop with three separate WeakRef arrays and check each
+     *               shape family stays fully alive after a hint
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWeakRefShapeMixedBatch0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const pointRefs: WeakRef<WeakPoint>[] = [];
+      const recordRefs: WeakRef<WeakRecord>[] = [];
+      const envelopeRefs: WeakRef<WeakEnvelope>[] = [];
+      const pointKeep: WeakPoint[] = [];
+      const recordKeep: WeakRecord[] = [];
+      const envelopeKeep: WeakEnvelope[] = [];
+      for (let i = 0; i < BATCH_SIZES.length; i++) {
+        const point: WeakPoint = new WeakPoint(i);
+        const record: WeakRecord = new WeakRecord(i, i * 4);
+        const envelope: WeakEnvelope = new WeakEnvelope(i, 'mixed', i);
+        pointKeep.push(point);
+        recordKeep.push(record);
+        envelopeKeep.push(envelope);
+        pointRefs.push(new WeakRef<WeakPoint>(point));
+        recordRefs.push(new WeakRef<WeakRecord>(record));
+        envelopeRefs.push(new WeakRef<WeakEnvelope>(envelope));
+      }
+      hintGC();
+      sweepPressure();
+      const alive: number = countAlive(pointRefs) + countAlive(recordRefs) + countAlive(envelopeRefs);
+      const expectedAlive: number = 9;
+      logCase('testWeakRefShapeMixedBatch0001', `alive=${alive} points=${pointKeep.length} ` +
+        `records=${recordKeep.length} envelopes=${envelopeKeep.length}`);
+      expect(alive).assertEqual(expectedAlive);
+      expect(countAlive(pointRefs)).assertEqual(BATCH_SIZES.length);
+      expect(countAlive(recordRefs)).assertEqual(BATCH_SIZES.length);
+      expect(recordKeep[2].total()).assertEqual(2 * 8);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_5700
+     * @tc.name      testWeakRefIdentitySameObject0001
+     * @tc.desc      Deref two WeakRefs created for one retained point and check both directions of equality hold with the
+     *               original binding
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testWeakRefIdentitySameObject0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const point: WeakPoint = new WeakPoint(60);
+      const first: WeakRef<WeakPoint> = new WeakRef<WeakPoint>(point);
+      const second: WeakRef<WeakPoint> = new WeakRef<WeakPoint>(point);
+      const firstLive: WeakPoint | undefined = first.deref();
+      const secondLive: WeakPoint | undefined = second.deref();
+      const sink: number = sweepPressure();
+      const expectedScore: number = 180;
+      logCase('testWeakRefIdentitySameObject0001', `firstIsSecond=${firstLive === secondLive} ` +
+        `firstIsPoint=${firstLive === point} sink=${sink}`);
+      expect(firstLive === secondLive).assertTrue();
+      expect(firstLive === point).assertTrue();
+      expect((secondLive as WeakPoint).score()).assertEqual(expectedScore);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_5800
+     * @tc.name      testWeakRefIdentityDistinct0001
+     * @tc.desc      Create two distinct points that carry the same id and check the WeakRefs never collapse them into one
+     *               instance
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testWeakRefIdentityDistinct0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const first: WeakPoint = new WeakPoint(5);
+      const second: WeakPoint = new WeakPoint(5);
+      const firstRef: WeakRef<WeakPoint> = new WeakRef<WeakPoint>(first);
+      const secondRef: WeakRef<WeakPoint> = new WeakRef<WeakPoint>(second);
+      hintGC();
+      const firstLive: WeakPoint | undefined = firstRef.deref();
+      const secondLive: WeakPoint | undefined = secondRef.deref();
+      const expectedId: number = 5;
+      logCase('testWeakRefIdentityDistinct0001', `same=${firstLive === secondLive} ` +
+        `firstId=${(firstLive as WeakPoint).id} secondId=${(secondLive as WeakPoint).id}`);
+      expect(firstLive === secondLive).assertFalse();
+      expect((firstLive as WeakPoint).id).assertEqual(expectedId);
+      expect((secondLive as WeakPoint).id).assertEqual(expectedId);
+      expect(firstLive === first && secondLive === second).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_5900
+     * @tc.name      testWeakRefIdentityMutation0001
+     * @tc.desc      Mutate a retained point through its binding and check the WeakRef deref observes the new id instead
+     *               of a snapshot taken at creation time
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefIdentityMutation0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const point: WeakPoint = new WeakPoint(70);
+      const ref: WeakRef<WeakPoint> = new WeakRef<WeakPoint>(point);
+      const beforeId: number = (ref.deref() as WeakPoint).id;
+      point.id = 71;
+      hintGC();
+      const afterLive: WeakPoint | undefined = ref.deref();
+      const expectedBefore: number = 70;
+      const expectedAfter: number = 71;
+      logCase('testWeakRefIdentityMutation0001', `before=${beforeId} after=${(afterLive as WeakPoint).id}`);
+      expect(beforeId).assertEqual(expectedBefore);
+      expect((afterLive as WeakPoint).id).assertEqual(expectedAfter);
+      expect(afterLive === point).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_6000
+     * @tc.name      testWeakRefIdentityIsNotCopy0001
+     * @tc.desc      Mutate a point only through the deref result and check the original binding observes the change, which
+     *               proves the deref hands out the stored instance
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefIdentityIsNotCopy0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const point: WeakPoint = new WeakPoint(80);
+      const ref: WeakRef<WeakPoint> = new WeakRef<WeakPoint>(point);
+      const live: WeakPoint | undefined = ref.deref();
+      if (live !== undefined) {
+        live.id = 81;
+      }
+      const expectedId: number = 81;
+      const expectedScore: number = 243;
+      logCase('testWeakRefIdentityIsNotCopy0001', `pointId=${point.id} score=${point.score()}`);
+      expect(point.id).assertEqual(expectedId);
+      expect(point.score()).assertEqual(expectedScore);
+      expect(ref.deref() === point).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_6100
+     * @tc.name      testWeakRefIdentityPairParts0001
+     * @tc.desc      Observe the parent and the child of one linked pair and check the two WeakRefs resolve to different
+     *               objects whose back link stays consistent
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefIdentityPairParts0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const parent: CycleParent = linkPair(PAIR_TAGS[1]);
+      const parentRef: WeakRef<CycleParent> = new WeakRef<CycleParent>(parent);
+      const childRef: WeakRef<CycleChild> = new WeakRef<CycleChild>(parent.child as CycleChild);
+      hintGC();
+      const liveParent: CycleParent | undefined = parentRef.deref();
+      const liveChild: CycleChild | undefined = childRef.deref();
+      const parentAsObject: Object | undefined = liveParent;
+      const childAsObject: Object | undefined = liveChild;
+      logCase('testWeakRefIdentityPairParts0001', `distinct=${parentAsObject !== childAsObject} ` +
+        `tag=${(liveParent as CycleParent).tag}`);
+      expect(parentAsObject !== childAsObject).assertTrue();
+      expect((liveChild as CycleChild).parent === liveParent).assertTrue();
+      expect((liveParent as CycleParent).tag).assertEqual(PAIR_TAGS[1]);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_6200
+     * @tc.name      testWeakRefIdentityRecreated0001
+     * @tc.desc      Clear a released point and then build a new point with the same id and check the two WeakRefs never
+     *               become interchangeable
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWeakRefIdentityRecreated0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const oldRef: WeakRef<WeakPoint> = releasedPoint(90);
+      const rounds: number = await collectWeak(oldRef, WEAK_ROUNDS);
+      const recreated: WeakPoint = new WeakPoint(90);
+      const newRef: WeakRef<WeakPoint> = new WeakRef<WeakPoint>(recreated);
+      const expectedId: number = 90;
+      logCase('testWeakRefIdentityRecreated0001', `rounds=${rounds} oldCleared=${isCleared(oldRef)} ` +
+        `newId=${(newRef.deref() as WeakPoint).id}`);
+      expect(rounds > 0).assertTrue();
+      expect(isCleared(oldRef)).assertTrue();
+      expect(newRef.deref() === recreated).assertTrue();
+      expect((newRef.deref() as WeakPoint).id).assertEqual(expectedId);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_6300
+     * @tc.name      testWeakRefIdentityAcrossTurns0001
+     * @tc.desc      Deref one retained point before and after two timer turns and check all three reads return the same
+     *               instance
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefIdentityAcrossTurns0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const point: WeakPoint = new WeakPoint(95);
+      const ref: WeakRef<WeakPoint> = new WeakRef<WeakPoint>(point);
+      const first: WeakPoint | undefined = ref.deref();
+      await paceTurn();
+      const second: WeakPoint | undefined = ref.deref();
+      await paceTurn();
+      const third: WeakPoint | undefined = ref.deref();
+      const expectedScore: number = 285;
+      logCase('testWeakRefIdentityAcrossTurns0001', `first=${first === point} second=${second === point} ` +
+        `third=${third === point}`);
+      expect(first === second).assertTrue();
+      expect(second === third).assertTrue();
+      expect(third === point).assertTrue();
+      expect((third as WeakPoint).score()).assertEqual(expectedScore);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_6400
+     * @tc.name      testWeakRefIdentityFieldPath0001
+     * @tc.desc      Reach one retained point through a slot field and through a table entry and check both paths deref
+     *               to the same instance
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefIdentityFieldPath0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const point: WeakPoint = new WeakPoint(33);
+      const slot: PointSlot = new PointSlot(SLOT_NAMES[0], new WeakRef<WeakPoint>(point));
+      const table: RefTable = new RefTable('paths');
+      table.put(SLOT_NAMES[0], new WeakRef<WeakPoint>(point));
+      hintGC();
+      const tableRef: WeakRef<WeakPoint> = table.refFor(SLOT_NAMES[0]) as WeakRef<WeakPoint>;
+      const fromSlot: WeakPoint | undefined = slot.ref.deref();
+      const fromTable: WeakPoint | undefined = tableRef.deref();
+      logCase('testWeakRefIdentityFieldPath0001', `slotId=${slot.idOrMissing()} ` +
+        `tableId=${table.idFor(SLOT_NAMES[0])} same=${fromSlot === fromTable}`);
+      expect(fromSlot === fromTable).assertTrue();
+      expect(fromSlot === point).assertTrue();
+      expect(slot.idOrMissing()).assertEqual(table.idFor(SLOT_NAMES[0]));
+      expect(table.clearedCount()).assertEqual(ZERO);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_6500
+     * @tc.name      testWeakRefPressureSingleHint0001
+     * @tc.desc      Hint one collection and add one allocation burst before waiting for a released point to be cleared
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testWeakRefPressureSingleHint0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const ref: WeakRef<WeakPoint> = releasedPoint(140);
+      hintGC();
+      const sink: number = sweepPressure();
+      const rounds: number = await collectWeak(ref, WEAK_ROUNDS);
+      logCase('testWeakRefPressureSingleHint0001', `sink=${sink} rounds=${rounds} cleared=${isCleared(ref)}`);
+      expect(rounds > 0).assertTrue();
+      expect(sink > 0).assertTrue();
+      expect(isCleared(ref)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_6600
+     * @tc.name      testWeakRefPressureRepeatHints0001
+     * @tc.desc      Issue one hundred hints in a row before waiting and check the released point is still cleared and the
+     *               repeated hints are cheap
+     * @tc.size      MEDIUMTEST
+     * @tc.type      PERFORMANCE
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefPressureRepeatHints0001', TestType.PERFORMANCE | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ref: WeakRef<WeakPoint> = releasedPoint(141);
+      const hintCount: number = 100;
+      const start: number = Date.now();
+      for (let i = 0; i < hintCount; i++) {
+        hintGC();
+      }
+      const elapsed: number = Date.now() - start;
+      const rounds: number = await collectWeak(ref, WEAK_ROUNDS);
+      const budgetMs: number = 2000;
+      logCase('testWeakRefPressureRepeatHints0001', `hints=${hintCount} elapsed=${elapsed} rounds=${rounds}`);
+      expect(elapsed < budgetMs).assertTrue();
+      expect(rounds > 0).assertTrue();
+      expect(countCleared([ref])).assertEqual(ONE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_6700
+     * @tc.name      testWeakRefPressureInterleave0001
+     * @tc.desc      Alternate hints, allocation bursts and timer turns before waiting and check the released point is
+     *               still reclaimed exactly once
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefPressureInterleave0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ref: WeakRef<WeakPoint> = releasedPoint(142);
+      for (let step = 0; step < INTERLEAVE_STEPS.length; step++) {
+        hintGC();
+        sweepPressure();
+        await paceTurn();
+      }
+      const rounds: number = await collectWeak(ref, WEAK_ROUNDS);
+      const clearedReads: number = countCleared([ref]);
+      logCase('testWeakRefPressureInterleave0001', `steps=${INTERLEAVE_STEPS.length} rounds=${rounds} ` +
+        `cleared=${isCleared(ref)}`);
+      expect(rounds > 0).assertTrue();
+      expect(clearedReads).assertEqual(ONE);
+      expect(isCleared(ref)).assertTrue();
+      expect(ref.deref() === undefined).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_6800
+     * @tc.name      testWeakRefPressureSnapshot0001
+     * @tc.desc      Allocate twenty thousand pressure nodes, then release a point and compare runtime snapshots taken
+     *               before and after the wait
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefPressureSnapshot0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const before: GcSnapshot = new GcSnapshot();
+      const sink: number = allocatePressure();
+      const ref: WeakRef<WeakPoint> = releasedPoint(143);
+      const rounds: number = await collectWeak(ref, WEAK_ROUNDS);
+      const after: GcSnapshot = new GcSnapshot();
+      logCase('testWeakRefPressureSnapshot0001', `sink=${sink} rounds=${rounds} ` +
+        `allocatedDelta=${after.allocated - before.allocated} countDelta=${after.count - before.count}`);
+      expect(sink > 0).assertTrue();
+      expect(after.allocated > before.allocated).assertTrue();
+      expect(after.notBefore(before)).assertTrue();
+      expect(rounds > 0).assertTrue();
+      expect(isCleared(ref)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_6900
+     * @tc.name      testWeakRefPressureStatCount0001
+     * @tc.desc      Read the runtime collection counter before and after clearing a released point and check the counter
+     *               never moves backwards
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefPressureStatCount0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const start: number = gcStat(KEY_GC_COUNT);
+      const ref: WeakRef<WeakPoint> = releasedPoint(144);
+      const rounds: number = await collectWeak(ref, WEAK_ROUNDS);
+      const delta: number = gcStat(KEY_GC_COUNT) - start;
+      logCase('testWeakRefPressureStatCount0001', `start=${start} delta=${delta} rounds=${rounds}`);
+      expect(start >= ZERO).assertTrue();
+      expect(delta >= ZERO).assertTrue();
+      expect(rounds > 0).assertTrue();
+      expect(isCleared(ref)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_7000
+     * @tc.name      testWeakRefPressureHeavyPayload0001
+     * @tc.desc      Release a record with a 2048 element payload after a pressure burst and check the wide allocation does
+     *               not delay the clearing past the round budget
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWeakRefPressureHeavyPayload0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const sink: number = allocatePressure();
+      const wide: number = PAYLOAD_SIZES[PAYLOAD_SIZES.length - 1];
+      const ref: WeakRef<WeakRecord> = releasedRecord(145, wide);
+      const rounds: number = await collectWeak(ref, WEAK_ROUNDS);
+      logCase('testWeakRefPressureHeavyPayload0001', `sink=${sink} wide=${wide} rounds=${rounds} ` +
+        `cleared=${isCleared(ref)}`);
+      expect(sink > 0).assertTrue();
+      expect(rounds > 0).assertTrue();
+      expect(rounds <= WEAK_ROUNDS).assertTrue();
+      expect(isCleared(ref)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_7100
+     * @tc.name      testWeakRefPressureTwinTargets0001
+     * @tc.desc      Release one point watched by two WeakRefs, add a pressure burst and check both views clear in the same
+     *               sequence
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefPressureTwinTargets0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const pair: DualSlot = releasedPointPair(147, 'pressure');
+      const sink: number = allocatePressure();
+      const refs: WeakRef<WeakPoint>[] = [pair.primary, pair.secondary];
+      const rounds: number = await collectWeakAll(refs, WEAK_ROUNDS);
+      const expectedCleared: number = 2;
+      logCase('testWeakRefPressureTwinTargets0001', `sink=${sink} rounds=${rounds} ` +
+        `cleared=${countCleared(refs)}`);
+      expect(sink > 0).assertTrue();
+      expect(rounds > 0).assertTrue();
+      expect(pair.bothCleared()).assertTrue();
+      expect(countCleared(refs)).assertEqual(expectedCleared);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_7200
+     * @tc.name      testWeakRefPressureKeptVersusDropped0001
+     * @tc.desc      Hold one point strongly and drop another, then hint and press twice and check only the dropped point is
+     *               cleared
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefPressureKeptVersusDropped0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const kept: WeakPoint = new WeakPoint(148);
+      const keptRef: WeakRef<WeakPoint> = new WeakRef<WeakPoint>(kept);
+      const droppedRef: WeakRef<WeakPoint> = releasedPoint(149);
+      hintGC();
+      sweepPressure();
+      hintGC();
+      const rounds: number = await collectWeak(droppedRef, WEAK_ROUNDS);
+      const expectedKeptId: number = 148;
+      logCase('testWeakRefPressureKeptVersusDropped0001', `rounds=${rounds} droppedCleared=${isCleared(droppedRef)} ` +
+        `keptId=${(keptRef.deref() as WeakPoint).id}`);
+      expect(rounds > 0).assertTrue();
+      expect(isCleared(droppedRef)).assertTrue();
+      expect(keptRef.deref() === kept).assertTrue();
+      expect(kept.id).assertEqual(expectedKeptId);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_7300
+     * @tc.name      testWeakRefPressureRing0001
+     * @tc.desc      Drop a fifty node ring, keep only its WeakRef and its precomputed shape, and check the ring is
+     *               reclaimed by the shared collection helper
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefPressureRing0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ringSize: number = RING_SIZES[3];
+      const probe: RingProbe = releasedRing(ringSize, 8, ONE);
+      const rounds: number = await collectUntil(() => isCleared(probe.ref), COLLECT_ROUNDS);
+      const expectedLength: number = 40;
+      const expectedSum: number = expectedIdSum(ONE, ringSize);
+      logCase('testWeakRefPressureRing0001', `length=${probe.length} idSum=${probe.idSum} rounds=${rounds}`);
+      expect(probe.length).assertEqual(expectedLength);
+      expect(probe.idSum).assertEqual(expectedSum);
+      expect(rounds > 0).assertTrue();
+      expect(isCleared(probe.ref)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_7400
+     * @tc.name      testWeakRefPressurePairCycle0001
+     * @tc.desc      Drop a Parent and Child cycle and check the shared collection helper clears the WeakRefs to both
+     *               halves of the cycle
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefPressurePairCycle0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const parentRef: WeakRef<CycleParent> = releasedPair(45);
+      const childRef: WeakRef<CycleChild> = releasedChild(46);
+      const rounds: number = await collectUntil(() => isCleared(parentRef) && isCleared(childRef), COLLECT_ROUNDS);
+      logCase('testWeakRefPressurePairCycle0001', `rounds=${rounds} parentCleared=${isCleared(parentRef)} ` +
+        `childCleared=${isCleared(childRef)}`);
+      expect(rounds > 0).assertTrue();
+      expect(isCleared(parentRef)).assertTrue();
+      expect(isCleared(childRef)).assertTrue();
+      expect(rounds <= COLLECT_ROUNDS).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_7500
+     * @tc.name      testWeakRefPressureBatchBounds0001
+     * @tc.desc      Watch one released point through four WeakRefs, hint and press once, and check every view clears
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWeakRefPressureBatchBounds0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const refs: WeakRef<WeakPoint>[] = releasedRefSet(4, 145);
+      hintGC();
+      sweepPressure();
+      const rounds: number = await collectWeakAll(refs, WEAK_ROUNDS);
+      const expectedRefs: number = 4;
+      logCase('testWeakRefPressureBatchBounds0001', `refs=${refs.length} rounds=${rounds} ` +
+        `cleared=${countCleared(refs)}`);
+      expect(refs.length).assertEqual(expectedRefs);
+      expect(rounds > 0).assertTrue();
+      expect(countCleared(refs)).assertEqual(expectedRefs);
+      expect(derefIdSum(refs)).assertEqual(ZERO);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_7600
+     * @tc.name      testWeakRefPressureAfterPace0001
+     * @tc.desc      Insert timer turns between the hint and the wait and check the released point is still cleared inside
+     *               the round budget
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefPressureAfterPace0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ref: WeakRef<WeakPoint> = releasedPoint(146);
+      await paceTurn();
+      hintGC();
+      await paceTurn();
+      const rounds: number = await collectWeak(ref, WEAK_ROUNDS);
+      logCase('testWeakRefPressureAfterPace0001', `rounds=${rounds} cleared=${isCleared(ref)} max=${WEAK_ROUNDS}`);
+      expect(rounds > 0).assertTrue();
+      expect(rounds <= WEAK_ROUNDS).assertTrue();
+      expect(isCleared(ref)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_7700
+     * @tc.name      testWeakRefClosureRead0001
+     * @tc.desc      Read a retained point through a closure that only captures its WeakRef and check two reads return the
+     *               same derived score
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testWeakRefClosureRead0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const point: WeakPoint = new WeakPoint(150);
+      const probe: ClosureProbe = retainedClosureProbe(point);
+      hintGC();
+      sweepPressure();
+      const first: number = probe.read();
+      const second: number = probe.read();
+      const expectedScore: number = 450;
+      logCase('testWeakRefClosureRead0001', `first=${first} second=${second} calls=${probe.callCount()}`);
+      expect(first).assertEqual(expectedScore);
+      expect(second).assertEqual(expectedScore);
+      expect(probe.callCount()).assertEqual(2);
+      expect(probe.cleared()).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_7800
+     * @tc.name      testWeakRefClosureStrongCapture0001
+     * @tc.desc      Let a closure capture the point itself, which is a strong edge, and check the WeakRef still resolves
+     *               after a hint and a pressure burst
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefClosureStrongCapture0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const point: WeakPoint = new WeakPoint(151);
+      const ref: WeakRef<WeakPoint> = new WeakRef<WeakPoint>(point);
+      const read: () => number = (): number => {
+        return point.score();
+      };
+      hintGC();
+      sweepPressure();
+      const value: number = read();
+      const expectedValue: number = 453;
+      logCase('testWeakRefClosureStrongCapture0001', `value=${value} alive=${ref.deref() !== undefined}`);
+      expect(value).assertEqual(expectedValue);
+      expect(ref.deref() === point).assertTrue();
+      expect(ref.deref() === undefined).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_7900
+     * @tc.name      testWeakRefClosureWeakOnly0001
+     * @tc.desc      Keep only a reader closure over a WeakRef and check the closure outlives the target and starts
+     *               reporting the missing marker after collection
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefClosureWeakOnly0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: ClosureProbe = releasedClosureProbe(152);
+      const rounds: number = await collectWeak(probe.ref, WEAK_ROUNDS);
+      const after: number = probe.read();
+      logCase('testWeakRefClosureWeakOnly0001', `rounds=${rounds} after=${after} cleared=${probe.cleared()}`);
+      expect(rounds > 0).assertTrue();
+      expect(probe.cleared()).assertTrue();
+      expect(after).assertEqual(MISSING);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_8000
+     * @tc.name      testWeakRefClosureCalls0001
+     * @tc.desc      Call one reader closure three times over a retained point and check every call returns the score and
+     *               the call counter tracks the invocations
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefClosureCalls0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const point: WeakPoint = new WeakPoint(153);
+      const probe: ClosureProbe = retainedClosureProbe(point);
+      const values: number[] = [];
+      for (let i = 0; i < 3; i++) {
+        values.push(probe.read());
+      }
+      const expectedScore: number = 459;
+      const expectedCalls: number = 3;
+      logCase('testWeakRefClosureCalls0001', `values=${values.join(',')} calls=${probe.callCount()}`);
+      expect(values.every((value: number) => value === expectedScore)).assertTrue();
+      expect(values.length).assertEqual(expectedCalls);
+      expect(probe.callCount()).assertEqual(expectedCalls);
+      expect(probe.cleared()).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_8100
+     * @tc.name      testWeakRefClosureNested0001
+     * @tc.desc      Wrap the deref inside a closure returned by another closure and check the nested reader still reports
+     *               the retained id
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefClosureNested0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const point: WeakPoint = new WeakPoint(154);
+      const ref: WeakRef<WeakPoint> = new WeakRef<WeakPoint>(point);
+      const outer: () => number = (): number => {
+        const inner: () => number = (): number => {
+          const live: WeakPoint | undefined = ref.deref();
+          return live === undefined ? MISSING : live.id;
+        };
+        return inner();
+      };
+      hintGC();
+      sweepPressure();
+      const first: number = outer();
+      const second: number = outer();
+      const expectedId: number = 154;
+      logCase('testWeakRefClosureNested0001', `first=${first} second=${second} alive=${ref.deref() !== undefined}`);
+      expect(first).assertEqual(expectedId);
+      expect(second).assertEqual(expectedId);
+      expect(first).assertEqual(second);
+      expect(ref.deref() === point).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_8200
+     * @tc.name      testWeakRefClosureArray0001
+     * @tc.desc      Build one reader per retained point, keep the readers in an array and check the values follow the
+     *               retained order
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefClosureArray0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const points: WeakPoint[] = [new WeakPoint(1), new WeakPoint(2), new WeakPoint(3)];
+      const readers: Array<() => number> = [];
+      const refs: WeakRef<WeakPoint>[] = [];
+      for (const point of points) {
+        const ref: WeakRef<WeakPoint> = new WeakRef<WeakPoint>(point);
+        refs.push(ref);
+        readers.push(makeWeakIdReader(ref));
+      }
+      hintGC();
+      const ids: number[] = readers.map((reader: () => number) => reader());
+      const expectedIds: number[] = [1, 2, 3];
+      logCase('testWeakRefClosureArray0001', `ids=${ids.join(',')} readers=${readers.length} ` +
+        `alive=${countAlive(refs)}`);
+      expect(readers.length).assertEqual(points.length);
+      expect(sameNumbers(ids, expectedIds)).assertTrue();
+      expect(countAlive(refs)).assertEqual(points.length);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_8300
+     * @tc.name      testWeakRefClosureFactory0001
+     * @tc.desc      Build probes for four retained points through the same factory and check every probe returns its own
+     *               score and counts exactly one call
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefClosureFactory0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const points: WeakPoint[] = [];
+      const probes: ClosureProbe[] = [];
+      for (let i = 0; i < REF_COUNTS.length; i++) {
+        const point: WeakPoint = new WeakPoint(200 + i);
+        points.push(point);
+        probes.push(retainedClosureProbe(point));
+      }
+      hintGC();
+      sweepPressure();
+      const values: number[] = probes.map((probe: ClosureProbe) => probe.read());
+      const expectedValues: number[] = [600, 603, 606, 609];
+      logCase('testWeakRefClosureFactory0001', `values=${values.join(',')} probes=${probes.length}`);
+      expect(probes.length).assertEqual(REF_COUNTS.length);
+      expect(sameNumbers(values, expectedValues)).assertTrue();
+      expect(probes.every((probe: ClosureProbe) => probe.callCount() === ONE)).assertTrue();
+      expect(points.length).assertEqual(REF_COUNTS.length);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_8400
+     * @tc.name      testWeakRefClosureAfterClear0001
+     * @tc.desc      Read a released point through its closure before and after collection and check the reader switches
+     *               from the score to the missing marker
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWeakRefClosureAfterClear0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const probe: ClosureProbe = releasedClosureProbe(155);
+      const before: number = probe.read();
+      const rounds: number = await collectWeak(probe.ref, WEAK_ROUNDS);
+      const after: number = probe.read();
+      const expectedBefore: number = 465;
+      logCase('testWeakRefClosureAfterClear0001', `before=${before} after=${after} rounds=${rounds} ` +
+        `calls=${probe.callCount()}`);
+      expect(before).assertEqual(expectedBefore);
+      expect(after).assertEqual(MISSING);
+      expect(rounds > 0).assertTrue();
+      expect(probe.callCount()).assertEqual(2);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_8500
+     * @tc.name      testWeakRefClosureMap0001
+     * @tc.desc      Store readers under named keys and check every reader still resolves the retained id through its own
+     *               WeakRef
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefClosureMap0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const points: WeakPoint[] = [new WeakPoint(1), new WeakPoint(2), new WeakPoint(3)];
+      const readers: Map<string, () => number> = new Map<string, () => number>();
+      for (let i = 0; i < SLOT_NAMES.length; i++) {
+        readers.set(SLOT_NAMES[i], makeWeakIdReader(new WeakRef<WeakPoint>(points[i])));
+      }
+      hintGC();
+      const ids: number[] = [];
+      SLOT_NAMES.forEach((name: string) => {
+        const reader: (() => number) | undefined = readers.get(name);
+        if (reader !== undefined) {
+          ids.push(reader());
+        }
+      });
+      const expectedIds: number[] = [1, 2, 3];
+      logCase('testWeakRefClosureMap0001', `ids=${ids.join(',')} keys=${readers.size}`);
+      expect(sameNumbers(ids, expectedIds)).assertTrue();
+      expect(readers.size).assertEqual(SLOT_NAMES.length);
+      expect(ids.length).assertEqual(points.length);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_8600
+     * @tc.name      testWeakRefClosureDetached0001
+     * @tc.desc      Detach the reader from its wrapper, let the target go and check the detached closure reports the
+     *               missing marker while the WeakRef reports cleared
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWeakRefClosureDetached0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ref: WeakRef<WeakPoint> = releasedPoint(156);
+      const detached: () => number = makeWeakReader(ref);
+      const before: number = detached();
+      const rounds: number = await collectWeak(ref, WEAK_ROUNDS);
+      const after: number = detached();
+      const expectedBefore: number = 468;
+      logCase('testWeakRefClosureDetached0001', `before=${before} after=${after} rounds=${rounds} ` +
+        `cleared=${isCleared(ref)}`);
+      expect(before).assertEqual(expectedBefore);
+      expect(after).assertEqual(MISSING);
+      expect(rounds > 0).assertTrue();
+      expect(isCleared(ref)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_8700
+     * @tc.name      testWeakRefSequenceKeepDrop0001
+     * @tc.desc      Interleave two retained points with two dropped points, then check the retained group survives while
+     *               the dropped group is cleared
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefSequenceKeepDrop0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const probe: InterleaveProbe = buildInterleave(2, 2, 400);
+      hintGC();
+      sweepPressure();
+      const keptAlive: number = probe.keptAlive();
+      const rounds: number = await collectWeakAll(probe.droppedRefs, WEAK_ROUNDS);
+      const droppedCleared: number = probe.droppedCleared();
+      const expectedGroup: number = 2;
+      logCase('testWeakRefSequenceKeepDrop0001', `keptAlive=${keptAlive} droppedCleared=${droppedCleared} ` +
+        `rounds=${rounds} steps=${probe.steps.length}`);
+      expect(probe.keptRefs.length).assertEqual(expectedGroup);
+      expect(probe.droppedRefs.length).assertEqual(expectedGroup);
+      expect(keptAlive).assertEqual(expectedGroup);
+      expect(rounds > 0).assertTrue();
+      expect(droppedCleared).assertEqual(expectedGroup);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_8800
+     * @tc.name      testWeakRefSequenceSteps0001
+     * @tc.desc      Record three retained and three dropped points alternately and check every step keeps the running
+     *               kept and dropped totals consistent with its index
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefSequenceSteps0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const probe: InterleaveProbe = buildInterleave(3, 3, 410);
+      hintGC();
+      const consistent: boolean = probe.steps.every((record: StepRecord) =>
+        record.kept + record.dropped === record.step && record.kept <= 3 && record.dropped <= 3);
+      const last: StepRecord = probe.steps[probe.steps.length - 1];
+      const expectedSteps: number = 6;
+      logCase('testWeakRefSequenceSteps0001', `steps=${probe.steps.length} consistent=${consistent} ` +
+        `lastKept=${last.kept} lastDropped=${last.dropped}`);
+      expect(probe.steps.length).assertEqual(expectedSteps);
+      expect(consistent).assertTrue();
+      expect(last.kept).assertEqual(3);
+      expect(last.dropped).assertEqual(3);
+      expect(probe.box.size()).assertEqual(3);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_8900
+     * @tc.name      testWeakRefSequenceRetainAfterGc0001
+     * @tc.desc      Keep two points alive through a retain box across a hint, then empty the box and check the WeakRefs
+     *               only clear once the strong edges are gone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWeakRefSequenceRetainAfterGc0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const probe: InterleaveProbe = buildInterleave(2, ZERO, 420);
+      hintGC();
+      sweepPressure();
+      const aliveBefore: number = probe.keptAlive();
+      const keptSum: number = probe.box.idSum();
+      const released: number = probe.box.dropAll();
+      const rounds: number = await collectWeakAll(probe.keptRefs, WEAK_ROUNDS);
+      const expectedSum: number = 420 + 421;
+      logCase('testWeakRefSequenceRetainAfterGc0001', `aliveBefore=${aliveBefore} keptSum=${keptSum} ` +
+        `released=${released} rounds=${rounds}`);
+      expect(aliveBefore).assertEqual(2);
+      expect(keptSum).assertEqual(expectedSum);
+      expect(released).assertEqual(2);
+      expect(rounds > 0).assertTrue();
+      expect(countCleared(probe.keptRefs)).assertEqual(2);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_9000
+     * @tc.name      testWeakRefSequenceToggle0001
+     * @tc.desc      Fill and empty a retain box three times with the same two strongly held points and check the box size
+     *               toggles while both WeakRefs stay alive
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefSequenceToggle0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const box: RetainBox = new RetainBox();
+      const points: WeakPoint[] = [new WeakPoint(1), new WeakPoint(2)];
+      const refs: WeakRef<WeakPoint>[] = [];
+      for (const point of points) {
+        refs.push(new WeakRef<WeakPoint>(point));
+      }
+      const sizes: number[] = [];
+      for (let round = 0; round < 3; round++) {
+        for (const point of points) {
+          box.keep(point);
+        }
+        sizes.push(box.size());
+        box.dropAll();
+        sizes.push(box.size());
+      }
+      hintGC();
+      sweepPressure();
+      const expectedFilled: number = 3;
+      logCase('testWeakRefSequenceToggle0001', `sizes=${sizes.join(',')} alive=${countAlive(refs)} ` +
+        `finalSize=${box.size()}`);
+      expect(sizes.length).assertEqual(6);
+      expect(sizes.filter((value: number) => value === 2).length).assertEqual(expectedFilled);
+      expect(box.size()).assertEqual(ZERO);
+      expect(countAlive(refs)).assertEqual(2);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_9100
+     * @tc.name      testWeakRefSequenceGrow0001
+     * @tc.desc      Grow the retained list one point per step and check the box sizes are one to four, the id sum matches
+     *               and every WeakRef follows the growing set
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefSequenceGrow0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const box: RetainBox = new RetainBox();
+      const refs: WeakRef<WeakPoint>[] = [];
+      const sizes: number[] = [];
+      for (let step = 0; step < INTERLEAVE_STEPS.length; step++) {
+        const point: WeakPoint = new WeakPoint(500 + step);
+        refs.push(new WeakRef<WeakPoint>(point));
+        sizes.push(box.keep(point));
+      }
+      hintGC();
+      const expectedSizes: number[] = [1, 2, 3, 4];
+      const expectedSum: number = 500 + 501 + 502 + 503;
+      logCase('testWeakRefSequenceGrow0001', `sizes=${sizes.join(',')} boxSize=${box.size()} ` +
+        `sum=${box.idSum()}`);
+      expect(sameNumbers(sizes, expectedSizes)).assertTrue();
+      expect(box.size()).assertEqual(INTERLEAVE_STEPS.length);
+      expect(box.idSum()).assertEqual(expectedSum);
+      expect(countAlive(refs)).assertEqual(INTERLEAVE_STEPS.length);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_9200
+     * @tc.name      testWeakRefSequenceIds0001
+     * @tc.desc      Retain four points with consecutive ids and check the ids read back through the WeakRefs equal the
+     *               id range and the arithmetic id sum
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefSequenceIds0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const refs: WeakRef<WeakPoint>[] = [];
+      const keep: WeakPoint[] = [];
+      for (let i = 0; i < REF_COUNTS.length; i++) {
+        const point: WeakPoint = new WeakPoint(600 + i);
+        keep.push(point);
+        refs.push(new WeakRef<WeakPoint>(point));
+      }
+      hintGC();
+      sweepPressure();
+      const ids: number[] = [];
+      refs.forEach((ref: WeakRef<WeakPoint>) => {
+        const live: WeakPoint | undefined = ref.deref();
+        if (live !== undefined) {
+          ids.push(live.id);
+        }
+      });
+      const expectedIds: number[] = range(600, REF_COUNTS.length);
+      const expectedSum: number = expectedIdSum(600, REF_COUNTS.length);
+      logCase('testWeakRefSequenceIds0001', `ids=${ids.join(',')} sum=${derefIdSum(refs)} keep=${keep.length}`);
+      expect(sameNumbers(ids, expectedIds)).assertTrue();
+      expect(ids.length).assertEqual(keep.length);
+      expect(derefIdSum(refs)).assertEqual(expectedSum);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_9300
+     * @tc.name      testWeakRefSequenceMixedShapes0001
+     * @tc.desc      Alternate points and records in one sequence and check both WeakRef families stay fully alive with the
+     *               last record payload intact
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefSequenceMixedShapes0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const pointRefs: WeakRef<WeakPoint>[] = [];
+      const recordRefs: WeakRef<WeakRecord>[] = [];
+      const keepPoints: WeakPoint[] = [];
+      const keepRecords: WeakRecord[] = [];
+      for (const size of BATCH_SIZES) {
+        const point: WeakPoint = new WeakPoint(size);
+        const record: WeakRecord = new WeakRecord(size, size);
+        keepPoints.push(point);
+        keepRecords.push(record);
+        pointRefs.push(new WeakRef<WeakPoint>(point));
+        recordRefs.push(new WeakRef<WeakRecord>(record));
+      }
+      hintGC();
+      sweepPressure();
+      const expectedGroups: number = 3;
+      const expectedTotal: number = 12;
+      logCase('testWeakRefSequenceMixedShapes0001', `points=${countAlive(pointRefs)} ` +
+        `records=${countAlive(recordRefs)} lastTotal=${keepRecords[expectedGroups - 1].total()}`);
+      expect(countAlive(pointRefs)).assertEqual(expectedGroups);
+      expect(countAlive(recordRefs)).assertEqual(expectedGroups);
+      expect(keepRecords[expectedGroups - 1].total()).assertEqual(expectedTotal);
+      expect(keepPoints.length).assertEqual(keepRecords.length);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_9400
+     * @tc.name      testWeakRefSequenceMapRebuild0001
+     * @tc.desc      Rebuild indexed table entries step by step and check every key keeps its own WeakRef and resolves to
+     *               the id written at that step
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWeakRefSequenceMapRebuild0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const table: RefTable = new RefTable('rebuild');
+      const refs: WeakRef<WeakPoint>[] = [];
+      const keep: WeakPoint[] = [];
+      for (let step = 0; step < SLOT_NAMES.length; step++) {
+        const point: WeakPoint = new WeakPoint(700 + step);
+        keep.push(point);
+        const ref: WeakRef<WeakPoint> = new WeakRef<WeakPoint>(point);
+        refs.push(ref);
+        table.put(SLOT_NAMES[step], ref);
+      }
+      hintGC();
+      sweepPressure();
+      const expectedLastId: number = 702;
+      logCase('testWeakRefSequenceMapRebuild0001', `keys=${table.size()} alive=${countAlive(refs)} ` +
+        `lastId=${table.idFor(SLOT_NAMES[2])}`);
+      expect(table.size()).assertEqual(SLOT_NAMES.length);
+      expect(countAlive(refs)).assertEqual(SLOT_NAMES.length);
+      expect(table.idFor(SLOT_NAMES[2])).assertEqual(expectedLastId);
+      expect(table.clearedCount()).assertEqual(ZERO);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_9500
+     * @tc.name      testWeakRefSequenceLastKept0001
+     * @tc.desc      Retain one point and drop one, clear the dropped view, then release the retain box and check the last
+     *               kept WeakRef also clears
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWeakRefSequenceLastKept0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const probe: InterleaveProbe = buildInterleave(ONE, ONE, 800);
+      const droppedRounds: number = await collectWeakAll(probe.droppedRefs, WEAK_ROUNDS);
+      const keptAlive: number = probe.keptAlive();
+      const releasedFromBox: number = probe.box.dropAll();
+      const keptRounds: number = await collectWeakAll(probe.keptRefs, WEAK_ROUNDS);
+      logCase('testWeakRefSequenceLastKept0001', `droppedRounds=${droppedRounds} keptAlive=${keptAlive} ` +
+        `released=${releasedFromBox} keptRounds=${keptRounds}`);
+      expect(probe.droppedRefs.length).assertEqual(ONE);
+      expect(droppedRounds > 0).assertTrue();
+      expect(countCleared(probe.droppedRefs)).assertEqual(ONE);
+      expect(keptAlive).assertEqual(ONE);
+      expect(releasedFromBox).assertEqual(ONE);
+      expect(keptRounds > 0).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_9600
+     * @tc.name      testWeakRefSequenceCounts0001
+     * @tc.desc      Build three retained and two dropped points in one interleaved sequence and check the step ledger, the
+     *               retained count and the first cleared dropped view stay consistent
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWeakRefSequenceCounts0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const probe: InterleaveProbe = buildInterleave(3, 2, 900);
+      hintGC();
+      const rounds: number = await collectWeakSome(probe.droppedRefs, ONE, WEAK_ROUNDS);
+      const consistent: boolean = probe.steps.every((record: StepRecord) =>
+        record.kept + record.dropped === record.step && record.kept <= 3 && record.dropped <= 2);
+      const expectedSteps: number = 5;
+      const keptAlive: number = probe.keptAlive();
+      logCase('testWeakRefSequenceCounts0001', `steps=${probe.steps.length} consistent=${consistent} ` +
+        `keptAlive=${keptAlive} rounds=${rounds}`);
+      expect(probe.steps.length).assertEqual(expectedSteps);
+      expect(consistent).assertTrue();
+      expect(keptAlive).assertEqual(3);
+      expect(rounds > 0).assertTrue();
+      expect(countCleared(probe.droppedRefs) >= ONE).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_9700
+     * @tc.name      testWeakRefPairRetained0001
+     * @tc.desc      Observe the parent and the child of one retained pair and check the pair is still linked and reports
+     *               the original tag after a hint
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testWeakRefPairRetained0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const tag: number = PAIR_TAGS[0];
+      const parent: CycleParent = linkPair(tag);
+      const refs: PairRefs = new PairRefs(new WeakRef<CycleParent>(parent),
+        new WeakRef<CycleChild>(parent.child as CycleChild));
+      hintGC();
+      sweepPressure();
+      const expectedTag: number = 3;
+      logCase('testWeakRefPairRetained0001', `tag=${refs.tagNow()} linked=${refs.linkedNow()} ` +
+        `cleared=${refs.bothCleared()}`);
+      expect(refs.bothCleared()).assertFalse();
+      expect(refs.linkedNow()).assertTrue();
+      expect(refs.tagNow()).assertEqual(expectedTag);
+      expect((refs.childRef.deref() as CycleChild).parent === parent).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_9800
+     * @tc.name      testWeakRefPairReleased0001
+     * @tc.desc      Drop a linked Parent and Child pair and check the WeakRefs to both halves are cleared by the shared
+     *               collection helper
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefPairReleased0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const refs: PairRefs = releasedPairRefs(PAIR_TAGS[1]);
+      const rounds: number = await collectUntil(() => refs.bothCleared(), COLLECT_ROUNDS);
+      logCase('testWeakRefPairReleased0001', `rounds=${rounds} parentCleared=${isCleared(refs.parentRef)} ` +
+        `childCleared=${isCleared(refs.childRef)}`);
+      expect(rounds > 0).assertTrue();
+      expect(isCleared(refs.parentRef)).assertTrue();
+      expect(isCleared(refs.childRef)).assertTrue();
+      expect(refs.bothCleared()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_9900
+     * @tc.name      testWeakRefPairChild0001
+     * @tc.desc      Keep only a WeakRef to the child half of a dropped pair and check the child is cleared even though its
+     *               parent link formed a cycle
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefPairChild0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const childRef: WeakRef<CycleChild> = releasedChild(47);
+      const rounds: number = await collectUntil(() => isCleared(childRef), COLLECT_ROUNDS);
+      logCase('testWeakRefPairChild0001', `rounds=${rounds} cleared=${isCleared(childRef)} ` +
+        `maxRounds=${COLLECT_ROUNDS}`);
+      expect(rounds > 0).assertTrue();
+      expect(isCleared(childRef)).assertTrue();
+      expect(childRef.deref() === undefined).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_10000
+     * @tc.name      testWeakRefRingRetained0001
+     * @tc.desc      Observe the head of a two node retained ring and check the ring closes on itself with the expected
+     *               length and id sum
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testWeakRefRingRetained0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const head: RingNode = buildRing(2, ONE, 11);
+      const ref: WeakRef<RingNode> = new WeakRef<RingNode>(head);
+      hintGC();
+      const next: RingNode = head.next as RingNode;
+      const expectedLength: number = 2;
+      const expectedSum: number = expectedIdSum(11, 2);
+      logCase('testWeakRefRingRetained0001', `id=${head.id} nextId=${next.id} ` +
+        `length=${ringLength(head, 3)} sum=${ringIdSum(head, 2)}`);
+      expect(ref.deref() === head).assertTrue();
+      expect(next.next === head).assertTrue();
+      expect(ringLength(head, 3)).assertEqual(expectedLength);
+      expect(ringIdSum(head, 2)).assertEqual(expectedSum);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_10100
+     * @tc.name      testWeakRefRingReleased0001
+     * @tc.desc      Drop a six node ring, keep only its WeakRef and an independent inline oracle ring, and check the ring
+     *               is cleared while the oracle keeps its shape
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefRingReleased0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const size: number = RING_SIZES[2];
+      const oracle: RingNode = buildRing(size, 4, 21);
+      const ref: WeakRef<RingNode> = releasedRingRef(size, 4, 21);
+      const rounds: number = await collectUntil(() => isCleared(ref), COLLECT_ROUNDS);
+      const expectedLength: number = 6;
+      logCase('testWeakRefRingReleased0001', `size=${size} oracleLength=${ringLength(oracle, size + 1)} ` +
+        `rounds=${rounds}`);
+      expect(ringLength(oracle, size + 1)).assertEqual(expectedLength);
+      expect(ringIdSum(oracle, size)).assertEqual(expectedIdSum(21, size));
+      expect(rounds > 0).assertTrue();
+      expect(isCleared(ref)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_10200
+     * @tc.name      testWeakRefRingSizes0001
+     * @tc.desc      Observe rings of one, two, six and forty nodes and check every walk returns the exact size, id sum and
+     *               keeps its WeakRef alive
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWeakRefRingSizes0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const refs: WeakRef<RingNode>[] = [];
+      const lengths: number[] = [];
+      const sums: number[] = [];
+      const expectedLengths: number[] = [];
+      const expectedSums: number[] = [];
+      for (const size of RING_SIZES) {
+        const head: RingNode = buildRing(size, 2, size);
+        refs.push(new WeakRef<RingNode>(head));
+        lengths.push(ringLength(head, size + 1));
+        sums.push(ringIdSum(head, size));
+        expectedLengths.push(size);
+        expectedSums.push(expectedIdSum(size, size));
+      }
+      hintGC();
+      sweepPressure();
+      const alive: number = countAlive(refs);
+      const expectedSizes: number = RING_SIZES.length;
+      logCase('testWeakRefRingSizes0001', `lengths=${lengths.join(',')} sums=${sums.join(',')} ` +
+        `alive=${alive} sizes=${expectedSizes}`);
+      expect(sameNumbers(lengths, expectedLengths)).assertTrue();
+      expect(sameNumbers(sums, expectedSums)).assertTrue();
+      expect(alive).assertEqual(expectedSizes);
+      expect(refs.length).assertEqual(expectedSizes);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_10300
+     * @tc.name      testWeakRefRingNodes0001
+     * @tc.desc      Observe the head, second and last node of a forty node retained ring and check each WeakRef resolves
+     *               to its own node with the tail pointing back at the head
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWeakRefRingNodes0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const size: number = RING_SIZES[3];
+      const head: RingNode = buildRing(size, 4, ONE);
+      const second: RingNode = head.next as RingNode;
+      let tail: RingNode = head;
+      for (let i = 1; i < size; i++) {
+        tail = tail.next as RingNode;
+      }
+      const headRef: WeakRef<RingNode> = new WeakRef<RingNode>(head);
+      const secondRef: WeakRef<RingNode> = new WeakRef<RingNode>(second);
+      const tailRef: WeakRef<RingNode> = new WeakRef<RingNode>(tail);
+      hintGC();
+      sweepPressure();
+      const expectedSecond: number = 2;
+      const expectedTail: number = 40;
+      logCase('testWeakRefRingNodes0001', `size=${size} secondId=${(secondRef.deref() as RingNode).id} ` +
+        `tailId=${(tailRef.deref() as RingNode).id}`);
+      expect(headRef.deref() === head).assertTrue();
+      expect((secondRef.deref() as RingNode).id).assertEqual(expectedSecond);
+      expect((tailRef.deref() as RingNode).id).assertEqual(expectedTail);
+      expect((tailRef.deref() as RingNode).next === head).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_WEAKREF_10400
+     * @tc.name      testWeakRefGraphSummary0001
+     * @tc.desc      Drop one pair graph while a ring graph stays retained and check the dropped pair is cleared without
+     *               disturbing the retained ring shape
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWeakRefGraphSummary0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const refs: PairRefs = releasedPairRefs(PAIR_TAGS[2]);
+      const size: number = RING_SIZES[2];
+      const head: RingNode = buildRing(size, 8, 5);
+      const headRef: WeakRef<RingNode> = new WeakRef<RingNode>(head);
+      const rounds: number = await collectUntil(() => refs.bothCleared(), COLLECT_ROUNDS);
+      const expectedLength: number = 6;
+      logCase('testWeakRefGraphSummary0001', `rounds=${rounds} pairCleared=${refs.bothCleared()} ` +
+        `ringLength=${ringLength(head, size + 1)} ringSum=${ringIdSum(head, size)}`);
+      expect(rounds > 0).assertTrue();
+      expect(isCleared(refs.parentRef)).assertTrue();
+      expect(isCleared(refs.childRef)).assertTrue();
+      expect(headRef.deref() === head).assertTrue();
+      expect(ringLength(head, size + 1)).assertEqual(expectedLength);
+      expect(ringIdSum(head, size)).assertEqual(expectedIdSum(5, size));
+    });
+  });
+}
