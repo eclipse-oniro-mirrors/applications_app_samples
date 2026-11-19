@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file src/main/ets/view/GridSceneView.ets
+ * 文件职责：GridSceneView 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：GridSceneView、IconWithNameView。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { AppInfo } from '../model/AppInfo';
 import { DataSource } from '../model/DateSource';
 
@@ -22,23 +29,35 @@ const ICON_NUM_IN_GRID: number = 15; // 示例Grid中子组件数目
  * 实现Grid场景，拖拽交换子组件位置: 通过editMode()打开编辑模式、通过onItemDragStart()
  * 指定拖拽时样式、通过onItemDrop()指定拖拽释放时的行为
  */
+/**
+ * GridSceneView：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct GridSceneView {
+  // @State movedItem：组件内部状态
+  // @State dataSource：组件内部状态
   @State movedItem: AppInfo = new AppInfo();
   @State dataSource: DataSource = new DataSource();
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear() {
     for (let index = 1; index <= ICON_NUM_IN_GRID; index++) {
       this.dataSource.pushData(new AppInfo($r(`app.media.drag_and_exchange_ic_public_app${index}`), `App${index}`));
     }
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
     Column() {
       Text($r('app.string.drag_and_exchange_grid_drag_title'))
         .fontColor(Color.White)
         .textAlign(TextAlign.Center)
         .fontSize($r('app.string.drag_and_exchange_opt_title_font_size'))
+        .id('dragAndExchangeGridTitle')
       Row() {
         Grid() {
           // TODO: 性能知识点：图标一次性完全显示，且禁用滑动，无需懒加载。LazyForEach可以适用在动态添加数据的场景中，参考资料：
@@ -51,6 +70,7 @@ export struct GridSceneView {
             .height($r('app.string.drag_and_exchange_layout_70'))
           }, (item: AppInfo) => item.name.toString())
         }
+        .id('dragAndExchangeGrid')
         .columnsTemplate('1fr 1fr 1fr 1fr 1fr')
         .rowsTemplate('1fr 1fr 1fr')
         .columnsGap($r('app.string.drag_and_exchange_layout_10'))
@@ -89,6 +109,9 @@ export struct GridSceneView {
   /**
    * 设置GridItem拖拽过程中显示的图形
    */
+  /**
+   * itemWhileDrag：执行 itemWhileDrag 相关逻辑。
+   */
   @Builder
   itemWhileDrag() {
     IconWithNameView({ app: this.movedItem })
@@ -100,10 +123,17 @@ export struct GridSceneView {
 /**
  * App自定义组件
  */
+/**
+ * IconWithNameView：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 struct IconWithNameView {
+  // @ObjectLink app：与父组件共享的对象引用
   @ObjectLink app: AppInfo
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
     Column() {
       Image(this.app.icon)

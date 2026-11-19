@@ -13,20 +13,36 @@
  * limitations under the License.
  */
 
+/**
+ * @file src/main/ets/view/ListSceneView.ets
+ * 文件职责：ListSceneView 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ListSceneView、IconNoNameView、JsonObjType。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { AppInfo } from '../model/AppInfo';
 import { DataSource } from '../model/DateSource';
 
 const ICON_NUM_IN_LIST: number = 4; // 示例List中子组件数目
+
 const LIST_SPACE: number = 30; // 列表默认间隔
 
 /**
  * 实现List场景，拖拽交换子组件位置: 通过ListItem的onDragStart()方法指定拖拽开始时的行为，通过List的onTouch()指定拖拽释放时的行为。
  */
+/**
+ * ListSceneView：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct ListSceneView {
+  // @State dataSource：组件内部状态
+  // @State dragIndex：组件内部状态
   @State dataSource: DataSource = new DataSource();
   @State dragIndex: number = 0;
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear() {
     for (let index = 0; index < ICON_NUM_IN_LIST; index++) {
       this.dataSource.pushData(new AppInfo($r(`app.media.drag_and_exchange_ic_public_game${index + 1}`),
@@ -34,18 +50,25 @@ export struct ListSceneView {
     }
   }
 
+  /**
+   * changeIndex：执行 changeIndex 相关逻辑。
+   */
   changeIndex(index1: number, index2: number) {
     let temp: AppInfo = this.dataSource.getData(index1);
     this.dataSource.setData(index1, this.dataSource.getData(index2));
     this.dataSource.setData(index2, temp);
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
     Column() {
       Text($r('app.string.drag_and_exchange_list_drag_title'))
         .fontColor(Color.White)
         .textAlign(TextAlign.Center)
         .fontSize($r('app.string.drag_and_exchange_opt_title_font_size'))
+        .id('dragAndExchangeListTitle')
       Row() { // 仅靠List实现背景框，padding调整样式后，互换时可能错位
         List({ space: LIST_SPACE }) {
           // TODO: 性能知识点：图标一次性完全显示，且禁用滑动，无需懒加载。LazyForEach可以适用在动态添加数据的场景中，参考资料：
@@ -67,6 +90,7 @@ export struct ListSceneView {
             })
           }, (item: AppInfo) => item.name.toString())
         }
+        .id('dragAndExchangeList')
         .scrollBar(BarState.Off)
         .height($r('app.string.drag_and_exchange_layout_90'))
         .listDirection(Axis.Horizontal)
@@ -103,10 +127,17 @@ export struct ListSceneView {
 /**
  * 无名字App自定义组件
  */
+/**
+ * IconNoNameView：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 struct IconNoNameView {
+  // @ObjectLink app：与父组件共享的对象引用
   @ObjectLink app: AppInfo;
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
     Column() {
       Image(this.app.icon)
@@ -138,6 +169,7 @@ class JsonObjType {
   public insertIndex: number;
   public selectedIndex: number;
 
+  /** 构造 ListSceneView 实例。 */
   constructor(insertIndex: number, selectedIndex: number) {
     this.insertIndex = insertIndex;
     this.selectedIndex = selectedIndex;
