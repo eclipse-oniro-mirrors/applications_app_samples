@@ -5449,3 +5449,449 @@ export default function ModuleIdentityValidationTest(): void {
      * @tc.number    SUB_SYS_MODULE_CONFIG_1505
      * @tc.name      testModuleFullValidationBadMainElement
      * @tc.desc      Checks that an unknown main element is reported during full validation.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleFullValidationBadMainElement',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.mainElement = 'MissingAbility';
+      TestLog.text('testModuleFullValidationBadMainElement', 'case begin', 'full module validation badmainelement');
+      TestLog.step('testModuleFullValidationBadMainElement', 'full module validation badmainelement');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testModuleFullValidationBadMainElement', 'module findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_MAIN_ELEMENT_UNKNOWN_ABILITY');
+      TestLog.flag('testModuleFullValidationBadMainElement',
+        'has code MODULE_MAIN_ELEMENT_UNKNOWN_ABILITY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleFullValidationBadMainElement', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleFullValidationBadMainElement', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleFullValidationBadMainElement', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleFullValidationBadMainElement', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleFullValidationBadMainElement', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleFullValidationBadMainElement', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleFullValidationBadMainElement', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleFullValidationBadMainElement', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleFullValidationBadMainElement', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleFullValidationBadMainElement', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testModuleFullValidationBadMainElement', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleFullValidationBadMainElement', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleFullValidationBadMainElement', 'case end', 'full module validation badmainelement');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1506
+     * @tc.name      testModuleFullValidationBadPages
+     * @tc.desc      Checks that an invalid pages reference is reported during full validation.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleFullValidationBadPages',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.pages = 'main_pages';
+      TestLog.text('testModuleFullValidationBadPages', 'case begin', 'full module validation badpages');
+      TestLog.step('testModuleFullValidationBadPages', 'full module validation badpages');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testModuleFullValidationBadPages', 'module findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_PAGES_NOT_PROFILE_REF');
+      TestLog.flag('testModuleFullValidationBadPages', 'has code MODULE_PAGES_NOT_PROFILE_REF', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleFullValidationBadPages', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleFullValidationBadPages', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleFullValidationBadPages', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleFullValidationBadPages', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleFullValidationBadPages', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleFullValidationBadPages', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleFullValidationBadPages', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleFullValidationBadPages', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleFullValidationBadPages', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleFullValidationBadPages', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testModuleFullValidationBadPages', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleFullValidationBadPages', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleFullValidationBadPages', 'case end', 'full module validation badpages');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1507
+     * @tc.name      testModuleFullValidationNoAbilities
+     * @tc.desc      Checks that an empty abilities list is reported during full validation.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleFullValidationNoAbilities',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.abilities = [];
+      TestLog.text('testModuleFullValidationNoAbilities', 'case begin', 'full module validation noabilities');
+      TestLog.step('testModuleFullValidationNoAbilities', 'full module validation noabilities');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testModuleFullValidationNoAbilities', 'module findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITIES_EMPTY');
+      TestLog.flag('testModuleFullValidationNoAbilities', 'has code MODULE_ABILITIES_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleFullValidationNoAbilities', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleFullValidationNoAbilities', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleFullValidationNoAbilities', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleFullValidationNoAbilities', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleFullValidationNoAbilities', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleFullValidationNoAbilities', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleFullValidationNoAbilities', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleFullValidationNoAbilities', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleFullValidationNoAbilities', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleFullValidationNoAbilities', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testModuleFullValidationNoAbilities', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleFullValidationNoAbilities', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleFullValidationNoAbilities', 'case end', 'full module validation noabilities');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1508
+     * @tc.name      testModuleFullValidationBadAbility
+     * @tc.desc      Checks that invalid ability fields are reported during full validation.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleFullValidationBadAbility',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.abilities[0].name = 'entryAbility';
+      moduleConfig.abilities[0].srcEntry = 'EntryAbility.ets';
+      TestLog.text('testModuleFullValidationBadAbility', 'case begin', 'full module validation badability');
+      TestLog.step('testModuleFullValidationBadAbility', 'full module validation badability');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testModuleFullValidationBadAbility', 'module findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_NAME_NOT_PASCAL');
+      TestLog.flag('testModuleFullValidationBadAbility', 'has code MODULE_ABILITY_NAME_NOT_PASCAL', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_ABILITY_SRC_PREFIX');
+      TestLog.flag('testModuleFullValidationBadAbility', 'has code MODULE_ABILITY_SRC_PREFIX', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleFullValidationBadAbility', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleFullValidationBadAbility', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleFullValidationBadAbility', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleFullValidationBadAbility', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleFullValidationBadAbility', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleFullValidationBadAbility', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleFullValidationBadAbility', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleFullValidationBadAbility', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleFullValidationBadAbility', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleFullValidationBadAbility', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testModuleFullValidationBadAbility', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleFullValidationBadAbility', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleFullValidationBadAbility', 'case end', 'full module validation badability');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1509
+     * @tc.name      testModuleFullValidationMultipleViolations
+     * @tc.desc      Checks that multiple module violations are reported together.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleFullValidationMultipleViolations',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      moduleConfig.name = '';
+      moduleConfig.type = 'Entry';
+      moduleConfig.pages = '';
+      TestLog.text('testModuleFullValidationMultipleViolations', 
+        'case begin', 'full module validation multipleviolations');
+      TestLog.step('testModuleFullValidationMultipleViolations', 'full module validation multipleviolations');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testModuleFullValidationMultipleViolations', 'module findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_NAME_EMPTY');
+      TestLog.flag('testModuleFullValidationMultipleViolations', 'has code MODULE_NAME_EMPTY', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_TYPE_UNKNOWN');
+      TestLog.flag('testModuleFullValidationMultipleViolations', 'has code MODULE_TYPE_UNKNOWN', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const hasExpected3: boolean = FindingUtils.hasCode(findings, 'MODULE_PAGES_EMPTY');
+      TestLog.flag('testModuleFullValidationMultipleViolations', 'has code MODULE_PAGES_EMPTY', hasExpected3);
+      expect(hasExpected3).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleFullValidationMultipleViolations', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleFullValidationMultipleViolations', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleFullValidationMultipleViolations', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleFullValidationMultipleViolations', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleFullValidationMultipleViolations', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleFullValidationMultipleViolations', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleFullValidationMultipleViolations', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleFullValidationMultipleViolations', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleFullValidationMultipleViolations', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleFullValidationMultipleViolations', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testModuleFullValidationMultipleViolations', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleFullValidationMultipleViolations', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleFullValidationMultipleViolations', 
+        'case end', 'full module validation multipleviolations');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1510
+     * @tc.name      testModuleFullValidationFeatureBadFlags
+     * @tc.desc      Checks that a feature module that is not delivered but not free passes validation.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleFullValidationFeatureBadFlags',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.featureModule();
+      moduleConfig.deliveryWithInstall = false;
+      moduleConfig.installationFree = false;
+      TestLog.text('testModuleFullValidationFeatureBadFlags', 'case begin', 'full module validation featurebadflags');
+      TestLog.step('testModuleFullValidationFeatureBadFlags', 'full module validation featurebadflags');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testModuleFullValidationFeatureBadFlags', 'module findings', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testModuleFullValidationFeatureBadFlags', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleFullValidationFeatureBadFlags', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleFullValidationFeatureBadFlags', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleFullValidationFeatureBadFlags', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleFullValidationFeatureBadFlags', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleFullValidationFeatureBadFlags', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleFullValidationFeatureBadFlags', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleFullValidationFeatureBadFlags', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleFullValidationFeatureBadFlags', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testModuleFullValidationFeatureBadFlags', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleFullValidationFeatureBadFlags', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleFullValidationFeatureBadFlags', 'case end', 'full module validation featurebadflags');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_1511
+     * @tc.name      testModuleFullValidationFeatureFlagsConflict
+     * @tc.desc      Checks that conflicting feature installation flags are reported during full validation.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleFullValidationFeatureFlagsConflict',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.featureModule();
+      moduleConfig.deliveryWithInstall = false;
+      moduleConfig.installationFree = true;
+      TestLog.text('testModuleFullValidationFeatureFlagsConflict', 
+        'case begin', 'full module validation featureflagsconflict');
+      TestLog.step('testModuleFullValidationFeatureFlagsConflict', 'full module validation featureflagsconflict');
+      const findings: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.findings('testModuleFullValidationFeatureFlagsConflict', 'module findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_INSTALLATION_FLAGS_CONFLICT');
+      TestLog.flag('testModuleFullValidationFeatureFlagsConflict',
+        'has code MODULE_INSTALLATION_FLAGS_CONFLICT', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testModuleFullValidationFeatureFlagsConflict', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testModuleFullValidationFeatureFlagsConflict', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testModuleFullValidationFeatureFlagsConflict', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testModuleFullValidationFeatureFlagsConflict', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testModuleFullValidationFeatureFlagsConflict', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testModuleFullValidationFeatureFlagsConflict', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testModuleFullValidationFeatureFlagsConflict', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testModuleFullValidationFeatureFlagsConflict', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testModuleFullValidationFeatureFlagsConflict', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testModuleFullValidationFeatureFlagsConflict', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validate(moduleConfig);
+      TestLog.number('testModuleFullValidationFeatureFlagsConflict', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testModuleFullValidationFeatureFlagsConflict', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testModuleFullValidationFeatureFlagsConflict', 
+        'case end', 'full module validation featureflagsconflict');
+    })
+
+  })
+}
