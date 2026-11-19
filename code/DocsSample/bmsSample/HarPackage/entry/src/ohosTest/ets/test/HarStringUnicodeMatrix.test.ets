@@ -4698,3 +4698,1680 @@ export default function harStringUnicodeMatrixTest() {
       expect(text.charCodeAt(text.length - 1)).assertEqual(969);
       expect(text.toUpperCase()).assertEqual('\u03A4\u03A6\u03A9');
       expect(text.toLowerCase()).assertEqual('\u03C4\u03C6\u03C9');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u03C6')).assertTrue();
+      expect(text.indexOf('\u03C6') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u03A4\u03C6');
+      expect(text.slice(1, 3)).assertEqual('\u03C6\u03C9');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(text.concat(text)).assertEqual('\u03A4\u03C6\u03C9\u03A4\u03C6\u03C9');
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0193
+     * @tc.name      testUnicode0193
+     * @tc.desc      Unicode sequence 193 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testUnicode0193', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const text: string = '\u00D9\u00E3\u4EC0';
+      logCase('testUnicode0193', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(217);
+      expect(text.codePointAt(0)).assertEqual(217);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(20160);
+      expect(text.toUpperCase()).assertEqual('\u00D9\u00C3\u4EC0');
+      expect(text.toLowerCase()).assertEqual('\u00F9\u00E3\u4EC0');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u00E3')).assertTrue();
+      expect(text.indexOf('\u00E3') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u00D9\u00E3');
+      expect(text.slice(1, 3)).assertEqual('\u00E3\u4EC0');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u22D6\u2260\u2211';
+      logCase('testUnicode0194', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(8918);
+      expect(text.codePointAt(0)).assertEqual(8918);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(8721);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u2260')).assertTrue();
+      expect(text.indexOf('\u2260') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u22D6\u2260');
+      expect(text.slice(1, 3)).assertEqual('\u2260\u2211');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0195
+     * @tc.name      testUnicode0195
+     * @tc.desc      Unicode sequence 195 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testUnicode0195', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const text: string = '\u0034\u002E\u0032\u0038\u4E2D\u6587';
+      logCase('testUnicode0195', `len=${text.length}`);
+      expect(text.length).assertEqual(6);
+      expect(text.charCodeAt(0)).assertEqual(52);
+      expect(text.codePointAt(0)).assertEqual(52);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(25991);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u0038')).assertTrue();
+      expect(text.indexOf('\u0038') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0034\u002E');
+      expect(text.slice(1, 3)).assertEqual('\u002E\u0032');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u4F60\u597D\u4E16\u754C\uFF01';
+      logCase('testUnicode0196', `len=${text.length}`);
+      expect(text.length).assertEqual(5);
+      expect(text.charCodeAt(0)).assertEqual(20320);
+      expect(text.codePointAt(0)).assertEqual(20320);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(65281);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u4E16')).assertTrue();
+      expect(text.indexOf('\u4E16') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u4F60\u597D');
+      expect(text.slice(1, 3)).assertEqual('\u597D\u4E16');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0197
+     * @tc.name      testUnicode0197
+     * @tc.desc      Unicode sequence 197 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testUnicode0197', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const text: string = '\u6A54\u76A4\u306D';
+      logCase('testUnicode0197', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(27220);
+      expect(text.codePointAt(0)).assertEqual(27220);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(12397);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u76A4')).assertTrue();
+      expect(text.indexOf('\u76A4') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u6A54\u76A4');
+      expect(text.slice(1, 3)).assertEqual('\u76A4\u306D');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u0448\u0435\uD83D\uDE00';
+      logCase('testUnicode0198', `len=${text.length}`);
+      expect(text.length).assertEqual(4);
+      expect(text.charCodeAt(0)).assertEqual(1096);
+      expect(text.codePointAt(0)).assertEqual(1096);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(56832);
+      expect(text.toUpperCase()).assertEqual('\u0428\u0415\uD83D\uDE00');
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\uD83D')).assertTrue();
+      expect(text.indexOf('\uD83D') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0448\u0435');
+      expect(text.slice(1, 3)).assertEqual('\u0435\uD83D');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(text.concat(text)).assertEqual('\u0448\u0435\uD83D\uDE00\u0448\u0435\uD83D\uDE00');
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0199
+     * @tc.name      testUnicode0199
+     * @tc.desc      Unicode sequence 199 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testUnicode0199', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const text: string = '\u0397\u03C3\u03C9';
+      logCase('testUnicode0199', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(919);
+      expect(text.codePointAt(0)).assertEqual(919);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(969);
+      expect(text.toUpperCase()).assertEqual('\u0397\u03A3\u03A9');
+      expect(text.toLowerCase()).assertEqual('\u03B7\u03C3\u03C9');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u03C3')).assertTrue();
+      expect(text.indexOf('\u03C3') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0397\u03C3');
+      expect(text.slice(1, 3)).assertEqual('\u03C3\u03C9');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u00D1\u00E9\u4EC7';
+      logCase('testUnicode0200', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(209);
+      expect(text.codePointAt(0)).assertEqual(209);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(20167);
+      expect(text.toUpperCase()).assertEqual('\u00D1\u00C9\u4EC7');
+      expect(text.toLowerCase()).assertEqual('\u00F1\u00E9\u4EC7');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u00E9')).assertTrue();
+      expect(text.indexOf('\u00E9') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u00D1\u00E9');
+      expect(text.slice(1, 3)).assertEqual('\u00E9\u4EC7');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0201
+     * @tc.name      testUnicode0201
+     * @tc.desc      Unicode sequence 201 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testUnicode0201', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const text: string = '\u2232\u2260\u2211';
+      logCase('testUnicode0201', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(8754);
+      expect(text.codePointAt(0)).assertEqual(8754);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(8721);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u2260')).assertTrue();
+      expect(text.indexOf('\u2260') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u2232\u2260');
+      expect(text.slice(1, 3)).assertEqual('\u2260\u2211');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u0031\u002E\u0033\u0037';
+      logCase('testUnicode0202', `len=${text.length}`);
+      expect(text.length).assertEqual(4);
+      expect(text.charCodeAt(0)).assertEqual(49);
+      expect(text.codePointAt(0)).assertEqual(49);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(55);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u0033')).assertTrue();
+      expect(text.indexOf('\u0033') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0031\u002E');
+      expect(text.slice(1, 3)).assertEqual('\u002E\u0033');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0203
+     * @tc.name      testUnicode0203
+     * @tc.desc      Unicode sequence 203 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testUnicode0203', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const text: string = '\u4F60\u597D\u4E16\u754C\uFF01';
+      logCase('testUnicode0203', `len=${text.length}`);
+      expect(text.length).assertEqual(5);
+      expect(text.charCodeAt(0)).assertEqual(20320);
+      expect(text.codePointAt(0)).assertEqual(20320);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(65281);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u4E16')).assertTrue();
+      expect(text.indexOf('\u4E16') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u4F60\u597D');
+      expect(text.slice(1, 3)).assertEqual('\u597D\u4E16');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u6B57\u7817\u3052';
+      logCase('testUnicode0204', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(27479);
+      expect(text.codePointAt(0)).assertEqual(27479);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(12370);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u7817')).assertTrue();
+      expect(text.indexOf('\u7817') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u6B57\u7817');
+      expect(text.slice(1, 3)).assertEqual('\u7817\u3052');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(text.concat(text)).assertEqual('\u6B57\u7817\u3052\u6B57\u7817\u3052');
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0205
+     * @tc.name      testUnicode0205
+     * @tc.desc      Unicode sequence 205 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testUnicode0205', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const text: string = '\u043A\u0453\u4ECC';
+      logCase('testUnicode0205', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(1082);
+      expect(text.codePointAt(0)).assertEqual(1082);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(20172);
+      expect(text.toUpperCase()).assertEqual('\u041A\u0403\u4ECC');
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u0453')).assertTrue();
+      expect(text.indexOf('\u0453') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u043A\u0453');
+      expect(text.slice(1, 3)).assertEqual('\u0453\u4ECC');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u03A2\u03C0\u03C9';
+      logCase('testUnicode0206', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(930);
+      expect(text.codePointAt(0)).assertEqual(930);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(969);
+      expect(text.toUpperCase()).assertEqual('\u03A2\u03A0\u03A9');
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u03C0')).assertTrue();
+      expect(text.indexOf('\u03C0') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u03A2\u03C0');
+      expect(text.slice(1, 3)).assertEqual('\u03C0\u03C9');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0207
+     * @tc.name      testUnicode0207
+     * @tc.desc      Unicode sequence 207 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testUnicode0207', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const text: string = '\u00C9\u00EF\u4ECE';
+      logCase('testUnicode0207', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(201);
+      expect(text.codePointAt(0)).assertEqual(201);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(20174);
+      expect(text.toUpperCase()).assertEqual('\u00C9\u00CF\u4ECE');
+      expect(text.toLowerCase()).assertEqual('\u00E9\u00EF\u4ECE');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u00EF')).assertTrue();
+      expect(text.indexOf('\u00EF') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u00C9\u00EF');
+      expect(text.slice(1, 3)).assertEqual('\u00EF\u4ECE');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u228D\u2260\u2211\u4E2D\u6587';
+      logCase('testUnicode0208', `len=${text.length}`);
+      expect(text.length).assertEqual(5);
+      expect(text.charCodeAt(0)).assertEqual(8845);
+      expect(text.codePointAt(0)).assertEqual(8845);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(25991);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u2211')).assertTrue();
+      expect(text.indexOf('\u2211') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u228D\u2260');
+      expect(text.slice(1, 3)).assertEqual('\u2260\u2211');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0209
+     * @tc.name      testUnicode0209
+     * @tc.desc      Unicode sequence 209 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testUnicode0209', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const text: string = '\u0038\u002E\u0034\u0036\uD83D\uDE00';
+      logCase('testUnicode0209', `len=${text.length}`);
+      expect(text.length).assertEqual(6);
+      expect(text.charCodeAt(0)).assertEqual(56);
+      expect(text.codePointAt(0)).assertEqual(56);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(56832);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u0036')).assertTrue();
+      expect(text.indexOf('\u0036') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0038\u002E');
+      expect(text.slice(1, 3)).assertEqual('\u002E\u0034');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u4F60\u597D\u4E16\u754C\uFF01';
+      logCase('testUnicode0210', `len=${text.length}`);
+      expect(text.length).assertEqual(5);
+      expect(text.charCodeAt(0)).assertEqual(20320);
+      expect(text.codePointAt(0)).assertEqual(20320);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(65281);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u4E16')).assertTrue();
+      expect(text.indexOf('\u4E16') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u4F60\u597D');
+      expect(text.slice(1, 3)).assertEqual('\u597D\u4E16');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(text.concat(text)).assertEqual('\u4F60\u597D\u4E16\u754C\uFF01\u4F60\u597D\u4E16\u754C\uFF01');
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0211
+     * @tc.name      testUnicode0211
+     * @tc.desc      Unicode sequence 211 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testUnicode0211', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const text: string = '\u6C5A\u798A\u3087';
+      logCase('testUnicode0211', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(27738);
+      expect(text.codePointAt(0)).assertEqual(27738);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(12423);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u798A')).assertTrue();
+      expect(text.indexOf('\u798A') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u6C5A\u798A');
+      expect(text.slice(1, 3)).assertEqual('\u798A\u3087');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u042C\u0442\u4ED3';
+      logCase('testUnicode0212', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(1068);
+      expect(text.codePointAt(0)).assertEqual(1068);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(20179);
+      expect(text.toUpperCase()).assertEqual('\u042C\u0422\u4ED3');
+      expect(text.toLowerCase()).assertEqual('\u044C\u0442\u4ED3');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u0442')).assertTrue();
+      expect(text.indexOf('\u0442') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u042C\u0442');
+      expect(text.slice(1, 3)).assertEqual('\u0442\u4ED3');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0213
+     * @tc.name      testUnicode0213
+     * @tc.desc      Unicode sequence 213 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testUnicode0213', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const text: string = '\u0395\u03BD\u03C9';
+      logCase('testUnicode0213', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(917);
+      expect(text.codePointAt(0)).assertEqual(917);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(969);
+      expect(text.toUpperCase()).assertEqual('\u0395\u039D\u03A9');
+      expect(text.toLowerCase()).assertEqual('\u03B5\u03BD\u03C9');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u03BD')).assertTrue();
+      expect(text.indexOf('\u03BD') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0395\u03BD');
+      expect(text.slice(1, 3)).assertEqual('\u03BD\u03C9');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u00C1\u00F5\u4ED5';
+      logCase('testUnicode0214', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(193);
+      expect(text.codePointAt(0)).assertEqual(193);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(20181);
+      expect(text.toUpperCase()).assertEqual('\u00C1\u00D5\u4ED5');
+      expect(text.toLowerCase()).assertEqual('\u00E1\u00F5\u4ED5');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u00F5')).assertTrue();
+      expect(text.indexOf('\u00F5') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u00C1\u00F5');
+      expect(text.slice(1, 3)).assertEqual('\u00F5\u4ED5');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0215
+     * @tc.name      testUnicode0215
+     * @tc.desc      Unicode sequence 215 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testUnicode0215', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const text: string = '\u22E8\u2260\u2211';
+      logCase('testUnicode0215', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(8936);
+      expect(text.codePointAt(0)).assertEqual(8936);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(8721);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u2260')).assertTrue();
+      expect(text.indexOf('\u2260') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u22E8\u2260');
+      expect(text.slice(1, 3)).assertEqual('\u2260\u2211');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u0035\u002E\u0035\u0035';
+      logCase('testUnicode0216', `len=${text.length}`);
+      expect(text.length).assertEqual(4);
+      expect(text.charCodeAt(0)).assertEqual(53);
+      expect(text.codePointAt(0)).assertEqual(53);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(53);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u0035')).assertTrue();
+      expect(text.indexOf('\u0035') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0035\u002E');
+      expect(text.slice(1, 3)).assertEqual('\u002E\u0035');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(text.concat(text)).assertEqual('\u0035\u002E\u0035\u0035\u0035\u002E\u0035\u0035');
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0217
+     * @tc.name      testUnicode0217
+     * @tc.desc      Unicode sequence 217 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testUnicode0217', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const text: string = '\u4F60\u597D\u4E16\u754C\uFF01';
+      logCase('testUnicode0217', `len=${text.length}`);
+      expect(text.length).assertEqual(5);
+      expect(text.charCodeAt(0)).assertEqual(20320);
+      expect(text.codePointAt(0)).assertEqual(20320);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(65281);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u4E16')).assertTrue();
+      expect(text.indexOf('\u4E16') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u4F60\u597D');
+      expect(text.slice(1, 3)).assertEqual('\u597D\u4E16');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u6D5D\u7AFD\u306C';
+      logCase('testUnicode0218', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(27997);
+      expect(text.codePointAt(0)).assertEqual(27997);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(12396);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u7AFD')).assertTrue();
+      expect(text.indexOf('\u7AFD') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u6D5D\u7AFD');
+      expect(text.slice(1, 3)).assertEqual('\u7AFD\u306C');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0219
+     * @tc.name      testUnicode0219
+     * @tc.desc      Unicode sequence 219 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testUnicode0219', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const text: string = '\u041E\u0431\u4EDA';
+      logCase('testUnicode0219', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(1054);
+      expect(text.codePointAt(0)).assertEqual(1054);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(20186);
+      expect(text.toUpperCase()).assertEqual('\u041E\u0411\u4EDA');
+      expect(text.toLowerCase()).assertEqual('\u043E\u0431\u4EDA');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u0431')).assertTrue();
+      expect(text.indexOf('\u0431') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u041E\u0431');
+      expect(text.slice(1, 3)).assertEqual('\u0431\u4EDA');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u03A0\u03BA\u03C9\uD83D\uDE00';
+      logCase('testUnicode0220', `len=${text.length}`);
+      expect(text.length).assertEqual(5);
+      expect(text.charCodeAt(0)).assertEqual(928);
+      expect(text.codePointAt(0)).assertEqual(928);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(56832);
+      expect(text.toUpperCase()).assertEqual('\u03A0\u039A\u03A9\uD83D\uDE00');
+      expect(text.toLowerCase()).assertEqual('\u03C0\u03BA\u03C9\uD83D\uDE00');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u03C9')).assertTrue();
+      expect(text.indexOf('\u03C9') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u03A0\u03BA');
+      expect(text.slice(1, 3)).assertEqual('\u03BA\u03C9');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0221
+     * @tc.name      testUnicode0221
+     * @tc.desc      Unicode sequence 221 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testUnicode0221', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const text: string = '\u00D6\u00FB\u4E2D\u6587';
+      logCase('testUnicode0221', `len=${text.length}`);
+      expect(text.length).assertEqual(4);
+      expect(text.charCodeAt(0)).assertEqual(214);
+      expect(text.codePointAt(0)).assertEqual(214);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(25991);
+      expect(text.toUpperCase()).assertEqual('\u00D6\u00DB\u4E2D\u6587');
+      expect(text.toLowerCase()).assertEqual('\u00F6\u00FB\u4E2D\u6587');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u4E2D')).assertTrue();
+      expect(text.indexOf('\u4E2D') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u00D6\u00FB');
+      expect(text.slice(1, 3)).assertEqual('\u00FB\u4E2D');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u2244\u2260\u2211';
+      logCase('testUnicode0222', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(8772);
+      expect(text.codePointAt(0)).assertEqual(8772);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(8721);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u2260')).assertTrue();
+      expect(text.indexOf('\u2260') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u2244\u2260');
+      expect(text.slice(1, 3)).assertEqual('\u2260\u2211');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(text.concat(text)).assertEqual('\u2244\u2260\u2211\u2244\u2260\u2211');
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0223
+     * @tc.name      testUnicode0223
+     * @tc.desc      Unicode sequence 223 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testUnicode0223', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const text: string = '\u0032\u002E\u0036\u0034';
+      logCase('testUnicode0223', `len=${text.length}`);
+      expect(text.length).assertEqual(4);
+      expect(text.charCodeAt(0)).assertEqual(50);
+      expect(text.codePointAt(0)).assertEqual(50);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(52);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u0036')).assertTrue();
+      expect(text.indexOf('\u0036') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0032\u002E');
+      expect(text.slice(1, 3)).assertEqual('\u002E\u0036');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u4F60\u597D\u4E16\u754C\uFF01';
+      logCase('testUnicode0224', `len=${text.length}`);
+      expect(text.length).assertEqual(5);
+      expect(text.charCodeAt(0)).assertEqual(20320);
+      expect(text.codePointAt(0)).assertEqual(20320);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(65281);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u4E16')).assertTrue();
+      expect(text.indexOf('\u4E16') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u4F60\u597D');
+      expect(text.slice(1, 3)).assertEqual('\u597D\u4E16');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0225
+     * @tc.name      testUnicode0225
+     * @tc.desc      Unicode sequence 225 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testUnicode0225', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const text: string = '\u6E60\u7C70\u3051';
+      logCase('testUnicode0225', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(28256);
+      expect(text.codePointAt(0)).assertEqual(28256);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(12369);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u7C70')).assertTrue();
+      expect(text.indexOf('\u7C70') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u6E60\u7C70');
+      expect(text.slice(1, 3)).assertEqual('\u7C70\u3051');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u0410\u044F\u4EE1';
+      logCase('testUnicode0226', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(1040);
+      expect(text.codePointAt(0)).assertEqual(1040);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(20193);
+      expect(text.toUpperCase()).assertEqual('\u0410\u042F\u4EE1');
+      expect(text.toLowerCase()).assertEqual('\u0430\u044F\u4EE1');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u044F')).assertTrue();
+      expect(text.indexOf('\u044F') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0410\u044F');
+      expect(text.slice(1, 3)).assertEqual('\u044F\u4EE1');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0227
+     * @tc.name      testUnicode0227
+     * @tc.desc      Unicode sequence 227 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testUnicode0227', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const text: string = '\u0393\u03B7\u03C9';
+      logCase('testUnicode0227', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(915);
+      expect(text.codePointAt(0)).assertEqual(915);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(969);
+      expect(text.toUpperCase()).assertEqual('\u0393\u0397\u03A9');
+      expect(text.toLowerCase()).assertEqual('\u03B3\u03B7\u03C9');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u03B7')).assertTrue();
+      expect(text.indexOf('\u03B7') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0393\u03B7');
+      expect(text.slice(1, 3)).assertEqual('\u03B7\u03C9');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u00CE\u00E4\u4EE3';
+      logCase('testUnicode0228', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(206);
+      expect(text.codePointAt(0)).assertEqual(206);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(20195);
+      expect(text.toUpperCase()).assertEqual('\u00CE\u00C4\u4EE3');
+      expect(text.toLowerCase()).assertEqual('\u00EE\u00E4\u4EE3');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u00E4')).assertTrue();
+      expect(text.indexOf('\u00E4') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u00CE\u00E4');
+      expect(text.slice(1, 3)).assertEqual('\u00E4\u4EE3');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(text.concat(text)).assertEqual('\u00CE\u00E4\u4EE3\u00CE\u00E4\u4EE3');
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0229
+     * @tc.name      testUnicode0229
+     * @tc.desc      Unicode sequence 229 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testUnicode0229', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const text: string = '\u229F\u2260\u2211';
+      logCase('testUnicode0229', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(8863);
+      expect(text.codePointAt(0)).assertEqual(8863);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(8721);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u2260')).assertTrue();
+      expect(text.indexOf('\u2260') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u229F\u2260');
+      expect(text.slice(1, 3)).assertEqual('\u2260\u2211');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u0039\u002E\u0037\u0033';
+      logCase('testUnicode0230', `len=${text.length}`);
+      expect(text.length).assertEqual(4);
+      expect(text.charCodeAt(0)).assertEqual(57);
+      expect(text.codePointAt(0)).assertEqual(57);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(51);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u0037')).assertTrue();
+      expect(text.indexOf('\u0037') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0039\u002E');
+      expect(text.slice(1, 3)).assertEqual('\u002E\u0037');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0231
+     * @tc.name      testUnicode0231
+     * @tc.desc      Unicode sequence 231 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testUnicode0231', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const text: string = '\u4F60\u597D\u4E16\u754C\uFF01\uD83D\uDE00';
+      logCase('testUnicode0231', `len=${text.length}`);
+      expect(text.length).assertEqual(7);
+      expect(text.charCodeAt(0)).assertEqual(20320);
+      expect(text.codePointAt(0)).assertEqual(20320);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(56832);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u754C')).assertTrue();
+      expect(text.indexOf('\u754C') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u4F60\u597D');
+      expect(text.slice(1, 3)).assertEqual('\u597D\u4E16');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u6F63\u7DE3\u3086';
+      logCase('testUnicode0232', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(28515);
+      expect(text.codePointAt(0)).assertEqual(28515);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(12422);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u7DE3')).assertTrue();
+      expect(text.indexOf('\u7DE3') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u6F63\u7DE3');
+      expect(text.slice(1, 3)).assertEqual('\u7DE3\u3086');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0233
+     * @tc.name      testUnicode0233
+     * @tc.desc      Unicode sequence 233 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testUnicode0233', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const text: string = '\u0441\u043E\u4EE8';
+      logCase('testUnicode0233', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(1089);
+      expect(text.codePointAt(0)).assertEqual(1089);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(20200);
+      expect(text.toUpperCase()).assertEqual('\u0421\u041E\u4EE8');
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u043E')).assertTrue();
+      expect(text.indexOf('\u043E') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0441\u043E');
+      expect(text.slice(1, 3)).assertEqual('\u043E\u4EE8');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u039E\u03B4\u03C9\u4E2D\u6587';
+      logCase('testUnicode0234', `len=${text.length}`);
+      expect(text.length).assertEqual(5);
+      expect(text.charCodeAt(0)).assertEqual(926);
+      expect(text.codePointAt(0)).assertEqual(926);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(25991);
+      expect(text.toUpperCase()).assertEqual('\u039E\u0394\u03A9\u4E2D\u6587');
+      expect(text.toLowerCase()).assertEqual('\u03BE\u03B4\u03C9\u4E2D\u6587');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u03C9')).assertTrue();
+      expect(text.indexOf('\u03C9') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u039E\u03B4');
+      expect(text.slice(1, 3)).assertEqual('\u03B4\u03C9');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(text.concat(text)).assertEqual('\u039E\u03B4\u03C9\u4E2D\u6587\u039E\u03B4\u03C9\u4E2D\u6587');
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0235
+     * @tc.name      testUnicode0235
+     * @tc.desc      Unicode sequence 235 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testUnicode0235', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const text: string = '\u00C6\u00EA\u4EEA';
+      logCase('testUnicode0235', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(198);
+      expect(text.codePointAt(0)).assertEqual(198);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(20202);
+      expect(text.toUpperCase()).assertEqual('\u00C6\u00CA\u4EEA');
+      expect(text.toLowerCase()).assertEqual('\u00E6\u00EA\u4EEA');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u00EA')).assertTrue();
+      expect(text.indexOf('\u00EA') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u00C6\u00EA');
+      expect(text.slice(1, 3)).assertEqual('\u00EA\u4EEA');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u22FA\u2260\u2211';
+      logCase('testUnicode0236', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(8954);
+      expect(text.codePointAt(0)).assertEqual(8954);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(8721);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u2260')).assertTrue();
+      expect(text.indexOf('\u2260') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u22FA\u2260');
+      expect(text.slice(1, 3)).assertEqual('\u2260\u2211');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0237
+     * @tc.name      testUnicode0237
+     * @tc.desc      Unicode sequence 237 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testUnicode0237', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const text: string = '\u0036\u002E\u0038\u0032';
+      logCase('testUnicode0237', `len=${text.length}`);
+      expect(text.length).assertEqual(4);
+      expect(text.charCodeAt(0)).assertEqual(54);
+      expect(text.codePointAt(0)).assertEqual(54);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(50);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u0038')).assertTrue();
+      expect(text.indexOf('\u0038') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0036\u002E');
+      expect(text.slice(1, 3)).assertEqual('\u002E\u0038');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u4F60\u597D\u4E16\u754C\uFF01';
+      logCase('testUnicode0238', `len=${text.length}`);
+      expect(text.length).assertEqual(5);
+      expect(text.charCodeAt(0)).assertEqual(20320);
+      expect(text.codePointAt(0)).assertEqual(20320);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(65281);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u4E16')).assertTrue();
+      expect(text.indexOf('\u4E16') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u4F60\u597D');
+      expect(text.slice(1, 3)).assertEqual('\u597D\u4E16');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0239
+     * @tc.name      testUnicode0239
+     * @tc.desc      Unicode sequence 239 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testUnicode0239', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const text: string = '\u7066\u4F56\u306B';
+      logCase('testUnicode0239', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(28774);
+      expect(text.codePointAt(0)).assertEqual(28774);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(12395);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u4F56')).assertTrue();
+      expect(text.indexOf('\u4F56') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u7066\u4F56');
+      expect(text.slice(1, 3)).assertEqual('\u4F56\u306B');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u0433\u045C\u4EEF';
+      logCase('testUnicode0240', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(1075);
+      expect(text.codePointAt(0)).assertEqual(1075);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(20207);
+      expect(text.toUpperCase()).assertEqual('\u0413\u040C\u4EEF');
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u045C')).assertTrue();
+      expect(text.indexOf('\u045C') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0433\u045C');
+      expect(text.slice(1, 3)).assertEqual('\u045C\u4EEF');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(text.concat(text)).assertEqual('\u0433\u045C\u4EEF\u0433\u045C\u4EEF');
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0241
+     * @tc.name      testUnicode0241
+     * @tc.desc      Unicode sequence 241 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testUnicode0241', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const text: string = '\u0391\u03B1\u03C9';
+      logCase('testUnicode0241', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(913);
+      expect(text.codePointAt(0)).assertEqual(913);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(969);
+      expect(text.toUpperCase()).assertEqual('\u0391\u0391\u03A9');
+      expect(text.toLowerCase()).assertEqual('\u03B1\u03B1\u03C9');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u03B1')).assertTrue();
+      expect(text.indexOf('\u03B1') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0391\u03B1');
+      expect(text.slice(1, 3)).assertEqual('\u03B1\u03C9');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u00DB\u00F0\uD83D\uDE00';
+      logCase('testUnicode0242', `len=${text.length}`);
+      expect(text.length).assertEqual(4);
+      expect(text.charCodeAt(0)).assertEqual(219);
+      expect(text.codePointAt(0)).assertEqual(219);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(56832);
+      expect(text.toUpperCase()).assertEqual('\u00DB\u00D0\uD83D\uDE00');
+      expect(text.toLowerCase()).assertEqual('\u00FB\u00F0\uD83D\uDE00');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\uD83D')).assertTrue();
+      expect(text.indexOf('\uD83D') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u00DB\u00F0');
+      expect(text.slice(1, 3)).assertEqual('\u00F0\uD83D');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0243
+     * @tc.name      testUnicode0243
+     * @tc.desc      Unicode sequence 243 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testUnicode0243', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const text: string = '\u2256\u2260\u2211';
+      logCase('testUnicode0243', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(8790);
+      expect(text.codePointAt(0)).assertEqual(8790);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(8721);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u2260')).assertTrue();
+      expect(text.indexOf('\u2260') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u2256\u2260');
+      expect(text.slice(1, 3)).assertEqual('\u2260\u2211');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u0033\u002E\u0039\u0031';
+      logCase('testUnicode0244', `len=${text.length}`);
+      expect(text.length).assertEqual(4);
+      expect(text.charCodeAt(0)).assertEqual(51);
+      expect(text.codePointAt(0)).assertEqual(51);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(49);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u0039')).assertTrue();
+      expect(text.indexOf('\u0039') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0033\u002E');
+      expect(text.slice(1, 3)).assertEqual('\u002E\u0039');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0245
+     * @tc.name      testUnicode0245
+     * @tc.desc      Unicode sequence 245 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testUnicode0245', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const text: string = '\u4F60\u597D\u4E16\u754C\uFF01';
+      logCase('testUnicode0245', `len=${text.length}`);
+      expect(text.length).assertEqual(5);
+      expect(text.charCodeAt(0)).assertEqual(20320);
+      expect(text.codePointAt(0)).assertEqual(20320);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(65281);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u4E16')).assertTrue();
+      expect(text.indexOf('\u4E16') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u4F60\u597D');
+      expect(text.slice(1, 3)).assertEqual('\u597D\u4E16');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u7169\u50C9\u3050';
+      logCase('testUnicode0246', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(29033);
+      expect(text.codePointAt(0)).assertEqual(29033);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(12368);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u50C9')).assertTrue();
+      expect(text.indexOf('\u50C9') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u7169\u50C9');
+      expect(text.slice(1, 3)).assertEqual('\u50C9\u3050');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(text.concat(text)).assertEqual('\u7169\u50C9\u3050\u7169\u50C9\u3050');
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0247
+     * @tc.name      testUnicode0247
+     * @tc.desc      Unicode sequence 247 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testUnicode0247', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const text: string = '\u0425\u044B\u4E2D\u6587';
+      logCase('testUnicode0247', `len=${text.length}`);
+      expect(text.length).assertEqual(4);
+      expect(text.charCodeAt(0)).assertEqual(1061);
+      expect(text.codePointAt(0)).assertEqual(1061);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(25991);
+      expect(text.toUpperCase()).assertEqual('\u0425\u042B\u4E2D\u6587');
+      expect(text.toLowerCase()).assertEqual('\u0445\u044B\u4E2D\u6587');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u4E2D')).assertTrue();
+      expect(text.indexOf('\u4E2D') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0425\u044B');
+      expect(text.slice(1, 3)).assertEqual('\u044B\u4E2D');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u039C\u03C6\u03C9';
+      logCase('testUnicode0248', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(924);
+      expect(text.codePointAt(0)).assertEqual(924);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(969);
+      expect(text.toUpperCase()).assertEqual('\u039C\u03A6\u03A9');
+      expect(text.toLowerCase()).assertEqual('\u03BC\u03C6\u03C9');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u03C6')).assertTrue();
+      expect(text.indexOf('\u03C6') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u039C\u03C6');
+      expect(text.slice(1, 3)).assertEqual('\u03C6\u03C9');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0249
+     * @tc.name      testUnicode0249
+     * @tc.desc      Unicode sequence 249 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testUnicode0249', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const text: string = '\u00D3\u00F6\u4EF8';
+      logCase('testUnicode0249', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(211);
+      expect(text.codePointAt(0)).assertEqual(211);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(20216);
+      expect(text.toUpperCase()).assertEqual('\u00D3\u00D6\u4EF8');
+      expect(text.toLowerCase()).assertEqual('\u00F3\u00F6\u4EF8');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u00F6')).assertTrue();
+      expect(text.indexOf('\u00F6') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u00D3\u00F6');
+      expect(text.slice(1, 3)).assertEqual('\u00F6\u4EF8');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u22B1\u2260\u2211';
+      logCase('testUnicode0250', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(8881);
+      expect(text.codePointAt(0)).assertEqual(8881);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(8721);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u2260')).assertTrue();
+      expect(text.indexOf('\u2260') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u22B1\u2260');
+      expect(text.slice(1, 3)).assertEqual('\u2260\u2211');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0251
+     * @tc.name      testUnicode0251
+     * @tc.desc      Unicode sequence 251 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testUnicode0251', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const text: string = '\u0030\u002E\u0030\u0030';
+      logCase('testUnicode0251', `len=${text.length}`);
+      expect(text.length).assertEqual(4);
+      expect(text.charCodeAt(0)).assertEqual(48);
+      expect(text.codePointAt(0)).assertEqual(48);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(48);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u0030')).assertTrue();
+      expect(text.indexOf('\u0030') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0030\u002E');
+      expect(text.slice(1, 3)).assertEqual('\u002E\u0030');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u4F60\u597D\u4E16\u754C\uFF01';
+      logCase('testUnicode0252', `len=${text.length}`);
+      expect(text.length).assertEqual(5);
+      expect(text.charCodeAt(0)).assertEqual(20320);
+      expect(text.codePointAt(0)).assertEqual(20320);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(65281);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u4E16')).assertTrue();
+      expect(text.indexOf('\u4E16') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u4F60\u597D');
+      expect(text.slice(1, 3)).assertEqual('\u597D\u4E16');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(text.concat(text)).assertEqual('\u4F60\u597D\u4E16\u754C\uFF01\u4F60\u597D\u4E16\u754C\uFF01');
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0253
+     * @tc.name      testUnicode0253
+     * @tc.desc      Unicode sequence 253 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testUnicode0253', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const text: string = '\u726C\u523C\u3085\uD83D\uDE00';
+      logCase('testUnicode0253', `len=${text.length}`);
+      expect(text.length).assertEqual(5);
+      expect(text.charCodeAt(0)).assertEqual(29292);
+      expect(text.codePointAt(0)).assertEqual(29292);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(56832);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u3085')).assertTrue();
+      expect(text.indexOf('\u3085') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u726C\u523C');
+      expect(text.slice(1, 3)).assertEqual('\u523C\u3085');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u0417\u043A\u4EFD';
+      logCase('testUnicode0254', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(1047);
+      expect(text.codePointAt(0)).assertEqual(1047);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(20221);
+      expect(text.toUpperCase()).assertEqual('\u0417\u041A\u4EFD');
+      expect(text.toLowerCase()).assertEqual('\u0437\u043A\u4EFD');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u043A')).assertTrue();
+      expect(text.indexOf('\u043A') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0417\u043A');
+      expect(text.slice(1, 3)).assertEqual('\u043A\u4EFD');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0255
+     * @tc.name      testUnicode0255
+     * @tc.desc      Unicode sequence 255 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testUnicode0255', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const text: string = '\u03A7\u03C3\u03C9';
+      logCase('testUnicode0255', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(935);
+      expect(text.codePointAt(0)).assertEqual(935);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(969);
+      expect(text.toUpperCase()).assertEqual('\u03A7\u03A3\u03A9');
+      expect(text.toLowerCase()).assertEqual('\u03C7\u03C3\u03C9');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u03C3')).assertTrue();
+      expect(text.indexOf('\u03C3') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u03A7\u03C3');
+      expect(text.slice(1, 3)).assertEqual('\u03C3\u03C9');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u00CB\u00FC\u4EFF';
+      logCase('testUnicode0256', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(203);
+      expect(text.codePointAt(0)).assertEqual(203);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(20223);
+      expect(text.toUpperCase()).assertEqual('\u00CB\u00DC\u4EFF');
+      expect(text.toLowerCase()).assertEqual('\u00EB\u00FC\u4EFF');
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u00FC')).assertTrue();
+      expect(text.indexOf('\u00FC') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u00CB\u00FC');
+      expect(text.slice(1, 3)).assertEqual('\u00FC\u4EFF');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0257
+     * @tc.name      testUnicode0257
+     * @tc.desc      Unicode sequence 257 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testUnicode0257', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const text: string = '\u220D\u2260\u2211';
+      logCase('testUnicode0257', `len=${text.length}`);
+      expect(text.length).assertEqual(3);
+      expect(text.charCodeAt(0)).assertEqual(8717);
+      expect(text.codePointAt(0)).assertEqual(8717);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(8721);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u2260')).assertTrue();
+      expect(text.indexOf('\u2260') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u220D\u2260');
+      expect(text.slice(1, 3)).assertEqual('\u2260\u2211');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(decodeURIComponent(encodeURIComponent(text))).assertEqual(text);
+      {
+      const text: string = '\u0037\u002E\u0031\u0039';
+      logCase('testUnicode0258', `len=${text.length}`);
+      expect(text.length).assertEqual(4);
+      expect(text.charCodeAt(0)).assertEqual(55);
+      expect(text.codePointAt(0)).assertEqual(55);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(57);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u0031')).assertTrue();
+      expect(text.indexOf('\u0031') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u0037\u002E');
+      expect(text.slice(1, 3)).assertEqual('\u002E\u0031');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      expect(text.concat(text)).assertEqual('\u0037\u002E\u0031\u0039\u0037\u002E\u0031\u0039');
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_UNICODE_0259
+     * @tc.name      testUnicode0259
+     * @tc.desc      Unicode sequence 259 keeps its UTF-16 contract
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testUnicode0259', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const text: string = '\u4F60\u597D\u4E16\u754C\uFF01';
+      logCase('testUnicode0259', `len=${text.length}`);
+      expect(text.length).assertEqual(5);
+      expect(text.charCodeAt(0)).assertEqual(20320);
+      expect(text.codePointAt(0)).assertEqual(20320);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(65281);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u4E16')).assertTrue();
+      expect(text.indexOf('\u4E16') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u4F60\u597D');
+      expect(text.slice(1, 3)).assertEqual('\u597D\u4E16');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      {
+      const text: string = '\u736F\u53AF\u306A\u4E2D\u6587';
+      logCase('testUnicode0260', `len=${text.length}`);
+      expect(text.length).assertEqual(5);
+      expect(text.charCodeAt(0)).assertEqual(29551);
+      expect(text.codePointAt(0)).assertEqual(29551);
+      expect(text.charCodeAt(text.length - 1)).assertEqual(25991);
+      expect(text.toUpperCase()).assertEqual(text);
+      expect(text.toLowerCase()).assertEqual(text);
+      expect(JSON.stringify(JSON.parse(JSON.stringify(text)))).assertEqual(JSON.stringify(text));
+      expect(text.includes('\u306A')).assertTrue();
+      expect(text.indexOf('\u306A') >= 0).assertTrue();
+      expect(text.slice(0, 2)).assertEqual('\u736F\u53AF');
+      expect(text.slice(1, 3)).assertEqual('\u53AF\u306A');
+      expect(text.repeat(2)).assertEqual(text + text);
+      expect(text.repeat(0)).assertEqual('');
+      expect(text.padStart(text.length + 3, '=')).assertEqual('===' + text);
+      expect(text.trim()).assertEqual(text);
+      expect(encodeURIComponent(text).length >= text.length).assertTrue();
+      }
+    });
+
+  });
+}
+
