@@ -1,7 +1,3 @@
-import { StyleConfiguration } from '../common/Configuration';
-import { MenuType } from '../model/MenuType';
-import { CommonSubTabs } from './CommonSubTabs';
-
 /*
  * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,9 +13,14 @@ import { CommonSubTabs } from './CommonSubTabs';
  * limitations under the License.
  */
 
+import { StyleConfiguration } from '../common/Configuration';
+import { BreakpointKey, DimenText } from '../common/Constants';
+import { MenuType } from '../model/MenuType';
+import { CommonSubTabs } from './CommonSubTabs';
+
 @Component
 export struct CommonMainTabs {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
+  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
   @Link currentMainIndex: number;
   @Link currentSubIndex: number;
   mainTabsController: TabsController = new TabsController();
@@ -44,7 +45,7 @@ export struct CommonMainTabs {
           TabContent()
         }
       }, (item: MenuType) => JSON.stringify(item))
-    }.scrollable(false).barHeight(0).width('100%').onChange((index: number) => {
+    }.scrollable(false).barHeight(0).width(DimenText.FULL).onChange((index: number) => {
       this.currentMainIndex = index;
     })
   }

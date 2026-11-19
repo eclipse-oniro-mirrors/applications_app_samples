@@ -2,47 +2,47 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "Multi-device nav bar sample module"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "Multi-device nav bar sample"
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "Multi-device Nav Bar"
     },
     {
       "name": "install",
-      "value": "安装"
+      "value": "Install"
     },
     {
       "name": "excellentGame",
-      "value": "精品游戏"
+      "value": "Top Games"
     },
     {
       "name": "excellentApp",
-      "value": "精品应用"
+      "value": "Top Apps"
     },
     {
       "name": "more",
-      "value": "更多"
+      "value": "More"
     },
     {
       "name": "category",
-      "value": "分类"
+      "value": "Categories"
     },
     {
       "name": "quickApp",
-      "value": "快应用"
+      "value": "Quick Apps"
     },
     {
       "name": "garden",
-      "value": "小花园"
+      "value": "Little Garden"
     },
     {
       "name": "education",
-      "value": "教育中心"
+      "value": "Education Center"
     },
     {
       "name": "double",
@@ -50,15 +50,15 @@
     },
     {
       "name": "photoEditing",
-      "value": "照片编辑"
+      "value": "Photo Editing"
     },
     {
       "name": "mathematicsSquare",
-      "value": "数学广场"
+      "value": "Math Square"
     },
     {
       "name": "carefree",
-      "value": "心旷神怡"
+      "value": "Carefree"
     },
     {
       "name": "explorer",
@@ -66,75 +66,87 @@
     },
     {
       "name": "romance",
-      "value": "三国演义"
+      "value": "Romance of the Three Kingdoms"
     },
     {
       "name": "dreaming",
-      "value": "做梦的你"
+      "value": "Dreaming of You"
     },
     {
       "name": "ambush",
-      "value": "十面埋伏"
+      "value": "Ambush from Ten Sides"
     },
     {
       "name": "search",
-      "value": "搜索..."
+      "value": "Search..."
     },
     {
-      "name": "nullString",
-      "value": " "
+      "name": "emptyString",
+      "value": ""
     },
     {
       "name": "index",
-      "value": "首页"
+      "value": "Home"
     },
     {
       "name": "recommend",
-      "value": "推荐"
+      "value": "Recommend"
     },
     {
       "name": "appList",
-      "value": "应用榜"
+      "value": "App Ranking"
     },
     {
       "name": "gameList",
-      "value": "游戏榜"
+      "value": "Game Ranking"
     },
     {
       "name": "app",
-      "value": "应用"
+      "value": "Apps"
     },
     {
       "name": "video",
-      "value": "影音"
+      "value": "Video"
     },
     {
       "name": "shopping",
-      "value": "购物"
+      "value": "Shopping"
     },
     {
       "name": "game",
-      "value": "游戏"
+      "value": "Games"
     },
     {
       "name": "rank",
-      "value": "排行"
+      "value": "Ranking"
     },
     {
       "name": "explore",
-      "value": "探索"
+      "value": "Explore"
     },
     {
       "name": "discovery",
-      "value": "今日发现"
+      "value": "Today's Discovery"
     },
     {
       "name": "hot",
-      "value": "热门专题"
+      "value": "Hot Topics"
     },
     {
       "name": "mine",
-      "value": "我的"
+      "value": "Mine"
+    },
+    {
+      "name": "accountTitle",
+      "value": "Account"
+    },
+    {
+      "name": "accountNumber",
+      "value": "139******43"
+    },
+    {
+      "name": "toolMenuItem",
+      "value": "Menu%d"
     }
   ]
 }

@@ -13,10 +13,11 @@
  * limitations under the License.
  */
 
-export interface  MenuType {
+export interface MenuType {
   name: Resource;
   icon?: Resource;
   subController?: TabsController;
+  // 字段名沿用存量下划线写法，已有数十处用例按此名断言，改名收益低于改动成本，故保留。
   subController_sm?: TabsController;
   subTitleList?: MenuType[];
   menuContent?: string;

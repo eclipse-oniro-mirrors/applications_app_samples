@@ -15,6 +15,18 @@
 
 import { BreakpointType } from '../common/BreakpointSystem';
 import { StyleConfiguration } from '../common/Configuration';
+import {
+  BreakpointKey,
+  Color,
+  Dimen,
+  DimenText,
+  FontSize,
+  GridColumns,
+  ListSpacing,
+  Radius,
+  Spacing,
+  SwiperConfig
+} from '../common/Constants';
 
 class ItemType {
   name: Resource;
@@ -28,7 +40,7 @@ class ItemType {
 
 @Component
 export struct RecommendationList {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
+  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
   @State bannerList: Resource[] = [
   $r('app.media.ic_public_swiper1'),
   $r('app.media.ic_public_swiper2'),
@@ -70,35 +82,38 @@ export struct RecommendationList {
   Banner() {
     Swiper() {
       ForEach(this.bannerList, (item: Resource) => {
-        Image(item).width('100%').height('100%').borderRadius(10)
-          .backgroundColor('#7fD8D8D8')
+        Image(item).width(DimenText.FULL).height(DimenText.FULL).borderRadius(Radius.MD)
+          .backgroundColor(Color.IMAGE_PLACEHOLDER)
       })
     }
-    .cachedCount(3)
-    .itemSpace(8)
-    .displayCount(new BreakpointType(1, 2, 3).GetValue(this.currentBreakpoint))
+    .cachedCount(SwiperConfig.CACHED_COUNT)
+    .itemSpace(SwiperConfig.ITEM_SPACE)
+    .displayCount(new BreakpointType(SwiperConfig.DISPLAY_COUNT_SM, SwiperConfig.DISPLAY_COUNT_MD,
+      SwiperConfig.DISPLAY_COUNT_LG).GetValue(this.currentBreakpoint))
     .indicator(new BreakpointType(true, false, false).GetValue(this.currentBreakpoint))
-    .indicatorStyle({ selectedColor: '#fff' })
+    .indicatorStyle({ selectedColor: Color.CONTENT_BACKGROUND })
     .loop(true)
     .height(StyleConfiguration.getBreakpointStyle(this.currentBreakpoint).recommendCompGridItemHeight)
   }
 
   @Builder
   ApplicationList(data: ItemType[]) {
-    List({ space: new BreakpointType(20, 32, 36).GetValue(this.currentBreakpoint) }) {
+    List({
+      space: new BreakpointType(ListSpacing.SM, ListSpacing.MD, ListSpacing.LG).GetValue(this.currentBreakpoint)
+    }) {
       ForEach(data, (item: ItemType) => {
         ListItem() {
           Column() {
-            Image(item.src).width(56).height(56)
-            Text(item.name).fontSize(12).margin({ top: 8 })
+            Image(item.src).width(Dimen.APP_ICON).height(Dimen.APP_ICON)
+            Text(item.name).fontSize(FontSize.CAPTION).margin({ top: Spacing.SM })
             Button($r('app.string.install'))
-              .fontSize(12)
-              .fontColor('#0a59f7')
-              .backgroundColor('#0c000000')
+              .fontSize(FontSize.CAPTION)
+              .fontColor(Color.PRIMARY)
+              .backgroundColor(Color.BUTTON_BACKGROUND)
               .fontWeight(FontWeight.Medium)
-              .width(56)
-              .height(28)
-              .margin({ top: 7 })
+              .width(Dimen.INSTALL_BUTTON_WIDTH)
+              .height(Dimen.INSTALL_BUTTON_HEIGHT)
+              .margin({ top: Spacing.XS })
           }
         }
       })
@@ -108,59 +123,59 @@ export struct RecommendationList {
   @Builder
   ApplicationType(desc: Resource) {
     Row() {
-      Text(desc).fontSize(16).fontWeight(FontWeight.Medium)
+      Text(desc).fontSize(FontSize.SECTION_TITLE).fontWeight(FontWeight.Medium)
       Blank()
-      Text($r('app.string.more')).fontSize(14).fontWeight(FontWeight.Regular)
-      Image($r('app.media.ic_settings_arrow')).width(12).height(24)
+      Text($r('app.string.more')).fontSize(FontSize.BODY).fontWeight(FontWeight.Regular)
+      Image($r('app.media.ic_settings_arrow')).width(Dimen.ARROW_ICON_WIDTH).height(Dimen.ICON)
     }
-    .width('100%')
-    .height(48)
-    .margin({ top: 4 })
+    .width(DimenText.FULL)
+    .height(Dimen.LIST_ITEM_HEIGHT)
+    .margin({ top: Spacing.XXS })
   }
 
   build() {
     Scroll() {
-      GridRow({ columns: { sm: 4, md: 8, lg: 12 } }) {
-        GridCol({ span: { sm: 4, md: 8, lg: 12 } }) {
+      GridRow({ columns: GridColumns.RECOMMEND }) {
+        GridCol({ span: GridColumns.RECOMMEND }) {
           this.Banner()
         }
 
-        GridCol({ span: { sm: 4, md: 8, lg: 12 } }) {
+        GridCol({ span: GridColumns.RECOMMEND }) {
           Flex({ justifyContent: FlexAlign.SpaceAround, alignItems: ItemAlign.Center }) {
             ForEach(this.gridList, (item: ItemType) => {
               Column() {
-                Image(item.src).width(40).height(40)
-                Text(item.name).fontSize(12).fontWeight(FontWeight.Regular).margin({ top: 4 })
+                Image(item.src).width(Dimen.ICON_LARGE).height(Dimen.ICON_LARGE)
+                Text(item.name).fontSize(FontSize.CAPTION).fontWeight(FontWeight.Regular).margin({ top: Spacing.XXS })
               }
             })
-          }.height(72).margin({ top: 12.5 })
+          }.height(Dimen.GRID_ROW_HEIGHT).margin({ top: Dimen.GRID_ROW_MARGIN_TOP })
         }
 
 
-        GridCol({ span: { sm: 4, md: 8, lg: 12 } }) {
+        GridCol({ span: GridColumns.RECOMMEND }) {
           this.ApplicationType($r('app.string.excellentGame'))
         }
 
-        GridCol({ span: { sm: 4, md: 8, lg: 12 } }) {
+        GridCol({ span: GridColumns.RECOMMEND }) {
           this.ApplicationList(this.appIconList)
         }
 
-        GridCol({ span: { sm: 4, md: 8, lg: 12 } }) {
+        GridCol({ span: GridColumns.RECOMMEND }) {
           this.ApplicationType($r('app.string.excellentApp'))
-        }.margin({ top: 4 })
+        }.margin({ top: Spacing.XXS })
 
-        GridCol({ span: { sm: 4, md: 8, lg: 12 } }) {
+        GridCol({ span: GridColumns.RECOMMEND }) {
           this.ApplicationList(this.gameIconList)
         }
 
-        GridCol({ span: { sm: 4, md: 8, lg: 12 } }) {
+        GridCol({ span: GridColumns.RECOMMEND }) {
           this.ApplicationType($r('app.string.excellentGame'))
-        }.margin({ top: 4 })
+        }.margin({ top: Spacing.XXS })
 
-        GridCol({ span: { sm: 4, md: 8, lg: 12 } }) {
+        GridCol({ span: GridColumns.RECOMMEND }) {
           this.Banner()
-        }.margin({ top: 4 }).layoutWeight(1)
+        }.margin({ top: Spacing.XXS }).layoutWeight(1)
       }
-    }.scrollBar(BarState.Off).padding({ bottom: 12 })
+    }.scrollBar(BarState.Off).padding({ bottom: Dimen.CONTENT_MARGIN_BOTTOM })
   }
 }

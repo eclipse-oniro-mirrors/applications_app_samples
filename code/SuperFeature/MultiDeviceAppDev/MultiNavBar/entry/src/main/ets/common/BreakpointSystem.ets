@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import { BreakpointKey, SideBarModeKey } from './Constants';
+
 export class BreakpointType<T> {
   sm: T;
   md: T;
@@ -25,13 +27,13 @@ export class BreakpointType<T> {
   }
 
   GetValue(currentBreakpoint: string): T | undefined {
-    if (currentBreakpoint === 'sm') {
+    if (currentBreakpoint === BreakpointKey.SM) {
       return this.sm;
     }
-    if (currentBreakpoint === 'md') {
+    if (currentBreakpoint === BreakpointKey.MD) {
       return this.md;
     }
-    if (currentBreakpoint === 'lg') {
+    if (currentBreakpoint === BreakpointKey.LG) {
       return this.lg;
     }
     return undefined;
@@ -48,10 +50,10 @@ export class SideBarMode<T> {
   }
 
   GetValue(currentSideBarMode: string): T | undefined {
-    if (currentSideBarMode === 'list') {
+    if (currentSideBarMode === SideBarModeKey.LIST) {
       return this.list;
     }
-    if (currentSideBarMode === 'tabs') {
+    if (currentSideBarMode === SideBarModeKey.TABS) {
       return this.tabs;
     }
     return undefined;

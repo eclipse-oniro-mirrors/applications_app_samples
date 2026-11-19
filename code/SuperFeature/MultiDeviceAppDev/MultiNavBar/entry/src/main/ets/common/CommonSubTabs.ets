@@ -15,17 +15,18 @@
 
 import { BreakpointType } from '../common/BreakpointSystem';
 import { StyleConfiguration } from '../common/Configuration';
+import { BreakpointKey, Dimen, DimenText, FontSize, SideBarModeKey } from '../common/Constants';
 import { MenuType } from '../model/MenuType';
 import { RecommendationList } from './RecommendationList';
 import { SearchModule, SecondaryMenu } from './SideBarController';
 
 @Component
 export struct CommonSubTabs {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
+  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
   @Link currentSubIndex: number;
   subTabsController: TabsController = new TabsController();
   subTabsContentList: MenuType[] = new Array();
-  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = 'tabs';
+  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = SideBarModeKey.TABS;
 
   subControllerChangeIndex(subController: TabsController, index: number) {
     subController.changeIndex(index);
@@ -41,12 +42,13 @@ export struct CommonSubTabs {
             changeIndex: this.subControllerChangeIndex,
             tabsController: this.subTabsController,
             currentSubIndex: $currentSubIndex
-          }).height(56)
-        }.width('100%')
+          }).height(Dimen.NAV_ROW_HEIGHT)
+        }.width(DimenText.FULL)
       }
 
       SearchModule()
-        .visibility(new BreakpointType(true, false, false).GetValue(this.currentBreakpoint) ? Visibility.Visible : Visibility.None)
+        .visibility(new BreakpointType(true, false, false).GetValue(this.currentBreakpoint) ? Visibility.Visible :
+        Visibility.None)
 
       Tabs({ barPosition: BarPosition.Start, controller: this.subTabsController, index: this.currentSubIndex }) {
         ForEach(this.subTabsContentList, (item: MenuType, index: number) => {
@@ -62,7 +64,7 @@ export struct CommonSubTabs {
                   .layoutWeight(1)
                   .margin(StyleConfiguration.getBreakpointStyle(this.currentBreakpoint)
                     .recommendCompMargin)
-              }.height('100%').width('100%')
+              }.height(DimenText.FULL).width(DimenText.FULL)
             }
           } else {
             TabContent()
@@ -75,7 +77,7 @@ export struct CommonSubTabs {
       .onChange((index: number) => {
         this.currentSubIndex = index;
       })
-      .width('100%')
+      .width(DimenText.FULL)
     }
   }
 }
@@ -83,15 +85,15 @@ export struct CommonSubTabs {
 @Component
 struct SubTabsContentTitle {
   subTabsTitleName: Resource = $r('app.string.recommend');
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
+  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
 
   build() {
     Row() {
       Text(this.subTabsTitleName)
-        .fontSize(20)
+        .fontSize(FontSize.PAGE_TITLE)
         .fontWeight(FontWeight.Medium)
     }
-    .width('100%')
-    .height(56)
+    .width(DimenText.FULL)
+    .height(Dimen.NAV_ROW_HEIGHT)
   }
 }

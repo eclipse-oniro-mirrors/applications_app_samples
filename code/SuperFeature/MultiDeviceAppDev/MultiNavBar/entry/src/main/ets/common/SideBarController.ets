@@ -15,13 +15,26 @@
 
 import { BreakpointType, SideBarMode } from '../common/BreakpointSystem';
 import { StyleConfiguration } from '../common/Configuration';
+import {
+  BreakpointKey,
+  Color,
+  ComponentId,
+  Dimen,
+  DimenText,
+  DurationMs,
+  FontSize,
+  Radius,
+  SideBarModeKey,
+  Spacing,
+  Threshold
+} from '../common/Constants';
 import { MenuType } from '../model/MenuType';
 import { sideListData } from '../model/SideListData';
 
 @Component
 export struct SideBarController {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
-  @LocalStorageLink("currentSideBarMode") currentSideBarMode: string = 'list';
+  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageLink("currentSideBarMode") currentSideBarMode: string = SideBarModeKey.TABS;
   @Link currentSubIndex: number;
   @Link currentMainIndex: number;
   mainController: TabsController = new TabsController();
@@ -32,17 +45,19 @@ export struct SideBarController {
         if (new BreakpointType(false, true, true).GetValue(this.currentBreakpoint)) {
           Row() {
             Image($r('app.media.ic_public_drawer'))
-              .width(24)
-              .height(24)
-              .margin({ top: 41, left: new SideBarMode(0, 24).GetValue(this.currentSideBarMode) })
-              .id('switchButton')
+              .width(Dimen.ICON)
+              .height(Dimen.ICON)
+              .margin({ top: Dimen.DRAWER_ICON_MARGIN_TOP, left: new SideBarMode(0, Spacing.LG)
+                .GetValue(this.currentSideBarMode) })
+              .id(ComponentId.SWITCH_BUTTON)
               .onClick(() => {
-                animateTo({ duration: 300 }, () => {
-                  this.currentSideBarMode = this.currentSideBarMode === 'tabs' ? 'list' : 'tabs';
+                animateTo({ duration: DurationMs.ANIMATION }, () => {
+                  this.currentSideBarMode = this.currentSideBarMode === SideBarModeKey.TABS ?
+                  SideBarModeKey.LIST : SideBarModeKey.TABS;
                 })
               })
           }
-          .width('100%')
+          .width(DimenText.FULL)
           .justifyContent(new SideBarMode(FlexAlign.Center, FlexAlign.Start).GetValue(this.currentSideBarMode))
         }
 
@@ -55,15 +70,15 @@ export struct SideBarController {
         if (new BreakpointType(false, true, true).GetValue(this.currentBreakpoint)) {
           FootBarTools()
         }
-      }.height('100%').backgroundColor('#f1f3f5')
+      }.height(DimenText.FULL).backgroundColor(Color.PAGE_BACKGROUND)
     }.scrollBar(BarState.Off)
   }
 }
 
 @Component
 struct AccountInfo {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
-  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = 'list';
+  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = SideBarModeKey.TABS;
 
   build() {
     Row() {
@@ -71,50 +86,55 @@ struct AccountInfo {
         .width($r('app.float.icon_size'))
         .height($r(
           'app.float.icon_size'))
-      if (this.currentSideBarMode === 'tabs') {
+      if (this.currentSideBarMode === SideBarModeKey.TABS) {
         Column() {
-          Text('User account')
-            .fontSize(16)
+          Text($r('app.string.accountTitle'))
+            .id(ComponentId.ACCOUNT_TITLE)
+            .fontSize(FontSize.SECTION_TITLE)
             .fontWeight(FontWeight.Medium)
-            .fontColor('#E5000000')
-          Text('139******43')
-            .fontSize(16)
+            .fontColor(Color.TEXT_PRIMARY)
+          Text($r('app.string.accountNumber'))
+            .id(ComponentId.ACCOUNT_NUMBER)
+            .fontSize(FontSize.SECTION_TITLE)
             .fontWeight(FontWeight.Medium)
-            .fontColor('#E5000000')
+            .fontColor(Color.TEXT_PRIMARY)
         }
         .transition({ type: TransitionType.All, opacity: 0 })
         .justifyContent(FlexAlign.SpaceAround)
         .alignItems(HorizontalAlign.Start)
         .layoutWeight(1)
-        .margin({ left: 12 })
+        .margin({ left: Spacing.MD })
       }
-    }.height(48).margin({ left: new SideBarMode(0, 12).GetValue(this.currentSideBarMode) })
+    }.height(Dimen.LIST_ITEM_HEIGHT).margin({ left: new SideBarMode(0, Spacing.MD).GetValue(this.currentSideBarMode) })
   }
 }
 
 
 @Component
 export struct SearchModule {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
-  @LocalStorageLink("currentSideBarMode") @Watch('onCurrentSideBarModeChange') currentSideBarMode: string = 'list';
-  @State searchCompWidth: number | string = '100%';
+  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageLink("currentSideBarMode") @Watch('onCurrentSideBarModeChange')
+  currentSideBarMode: string = SideBarModeKey.TABS;
+  @State searchCompWidth: number | string = DimenText.FULL;
   controller: SearchController = new SearchController();
   @State searchFocusAble: boolean = true;
   @State placeholderText: Resource = $r('app.string.search');
 
   aboutToAppear() {
-    if (this.currentSideBarMode === 'list') {
-      this.searchCompWidth = 40;
-      this.placeholderText = $r('app.string.nullString');
+    if (this.currentSideBarMode === SideBarModeKey.LIST) {
+      this.searchCompWidth = Dimen.SEARCH_COLLAPSED_WIDTH;
+      this.placeholderText = $r('app.string.emptyString');
     }
   }
 
   onCurrentSideBarModeChange() {
-    animateTo({ duration: 300, onFinish: () => {
-      this.searchFocusAble = this.currentSideBarMode === 'tabs' ? true : false;
+    animateTo({ duration: DurationMs.ANIMATION, onFinish: () => {
+      this.searchFocusAble = this.currentSideBarMode === SideBarModeKey.TABS ? true : false;
     } }, () => {
-      this.searchCompWidth = this.searchCompWidth === '100%' ? 40 : '100%';
-      this.placeholderText = this.searchCompWidth === 40 ? $r('app.string.nullString') : $r('app.string.search');
+      this.searchCompWidth = this.searchCompWidth === DimenText.FULL ?
+      Dimen.SEARCH_COLLAPSED_WIDTH : DimenText.FULL;
+      this.placeholderText = this.searchCompWidth === Dimen.SEARCH_COLLAPSED_WIDTH ?
+      $r('app.string.emptyString') : $r('app.string.search');
     })
   }
 
@@ -124,30 +144,31 @@ export struct SearchModule {
         placeholder: new BreakpointType($r('app.string.search'), this.placeholderText, this.placeholderText).GetValue(this.currentBreakpoint),
       })
         .focusable(this.searchFocusAble)
-        .width('100%')
-        .height(40)
-        .id('searchButton')
+        .width(DimenText.FULL)
+        .height(Dimen.SEARCH_HEIGHT)
+        .id(ComponentId.SEARCH_BUTTON)
         .onTouch((event: TouchEvent) => {
-          animateTo({ duration: 300 }, () => {
-            if (event.type === TouchType.Up && this.currentSideBarMode === 'list') {
-              this.currentSideBarMode = 'tabs';
+          animateTo({ duration: DurationMs.ANIMATION }, () => {
+            if (event.type === TouchType.Up && this.currentSideBarMode === SideBarModeKey.LIST) {
+              this.currentSideBarMode = SideBarModeKey.TABS;
             }
           })
         })
-        .backgroundColor('#fff')
+        .backgroundColor(Color.CONTENT_BACKGROUND)
     }
-    .width(new BreakpointType('100%', this.searchCompWidth, this.searchCompWidth).GetValue(this.currentBreakpoint))
-    .height(56)
+    .width(new BreakpointType(DimenText.FULL, this.searchCompWidth, this.searchCompWidth)
+      .GetValue(this.currentBreakpoint))
+    .height(Dimen.NAV_ROW_HEIGHT)
     .padding(StyleConfiguration.getSubTabsControllerStyle(this.currentBreakpoint, this.currentSideBarMode)
       .searchModulePadding)
-    .margin({ bottom: 8 })
+    .margin({ bottom: Spacing.SM })
   }
 }
 
 @Component
 export struct SideBarPrimaryNavigation {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
-  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = 'list';
+  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = SideBarModeKey.TABS;
   @State sideListData: MenuType[] = sideListData;
   mainController: TabsController = new TabsController();
   @Link currentSubIndex: number;
@@ -172,7 +193,7 @@ export struct SideBarPrimaryNavigation {
 
       ForEach(this.sideListData, (item: MenuType, index: number) => {
         ListItem() {
-          if (this.currentBreakpoint !== 'sm' && index === this.sideListData.length - 1) {
+          if (this.currentBreakpoint !== BreakpointKey.SM && index === this.sideListData.length - 1) {
 
           } else {
             Column() {
@@ -196,9 +217,9 @@ export struct SideBarPrimaryNavigation {
     .padding(StyleConfiguration.getSubTabsControllerStyle(this.currentBreakpoint, this.currentSideBarMode)
       .sideBarPrimaryNavListPadding)
     .height(StyleConfiguration.getBreakpointStyle(this.currentBreakpoint).sideBarPrimaryNavListHeight)
-    .backgroundColor('#f1f3f5')
+    .backgroundColor(Color.PAGE_BACKGROUND)
     .listDirection(new BreakpointType(Axis.Horizontal, Axis.Vertical, Axis.Vertical).GetValue(this.currentBreakpoint))
-    .width('100%')
+    .width(DimenText.FULL)
     .alignListItem(ListItemAlign.Center)
   }
 }
@@ -206,13 +227,13 @@ export struct SideBarPrimaryNavigation {
 
 @Component
 export struct PrimaryMenu {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
-  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = 'list';
+  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = SideBarModeKey.TABS;
   @Link currentSubIndex: number;
   @Link currentMainIndex: number;
   sideTitleName: Resource = $r('app.string.index');
   subTitleNameList: MenuType[] = new Array();
-  changeIndex: Function = () => {
+  changeIndex: (controller: TabsController, index: number) => void = () => {
   };
   tabsController: TabsController = new TabsController();
   mainTabsController: TabsController = new TabsController();
@@ -227,14 +248,15 @@ export struct PrimaryMenu {
   $r('app.media.ic_mine_actived'),
   ];
 
-  getSelectColor() {
-    if (this.index === 0 && (this.index !== this.currentMainIndex || this.currentSideBarMode === 'tabs')) {
-      return '#66000000';
-    } else if (this.currentSideBarMode === 'tabs') {
-      return '';
+  getSelectColor(): string {
+    if (this.index === 0 && (this.index !== this.currentMainIndex ||
+      this.currentSideBarMode === SideBarModeKey.TABS)) {
+      return Color.ICON_MUTED;
+    } else if (this.currentSideBarMode === SideBarModeKey.TABS) {
+      return DimenText.EMPTY;
     } else {
       return StyleConfiguration.getCurrentMainTabsStyle(this.index, this.currentMainIndex, this.currentBreakpoint)
-        .fillColor;
+        .fillColor ?? DimenText.EMPTY;
     }
   }
 
@@ -244,30 +266,34 @@ export struct PrimaryMenu {
         Flex({ direction: FlexDirection.Column, justifyContent: FlexAlign.Center, alignItems: ItemAlign.Start }) {
           Flex({
             direction: this.isItemWrap ? FlexDirection.Column : new BreakpointType(FlexDirection.Row, FlexDirection.Row,
-              this.currentSideBarMode === 'list' ? FlexDirection.Column : FlexDirection.Row)
+              this.currentSideBarMode === SideBarModeKey.LIST ? FlexDirection.Column : FlexDirection.Row)
               .GetValue(this.currentBreakpoint),
             justifyContent: StyleConfiguration.getSubTabsControllerStyle(this.currentBreakpoint, this.currentSideBarMode)
               .sideBarPrimaryMenuFlexAlign,
             alignItems: ItemAlign.Center,
             alignContent: new BreakpointType(FlexAlign.Start, FlexAlign.Start, FlexAlign.Center).GetValue(this.currentBreakpoint),
           }) {
-            Image((this.index === this.currentMainIndex) && (this.currentSideBarMode === 'list' || this.currentBreakpoint === 'sm') ? this.iconList[this.index] : this.icon)
-              .width(24)
-              .height(24)
+            Image((this.index === this.currentMainIndex) &&
+              (this.currentSideBarMode === SideBarModeKey.LIST || this.currentBreakpoint === BreakpointKey.SM) ?
+              this.iconList[this.index] : this.icon)
+              .width(Dimen.ICON)
+              .height(Dimen.ICON)
               .fillColor(this.getSelectColor())
               .margin(this.isItemWrap ? StyleConfiguration.getBreakpointStyle(this.currentBreakpoint)
                 .sideBarPrimaryMenuImgMargin : 0)
-            if (this.currentSideBarMode === 'tabs' || (this.currentBreakpoint !== 'md' && this.currentSideBarMode === 'list')) {
+            if (this.currentSideBarMode === SideBarModeKey.TABS ||
+              (this.currentBreakpoint !== BreakpointKey.MD && this.currentSideBarMode === SideBarModeKey.LIST)) {
               Text(this.sideTitleName)
-                .fontColor(this.currentSideBarMode === 'tabs' ? '#182431' : StyleConfiguration
+                .fontColor(this.currentSideBarMode === SideBarModeKey.TABS ? Color.TEXT_SECONDARY :
+                StyleConfiguration
                   .getCurrentMainTabsStyle(this.index, this.currentMainIndex, this.currentBreakpoint)
                   .fontColor as ResourceColor)
                 .fontSize(StyleConfiguration.getBreakpointStyle(this.currentBreakpoint).sideBarPrimaryMenuTextSize)
                 .height(StyleConfiguration.getBreakpointStyle(this.currentBreakpoint).sideBarPrimaryMenuTextHeight)
                 .fontWeight(FontWeight.Medium)
-                .margin(this.currentBreakpoint === 'sm' && !this.isItemWrap ?
+                .margin(this.currentBreakpoint === BreakpointKey.SM && !this.isItemWrap ?
                   {
-                    left: 4
+                    left: Spacing.XXS
                   } : StyleConfiguration.getSubTabsControllerStyle(this.currentBreakpoint, this.currentSideBarMode)
                   .sideBarPrimaryMenuTextMargin)
                 .textAlign(StyleConfiguration.getSubTabsControllerStyle(this.currentBreakpoint, this.currentSideBarMode)
@@ -276,20 +302,20 @@ export struct PrimaryMenu {
             }
           }
           .onClick(() => {
-            animateTo({ duration: 300 }, () => {
+            animateTo({ duration: DurationMs.ANIMATION }, () => {
               this.currentMainIndex = this.index;
               this.currentSubIndex = 0;
               this.mainTabsController.changeIndex(this.index);
             })
           })
-          .width('100%')
-          .height(new BreakpointType(56, 40,
-            this.currentSideBarMode === 'list' ? 56 : 40)
+          .width(DimenText.FULL)
+          .height(new BreakpointType(Dimen.NAV_ROW_HEIGHT, Dimen.NAV_ROW_HEIGHT_COMPACT,
+            this.currentSideBarMode === SideBarModeKey.LIST ? Dimen.NAV_ROW_HEIGHT : Dimen.NAV_ROW_HEIGHT_COMPACT)
             .GetValue(this.currentBreakpoint))
           .padding(StyleConfiguration.getSubTabsControllerStyle(this.currentBreakpoint, this.currentSideBarMode)
             .sideBarPrimaryMenuListPadding)
           .onAreaChange((oldVal, newVal) => {
-            if (newVal.width > 104) {
+            if (newVal.width > Threshold.MENU_WRAP_WIDTH) {
               this.isItemWrap = false;
             } else {
               this.isItemWrap = true;
@@ -299,7 +325,7 @@ export struct PrimaryMenu {
 
           if (this.currentMainIndex === this.index
             && new BreakpointType(false, true, true).GetValue(this.currentBreakpoint)
-            && this.currentSideBarMode === 'tabs') {
+            && this.currentSideBarMode === SideBarModeKey.TABS) {
             SecondaryMenu({
               subTitleNameList: this.subTitleNameList,
               changeIndex: this.changeIndex,
@@ -309,19 +335,20 @@ export struct PrimaryMenu {
           }
         }
       }
-      .alignItems(new BreakpointType(HorizontalAlign.Center, HorizontalAlign.Start, HorizontalAlign.Start).GetValue(this.currentBreakpoint))
+      .alignItems(new BreakpointType(HorizontalAlign.Center, HorizontalAlign.Start,
+        HorizontalAlign.Start).GetValue(this.currentBreakpoint))
     }
-    .backgroundColor('#f1f3f5')
+    .backgroundColor(Color.PAGE_BACKGROUND)
   }
 }
 
 @Component
 export struct SecondaryMenu {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
-  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = 'list';
+  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = SideBarModeKey.TABS;
   @Link currentSubIndex: number | undefined;
   subTitleNameList: MenuType[] = new Array();
-  changeIndex: Function = () => {
+  changeIndex: (controller: TabsController, index: number) => void = () => {
   };
   tabsController: TabsController = new TabsController();
 
@@ -346,46 +373,48 @@ export struct SecondaryMenu {
               }
               .height(StyleConfiguration.getSubTabsControllerStyle(this.currentBreakpoint, this.currentSideBarMode)
                 .secondMenuListItemHeight)
-              .padding({ top: 12, bottom: 12 })
-              .justifyContent(new BreakpointType(FlexAlign.End, FlexAlign.Center, FlexAlign.Center).GetValue(this.currentBreakpoint))
-              .alignItems(new BreakpointType(HorizontalAlign.Center, HorizontalAlign.Start, HorizontalAlign.Start).GetValue(this.currentBreakpoint))
-              .borderRadius(8)
+              .padding({ top: Spacing.MD, bottom: Spacing.MD })
+              .justifyContent(new BreakpointType(FlexAlign.End, FlexAlign.Center, FlexAlign.Center)
+                .GetValue(this.currentBreakpoint))
+              .alignItems(new BreakpointType(HorizontalAlign.Center, HorizontalAlign.Start,
+                HorizontalAlign.Start).GetValue(this.currentBreakpoint))
+              .borderRadius(Radius.SM)
               .width(StyleConfiguration.getSubTabsControllerStyle(this.currentBreakpoint, this.currentSideBarMode)
                 .secondMenuListItemWidth)
               .backgroundColor(StyleConfiguration.getCurrentSubTabsStyle(this.currentBreakpoint, this.currentSideBarMode, index, this.currentSubIndex)
                 .backgroundColor as ResourceColor)
             }.onClick(() => {
-              animateTo({ duration: 300 }, () => {
+              animateTo({ duration: DurationMs.ANIMATION }, () => {
                 this.currentSubIndex = index;
                 this.changeIndex(this.tabsController, index);
               })
             })
           })
         }
-        .width('100%')
+        .width(DimenText.FULL)
         .listDirection(StyleConfiguration.getSubTabsControllerStyle(this.currentBreakpoint, this.currentSideBarMode)
           .secondMenuListDirection)
         .alignListItem(ListItemAlign.Center)
-      }.width('100%')
+      }.width(DimenText.FULL)
     }
     .clip(true)
     .transition({ opacity: 0 })
-    .width('100%')
+    .width(DimenText.FULL)
   }
 }
 
 interface MenuElement {
-  value: string;
+  value: ResourceStr;
   action: () => void;
   icon?: Resource;
 }
 
 @Component
 struct FootBarTools {
-  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = 'md';
-  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = 'list';
+  @LocalStorageProp("currentBreakpoint") currentBreakpoint: string = BreakpointKey.MD;
+  @LocalStorageProp("currentSideBarMode") currentSideBarMode: string = SideBarModeKey.TABS;
   @State toolList: MenuElement[] = [
-    { value: 'Menu1', action: this.callback, icon: $r('app.media.ic_favourites') },
+    { value: $r('app.string.toolMenuItem', 1), action: this.callback, icon: $r('app.media.ic_favourites') },
   ];
 
   callback() {
@@ -393,44 +422,44 @@ struct FootBarTools {
 
   build() {
     Column() {
-      List({ space: 24 }) {
-        if (this.currentSideBarMode === 'tabs') {
+      List({ space: Spacing.LG }) {
+        if (this.currentSideBarMode === SideBarModeKey.TABS) {
           ForEach(this.toolList, (item: MenuElement) => {
             ListItem() {
-              Image(item.icon).width(24).height(24)
+              Image(item.icon).width(Dimen.ICON).height(Dimen.ICON)
             }
           })
           ListItem() {
-            Image($r('app.media.add')).width(24).height(24).onClick(() => {
+            Image($r('app.media.add')).width(Dimen.ICON).height(Dimen.ICON).onClick(() => {
               this.toolList.push(
                 {
-                  value: `Menu${this.toolList.length + 1}`,
+                  value: $r('app.string.toolMenuItem', this.toolList.length + 1),
                   action: this.callback,
                   icon: $r('app.media.ic_favourites3')
                 })
             })
-              .id('addTools')
+              .id(ComponentId.ADD_TOOLS)
           }
         } else {
           ListItem() {
             Column() {
-              if (this.toolList.length >= 2) {
+              if (this.toolList.length >= Threshold.TOOL_ICON_MORE_MIN_COUNT) {
                 Image($r('app.media.more'))
-                  .width(24)
-                  .height(24)
+                  .width(Dimen.ICON)
+                  .height(Dimen.ICON)
                   .bindMenu(this.toolList, { placement: Placement.TopRight })
-                  .id('moreTools')
+                  .id(ComponentId.MORE_TOOLS)
               } else {
-                Image($r('app.media.ic_favourites')).width(24).height(24)
-                  .fillColor('#e5000000')
+                Image($r('app.media.ic_favourites')).width(Dimen.ICON).height(Dimen.ICON)
+                  .fillColor(Color.TEXT_PRIMARY)
               }
-            }.width('100%')
+            }.width(DimenText.FULL)
           }
         }
       }
       .listDirection(Axis.Horizontal)
-      .height(58)
-      .width('100%')
+      .height(Dimen.TOOL_BAR_HEIGHT)
+      .width(DimenText.FULL)
       .padding(StyleConfiguration.getSubTabsControllerStyle(this.currentBreakpoint, this.currentSideBarMode)
         .toolBarPadding)
       .alignListItem(ListItemAlign.Center)

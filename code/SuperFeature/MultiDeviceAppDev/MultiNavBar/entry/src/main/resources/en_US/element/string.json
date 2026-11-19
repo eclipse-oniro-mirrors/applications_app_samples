@@ -2,15 +2,151 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "Multi-device nav bar sample module"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "Multi-device nav bar sample"
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "Multi-device Nav Bar"
+    },
+    {
+      "name": "install",
+      "value": "Install"
+    },
+    {
+      "name": "excellentGame",
+      "value": "Top Games"
+    },
+    {
+      "name": "excellentApp",
+      "value": "Top Apps"
+    },
+    {
+      "name": "more",
+      "value": "More"
+    },
+    {
+      "name": "category",
+      "value": "Categories"
+    },
+    {
+      "name": "quickApp",
+      "value": "Quick Apps"
+    },
+    {
+      "name": "garden",
+      "value": "Little Garden"
+    },
+    {
+      "name": "education",
+      "value": "Education Center"
+    },
+    {
+      "name": "double",
+      "value": "Double"
+    },
+    {
+      "name": "photoEditing",
+      "value": "Photo Editing"
+    },
+    {
+      "name": "mathematicsSquare",
+      "value": "Math Square"
+    },
+    {
+      "name": "carefree",
+      "value": "Carefree"
+    },
+    {
+      "name": "explorer",
+      "value": "Explorer"
+    },
+    {
+      "name": "romance",
+      "value": "Romance of the Three Kingdoms"
+    },
+    {
+      "name": "dreaming",
+      "value": "Dreaming of You"
+    },
+    {
+      "name": "ambush",
+      "value": "Ambush from Ten Sides"
+    },
+    {
+      "name": "search",
+      "value": "Search..."
+    },
+    {
+      "name": "emptyString",
+      "value": ""
+    },
+    {
+      "name": "index",
+      "value": "Home"
+    },
+    {
+      "name": "recommend",
+      "value": "Recommend"
+    },
+    {
+      "name": "appList",
+      "value": "App Ranking"
+    },
+    {
+      "name": "gameList",
+      "value": "Game Ranking"
+    },
+    {
+      "name": "app",
+      "value": "Apps"
+    },
+    {
+      "name": "video",
+      "value": "Video"
+    },
+    {
+      "name": "shopping",
+      "value": "Shopping"
+    },
+    {
+      "name": "game",
+      "value": "Games"
+    },
+    {
+      "name": "rank",
+      "value": "Ranking"
+    },
+    {
+      "name": "explore",
+      "value": "Explore"
+    },
+    {
+      "name": "discovery",
+      "value": "Today's Discovery"
+    },
+    {
+      "name": "hot",
+      "value": "Hot Topics"
+    },
+    {
+      "name": "mine",
+      "value": "Mine"
+    },
+    {
+      "name": "accountTitle",
+      "value": "Account"
+    },
+    {
+      "name": "accountNumber",
+      "value": "139******43"
+    },
+    {
+      "name": "toolMenuItem",
+      "value": "Menu%d"
     }
   ]
 }
