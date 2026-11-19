@@ -32,6 +32,6 @@ set(NATIVE_B "dk")
 
 # [Start location_capi_cmake]
 target_link_libraries(entry PUBLIC libace_napi.z.so)
-target_link_libraries(entry PUBLIC libhilog_${NATIVE_A}${NATIVE_B}.z.so)
-target_link_libraries(entry PUBLIC liblocation_${NATIVE_A}${NATIVE_B}.so)
+target_link_libraries(entry PUBLIC libhilog_ndk.z.so)
+target_link_libraries(entry PUBLIC liblocation_ndk.so)
 # [End location_capi_cmake]

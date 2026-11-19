@@ -15,9 +15,9 @@
 
 // [Start location_import_module]
 import { geoLocationManager } from '@kit.LocationKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 // [End location_import_module]
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { BusinessError } from '@kit.BasicServicesKit';
 import { NavBar, SectionCard, LabelRow, LogArea, MAX_LOG_MESSAGES } from '../components/CommonComponents';
 
 @Component
