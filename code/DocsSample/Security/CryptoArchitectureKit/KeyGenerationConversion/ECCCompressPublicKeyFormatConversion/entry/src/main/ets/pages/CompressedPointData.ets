@@ -32,6 +32,9 @@ function eccPointUncompressedToCompressed() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`eccPointUncompressedToCompressed failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude convert_ecc_uncompressed_point]
+    throw new Error(`eccPointUncompressedToCompressed failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude convert_ecc_uncompressed_point]
   }
 }
 // [End convert_ecc_uncompressed_point]

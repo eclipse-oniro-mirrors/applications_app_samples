@@ -19,24 +19,28 @@ import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { buffer } from '@kit.ArkTS';
 
-function kdfPromise() {
-  let keyData = new Uint8Array(buffer.from('012345678901234567890123456789', 'utf-8').buffer);
-  let saltData = new Uint8Array(buffer.from('0123456789', 'utf-8').buffer);
-  let infoData = new Uint8Array(buffer.from('infostring', 'utf-8').buffer);
-  let spec: cryptoFramework.HKDFSpec = {
-    algName: 'HKDF',
-    key: keyData,
-    salt: saltData,
-    info: infoData,
-    keySize: 32
-  };
-  let kdf = cryptoFramework.createKdf('HKDF|SHA256|EXTRACT_AND_EXPAND');
-  let kdfPromise = kdf.generateSecret(spec);
-  kdfPromise.then((secret) => {
+async function kdfPromise() {
+  try {
+    let keyData = new Uint8Array(buffer.from('012345678901234567890123456789', 'utf-8').buffer);
+    let saltData = new Uint8Array(buffer.from('0123456789', 'utf-8').buffer);
+    let infoData = new Uint8Array(buffer.from('infostring', 'utf-8').buffer);
+    let spec: cryptoFramework.HKDFSpec = {
+      algName: 'HKDF',
+      key: keyData,
+      salt: saltData,
+      info: infoData,
+      keySize: 32
+    };
+    let kdf = cryptoFramework.createKdf('HKDF|SHA256|EXTRACT_AND_EXPAND');
+    let secret = await kdf.generateSecret(spec);
     console.info('key derivation output: ' + secret.data);
-  }).catch((error: BusinessError) => {
-    console.error(`key derivation failed: errCode: ${error.code}, message: ${error.message}`);
-  });
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`key derivation failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude use_hkdf_for_key_derivation_promise]
+    throw new Error(`key derivation failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude use_hkdf_for_key_derivation_promise]
+  }
 }
 
 // [End use_hkdf_for_key_derivation_promise]
@@ -50,9 +54,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_promise'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            kdfPromise();
+            await kdfPromise();
             this.message = 'Promise Success';
           } catch {
             this.message = 'Promise Fail';

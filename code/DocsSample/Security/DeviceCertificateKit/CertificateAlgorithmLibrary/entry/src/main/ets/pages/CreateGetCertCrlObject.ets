@@ -43,6 +43,9 @@ async function createX509CRL(): Promise<cert.X509CRL> {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`createX509CRL failed, errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude certificate_collection_and_certificate_revocation_list_collection_object_creation_and_acquisition]
+    throw new Error(`createX509CRL failed, errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude certificate_collection_and_certificate_revocation_list_collection_object_creation_and_acquisition]
   }
   return x509CRL;
 }
@@ -71,6 +74,9 @@ async function createX509Cert(): Promise<cert.X509Cert> {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`createX509Cert failed, errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude certificate_collection_and_certificate_revocation_list_collection_object_creation_and_acquisition]
+    throw new Error(`createX509Cert failed, errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude certificate_collection_and_certificate_revocation_list_collection_object_creation_and_acquisition]
   }
   return x509Cert;
 }
@@ -83,7 +89,11 @@ async function sample() {
     collection = cert.createCertCRLCollection([x509Cert], [x509CRL]);
     console.info('createCertCRLCollection result: success.');
   } catch (err) {
-    console.error(`createCertCRLCollection failed: errCode: ${err.code}, message: ${err.message}`);
+    let e: BusinessError = err as BusinessError;
+    console.error(`createCertCRLCollection failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude certificate_collection_and_certificate_revocation_list_collection_object_creation_and_acquisition]
+    throw new Error(`createCertCRLCollection failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude certificate_collection_and_certificate_revocation_list_collection_object_creation_and_acquisition]
   }
 
   const certParam: cert.X509CertMatchParameters = {
@@ -92,7 +102,11 @@ async function sample() {
   try {
     let certs: cert.X509Cert[] = await collection.selectCerts(certParam);
   } catch (err) {
-    console.error(`selectCerts failed: errCode: ${err.code}, message: ${err.message}`);
+    let e: BusinessError = err as BusinessError;
+    console.error(`selectCerts failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude certificate_collection_and_certificate_revocation_list_collection_object_creation_and_acquisition]
+    throw new Error(`selectCerts failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude certificate_collection_and_certificate_revocation_list_collection_object_creation_and_acquisition]
   }
 
   const crlParam: cert.X509CRLMatchParameters = {
@@ -102,7 +116,11 @@ async function sample() {
     let crls: cert.X509CRL[] = await collection.selectCRLs(crlParam);
     console.info('selectCRLs result: success.');
   } catch (err) {
-    console.error(`selectCRLs failed: errCode: ${err.code}, message: ${err.message}`);
+    let e: BusinessError = err as BusinessError;
+    console.error(`selectCRLs failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude certificate_collection_and_certificate_revocation_list_collection_object_creation_and_acquisition]
+    throw new Error(`selectCRLs failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude certificate_collection_and_certificate_revocation_list_collection_object_creation_and_acquisition]
   }
 }
 
@@ -120,9 +138,9 @@ struct Index {
         .fontWeight(FontWeight.Bold)
       Button('Call CreateGetCertCrlObject')
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            sample();
+            await sample();
             this.message = 'Call Success';
           } catch {
             this.message = 'Call Fail';

@@ -27,11 +27,12 @@ function genKeyMaterialBlob(): cryptoFramework.DataBlob {
 }
 
 function testConvertSymKey() {
-  // 创建SymKeyGenerator实例
-  let symKeyGenerator = cryptoFramework.createSymKeyGenerator('3DES192');
-  // 根据指定的数据生成对称密钥
-  let keyMaterialBlob = genKeyMaterialBlob();
+
   try {
+    // 创建SymKeyGenerator实例
+    let symKeyGenerator = cryptoFramework.createSymKeyGenerator('3DES192');
+    // 根据指定的数据生成对称密钥
+    let keyMaterialBlob = genKeyMaterialBlob();
     let key = symKeyGenerator.convertKeySync(keyMaterialBlob);
     console.info('key algName: ' + key.algName);
     console.info('key format: ' + key.format);
@@ -40,6 +41,9 @@ function testConvertSymKey() {
   } catch (error) { // 参数检查发现错误立即抛出异常
     let e: BusinessError = error as BusinessError;
     console.error(`convertKeySync failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude generate_3des_key_sync]
+    throw new Error(`convertKeySync failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude generate_3des_key_sync]
   }
 }
 // [End generate_3des_key_sync]

@@ -16,6 +16,7 @@
 // [Start pkcs1_seg_verify_rsa_keypair_sign_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function signMessageBySegment(priKey: cryptoFramework.PriKey, plainText: Uint8Array) {
   let signAlg = 'RSA1024|PKCS1|SHA256';
@@ -33,7 +34,7 @@ function signMessageBySegment(priKey: cryptoFramework.PriKey, plainText: Uint8Ar
   return signData;
 }
 
-function verifyMessagBySegment(pubKey: cryptoFramework.PubKey, plainText: Uint8Array,
+function verifyMessageBySegment(pubKey: cryptoFramework.PubKey, plainText: Uint8Array,
   signMessageBlob: cryptoFramework.DataBlob) {
   let verifyAlg = 'RSA1024|PKCS1|SHA256';
   let verifier = cryptoFramework.createVerify(verifyAlg);
@@ -52,24 +53,35 @@ function verifyMessagBySegment(pubKey: cryptoFramework.PubKey, plainText: Uint8A
 }
 
 function rsaSignatureBySegment() {
-  let message = 'This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
-    'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
-    'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
-    'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
-    'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
-    'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
-    'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!' +
-    'This is a long plainTest! This is a long plainTest! This is a long plainTest! This is a long plainTest!';
-  let keyGenAlg = 'RSA1024';
-  let generator = cryptoFramework.createAsyKeyGenerator(keyGenAlg);
-  let keyPair = generator.generateKeyPairSync();
-  let messageData = new Uint8Array(buffer.from(message, 'utf-8').buffer);
-  let signData = signMessageBySegment(keyPair.priKey, messageData);
-  let verifyResult = verifyMessagBySegment(keyPair.pubKey, messageData, signData);
-  if (verifyResult === true) {
-    console.info('verify result: success.');
-  } else {
-    console.error('verify result: failed.');
+  try {
+    let message = 'This is a long plainText! This is a long plainText! This is a long plainText!' +
+      'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
+      'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
+      'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
+      'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
+      'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
+      'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
+      'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!';
+    let keyGenAlg = 'RSA1024';
+    let generator = cryptoFramework.createAsyKeyGenerator(keyGenAlg);
+    let keyPair = generator.generateKeyPairSync();
+    let messageData = new Uint8Array(buffer.from(message, 'utf-8').buffer);
+    let signData = signMessageBySegment(keyPair.priKey, messageData);
+    let verifyResult = verifyMessageBySegment(keyPair.pubKey, messageData, signData);
+    if (verifyResult === true) {
+      console.info('verify result: success.');
+    } else {
+      console.error('verify result: failed.');
+      // [StartExclude pkcs1_seg_verify_rsa_keypair_sign_sync]
+      throw new Error('verify result: failed.');
+      // [EndExclude pkcs1_seg_verify_rsa_keypair_sign_sync]
+    }
+  } catch (error) {
+    let e: BusinessError = error as BusinessError;
+    console.error(`verify failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude pkcs1_seg_verify_rsa_keypair_sign_sync]
+    throw new Error(`verify failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude pkcs1_seg_verify_rsa_keypair_sign_sync]
   }
 }
 

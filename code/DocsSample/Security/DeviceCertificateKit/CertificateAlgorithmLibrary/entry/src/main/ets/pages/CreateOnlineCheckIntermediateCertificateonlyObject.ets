@@ -16,6 +16,7 @@
 // [Start create-online-check-intermediate-certificateonly-object]
 
 import { cert } from '@kit.DeviceCertificateKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 // string转Uint8Array。
 function stringToUint8Array(str: string): Uint8Array {
@@ -38,7 +39,8 @@ async function createCertChain(certData: string): Promise<cert.X509CertChain> {
   try {
     x509CertChain = await cert.createX509CertChain(encodingBlob);
   } catch (err) {
-    console.error(`createCertChain failed: errCode: ${err.code}, message: ${err.message}`);
+    let e: BusinessError = err as BusinessError;
+    console.error(`createCertChain failed: errCode: ${e.code}, message: ${e.message}`);
   }
   return x509CertChain;
 }
@@ -55,7 +57,8 @@ async function createCert(certData: string): Promise<cert.X509Cert> {
   try {
     x509Cert = await cert.createX509Cert(encodingBlob);
   } catch (err) {
-    console.error(`createCert failed: errCode: ${err.code}, message: ${err.message}`);
+    let e: BusinessError = err as BusinessError;
+    console.error(`createCert failed: errCode: ${e.code}, message: ${e.message}`);
   }
   return x509Cert;
 }
@@ -152,7 +155,8 @@ async function doTestCaCheck() {
     await x509CertChain.validate(param);
     console.info(`validate result: success.`);
   } catch (error) {
-    console.error(`x509CertChain validate failed: errCode: ${error.code}, message: ${error.message}`);
+    let e: BusinessError = error as BusinessError;
+    console.error(`x509CertChain validate failed: errCode: ${e.code}, message: ${e.message}`);
   }
 }
 

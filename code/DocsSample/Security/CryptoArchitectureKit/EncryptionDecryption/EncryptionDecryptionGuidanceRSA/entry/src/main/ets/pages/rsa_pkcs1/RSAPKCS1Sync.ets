@@ -96,10 +96,16 @@ function main() {
       console.info('decrypted result string: ' + messageDecrypted);
     } else {
       console.error('decrypt failed.');
+      // [StartExclude rsa_pkcs1_encrypt_decrypt_sync]
+      throw new Error('decrypt failed.');
+      // [EndExclude rsa_pkcs1_encrypt_decrypt_sync]
     }
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude rsa_pkcs1_encrypt_decrypt_sync]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude rsa_pkcs1_encrypt_decrypt_sync]
   }
 
 }
