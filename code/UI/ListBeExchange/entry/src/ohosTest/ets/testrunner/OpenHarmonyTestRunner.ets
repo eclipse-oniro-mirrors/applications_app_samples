@@ -19,11 +19,6 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
 
-interface CoverageGlobals {
-  __savePath__: string;
-  __readPath__: string;
-}
-
 export default class OpenHarmonyTestRunner implements TestRunner {
   onPrepare(): void {
     hilog.info(0x0000, 'testTag', 'OpenHarmonyTestRunner onPrepare');
@@ -33,12 +28,14 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     const delegator = abilityDelegatorRegistry.getAbilityDelegator();
     const args = abilityDelegatorRegistry.getArguments();
     const context = delegator.getAppContext();
-    // Coverage 插桩读取进程全局字段，不能用模块局部变量替代。
-    const coverage: CoverageGlobals = new Function('return this')();
     const uid: number = Math.floor(context.applicationInfo.uid / 200000);
-    coverage.__savePath__ = '/data/storage/el2/base/js_coverage.json';
-    coverage.__readPath__ = '/data/app/el2/' + uid + '/base/' + args.bundleName + '/js_coverage.json';
-    new Function('testMode', 'this.__testMode__ = testMode;')('ohostest');
+    // Coverage 插桩读取进程全局字段，字段名由插桩工具约定，不能用模块局部变量替代。
+    new Function(
+      'savePath', 'readPath', 'testMode',
+      'this.__savePath__ = savePath; this.__readPath__ = readPath; this.__testMode__ = testMode;'
+    )('/data/storage/el2/base/js_coverage.json',
+      '/data/app/el2/' + uid + '/base/' + args.bundleName + '/js_coverage.json',
+      'ohostest');
 
     try {
       await application.createModuleContext(context.getApplicationContext(), args.parameters['-m']);
