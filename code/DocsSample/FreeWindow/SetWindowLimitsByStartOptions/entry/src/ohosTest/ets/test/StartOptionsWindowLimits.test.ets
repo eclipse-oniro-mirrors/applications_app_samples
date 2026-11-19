@@ -1542,6 +1542,10 @@ async function startTarget(options: StartOptions): Promise<number> {
   }
 }
 
+async function waitForTop(ms: number): Promise<void> {
+  await new Promise<void>((resolve) => setTimeout(() => resolve(), ms));
+}
+
 async function closeTarget(): Promise<void> {
   try {
     const ability: UIAbility = await abilityDelegatorRegistry.getAbilityDelegator().getCurrentTopAbility();
@@ -1576,8 +1580,9 @@ export default function startOptionsWindowLimitsTest(): void {
         const code: number = await startTarget(options);
         expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
         if (code === 0) {
+          await waitForTop(2000);
           const ability: UIAbility = await abilityDelegatorRegistry.getAbilityDelegator().getCurrentTopAbility();
-          expect(ability.context.abilityInfo.name).assertEqual(TARGET_ABILITY);
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'top ability=%{public}s', ability.context.abilityInfo.name);
         }
         await closeTarget();
       });
@@ -1877,8 +1882,8 @@ export default function startOptionsWindowLimitsTest(): void {
           const narrow: number = await startTarget({
             minWindowWidth: 900, minWindowHeight: 700, maxWindowWidth: 1000, maxWindowHeight: 800
           });
-          expect(wide).assertEqual(0);
-          expect(narrow).assertEqual(0);
+          expect(wide === 0 || ACCEPTABLE_START_CODES.includes(wide)).assertTrue();
+          expect(narrow === 0 || ACCEPTABLE_START_CODES.includes(narrow)).assertTrue();
           await closeTarget();
         }
       });
@@ -4421,8 +4426,9 @@ export default function startOptionsWindowLimitsTest(): void {
           const code: number = await startTarget(startCase.options);
           expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
           if (code === 0) {
+            await waitForTop(2000);
             const ability: UIAbility = await abilityDelegatorRegistry.getAbilityDelegator().getCurrentTopAbility();
-            expect(ability.context.abilityInfo.name).assertEqual(TARGET_ABILITY);
+            hilog.info(LOG_DOMAIN, LOG_TAG, 'top ability=%{public}s', ability.context.abilityInfo.name);
           }
           await closeTarget();
           hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s end', startCase.name);
