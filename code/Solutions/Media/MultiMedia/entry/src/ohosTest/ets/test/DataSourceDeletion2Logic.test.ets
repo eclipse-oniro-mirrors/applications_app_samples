@@ -2398,3 +2398,785 @@ export default function DataSourceDeletion2Logic(): void {
       const original: MediaData[] = createMediaRows(7, 307, 2);
       source.setDataArray(original);
       source.registerDataChangeListener(listener);
+      source.deleteData(1, 0);
+      LogicTestLog.number(name, 'remaining total', 7, source.totalCount());
+      expect(source.totalCount()).assertEqual(7);
+      LogicTestLog.number(name, 'aliased delete length', 7, original.length);
+      expect(original.length).assertEqual(7);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      const expected48: string =
+        '/logic/item-307|/logic/item-308|/logic/item-309|/logic/item-' +
+        '310|/logic/item-311|/logic/item-312|/logic/item-313';
+      LogicTestLog.value(name, 'remaining URI order',
+        String(expected48),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected48);
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307|item-308|item-309|item-310|item-311|item-312|item-313'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307|item-308|item-309|item-310|item-311|item-312|item-313');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 8, source.totalCount());
+      expect(source.totalCount()).assertEqual(8);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(7).uri));
+      expect(source.getData(7).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:7'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:7');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1186
+     * @tc.name MultiMedia_Delete_1186
+     * @tc.desc Delete a range without implicit listener notifications and preserve remaining order
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Delete_1186', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Delete_1186';
+      LogicTestLog.begin(name, 'length=7;index=1;remove=2');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(7, 307, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      source.deleteData(1, 2);
+      LogicTestLog.number(name, 'remaining total', 5, source.totalCount());
+      expect(source.totalCount()).assertEqual(5);
+      LogicTestLog.number(name, 'aliased delete length', 5, original.length);
+      expect(original.length).assertEqual(5);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      const expected49: string =
+        '/logic/item-307|/logic/item-310|/logic/item-311|/logic/item-' +
+        '312|/logic/item-313';
+      LogicTestLog.value(name, 'remaining URI order',
+        String(expected49),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected49);
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307|item-310|item-311|item-312|item-313'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307|item-310|item-311|item-312|item-313');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 6, source.totalCount());
+      expect(source.totalCount()).assertEqual(6);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(5).uri));
+      expect(source.getData(5).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:5'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:5');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1187
+     * @tc.name MultiMedia_Delete_1187
+     * @tc.desc Delete a range without implicit listener notifications and preserve remaining order
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Delete_1187', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Delete_1187';
+      LogicTestLog.begin(name, 'length=7;index=1;remove=10');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(7, 307, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      source.deleteData(1, 10);
+      LogicTestLog.number(name, 'remaining total', 1, source.totalCount());
+      expect(source.totalCount()).assertEqual(1);
+      LogicTestLog.number(name, 'aliased delete length', 1, original.length);
+      expect(original.length).assertEqual(1);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      LogicTestLog.value(name, 'remaining URI order',
+        String('/logic/item-307'),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual('/logic/item-307');
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 2, source.totalCount());
+      expect(source.totalCount()).assertEqual(2);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(1).uri));
+      expect(source.getData(1).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:1'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:1');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1189
+     * @tc.name MultiMedia_Delete_1189
+     * @tc.desc Delete a range without implicit listener notifications and preserve remaining order
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Delete_1189', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Delete_1189';
+      LogicTestLog.begin(name, 'length=7;index=6;remove=-1');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(7, 307, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      source.deleteData(6, -1);
+      LogicTestLog.number(name, 'remaining total', 7, source.totalCount());
+      expect(source.totalCount()).assertEqual(7);
+      LogicTestLog.number(name, 'aliased delete length', 7, original.length);
+      expect(original.length).assertEqual(7);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      const expected51: string =
+        '/logic/item-307|/logic/item-308|/logic/item-309|/logic/item-' +
+        '310|/logic/item-311|/logic/item-312|/logic/item-313';
+      LogicTestLog.value(name, 'remaining URI order',
+        String(expected51),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected51);
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307|item-308|item-309|item-310|item-311|item-312|item-313'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307|item-308|item-309|item-310|item-311|item-312|item-313');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 8, source.totalCount());
+      expect(source.totalCount()).assertEqual(8);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(7).uri));
+      expect(source.getData(7).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:7'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:7');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1190
+     * @tc.name MultiMedia_Delete_1190
+     * @tc.desc Delete a range without implicit listener notifications and preserve remaining order
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Delete_1190', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Delete_1190';
+      LogicTestLog.begin(name, 'length=7;index=6;remove=1');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(7, 307, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      source.deleteData(6, 1);
+      LogicTestLog.number(name, 'remaining total', 6, source.totalCount());
+      expect(source.totalCount()).assertEqual(6);
+      LogicTestLog.number(name, 'aliased delete length', 6, original.length);
+      expect(original.length).assertEqual(6);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      const expected52: string =
+        '/logic/item-307|/logic/item-308|/logic/item-309|/logic/item-' +
+        '310|/logic/item-311|/logic/item-312';
+      LogicTestLog.value(name, 'remaining URI order',
+        String(expected52),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected52);
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307|item-308|item-309|item-310|item-311|item-312'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307|item-308|item-309|item-310|item-311|item-312');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 7, source.totalCount());
+      expect(source.totalCount()).assertEqual(7);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(6).uri));
+      expect(source.getData(6).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:6'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:6');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1191
+     * @tc.name MultiMedia_Delete_1191
+     * @tc.desc Delete a range without implicit listener notifications and preserve remaining order
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Delete_1191', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Delete_1191';
+      LogicTestLog.begin(name, 'length=7;index=6;remove=10');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(7, 307, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      source.deleteData(6, 10);
+      LogicTestLog.number(name, 'remaining total', 6, source.totalCount());
+      expect(source.totalCount()).assertEqual(6);
+      LogicTestLog.number(name, 'aliased delete length', 6, original.length);
+      expect(original.length).assertEqual(6);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      const expected53: string =
+        '/logic/item-307|/logic/item-308|/logic/item-309|/logic/item-' +
+        '310|/logic/item-311|/logic/item-312';
+      LogicTestLog.value(name, 'remaining URI order',
+        String(expected53),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected53);
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307|item-308|item-309|item-310|item-311|item-312'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307|item-308|item-309|item-310|item-311|item-312');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 7, source.totalCount());
+      expect(source.totalCount()).assertEqual(7);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(6).uri));
+      expect(source.getData(6).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:6'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:6');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1193
+     * @tc.name MultiMedia_Delete_1193
+     * @tc.desc Delete a range without implicit listener notifications and preserve remaining order
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Delete_1193', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Delete_1193';
+      LogicTestLog.begin(name, 'length=7;index=7;remove=0');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(7, 307, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      source.deleteData(7, 0);
+      LogicTestLog.number(name, 'remaining total', 7, source.totalCount());
+      expect(source.totalCount()).assertEqual(7);
+      LogicTestLog.number(name, 'aliased delete length', 7, original.length);
+      expect(original.length).assertEqual(7);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      const expected55: string =
+        '/logic/item-307|/logic/item-308|/logic/item-309|/logic/item-' +
+        '310|/logic/item-311|/logic/item-312|/logic/item-313';
+      LogicTestLog.value(name, 'remaining URI order',
+        String(expected55),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected55);
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307|item-308|item-309|item-310|item-311|item-312|item-313'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307|item-308|item-309|item-310|item-311|item-312|item-313');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 8, source.totalCount());
+      expect(source.totalCount()).assertEqual(8);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(7).uri));
+      expect(source.getData(7).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:7'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:7');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1194
+     * @tc.name MultiMedia_Delete_1194
+     * @tc.desc Delete a range without implicit listener notifications and preserve remaining order
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Delete_1194', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Delete_1194';
+      LogicTestLog.begin(name, 'length=7;index=7;remove=2');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(7, 307, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      source.deleteData(7, 2);
+      LogicTestLog.number(name, 'remaining total', 7, source.totalCount());
+      expect(source.totalCount()).assertEqual(7);
+      LogicTestLog.number(name, 'aliased delete length', 7, original.length);
+      expect(original.length).assertEqual(7);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      const expected56: string =
+        '/logic/item-307|/logic/item-308|/logic/item-309|/logic/item-' +
+        '310|/logic/item-311|/logic/item-312|/logic/item-313';
+      LogicTestLog.value(name, 'remaining URI order',
+        String(expected56),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected56);
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307|item-308|item-309|item-310|item-311|item-312|item-313'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307|item-308|item-309|item-310|item-311|item-312|item-313');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 8, source.totalCount());
+      expect(source.totalCount()).assertEqual(8);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(7).uri));
+      expect(source.getData(7).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:7'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:7');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1195
+     * @tc.name MultiMedia_Delete_1195
+     * @tc.desc Delete a range without implicit listener notifications and preserve remaining order
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Delete_1195', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Delete_1195';
+      LogicTestLog.begin(name, 'length=7;index=7;remove=10');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(7, 307, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      source.deleteData(7, 10);
+      LogicTestLog.number(name, 'remaining total', 7, source.totalCount());
+      expect(source.totalCount()).assertEqual(7);
+      LogicTestLog.number(name, 'aliased delete length', 7, original.length);
+      expect(original.length).assertEqual(7);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      const expected57: string =
+        '/logic/item-307|/logic/item-308|/logic/item-309|/logic/item-' +
+        '310|/logic/item-311|/logic/item-312|/logic/item-313';
+      LogicTestLog.value(name, 'remaining URI order',
+        String(expected57),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected57);
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307|item-308|item-309|item-310|item-311|item-312|item-313'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307|item-308|item-309|item-310|item-311|item-312|item-313');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 8, source.totalCount());
+      expect(source.totalCount()).assertEqual(8);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(7).uri));
+      expect(source.getData(7).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:7'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:7');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1197
+     * @tc.name MultiMedia_Delete_1197
+     * @tc.desc Delete a range without implicit listener notifications and preserve remaining order
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Delete_1197', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Delete_1197';
+      LogicTestLog.begin(name, 'length=7;index=9;remove=0');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(7, 307, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      source.deleteData(9, 0);
+      LogicTestLog.number(name, 'remaining total', 7, source.totalCount());
+      expect(source.totalCount()).assertEqual(7);
+      LogicTestLog.number(name, 'aliased delete length', 7, original.length);
+      expect(original.length).assertEqual(7);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      const expected59: string =
+        '/logic/item-307|/logic/item-308|/logic/item-309|/logic/item-' +
+        '310|/logic/item-311|/logic/item-312|/logic/item-313';
+      LogicTestLog.value(name, 'remaining URI order',
+        String(expected59),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected59);
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307|item-308|item-309|item-310|item-311|item-312|item-313'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307|item-308|item-309|item-310|item-311|item-312|item-313');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 8, source.totalCount());
+      expect(source.totalCount()).assertEqual(8);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(7).uri));
+      expect(source.getData(7).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:7'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:7');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1198
+     * @tc.name MultiMedia_Delete_1198
+     * @tc.desc Delete a range without implicit listener notifications and preserve remaining order
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Delete_1198', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Delete_1198';
+      LogicTestLog.begin(name, 'length=7;index=9;remove=2');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(7, 307, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      source.deleteData(9, 2);
+      LogicTestLog.number(name, 'remaining total', 7, source.totalCount());
+      expect(source.totalCount()).assertEqual(7);
+      LogicTestLog.number(name, 'aliased delete length', 7, original.length);
+      expect(original.length).assertEqual(7);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      const expected60: string =
+        '/logic/item-307|/logic/item-308|/logic/item-309|/logic/item-' +
+        '310|/logic/item-311|/logic/item-312|/logic/item-313';
+      LogicTestLog.value(name, 'remaining URI order',
+        String(expected60),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected60);
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307|item-308|item-309|item-310|item-311|item-312|item-313'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307|item-308|item-309|item-310|item-311|item-312|item-313');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 8, source.totalCount());
+      expect(source.totalCount()).assertEqual(8);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(7).uri));
+      expect(source.getData(7).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:7'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:7');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1199
+     * @tc.name MultiMedia_Delete_1199
+     * @tc.desc Delete a range without implicit listener notifications and preserve remaining order
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Delete_1199', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Delete_1199';
+      LogicTestLog.begin(name, 'length=7;index=9;remove=10');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(7, 307, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      source.deleteData(9, 10);
+      LogicTestLog.number(name, 'remaining total', 7, source.totalCount());
+      expect(source.totalCount()).assertEqual(7);
+      LogicTestLog.number(name, 'aliased delete length', 7, original.length);
+      expect(original.length).assertEqual(7);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      const expected61: string =
+        '/logic/item-307|/logic/item-308|/logic/item-309|/logic/item-' +
+        '310|/logic/item-311|/logic/item-312|/logic/item-313';
+      LogicTestLog.value(name, 'remaining URI order',
+        String(expected61),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected61);
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307|item-308|item-309|item-310|item-311|item-312|item-313'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307|item-308|item-309|item-310|item-311|item-312|item-313');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 8, source.totalCount());
+      expect(source.totalCount()).assertEqual(8);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(7).uri));
+      expect(source.getData(7).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:7'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:7');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1201
+     * @tc.name MultiMedia_Delete_1201
+     * @tc.desc Delete a range without implicit listener notifications and preserve remaining order
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Delete_1201', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Delete_1201';
+      LogicTestLog.begin(name, 'length=7;index=Infinity;remove=0');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(7, 307, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      source.deleteData(Number.POSITIVE_INFINITY, 0);
+      LogicTestLog.number(name, 'remaining total', 7, source.totalCount());
+      expect(source.totalCount()).assertEqual(7);
+      LogicTestLog.number(name, 'aliased delete length', 7, original.length);
+      expect(original.length).assertEqual(7);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      const expected63: string =
+        '/logic/item-307|/logic/item-308|/logic/item-309|/logic/item-' +
+        '310|/logic/item-311|/logic/item-312|/logic/item-313';
+      LogicTestLog.value(name, 'remaining URI order',
+        String(expected63),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected63);
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307|item-308|item-309|item-310|item-311|item-312|item-313'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307|item-308|item-309|item-310|item-311|item-312|item-313');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 8, source.totalCount());
+      expect(source.totalCount()).assertEqual(8);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(7).uri));
+      expect(source.getData(7).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:7'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:7');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1202
+     * @tc.name MultiMedia_Delete_1202
+     * @tc.desc Delete a range without implicit listener notifications and preserve remaining order
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Delete_1202', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Delete_1202';
+      LogicTestLog.begin(name, 'length=7;index=Infinity;remove=2');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(7, 307, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      source.deleteData(Number.POSITIVE_INFINITY, 2);
+      LogicTestLog.number(name, 'remaining total', 7, source.totalCount());
+      expect(source.totalCount()).assertEqual(7);
+      LogicTestLog.number(name, 'aliased delete length', 7, original.length);
+      expect(original.length).assertEqual(7);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      const expected64: string =
+        '/logic/item-307|/logic/item-308|/logic/item-309|/logic/item-' +
+        '310|/logic/item-311|/logic/item-312|/logic/item-313';
+      LogicTestLog.value(name, 'remaining URI order',
+        String(expected64),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected64);
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307|item-308|item-309|item-310|item-311|item-312|item-313'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307|item-308|item-309|item-310|item-311|item-312|item-313');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 8, source.totalCount());
+      expect(source.totalCount()).assertEqual(8);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(7).uri));
+      expect(source.getData(7).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:7'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:7');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1203
+     * @tc.name MultiMedia_Delete_1203
+     * @tc.desc Delete a range without implicit listener notifications and preserve remaining order
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Delete_1203', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Delete_1203';
+      LogicTestLog.begin(name, 'length=7;index=Infinity;remove=10');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(7, 307, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      source.deleteData(Number.POSITIVE_INFINITY, 10);
+      LogicTestLog.number(name, 'remaining total', 7, source.totalCount());
+      expect(source.totalCount()).assertEqual(7);
+      LogicTestLog.number(name, 'aliased delete length', 7, original.length);
+      expect(original.length).assertEqual(7);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      const expected65: string =
+        '/logic/item-307|/logic/item-308|/logic/item-309|/logic/item-' +
+        '310|/logic/item-311|/logic/item-312|/logic/item-313';
+      LogicTestLog.value(name, 'remaining URI order',
+        String(expected65),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected65);
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307|item-308|item-309|item-310|item-311|item-312|item-313'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307|item-308|item-309|item-310|item-311|item-312|item-313');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 8, source.totalCount());
+      expect(source.totalCount()).assertEqual(8);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(7).uri));
+      expect(source.getData(7).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:7'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:7');
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1205
+     * @tc.name MultiMedia_Delete_1205
+     * @tc.desc Delete a range without implicit listener notifications and preserve remaining order
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Delete_1205', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Delete_1205';
+      LogicTestLog.begin(name, 'length=7;index=NaN;remove=0');
+      const source: MediaDataSource = new MediaDataSource();
+      const listener: DataSourceProbe = new DataSourceProbe();
+      const original: MediaData[] = createMediaRows(7, 307, 2);
+      source.setDataArray(original);
+      source.registerDataChangeListener(listener);
+      source.deleteData(Number.NaN, 0);
+      LogicTestLog.number(name, 'remaining total', 7, source.totalCount());
+      expect(source.totalCount()).assertEqual(7);
+      LogicTestLog.number(name, 'aliased delete length', 7, original.length);
+      expect(original.length).assertEqual(7);
+      LogicTestLog.value(name, 'delete preserves array', String(true), String(source.getDataArray() === original));
+      expect(source.getDataArray() === original).assertEqual(true);
+      LogicTestLog.number(name, 'delete does not notify', 0, listener.events.length);
+      expect(listener.events.length).assertEqual(0);
+      const expected67: string =
+        '/logic/item-307|/logic/item-308|/logic/item-309|/logic/item-' +
+        '310|/logic/item-311|/logic/item-312|/logic/item-313';
+      LogicTestLog.value(name, 'remaining URI order',
+        String(expected67),
+        String(source.getDataArray().map((item: MediaData): string => item.uri).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.uri).join('|')).assertEqual(expected67);
+      LogicTestLog.value(name, 'remaining name order',
+        String('item-307|item-308|item-309|item-310|item-311|item-312|item-313'),
+        String(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')));
+      expect(source.getDataArray().map((item: MediaData): string => item.displayName).join('|')).assertEqual(
+        'item-307|item-308|item-309|item-310|item-311|item-312|item-313');
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'manual reload after range delete', String('reload'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload');
+      source.pushData(createMediaRows(1, 902, 1)[0]);
+      LogicTestLog.number(name, 'append after range delete', 8, source.totalCount());
+      expect(source.totalCount()).assertEqual(8);
+      LogicTestLog.value(name, 'new final item', String('/logic/item-902'), String(source.getData(7).uri));
+      expect(source.getData(7).uri).assertEqual('/logic/item-902');
+      LogicTestLog.value(name, 'post-delete event sequence', String('reload|add:7'), String(listener.events.join('|')));
+      expect(listener.events.join('|')).assertEqual('reload|add:7');
+      LogicTestLog.end(name);
+    });
+  });
+}
