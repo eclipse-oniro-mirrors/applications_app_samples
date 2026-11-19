@@ -13,18 +13,6 @@
       "value": "天气"
     },
     {
-      "name": "midnight",
-      "value": "半夜"
-    },
-    {
-      "name": "early_morning",
-      "value": "清晨"
-    },
-    {
-      "name": "morning",
-      "value": "早上"
-    },
-    {
       "name": "yestoday",
       "value": "昨天"
     },
@@ -50,7 +38,7 @@
     },
     {
       "name": "weather_version",
-      "value": "天气版本：11.1.0"
+      "value": "天气版本：%s"
     },
     {
       "name": "weather_statement",

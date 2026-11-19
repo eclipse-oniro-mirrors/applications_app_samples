@@ -13,13 +13,13 @@
  * limitations under the License.
  */
 
-import { City, getSideBg, MyDataSource, Style } from '@ohos/common'
+import { AssetPath, City, getSideBg, MyDataSource, StorageKeys, Style } from '@ohos/common'
 
 @Component
 export default struct SideContent {
   @StorageLink('cityList') @Watch('cityListChange') cities: Array<City> = []
   @StorageLink('swiperIndex') swiperIndex: number = 0
-  private cityList: MyDataSource = new MyDataSource(this.cities)
+  private cityList: MyDataSource<City> = new MyDataSource(this.cities)
   @Link showSideBar: boolean
 
   @Builder header() {
@@ -27,7 +27,7 @@ export default struct SideContent {
       Blank()
       Image($r('app.media.icon_subarea'))
         .id('cancelSubarea')
-        .size({ width: 24, height: 24 })
+        .size({ width: Style.ICON_SIZE_NORMAL, height: Style.ICON_SIZE_NORMAL })
         .objectFit(ImageFit.Contain)
         .onClick(() => {
           this.showSideBar = !this.showSideBar
@@ -36,92 +36,92 @@ export default struct SideContent {
     .width('100%')
 
     Text($r('app.string.weather'))
-      .fontColor(Color.White)
-      .fontSize(30)
+      .fontColor($r('app.color.white'))
+      .fontSize(Style.FONT_SIZE_DISPLAY)
       .fontWeight(FontWeight.Medium)
       .width('100%')
-    Search({ placeholder: '搜索城市（中文/拼音）', icon: '/common/images/icon_search.svg' })
-      .placeholderFont({ size: 16 })
-      .placeholderColor('#60FFFFFF')
+    Search({ placeholder: $r('app.string.search_placeholder'), icon: AssetPath.SEARCH_ICON })
+      .placeholderFont({ size: Style.FONT_SIZE_MEDIUM })
+      .placeholderColor($r('app.color.text_white_38'))
       .width('100%')
-      .backgroundColor('#26FFFFFF')
-      .margin({ top: 4 })
-      .borderRadius(45)
+      .backgroundColor($r('app.color.search_background'))
+      .margin({ top: Style.SEARCH_MARGIN_TOP })
+      .borderRadius(Style.SEARCH_RADIUS)
   }
 
   build() {
     Column({ space: Style.NORMAL_SPACE }) {
       this.header()
-      List({ space: 12 }) {
-        LazyForEach(this.cityList, (item, index) => {
+      List({ space: Style.NORMAL_SPACE }) {
+        LazyForEach(this.cityList, (item: City, index: number) => {
           ListItem() {
             CityItem({ cityInfo: item, index: index })
           }
-          .id('sliderCity' + index)
+          .id(`sliderCity${index}`)
           .onClick(() => {
             this.swiperIndex = index
-            AppStorage.SetOrCreate('swiperIndex', index)
+            AppStorage.setOrCreate(StorageKeys.SWIPER_INDEX, index)
           })
-        }, item => item.name)
+        }, (item: City) => item.name)
       }
-      .margin({ top: 8 })
+      .margin({ top: Style.CITY_LIST_MARGIN_TOP })
       .width('100%')
       .layoutWeight(1)
     }
     .width('100%')
     .height('100%')
     .padding(Style.NORMAL_PADDING)
-    .backgroundColor('#55000000')
+    .backgroundColor($r('app.color.sidebar_mask'))
   }
 
   cityListChange() {
-    this.cityList['dataArray'] = this.cities
+    this.cityList.setData(this.cities)
     this.cityList.notifyDataReload()
   }
 }
 
 @Component
 struct CityItem {
-  private cityInfo: City
-  private index: number
+  @Prop cityInfo: City
+  @Prop index: number
   @StorageLink('swiperIndex') swiperIndex: number = 0
 
   build() {
     Row() {
       Text(this.cityInfo.name)
-        .fontColor(Color.White)
-        .fontSize(24)
+        .fontColor($r('app.color.white'))
+        .fontSize(Style.FONT_SIZE_HEADLINE)
       if (this.index === 0) {
         Image($r('app.media.icon_location'))
-          .size({ width: 16, height: 16 })
+          .size({ width: Style.ICON_SIZE_SMALL, height: Style.ICON_SIZE_SMALL })
           .objectFit(ImageFit.Contain)
       }
       Blank()
       Column() {
         Row() {
           Text(this.cityInfo.temp)
-            .fontColor(Color.White)
+            .fontColor($r('app.color.white'))
             .fontWeight(Style.BIG_FONT_WEIGHT)
-            .fontSize(54)
+            .fontSize(Style.FONT_SIZE_CITY_TEMP)
           Text($r('app.string.du'))
-            .fontColor(Color.White)
-            .fontSize(20)
-            .margin({ bottom: 28 })
+            .fontColor($r('app.color.white'))
+            .fontSize(Style.FONT_SIZE_TITLE)
+            .margin({ bottom: Style.CITY_SIDE_TEMP_UNIT_MARGIN_BOTTOM })
         }
 
         Text(this.cityInfo.weather)
-          .fontColor(Color.White)
-          .fontSize(14)
+          .fontColor($r('app.color.white'))
+          .fontSize(Style.FONT_SIZE_NORMAL)
       }
     }
     .width('100%')
-    .height(100)
+    .height(Style.CITY_SIDE_CARD_HEIGHT)
     .alignItems(VerticalAlign.Center)
     .padding(Style.NORMAL_PADDING)
     .border({
       radius: Style.NORMAL_RADIUS,
-      width: 1,
-      color: this.swiperIndex === this.index ? '#BBFFFFFF' : '#116ACD'
+      width: Style.DIVIDER_WIDTH,
+      color: this.swiperIndex === this.index ? $r('app.color.border_selected') : $r('app.color.border_unselected')
     })
     .alignItems(VerticalAlign.Center)
     .backgroundImageSize(ImageSize.Cover)

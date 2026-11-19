@@ -13,18 +13,18 @@
  * limitations under the License.
  */
 
-import { getUpdateTimes, Style } from '@ohos/common';
+import { BreakpointConstants, getUpdateTimes, RadioGroup, Style } from '@ohos/common'
 
 @Preview
 @CustomDialog
 export default struct UpdateTimeDialog {
-  private controller: CustomDialogController;
-  private updateTimes: string[] = getUpdateTimes();
-  private handleCancelDialog: () => void;
-  @StorageLink('curBp') curBp: string = 'md';
+  private controller: CustomDialogController
+  private updateTimes: string[] = getUpdateTimes()
+  handleCancelDialog: () => void = () => {}
+  @StorageLink('curBp') curBp: string = BreakpointConstants.MD
 
   build() {
-    GridRow({ columns: { sm: 4, md: 8, lg: 12 },
+    GridRow({ columns: { sm: Style.GRID_COLUMN_SM, md: Style.GRID_COLUMN_MD, lg: Style.GRID_COLUMN_LG },
       gutter: { x: Style.GRID_GUTTER, y: Style.GRID_GUTTER },
       breakpoints: { reference: BreakpointsReference.WindowSize } }) {
       GridCol({ span: 4, offset: { sm: 0, md: 2, lg: 4 } }) {
@@ -32,74 +32,76 @@ export default struct UpdateTimeDialog {
           Column() {
             Text($r('app.string.update_time'))
               .width('100%')
-              .fontSize(20)
+              .fontSize(Style.FONT_SIZE_TITLE)
               .fontWeight(FontWeight.Medium)
-              .margin({ top: 14 })
+              .margin({ top: Style.NORMAL_MARGIN })
             List() {
-              ForEach(this.updateTimes, (item, index) => {
+              ForEach(this.updateTimes, (item: string, index: number) => {
                 ListItem() {
                   UpdateTimeItem({ index: index, updateTime: item })
                 }
-              }, item => item)
+              }, (item: string) => item)
             }
-            .lanes(this.curBp === 'lg' ? 2 : 1)
-            .divider({ strokeWidth: 1 })
+            .lanes(this.curBp === BreakpointConstants.LG ? Style.UPDATE_TIME_LANES_LG : Style.UPDATE_TIME_LANES_DEFAULT)
+            .divider({ strokeWidth: Style.DIVIDER_WIDTH })
             .margin({ top: Style.TIME_LIST_MARGIN })
             .width('100%')
             .height(this.calcListHeight())
 
             Text($r('app.string.cancel'))
               .width('100%')
-              .fontSize(16)
-              .fontColor('#0A59F7')
+              .fontSize(Style.FONT_SIZE_MEDIUM)
+              .fontColor($r('app.color.dialog_action'))
               .textAlign(TextAlign.Center)
               .fontWeight(FontWeight.Medium)
-              .margin({ top: 9, bottom: 25 })
+              .margin({ top: Style.DIALOG_CANCEL_MARGIN_TOP, bottom: Style.DIALOG_CANCEL_MARGIN_BOTTOM })
               .onClick(() => {
                 this.handleCancelDialog()
               })
           }
           .padding({ left: Style.DIALOG_PADDING, right: Style.DIALOG_PADDING })
-          .backgroundColor(Color.White)
-          .borderRadius(24)
+          .backgroundColor($r('app.color.white'))
+          .borderRadius(Style.LARGE_RADIUS)
         }
         .height('100%')
-        .alignItems(this.curBp === 'sm' ? VerticalAlign.Bottom : VerticalAlign.Center)
+        .alignItems(this.curBp === BreakpointConstants.SM ? VerticalAlign.Bottom : VerticalAlign.Center)
         .padding({
           left: Style.DIALOG_PADDING_OUT,
           right: Style.DIALOG_PADDING_OUT,
-          bottom: this.curBp === 'sm' ? Style.DIALOG_PADDING_OUT : 0
+          bottom: this.curBp === BreakpointConstants.SM ? Style.DIALOG_PADDING_OUT : 0
         })
       }
     }
   }
 
   calcListHeight() {
-    if (this.curBp === 'lg') {
-      return Style.TIME_LIST_HEIGHT * this.updateTimes.length / 2 + Style.TIME_LIST_MARGIN;
+    if (this.curBp === BreakpointConstants.LG) {
+      return Style.TIME_LIST_HEIGHT * this.updateTimes.length / Style.UPDATE_TIME_LANES_LG +
+        Style.TIME_LIST_MARGIN
     } else {
-      return Style.TIME_LIST_HEIGHT * this.updateTimes.length + Style.TIME_LIST_MARGIN;
+      return Style.TIME_LIST_HEIGHT * this.updateTimes.length + Style.TIME_LIST_MARGIN
     }
   }
 }
 
 @Component
 struct UpdateTimeItem {
-  private index: number = 0;
-  private updateTime: string = '';
-  @StorageLink('curBp') curBp: string = 'md';
+  private index: number = 0
+  private updateTime: string = ''
+  @StorageLink('curBp') curBp: string = BreakpointConstants.MD
 
   build() {
     Row() {
       Text(this.updateTime)
-        .fontSize(16)
+        .fontSize(Style.FONT_SIZE_MEDIUM)
       Blank()
-      Radio({ group: 'time', value: this.updateTime })
-        .width(20)
-        .height(20)
+      Radio({ group: RadioGroup.UPDATE_TIME, value: this.updateTime })
+        .width(Style.RADIO_SIZE)
+        .height(Style.RADIO_SIZE)
     }
     .width('100%')
     .height(Style.TIME_LIST_HEIGHT)
-    .padding(this.curBp === 'lg' ? (this.index % 2 === 0 ? { right: 10 } : { left: 10 }) : 0)
+    .padding(this.curBp === BreakpointConstants.LG ?
+      (this.index % Style.UPDATE_TIME_LANES_LG === 0 ? { right: Style.DIALOG_LANE_GAP } : { left: Style.DIALOG_LANE_GAP }) : 0)
   }
 }

@@ -13,54 +13,55 @@
  * limitations under the License.
  */
 
-import { Forecast, getHoursData, MyDataSource, Style } from '@ohos/common'
+import { BreakpointConstants, Forecast, getHoursData, MyDataSource, Style } from '@ohos/common'
 
 @Preview
 @Component
 export default struct HoursWeather {
   private hoursData: Forecast[] = getHoursData(0)
-  @StorageLink('curBp') curBp: string = 'lg'
-  @State hoursDataResource: MyDataSource = new MyDataSource(this.hoursData)
+  @StorageLink('curBp') curBp: string = BreakpointConstants.LG
+  @State hoursDataResource: MyDataSource<Forecast> = new MyDataSource(this.hoursData)
 
-  @Builder HoursWeatherItem(hoursItem, itemWidth) {
+  @Builder HoursWeatherItem(hoursItem: Forecast, itemWidth: number) {
     Column() {
       Text(`${hoursItem.desc}${hoursItem.date}`)
-        .fontSize(12)
-        .fontColor(Color.White)
+        .fontSize(Style.FONT_SIZE_SMALL)
+        .fontColor($r('app.color.white'))
       Row() {
         Image(hoursItem.icon)
-          .width(28)
-          .height(28)
+          .width(Style.ICON_SIZE_LARGE)
+          .height(Style.ICON_SIZE_LARGE)
           .objectFit(ImageFit.Contain)
       }
-      .margin({ top: 25 })
+      .margin({ top: Style.HOURS_ICON_MARGIN_TOP })
       .justifyContent(FlexAlign.Center)
 
       Text(hoursItem.degree)
-        .fontSize(14)
-        .fontColor(Color.White)
-        .margin({ top: 16 })
+        .fontSize(Style.FONT_SIZE_NORMAL)
+        .fontColor($r('app.color.white'))
+        .margin({ top: Style.HOURS_TEXT_MARGIN_TOP })
       Text(hoursItem.win)
-        .fontSize(12)
-        .fontColor(Color.White)
-        .margin({ top: 16 })
+        .fontSize(Style.FONT_SIZE_SMALL)
+        .fontColor($r('app.color.white'))
+        .margin({ top: Style.HOURS_TEXT_MARGIN_TOP })
       Text(hoursItem.winSpeed)
-        .fontSize(12)
-        .fontColor(Color.White)
-        .margin({ top: 5 })
+        .fontSize(Style.FONT_SIZE_SMALL)
+        .fontColor($r('app.color.white'))
+        .margin({ top: Style.HOURS_SPEED_MARGIN_TOP })
     }
     .width(itemWidth)
-    .padding({ top: 18, bottom: 18 })
+    .padding({ top: Style.HOURS_ITEM_PADDING, bottom: Style.HOURS_ITEM_PADDING })
   }
 
   build() {
     List() {
-      LazyForEach(this.hoursDataResource, (hoursItem) => {
+      LazyForEach(this.hoursDataResource, (hoursItem: Forecast) => {
         ListItem() {
           this.HoursWeatherItem(hoursItem,
-            this.curBp === 'lg' ? Style.WEATHER_ITEM_WIDTH + 2 : Style.WEATHER_ITEM_WIDTH)
+            this.curBp === BreakpointConstants.LG ? Style.WEATHER_ITEM_WIDTH + Style.WEATHER_ITEM_EXTRA_WIDTH :
+              Style.WEATHER_ITEM_WIDTH)
         }
-      }, item => `${item.desc}${item.date}:00`)
+      }, (item: Forecast) => `${item.desc}${item.date}:00`)
     }
     .width('100%')
     .height(Style.CARD_HEIGHT)
@@ -70,6 +71,6 @@ export default struct HoursWeather {
   }
 
   aboutToAppear() {
-    this.hoursDataResource['dataArray'] = this.hoursData
+    this.hoursDataResource.setData(this.hoursData)
   }
 }

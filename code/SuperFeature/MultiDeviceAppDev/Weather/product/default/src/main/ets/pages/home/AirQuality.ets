@@ -16,7 +16,6 @@
 import { AirData, AirIndex, getAirIndexData, getHeaderDate, Style } from '@ohos/common'
 import { initRound } from '../../feature/AirQualityFeature'
 
-
 @Preview
 @Component
 export default struct AirQuality {
@@ -29,8 +28,8 @@ export default struct AirQuality {
     Row() {
       Column() {
         Text($r('app.string.air_quality'))
-          .fontSize(13)
-          .fontColor(Color.White)
+          .fontSize(Style.FONT_SIZE_CAPTION)
+          .fontColor($r('app.color.white'))
           .fontWeight(FontWeight.Medium)
         Canvas(this.context)
           .height('65%')
@@ -43,27 +42,27 @@ export default struct AirQuality {
       .width('50%')
       .justifyContent(FlexAlign.Center)
 
-      List({ space: 12 }) {
-        ForEach(this.airIndexData, item => {
+      List({ space: Style.NORMAL_SPACE }) {
+        ForEach(this.airIndexData, (item: AirIndex) => {
           ListItem() {
             Row() {
               Text(item.index)
-                .width(48)
-                .fontSize(12)
-                .fontColor('#99FFFFFF')
-              Text(item.figure)
-                .width(48)
-                .fontSize(12)
-                .fontColor('#FFFFFF')
-                .margin({ left: 12 })
+                .width(Style.AIR_INDEX_WIDTH)
+                .fontSize(Style.FONT_SIZE_SMALL)
+                .fontColor($r('app.color.text_white_60'))
+              Text(item.figure.toString())
+                .width(Style.AIR_INDEX_WIDTH)
+                .fontSize(Style.FONT_SIZE_SMALL)
+                .fontColor($r('app.color.white'))
+                .margin({ left: Style.NORMAL_SPACE })
             }
             .justifyContent(FlexAlign.Center)
           }
           .width('100%')
-        }, item => item.index)
+        }, (item: AirIndex) => item.index)
       }
       .width('50%')
-      .margin({ left: 10 })
+      .margin({ left: Style.AIR_LIST_MARGIN_LEFT })
       .height('75%')
     }
     .height(Style.CARD_HEIGHT)

@@ -13,66 +13,66 @@
  * limitations under the License.
  */
 
-import router from '@ohos.router';
-import { City, getSideBg, MyDataSource, Style } from '@ohos/common';
+import { router } from '@kit.ArkUI'
+import { BreakpointConstants, City, getSideBg, MyDataSource, RouteConstants, Style } from '@ohos/common'
 
 @Entry
 @Component
 struct CityList {
-  @StorageLink('cityList') cities: Array<City> = [];
-  @StorageLink('curBp') curBp: string = 'lg';
-  private cityList: MyDataSource = new MyDataSource(this.cities);
+  @StorageLink('cityList') cities: Array<City> = []
+  @StorageLink('curBp') curBp: string = BreakpointConstants.LG
+  private cityList: MyDataSource<City> = new MyDataSource(this.cities)
 
-  getOffsetMD(index) {
+  getOffsetMD(index: number) {
     if (index === 0) {
-      return 1;
+      return 1
     }
     if (index % 2 === 0) {
-      return 2;
+      return 2
     }
-    return 0;
+    return 0
   }
 
-  getOffsetLG(index) {
+  getOffsetLG(index: number) {
     if (index === 0) {
-      return 2;
+      return 2
     }
     if (index % 2 === 0) {
-      return 4;
+      return 4
     }
-    return 0;
+    return 0
   }
 
-  @Builder CityInfo(item, index) {
+  @Builder CityInfo(item: City, index: number) {
     Row() {
       Text(item.name)
-        .fontColor(Color.White)
-        .fontSize(20)
+        .fontColor($r('app.color.white'))
+        .fontSize(Style.FONT_SIZE_TITLE)
       if (index === 0) {
         Image($r('app.media.icon_location'))
-          .size({ width: 16, height: 16 })
+          .size({ width: Style.ICON_SIZE_SMALL, height: Style.ICON_SIZE_SMALL })
           .objectFit(ImageFit.Contain)
       }
       Blank()
       Column() {
         Row() {
           Text(item.temp)
-            .fontColor(Color.White)
+            .fontColor($r('app.color.white'))
             .fontWeight(Style.BIG_FONT_WEIGHT)
-            .fontSize(38)
+            .fontSize(Style.FONT_SIZE_TEMP)
           Text($r('app.string.du'))
-            .fontColor(Color.White)
-            .fontSize(16)
-            .margin({ bottom: 22 })
+            .fontColor($r('app.color.white'))
+            .fontSize(Style.FONT_SIZE_MEDIUM)
+            .margin({ bottom: Style.CITY_TEMP_UNIT_MARGIN_BOTTOM })
         }
 
         Text(item.weather)
-          .fontColor(Color.White)
-          .fontSize(12)
+          .fontColor($r('app.color.white'))
+          .fontSize(Style.FONT_SIZE_SMALL)
       }
     }
     .width('100%')
-    .height(80)
+    .height(Style.CITY_CARD_HEIGHT)
     .alignItems(VerticalAlign.Center)
     .padding(Style.NORMAL_PADDING)
     .borderRadius(Style.NORMAL_RADIUS)
@@ -85,56 +85,59 @@ struct CityList {
     Column() {
       Row() {
         Image($r('app.media.icon_back'))
-          .width(24)
-          .margin({ left: 26 })
+          .width(Style.ICON_SIZE_NORMAL)
+          .margin({ left: Style.BACK_ICON_MARGIN })
           .objectFit(ImageFit.Contain)
           .onClick(() => {
             router.back()
           })
         Text($r('app.string.manage_city'))
-          .fontSize(20)
+          .fontSize(Style.FONT_SIZE_TITLE)
           .margin({ left: Style.NORMAL_MARGIN })
       }
       .width('100%')
-      .height(56)
+      .height(Style.TITLE_BAR_HEIGHT)
 
       Scroll() {
-        GridRow({ columns: { sm: 4, md: 8, lg: 12 }, gutter: { x: Style.GRID_GUTTER, y: Style.GRID_GUTTER }}) {
-          LazyForEach(this.cityList, (item, index) => {
+        GridRow({
+          columns: { sm: Style.GRID_COLUMN_SM, md: Style.GRID_COLUMN_MD, lg: Style.GRID_COLUMN_LG },
+          gutter: { x: Style.GRID_GUTTER, y: Style.GRID_GUTTER }
+        }) {
+          LazyForEach(this.cityList, (item: City, index: number) => {
             GridCol({ span: {sm: 4, md: 3, lg: 4},
               offset: {sm: 0, md: this.getOffsetMD(index), lg: this.getOffsetLG(index)}}) {
               this.CityInfo(item, index)
             }
-          }, item => item.name)
+          }, (item: City) => item.name)
         }
       }
       .layoutWeight(1)
-      .margin({ top: 12 })
+      .margin({ top: Style.NORMAL_SPACE })
       .scrollBar(BarState.Off)
       .align(Alignment.TopStart)
       .padding({ left: Style.NORMAL_PADDING, right: Style.NORMAL_PADDING })
 
       Column() {
         Image($r('app.media.icon_add'))
-          .width(24)
-          .height(24)
+          .width(Style.ICON_SIZE_NORMAL)
+          .height(Style.ICON_SIZE_NORMAL)
           .objectFit(ImageFit.Contain)
         Text($r('app.string.add_city'))
-          .fontSize(10)
+          .fontSize(Style.FONT_SIZE_TINY)
       }
       .id('addCity')
       .justifyContent(FlexAlign.Center)
-      .padding({ bottom: this.curBp === 'lg' ? Style.ADD_CITY_BOTTOM_LG : Style.ADD_CITY_BOTTOM })
+      .padding({ bottom: this.curBp === BreakpointConstants.LG ? Style.ADD_CITY_BOTTOM_LG : Style.ADD_CITY_BOTTOM })
       .onClick(() => {
-        router.pushUrl({ url: 'pages/AddCity' });
+        router.pushUrl({ url: RouteConstants.ADD_CITY })
       })
     }
     .height('100%')
-    .backgroundColor('#F1F3F5')
+    .backgroundColor($r('app.color.page_background'))
   }
 
   onPageShow() {
-    this.cityList['dataArray'] = this.cities;
-    this.cityList.notifyDataReload();
+    this.cityList.setData(this.cities)
+    this.cityList.notifyDataReload()
   }
 }

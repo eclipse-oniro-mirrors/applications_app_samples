@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import router from '@ohos.router';
-import { addCity, City, getCityList, MyDataSource, Style } from '@ohos/common';
+import { router } from '@kit.ArkUI'
+import { addCity, City, getCityList, MyDataSource, StorageKeys, Style } from '@ohos/common'
 
 @Entry
 @Component
@@ -23,75 +23,76 @@ struct AddCity {
     Column() {
       Row() {
         Image($r('app.media.icon_back'))
-          .width(24)
-          .margin({ left: 26 })
+          .width(Style.ICON_SIZE_NORMAL)
+          .margin({ left: Style.BACK_ICON_MARGIN })
           .objectFit(ImageFit.Contain)
           .onClick(() => {
             router.back()
           })
         Text($r('app.string.add_city'))
-          .fontSize(20)
+          .fontSize(Style.FONT_SIZE_TITLE)
           .margin({ left: Style.NORMAL_MARGIN })
       }
       .width('100%')
-      .height(56)
+      .height(Style.TITLE_BAR_HEIGHT)
 
       Scroll() {
         CityGrid()
       }
       .layoutWeight(1)
-      .margin({ top: 18 })
+      .margin({ top: Style.CITY_GRID_MARGIN_TOP })
       .scrollBar(BarState.Off)
     }
     .height('100%')
-    .backgroundColor('#F1F3F5')
+    .backgroundColor($r('app.color.page_background'))
   }
 }
 
 @Component
 export struct CityGrid {
-  @StorageLink('cityList') cities: Array<City> = [];
-  private cityList: MyDataSource = new MyDataSource(getCityList());
+  @StorageLink('cityList') cities: Array<City> = []
+  private cityList: MyDataSource<City> = new MyDataSource(getCityList())
 
   build() {
-    GridRow({ columns: { sm: 4, md: 8, lg: 12 },
+    GridRow({ columns: { sm: Style.GRID_COLUMN_SM, md: Style.GRID_COLUMN_MD, lg: Style.GRID_COLUMN_LG },
       breakpoints: { reference: BreakpointsReference.WindowSize } }) {
       GridCol({
         span: { sm: 4, md: 6, lg: 8 },
         offset: { sm: 0, md: 1, lg: 2 } }) {
-        GridRow({ columns: { sm: 3, md: 4, lg: 7 },
-          gutter: { x: vp2px(17), y: vp2px(8) },
+        GridRow({ columns: { sm: Style.HOT_CITY_COLUMN_SM, md: Style.HOT_CITY_COLUMN_MD, lg: Style.HOT_CITY_COLUMN_LG },
+          gutter: { x: vp2px(Style.HOT_CITY_GUTTER_X), y: vp2px(Style.HOT_CITY_GUTTER_Y) },
           breakpoints: { reference: BreakpointsReference.WindowSize } }) {
-          GridCol({ span: { sm: 3, md: 4, lg: 7 } }) {
+          GridCol({ span: { sm: Style.HOT_CITY_COLUMN_SM, md: Style.HOT_CITY_COLUMN_MD, lg: Style.HOT_CITY_COLUMN_LG } }) {
             Text($r('app.string.hot_city'))
               .width('100%')
-              .fontSize(14)
+              .fontSize(Style.FONT_SIZE_NORMAL)
               .fontWeight(FontWeight.Regular)
-              .fontColor('#99000000')
-              .margin({ bottom: 14 })
+              .fontColor($r('app.color.text_secondary'))
+              .margin({ bottom: Style.NORMAL_MARGIN })
           }
 
-          LazyForEach(this.cityList, (item) => {
+          LazyForEach(this.cityList, (item: City) => {
             GridCol({ span: 1 }) {
               Column() {
                 Text(item.name)
-                  .fontSize(14)
-                  .fontColor(this.isCityAdded(item) ? '#61000000' : '#000000')
+                  .fontSize(Style.FONT_SIZE_NORMAL)
+                  .fontColor(this.isCityAdded(item) ? $r('app.color.text_disabled') : $r('app.color.text_primary'))
               }
               .width('100%')
-              .height(36)
-              .backgroundColor(this.isCityAdded(item) ? '#05000000' : '#11000000')
+              .height(Style.CITY_CHIP_HEIGHT)
+              .backgroundColor(this.isCityAdded(item) ? $r('app.color.chip_background_disabled') :
+                $r('app.color.chip_background'))
               .justifyContent(FlexAlign.Center)
               .borderRadius(Style.CITY_TEXT_RADIUS)
               .onClick(() => {
                 if (!this.isCityAdded(item)) {
-                  addCity(item);
-                  AppStorage.SetOrCreate('isRefresh', true);
-                  router.back();
+                  addCity(item)
+                  AppStorage.setOrCreate(StorageKeys.IS_REFRESH, true)
+                  router.back()
                 }
               })
             }
-          }, item => item.name)
+          }, (item: City) => item.name)
         }
       }
       .height('100%')
@@ -100,12 +101,12 @@ export struct CityGrid {
   }
 
   isCityAdded(city: City) {
-    let isAdded: boolean = false;
+    let isAdded: boolean = false
     this.cities.forEach(item => {
       if (item.name === city.name) {
-        isAdded = true;
+        isAdded = true
       }
     })
-    return isAdded;
+    return isAdded
   }
 }

@@ -19,37 +19,37 @@ import { getLifeData, MyDataSource, SuitData, Style } from '@ohos/common'
 @Component
 export default struct LifeIndex {
   private lifeData: SuitData[] = getLifeData(0)
-  private lifeDataResource: MyDataSource = new MyDataSource(this.lifeData)
+  private lifeDataResource: MyDataSource<SuitData> = new MyDataSource(this.lifeData)
 
   build() {
     Grid() {
-      LazyForEach(this.lifeDataResource, item => {
+      LazyForEach(this.lifeDataResource, (item: SuitData) => {
         GridItem() {
           Column() {
             Image(item.src)
-              .width(24)
-              .height(24)
+              .width(Style.ICON_SIZE_NORMAL)
+              .height(Style.ICON_SIZE_NORMAL)
               .objectFit(ImageFit.Contain)
             Text(item.value)
-              .fontSize(14)
-              .fontColor(Color.White)
-              .margin({ top: 8 })
+              .fontSize(Style.FONT_SIZE_NORMAL)
+              .fontColor($r('app.color.white'))
+              .margin({ top: Style.LIFE_INDEX_VALUE_MARGIN_TOP })
             Text(item.desc)
-              .fontSize(12)
-              .fontColor('#99FFFFFF')
-              .margin({ top: 2 })
+              .fontSize(Style.FONT_SIZE_SMALL)
+              .fontColor($r('app.color.text_white_60'))
+              .margin({ top: Style.LIFE_INDEX_DESC_MARGIN_TOP })
           }
         }
-      }, item => item.desc)
+      }, (item: SuitData) => item.desc)
     }
     .height(Style.CARD_HEIGHT)
-    .columnsTemplate('1fr 1fr 1fr 1fr')
-    .rowsTemplate('1fr 1fr')
+    .columnsTemplate(Style.LIFE_INDEX_COLUMNS)
+    .rowsTemplate(Style.LIFE_INDEX_ROWS)
     .backgroundColor(Style.CARD_BACKGROUND_COLOR)
     .borderRadius(Style.NORMAL_RADIUS)
   }
 
   aboutToAppear() {
-    this.lifeDataResource['dataArray'] = this.lifeData
+    this.lifeDataResource.setData(this.lifeData)
   }
 }

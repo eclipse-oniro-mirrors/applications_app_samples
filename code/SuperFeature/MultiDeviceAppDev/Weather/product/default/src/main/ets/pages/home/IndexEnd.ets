@@ -13,38 +13,54 @@
  * limitations under the License.
  */
 
-import { Style } from '@ohos/common'
+import { bundleManager } from '@kit.AbilityKit'
+import { BusinessError } from '@kit.BasicServicesKit'
+import { Logger, Style } from '@ohos/common'
+
+const TAG: string = 'IndexEnd'
 
 @Preview
 @Component
 export default struct IndexEnd {
+  @State versionName: string = ''
+
+  aboutToAppear() {
+    try {
+      const bundleInfo = bundleManager.getBundleInfoForSelfSync(bundleManager.BundleFlag.GET_BUNDLE_INFO_DEFAULT)
+      this.versionName = bundleInfo.versionName
+    } catch (error) {
+      const err = error as BusinessError
+      Logger.error(TAG, `Failed to get bundle info. Cause: ${err.message}`)
+    }
+  }
+
   build() {
     Column() {
       Row() {
         Image($r('app.media.icon_china_weather'))
-          .width(16)
-          .height(16)
+          .width(Style.ICON_SIZE_SMALL)
+          .height(Style.ICON_SIZE_SMALL)
           .objectFit(ImageFit.Contain)
-          .opacity(0.6)
+          .opacity(Style.OPACITY_SECONDARY)
         Text($r('app.string.china_weather'))
-          .fontColor('#99FFFFFF')
-          .fontSize(12)
+          .fontColor($r('app.color.text_white_60'))
+          .fontSize(Style.FONT_SIZE_SMALL)
       }
 
-      Text($r('app.string.weather_version'))
-        .fontColor('#99FFFFFF')
-        .fontSize(12)
-        .margin({ top: 8 })
+      Text($r('app.string.weather_version', this.versionName))
+        .fontColor($r('app.color.text_white_60'))
+        .fontSize(Style.FONT_SIZE_SMALL)
+        .margin({ top: Style.FOOTER_VERSION_MARGIN_TOP })
       Text($r('app.string.weather_statement'))
-        .fontColor('#FFFFFF')
-        .fontSize(12)
-        .margin({ top: 4 })
+        .fontColor($r('app.color.white'))
+        .fontSize(Style.FONT_SIZE_SMALL)
+        .margin({ top: Style.FOOTER_TEXT_MARGIN_TOP })
       Text($r('app.string.weather_copyright'))
-        .fontColor('#99FFFFFF')
-        .fontSize(12)
-        .margin({ top: 4 })
+        .fontColor($r('app.color.text_white_60'))
+        .fontSize(Style.FONT_SIZE_SMALL)
+        .margin({ top: Style.FOOTER_TEXT_MARGIN_TOP })
     }
     .width('100%')
-    .padding({ top: 40, bottom: 50 })
+    .padding({ top: Style.FOOTER_PADDING_TOP, bottom: Style.FOOTER_PADDING_BOTTOM })
   }
 }

@@ -13,24 +13,24 @@
  * limitations under the License.
  */
 
-import { getWeekWeatherData, MyDataSource, WeekWeather, Style } from '@ohos/common'
+import { getWeekWeatherData, MyDataSource, WeekWeather, Style, WeatherSymbol } from '@ohos/common'
 
 @Preview
 @Component
 export default struct MultidayWeather {
   private weekData: WeekWeather[] = getWeekWeatherData(0)
-  @State weekDataResource: MyDataSource = new MyDataSource(this.weekData)
+  @State weekDataResource: MyDataSource<WeekWeather> = new MyDataSource(this.weekData)
 
   build() {
     List() {
-      LazyForEach(this.weekDataResource, (item, index) => {
+      LazyForEach(this.weekDataResource, (item: WeekWeather, index: number) => {
         ListItem() {
           DayWeatherItem({weatherInfo: item, index: index})
-            .opacity(index === 0 ? 0.6 : 1)
+            .opacity(index === 0 ? Style.OPACITY_SECONDARY : 1)
             .width(Style.WEATHER_ITEM_WIDTH)
-            .padding({ top: 16, bottom: 13 })
+            .padding({ top: Style.DAY_ITEM_PADDING_TOP, bottom: Style.DAY_ITEM_PADDING_BOTTOM })
         }
-      }, item => item.week)
+      }, (item: WeekWeather) => item.week)
     }
     .width('100%')
     .height(Style.CARD_HEIGHT)
@@ -40,50 +40,50 @@ export default struct MultidayWeather {
   }
 
   aboutToAppear() {
-    this.weekDataResource['dataArray'] = this.weekData
+    this.weekDataResource.setData(this.weekData)
   }
 }
 
 @Component
 struct DayWeatherItem {
-  private index: number;
-  private weatherInfo: WeekWeather;
+  @Prop index: number
+  @Prop weatherInfo: WeekWeather
 
   build() {
     Column() {
       Text(this.index === 0 ? $r('app.string.yestoday') : this.index === 1 ? $r('app.string.today') : this.weatherInfo.week)
-        .fontSize(12)
-        .fontColor(Color.White)
+        .fontSize(Style.FONT_SIZE_SMALL)
+        .fontColor($r('app.color.white'))
       Text(this.weatherInfo.date)
-        .fontSize(10)
-        .fontColor(Color.White)
-        .margin({ top: 4 })
+        .fontSize(Style.FONT_SIZE_TINY)
+        .fontColor($r('app.color.white'))
+        .margin({ top: Style.DAY_DATE_MARGIN_TOP })
       Row() {
         Image(this.weatherInfo.icon)
-          .width(28)
-          .height(28)
+          .width(Style.ICON_SIZE_LARGE)
+          .height(Style.ICON_SIZE_LARGE)
           .objectFit(ImageFit.Contain)
       }
-      .margin({ top: 8 })
+      .margin({ top: Style.DAY_ICON_MARGIN_TOP })
       .justifyContent(FlexAlign.Center)
 
       Text(this.weatherInfo.weather)
-        .fontSize(12)
-        .fontColor(Color.White)
-        .margin({ top: 8 })
-      Text(`${this.weatherInfo.min}°-${this.weatherInfo.max}°`)
-        .fontSize(14)
-        .fontColor(Color.White)
-        .margin({ top: 16 })
+        .fontSize(Style.FONT_SIZE_SMALL)
+        .fontColor($r('app.color.white'))
+        .margin({ top: Style.DAY_WEATHER_MARGIN_TOP })
+      Text(`${this.weatherInfo.min}${WeatherSymbol.DEGREE}${WeatherSymbol.TEMP_DASH}${this.weatherInfo.max}${WeatherSymbol.DEGREE}`)
+        .fontSize(Style.FONT_SIZE_NORMAL)
+        .fontColor($r('app.color.white'))
+        .margin({ top: Style.DAY_TEMP_MARGIN_TOP })
       Text(this.weatherInfo.airLevel)
-        .fontSize(10)
-        .fontColor(Color.White)
-        .margin({ top: 19 })
-        .backgroundColor('#24FFFFFF')
-        .width(26)
-        .height(16)
+        .fontSize(Style.FONT_SIZE_TINY)
+        .fontColor($r('app.color.white'))
+        .margin({ top: Style.DAY_AIR_MARGIN_TOP })
+        .backgroundColor($r('app.color.tag_background'))
+        .width(Style.AIR_TAG_WIDTH)
+        .height(Style.AIR_TAG_HEIGHT)
         .textAlign(TextAlign.Center)
-        .borderRadius(11)
+        .borderRadius(Style.TAG_RADIUS)
     }
   }
 }

@@ -13,41 +13,68 @@
  * limitations under the License.
  */
 
-import AirQuality from './AirQuality';
-import HoursWeather from './HoursWeather';
-import IndexHeader from './IndexHeader';
-import IndexEnd from './IndexEnd';
-import LifeIndex from './LifeIndex';
-import MultidayWeather from './MultidayWeather';
-import SunCanvas from './SunCanvas';
-import { CityListData, Style } from '@ohos/common';
+import AirQuality from './AirQuality'
+import HoursWeather from './HoursWeather'
+import IndexHeader from './IndexHeader'
+import IndexEnd from './IndexEnd'
+import LifeIndex from './LifeIndex'
+import MultidayWeather from './MultidayWeather'
+import SunCanvas from './SunCanvas'
+import {
+  CityListData,
+  StorageKeys,
+  Style,
+  getCityListWeatherData
+} from '@ohos/common'
 
 @Component
 export default struct HomeContent {
-  private cityListData: CityListData | undefined = undefined;
-  private index: number = 1;
-  private scroller: Scroller = new Scroller();
-  @Prop showSideBar: boolean;
-  @StorageLink('titleText') titleText: string[] = [];
-  @StorageLink('swiperIndex') swiperIndex: number = 0;
-  @State headerOpacity: number = 1;
+  // 默认取首条城市数据，父组件传入时会被覆盖，避免下游使用非空断言
+  private cityListData: CityListData = getCityListWeatherData()[0]
+  private index: number = 1
+  private scroller: Scroller = new Scroller()
+  @Prop showSideBar: boolean
+  @StorageLink('titleText') titleText: string[] = []
+  @StorageLink('swiperIndex') swiperIndex: number = 0
+  @State headerOpacity: number = 1
 
   build() {
     Scroll(this.scroller) {
       GridRow({
-        columns: { xs: 4, sm: 4, md: 8, lg: this.showSideBar ? 8 : 12 },
+        columns: {
+          xs: Style.GRID_COLUMN_XS,
+          sm: Style.GRID_COLUMN_SM,
+          md: Style.GRID_COLUMN_MD,
+          lg: this.showSideBar ? Style.GRID_COLUMN_LG_WITH_SIDEBAR : Style.GRID_COLUMN_LG
+        },
         gutter: { x: Style.GRID_GUTTER, y: Style.GRID_GUTTER },
         breakpoints: { reference: BreakpointsReference.WindowSize } }) {
-        GridCol({ span: { xs: 4, sm: 4, md: 8, lg: this.showSideBar ? 8 : 12 }, order: 0 }) {
+        GridCol({
+          span: {
+            xs: Style.GRID_COLUMN_XS,
+            sm: Style.GRID_COLUMN_SM,
+            md: Style.GRID_COLUMN_MD,
+            lg: this.showSideBar ? Style.GRID_COLUMN_LG_WITH_SIDEBAR : Style.GRID_COLUMN_LG
+          },
+          order: 0
+        }) {
           IndexHeader({ headerDate: this.cityListData.header, index: this.index })
             .opacity(this.headerOpacity)
         }
 
-        GridCol({ span: { xs: 4, sm: 4, md: 8, lg: 8 }, order: 1 }) {
+        GridCol({
+          span: {
+            xs: Style.GRID_COLUMN_XS,
+            sm: Style.GRID_COLUMN_SM,
+            md: Style.GRID_COLUMN_MD,
+            lg: Style.GRID_COLUMN_LG_WITH_SIDEBAR
+          },
+          order: 1
+        }) {
           HoursWeather({ hoursData: this.cityListData.hoursData })
         }
 
-        GridCol({ span: 4, order: { xs: 2, sm: 2, md: 2, lg: this.showSideBar ? 2 : 3 } },) {
+        GridCol({ span: 4, order: { xs: 2, sm: 2, md: 2, lg: this.showSideBar ? 2 : 3 } }) {
           MultidayWeather({ weekData: this.cityListData.weekData })
         }
 
@@ -63,23 +90,36 @@ export default struct HomeContent {
           SunCanvas()
         }
 
-        GridCol({ span: { xs: 4, sm: 4, md: 8, lg: this.showSideBar ? 8 : 12 }, order: 6 }) {
+        GridCol({
+          span: {
+            xs: Style.GRID_COLUMN_XS,
+            sm: Style.GRID_COLUMN_SM,
+            md: Style.GRID_COLUMN_MD,
+            lg: this.showSideBar ? Style.GRID_COLUMN_LG_WITH_SIDEBAR : Style.GRID_COLUMN_LG
+          },
+          order: 6
+        }) {
           IndexEnd()
         }
       }
     }
-    .id('homeContent' + this.index)
+    .id(`homeContent${this.index}`)
     .width('100%')
     .layoutWeight(1)
     .scrollBar(BarState.Off)
     .onScroll(() => {
-      this.headerOpacity = 1 - (this.scroller.currentOffset().yOffset - 45) / 100;
-      if (this.scroller.currentOffset().yOffset > 45) {
-        this.titleText[this.index] = this.cityListData.header.city;
-        AppStorage.SetOrCreate('titleText', this.titleText);
-      } else if (this.scroller.currentOffset().yOffset < 45) {
-        this.titleText[this.index] = '';
-        AppStorage.SetOrCreate('titleText', this.titleText);
+      const offsetY: number = this.scroller.currentOffset().yOffset
+      this.headerOpacity = 1 - (offsetY - Style.SCROLL_FADE_START) / Style.SCROLL_FADE_DISTANCE
+      if (offsetY > Style.SCROLL_FADE_START) {
+        if (this.titleText[this.index] !== this.cityListData.header.city) {
+          this.titleText[this.index] = this.cityListData.header.city
+          AppStorage.setOrCreate(StorageKeys.TITLE_TEXT, this.titleText)
+        }
+      } else if (offsetY < Style.SCROLL_FADE_START) {
+        if (this.titleText[this.index] !== '') {
+          this.titleText[this.index] = ''
+          AppStorage.setOrCreate(StorageKeys.TITLE_TEXT, this.titleText)
+        }
       }
     })
   }
