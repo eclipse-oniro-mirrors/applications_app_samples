@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/picturepreviewsample/PicturePreviewSample.ets
+ * 文件职责：PicturePreviewSample 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：PicturePreviewSample。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { PicturePreview } from '../view/PicturePreview';
 
 // 图片预览使用案例
@@ -36,11 +43,20 @@ import { PicturePreview } from '../view/PicturePreview';
  *  @example
  *  PicturePreview({ imageList: this.imageList, listDirection: this.listDirection })
  */
+/**
+ * PicturePreviewSample：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct PicturePreviewSample {
+  // @State imageList：组件内部状态
   @State imageList: string[] = [];
+
+  // @State listDirection：组件内部状态
   @State listDirection: Axis = Axis.Horizontal;
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear(): void {
     let imageSource:string = $r('app.media.picturepreview_image') as ESObject;
     this.imageList.push(
@@ -50,7 +66,12 @@ export struct PicturePreviewSample {
     )
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // PicturePreview：PicturePreview 自定义组件
     PicturePreview({ imageList: this.imageList, listDirection: this.listDirection })
+      .id('picture_preview_sample_picture_preview_1')
   }
 }

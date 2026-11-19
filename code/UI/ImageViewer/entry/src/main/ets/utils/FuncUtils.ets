@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/utils/FuncUtils.ets
+ * 文件职责：FuncUtils 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：runWithAnimation、simplestRotationQuarter。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { ImageViewerConstants } from '../constants/ImageViewerConstants';
 
 /**
@@ -25,6 +32,9 @@ export function runWithAnimation(
   fn: Function,
   duration: number = ImageViewerConstants.ANIMATE_DURATION,
   curve: Curve = Curve.Smooth): void {
+  /**
+   * animateTo：执行 animateTo 相关逻辑。
+   */
   animateTo({ duration: duration, curve: curve }, () => {
     fn();
   })
@@ -38,8 +48,10 @@ export function runWithAnimation(
 export function simplestRotationQuarter(angle: number): number {
   // 一个完整的圆的角度是360度
   const FULL_CIRCLE: number = 360;
+
   // 每个象限的角度是90度
   const QUADRANT_DEGREES: number = 90;
+
   // 为了正确处理角度在象限边界的情况，使用44.5作为偏移量。
   // 这个值是为了确保当角度正好处于两个象限的边界上时（如45, 135, 225, 315度），它会被归入正确的象限。
   const BOUNDARY_OFFSET: number = 44.5;

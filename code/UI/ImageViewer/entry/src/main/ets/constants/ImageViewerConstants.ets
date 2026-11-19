@@ -13,9 +13,17 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/constants/ImageViewerConstants.ets
+ * 文件职责：ImageViewerConstants 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ImageViewerConstants。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 export class ImageViewerConstants {
   // 缩放动画的持续时间
   public static readonly ANIMATE_DURATION: number = 300;
+
   // swiper中缓存图片的数量
   public static readonly SWIPER_CACHE_COUNT: number = 2;
 }

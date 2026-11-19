@@ -13,11 +13,17 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/view/PicturePreview.ets
+ * 文件职责：PicturePreview 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：PicturePreview。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { CommonLazyDataSourceModel } from '../model/CommonLazyDataSourceModel';
 import { windowSizeManager } from '../utils/Managers';
 import { PicturePreviewImage } from './PicturePreviewImage';
 import { window } from '@kit.ArkUI';
-
 
 /**
  * 使用图片预览组件样例
@@ -40,28 +46,46 @@ import { window } from '@kit.ArkUI';
  * @param { Axis } [listDirection] - 图片预览的主轴方向， 默认水平滑动
  * @param { string[] } imageList - 图片数据列表
  */
+/**
+ * PicturePreview：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct PicturePreview {
   // 滑动方向
+  // @Prop listDirection：父组件传入的属性
   @Prop listDirection: Axis = Axis.Vertical;
+
   // 外部传入的图片数据
+  // @Link imageList：与父组件双向绑定的状态
   @Link @Watch('getListMaxLength') imageList: string[];
+
   // 背景颜色
+  // @State listBGColor：组件内部状态
   @State listBGColor: Color = Color.White;
+
   // 图片懒加载数据源
+  // @State lazyImageList：组件内部状态
   @State lazyImageList: CommonLazyDataSourceModel<string> = new CommonLazyDataSourceModel();
+
   // 当前视图下标
   private listIndex: number = 0;
+
   // 图片数量
   private listMaxLength: number = 0;
+
   // list 滑动控制器
   private listScroll: ListScroller = new ListScroller();
+
   // list间距
   private listSpace: number = 10;
+
   // list滑动动画时长
   private listAnimationDuration: number = 500;
 
   // 获取图片数量和设置懒加载图片数据
+  /**
+   * getListMaxLength：执行 getListMaxLength 相关逻辑。
+   */
   getListMaxLength() {
     this.listMaxLength = this.imageList.length;
     this.lazyImageList.clearAndPushAll(this.imageList);
@@ -83,6 +107,7 @@ export struct PicturePreview {
       }
     })
   }
+
   // 改变到具体页面
   setListToIndex = (index: number) => {
     const WIN_SIZE :window.Size= windowSizeManager.get();
@@ -111,11 +136,29 @@ export struct PicturePreview {
     this.getListMaxLength();
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // NavDestination：导航目的地
+    // 关键属性：hideTitleBar
+    // NavDestination：导航目的地
+    // 关键属性：hideTitleBar
     NavDestination() {
+      // List：列表容器
+      // 关键属性：enableScrollInteraction、scrollSnapAlign、宽度、高度、缓存数量、列表方向
+      // 交互：可点击交互
+      // List：列表容器
+      // 关键属性：enableScrollInteraction、scrollSnapAlign、宽度、高度、缓存数量、列表方向
+      // 交互：可点击交互
       List({ scroller: this.listScroll, space: this.listSpace }) {
         LazyForEach(this.lazyImageList, (imageUrl: string, index: number) => {
+          // ListItem：列表项
+          // 关键属性：宽度
+          // ListItem：列表项
+          // 关键属性：宽度
           ListItem() {
+            // PicturePreviewImage：PicturePreviewImage 自定义组件
             PicturePreviewImage({
               imageUrl: imageUrl,
               listDirection: this.listDirection,
@@ -124,8 +167,8 @@ export struct PicturePreview {
               imageIndex: index,
               imageMaxLength: this.listMaxLength,
               listBGColor: this.listBGColor
-            })
-          }
+            }).id('picture_preview_picture_preview_image_3')
+          }.id('picture_preview_list_item_2')
           .width($r('app.string.imageviewer_full_size'))
         })
       }
@@ -136,6 +179,7 @@ export struct PicturePreview {
       .cachedCount(1)
       .listDirection(this.listDirection)
       .scrollBar(BarState.Off)
+      .id('preview_list')
       .backgroundColor(this.listBGColor)
       .onClick(() => {
         this.listBGColor = this.listBGColor === Color.White ? Color.Black : Color.White;
@@ -144,8 +188,7 @@ export struct PicturePreview {
       // 注意：边框不可去除,这一步是为了防止鸿蒙定位Y轴上移,等待华为修复
       .borderWidth(1)
       .borderColor(Color.Transparent)
-    }
+    }.id('picture_preview_nav_destination_1')
     .hideTitleBar(true)
   }
 }
-
