@@ -763,3 +763,16 @@ CONCURRENT-018至027对应后续10轮修复，均先通过Host断言复现，再
 | EOS-EXIT-001 | 分别采用SYNC/ASYNC、单路/双路录制，停止后立即重录3次；Buffer输入与Surface输入分别检查EOS日志、尾帧、音频和文件可播放性。 | Pass |
 | EOS-EXIT-002 | SYNC/ASYNC播放自然结束、Seek片尾、暂停后停止和立即重播；检查尾音、视频尾帧、Flush/Destroy顺序与错误状态。 | Pass |
 | EOS-EXIT-003 | Buffer、Surface和GPU转码，包含空EOS、带数据EOS、时间区间和预览；检查尾帧、AAC尾包、成品抽样校验与销毁结果。 | Pass |
+
+## 合并修复回归
+
+在`c77adf42`内容基础上，异步视频输入统一使用回调队列取得的`bufferInfo`检查及提交，避免普通帧路径引用EOS分支内变量。音频按索引归还接口复用既有释放实现；Muxer销毁失败返回错误并避免重复销毁；音频输出示例读取原子计数后再打印日志。音频EOS和Flush/Stop处理顺序保持原状。
+
+| 编号 | 验证对象与检查 | 本次结果 |
+|---|---|---|
+| MERGE-001 | 生产视频输入循环：SYNC/ASYNC普通帧后停止、暂停中停止、无图像停止、EOS获取或提交失败、回调报错。 | RecorderLifecycleIntegrationTest的Debug、Release、UBSan Pass。 |
+| MERGE-002 | 生产音频编码器按索引归还：未创建、普通帧、EOS、归还失败及销毁后调用，检查原始索引与单次系统调用。 | AudioCodecBufferTest的Debug、Release、ASan、UBSan Pass。 |
+| MERGE-003 | 生产Muxer释放：空对象、销毁成功及失败、重复Release和析构，不重复销毁。 | MuxerLifecycleTest的Debug、Release、ASan、UBSan Pass。 |
+| MERGE-004 | 合并版本构建、静态检查与默认设备套件。 | HAP构建及签名Pass；CodeLinter为245条存量、0条新增；默认Hypium设备13套、49/49 Pass，0失败、0错误。 |
+
+Host全量及3组入口检查通过，Native共23项Debug、Release通过，失败检查负向控制按预期退出1。上述Native测试使用OHOS接口替身；本次默认设备套件不覆盖实际录制EOS、完整页面或GPU送显，未重新执行这些手工场景，也未进行性能复测。既有场景的历史Pass记录不作为本次重新执行的结果。命令、日志及范围见[合并回归验证](tests/README.md#合并回归验证)。

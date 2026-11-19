@@ -161,7 +161,7 @@ void Recorder::VideoEncInputSyncThread()
         }
         /**
          * 示例：配置输入文件。
-         * std::string_view inputFilePath = "/*yourpath*.yuv";
+         * std::string_view inputFilePath = "/data/storage/el2/base/files/input.yuv";
          * std::unique_ptr<std::ifstream> inputFile = std::make_unique<std::ifstream>();
          * if (inputFile != nullptr) {
          *     inputFile->open(inputFilePath.data(), std::ios::in | std::ios::binary);
@@ -222,13 +222,13 @@ void Recorder::VideoEncInputAsyncThread()
         // [Start recorder_video_buffer_input_async]
         // 异步模式只消费OnNeedInputBuffer回调入队的Buffer和索引，不调用Query/Get接口。
         const auto bufferInfo = encContext_->inputBufferQueue.Dequeue(INPUT_WAIT_MS);
-        if (input == nullptr || input->buffer == nullptr) {
+        if (bufferInfo == nullptr || bufferInfo->buffer == nullptr) {
             continue;
         }
          /**
          * // 示例：读取输入文件数据，将数据写入buffer，设置属性后送入编码器。
          * // 输入文件配置。
-         * std::string_view inputFilePath = "/*yourpath*.yuv";
+         * std::string_view inputFilePath = "/data/storage/el2/base/files/input.yuv";
          * std::unique_ptr<std::ifstream> inputFile = std::make_unique<std::ifstream>();
          * if (inputFile != nullptr) {
          *     inputFile->open(inputFilePath.data(), std::ios::in | std::ios::binary);
@@ -285,7 +285,7 @@ void Recorder::VideoEncInputAsyncThread()
          * }
          */
         // [End recorder_video_buffer_input_async]
-        if (!SubmitVideoInputImage(image.get(), *input, state, receivedAtUs)) {
+        if (!SubmitVideoInputImage(image.get(), *bufferInfo, state, receivedAtUs)) {
             break;
         }
     }

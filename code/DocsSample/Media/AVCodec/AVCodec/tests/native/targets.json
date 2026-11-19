@@ -1,6 +1,9 @@
 {
   "PcmQueueTest": [],
   "NativeHandleTest": [],
+  "MuxerLifecycleTest": [
+    "capabilities/muxer.cpp"
+  ],
   "RecorderLifecycleIntegrationTest": [
     "sample/recorder/core/Recorder.cpp",
     "sample/recorder/core/RecorderRelease.cpp",

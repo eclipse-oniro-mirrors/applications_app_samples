@@ -2484,7 +2484,7 @@ $env:AVCODEC_WSL_DISTRO = '<distribution name from wsl --list>'
 node scripts/verify.mjs
 ```
 
-The script runs the Host suites and runner checks, all 22 Native tests, CodeLinter and the HAP build. Each command has a timeout and writes a log under `.validation/logs/`; any failed stage returns a nonzero exit code. Use `--only host|native|lint|build` to run one stage. Use the Node version bundled with DevEco Studio, or add it to PATH first. See [verification details](tests/README.md) for timeout options, dependencies, scope, existing findings and PR requirements. CI can call this script; repository maintainers must configure required remote checks.
+The script runs the Host suites and runner checks, all 23 Native tests, CodeLinter and the HAP build. Each command has a timeout and writes a log under `.validation/logs/`; any failed stage returns a nonzero exit code. Use `--only host|native|lint|build` to run one stage. Use the Node version bundled with DevEco Studio, or add it to PATH first. See [verification details](tests/README.md) for timeout options, dependencies, scope, existing findings and PR requirements. CI can call this script; repository maintainers must configure required remote checks.
 
 The foreground app keeps the screen on during video playback or active recording. Pause, stop, page exit and background transitions restore the system timeout policy. Audio-only playback and idle pages do not keep the screen on. Media asset queries attempt to release PhotoAccessHelper on success, lookup failure and result-close failure. Recording initialization retains the original error object so its stage, code and message remain available.
 
@@ -2510,7 +2510,7 @@ The 17 Host suites include tests combining the production Flow, Command and Seek
 |---|---|
 | 324 functional, compatibility, stability and added regression cases | Pass |
 | 17 Host suites and three verification runner groups | Pass |
-| 22 Native host tests in Debug and Release | Pass |
+| 23 Native host tests in Debug and Release | Pass |
 | ASan and UBSan: five selected Native tests each | Pass |
 | Playback flow, PiP, resource handling and EOS device regressions | Pass |
 | CodeLinter | Pass: 245 existing findings, zero new findings; baseline unchanged |
@@ -2533,3 +2533,7 @@ Transcode, inspection and preview merge concurrent closure of the same descripto
 Recording preallocates a fixed S16LE PCM ring for two seconds of samples, at least one maximum input block and at most 4MiB. Invalid or oversized settings fail initialization. Capture callbacks do not grow the queue or move pending samples. Overflow enters the existing error cleanup path and preserves queued data. The diagnostics audio object exposes peak pending bytes, capacity, overflow count and queue-handling time including lock waits; it excludes later diagnostics accounting. Audio EOS and Flush/Stop ordering remain as before.
 
 Player owns one audio callback context until the renderer is released and workers exit. Vulkan groups frame, swapchain and upload resources by lifetime, with repeatable cleanup after partial initialization. The sink explicitly waits for GPU work before freeing dependent objects; destructors do not hide that wait. NativeBuffer import-cache ownership is unchanged. Host regression scope, the recording queue benchmark and completed device regressions are described in [verification details](tests/README.md#转码与native资源调整) and [the test guide](ohosTest.md#native-resource-regression).
+
+### Merge regression fixes
+
+The asynchronous video input worker checks and submits the same callback Buffer. The index-based audio output release delegates to the existing checked release path. Muxer destruction errors reach the caller, and the audio output example loads its atomic frame counter before logging. Native regression tests exercise the production implementations; see [merge verification](tests/README.md#合并回归验证) for results and device coverage.

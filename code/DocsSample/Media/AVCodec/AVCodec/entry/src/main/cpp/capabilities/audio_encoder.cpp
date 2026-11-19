@@ -278,5 +278,7 @@ int32_t AudioEncoder::Release()
 
 int32_t AudioEncoder::FreeOutputData(uint32_t bufferIndex)
 {
-    return AVCODEC_SAMPLE_ERR_OK;
+    CodecBufferInfo info;
+    info.bufferIndex = bufferIndex;
+    return FreeOutputBuffer(info);
 }

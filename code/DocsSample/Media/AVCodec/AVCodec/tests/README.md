@@ -8,7 +8,7 @@
 |---|---|
 | 324条功能、兼容性、稳定性及新增回归用例 | Pass |
 | 17套Host回归及3组验证入口检查 | Pass |
-| 22项Native宿主测试：Debug、Release | Pass |
+| 23项Native宿主测试：Debug、Release | Pass |
 | ASan、UBSan：各5项Native定向测试 | Pass |
 | 播放流程、PiP、资源归属与EOS设备回归 | Pass |
 | CodeLinter | Pass：245条存量结果，0条新增；基线未修改 |
@@ -183,7 +183,7 @@ Host回归使用SDK中的TypeScript转译器和文件/Native替身，覆盖模�
 
 A-B循环回归运行生产控制器，在一次Seek等待期间分别重新设置A、重设A和B、仅重设B及清除循环，再返回旧请求的失败、完成、取消和被替换结果，共16种组合。检查旧结果不覆盖新端点或开关，停用后无轮询，启用的新循环仍能向当前A点发出Seek；当前请求失败仍清除循环。计时器、播放信息和Seek为Host替身；实际送显与设备Seek回归结果为Pass。
 
-Native入口按[targets.json](native/targets.json)编译并执行全部22个测试，复用生产实现和SDK声明，由测试提供OHOS函数替身。宿主编译器直接解析SDK版本可用性属性，不再通过宏重定义保留标识符。`-Wno-ignored-attributes`仅关闭宿主平台无法应用的SDK属性提示，`--gc-sections`排除测试没有调用的设备代码；运行通过不能代替设备上的编码、图形或驱动验证。测试产物写入已忽略的`.validation/`。
+Native入口按[targets.json](native/targets.json)编译并执行全部23个测试，复用生产实现和SDK声明，由测试提供OHOS函数替身。宿主编译器直接解析SDK版本可用性属性，不再通过宏重定义保留标识符。`-Wno-ignored-attributes`仅关闭宿主平台无法应用的SDK属性提示，`--gc-sections`排除测试没有调用的设备代码；运行通过不能代替设备上的编码、图形或驱动验证。测试产物写入已忽略的`.validation/`。
 
 `AudioCodecBufferTest`直接组合AudioDecoder与AudioOutputPump，检查同步EOS在解码器内调用Free并返回END、异步EOS在输出线程归还、尾部PCM顺序、EOS不进入PCM回调、Buffer归还调用次数，以及查询超时、查询失败和查询期间停止的区别。新增组合覆盖暂停期间不消费输出、重建时丢弃待送PCM、EOS归还后释放并重建解码器；同步和异步模式各重复20次。同步EOS按当前接口约定不检查Free返回值，测试只确认调用一次、清空Buffer且不重复归还；异步EOS和普通PCM归还失败仍按错误处理。同时检查音频编码器Stop前Flush、编解码器Release前Flush/Stop，以及清理失败后仍执行Destroy且不重复销毁。
 
@@ -251,3 +251,24 @@ CodeLinter使用正式配置[code-linter.json5](../code-linter.json5)，检查�
 | WordsTool.297：真实系统命令 | 保留可运行的系统命令；命令名仍可能命中词语扫描，需平台按误报复核。 |
 
 报告共7条，以上按相同处理合并展示。对应预防规则已写入本地开发约定：SDK替身保持ABI、实际除法附近防零、具名范围集合，以及保留真实命令。没有放宽CodeLinter基线，也没有用拆字符、编码或伪造命令规避检查。原平台复扫尚未执行。
+
+## 合并回归验证
+
+本次在`c77adf42`内容基础上修复异步视频输入变量名不一致、音频索引归还接口空实现、Muxer销毁错误被忽略，以及音频输出示例将原子计数直接传入日志接口的问题。音频编解码EOS及Flush/Stop顺序不变。视频输入示例路径改为不含嵌套注释起始符的沙箱路径，消除编译器注释告警。
+
+`AudioCodecBufferTest`新增按索引归还的未创建、普通帧、EOS、系统接口失败和销毁后调用检查；每次有效归还只调用一次系统接口并保留原索引。新增`MuxerLifecycleTest`直接链接生产Muxer，覆盖空对象释放、销毁成功、销毁失败返回、重复释放及析构不重复销毁。既有`RecorderLifecycleIntegrationTest`继续链接生产视频输入循环，覆盖SYNC/ASYNC普通帧、暂停、无图像停止及EOS失败路径。
+
+| 检查项 | 本次结果 |
+|---|---|
+| 17套Host回归及3组验证入口检查 | Pass |
+| 23项Native宿主测试，Debug及Release | 全部Pass；Release使用`-O2 -DNDEBUG` |
+| Native检查负向控制 | Debug、Release均按预期退出1 |
+| AudioCodecBufferTest、MuxerLifecycleTest | ASan及UBSan均Pass，共4项 |
+| RecorderLifecycleIntegrationTest | UBSan Pass |
+| CodeLinter | 245条存量，0条新增，基线未修改 |
+| HAP构建及签名 | Pass；仍有存量ArkTS警告 |
+| 默认Hypium设备回归 | 13套、49/49 Pass，0失败、0错误 |
+
+环境使用SDK 26.0.0、DevEco Studio和WSL Ubuntu 22.04的LLVM工具链。日志为`.validation/merge-fix-host.log`、`merge-fix-native-debug.log`、`merge-fix-native-release.log`、`merge-fix-lint.log`、`merge-fix-build.log`、`merge-fix-device.log`及对应`merge-fix-address-*`、`merge-fix-undefined-*`日志。设备结构化结果为`.validation/device-result.json`。
+
+本次默认设备套件不覆盖录制页面完整操作与真实codec的EOS排空，未重新执行手工EOS、系统PiP、GPU送显或性能采样。TSan与CMake/CTest路径本次未执行；既有设备和性能记录保留原适用范围。

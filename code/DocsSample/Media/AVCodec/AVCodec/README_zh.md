@@ -2874,7 +2874,7 @@ $env:AVCODEC_WSL_DISTRO = '<wsl --list显示的发行版名>'
 node scripts/verify.mjs
 ```
 
-脚本依次运行Host回归及验证入口测试、22项Native测试、CodeLinter和HAP构建。每个命令均有限时，日志保存在`.validation/logs/`，任一步失败都会返回非零退出码。也可用`--only host|native|lint|build`单独执行一个阶段。Node应使用DevEco Studio随附版本，或先把该版本加入PATH。超时参数、依赖、检查范围、存量告警和PR验证要求见[验证说明](tests/README.md)。脚本可接入CI；远端必需检查需要仓库维护者配置。
+脚本依次运行Host回归及验证入口测试、23项Native测试、CodeLinter和HAP构建。每个命令均有限时，日志保存在`.validation/logs/`，任一步失败都会返回非零退出码。也可用`--only host|native|lint|build`单独执行一个阶段。Node应使用DevEco Studio随附版本，或先把该版本加入PATH。超时参数、依赖、检查范围、存量告警和PR验证要求见[验证说明](tests/README.md)。脚本可接入CI；远端必需检查需要仓库维护者配置。
 
 应用在前台播放视频或实际录制时保持屏幕常亮；暂停、停止、离页和进入后台后恢复系统息屏策略。纯音频播放和空闲页面不主动维持常亮。媒体库查询在成功、失败及结果关闭异常时均尝试释放PhotoAccessHelper；录制初始化失败保留原始错误对象，便于查看阶段、错误码和错误信息。
 
@@ -2900,7 +2900,7 @@ PiP启动绑定播放代次，重复启动共用同一请求；停止先让旧�
 |---|---|
 | 324条功能、兼容性、稳定性及新增回归用例 | Pass |
 | 17套Host回归与3组验证入口检查 | Pass |
-| 22项Native宿主测试：Debug、Release | Pass |
+| 23项Native宿主测试：Debug、Release | Pass |
 | ASan、UBSan：各5项Native定向测试 | Pass |
 | 播放流程、PiP、资源归属与EOS设备回归 | Pass |
 | CodeLinter | Pass：245条存量结果，0条新增；基线未修改 |
@@ -2923,3 +2923,7 @@ PiP启动绑定播放代次，重复启动共用同一请求；停止先让旧�
 录音在采集前按2秒S16LE样本量分配固定PCM环形队列，至少容纳一个最大输入块、最多4MiB；参数无效或所需容量超限时初始化失败。回调不扩容、不前移剩余样本，溢出进入既有错误收尾且保留已排队数据。诊断audio对象增加积压峰值、容量、溢出次数及含锁等待的队列处理耗时，不含后续诊断入账。同步音频EOS和既有Flush/Stop顺序保持原样。
 
 播放音频回调上下文由Player集中持有，renderer释放且工作线程退出后才销毁。Vulkan按帧、交换链与上传图像的有效期分组，支持部分初始化和重复清理；sink仍先等待GPU完成，再释放依赖资源，析构不隐藏等待。NativeBuffer导入缓存沿用原所有权。Host回归、录音缓存基准和设备回归结果分别见[验证说明](tests/README.md#转码与native资源调整)与[测试指南](ohosTest.md#native-resource-regression)。
+
+### 合并回归修复
+
+异步视频输入对同一回调Buffer执行空值检查和提交；按索引归还音频输出复用现有校验与错误处理；Muxer销毁失败返回调用方；音频输出示例先读取原子计数，再传入日志接口。Native回归直接调用生产实现，结果及设备验证范围见[合并回归验证](tests/README.md#合并回归验证)。

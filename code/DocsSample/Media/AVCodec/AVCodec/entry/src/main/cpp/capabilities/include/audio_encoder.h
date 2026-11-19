@@ -48,8 +48,9 @@ public:
     int32_t Stop();
     // 销毁codec句柄。该操作后缓存的所有输入、输出Buffer索引都不能再使用。
     int32_t Release();
+    // 文档示例按原始索引归还输出Buffer，复用FreeOutputBuffer的校验和错误处理。
     int32_t FreeOutputData(uint32_t bufferIndex);
-    
+
 private:
     int32_t SetCallback(CodecUserData *codecUserData);
     int32_t Configure(const SampleInfo &sampleInfo);
