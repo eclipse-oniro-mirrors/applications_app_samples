@@ -19,7 +19,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const BUNDLE: string = 'com.samples.citysearch';
 const ABILITY: string = 'EntryAbility';
-const DOMAIN: number = 0xF814;
+const DOMAIN: number = 0xF811;
 const TAG: string = 'CitySearchSearchFlowTest';
 
 const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
@@ -125,14 +125,14 @@ export default function citySearchSearchFlowTest(): void {
 
     /**
      * @tc.number    SUB_CITYSEARCH_SEARCHFLOW_0501
-     * @tc.name      testCitySearchSearchFlow0501
+     * @tc.name      CitySearch_CitySearchSearchFlow_0501
      * @tc.desc      Verify searching 长 lists both 长沙 and 长春.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testCitySearchSearchFlow0501', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      log('testCitySearchSearchFlow0501 begin');
+    it('CitySearch_CitySearchSearchFlow_0501', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('CitySearch_CitySearchSearchFlow_0501 begin');
       const driver: Driver = Driver.create();
       const actual2: boolean = await prepare(driver);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual2}`);
@@ -146,19 +146,19 @@ export default function citySearchSearchFlowTest(): void {
       const actual5: boolean = await exists(driver, 'searchItem_长春');
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, 'searchItem_长春')=${actual5}`);
       expect(actual5).assertTrue();
-      log('testCitySearchSearchFlow0501 end');
+      log('CitySearch_CitySearchSearchFlow_0501 end');
     })
 
     /**
      * @tc.number    SUB_CITYSEARCH_SEARCHFLOW_0506
-     * @tc.name      testCitySearchSearchFlow0506
+     * @tc.name      CitySearch_CitySearchSearchFlow_0506
      * @tc.desc      Verify a no-match keyword renders an empty result list.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testCitySearchSearchFlow0506', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      log('testCitySearchSearchFlow0506 begin');
+    it('CitySearch_CitySearchSearchFlow_0506', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('CitySearch_CitySearchSearchFlow_0506 begin');
       const driver: Driver = Driver.create();
       const actual22: boolean = await prepare(driver);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual22}`);
@@ -169,7 +169,7 @@ export default function citySearchSearchFlowTest(): void {
       const actual24: boolean = await exists(driver, 'searchItem_西安');
       hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse exists(driver, 'searchItem_西安')=${actual24}`);
       expect(actual24).assertFalse();
-      log('testCitySearchSearchFlow0506 end');
+      log('CitySearch_CitySearchSearchFlow_0506 end');
     })
   })
 }

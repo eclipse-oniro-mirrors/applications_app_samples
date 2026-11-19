@@ -84,16 +84,10 @@ export struct AlphabetListView {
   build() {
     // Stack：层叠布局容器
     // 关键属性：空间不足收缩、剩余空间放大、内边距
-    // Stack：层叠布局容器
-    // 关键属性：空间不足收缩、剩余空间放大、内边距
     Stack({ alignContent: Alignment.End }) {
       // Column：垂直布局容器
       // 关键属性：交叉轴对齐
-      // Column：垂直布局容器
-      // 关键属性：交叉轴对齐
       Column() {
-        // Text：文本
-        // 关键属性：字号、字体颜色、透明度、外边距
         // Text：文本
         // 关键属性：字号、字体颜色、透明度、外边距
         Text(this.hotSelectListTitle).id('alphabet_list_view_text_3')
@@ -107,14 +101,9 @@ export struct AlphabetListView {
 
         // Flex：弹性布局容器
         // 关键属性：宽度
-        // Flex：弹性布局容器
-        // 关键属性：宽度
         Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center, wrap: FlexWrap.Wrap }) {
           ForEach(this.hotSelectList, (hotCityItem: HotListItemView) => {
             // 这里规定每行占四个城市
-            // Column：垂直布局容器
-            // 关键属性：点击事件回调、hotSelectHandle
-            // 交互：可点击交互
             // Column：垂直布局容器
             // 关键属性：点击事件回调、hotSelectHandle
             // 交互：可点击交互
@@ -129,8 +118,6 @@ export struct AlphabetListView {
 
         // List：列表容器
         // 关键属性：宽度、外边距
-        // List：列表容器
-        // 关键属性：宽度、外边距
         List({
           space: CommonConstants.LIST_SPACE,
           initialIndex: CommonConstants.INITIAL_INDEX,
@@ -143,17 +130,12 @@ export struct AlphabetListView {
               Column() {
                 // Text：文本
                 // 关键属性：高度、字号、字体颜色、宽度
-                // Text：文本
-                // 关键属性：高度、字号、字体颜色、宽度
                 Text(`${alphabetListItem.alphabetListItem.name}`).id('alphabet_list_view_text_9')
                   .height($r('app.integer.citysearch_list_item_height'))
                   .fontSize($r('app.integer.citysearch_font_size'))
                   .fontColor($r('app.color.citysearch_text_font_color'))
                   .width(CommonConstants.VIEW_FULL)
                 ForEach(alphabetListItem.alphabetListItem.dataList, (item: string) => {
-                  // Column：垂直布局容器
-                  // 关键属性：点击事件回调、alphabetSelectHandle
-                  // 交互：可点击交互
                   // Column：垂直布局容器
                   // 关键属性：点击事件回调、alphabetSelectHandle
                   // 交互：可点击交互
@@ -193,8 +175,6 @@ export struct AlphabetListView {
        * 2. 当点击AlphabetIndexer的字母索引时，通过scrollToIndex触发list组件滑动并指定firstIndex，从而实现List列表与AlphabetIndexer组件
        * 首字母联动吸顶展示。
        */
-      // AlphabetIndexer：字母索引条
-      // 关键属性：高度、selectedColor、popupColor、selectedBackgroundColor、popupBackground、popupPosition
       // AlphabetIndexer：字母索引条
       // 关键属性：高度、selectedColor、popupColor、selectedBackgroundColor、popupBackground、popupPosition
       AlphabetIndexer({ arrayValue: this.alphabetIndexer, selected: this.stabIndex })

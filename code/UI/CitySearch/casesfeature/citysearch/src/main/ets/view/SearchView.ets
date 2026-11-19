@@ -42,11 +42,7 @@ export struct SearchView {
   build() {
     // Stack：层叠布局容器
     // 关键属性：宽度、高度、布局权重
-    // Stack：层叠布局容器
-    // 关键属性：宽度、高度、布局权重
     Stack({ alignContent: Alignment.TopEnd }) {
-      // List：列表容器
-      // 关键属性：布局权重、边缘效果、分割线
       // List：列表容器
       // 关键属性：布局权重、边缘效果、分割线
       List({ space: 14, initialIndex: 0, scroller: this.scroller }) {
@@ -56,13 +52,7 @@ export struct SearchView {
             // Column：垂直布局容器
             // 关键属性：点击事件回调
             // 交互：可点击交互
-            // Column：垂直布局容器
-            // 关键属性：点击事件回调
-            // 交互：可点击交互
             Column() {
-              // Text：文本
-              // 关键属性：高度、字号、点击事件回调
-              // 交互：可点击交互
               // Text：文本
               // 关键属性：高度、字号、点击事件回调
               // 交互：可点击交互

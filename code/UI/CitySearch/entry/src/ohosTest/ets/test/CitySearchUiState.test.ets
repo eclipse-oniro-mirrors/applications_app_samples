@@ -19,7 +19,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const BUNDLE: string = 'com.samples.citysearch';
 const ABILITY: string = 'EntryAbility';
-const DOMAIN: number = 0xF814;
+const DOMAIN: number = 0xF811;
 const TAG: string = 'CitySearchUiStateTest';
 
 const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
@@ -110,14 +110,14 @@ export default function citySearchUiStateTest(): void {
 
     /**
      * @tc.number    SUB_CITYSEARCH_UISTATE_0401
-     * @tc.name      testCitySearchUiState0401
+     * @tc.name      CitySearch_CitySearchUiState_0401
      * @tc.desc      Verify the city search input is exposed on the main page.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testCitySearchUiState0401', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      log('testCitySearchUiState0401 begin');
+    it('CitySearch_CitySearchUiState_0401', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('CitySearch_CitySearchUiState_0401 begin');
       const driver: Driver = Driver.create();
       const actual2: boolean = await prepare(driver);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual2}`);
@@ -125,19 +125,19 @@ export default function citySearchUiStateTest(): void {
       const actual3: boolean = await exists(driver, 'citySearchInput');
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, 'citySearchInput')=${actual3}`);
       expect(actual3).assertTrue();
-      log('testCitySearchUiState0401 end');
+      log('CitySearch_CitySearchUiState_0401 end');
     })
 
     /**
      * @tc.number    SUB_CITYSEARCH_UISTATE_0402
-     * @tc.name      testCitySearchUiState0402
+     * @tc.name      CitySearch_CitySearchUiState_0402
      * @tc.desc      Verify the alphabet city list is visible in the default state.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testCitySearchUiState0402', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      log('testCitySearchUiState0402 begin');
+    it('CitySearch_CitySearchUiState_0402', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('CitySearch_CitySearchUiState_0402 begin');
       const driver: Driver = Driver.create();
       const actual4: boolean = await prepare(driver);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual4}`);
@@ -145,19 +145,19 @@ export default function citySearchUiStateTest(): void {
       const actual5: boolean = await exists(driver, 'cityAlphabetList');
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, 'cityAlphabetList')=${actual5}`);
       expect(actual5).assertTrue();
-      log('testCitySearchUiState0402 end');
+      log('CitySearch_CitySearchUiState_0402 end');
     })
 
     /**
      * @tc.number    SUB_CITYSEARCH_UISTATE_0403
-     * @tc.name      testCitySearchUiState0403
+     * @tc.name      CitySearch_CitySearchUiState_0403
      * @tc.desc      Verify the alphabet indexer bar is exposed on the main page.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testCitySearchUiState0403', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      log('testCitySearchUiState0403 begin');
+    it('CitySearch_CitySearchUiState_0403', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('CitySearch_CitySearchUiState_0403 begin');
       const driver: Driver = Driver.create();
       const actual6: boolean = await prepare(driver);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual6}`);
@@ -165,19 +165,19 @@ export default function citySearchUiStateTest(): void {
       const actual7: boolean = await exists(driver, 'cityAlphabetIndexer');
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, 'cityAlphabetIndexer')=${actual7}`);
       expect(actual7).assertTrue();
-      log('testCitySearchUiState0403 end');
+      log('CitySearch_CitySearchUiState_0403 end');
     })
 
     /**
      * @tc.number    SUB_CITYSEARCH_UISTATE_0404
-     * @tc.name      testCitySearchUiState0404
+     * @tc.name      CitySearch_CitySearchUiState_0404
      * @tc.desc      Verify the first hot city label is rendered.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testCitySearchUiState0404', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      log('testCitySearchUiState0404 begin');
+    it('CitySearch_CitySearchUiState_0404', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('CitySearch_CitySearchUiState_0404 begin');
       const driver: Driver = Driver.create();
       const actual8: boolean = await prepare(driver);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual8}`);
@@ -185,19 +185,19 @@ export default function citySearchUiStateTest(): void {
       const actual9: boolean = await exists(driver, 'hotCity_北京');
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, 'hotCity_北京')=${actual9}`);
       expect(actual9).assertTrue();
-      log('testCitySearchUiState0404 end');
+      log('CitySearch_CitySearchUiState_0404 end');
     })
 
     /**
      * @tc.number    SUB_CITYSEARCH_UISTATE_0405
-     * @tc.name      testCitySearchUiState0405
+     * @tc.name      CitySearch_CitySearchUiState_0405
      * @tc.desc      Verify the first city item of group A is rendered.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testCitySearchUiState0405', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      log('testCitySearchUiState0405 begin');
+    it('CitySearch_CitySearchUiState_0405', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('CitySearch_CitySearchUiState_0405 begin');
       const driver: Driver = Driver.create();
       const actual10: boolean = await prepare(driver);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual10}`);
@@ -205,19 +205,19 @@ export default function citySearchUiStateTest(): void {
       const actual11: boolean = await exists(driver, 'cityItem_阿尔山');
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, 'cityItem_阿尔山')=${actual11}`);
       expect(actual11).assertTrue();
-      log('testCitySearchUiState0405 end');
+      log('CitySearch_CitySearchUiState_0405 end');
     })
 
     /**
      * @tc.number    SUB_CITYSEARCH_UISTATE_0406
-     * @tc.name      testCitySearchUiState0406
+     * @tc.name      CitySearch_CitySearchUiState_0406
      * @tc.desc      Verify the search result list is hidden in the default state.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testCitySearchUiState0406', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      log('testCitySearchUiState0406 begin');
+    it('CitySearch_CitySearchUiState_0406', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('CitySearch_CitySearchUiState_0406 begin');
       const driver: Driver = Driver.create();
       const actual12: boolean = await prepare(driver);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual12}`);
@@ -225,19 +225,19 @@ export default function citySearchUiStateTest(): void {
       const actual13: boolean = await exists(driver, 'searchResultList');
       hilog.info(DOMAIN, TAG, '%{public}s', `assertFalse exists(driver, 'searchResultList')=${actual13}`);
       expect(actual13).assertFalse();
-      log('testCitySearchUiState0406 end');
+      log('CitySearch_CitySearchUiState_0406 end');
     })
 
     /**
      * @tc.number    SUB_CITYSEARCH_UISTATE_0407
-     * @tc.name      testCitySearchUiState0407
+     * @tc.name      CitySearch_CitySearchUiState_0407
      * @tc.desc      Verify all twelve hot city labels are rendered.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testCitySearchUiState0407', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      log('testCitySearchUiState0407 begin');
+    it('CitySearch_CitySearchUiState_0407', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('CitySearch_CitySearchUiState_0407 begin');
       const driver: Driver = Driver.create();
       const actual14: boolean = await prepare(driver);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual14}`);
@@ -247,19 +247,19 @@ export default function citySearchUiStateTest(): void {
         hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, 'hotCity_' + hotCity)=${actual15}`);
         expect(actual15).assertTrue();
       }
-      log('testCitySearchUiState0407 end');
+      log('CitySearch_CitySearchUiState_0407 end');
     })
 
     /**
      * @tc.number    SUB_CITYSEARCH_UISTATE_0408
-     * @tc.name      testCitySearchUiState0408
+     * @tc.name      CitySearch_CitySearchUiState_0408
      * @tc.desc      Verify the main page state stays stable across repeated launches.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testCitySearchUiState0408', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      log('testCitySearchUiState0408 begin');
+    it('CitySearch_CitySearchUiState_0408', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      log('CitySearch_CitySearchUiState_0408 begin');
       const driver: Driver = Driver.create();
       const actual16: boolean = await prepare(driver);
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue prepare(driver)=${actual16}`);
@@ -276,7 +276,7 @@ export default function citySearchUiStateTest(): void {
       const actual20: boolean = await exists(driver, 'cityAlphabetIndexer');
       hilog.info(DOMAIN, TAG, '%{public}s', `assertTrue exists(driver, 'cityAlphabetIndexer')=${actual20}`);
       expect(actual20).assertTrue();
-      log('testCitySearchUiState0408 end');
+      log('CitySearch_CitySearchUiState_0408 end');
     })
   })
 }

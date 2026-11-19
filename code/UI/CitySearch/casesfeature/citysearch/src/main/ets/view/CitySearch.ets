@@ -125,13 +125,8 @@ export struct CitySearch {
   build() {
     // Column：垂直布局容器
     // 关键属性：宽度、高度、内边距、背景色、主轴对齐、交叉轴对齐
-    // Column：垂直布局容器
-    // 关键属性：宽度、高度、内边距、背景色、主轴对齐、交叉轴对齐
     Column() {
       // 搜索框
-      // Search：搜索框
-      // 关键属性：searchButton、宽度、高度、外边距、背景色、占位提示颜色
-      // 交互：输入/提交回调
       // Search：搜索框
       // 关键属性：searchButton、宽度、高度、外边距、背景色、占位提示颜色
       // 交互：输入/提交回调
@@ -188,8 +183,6 @@ export struct CitySearch {
        */
       // AlphabetListView：AlphabetListView 自定义组件
       // 关键属性：外边距
-      // AlphabetListView：AlphabetListView 自定义组件
-      // 关键属性：外边距
       AlphabetListView({
         hotSelectList: this.hotCityList,
         hotSelectListTitle: $r('app.string.citysearch_hotCity'),
@@ -213,8 +206,6 @@ export struct CitySearch {
        * @param searchList: 搜索列表数据
        * @param changeValue: 选定的城市
        */
-      // SearchView：SearchView 自定义组件
-      // 关键属性：宽度、布局权重、可见性
       // SearchView：SearchView 自定义组件
       // 关键属性：宽度、布局权重、可见性
       SearchView({ searchList: $searchList, changeValue: $changeValue })
