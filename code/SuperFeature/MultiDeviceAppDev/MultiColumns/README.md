@@ -69,13 +69,13 @@ Test project structure:
 ```
 entry/src/ohosTest/ets/
 |---test                                       // Test suites (19 suites)
-|   |---BreakpointTypeCore.test.ets            // L1: BreakpointType six-dimension cases
-|   |---ModelSpecCore.test.ets                 // L1: DataType and specification constants
-|   |---NavStackCore.test.ets                  // L1: NavPathStack routing stack
-|   |---Bp*Vol*.test.ets / ModelVol*.test.ets  // L1: @volume cases
-|   |---BpEdgeReal.test.ets                    // L1: Hand-written boundary cases
-|   |---Ability.test.ets                       // L2: Window dragging (ActsAbilityTest)
-|   |---ResponsiveUi.test.ets                  // L2: Responsive UI interaction
+|   |---BreakpointTypeCore.test.ets            // Logic: BreakpointType six-dimension cases
+|   |---ModelSpecCore.test.ets                 // Logic: DataType and specification constants
+|   |---NavStackCore.test.ets                  // Logic: NavPathStack routing stack
+|   |---Bp*Vol*.test.ets / ModelVol*.test.ets  // Logic: @volume cases
+|   |---BpEdgeReal.test.ets                    // Logic: Hand-written boundary cases
+|   |---Ability.test.ets                       // UI: Window dragging (ActsAbilityTest)
+|   |---ResponsiveUi.test.ets                  // UI: Responsive UI interaction
 |   |---List.test.ets                          // Suite registration entry
 |---TestRunner
 |   |---OpenHarmonyTestRunner.ts               // Test runner
@@ -86,7 +86,7 @@ entry/src/ohosTest/ets/
 ### Test
 
 - Test project: `entry/src/ohosTest` (bundleName `com.samples.multicolumns`, test module `entry_test`, runner `OpenHarmonyTestRunner`)
-- Scale: **19 suites / 986 test cases** (L1 logic cases + L2 real UI cases, numbered with `SUB_MC_*`)
+- Scale: **19 suites / 986 test cases** (logic-layer cases + real UI cases, numbered with `SUB_MC_*`)
 - Result: all **986/986** cases passed on a real device (720×1280 phone form factor)
 
 The following commands are executed in the project root directory. Build the test HAP (the node and hvigorw bundled with DevEco Studio 26 are required; quote paths that contain spaces):
@@ -95,12 +95,13 @@ The following commands are executed in the project root directory. Build the tes
 "<DevEco>/tools/node/node.exe" "<DevEco>/tools/hvigor/bin/hvigorw.js" --mode module -p module=entry@ohosTest -p product=default assembleHap --no-daemon
 ```
 
-Install and run (all suites registered in `List.test.ets` run when `-s class` is not specified):
+Install first, then start the registered test suites from DevEco Studio (run the `entry` ohosTest configuration; when no class filter is given, every suite registered in `List.test.ets` runs):
 
 ```
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.samples.multicolumns -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s timeout 15000
 ```
+
+The device-side execution order and the `-s timeout` budget (no less than 20000 ms) are described in [ohosTest.md](./ohosTest.md).
 
 For the case matrix, six-dimension coverage, and real-device environment constraints (full-screen windows cannot be resized, Navigation intercepts the back key, and so on), see [ohosTest.md](./ohosTest.md).
 
@@ -144,7 +145,7 @@ N/A
 
 3. This sample can be compiled and run only with DevEco Studio 26 (bundled with hvigor 6.26.8) or later versions.
 
-4. When this sample runs on a real device, you need to modify the system configuration file of the device to enable the free-form window capability. If this capability is not enabled, the window runs in full-screen mode and `Window.resize()` is unavailable. In this case, the L2 window dragging cases automatically fall back to the "window size occupies the whole screen" verification (see [ohosTest.md](./ohosTest.md)).
+4. When this sample runs on a real device, you need to modify the system configuration file of the device to enable the free-form window capability. If this capability is not enabled, the window runs in full-screen mode and `Window.resize()` is unavailable. In this case, the window dragging cases automatically fall back to the "window size occupies the whole screen" verification (see [ohosTest.md](./ohosTest.md)).
 
 ```
 # Grant the read and write permission for the file system of the development board.

@@ -75,13 +75,13 @@ MultiColumns/entry/src/main/ets/
 ```
 entry/src/ohosTest/ets/
 |---test                                       // 用例目录（19 个套件）
-|   |---BreakpointTypeCore.test.ets            // L1：BreakpointType 六维用例
-|   |---ModelSpecCore.test.ets                 // L1：DataType 与规格常量
-|   |---NavStackCore.test.ets                  // L1：NavPathStack 路由栈
-|   |---Bp*Vol*.test.ets / ModelVol*.test.ets  // L1：@volume 凑量套件
-|   |---BpEdgeReal.test.ets                    // L1：边界手写用例
-|   |---Ability.test.ets                       // L2：窗口拖拽（ActsAbilityTest）
-|   |---ResponsiveUi.test.ets                  // L2：响应式 UI 交互
+|   |---BreakpointTypeCore.test.ets            // 逻辑层：BreakpointType 六维用例
+|   |---ModelSpecCore.test.ets                 // 逻辑层：DataType 与规格常量
+|   |---NavStackCore.test.ets                  // 逻辑层：NavPathStack 路由栈
+|   |---Bp*Vol*.test.ets / ModelVol*.test.ets  // 逻辑层：@volume 凑量套件
+|   |---BpEdgeReal.test.ets                    // 逻辑层：边界手写用例
+|   |---Ability.test.ets                       // UI 层：窗口拖拽（ActsAbilityTest）
+|   |---ResponsiveUi.test.ets                  // UI 层：响应式 UI 交互
 |   |---List.test.ets                          // 套件注册入口
 |---TestRunner
 |   |---OpenHarmonyTestRunner.ts               // 测试运行器
@@ -92,7 +92,7 @@ entry/src/ohosTest/ets/
 ### 测试
 
 - 测试工程：`entry/src/ohosTest`（bundleName `com.samples.multicolumns`，测试模块 `entry_test`，运行器 `OpenHarmonyTestRunner`）
-- 规模：**19 个套件 / 986 条用例**（L1 逻辑用例 + L2 真实 UI 用例，编号 SUB_MC_*）
+- 规模：**19 个套件 / 986 条用例**（逻辑层用例 + 真实 UI 用例，编号 SUB_MC_*）
 - 环境：OpenHarmony-7.1.0.21（API 26），真机 720×1280 手机形态，DevEco Studio 26.0.0.851 + hvigor 6.26.8 + Hypium 1.0.6
 - 结果：全量执行 **986/986 通过**（最近一次执行：2026-11-19）
 
@@ -102,12 +102,13 @@ entry/src/ohosTest/ets/
 "<DevEco>/tools/node/node.exe" "<DevEco>/tools/hvigor/bin/hvigorw.js" --mode module -p module=entry@ohosTest -p product=default assembleHap --no-daemon
 ```
 
-安装并执行（不传 `-s class` 时执行 `List.test.ets` 注册的全部套件）：
+安装后，在 DevEco Studio 中运行 `entry` 的 ohosTest 配置启动全部已注册套件（不传 `-s class` 时执行 `List.test.ets` 注册的全部套件）：
 
 ```
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.samples.multicolumns -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s timeout 15000
 ```
+
+机侧执行顺序与 `-s timeout` 取值（不小于 20000 毫秒）详见 [ohosTest.md](./ohosTest.md)。
 
 用例矩阵、六维覆盖情况与真机环境约束（全屏窗口不可 resize、Navigation 拦截返回键等）详见 [ohosTest.md](./ohosTest.md)。
 
@@ -158,7 +159,7 @@ hdc shell aa test -b com.samples.multicolumns -m entry_test -s unittest /ets/Tes
 
 3. 本示例需要使用 DevEco Studio 26（配套 hvigor 6.26.8）及以上版本才可编译运行。
 
-4. 本示例在真机设备上运行时，需要修改设备系统配置文件以使能应用小窗口能力。未使能时窗口以全屏运行，`Window.resize()` 不可用，L2 拖窗用例会自动降级为"窗口尺寸占满屏幕"校验（见 [ohosTest.md](./ohosTest.md)）。
+4. 本示例在真机设备上运行时，需要修改设备系统配置文件以使能应用小窗口能力。未使能时窗口以全屏运行，`Window.resize()` 不可用，拖窗用例会自动降级为"窗口尺寸占满屏幕"校验（见 [ohosTest.md](./ohosTest.md)）。
 
 ```
 # 将开发板文件系统的权限配置为可读写

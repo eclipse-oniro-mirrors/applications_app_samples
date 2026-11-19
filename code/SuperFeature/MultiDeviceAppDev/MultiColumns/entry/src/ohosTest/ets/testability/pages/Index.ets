@@ -45,7 +45,7 @@ struct Index {
         .margin({
           top: 20
         })
-        .backgroundColor($r('app.color.activity_button_background'))
+        .backgroundColor($r('app.color.test_page_button_background'))
         .width('35%')
         .height('5%')
         .onClick(() => {

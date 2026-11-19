@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-// L1 逻辑套件：NavPathStack 路由栈控制器。
+// 逻辑套件：NavPathStack 路由栈控制器。
 // 被测行为锚点：Settings.ets / MailNavigation.ets 均使用 `new NavPathStack()` 并 pushPath({name:'one'})，
 // 配合 Navigation(NavPathStack) + navDestination 做路由。本套件仅测 NavPathStack 的同步栈操作
 // （pushPath/pushPathByName/pop/popToName/popToIndex/moveToTop/removeByName/removeByIndexes/
@@ -297,7 +297,7 @@ export default function navStackCoreTest() {
     /**
      * @tc.number SUB_MC_NAV_3012
      * @tc.name testNavStack3012
-     * @tc.desc 合法值：moveToTop 将首个同名页移到栈顶并返回其原索引
+     * @tc.desc 合法值：moveToTop 将第一个同名页移到栈顶并返回其原索引
      * @tc.type FUNCTION
      * @tc.size SMALLTEST
      * @tc.level LEVEL1
@@ -683,7 +683,7 @@ export default function navStackCoreTest() {
     /**
      * @tc.number SUB_MC_NAV_3028
      * @tc.name testNavStack3028
-     * @tc.desc 极值：连续 pop 至空，首个弹出为最后入栈且最终 size 0
+     * @tc.desc 极值：连续 pop 至空，第一次弹出即为最后入栈页且最终 size 0
      * @tc.type FUNCTION
      * @tc.size SMALLTEST
      * @tc.level LEVEL2

@@ -34,7 +34,7 @@ import abilityTest from './Ability.test';
 import responsiveUiTest from './ResponsiveUi.test';
 
 export default function testsuite() {
-  // L1 逻辑用例在前
+  // 逻辑用例在前
   breakpointTypeCoreTest();
   modelSpecCoreTest();
   bpNumVol01Test();

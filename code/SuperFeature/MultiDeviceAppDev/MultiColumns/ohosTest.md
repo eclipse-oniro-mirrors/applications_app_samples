@@ -6,8 +6,8 @@
 
 | 层 | 套件数 | 用例数 | 说明 |
 |---|---|---|---|
-| 逻辑与模型层（L1） | 17 | 964 | 直接加载 main 真实代码：`BreakpointType.GetValue` 断点取值、`OperateTabs`/`MailType`/`photoType` 构造存取、`NavPathStack` 路由栈同步操作；含 `@volume` 冻结数据表扩容与手写 Anchor 点缀 |
-| UI 交互层（L2） | 2 | 22 | 驱动真实 UI：拖拽窗口宽度收敛、三应用入口与页面导航、列显隐（真机全屏形态按能力探测自动降级） |
+| 逻辑与模型层 | 17 | 964 | 直接加载 main 真实代码：`BreakpointType.GetValue` 断点取值、`OperateTabs`/`MailType`/`photoType` 构造存取、`NavPathStack` 路由栈同步操作；含 `@volume` 冻结数据表扩容与手写 Anchor 点缀 |
+| UI 交互层 | 2 | 22 | 驱动真实 UI：拖拽窗口宽度收敛、三应用入口与页面导航、列显隐（真机全屏形态按能力探测自动降级） |
 
 `@tc.size` 分布：SMALLTEST 964 / MEDIUMTEST 22；`@tc.level` 分布：LEVEL0 25 / LEVEL1 63 / LEVEL2 898。
 
@@ -17,25 +17,25 @@
 
 | 套件文件 | describe 套件 | 域名 | 层 | 用例数 | 行数 | `@tc.size` |
 |---|---|---|---|---|---|---|
-| `BreakpointTypeCore.test.ets` | MultiColumnsBreakpointTest | BP | 逻辑与模型层（L1） | 30 | 685 | SMALLTEST |
-| `ModelSpecCore.test.ets` | MultiColumnsModelTest | MODEL | 逻辑与模型层（L1） | 24 | 560 | SMALLTEST |
-| `BpNumVol01.test.ets` | MultiColumnsBpNumVol01 | BPG | 逻辑与模型层（L1） | 75 | 1754 | SMALLTEST |
-| `BpNumVol02.test.ets` | MultiColumnsBpNumVol02 | BPG | 逻辑与模型层（L1） | 75 | 1754 | SMALLTEST |
-| `BpStrVol01.test.ets` | MultiColumnsBpStrVol01 | BPG | 逻辑与模型层（L1） | 75 | 1753 | SMALLTEST |
-| `BpStrVol02.test.ets` | MultiColumnsBpStrVol02 | BPG | 逻辑与模型层（L1） | 75 | 1753 | SMALLTEST |
-| `BpResVol01.test.ets` | MultiColumnsBpResVol01 | BPG | 逻辑与模型层（L1） | 75 | 1767 | SMALLTEST |
-| `BpResVol02.test.ets` | MultiColumnsBpResVol02 | BPG | 逻辑与模型层（L1） | 25 | 617 | SMALLTEST |
-| `BpArrVol01.test.ets` | MultiColumnsBpArrVol01 | BPG | 逻辑与模型层（L1） | 75 | 1978 | SMALLTEST |
-| `BpArrVol02.test.ets` | MultiColumnsBpArrVol02 | BPG | 逻辑与模型层（L1） | 25 | 678 | SMALLTEST |
-| `BpInvVol01.test.ets` | MultiColumnsBpInvVol01 | BPI | 逻辑与模型层（L1） | 60 | 1409 | SMALLTEST |
-| `ModelVol01.test.ets` | MultiColumnsModelVol01 | MDL | 逻辑与模型层（L1） | 75 | 1539 | SMALLTEST |
-| `ModelVol02.test.ets` | MultiColumnsModelVol02 | MDL | 逻辑与模型层（L1） | 75 | 1539 | SMALLTEST |
-| `BpEdgeReal.test.ets` | MultiColumnsBpEdgeReal | BPE | 逻辑与模型层（L1） | 24 | 555 | SMALLTEST |
-| `NavStackCore.test.ets` | MultiColumnsNavStackTest | NAV | 逻辑与模型层（L1） | 36 | 908 | SMALLTEST |
-| `NavStackVol01.test.ets` | MultiColumnsNavStackVol01 | NAVG | 逻辑与模型层（L1） | 75 | 1972 | SMALLTEST |
-| `NavStackVol02.test.ets` | MultiColumnsNavStackVol02 | NAVG | 逻辑与模型层（L1） | 65 | 1712 | SMALLTEST |
-| `Ability.test.ets` | ActsAbilityTest | UI | UI 交互层（L2） | 7 | 346 | MEDIUMTEST |
-| `ResponsiveUi.test.ets` | MultiColumnsResponsiveUiTest | UI | UI 交互层（L2） | 15 | 594 | MEDIUMTEST |
+| `BreakpointTypeCore.test.ets` | MultiColumnsBreakpointTest | BP | 逻辑与模型层 | 30 | 685 | SMALLTEST |
+| `ModelSpecCore.test.ets` | MultiColumnsModelTest | MODEL | 逻辑与模型层 | 24 | 560 | SMALLTEST |
+| `BpNumVol01.test.ets` | MultiColumnsBpNumVol01 | BPG | 逻辑与模型层 | 75 | 1754 | SMALLTEST |
+| `BpNumVol02.test.ets` | MultiColumnsBpNumVol02 | BPG | 逻辑与模型层 | 75 | 1754 | SMALLTEST |
+| `BpStrVol01.test.ets` | MultiColumnsBpStrVol01 | BPG | 逻辑与模型层 | 75 | 1753 | SMALLTEST |
+| `BpStrVol02.test.ets` | MultiColumnsBpStrVol02 | BPG | 逻辑与模型层 | 75 | 1753 | SMALLTEST |
+| `BpResVol01.test.ets` | MultiColumnsBpResVol01 | BPG | 逻辑与模型层 | 75 | 1767 | SMALLTEST |
+| `BpResVol02.test.ets` | MultiColumnsBpResVol02 | BPG | 逻辑与模型层 | 25 | 617 | SMALLTEST |
+| `BpArrVol01.test.ets` | MultiColumnsBpArrVol01 | BPG | 逻辑与模型层 | 75 | 1978 | SMALLTEST |
+| `BpArrVol02.test.ets` | MultiColumnsBpArrVol02 | BPG | 逻辑与模型层 | 25 | 678 | SMALLTEST |
+| `BpInvVol01.test.ets` | MultiColumnsBpInvVol01 | BPI | 逻辑与模型层 | 60 | 1409 | SMALLTEST |
+| `ModelVol01.test.ets` | MultiColumnsModelVol01 | MDL | 逻辑与模型层 | 75 | 1539 | SMALLTEST |
+| `ModelVol02.test.ets` | MultiColumnsModelVol02 | MDL | 逻辑与模型层 | 75 | 1539 | SMALLTEST |
+| `BpEdgeReal.test.ets` | MultiColumnsBpEdgeReal | BPE | 逻辑与模型层 | 24 | 555 | SMALLTEST |
+| `NavStackCore.test.ets` | MultiColumnsNavStackTest | NAV | 逻辑与模型层 | 36 | 908 | SMALLTEST |
+| `NavStackVol01.test.ets` | MultiColumnsNavStackVol01 | NAVG | 逻辑与模型层 | 75 | 1972 | SMALLTEST |
+| `NavStackVol02.test.ets` | MultiColumnsNavStackVol02 | NAVG | 逻辑与模型层 | 65 | 1712 | SMALLTEST |
+| `Ability.test.ets` | ActsAbilityTest | UI | UI 交互层 | 7 | 346 | MEDIUMTEST |
+| `ResponsiveUi.test.ets` | MultiColumnsResponsiveUiTest | UI | UI 交互层 | 15 | 594 | MEDIUMTEST |
 
 > 预置条件统一（各套件表「预置条件」列的 `-` 即沿用所属层统一预置）：逻辑与模型层为「已安装测试 HAP，可直接加载 main 真实代码」；UI 交互层为「已安装测试 HAP，应用已启动并停在首页」。
 >
@@ -914,7 +914,7 @@
 | 合法值：popToName 命中栈底目标返回其索引并回退到该页 | - | 调用 st.popToName('a', false)；st.size()；st.getAllPathName()[0] | 3 项断言（assertEqual×3）全部成立 | 是 | 通过 |
 | 合法值：removeByName 返回被删除页面数量 | - | 调用 st.removeByName('a')；st.size()；st.getAllPathName()[0] | 3 项断言（assertEqual×3）全部成立 | 是 | 通过 |
 | 合法值：removeByIndexes 按索引集合删除并返回数量 | - | 调用 st.removeByIndexes([0, 2])；st.size()；st.getAllPathName()[0] | 3 项断言（assertEqual×3）全部成立 | 是 | 通过 |
-| 合法值：moveToTop 将首个同名页移到栈顶并返回其原索引 | - | 调用 st.moveToTop('a', false)；st.getAllPathName().join(',')；st.size() | 3 项断言（assertEqual×3）全部成立 | 是 | 通过 |
+| 合法值：moveToTop 将第一个同名页移到栈顶并返回其原索引 | - | 调用 st.moveToTop('a', false)；st.getAllPathName().join(',')；st.size() | 3 项断言（assertEqual×3）全部成立 | 是 | 通过 |
 | 状态：replacePath 用新页替换栈顶且栈大小不变 | - | 调用 st.size()；st.getAllPathName()[1]；st.getAllPathName()[0] | 3 项断言（assertEqual×3）全部成立 | 是 | 通过 |
 | 状态：clear 清空栈中所有页面 | - | 调用 st.size()；st.getAllPathName().length；st.getIndexByName('a').length | 3 项断言（assertEqual×3）全部成立 | 是 | 通过 |
 | 边界值：空栈 pop 返回 undefined 且栈仍为空 | - | 调用 popped；st.size()；st.getAllPathName().length | 3 项断言（assertUndefined×1、assertEqual×2）全部成立 | 是 | 通过 |
@@ -930,7 +930,7 @@
 | 非法值：removeByIndexes 传入空索引数组返回 0 且栈不变 | - | 调用 st.removeByIndexes([])；st.size()；st.getAllPathName().join(',') | 3 项断言（assertEqual×3）全部成立 | 是 | 通过 |
 | 非法值：空字符串页名可入栈并作为合法键被检索 | - | 调用 st.size()；st.getAllPathName()[0]；st.getIndexByName('').length | 3 项断言（assertEqual×3）全部成立 | 是 | 通过 |
 | 极值：连续入栈 50 页后大小/顺序/末位参数均正确 | - | 调用 st.size()；st.getAllPathName().length；st.getAllPathName()[49] | 3 项断言（assertEqual×3）全部成立 | 是 | 通过 |
-| 极值：连续 pop 至空，首个弹出为最后入栈且最终 size 0 | - | 调用 first?.name；st.size()；st.getAllPathName().length | 3 项断言（assertEqual×3）全部成立 | 是 | 通过 |
+| 极值：连续 pop 至空，第一次弹出即为最后入栈页且最终 size 0 | - | 调用 first?.name；st.size()；st.getAllPathName().length | 3 项断言（assertEqual×3）全部成立 | 是 | 通过 |
 | 极值：超长字符串参数可原样入栈并回读 | - | 调用 st.getParamByName('big')[0] as string；st.size()；st.getAllPathName()[0] | 3 项断言（assertEqual×3）全部成立 | 是 | 通过 |
 | 极值：同名页连续入栈 50 次 getIndexByName 返回全部索引 | - | 调用 st.getIndexByName('a').length；st.size()；st.getAllPathName()[0] | 3 项断言（assertEqual×3）全部成立 | 是 | 通过 |
 | 组合值：pop 后重新 push 同名再 push 新页得到 [A B]（对齐文档复用说明） | - | 调用 st.getAllPathName().join(',')；st.size()；st.getAllPathName()[1] | 3 项断言（assertEqual×3）全部成立 | 是 | 通过 |
@@ -1102,7 +1102,7 @@
 | 拉起 B+C 页面，拖拽窗口至 360vp，窗口宽度收敛到目标值 | - | 调用 await ensureHome(driver) | 1 项断言（assertTrue×1）全部成立 | 是 | 通过 |
 | 拉起 B+C 页面，拖拽窗口至 600vp，窗口宽度收敛到目标值 | - | 调用 await ensureHome(driver) | 1 项断言（assertTrue×1）全部成立 | 是 | 通过 |
 
-## MultiColumnsResponsiveUiTest 套件（`ResponsiveUi.test.ets`，15 条，`UI`）：L2 响应式 UI 交互真实用例（入口按钮/页面导航/拖窗列显隐/窗口重排）。
+## MultiColumnsResponsiveUiTest 套件（`ResponsiveUi.test.ets`，15 条，`UI`）：响应式 UI 交互真实用例（入口按钮/页面导航/拖窗列显隐/窗口重排）。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
@@ -1141,7 +1141,7 @@ $env:DEVECO_SDK_HOME = '<SDK 根目录>'
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 ```
 
-套件执行顺序：L1 逻辑套件先跑，L2 UI 套件最后跑（`List.test.ets` 注册顺序），避免 UI 交互与纯逻辑相互干扰。单轮用例耗时长，`-s timeout` 建议不小于 20000 毫秒（L2 UI 用例含轮询等待与进程重启，单用例实测最坏约 8 秒，留足余量）。
+套件执行顺序：逻辑套件先跑，UI 套件最后跑（`List.test.ets` 注册顺序），避免 UI 交互与纯逻辑相互干扰。单轮用例耗时长，`-s timeout` 建议不小于 20000 毫秒（UI 用例含轮询等待与进程重启，单用例实测最坏约 8 秒，留足余量）。
 
 ## 用例编号规范
 
@@ -1179,12 +1179,12 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 
 ## 已知问题与测试约束
 
-L2 UI 用例在手机形态（720×1280，全屏窗口，decor=false）实机执行时存在以下约束，用例已按「能力探测 + 降级断言」处理，保证在手机与 2in1/自由窗口两种形态下都能执行：
+UI 用例在手机形态（720×1280，全屏窗口，decor=false）实机执行时存在以下约束，用例已按「能力探测 + 降级断言」处理，保证在手机与 2in1/自由窗口两种形态下都能执行：
 
 | 约束 | 现象 | 用例处理 |
 |---|---|---|
 | 全屏窗口不可调整尺寸 | `Window.resize()` 抛 `Fullscreen window can not resize`（code 17000005） | 捕获后记录 `resizable=false`，降级为校验「窗口宽度 == 屏幕宽度」（`driver.getDisplaySize()`）；自由窗口下仍执行原「宽度收敛到目标 ±60px」断言 |
-| MailBox 内部 Navigation 拦截返回键 | 首次 `pressBack` 被 Navigation 消费，再次按返回会退出应用，且 router 栈仍停留在子页面（重新拉起仍停在 MailBox） | `backToHome()` 返回是否已回到首页：短探测（1.2s）回首页则直接返回 true，未回则「拉起→terminateSelf→再拉起」重启进程清空路由栈，再次等待首页（3s）；调用方在 false 时可再拉起补等，避免冷启动时序被误判为页面逻辑失败 |
+| MailBox 内部 Navigation 拦截返回键 | 第一次 `pressBack` 被 Navigation 消费，再次按返回会退出应用，且 router 栈仍停留在子页面（重新拉起仍停在 MailBox） | `backToHome()` 返回是否已回到首页：短探测（1.2s）回首页则直接返回 true，未回则「拉起→terminateSelf→再拉起」重启进程清空路由栈，再次等待首页（3s）；调用方在 false 时可再拉起补等，避免冷启动时序被误判为页面逻辑失败 |
 | NavPathStack 有副作用的接口只能调用一次 | `removeByName`/`removeByIndexes`/`moveToTop`/`popToName`/`pop`/`clear` 会改变栈状态，若在 `hilog` 日志行与 `expect` 断言行各调用一次，第二次拿到的是已变更后的结果，断言与日志互相污染 | 先调用一次并存入局部变量，日志与断言共用该变量（如 `const removed = st.removeByName('a');`），查询类无副作用接口（`size`/`getAllPathName`/`getParamByIndex`/`getIndexByName`）可重复调用 |
 | 单用例超时 | 用例超时后仍在调用 UiTest API，会与后续用例冲突并报 `uitest-api dose not allow calling concurrently`；`-s timeout` 取 15000 时含进程重启的 UI 用例有超时风险 | 所有等待改为轮询 + 短超时预算，单用例实测最坏约 8s，`-s timeout` 取 20000 留足余量 |
 | 测试 Ability 与被测应用同 bundle | 直接对「当前顶部 Ability」调用 `terminateSelf` 会误杀测试进程（`App died`） | `terminateApp/terminateAbility` 仅在 `bundleName + abilityName === EntryAbility` 时才终止 |
