@@ -1603,7 +1603,7 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 
 套件执行顺序：基础层（断点 → 样式 → 数据与模型）先跑，应用层（界面流转 → Ability 冒烟）后跑，避免 UI 交互与纯逻辑用例互相干扰。
 
-实际执行按套件逐个进行：63 个套件各起一个独立的 Ability 测试进程，命令为 `hdc shell aa test`（`aa` 是 OpenHarmony 自带的 Ability assistant，负责拉起测试 Ability 并执行 unittest；基础层套件 `-s timeout 120000`，UI 套件 300000~600000）。合并成单进程全量执行时会在第 789 例附近被系统回收（`App died`），因此不采用单进程全量方式；结果按套件汇总后回填下一节。
+实际执行按套件逐个进行：63 个套件各起一个独立的 Ability 测试进程，由 OpenHarmony 自带的 Ability assistant 命令拉起测试 Ability 并执行 unittest（基础层套件 `-s timeout 120000`，UI 套件 300000~600000）。合并成单进程全量执行时会在第 789 例附近被系统回收（`App died`），因此不采用单进程全量方式；结果按套件汇总后回填下一节。
 
 ## 测试结果
 
@@ -1613,7 +1613,7 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 | 套件注册 | 63 个套件全部在 `List.test.ets` 中 import 并在 `testsuite()` 内调用 |
 | 用例规模 | 2,179 条，与本文件用例清单一致（手写套件逐行、`@volume` 套件按 `例N` 罗列），未增未删 |
 | 单文件行数 | 63 个套件文件均 ≤ 2,000 行，最大 1,589 行（`BstFieldVol02.test.ets`、`BstFieldVol03.test.ets`）；`List.test.ets` 146 行 |
-| 归档文档行数 | `ohosTest.md` 1,629 行，满足单文件 ≤ 2,000 行 |
+| 归档文档行数 | `ohosTest.md` 1,630 行，满足单文件 ≤ 2,000 行 |
 | 真机运行 | 2,179 条通过 / 0 条失败 / 0 条错误 |
 | 结论 | **2,179 条用例全部通过** |
 
