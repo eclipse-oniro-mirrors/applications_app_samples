@@ -240,11 +240,6 @@ void Recorder::VideoEncInputAsyncThread()
          * if (parameterRet != AV_ERR_OK) {
          *     // 异常处理。
          * }
-         * // 送入编码输入队列进行编码，index为对应输入队列的下标。
-         * OH_AVErrCode pushInputRet = OH_VideoEncoder_PushInputBuffer(videoEnc, bufferInfo->index);
-         * if (pushInputRet != AV_ERR_OK) {
-         *     // 异常处理。
-         * }
          */
         // [End recorder_video_buffer_input_async]
         if (!SubmitVideoInputImage(image.get(), *input, state, receivedAtUs)) {
