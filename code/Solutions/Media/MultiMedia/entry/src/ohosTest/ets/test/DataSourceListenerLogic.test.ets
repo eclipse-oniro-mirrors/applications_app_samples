@@ -1712,3 +1712,527 @@ export default function DataSourceListenerLogic(): void {
      * @tc.type FUNCTION
      * @tc.size MEDIUMTEST
      * @tc.level LEVEL0
+     */
+    it('MultiMedia_Listener_1293', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Listener_1293';
+      LogicTestLog.begin(name, 'listeners=3;repeat=1;remove=0');
+      const source: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const third: DataSourceProbe = new DataSourceProbe();
+      const probes: DataSourceProbe[] = [first, second, third];
+      for (let index: number = 0; index < 3; index++) {
+        for (let duplicate: number = 0; duplicate < 1; duplicate++) {
+          source.registerDataChangeListener(probes[index]);
+        }
+      }
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'probe0 dedup', String('reload'), String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe1 dedup', String('reload'), String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe2 dedup', String('reload'), String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload');
+      source.unregisterDataChangeListener(probes[0]);
+      source.unregisterDataChangeListener(probes[0]);
+      source.notifyDataChange(7);
+      source.notifyDataDelete(-1);
+      source.notifyDataMove(3, 1);
+      LogicTestLog.value(name, 'probe0 removal and sequence', String('reload'), String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe1 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe2 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.number(name, 'notifications do not insert data', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1294
+     * @tc.name MultiMedia_Listener_1294
+     * @tc.desc Listener identity deduplication and repeated or absent deregistration
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Listener_1294', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Listener_1294';
+      LogicTestLog.begin(name, 'listeners=3;repeat=1;remove=1');
+      const source: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const third: DataSourceProbe = new DataSourceProbe();
+      const probes: DataSourceProbe[] = [first, second, third];
+      for (let index: number = 0; index < 3; index++) {
+        for (let duplicate: number = 0; duplicate < 1; duplicate++) {
+          source.registerDataChangeListener(probes[index]);
+        }
+      }
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'probe0 dedup', String('reload'), String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe1 dedup', String('reload'), String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe2 dedup', String('reload'), String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload');
+      source.unregisterDataChangeListener(probes[1]);
+      source.unregisterDataChangeListener(probes[1]);
+      source.notifyDataChange(7);
+      source.notifyDataDelete(-1);
+      source.notifyDataMove(3, 1);
+      LogicTestLog.value(name, 'probe0 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe1 removal and sequence', String('reload'), String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe2 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.number(name, 'notifications do not insert data', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1295
+     * @tc.name MultiMedia_Listener_1295
+     * @tc.desc Listener identity deduplication and repeated or absent deregistration
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Listener_1295', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Listener_1295';
+      LogicTestLog.begin(name, 'listeners=3;repeat=1;remove=2');
+      const source: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const third: DataSourceProbe = new DataSourceProbe();
+      const probes: DataSourceProbe[] = [first, second, third];
+      for (let index: number = 0; index < 3; index++) {
+        for (let duplicate: number = 0; duplicate < 1; duplicate++) {
+          source.registerDataChangeListener(probes[index]);
+        }
+      }
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'probe0 dedup', String('reload'), String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe1 dedup', String('reload'), String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe2 dedup', String('reload'), String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload');
+      source.unregisterDataChangeListener(probes[2]);
+      source.unregisterDataChangeListener(probes[2]);
+      source.notifyDataChange(7);
+      source.notifyDataDelete(-1);
+      source.notifyDataMove(3, 1);
+      LogicTestLog.value(name, 'probe0 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe1 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe2 removal and sequence', String('reload'), String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload');
+      LogicTestLog.number(name, 'notifications do not insert data', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1296
+     * @tc.name MultiMedia_Listener_1296
+     * @tc.desc Listener identity deduplication and repeated or absent deregistration
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Listener_1296', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Listener_1296';
+      LogicTestLog.begin(name, 'listeners=3;repeat=2;remove=-1');
+      const source: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const third: DataSourceProbe = new DataSourceProbe();
+      const probes: DataSourceProbe[] = [first, second, third];
+      for (let index: number = 0; index < 3; index++) {
+        for (let duplicate: number = 0; duplicate < 2; duplicate++) {
+          source.registerDataChangeListener(probes[index]);
+        }
+      }
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'probe0 dedup', String('reload'), String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe1 dedup', String('reload'), String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe2 dedup', String('reload'), String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload');
+      source.unregisterDataChangeListener(new DataSourceProbe());
+      source.notifyDataChange(7);
+      source.notifyDataDelete(-1);
+      source.notifyDataMove(3, 1);
+      LogicTestLog.value(name, 'probe0 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe1 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe2 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.number(name, 'notifications do not insert data', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1297
+     * @tc.name MultiMedia_Listener_1297
+     * @tc.desc Listener identity deduplication and repeated or absent deregistration
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Listener_1297', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Listener_1297';
+      LogicTestLog.begin(name, 'listeners=3;repeat=2;remove=0');
+      const source: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const third: DataSourceProbe = new DataSourceProbe();
+      const probes: DataSourceProbe[] = [first, second, third];
+      for (let index: number = 0; index < 3; index++) {
+        for (let duplicate: number = 0; duplicate < 2; duplicate++) {
+          source.registerDataChangeListener(probes[index]);
+        }
+      }
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'probe0 dedup', String('reload'), String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe1 dedup', String('reload'), String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe2 dedup', String('reload'), String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload');
+      source.unregisterDataChangeListener(probes[0]);
+      source.unregisterDataChangeListener(probes[0]);
+      source.notifyDataChange(7);
+      source.notifyDataDelete(-1);
+      source.notifyDataMove(3, 1);
+      LogicTestLog.value(name, 'probe0 removal and sequence', String('reload'), String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe1 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe2 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.number(name, 'notifications do not insert data', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1298
+     * @tc.name MultiMedia_Listener_1298
+     * @tc.desc Listener identity deduplication and repeated or absent deregistration
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Listener_1298', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Listener_1298';
+      LogicTestLog.begin(name, 'listeners=3;repeat=2;remove=1');
+      const source: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const third: DataSourceProbe = new DataSourceProbe();
+      const probes: DataSourceProbe[] = [first, second, third];
+      for (let index: number = 0; index < 3; index++) {
+        for (let duplicate: number = 0; duplicate < 2; duplicate++) {
+          source.registerDataChangeListener(probes[index]);
+        }
+      }
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'probe0 dedup', String('reload'), String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe1 dedup', String('reload'), String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe2 dedup', String('reload'), String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload');
+      source.unregisterDataChangeListener(probes[1]);
+      source.unregisterDataChangeListener(probes[1]);
+      source.notifyDataChange(7);
+      source.notifyDataDelete(-1);
+      source.notifyDataMove(3, 1);
+      LogicTestLog.value(name, 'probe0 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe1 removal and sequence', String('reload'), String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe2 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.number(name, 'notifications do not insert data', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1299
+     * @tc.name MultiMedia_Listener_1299
+     * @tc.desc Listener identity deduplication and repeated or absent deregistration
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Listener_1299', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Listener_1299';
+      LogicTestLog.begin(name, 'listeners=3;repeat=2;remove=2');
+      const source: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const third: DataSourceProbe = new DataSourceProbe();
+      const probes: DataSourceProbe[] = [first, second, third];
+      for (let index: number = 0; index < 3; index++) {
+        for (let duplicate: number = 0; duplicate < 2; duplicate++) {
+          source.registerDataChangeListener(probes[index]);
+        }
+      }
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'probe0 dedup', String('reload'), String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe1 dedup', String('reload'), String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe2 dedup', String('reload'), String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload');
+      source.unregisterDataChangeListener(probes[2]);
+      source.unregisterDataChangeListener(probes[2]);
+      source.notifyDataChange(7);
+      source.notifyDataDelete(-1);
+      source.notifyDataMove(3, 1);
+      LogicTestLog.value(name, 'probe0 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe1 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe2 removal and sequence', String('reload'), String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload');
+      LogicTestLog.number(name, 'notifications do not insert data', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1300
+     * @tc.name MultiMedia_Listener_1300
+     * @tc.desc Listener identity deduplication and repeated or absent deregistration
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Listener_1300', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Listener_1300';
+      LogicTestLog.begin(name, 'listeners=3;repeat=5;remove=-1');
+      const source: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const third: DataSourceProbe = new DataSourceProbe();
+      const probes: DataSourceProbe[] = [first, second, third];
+      for (let index: number = 0; index < 3; index++) {
+        for (let duplicate: number = 0; duplicate < 5; duplicate++) {
+          source.registerDataChangeListener(probes[index]);
+        }
+      }
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'probe0 dedup', String('reload'), String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe1 dedup', String('reload'), String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe2 dedup', String('reload'), String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload');
+      source.unregisterDataChangeListener(new DataSourceProbe());
+      source.notifyDataChange(7);
+      source.notifyDataDelete(-1);
+      source.notifyDataMove(3, 1);
+      LogicTestLog.value(name, 'probe0 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe1 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe2 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.number(name, 'notifications do not insert data', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1301
+     * @tc.name MultiMedia_Listener_1301
+     * @tc.desc Listener identity deduplication and repeated or absent deregistration
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Listener_1301', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Listener_1301';
+      LogicTestLog.begin(name, 'listeners=3;repeat=5;remove=0');
+      const source: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const third: DataSourceProbe = new DataSourceProbe();
+      const probes: DataSourceProbe[] = [first, second, third];
+      for (let index: number = 0; index < 3; index++) {
+        for (let duplicate: number = 0; duplicate < 5; duplicate++) {
+          source.registerDataChangeListener(probes[index]);
+        }
+      }
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'probe0 dedup', String('reload'), String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe1 dedup', String('reload'), String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe2 dedup', String('reload'), String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload');
+      source.unregisterDataChangeListener(probes[0]);
+      source.unregisterDataChangeListener(probes[0]);
+      source.notifyDataChange(7);
+      source.notifyDataDelete(-1);
+      source.notifyDataMove(3, 1);
+      LogicTestLog.value(name, 'probe0 removal and sequence', String('reload'), String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe1 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe2 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.number(name, 'notifications do not insert data', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1302
+     * @tc.name MultiMedia_Listener_1302
+     * @tc.desc Listener identity deduplication and repeated or absent deregistration
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Listener_1302', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Listener_1302';
+      LogicTestLog.begin(name, 'listeners=3;repeat=5;remove=1');
+      const source: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const third: DataSourceProbe = new DataSourceProbe();
+      const probes: DataSourceProbe[] = [first, second, third];
+      for (let index: number = 0; index < 3; index++) {
+        for (let duplicate: number = 0; duplicate < 5; duplicate++) {
+          source.registerDataChangeListener(probes[index]);
+        }
+      }
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'probe0 dedup', String('reload'), String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe1 dedup', String('reload'), String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe2 dedup', String('reload'), String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload');
+      source.unregisterDataChangeListener(probes[1]);
+      source.unregisterDataChangeListener(probes[1]);
+      source.notifyDataChange(7);
+      source.notifyDataDelete(-1);
+      source.notifyDataMove(3, 1);
+      LogicTestLog.value(name, 'probe0 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe1 removal and sequence', String('reload'), String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe2 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.number(name, 'notifications do not insert data', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_CORE_1303
+     * @tc.name MultiMedia_Listener_1303
+     * @tc.desc Listener identity deduplication and repeated or absent deregistration
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('MultiMedia_Listener_1303', 0, async (): Promise<void> => {
+      const name: string = 'MultiMedia_Listener_1303';
+      LogicTestLog.begin(name, 'listeners=3;repeat=5;remove=2');
+      const source: MediaDataSource = new MediaDataSource();
+      const first: DataSourceProbe = new DataSourceProbe();
+      const second: DataSourceProbe = new DataSourceProbe();
+      const third: DataSourceProbe = new DataSourceProbe();
+      const probes: DataSourceProbe[] = [first, second, third];
+      for (let index: number = 0; index < 3; index++) {
+        for (let duplicate: number = 0; duplicate < 5; duplicate++) {
+          source.registerDataChangeListener(probes[index]);
+        }
+      }
+      source.notifyDataReload();
+      LogicTestLog.value(name, 'probe0 dedup', String('reload'), String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe1 dedup', String('reload'), String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload');
+      LogicTestLog.value(name, 'probe2 dedup', String('reload'), String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload');
+      source.unregisterDataChangeListener(probes[2]);
+      source.unregisterDataChangeListener(probes[2]);
+      source.notifyDataChange(7);
+      source.notifyDataDelete(-1);
+      source.notifyDataMove(3, 1);
+      LogicTestLog.value(name, 'probe0 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[0].events.join('|')));
+      expect(probes[0].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe1 removal and sequence',
+        String('reload|change:7|delete:-1|move:3:1'),
+        String(probes[1].events.join('|')));
+      expect(probes[1].events.join('|')).assertEqual('reload|change:7|delete:-1|move:3:1');
+      LogicTestLog.value(name, 'probe2 removal and sequence', String('reload'), String(probes[2].events.join('|')));
+      expect(probes[2].events.join('|')).assertEqual('reload');
+      LogicTestLog.number(name, 'notifications do not insert data', 0, source.totalCount());
+      expect(source.totalCount()).assertEqual(0);
+      LogicTestLog.end(name);
+    });
+  });
+}
