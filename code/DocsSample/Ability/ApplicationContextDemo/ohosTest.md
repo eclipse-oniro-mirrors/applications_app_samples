@@ -68,11 +68,11 @@
 - 设备灭屏或锁屏引起 `00508013`，测试尚未开始即超时。
 - 主 Ability 尚未到达前台或首页尚未渲染，组件查找过早失败。
 - 仅调用生命周期回调而没有真实前后台切换，产生错误的集成通过结论。
-- 切后台后未恢复目标 Ability，导致后续用例操作桌面或其他窗口。
+- 切后台后未恢复目标 Ability，导致后续用例操作桌面或其它窗口。
 - 文件句柄、残留文件或事件监听未清理，使下一条用例被污染。
 - 追加、截断及多字节文件内容的字节数、尺寸和文本不一致。
 - 修改上下文区域后未恢复原区域，导致沙箱路径变化。
-- 页面已显示 `Welcome`，后续读取却错误地要求首次启动文案。
+- 页面已显示 `Welcome`，后续读取却错误地要求第一次启动文案。
 - 将旧套件名称中的网络、动画、内存或无障碍字样直接作为专项覆盖证据。
 
 ## 4. 覆盖维度设计
@@ -90,7 +90,7 @@
 
 ### 4.2 异常流与恢复
 
-文件访问检查只将明确的“不存在”错误码 `13900002` 视为不存在，其他访问错误向上传递。文件、事件和区域探针通过 `finally` 清理，避免用异常吞错掩盖测试失败。
+文件访问检查只将明确的“不存在”错误码 `13900002` 视为不存在，其它访问错误向上传递。文件、事件和区域探针通过 `finally` 清理，避免用异常吞错掩盖测试失败。
 
 首页探针缺少组件、内容未就绪或生命周期等待超时时明确失败。启动初始化异常不会继续假装执行成功，而是报告测试失败。
 
@@ -100,13 +100,13 @@
 
 矩阵覆盖连续文件操作、事件序列、重复页面输入和前后台恢复。共享 UI 队列串行执行设备操作，避免组件竞争；轮询通过 `setTimeout` 让出事件循环。
 
-当前主要按 Hypium 注册顺序执行。`ApplicationContextConcurrency`、`ConcurrencyControl` 等名称不能直接解释为多线程竞争验证；`LongTermStability` 也不是小时级长稳认证。真实并行写入、跨进程访问和长期资源趋势仍需专项设计。
+当前主要按 Hypium 注册顺序执行。`ApplicationContextConcurrency`、`ConcurrencyControl` 等名称不能直接解释为多线程竞争验证；`LongTermStability` 也不是小时级长稳鉴权。真实并行写入、跨进程访问和长期资源趋势仍需专项设计。
 
 ### 4.4 性能与兼容性
 
 性能目录当前执行真实文件操作并检查结果；用例中的 `Date.now() >= started` 仅验证时间先后关系，未设置性能上限，也未构成延迟分位数或吞吐率基线。不得据此宣称功耗、内存泄漏、动画帧率达标。
 
-工程编译、目标和兼容 SDK 当前均为 OpenHarmony API 20，SDK 根目录为 `F:/OpenHarmony/sdk2`。区域矩阵只使用 EL1/EL2，不扩展到依赖设备加密和认证条件的 EL3/EL4/EL5。
+工程编译、目标和兼容 SDK 当前均为 OpenHarmony API 20，SDK 根目录为 `F:/OpenHarmony/sdk2`。区域矩阵只使用 EL1/EL2，不扩展到依赖设备加密和鉴权条件的 EL3/EL4/EL5。
 
 离线资源用例验证本地文件和资源，不切换网络。设备型号、语言、主题和字体缩放的组合尚无完整实机报告。
 
@@ -114,7 +114,7 @@
 
 - 沙箱隔离：校验应用自身 files/cache 目录、文件内容及操作后的清理，不代表已验证跨应用访问控制。
 - 事件隔离：不同事件名互不触发，注销后回调数量为零。
-- 区域契约：检查 EL1/EL2 目录并恢复上下文，不涉及凭据认证与高等级加密策略。
+- 区域契约：检查 EL1/EL2 目录并恢复上下文，不涉及凭据鉴权与高等级加密策略。
 - 身份和版本：使用真实 ApplicationInfo 和 BundleInfo，避免从错误的对象读取版本字段。
 - 配置规范：`.json5` 保留首部版权注释；资源 `.json` 使用严格 JSON，避免注释导致资源编译失败。
 - 日志规范：使用标准 hilog 输出英文内容，现有用例不等同于完整隐私日志审计。
@@ -149,7 +149,7 @@
 | ContextValidation | 8 | 314 | `ContextEventHubValidation`、`ApplicationInfoVersion`：事件、资源和版本；`ContextToastNotification` 当前主要验证文件操作 |
 | Integration | 9 | 163 | `IntegrationTesting`、`SystemIntegration`：页面恢复；`NetworkConnectivity` 当前验证本地文件 |
 | Interaction | 14 | 267 | `UIComponentRendering`、`EventHandling`：页面输入和真实事件；部分套件验证区域切换 |
-| LifecycleState | 10 | 248 | `PageLifecycle`、`ContextSessionManagement`：前后台与状态；其他套件补充文件及资源 |
+| LifecycleState | 10 | 248 | `PageLifecycle`、`ContextSessionManagement`：前后台与状态；其它套件补充文件及资源 |
 | PerformanceStability | 7 | 204 | `ContextAccessPerformance`、`ConcurrencyControl`：真实文件结果和清理，不代表性能专项通过 |
 | Security | 3 | 77 | `ContextSecurity`、`SecurityValidation`：应用沙箱文件操作和一致性 |
 | Validation | 11 | 234 | `CommonEventValidation`、`ResourceManagerValidation`：事件、资源、文件及页面矩阵 |
@@ -270,7 +270,7 @@ hdc shell <ability-assistant> test -b com.samples.applicationcontext -m entry_te
 | 生命周期等待占住 UI 队列 | 恢复操作无法推进 | 队列只包裹直接 UiTest 操作，状态轮询和恢复等待放在队列外 |
 | 页面状态延续 | 再次读取已是 `Welcome` | 接受已存在状态；有点击时明确要求最终为 `Welcome` |
 | 句柄、文件或监听残留 | 后续用例遇到已有文件或重复事件 | 保留探针 `finally` 清理，避免跳过清理或吞掉错误 |
-| area 未恢复 | 后续路径落到其他存储区域 | 记录原区域并在 `finally` 恢复，核对原路径 |
+| area 未恢复 | 后续路径落到其它存储区域 | 记录原区域并在 `finally` 恢复，核对原路径 |
 | 版本字段取错对象 | ApplicationInfo 上无法得到预期版本 | 从真实 BundleInfo 获取 versionName/versionCode |
 | 资源 JSON 带注释 | restool 拒绝解析 | 严格区分 `.json` 与 `.json5`；版权注释放在支持注释的配置文件首部 |
 | 套件名造成覆盖误解 | 将网络、动画、泄漏或无障碍名称当作专项结果 | 以实际探针和断言为准，专项能力另行补充 |
