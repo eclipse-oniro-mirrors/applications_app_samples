@@ -15,7 +15,7 @@
 import { describe, it, expect, beforeEach, TestType, Size, Level } from '@ohos/hypium';
 import { intl } from '@kit.LocalizationKit';
 import { InterfaceTestLog } from '../utils/InterfaceTestLog';
-export default function IntlPluralLogic(): void {
+export default function intlPluralLogic(): void {
   describe('IntlPluralLogic.test.ets', (): void => {
     beforeEach(async (): Promise<void> => {
       await new Promise<void>((resolve: () => void) => {

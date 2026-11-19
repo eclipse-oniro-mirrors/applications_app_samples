@@ -15,7 +15,7 @@
 import { describe, it, expect, beforeEach, TestType, Size, Level } from '@ohos/hypium';
 import { intl } from '@kit.LocalizationKit';
 import { InterfaceTestLog } from '../utils/InterfaceTestLog';
-export default function IntlRelativeLogic(): void {
+export default function intlRelativeLogic(): void {
   describe('IntlRelativeLogic.test.ets', (): void => {
     beforeEach(async (): Promise<void> => {
       await new Promise<void>((resolve: () => void) => {

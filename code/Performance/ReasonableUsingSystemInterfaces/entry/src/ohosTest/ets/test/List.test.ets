@@ -18,40 +18,41 @@ import abilityTest from './Ability.test';
 import resourceManagerSyncTest from './ResourceManagerSync.test';
 import textDecodeTest from './TextDecode.test';
 import intlInterfaceTest from './IntlInterface.test';
-import DisplayDecodeLogic from './DisplayDecodeLogic.test';
-import DisplayLimitLogic from './DisplayLimitLogic.test';
-import IntlCollatorLogic from './IntlCollatorLogic.test';
-import IntlDateTimeLogic from './IntlDateTimeLogic.test';
-import IntlLocaleLogic from './IntlLocaleLogic.test';
-import IntlNumberLogic from './IntlNumberLogic.test';
-import IntlPluralLogic from './IntlPluralLogic.test';
-import IntlRelativeLogic from './IntlRelativeLogic.test';
-import IntlScientificLogic from './IntlScientificLogic.test';
-import ResourceIdTraceLogic from './ResourceIdTraceLogic.test';
-import ResourceObjectTraceLogic from './ResourceObjectTraceLogic.test';
-import TextDecoderStreamLogic from './TextDecoderStreamLogic.test';
-import ZeroWidthSpaceLogic from './ZeroWidthSpaceLogic.test';
+import displayDecodeLogic from './DisplayDecodeLogic.test';
+import displayLimitLogic from './DisplayLimitLogic.test';
+import intlCollatorLogic from './IntlCollatorLogic.test';
+import intlDateTimeLogic from './IntlDateTimeLogic.test';
+import intlLocaleLogic from './IntlLocaleLogic.test';
+import intlNumberLogic from './IntlNumberLogic.test';
+import intlPluralLogic from './IntlPluralLogic.test';
+import intlRelativeLogic from './IntlRelativeLogic.test';
+import intlScientificLogic from './IntlScientificLogic.test';
+import resourceIdTraceLogic from './ResourceIdTraceLogic.test';
+import resourceObjectTraceLogic from './ResourceObjectTraceLogic.test';
+import textDecoderStreamLogic from './TextDecoderStreamLogic.test';
+import zeroWidthSpaceLogic from './ZeroWidthSpaceLogic.test';
 
 export default function testsuite(): void {
   resourceManagerSyncTest();
   textDecodeTest();
   intlInterfaceTest();
-  DisplayDecodeLogic();
-  DisplayLimitLogic();
-  IntlCollatorLogic();
-  IntlDateTimeLogic();
-  IntlLocaleLogic();
-  IntlNumberLogic();
-  IntlPluralLogic();
-  IntlRelativeLogic();
-  IntlScientificLogic();
-  ResourceIdTraceLogic();
-  ResourceObjectTraceLogic();
-  TextDecoderStreamLogic();
-  ZeroWidthSpaceLogic();
+  displayDecodeLogic();
+  displayLimitLogic();
+  intlCollatorLogic();
+  intlDateTimeLogic();
+  intlLocaleLogic();
+  intlNumberLogic();
+  intlPluralLogic();
+  intlRelativeLogic();
+  intlScientificLogic();
+  resourceIdTraceLogic();
+  resourceObjectTraceLogic();
+  textDecoderStreamLogic();
+  zeroWidthSpaceLogic();
   const selected: string = abilityDelegatorRegistry.getArguments().parameters['class'] ?? '';
   const classes: string[] = selected.split(',');
-  if (classes.every((name: string): boolean => name.split('#')[0] === 'EntryAbilityTest')) {
+  // EntryAbilityTest starts a real ability, so run it only when the caller explicitly selects it.
+  if (classes.some((name: string): boolean => name.split('#')[0] === 'EntryAbilityTest')) {
     abilityTest();
   }
 }

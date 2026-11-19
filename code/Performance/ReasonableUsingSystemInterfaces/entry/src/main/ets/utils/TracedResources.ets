@@ -36,6 +36,7 @@ export class NativeStringResourceReader implements StringResourceReader {
   getStringSync(id: number): string;
   getStringSync(resource: Resource): string;
   getStringSync(resource: number | Resource): string {
+    // The branch selects the matching ResourceManager overload; both dispatch to the same native method.
     if (typeof resource === 'number') {
       return this.reader.getStringSync(resource);
     }

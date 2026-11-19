@@ -15,6 +15,8 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
+const MAX_LOG_VALUE_LENGTH: number = 120;
+
 export class InterfaceTestLog {
   static begin(name: string, input: string): void {
     hilog.info(0xF811, '[Sample_ReasonableUsingSystemInterfaces]', '%{public}s begin input=%{public}s', name, input);
@@ -22,7 +24,7 @@ export class InterfaceTestLog {
 
   static value(name: string, label: string, expected: string, actual: string): void {
     hilog.info(0xF811, '[Sample_ReasonableUsingSystemInterfaces]', '%{public}s %{public}s expected=%{public}s actual=%{public}s',
-      name, label, expected.substring(0, 120), actual.substring(0, 120));
+      name, label, expected.substring(0, MAX_LOG_VALUE_LENGTH), actual.substring(0, MAX_LOG_VALUE_LENGTH));
   }
 
   static number(name: string, label: string, expected: number, actual: number): void {

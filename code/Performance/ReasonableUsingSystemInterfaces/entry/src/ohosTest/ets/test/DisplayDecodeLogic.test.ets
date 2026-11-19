@@ -57,7 +57,7 @@ function hasNewTerminalHighSurrogate(source: string, output: string): boolean {
   const following: number = source.charCodeAt(output.length);
   return last >= 0xD800 && last <= 0xDBFF && following >= 0xDC00 && following <= 0xDFFF;
 }
-export default function DisplayDecodeLogic(): void {
+export default function displayDecodeLogic(): void {
   describe('DisplayDecodeLogic', (): void => {
     beforeEach(async (): Promise<void> => {
       await new Promise<void>((resolve: () => void): void => {

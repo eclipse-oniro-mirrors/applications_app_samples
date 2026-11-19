@@ -15,7 +15,7 @@
 import { describe, it, expect, beforeEach, TestType, Size, Level } from '@ohos/hypium';
 import { intl } from '@kit.LocalizationKit';
 import { InterfaceTestLog } from '../utils/InterfaceTestLog';
-export default function IntlCollatorLogic(): void {
+export default function intlCollatorLogic(): void {
   describe('IntlCollatorLogic.test.ets', (): void => {
     beforeEach(async (): Promise<void> => {
       await new Promise<void>((resolve: () => void) => {

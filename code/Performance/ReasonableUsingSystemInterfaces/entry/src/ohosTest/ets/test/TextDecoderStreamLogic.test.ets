@@ -26,7 +26,7 @@ function countScalars(text: string): number {
   }
   return count;
 }
-export default function TextDecoderStreamLogic(): void {
+export default function textDecoderStreamLogic(): void {
   describe('TextDecoderStreamLogic', (): void => {
     beforeEach(async (): Promise<void> => {
       await new Promise<void>((resolve: () => void): void => {

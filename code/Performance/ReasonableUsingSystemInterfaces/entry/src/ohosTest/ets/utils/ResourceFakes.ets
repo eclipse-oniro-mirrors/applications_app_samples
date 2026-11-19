@@ -40,6 +40,7 @@ export class ResourceBoundary implements InterfaceTrace, StringResourceReader {
   public getStringSync(id: number): string;
   public getStringSync(resource: Resource): string;
   public getStringSync(resource: number | Resource): string {
+    // A failed read still counts as an attempt, so record it before raising readError.
     this.events.push('read');
     this.requests.push(resource);
     if (this.readError !== '') {

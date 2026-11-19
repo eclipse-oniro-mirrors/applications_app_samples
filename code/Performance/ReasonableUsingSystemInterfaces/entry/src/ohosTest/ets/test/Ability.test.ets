@@ -107,10 +107,16 @@ export default function abilityTest(): void {
       const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator =
         abilityDelegatorRegistry.getAbilityDelegator();
       let isStarted: boolean = false;
-      await abilityDelegator.startAbility(want);
-      isStarted = true;
+      let errorMessage: string = '';
+      try {
+        await abilityDelegator.startAbility(want);
+        isStarted = true;
+      } catch (error) {
+        errorMessage = (error as Error).message;
+      }
       InterfaceTestLog.flag(name, 'abilityStarted expected=true', isStarted);
       expect(isStarted).assertTrue();
+      InterfaceTestLog.value(name, 'startAbility error', '', errorMessage);
       InterfaceTestLog.end(name);
     });
   });

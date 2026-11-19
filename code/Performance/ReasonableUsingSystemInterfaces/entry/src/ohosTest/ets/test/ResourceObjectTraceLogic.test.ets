@@ -18,7 +18,7 @@ import { readStringByResource, readStringById } from '../../../main/ets/utils/Tr
 import { ResourceBoundary } from '../utils/ResourceFakes';
 import { InterfaceTestLog } from '../utils/InterfaceTestLog';
 
-export default function ResourceObjectTraceLogic(): void {
+export default function resourceObjectTraceLogic(): void {
   describe('ResourceObjectTraceLogic', (): void => {
     beforeEach(async (): Promise<void> => {
       await new Promise<void>((resolve: () => void): void => {

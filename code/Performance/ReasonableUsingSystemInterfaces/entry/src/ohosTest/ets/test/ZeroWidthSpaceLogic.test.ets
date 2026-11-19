@@ -39,7 +39,7 @@ function countOccurrences(text: string, unit: string): number {
   }
   return count;
 }
-export default function ZeroWidthSpaceLogic(): void {
+export default function zeroWidthSpaceLogic(): void {
   describe('ZeroWidthSpaceLogic', (): void => {
     beforeEach(async (): Promise<void> => {
       await new Promise<void>((resolve: () => void): void => {

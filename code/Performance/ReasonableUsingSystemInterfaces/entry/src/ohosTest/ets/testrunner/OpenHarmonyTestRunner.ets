@@ -22,6 +22,7 @@ import { util } from '@kit.ArkTS';
 const DOMAIN: number = 0xF812;
 const TAG: string = 'InterfaceTestRunner';
 const MOCK_JSON_PATH: string = 'mock/mock-config.json';
+const BYTE_ORDER_MARK: number = 0xFEFF;
 
 interface MockSource {
   source: string;
@@ -68,10 +69,15 @@ function checkMock(delegator: abilityDelegatorRegistry.AbilityDelegator,
     hilog.info(DOMAIN, TAG, 'Optional mock configuration unavailable');
     return;
   }
-  const mockText: string = util.TextDecoder.create('utf-8').decodeToString(rawFile);
-  const mockMap: Record<string, string> = getMockList(mockText);
-  delegator.setMockList(mockMap);
-  hilog.info(DOMAIN, TAG, 'Mock configuration applied');
+  try {
+    const decoded: string = util.TextDecoder.create('utf-8').decodeToString(rawFile);
+    const mockText: string = decoded.charCodeAt(0) === BYTE_ORDER_MARK ? decoded.substring(1) : decoded;
+    const mockMap: Record<string, string> = getMockList(mockText);
+    delegator.setMockList(mockMap);
+    hilog.info(DOMAIN, TAG, 'Mock configuration applied');
+  } catch (error) {
+    hilog.error(DOMAIN, TAG, 'Mock configuration ignored, error: %{public}s', JSON.stringify(error));
+  }
 }
 
 function getMockList(jsonText: string): Record<string, string> {
