@@ -86,6 +86,7 @@ export struct TopMenu {
   build() {
     if (this.isSplitKeyboard) {
       Row() {
+	    // [Start input_case_detached_handleDrag]
         Column() {
           this.splitTopLeft()
         }
@@ -98,7 +99,6 @@ export struct TopMenu {
             InputHandler.getInstance().startMovingPanel();
           })
           .onActionEnd(() => {
-            // 放手后取布局最外层控件相对屏幕的左上角位置，作为 moveTo 的目标位置
             this.handleDragEnd();
           }))
 
@@ -118,9 +118,9 @@ export struct TopMenu {
             InputHandler.getInstance().startMovingPanel();
           })
           .onActionEnd(() => {
-            // 放手后取布局最外层控件相对屏幕的左上角位置，作为 moveTo 的目标位置
             this.handleDragEnd();
           }))
+        // [End input_case_detached_handleDrag]
       }
       .width('100%')
       .height(this.inputStyle.downMenuHeight)
