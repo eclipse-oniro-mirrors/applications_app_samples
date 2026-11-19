@@ -1527,3 +1527,1950 @@ export default function IntlRelativeLogic(): void {
       const input: string = 'en-US; unit=month; value=0; numeric=auto; style=long';
       InterfaceTestLog.begin(name, input);
       const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'month';
+      const probe0: number = 0;
+      const probe1: number = 2;
+      const probe2: number = -2;
+      const probe3: number = 0.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'this month', kitText0);
+      expect(kitText0).assertEqual('this month');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 2 months', kitText1);
+      expect(kitText1).assertEqual('in 2 months');
+      InterfaceTestLog.value(name, 'kit.format.2', '2 months ago', kitText2);
+      expect(kitText2).assertEqual('2 months ago');
+      InterfaceTestLog.value(name, 'kit.format.3', 'in 0.5 months', kitText3);
+      expect(kitText3).assertEqual('in 0.5 months');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'this month', runtimeText0);
+      expect(runtimeText0).assertEqual('this month');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 2 months', runtimeText1);
+      expect(runtimeText1).assertEqual('in 2 months');
+      InterfaceTestLog.value(name, 'runtime.format.2', '2 months ago', runtimeText2);
+      expect(runtimeText2).assertEqual('2 months ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'in 0.5 months', runtimeText3);
+      expect(runtimeText3).assertEqual('in 0.5 months');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0023
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0023
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0023',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0023';
+      const input: string = 'en-US; unit=month; value=1; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'month';
+      const probe0: number = 1;
+      const probe1: number = 3;
+      const probe2: number = -1;
+      const probe3: number = 1.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'next month', kitText0);
+      expect(kitText0).assertEqual('next month');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 3 months', kitText1);
+      expect(kitText1).assertEqual('in 3 months');
+      InterfaceTestLog.value(name, 'kit.format.2', 'last month', kitText2);
+      expect(kitText2).assertEqual('last month');
+      InterfaceTestLog.value(name, 'kit.format.3', 'in 1.5 months', kitText3);
+      expect(kitText3).assertEqual('in 1.5 months');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'next month', runtimeText0);
+      expect(runtimeText0).assertEqual('next month');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 3 months', runtimeText1);
+      expect(runtimeText1).assertEqual('in 3 months');
+      InterfaceTestLog.value(name, 'runtime.format.2', 'last month', runtimeText2);
+      expect(runtimeText2).assertEqual('last month');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'in 1.5 months', runtimeText3);
+      expect(runtimeText3).assertEqual('in 1.5 months');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0024
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0024
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0024',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0024';
+      const input: string = 'en-US; unit=month; value=2; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'month';
+      const probe0: number = 2;
+      const probe1: number = 4;
+      const probe2: number = 0;
+      const probe3: number = 2.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'in 2 months', kitText0);
+      expect(kitText0).assertEqual('in 2 months');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 4 months', kitText1);
+      expect(kitText1).assertEqual('in 4 months');
+      InterfaceTestLog.value(name, 'kit.format.2', 'this month', kitText2);
+      expect(kitText2).assertEqual('this month');
+      InterfaceTestLog.value(name, 'kit.format.3', 'in 2.5 months', kitText3);
+      expect(kitText3).assertEqual('in 2.5 months');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'in 2 months', runtimeText0);
+      expect(runtimeText0).assertEqual('in 2 months');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 4 months', runtimeText1);
+      expect(runtimeText1).assertEqual('in 4 months');
+      InterfaceTestLog.value(name, 'runtime.format.2', 'this month', runtimeText2);
+      expect(runtimeText2).assertEqual('this month');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'in 2.5 months', runtimeText3);
+      expect(runtimeText3).assertEqual('in 2.5 months');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0025
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0025
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0025',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0025';
+      const input: string = 'en-US; unit=month; value=-1; numeric=always; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'month';
+      const probe0: number = -1;
+      const probe1: number = 1;
+      const probe2: number = -3;
+      const probe3: number = -0.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '1 month ago', kitText0);
+      expect(kitText0).assertEqual('1 month ago');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 1 month', kitText1);
+      expect(kitText1).assertEqual('in 1 month');
+      InterfaceTestLog.value(name, 'kit.format.2', '3 months ago', kitText2);
+      expect(kitText2).assertEqual('3 months ago');
+      InterfaceTestLog.value(name, 'kit.format.3', '0.5 months ago', kitText3);
+      expect(kitText3).assertEqual('0.5 months ago');
+      InterfaceTestLog.value(name, 'kit.numeric', 'always', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', '1 month ago', runtimeText0);
+      expect(runtimeText0).assertEqual('1 month ago');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 1 month', runtimeText1);
+      expect(runtimeText1).assertEqual('in 1 month');
+      InterfaceTestLog.value(name, 'runtime.format.2', '3 months ago', runtimeText2);
+      expect(runtimeText2).assertEqual('3 months ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', '0.5 months ago', runtimeText3);
+      expect(runtimeText3).assertEqual('0.5 months ago');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'always', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0026
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0026
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0026',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0026';
+      const input: string = 'en-US; unit=month; value=-0; numeric=always; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'month';
+      const probe0: number = -0;
+      const probe1: number = 2;
+      const probe2: number = -2;
+      const probe3: number = 0;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '0 months ago', kitText0);
+      expect(kitText0).assertEqual('0 months ago');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 2 months', kitText1);
+      expect(kitText1).assertEqual('in 2 months');
+      InterfaceTestLog.value(name, 'kit.format.2', '2 months ago', kitText2);
+      expect(kitText2).assertEqual('2 months ago');
+      InterfaceTestLog.value(name, 'kit.format.3', 'in 0 months', kitText3);
+      expect(kitText3).assertEqual('in 0 months');
+      InterfaceTestLog.value(name, 'kit.numeric', 'always', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', '0 months ago', runtimeText0);
+      expect(runtimeText0).assertEqual('0 months ago');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 2 months', runtimeText1);
+      expect(runtimeText1).assertEqual('in 2 months');
+      InterfaceTestLog.value(name, 'runtime.format.2', '2 months ago', runtimeText2);
+      expect(runtimeText2).assertEqual('2 months ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'in 0 months', runtimeText3);
+      expect(runtimeText3).assertEqual('in 0 months');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'always', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0027
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0027
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0027',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0027';
+      const input: string = 'en-US; unit=month; value=1; numeric=always; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'month';
+      const probe0: number = 1;
+      const probe1: number = 3;
+      const probe2: number = -1;
+      const probe3: number = 1.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'in 1 month', kitText0);
+      expect(kitText0).assertEqual('in 1 month');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 3 months', kitText1);
+      expect(kitText1).assertEqual('in 3 months');
+      InterfaceTestLog.value(name, 'kit.format.2', '1 month ago', kitText2);
+      expect(kitText2).assertEqual('1 month ago');
+      InterfaceTestLog.value(name, 'kit.format.3', 'in 1.5 months', kitText3);
+      expect(kitText3).assertEqual('in 1.5 months');
+      InterfaceTestLog.value(name, 'kit.numeric', 'always', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'in 1 month', runtimeText0);
+      expect(runtimeText0).assertEqual('in 1 month');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 3 months', runtimeText1);
+      expect(runtimeText1).assertEqual('in 3 months');
+      InterfaceTestLog.value(name, 'runtime.format.2', '1 month ago', runtimeText2);
+      expect(runtimeText2).assertEqual('1 month ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'in 1.5 months', runtimeText3);
+      expect(runtimeText3).assertEqual('in 1.5 months');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'always', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0028
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0028
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0028',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0028';
+      const input: string = 'en-US; unit=week; value=-2; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'week';
+      const probe0: number = -2;
+      const probe1: number = 0;
+      const probe2: number = -4;
+      const probe3: number = -1.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '2 weeks ago', kitText0);
+      expect(kitText0).assertEqual('2 weeks ago');
+      InterfaceTestLog.value(name, 'kit.format.1', 'this week', kitText1);
+      expect(kitText1).assertEqual('this week');
+      InterfaceTestLog.value(name, 'kit.format.2', '4 weeks ago', kitText2);
+      expect(kitText2).assertEqual('4 weeks ago');
+      InterfaceTestLog.value(name, 'kit.format.3', '1.5 weeks ago', kitText3);
+      expect(kitText3).assertEqual('1.5 weeks ago');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', '2 weeks ago', runtimeText0);
+      expect(runtimeText0).assertEqual('2 weeks ago');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'this week', runtimeText1);
+      expect(runtimeText1).assertEqual('this week');
+      InterfaceTestLog.value(name, 'runtime.format.2', '4 weeks ago', runtimeText2);
+      expect(runtimeText2).assertEqual('4 weeks ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', '1.5 weeks ago', runtimeText3);
+      expect(runtimeText3).assertEqual('1.5 weeks ago');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0029
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0029
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0029',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0029';
+      const input: string = 'en-US; unit=week; value=-1; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'week';
+      const probe0: number = -1;
+      const probe1: number = 1;
+      const probe2: number = -3;
+      const probe3: number = -0.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'last week', kitText0);
+      expect(kitText0).assertEqual('last week');
+      InterfaceTestLog.value(name, 'kit.format.1', 'next week', kitText1);
+      expect(kitText1).assertEqual('next week');
+      InterfaceTestLog.value(name, 'kit.format.2', '3 weeks ago', kitText2);
+      expect(kitText2).assertEqual('3 weeks ago');
+      InterfaceTestLog.value(name, 'kit.format.3', '0.5 weeks ago', kitText3);
+      expect(kitText3).assertEqual('0.5 weeks ago');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'last week', runtimeText0);
+      expect(runtimeText0).assertEqual('last week');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'next week', runtimeText1);
+      expect(runtimeText1).assertEqual('next week');
+      InterfaceTestLog.value(name, 'runtime.format.2', '3 weeks ago', runtimeText2);
+      expect(runtimeText2).assertEqual('3 weeks ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', '0.5 weeks ago', runtimeText3);
+      expect(runtimeText3).assertEqual('0.5 weeks ago');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0030
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0030
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0030',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0030';
+      const input: string = 'en-US; unit=week; value=-0; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'week';
+      const probe0: number = -0;
+      const probe1: number = 2;
+      const probe2: number = -2;
+      const probe3: number = 0;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'this week', kitText0);
+      expect(kitText0).assertEqual('this week');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 2 weeks', kitText1);
+      expect(kitText1).assertEqual('in 2 weeks');
+      InterfaceTestLog.value(name, 'kit.format.2', '2 weeks ago', kitText2);
+      expect(kitText2).assertEqual('2 weeks ago');
+      InterfaceTestLog.value(name, 'kit.format.3', 'this week', kitText3);
+      expect(kitText3).assertEqual('this week');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'this week', runtimeText0);
+      expect(runtimeText0).assertEqual('this week');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 2 weeks', runtimeText1);
+      expect(runtimeText1).assertEqual('in 2 weeks');
+      InterfaceTestLog.value(name, 'runtime.format.2', '2 weeks ago', runtimeText2);
+      expect(runtimeText2).assertEqual('2 weeks ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'this week', runtimeText3);
+      expect(runtimeText3).assertEqual('this week');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0031
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0031
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0031',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0031';
+      const input: string = 'en-US; unit=week; value=0; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'week';
+      const probe0: number = 0;
+      const probe1: number = 2;
+      const probe2: number = -2;
+      const probe3: number = 0.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'this week', kitText0);
+      expect(kitText0).assertEqual('this week');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 2 weeks', kitText1);
+      expect(kitText1).assertEqual('in 2 weeks');
+      InterfaceTestLog.value(name, 'kit.format.2', '2 weeks ago', kitText2);
+      expect(kitText2).assertEqual('2 weeks ago');
+      InterfaceTestLog.value(name, 'kit.format.3', 'in 0.5 weeks', kitText3);
+      expect(kitText3).assertEqual('in 0.5 weeks');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'this week', runtimeText0);
+      expect(runtimeText0).assertEqual('this week');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 2 weeks', runtimeText1);
+      expect(runtimeText1).assertEqual('in 2 weeks');
+      InterfaceTestLog.value(name, 'runtime.format.2', '2 weeks ago', runtimeText2);
+      expect(runtimeText2).assertEqual('2 weeks ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'in 0.5 weeks', runtimeText3);
+      expect(runtimeText3).assertEqual('in 0.5 weeks');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0032
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0032
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0032',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0032';
+      const input: string = 'en-US; unit=week; value=1; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'week';
+      const probe0: number = 1;
+      const probe1: number = 3;
+      const probe2: number = -1;
+      const probe3: number = 1.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'next week', kitText0);
+      expect(kitText0).assertEqual('next week');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 3 weeks', kitText1);
+      expect(kitText1).assertEqual('in 3 weeks');
+      InterfaceTestLog.value(name, 'kit.format.2', 'last week', kitText2);
+      expect(kitText2).assertEqual('last week');
+      InterfaceTestLog.value(name, 'kit.format.3', 'in 1.5 weeks', kitText3);
+      expect(kitText3).assertEqual('in 1.5 weeks');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'next week', runtimeText0);
+      expect(runtimeText0).assertEqual('next week');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 3 weeks', runtimeText1);
+      expect(runtimeText1).assertEqual('in 3 weeks');
+      InterfaceTestLog.value(name, 'runtime.format.2', 'last week', runtimeText2);
+      expect(runtimeText2).assertEqual('last week');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'in 1.5 weeks', runtimeText3);
+      expect(runtimeText3).assertEqual('in 1.5 weeks');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0033
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0033
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0033',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0033';
+      const input: string = 'en-US; unit=week; value=2; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'week';
+      const probe0: number = 2;
+      const probe1: number = 4;
+      const probe2: number = 0;
+      const probe3: number = 2.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'in 2 weeks', kitText0);
+      expect(kitText0).assertEqual('in 2 weeks');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 4 weeks', kitText1);
+      expect(kitText1).assertEqual('in 4 weeks');
+      InterfaceTestLog.value(name, 'kit.format.2', 'this week', kitText2);
+      expect(kitText2).assertEqual('this week');
+      InterfaceTestLog.value(name, 'kit.format.3', 'in 2.5 weeks', kitText3);
+      expect(kitText3).assertEqual('in 2.5 weeks');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'in 2 weeks', runtimeText0);
+      expect(runtimeText0).assertEqual('in 2 weeks');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 4 weeks', runtimeText1);
+      expect(runtimeText1).assertEqual('in 4 weeks');
+      InterfaceTestLog.value(name, 'runtime.format.2', 'this week', runtimeText2);
+      expect(runtimeText2).assertEqual('this week');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'in 2.5 weeks', runtimeText3);
+      expect(runtimeText3).assertEqual('in 2.5 weeks');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0034
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0034
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0034',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0034';
+      const input: string = 'en-US; unit=week; value=-1; numeric=always; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'week';
+      const probe0: number = -1;
+      const probe1: number = 1;
+      const probe2: number = -3;
+      const probe3: number = -0.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '1 week ago', kitText0);
+      expect(kitText0).assertEqual('1 week ago');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 1 week', kitText1);
+      expect(kitText1).assertEqual('in 1 week');
+      InterfaceTestLog.value(name, 'kit.format.2', '3 weeks ago', kitText2);
+      expect(kitText2).assertEqual('3 weeks ago');
+      InterfaceTestLog.value(name, 'kit.format.3', '0.5 weeks ago', kitText3);
+      expect(kitText3).assertEqual('0.5 weeks ago');
+      InterfaceTestLog.value(name, 'kit.numeric', 'always', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', '1 week ago', runtimeText0);
+      expect(runtimeText0).assertEqual('1 week ago');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 1 week', runtimeText1);
+      expect(runtimeText1).assertEqual('in 1 week');
+      InterfaceTestLog.value(name, 'runtime.format.2', '3 weeks ago', runtimeText2);
+      expect(runtimeText2).assertEqual('3 weeks ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', '0.5 weeks ago', runtimeText3);
+      expect(runtimeText3).assertEqual('0.5 weeks ago');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'always', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0035
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0035
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0035',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0035';
+      const input: string = 'en-US; unit=week; value=-0; numeric=always; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'week';
+      const probe0: number = -0;
+      const probe1: number = 2;
+      const probe2: number = -2;
+      const probe3: number = 0;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '0 weeks ago', kitText0);
+      expect(kitText0).assertEqual('0 weeks ago');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 2 weeks', kitText1);
+      expect(kitText1).assertEqual('in 2 weeks');
+      InterfaceTestLog.value(name, 'kit.format.2', '2 weeks ago', kitText2);
+      expect(kitText2).assertEqual('2 weeks ago');
+      InterfaceTestLog.value(name, 'kit.format.3', 'in 0 weeks', kitText3);
+      expect(kitText3).assertEqual('in 0 weeks');
+      InterfaceTestLog.value(name, 'kit.numeric', 'always', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', '0 weeks ago', runtimeText0);
+      expect(runtimeText0).assertEqual('0 weeks ago');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 2 weeks', runtimeText1);
+      expect(runtimeText1).assertEqual('in 2 weeks');
+      InterfaceTestLog.value(name, 'runtime.format.2', '2 weeks ago', runtimeText2);
+      expect(runtimeText2).assertEqual('2 weeks ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'in 0 weeks', runtimeText3);
+      expect(runtimeText3).assertEqual('in 0 weeks');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'always', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0036
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0036
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0036',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0036';
+      const input: string = 'en-US; unit=week; value=1; numeric=always; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'week';
+      const probe0: number = 1;
+      const probe1: number = 3;
+      const probe2: number = -1;
+      const probe3: number = 1.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'in 1 week', kitText0);
+      expect(kitText0).assertEqual('in 1 week');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 3 weeks', kitText1);
+      expect(kitText1).assertEqual('in 3 weeks');
+      InterfaceTestLog.value(name, 'kit.format.2', '1 week ago', kitText2);
+      expect(kitText2).assertEqual('1 week ago');
+      InterfaceTestLog.value(name, 'kit.format.3', 'in 1.5 weeks', kitText3);
+      expect(kitText3).assertEqual('in 1.5 weeks');
+      InterfaceTestLog.value(name, 'kit.numeric', 'always', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'in 1 week', runtimeText0);
+      expect(runtimeText0).assertEqual('in 1 week');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 3 weeks', runtimeText1);
+      expect(runtimeText1).assertEqual('in 3 weeks');
+      InterfaceTestLog.value(name, 'runtime.format.2', '1 week ago', runtimeText2);
+      expect(runtimeText2).assertEqual('1 week ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'in 1.5 weeks', runtimeText3);
+      expect(runtimeText3).assertEqual('in 1.5 weeks');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'always', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0037
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0037
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0037',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0037';
+      const input: string = 'en-US; unit=day; value=-2; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'day';
+      const probe0: number = -2;
+      const probe1: number = 0;
+      const probe2: number = -4;
+      const probe3: number = -1.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '2 days ago', kitText0);
+      expect(kitText0).assertEqual('2 days ago');
+      InterfaceTestLog.value(name, 'kit.format.1', 'today', kitText1);
+      expect(kitText1).assertEqual('today');
+      InterfaceTestLog.value(name, 'kit.format.2', '4 days ago', kitText2);
+      expect(kitText2).assertEqual('4 days ago');
+      InterfaceTestLog.value(name, 'kit.format.3', '1.5 days ago', kitText3);
+      expect(kitText3).assertEqual('1.5 days ago');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', '2 days ago', runtimeText0);
+      expect(runtimeText0).assertEqual('2 days ago');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'today', runtimeText1);
+      expect(runtimeText1).assertEqual('today');
+      InterfaceTestLog.value(name, 'runtime.format.2', '4 days ago', runtimeText2);
+      expect(runtimeText2).assertEqual('4 days ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', '1.5 days ago', runtimeText3);
+      expect(runtimeText3).assertEqual('1.5 days ago');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0038
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0038
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0038',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0038';
+      const input: string = 'en-US; unit=day; value=-1; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'day';
+      const probe0: number = -1;
+      const probe1: number = 1;
+      const probe2: number = -3;
+      const probe3: number = -0.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'yesterday', kitText0);
+      expect(kitText0).assertEqual('yesterday');
+      InterfaceTestLog.value(name, 'kit.format.1', 'tomorrow', kitText1);
+      expect(kitText1).assertEqual('tomorrow');
+      InterfaceTestLog.value(name, 'kit.format.2', '3 days ago', kitText2);
+      expect(kitText2).assertEqual('3 days ago');
+      InterfaceTestLog.value(name, 'kit.format.3', '0.5 days ago', kitText3);
+      expect(kitText3).assertEqual('0.5 days ago');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'yesterday', runtimeText0);
+      expect(runtimeText0).assertEqual('yesterday');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'tomorrow', runtimeText1);
+      expect(runtimeText1).assertEqual('tomorrow');
+      InterfaceTestLog.value(name, 'runtime.format.2', '3 days ago', runtimeText2);
+      expect(runtimeText2).assertEqual('3 days ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', '0.5 days ago', runtimeText3);
+      expect(runtimeText3).assertEqual('0.5 days ago');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0039
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0039
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0039',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0039';
+      const input: string = 'en-US; unit=day; value=-0; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'day';
+      const probe0: number = -0;
+      const probe1: number = 2;
+      const probe2: number = -2;
+      const probe3: number = 0;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'today', kitText0);
+      expect(kitText0).assertEqual('today');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 2 days', kitText1);
+      expect(kitText1).assertEqual('in 2 days');
+      InterfaceTestLog.value(name, 'kit.format.2', '2 days ago', kitText2);
+      expect(kitText2).assertEqual('2 days ago');
+      InterfaceTestLog.value(name, 'kit.format.3', 'today', kitText3);
+      expect(kitText3).assertEqual('today');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'today', runtimeText0);
+      expect(runtimeText0).assertEqual('today');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 2 days', runtimeText1);
+      expect(runtimeText1).assertEqual('in 2 days');
+      InterfaceTestLog.value(name, 'runtime.format.2', '2 days ago', runtimeText2);
+      expect(runtimeText2).assertEqual('2 days ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'today', runtimeText3);
+      expect(runtimeText3).assertEqual('today');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0040
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0040
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0040',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0040';
+      const input: string = 'en-US; unit=day; value=0; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'day';
+      const probe0: number = 0;
+      const probe1: number = 2;
+      const probe2: number = -2;
+      const probe3: number = 0.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'today', kitText0);
+      expect(kitText0).assertEqual('today');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 2 days', kitText1);
+      expect(kitText1).assertEqual('in 2 days');
+      InterfaceTestLog.value(name, 'kit.format.2', '2 days ago', kitText2);
+      expect(kitText2).assertEqual('2 days ago');
+      InterfaceTestLog.value(name, 'kit.format.3', 'in 0.5 days', kitText3);
+      expect(kitText3).assertEqual('in 0.5 days');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'today', runtimeText0);
+      expect(runtimeText0).assertEqual('today');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 2 days', runtimeText1);
+      expect(runtimeText1).assertEqual('in 2 days');
+      InterfaceTestLog.value(name, 'runtime.format.2', '2 days ago', runtimeText2);
+      expect(runtimeText2).assertEqual('2 days ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'in 0.5 days', runtimeText3);
+      expect(runtimeText3).assertEqual('in 0.5 days');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0041
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0041
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0041',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0041';
+      const input: string = 'en-US; unit=day; value=1; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'day';
+      const probe0: number = 1;
+      const probe1: number = 3;
+      const probe2: number = -1;
+      const probe3: number = 1.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'tomorrow', kitText0);
+      expect(kitText0).assertEqual('tomorrow');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 3 days', kitText1);
+      expect(kitText1).assertEqual('in 3 days');
+      InterfaceTestLog.value(name, 'kit.format.2', 'yesterday', kitText2);
+      expect(kitText2).assertEqual('yesterday');
+      InterfaceTestLog.value(name, 'kit.format.3', 'in 1.5 days', kitText3);
+      expect(kitText3).assertEqual('in 1.5 days');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'tomorrow', runtimeText0);
+      expect(runtimeText0).assertEqual('tomorrow');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 3 days', runtimeText1);
+      expect(runtimeText1).assertEqual('in 3 days');
+      InterfaceTestLog.value(name, 'runtime.format.2', 'yesterday', runtimeText2);
+      expect(runtimeText2).assertEqual('yesterday');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'in 1.5 days', runtimeText3);
+      expect(runtimeText3).assertEqual('in 1.5 days');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0042
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0042
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0042',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0042';
+      const input: string = 'en-US; unit=day; value=2; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'day';
+      const probe0: number = 2;
+      const probe1: number = 4;
+      const probe2: number = 0;
+      const probe3: number = 2.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'in 2 days', kitText0);
+      expect(kitText0).assertEqual('in 2 days');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 4 days', kitText1);
+      expect(kitText1).assertEqual('in 4 days');
+      InterfaceTestLog.value(name, 'kit.format.2', 'today', kitText2);
+      expect(kitText2).assertEqual('today');
+      InterfaceTestLog.value(name, 'kit.format.3', 'in 2.5 days', kitText3);
+      expect(kitText3).assertEqual('in 2.5 days');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'in 2 days', runtimeText0);
+      expect(runtimeText0).assertEqual('in 2 days');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 4 days', runtimeText1);
+      expect(runtimeText1).assertEqual('in 4 days');
+      InterfaceTestLog.value(name, 'runtime.format.2', 'today', runtimeText2);
+      expect(runtimeText2).assertEqual('today');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'in 2.5 days', runtimeText3);
+      expect(runtimeText3).assertEqual('in 2.5 days');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0043
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0043
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0043',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0043';
+      const input: string = 'en-US; unit=day; value=-1; numeric=always; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'day';
+      const probe0: number = -1;
+      const probe1: number = 1;
+      const probe2: number = -3;
+      const probe3: number = -0.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '1 day ago', kitText0);
+      expect(kitText0).assertEqual('1 day ago');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 1 day', kitText1);
+      expect(kitText1).assertEqual('in 1 day');
+      InterfaceTestLog.value(name, 'kit.format.2', '3 days ago', kitText2);
+      expect(kitText2).assertEqual('3 days ago');
+      InterfaceTestLog.value(name, 'kit.format.3', '0.5 days ago', kitText3);
+      expect(kitText3).assertEqual('0.5 days ago');
+      InterfaceTestLog.value(name, 'kit.numeric', 'always', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', '1 day ago', runtimeText0);
+      expect(runtimeText0).assertEqual('1 day ago');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 1 day', runtimeText1);
+      expect(runtimeText1).assertEqual('in 1 day');
+      InterfaceTestLog.value(name, 'runtime.format.2', '3 days ago', runtimeText2);
+      expect(runtimeText2).assertEqual('3 days ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', '0.5 days ago', runtimeText3);
+      expect(runtimeText3).assertEqual('0.5 days ago');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'always', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0044
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0044
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0044',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0044';
+      const input: string = 'en-US; unit=day; value=-0; numeric=always; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'day';
+      const probe0: number = -0;
+      const probe1: number = 2;
+      const probe2: number = -2;
+      const probe3: number = 0;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '0 days ago', kitText0);
+      expect(kitText0).assertEqual('0 days ago');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 2 days', kitText1);
+      expect(kitText1).assertEqual('in 2 days');
+      InterfaceTestLog.value(name, 'kit.format.2', '2 days ago', kitText2);
+      expect(kitText2).assertEqual('2 days ago');
+      InterfaceTestLog.value(name, 'kit.format.3', 'in 0 days', kitText3);
+      expect(kitText3).assertEqual('in 0 days');
+      InterfaceTestLog.value(name, 'kit.numeric', 'always', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', '0 days ago', runtimeText0);
+      expect(runtimeText0).assertEqual('0 days ago');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 2 days', runtimeText1);
+      expect(runtimeText1).assertEqual('in 2 days');
+      InterfaceTestLog.value(name, 'runtime.format.2', '2 days ago', runtimeText2);
+      expect(runtimeText2).assertEqual('2 days ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'in 0 days', runtimeText3);
+      expect(runtimeText3).assertEqual('in 0 days');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'always', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0045
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0045
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0045',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0045';
+      const input: string = 'en-US; unit=day; value=1; numeric=always; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'always', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"always","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'day';
+      const probe0: number = 1;
+      const probe1: number = 3;
+      const probe2: number = -1;
+      const probe3: number = 1.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'in 1 day', kitText0);
+      expect(kitText0).assertEqual('in 1 day');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 3 days', kitText1);
+      expect(kitText1).assertEqual('in 3 days');
+      InterfaceTestLog.value(name, 'kit.format.2', '1 day ago', kitText2);
+      expect(kitText2).assertEqual('1 day ago');
+      InterfaceTestLog.value(name, 'kit.format.3', 'in 1.5 days', kitText3);
+      expect(kitText3).assertEqual('in 1.5 days');
+      InterfaceTestLog.value(name, 'kit.numeric', 'always', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'in 1 day', runtimeText0);
+      expect(runtimeText0).assertEqual('in 1 day');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 3 days', runtimeText1);
+      expect(runtimeText1).assertEqual('in 3 days');
+      InterfaceTestLog.value(name, 'runtime.format.2', '1 day ago', runtimeText2);
+      expect(runtimeText2).assertEqual('1 day ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'in 1.5 days', runtimeText3);
+      expect(runtimeText3).assertEqual('in 1.5 days');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'always', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('always');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0046
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0046
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0046',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0046';
+      const input: string = 'en-US; unit=hour; value=-2; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'hour';
+      const probe0: number = -2;
+      const probe1: number = 0;
+      const probe2: number = -4;
+      const probe3: number = -1.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '2 hours ago', kitText0);
+      expect(kitText0).assertEqual('2 hours ago');
+      InterfaceTestLog.value(name, 'kit.format.1', 'this hour', kitText1);
+      expect(kitText1).assertEqual('this hour');
+      InterfaceTestLog.value(name, 'kit.format.2', '4 hours ago', kitText2);
+      expect(kitText2).assertEqual('4 hours ago');
+      InterfaceTestLog.value(name, 'kit.format.3', '1.5 hours ago', kitText3);
+      expect(kitText3).assertEqual('1.5 hours ago');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', '2 hours ago', runtimeText0);
+      expect(runtimeText0).assertEqual('2 hours ago');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'this hour', runtimeText1);
+      expect(runtimeText1).assertEqual('this hour');
+      InterfaceTestLog.value(name, 'runtime.format.2', '4 hours ago', runtimeText2);
+      expect(runtimeText2).assertEqual('4 hours ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', '1.5 hours ago', runtimeText3);
+      expect(runtimeText3).assertEqual('1.5 hours ago');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0047
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0047
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0047',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0047';
+      const input: string = 'en-US; unit=hour; value=-1; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'hour';
+      const probe0: number = -1;
+      const probe1: number = 1;
+      const probe2: number = -3;
+      const probe3: number = -0.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', '1 hour ago', kitText0);
+      expect(kitText0).assertEqual('1 hour ago');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 1 hour', kitText1);
+      expect(kitText1).assertEqual('in 1 hour');
+      InterfaceTestLog.value(name, 'kit.format.2', '3 hours ago', kitText2);
+      expect(kitText2).assertEqual('3 hours ago');
+      InterfaceTestLog.value(name, 'kit.format.3', '0.5 hours ago', kitText3);
+      expect(kitText3).assertEqual('0.5 hours ago');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', '1 hour ago', runtimeText0);
+      expect(runtimeText0).assertEqual('1 hour ago');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 1 hour', runtimeText1);
+      expect(runtimeText1).assertEqual('in 1 hour');
+      InterfaceTestLog.value(name, 'runtime.format.2', '3 hours ago', runtimeText2);
+      expect(runtimeText2).assertEqual('3 hours ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', '0.5 hours ago', runtimeText3);
+      expect(runtimeText3).assertEqual('0.5 hours ago');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0048
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0048
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0048',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0048';
+      const input: string = 'en-US; unit=hour; value=-0; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'hour';
+      const probe0: number = -0;
+      const probe1: number = 2;
+      const probe2: number = -2;
+      const probe3: number = 0;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
+      expect(JSON.stringify(runtimeOptions)).assertEqual(runtimeOptionsSnapshot);
+      InterfaceTestLog.value(name, 'kit.format.0', 'this hour', kitText0);
+      expect(kitText0).assertEqual('this hour');
+      InterfaceTestLog.value(name, 'kit.format.1', 'in 2 hours', kitText1);
+      expect(kitText1).assertEqual('in 2 hours');
+      InterfaceTestLog.value(name, 'kit.format.2', '2 hours ago', kitText2);
+      expect(kitText2).assertEqual('2 hours ago');
+      InterfaceTestLog.value(name, 'kit.format.3', 'this hour', kitText3);
+      expect(kitText3).assertEqual('this hour');
+      InterfaceTestLog.value(name, 'kit.numeric', 'auto', kitResolved.numeric);
+      expect(kitResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'kit.style', 'long', kitResolved.style);
+      expect(kitResolved.style).assertEqual('long');
+      InterfaceTestLog.value(name, 'runtime.format.0', 'this hour', runtimeText0);
+      expect(runtimeText0).assertEqual('this hour');
+      InterfaceTestLog.value(name, 'runtime.format.1', 'in 2 hours', runtimeText1);
+      expect(runtimeText1).assertEqual('in 2 hours');
+      InterfaceTestLog.value(name, 'runtime.format.2', '2 hours ago', runtimeText2);
+      expect(runtimeText2).assertEqual('2 hours ago');
+      InterfaceTestLog.value(name, 'runtime.format.3', 'this hour', runtimeText3);
+      expect(runtimeText3).assertEqual('this hour');
+      InterfaceTestLog.value(name, 'runtime.numeric', 'auto', runtimeResolved.numeric);
+      expect(runtimeResolved.numeric).assertEqual('auto');
+      InterfaceTestLog.value(name, 'runtime.style', 'long', runtimeResolved.style);
+      expect(runtimeResolved.style).assertEqual('long');
+      InterfaceTestLog.end(name);
+    });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0049
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0049
+     * @tc.desc Check English auto/always relative time, signed zero, direction and documented units.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0049',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, (): void => {
+      const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_INTL_RELATIVE_0049';
+      const input: string = 'en-US; unit=hour; value=0; numeric=auto; style=long';
+      InterfaceTestLog.begin(name, input);
+      const locale: string = 'en-US';
+      const kitOptions: intl.RelativeTimeFormatInputOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const kitOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const runtimeOptions: Intl.RelativeTimeFormatOptions = {
+        localeMatcher: 'lookup', numeric: 'auto', style: 'long',
+      };
+      const runtimeOptionsSnapshot: string =
+        '{"localeMatcher":"lookup","numeric":"auto","style":"long"}';
+      const kit: intl.RelativeTimeFormat = new intl.RelativeTimeFormat(locale, kitOptions);
+      const runtime: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat(locale, runtimeOptions);
+      const unit: Intl.RelativeTimeFormatUnit = 'hour';
+      const probe0: number = 0;
+      const probe1: number = 2;
+      const probe2: number = -2;
+      const probe3: number = 0.5;
+      const kitText0: string = kit.format(probe0, unit);
+      const kitText1: string = kit.format(probe1, unit);
+      const kitText2: string = kit.format(probe2, unit);
+      const kitText3: string = kit.format(probe3, unit);
+      const kitResolved: intl.RelativeTimeFormatResolvedOptions = kit.resolvedOptions();
+      const runtimeText0: string = runtime.format(probe0, unit);
+      const runtimeText1: string = runtime.format(probe1, unit);
+      const runtimeText2: string = runtime.format(probe2, unit);
+      const runtimeText3: string = runtime.format(probe3, unit);
+      const runtimeResolved: Intl.ResolvedRelativeTimeFormatOptions = runtime.resolvedOptions();
+      InterfaceTestLog.value(name, 'kitOptions.unchanged', kitOptionsSnapshot, JSON.stringify(kitOptions));
+      expect(JSON.stringify(kitOptions)).assertEqual(kitOptionsSnapshot);
+      InterfaceTestLog.value(name, 'runtimeOptions.unchanged', runtimeOptionsSnapshot, JSON.stringify(runtimeOptions));
