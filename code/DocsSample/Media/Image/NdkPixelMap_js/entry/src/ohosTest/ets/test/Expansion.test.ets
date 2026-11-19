@@ -15,203 +15,203 @@
 
 import { afterEach, describe, it } from '@ohos/hypium';
 
-import runJsndkAccess001 from './expansion/JSNDK_ACCESS_001.test';
-import runJsndkAccess002 from './expansion/JSNDK_ACCESS_002.test';
-import runJsndkAccess003 from './expansion/JSNDK_ACCESS_003.test';
-import runJsndkAccess004 from './expansion/JSNDK_ACCESS_004.test';
-import runJsndkCreate001 from './expansion/JSNDK_CREATE_001.test';
-import runJsndkFile001 from './expansion/JSNDK_FILE_001.test';
-import runJsndkFile002 from './expansion/JSNDK_FILE_002.test';
-import runJsndkFile003 from './expansion/JSNDK_FILE_003.test';
-import runJsndkFile004 from './expansion/JSNDK_FILE_004.test';
-import runJsndkInfo001 from './expansion/JSNDK_INFO_001.test';
-import runJsndkInfo002 from './expansion/JSNDK_INFO_002.test';
-import runJsndkInfo003 from './expansion/JSNDK_INFO_003.test';
-import runJsndkInfo004 from './expansion/JSNDK_INFO_004.test';
-import runJsndkRaw001 from './expansion/JSNDK_RAW_001.test';
-import runJsndkTransform001 from './expansion/JSNDK_TRANSFORM_001.test';
-import runJsndkTransform002 from './expansion/JSNDK_TRANSFORM_002.test';
-import runJsndkTransform003 from './expansion/JSNDK_TRANSFORM_003.test';
-import runJsndkTransform004 from './expansion/JSNDK_TRANSFORM_004.test';
-import runJsndkTransform005 from './expansion/JSNDK_TRANSFORM_005.test';
-import runV2JsndkFile001 from './expansion/V2_JSNDK_FILE_001.test';
-import runV2JsndkFile002 from './expansion/V2_JSNDK_FILE_002.test';
-import runV2JsndkFile003 from './expansion/V2_JSNDK_FILE_003.test';
-import runV2JsndkFile004 from './expansion/V2_JSNDK_FILE_004.test';
-import runV2JsndkFile005 from './expansion/V2_JSNDK_FILE_005.test';
-import runV2JsndkFile006 from './expansion/V2_JSNDK_FILE_006.test';
-import runV2JsndkFile007 from './expansion/V2_JSNDK_FILE_007.test';
-import runV2JsndkFile008 from './expansion/V2_JSNDK_FILE_008.test';
-import runV2JsndkFile009 from './expansion/V2_JSNDK_FILE_009.test';
-import runV2JsndkFile010 from './expansion/V2_JSNDK_FILE_010.test';
-import runV2JsndkFile011 from './expansion/V2_JSNDK_FILE_011.test';
-import runV2JsndkFile012 from './expansion/V2_JSNDK_FILE_012.test';
-import runV2JsndkFile013 from './expansion/V2_JSNDK_FILE_013.test';
-import runV2JsndkFile014 from './expansion/V2_JSNDK_FILE_014.test';
-import runV2JsndkFile015 from './expansion/V2_JSNDK_FILE_015.test';
-import runV2JsndkFile016 from './expansion/V2_JSNDK_FILE_016.test';
-import runV2JsndkFile017 from './expansion/V2_JSNDK_FILE_017.test';
-import runV2JsndkFile018 from './expansion/V2_JSNDK_FILE_018.test';
-import runV2JsndkState001 from './expansion/V2_JSNDK_STATE_001.test';
-import runV2JsndkState002 from './expansion/V2_JSNDK_STATE_002.test';
-import runV2JsndkState003 from './expansion/V2_JSNDK_STATE_003.test';
-import runV2JsndkState004 from './expansion/V2_JSNDK_STATE_004.test';
-import runV2JsndkState005 from './expansion/V2_JSNDK_STATE_005.test';
-import runV2JsndkState006 from './expansion/V2_JSNDK_STATE_006.test';
-import runV2JsndkState007 from './expansion/V2_JSNDK_STATE_007.test';
-import runV2JsndkState008 from './expansion/V2_JSNDK_STATE_008.test';
-import runV2JsndkState009 from './expansion/V2_JSNDK_STATE_009.test';
-import runV2JsndkState010 from './expansion/V2_JSNDK_STATE_010.test';
-import runV2JsndkState011 from './expansion/V2_JSNDK_STATE_011.test';
-import runV2JsndkState012 from './expansion/V2_JSNDK_STATE_012.test';
-import runV2JsndkState013 from './expansion/V2_JSNDK_STATE_013.test';
-import runV2JsndkState014 from './expansion/V2_JSNDK_STATE_014.test';
-import runV2JsndkState015 from './expansion/V2_JSNDK_STATE_015.test';
-import runV2JsndkState016 from './expansion/V2_JSNDK_STATE_016.test';
-import runV2JsndkState017 from './expansion/V2_JSNDK_STATE_017.test';
-import runV2JsndkState018 from './expansion/V2_JSNDK_STATE_018.test';
-import runV2JsndkState019 from './expansion/V2_JSNDK_STATE_019.test';
-import runV2JsndkState020 from './expansion/V2_JSNDK_STATE_020.test';
-import runV2JsndkState021 from './expansion/V2_JSNDK_STATE_021.test';
-import runV2JsndkState022 from './expansion/V2_JSNDK_STATE_022.test';
-import runV2JsndkState023 from './expansion/V2_JSNDK_STATE_023.test';
-import runV2JsndkState024 from './expansion/V2_JSNDK_STATE_024.test';
-import runV2JsndkState025 from './expansion/V2_JSNDK_STATE_025.test';
-import runV2JsndkState026 from './expansion/V2_JSNDK_STATE_026.test';
-import runV2JsndkState027 from './expansion/V2_JSNDK_STATE_027.test';
-import runV2JsndkState028 from './expansion/V2_JSNDK_STATE_028.test';
-import runV2JsndkState029 from './expansion/V2_JSNDK_STATE_029.test';
-import runV2JsndkState030 from './expansion/V2_JSNDK_STATE_030.test';
-import runV2JsndkState031 from './expansion/V2_JSNDK_STATE_031.test';
-import runV2JsndkState032 from './expansion/V2_JSNDK_STATE_032.test';
-import runV2JsndkState033 from './expansion/V2_JSNDK_STATE_033.test';
-import runV2JsndkState034 from './expansion/V2_JSNDK_STATE_034.test';
-import runV2JsndkState035 from './expansion/V2_JSNDK_STATE_035.test';
-import runV2JsndkState036 from './expansion/V2_JSNDK_STATE_036.test';
-import runV2JsndkState037 from './expansion/V2_JSNDK_STATE_037.test';
-import runV2JsndkState038 from './expansion/V2_JSNDK_STATE_038.test';
-import runV2JsndkState039 from './expansion/V2_JSNDK_STATE_039.test';
-import runV2JsndkState040 from './expansion/V2_JSNDK_STATE_040.test';
-import runV2JsndkState041 from './expansion/V2_JSNDK_STATE_041.test';
-import runV2JsndkState042 from './expansion/V2_JSNDK_STATE_042.test';
-import runV2JsndkState043 from './expansion/V2_JSNDK_STATE_043.test';
-import runV2JsndkState044 from './expansion/V2_JSNDK_STATE_044.test';
-import runV2JsndkState045 from './expansion/V2_JSNDK_STATE_045.test';
-import runV2JsndkState046 from './expansion/V2_JSNDK_STATE_046.test';
-import runV2JsndkState047 from './expansion/V2_JSNDK_STATE_047.test';
-import runV2JsndkState048 from './expansion/V2_JSNDK_STATE_048.test';
-import runV2JsndkState049 from './expansion/V2_JSNDK_STATE_049.test';
-import runV2JsndkState050 from './expansion/V2_JSNDK_STATE_050.test';
-import runV2JsndkState051 from './expansion/V2_JSNDK_STATE_051.test';
-import runV2JsndkState052 from './expansion/V2_JSNDK_STATE_052.test';
-import runV2JsndkState053 from './expansion/V2_JSNDK_STATE_053.test';
-import runV2JsndkState054 from './expansion/V2_JSNDK_STATE_054.test';
-import runV2JsndkState055 from './expansion/V2_JSNDK_STATE_055.test';
-import runV2JsndkState056 from './expansion/V2_JSNDK_STATE_056.test';
-import runV2JsndkState057 from './expansion/V2_JSNDK_STATE_057.test';
-import runV2JsndkState058 from './expansion/V2_JSNDK_STATE_058.test';
-import runV2JsndkState059 from './expansion/V2_JSNDK_STATE_059.test';
-import runV2JsndkState060 from './expansion/V2_JSNDK_STATE_060.test';
-import runV2JsndkState061 from './expansion/V2_JSNDK_STATE_061.test';
-import runV2JsndkState062 from './expansion/V2_JSNDK_STATE_062.test';
-import runV2JsndkState063 from './expansion/V2_JSNDK_STATE_063.test';
-import runV2JsndkState064 from './expansion/V2_JSNDK_STATE_064.test';
-import runV2JsndkState065 from './expansion/V2_JSNDK_STATE_065.test';
-import runV2JsndkState066 from './expansion/V2_JSNDK_STATE_066.test';
-import runV2JsndkState067 from './expansion/V2_JSNDK_STATE_067.test';
-import runV2JsndkState068 from './expansion/V2_JSNDK_STATE_068.test';
-import runV2JsndkState069 from './expansion/V2_JSNDK_STATE_069.test';
-import runV2JsndkState070 from './expansion/V2_JSNDK_STATE_070.test';
-import runV2JsndkState071 from './expansion/V2_JSNDK_STATE_071.test';
-import runV2JsndkState072 from './expansion/V2_JSNDK_STATE_072.test';
-import runV2JsndkState073 from './expansion/V2_JSNDK_STATE_073.test';
-import runV2JsndkState074 from './expansion/V2_JSNDK_STATE_074.test';
-import runV2JsndkState075 from './expansion/V2_JSNDK_STATE_075.test';
-import runV2JsndkState076 from './expansion/V2_JSNDK_STATE_076.test';
-import runV2JsndkState077 from './expansion/V2_JSNDK_STATE_077.test';
-import runV2JsndkState078 from './expansion/V2_JSNDK_STATE_078.test';
-import runV2JsndkState079 from './expansion/V2_JSNDK_STATE_079.test';
-import runV2JsndkState080 from './expansion/V2_JSNDK_STATE_080.test';
-import runV2JsndkState081 from './expansion/V2_JSNDK_STATE_081.test';
-import runV2JsndkState082 from './expansion/V2_JSNDK_STATE_082.test';
-import runV2JsndkState083 from './expansion/V2_JSNDK_STATE_083.test';
-import runV2JsndkState084 from './expansion/V2_JSNDK_STATE_084.test';
-import runV2JsndkState085 from './expansion/V2_JSNDK_STATE_085.test';
-import runV2JsndkState086 from './expansion/V2_JSNDK_STATE_086.test';
-import runV2JsndkState087 from './expansion/V2_JSNDK_STATE_087.test';
-import runV2JsndkState088 from './expansion/V2_JSNDK_STATE_088.test';
-import runV2JsndkState089 from './expansion/V2_JSNDK_STATE_089.test';
-import runV2JsndkState090 from './expansion/V2_JSNDK_STATE_090.test';
-import runV2JsndkState091 from './expansion/V2_JSNDK_STATE_091.test';
-import runV2JsndkState092 from './expansion/V2_JSNDK_STATE_092.test';
-import runV2JsndkState093 from './expansion/V2_JSNDK_STATE_093.test';
-import runV2JsndkState094 from './expansion/V2_JSNDK_STATE_094.test';
-import runV2JsndkState095 from './expansion/V2_JSNDK_STATE_095.test';
-import runV2JsndkState096 from './expansion/V2_JSNDK_STATE_096.test';
-import runV2JsndkState097 from './expansion/V2_JSNDK_STATE_097.test';
-import runV2JsndkState098 from './expansion/V2_JSNDK_STATE_098.test';
-import runV2JsndkState099 from './expansion/V2_JSNDK_STATE_099.test';
-import runV2JsndkState100 from './expansion/V2_JSNDK_STATE_100.test';
-import runV2JsndkState101 from './expansion/V2_JSNDK_STATE_101.test';
-import runV2JsndkState102 from './expansion/V2_JSNDK_STATE_102.test';
-import runV2JsndkState103 from './expansion/V2_JSNDK_STATE_103.test';
-import runV2JsndkState104 from './expansion/V2_JSNDK_STATE_104.test';
-import runV2JsndkState105 from './expansion/V2_JSNDK_STATE_105.test';
-import runV2JsndkState106 from './expansion/V2_JSNDK_STATE_106.test';
-import runV2JsndkState107 from './expansion/V2_JSNDK_STATE_107.test';
-import runV2JsndkState108 from './expansion/V2_JSNDK_STATE_108.test';
-import runV2JsndkState109 from './expansion/V2_JSNDK_STATE_109.test';
-import runV2JsndkState110 from './expansion/V2_JSNDK_STATE_110.test';
-import runV2JsndkState111 from './expansion/V2_JSNDK_STATE_111.test';
-import runV2JsndkState112 from './expansion/V2_JSNDK_STATE_112.test';
-import runV2JsndkState113 from './expansion/V2_JSNDK_STATE_113.test';
-import runV2JsndkState114 from './expansion/V2_JSNDK_STATE_114.test';
-import runV2JsndkState115 from './expansion/V2_JSNDK_STATE_115.test';
-import runV2JsndkState116 from './expansion/V2_JSNDK_STATE_116.test';
-import runV2JsndkState117 from './expansion/V2_JSNDK_STATE_117.test';
-import runV2JsndkState118 from './expansion/V2_JSNDK_STATE_118.test';
-import runV2JsndkState119 from './expansion/V2_JSNDK_STATE_119.test';
-import runV2JsndkState120 from './expansion/V2_JSNDK_STATE_120.test';
-import runV2JsndkState121 from './expansion/V2_JSNDK_STATE_121.test';
-import runV2JsndkState122 from './expansion/V2_JSNDK_STATE_122.test';
-import runV2JsndkState123 from './expansion/V2_JSNDK_STATE_123.test';
-import runV2JsndkState124 from './expansion/V2_JSNDK_STATE_124.test';
-import runV2JsndkState125 from './expansion/V2_JSNDK_STATE_125.test';
-import runV2JsndkState126 from './expansion/V2_JSNDK_STATE_126.test';
-import runV2JsndkState127 from './expansion/V2_JSNDK_STATE_127.test';
-import runV2JsndkState128 from './expansion/V2_JSNDK_STATE_128.test';
-import runV2JsndkTransform001 from './expansion/V2_JSNDK_TRANSFORM_001.test';
-import runV2JsndkTransform002 from './expansion/V2_JSNDK_TRANSFORM_002.test';
-import runV2JsndkTransform003 from './expansion/V2_JSNDK_TRANSFORM_003.test';
-import runV2JsndkTransform004 from './expansion/V2_JSNDK_TRANSFORM_004.test';
-import runV2JsndkTransform005 from './expansion/V2_JSNDK_TRANSFORM_005.test';
-import runV2JsndkTransform006 from './expansion/V2_JSNDK_TRANSFORM_006.test';
-import runV2JsndkTransform007 from './expansion/V2_JSNDK_TRANSFORM_007.test';
-import runV2JsndkTransform008 from './expansion/V2_JSNDK_TRANSFORM_008.test';
-import runV2JsndkTransform009 from './expansion/V2_JSNDK_TRANSFORM_009.test';
-import runV2JsndkTransform010 from './expansion/V2_JSNDK_TRANSFORM_010.test';
-import runV2JsndkTransform011 from './expansion/V2_JSNDK_TRANSFORM_011.test';
-import runV2JsndkTransform012 from './expansion/V2_JSNDK_TRANSFORM_012.test';
-import runV2JsndkTransform013 from './expansion/V2_JSNDK_TRANSFORM_013.test';
-import runV2JsndkTransform014 from './expansion/V2_JSNDK_TRANSFORM_014.test';
-import runV2JsndkTransform015 from './expansion/V2_JSNDK_TRANSFORM_015.test';
-import runV2JsndkTransform016 from './expansion/V2_JSNDK_TRANSFORM_016.test';
-import runV2JsndkTransform017 from './expansion/V2_JSNDK_TRANSFORM_017.test';
-import runV2JsndkTransform018 from './expansion/V2_JSNDK_TRANSFORM_018.test';
-import runV2JsndkTransform019 from './expansion/V2_JSNDK_TRANSFORM_019.test';
-import runV2JsndkTransform020 from './expansion/V2_JSNDK_TRANSFORM_020.test';
-import runV2JsndkTransform021 from './expansion/V2_JSNDK_TRANSFORM_021.test';
-import runV2JsndkTransform022 from './expansion/V2_JSNDK_TRANSFORM_022.test';
-import runV2JsndkTransform023 from './expansion/V2_JSNDK_TRANSFORM_023.test';
-import runV2JsndkTransform024 from './expansion/V2_JSNDK_TRANSFORM_024.test';
-import runV2JsndkTransform025 from './expansion/V2_JSNDK_TRANSFORM_025.test';
-import runV2JsndkTransform026 from './expansion/V2_JSNDK_TRANSFORM_026.test';
-import runV2JsndkTransform027 from './expansion/V2_JSNDK_TRANSFORM_027.test';
-import runV2JsndkTransform028 from './expansion/V2_JSNDK_TRANSFORM_028.test';
-import runV2JsndkTransform029 from './expansion/V2_JSNDK_TRANSFORM_029.test';
-import runV2JsndkTransform030 from './expansion/V2_JSNDK_TRANSFORM_030.test';
-import runV2JsndkTransform031 from './expansion/V2_JSNDK_TRANSFORM_031.test';
-import runV2JsndkTransform032 from './expansion/V2_JSNDK_TRANSFORM_032.test';
+import runPixelAccessUnlockAlphaChecker from './expansion/PixelAccessUnlockAlphaChecker.test';
+import runPixelAccessUnlockQuadrants from './expansion/PixelAccessUnlockQuadrants.test';
+import runPixelAccessUnlockGradient from './expansion/PixelAccessUnlockGradient.test';
+import runPixelAccessUnlockColorBars from './expansion/PixelAccessUnlockColorBars.test';
+import runNativePixelMapCreate from './expansion/NativePixelMapCreate.test';
+import runNativePixelMapFileEncode001 from './expansion/NativePixelMapFileEncode001.test';
+import runNativePixelMapFileEncode002 from './expansion/NativePixelMapFileEncode002.test';
+import runNativePixelMapFileEncode003 from './expansion/NativePixelMapFileEncode003.test';
+import runNativePixelMapFileEncode004 from './expansion/NativePixelMapFileEncode004.test';
+import runNativePixelMapReadInfo001 from './expansion/NativePixelMapReadInfo001.test';
+import runNativePixelMapReadInfo002 from './expansion/NativePixelMapReadInfo002.test';
+import runNativePixelMapReadInfo003 from './expansion/NativePixelMapReadInfo003.test';
+import runNativePixelMapReadInfo004 from './expansion/NativePixelMapReadInfo004.test';
+import runNativePixelMapRawDecode from './expansion/NativePixelMapRawDecode.test';
+import runNativePixelMapTransform001 from './expansion/NativePixelMapTransform001.test';
+import runNativePixelMapTransform002 from './expansion/NativePixelMapTransform002.test';
+import runNativePixelMapTransform003 from './expansion/NativePixelMapTransform003.test';
+import runNativePixelMapTransform004 from './expansion/NativePixelMapTransform004.test';
+import runNativePixelMapTransform005 from './expansion/NativePixelMapTransform005.test';
+import runPixelMapFileEncodeMatrix001 from './expansion/PixelMapFileEncodeMatrix001.test';
+import runPixelMapFileEncodeMatrix002 from './expansion/PixelMapFileEncodeMatrix002.test';
+import runPixelMapFileEncodeMatrix003 from './expansion/PixelMapFileEncodeMatrix003.test';
+import runPixelMapFileEncodeMatrix004 from './expansion/PixelMapFileEncodeMatrix004.test';
+import runPixelMapFileEncodeMatrix005 from './expansion/PixelMapFileEncodeMatrix005.test';
+import runPixelMapFileEncodeMatrix006 from './expansion/PixelMapFileEncodeMatrix006.test';
+import runPixelMapFileEncodeMatrix007 from './expansion/PixelMapFileEncodeMatrix007.test';
+import runPixelMapFileEncodeMatrix008 from './expansion/PixelMapFileEncodeMatrix008.test';
+import runPixelMapFileEncodeMatrix009 from './expansion/PixelMapFileEncodeMatrix009.test';
+import runPixelMapFileEncodeMatrix010 from './expansion/PixelMapFileEncodeMatrix010.test';
+import runPixelMapFileEncodeMatrix011 from './expansion/PixelMapFileEncodeMatrix011.test';
+import runPixelMapFileEncodeMatrix012 from './expansion/PixelMapFileEncodeMatrix012.test';
+import runPixelMapFileEncodeMatrix013 from './expansion/PixelMapFileEncodeMatrix013.test';
+import runPixelMapFileEncodeMatrix014 from './expansion/PixelMapFileEncodeMatrix014.test';
+import runPixelMapFileEncodeMatrix015 from './expansion/PixelMapFileEncodeMatrix015.test';
+import runPixelMapFileEncodeMatrix016 from './expansion/PixelMapFileEncodeMatrix016.test';
+import runPixelMapFileEncodeMatrix017 from './expansion/PixelMapFileEncodeMatrix017.test';
+import runPixelMapFileEncodeMatrix018 from './expansion/PixelMapFileEncodeMatrix018.test';
+import runPixelMapAccessSequence001 from './expansion/PixelMapAccessSequence001.test';
+import runPixelMapAccessSequence002 from './expansion/PixelMapAccessSequence002.test';
+import runPixelMapAccessSequence003 from './expansion/PixelMapAccessSequence003.test';
+import runPixelMapAccessSequence004 from './expansion/PixelMapAccessSequence004.test';
+import runPixelMapAccessSequence005 from './expansion/PixelMapAccessSequence005.test';
+import runPixelMapAccessSequence006 from './expansion/PixelMapAccessSequence006.test';
+import runPixelMapAccessSequence007 from './expansion/PixelMapAccessSequence007.test';
+import runPixelMapAccessSequence008 from './expansion/PixelMapAccessSequence008.test';
+import runPixelMapAccessSequence009 from './expansion/PixelMapAccessSequence009.test';
+import runPixelMapAccessSequence010 from './expansion/PixelMapAccessSequence010.test';
+import runPixelMapAccessSequence011 from './expansion/PixelMapAccessSequence011.test';
+import runPixelMapAccessSequence012 from './expansion/PixelMapAccessSequence012.test';
+import runPixelMapAccessSequence013 from './expansion/PixelMapAccessSequence013.test';
+import runPixelMapAccessSequence014 from './expansion/PixelMapAccessSequence014.test';
+import runPixelMapAccessSequence015 from './expansion/PixelMapAccessSequence015.test';
+import runPixelMapAccessSequence016 from './expansion/PixelMapAccessSequence016.test';
+import runPixelMapAccessSequence017 from './expansion/PixelMapAccessSequence017.test';
+import runPixelMapAccessSequence018 from './expansion/PixelMapAccessSequence018.test';
+import runPixelMapAccessSequence019 from './expansion/PixelMapAccessSequence019.test';
+import runPixelMapAccessSequence020 from './expansion/PixelMapAccessSequence020.test';
+import runPixelMapAccessSequence021 from './expansion/PixelMapAccessSequence021.test';
+import runPixelMapAccessSequence022 from './expansion/PixelMapAccessSequence022.test';
+import runPixelMapAccessSequence023 from './expansion/PixelMapAccessSequence023.test';
+import runPixelMapAccessSequence024 from './expansion/PixelMapAccessSequence024.test';
+import runPixelMapAccessSequence025 from './expansion/PixelMapAccessSequence025.test';
+import runPixelMapAccessSequence026 from './expansion/PixelMapAccessSequence026.test';
+import runPixelMapAccessSequence027 from './expansion/PixelMapAccessSequence027.test';
+import runPixelMapAccessSequence028 from './expansion/PixelMapAccessSequence028.test';
+import runPixelMapAccessSequence029 from './expansion/PixelMapAccessSequence029.test';
+import runPixelMapAccessSequence030 from './expansion/PixelMapAccessSequence030.test';
+import runPixelMapAccessSequence031 from './expansion/PixelMapAccessSequence031.test';
+import runPixelMapAccessSequence032 from './expansion/PixelMapAccessSequence032.test';
+import runPixelMapAccessSequence033 from './expansion/PixelMapAccessSequence033.test';
+import runPixelMapAccessSequence034 from './expansion/PixelMapAccessSequence034.test';
+import runPixelMapAccessSequence035 from './expansion/PixelMapAccessSequence035.test';
+import runPixelMapAccessSequence036 from './expansion/PixelMapAccessSequence036.test';
+import runPixelMapAccessSequence037 from './expansion/PixelMapAccessSequence037.test';
+import runPixelMapAccessSequence038 from './expansion/PixelMapAccessSequence038.test';
+import runPixelMapAccessSequence039 from './expansion/PixelMapAccessSequence039.test';
+import runPixelMapAccessSequence040 from './expansion/PixelMapAccessSequence040.test';
+import runPixelMapAccessSequence041 from './expansion/PixelMapAccessSequence041.test';
+import runPixelMapAccessSequence042 from './expansion/PixelMapAccessSequence042.test';
+import runPixelMapAccessSequence043 from './expansion/PixelMapAccessSequence043.test';
+import runPixelMapAccessSequence044 from './expansion/PixelMapAccessSequence044.test';
+import runPixelMapAccessSequence045 from './expansion/PixelMapAccessSequence045.test';
+import runPixelMapAccessSequence046 from './expansion/PixelMapAccessSequence046.test';
+import runPixelMapAccessSequence047 from './expansion/PixelMapAccessSequence047.test';
+import runPixelMapAccessSequence048 from './expansion/PixelMapAccessSequence048.test';
+import runPixelMapAccessSequence049 from './expansion/PixelMapAccessSequence049.test';
+import runPixelMapAccessSequence050 from './expansion/PixelMapAccessSequence050.test';
+import runPixelMapAccessSequence051 from './expansion/PixelMapAccessSequence051.test';
+import runPixelMapAccessSequence052 from './expansion/PixelMapAccessSequence052.test';
+import runPixelMapAccessSequence053 from './expansion/PixelMapAccessSequence053.test';
+import runPixelMapAccessSequence054 from './expansion/PixelMapAccessSequence054.test';
+import runPixelMapAccessSequence055 from './expansion/PixelMapAccessSequence055.test';
+import runPixelMapAccessSequence056 from './expansion/PixelMapAccessSequence056.test';
+import runPixelMapAccessSequence057 from './expansion/PixelMapAccessSequence057.test';
+import runPixelMapAccessSequence058 from './expansion/PixelMapAccessSequence058.test';
+import runPixelMapAccessSequence059 from './expansion/PixelMapAccessSequence059.test';
+import runPixelMapAccessSequence060 from './expansion/PixelMapAccessSequence060.test';
+import runPixelMapAccessSequence061 from './expansion/PixelMapAccessSequence061.test';
+import runPixelMapAccessSequence062 from './expansion/PixelMapAccessSequence062.test';
+import runPixelMapAccessSequence063 from './expansion/PixelMapAccessSequence063.test';
+import runPixelMapAccessSequence064 from './expansion/PixelMapAccessSequence064.test';
+import runPixelMapAccessSequence065 from './expansion/PixelMapAccessSequence065.test';
+import runPixelMapAccessSequence066 from './expansion/PixelMapAccessSequence066.test';
+import runPixelMapAccessSequence067 from './expansion/PixelMapAccessSequence067.test';
+import runPixelMapAccessSequence068 from './expansion/PixelMapAccessSequence068.test';
+import runPixelMapAccessSequence069 from './expansion/PixelMapAccessSequence069.test';
+import runPixelMapAccessSequence070 from './expansion/PixelMapAccessSequence070.test';
+import runPixelMapAccessSequence071 from './expansion/PixelMapAccessSequence071.test';
+import runPixelMapAccessSequence072 from './expansion/PixelMapAccessSequence072.test';
+import runPixelMapAccessSequence073 from './expansion/PixelMapAccessSequence073.test';
+import runPixelMapAccessSequence074 from './expansion/PixelMapAccessSequence074.test';
+import runPixelMapAccessSequence075 from './expansion/PixelMapAccessSequence075.test';
+import runPixelMapAccessSequence076 from './expansion/PixelMapAccessSequence076.test';
+import runPixelMapAccessSequence077 from './expansion/PixelMapAccessSequence077.test';
+import runPixelMapAccessSequence078 from './expansion/PixelMapAccessSequence078.test';
+import runPixelMapAccessSequence079 from './expansion/PixelMapAccessSequence079.test';
+import runPixelMapAccessSequence080 from './expansion/PixelMapAccessSequence080.test';
+import runPixelMapAccessSequence081 from './expansion/PixelMapAccessSequence081.test';
+import runPixelMapAccessSequence082 from './expansion/PixelMapAccessSequence082.test';
+import runPixelMapAccessSequence083 from './expansion/PixelMapAccessSequence083.test';
+import runPixelMapAccessSequence084 from './expansion/PixelMapAccessSequence084.test';
+import runPixelMapAccessSequence085 from './expansion/PixelMapAccessSequence085.test';
+import runPixelMapAccessSequence086 from './expansion/PixelMapAccessSequence086.test';
+import runPixelMapAccessSequence087 from './expansion/PixelMapAccessSequence087.test';
+import runPixelMapAccessSequence088 from './expansion/PixelMapAccessSequence088.test';
+import runPixelMapAccessSequence089 from './expansion/PixelMapAccessSequence089.test';
+import runPixelMapAccessSequence090 from './expansion/PixelMapAccessSequence090.test';
+import runPixelMapAccessSequence091 from './expansion/PixelMapAccessSequence091.test';
+import runPixelMapAccessSequence092 from './expansion/PixelMapAccessSequence092.test';
+import runPixelMapAccessSequence093 from './expansion/PixelMapAccessSequence093.test';
+import runPixelMapAccessSequence094 from './expansion/PixelMapAccessSequence094.test';
+import runPixelMapAccessSequence095 from './expansion/PixelMapAccessSequence095.test';
+import runPixelMapAccessSequence096 from './expansion/PixelMapAccessSequence096.test';
+import runPixelMapAccessSequence097 from './expansion/PixelMapAccessSequence097.test';
+import runPixelMapAccessSequence098 from './expansion/PixelMapAccessSequence098.test';
+import runPixelMapAccessSequence099 from './expansion/PixelMapAccessSequence099.test';
+import runPixelMapAccessSequence100 from './expansion/PixelMapAccessSequence100.test';
+import runPixelMapAccessSequence101 from './expansion/PixelMapAccessSequence101.test';
+import runPixelMapAccessSequence102 from './expansion/PixelMapAccessSequence102.test';
+import runPixelMapAccessSequence103 from './expansion/PixelMapAccessSequence103.test';
+import runPixelMapAccessSequence104 from './expansion/PixelMapAccessSequence104.test';
+import runPixelMapAccessSequence105 from './expansion/PixelMapAccessSequence105.test';
+import runPixelMapAccessSequence106 from './expansion/PixelMapAccessSequence106.test';
+import runPixelMapAccessSequence107 from './expansion/PixelMapAccessSequence107.test';
+import runPixelMapAccessSequence108 from './expansion/PixelMapAccessSequence108.test';
+import runPixelMapAccessSequence109 from './expansion/PixelMapAccessSequence109.test';
+import runPixelMapAccessSequence110 from './expansion/PixelMapAccessSequence110.test';
+import runPixelMapAccessSequence111 from './expansion/PixelMapAccessSequence111.test';
+import runPixelMapAccessSequence112 from './expansion/PixelMapAccessSequence112.test';
+import runPixelMapAccessSequence113 from './expansion/PixelMapAccessSequence113.test';
+import runPixelMapAccessSequence114 from './expansion/PixelMapAccessSequence114.test';
+import runPixelMapAccessSequence115 from './expansion/PixelMapAccessSequence115.test';
+import runPixelMapAccessSequence116 from './expansion/PixelMapAccessSequence116.test';
+import runPixelMapAccessSequence117 from './expansion/PixelMapAccessSequence117.test';
+import runPixelMapAccessSequence118 from './expansion/PixelMapAccessSequence118.test';
+import runPixelMapAccessSequence119 from './expansion/PixelMapAccessSequence119.test';
+import runPixelMapAccessSequence120 from './expansion/PixelMapAccessSequence120.test';
+import runPixelMapAccessSequence121 from './expansion/PixelMapAccessSequence121.test';
+import runPixelMapAccessSequence122 from './expansion/PixelMapAccessSequence122.test';
+import runPixelMapAccessSequence123 from './expansion/PixelMapAccessSequence123.test';
+import runPixelMapAccessSequence124 from './expansion/PixelMapAccessSequence124.test';
+import runPixelMapAccessSequence125 from './expansion/PixelMapAccessSequence125.test';
+import runPixelMapAccessSequence126 from './expansion/PixelMapAccessSequence126.test';
+import runPixelMapAccessSequence127 from './expansion/PixelMapAccessSequence127.test';
+import runPixelMapAccessSequence128 from './expansion/PixelMapAccessSequence128.test';
+import runPixelMapTransformMatrix001 from './expansion/PixelMapTransformMatrix001.test';
+import runPixelMapTransformMatrix002 from './expansion/PixelMapTransformMatrix002.test';
+import runPixelMapTransformMatrix003 from './expansion/PixelMapTransformMatrix003.test';
+import runPixelMapTransformMatrix004 from './expansion/PixelMapTransformMatrix004.test';
+import runPixelMapTransformMatrix005 from './expansion/PixelMapTransformMatrix005.test';
+import runPixelMapTransformMatrix006 from './expansion/PixelMapTransformMatrix006.test';
+import runPixelMapTransformMatrix007 from './expansion/PixelMapTransformMatrix007.test';
+import runPixelMapTransformMatrix008 from './expansion/PixelMapTransformMatrix008.test';
+import runPixelMapTransformMatrix009 from './expansion/PixelMapTransformMatrix009.test';
+import runPixelMapTransformMatrix010 from './expansion/PixelMapTransformMatrix010.test';
+import runPixelMapTransformMatrix011 from './expansion/PixelMapTransformMatrix011.test';
+import runPixelMapTransformMatrix012 from './expansion/PixelMapTransformMatrix012.test';
+import runPixelMapTransformMatrix013 from './expansion/PixelMapTransformMatrix013.test';
+import runPixelMapTransformMatrix014 from './expansion/PixelMapTransformMatrix014.test';
+import runPixelMapTransformMatrix015 from './expansion/PixelMapTransformMatrix015.test';
+import runPixelMapTransformMatrix016 from './expansion/PixelMapTransformMatrix016.test';
+import runPixelMapTransformMatrix017 from './expansion/PixelMapTransformMatrix017.test';
+import runPixelMapTransformMatrix018 from './expansion/PixelMapTransformMatrix018.test';
+import runPixelMapTransformMatrix019 from './expansion/PixelMapTransformMatrix019.test';
+import runPixelMapTransformMatrix020 from './expansion/PixelMapTransformMatrix020.test';
+import runPixelMapTransformMatrix021 from './expansion/PixelMapTransformMatrix021.test';
+import runPixelMapTransformMatrix022 from './expansion/PixelMapTransformMatrix022.test';
+import runPixelMapTransformMatrix023 from './expansion/PixelMapTransformMatrix023.test';
+import runPixelMapTransformMatrix024 from './expansion/PixelMapTransformMatrix024.test';
+import runPixelMapTransformMatrix025 from './expansion/PixelMapTransformMatrix025.test';
+import runPixelMapTransformMatrix026 from './expansion/PixelMapTransformMatrix026.test';
+import runPixelMapTransformMatrix027 from './expansion/PixelMapTransformMatrix027.test';
+import runPixelMapTransformMatrix028 from './expansion/PixelMapTransformMatrix028.test';
+import runPixelMapTransformMatrix029 from './expansion/PixelMapTransformMatrix029.test';
+import runPixelMapTransformMatrix030 from './expansion/PixelMapTransformMatrix030.test';
+import runPixelMapTransformMatrix031 from './expansion/PixelMapTransformMatrix031.test';
+import runPixelMapTransformMatrix032 from './expansion/PixelMapTransformMatrix032.test';
 
 /** The default entry test target registers this suite only; legacy case files are retained. */
 export default function expansionTest(): void {
@@ -223,595 +223,595 @@ export default function expansionTest(): void {
     });
 
     it('EXP_JSNDK_ACCESS_001', 0, (): Promise<void> => {
-      return runJsndkAccess001();
+      return runPixelAccessUnlockAlphaChecker();
     });
     it('EXP_JSNDK_ACCESS_002', 0, (): Promise<void> => {
-      return runJsndkAccess002();
+      return runPixelAccessUnlockQuadrants();
     });
     it('EXP_JSNDK_ACCESS_003', 0, (): Promise<void> => {
-      return runJsndkAccess003();
+      return runPixelAccessUnlockGradient();
     });
     it('EXP_JSNDK_ACCESS_004', 0, (): Promise<void> => {
-      return runJsndkAccess004();
+      return runPixelAccessUnlockColorBars();
     });
     it('EXP_JSNDK_CREATE_001', 0, (): Promise<void> => {
-      return runJsndkCreate001();
+      return runNativePixelMapCreate();
     });
     it('EXP_JSNDK_FILE_001', 0, (): Promise<void> => {
-      return runJsndkFile001();
+      return runNativePixelMapFileEncode001();
     });
     it('EXP_JSNDK_FILE_002', 0, (): Promise<void> => {
-      return runJsndkFile002();
+      return runNativePixelMapFileEncode002();
     });
     it('EXP_JSNDK_FILE_003', 0, (): Promise<void> => {
-      return runJsndkFile003();
+      return runNativePixelMapFileEncode003();
     });
     it('EXP_JSNDK_FILE_004', 0, (): Promise<void> => {
-      return runJsndkFile004();
+      return runNativePixelMapFileEncode004();
     });
     it('EXP_JSNDK_INFO_001', 0, (): Promise<void> => {
-      return runJsndkInfo001();
+      return runNativePixelMapReadInfo001();
     });
     it('EXP_JSNDK_INFO_002', 0, (): Promise<void> => {
-      return runJsndkInfo002();
+      return runNativePixelMapReadInfo002();
     });
     it('EXP_JSNDK_INFO_003', 0, (): Promise<void> => {
-      return runJsndkInfo003();
+      return runNativePixelMapReadInfo003();
     });
     it('EXP_JSNDK_INFO_004', 0, (): Promise<void> => {
-      return runJsndkInfo004();
+      return runNativePixelMapReadInfo004();
     });
     it('EXP_JSNDK_RAW_001', 0, (): Promise<void> => {
-      return runJsndkRaw001();
+      return runNativePixelMapRawDecode();
     });
     it('EXP_JSNDK_TRANSFORM_001', 0, (): Promise<void> => {
-      return runJsndkTransform001();
+      return runNativePixelMapTransform001();
     });
     it('EXP_JSNDK_TRANSFORM_002', 0, (): Promise<void> => {
-      return runJsndkTransform002();
+      return runNativePixelMapTransform002();
     });
     it('EXP_JSNDK_TRANSFORM_003', 0, (): Promise<void> => {
-      return runJsndkTransform003();
+      return runNativePixelMapTransform003();
     });
     it('EXP_JSNDK_TRANSFORM_004', 0, (): Promise<void> => {
-      return runJsndkTransform004();
+      return runNativePixelMapTransform004();
     });
     it('EXP_JSNDK_TRANSFORM_005', 0, (): Promise<void> => {
-      return runJsndkTransform005();
+      return runNativePixelMapTransform005();
     });
     it('EXP_V2_JSNDK_FILE_001', 0, (): Promise<void> => {
-      return runV2JsndkFile001();
+      return runPixelMapFileEncodeMatrix001();
     });
     it('EXP_V2_JSNDK_FILE_002', 0, (): Promise<void> => {
-      return runV2JsndkFile002();
+      return runPixelMapFileEncodeMatrix002();
     });
     it('EXP_V2_JSNDK_FILE_003', 0, (): Promise<void> => {
-      return runV2JsndkFile003();
+      return runPixelMapFileEncodeMatrix003();
     });
     it('EXP_V2_JSNDK_FILE_004', 0, (): Promise<void> => {
-      return runV2JsndkFile004();
+      return runPixelMapFileEncodeMatrix004();
     });
     it('EXP_V2_JSNDK_FILE_005', 0, (): Promise<void> => {
-      return runV2JsndkFile005();
+      return runPixelMapFileEncodeMatrix005();
     });
     it('EXP_V2_JSNDK_FILE_006', 0, (): Promise<void> => {
-      return runV2JsndkFile006();
+      return runPixelMapFileEncodeMatrix006();
     });
     it('EXP_V2_JSNDK_FILE_007', 0, (): Promise<void> => {
-      return runV2JsndkFile007();
+      return runPixelMapFileEncodeMatrix007();
     });
     it('EXP_V2_JSNDK_FILE_008', 0, (): Promise<void> => {
-      return runV2JsndkFile008();
+      return runPixelMapFileEncodeMatrix008();
     });
     it('EXP_V2_JSNDK_FILE_009', 0, (): Promise<void> => {
-      return runV2JsndkFile009();
+      return runPixelMapFileEncodeMatrix009();
     });
     it('EXP_V2_JSNDK_FILE_010', 0, (): Promise<void> => {
-      return runV2JsndkFile010();
+      return runPixelMapFileEncodeMatrix010();
     });
     it('EXP_V2_JSNDK_FILE_011', 0, (): Promise<void> => {
-      return runV2JsndkFile011();
+      return runPixelMapFileEncodeMatrix011();
     });
     it('EXP_V2_JSNDK_FILE_012', 0, (): Promise<void> => {
-      return runV2JsndkFile012();
+      return runPixelMapFileEncodeMatrix012();
     });
     it('EXP_V2_JSNDK_FILE_013', 0, (): Promise<void> => {
-      return runV2JsndkFile013();
+      return runPixelMapFileEncodeMatrix013();
     });
     it('EXP_V2_JSNDK_FILE_014', 0, (): Promise<void> => {
-      return runV2JsndkFile014();
+      return runPixelMapFileEncodeMatrix014();
     });
     it('EXP_V2_JSNDK_FILE_015', 0, (): Promise<void> => {
-      return runV2JsndkFile015();
+      return runPixelMapFileEncodeMatrix015();
     });
     it('EXP_V2_JSNDK_FILE_016', 0, (): Promise<void> => {
-      return runV2JsndkFile016();
+      return runPixelMapFileEncodeMatrix016();
     });
     it('EXP_V2_JSNDK_FILE_017', 0, (): Promise<void> => {
-      return runV2JsndkFile017();
+      return runPixelMapFileEncodeMatrix017();
     });
     it('EXP_V2_JSNDK_FILE_018', 0, (): Promise<void> => {
-      return runV2JsndkFile018();
+      return runPixelMapFileEncodeMatrix018();
     });
     it('EXP_V2_JSNDK_STATE_001', 0, (): Promise<void> => {
-      return runV2JsndkState001();
+      return runPixelMapAccessSequence001();
     });
     it('EXP_V2_JSNDK_STATE_002', 0, (): Promise<void> => {
-      return runV2JsndkState002();
+      return runPixelMapAccessSequence002();
     });
     it('EXP_V2_JSNDK_STATE_003', 0, (): Promise<void> => {
-      return runV2JsndkState003();
+      return runPixelMapAccessSequence003();
     });
     it('EXP_V2_JSNDK_STATE_004', 0, (): Promise<void> => {
-      return runV2JsndkState004();
+      return runPixelMapAccessSequence004();
     });
     it('EXP_V2_JSNDK_STATE_005', 0, (): Promise<void> => {
-      return runV2JsndkState005();
+      return runPixelMapAccessSequence005();
     });
     it('EXP_V2_JSNDK_STATE_006', 0, (): Promise<void> => {
-      return runV2JsndkState006();
+      return runPixelMapAccessSequence006();
     });
     it('EXP_V2_JSNDK_STATE_007', 0, (): Promise<void> => {
-      return runV2JsndkState007();
+      return runPixelMapAccessSequence007();
     });
     it('EXP_V2_JSNDK_STATE_008', 0, (): Promise<void> => {
-      return runV2JsndkState008();
+      return runPixelMapAccessSequence008();
     });
     it('EXP_V2_JSNDK_STATE_009', 0, (): Promise<void> => {
-      return runV2JsndkState009();
+      return runPixelMapAccessSequence009();
     });
     it('EXP_V2_JSNDK_STATE_010', 0, (): Promise<void> => {
-      return runV2JsndkState010();
+      return runPixelMapAccessSequence010();
     });
     it('EXP_V2_JSNDK_STATE_011', 0, (): Promise<void> => {
-      return runV2JsndkState011();
+      return runPixelMapAccessSequence011();
     });
     it('EXP_V2_JSNDK_STATE_012', 0, (): Promise<void> => {
-      return runV2JsndkState012();
+      return runPixelMapAccessSequence012();
     });
     it('EXP_V2_JSNDK_STATE_013', 0, (): Promise<void> => {
-      return runV2JsndkState013();
+      return runPixelMapAccessSequence013();
     });
     it('EXP_V2_JSNDK_STATE_014', 0, (): Promise<void> => {
-      return runV2JsndkState014();
+      return runPixelMapAccessSequence014();
     });
     it('EXP_V2_JSNDK_STATE_015', 0, (): Promise<void> => {
-      return runV2JsndkState015();
+      return runPixelMapAccessSequence015();
     });
     it('EXP_V2_JSNDK_STATE_016', 0, (): Promise<void> => {
-      return runV2JsndkState016();
+      return runPixelMapAccessSequence016();
     });
     it('EXP_V2_JSNDK_STATE_017', 0, (): Promise<void> => {
-      return runV2JsndkState017();
+      return runPixelMapAccessSequence017();
     });
     it('EXP_V2_JSNDK_STATE_018', 0, (): Promise<void> => {
-      return runV2JsndkState018();
+      return runPixelMapAccessSequence018();
     });
     it('EXP_V2_JSNDK_STATE_019', 0, (): Promise<void> => {
-      return runV2JsndkState019();
+      return runPixelMapAccessSequence019();
     });
     it('EXP_V2_JSNDK_STATE_020', 0, (): Promise<void> => {
-      return runV2JsndkState020();
+      return runPixelMapAccessSequence020();
     });
     it('EXP_V2_JSNDK_STATE_021', 0, (): Promise<void> => {
-      return runV2JsndkState021();
+      return runPixelMapAccessSequence021();
     });
     it('EXP_V2_JSNDK_STATE_022', 0, (): Promise<void> => {
-      return runV2JsndkState022();
+      return runPixelMapAccessSequence022();
     });
     it('EXP_V2_JSNDK_STATE_023', 0, (): Promise<void> => {
-      return runV2JsndkState023();
+      return runPixelMapAccessSequence023();
     });
     it('EXP_V2_JSNDK_STATE_024', 0, (): Promise<void> => {
-      return runV2JsndkState024();
+      return runPixelMapAccessSequence024();
     });
     it('EXP_V2_JSNDK_STATE_025', 0, (): Promise<void> => {
-      return runV2JsndkState025();
+      return runPixelMapAccessSequence025();
     });
     it('EXP_V2_JSNDK_STATE_026', 0, (): Promise<void> => {
-      return runV2JsndkState026();
+      return runPixelMapAccessSequence026();
     });
     it('EXP_V2_JSNDK_STATE_027', 0, (): Promise<void> => {
-      return runV2JsndkState027();
+      return runPixelMapAccessSequence027();
     });
     it('EXP_V2_JSNDK_STATE_028', 0, (): Promise<void> => {
-      return runV2JsndkState028();
+      return runPixelMapAccessSequence028();
     });
     it('EXP_V2_JSNDK_STATE_029', 0, (): Promise<void> => {
-      return runV2JsndkState029();
+      return runPixelMapAccessSequence029();
     });
     it('EXP_V2_JSNDK_STATE_030', 0, (): Promise<void> => {
-      return runV2JsndkState030();
+      return runPixelMapAccessSequence030();
     });
     it('EXP_V2_JSNDK_STATE_031', 0, (): Promise<void> => {
-      return runV2JsndkState031();
+      return runPixelMapAccessSequence031();
     });
     it('EXP_V2_JSNDK_STATE_032', 0, (): Promise<void> => {
-      return runV2JsndkState032();
+      return runPixelMapAccessSequence032();
     });
     it('EXP_V2_JSNDK_STATE_033', 0, (): Promise<void> => {
-      return runV2JsndkState033();
+      return runPixelMapAccessSequence033();
     });
     it('EXP_V2_JSNDK_STATE_034', 0, (): Promise<void> => {
-      return runV2JsndkState034();
+      return runPixelMapAccessSequence034();
     });
     it('EXP_V2_JSNDK_STATE_035', 0, (): Promise<void> => {
-      return runV2JsndkState035();
+      return runPixelMapAccessSequence035();
     });
     it('EXP_V2_JSNDK_STATE_036', 0, (): Promise<void> => {
-      return runV2JsndkState036();
+      return runPixelMapAccessSequence036();
     });
     it('EXP_V2_JSNDK_STATE_037', 0, (): Promise<void> => {
-      return runV2JsndkState037();
+      return runPixelMapAccessSequence037();
     });
     it('EXP_V2_JSNDK_STATE_038', 0, (): Promise<void> => {
-      return runV2JsndkState038();
+      return runPixelMapAccessSequence038();
     });
     it('EXP_V2_JSNDK_STATE_039', 0, (): Promise<void> => {
-      return runV2JsndkState039();
+      return runPixelMapAccessSequence039();
     });
     it('EXP_V2_JSNDK_STATE_040', 0, (): Promise<void> => {
-      return runV2JsndkState040();
+      return runPixelMapAccessSequence040();
     });
     it('EXP_V2_JSNDK_STATE_041', 0, (): Promise<void> => {
-      return runV2JsndkState041();
+      return runPixelMapAccessSequence041();
     });
     it('EXP_V2_JSNDK_STATE_042', 0, (): Promise<void> => {
-      return runV2JsndkState042();
+      return runPixelMapAccessSequence042();
     });
     it('EXP_V2_JSNDK_STATE_043', 0, (): Promise<void> => {
-      return runV2JsndkState043();
+      return runPixelMapAccessSequence043();
     });
     it('EXP_V2_JSNDK_STATE_044', 0, (): Promise<void> => {
-      return runV2JsndkState044();
+      return runPixelMapAccessSequence044();
     });
     it('EXP_V2_JSNDK_STATE_045', 0, (): Promise<void> => {
-      return runV2JsndkState045();
+      return runPixelMapAccessSequence045();
     });
     it('EXP_V2_JSNDK_STATE_046', 0, (): Promise<void> => {
-      return runV2JsndkState046();
+      return runPixelMapAccessSequence046();
     });
     it('EXP_V2_JSNDK_STATE_047', 0, (): Promise<void> => {
-      return runV2JsndkState047();
+      return runPixelMapAccessSequence047();
     });
     it('EXP_V2_JSNDK_STATE_048', 0, (): Promise<void> => {
-      return runV2JsndkState048();
+      return runPixelMapAccessSequence048();
     });
     it('EXP_V2_JSNDK_STATE_049', 0, (): Promise<void> => {
-      return runV2JsndkState049();
+      return runPixelMapAccessSequence049();
     });
     it('EXP_V2_JSNDK_STATE_050', 0, (): Promise<void> => {
-      return runV2JsndkState050();
+      return runPixelMapAccessSequence050();
     });
     it('EXP_V2_JSNDK_STATE_051', 0, (): Promise<void> => {
-      return runV2JsndkState051();
+      return runPixelMapAccessSequence051();
     });
     it('EXP_V2_JSNDK_STATE_052', 0, (): Promise<void> => {
-      return runV2JsndkState052();
+      return runPixelMapAccessSequence052();
     });
     it('EXP_V2_JSNDK_STATE_053', 0, (): Promise<void> => {
-      return runV2JsndkState053();
+      return runPixelMapAccessSequence053();
     });
     it('EXP_V2_JSNDK_STATE_054', 0, (): Promise<void> => {
-      return runV2JsndkState054();
+      return runPixelMapAccessSequence054();
     });
     it('EXP_V2_JSNDK_STATE_055', 0, (): Promise<void> => {
-      return runV2JsndkState055();
+      return runPixelMapAccessSequence055();
     });
     it('EXP_V2_JSNDK_STATE_056', 0, (): Promise<void> => {
-      return runV2JsndkState056();
+      return runPixelMapAccessSequence056();
     });
     it('EXP_V2_JSNDK_STATE_057', 0, (): Promise<void> => {
-      return runV2JsndkState057();
+      return runPixelMapAccessSequence057();
     });
     it('EXP_V2_JSNDK_STATE_058', 0, (): Promise<void> => {
-      return runV2JsndkState058();
+      return runPixelMapAccessSequence058();
     });
     it('EXP_V2_JSNDK_STATE_059', 0, (): Promise<void> => {
-      return runV2JsndkState059();
+      return runPixelMapAccessSequence059();
     });
     it('EXP_V2_JSNDK_STATE_060', 0, (): Promise<void> => {
-      return runV2JsndkState060();
+      return runPixelMapAccessSequence060();
     });
     it('EXP_V2_JSNDK_STATE_061', 0, (): Promise<void> => {
-      return runV2JsndkState061();
+      return runPixelMapAccessSequence061();
     });
     it('EXP_V2_JSNDK_STATE_062', 0, (): Promise<void> => {
-      return runV2JsndkState062();
+      return runPixelMapAccessSequence062();
     });
     it('EXP_V2_JSNDK_STATE_063', 0, (): Promise<void> => {
-      return runV2JsndkState063();
+      return runPixelMapAccessSequence063();
     });
     it('EXP_V2_JSNDK_STATE_064', 0, (): Promise<void> => {
-      return runV2JsndkState064();
+      return runPixelMapAccessSequence064();
     });
     it('EXP_V2_JSNDK_STATE_065', 0, (): Promise<void> => {
-      return runV2JsndkState065();
+      return runPixelMapAccessSequence065();
     });
     it('EXP_V2_JSNDK_STATE_066', 0, (): Promise<void> => {
-      return runV2JsndkState066();
+      return runPixelMapAccessSequence066();
     });
     it('EXP_V2_JSNDK_STATE_067', 0, (): Promise<void> => {
-      return runV2JsndkState067();
+      return runPixelMapAccessSequence067();
     });
     it('EXP_V2_JSNDK_STATE_068', 0, (): Promise<void> => {
-      return runV2JsndkState068();
+      return runPixelMapAccessSequence068();
     });
     it('EXP_V2_JSNDK_STATE_069', 0, (): Promise<void> => {
-      return runV2JsndkState069();
+      return runPixelMapAccessSequence069();
     });
     it('EXP_V2_JSNDK_STATE_070', 0, (): Promise<void> => {
-      return runV2JsndkState070();
+      return runPixelMapAccessSequence070();
     });
     it('EXP_V2_JSNDK_STATE_071', 0, (): Promise<void> => {
-      return runV2JsndkState071();
+      return runPixelMapAccessSequence071();
     });
     it('EXP_V2_JSNDK_STATE_072', 0, (): Promise<void> => {
-      return runV2JsndkState072();
+      return runPixelMapAccessSequence072();
     });
     it('EXP_V2_JSNDK_STATE_073', 0, (): Promise<void> => {
-      return runV2JsndkState073();
+      return runPixelMapAccessSequence073();
     });
     it('EXP_V2_JSNDK_STATE_074', 0, (): Promise<void> => {
-      return runV2JsndkState074();
+      return runPixelMapAccessSequence074();
     });
     it('EXP_V2_JSNDK_STATE_075', 0, (): Promise<void> => {
-      return runV2JsndkState075();
+      return runPixelMapAccessSequence075();
     });
     it('EXP_V2_JSNDK_STATE_076', 0, (): Promise<void> => {
-      return runV2JsndkState076();
+      return runPixelMapAccessSequence076();
     });
     it('EXP_V2_JSNDK_STATE_077', 0, (): Promise<void> => {
-      return runV2JsndkState077();
+      return runPixelMapAccessSequence077();
     });
     it('EXP_V2_JSNDK_STATE_078', 0, (): Promise<void> => {
-      return runV2JsndkState078();
+      return runPixelMapAccessSequence078();
     });
     it('EXP_V2_JSNDK_STATE_079', 0, (): Promise<void> => {
-      return runV2JsndkState079();
+      return runPixelMapAccessSequence079();
     });
     it('EXP_V2_JSNDK_STATE_080', 0, (): Promise<void> => {
-      return runV2JsndkState080();
+      return runPixelMapAccessSequence080();
     });
     it('EXP_V2_JSNDK_STATE_081', 0, (): Promise<void> => {
-      return runV2JsndkState081();
+      return runPixelMapAccessSequence081();
     });
     it('EXP_V2_JSNDK_STATE_082', 0, (): Promise<void> => {
-      return runV2JsndkState082();
+      return runPixelMapAccessSequence082();
     });
     it('EXP_V2_JSNDK_STATE_083', 0, (): Promise<void> => {
-      return runV2JsndkState083();
+      return runPixelMapAccessSequence083();
     });
     it('EXP_V2_JSNDK_STATE_084', 0, (): Promise<void> => {
-      return runV2JsndkState084();
+      return runPixelMapAccessSequence084();
     });
     it('EXP_V2_JSNDK_STATE_085', 0, (): Promise<void> => {
-      return runV2JsndkState085();
+      return runPixelMapAccessSequence085();
     });
     it('EXP_V2_JSNDK_STATE_086', 0, (): Promise<void> => {
-      return runV2JsndkState086();
+      return runPixelMapAccessSequence086();
     });
     it('EXP_V2_JSNDK_STATE_087', 0, (): Promise<void> => {
-      return runV2JsndkState087();
+      return runPixelMapAccessSequence087();
     });
     it('EXP_V2_JSNDK_STATE_088', 0, (): Promise<void> => {
-      return runV2JsndkState088();
+      return runPixelMapAccessSequence088();
     });
     it('EXP_V2_JSNDK_STATE_089', 0, (): Promise<void> => {
-      return runV2JsndkState089();
+      return runPixelMapAccessSequence089();
     });
     it('EXP_V2_JSNDK_STATE_090', 0, (): Promise<void> => {
-      return runV2JsndkState090();
+      return runPixelMapAccessSequence090();
     });
     it('EXP_V2_JSNDK_STATE_091', 0, (): Promise<void> => {
-      return runV2JsndkState091();
+      return runPixelMapAccessSequence091();
     });
     it('EXP_V2_JSNDK_STATE_092', 0, (): Promise<void> => {
-      return runV2JsndkState092();
+      return runPixelMapAccessSequence092();
     });
     it('EXP_V2_JSNDK_STATE_093', 0, (): Promise<void> => {
-      return runV2JsndkState093();
+      return runPixelMapAccessSequence093();
     });
     it('EXP_V2_JSNDK_STATE_094', 0, (): Promise<void> => {
-      return runV2JsndkState094();
+      return runPixelMapAccessSequence094();
     });
     it('EXP_V2_JSNDK_STATE_095', 0, (): Promise<void> => {
-      return runV2JsndkState095();
+      return runPixelMapAccessSequence095();
     });
     it('EXP_V2_JSNDK_STATE_096', 0, (): Promise<void> => {
-      return runV2JsndkState096();
+      return runPixelMapAccessSequence096();
     });
     it('EXP_V2_JSNDK_STATE_097', 0, (): Promise<void> => {
-      return runV2JsndkState097();
+      return runPixelMapAccessSequence097();
     });
     it('EXP_V2_JSNDK_STATE_098', 0, (): Promise<void> => {
-      return runV2JsndkState098();
+      return runPixelMapAccessSequence098();
     });
     it('EXP_V2_JSNDK_STATE_099', 0, (): Promise<void> => {
-      return runV2JsndkState099();
+      return runPixelMapAccessSequence099();
     });
     it('EXP_V2_JSNDK_STATE_100', 0, (): Promise<void> => {
-      return runV2JsndkState100();
+      return runPixelMapAccessSequence100();
     });
     it('EXP_V2_JSNDK_STATE_101', 0, (): Promise<void> => {
-      return runV2JsndkState101();
+      return runPixelMapAccessSequence101();
     });
     it('EXP_V2_JSNDK_STATE_102', 0, (): Promise<void> => {
-      return runV2JsndkState102();
+      return runPixelMapAccessSequence102();
     });
     it('EXP_V2_JSNDK_STATE_103', 0, (): Promise<void> => {
-      return runV2JsndkState103();
+      return runPixelMapAccessSequence103();
     });
     it('EXP_V2_JSNDK_STATE_104', 0, (): Promise<void> => {
-      return runV2JsndkState104();
+      return runPixelMapAccessSequence104();
     });
     it('EXP_V2_JSNDK_STATE_105', 0, (): Promise<void> => {
-      return runV2JsndkState105();
+      return runPixelMapAccessSequence105();
     });
     it('EXP_V2_JSNDK_STATE_106', 0, (): Promise<void> => {
-      return runV2JsndkState106();
+      return runPixelMapAccessSequence106();
     });
     it('EXP_V2_JSNDK_STATE_107', 0, (): Promise<void> => {
-      return runV2JsndkState107();
+      return runPixelMapAccessSequence107();
     });
     it('EXP_V2_JSNDK_STATE_108', 0, (): Promise<void> => {
-      return runV2JsndkState108();
+      return runPixelMapAccessSequence108();
     });
     it('EXP_V2_JSNDK_STATE_109', 0, (): Promise<void> => {
-      return runV2JsndkState109();
+      return runPixelMapAccessSequence109();
     });
     it('EXP_V2_JSNDK_STATE_110', 0, (): Promise<void> => {
-      return runV2JsndkState110();
+      return runPixelMapAccessSequence110();
     });
     it('EXP_V2_JSNDK_STATE_111', 0, (): Promise<void> => {
-      return runV2JsndkState111();
+      return runPixelMapAccessSequence111();
     });
     it('EXP_V2_JSNDK_STATE_112', 0, (): Promise<void> => {
-      return runV2JsndkState112();
+      return runPixelMapAccessSequence112();
     });
     it('EXP_V2_JSNDK_STATE_113', 0, (): Promise<void> => {
-      return runV2JsndkState113();
+      return runPixelMapAccessSequence113();
     });
     it('EXP_V2_JSNDK_STATE_114', 0, (): Promise<void> => {
-      return runV2JsndkState114();
+      return runPixelMapAccessSequence114();
     });
     it('EXP_V2_JSNDK_STATE_115', 0, (): Promise<void> => {
-      return runV2JsndkState115();
+      return runPixelMapAccessSequence115();
     });
     it('EXP_V2_JSNDK_STATE_116', 0, (): Promise<void> => {
-      return runV2JsndkState116();
+      return runPixelMapAccessSequence116();
     });
     it('EXP_V2_JSNDK_STATE_117', 0, (): Promise<void> => {
-      return runV2JsndkState117();
+      return runPixelMapAccessSequence117();
     });
     it('EXP_V2_JSNDK_STATE_118', 0, (): Promise<void> => {
-      return runV2JsndkState118();
+      return runPixelMapAccessSequence118();
     });
     it('EXP_V2_JSNDK_STATE_119', 0, (): Promise<void> => {
-      return runV2JsndkState119();
+      return runPixelMapAccessSequence119();
     });
     it('EXP_V2_JSNDK_STATE_120', 0, (): Promise<void> => {
-      return runV2JsndkState120();
+      return runPixelMapAccessSequence120();
     });
     it('EXP_V2_JSNDK_STATE_121', 0, (): Promise<void> => {
-      return runV2JsndkState121();
+      return runPixelMapAccessSequence121();
     });
     it('EXP_V2_JSNDK_STATE_122', 0, (): Promise<void> => {
-      return runV2JsndkState122();
+      return runPixelMapAccessSequence122();
     });
     it('EXP_V2_JSNDK_STATE_123', 0, (): Promise<void> => {
-      return runV2JsndkState123();
+      return runPixelMapAccessSequence123();
     });
     it('EXP_V2_JSNDK_STATE_124', 0, (): Promise<void> => {
-      return runV2JsndkState124();
+      return runPixelMapAccessSequence124();
     });
     it('EXP_V2_JSNDK_STATE_125', 0, (): Promise<void> => {
-      return runV2JsndkState125();
+      return runPixelMapAccessSequence125();
     });
     it('EXP_V2_JSNDK_STATE_126', 0, (): Promise<void> => {
-      return runV2JsndkState126();
+      return runPixelMapAccessSequence126();
     });
     it('EXP_V2_JSNDK_STATE_127', 0, (): Promise<void> => {
-      return runV2JsndkState127();
+      return runPixelMapAccessSequence127();
     });
     it('EXP_V2_JSNDK_STATE_128', 0, (): Promise<void> => {
-      return runV2JsndkState128();
+      return runPixelMapAccessSequence128();
     });
     it('EXP_V2_JSNDK_TRANSFORM_001', 0, (): Promise<void> => {
-      return runV2JsndkTransform001();
+      return runPixelMapTransformMatrix001();
     });
     it('EXP_V2_JSNDK_TRANSFORM_002', 0, (): Promise<void> => {
-      return runV2JsndkTransform002();
+      return runPixelMapTransformMatrix002();
     });
     it('EXP_V2_JSNDK_TRANSFORM_003', 0, (): Promise<void> => {
-      return runV2JsndkTransform003();
+      return runPixelMapTransformMatrix003();
     });
     it('EXP_V2_JSNDK_TRANSFORM_004', 0, (): Promise<void> => {
-      return runV2JsndkTransform004();
+      return runPixelMapTransformMatrix004();
     });
     it('EXP_V2_JSNDK_TRANSFORM_005', 0, (): Promise<void> => {
-      return runV2JsndkTransform005();
+      return runPixelMapTransformMatrix005();
     });
     it('EXP_V2_JSNDK_TRANSFORM_006', 0, (): Promise<void> => {
-      return runV2JsndkTransform006();
+      return runPixelMapTransformMatrix006();
     });
     it('EXP_V2_JSNDK_TRANSFORM_007', 0, (): Promise<void> => {
-      return runV2JsndkTransform007();
+      return runPixelMapTransformMatrix007();
     });
     it('EXP_V2_JSNDK_TRANSFORM_008', 0, (): Promise<void> => {
-      return runV2JsndkTransform008();
+      return runPixelMapTransformMatrix008();
     });
     it('EXP_V2_JSNDK_TRANSFORM_009', 0, (): Promise<void> => {
-      return runV2JsndkTransform009();
+      return runPixelMapTransformMatrix009();
     });
     it('EXP_V2_JSNDK_TRANSFORM_010', 0, (): Promise<void> => {
-      return runV2JsndkTransform010();
+      return runPixelMapTransformMatrix010();
     });
     it('EXP_V2_JSNDK_TRANSFORM_011', 0, (): Promise<void> => {
-      return runV2JsndkTransform011();
+      return runPixelMapTransformMatrix011();
     });
     it('EXP_V2_JSNDK_TRANSFORM_012', 0, (): Promise<void> => {
-      return runV2JsndkTransform012();
+      return runPixelMapTransformMatrix012();
     });
     it('EXP_V2_JSNDK_TRANSFORM_013', 0, (): Promise<void> => {
-      return runV2JsndkTransform013();
+      return runPixelMapTransformMatrix013();
     });
     it('EXP_V2_JSNDK_TRANSFORM_014', 0, (): Promise<void> => {
-      return runV2JsndkTransform014();
+      return runPixelMapTransformMatrix014();
     });
     it('EXP_V2_JSNDK_TRANSFORM_015', 0, (): Promise<void> => {
-      return runV2JsndkTransform015();
+      return runPixelMapTransformMatrix015();
     });
     it('EXP_V2_JSNDK_TRANSFORM_016', 0, (): Promise<void> => {
-      return runV2JsndkTransform016();
+      return runPixelMapTransformMatrix016();
     });
     it('EXP_V2_JSNDK_TRANSFORM_017', 0, (): Promise<void> => {
-      return runV2JsndkTransform017();
+      return runPixelMapTransformMatrix017();
     });
     it('EXP_V2_JSNDK_TRANSFORM_018', 0, (): Promise<void> => {
-      return runV2JsndkTransform018();
+      return runPixelMapTransformMatrix018();
     });
     it('EXP_V2_JSNDK_TRANSFORM_019', 0, (): Promise<void> => {
-      return runV2JsndkTransform019();
+      return runPixelMapTransformMatrix019();
     });
     it('EXP_V2_JSNDK_TRANSFORM_020', 0, (): Promise<void> => {
-      return runV2JsndkTransform020();
+      return runPixelMapTransformMatrix020();
     });
     it('EXP_V2_JSNDK_TRANSFORM_021', 0, (): Promise<void> => {
-      return runV2JsndkTransform021();
+      return runPixelMapTransformMatrix021();
     });
     it('EXP_V2_JSNDK_TRANSFORM_022', 0, (): Promise<void> => {
-      return runV2JsndkTransform022();
+      return runPixelMapTransformMatrix022();
     });
     it('EXP_V2_JSNDK_TRANSFORM_023', 0, (): Promise<void> => {
-      return runV2JsndkTransform023();
+      return runPixelMapTransformMatrix023();
     });
     it('EXP_V2_JSNDK_TRANSFORM_024', 0, (): Promise<void> => {
-      return runV2JsndkTransform024();
+      return runPixelMapTransformMatrix024();
     });
     it('EXP_V2_JSNDK_TRANSFORM_025', 0, (): Promise<void> => {
-      return runV2JsndkTransform025();
+      return runPixelMapTransformMatrix025();
     });
     it('EXP_V2_JSNDK_TRANSFORM_026', 0, (): Promise<void> => {
-      return runV2JsndkTransform026();
+      return runPixelMapTransformMatrix026();
     });
     it('EXP_V2_JSNDK_TRANSFORM_027', 0, (): Promise<void> => {
-      return runV2JsndkTransform027();
+      return runPixelMapTransformMatrix027();
     });
     it('EXP_V2_JSNDK_TRANSFORM_028', 0, (): Promise<void> => {
-      return runV2JsndkTransform028();
+      return runPixelMapTransformMatrix028();
     });
     it('EXP_V2_JSNDK_TRANSFORM_029', 0, (): Promise<void> => {
-      return runV2JsndkTransform029();
+      return runPixelMapTransformMatrix029();
     });
     it('EXP_V2_JSNDK_TRANSFORM_030', 0, (): Promise<void> => {
-      return runV2JsndkTransform030();
+      return runPixelMapTransformMatrix030();
     });
     it('EXP_V2_JSNDK_TRANSFORM_031', 0, (): Promise<void> => {
-      return runV2JsndkTransform031();
+      return runPixelMapTransformMatrix031();
     });
     it('EXP_V2_JSNDK_TRANSFORM_032', 0, (): Promise<void> => {
-      return runV2JsndkTransform032();
+      return runPixelMapTransformMatrix032();
     });
   });
 }
