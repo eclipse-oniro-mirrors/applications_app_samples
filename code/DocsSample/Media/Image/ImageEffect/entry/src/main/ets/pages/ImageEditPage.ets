@@ -164,7 +164,7 @@ struct ImageEditPage {
               this.mSurfaceId = this.mXComponentController.getXComponentSurfaceId();
               // 调用native接口获取输入SurfaceId。
               this.mSurfaceId = imageEffect.getSurfaceId(this.mSurfaceId);
-              // 调用相机接口启动预览，将获取到的输入SurfaceId传递给相机框架
+              // 调用相机接口启动预览，将获取到的输入SurfaceId传递给相机框架。
               this.startPreview(this.mSurfaceId);
             })
             .width('100%')

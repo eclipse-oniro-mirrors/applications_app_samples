@@ -909,7 +909,7 @@ napi_value ImageEdit::getSurfaceId(napi_env env, napi_callback_info info)
 
     std::string surfaceId = CommonUtils::GetStringArgument(env, args[EXPECTED_ARGS_ZERO]);
     // [Start image_effect_get_surface_id]
-    // 根据SurfaceId创建NativeWindow，注意创建出来的NativeWindow在使用结束后需要主动调用OH_NativeWindow_DestoryNativeWindow进行释放。
+    // 根据SurfaceId创建NativeWindow，注意创建出来的NativeWindow在使用结束后需要主动调用OH_NativeWindow_DestroyNativeWindow进行释放。
     uint64_t outputSurfaceId;
     std::istrstream iss(surfaceId.c_str());
     iss >> outputSurfaceId;
@@ -933,7 +933,7 @@ napi_value ImageEdit::getSurfaceId(napi_env env, napi_callback_info info)
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result,
                              "OH_ImageEffect_SetOutputSurface fail!");
     
-    // 获取输入的Surface。注意获取的inputNativeWindow在使用结束后需要主动调用OH_NativeWindow_DestoryNativeWindow进行释放。
+    // 获取输入的Surface。注意获取的inputNativeWindow在使用结束后需要主动调用OH_NativeWindow_DestroyNativeWindow进行释放。
     OHNativeWindow *inputNativeWindow = nullptr;
     errorCode = OH_ImageEffect_GetInputSurface(imageEffect, &inputNativeWindow);
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result,

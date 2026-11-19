@@ -9,6 +9,7 @@
 - 注册实现了自定义亮度滤镜与自定义裁剪滤镜。
 - 通过ImageEffect提供的Native API接口快速实现单个滤镜的处理效果。
 - 通过ImageEffect提供的Native API接口查询滤镜能力信息。
+- 支持纹理输入场景：纹理输入类型从API版本20开始支持。应用需要自行创建输入、输出纹理（例如通过glGenTextures创建），并保证输入纹理与输出纹理不是同一块纹理。纹理输入场景下，滤镜直接处理GPU纹理，仅支持输入、输出均为纹理缓冲（EFFECT_BUFFER_TYPE_TEXTURE）的滤镜，例如Brightness、Contrast。Crop等需要PixelMap信息的滤镜以及以像素缓冲注册的自定义滤镜不适用于纹理输入，需要从滤镜链中排除。
 
 ## 效果预览
 
@@ -41,10 +42,15 @@ entry/src/main/cpp/
 └── utils
     ├── common_utils.cpp(字符处理工具函数)
     ├── common_utils.h
+    ├── egl_utils.cpp(EGL上下文创建与释放工具函数)
+    ├── egl_utils.h
+    ├── gl_utils.cpp(OpenGL ES纹理创建与读取工具函数)
+    ├── gl_utils.h
     ├── json_utils.cpp(json格式处理工具函数)
     ├── json_utils.h
     ├── pixelmap_helper.cpp(图片解码)
-    └── pixelmap_helper.h
+    ├── pixelmap_helper.h
+    └── render_texture.h(纹理渲染类型定义)
 entry/src/main/ets/
 ├── pages
 │   └── ImageEditPage.ets(图片显示、设置页面)
