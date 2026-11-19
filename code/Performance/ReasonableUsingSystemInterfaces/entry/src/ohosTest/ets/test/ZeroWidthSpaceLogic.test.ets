@@ -3874,3 +3874,1950 @@ export default function ZeroWidthSpaceLogic(): void {
         expect(countScalars(neighborOutput)).assertEqual(5);
         const afterNeighbor: string = insertZeroWidthSpaces(input);
         const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0050
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0050
+     * @tc.desc combining accent, 3 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0050',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0050';
+        InterfaceTestLog.begin(name, 'combining accent, 3 known units');
+        const input: string = 'e\u0301'.repeat(3);
+        const snapshot: string = input;
+        const expected: string =
+          'e\u200B\u0301\u200B'.repeat(2) +
+          'e\u200B\u0301';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 6, input.length);
+        expect(input.length).assertEqual(6);
+        InterfaceTestLog.number(name, 'source scalar count', 6, countScalars(input));
+        expect(countScalars(input)).assertEqual(6);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 11, actual.length);
+        expect(actual.length).assertEqual(11);
+        InterfaceTestLog.number(name, 'output scalar count', 11, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(11);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 5, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(5);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = 'e';
+        const last: string = '\u0301';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NX\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BX\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0051
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0051
+     * @tc.desc combining accent, 17 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0051',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0051';
+        InterfaceTestLog.begin(name, 'combining accent, 17 known units');
+        const input: string = 'e\u0301'.repeat(17);
+        const snapshot: string = input;
+        const expected: string =
+          'e\u200B\u0301\u200B'.repeat(16) +
+          'e\u200B\u0301';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 34, input.length);
+        expect(input.length).assertEqual(34);
+        InterfaceTestLog.number(name, 'source scalar count', 34, countScalars(input));
+        expect(countScalars(input)).assertEqual(34);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 67, actual.length);
+        expect(actual.length).assertEqual(67);
+        InterfaceTestLog.number(name, 'output scalar count', 67, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(67);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 33, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(33);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = 'e';
+        const last: string = '\u0301';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NY\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BY\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0052
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0052
+     * @tc.desc combining accent, 1998 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0052',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0052';
+        InterfaceTestLog.begin(name, 'combining accent, 1998 known units');
+        const input: string = 'e\u0301'.repeat(1998);
+        const snapshot: string = input;
+        const expected: string =
+          'e\u200B\u0301\u200B'.repeat(1997) +
+          'e\u200B\u0301';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 3996, input.length);
+        expect(input.length).assertEqual(3996);
+        InterfaceTestLog.number(name, 'source scalar count', 3996, countScalars(input));
+        expect(countScalars(input)).assertEqual(3996);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 7991, actual.length);
+        expect(actual.length).assertEqual(7991);
+        InterfaceTestLog.number(name, 'output scalar count', 7991, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(7991);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 3995, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(3995);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = 'e';
+        const last: string = '\u0301';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NZ\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BZ\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0053
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0053
+     * @tc.desc combining accent, 1999 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0053',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0053';
+        InterfaceTestLog.begin(name, 'combining accent, 1999 known units');
+        const input: string = 'e\u0301'.repeat(1999);
+        const snapshot: string = input;
+        const expected: string =
+          'e\u200B\u0301\u200B'.repeat(1998) +
+          'e\u200B\u0301';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 3998, input.length);
+        expect(input.length).assertEqual(3998);
+        InterfaceTestLog.number(name, 'source scalar count', 3998, countScalars(input));
+        expect(countScalars(input)).assertEqual(3998);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 7995, actual.length);
+        expect(actual.length).assertEqual(7995);
+        InterfaceTestLog.number(name, 'output scalar count', 7995, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(7995);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 3997, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(3997);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = 'e';
+        const last: string = '\u0301';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NA\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BA\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0054
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0054
+     * @tc.desc combining accent, 2000 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0054',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0054';
+        InterfaceTestLog.begin(name, 'combining accent, 2000 known units');
+        const input: string = 'e\u0301'.repeat(2000);
+        const snapshot: string = input;
+        const expected: string =
+          'e\u200B\u0301\u200B'.repeat(1999) +
+          'e\u200B\u0301';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 4000, input.length);
+        expect(input.length).assertEqual(4000);
+        InterfaceTestLog.number(name, 'source scalar count', 4000, countScalars(input));
+        expect(countScalars(input)).assertEqual(4000);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 7999, actual.length);
+        expect(actual.length).assertEqual(7999);
+        InterfaceTestLog.number(name, 'output scalar count', 7999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(7999);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 3999, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(3999);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = 'e';
+        const last: string = '\u0301';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NB\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BB\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0055
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0055
+     * @tc.desc combining accent, 2001 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0055',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0055';
+        InterfaceTestLog.begin(name, 'combining accent, 2001 known units');
+        const input: string = 'e\u0301'.repeat(2001);
+        const snapshot: string = input;
+        const expected: string =
+          'e\u200B\u0301\u200B'.repeat(2000) +
+          'e\u200B\u0301';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 4002, input.length);
+        expect(input.length).assertEqual(4002);
+        InterfaceTestLog.number(name, 'source scalar count', 4002, countScalars(input));
+        expect(countScalars(input)).assertEqual(4002);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 8003, actual.length);
+        expect(actual.length).assertEqual(8003);
+        InterfaceTestLog.number(name, 'output scalar count', 8003, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(8003);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 4001, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(4001);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = 'e';
+        const last: string = '\u0301';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NC\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BC\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0056
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0056
+     * @tc.desc combining accent, 4000 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0056',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0056';
+        InterfaceTestLog.begin(name, 'combining accent, 4000 known units');
+        const input: string = 'e\u0301'.repeat(4000);
+        const snapshot: string = input;
+        const expected: string =
+          'e\u200B\u0301\u200B'.repeat(3999) +
+          'e\u200B\u0301';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 8000, input.length);
+        expect(input.length).assertEqual(8000);
+        InterfaceTestLog.number(name, 'source scalar count', 8000, countScalars(input));
+        expect(countScalars(input)).assertEqual(8000);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 15999, actual.length);
+        expect(actual.length).assertEqual(15999);
+        InterfaceTestLog.number(name, 'output scalar count', 15999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(15999);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 7999, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(7999);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = 'e';
+        const last: string = '\u0301';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'ND\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BD\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0057
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0057
+     * @tc.desc emoji Han, 2 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0057',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0057';
+        InterfaceTestLog.begin(name, 'emoji Han, 2 known units');
+        const input: string = '\uD83D\uDE00\u4E2D'.repeat(2);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD83D\uDE00\u200B\u4E2D\u200B' +
+          '\uD83D\uDE00\u200B\u4E2D';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 6, input.length);
+        expect(input.length).assertEqual(6);
+        InterfaceTestLog.number(name, 'source scalar count', 4, countScalars(input));
+        expect(countScalars(input)).assertEqual(4);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 9, actual.length);
+        expect(actual.length).assertEqual(9);
+        InterfaceTestLog.number(name, 'output scalar count', 7, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(7);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 3, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(3);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD83D\uDE00';
+        const last: string = '\u4E2D';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD83D\uDE00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 2, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(2);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NE\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BE\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0058
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0058
+     * @tc.desc emoji Han, 3 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0058',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0058';
+        InterfaceTestLog.begin(name, 'emoji Han, 3 known units');
+        const input: string = '\uD83D\uDE00\u4E2D'.repeat(3);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD83D\uDE00\u200B\u4E2D\u200B'.repeat(2) +
+          '\uD83D\uDE00\u200B\u4E2D';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 9, input.length);
+        expect(input.length).assertEqual(9);
+        InterfaceTestLog.number(name, 'source scalar count', 6, countScalars(input));
+        expect(countScalars(input)).assertEqual(6);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 14, actual.length);
+        expect(actual.length).assertEqual(14);
+        InterfaceTestLog.number(name, 'output scalar count', 11, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(11);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 5, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(5);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD83D\uDE00';
+        const last: string = '\u4E2D';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD83D\uDE00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 3, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(3);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NF\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BF\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0059
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0059
+     * @tc.desc emoji Han, 17 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0059',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0059';
+        InterfaceTestLog.begin(name, 'emoji Han, 17 known units');
+        const input: string = '\uD83D\uDE00\u4E2D'.repeat(17);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD83D\uDE00\u200B\u4E2D\u200B'.repeat(16) +
+          '\uD83D\uDE00\u200B\u4E2D';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 51, input.length);
+        expect(input.length).assertEqual(51);
+        InterfaceTestLog.number(name, 'source scalar count', 34, countScalars(input));
+        expect(countScalars(input)).assertEqual(34);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 84, actual.length);
+        expect(actual.length).assertEqual(84);
+        InterfaceTestLog.number(name, 'output scalar count', 67, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(67);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 33, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(33);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD83D\uDE00';
+        const last: string = '\u4E2D';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD83D\uDE00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 17, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(17);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NG\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BG\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0060
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0060
+     * @tc.desc emoji Han, 1998 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0060',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0060';
+        InterfaceTestLog.begin(name, 'emoji Han, 1998 known units');
+        const input: string = '\uD83D\uDE00\u4E2D'.repeat(1998);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD83D\uDE00\u200B\u4E2D\u200B'.repeat(1997) +
+          '\uD83D\uDE00\u200B\u4E2D';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 5994, input.length);
+        expect(input.length).assertEqual(5994);
+        InterfaceTestLog.number(name, 'source scalar count', 3996, countScalars(input));
+        expect(countScalars(input)).assertEqual(3996);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 9989, actual.length);
+        expect(actual.length).assertEqual(9989);
+        InterfaceTestLog.number(name, 'output scalar count', 7991, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(7991);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 3995, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(3995);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD83D\uDE00';
+        const last: string = '\u4E2D';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD83D\uDE00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 1998, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(1998);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NH\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BH\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0061
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0061
+     * @tc.desc emoji Han, 1999 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0061',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0061';
+        InterfaceTestLog.begin(name, 'emoji Han, 1999 known units');
+        const input: string = '\uD83D\uDE00\u4E2D'.repeat(1999);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD83D\uDE00\u200B\u4E2D\u200B'.repeat(1998) +
+          '\uD83D\uDE00\u200B\u4E2D';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 5997, input.length);
+        expect(input.length).assertEqual(5997);
+        InterfaceTestLog.number(name, 'source scalar count', 3998, countScalars(input));
+        expect(countScalars(input)).assertEqual(3998);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 9994, actual.length);
+        expect(actual.length).assertEqual(9994);
+        InterfaceTestLog.number(name, 'output scalar count', 7995, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(7995);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 3997, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(3997);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD83D\uDE00';
+        const last: string = '\u4E2D';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD83D\uDE00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 1999, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(1999);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NI\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BI\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0062
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0062
+     * @tc.desc emoji Han, 2000 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0062',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0062';
+        InterfaceTestLog.begin(name, 'emoji Han, 2000 known units');
+        const input: string = '\uD83D\uDE00\u4E2D'.repeat(2000);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD83D\uDE00\u200B\u4E2D\u200B'.repeat(1999) +
+          '\uD83D\uDE00\u200B\u4E2D';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 6000, input.length);
+        expect(input.length).assertEqual(6000);
+        InterfaceTestLog.number(name, 'source scalar count', 4000, countScalars(input));
+        expect(countScalars(input)).assertEqual(4000);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 9999, actual.length);
+        expect(actual.length).assertEqual(9999);
+        InterfaceTestLog.number(name, 'output scalar count', 7999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(7999);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 3999, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(3999);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD83D\uDE00';
+        const last: string = '\u4E2D';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD83D\uDE00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 2000, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(2000);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NJ\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BJ\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0063
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0063
+     * @tc.desc emoji Han, 2001 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0063',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0063';
+        InterfaceTestLog.begin(name, 'emoji Han, 2001 known units');
+        const input: string = '\uD83D\uDE00\u4E2D'.repeat(2001);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD83D\uDE00\u200B\u4E2D\u200B'.repeat(2000) +
+          '\uD83D\uDE00\u200B\u4E2D';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 6003, input.length);
+        expect(input.length).assertEqual(6003);
+        InterfaceTestLog.number(name, 'source scalar count', 4002, countScalars(input));
+        expect(countScalars(input)).assertEqual(4002);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 10004, actual.length);
+        expect(actual.length).assertEqual(10004);
+        InterfaceTestLog.number(name, 'output scalar count', 8003, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(8003);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 4001, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(4001);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD83D\uDE00';
+        const last: string = '\u4E2D';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD83D\uDE00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 2001, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(2001);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NK\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BK\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0064
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0064
+     * @tc.desc emoji Han, 4000 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0064',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0064';
+        InterfaceTestLog.begin(name, 'emoji Han, 4000 known units');
+        const input: string = '\uD83D\uDE00\u4E2D'.repeat(4000);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD83D\uDE00\u200B\u4E2D\u200B'.repeat(3999) +
+          '\uD83D\uDE00\u200B\u4E2D';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 12000, input.length);
+        expect(input.length).assertEqual(12000);
+        InterfaceTestLog.number(name, 'source scalar count', 8000, countScalars(input));
+        expect(countScalars(input)).assertEqual(8000);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 19999, actual.length);
+        expect(actual.length).assertEqual(19999);
+        InterfaceTestLog.number(name, 'output scalar count', 15999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(15999);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 7999, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(7999);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD83D\uDE00';
+        const last: string = '\u4E2D';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD83D\uDE00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 4000, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(4000);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NL\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BL\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0065
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0065
+     * @tc.desc supplementary, 2 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0065',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0065';
+        InterfaceTestLog.begin(name, 'supplementary, 2 known units');
+        const input: string = '\uD801\uDC00'.repeat(2);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD801\uDC00\u200B' +
+          '\uD801\uDC00';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 4, input.length);
+        expect(input.length).assertEqual(4);
+        InterfaceTestLog.number(name, 'source scalar count', 2, countScalars(input));
+        expect(countScalars(input)).assertEqual(2);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 5, actual.length);
+        expect(actual.length).assertEqual(5);
+        InterfaceTestLog.number(name, 'output scalar count', 3, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(3);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 1, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(1);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD801\uDC00';
+        const last: string = '\uD801\uDC00';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD801\uDC00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 2, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(2);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NM\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BM\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0066
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0066
+     * @tc.desc supplementary, 3 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0066',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0066';
+        InterfaceTestLog.begin(name, 'supplementary, 3 known units');
+        const input: string = '\uD801\uDC00'.repeat(3);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD801\uDC00\u200B'.repeat(2) +
+          '\uD801\uDC00';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 6, input.length);
+        expect(input.length).assertEqual(6);
+        InterfaceTestLog.number(name, 'source scalar count', 3, countScalars(input));
+        expect(countScalars(input)).assertEqual(3);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 8, actual.length);
+        expect(actual.length).assertEqual(8);
+        InterfaceTestLog.number(name, 'output scalar count', 5, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(5);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 2, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(2);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD801\uDC00';
+        const last: string = '\uD801\uDC00';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD801\uDC00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 3, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(3);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NN\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BN\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0067
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0067
+     * @tc.desc supplementary, 17 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0067',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0067';
+        InterfaceTestLog.begin(name, 'supplementary, 17 known units');
+        const input: string = '\uD801\uDC00'.repeat(17);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD801\uDC00\u200B'.repeat(16) +
+          '\uD801\uDC00';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 34, input.length);
+        expect(input.length).assertEqual(34);
+        InterfaceTestLog.number(name, 'source scalar count', 17, countScalars(input));
+        expect(countScalars(input)).assertEqual(17);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 50, actual.length);
+        expect(actual.length).assertEqual(50);
+        InterfaceTestLog.number(name, 'output scalar count', 33, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(33);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 16, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(16);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD801\uDC00';
+        const last: string = '\uD801\uDC00';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD801\uDC00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 17, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(17);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NO\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BO\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0068
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0068
+     * @tc.desc supplementary, 1998 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0068',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0068';
+        InterfaceTestLog.begin(name, 'supplementary, 1998 known units');
+        const input: string = '\uD801\uDC00'.repeat(1998);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD801\uDC00\u200B'.repeat(1997) +
+          '\uD801\uDC00';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 3996, input.length);
+        expect(input.length).assertEqual(3996);
+        InterfaceTestLog.number(name, 'source scalar count', 1998, countScalars(input));
+        expect(countScalars(input)).assertEqual(1998);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 5993, actual.length);
+        expect(actual.length).assertEqual(5993);
+        InterfaceTestLog.number(name, 'output scalar count', 3995, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(3995);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 1997, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(1997);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD801\uDC00';
+        const last: string = '\uD801\uDC00';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD801\uDC00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 1998, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(1998);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NP\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BP\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0069
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0069
+     * @tc.desc supplementary, 1999 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0069',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0069';
+        InterfaceTestLog.begin(name, 'supplementary, 1999 known units');
+        const input: string = '\uD801\uDC00'.repeat(1999);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD801\uDC00\u200B'.repeat(1998) +
+          '\uD801\uDC00';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 3998, input.length);
+        expect(input.length).assertEqual(3998);
+        InterfaceTestLog.number(name, 'source scalar count', 1999, countScalars(input));
+        expect(countScalars(input)).assertEqual(1999);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 5996, actual.length);
+        expect(actual.length).assertEqual(5996);
+        InterfaceTestLog.number(name, 'output scalar count', 3997, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(3997);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 1998, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(1998);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD801\uDC00';
+        const last: string = '\uD801\uDC00';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD801\uDC00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 1999, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(1999);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NQ\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BQ\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0070
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0070
+     * @tc.desc supplementary, 2000 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0070',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0070';
+        InterfaceTestLog.begin(name, 'supplementary, 2000 known units');
+        const input: string = '\uD801\uDC00'.repeat(2000);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD801\uDC00\u200B'.repeat(1999) +
+          '\uD801\uDC00';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 4000, input.length);
+        expect(input.length).assertEqual(4000);
+        InterfaceTestLog.number(name, 'source scalar count', 2000, countScalars(input));
+        expect(countScalars(input)).assertEqual(2000);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 5999, actual.length);
+        expect(actual.length).assertEqual(5999);
+        InterfaceTestLog.number(name, 'output scalar count', 3999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(3999);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 1999, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(1999);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD801\uDC00';
+        const last: string = '\uD801\uDC00';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD801\uDC00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 2000, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(2000);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NR\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BR\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0071
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0071
+     * @tc.desc supplementary, 2001 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0071',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0071';
+        InterfaceTestLog.begin(name, 'supplementary, 2001 known units');
+        const input: string = '\uD801\uDC00'.repeat(2001);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD801\uDC00\u200B'.repeat(2000) +
+          '\uD801\uDC00';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 4002, input.length);
+        expect(input.length).assertEqual(4002);
+        InterfaceTestLog.number(name, 'source scalar count', 2001, countScalars(input));
+        expect(countScalars(input)).assertEqual(2001);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 6002, actual.length);
+        expect(actual.length).assertEqual(6002);
+        InterfaceTestLog.number(name, 'output scalar count', 4001, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(4001);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 2000, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(2000);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD801\uDC00';
+        const last: string = '\uD801\uDC00';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD801\uDC00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 2001, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(2001);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NS\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BS\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0072
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0072
+     * @tc.desc supplementary, 4000 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0072',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0072';
+        InterfaceTestLog.begin(name, 'supplementary, 4000 known units');
+        const input: string = '\uD801\uDC00'.repeat(4000);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD801\uDC00\u200B'.repeat(3999) +
+          '\uD801\uDC00';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 8000, input.length);
+        expect(input.length).assertEqual(8000);
+        InterfaceTestLog.number(name, 'source scalar count', 4000, countScalars(input));
+        expect(countScalars(input)).assertEqual(4000);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 11999, actual.length);
+        expect(actual.length).assertEqual(11999);
+        InterfaceTestLog.number(name, 'output scalar count', 7999, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(7999);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 3999, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(3999);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD801\uDC00';
+        const last: string = '\uD801\uDC00';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD801\uDC00';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 4000, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(4000);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NT\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BT\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
+        expect(countScalars(neighborOutput)).assertEqual(5);
+        const afterNeighbor: string = insertZeroWidthSpaces(input);
+        const mixedInput: string = 'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD';
+        const mixedExpected: string =
+          'A\u200B\u000D\u000A\u200BB\u200B' +
+          '\u000A\u200B\u000D\u200BC\u200B' +
+          '\u000D\u200B\u200B\u200B\u000A\u200BD';
+        const mixedActual: string = insertZeroWidthSpaces(mixedInput);
+        InterfaceTestLog.value(name, 'fixed mixed CRLF LFCR existing ZWSP', mixedExpected, mixedActual);
+        expect(mixedActual).assertEqual(mixedExpected);
+        InterfaceTestLog.number(name, 'mixed UTF16 length', 20, mixedActual.length);
+        expect(mixedActual.length).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed scalar count', 20, countScalars(mixedActual));
+        expect(countScalars(mixedActual)).assertEqual(20);
+        InterfaceTestLog.number(name, 'mixed original plus inserted ZWSP', 10, countOccurrences(mixedActual, '\u200B'));
+        expect(countOccurrences(mixedActual, '\u200B')).assertEqual(10);
+        InterfaceTestLog.value(name, 'mixed source immutable',
+          'A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD', mixedInput);
+        expect(mixedInput).assertEqual('A\u000D\u000AB\u000A\u000DC\u000D\u200B\u000AD');
+        InterfaceTestLog.value(name, 'no neighbor pollution', expected, afterNeighbor);
+        expect(afterNeighbor).assertEqual(expected);
+        InterfaceTestLog.value(name, 'final original preserved', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0073
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0073
+     * @tc.desc regional indicators, 2 known units
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0073',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_ZEROWIDTH_0073';
+        InterfaceTestLog.begin(name, 'regional indicators, 2 known units');
+        const input: string = '\uD83C\uDDE8\uD83C\uDDF3'.repeat(2);
+        const snapshot: string = input;
+        const expected: string =
+          '\uD83C\uDDE8\u200B\uD83C\uDDF3\u200B' +
+          '\uD83C\uDDE8\u200B\uD83C\uDDF3';
+        const actual: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'independent sequence oracle', expected, actual);
+        expect(actual).assertEqual(expected);
+        InterfaceTestLog.number(name, 'source UTF16 length', 8, input.length);
+        expect(input.length).assertEqual(8);
+        InterfaceTestLog.number(name, 'source scalar count', 4, countScalars(input));
+        expect(countScalars(input)).assertEqual(4);
+        InterfaceTestLog.number(name, 'source CRLF pairs', 0, countOccurrences(input, '\r\n'));
+        expect(countOccurrences(input, '\r\n')).assertEqual(0);
+        InterfaceTestLog.number(name, 'output UTF16 length', 11, actual.length);
+        expect(actual.length).assertEqual(11);
+        InterfaceTestLog.number(name, 'output scalar count', 7, countScalars(actual));
+        expect(countScalars(actual)).assertEqual(7);
+        InterfaceTestLog.number(name, 'source existing separators', 0, countOccurrences(input, '\u200B'));
+        expect(countOccurrences(input, '\u200B')).assertEqual(0);
+        InterfaceTestLog.number(name, 'existing plus inserted separators', 3, countOccurrences(actual, '\u200B'));
+        expect(countOccurrences(actual, '\u200B')).assertEqual(3);
+        InterfaceTestLog.value(name, 'source characters retained', snapshot, input);
+        expect(input).assertEqual(snapshot);
+        const first: string = '\uD83C\uDDE8';
+        const last: string = '\uD83C\uDDF3';
+        InterfaceTestLog.value(name, 'no new leading separator', first, actual.substring(0, first.length));
+        expect(actual.substring(0, first.length)).assertEqual(first);
+        InterfaceTestLog.value(name, 'no new trailing separator', last, actual.substring(actual.length - last.length));
+        expect(actual.substring(actual.length - last.length)).assertEqual(last);
+        const pair0: string = '\uD83C\uDDE8';
+        InterfaceTestLog.number(name, 'intact supplementary 0', 2, countOccurrences(actual, pair0));
+        expect(countOccurrences(actual, pair0)).assertEqual(2);
+        const pair1: string = '\uD83C\uDDF3';
+        InterfaceTestLog.number(name, 'intact supplementary 1', 2, countOccurrences(actual, pair1));
+        expect(countOccurrences(actual, pair1)).assertEqual(2);
+        const repeat: string = insertZeroWidthSpaces(input);
+        InterfaceTestLog.value(name, 'same input repeat oracle', expected, repeat);
+        expect(repeat).assertEqual(expected);
+        const empty: string = insertZeroWidthSpaces('');
+        InterfaceTestLog.value(name, 'empty isolation', '', empty);
+        expect(empty).assertEqual('');
+        const neighbor: string = 'NU\uD83D\uDE80';
+        const neighborExpected: string = 'N\u200BU\u200B\uD83D\uDE80';
+        const neighborOutput: string = insertZeroWidthSpaces(neighbor);
+        InterfaceTestLog.value(name, 'independent neighbor oracle', neighborExpected, neighborOutput);
+        expect(neighborOutput).assertEqual(neighborExpected);
+        InterfaceTestLog.number(name, 'neighbor scalar count', 5, countScalars(neighborOutput));
