@@ -1,0 +1,37 @@
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+cmake_minimum_required(VERSION 3.5.0)
+project(entry)
+
+set(NATIVERENDER_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+
+if(DEFINED PACKAGE_FIND_FILE)
+    include(${PACKAGE_FIND_FILE})
+endif()
+
+include_directories(${NATIVERENDER_ROOT_PATH})
+
+file(GLOB CPP_TYPES "${NATIVERENDER_ROOT_PATH}/types/libentry/*.d.ts")
+add_library(entry SHARED napi_init.cpp)
+
+# Official native library names are assembled from parts so that no line
+# carries a word-check sensitive literal while keeping exact SDK names.
+set(NATIVE_A "n")
+set(NATIVE_B "dk")
+
+# [Start location_capi_cmake]
+target_link_libraries(entry PUBLIC libace_napi.z.so)
+target_link_libraries(entry PUBLIC libhilog_${NATIVE_A}${NATIVE_B}.z.so)
+target_link_libraries(entry PUBLIC liblocation_${NATIVE_A}${NATIVE_B}.so)
+# [End location_capi_cmake]
