@@ -94,7 +94,7 @@ feature：应用的特性模块，一个应用中可以包含一个或者多个f
 git init  
 git config core.sparsecheckout true  
 echo code/Project/ApplicationHap/MultiHap/ > .git/info/sparse-checkout  
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git  
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git  
 git pull origin master
 
 ```
