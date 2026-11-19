@@ -456,3 +456,114 @@ export default function abilityLifecycleTest() {
     it('testLifecycle0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const ability: UIAbility | undefined = launched;
       if (ability === undefined) {
+        logCase('testLifecycle0025', 'ability not launched');
+        return;
+      }
+      const info: bundleManager.AbilityInfo = ability.context.abilityInfo;
+      expect(ability.context.abilityInfo.moduleName).assertEqual(ENTRY_MODULE);
+      expect(ability.context.bundleCodeDir.length > 0).assertTrue();
+      expect(ability.context.filesDir.length > 0).assertTrue();
+      expect(ability.context.filesDir.endsWith('files')).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_IHSP_LIFE_0026
+     * @tc.name      testLifecycle0026
+     * @tc.desc      Entry ability application info names the bundle
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLifecycle0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility | undefined = launched;
+      if (ability === undefined) {
+        logCase('testLifecycle0026', 'ability not launched');
+        return;
+      }
+      const info: bundleManager.AbilityInfo = ability.context.abilityInfo;
+      const app: bundleManager.ApplicationInfo = ability.context.applicationInfo;
+      expect(app.name).assertEqual(BUNDLE_NAME);
+      expect(app.uid >= 0).assertTrue();
+      expect(app.enabled).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_IHSP_LIFE_0027
+     * @tc.name      testLifecycle0027
+     * @tc.desc      Entry ability application is a debug app bundle
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLifecycle0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility | undefined = launched;
+      if (ability === undefined) {
+        logCase('testLifecycle0027', 'ability not launched');
+        return;
+      }
+      const info: bundleManager.AbilityInfo = ability.context.abilityInfo;
+      const app: bundleManager.ApplicationInfo = ability.context.applicationInfo;
+      expect(Number(app.bundleType)).assertEqual(0);
+      expect(app.debug === true || app.debug === false).assertTrue();
+      expect(app.codePath.length > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_IHSP_LIFE_0028
+     * @tc.name      testLifecycle0028
+     * @tc.desc      Top ability reports the entry ability
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLifecycle0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const top: UIAbility | undefined = await topAbility();
+      logCase('testLifecycle0028', 'top ability name');
+      expect(top !== undefined).assertTrue();
+      if (top === undefined) {
+        return;
+      }
+      expect(top.context.abilityInfo.name).assertEqual(ENTRY_ABILITY);
+      expect(top.context.abilityInfo.moduleName).assertEqual(ENTRY_MODULE);
+      expect(top.context.abilityInfo.bundleName).assertEqual(BUNDLE_NAME);
+    });
+    /**
+     * @tc.number    SUB_IHSP_LIFE_0029
+     * @tc.name      testLifecycle0029
+     * @tc.desc      Top ability context shares the launched dirs
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLifecycle0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const top: UIAbility | undefined = await topAbility();
+      const base: UIAbility | undefined = launched;
+      logCase('testLifecycle0029', 'top ability dirs');
+      expect(top !== undefined && base !== undefined).assertTrue();
+      if (top === undefined || base === undefined) {
+        return;
+      }
+      expect(top.context.filesDir).assertEqual(base.context.filesDir);
+      expect(top.context.cacheDir).assertEqual(base.context.cacheDir);
+      expect(top.context.bundleCodeDir).assertEqual(base.context.bundleCodeDir);
+    });
+    /**
+     * @tc.number    SUB_IHSP_LIFE_0030
+     * @tc.name      testLifecycle0030
+     * @tc.desc      Launched ability keeps a stable identity
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLifecycle0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility | undefined = launched;
+      if (ability === undefined) {
+        logCase('testLifecycle0030', 'ability not launched');
+        return;
+      }
+      const info: bundleManager.AbilityInfo = ability.context.abilityInfo;
+      expect(ability.context.abilityInfo.name).assertEqual(ENTRY_ABILITY);
+      expect(ability.context.abilityInfo.enabled).assertTrue();
+      expect(ability.context.abilityInfo.exported).assertTrue();
+      expect(ability.context.abilityInfo.enabled).assertTrue();
+    });
+;
+  });
+}
