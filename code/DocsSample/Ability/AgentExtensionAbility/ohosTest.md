@@ -6,7 +6,7 @@
 
 本文档说明 Agent 扩展能力自动化测试的对象、隔离策略、参数矩阵、运行方法及实测证据，用于代码评审、版本回归和后续扩展。统计依据为当前注册入口及测试源码；历史运行结果单独记录于附录 D。
 
-当前核心业务是 Agent 生命周期、固定认证回复和固定数据回复。配置文件声明天气助手及两个技能，但生产回调尚未实现天气查询、联网预报或握手凭据校验；测试结论以源码实际行为为界。
+当前核心业务是 Agent 生命周期、固定鉴权回复和固定数据回复。配置文件声明天气助手及两个技能，但生产回调尚未实现天气查询、联网预报或握手凭据校验；测试结论以源码实际行为为界。
 
 ## 2. 测试设计原则
 
@@ -49,9 +49,9 @@
 
 - 主 Ability：`entry/src/main/ets/entryability/EntryAbility.ets` 设置颜色模式，在窗口创建时加载 `pages/Index`，记录生命周期日志。
 - 首页：`entry/src/main/ets/pages/Index.ets` 展示标识为 `HelloWorld` 的组件，初始文本为 `Hello World`，点击后变为 `Welcome`。
-- Agent 扩展：`entry/src/main/ets/agentextability/AgentExtAbility.ets` 实现创建、连接、断开、认证、数据接收与销毁回调。
+- Agent 扩展：`entry/src/main/ets/agentextability/AgentExtAbility.ets` 实现创建、连接、断开、鉴权、数据接收与销毁回调。
 - 连接状态：`onConnect` 保存 `comProxy`，`onDisconnect` 清空引用。字段为私有字段，现有测试通过后续调用记录观察外部行为，不声称直接读取字段值。
-- 认证回复：`onAuth(proxy, handshakeData)` 调用参数代理的 `authorize('auth success')`，不解析握手；异常路径捕获 `BusinessError` 并记录日志。
+- 鉴权回复：`onAuth(proxy, handshakeData)` 调用参数代理的 `authorize('auth success')`，不解析握手；异常路径捕获 `BusinessError` 并记录日志。
 - 数据回复：`onData(proxy, data)` 调用参数代理的 `sendData('reply message')`，不回显输入；异常路径捕获错误并记录日志。
 - 模块声明：`entry/src/main/module.json5` 的扩展类型为 `agent`，元数据 `ohos.extension.agent` 指向 `$profile:agent_config`。主模块 `deviceTypes` 为 `default`，profile 的设备声明为 `phone/tablet`，两者含义不同。
 - 配置资源：`agent_config.json` 声明 `weather_assistant_001`、`WeatherAssistant`、版本 `1.0.0`，以及 `get_weather`、`weather_forecast` 两个技能和输入输出格式。
@@ -73,7 +73,7 @@
 
 ### 4.1 功能正确性
 
-- 认证回调：核对尝试次数、成功次数及精确回复 `auth success`，同时确认没有意外发送数据。
+- 鉴权回调：核对尝试次数、成功次数及精确回复 `auth success`，同时确认没有意外发送数据。
 - 数据回调：核对发送次数和精确回复 `reply message`，确认请求未被直接作为回复返回。
 - 回调路由：连接主代理后传入次代理，确认回复发送到回调参数指定的代理。
 - 调用顺序：精确断言 `authorize>sendData` 等序列，并逐条核对批次结果。
@@ -86,7 +86,7 @@
 
 记录代理可为 `authorize` 和 `sendData` 分别配置失败次数及错误码，先记录调用尝试，再模拟抛错，只有成功时才写入成功数组。恢复用例同时校验：
 
-- 首次失败后尝试次数增长，成功结果仍为零。
+- 第一次失败后尝试次数增长，成功结果仍为零。
 - 剩余失败次数递减，异常由生产回调捕获。
 - 再次调用成功，内容符合固定回复契约。
 - 授权失败与数据失败互不污染，另一代理仍可正常处理。
@@ -101,7 +101,7 @@
 
 UI 用例通过 `Promise.all` 发起两次读取请求，由共享队列串行调用 UiTest，核对读取一致。回调套件钩子主动让出事件循环，使全量执行持续推进。
 
-`PerformanceStability` 当前验证批次与隔离契约；一次全量回归不等同于小时级或天级长稳认证。
+`PerformanceStability` 当前验证批次与隔离契约；一次全量回归不等同于小时级或天级长稳鉴权。
 
 ### 4.4 性能与兼容性
 
@@ -115,7 +115,7 @@ UI 用例通过 `Promise.all` 发起两次读取请求，由共享队列串行�
 
 - 不可信输入：可疑文本仍验证固定回复，明确当前没有隐式输入验证器。
 - 数据隔离：回复不回显输入，不同主机与生产实例的记录分离。
-- 授权契约：`auth success` 是示例固定字符串，不代表真实身份认证或凭据校验成功。
+- 授权契约：`auth success` 是示例固定字符串，不代表真实身份鉴权或凭据校验成功。
 - 资源契约：直接导入生产 JSON，避免仅断言测试自建 Mirror。
 - 日志规范：使用标准 hilog 和英文内容；异常用例检查恢复行为，未对所有设备日志独立采集断言。
 - 配置规范：`.json5` 保留首部版权注释，扩展类型及元数据对应实际 Agent 声明。
@@ -177,7 +177,7 @@ UI 用例通过 `Promise.all` 发起两次读取请求，由共享队列串行�
 
 ## 7. 结论
 
-当前测试由生产回调、类型化 IPC 替身、输入与时序矩阵、真实 profile 校验和页面交互组成，覆盖固定回复契约及异常后恢复。后续新增真实认证、天气服务或系统主机接入时，应同步新增集成断言，并更新本模板中的覆盖边界和实测记录。
+当前测试由生产回调、类型化 IPC 替身、输入与时序矩阵、真实 profile 校验和页面交互组成，覆盖固定回复契约及异常后恢复。后续新增真实鉴权、天气服务或系统主机接入时，应同步新增集成断言，并更新本模板中的覆盖边界和实测记录。
 
 ## 附录 A：测试框架与模式
 
@@ -198,14 +198,14 @@ UI 用例通过 `Promise.all` 发起两次读取请求，由共享队列串行�
 | --- | --- | --- | --- | --- | --- |
 | 拉起首页 | 已解锁且已安装两个 HAP | 启动测试 | `EntryAbility` 在前台，`HelloWorld` 存在 | 是 | Pass |
 | 点击首页文本 | 组件可见 | 点击并重复点击 | 显示并保持 `Welcome` | 是 | Pass |
-| 固定认证回复 | 创建生产扩展与记录代理 | 调用 `onAuth` | 参数代理收到 `auth success` | 是 | Pass |
+| 固定鉴权回复 | 创建生产扩展与记录代理 | 调用 `onAuth` | 参数代理收到 `auth success` | 是 | Pass |
 | 固定数据回复 | 创建生产扩展与记录代理 | 调用 `onData` | 参数代理收到 `reply message` | 是 | Pass |
 | 代理路由 | 已连接主代理 | 回调传入次代理 | 回复只进入指定代理记录 | 是 | Pass |
-| 授权异常恢复 | 授权失败一次 | 连续认证 | 首次无成功结果，后续恢复 | 是 | Pass |
-| 数据异常恢复 | 发送失败一次 | 连续发送 | 首次无成功数据，后续恢复 | 是 | Pass |
+| 授权异常恢复 | 授权失败一次 | 连续鉴权 | 第一次无成功结果，后续恢复 | 是 | Pass |
+| 数据异常恢复 | 发送失败一次 | 连续发送 | 第一次无成功数据，后续恢复 | 是 | Pass |
 | 重连与实例隔离 | 两代理或两生产实例 | 重连和交错回放 | 次数、顺序、结果互不串扰 | 是 | Pass |
 | profile 资源契约 | 真实 JSON 可导入 | 读取身份、技能和格式 | 与生产声明一致 | 是 | Pass |
-| 系统主机接入 | 支持 Agent 的系统和真实主机 | 系统发现、连接和认证 | 完成真实跨进程交互 | 否 | 待专项验证 |
+| 系统主机接入 | 支持 Agent 的系统和真实主机 | 系统发现、连接和鉴权 | 完成真实跨进程交互 | 否 | 待专项验证 |
 
 ## 附录 C：运行方式
 
@@ -243,7 +243,7 @@ hdc shell <ability-assistant> test -b com.sample.agentextensionability -m entry_
 
 > **注意**：占位符不能原样执行。同一个包同一时间只运行一个会话，避免 DevEco 与命令行相互干扰。修改测试后确认产物时间戳，必要时先清理再构建。也可在指定 DevEco 中运行 `entry/src/ohosTest`，使用同一 `OpenHarmonyTestRunner`。
 
-> **构建检查**：PreBuild 提示 `extensionAbilities[0].type` 不在枚举时，检查实际 SDK 和 schema 是否支持 `agent`。保留生产扩展类型，不能改为其他类型掩盖问题。
+> **构建检查**：PreBuild 提示 `extensionAbilities[0].type` 不在枚举时，检查实际 SDK 和 schema 是否支持 `agent`。保留生产扩展类型，不能改为其它类型掩盖问题。
 
 ## 附录 D：实测结果（最近一次记录）
 
