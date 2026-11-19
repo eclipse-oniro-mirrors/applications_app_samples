@@ -2088,3 +2088,1255 @@ export default function MediaListingAlbumsLogic(): void {
       handles.splice(0, handles.length);
       const repeated: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.IMAGE);
       LogicTestLog.number(name, "Independent repeated native result", 0, repeated.length);
+      expect(repeated.length).assertEqual(0);
+      LogicTestLog.number(name, "Fetch closed for both listings", 2, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(2);
+      LogicTestLog.number(name, "Two native fetch requests", 2, library.fetches.length);
+      expect(library.fetches.length).assertEqual(2);
+      LogicTestLog.value(name, "Source assets not deleted by result mutation", "",
+        fetch.assets.map((item: MediaPhotoAsset) => item.uri).join("|"));
+      expect(fetch.assets.map((item: MediaPhotoAsset) => item.uri).join("|")).assertEqual("");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1077
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1077
+     * @tc.nameDesc Library listing filters native photo type and closes fetch: Verify typed usable handles, native
+     * columns, filtered order and a fresh independent repeated listing.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1077", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1077";
+      LogicTestLog.begin(name, "FileType.VIDEO; images=0; videos=0");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, []);
+      library.results = [fetch];
+      const handles: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.VIDEO);
+      LogicTestLog.number(name, "Matching native photo count", 0, handles.length);
+      expect(handles.length).assertEqual(0);
+      LogicTestLog.value(name, "Native display names", "",
+        handles.map((item: MediaAssetHandle) => item.displayName).join("|"));
+      expect(handles.map((item: MediaAssetHandle) => item.displayName).join("|")).assertEqual("");
+      LogicTestLog.value(name, "Native URIs in filtered order", "",
+        handles.map((item: MediaAssetHandle) => item.uri).join("|"));
+      expect(handles.map((item: MediaAssetHandle) => item.uri).join("|")).assertEqual("");
+      LogicTestLog.value(name, "Requested type on every handle", "",
+        handles.map((item: MediaAssetHandle) => String(item.mediaType)).join("|"));
+      expect(handles.map((item: MediaAssetHandle) => String(item.mediaType)).join("|")).assertEqual("");
+      LogicTestLog.number(name, "One library fetch", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      LogicTestLog.value(name, "Required native fetch columns", "duration|date_added",
+        library.fetches[0].fetchColumns.join("|"));
+      expect(library.fetches[0].fetchColumns.join("|")).assertEqual("duration|date_added");
+      LogicTestLog.flag(name, "Predicates are supplied for media listing", library.fetches[0].predicates !== undefined);
+      expect(library.fetches[0].predicates !== undefined).assertTrue();
+      LogicTestLog.number(name, "Fetch objects read once", 1, fetch.allCalls);
+      expect(fetch.allCalls).assertEqual(1);
+      LogicTestLog.number(name, "Fetch closed once", 1, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(1);
+      LogicTestLog.value(name, "Listing closes after constructing matching handles",
+        "library.fetch|fetch.all|fetch.close", trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("library.fetch|fetch.all|fetch.close");
+      LogicTestLog.number(name, "No file open", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No file rename", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No file unlink", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No directory listing", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No file stat", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      handles.splice(0, handles.length);
+      const repeated: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.VIDEO);
+      LogicTestLog.number(name, "Independent repeated native result", 0, repeated.length);
+      expect(repeated.length).assertEqual(0);
+      LogicTestLog.number(name, "Fetch closed for both listings", 2, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(2);
+      LogicTestLog.number(name, "Two native fetch requests", 2, library.fetches.length);
+      expect(library.fetches.length).assertEqual(2);
+      LogicTestLog.value(name, "Source assets not deleted by result mutation", "",
+        fetch.assets.map((item: MediaPhotoAsset) => item.uri).join("|"));
+      expect(fetch.assets.map((item: MediaPhotoAsset) => item.uri).join("|")).assertEqual("");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1078
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1078
+     * @tc.nameDesc Album counts keep documents text only: Verify fixed album order, exact per-type counts and no audio,
+     * image or arbitrary file counted as Documents.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1078", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1078";
+      LogicTestLog.begin(name, "album dataset 0; sandbox files document.txt,music.mp3,image.jpg,video.mp4,other");
+      files.names = ["document.txt","music.mp3","image.jpg","video.mp4","other"];
+      const photo0: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/album-0-0", photoAccessHelper.PhotoType.IMAGE, "album-0.jpg");
+      const photo1: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/album-0-1", photoAccessHelper.PhotoType.VIDEO, "album-1.mp4");
+      const firstFetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo0, photo1]);
+      const secondFetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo0, photo1]);
+      library.results = [firstFetch, secondFetch];
+      const albums: AlbumInfo[] = await media.getAlbums(context);
+      LogicTestLog.number(name, "Four fixed albums", 4, albums.length);
+      expect(albums.length).assertEqual(4);
+      LogicTestLog.value(name, "Album order", "Documents|Pictures|Videos|Audios",
+        albums.map((item: AlbumInfo) => item.albumName).join("|"));
+      expect(albums.map((item: AlbumInfo) => item.albumName).join("|")).assertEqual("Documents|Pictures|Videos|Audios");
+      LogicTestLog.value(name, "Album media type order", "4|1|2|3",
+        albums.map((item: AlbumInfo) => String(item.mediaType)).join("|"));
+      expect(albums.map((item: AlbumInfo) => String(item.mediaType)).join("|")).assertEqual("4|1|2|3");
+      LogicTestLog.number(name, "Documents only text suffix", 1, albums[0].count);
+      expect(albums[0].count).assertEqual(1);
+      LogicTestLog.number(name, "Pictures only image type", 1, albums[1].count);
+      expect(albums[1].count).assertEqual(1);
+      LogicTestLog.number(name, "Videos only video type", 1, albums[2].count);
+      expect(albums[2].count).assertEqual(1);
+      LogicTestLog.number(name, "Audios only lowercase mp3 suffix", 1, albums[3].count);
+      expect(albums[3].count).assertEqual(1);
+      LogicTestLog.number(name, "Separate image and video fetches", 2, library.fetches.length);
+      expect(library.fetches.length).assertEqual(2);
+      LogicTestLog.number(name, "Image fetch closed", 1, firstFetch.closeCalls);
+      expect(firstFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Video fetch closed", 1, secondFetch.closeCalls);
+      expect(secondFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Each fetch read once", 2, firstFetch.allCalls + secondFetch.allCalls);
+      expect(firstFetch.allCalls + secondFetch.allCalls).assertEqual(2);
+      LogicTestLog.number(name, "Audio and text directory lists", 2, files.lists.length);
+      expect(files.lists.length).assertEqual(2);
+      LogicTestLog.value(name, "Both sandbox lists use the saved path",
+        "/synthetic/media/alpha|/synthetic/media/alpha", files.lists.join("|"));
+      expect(files.lists.join("|")).assertEqual("/synthetic/media/alpha|/synthetic/media/alpha");
+      LogicTestLog.number(name, "Only Documents require stats", 1, files.stats.length);
+      expect(files.stats.length).assertEqual(1);
+      LogicTestLog.value(name, "Only text stat paths", "/synthetic/media/alpha/document.txt", files.stats.join("|"));
+      expect(files.stats.join("|")).assertEqual("/synthetic/media/alpha/document.txt");
+      LogicTestLog.number(name, "Album listing never opens files", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Album listing never creates assets", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Album listing leaves synthetic directory unchanged",
+        "document.txt|music.mp3|image.jpg|video.mp4|other", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("document.txt|music.mp3|image.jpg|video.mp4|other");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1079
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1079
+     * @tc.nameDesc Album counts keep documents text only: Verify fixed album order, exact per-type counts and no audio,
+     * image or arbitrary file counted as Documents.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1079", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1079";
+      LogicTestLog.begin(name, "album dataset 1; sandbox files one.txt,two.txt,voice.mp3,UPPER.TXT");
+      files.names = ["one.txt","two.txt","voice.mp3","UPPER.TXT"];
+      const photo0: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/album-1-0", photoAccessHelper.PhotoType.IMAGE, "album-0.jpg");
+      const photo1: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/album-1-1", photoAccessHelper.PhotoType.IMAGE, "album-1.jpg");
+      const firstFetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo0, photo1]);
+      const secondFetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo0, photo1]);
+      library.results = [firstFetch, secondFetch];
+      const albums: AlbumInfo[] = await media.getAlbums(context);
+      LogicTestLog.number(name, "Four fixed albums", 4, albums.length);
+      expect(albums.length).assertEqual(4);
+      LogicTestLog.value(name, "Album order", "Documents|Pictures|Videos|Audios",
+        albums.map((item: AlbumInfo) => item.albumName).join("|"));
+      expect(albums.map((item: AlbumInfo) => item.albumName).join("|")).assertEqual("Documents|Pictures|Videos|Audios");
+      LogicTestLog.value(name, "Album media type order", "4|1|2|3",
+        albums.map((item: AlbumInfo) => String(item.mediaType)).join("|"));
+      expect(albums.map((item: AlbumInfo) => String(item.mediaType)).join("|")).assertEqual("4|1|2|3");
+      LogicTestLog.number(name, "Documents only text suffix", 2, albums[0].count);
+      expect(albums[0].count).assertEqual(2);
+      LogicTestLog.number(name, "Pictures only image type", 2, albums[1].count);
+      expect(albums[1].count).assertEqual(2);
+      LogicTestLog.number(name, "Videos only video type", 0, albums[2].count);
+      expect(albums[2].count).assertEqual(0);
+      LogicTestLog.number(name, "Audios only lowercase mp3 suffix", 1, albums[3].count);
+      expect(albums[3].count).assertEqual(1);
+      LogicTestLog.number(name, "Separate image and video fetches", 2, library.fetches.length);
+      expect(library.fetches.length).assertEqual(2);
+      LogicTestLog.number(name, "Image fetch closed", 1, firstFetch.closeCalls);
+      expect(firstFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Video fetch closed", 1, secondFetch.closeCalls);
+      expect(secondFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Each fetch read once", 2, firstFetch.allCalls + secondFetch.allCalls);
+      expect(firstFetch.allCalls + secondFetch.allCalls).assertEqual(2);
+      LogicTestLog.number(name, "Audio and text directory lists", 2, files.lists.length);
+      expect(files.lists.length).assertEqual(2);
+      LogicTestLog.value(name, "Both sandbox lists use the saved path",
+        "/synthetic/media/alpha|/synthetic/media/alpha", files.lists.join("|"));
+      expect(files.lists.join("|")).assertEqual("/synthetic/media/alpha|/synthetic/media/alpha");
+      LogicTestLog.number(name, "Only Documents require stats", 2, files.stats.length);
+      expect(files.stats.length).assertEqual(2);
+      LogicTestLog.value(name, "Only text stat paths",
+        "/synthetic/media/alpha/one.txt|/synthetic/media/alpha/two.txt", files.stats.join("|"));
+      expect(files.stats.join("|")).assertEqual("/synthetic/media/alpha/one.txt|/synthetic/media/alpha/two.txt");
+      LogicTestLog.number(name, "Album listing never opens files", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Album listing never creates assets", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Album listing leaves synthetic directory unchanged",
+        "one.txt|two.txt|voice.mp3|UPPER.TXT", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("one.txt|two.txt|voice.mp3|UPPER.TXT");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1080
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1080
+     * @tc.nameDesc Album counts keep documents text only: Verify fixed album order, exact per-type counts and no audio,
+     * image or arbitrary file counted as Documents.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1080", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1080";
+      LogicTestLog.begin(name, "album dataset 2; sandbox files one.mp3,two.mp3,ignored.bin");
+      files.names = ["one.mp3","two.mp3","ignored.bin"];
+      const photo0: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/album-2-0", photoAccessHelper.PhotoType.VIDEO, "album-0.mp4");
+      const photo1: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/album-2-1", photoAccessHelper.PhotoType.VIDEO, "album-1.mp4");
+      const firstFetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo0, photo1]);
+      const secondFetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo0, photo1]);
+      library.results = [firstFetch, secondFetch];
+      const albums: AlbumInfo[] = await media.getAlbums(context);
+      LogicTestLog.number(name, "Four fixed albums", 4, albums.length);
+      expect(albums.length).assertEqual(4);
+      LogicTestLog.value(name, "Album order", "Documents|Pictures|Videos|Audios",
+        albums.map((item: AlbumInfo) => item.albumName).join("|"));
+      expect(albums.map((item: AlbumInfo) => item.albumName).join("|")).assertEqual("Documents|Pictures|Videos|Audios");
+      LogicTestLog.value(name, "Album media type order", "4|1|2|3",
+        albums.map((item: AlbumInfo) => String(item.mediaType)).join("|"));
+      expect(albums.map((item: AlbumInfo) => String(item.mediaType)).join("|")).assertEqual("4|1|2|3");
+      LogicTestLog.number(name, "Documents only text suffix", 0, albums[0].count);
+      expect(albums[0].count).assertEqual(0);
+      LogicTestLog.number(name, "Pictures only image type", 0, albums[1].count);
+      expect(albums[1].count).assertEqual(0);
+      LogicTestLog.number(name, "Videos only video type", 2, albums[2].count);
+      expect(albums[2].count).assertEqual(2);
+      LogicTestLog.number(name, "Audios only lowercase mp3 suffix", 2, albums[3].count);
+      expect(albums[3].count).assertEqual(2);
+      LogicTestLog.number(name, "Separate image and video fetches", 2, library.fetches.length);
+      expect(library.fetches.length).assertEqual(2);
+      LogicTestLog.number(name, "Image fetch closed", 1, firstFetch.closeCalls);
+      expect(firstFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Video fetch closed", 1, secondFetch.closeCalls);
+      expect(secondFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Each fetch read once", 2, firstFetch.allCalls + secondFetch.allCalls);
+      expect(firstFetch.allCalls + secondFetch.allCalls).assertEqual(2);
+      LogicTestLog.number(name, "Audio and text directory lists", 2, files.lists.length);
+      expect(files.lists.length).assertEqual(2);
+      LogicTestLog.value(name, "Both sandbox lists use the saved path",
+        "/synthetic/media/alpha|/synthetic/media/alpha", files.lists.join("|"));
+      expect(files.lists.join("|")).assertEqual("/synthetic/media/alpha|/synthetic/media/alpha");
+      LogicTestLog.number(name, "Only Documents require stats", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.value(name, "Only text stat paths", "", files.stats.join("|"));
+      expect(files.stats.join("|")).assertEqual("");
+      LogicTestLog.number(name, "Album listing never opens files", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Album listing never creates assets", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Album listing leaves synthetic directory unchanged",
+        "one.mp3|two.mp3|ignored.bin", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("one.mp3|two.mp3|ignored.bin");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1081
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1081
+     * @tc.nameDesc Album counts keep documents text only: Verify fixed album order, exact per-type counts and no audio,
+     * image or arbitrary file counted as Documents.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1081", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1081";
+      LogicTestLog.begin(name, "album dataset 3; sandbox files ");
+      files.names = [];
+      const firstFetch: FakeMediaFetch = new FakeMediaFetch(trace, []);
+      const secondFetch: FakeMediaFetch = new FakeMediaFetch(trace, []);
+      library.results = [firstFetch, secondFetch];
+      const albums: AlbumInfo[] = await media.getAlbums(context);
+      LogicTestLog.number(name, "Four fixed albums", 4, albums.length);
+      expect(albums.length).assertEqual(4);
+      LogicTestLog.value(name, "Album order", "Documents|Pictures|Videos|Audios",
+        albums.map((item: AlbumInfo) => item.albumName).join("|"));
+      expect(albums.map((item: AlbumInfo) => item.albumName).join("|")).assertEqual("Documents|Pictures|Videos|Audios");
+      LogicTestLog.value(name, "Album media type order", "4|1|2|3",
+        albums.map((item: AlbumInfo) => String(item.mediaType)).join("|"));
+      expect(albums.map((item: AlbumInfo) => String(item.mediaType)).join("|")).assertEqual("4|1|2|3");
+      LogicTestLog.number(name, "Documents only text suffix", 0, albums[0].count);
+      expect(albums[0].count).assertEqual(0);
+      LogicTestLog.number(name, "Pictures only image type", 0, albums[1].count);
+      expect(albums[1].count).assertEqual(0);
+      LogicTestLog.number(name, "Videos only video type", 0, albums[2].count);
+      expect(albums[2].count).assertEqual(0);
+      LogicTestLog.number(name, "Audios only lowercase mp3 suffix", 0, albums[3].count);
+      expect(albums[3].count).assertEqual(0);
+      LogicTestLog.number(name, "Separate image and video fetches", 2, library.fetches.length);
+      expect(library.fetches.length).assertEqual(2);
+      LogicTestLog.number(name, "Image fetch closed", 1, firstFetch.closeCalls);
+      expect(firstFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Video fetch closed", 1, secondFetch.closeCalls);
+      expect(secondFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Each fetch read once", 2, firstFetch.allCalls + secondFetch.allCalls);
+      expect(firstFetch.allCalls + secondFetch.allCalls).assertEqual(2);
+      LogicTestLog.number(name, "Audio and text directory lists", 2, files.lists.length);
+      expect(files.lists.length).assertEqual(2);
+      LogicTestLog.value(name, "Both sandbox lists use the saved path",
+        "/synthetic/media/alpha|/synthetic/media/alpha", files.lists.join("|"));
+      expect(files.lists.join("|")).assertEqual("/synthetic/media/alpha|/synthetic/media/alpha");
+      LogicTestLog.number(name, "Only Documents require stats", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.value(name, "Only text stat paths", "", files.stats.join("|"));
+      expect(files.stats.join("|")).assertEqual("");
+      LogicTestLog.number(name, "Album listing never opens files", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Album listing never creates assets", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Album listing leaves synthetic directory unchanged", "", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1082
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1082
+     * @tc.nameDesc Album counts keep documents text only: Verify fixed album order, exact per-type counts and no audio,
+     * image or arbitrary file counted as Documents.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1082", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1082";
+      LogicTestLog.begin(name, "album dataset 4; sandbox files .txt,.mp3,case.Txt,case.Mp3");
+      files.names = [".txt",".mp3","case.Txt","case.Mp3"];
+      const photo0: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/album-4-0", photoAccessHelper.PhotoType.IMAGE, "album-0.jpg");
+      const photo1: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/album-4-1", photoAccessHelper.PhotoType.IMAGE, "album-1.jpg");
+      const photo2: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/album-4-2", photoAccessHelper.PhotoType.VIDEO, "album-2.mp4");
+      const photo3: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/album-4-3", photoAccessHelper.PhotoType.VIDEO, "album-3.mp4");
+      const firstFetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo0, photo1, photo2, photo3]);
+      const secondFetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo0, photo1, photo2, photo3]);
+      library.results = [firstFetch, secondFetch];
+      const albums: AlbumInfo[] = await media.getAlbums(context);
+      LogicTestLog.number(name, "Four fixed albums", 4, albums.length);
+      expect(albums.length).assertEqual(4);
+      LogicTestLog.value(name, "Album order", "Documents|Pictures|Videos|Audios",
+        albums.map((item: AlbumInfo) => item.albumName).join("|"));
+      expect(albums.map((item: AlbumInfo) => item.albumName).join("|")).assertEqual("Documents|Pictures|Videos|Audios");
+      LogicTestLog.value(name, "Album media type order", "4|1|2|3",
+        albums.map((item: AlbumInfo) => String(item.mediaType)).join("|"));
+      expect(albums.map((item: AlbumInfo) => String(item.mediaType)).join("|")).assertEqual("4|1|2|3");
+      LogicTestLog.number(name, "Documents only text suffix", 1, albums[0].count);
+      expect(albums[0].count).assertEqual(1);
+      LogicTestLog.number(name, "Pictures only image type", 2, albums[1].count);
+      expect(albums[1].count).assertEqual(2);
+      LogicTestLog.number(name, "Videos only video type", 2, albums[2].count);
+      expect(albums[2].count).assertEqual(2);
+      LogicTestLog.number(name, "Audios only lowercase mp3 suffix", 1, albums[3].count);
+      expect(albums[3].count).assertEqual(1);
+      LogicTestLog.number(name, "Separate image and video fetches", 2, library.fetches.length);
+      expect(library.fetches.length).assertEqual(2);
+      LogicTestLog.number(name, "Image fetch closed", 1, firstFetch.closeCalls);
+      expect(firstFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Video fetch closed", 1, secondFetch.closeCalls);
+      expect(secondFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Each fetch read once", 2, firstFetch.allCalls + secondFetch.allCalls);
+      expect(firstFetch.allCalls + secondFetch.allCalls).assertEqual(2);
+      LogicTestLog.number(name, "Audio and text directory lists", 2, files.lists.length);
+      expect(files.lists.length).assertEqual(2);
+      LogicTestLog.value(name, "Both sandbox lists use the saved path",
+        "/synthetic/media/alpha|/synthetic/media/alpha", files.lists.join("|"));
+      expect(files.lists.join("|")).assertEqual("/synthetic/media/alpha|/synthetic/media/alpha");
+      LogicTestLog.number(name, "Only Documents require stats", 1, files.stats.length);
+      expect(files.stats.length).assertEqual(1);
+      LogicTestLog.value(name, "Only text stat paths", "/synthetic/media/alpha/.txt", files.stats.join("|"));
+      expect(files.stats.join("|")).assertEqual("/synthetic/media/alpha/.txt");
+      LogicTestLog.number(name, "Album listing never opens files", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Album listing never creates assets", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Album listing leaves synthetic directory unchanged",
+        ".txt|.mp3|case.Txt|case.Mp3", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual(".txt|.mp3|case.Txt|case.Mp3");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1083
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1083
+     * @tc.nameDesc Album counts keep documents text only: Verify fixed album order, exact per-type counts and no audio,
+     * image or arbitrary file counted as Documents.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1083", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1083";
+      LogicTestLog.begin(name, "album dataset 5; sandbox files a.txt,a.txt,b.mp3,b.mp3");
+      files.names = ["a.txt","a.txt","b.mp3","b.mp3"];
+      const photo0: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/album-5-0", photoAccessHelper.PhotoType.IMAGE, "album-0.jpg");
+      const firstFetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo0]);
+      const secondFetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo0]);
+      library.results = [firstFetch, secondFetch];
+      const albums: AlbumInfo[] = await media.getAlbums(context);
+      LogicTestLog.number(name, "Four fixed albums", 4, albums.length);
+      expect(albums.length).assertEqual(4);
+      LogicTestLog.value(name, "Album order", "Documents|Pictures|Videos|Audios",
+        albums.map((item: AlbumInfo) => item.albumName).join("|"));
+      expect(albums.map((item: AlbumInfo) => item.albumName).join("|")).assertEqual("Documents|Pictures|Videos|Audios");
+      LogicTestLog.value(name, "Album media type order", "4|1|2|3",
+        albums.map((item: AlbumInfo) => String(item.mediaType)).join("|"));
+      expect(albums.map((item: AlbumInfo) => String(item.mediaType)).join("|")).assertEqual("4|1|2|3");
+      LogicTestLog.number(name, "Documents only text suffix", 2, albums[0].count);
+      expect(albums[0].count).assertEqual(2);
+      LogicTestLog.number(name, "Pictures only image type", 1, albums[1].count);
+      expect(albums[1].count).assertEqual(1);
+      LogicTestLog.number(name, "Videos only video type", 0, albums[2].count);
+      expect(albums[2].count).assertEqual(0);
+      LogicTestLog.number(name, "Audios only lowercase mp3 suffix", 2, albums[3].count);
+      expect(albums[3].count).assertEqual(2);
+      LogicTestLog.number(name, "Separate image and video fetches", 2, library.fetches.length);
+      expect(library.fetches.length).assertEqual(2);
+      LogicTestLog.number(name, "Image fetch closed", 1, firstFetch.closeCalls);
+      expect(firstFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Video fetch closed", 1, secondFetch.closeCalls);
+      expect(secondFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Each fetch read once", 2, firstFetch.allCalls + secondFetch.allCalls);
+      expect(firstFetch.allCalls + secondFetch.allCalls).assertEqual(2);
+      LogicTestLog.number(name, "Audio and text directory lists", 2, files.lists.length);
+      expect(files.lists.length).assertEqual(2);
+      LogicTestLog.value(name, "Both sandbox lists use the saved path",
+        "/synthetic/media/alpha|/synthetic/media/alpha", files.lists.join("|"));
+      expect(files.lists.join("|")).assertEqual("/synthetic/media/alpha|/synthetic/media/alpha");
+      LogicTestLog.number(name, "Only Documents require stats", 2, files.stats.length);
+      expect(files.stats.length).assertEqual(2);
+      LogicTestLog.value(name, "Only text stat paths",
+        "/synthetic/media/alpha/a.txt|/synthetic/media/alpha/a.txt", files.stats.join("|"));
+      expect(files.stats.join("|")).assertEqual("/synthetic/media/alpha/a.txt|/synthetic/media/alpha/a.txt");
+      LogicTestLog.number(name, "Album listing never opens files", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Album listing never creates assets", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Album listing leaves synthetic directory unchanged",
+        "a.txt|a.txt|b.mp3|b.mp3", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("a.txt|a.txt|b.mp3|b.mp3");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1084
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1084
+     * @tc.nameDesc Album counts keep documents text only: Verify fixed album order, exact per-type counts and no audio,
+     * image or arbitrary file counted as Documents.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1084", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1084";
+      LogicTestLog.begin(name, "album dataset 6; sandbox files report.v2.txt,not.txt.bak,sound.mp3.old");
+      files.names = ["report.v2.txt","not.txt.bak","sound.mp3.old"];
+      const photo0: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/album-6-0", photoAccessHelper.PhotoType.VIDEO, "album-0.mp4");
+      const firstFetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo0]);
+      const secondFetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo0]);
+      library.results = [firstFetch, secondFetch];
+      const albums: AlbumInfo[] = await media.getAlbums(context);
+      LogicTestLog.number(name, "Four fixed albums", 4, albums.length);
+      expect(albums.length).assertEqual(4);
+      LogicTestLog.value(name, "Album order", "Documents|Pictures|Videos|Audios",
+        albums.map((item: AlbumInfo) => item.albumName).join("|"));
+      expect(albums.map((item: AlbumInfo) => item.albumName).join("|")).assertEqual("Documents|Pictures|Videos|Audios");
+      LogicTestLog.value(name, "Album media type order", "4|1|2|3",
+        albums.map((item: AlbumInfo) => String(item.mediaType)).join("|"));
+      expect(albums.map((item: AlbumInfo) => String(item.mediaType)).join("|")).assertEqual("4|1|2|3");
+      LogicTestLog.number(name, "Documents only text suffix", 1, albums[0].count);
+      expect(albums[0].count).assertEqual(1);
+      LogicTestLog.number(name, "Pictures only image type", 0, albums[1].count);
+      expect(albums[1].count).assertEqual(0);
+      LogicTestLog.number(name, "Videos only video type", 1, albums[2].count);
+      expect(albums[2].count).assertEqual(1);
+      LogicTestLog.number(name, "Audios only lowercase mp3 suffix", 0, albums[3].count);
+      expect(albums[3].count).assertEqual(0);
+      LogicTestLog.number(name, "Separate image and video fetches", 2, library.fetches.length);
+      expect(library.fetches.length).assertEqual(2);
+      LogicTestLog.number(name, "Image fetch closed", 1, firstFetch.closeCalls);
+      expect(firstFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Video fetch closed", 1, secondFetch.closeCalls);
+      expect(secondFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Each fetch read once", 2, firstFetch.allCalls + secondFetch.allCalls);
+      expect(firstFetch.allCalls + secondFetch.allCalls).assertEqual(2);
+      LogicTestLog.number(name, "Audio and text directory lists", 2, files.lists.length);
+      expect(files.lists.length).assertEqual(2);
+      LogicTestLog.value(name, "Both sandbox lists use the saved path",
+        "/synthetic/media/alpha|/synthetic/media/alpha", files.lists.join("|"));
+      expect(files.lists.join("|")).assertEqual("/synthetic/media/alpha|/synthetic/media/alpha");
+      LogicTestLog.number(name, "Only Documents require stats", 1, files.stats.length);
+      expect(files.stats.length).assertEqual(1);
+      LogicTestLog.value(name, "Only text stat paths", "/synthetic/media/alpha/report.v2.txt", files.stats.join("|"));
+      expect(files.stats.join("|")).assertEqual("/synthetic/media/alpha/report.v2.txt");
+      LogicTestLog.number(name, "Album listing never opens files", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Album listing never creates assets", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Album listing leaves synthetic directory unchanged",
+        "report.v2.txt|not.txt.bak|sound.mp3.old", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("report.v2.txt|not.txt.bak|sound.mp3.old");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1085
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1085
+     * @tc.nameDesc Album counts keep documents text only: Verify fixed album order, exact per-type counts and no audio,
+     * image or arbitrary file counted as Documents.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1085", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1085";
+      LogicTestLog.begin(name, "album dataset 7; sandbox files p.jpg,v.mp4,opaque,blank.");
+      files.names = ["p.jpg","v.mp4","opaque","blank."];
+      const photo0: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/album-7-0", photoAccessHelper.PhotoType.IMAGE, "album-0.jpg");
+      const photo1: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/album-7-1", photoAccessHelper.PhotoType.VIDEO, "album-1.mp4");
+      const firstFetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo0, photo1]);
+      const secondFetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo0, photo1]);
+      library.results = [firstFetch, secondFetch];
+      const albums: AlbumInfo[] = await media.getAlbums(context);
+      LogicTestLog.number(name, "Four fixed albums", 4, albums.length);
+      expect(albums.length).assertEqual(4);
+      LogicTestLog.value(name, "Album order", "Documents|Pictures|Videos|Audios",
+        albums.map((item: AlbumInfo) => item.albumName).join("|"));
+      expect(albums.map((item: AlbumInfo) => item.albumName).join("|")).assertEqual("Documents|Pictures|Videos|Audios");
+      LogicTestLog.value(name, "Album media type order", "4|1|2|3",
+        albums.map((item: AlbumInfo) => String(item.mediaType)).join("|"));
+      expect(albums.map((item: AlbumInfo) => String(item.mediaType)).join("|")).assertEqual("4|1|2|3");
+      LogicTestLog.number(name, "Documents only text suffix", 0, albums[0].count);
+      expect(albums[0].count).assertEqual(0);
+      LogicTestLog.number(name, "Pictures only image type", 1, albums[1].count);
+      expect(albums[1].count).assertEqual(1);
+      LogicTestLog.number(name, "Videos only video type", 1, albums[2].count);
+      expect(albums[2].count).assertEqual(1);
+      LogicTestLog.number(name, "Audios only lowercase mp3 suffix", 0, albums[3].count);
+      expect(albums[3].count).assertEqual(0);
+      LogicTestLog.number(name, "Separate image and video fetches", 2, library.fetches.length);
+      expect(library.fetches.length).assertEqual(2);
+      LogicTestLog.number(name, "Image fetch closed", 1, firstFetch.closeCalls);
+      expect(firstFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Video fetch closed", 1, secondFetch.closeCalls);
+      expect(secondFetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Each fetch read once", 2, firstFetch.allCalls + secondFetch.allCalls);
+      expect(firstFetch.allCalls + secondFetch.allCalls).assertEqual(2);
+      LogicTestLog.number(name, "Audio and text directory lists", 2, files.lists.length);
+      expect(files.lists.length).assertEqual(2);
+      LogicTestLog.value(name, "Both sandbox lists use the saved path",
+        "/synthetic/media/alpha|/synthetic/media/alpha", files.lists.join("|"));
+      expect(files.lists.join("|")).assertEqual("/synthetic/media/alpha|/synthetic/media/alpha");
+      LogicTestLog.number(name, "Only Documents require stats", 0, files.stats.length);
+      expect(files.stats.length).assertEqual(0);
+      LogicTestLog.value(name, "Only text stat paths", "", files.stats.join("|"));
+      expect(files.stats.join("|")).assertEqual("");
+      LogicTestLog.number(name, "Album listing never opens files", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "Album listing never creates assets", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      LogicTestLog.value(name, "Album listing leaves synthetic directory unchanged",
+        "p.jpg|v.mp4|opaque|blank.", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("p.jpg|v.mp4|opaque|blank.");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1086
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1086
+     * @tc.nameDesc Listing failures close acquired results and remain retryable: Check existing empty or partial return
+     * policy, exact cleanup counts and success after clearing a fake failure.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1086", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1086";
+      LogicTestLog.begin(name, "failure=sandbox-list; type=FileType.AUDIO");
+      files.names = ['a.txt', 'b.txt', 'tone.mp3'];
+      files.mtimes.set('/synthetic/media/alpha/a.txt', 101);
+      files.mtimes.set('/synthetic/media/alpha/b.txt', 202);
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/failure-list-0", photoAccessHelper.PhotoType.IMAGE, "failed-0.mp3");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/failure-list-0";
+      library.results = [fetch];
+      files.listError = 'synthetic list failure';
+      const failed: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.AUDIO);
+      LogicTestLog.number(name, "Failure result matches existing partial policy", 0, failed.length);
+      expect(failed.length).assertEqual(0);
+      LogicTestLog.number(name, "Acquired fetch close count on failure", 0, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(0);
+      LogicTestLog.number(name, "Object read attempts on failure", 0, fetch.allCalls);
+      expect(fetch.allCalls).assertEqual(0);
+      LogicTestLog.number(name, "Native fetch attempts on failure", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "Sandbox list attempts on failure", 1, files.lists.length);
+      expect(files.lists.length).assertEqual(1);
+      LogicTestLog.number(name, "No descriptors while failing listing", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No native create while failing listing", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No native delete while failing listing", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      files.listError = '';
+      files.statError = '';
+      library.fetchError = '';
+      fetch.allError = '';
+      fetch.closeError = '';
+      photo.getError = '';
+      const recovered: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.AUDIO);
+      LogicTestLog.number(name, "Retry result count", 1, recovered.length);
+      expect(recovered.length).assertEqual(1);
+      LogicTestLog.value(name, "Retry result names", "tone.mp3",
+        recovered.map((item: MediaAssetHandle) => item.displayName).join("|"));
+      expect(recovered.map((item: MediaAssetHandle) => item.displayName).join("|")).assertEqual("tone.mp3");
+      LogicTestLog.number(name, "Fetch closed on successful retry", 0, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(0);
+      LogicTestLog.number(name, "Retry does not rename files", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.value(name, "Retry leaves all input files available", "a.txt|b.txt|tone.mp3", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("a.txt|b.txt|tone.mp3");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1087
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1087
+     * @tc.nameDesc Listing failures close acquired results and remain retryable: Check existing empty or partial return
+     * policy, exact cleanup counts and success after clearing a fake failure.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1087", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1087";
+      LogicTestLog.begin(name, "failure=sandbox-list; type=FileType.FILE");
+      files.names = ['a.txt', 'b.txt', 'tone.mp3'];
+      files.mtimes.set('/synthetic/media/alpha/a.txt', 101);
+      files.mtimes.set('/synthetic/media/alpha/b.txt', 202);
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/failure-list-1", photoAccessHelper.PhotoType.IMAGE, "failed-1.txt");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/failure-list-1";
+      library.results = [fetch];
+      files.listError = 'synthetic list failure';
+      const failed: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.FILE);
+      LogicTestLog.number(name, "Failure result matches existing partial policy", 0, failed.length);
+      expect(failed.length).assertEqual(0);
+      LogicTestLog.number(name, "Acquired fetch close count on failure", 0, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(0);
+      LogicTestLog.number(name, "Object read attempts on failure", 0, fetch.allCalls);
+      expect(fetch.allCalls).assertEqual(0);
+      LogicTestLog.number(name, "Native fetch attempts on failure", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "Sandbox list attempts on failure", 1, files.lists.length);
+      expect(files.lists.length).assertEqual(1);
+      LogicTestLog.number(name, "No descriptors while failing listing", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No native create while failing listing", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No native delete while failing listing", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      files.listError = '';
+      files.statError = '';
+      library.fetchError = '';
+      fetch.allError = '';
+      fetch.closeError = '';
+      photo.getError = '';
+      const recovered: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.FILE);
+      LogicTestLog.number(name, "Retry result count", 2, recovered.length);
+      expect(recovered.length).assertEqual(2);
+      LogicTestLog.value(name, "Retry result names", "a.txt|b.txt",
+        recovered.map((item: MediaAssetHandle) => item.displayName).join("|"));
+      expect(recovered.map((item: MediaAssetHandle) => item.displayName).join("|")).assertEqual("a.txt|b.txt");
+      LogicTestLog.number(name, "Fetch closed on successful retry", 0, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(0);
+      LogicTestLog.number(name, "Retry does not rename files", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.value(name, "Retry leaves all input files available", "a.txt|b.txt|tone.mp3", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("a.txt|b.txt|tone.mp3");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1088
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1088
+     * @tc.nameDesc Listing failures close acquired results and remain retryable: Check existing empty or partial return
+     * policy, exact cleanup counts and success after clearing a fake failure.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1088", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1088";
+      LogicTestLog.begin(name, "failure=info-list; type=FileType.FILE");
+      files.names = ['a.txt', 'b.txt', 'tone.mp3'];
+      files.mtimes.set('/synthetic/media/alpha/a.txt', 101);
+      files.mtimes.set('/synthetic/media/alpha/b.txt', 202);
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/failure-list-2", photoAccessHelper.PhotoType.IMAGE, "failed-2.txt");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/failure-list-2";
+      library.results = [fetch];
+      files.listError = 'synthetic list failure';
+      const failed: FileInfo[] = await media.getFileAssets(context, FileType.FILE);
+      LogicTestLog.number(name, "Failure result matches existing partial policy", 0, failed.length);
+      expect(failed.length).assertEqual(0);
+      LogicTestLog.number(name, "Acquired fetch close count on failure", 0, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(0);
+      LogicTestLog.number(name, "Object read attempts on failure", 0, fetch.allCalls);
+      expect(fetch.allCalls).assertEqual(0);
+      LogicTestLog.number(name, "Native fetch attempts on failure", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "Sandbox list attempts on failure", 1, files.lists.length);
+      expect(files.lists.length).assertEqual(1);
+      LogicTestLog.number(name, "No descriptors while failing listing", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No native create while failing listing", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No native delete while failing listing", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      files.listError = '';
+      files.statError = '';
+      library.fetchError = '';
+      fetch.allError = '';
+      fetch.closeError = '';
+      photo.getError = '';
+      const recovered: FileInfo[] = await media.getFileAssets(context, FileType.FILE);
+      LogicTestLog.number(name, "Retry result count", 2, recovered.length);
+      expect(recovered.length).assertEqual(2);
+      LogicTestLog.value(name, "Retry result names", "a.txt|b.txt",
+        recovered.map((item: FileInfo) => item.fileName).join("|"));
+      expect(recovered.map((item: FileInfo) => item.fileName).join("|")).assertEqual("a.txt|b.txt");
+      LogicTestLog.number(name, "Fetch closed on successful retry", 0, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(0);
+      LogicTestLog.number(name, "Retry does not rename files", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.value(name, "Retry leaves all input files available", "a.txt|b.txt|tone.mp3", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("a.txt|b.txt|tone.mp3");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1089
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1089
+     * @tc.nameDesc Listing failures close acquired results and remain retryable: Check existing empty or partial return
+     * policy, exact cleanup counts and success after clearing a fake failure.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1089", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1089";
+      LogicTestLog.begin(name, "failure=info-stat; type=FileType.FILE");
+      files.names = ['a.txt', 'b.txt', 'tone.mp3'];
+      files.mtimes.set('/synthetic/media/alpha/a.txt', 101);
+      files.mtimes.set('/synthetic/media/alpha/b.txt', 202);
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/failure-list-3", photoAccessHelper.PhotoType.IMAGE, "failed-3.txt");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/failure-list-3";
+      library.results = [fetch];
+      files.statError = 'synthetic stat failure';
+      files.statErrorPath = '/synthetic/media/alpha/b.txt';
+      const failed: FileInfo[] = await media.getFileAssets(context, FileType.FILE);
+      LogicTestLog.number(name, "Failure result matches existing partial policy", 1, failed.length);
+      expect(failed.length).assertEqual(1);
+      LogicTestLog.number(name, "Acquired fetch close count on failure", 0, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(0);
+      LogicTestLog.number(name, "Object read attempts on failure", 0, fetch.allCalls);
+      expect(fetch.allCalls).assertEqual(0);
+      LogicTestLog.number(name, "Native fetch attempts on failure", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      LogicTestLog.number(name, "Sandbox list attempts on failure", 1, files.lists.length);
+      expect(files.lists.length).assertEqual(1);
+      LogicTestLog.number(name, "No descriptors while failing listing", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No native create while failing listing", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No native delete while failing listing", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      files.listError = '';
+      files.statError = '';
+      library.fetchError = '';
+      fetch.allError = '';
+      fetch.closeError = '';
+      photo.getError = '';
+      const recovered: FileInfo[] = await media.getFileAssets(context, FileType.FILE);
+      LogicTestLog.number(name, "Retry result count", 2, recovered.length);
+      expect(recovered.length).assertEqual(2);
+      LogicTestLog.value(name, "Retry result names", "a.txt|b.txt",
+        recovered.map((item: FileInfo) => item.fileName).join("|"));
+      expect(recovered.map((item: FileInfo) => item.fileName).join("|")).assertEqual("a.txt|b.txt");
+      LogicTestLog.number(name, "Fetch closed on successful retry", 0, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(0);
+      LogicTestLog.number(name, "Retry does not rename files", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.value(name, "Retry leaves all input files available", "a.txt|b.txt|tone.mp3", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("a.txt|b.txt|tone.mp3");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1090
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1090
+     * @tc.nameDesc Listing failures close acquired results and remain retryable: Check existing empty or partial return
+     * policy, exact cleanup counts and success after clearing a fake failure.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1090", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1090";
+      LogicTestLog.begin(name, "failure=native-fetch; type=FileType.IMAGE");
+      files.names = ['a.txt', 'b.txt', 'tone.mp3'];
+      files.mtimes.set('/synthetic/media/alpha/a.txt', 101);
+      files.mtimes.set('/synthetic/media/alpha/b.txt', 202);
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/failure-list-4", photoAccessHelper.PhotoType.IMAGE, "failed-4.jpg");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/failure-list-4";
+      library.results = [fetch];
+      library.fetchError = 'synthetic fetch failure';
+      const failed: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.IMAGE);
+      LogicTestLog.number(name, "Failure result matches existing partial policy", 0, failed.length);
+      expect(failed.length).assertEqual(0);
+      LogicTestLog.number(name, "Acquired fetch close count on failure", 0, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(0);
+      LogicTestLog.number(name, "Object read attempts on failure", 0, fetch.allCalls);
+      expect(fetch.allCalls).assertEqual(0);
+      LogicTestLog.number(name, "Native fetch attempts on failure", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      LogicTestLog.number(name, "Sandbox list attempts on failure", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No descriptors while failing listing", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No native create while failing listing", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No native delete while failing listing", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      files.listError = '';
+      files.statError = '';
+      library.fetchError = '';
+      fetch.allError = '';
+      fetch.closeError = '';
+      photo.getError = '';
+      const recovered: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.IMAGE);
+      LogicTestLog.number(name, "Retry result count", 1, recovered.length);
+      expect(recovered.length).assertEqual(1);
+      LogicTestLog.value(name, "Retry result names", "failed-4.jpg",
+        recovered.map((item: MediaAssetHandle) => item.displayName).join("|"));
+      expect(recovered.map((item: MediaAssetHandle) => item.displayName).join("|")).assertEqual("failed-4.jpg");
+      LogicTestLog.number(name, "Fetch closed on successful retry", 1, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Retry does not rename files", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.value(name, "Retry leaves all input files available", "a.txt|b.txt|tone.mp3", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("a.txt|b.txt|tone.mp3");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1091
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1091
+     * @tc.nameDesc Listing failures close acquired results and remain retryable: Check existing empty or partial return
+     * policy, exact cleanup counts and success after clearing a fake failure.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1091", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1091";
+      LogicTestLog.begin(name, "failure=native-fetch; type=FileType.VIDEO");
+      files.names = ['a.txt', 'b.txt', 'tone.mp3'];
+      files.mtimes.set('/synthetic/media/alpha/a.txt', 101);
+      files.mtimes.set('/synthetic/media/alpha/b.txt', 202);
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/failure-list-5", photoAccessHelper.PhotoType.VIDEO, "failed-5.mp4");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/failure-list-5";
+      library.results = [fetch];
+      library.fetchError = 'synthetic fetch failure';
+      const failed: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.VIDEO);
+      LogicTestLog.number(name, "Failure result matches existing partial policy", 0, failed.length);
+      expect(failed.length).assertEqual(0);
+      LogicTestLog.number(name, "Acquired fetch close count on failure", 0, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(0);
+      LogicTestLog.number(name, "Object read attempts on failure", 0, fetch.allCalls);
+      expect(fetch.allCalls).assertEqual(0);
+      LogicTestLog.number(name, "Native fetch attempts on failure", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      LogicTestLog.number(name, "Sandbox list attempts on failure", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No descriptors while failing listing", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No native create while failing listing", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No native delete while failing listing", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      files.listError = '';
+      files.statError = '';
+      library.fetchError = '';
+      fetch.allError = '';
+      fetch.closeError = '';
+      photo.getError = '';
+      const recovered: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.VIDEO);
+      LogicTestLog.number(name, "Retry result count", 1, recovered.length);
+      expect(recovered.length).assertEqual(1);
+      LogicTestLog.value(name, "Retry result names", "failed-5.mp4",
+        recovered.map((item: MediaAssetHandle) => item.displayName).join("|"));
+      expect(recovered.map((item: MediaAssetHandle) => item.displayName).join("|")).assertEqual("failed-5.mp4");
+      LogicTestLog.number(name, "Fetch closed on successful retry", 1, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Retry does not rename files", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.value(name, "Retry leaves all input files available", "a.txt|b.txt|tone.mp3", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("a.txt|b.txt|tone.mp3");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1092
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1092
+     * @tc.nameDesc Listing failures close acquired results and remain retryable: Check existing empty or partial return
+     * policy, exact cleanup counts and success after clearing a fake failure.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1092", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1092";
+      LogicTestLog.begin(name, "failure=native-all; type=FileType.IMAGE");
+      files.names = ['a.txt', 'b.txt', 'tone.mp3'];
+      files.mtimes.set('/synthetic/media/alpha/a.txt', 101);
+      files.mtimes.set('/synthetic/media/alpha/b.txt', 202);
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/failure-list-6", photoAccessHelper.PhotoType.IMAGE, "failed-6.jpg");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/failure-list-6";
+      library.results = [fetch];
+      fetch.allError = 'synthetic objects failure';
+      const failed: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.IMAGE);
+      LogicTestLog.number(name, "Failure result matches existing partial policy", 0, failed.length);
+      expect(failed.length).assertEqual(0);
+      LogicTestLog.number(name, "Acquired fetch close count on failure", 1, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Object read attempts on failure", 1, fetch.allCalls);
+      expect(fetch.allCalls).assertEqual(1);
+      LogicTestLog.number(name, "Native fetch attempts on failure", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      LogicTestLog.number(name, "Sandbox list attempts on failure", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No descriptors while failing listing", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No native create while failing listing", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No native delete while failing listing", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      files.listError = '';
+      files.statError = '';
+      library.fetchError = '';
+      fetch.allError = '';
+      fetch.closeError = '';
+      photo.getError = '';
+      const recovered: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.IMAGE);
+      LogicTestLog.number(name, "Retry result count", 1, recovered.length);
+      expect(recovered.length).assertEqual(1);
+      LogicTestLog.value(name, "Retry result names", "failed-6.jpg",
+        recovered.map((item: MediaAssetHandle) => item.displayName).join("|"));
+      expect(recovered.map((item: MediaAssetHandle) => item.displayName).join("|")).assertEqual("failed-6.jpg");
+      LogicTestLog.number(name, "Fetch closed on successful retry", 2, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(2);
+      LogicTestLog.number(name, "Retry does not rename files", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.value(name, "Retry leaves all input files available", "a.txt|b.txt|tone.mp3", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("a.txt|b.txt|tone.mp3");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1093
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1093
+     * @tc.nameDesc Listing failures close acquired results and remain retryable: Check existing empty or partial return
+     * policy, exact cleanup counts and success after clearing a fake failure.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1093", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1093";
+      LogicTestLog.begin(name, "failure=native-all; type=FileType.VIDEO");
+      files.names = ['a.txt', 'b.txt', 'tone.mp3'];
+      files.mtimes.set('/synthetic/media/alpha/a.txt', 101);
+      files.mtimes.set('/synthetic/media/alpha/b.txt', 202);
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/failure-list-7", photoAccessHelper.PhotoType.VIDEO, "failed-7.mp4");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/failure-list-7";
+      library.results = [fetch];
+      fetch.allError = 'synthetic objects failure';
+      const failed: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.VIDEO);
+      LogicTestLog.number(name, "Failure result matches existing partial policy", 0, failed.length);
+      expect(failed.length).assertEqual(0);
+      LogicTestLog.number(name, "Acquired fetch close count on failure", 1, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Object read attempts on failure", 1, fetch.allCalls);
+      expect(fetch.allCalls).assertEqual(1);
+      LogicTestLog.number(name, "Native fetch attempts on failure", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      LogicTestLog.number(name, "Sandbox list attempts on failure", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No descriptors while failing listing", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No native create while failing listing", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No native delete while failing listing", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      files.listError = '';
+      files.statError = '';
+      library.fetchError = '';
+      fetch.allError = '';
+      fetch.closeError = '';
+      photo.getError = '';
+      const recovered: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.VIDEO);
+      LogicTestLog.number(name, "Retry result count", 1, recovered.length);
+      expect(recovered.length).assertEqual(1);
+      LogicTestLog.value(name, "Retry result names", "failed-7.mp4",
+        recovered.map((item: MediaAssetHandle) => item.displayName).join("|"));
+      expect(recovered.map((item: MediaAssetHandle) => item.displayName).join("|")).assertEqual("failed-7.mp4");
+      LogicTestLog.number(name, "Fetch closed on successful retry", 2, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(2);
+      LogicTestLog.number(name, "Retry does not rename files", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.value(name, "Retry leaves all input files available", "a.txt|b.txt|tone.mp3", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("a.txt|b.txt|tone.mp3");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1094
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1094
+     * @tc.nameDesc Listing failures close acquired results and remain retryable: Check existing empty or partial return
+     * policy, exact cleanup counts and success after clearing a fake failure.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1094", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1094";
+      LogicTestLog.begin(name, "failure=native-metadata; type=FileType.IMAGE");
+      files.names = ['a.txt', 'b.txt', 'tone.mp3'];
+      files.mtimes.set('/synthetic/media/alpha/a.txt', 101);
+      files.mtimes.set('/synthetic/media/alpha/b.txt', 202);
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/failure-list-8", photoAccessHelper.PhotoType.IMAGE, "failed-8.jpg");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/failure-list-8";
+      library.results = [fetch];
+      photo.getError = 'synthetic metadata failure';
+      const failed: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.IMAGE);
+      LogicTestLog.number(name, "Failure result matches existing partial policy", 0, failed.length);
+      expect(failed.length).assertEqual(0);
+      LogicTestLog.number(name, "Acquired fetch close count on failure", 1, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Object read attempts on failure", 1, fetch.allCalls);
+      expect(fetch.allCalls).assertEqual(1);
+      LogicTestLog.number(name, "Native fetch attempts on failure", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      LogicTestLog.number(name, "Sandbox list attempts on failure", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No descriptors while failing listing", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No native create while failing listing", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No native delete while failing listing", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      files.listError = '';
+      files.statError = '';
+      library.fetchError = '';
+      fetch.allError = '';
+      fetch.closeError = '';
+      photo.getError = '';
+      const recovered: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.IMAGE);
+      LogicTestLog.number(name, "Retry result count", 1, recovered.length);
+      expect(recovered.length).assertEqual(1);
+      LogicTestLog.value(name, "Retry result names", "failed-8.jpg",
+        recovered.map((item: MediaAssetHandle) => item.displayName).join("|"));
+      expect(recovered.map((item: MediaAssetHandle) => item.displayName).join("|")).assertEqual("failed-8.jpg");
+      LogicTestLog.number(name, "Fetch closed on successful retry", 2, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(2);
+      LogicTestLog.number(name, "Retry does not rename files", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.value(name, "Retry leaves all input files available", "a.txt|b.txt|tone.mp3", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("a.txt|b.txt|tone.mp3");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1095
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1095
+     * @tc.nameDesc Listing failures close acquired results and remain retryable: Check existing empty or partial return
+     * policy, exact cleanup counts and success after clearing a fake failure.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1095", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1095";
+      LogicTestLog.begin(name, "failure=native-close; type=FileType.VIDEO");
+      files.names = ['a.txt', 'b.txt', 'tone.mp3'];
+      files.mtimes.set('/synthetic/media/alpha/a.txt', 101);
+      files.mtimes.set('/synthetic/media/alpha/b.txt', 202);
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/failure-list-9", photoAccessHelper.PhotoType.VIDEO, "failed-9.mp4");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/failure-list-9";
+      library.results = [fetch];
+      fetch.closeError = 'synthetic close failure';
+      const failed: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.VIDEO);
+      LogicTestLog.number(name, "Failure result matches existing partial policy", 1, failed.length);
+      expect(failed.length).assertEqual(1);
+      LogicTestLog.number(name, "Acquired fetch close count on failure", 1, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(1);
+      LogicTestLog.number(name, "Object read attempts on failure", 1, fetch.allCalls);
+      expect(fetch.allCalls).assertEqual(1);
+      LogicTestLog.number(name, "Native fetch attempts on failure", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      LogicTestLog.number(name, "Sandbox list attempts on failure", 0, files.lists.length);
+      expect(files.lists.length).assertEqual(0);
+      LogicTestLog.number(name, "No descriptors while failing listing", 0, files.opens.length);
+      expect(files.opens.length).assertEqual(0);
+      LogicTestLog.number(name, "No native create while failing listing", 0, library.creates.length);
+      expect(library.creates.length).assertEqual(0);
+      LogicTestLog.number(name, "No native delete while failing listing", 0, library.deletes.length);
+      expect(library.deletes.length).assertEqual(0);
+      LogicTestLog.number(name, "Date clock calls", 0, clock.dateCalls);
+      expect(clock.dateCalls).assertEqual(0);
+      LogicTestLog.number(name, "Time clock calls", 0, clock.timeCalls);
+      expect(clock.timeCalls).assertEqual(0);
+      files.listError = '';
+      files.statError = '';
+      library.fetchError = '';
+      fetch.allError = '';
+      fetch.closeError = '';
+      photo.getError = '';
+      const recovered: MediaAssetHandle[] = await media.getFileAssetsFromType(FileType.VIDEO);
+      LogicTestLog.number(name, "Retry result count", 1, recovered.length);
+      expect(recovered.length).assertEqual(1);
+      LogicTestLog.value(name, "Retry result names", "failed-9.mp4",
+        recovered.map((item: MediaAssetHandle) => item.displayName).join("|"));
+      expect(recovered.map((item: MediaAssetHandle) => item.displayName).join("|")).assertEqual("failed-9.mp4");
+      LogicTestLog.number(name, "Fetch closed on successful retry", 2, fetch.closeCalls);
+      expect(fetch.closeCalls).assertEqual(2);
+      LogicTestLog.number(name, "Retry does not rename files", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.value(name, "Retry leaves all input files available", "a.txt|b.txt|tone.mp3", files.names.join("|"));
+      expect(files.names.join("|")).assertEqual("a.txt|b.txt|tone.mp3");
+      LogicTestLog.end(name);
+    });
+  });
+}
