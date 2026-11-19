@@ -5411,6 +5411,456 @@ export default function windowLimitsModuleJsonUiTest(): void {
         }
         await expectText(VISIBLE_TIP);
       });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1580
+     * @tc.name      testModuleJsonResizeLife1580
+     * @tc.desc      Resize, restart the app and verify the visible tip.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1580',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(400, 200, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(300);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1581
+     * @tc.name      testModuleJsonResizeLife1581
+     * @tc.desc      Resize then hide and show the title bar.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1581',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(700, 400, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(300);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await clickText(HIDE_BUTTON);
+        await expectText(HIDDEN_TIP);
+        await clickText(SHOW_BUTTON);
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1582
+     * @tc.name      testModuleJsonResizeLife1582
+     * @tc.desc      Resize beyond the module maximum and verify the tip.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1582',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(3000, 1600, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1583
+     * @tc.name      testModuleJsonResizeLife1583
+     * @tc.desc      Resize below the module minimum and verify the tip.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1583',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(200, 100, ResizeDirection.LEFT_UP);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1584
+     * @tc.name      testModuleJsonResizeLife1584
+     * @tc.desc      Resize, restart the app and verify the visible tip.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1584',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(1600, 200, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(300);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1585
+     * @tc.name      testModuleJsonResizeLife1585
+     * @tc.desc      Resize then hide and show the title bar.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1585',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(400, 400, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(300);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await clickText(HIDE_BUTTON);
+        await expectText(HIDDEN_TIP);
+        await clickText(SHOW_BUTTON);
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1586
+     * @tc.name      testModuleJsonResizeLife1586
+     * @tc.desc      Resize beyond the module maximum and verify the tip.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1586',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(3000, 1600, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1587
+     * @tc.name      testModuleJsonResizeLife1587
+     * @tc.desc      Resize below the module minimum and verify the tip.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1587',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(200, 100, ResizeDirection.LEFT_UP);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1588
+     * @tc.name      testModuleJsonResizeLife1588
+     * @tc.desc      Resize, restart the app and verify the visible tip.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1588',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(1300, 200, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(300);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1589
+     * @tc.name      testModuleJsonResizeLife1589
+     * @tc.desc      Resize then hide and show the title bar.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1589',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(1600, 400, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(300);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await clickText(HIDE_BUTTON);
+        await expectText(HIDDEN_TIP);
+        await clickText(SHOW_BUTTON);
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1590
+     * @tc.name      testModuleJsonResizeLife1590
+     * @tc.desc      Resize beyond the module maximum and verify the tip.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1590',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(3000, 1600, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1591
+     * @tc.name      testModuleJsonResizeLife1591
+     * @tc.desc      Resize below the module minimum and verify the tip.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1591',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(200, 100, ResizeDirection.LEFT_UP);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1592
+     * @tc.name      testModuleJsonResizeLife1592
+     * @tc.desc      Resize, restart the app and verify the visible tip.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1592',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(1000, 200, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(300);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1593
+     * @tc.name      testModuleJsonResizeLife1593
+     * @tc.desc      Resize then hide and show the title bar.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1593',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(1300, 400, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(300);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await clickText(HIDE_BUTTON);
+        await expectText(HIDDEN_TIP);
+        await clickText(SHOW_BUTTON);
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1594
+     * @tc.name      testModuleJsonResizeLife1594
+     * @tc.desc      Resize beyond the module maximum and verify the tip.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1594',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(3000, 1600, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1595
+     * @tc.name      testModuleJsonResizeLife1595
+     * @tc.desc      Resize below the module minimum and verify the tip.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1595',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(200, 100, ResizeDirection.LEFT_UP);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1596
+     * @tc.name      testModuleJsonResizeLife1596
+     * @tc.desc      Resize, restart the app and verify the visible tip.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1596',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(700, 200, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(300);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1597
+     * @tc.name      testModuleJsonResizeLife1597
+     * @tc.desc      Resize then hide and show the title bar.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1597',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(1000, 400, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(300);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await clickText(HIDE_BUTTON);
+        await expectText(HIDDEN_TIP);
+        await clickText(SHOW_BUTTON);
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1598
+     * @tc.name      testModuleJsonResizeLife1598
+     * @tc.desc      Resize beyond the module maximum and verify the tip.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1598',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(3000, 1600, ResizeDirection.RIGHT_DOWN);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await expectText(VISIBLE_TIP);
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1599
+     * @tc.name      testModuleJsonResizeLife1599
+     * @tc.desc      Resize below the module minimum and verify the tip.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonResizeLife1599',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        await launchEntryAbility();
+        await driver.delayMs(DELAY_UI_READY);
+        await ensureVisibleTip();
+        const appWindow: UiWindow = await findAppWindow();
+        try {
+          await appWindow.resize(200, 100, ResizeDirection.LEFT_UP);
+          await driver.delayMs(DELAY_UI_READY);
+        } catch (error) {
+          expect(isResizeUnsupported(error as Error)).assertTrue();
+        }
+        await expectText(VISIBLE_TIP);
+      });
     RESIZE_CASES.forEach((resizeCase: ResizeCase) => {
       /**
        * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_UI_1100-1159_1160-1189_1190-1207_1208-1257_1300-1471

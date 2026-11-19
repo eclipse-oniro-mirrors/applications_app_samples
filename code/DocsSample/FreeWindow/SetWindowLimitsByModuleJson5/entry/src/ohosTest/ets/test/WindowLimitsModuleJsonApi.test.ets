@@ -5349,6 +5349,331 @@ export default function windowLimitsModuleJsonApiTest(): void {
         expect(isAccepted(results[1])).assertTrue();
         expect(isAccepted(results[2])).assertTrue();
       });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_600
+     * @tc.name      testModuleJsonLife600
+     * @tc.desc      Set module limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife600',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 400 + (0 % 4) * 200, maxWidth: 2560 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_601
+     * @tc.name      testModuleJsonLife601
+     * @tc.desc      Apply an invalid then a valid limit and verify both.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife601',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const invalid: SetLimitsResult = await applyLimits({ minWidth: 2500, maxWidth: 500 });
+        const valid: SetLimitsResult = await applyLimits({ minWidth: 400, maxWidth: 2000 });
+        expect(isAccepted(invalid)).assertTrue();
+        expect(isAccepted(valid)).assertTrue();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_602
+     * @tc.name      testModuleJsonLife602
+     * @tc.desc      Apply forcible limits and restore the original limits.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife602',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 400, minHeight: 200, maxWidth: 1200, maxHeight: 800 }, true);
+        expect(isAccepted(result)).assertTrue();
+        if (originalLimits !== undefined) {
+          expect(isAccepted(await applyLimits(originalLimits as window.WindowLimits))).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_603
+     * @tc.name      testModuleJsonLife603
+     * @tc.desc      Issue five concurrent requests and verify all are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife603',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 1600 }),
+          applyLimits({ maxWidth: 1800 }),
+          applyLimits({ maxWidth: 2000 }),
+          applyLimits({ minWidth: 400 }),
+          applyLimits({ minHeight: 200 })
+        ]);
+        expect(results.length).assertEqual(5);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_604
+     * @tc.name      testModuleJsonLife604
+     * @tc.desc      Set module limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife604',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 400 + (4 % 4) * 200, maxWidth: 2560 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_605
+     * @tc.name      testModuleJsonLife605
+     * @tc.desc      Apply an invalid then a valid limit and verify both.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife605',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const invalid: SetLimitsResult = await applyLimits({ minWidth: 2500, maxWidth: 500 });
+        const valid: SetLimitsResult = await applyLimits({ minWidth: 400, maxWidth: 2000 });
+        expect(isAccepted(invalid)).assertTrue();
+        expect(isAccepted(valid)).assertTrue();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_606
+     * @tc.name      testModuleJsonLife606
+     * @tc.desc      Apply forcible limits and restore the original limits.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife606',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 400, minHeight: 200, maxWidth: 1200, maxHeight: 800 }, true);
+        expect(isAccepted(result)).assertTrue();
+        if (originalLimits !== undefined) {
+          expect(isAccepted(await applyLimits(originalLimits as window.WindowLimits))).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_607
+     * @tc.name      testModuleJsonLife607
+     * @tc.desc      Issue five concurrent requests and verify all are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife607',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 1600 }),
+          applyLimits({ maxWidth: 1800 }),
+          applyLimits({ maxWidth: 2000 }),
+          applyLimits({ minWidth: 400 }),
+          applyLimits({ minHeight: 200 })
+        ]);
+        expect(results.length).assertEqual(5);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_608
+     * @tc.name      testModuleJsonLife608
+     * @tc.desc      Set module limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife608',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 400 + (8 % 4) * 200, maxWidth: 2560 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_609
+     * @tc.name      testModuleJsonLife609
+     * @tc.desc      Apply an invalid then a valid limit and verify both.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife609',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const invalid: SetLimitsResult = await applyLimits({ minWidth: 2500, maxWidth: 500 });
+        const valid: SetLimitsResult = await applyLimits({ minWidth: 400, maxWidth: 2000 });
+        expect(isAccepted(invalid)).assertTrue();
+        expect(isAccepted(valid)).assertTrue();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_610
+     * @tc.name      testModuleJsonLife610
+     * @tc.desc      Apply forcible limits and restore the original limits.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife610',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 400, minHeight: 200, maxWidth: 1200, maxHeight: 800 }, true);
+        expect(isAccepted(result)).assertTrue();
+        if (originalLimits !== undefined) {
+          expect(isAccepted(await applyLimits(originalLimits as window.WindowLimits))).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_611
+     * @tc.name      testModuleJsonLife611
+     * @tc.desc      Issue five concurrent requests and verify all are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife611',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 1600 }),
+          applyLimits({ maxWidth: 1800 }),
+          applyLimits({ maxWidth: 2000 }),
+          applyLimits({ minWidth: 400 }),
+          applyLimits({ minHeight: 200 })
+        ]);
+        expect(results.length).assertEqual(5);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_612
+     * @tc.name      testModuleJsonLife612
+     * @tc.desc      Set module limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife612',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 400 + (12 % 4) * 200, maxWidth: 2560 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_613
+     * @tc.name      testModuleJsonLife613
+     * @tc.desc      Apply an invalid then a valid limit and verify both.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife613',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const invalid: SetLimitsResult = await applyLimits({ minWidth: 2500, maxWidth: 500 });
+        const valid: SetLimitsResult = await applyLimits({ minWidth: 400, maxWidth: 2000 });
+        expect(isAccepted(invalid)).assertTrue();
+        expect(isAccepted(valid)).assertTrue();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_614
+     * @tc.name      testModuleJsonLife614
+     * @tc.desc      Apply forcible limits and restore the original limits.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife614',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 400, minHeight: 200, maxWidth: 1200, maxHeight: 800 }, true);
+        expect(isAccepted(result)).assertTrue();
+        if (originalLimits !== undefined) {
+          expect(isAccepted(await applyLimits(originalLimits as window.WindowLimits))).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_615
+     * @tc.name      testModuleJsonLife615
+     * @tc.desc      Issue five concurrent requests and verify all are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife615',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 1600 }),
+          applyLimits({ maxWidth: 1800 }),
+          applyLimits({ maxWidth: 2000 }),
+          applyLimits({ minWidth: 400 }),
+          applyLimits({ minHeight: 200 })
+        ]);
+        expect(results.length).assertEqual(5);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_780
+     * @tc.name      testModuleJsonLife780
+     * @tc.desc      Set module limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife780',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 400 + (180 % 4) * 200, maxWidth: 2560 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_781
+     * @tc.name      testModuleJsonLife781
+     * @tc.desc      Apply an invalid then a valid limit and verify both.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife781',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const invalid: SetLimitsResult = await applyLimits({ minWidth: 2500, maxWidth: 500 });
+        const valid: SetLimitsResult = await applyLimits({ minWidth: 400, maxWidth: 2000 });
+        expect(isAccepted(invalid)).assertTrue();
+        expect(isAccepted(valid)).assertTrue();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_782
+     * @tc.name      testModuleJsonLife782
+     * @tc.desc      Apply forcible limits and restore the original limits.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife782',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 400, minHeight: 200, maxWidth: 1200, maxHeight: 800 }, true);
+        expect(isAccepted(result)).assertTrue();
+        if (originalLimits !== undefined) {
+          expect(isAccepted(await applyLimits(originalLimits as window.WindowLimits))).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_783
+     * @tc.name      testModuleJsonLife783
+     * @tc.desc      Issue five concurrent requests and verify all are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testModuleJsonLife783',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 1600 }),
+          applyLimits({ maxWidth: 1800 }),
+          applyLimits({ maxWidth: 2000 }),
+          applyLimits({ minWidth: 400 }),
+          applyLimits({ minHeight: 200 })
+        ]);
+        expect(results.length).assertEqual(5);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+      });
     LIMIT_CASES.forEach((limitCase: LimitCase) => {
       /**
        * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0100-0199_0200-0299_0300-0317_0320-0329_0330-0335_0340-0417_0470-0655
