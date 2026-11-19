@@ -45,7 +45,11 @@ static napi_value Init(napi_env env, napi_value exports)
         {"drawPatternForSurfaceHolder", nullptr, PluginManager::DrawPatternForSurfaceHolder, nullptr, nullptr, nullptr,
          napi_default, nullptr},
         {"getStatusForSurfaceHolder", nullptr, PluginManager::GetStatusForSurfaceHolder, nullptr, nullptr, nullptr,
-         napi_default, nullptr}};
+         napi_default, nullptr},
+        {"registerInspectorTreeGetter", nullptr, PluginManager::RegisterInspectorTreeGetter, nullptr, nullptr, nullptr,
+         napi_default, nullptr},
+        {"unregisterInspectorTreeGetter", nullptr, PluginManager::UnregisterInspectorTreeGetter, nullptr, nullptr,
+         nullptr, napi_default, nullptr}};
 
     if (napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc) != napi_ok) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "Init", "napi_define_properties failed");

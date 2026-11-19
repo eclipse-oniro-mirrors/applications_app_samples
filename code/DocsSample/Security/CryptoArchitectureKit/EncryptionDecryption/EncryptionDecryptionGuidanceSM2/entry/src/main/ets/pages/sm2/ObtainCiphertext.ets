@@ -35,6 +35,9 @@ function testGetCipherTextSpec() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude sm2_obtain_ciphertext]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude sm2_obtain_ciphertext]
   }
 }
 

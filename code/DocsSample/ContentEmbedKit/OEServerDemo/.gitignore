@@ -1,0 +1,22 @@
+.git/
+*.class
+/node_modules
+/oh_modules
+/local.properties
+/.idea
+**/build
+/.hvigor
+.cxx
+/.clangd
+/.clang-format
+/.clang-tidy
+**/.test
+/.appanalyzer
+/.codegenie
+/build-logs
+oh-package-lock.json5
+# Build and signing artifacts (do not commit binaries / signing profiles)
+*.hap
+*.p7b
+debug-profile.json
+build-sign.log

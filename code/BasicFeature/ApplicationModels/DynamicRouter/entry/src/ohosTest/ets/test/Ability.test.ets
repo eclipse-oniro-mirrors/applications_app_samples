@@ -13,112 +13,54 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+import { beforeEachIt, describe, expect, it } from '@ohos/hypium';
+import { tick } from '../util/TestTick';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { bundleManager } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
-// 路由地址结构：描述 RouterModule.push 解析后的四元组
-interface ParsedRoute {
-  harName: string;
-  path: string;
-  routerName: string;
-  builderName: string;
-}
-
-// 路由地址解析器：与 RouterModule.push 的解析规则保持一致（不依赖 UI）
-class RouteUrlParser {
-  public static parse(url: string): ParsedRoute {
-    const params: string[] = url.split('/');
-    const harName: string = params[0];
-    const context: string[] = params[params.length - 1].split('-');
-    const routerName: string = context[0];
-    const builderName: string = context.length > 1 ? context[1] : '';
-    let path: string = '.';
-    for (let i = 1; i < params.length - 1; i++) {
-      path += '/' + params[i];
-    }
-    const route: ParsedRoute = {
-      harName: harName,
-      path: path,
-      routerName: routerName,
-      builderName: builderName
-    };
-    return route;
-  }
-}
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_DynamicRouter]_Test';
+const BUNDLE: string = 'com.samples.navigation';
+const MAIN_ABILITY: string = 'EntryAbility';
+const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
-    // 测试前置：每个用例前重置日志标记
-    beforeAll(() => {
-      hilog.info(0x0000, 'testTag', '%{public}s', 'ActsAbilityTest beforeAll');
-    });
-    beforeEach(() => {
-    });
-    afterEach(() => {
-    });
-    afterAll(() => {
-      hilog.info(0x0000, 'testTag', '%{public}s', 'ActsAbilityTest afterAll');
+    // 每 10 条用例让出一次主线程，避免整批串跑触发 THREAD_BLOCK_6S（见 util/TestTick.ets）
+    beforeEachIt(async () => {
+      await tick();
     });
 
-    // 校验测试目标标识：不拉起主 Ability，避免抢占 TestAbility 前台导致 LIFECYCLE_TIMEOUT
-    it('StartAbility_001', 0, async () => {
-      hilog.info(0x0000, 'testTag', '%{public}s', 'StartAbility_001 begin');
-      expect('com.samples.navigation'.length).assertLarger(0);
-      expect('EntryAbility'.startsWith('Entry')).assertTrue();
-      hilog.info(0x0000, 'testTag', '%{public}s', 'StartAbility_001 end');
+    it('dynRouter_context_001', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'dynRouter_context_001 begin');
+      const context = delegator.getAppContext();
+      expect(context.applicationInfo.name).assertEqual(BUNDLE);
+      expect(typeof context.filesDir).assertEqual('string');
+      expect(context.filesDir.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'dynRouter_context_001 end');
     });
 
-    // 解析 HarA 页面 1 的路由地址
-    it('RouteUrlParse_001', 0, async () => {
-      const route: ParsedRoute =
-        RouteUrlParser.parse('HarA/src/main/ets/components/mainpage/page1/HapA_Router-HarA_Page1_Builder');
-      expect(route.harName).assertEqual('HarA');
-      expect(route.path).assertEqual('./src/main/ets/components/mainpage/page1');
-      expect(route.routerName).assertEqual('HapA_Router');
-      expect(route.builderName).assertEqual('HarA_Page1_Builder');
+    it('dynRouter_bundle_001', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'dynRouter_bundle_001 begin');
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION;
+      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+      expect(info.name).assertEqual(BUNDLE);
+      expect(info.versionCode > 0).assertTrue();
+      expect(info.appInfo.accessTokenId > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'dynRouter_bundle_001 end');
     });
 
-    // 解析 HarA 页面 2 的路由地址
-    it('RouteUrlParse_002', 0, async () => {
-      const route: ParsedRoute =
-        RouteUrlParser.parse('HarA/src/main/ets/components/mainpage/page2/HapA_Router-HarA_Page2_Builder');
-      expect(route.harName).assertEqual('HarA');
-      expect(route.path).assertEqual('./src/main/ets/components/mainpage/page2');
-      expect(route.builderName).assertEqual('HarA_Page2_Builder');
-    });
-
-    // 解析 HarB 页面 1 的路由地址
-    it('RouteUrlParse_003', 0, async () => {
-      const route: ParsedRoute =
-        RouteUrlParser.parse('HarB/src/main/ets/components/mainpage/page1/HapA_Router-HarB_Page1_Builder');
-      expect(route.harName).assertEqual('HarB');
-      expect(route.path).assertEqual('./src/main/ets/components/mainpage/page1');
-      expect(route.routerName).assertEqual('HapA_Router');
-      expect(route.builderName).assertEqual('HarB_Page1_Builder');
-    });
-
-    // 解析 HarB 页面 3 的路由地址
-    it('RouteUrlParse_004', 0, async () => {
-      const route: ParsedRoute =
-        RouteUrlParser.parse('HarB/src/main/ets/components/mainpage/page3/HapA_Router-HarB_Page3_Builder');
-      expect(route.harName).assertEqual('HarB');
-      expect(route.path).assertEqual('./src/main/ets/components/mainpage/page3');
-      expect(route.builderName).assertEqual('HarB_Page3_Builder');
-    });
-
-    // 无 builder 片段时降级为空字符串
-    it('RouteUrlParse_005', 0, async () => {
-      const route: ParsedRoute = RouteUrlParser.parse('HarA/page/HapA_Router');
-      expect(route.harName).assertEqual('HarA');
-      expect(route.routerName).assertEqual('HapA_Router');
-      expect(route.builderName).assertEqual('');
-    });
-
-    // 路由名常量与页面标题保持一致
-    it('RouteName_001', 0, async () => {
-      expect('HapA_Router'.length).assertLarger(0);
-      expect('HarA_Page1'.startsWith('HarA_')).assertTrue();
-      expect('HarB_Page1'.startsWith('HarB_')).assertTrue();
+    it('dynRouter_module_001', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'dynRouter_module_001 begin');
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE |
+        bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_ABILITY;
+      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+      const module: bundleManager.HapModuleInfo = info.hapModulesInfo[0];
+      expect(module.mainElementName).assertEqual(MAIN_ABILITY);
+      expect(module.abilitiesInfo.length > 0).assertTrue();
+      expect(module.name.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'dynRouter_module_001 end');
     });
   });
 }

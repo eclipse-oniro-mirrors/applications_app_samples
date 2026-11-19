@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="114" height="114" viewBox="0 0 114 114" fill="none">
+  <defs>
+    <clipPath id="appShape">
+      <rect width="114" height="114" rx="26" ry="26"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#appShape)">
+    <rect width="114" height="114" fill="#007DFF"/>
+
+    <g stroke="#2890F6" stroke-width="1" opacity="0.55">
+      <path d="M13.5 0V114 M27 0V114 M40.5 0V114 M54 0V114 M67.5 0V114 M81 0V114 M94.5 0V114 M108 0V114"/>
+      <path d="M0 13.5H114 M0 27H114 M0 40.5H114 M0 54H114 M0 67.5H114 M0 81H114 M0 94.5H114 M0 108H114"/>
+    </g>
+
+    <rect x="26" y="26" width="28" height="28" rx="7" ry="7" fill="#FFFFFF"/>
+    <rect x="60" y="26" width="28" height="28" rx="7" ry="7" fill="#FFFFFF"/>
+    <rect x="26" y="60" width="28" height="28" rx="7" ry="7" fill="#FFFFFF"/>
+    <rect x="60" y="60" width="28" height="28" rx="7" ry="7" fill="#FFFFFF"/>
+  </g>
+</svg>

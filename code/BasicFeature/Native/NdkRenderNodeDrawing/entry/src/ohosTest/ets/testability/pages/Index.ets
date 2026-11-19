@@ -13,20 +13,46 @@
  * limitations under the License.
  */
 
+import { HARNESS, HARNESS_ID, HARNESS_SIZE } from '../../test/PixelHarness';
+
+// Area 上报的 Length 转数值，RenderNode.frame 使用 vp。
+function toVp(value: Length): number {
+  if (typeof value === 'number') {
+    return value;
+  }
+  if (typeof value === 'string') {
+    const parsed: number = Number(value);
+    return Number.isNaN(parsed) ? 0 : parsed;
+  }
+  return 0;
+}
+
+// 测试页：只承载像素探针画布，用例通过组件快照回读绘制结果。
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World';
+  @State message: string = 'NdkRenderNode pixel harness';
+
+  aboutToAppear(): void {
+    // 测试进程拿不到窗口句柄，把页面自己的 UIContext 交给探针，供用例做组件快照。
+    HARNESS.attachUi(this.getUIContext());
+  }
 
   build() {
-    Row() {
-      Column() {
-        Text(this.message)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
-      }
-      .width('100%')
+    Column() {
+      Text(this.message)
+        .fontSize(12)
+        .width('100%')
+      NodeContainer(HARNESS)
+        .id(HARNESS_ID)
+        .width(HARNESS_SIZE)
+        .height(HARNESS_SIZE)
+        .onAreaChange((_oldValue: Area, newValue: Area) => {
+          HARNESS.resize(toVp(newValue.width), toVp(newValue.height));
+        })
     }
+    .width('100%')
     .height('100%')
+    .justifyContent(FlexAlign.Center)
   }
 }

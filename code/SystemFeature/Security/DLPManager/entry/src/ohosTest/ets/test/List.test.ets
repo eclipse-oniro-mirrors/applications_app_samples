@@ -13,8 +13,24 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test';
+import indexPageUtilsCoreTest from './IndexPageUtilsCore.test';
+import bufferToStringCoreTest from './BufferToStringCore.test';
+import mediaFileUriCoreTest from './MediaFileUriCore.test';
+import loggerUtilCoreTest from './LoggerUtilCore.test';
+import indexUiStateTest from './IndexUiState.test';
+import searchUiStateTest from './SearchUiState.test';
+import recentsUiStateTest from './RecentsUiState.test';
+import templateUiStateTest from './TemplateUiState.test';
+import settingsUiStateTest from './SettingsUiState.test';
 
 export default function testsuite() {
-  abilityTest();
+  indexPageUtilsCoreTest();
+  bufferToStringCoreTest();
+  mediaFileUriCoreTest();
+  loggerUtilCoreTest();
+  indexUiStateTest();
+  searchUiStateTest();
+  recentsUiStateTest();
+  templateUiStateTest();
+  settingsUiStateTest();
 }

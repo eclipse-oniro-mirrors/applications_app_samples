@@ -5,8 +5,8 @@
 
 本示例展示多HAP开发，简单介绍了多HAP的使用场景，应用包含了一个entry HAP和两个feature HAP，两个feature HAP分别提供了音频和视频播放组件，entry中使用了音频和视频播放组件。 三个模块需要安装三个hap包，最终会在设备上安装一个主entry的hap包。
 
-本示例用到了应用上下文Context接口 [@ohos.app.ability.common](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-common.md)  
-媒体服务接口[@ohos.multimedia.media](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-media-kit/js-apis-media.md)
+本示例用到了应用上下文Context接口 [@ohos.app.ability.common](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-common.md)  
+媒体服务接口[@ohos.multimedia.media](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-media-kit/arkts-apis-media.md)
   
 
 ### 效果预览
@@ -82,9 +82,9 @@ feature：应用的特性模块，一个应用中可以包含一个或者多个f
 
 1.本示例仅支持在标准系统上运行。
 
-2.本示例已适配API version 15 版本SDK
+2.当前工程的编译、兼容和目标 SDK 版本均为 26.0.0（API 26）。
 
-3.本示例需要使用DevEco Studio 5.0.3 Release (Build Version: 5.0.9.300, built on March 13, 2025)及以上版本才可编译运行。
+3.请使用支持上述 SDK 的 DevEco Studio。旧版文档记录的 DevEco Studio 5.0.3 Release (Build Version: 5.0.9.300, built on March 13, 2025) 仅供历史参考，不代表当前工程的最低 IDE 版本。
 
 ### 下载
 
@@ -94,7 +94,7 @@ feature：应用的特性模块，一个应用中可以包含一个或者多个f
 git init  
 git config core.sparsecheckout true  
 echo code/Project/ApplicationHap/MultiHap/ > .git/info/sparse-checkout  
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git  
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git  
 git pull origin master
 
 ```

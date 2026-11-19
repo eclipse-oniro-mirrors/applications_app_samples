@@ -18,7 +18,7 @@
     },
     {
       "name": "index_intro",
-      "value": "本示例演示ArkUI NDK的控件树采集与高阶指令注入能力，配合开发指南使用。"
+      "value": "本示例演示ArkUI NDK的控件树采集、节点图片采集与高阶指令注入能力，配合开发指南使用。"
     },
     {
       "name": "nav_tree",
@@ -167,6 +167,38 @@
     {
       "name": "tree_target_a11y",
       "value": "控件树采集目标输入框"
+    },
+    {
+      "name": "nav_image",
+      "value": "节点图片采集"
+    },
+    {
+      "name": "image_page_title",
+      "value": "节点图片采集"
+    },
+    {
+      "name": "image_card_label",
+      "value": "容器"
+    },
+    {
+      "name": "image_text_label",
+      "value": "Text"
+    },
+    {
+      "name": "capture_image_button",
+      "value": "采集 Image 节点"
+    },
+    {
+      "name": "capture_batch_button",
+      "value": "采集 3 个节点"
+    },
+    {
+      "name": "capture_stale_button",
+      "value": "采集含已移除节点"
+    },
+    {
+      "name": "image_ghost_label",
+      "value": "待移除"
     }
   ]
 }

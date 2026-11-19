@@ -39,7 +39,8 @@ uint64_t Recorder::GetCameraInputSurfaceId() const
     }
     return id;
 }
-
+// [Start recorder_buffer_input_first]
+//  获取首帧视频宽跨距和高跨距。
 bool Recorder::InitSyncVideoInputContext()
 {
     if (!encContext_->isEncFirstFrame) {
@@ -59,6 +60,7 @@ bool Recorder::InitSyncVideoInputContext()
     encContext_->isEncFirstFrame = false;
     return true;
 }
+// [End recorder_buffer_input_first]
 
 int32_t Recorder::StartVideoInputThread()
 {
@@ -109,14 +111,15 @@ OH_ImageNative *Recorder::ReadVideoInputImage(VideoInputState &state)
     return image;
 }
 
-// [Start recorder_video_buffer_input]
-// [Start recorder_video_buffer_input_sync]
 void Recorder::VideoEncInputSyncThread()
 {
     VideoInputState state;
+    // 先初始化心跳时间，避免启动瞬间被误判为停滞。
     state.lastSubmittedUs = RecorderClockUs();
+    // [Start recorder_video_buffer_input_sync]
     // videoInputStopping_单独结束视频输入线程，停止读取相机图像、提交普通帧，让输出线程继续排空编码数据。
     while (isStarted_.load() && !videoInputStopping_.load()) {
+        // [StartExclude recorder_video_buffer_input_sync]
         std::unique_lock<std::mutex> inputLock(mediaInputMutex_);
         if (isPaused_) {
             const CameraImage discarded(frameReceiver_->ReadLatest(INPUT_WAIT_MS), OH_ImageNative_Release);
@@ -124,32 +127,44 @@ void Recorder::VideoEncInputSyncThread()
             inputLock.unlock();
             continue;
         }
+        // 示例：读取相机最新视频帧数据。
         const CameraImage image(ReadVideoInputImage(state), OH_ImageNative_Release);
         if (image == nullptr) {
             continue;
         }
         const int64_t receivedAtUs = RecorderClockUs();
+        // [EndExclude recorder_video_buffer_input_sync]
         CodecBufferInfo info;
         // 同步模式主动Query输入索引，再Get对应的编码器Buffer。
         const int32_t ret = videoEncoder_->GetInputBuffer(info, INPUT_WAIT_US);
         if (ret == AVCODEC_SAMPLE_ERR_AGAIN) {
             continue;
         }
+        /**
+         * 示例：配置输入文件。
+         * std::string_view inputFilePath = "/*yourpath*.yuv";
+         * std::unique_ptr<std::ifstream> inputFile = std::make_unique<std::ifstream>();
+         * if (inputFile != nullptr) {
+         *     inputFile->open(inputFilePath.data(), std::ios::in | std::ios::binary);
+         * }
+         */
         if (ret != AVCODEC_SAMPLE_ERR_OK || !InitSyncVideoInputContext()) {
             AbortRecording("Get video input buffer or input description failed");
             break;
         }
+        // [StartExclude recorder_video_buffer_input_sync]
         if (!SubmitVideoInputImage(image.get(), info, state, receivedAtUs)) {
             break;
         }
+        // [EndExclude recorder_video_buffer_input_sync]
     }
-}
 // [End recorder_video_buffer_input_sync]
+}
 
-// [Start recorder_video_buffer_input_async]
 void Recorder::VideoEncInputAsyncThread()
 {
     VideoInputState state;
+    // 先初始化心跳时间，避免启动瞬间被误判为停滞。
     state.lastSubmittedUs = RecorderClockUs();
     // videoInputStopping_单独结束视频输入线程，停止读取相机图像、提交普通帧，让输出线程继续排空编码数据。
     while (isStarted_.load() && !videoInputStopping_.load()) {
@@ -160,23 +175,84 @@ void Recorder::VideoEncInputAsyncThread()
             inputLock.unlock();
             continue;
         }
+        // 示例：读取相机最新视频帧数据。
         const CameraImage image(ReadVideoInputImage(state), OH_ImageNative_Release);
         if (image == nullptr) {
             continue;
         }
         const int64_t receivedAtUs = RecorderClockUs();
+        // [Start recorder_video_buffer_input_async]
         // 异步模式只消费OnNeedInputBuffer回调入队的Buffer和索引，不调用Query/Get接口。
-        const auto input = encContext_->inputBufferQueue.Dequeue(INPUT_WAIT_MS);
+        const auto bufferInfo = encContext_->inputBufferQueue.Dequeue(INPUT_WAIT_MS);
         if (input == nullptr || input->buffer == nullptr) {
             continue;
         }
+         /**
+         * // 示例：读取输入文件数据，将数据写入buffer，设置属性后送入编码器。
+         * // 输入文件配置。
+         * std::string_view inputFilePath = "/*yourpath*.yuv";
+         * std::unique_ptr<std::ifstream> inputFile = std::make_unique<std::ifstream>();
+         * if (inputFile != nullptr) {
+         *     inputFile->open(inputFilePath.data(), std::ios::in | std::ios::binary);
+         * }
+         *
+         * // 将数据写入buffer，设置属性后送入编码器。
+         * int32_t frameSize = 0;
+         * if (widthStride == width && heightStride == height) {
+         *     frameSize = width * height * 3 / 2; // NV12像素格式下，每帧数据大小的计算公式。
+         *     int32_t capacity = OH_AVBuffer_GetCapacity(bufferInfo->buffer);
+         *     if (frameSize > capacity) {
+         *         // 异常处理。
+         *     }
+         *     // 处理文件流得到帧的长度，再将需要编码的数据写入到对应index的buffer中。
+         *     uint8_t *addr = OH_AVBuffer_GetAddr(bufferInfo->buffer);
+         *     if (addr == nullptr) {
+         *        // 异常处理。
+         *     }
+         *     if (inputFile != nullptr && inputFile->is_open()) {
+         *        inputFile->read(reinterpret_cast<char *>(addr), frameSize);
+         *     }
+         * } else {
+         *     // 如果跨距不等于宽，需要开发者按照跨距进行跨距对齐处理。
+         * }
+         * // 配置buffer info信息。
+         * OH_AVCodecBufferAttr info;
+         * info.size = frameSize;
+         * info.offset = 0;
+         * // 注意此处和Surface模式不同，pts需要应用填充，可根据预期显示的时间进行计算写入，如：帧数 * 1000000 / frameRate。
+         * info.pts = 0;
+         * // 避免flags随机初始化为AVCODEC_BUFFER_FLAGS_EOS导致使用异常，flags需要赋值如0（普通帧标识）。
+         * info.flags = 0;
+         * OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(bufferInfo->buffer, &info);
+         * if (setBufferRet != AV_ERR_OK) {
+         *     // 异常处理。
+         * }
+         * // 配置buffer随帧信息。
+         * // 值由开发者决定。
+         * int32_t isIFrame;
+         * auto parameter =
+         *     std::shared_ptr<OH_AVFormat>(OH_AVBuffer_GetParameter(bufferInfo->buffer), OH_AVFormat_Destroy);
+         * if (parameter == nullptr) {
+         *     // 异常处理。
+         * }
+         * OH_AVFormat_SetIntValue(parameter.get(), OH_MD_KEY_REQUEST_I_FRAME, isIFrame);
+         * OH_AVErrCode parameterRet = OH_AVBuffer_SetParameter(bufferInfo->buffer, parameter.get());
+         * if (parameterRet != AV_ERR_OK) {
+         *     // 异常处理。
+         * }
+         * // 送入编码输入队列进行编码，index为对应输入队列的下标。
+         * OH_AVErrCode pushInputRet = OH_VideoEncoder_PushInputBuffer(videoEnc, bufferInfo->index);
+         * if (pushInputRet != AV_ERR_OK) {
+         *     // 异常处理。
+         * }
+         */
+        // [End recorder_video_buffer_input_async]
         if (!SubmitVideoInputImage(image.get(), *input, state, receivedAtUs)) {
             break;
         }
     }
 }
-// [End recorder_video_buffer_input_async]
-// [End recorder_video_buffer_input]
+
 
 bool Recorder::SubmitVideoInputImage(OH_ImageNative *image, CodecBufferInfo &info, VideoInputState &state,
     int64_t receivedAtUs)
@@ -223,6 +299,7 @@ bool Recorder::SubmitVideoInputImage(OH_ImageNative *image, CodecBufferInfo &inf
     info.attr.pts = ptsUs;
     info.attr.offset = 0;
     info.attr.flags = AVCODEC_BUFFER_FLAGS_NONE;
+    // 注意输入的buffer需跨距对齐。
     if (videoEncoder_->PushInputBuffer(info) != AVCODEC_SAMPLE_ERR_OK) {
         AbortRecording("Submit camera frame to video encoder failed");
         return false;
@@ -267,9 +344,11 @@ int32_t Recorder::SendBufferVideoEndOfStreamAsync()
     if (input == nullptr || input->buffer == nullptr) {
         return AVCODEC_SAMPLE_ERR_ERROR;
     }
+    // 配置buffer info信息，设置AVCODEC_BUFFER_FLAGS_EOS标识。
     CodecBufferInfo info = *input;
     info.attr.size = 0;
     info.attr.offset = 0;
+    // 注意此处和Surface模式不同，pts需要应用填充，可根据预期显示的时间进行计算写入，如：帧数 * 1000000 / frameRate。
     info.attr.pts = lastVideoInputPtsUs_;
     info.attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
     return videoEncoder_->PushInputBuffer(info);

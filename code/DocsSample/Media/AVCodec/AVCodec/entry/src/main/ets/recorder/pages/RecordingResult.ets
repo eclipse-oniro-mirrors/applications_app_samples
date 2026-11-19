@@ -63,6 +63,12 @@ struct RecordingResult {
               .fontSize(12).width('100%')
             Text(this.result.complete === false ? $r('app.string.rec_result_partial') :
               $r('app.string.rec_result_complete')).width('100%')
+            if (this.result.historySaved === false) {
+              Text($r('app.string.recorder_history_unsaved')).fontSize(13).fontColor('#B54708').width('100%')
+            }
+            if (this.result.cleanupPending === true) {
+              Text($r('app.string.recorder_close_unconfirmed')).fontSize(13).fontColor('#B42318').width('100%')
+            }
             Text(this.fileMetadata || LocalizedText.get($r('app.string.rec_result_metadata_unavailable')))
               .fontSize(13).width('100%')
             Text($r('app.string.rec_result_metadata_note')).fontSize(12).fontColor('#667085').width('100%')

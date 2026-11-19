@@ -51,12 +51,17 @@ export class BleAdvertisingManager {
   }
 
   // 1 订阅广播状态
+  private advertisingListener: (data: ble.AdvertisingStateChangeInfo) => void =
+    (_data: ble.AdvertisingStateChangeInfo): void => {};
+
   public onAdvertisingStateChange() {
     try {
-      ble.on('advertisingStateChange', (data: ble.AdvertisingStateChangeInfo) => {
+      const listener = (data: ble.AdvertisingStateChangeInfo): void => {
         console.info(TAG, 'bluetooth advertising state = ' + JSON.stringify(data));
         AppStorage.setOrCreate('advertiserState', data.state);
-      });
+      };
+      ble.on('advertisingStateChange', listener);
+      this.advertisingListener = listener;
     } catch (err) {
       console.error(TAG, 'errCode: ' + (err as BusinessError).code + ', errMessage: ' + (err as BusinessError).message);
     }
@@ -167,10 +172,7 @@ export class BleAdvertisingManager {
     try {
       this.toastReport.showResult('bluetooth advertising stop success');
       await ble.stopAdvertising(this.advHandle);
-      ble.off('advertisingStateChange', (data: ble.AdvertisingStateChangeInfo) => {
-        console.info(TAG, 'bluetooth advertising state = ' + JSON.stringify(data));
-        this.toastReport.showResult('bluetooth advertising stop');
-      });
+      ble.off('advertisingStateChange', this.advertisingListener);
     } catch (err) {
       this.toastReport.showResult('bluetooth advertising stop fail');
       console.error(TAG, 'errCode: ' + (err as BusinessError).code + ', errMessage: ' + (err as BusinessError).message);

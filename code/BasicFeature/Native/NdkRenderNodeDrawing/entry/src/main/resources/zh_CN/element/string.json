@@ -2,15 +2,2423 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "模块描述"
+      "value": "RenderNode 与 Native Drawing 示例"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "RenderNode 与 Native Drawing 示例"
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "NdkRenderNodeDrawing"
+    },
+    {
+      "name": "index_title",
+      "value": "RenderNode 绘制"
+    },
+    {
+      "name": "back",
+      "value": "返回"
+    },
+    {
+      "name": "index_subtitle",
+      "value": "RenderNode 与 Native Drawing 能力演示"
+    },
+    {
+      "name": "draw_title",
+      "value": "画布绘制"
+    },
+    {
+      "name": "draw_desc",
+      "value": "通过 Node-API 在 RenderNode 上绘制路径、文本与图片。"
+    },
+    {
+      "name": "draw_path",
+      "value": "绘制路径"
+    },
+    {
+      "name": "draw_text",
+      "value": "绘制文本"
+    },
+    {
+      "name": "draw_image",
+      "value": "绘制图片"
+    },
+    {
+      "name": "primitive_title",
+      "value": "几何图元"
+    },
+    {
+      "name": "primitive_desc",
+      "value": "点、线、圆、椭圆、矩形、圆角矩形、圆弧、路径与区域。"
+    },
+    {
+      "name": "effect_title",
+      "value": "绘制效果"
+    },
+    {
+      "name": "effect_desc",
+      "value": "填充描边、混合模式、虚线、渐变、颜色滤波与蒙版模糊。"
+    },
+    {
+      "name": "transform_title",
+      "value": "画布变换"
+    },
+    {
+      "name": "transform_desc",
+      "value": "裁剪、平移、旋转、缩放、矩阵变换与状态保存恢复。"
+    },
+    {
+      "name": "image_title",
+      "value": "图片绘制"
+    },
+    {
+      "name": "image_desc",
+      "value": "以不同采样模式绘制 PixelMap，并演示缩放视图。"
+    },
+    {
+      "name": "text_title",
+      "value": "文本绘制"
+    },
+    {
+      "name": "text_desc",
+      "value": "TextBlob、Typography 排版与文本测量。"
+    },
+    {
+      "name": "node_tree_title",
+      "value": "节点树"
+    },
+    {
+      "name": "node_tree_desc",
+      "value": "在运行时添加与移除子渲染节点。"
+    },
+    {
+      "name": "render_property_title",
+      "value": "渲染属性"
+    },
+    {
+      "name": "render_property_desc",
+      "value": "切换背景色、透明度、裁剪、阴影、缩放与旋转。"
+    },
+    {
+      "name": "blur_title",
+      "value": "模糊效果"
+    },
+    {
+      "name": "blur_desc",
+      "value": "API 26 起支持背景模糊、内容模糊与前景模糊。"
+    },
+    {
+      "name": "lifecycle_title",
+      "value": "生命周期"
+    },
+    {
+      "name": "lifecycle_desc",
+      "value": "设置 label、触发重绘、销毁与重建渲染节点。"
+    },
+    {
+      "name": "btn_measure",
+      "value": "测量文本"
+    },
+    {
+      "name": "btn_add_child",
+      "value": "添加子节点"
+    },
+    {
+      "name": "btn_remove_child",
+      "value": "移除子节点"
+    },
+    {
+      "name": "btn_reset",
+      "value": "重置"
+    },
+    {
+      "name": "prop_background",
+      "value": "背景色"
+    },
+    {
+      "name": "prop_opacity",
+      "value": "透明度"
+    },
+    {
+      "name": "prop_clip",
+      "value": "裁剪"
+    },
+    {
+      "name": "prop_shadow",
+      "value": "阴影"
+    },
+    {
+      "name": "prop_scale",
+      "value": "缩放"
+    },
+    {
+      "name": "prop_rotation",
+      "value": "旋转"
+    },
+    {
+      "name": "blur_background",
+      "value": "背景模糊"
+    },
+    {
+      "name": "blur_content",
+      "value": "内容模糊"
+    },
+    {
+      "name": "blur_foreground",
+      "value": "前景模糊"
+    },
+    {
+      "name": "blur_radius",
+      "value": "模糊半径"
+    },
+    {
+      "name": "lifecycle_label",
+      "value": "设置 label"
+    },
+    {
+      "name": "lifecycle_invalidate",
+      "value": "触发重绘"
+    },
+    {
+      "name": "lifecycle_dispose",
+      "value": "销毁节点"
+    },
+    {
+      "name": "lifecycle_recreate",
+      "value": "重建节点"
+    },
+    {
+      "name": "state_disposed",
+      "value": "节点是否销毁："
+    },
+    {
+      "name": "state_child_count",
+      "value": "子节点数量："
+    },
+    {
+      "name": "state_measure",
+      "value": "测量尺寸："
+    },
+    {
+      "name": "image_missing",
+      "value": "图片尚未就绪"
+    },
+    {
+      "name": "capability_title",
+      "value": "能力矩阵"
+    },
+    {
+      "name": "capability_desc",
+      "value": "以 schema 驱动的演示，覆盖画布、画笔、位图、文字、阴影、矩阵、录制、表面与错误码等 19 个能力域。"
+    },
+    {
+      "name": "label_parameters",
+      "value": "参数"
+    },
+    {
+      "name": "label_reapply",
+      "value": "重新应用"
+    },
+    {
+      "name": "label_scene_count",
+      "value": "%d 个场景"
+    },
+    {
+      "name": "catalog_desc",
+      "value": "以 schema 驱动：每个分组演示同一原生绘制头文件族的全部能力。"
+    },
+    {
+      "name": "topic_catalog_desc",
+      "value": "节点级专题：节点树、渲染属性、模糊、动画、命中测试、性能、录制与多设备适配。"
+    },
+    {
+      "name": "topic_title",
+      "value": "RenderNode 专题"
+    },
+    {
+      "name": "topic_desc",
+      "value": "十个节点级专题：节点树、渲染属性、模糊、动画、命中测试、性能、录制回放、多设备适配、生命周期与帧回调。"
+    },
+    {
+      "name": "cap_bitmap_group_title",
+      "value": "位图"
+    },
+    {
+      "name": "cap_bitmap_group_desc",
+      "value": "构建、绘制、缩放、像素回读、以内存像素创建、格式查看与平铺位图。"
+    },
+    {
+      "name": "cap_bitmap_s00_title",
+      "value": "构建"
+    },
+    {
+      "name": "cap_bitmap_s00_desc",
+      "value": "创建空位图，绑定离屏画布绘制后再回绘到主画布。"
+    },
+    {
+      "name": "cap_bitmap_s01_title",
+      "value": "绘制"
+    },
+    {
+      "name": "cap_bitmap_s01_desc",
+      "value": "DrawBitmap 保持一像素对一像素，不做缩放。"
+    },
+    {
+      "name": "cap_bitmap_s02_title",
+      "value": "矩形缩放"
+    },
+    {
+      "name": "cap_bitmap_s02_desc",
+      "value": "用采样把同一张位图拉伸到不同的目标矩形。"
+    },
+    {
+      "name": "cap_bitmap_s03_title",
+      "value": "像素回读"
+    },
+    {
+      "name": "cap_bitmap_s03_desc",
+      "value": "读回位图像素并以色块重新绘制。"
+    },
+    {
+      "name": "cap_bitmap_s04_title",
+      "value": "内存像素"
+    },
+    {
+      "name": "cap_bitmap_s04_desc",
+      "value": "直接用内存像素创建位图，跳过画布。"
+    },
+    {
+      "name": "cap_bitmap_s05_title",
+      "value": "图像信息"
+    },
+    {
+      "name": "cap_bitmap_s05_desc",
+      "value": "读取宽高与格式，再按报告的比例绘制。"
+    },
+    {
+      "name": "cap_bitmap_s06_title",
+      "value": "Alpha 格式"
+    },
+    {
+      "name": "cap_bitmap_s06_desc",
+      "value": "预乘与非预乘在半透明填充上表现不同。"
+    },
+    {
+      "name": "cap_bitmap_s07_title",
+      "value": "颜色格式"
+    },
+    {
+      "name": "cap_bitmap_s07_desc",
+      "value": "同一段内存按 RGBA 与 BGRA 读取会出现通道互换。"
+    },
+    {
+      "name": "cap_bitmap_s08_title",
+      "value": "行字节"
+    },
+    {
+      "name": "cap_bitmap_s08_desc",
+      "value": "行字节设置内存跨距，条纹体现格式间隙。"
+    },
+    {
+      "name": "cap_bitmap_s09_title",
+      "value": "平铺网格"
+    },
+    {
+      "name": "cap_bitmap_s09_desc",
+      "value": "用一次采样选项把小位图重复铺满画布。"
+    },
+    {
+      "name": "cap_canvas_group_title",
+      "value": "画布与裁剪"
+    },
+    {
+      "name": "cap_canvas_group_desc",
+      "value": "清空、批量顶点、保存恢复、四种裁剪、平移、错切与图层合成。"
+    },
+    {
+      "name": "cap_canvas_s00_title",
+      "value": "清空填充"
+    },
+    {
+      "name": "cap_canvas_s00_desc",
+      "value": "清空画布后叠加半透明矩形与圆形。"
+    },
+    {
+      "name": "cap_canvas_s01_title",
+      "value": "点阵"
+    },
+    {
+      "name": "cap_canvas_s01_desc",
+      "value": "一次 DrawPoints 提交整片顶点。"
+    },
+    {
+      "name": "cap_canvas_s02_title",
+      "value": "保存恢复"
+    },
+    {
+      "name": "cap_canvas_s02_desc",
+      "value": "在保存块内旋转，恢复后回到之前状态。"
+    },
+    {
+      "name": "cap_canvas_s03_title",
+      "value": "矩形裁剪"
+    },
+    {
+      "name": "cap_canvas_s03_desc",
+      "value": "裁剪到内缩矩形后绘制斜向条纹。"
+    },
+    {
+      "name": "cap_canvas_s04_title",
+      "value": "圆角矩形裁剪"
+    },
+    {
+      "name": "cap_canvas_s04_desc",
+      "value": "先裁剪到圆角矩形再绘制圆环。"
+    },
+    {
+      "name": "cap_canvas_s05_title",
+      "value": "路径裁剪"
+    },
+    {
+      "name": "cap_canvas_s05_desc",
+      "value": "沿可调边数的正多边形路径裁剪。"
+    },
+    {
+      "name": "cap_canvas_s06_title",
+      "value": "区域裁剪"
+    },
+    {
+      "name": "cap_canvas_s06_desc",
+      "value": "裁剪到两个区域的差集。"
+    },
+    {
+      "name": "cap_canvas_s07_title",
+      "value": "平移"
+    },
+    {
+      "name": "cap_canvas_s07_desc",
+      "value": "连续三次同样的平移，让色块彼此分开。"
+    },
+    {
+      "name": "cap_canvas_s08_title",
+      "value": "错切"
+    },
+    {
+      "name": "cap_canvas_s08_desc",
+      "value": "以角度错切坐标系，内部换算为正切值。"
+    },
+    {
+      "name": "cap_canvas_s09_title",
+      "value": "图层合成"
+    },
+    {
+      "name": "cap_canvas_s09_desc",
+      "value": "在图层内合成两个圆后整体混合一次。"
+    },
+    {
+      "name": "cap_color_group_title",
+      "value": "颜色模型"
+    },
+    {
+      "name": "cap_color_group_desc",
+      "value": "调色板、Alpha 梯度、通道重组、ARGB 与 RGBA 顺序、对比度、反色与伽马。"
+    },
+    {
+      "name": "cap_color_s00_title",
+      "value": "调色板"
+    },
+    {
+      "name": "cap_color_s00_desc",
+      "value": "按所选数量与透明度铺开内置调色板。"
+    },
+    {
+      "name": "cap_color_s01_title",
+      "value": "Alpha 梯度"
+    },
+    {
+      "name": "cap_color_s01_desc",
+      "value": "同一颜色按等距 Alpha 台阶展开。"
+    },
+    {
+      "name": "cap_color_s02_title",
+      "value": "插值"
+    },
+    {
+      "name": "cap_color_s02_desc",
+      "value": "按比例在两种调色板颜色之间插值。"
+    },
+    {
+      "name": "cap_color_s03_title",
+      "value": "顺序 ARGB"
+    },
+    {
+      "name": "cap_color_s03_desc",
+      "value": "拆解 A/R/G/B 后按相同顺序重建颜色。"
+    },
+    {
+      "name": "cap_color_s04_title",
+      "value": "顺序 RGBA"
+    },
+    {
+      "name": "cap_color_s04_desc",
+      "value": "按 R/G/B/A 顺序重建颜色以体现通道位移。"
+    },
+    {
+      "name": "cap_color_s05_title",
+      "value": "对比度"
+    },
+    {
+      "name": "cap_color_s05_desc",
+      "value": "以 128 为中心缩放各通道，1.0 保持原色。"
+    },
+    {
+      "name": "cap_color_s06_title",
+      "value": "反色"
+    },
+    {
+      "name": "cap_color_s06_desc",
+      "value": "按比例将颜色混向补色。"
+    },
+    {
+      "name": "cap_color_s07_title",
+      "value": "伽马转线性"
+    },
+    {
+      "name": "cap_color_s07_desc",
+      "value": "指数大于 1 时各通道变暗。"
+    },
+    {
+      "name": "cap_color_s08_title",
+      "value": "伽马转 sRGB"
+    },
+    {
+      "name": "cap_color_s08_desc",
+      "value": "指数小于 1 时各通道变亮。"
+    },
+    {
+      "name": "cap_color_filter_group_title",
+      "value": "颜色滤波器"
+    },
+    {
+      "name": "cap_color_filter_group_desc",
+      "value": "混合模式滤波、四种颜色矩阵、亮度、组合、光照与画笔级滤波。"
+    },
+    {
+      "name": "cap_color_filter_s00_title",
+      "value": "混合模式"
+    },
+    {
+      "name": "cap_color_filter_s00_desc",
+      "value": "按所选模式把纯色混合到调色板条纹上。"
+    },
+    {
+      "name": "cap_color_filter_s01_title",
+      "value": "灰度矩阵"
+    },
+    {
+      "name": "cap_color_filter_s01_desc",
+      "value": "饱和度矩阵，0 为全灰，100 保持原色。"
+    },
+    {
+      "name": "cap_color_filter_s02_title",
+      "value": "棕褐矩阵"
+    },
+    {
+      "name": "cap_color_filter_s02_desc",
+      "value": "强度可调的棕褐色矩阵。"
+    },
+    {
+      "name": "cap_color_filter_s03_title",
+      "value": "反色矩阵"
+    },
+    {
+      "name": "cap_color_filter_s03_desc",
+      "value": "反色矩阵，100 为完全补色。"
+    },
+    {
+      "name": "cap_color_filter_s04_title",
+      "value": "对比度矩阵"
+    },
+    {
+      "name": "cap_color_filter_s04_desc",
+      "value": "围绕中灰点的对比度矩阵。"
+    },
+    {
+      "name": "cap_color_filter_s05_title",
+      "value": "亮度"
+    },
+    {
+      "name": "cap_color_filter_s05_desc",
+      "value": "内置亮度滤镜与未滤波色块对照。"
+    },
+    {
+      "name": "cap_color_filter_s06_title",
+      "value": "组合"
+    },
+    {
+      "name": "cap_color_filter_s06_desc",
+      "value": "两级滤镜串联，外层作用在内层结果上。"
+    },
+    {
+      "name": "cap_color_filter_s07_title",
+      "value": "光照"
+    },
+    {
+      "name": "cap_color_filter_s07_desc",
+      "value": "乘法色与加法色共同决定最终亮度。"
+    },
+    {
+      "name": "cap_color_filter_s08_title",
+      "value": "画笔滤波"
+    },
+    {
+      "name": "cap_color_filter_s08_desc",
+      "value": "未滤波画面与携带反色滤镜的画笔对照。"
+    },
+    {
+      "name": "cap_error_group_title",
+      "value": "错误码"
+    },
+    {
+      "name": "cap_error_group_desc",
+      "value": "空参、非法、成功与失败后的码值读取与复位，以及带守卫的流程。"
+    },
+    {
+      "name": "cap_error_s00_title",
+      "value": "复位"
+    },
+    {
+      "name": "cap_error_s00_desc",
+      "value": "复位后码值为零，再次读取确认。"
+    },
+    {
+      "name": "cap_error_s01_title",
+      "value": "空参数"
+    },
+    {
+      "name": "cap_error_s01_desc",
+      "value": "空参调用接口返回非法参数错误码。"
+    },
+    {
+      "name": "cap_error_s02_title",
+      "value": "非法尺寸"
+    },
+    {
+      "name": "cap_error_s02_desc",
+      "value": "以负尺寸开始录制并读回错误码。"
+    },
+    {
+      "name": "cap_error_s03_title",
+      "value": "成功之后"
+    },
+    {
+      "name": "cap_error_s03_desc",
+      "value": "连续成功调用不会改动错误码。"
+    },
+    {
+      "name": "cap_error_s04_title",
+      "value": "失败之后"
+    },
+    {
+      "name": "cap_error_s04_desc",
+      "value": "码值保留到读取或复位，成功调用不会清除。"
+    },
+    {
+      "name": "cap_error_s05_title",
+      "value": "恢复"
+    },
+    {
+      "name": "cap_error_s05_desc",
+      "value": "失败后复位，正常绘制继续可用。"
+    },
+    {
+      "name": "cap_error_s06_title",
+      "value": "码值表"
+    },
+    {
+      "name": "cap_error_s06_desc",
+      "value": "常见码值以柱状绘制，高度按码值缩放。"
+    },
+    {
+      "name": "cap_error_s07_title",
+      "value": "矩形守卫"
+    },
+    {
+      "name": "cap_error_s07_desc",
+      "value": "先裁剪尺寸，仅合法矩形进入 RectCreate。"
+    },
+    {
+      "name": "cap_error_s08_title",
+      "value": "矩阵守卫"
+    },
+    {
+      "name": "cap_error_s08_desc",
+      "value": "每一步矩阵都校验，第一次失败即中断流程。"
+    },
+    {
+      "name": "cap_error_s09_title",
+      "value": "汇总"
+    },
+    {
+      "name": "cap_error_s09_desc",
+      "value": "执行一组独立校验并以网格展示结果。"
+    },
+    {
+      "name": "cap_font_group_title",
+      "value": "字体"
+    },
+    {
+      "name": "cap_font_group_desc",
+      "value": "字号、测量、度量、倾斜、伪粗体、X 缩放、微调、边缘与文字轮廓。"
+    },
+    {
+      "name": "cap_font_s00_title",
+      "value": "创建"
+    },
+    {
+      "name": "cap_font_s00_desc",
+      "value": "创建字体、设置字号并绘制基线样例。"
+    },
+    {
+      "name": "cap_font_s01_title",
+      "value": "字号阶梯"
+    },
+    {
+      "name": "cap_font_s01_desc",
+      "value": "同一字体的两个字号体现字形与行距变化。"
+    },
+    {
+      "name": "cap_font_s02_title",
+      "value": "文本测量"
+    },
+    {
+      "name": "cap_font_s02_desc",
+      "value": "MeasureText 报告宽度，并按该宽度绘制外框。"
+    },
+    {
+      "name": "cap_font_s03_title",
+      "value": "字体度量"
+    },
+    {
+      "name": "cap_font_s03_desc",
+      "value": "按度量绘制顶部、升部、降部与底部参考线。"
+    },
+    {
+      "name": "cap_font_s04_title",
+      "value": "倾斜"
+    },
+    {
+      "name": "cap_font_s04_desc",
+      "value": "SetTextSkewX 沿 X 轴倾斜字形，负值向左倾。"
+    },
+    {
+      "name": "cap_font_s05_title",
+      "value": "伪粗体"
+    },
+    {
+      "name": "cap_font_s05_desc",
+      "value": "FakeBold 在不加载其余字体文件的情况下加粗字形。"
+    },
+    {
+      "name": "cap_font_s06_title",
+      "value": "X 缩放"
+    },
+    {
+      "name": "cap_font_s06_desc",
+      "value": "SetScaleX 只拉伸字形宽度，字号不变。"
+    },
+    {
+      "name": "cap_font_s07_title",
+      "value": "微调"
+    },
+    {
+      "name": "cap_font_s07_desc",
+      "value": "更高的微调等级让小字号对齐像素网格。"
+    },
+    {
+      "name": "cap_font_s08_title",
+      "value": "边缘"
+    },
+    {
+      "name": "cap_font_s08_desc",
+      "value": "无抗锯齿、抗锯齿与次像素带来不同的边缘质量。"
+    },
+    {
+      "name": "cap_font_s09_title",
+      "value": "文字路径"
+    },
+    {
+      "name": "cap_font_s09_desc",
+      "value": "GetTextPath 返回字形轮廓，此处做填充与描边。"
+    },
+    {
+      "name": "cap_font_s10_title",
+      "value": "字体管理器"
+    },
+    {
+      "name": "cap_font_s10_desc",
+      "value": "统计系统字体族数量并绘制第一个族名。"
+    },
+    {
+      "name": "cap_font_s11_title",
+      "value": "默认字形"
+    },
+    {
+      "name": "cap_font_s11_desc",
+      "value": "TypefaceCreateDefault 挂载默认字形族。"
+    },
+    {
+      "name": "cap_geometry_group_title",
+      "value": "图元与路径"
+    },
+    {
+      "name": "cap_geometry_group_desc",
+      "value": "矩形、圆角矩形、嵌套圆角、椭圆、圆弧、直线、多边形、贝塞尔与布尔运算。"
+    },
+    {
+      "name": "cap_geometry_s00_title",
+      "value": "矩形"
+    },
+    {
+      "name": "cap_geometry_s00_desc",
+      "value": "按百分比尺寸填充并描边矩形。"
+    },
+    {
+      "name": "cap_geometry_s01_title",
+      "value": "圆角矩形"
+    },
+    {
+      "name": "cap_geometry_s01_desc",
+      "value": "统一圆角半径，并用 SetCorner 放大其中一个角。"
+    },
+    {
+      "name": "cap_geometry_s02_title",
+      "value": "嵌套圆角"
+    },
+    {
+      "name": "cap_geometry_s02_desc",
+      "value": "一次调用绘制外层与内层圆角矩形。"
+    },
+    {
+      "name": "cap_geometry_s03_title",
+      "value": "椭圆"
+    },
+    {
+      "name": "cap_geometry_s03_desc",
+      "value": "水平与垂直半径分别可控。"
+    },
+    {
+      "name": "cap_geometry_s04_title",
+      "value": "圆弧"
+    },
+    {
+      "name": "cap_geometry_s04_desc",
+      "value": "绘制不连接圆心的圆弧。"
+    },
+    {
+      "name": "cap_geometry_s05_title",
+      "value": "圆弧带心"
+    },
+    {
+      "name": "cap_geometry_s05_desc",
+      "value": "切换 useCenter 在圆弧与扇形之间转换。"
+    },
+    {
+      "name": "cap_geometry_s06_title",
+      "value": "直线"
+    },
+    {
+      "name": "cap_geometry_s06_desc",
+      "value": "三条平行直线按对角偏移错开。"
+    },
+    {
+      "name": "cap_geometry_s07_title",
+      "value": "多边形"
+    },
+    {
+      "name": "cap_geometry_s07_desc",
+      "value": "正多边形路径，闭合多边形同时填充。"
+    },
+    {
+      "name": "cap_geometry_s08_title",
+      "value": "贝塞尔"
+    },
+    {
+      "name": "cap_geometry_s08_desc",
+      "value": "二次与三次曲线并排，曲率可调。"
+    },
+    {
+      "name": "cap_geometry_s09_title",
+      "value": "路径运算"
+    },
+    {
+      "name": "cap_geometry_s09_desc",
+      "value": "用布尔运算组合两条圆形路径。"
+    },
+    {
+      "name": "cap_geometry_s10_title",
+      "value": "区域运算"
+    },
+    {
+      "name": "cap_geometry_s10_desc",
+      "value": "组合两个矩形区域并导出边界路径。"
+    },
+    {
+      "name": "cap_image_filter_group_title",
+      "value": "图像滤波器"
+    },
+    {
+      "name": "cap_image_filter_group_desc",
+      "value": "对已绘制内容做模糊、裁剪、偏移、颜色矩阵、着色器包裹、Lattice 与三种平铺模式。"
+    },
+    {
+      "name": "cap_image_filter_s00_title",
+      "value": "模糊"
+    },
+    {
+      "name": "cap_image_filter_s00_desc",
+      "value": "X 与 Y 方向 sigma 独立设置，并选择模糊越过边缘的方式。"
+    },
+    {
+      "name": "cap_image_filter_s01_title",
+      "value": "模糊裁剪"
+    },
+    {
+      "name": "cap_image_filter_s01_desc",
+      "value": "裁剪模糊结果，让光晕止于裁剪矩形。"
+    },
+    {
+      "name": "cap_image_filter_s02_title",
+      "value": "偏移"
+    },
+    {
+      "name": "cap_image_filter_s02_desc",
+      "value": "位移绘制内容以形成投影或残影。"
+    },
+    {
+      "name": "cap_image_filter_s03_title",
+      "value": "颜色矩阵"
+    },
+    {
+      "name": "cap_image_filter_s03_desc",
+      "value": "把颜色滤波包装为只作用于形状的图像滤波。"
+    },
+    {
+      "name": "cap_image_filter_s04_title",
+      "value": "着色器包裹"
+    },
+    {
+      "name": "cap_image_filter_s04_desc",
+      "value": "把扫描渐变着色器包装为作用于形状的图像滤波。"
+    },
+    {
+      "name": "cap_image_filter_s05_title",
+      "value": "Lattice"
+    },
+    {
+      "name": "cap_image_filter_s05_desc",
+      "value": "创建并销毁 Lattice，网格示意切分数量。"
+    },
+    {
+      "name": "cap_image_filter_s06_title",
+      "value": "平铺钳位"
+    },
+    {
+      "name": "cap_image_filter_s06_desc",
+      "value": "钳位模式在源范围之外重复边缘像素。"
+    },
+    {
+      "name": "cap_image_filter_s07_title",
+      "value": "平铺重复"
+    },
+    {
+      "name": "cap_image_filter_s07_desc",
+      "value": "重复模式包裹源图，模糊后四角折回内部。"
+    },
+    {
+      "name": "cap_image_filter_s08_title",
+      "value": "平铺镜像"
+    },
+    {
+      "name": "cap_image_filter_s08_desc",
+      "value": "镜像模式在每条边处把源图折回自身。"
+    },
+    {
+      "name": "cap_image_filter_s09_title",
+      "value": "图层滤波"
+    },
+    {
+      "name": "cap_image_filter_s09_desc",
+      "value": "先绘制整层，再把整层作为一张图像滤波。"
+    },
+    {
+      "name": "cap_image_io_group_title",
+      "value": "图像与内存流"
+    },
+    {
+      "name": "cap_image_io_group_desc",
+      "value": "图像创建、源矩形映射、采样、Alpha 拷贝与字体内存流。"
+    },
+    {
+      "name": "cap_image_io_s00_title",
+      "value": "创建图像"
+    },
+    {
+      "name": "cap_image_io_s00_desc",
+      "value": "构建位图并包装为 Image，再居中绘制。"
+    },
+    {
+      "name": "cap_image_io_s01_title",
+      "value": "绘制图像"
+    },
+    {
+      "name": "cap_image_io_s01_desc",
+      "value": "把整张 Image 绘制到目标矩形，不裁剪源。"
+    },
+    {
+      "name": "cap_image_io_s02_title",
+      "value": "源矩形"
+    },
+    {
+      "name": "cap_image_io_s02_desc",
+      "value": "只把源图中间区域映射到目标矩形。"
+    },
+    {
+      "name": "cap_image_io_s03_title",
+      "value": "图像信息"
+    },
+    {
+      "name": "cap_image_io_s03_desc",
+      "value": "读取宽高与 Alpha 类型并标注比例。"
+    },
+    {
+      "name": "cap_image_io_s04_title",
+      "value": "最近邻采样"
+    },
+    {
+      "name": "cap_image_io_s04_desc",
+      "value": "用最近邻放大以保留硬像素边缘。"
+    },
+    {
+      "name": "cap_image_io_s05_title",
+      "value": "线性采样"
+    },
+    {
+      "name": "cap_image_io_s05_desc",
+      "value": "用线性放大得到更平滑的结果。"
+    },
+    {
+      "name": "cap_image_io_s06_title",
+      "value": "Alpha 拷贝"
+    },
+    {
+      "name": "cap_image_io_s06_desc",
+      "value": "在半透明图层内绘制图像以体现混合。"
+    },
+    {
+      "name": "cap_image_io_s07_title",
+      "value": "内存流"
+    },
+    {
+      "name": "cap_image_io_s07_desc",
+      "value": "把内存缓冲区包装为流，块数决定其长度。"
+    },
+    {
+      "name": "cap_image_io_s08_title",
+      "value": "字形内存流"
+    },
+    {
+      "name": "cap_image_io_s08_desc",
+      "value": "通过内存流用字体文件字节构建字形。"
+    },
+    {
+      "name": "cap_image_io_s09_title",
+      "value": "流降级"
+    },
+    {
+      "name": "cap_image_io_s09_desc",
+      "value": "非法字节解析失败后回退默认字形。"
+    },
+    {
+      "name": "cap_mask_filter_group_title",
+      "value": "蒙版滤波器"
+    },
+    {
+      "name": "cap_mask_filter_group_desc",
+      "value": "四种模糊类型、sigma 梯度，以及同一滤镜挂到画笔、图层与文字。"
+    },
+    {
+      "name": "cap_mask_filter_s00_title",
+      "value": "高斯模糊"
+    },
+    {
+      "name": "cap_mask_filter_s00_desc",
+      "value": "边缘内外同时模糊，形成经典柔和光晕。"
+    },
+    {
+      "name": "cap_mask_filter_s01_title",
+      "value": "实心模糊"
+    },
+    {
+      "name": "cap_mask_filter_s01_desc",
+      "value": "填充保持锐利，只向外模糊，形成硬边光晕。"
+    },
+    {
+      "name": "cap_mask_filter_s02_title",
+      "value": "外模糊"
+    },
+    {
+      "name": "cap_mask_filter_s02_desc",
+      "value": "只向外扩散，形状内部保持透明。"
+    },
+    {
+      "name": "cap_mask_filter_s03_title",
+      "value": "内模糊"
+    },
+    {
+      "name": "cap_mask_filter_s03_desc",
+      "value": "只向内扩散，外边缘保持干净。"
+    },
+    {
+      "name": "cap_mask_filter_s04_title",
+      "value": "Sigma 梯度"
+    },
+    {
+      "name": "cap_mask_filter_s04_desc",
+      "value": "两个 sigma 值并排比较扩散范围。"
+    },
+    {
+      "name": "cap_mask_filter_s05_title",
+      "value": "画笔模糊"
+    },
+    {
+      "name": "cap_mask_filter_s05_desc",
+      "value": "把滤镜挂到画笔上描边多边形路径。"
+    },
+    {
+      "name": "cap_mask_filter_s06_title",
+      "value": "图层模糊"
+    },
+    {
+      "name": "cap_mask_filter_s06_desc",
+      "value": "SaveLayer 配合带蒙版的画刷一次性模糊整层。"
+    },
+    {
+      "name": "cap_mask_filter_s07_title",
+      "value": "文字模糊"
+    },
+    {
+      "name": "cap_mask_filter_s07_desc",
+      "value": "画刷携带滤镜，因此 TextBlob 字形也被模糊。"
+    },
+    {
+      "name": "cap_matrix_group_title",
+      "value": "矩阵"
+    },
+    {
+      "name": "cap_matrix_group_desc",
+      "value": "单位、平移、缩放、旋转、错切、拼接、前后序、求逆、点映射与四点映射。"
+    },
+    {
+      "name": "cap_matrix_s00_title",
+      "value": "单位矩阵"
+    },
+    {
+      "name": "cap_matrix_s00_desc",
+      "value": "不做变换，九个元素以柱状绘制。"
+    },
+    {
+      "name": "cap_matrix_s01_title",
+      "value": "平移"
+    },
+    {
+      "name": "cap_matrix_s01_desc",
+      "value": "CreateTranslation 直接构造位移，箭头示意方向。"
+    },
+    {
+      "name": "cap_matrix_s02_title",
+      "value": "缩放"
+    },
+    {
+      "name": "cap_matrix_s02_desc",
+      "value": "围绕枢轴 CreateScale，标记始终留在画布内。"
+    },
+    {
+      "name": "cap_matrix_s03_title",
+      "value": "旋转"
+    },
+    {
+      "name": "cap_matrix_s03_desc",
+      "value": "围绕一点 CreateRotation，角度可为负。"
+    },
+    {
+      "name": "cap_matrix_s04_title",
+      "value": "错切"
+    },
+    {
+      "name": "cap_matrix_s04_desc",
+      "value": "PreSkew 接收正切值，角度先做换算。"
+    },
+    {
+      "name": "cap_matrix_s05_title",
+      "value": "拼接"
+    },
+    {
+      "name": "cap_matrix_s05_desc",
+      "value": "用 Concat 合并两个矩阵等价于逐个应用。"
+    },
+    {
+      "name": "cap_matrix_s06_title",
+      "value": "前后序"
+    },
+    {
+      "name": "cap_matrix_s06_desc",
+      "value": "同样的两步换序后落点不同。"
+    },
+    {
+      "name": "cap_matrix_s07_title",
+      "value": "求逆"
+    },
+    {
+      "name": "cap_matrix_s07_desc",
+      "value": "先旋转再乘逆矩阵，点回到原位。"
+    },
+    {
+      "name": "cap_matrix_s08_title",
+      "value": "点映射"
+    },
+    {
+      "name": "cap_matrix_s08_desc",
+      "value": "MapPoints 变换一批点，连线示意位移。"
+    },
+    {
+      "name": "cap_matrix_s09_title",
+      "value": "四点映射"
+    },
+    {
+      "name": "cap_matrix_s09_desc",
+      "value": "SetPolyToPoly 把矩形映射到不规则四边形。"
+    },
+    {
+      "name": "cap_paint_group_title",
+      "value": "画笔与画刷"
+    },
+    {
+      "name": "cap_paint_group_desc",
+      "value": "端点、拐角、尖角限制、宽度、画刷透明度、混合模式、路径效果与阴影层。"
+    },
+    {
+      "name": "cap_paint_s00_title",
+      "value": "画笔端点"
+    },
+    {
+      "name": "cap_paint_s00_desc",
+      "value": "粗线上的平头、方头与圆头端点，选中项高亮。"
+    },
+    {
+      "name": "cap_paint_s01_title",
+      "value": "画笔拐角"
+    },
+    {
+      "name": "cap_paint_s01_desc",
+      "value": "同一条折线上的尖角、圆角与斜角拐角。"
+    },
+    {
+      "name": "cap_paint_s02_title",
+      "value": "尖角限制"
+    },
+    {
+      "name": "cap_paint_s02_desc",
+      "value": "尖角限制决定锐角最远的延伸长度。"
+    },
+    {
+      "name": "cap_paint_s03_title",
+      "value": "画笔宽度"
+    },
+    {
+      "name": "cap_paint_s03_desc",
+      "value": "四条线按基础宽度缩放并共享透明度。"
+    },
+    {
+      "name": "cap_paint_s04_title",
+      "value": "画刷透明度"
+    },
+    {
+      "name": "cap_paint_s04_desc",
+      "value": "叠加的半透明色块体现透明度累积。"
+    },
+    {
+      "name": "cap_paint_s05_title",
+      "value": "混合模式"
+    },
+    {
+      "name": "cap_paint_s05_desc",
+      "value": "按所选模式把上层色块混合到底层。"
+    },
+    {
+      "name": "cap_paint_s06_title",
+      "value": "虚线"
+    },
+    {
+      "name": "cap_paint_s06_desc",
+      "value": "交替的实线段与间隔构成虚线路径效果。"
+    },
+    {
+      "name": "cap_paint_s07_title",
+      "value": "圆角效果"
+    },
+    {
+      "name": "cap_paint_s07_desc",
+      "value": "圆角路径效果把折线的每个拐点圆滑化。"
+    },
+    {
+      "name": "cap_paint_s08_title",
+      "value": "离散效果"
+    },
+    {
+      "name": "cap_paint_s08_desc",
+      "value": "离散路径效果给描边加入抖动。"
+    },
+    {
+      "name": "cap_paint_s09_title",
+      "value": "阴影层"
+    },
+    {
+      "name": "cap_paint_s09_desc",
+      "value": "画刷阴影层的模糊半径与偏移。"
+    },
+    {
+      "name": "cap_pixel_map_group_title",
+      "value": "像素图"
+    },
+    {
+      "name": "cap_pixel_map_group_desc",
+      "value": "绘制、采样、九宫格、网格变形、旋转、平铺、淡出、缩放与裁剪。"
+    },
+    {
+      "name": "cap_pixel_map_s00_title",
+      "value": "矩形绘制"
+    },
+    {
+      "name": "cap_pixel_map_s00_desc",
+      "value": "以采样模式把整张 PixelMap 绘制到居中矩形。"
+    },
+    {
+      "name": "cap_pixel_map_s01_title",
+      "value": "最近邻采样"
+    },
+    {
+      "name": "cap_pixel_map_s01_desc",
+      "value": "最近邻放大保留硬像素边缘。"
+    },
+    {
+      "name": "cap_pixel_map_s02_title",
+      "value": "线性采样"
+    },
+    {
+      "name": "cap_pixel_map_s02_desc",
+      "value": "同样的放大改用线性滤波，结果更平滑。"
+    },
+    {
+      "name": "cap_pixel_map_s03_title",
+      "value": "源约束"
+    },
+    {
+      "name": "cap_pixel_map_s03_desc",
+      "value": "只取源图中间部分，严格模式拒绝过采样。"
+    },
+    {
+      "name": "cap_pixel_map_s04_title",
+      "value": "九宫格"
+    },
+    {
+      "name": "cap_pixel_map_s04_desc",
+      "value": "中心矩形拉伸，四角像素保持不变。"
+    },
+    {
+      "name": "cap_pixel_map_s05_title",
+      "value": "网格变形"
+    },
+    {
+      "name": "cap_pixel_map_s05_desc",
+      "value": "移动 3×3 网格的中间行使图像弯曲。"
+    },
+    {
+      "name": "cap_pixel_map_s06_title",
+      "value": "旋转"
+    },
+    {
+      "name": "cap_pixel_map_s06_desc",
+      "value": "旋转坐标系后再绘制原始矩形。"
+    },
+    {
+      "name": "cap_pixel_map_s07_title",
+      "value": "平铺"
+    },
+    {
+      "name": "cap_pixel_map_s07_desc",
+      "value": "把同一张 PixelMap 重复铺满方格。"
+    },
+    {
+      "name": "cap_pixel_map_s08_title",
+      "value": "图层透明"
+    },
+    {
+      "name": "cap_pixel_map_s08_desc",
+      "value": "通过 SaveLayer 画刷的透明度让 PixelMap 淡出。"
+    },
+    {
+      "name": "cap_pixel_map_s09_title",
+      "value": "缩放"
+    },
+    {
+      "name": "cap_pixel_map_s09_desc",
+      "value": "放大目标矩形以观察缩放过程中的采样。"
+    },
+    {
+      "name": "cap_pixel_map_s10_title",
+      "value": "圆角裁剪"
+    },
+    {
+      "name": "cap_pixel_map_s10_desc",
+      "value": "绘制前裁剪到圆角矩形，四角被切掉。"
+    },
+    {
+      "name": "cap_pixel_map_s11_title",
+      "value": "降级示意"
+    },
+    {
+      "name": "cap_pixel_map_s11_desc",
+      "value": "ArkTS 未传入 PixelMap 时绘制的示意图形。"
+    },
+    {
+      "name": "cap_record_group_title",
+      "value": "录制命令"
+    },
+    {
+      "name": "cap_record_group_desc",
+      "value": "录制一次命令列表，再按原样、两次、嵌套、改尺寸、分层与叠加回放。"
+    },
+    {
+      "name": "cap_record_s00_title",
+      "value": "基础"
+    },
+    {
+      "name": "cap_record_s00_desc",
+      "value": "录制一组绘制命令并回放一次，效果等同直接绘制。"
+    },
+    {
+      "name": "cap_record_s01_title",
+      "value": "录制变换"
+    },
+    {
+      "name": "cap_record_s01_desc",
+      "value": "录制期间的画布变换随列表一起回放。"
+    },
+    {
+      "name": "cap_record_s02_title",
+      "value": "回放两次"
+    },
+    {
+      "name": "cap_record_s02_desc",
+      "value": "同一列表回放两次，第二次偏移以便区分。"
+    },
+    {
+      "name": "cap_record_s03_title",
+      "value": "嵌套"
+    },
+    {
+      "name": "cap_record_s03_desc",
+      "value": "先录制内层列表，再把它画进外层录制。"
+    },
+    {
+      "name": "cap_record_s04_title",
+      "value": "改尺寸"
+    },
+    {
+      "name": "cap_record_s04_desc",
+      "value": "在小尺寸下录制再放大回放，列表保持中性。"
+    },
+    {
+      "name": "cap_record_s05_title",
+      "value": "图层"
+    },
+    {
+      "name": "cap_record_s05_desc",
+      "value": "列表内的 SaveLayer 在回放时保持透明度。"
+    },
+    {
+      "name": "cap_record_s06_title",
+      "value": "状态保存"
+    },
+    {
+      "name": "cap_record_s06_desc",
+      "value": "多组保存与恢复按相同顺序回放。"
+    },
+    {
+      "name": "cap_record_s07_title",
+      "value": "叠加"
+    },
+    {
+      "name": "cap_record_s07_desc",
+      "value": "以递增偏移重复回放以形成拖尾残影。"
+    },
+    {
+      "name": "cap_shader_group_title",
+      "value": "着色器与渐变"
+    },
+    {
+      "name": "cap_shader_group_desc",
+      "value": "线性、多段、径向、扫描、锥形、纯色、组合、画笔着色器、矩阵与平铺。"
+    },
+    {
+      "name": "cap_shader_s00_title",
+      "value": "双色线性"
+    },
+    {
+      "name": "cap_shader_s00_desc",
+      "value": "双色线性渐变，角度与透明度可调。"
+    },
+    {
+      "name": "cap_shader_s01_title",
+      "value": "多段线性"
+    },
+    {
+      "name": "cap_shader_s01_desc",
+      "value": "2 到 6 个颜色停靠点在调色板两端之间插值。"
+    },
+    {
+      "name": "cap_shader_s02_title",
+      "value": "径向"
+    },
+    {
+      "name": "cap_shader_s02_desc",
+      "value": "半径与圆心可调的径向渐变。"
+    },
+    {
+      "name": "cap_shader_s03_title",
+      "value": "扫描"
+    },
+    {
+      "name": "cap_shader_s03_desc",
+      "value": "扫描渐变，起始角度旋转颜色停靠点。"
+    },
+    {
+      "name": "cap_shader_s04_title",
+      "value": "锥形"
+    },
+    {
+      "name": "cap_shader_s04_desc",
+      "value": "带内半径的两点锥形渐变。"
+    },
+    {
+      "name": "cap_shader_s05_title",
+      "value": "纯色着色器"
+    },
+    {
+      "name": "cap_shader_s05_desc",
+      "value": "把纯色作为着色器效果使用。"
+    },
+    {
+      "name": "cap_shader_s06_title",
+      "value": "组合"
+    },
+    {
+      "name": "cap_shader_s06_desc",
+      "value": "把渐变与半透明纯色着色器组合。"
+    },
+    {
+      "name": "cap_shader_s07_title",
+      "value": "画笔着色器"
+    },
+    {
+      "name": "cap_shader_s07_desc",
+      "value": "渐变作用于描边几何。"
+    },
+    {
+      "name": "cap_shader_s08_title",
+      "value": "局部矩阵"
+    },
+    {
+      "name": "cap_shader_s08_desc",
+      "value": "通过局部矩阵缩放并旋转渐变。"
+    },
+    {
+      "name": "cap_shader_s09_title",
+      "value": "平铺模式"
+    },
+    {
+      "name": "cap_shader_s09_desc",
+      "value": "钳位、重复、镜像与贴花决定渐变之外的区域。"
+    },
+    {
+      "name": "cap_shader_s10_title",
+      "value": "渐变透明度"
+    },
+    {
+      "name": "cap_shader_s10_desc",
+      "value": "两端不同的透明度形成淡出效果。"
+    },
+    {
+      "name": "cap_shadow_group_title",
+      "value": "阴影层"
+    },
+    {
+      "name": "cap_shadow_group_desc",
+      "value": "模糊半径、偏移、颜色、画笔与画刷阴影、多层阴影与图层裁剪。"
+    },
+    {
+      "name": "cap_shadow_s00_title",
+      "value": "模糊半径"
+    },
+    {
+      "name": "cap_shadow_s00_desc",
+      "value": "三个模糊半径并排展示阴影的扩散范围。"
+    },
+    {
+      "name": "cap_shadow_s01_title",
+      "value": "偏移"
+    },
+    {
+      "name": "cap_shadow_s01_desc",
+      "value": "偏移移动阴影，负值使其偏向左上。"
+    },
+    {
+      "name": "cap_shadow_s02_title",
+      "value": "阴影颜色"
+    },
+    {
+      "name": "cap_shadow_s02_desc",
+      "value": "阴影颜色与透明度共同决定最终观感。"
+    },
+    {
+      "name": "cap_shadow_s03_title",
+      "value": "画笔阴影"
+    },
+    {
+      "name": "cap_shadow_s03_desc",
+      "value": "PenSetShadowLayer 为描边路径添加阴影。"
+    },
+    {
+      "name": "cap_shadow_s04_title",
+      "value": "画刷阴影"
+    },
+    {
+      "name": "cap_shadow_s04_desc",
+      "value": "BrushSetShadowLayer 是投影的常用写法。"
+    },
+    {
+      "name": "cap_shadow_s05_title",
+      "value": "多层阴影"
+    },
+    {
+      "name": "cap_shadow_s05_desc",
+      "value": "三个同心形状携带不同的模糊半径。"
+    },
+    {
+      "name": "cap_shadow_s06_title",
+      "value": "文字阴影"
+    },
+    {
+      "name": "cap_shadow_s06_desc",
+      "value": "由带阴影的画刷绘制的文本块产生投影。"
+    },
+    {
+      "name": "cap_shadow_s07_title",
+      "value": "图层裁剪"
+    },
+    {
+      "name": "cap_shadow_s07_desc",
+      "value": "SaveLayer 把阴影裁剪到图层边界。"
+    },
+    {
+      "name": "cap_offscreen_group_title",
+      "value": "离屏表面"
+    },
+    {
+      "name": "cap_offscreen_group_desc",
+      "value": "创建 GPU 表面、设置尺寸、降级到位图、刷新、切换、裁剪、混合与读取信息。"
+    },
+    {
+      "name": "cap_offscreen_s00_title",
+      "value": "创建"
+    },
+    {
+      "name": "cap_offscreen_s00_desc",
+      "value": "创建 GPU 上下文与表面，在其上绘制后销毁。"
+    },
+    {
+      "name": "cap_offscreen_s01_title",
+      "value": "尺寸"
+    },
+    {
+      "name": "cap_offscreen_s01_desc",
+      "value": "内框随表面尺寸缩放，比例清晰可见。"
+    },
+    {
+      "name": "cap_offscreen_s02_title",
+      "value": "位图降级"
+    },
+    {
+      "name": "cap_offscreen_s02_desc",
+      "value": "无可用 GPU 表面时改用位图加画布。"
+    },
+    {
+      "name": "cap_offscreen_s03_title",
+      "value": "刷新"
+    },
+    {
+      "name": "cap_offscreen_s03_desc",
+      "value": "多次绘制并刷新，柱状数量随参数变化。"
+    },
+    {
+      "name": "cap_offscreen_s04_title",
+      "value": "切换"
+    },
+    {
+      "name": "cap_offscreen_s04_desc",
+      "value": "销毁一个表面再创建更小尺寸，验证可重复使用。"
+    },
+    {
+      "name": "cap_offscreen_s05_title",
+      "value": "裁剪"
+    },
+    {
+      "name": "cap_offscreen_s05_desc",
+      "value": "在表面画布上裁剪，裁剪只属于该画布。"
+    },
+    {
+      "name": "cap_offscreen_s06_title",
+      "value": "混合"
+    },
+    {
+      "name": "cap_offscreen_s06_desc",
+      "value": "在表面叠加半透明色块，并在主画布上镜像呈现。"
+    },
+    {
+      "name": "cap_offscreen_s07_title",
+      "value": "信息"
+    },
+    {
+      "name": "cap_offscreen_s07_desc",
+      "value": "读取表面画布尺寸与图像信息，以柱状与色块呈现。"
+    },
+    {
+      "name": "cap_text_blob_group_title",
+      "value": "TextBlob"
+    },
+    {
+      "name": "cap_text_blob_group_desc",
+      "value": "用字符串、字节区间、逐字形位置、Run 构建器与圆形路径构建文本块。"
+    },
+    {
+      "name": "cap_text_blob_s00_title",
+      "value": "字符串构建"
+    },
+    {
+      "name": "cap_text_blob_s00_desc",
+      "value": "CreateFromString 一次解析 UTF-8 文本。"
+    },
+    {
+      "name": "cap_text_blob_s01_title",
+      "value": "文本构建"
+    },
+    {
+      "name": "cap_text_blob_s01_desc",
+      "value": "CreateFromText 只取前若干字节，适合截断。"
+    },
+    {
+      "name": "cap_text_blob_s02_title",
+      "value": "逐字形位置"
+    },
+    {
+      "name": "cap_text_blob_s02_desc",
+      "value": "为每个字形单独定位，让文本沿正弦波排列。"
+    },
+    {
+      "name": "cap_text_blob_s03_title",
+      "value": "Run 构建器"
+    },
+    {
+      "name": "cap_text_blob_s03_desc",
+      "value": "用字形与点位填充 Run 缓冲区后调用 BuilderMake。"
+    },
+    {
+      "name": "cap_text_blob_s04_title",
+      "value": "包围盒"
+    },
+    {
+      "name": "cap_text_blob_s04_desc",
+      "value": "描边 GetBounds 返回的矩形以核对真实范围。"
+    },
+    {
+      "name": "cap_text_blob_s05_title",
+      "value": "唯一标识"
+    },
+    {
+      "name": "cap_text_blob_s05_desc",
+      "value": "UniqueID 非零，色块展示该值的各个二进制位。"
+    },
+    {
+      "name": "cap_text_blob_s06_title",
+      "value": "圆形文字"
+    },
+    {
+      "name": "cap_text_blob_s06_desc",
+      "value": "把每个字形摆在圆周上以体现逐字形布局。"
+    },
+    {
+      "name": "cap_text_blob_s07_title",
+      "value": "画布缩放"
+    },
+    {
+      "name": "cap_text_blob_s07_desc",
+      "value": "通过画布缩放，文本块保持矢量清晰。"
+    },
+    {
+      "name": "cap_typography_group_title",
+      "value": "排版"
+    },
+    {
+      "name": "cap_typography_group_desc",
+      "value": "布局、对齐、截断、间距、装饰、阴影、路径排版、度量与断行策略。"
+    },
+    {
+      "name": "cap_typography_s00_title",
+      "value": "基础布局"
+    },
+    {
+      "name": "cap_typography_s00_desc",
+      "value": "默认样式在固定宽度下排版，作为其余场景的基准。"
+    },
+    {
+      "name": "cap_typography_s01_title",
+      "value": "对齐"
+    },
+    {
+      "name": "cap_typography_s01_desc",
+      "value": "对齐字段决定每行在宽度内的位置。"
+    },
+    {
+      "name": "cap_typography_s02_title",
+      "value": "最大行数"
+    },
+    {
+      "name": "cap_typography_s02_desc",
+      "value": "超过最大行数后其余内容被丢弃，DidExceedMaxLines 为真。"
+    },
+    {
+      "name": "cap_typography_s03_title",
+      "value": "省略号"
+    },
+    {
+      "name": "cap_typography_s03_desc",
+      "value": "限制行数时溢出部分以省略号结尾。"
+    },
+    {
+      "name": "cap_typography_s04_title",
+      "value": "字间距"
+    },
+    {
+      "name": "cap_typography_s04_desc",
+      "value": "字距与词距改变测量出的行宽。"
+    },
+    {
+      "name": "cap_typography_s05_title",
+      "value": "装饰线"
+    },
+    {
+      "name": "cap_typography_s05_desc",
+      "value": "下划线、上划线与删除线组合五种样式。"
+    },
+    {
+      "name": "cap_typography_s06_title",
+      "value": "文字阴影"
+    },
+    {
+      "name": "cap_typography_s06_desc",
+      "value": "样式上的 TextShadow 绘制在字形之下。"
+    },
+    {
+      "name": "cap_typography_s07_title",
+      "value": "路径排版"
+    },
+    {
+      "name": "cap_typography_s07_desc",
+      "value": "TypographyPaintOnPath 让文字沿路径铺排。"
+    },
+    {
+      "name": "cap_typography_s08_title",
+      "value": "缩进"
+    },
+    {
+      "name": "cap_typography_s08_desc",
+      "value": "逐行缩进分别移动首行与后续行。"
+    },
+    {
+      "name": "cap_typography_s09_title",
+      "value": "行度量"
+    },
+    {
+      "name": "cap_typography_s09_desc",
+      "value": "读取每行高度与宽度后绘制矩形与基线。"
+    },
+    {
+      "name": "cap_typography_s10_title",
+      "value": "断行策略"
+    },
+    {
+      "name": "cap_typography_s10_desc",
+      "value": "贪心策略填满每行，另两种策略平衡行长。"
+    },
+    {
+      "name": "cap_typography_s11_title",
+      "value": "字重"
+    },
+    {
+      "name": "cap_typography_s11_desc",
+      "value": "字重从 300 到 900，字形逐渐加粗。"
+    },
+    {
+      "name": "cap_typography_s12_title",
+      "value": "书写方向"
+    },
+    {
+      "name": "cap_typography_s12_desc",
+      "value": "RTL 反转行内顺序，起止对齐随之改变。"
+    },
+    {
+      "name": "cap_typography_s13_title",
+      "value": "文本行"
+    },
+    {
+      "name": "cap_typography_s13_desc",
+      "value": "TypographyGetTextLines 取回各行并逐行绘制。"
+    },
+    {
+      "name": "topic_animation_group_title",
+      "value": "动画"
+    },
+    {
+      "name": "topic_animation_group_desc",
+      "value": "用帧定时器插值实现缩放、旋转与平移，不依赖框架动画接口。"
+    },
+    {
+      "name": "topic_animation_s00_title",
+      "value": "缩放缓动"
+    },
+    {
+      "name": "topic_animation_s00_desc",
+      "value": "缩放从 1 到目标值，采用缓出曲线。"
+    },
+    {
+      "name": "topic_animation_s01_title",
+      "value": "旋转缓动"
+    },
+    {
+      "name": "topic_animation_s01_desc",
+      "value": "旋转从 0 到目标角度（单位：度）。"
+    },
+    {
+      "name": "topic_animation_s02_title",
+      "value": "平移缓动"
+    },
+    {
+      "name": "topic_animation_s02_desc",
+      "value": "平移从 0 到目标偏移（单位：vp）。"
+    },
+    {
+      "name": "topic_animation_s03_title",
+      "value": "帧预算"
+    },
+    {
+      "name": "topic_animation_s03_desc",
+      "value": "固定目标配可变时长，展示每帧的时间预算。"
+    },
+    {
+      "name": "topic_blur_group_title",
+      "value": "模糊图层"
+    },
+    {
+      "name": "topic_blur_group_desc",
+      "value": "同一画布节点上的背景、内容与前景模糊，半径可控。"
+    },
+    {
+      "name": "topic_blur_s00_title",
+      "value": "背景模糊"
+    },
+    {
+      "name": "topic_blur_s00_desc",
+      "value": "backgroundBlur 模糊画布后方的画面。"
+    },
+    {
+      "name": "topic_blur_s01_title",
+      "value": "内容模糊"
+    },
+    {
+      "name": "topic_blur_s01_desc",
+      "value": "contentBlur 模糊画布自身的内容。"
+    },
+    {
+      "name": "topic_blur_s02_title",
+      "value": "前景模糊"
+    },
+    {
+      "name": "topic_blur_s02_desc",
+      "value": "foregroundBlur 模糊与画布前层重叠的部分。"
+    },
+    {
+      "name": "topic_blur_s03_title",
+      "value": "半径扫描"
+    },
+    {
+      "name": "topic_blur_s03_desc",
+      "value": "扫描半径以观察模糊何时饱和。"
+    },
+    {
+      "name": "topic_frame_tick_group_title",
+      "value": "帧回调"
+    },
+    {
+      "name": "topic_frame_tick_group_desc",
+      "value": "由定时器驱动的周期重绘，另附手动 invalidate 预算作为对照。"
+    },
+    {
+      "name": "topic_frame_tick_s00_title",
+      "value": "16 毫秒节拍"
+    },
+    {
+      "name": "topic_frame_tick_s00_desc",
+      "value": "每 16 毫秒重绘一次，接近 60 赫兹帧率。"
+    },
+    {
+      "name": "topic_frame_tick_s01_title",
+      "value": "33 毫秒节拍"
+    },
+    {
+      "name": "topic_frame_tick_s01_desc",
+      "value": "33 毫秒接近 30 赫兹帧率。"
+    },
+    {
+      "name": "topic_frame_tick_s02_title",
+      "value": "停止节拍"
+    },
+    {
+      "name": "topic_frame_tick_s02_desc",
+      "value": "切换开关停止周期定时器。"
+    },
+    {
+      "name": "topic_frame_tick_s03_title",
+      "value": "绘制计数"
+    },
+    {
+      "name": "topic_frame_tick_s03_desc",
+      "value": "手动调用 invalidate 为节拍计数提供基准。"
+    },
+    {
+      "name": "topic_hit_test_group_title",
+      "value": "命中测试"
+    },
+    {
+      "name": "topic_hit_test_group_desc",
+      "value": "把触摸坐标映射回手指下的子节点下标。"
+    },
+    {
+      "name": "topic_hit_test_s00_title",
+      "value": "矩形命中"
+    },
+    {
+      "name": "topic_hit_test_s00_desc",
+      "value": "点击画布后状态栏报告命中的子节点。"
+    },
+    {
+      "name": "topic_hit_test_s01_title",
+      "value": "内边距扩展"
+    },
+    {
+      "name": "topic_hit_test_s01_desc",
+      "value": "内边距把命中区域扩展到子节点范围之外。"
+    },
+    {
+      "name": "topic_hit_test_s02_title",
+      "value": "列布局命中"
+    },
+    {
+      "name": "topic_hit_test_s02_desc",
+      "value": "列布局在纵向堆叠下保持同样的命中逻辑。"
+    },
+    {
+      "name": "topic_hit_test_s03_title",
+      "value": "重置计数"
+    },
+    {
+      "name": "topic_hit_test_s03_desc",
+      "value": "切换开关清零累计的触摸次数。"
+    },
+    {
+      "name": "topic_lifecycle_group_title",
+      "value": "生命周期"
+    },
+    {
+      "name": "topic_lifecycle_group_desc",
+      "value": "重建宿主、销毁后再重建、复位计数并查看节点 label。"
+    },
+    {
+      "name": "topic_lifecycle_s00_title",
+      "value": "重建宿主"
+    },
+    {
+      "name": "topic_lifecycle_s00_desc",
+      "value": "rebuild 让 NodeContainer 再次调用 makeNode。"
+    },
+    {
+      "name": "topic_lifecycle_s01_title",
+      "value": "销毁后重建"
+    },
+    {
+      "name": "topic_lifecycle_s01_desc",
+      "value": "dispose 释放渲染节点，rebuild 重新创建它们。"
+    },
+    {
+      "name": "topic_lifecycle_s02_title",
+      "value": "复位统计"
+    },
+    {
+      "name": "topic_lifecycle_s02_desc",
+      "value": "在不改动节点树的前提下清零绘制与触摸计数。"
+    },
+    {
+      "name": "topic_lifecycle_s03_title",
+      "value": "节点标签"
+    },
+    {
+      "name": "topic_lifecycle_s03_desc",
+      "value": "label 字符串挂到画布渲染节点上。"
+    },
+    {
+      "name": "topic_multi_device_group_title",
+      "value": "多设备"
+    },
+    {
+      "name": "topic_multi_device_group_desc",
+      "value": "行列布局、px 与 vp 长度单位，以及针对不同屏幕的密度缩放。"
+    },
+    {
+      "name": "topic_multi_device_s00_title",
+      "value": "紧凑行"
+    },
+    {
+      "name": "topic_multi_device_s00_desc",
+      "value": "紧凑的行布局在窄屏上容纳更多子节点。"
+    },
+    {
+      "name": "topic_multi_device_s01_title",
+      "value": "宽屏列"
+    },
+    {
+      "name": "topic_multi_device_s01_desc",
+      "value": "列布局利用宽屏的额外高度。"
+    },
+    {
+      "name": "topic_multi_device_s02_title",
+      "value": "像素单位"
+    },
+    {
+      "name": "topic_multi_device_s02_desc",
+      "value": "lengthMetricsUnit 在 vp 与 px 之间切换同一组数值。"
+    },
+    {
+      "name": "topic_multi_device_s03_title",
+      "value": "密度缩放"
+    },
+    {
+      "name": "topic_multi_device_s03_desc",
+      "value": "缩放配合内缩模拟更粗糙的屏幕密度。"
+    },
+    {
+      "name": "topic_node_tree_group_title",
+      "value": "节点树"
+    },
+    {
+      "name": "topic_node_tree_group_desc",
+      "value": "在同一个宿主帧节点上追加、插入、移除并重新布局子 RenderNode。"
+    },
+    {
+      "name": "topic_node_tree_s00_title",
+      "value": "追加"
+    },
+    {
+      "name": "topic_node_tree_s00_desc",
+      "value": "rebuildBoxes 一次追加全部子节点，gap 决定间距。"
+    },
+    {
+      "name": "topic_node_tree_s01_title",
+      "value": "插入其后"
+    },
+    {
+      "name": "topic_node_tree_s01_desc",
+      "value": "insertChildAfter 在指定下标之后插入新子节点。"
+    },
+    {
+      "name": "topic_node_tree_s02_title",
+      "value": "移除子节点"
+    },
+    {
+      "name": "topic_node_tree_s02_desc",
+      "value": "removeChild 摘下一个子节点，clearChildren 全部移除。"
+    },
+    {
+      "name": "topic_node_tree_s03_title",
+      "value": "行或列"
+    },
+    {
+      "name": "topic_node_tree_s03_desc",
+      "value": "同一批子节点在行与列布局之间重新排布。"
+    },
+    {
+      "name": "topic_performance_group_title",
+      "value": "性能"
+    },
+    {
+      "name": "topic_performance_group_desc",
+      "value": "从 UI 线程测量 invalidate 突发、节点数量开销与周期重绘负载。"
+    },
+    {
+      "name": "topic_performance_s00_title",
+      "value": "触发突发"
+    },
+    {
+      "name": "topic_performance_s00_desc",
+      "value": "一次性发起一批 invalidate，统计首末耗时。"
+    },
+    {
+      "name": "topic_performance_s01_title",
+      "value": "节点开销"
+    },
+    {
+      "name": "topic_performance_s01_desc",
+      "value": "同样的突发作用在更多节点上，体现单节点开销。"
+    },
+    {
+      "name": "topic_performance_s02_title",
+      "value": "节拍负载"
+    },
+    {
+      "name": "topic_performance_s02_desc",
+      "value": "页面存活期间周期定时器持续重绘。"
+    },
+    {
+      "name": "topic_performance_s03_title",
+      "value": "停止节拍"
+    },
+    {
+      "name": "topic_performance_s03_desc",
+      "value": "再次切换开关停止周期定时器。"
+    },
+    {
+      "name": "topic_record_group_title",
+      "value": "录制与回放"
+    },
+    {
+      "name": "topic_record_group_desc",
+      "value": "录制一段透明度渐变，再按帧回放录制的每一步。"
+    },
+    {
+      "name": "topic_record_s00_title",
+      "value": "录制渐变"
+    },
+    {
+      "name": "topic_record_s00_desc",
+      "value": "把 1 到 32 步透明度变化录入缓冲区。"
+    },
+    {
+      "name": "topic_record_s01_title",
+      "value": "回放一次"
+    },
+    {
+      "name": "topic_record_s01_desc",
+      "value": "把录制缓冲区完整回放一次。"
+    },
+    {
+      "name": "topic_record_s02_title",
+      "value": "循环回放"
+    },
+    {
+      "name": "topic_record_s02_desc",
+      "value": "把录制缓冲区连续回放多次。"
+    },
+    {
+      "name": "topic_record_s03_title",
+      "value": "清空录制"
+    },
+    {
+      "name": "topic_record_s03_desc",
+      "value": "切换开关丢弃缓冲区中的全部录制内容。"
+    },
+    {
+      "name": "topic_render_prop_group_title",
+      "value": "渲染属性"
+    },
+    {
+      "name": "topic_render_prop_group_desc",
+      "value": "透明度、缩放、旋转、位移、阴影与边框作用于每个子节点。"
+    },
+    {
+      "name": "topic_render_prop_s00_title",
+      "value": "透明度"
+    },
+    {
+      "name": "topic_render_prop_s00_desc",
+      "value": "同一趟绘制中对每个子节点应用透明度。"
+    },
+    {
+      "name": "topic_render_prop_s01_title",
+      "value": "缩放与旋转"
+    },
+    {
+      "name": "topic_render_prop_s01_desc",
+      "value": "缩放与旋转合并为一次变换作用于所有子节点。"
+    },
+    {
+      "name": "topic_render_prop_s02_title",
+      "value": "位移"
+    },
+    {
+      "name": "topic_render_prop_s02_desc",
+      "value": "位移整体平移画布内的子节点集合。"
+    },
+    {
+      "name": "topic_render_prop_s03_title",
+      "value": "阴影与边框"
+    },
+    {
+      "name": "topic_render_prop_s03_desc",
+      "value": "同一场景中设置阴影半径、透明度、圆角与边框宽度。"
+    },
+    {
+      "name": "scene_shape_point",
+      "value": "点"
+    },
+    {
+      "name": "scene_shape_line",
+      "value": "线"
+    },
+    {
+      "name": "scene_shape_circle",
+      "value": "圆"
+    },
+    {
+      "name": "scene_shape_oval",
+      "value": "椭圆"
+    },
+    {
+      "name": "scene_shape_rect",
+      "value": "矩形"
+    },
+    {
+      "name": "scene_shape_round_rect",
+      "value": "圆角矩形"
+    },
+    {
+      "name": "scene_shape_arc",
+      "value": "圆弧"
+    },
+    {
+      "name": "scene_shape_path",
+      "value": "路径"
+    },
+    {
+      "name": "scene_shape_region",
+      "value": "区域"
+    },
+    {
+      "name": "scene_effect_fill_stroke",
+      "value": "填充与描边"
+    },
+    {
+      "name": "scene_effect_blend_mode",
+      "value": "混合模式"
+    },
+    {
+      "name": "scene_effect_dash",
+      "value": "虚线"
+    },
+    {
+      "name": "scene_effect_linear",
+      "value": "线性渐变"
+    },
+    {
+      "name": "scene_effect_radial",
+      "value": "径向渐变"
+    },
+    {
+      "name": "scene_effect_sweep",
+      "value": "扫描渐变"
+    },
+    {
+      "name": "scene_effect_color_filter",
+      "value": "颜色滤波"
+    },
+    {
+      "name": "scene_effect_mask_blur",
+      "value": "蒙版模糊"
+    },
+    {
+      "name": "scene_transform_clip_rect",
+      "value": "裁剪矩形"
+    },
+    {
+      "name": "scene_transform_clip_path",
+      "value": "裁剪路径"
+    },
+    {
+      "name": "scene_transform_translate",
+      "value": "平移"
+    },
+    {
+      "name": "scene_transform_rotate",
+      "value": "旋转"
+    },
+    {
+      "name": "scene_transform_scale",
+      "value": "缩放"
+    },
+    {
+      "name": "scene_transform_matrix",
+      "value": "矩阵"
+    },
+    {
+      "name": "scene_transform_save_restore",
+      "value": "保存与恢复"
+    },
+    {
+      "name": "scene_image_stretch",
+      "value": "拉伸"
+    },
+    {
+      "name": "scene_image_nearest",
+      "value": "最近邻"
+    },
+    {
+      "name": "scene_image_linear",
+      "value": "线性"
+    },
+    {
+      "name": "scene_image_scale_view",
+      "value": "缩放视图"
+    },
+    {
+      "name": "scene_text_blob",
+      "value": "文本块"
+    },
+    {
+      "name": "scene_text_typography",
+      "value": "排版"
+    },
+    {
+      "name": "scene_text_measure",
+      "value": "测量"
     }
   ]
 }

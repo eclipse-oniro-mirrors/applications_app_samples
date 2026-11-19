@@ -93,6 +93,18 @@ dragandexchange                  // har类型
 
 3.本示例需要使用DevEco Studio 5.0.0 Release 才可编译运行。
 
+### 如何运行测试
+
+ohosTest 测试代码位于 `entry/src/ohosTest/ets/test/`，套件在 `List.test.ets` 中统一注册：
+
+- `AppInfoModelCore.test.ets`：AppInfo 数据模型（SMALLTEST）
+- `DataSourceModelCore.test.ets`：DataSource 数据模型与监听器（SMALLTEST）
+- `SwapIndexCalcCore.test.ets`：拖拽交换索引计算与守卫（SMALLTEST）
+- `logic/`：数据驱动的逻辑用例（SMALLTEST，共 2267 条）
+
+用例超过 5 秒才能注册完，因此由自定义 `testrunner/OpenHarmonyTestRunner.ets` 在 `onRun` 中启动，避免 `TestAbility.onCreate` 触发 LIFECYCLE_TIMEOUT。
+使用 DevEco Studio 右键 `entry/src/ohosTest/ets/test` 目录执行 Run All Tests。
+
 ### 下载
 如需单独下载本工程，执行如下命令：
 

@@ -18,6 +18,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { createHash } = require('node:crypto');
 const ts = require(path.resolve(process.argv[2]));
 const root = path.resolve(__dirname, '../../entry/src/main/ets/model');
 const cache = new Map();
@@ -53,7 +54,7 @@ function deferred() {
 function stat(file) {
   if (!files.has(file)) { throw new Error('Missing file: ' + file); }
   const item = files.get(file);
-  return { size: item.text?.length || 200, isDirectory: () => item.kind === 'dir',
+  return { size: item.data?.length ?? (item.text?.length || 200), mtime: item.mtime ?? 10, isDirectory: () => item.kind === 'dir',
     isFile: () => item.kind === 'file', isSymbolicLink: () => item.kind === 'link' };
 }
 const io = {
@@ -69,7 +70,17 @@ const io = {
     if (failOpen) { throw new Error('Open failed: /private/source.mp4'); }
     if (!files.has(file) && !(flags & 1)) { throw new Error('Missing file'); }
     if (flags & 4 || !files.has(file)) { files.set(file, { kind: 'file', text: '' }); }
+    files.get(file).offset = 0;
     return { fd: file };
+  },
+  read: async (fd, buffer, options) => {
+    const file = files.get(fd);
+    const offset = file.offset || 0;
+    const length = Math.min(options.length, 3, file.data.length - offset);
+    new Uint8Array(buffer, 0, length).set(file.data.subarray(offset, offset + length));
+    file.offset = offset + length;
+    if (file.mutate) { file.mtime = 11; }
+    return length;
   },
   close: async () => {}, fsync: async () => {}, readText: async file => files.get(file).text,
   rename: async (from, to) => { files.set(to, files.get(from)); files.delete(from); },
@@ -79,6 +90,13 @@ const mocks = {
   '@kit.ImageKit': { image: { PixelMapFormat: { RGBA_8888: 3 },
     createPixelMap: async () => ({ release: async () => {} }) } },
   '@kit.BasicServicesKit': { deviceInfo: { productModel: 'host', osFullName: 'mock', sdkApiVersion: 26 } },
+  '@kit.ArkData': {},
+  '@kit.CryptoArchitectureKit': { cryptoFramework: { createMd: algorithm => {
+    assert.equal(algorithm, 'SHA256');
+    const hash = createHash('sha256');
+    return { update: async blob => { hash.update(blob.data); },
+      digest: async () => ({ data: new Uint8Array(hash.digest()) }) };
+  } } },
   '@kit.ArkUI': {}, '@kit.AbilityKit': {}, '@kit.MediaLibraryKit': { photoAccessHelper: {} },
   '@kit.CoreFileKit': { fileIo: io, fileUri: { getUriFromPath: file => 'file://' + file },
     statfs: { getFreeSize: async () => 1e9 },
@@ -100,6 +118,8 @@ function load(name) {
     Observed: target => target, $r: name => name, setInterval: () => 1, clearInterval: () => {},
     require: name => {
       if (mocks[name]) { return mocks[name]; }
+      if (name === '../common/utils/Logger') { return { default: { warn: () => {} } }; }
+      if (name === '@kit.LocalizationKit' || name === '@kit.ArkTS') { return {}; }
       if (name === '../common/LocalizedText') { return { LocalizedText: { get: key => key } }; }
       if (name === './PlaybackHistoryModel') { return { getPlaybackTitle: uri => uri.split('/').pop() }; }
       if (name === './MediaFileWriter') {
@@ -216,6 +236,17 @@ async function testActivity() {
   assert.equal(model.status.state, 2);
   assert(model.resultPath.endsWith('.mp4') && files.has(model.resultPath));
   assert(!files.has(model.resultPath + '.part'));
+  const originalStat = io.stat;
+  try {
+    io.stat = async file => {
+      if (file === model.sourceUri) { throw new Error('Provider does not expose source metadata'); }
+      return originalStat(file);
+    };
+    await model.start(ui);
+    assert.equal(model.status.state, 2, 'Optional source metadata must not block transcoding');
+    const report = (await MediaSessionStore.reports(ui.getHostContext()))[0];
+    assert.equal(report.input, undefined, 'Unavailable metadata cannot produce a source baseline');
+  } finally { io.stat = originalStat; }
   cancelDialog = true;
   await model.clearHistory(ui);
   cancelDialog = false;
@@ -337,7 +368,83 @@ async function testTimeRanges() {
   inspect = async () => status();
   console.info('Time ranges: draft inspection, validation, size estimate, queue snapshot and Surface reset passed');
 }
+async function testInputFingerprint() {
+  const { MediaInputFingerprint } = load('MediaInputFingerprint');
+  const { MediaBuildInfo } = load('MediaBuildInfo');
+  assert.equal(MediaBuildInfo.valid({ appVersion: '1.0', revision: 'a'.repeat(40), sourceDigest: 'b'.repeat(64),
+    builtAt: '2026-11-13T00:00:00Z' }), true);
+  assert.equal(MediaBuildInfo.valid({ appVersion: '1.0', revision: 'bad', sourceDigest: 'b'.repeat(64),
+    builtAt: '2026-11-13T00:00:00Z' }), false);
+  const file = '/private/fingerprint.mp4';
+  const data = Buffer.from('source bytes for checksum');
+  files.set(file, { kind: 'file', data });
+  const input = { sourceUri: file, bytes: data.length, modifiedAt: 10 };
+  let closes = 0;
+  const close = io.close;
+  io.close = async () => { closes++; };
+  try {
+    const result = await MediaInputFingerprint.calculate(ui.getHostContext(), input);
+    assert.equal(result.sha256, createHash('sha256').update(data).digest('hex'), 'All short reads are hashed');
+    assert.equal(closes, 1);
+    assert.equal(MediaTaskCoordinator.busy(), false);
+    const active = MediaTaskCoordinator.acquire('playback');
+    await assert.rejects(() => MediaInputFingerprint.calculate(ui.getHostContext(), input), /busy/);
+    MediaTaskCoordinator.release(active);
+    files.get(file).mtime = 12;
+    await assert.rejects(() => MediaInputFingerprint.calculate(ui.getHostContext(), input), /changed/);
+    files.get(file).mtime = 10;
+    files.get(file).mutate = true;
+    await assert.rejects(() => MediaInputFingerprint.calculate(ui.getHostContext(), input), /changed/);
+    delete files.get(file).mutate;
+    files.get(file).mtime = 10;
+    const read = io.read;
+    io.read = async () => 0;
+    try { await assert.rejects(() => MediaInputFingerprint.calculate(ui.getHostContext(), input), /complete/); }
+    finally { io.read = read; }
+    assert.equal(closes, 4, 'Every opened descriptor closes on both success and failure');
+    assert.equal(MediaTaskCoordinator.busy(), false, 'Failure releases the task lease');
+    assert.equal(input.sha256, undefined, 'Failed or successful calculation does not mutate the input report');
+  } finally { io.close = close; files.delete(file); }
+  console.info('Input fingerprints: SHA256, short reads, busy task, changed source, EOF and fd/lease cleanup passed');
+}
+
+function testBuildMetadata() {
+  const { execFileSync } = require('node:child_process');
+  const os = require('node:os');
+  const prefix = path.resolve(os.tmpdir(), 'avcodec-build-info-');
+  const scratch = fs.mkdtempSync(prefix);
+  assert(scratch.startsWith(prefix), 'Fixture cleanup must stay within the named temporary directory');
+  try {
+    fs.mkdirSync(path.join(scratch, 'AppScope'));
+    fs.mkdirSync(path.join(scratch, 'scripts'));
+    fs.mkdirSync(path.join(scratch, 'entry/src/main'), { recursive: true });
+    fs.writeFileSync(path.join(scratch, 'AppScope/app.json5'), '{"app":{"versionName":"1.0.0"}}');
+    const generator = path.join(scratch, 'scripts/generate-build-info.cjs');
+    fs.copyFileSync(path.resolve(__dirname, '../../scripts/generate-build-info.cjs'), generator);
+    const source = path.join(scratch, 'entry/src/main/source.txt');
+    const local = path.join(scratch, 'build-profile.json5');
+    const generated = path.join(scratch, 'entry/src/main/resources/rawfile/build-info.json');
+    fs.writeFileSync(source, 'first');
+    const generate = () => {
+      execFileSync(process.execPath, [generator], { cwd: scratch, stdio: 'pipe' });
+      return JSON.parse(fs.readFileSync(generated, 'utf8'));
+    };
+    const first = generate();
+    assert.equal(first.revision, 'unknown', 'A source archive builds without Git history');
+    assert.equal(first.appVersion, '1.0.0');
+    assert.match(first.sourceDigest, /^[0-9a-f]{64}$/);
+    assert.equal(generate().sourceDigest, first.sourceDigest, 'Generated metadata does not hash itself');
+    fs.writeFileSync(local, 'local signing settings');
+    assert.equal(generate().sourceDigest, first.sourceDigest, 'Local signing configuration is excluded');
+    fs.writeFileSync(source, 'second');
+    assert.notEqual(generate().sourceDigest, first.sourceDigest, 'Local source edits have a distinct identity');
+  } finally { fs.rmSync(scratch, { recursive: true, force: true }); }
+  console.info('Build identity: archive fallback, deterministic source digest, local edits and signing exclusion passed');
+}
+
 async function main() {
+  testBuildMetadata();
+  await testInputFingerprint();
   files.set('/private/source.mp4', { kind: 'file' });
   await testStateFiles();
   await testInspection();
@@ -474,7 +581,19 @@ async function testSessionTasks() {
   assert.match(report.observed, /private/, 'Share export must not mutate local report');
   assert.throws(() => MediaReports.parseList('{}'), /Invalid/);
   assert.equal(MediaReports.parseList('[null,{},false]').length, 0);
+  assert.equal(MediaPerformanceBaseline.eligible(report), false, 'Old reports without input hashes cannot become baselines');
+  report.input = { bytes: 100, modifiedAt: 10, sha256: 'a'.repeat(64), sourceUri: 'file://private/secret.mp4' };
+  assert.equal(MediaPerformanceBaseline.eligible({ ...report, input: { sha256: 'a'.repeat(64) } }), false);
   const baseline = JSON.parse(JSON.stringify(report));
+  baseline.input.sha256 = 'b'.repeat(64);
+  assert.equal(MediaPerformanceBaseline.compare(report, baseline), '', 'Different source bytes cannot be compared');
+  baseline.input.sha256 = report.input.sha256;
+  baseline.input.bytes++;
+  assert.equal(MediaPerformanceBaseline.compare(report, baseline), '');
+  baseline.input.bytes = report.input.bytes;
+  assert.doesNotMatch(JSON.stringify(MediaReports.shareable(report)), /secret/);
+  assert.equal(MediaReports.parseList(JSON.stringify([{ ...report, input: { ...report.input, sha256: 'bad' } }])).length, 0);
+  assert.equal(MediaReports.parseList(JSON.stringify([{ ...report, build: { revision: 'bad' } }])).length, 0);
   baseline.metrics[0].amount = 20;
   assert.match(MediaPerformanceBaseline.compare(report, baseline), /[+]50[.]0%/);
   baseline.api = 25;

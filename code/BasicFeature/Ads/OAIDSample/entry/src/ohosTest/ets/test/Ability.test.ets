@@ -13,15 +13,15 @@
  * limitations under the License.
  */
 
-import { describe, it, expect } from '@ohos/hypium';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import Want from '@ohos.app.ability.Want';
-import { Driver, ON } from '@ohos.UiTest';
+import { beforeEachIt, describe, it, expect } from '@ohos/hypium';
+import { tick } from '../util/TestTick';
+import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
+import { Want } from '@kit.AbilityKit';
 import Logger from '../../util/Logger';
 
 const BUNDLE = 'OAID';
 const TAG = '[Sample_OAID_Test]';
-const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 // 资源本地化
 async function getResourceString<T extends Resource>(resource: T): Promise<string> {
@@ -32,6 +32,11 @@ async function getResourceString<T extends Resource>(resource: T): Promise<strin
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
+    // 每 10 条用例让出一次主线程，避免整批串跑触发 THREAD_BLOCK_6S（见 util/TestTick.ets）
+    beforeEachIt(async () => {
+      await tick();
+    });
+
     /**
      * 打开应用
      */
@@ -52,8 +57,8 @@ export default function abilityTest() {
     /**
      * OAID测试
      */
-    it(BUNDLE + 'OAIDFunction_001', 0, async (done: Function) => {
-      Logger.info(TAG, BUNDLE + 'OAIDFunction_001 begin')
+    it(BUNDLE + '_OAIDFunction_001', 0, async (done: Function) => {
+      Logger.info(TAG, BUNDLE + '_OAIDFunction_001 begin')
       let driver = Driver.create()
       await driver.delayMs(2000);
       // 获取OAID按钮，Promise方式
@@ -63,6 +68,7 @@ export default function abilityTest() {
       await driver.delayMs(2000);
       let oaidTextArea = await driver.findComponent(ON.id('hiad_demo_oaid_textArea'))
       let oaid = await oaidTextArea.getText();
+      Logger.info(TAG, 'OAIDFunction_001 promise oaid: %{public}s', oaid)
       expect(oaid.length > 0).assertEqual(true)
       await driver.delayMs(1000)
       // 获取OAID按钮，Async Callback方式
@@ -71,15 +77,16 @@ export default function abilityTest() {
       await getOaidByAsyncCallback.click()
       await driver.delayMs(2000);
       oaid = await oaidTextArea.getText();
+      Logger.info(TAG, 'OAIDFunction_001 asyncCallback oaid: %{public}s', oaid)
       expect(oaid.length > 0).assertEqual(true)
-      await driver.delayMs(1000)
       // 重置OAID按钮
       await driver.assertComponentExist(ON.text(await getResourceString($r('app.string.oaid_btn_reset'))))
       let resetOaid = await driver.findComponent(ON.text(await getResourceString($r('app.string.oaid_btn_reset'))))
       await resetOaid.click()
       oaid = await oaidTextArea.getText();
+      Logger.info(TAG, 'OAIDFunction_001 reset oaid: %{public}s', oaid)
       expect(oaid.length > 0).assertEqual(true)
-      Logger.info(TAG, BUNDLE + 'OAIDFunction_001 clickOAIDShowPage end')
+      Logger.info(TAG, BUNDLE + '_OAIDFunction_001 clickOAIDShowPage end')
       done()
     })
   })

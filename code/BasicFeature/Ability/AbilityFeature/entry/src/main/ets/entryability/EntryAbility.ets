@@ -13,49 +13,62 @@
  * limitations under the License.
  */
 
-import AbilityConstant from '@ohos.app.ability.AbilityConstant';
-import UIAbility from '@ohos.app.ability.UIAbility';
-import window from '@ohos.window';
-import Want from '@ohos.app.ability.Want';
-import { BusinessError } from '@ohos.base';
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { logger } from '../util/Logger';
 
-export default class EntryAbility extends UIAbility {
-  onWindowStageCreate(windowStage: window.WindowStage) {
-    // Main window is created, set main page for this ability
-    windowStage.loadContent('pages/Index', (err: BusinessError) => {
-    });
-    windowStage.getMainWindow((err, windowClass) => {
-      if (err.code) {
-        return;
-      }
-      windowClass.setWindowLayoutFullScreen(true);
-    })
-    logger.info(`EntryAbility onWindowStageCreate`);
-  }
+const TAG: string = 'EntryAbility';
 
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
+export default class EntryAbility extends UIAbility {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    // 首页需要用到启动时的 Want（StartOptions 示例会复用其中的参数），通过 AppStorage 传给页面
     AppStorage.setOrCreate('want', want);
     AppStorage.setOrCreate('launchParam', launchParam);
-    logger.info(`EntryAbility onCreate ${want.bundleName},${launchParam.launchReason}`);
+    logger.info(`${TAG} onCreate ${want.bundleName},${launchParam.launchReason}`);
   }
 
-  onDestroy() {
-    logger.info(`EntryAbility onDestroy`);
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    windowStage.loadContent('pages/Index', (err: BusinessError) => {
+      if (err.code) {
+        logger.error(`${TAG} loadContent failed: ${JSON.stringify(err)}`);
+        return;
+      }
+      logger.info(`${TAG} loadContent succeeded`);
+    });
+    this.setImmersiveLayout(windowStage);
   }
 
-  onWindowStageDestroy() {
-    logger.info(`EntryAbility onWindowStageDestroy`);
-    // Main window is destroyed, release UI related resources
+  onDestroy(): void {
+    logger.info(`${TAG} onDestroy`);
   }
 
-  onForeground() {
-    logger.info(`EntryAbility onForeground`);
-    // Ability has brought to foreground
+  onWindowStageDestroy(): void {
+    logger.info(`${TAG} onWindowStageDestroy`);
   }
 
-  onBackground() {
-    logger.info(`EntryAbility onBackground`);
-    // Ability has back to background
+  onForeground(): void {
+    logger.info(`${TAG} onForeground`);
+  }
+
+  onBackground(): void {
+    logger.info(`${TAG} onBackground`);
+  }
+
+  /**
+   * 全屏沉浸式布局：API 12 起带 callback 的重载已废弃，这里用 Promise 版本并打日志，
+   * 避免失败时静默。
+   */
+  private setImmersiveLayout(windowStage: window.WindowStage): void {
+    try {
+      const mainWindow: window.Window = windowStage.getMainWindowSync();
+      mainWindow.setWindowLayoutFullScreen(true).then(() => {
+        logger.info(`${TAG} setWindowLayoutFullScreen succeeded`);
+      }).catch((error: BusinessError) => {
+        logger.error(`${TAG} setWindowLayoutFullScreen failed: ${JSON.stringify(error)}`);
+      });
+    } catch (error) {
+      logger.error(`${TAG} getMainWindowSync failed: ${JSON.stringify(error)}`);
+    }
   }
 }

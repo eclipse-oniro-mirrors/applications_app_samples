@@ -13,17 +13,30 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/SubWindowPage.ets
+ * 文件职责：SubWindowPage 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：SubWindowPage。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import emitter from '@ohos.events.emitter';
 import common from '@ohos.app.ability.common';
 import { BusinessError } from '@ohos.base';
 import Want from '@ohos.app.ability.Want';
 
+/**
+ * SubWindowPage：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct SubWindowPage {
   SUB_WINDOW_INNER_EVENT_ID: number = 1001;
   videoController: VideoController = new VideoController();
 
+  /**
+   * startNewAbility：执行 startNewAbility 相关逻辑。
+   */
   async startNewAbility() {
     let context = getContext(this) as common.UIAbilityContext; // UIAbilityContext
     let want: Want = {
@@ -33,20 +46,28 @@ struct SubWindowPage {
     try {
       context.startAbility(want)
         .then((data) => {
-          console.log('startAbility succeed');
+          console.info('startAbility succeed');
         })
         .catch((error: BusinessError) => {
-          console.log('startAbility failed, error.code: ' + JSON.stringify(error.code) +
+          console.error('startAbility failed, error.code: ' + JSON.stringify(error.code) +
             ' error.message: ' + JSON.stringify(error.message));
         });
     } catch (paramError) {
-      console.log('error.code: ' + JSON.stringify(paramError.code) +
+      console.error('error.code: ' + JSON.stringify(paramError.code) +
         ' error.message: ' + JSON.stringify(paramError.message));
     }
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Flex：弹性布局容器
+    // 关键属性：宽度、高度
     Flex({ direction: FlexDirection.Column, justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
+      // Button：按钮
+      // 关键属性：点击事件回调、startNewAbility
+      // 交互：可点击交互
       Button($r("app.string.startNewAbility"))
         .onClick(async () => {
           await this.startNewAbility();
@@ -58,6 +79,9 @@ struct SubWindowPage {
         .height('40px')
         .borderRadius(15)
 
+      // Video：视频组件
+      // 关键属性：宽度、布局权重、是否循环、muted、controls、是否自动播放
+      // 交互：可点击交互
       Video({
         src: $rawfile('video.mp4'),
         currentProgressRate: PlaybackSpeed.Speed_Forward_1_00_X,
@@ -86,7 +110,7 @@ struct SubWindowPage {
             emitter.emit(innerEvent, eventData);
           }
         })
-    }
+    }.id('sub_window_page_flex_1')
     .width('100%').height('100%')
   }
 }

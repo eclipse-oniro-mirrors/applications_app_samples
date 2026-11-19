@@ -58,6 +58,7 @@ export class PlayerSettingsModel {
   public audioTrackIndex: number = -1;
   /** 用户一段时间未操作后自动隐藏播放控制条。 */
   public autoHideControls: boolean = true;
+  public resumeLastPosition: boolean = false;
 
   applyPickerValues(values: string[], audioVolume: number = this.audioVolume): boolean {
     if (values.length < Const.PLAYER_INFO.length) {

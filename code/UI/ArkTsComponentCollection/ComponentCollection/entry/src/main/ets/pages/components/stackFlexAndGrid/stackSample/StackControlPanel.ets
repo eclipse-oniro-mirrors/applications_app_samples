@@ -13,15 +13,31 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/components/stackFlexAndGrid/stackSample/StackControlPanel.ets
+ * 文件职责：StackControlPanel 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ZIndexControlPanel、ArgumentsControlPanel。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { CommonItemSelect } from '../../../../common/AttributeModificationTool';
 import { getStringArrayData } from '../../../../data/ResourceDataHandle';
 import { STACK_ARGUMENTS_SELECT_DATA, STACK_ZIND_SELECT_DATA } from '../../ComponentData';
 
+/**
+ * ZIndexControlPanel：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct ZIndexControlPanel{
+  // @Link zindex：与父组件双向绑定的状态
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   @Link  zindex: number;
   build(){
+    // Column：垂直布局容器
     Column(){
+      // CommonItemSelect：CommonItemSelect 自定义组件
       CommonItemSelect({
         name:$r('app.string.stack_zindex'),
         selects : getStringArrayData(STACK_ZIND_SELECT_DATA),
@@ -36,17 +52,26 @@ export struct ZIndexControlPanel{
           }
         },
         testId:`stack_002`
-      })
-    }
+      }).id('stack_control_panel_common_item_select_2')
+    }.id('stack_control_panel_column_1')
   }
 }
 
+/**
+ * ArgumentsControlPanel：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct ArgumentsControlPanel {
+  // @Link alignContent：与父组件双向绑定的状态
   @Link alignContent : Alignment;
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
     Column() {
+      // CommonItemSelect：CommonItemSelect 自定义组件
       CommonItemSelect({
         name:$r('app.string.stack_alignment'),
         selects:getStringArrayData(STACK_ARGUMENTS_SELECT_DATA),
@@ -82,7 +107,7 @@ export struct ArgumentsControlPanel {
           }
         },
         testId:`stack_001`
-      })
-    }
+      }).id('stack_control_panel_common_item_select_4')
+    }.id('stack_control_panel_column_3')
   }
 }

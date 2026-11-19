@@ -17,7 +17,7 @@
   "module": {
     "name": "entry",
     "type": "entry",
-    "srcEntrance": "./ets/Application/AbilityStage.ts",
+    "srcEntry": "./ets/Application/AbilityStage.ts",
     "description": "$string:entry_desc",
     "mainElement": "MainAbility",
     "deviceTypes": [
@@ -27,11 +27,10 @@
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:main_pages",
-    "uiSyntax": "ets",
     "abilities": [
       {
         "name": "ohos.samples.formextability.MainAbility",
-        "srcEntrance": "./ets/MainAbility/MainAbility.ts",
+        "srcEntry": "./ets/MainAbility/MainAbility.ts",
         "description": "$string:MainAbility_desc",
         "icon": "$media:icon",
         "label": "$string:MainAbility_label",
@@ -53,7 +52,7 @@
     "extensionAbilities": [
       {
         "name": "FormAbility",
-        "srcEntrance": "./ets/FormAbility/FormAbility.ts",
+        "srcEntry": "./ets/FormAbility/FormAbility.ts",
         "label": "$string:form_FormAbility_label",
         "description": "$string:form_FormAbility_desc",
         "type": "form",

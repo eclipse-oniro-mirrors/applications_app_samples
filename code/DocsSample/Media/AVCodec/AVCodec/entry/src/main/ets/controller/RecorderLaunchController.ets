@@ -14,7 +14,6 @@
  */
 
 import { LocalizedText } from '../common/LocalizedText';
-import { fileIo } from '@kit.CoreFileKit';
 import recorder from 'librecorder.so';
 import { CameraDataModel } from '../model/CameraDataModel';
 import { RecorderOutputController } from './RecorderOutputController';
@@ -24,19 +23,14 @@ import { ConfigurationFeedback } from '../model/ConfigurationFeedback';
 import { MediaFileActivity } from '../model/MediaFileActivity';
 import { MediaTaskCoordinator, MediaTaskLease } from '../model/MediaTaskCoordinator';
 import { MediaSessionStore } from '../model/MediaSessionStore';
+import { RecordingFileCloser } from './RecordingFileCloser';
 
 export class RecorderLaunchController {
   private launching: boolean = false;
+  private revision: number = 0;
 
-  private async closeFileSafely(fd: number, label: string): Promise<void> {
-    if (fd < 0) {
-      return;
-    }
-    try {
-      await fileIo.close(fd);
-    } catch (error) {
-      Logger.error('RecorderLaunch', 'Failed to close ' + label + ': ' + JSON.stringify(error));
-    }
+  cancel(): void {
+    ++this.revision;
   }
 
   async launch(ui: UIContext, data: CameraDataModel, route: boolean = true): Promise<boolean> {
@@ -49,6 +43,7 @@ export class RecorderLaunchController {
       return false;
     }
     this.launching = true;
+    const request: number = ++this.revision;
     const lease: MediaTaskLease | undefined = MediaTaskCoordinator.acquire('recording');
     if (lease === undefined) { this.launching = false; MediaFileActivity.endLaunch(); return false; }
     if (route) { data.recordingGroupId = lease.id; data.segmentIndex = 1; }
@@ -56,18 +51,23 @@ export class RecorderLaunchController {
     let transferred: boolean = false;
     try {
       await MediaSessionStore.begin(context, { id: lease.id, operation: 'recording', startedAt: lease.startedAt });
+      if (request !== this.revision) { return false; }
       const constraint: string = ConfigurationFeedback.recordingConstraint(data, deviceInfo.sdkApiVersion);
       if (constraint.length > 0) {
         throw new Error(constraint);
       }
       await RecorderOutputController.open(context, data);
       initialized = true;
+      if (request !== this.revision) { return false; }
+      // 路由发出后由其结果决定资源归属；页面隐藏不能撤销成功交接。
       if (route) { await ui.getRouter().pushUrl({ url: 'recorder/pages/Recorder', params: data }); }
       // 路由成功后，Recorder页面负责在Native完成收尾后关闭这两个fd。
       transferred = true;
     } catch (error) {
       Logger.error('RecorderLaunch', JSON.stringify(error));
-      ui.getPromptAction().showToast({ message: String(error), duration: 5000 });
+      if (request === this.revision) {
+        ui.getPromptAction().showToast({ message: String(error), duration: 5000 });
+      }
     } finally {
       if (!transferred) {
         if (initialized || recorder.getDiagnostics().active) {
@@ -78,13 +78,20 @@ export class RecorderLaunchController {
           }
         }
         if (!recorder.getDiagnostics().active) {
-          await this.closeFileSafely(data.outputfd, 'primary output');
-          await this.closeFileSafely(data.secondaryOutputfd, 'secondary output');
-          data.outputfd = -1;
-          data.secondaryOutputfd = -1;
-          MediaTaskCoordinator.release(lease);
-          await MediaSessionStore.finish(context, lease.id)
-            .catch((error: Error): void => Logger.warn('RecorderLaunch', error.message));
+          const primaryClosed: boolean = await RecordingFileCloser.close(data.outputfd);
+          const secondaryClosed: boolean = await RecordingFileCloser.close(data.secondaryOutputfd);
+          if (primaryClosed) { data.outputfd = -1; }
+          if (secondaryClosed) { data.secondaryOutputfd = -1; }
+          if (primaryClosed && secondaryClosed) {
+            MediaTaskCoordinator.release(lease);
+            await MediaSessionStore.finish(context, lease.id)
+              .catch((error: Error): void => Logger.warn('RecorderLaunch', error.message));
+          } else {
+            MediaTaskCoordinator.cancelling(lease);
+            if (request === this.revision) {
+              ui.getPromptAction().showToast({ message: $r('app.string.recorder_close_unconfirmed'), duration: 5000 });
+            }
+          }
         }
       }
       this.launching = false;

@@ -17,12 +17,12 @@
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
-function generateAsyKey() {
-  // 创建一个AsyKeyGenerator实例
-  let rsaGenerator = cryptoFramework.createAsyKeyGenerator('RSA1024|PRIMES_2');
-  // 使用密钥生成器随机生成非对称密钥对
-  let keyGenPromise = rsaGenerator.generateKeyPair();
-  keyGenPromise.then(keyPair => {
+async function generateAsyKey() {
+  try {
+    // 创建一个AsyKeyGenerator实例
+    let rsaGenerator = cryptoFramework.createAsyKeyGenerator('RSA1024|PRIMES_2');
+    // 使用密钥生成器随机生成非对称密钥对
+    let keyPair = await rsaGenerator.generateKeyPair();
     let pubKey = keyPair.pubKey;
     let priKey = keyPair.priKey;
     // 获取非对称密钥对的二进制数据
@@ -30,9 +30,13 @@ function generateAsyKey() {
     let skBlob = priKey.getEncoded();
     console.info('pk bin data: ' + pkBlob.data);
     console.info('sk bin data: ' + skBlob.data);
-  }).catch((error: BusinessError) => {
-    console.error(`generateAsyKey failed: errCode: ${error.code}, message: ${error.message}`);
-  });
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`generateAsyKey failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude generate_rsa_keypair]
+    throw new Error(`generateAsyKey failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude generate_rsa_keypair]
+  }
 }
 // [End generate_rsa_keypair]
 
@@ -46,9 +50,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_rsa_promise'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            generateAsyKey();
+            await generateAsyKey();
             this.message = 'RSA Promise Success';
           } catch {
             this.message = 'RSA Promise Fail';

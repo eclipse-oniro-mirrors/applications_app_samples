@@ -29,6 +29,11 @@
       "name": "XComponentTypeNodeController",
       "pageSourceFile": "src/main/ets/pages/XComponentTypeNodeController.ets",
       "buildFunction": "XComponentTypeNodeControllerBuilder"
+    },
+    {
+      "name": "InspectorTreeGetterNDK",
+      "pageSourceFile": "src/main/ets/pages/InspectorTreeGetterNDK.ets",
+      "buildFunction": "InspectorTreeGetterNDKBuilder"
     }
   ]
 }

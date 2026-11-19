@@ -59,6 +59,7 @@ OH_AudioStreamManager* audioStreamManager = nullptr;
 OH_AudioStreamBuilder* g_ultraBuilder = nullptr;
 OH_AudioRenderer* g_ultraAudioRenderer = nullptr;
 std::atomic<OH_AudioStream_FastStatus> g_ultraFastStatus {AUDIOSTREAM_FASTSTATUS_NORMAL};
+std::atomic<OH_AudioStream_FastStatus> g_fastStatus {AUDIOSTREAM_FASTSTATUS_NORMAL};
 FILE *g_ultraFp = nullptr;
 
 std::string g_filePath = "/data/storage/el2/base/haps/entry/files/S16LE_2_48000.pcm";
@@ -83,6 +84,104 @@ static OH_AudioData_Callback_Result UltraMyOnWriteData_New(
     }
     return AUDIO_DATA_CALLBACK_RESULT_VALID;
 }
+
+// 检查设备是否支持低时延
+napi_value CheckFastPlaybackSupported(napi_env env, napi_callback_info info)
+{
+    // [Start Render_GetAudioStreamManager]
+    // 获取音频流管理器。
+    OH_AudioCommon_Result managerResult = OH_AudioManager_GetAudioStreamManager(&audioStreamManager);
+    // [End Render_GetAudioStreamManager]
+    if (managerResult != AUDIOCOMMON_RESULT_SUCCESS || audioStreamManager == nullptr) {
+        std::stringstream ss;
+        ss << "获取音频流管理器失败\n";
+        ss << "错误码: " << managerResult;
+        napi_value retVal;
+        napi_create_string_utf8(env, ss.str().c_str(), NAPI_AUTO_LENGTH, &retVal);
+        return retVal;
+    }
+ 
+    // [Start Render_IsFastPlaybackSupported]
+    // 构造与待创建播放流一致的音频流参数。
+    const int samplingRate48K = 48000;
+    OH_AudioStreamInfo streamInfo;
+    streamInfo.samplingRate = samplingRate48K;
+    streamInfo.channelLayout = CH_LAYOUT_STEREO;
+    streamInfo.encodingType = AUDIOSTREAM_ENCODING_TYPE_RAW;
+    streamInfo.sampleFormat = AUDIOSTREAM_SAMPLE_S16LE;
+ 
+    // 查询当前设备是否支持超低时延播放。
+    bool supported = false;
+    supported = OH_AudioStreamManager_IsFastPlaybackSupported(
+        audioStreamManager, &streamInfo, AUDIOSTREAM_USAGE_MUSIC);
+    // [End Render_IsFastPlaybackSupported]
+ 
+    std::stringstream ss;
+    ss << "低时延播放支持: " << (supported ? "是" : "否") << "\n";
+    ss << "采样率: " << streamInfo.samplingRate << "\n";
+    ss << "声道布局: STEREO\n";
+    ss << "编码类型: RAW\n";
+    ss << "采样格式: S16LE\n";
+    ss << "StreamUsage: AUDIOSTREAM_USAGE_MUSIC\n";
+ 
+    napi_value retVal;
+    napi_create_string_utf8(env, ss.str().c_str(), NAPI_AUTO_LENGTH, &retVal);
+    return retVal;
+}
+// 获取低时延状态
+napi_value GetFastStatus(napi_env env, napi_callback_info info)
+{
+    std::stringstream ss;
+    if (audioRenderer == nullptr) {
+        ss << "获取低时延流状态失败\n";
+        ss << "原因: 请先创建低时延播放流";
+        napi_value retVal;
+        napi_create_string_utf8(env, ss.str().c_str(), NAPI_AUTO_LENGTH, &retVal);
+        return retVal;
+    }
+ 
+    // [Start Render_GetFastStatus]
+    // 查询音频流实际运行的低时延状态。
+    OH_AudioStream_FastStatus fastStatus = AUDIOSTREAM_FASTSTATUS_NORMAL;
+    OH_AudioStream_Result result = OH_AudioRenderer_GetFastStatus(audioRenderer, &fastStatus);
+    // [End Render_GetFastStatus]
+ 
+    ss << "获取时延状态" << (result == AUDIOSTREAM_SUCCESS ? "成功" : "失败") << "\n";
+    if (result != AUDIOSTREAM_SUCCESS) {
+        ss << "错误码: " << result << "\n";
+    } else {
+        switch (fastStatus) {
+            case AUDIOSTREAM_FASTSTATUS_NORMAL:
+                ss << "实际运行状态: NORMAL（普通模式）\n";
+                break;
+            case AUDIOSTREAM_FASTSTATUS_FAST:
+                ss << "实际运行状态: FAST（低时延模式）\n";
+                break;
+            case AUDIOSTREAM_FASTSTATUS_ULTRA_FAST:
+                ss << "实际运行状态: ULTRA_FAST（超低时延模式）\n";
+                break;
+            default:
+                ss << "实际运行状态: 未知(" << fastStatus << ")\n";
+                break;
+        }
+    }
+    // 回调上报的最近一次状态变化，便于观察运行模式是否发生降级。
+    ss << "回调上报的最近状态: " << g_fastStatus.load();
+ 
+    napi_value retVal;
+    napi_create_string_utf8(env, ss.str().c_str(), NAPI_AUTO_LENGTH, &retVal);
+    return retVal;
+}
+
+// [Start Render_FastStatusChangeCallback]
+// 自定义低时延状态变化回调函数。
+void MyOnFastStatusChange(OH_AudioRenderer* renderer, void* userData, OH_AudioStream_FastStatus status)
+{
+    // 通过状态变化回调记录当前实际运行的低时延状态。
+    g_fastStatus.store(status);
+}
+// [End Render_FastStatusChangeCallback]
+
 // ==================== 回调函数 - CreateAudioRender 使用 ====================
 // [Start Render_Callback]
 // [Start Render_SetRendererWriteDataCallback]
@@ -226,6 +325,9 @@ napi_value CreateAudioRender(napi_env env, napi_callback_info info)
     OH_AudioStreamBuilder_SetLatencyMode(builder, latencyMode);
     // [End OH_AudioStreamBuilder_SetLatencyMode]
 
+    // [Start Render_SetRendererFastStatusChangeCallback]
+    OH_AudioStreamBuilder_SetRendererFastStatusChangeCallback(builder, MyOnFastStatusChange, nullptr);
+    // [End Render_SetRendererFastStatusChangeCallback]
     //设置声道布局
     // [Start Render_SetChannelLayout]
     OH_AudioStreamBuilder_SetChannelLayout(builder, CH_LAYOUT_STEREO);
@@ -367,14 +469,15 @@ napi_value DestroyUltraAudioRender(napi_env env, napi_callback_info info)
     napi_create_string_utf8(env, ss.str().c_str(), NAPI_AUTO_LENGTH, &retVal);
     return retVal;
 }
-// [Start Render_FastStatusChangeCallback]
+
+// [Start Render_UltraFastStatusChangeCallback]
 // 自定义超低时延状态变化回调函数。
 void MyOnUltraFastStatusChange(OH_AudioRenderer* renderer, void* userData, OH_AudioStream_FastStatus status)
 {
     // 通过状态变化回调记录当前实际运行的低时延状态。
     g_ultraFastStatus.store(status);
 }
-// [End Render_FastStatusChangeCallback]
+// [End Render_UltraFastStatusChangeCallback]
  
 napi_value CheckUltraFastPlaybackSupported(napi_env env, napi_callback_info info)
 {

@@ -12,6 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file customanimationtab/src/main/ets/model/TabBarItemInterface.ets
+ * 文件职责：TabBarItemInterface 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：TabBarItemInterface。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { BaseInterface } from './BaseInterface';
 
 /**
@@ -21,6 +29,7 @@ import { BaseInterface } from './BaseInterface';
 export interface TabBarItemInterface extends BaseInterface {
   // 页签自身索引
   index: number;
+
   // 页签标题
   title: string;
 }

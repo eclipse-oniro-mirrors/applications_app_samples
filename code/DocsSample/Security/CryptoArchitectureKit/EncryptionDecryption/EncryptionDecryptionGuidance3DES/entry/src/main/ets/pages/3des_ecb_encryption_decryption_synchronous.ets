@@ -57,10 +57,16 @@ function main() {
       console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
     } else {
       console.error('decrypt failed');
+      // [StartExclude sync_symmetry_encrypt_decrypt]
+      throw new Error('decrypt failed');
+      // [EndExclude sync_symmetry_encrypt_decrypt]
     }
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude sync_symmetry_encrypt_decrypt]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude sync_symmetry_encrypt_decrypt]
   }
 }
 // [End sync_symmetry_encrypt_decrypt]

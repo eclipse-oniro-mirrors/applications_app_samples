@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 720" width="100%" height="100%">
+    <defs>
+        <style>
+            .bg { fill: #f5f6f8; }
+            .card { fill: #ffffff; rx: 12; }
+            .text-main { font-family: -apple-system, sans-serif; fill: #1a1a1a; }
+            .text-sub { font-family: -apple-system, sans-serif; fill: #666666; }
+            .text-gray { font-family: -apple-system, sans-serif; fill: #999999; }
+            .icon-bg { fill: #d8e5ff; }
+            .icon-text { font-family: -apple-system, sans-serif; fill: #0a59f7; font-size: 15px; font-weight: 500; }
+        </style>
+    </defs>
+
+    <!-- 状态栏与背景 -->
+    <rect width="360" height="720" class="bg"/>
+    <text x="20" y="30" class="text-main" font-size="14">没有 SIM 卡 <tspan font-size="10">📶</tspan></text>
+    <text x="340" y="30" class="text-main" font-size="14" text-anchor="end">11% 🔋 10:54</text>
+
+    <!-- 标题 -->
+    <text x="180" y="85" class="text-main" font-size="20" font-weight="bold" text-anchor="middle">蓝牙BaseProfile示例</text>
+
+    <!-- 顶部说明卡片 -->
+    <rect x="0" y="110" width="360" height="135" fill="#ffffff"/>
+    <text x="15" y="140" class="text-main" font-size="16" font-weight="bold">蓝牙 BaseProfile 示例</text>
+    <text x="15" y="165" class="text-sub" font-size="14">
+        <tspan x="15" dy="0">演示蓝牙 BaseProfile API (A2DP/AVRCP/HFP/HID/PAN/PBAP/MAP/</tspan>
+        <tspan x="15" dy="22">HDP)</tspan>
+    </text>
+    <text x="15" y="225" class="text-gray" font-size="13">SDK: 26.0.0    BundleName: com.samples.bluetoothbaseprofile</text>
+
+    <!-- 列表项 1: Audio -->
+    <rect x="15" y="260" width="330" height="75" class="card"/>
+    <circle cx="50" cy="297" r="24" class="icon-bg"/>
+    <text x="50" y="302" class="icon-text" text-anchor="middle">audio</text>
+    <text x="85" y="290" class="text-main" font-size="16" font-weight="bold">Audio (A2DP)</text>
+    <text x="85" y="315" class="text-sub" font-size="13">Advanced Audio Distribution Profile</text>
+    <path d="M325 292 L330 297 L325 302" fill="none" stroke="#999999" stroke-width="2"/>
+
+    <!-- 列表项 2: Hands-Free -->
+    <rect x="15" y="345" width="330" height="75" class="card"/>
+    <circle cx="50" cy="382" r="24" class="icon-bg"/>
+    <text x="50" y="387" class="icon-text" text-anchor="middle">phone</text>
+    <text x="85" y="375" class="text-main" font-size="16" font-weight="bold">Hands-Free (HFP)</text>
+    <text x="85" y="400" class="text-sub" font-size="13">Hands-Free Profile for calls</text>
+    <path d="M325 377 L330 382 L325 387" fill="none" stroke="#999999" stroke-width="2"/>
+
+    <!-- 列表项 3: Input -->
+    <rect x="15" y="430" width="330" height="75" class="card"/>
+    <circle cx="50" cy="467" r="24" class="icon-bg"/>
+    <text x="50" y="472" class="icon-text" text-anchor="middle">keyboard</text>
+    <text x="85" y="460" class="text-main" font-size="16" font-weight="bold">Input (HID)</text>
+    <text x="85" y="485" class="text-sub" font-size="13">Human Interface Device Profile</text>
+    <path d="M325 462 L330 467 L325 472" fill="none" stroke="#999999" stroke-width="2"/>
+
+    <!-- 列表项 4: Network -->
+    <rect x="15" y="515" width="330" height="75" class="card"/>
+    <circle cx="50" cy="552" r="24" class="icon-bg"/>
+    <text x="50" y="557" class="icon-text" text-anchor="middle">network</text>
+    <text x="85" y="545" class="text-main" font-size="16" font-weight="bold">Network (PAN)</text>
+    <text x="85" y="570" class="text-sub" font-size="13">Personal Area Network Profile</text>
+    <path d="M325 547 L330 552 L325 557" fill="none" stroke="#999999" stroke-width="2"/>
+
+    <!-- 列表项 5: Phonebook -->
+    <rect x="15" y="600" width="330" height="75" class="card"/>
+    <circle cx="50" cy="637" r="24" class="icon-bg"/>
+    <text x="50" y="642" class="icon-text" text-anchor="middle">contacts</text>
+    <text x="85" y="630" class="text-main" font-size="16" font-weight="bold">Phonebook (PBAP)</text>
+    <text x="85" y="655" class="text-sub" font-size="13">Phone Book Access Profile</text>
+    <path d="M325 632 L330 637 L325 642" fill="none" stroke="#999999" stroke-width="2"/>
+
+    <!-- 列表项 6: Messages (被截断) -->
+    <rect x="15" y="685" width="330" height="75" class="card"/>
+    <circle cx="50" cy="722" r="24" class="icon-bg"/>
+    <text x="50" y="727" class="icon-text" text-anchor="middle">message</text>
+    <text x="85" y="715" class="text-main" font-size="16" font-weight="bold">Messages (MAP)</text>
+    <text x="85" y="740" class="text-sub" font-size="13">Message Access Profile</text>
+    <path d="M325 717 L330 722 L325 727" fill="none" stroke="#999999" stroke-width="2"/>
+
+    <!-- 底部导航栏 -->
+    <polygon points="110,695 120,705 100,705" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="180" cy="700" r="8" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <rect x="245" y="692" width="14" height="14" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+</svg>

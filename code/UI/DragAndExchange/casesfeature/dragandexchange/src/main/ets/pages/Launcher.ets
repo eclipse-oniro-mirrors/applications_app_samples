@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file src/main/ets/pages/Launcher.ets
+ * 文件职责：Launcher 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：Launcher。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { GridSceneView } from '../view/GridSceneView';
 import { ListSceneView } from '../view/ListSceneView';
 
@@ -34,17 +41,24 @@ import { ListSceneView } from '../view/ListSceneView';
  *  6. 手指抬起时，通过判断悬浮窗中心在水平方向位于父组件中心的左侧或右侧设置悬浮窗靠左或靠右，如果悬浮窗超出内容区上下边界，
  *     则将悬浮窗设置在边界位置，使用curves.springMotion弹性动画曲线实现吸附边界时的弹性动画效果。
  */
+/**
+ * Launcher：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct Launcher {
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
     Column() {
-      GridSceneView() // 实现Grid拖拽场景
-      ListSceneView() // 实现List拖拽场景
+      GridSceneView().id('launcher_grid_scene_view_1') // 实现Grid拖拽场景
+      ListSceneView().id('launcher_list_scene_view_2') // 实现List拖拽场景
     }
     .width($r('app.string.drag_and_exchange_layout_100_percent'))
     .height($r('app.string.drag_and_exchange_layout_100_percent'))
     .justifyContent(FlexAlign.Center)
     .backgroundImage($r('app.media.drag_and_exchange_wallpaper_default'))
     .backgroundImageSize(ImageSize.Cover)
+    .id('launcher_column_0')
   }
 }

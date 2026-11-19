@@ -12,12 +12,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file customanimationtab/src/main/ets/view/MyAnimationAttribute.ets
+ * 文件职责：MyAnimationAttribute 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：MyAnimationAttribute。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { AnimationAttribute } from '../model/AnimationAttribute';
 
+/**
+ * MyAnimationAttribute：类定义，承载本文件对应的逻辑与数据。
+ */
 export class MyAnimationAttribute extends AnimationAttribute {
   // 背景条颜色
   public indicatorBarColor: ResourceColor;
 
+  /** 构造 MyAnimationAttribute 实例。 */
   constructor(indicatorBarColor: ResourceColor) {
     super();
     this.indicatorBarColor = indicatorBarColor;

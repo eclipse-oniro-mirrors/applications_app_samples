@@ -32,6 +32,9 @@ async function eccPubUncompressedToCompressed() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`eccPubUncompressedToCompressed failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude convert_ecc_uncompressed_pub_keypair]
+    throw new Error(`eccPubUncompressedToCompressed failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude convert_ecc_uncompressed_pub_keypair]
   }
 }
 // [End convert_ecc_uncompressed_pub_keypair]

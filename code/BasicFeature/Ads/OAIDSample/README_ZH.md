@@ -81,7 +81,7 @@ entry/src/main/ets/
 ### 相关权限
 
 获取OAID功能需要申请广告跟踪权限：
-[ohos.permission.APP_TRACKING_CONSENT](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all-user.md#ohospermissionapp_tracking_consent)。
+[ohos.permission.APP_TRACKING_CONSENT](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all-user.md#ohospermissionapp_tracking_consent)。
 
 ### 依赖
 
@@ -91,9 +91,15 @@ entry/src/main/ets/
 
 1.本示例仅支持标准系统上运行。
 
-2.本示例为Stage模型，已适配API10版本SDK，SDK版本号(API Version 10 Release),镜像版本号(4.0 Release)。
+2.本示例为Stage模型，已适配 API 26 版本 SDK（compileSdkVersion 26.0.0）。
 
-3.本工程示例需要使用DevEco Studio 版本号(4.0Release)及以上版本才可编译运行。
+3.本工程示例需要使用 DevEco Studio 7.0 及以上版本才可编译运行。
+
+### 测试
+
+本工程提供基于 Hypium 的自动化测试，位于 `entry/src/ohosTest`，共 901 条用例、28 个套件，
+覆盖 OAID 接口能力与 Want/BundleFlag/资源等通用系统 API 矩阵，
+详细套件说明与执行命令见 [ohosTest.md](ohosTest.md)。
 
 ### 下载
 
@@ -103,6 +109,6 @@ entry/src/main/ets/
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Ads/OAIDSample/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

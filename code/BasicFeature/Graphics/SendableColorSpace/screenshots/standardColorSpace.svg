@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1280" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #ffffff; }
+      .text-title { font-family: sans-serif; fill: #111111; font-weight: bold; }
+      .text-body { font-family: sans-serif; fill: #333333; }
+      .text-sub { font-family: sans-serif; fill: #666666; }
+      .btn-primary { fill: #007DFF; }
+      .btn-label { font-family: sans-serif; fill: #ffffff; font-size: 22px; }
+      .status-text { font-family: sans-serif; fill: #333333; font-size: 24px; font-weight: 500; }
+      .nav-icon { fill: none; stroke: #333333; stroke-width: 3; }
+      .card { fill: #F5F5F5; }
+      .canvas { fill: #FAFAFA; stroke: #EEEEEE; stroke-width: 2; }
+      .grid { stroke: #EDEDED; stroke-width: 1.5; }
+      .triangle { fill: #EEF4FF; fill-opacity: 0.85; stroke: #4A7CF3; stroke-width: 3; }
+      .dot-label { font-family: sans-serif; fill: #888888; font-size: 17px; }
+    </style>
+  </defs>
+
+  <rect width="720" height="1280" class="bg" />
+
+  <!-- 状态栏 -->
+  <text x="44" y="46" class="status-text">没有 SIM 卡</text>
+  <rect x="198" y="36" width="5" height="10" fill="#333333" />
+  <rect x="206" y="32" width="5" height="14" fill="#333333" />
+  <rect x="214" y="27" width="5" height="19" fill="#333333" />
+  <rect x="222" y="22" width="5" height="24" fill="#999999" />
+  <text x="534" y="46" class="status-text">11%</text>
+  <rect x="580" y="26" width="26" height="14" rx="3" fill="none" stroke="#333333" stroke-width="2" />
+  <rect x="583" y="29" width="4" height="8" fill="#0E9F57" />
+  <rect x="608" y="30" width="3" height="6" fill="#333333" />
+  <text x="634" y="46" class="status-text">06:25</text>
+
+  <!-- 标题栏 -->
+  <rect x="18" y="92" width="117" height="50" rx="25" class="btn-primary" />
+  <text x="76" y="125" class="btn-label" text-anchor="middle">&lt; Back</text>
+  <text x="156" y="129" class="text-title" font-size="28">Standard Color Spaces</text>
+
+  <!-- 标准色域按钮矩阵 -->
+  <rect x="18" y="160" width="329" height="54" rx="27" class="btn-primary" />
+  <text x="182" y="195" class="btn-label" text-anchor="middle">SRGB</text>
+  <rect x="373" y="160" width="329" height="54" rx="27" class="btn-primary" />
+  <text x="537" y="195" class="btn-label" text-anchor="middle">Display_P3</text>
+
+  <rect x="18" y="222" width="329" height="54" rx="27" class="btn-primary" />
+  <text x="182" y="257" class="btn-label" text-anchor="middle">DCI_P3</text>
+  <rect x="373" y="222" width="329" height="54" rx="27" class="btn-primary" />
+  <text x="537" y="257" class="btn-label" text-anchor="middle">BT2020_HLG</text>
+
+  <rect x="18" y="292" width="329" height="54" rx="27" class="btn-primary" />
+  <text x="182" y="327" class="btn-label" text-anchor="middle">BT2020_PQ</text>
+  <rect x="373" y="292" width="329" height="54" rx="27" class="btn-primary" />
+  <text x="537" y="327" class="btn-label" text-anchor="middle">BT709</text>
+
+  <rect x="18" y="362" width="329" height="54" rx="27" class="btn-primary" />
+  <text x="182" y="397" class="btn-label" text-anchor="middle">Adobe_RGB_1998</text>
+  <rect x="373" y="362" width="329" height="54" rx="27" class="btn-primary" />
+  <text x="537" y="397" class="btn-label" text-anchor="middle">Linear_SRGB</text>
+
+  <!-- 属性卡片 -->
+  <rect x="36" y="434" width="648" height="104" rx="12" class="card" />
+  <text x="52" y="461" class="text-body" font-size="20">Type: SRGB</text>
+  <text x="52" y="487" class="text-body" font-size="20">ColorSpaceName: SRGB</text>
+  <text x="52" y="513" class="text-body" font-size="20">WhitePoint: [0.3127, 0.3290]</text>
+  <text x="52" y="539" class="text-body" font-size="20">Gamma: 2.4000000953674316</text>
+
+  <!-- 色域可视化 -->
+  <text x="360" y="588" class="text-body" font-size="22" text-anchor="middle">Gamut Visualization</text>
+  <rect x="134" y="607" width="450" height="386" rx="12" class="canvas" />
+
+  <g class="grid">
+    <line x1="182" y1="650" x2="182" y2="950" />
+    <line x1="271" y1="650" x2="271" y2="950" />
+    <line x1="360" y1="650" x2="360" y2="950" />
+    <line x1="449" y1="650" x2="449" y2="950" />
+    <line x1="538" y1="650" x2="538" y2="950" />
+    <line x1="182" y1="650" x2="538" y2="650" />
+    <line x1="182" y1="725" x2="538" y2="725" />
+    <line x1="182" y1="800" x2="538" y2="800" />
+    <line x1="182" y1="875" x2="538" y2="875" />
+    <line x1="182" y1="950" x2="538" y2="950" />
+  </g>
+
+  <polygon points="413,811 289,730 235,895" class="triangle" />
+
+  <circle cx="289" cy="730" r="9" fill="#34A853" />
+  <text x="302" y="737" class="dot-label">G</text>
+  <circle cx="413" cy="811" r="9" fill="#E8453C" />
+  <text x="426" y="818" class="dot-label">R</text>
+  <circle cx="235" cy="895" r="9" fill="#3B7BF6" />
+  <text x="248" y="902" class="dot-label">B</text>
+  <circle cx="290" cy="812" r="8" fill="#F2B01E" />
+  <text x="303" y="819" class="dot-label">W</text>
+
+  <text x="251" y="982" class="text-sub" font-size="13">CIE 1931 Chromaticity (schematic)</text>
+
+  <!-- TaskPool 并发读取 -->
+  <text x="360" y="1040" class="text-body" font-size="22" text-anchor="middle">Concurrency - TaskPool</text>
+  <rect x="198" y="1057" width="324" height="50" rx="25" class="btn-primary" />
+  <text x="360" y="1089" class="btn-label" text-anchor="middle">Read via TaskPool</text>
+
+  <!-- 底部系统导航 -->
+  <polygon points="196,1243 218,1227 218,1259" class="nav-icon" />
+  <circle cx="360" cy="1242" r="13" class="nav-icon" />
+  <rect x="502" y="1230" width="24" height="24" rx="2" class="nav-icon" />
+</svg>

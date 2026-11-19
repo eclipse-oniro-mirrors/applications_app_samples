@@ -1,5 +1,10 @@
 {
   "src": [
-    "pages/Index"
+    "pages/Index",
+    "pages/QosLevelPage",
+    "pages/BenchmarkPage",
+    "pages/ConcurrencyPage",
+    "pages/DeviceInfoPage",
+    "pages/HistoryPage"
   ]
 }

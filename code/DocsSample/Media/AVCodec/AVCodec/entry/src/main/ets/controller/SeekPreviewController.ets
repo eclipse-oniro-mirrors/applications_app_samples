@@ -133,6 +133,10 @@ export class SeekPreviewController {
       previewFile = fileIo.openSync(source, fileIo.OpenMode.READ_ONLY);
       const previewFileState = fileIo.statSync(previewFile.fd);
       imageGenerator = await media.createAVImageGenerator();
+      if (!this.model.isSeeking || !this.model.seekPreviewVisible ||
+        generation !== this.seekPreviewGeneration || source !== this.getSource()) {
+        return;
+      }
       imageGenerator.fdSrc = {
         fd: previewFile.fd,
         offset: Const.DEFAULT_VALUE,

@@ -1,0 +1,369 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "LocationKit sample code entry module.",
+      "description": "Description of the entry module."
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "LocationKit sample code.",
+      "description": "Description of the ability."
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "LocationKit Sample",
+      "description": "Application label shown in launcher."
+    },
+    {
+      "name": "permission_reason_location",
+      "value": "Used for obtaining device location and geofence monitoring.",
+      "description": "Reason for requesting location permissions."
+    },
+    {
+      "name": "operation_log",
+      "value": "Operation Log",
+      "description": "Title of operation log section."
+    },
+    {
+      "name": "no_logs_yet",
+      "value": "No logs yet",
+      "description": "Placeholder when no log messages."
+    },
+    {
+      "name": "app_title",
+      "value": "LocationKit",
+      "description": "Application title on main page."
+    },
+    {
+      "name": "app_subtitle",
+      "value": "Feature Demo",
+      "description": "Application subtitle on main page."
+    },
+    {
+      "name": "section_location_features",
+      "value": "Location Features",
+      "description": "Section title for location features."
+    },
+    {
+      "name": "section_advanced_features",
+      "value": "Advanced Features",
+      "description": "Section title for advanced features."
+    },
+    {
+      "name": "menu_location",
+      "value": "Location",
+      "description": "Location menu item title."
+    },
+    {
+      "name": "menu_location_desc",
+      "value": "Current / Last / Continuous",
+      "description": "Location menu item subtitle."
+    },
+    {
+      "name": "menu_geocode",
+      "value": "Geocode",
+      "description": "Geocode menu item title."
+    },
+    {
+      "name": "menu_geocode_desc",
+      "value": "Forward / Reverse Geocoding",
+      "description": "Geocode menu item subtitle."
+    },
+    {
+      "name": "menu_geofence",
+      "value": "Geofence",
+      "description": "Geofence menu item title."
+    },
+    {
+      "name": "menu_geofence_desc",
+      "value": "GNSS Geofence Events",
+      "description": "Geofence menu item subtitle."
+    },
+    {
+      "name": "menu_location_capi",
+      "value": "Location C API",
+      "description": "Location C API menu item title."
+    },
+    {
+      "name": "menu_location_capi_desc",
+      "value": "Native Locating",
+      "description": "Location C API menu item subtitle."
+    },
+    {
+      "name": "nav_location",
+      "value": "Location",
+      "description": "Location page navigation title."
+    },
+    {
+      "name": "nav_geocode",
+      "value": "Geocode",
+      "description": "Geocode page navigation title."
+    },
+    {
+      "name": "nav_geofence",
+      "value": "Geofence",
+      "description": "Geofence page navigation title."
+    },
+    {
+      "name": "nav_location_capi",
+      "value": "Location C API",
+      "description": "Location C API page navigation title."
+    },
+    {
+      "name": "status_enabled",
+      "value": "Enabled",
+      "description": "Switch enabled status text."
+    },
+    {
+      "name": "status_disabled",
+      "value": "Disabled",
+      "description": "Switch disabled status text."
+    },
+    {
+      "name": "location_description",
+      "value": "Obtain the current location, the last cached location, and subscribe to continuous location changes via Location Kit.",
+      "description": "Location page description."
+    },
+    {
+      "name": "section_location_switch",
+      "value": "Location Switch",
+      "description": "Location switch section title."
+    },
+    {
+      "name": "label_switch_state",
+      "value": "Switch State",
+      "description": "Location switch state label."
+    },
+    {
+      "name": "label_unknown",
+      "value": "Unknown",
+      "description": "Placeholder for unknown state."
+    },
+    {
+      "name": "btn_check_switch",
+      "value": "Check Switch State",
+      "description": "Check location switch state button."
+    },
+    {
+      "name": "section_single_location",
+      "value": "Single Location",
+      "description": "Single location section title."
+    },
+    {
+      "name": "btn_get_last_location",
+      "value": "Get Last Location",
+      "description": "Get last cached location button."
+    },
+    {
+      "name": "btn_get_current_location",
+      "value": "Get Current Location",
+      "description": "Get current location button."
+    },
+    {
+      "name": "label_latitude",
+      "value": "Latitude",
+      "description": "Latitude label."
+    },
+    {
+      "name": "label_longitude",
+      "value": "Longitude",
+      "description": "Longitude label."
+    },
+    {
+      "name": "label_accuracy",
+      "value": "Accuracy(m)",
+      "description": "Accuracy label."
+    },
+    {
+      "name": "label_time",
+      "value": "Time",
+      "description": "Location time label."
+    },
+    {
+      "name": "no_location_result",
+      "value": "No location result yet",
+      "description": "Placeholder when no location result."
+    },
+    {
+      "name": "section_continuous_location",
+      "value": "Continuous Location",
+      "description": "Continuous location section title."
+    },
+    {
+      "name": "btn_start_continuous",
+      "value": "Start Continuous Locating",
+      "description": "Start continuous locating button."
+    },
+    {
+      "name": "btn_stop_continuous",
+      "value": "Stop Continuous Locating",
+      "description": "Stop continuous locating button."
+    },
+    {
+      "name": "label_location_count",
+      "value": "Reported Locations:",
+      "description": "Reported location count label."
+    },
+    {
+      "name": "geocode_description",
+      "value": "Convert between geographic descriptions and coordinates via forward and reverse geocoding. Network connection is required.",
+      "description": "Geocode page description."
+    },
+    {
+      "name": "section_geocoder_availability",
+      "value": "Geocoder Availability",
+      "description": "Geocoder availability section title."
+    },
+    {
+      "name": "label_geocoder_state",
+      "value": "Geocoder State",
+      "description": "Geocoder state label."
+    },
+    {
+      "name": "btn_check_availability",
+      "value": "Check Availability",
+      "description": "Check geocoder availability button."
+    },
+    {
+      "name": "section_reverse_geocode",
+      "value": "Reverse Geocode (Coordinate to Address)",
+      "description": "Reverse geocode section title."
+    },
+    {
+      "name": "placeholder_latitude",
+      "value": "Latitude, e.g. 31.12",
+      "description": "Latitude input placeholder."
+    },
+    {
+      "name": "placeholder_longitude",
+      "value": "Longitude, e.g. 121.11",
+      "description": "Longitude input placeholder."
+    },
+    {
+      "name": "btn_reverse_geocode",
+      "value": "Convert to Address",
+      "description": "Reverse geocode button."
+    },
+    {
+      "name": "section_forward_geocode",
+      "value": "Forward Geocode (Address to Coordinate)",
+      "description": "Forward geocode section title."
+    },
+    {
+      "name": "placeholder_address_description",
+      "value": "Address description, e.g. No.100 Century Avenue, Pudong New District, Shanghai",
+      "description": "Address description input placeholder."
+    },
+    {
+      "name": "btn_forward_geocode",
+      "value": "Convert to Coordinate",
+      "description": "Forward geocode button."
+    },
+    {
+      "name": "no_geocode_result",
+      "value": "No geocode result yet",
+      "description": "Placeholder when no geocode result."
+    },
+    {
+      "name": "geofence_description",
+      "value": "Create a GNSS circular geofence and receive enter/exit transition events. Accurate detection requires an open outdoor area.",
+      "description": "Geofence page description."
+    },
+    {
+      "name": "section_fence_params",
+      "value": "Fence Parameters",
+      "description": "Fence parameters section title."
+    },
+    {
+      "name": "label_fence_latitude",
+      "value": "Center Latitude",
+      "description": "Fence center latitude label."
+    },
+    {
+      "name": "label_fence_longitude",
+      "value": "Center Longitude",
+      "description": "Fence center longitude label."
+    },
+    {
+      "name": "label_fence_radius",
+      "value": "Radius(m)",
+      "description": "Fence radius label."
+    },
+    {
+      "name": "btn_add_fence",
+      "value": "Add Geofence",
+      "description": "Add geofence button."
+    },
+    {
+      "name": "btn_remove_fence",
+      "value": "Remove Geofence",
+      "description": "Remove geofence button."
+    },
+    {
+      "name": "label_fence_id",
+      "value": "Fence ID",
+      "description": "Fence id label."
+    },
+    {
+      "name": "no_fence_added",
+      "value": "No fence added",
+      "description": "Placeholder when no fence added."
+    },
+    {
+      "name": "section_fence_events",
+      "value": "Fence Transition Events",
+      "description": "Fence transition events section title."
+    },
+    {
+      "name": "no_fence_events",
+      "value": "No fence events yet",
+      "description": "Placeholder when no fence events."
+    },
+    {
+      "name": "location_capi_description",
+      "value": "Use the Location C API in native code to query the location switch and subscribe to location changes, with results passed back to ArkTS.",
+      "description": "Location C API page description."
+    },
+    {
+      "name": "section_native_switch",
+      "value": "Native Switch State",
+      "description": "Native switch state section title."
+    },
+    {
+      "name": "label_native_switch_state",
+      "value": "Switch State",
+      "description": "Native switch state label."
+    },
+    {
+      "name": "btn_native_check_switch",
+      "value": "Check Switch State",
+      "description": "Check native switch state button."
+    },
+    {
+      "name": "section_native_locating",
+      "value": "Native Continuous Locating",
+      "description": "Native continuous locating section title."
+    },
+    {
+      "name": "btn_native_start",
+      "value": "Start Native Locating",
+      "description": "Start native locating button."
+    },
+    {
+      "name": "btn_native_stop",
+      "value": "Stop Native Locating",
+      "description": "Stop native locating button."
+    },
+    {
+      "name": "label_native_report_count",
+      "value": "Reported Locations:",
+      "description": "Native reported location count label."
+    },
+    {
+      "name": "label_time_since_boot",
+      "value": "Time Since Boot(ms)",
+      "description": "Milliseconds since device boot."
+    }
+  ]
+}

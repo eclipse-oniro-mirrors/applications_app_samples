@@ -21,6 +21,8 @@ import { DumpPolicyModel } from './DumpPolicyModel';
 import { CommonConstants as Const } from '../common/CommonConstants';
 
 // 各代数组快照的字段数。新增字段只追加到末尾，保留旧配置兼容性。
+const PLAYER_BASE_FIELDS: number = 11;
+const PLAYER_RESUME_FIELDS: number = 12;
 const RECORDER_BASE_FIELDS: number = 22;
 const RECORDER_STORAGE_FIELDS: number = 23;
 const RECORDER_SEGMENT_FIELDS: number = 25;
@@ -36,7 +38,7 @@ export class UserConfiguration {
       player: [player.videoDecoderType, player.videoDecoderRunMode, player.videoDecoderSyncMode,
         Number(player.enableVideoDump), Number(player.retainLastFrame), Number(player.enableLowLatency),
         Number(player.outputInDecodingOrder), Number(player.convertHdrVividToBt709), player.audioVolume,
-        Number(player.enableAudioLowLatency), Number(player.autoHideControls)],
+        Number(player.enableAudioLowLatency), Number(player.autoHideControls), Number(player.resumeLastPosition)],
       recorder: [recorder.outputFormat, recorder.isHDRVivid, recorder.videoCodecMime === 'video/hevc' ? 1 : 0,
         recorder.cameraWidth, recorder.cameraHeight, recorder.frameRate, recorder.isSync, recorder.bitRate,
         recorder.bitrateMode, recorder.iFrameInterval, recorder.audioSampleRate, recorder.audioChannelCount,
@@ -51,7 +53,8 @@ export class UserConfiguration {
 
   static restore(snapshot: ConfigurationSnapshot, player: PlayerSettingsModel, recorder: CameraDataModel): void {
     const p = snapshot.player;
-    if (p.length === 11 && UserConfiguration.integers(p) &&
+    if ((p.length === PLAYER_BASE_FIELDS || p.length === PLAYER_RESUME_FIELDS) && UserConfiguration.integers(p) &&
+      (p.length === PLAYER_BASE_FIELDS || UserConfiguration.choice(p[11], [0, 1])) &&
       UserConfiguration.choice(p[0], [0, 1, 2]) && UserConfiguration.choice(p[1], [0, 1, 2, 3]) &&
       UserConfiguration.choice(p[2], [0, 1]) && p[8] >= 0 && p[8] <= 100 &&
       [p[3], p[4], p[5], p[6], p[7], p[9], p[10]].every((v: number): boolean => v === 0 || v === 1)) {
@@ -66,6 +69,7 @@ export class UserConfiguration {
       player.audioVolume = p[8];
       player.enableAudioLowLatency = p[9] === 1;
       player.autoHideControls = p[10] === 1;
+      player.resumeLastPosition = p.length === PLAYER_RESUME_FIELDS && p[11] === 1;
     }
     const r = snapshot.recorder;
     if (UserConfiguration.validRecorder(r)) {

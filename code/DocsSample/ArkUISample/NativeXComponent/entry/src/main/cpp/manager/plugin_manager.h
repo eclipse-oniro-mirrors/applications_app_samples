@@ -57,6 +57,9 @@ public:
     static napi_value DrawPatternForSurfaceHolder(napi_env env, napi_callback_info info);
     static napi_value GetStatusForSurfaceHolder(napi_env env, napi_callback_info info);
 
+    static napi_value RegisterInspectorTreeGetter(napi_env env, napi_callback_info info);
+    static napi_value UnregisterInspectorTreeGetter(napi_env env, napi_callback_info info);
+
     // CApi XComponent
     void OnSurfaceChanged(OH_NativeXComponent *component, void *window);
     void OnSurfaceDestroyed(OH_NativeXComponent *component, void *window);
@@ -82,6 +85,7 @@ public:
     static int32_t hasDraw_;
     static int32_t hasChangeColor_;
     static std::unordered_map<std::string, ArkUI_NodeHandle> nodeHandleMap_;
+    static std::unordered_map<std::string, std::string *> inspectorUserDataMap_;
     static std::unordered_map<void *, OH_ArkUI_SurfaceCallback *> callbackMap_;
     static std::unordered_map<void *, OH_ArkUI_SurfaceHolder *> surfaceHolderMap_;
     static ArkUI_AccessibilityProvider *provider_;

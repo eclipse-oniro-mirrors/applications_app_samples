@@ -17,6 +17,7 @@
 
 // [Start certificate_chain_validator_object_creation_and_validation]
 import { cert } from '@kit.DeviceCertificateKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { util } from '@kit.ArkTS';
 
 // CA数据，这只是一个示例，需要根据具体业务来赋值。
@@ -66,7 +67,7 @@ let secondCaCertData = '-----BEGIN CERTIFICATE-----\n' +
   '-----END CERTIFICATE-----\n';
 
 // 证书链校验器示例。在这个示例中，验证了一个二级证书链。
-function certChainValidatorSample(): void {
+async function certChainValidatorSample() {
   let textEncoder = new util.TextEncoder();
   // 证书链校验器算法。目前仅支持PKIX。
   let algorithm = 'PKIX';
@@ -76,7 +77,11 @@ function certChainValidatorSample(): void {
   try {
     validator = cert.createCertChainValidator(algorithm);
   } catch (err) {
-    console.error(`createCertChainValidator failed, errCode: ${err.code}, errMsg: ${err.message}`);
+    let e: BusinessError = err as BusinessError;
+    console.error(`createCertChainValidator failed, errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude certificate_chain_validator_object_creation_and_validation]
+    throw new Error(`createCertChainValidator failed, errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude certificate_chain_validator_object_creation_and_validation]
     return;
   }
 
@@ -120,15 +125,18 @@ function certChainValidatorSample(): void {
   };
 
   // 验证证书链。
-  validator.validate(certChainData, (err, data) => {
-    if (err != null) {
-      // 校验失败。
-      console.error(`validate failed, errCode: ${err.code}, errMsg: ${err.message}`);
-    } else {
-      // 校验成功。
-      console.info('validate result: success.');
-    }
-  });
+  try {
+    await validator.validate(certChainData);
+    // 校验成功。
+    console.info('validate result: success.');
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    // 校验失败。
+    console.error(`validate failed, errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude certificate_chain_validator_object_creation_and_validation]
+    throw new Error(`validate failed, errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude certificate_chain_validator_object_creation_and_validation]
+  }
 }
 
 
@@ -145,9 +153,9 @@ struct Index {
         .fontWeight(FontWeight.Bold)
       Button('Call CreateVerifyCerchainvalidatorObject')
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            certChainValidatorSample();
+            await certChainValidatorSample();
             this.message = 'Call Success';
           } catch {
             this.message = 'Call Fail';

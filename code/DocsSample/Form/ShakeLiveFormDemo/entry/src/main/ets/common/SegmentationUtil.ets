@@ -33,7 +33,7 @@ export class SegmentationUtil {
     return SegmentationUtil.segmentationUtil;
   }
 
-  async SegmentationImage(resource: Resource, context: common.UIAbilityContext): Promise<image.PixelMap | undefined> {
+  async SegmentationImage(resource: Resource, context: common.Context): Promise<image.PixelMap | undefined> {
     if (!resource) {
       return undefined;
     }

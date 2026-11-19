@@ -12,12 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start cli_start_native]
 #include "napi/native_api.h"
-#include <string>
-#include <vector>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <string>
+#include <vector>
 
+// [StartExclude cli_start_native]
 static napi_value Add(napi_env env, napi_callback_info info)
 {
     size_t argc = 2;
@@ -42,25 +44,25 @@ static napi_value Add(napi_env env, napi_callback_info info)
 
     return sum;
 }
-
+// [EndExclude cli_start_native]
 static napi_value ForkAndExecute(napi_env env, napi_callback_info info)
 {
     size_t argc = 2;
     napi_value args[2] = {nullptr};
-
     napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
-    
+
+    // 获取bundleName和abilityName参数
     const size_t bufSize = 1024;
     char buf[bufSize];
-    size_t bundleNameLen = 0;
-    napi_get_value_string_utf8(env, args[0], buf, bufSize, &bundleNameLen);
+    size_t len = 0;
+    napi_get_value_string_utf8(env, args[0], buf, bufSize, &len);
     std::string bundleName = std::string(buf);
 
     char buf2[bufSize];
-    size_t abilityNameLen = 0;
-    napi_get_value_string_utf8(env, args[1], buf2, bufSize, &abilityNameLen);
+    napi_get_value_string_utf8(env, args[1], buf2, bufSize, &len);
     std::string abilityName = std::string(buf2);
-    
+
+    // 构造ohos-aa命令参数
     std::string aaCmd = "/system/bin/cli_tool/executable/ohos-aa";
     std::string subCmd = "start";
     std::string optBundleName = "--bundlename";
@@ -73,8 +75,8 @@ static napi_value ForkAndExecute(napi_env env, napi_callback_info info)
     execArgs.push_back(const_cast<char *>(optAbilityName.c_str()));
     execArgs.push_back(const_cast<char *>(abilityName.c_str()));
     execArgs.push_back(nullptr);
-    
-    // fork and execvp
+
+    // fork子进程执行ohos-aa
     pid_t pid = fork();
     if (pid < 0) {
         napi_value result;
@@ -82,13 +84,12 @@ static napi_value ForkAndExecute(napi_env env, napi_callback_info info)
         return result;
     }
     if (pid == 0) {
-        // child process
+        // 子进程：执行ohos-aa命令
         execvp(aaCmd.c_str(), execArgs.data());
-        // if execvp returns, it failed
         const int exitExecFailed = 127;
-        _exit(exitExecFailed);
+        _exit(exitExecFailed); // execvp失败时退出
     }
-    // parent process: wait for child
+    // 父进程：等待子进程结束
     int status = 0;
     waitpid(pid, &status, 0);
     napi_value result;
@@ -96,6 +97,7 @@ static napi_value ForkAndExecute(napi_env env, napi_callback_info info)
     return result;
 }
 
+// [StartExclude cli_start_native]
 static napi_value ForkAndForceStop(napi_env env, napi_callback_info info)
 {
     size_t argc = 1;
@@ -136,19 +138,24 @@ static napi_value ForkAndForceStop(napi_env env, napi_callback_info info)
     napi_create_int32(env, WIFEXITED(status) ? WEXITSTATUS(status) : -1, &result);
     return result;
 }
-
+// [EndExclude cli_start_native]
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor desc[] = {
+        // [StartExclude cli_start_native]
         { "add", nullptr, Add, nullptr, nullptr, nullptr, napi_default, nullptr },
+        // [EndExclude cli_start_native]
         { "forkAndExecute", nullptr, ForkAndExecute, nullptr, nullptr, nullptr, napi_default, nullptr },
+        // [StartExclude cli_start_native]
         { "forkAndForceStop", nullptr, ForkAndForceStop, nullptr, nullptr, nullptr, napi_default, nullptr },
+        // [EndExclude cli_start_native]
     };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;
 }
 EXTERN_C_END
+// [End cli_start_native]
 
 static napi_module demoModule = {
     .nm_version = 1,

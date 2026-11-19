@@ -13,3 +13,8 @@
 /.claude
 /docs
 **/oh-package-lock.json5
+
+/.validation/
+/.bundle-flow/
+/wecode-cpp.db
+/entry/src/main/resources/rawfile/build-info.json

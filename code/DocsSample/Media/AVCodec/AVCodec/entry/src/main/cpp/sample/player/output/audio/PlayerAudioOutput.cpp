@@ -196,6 +196,9 @@ void Player::FinishAudioOutput(bool stopRenderer)
         return;
     }
     isAudioDone = true;
+    // 唤醒正在等待音频时钟的视频帧，尾部改按自身PTS连续送显。
+    NotifyPlaybackTimingChanged();
+    AVCODEC_SAMPLE_LOGI("Audio output drained, switch remaining video to monotonic clock");
     doneCond_.notify_all();
 }
 

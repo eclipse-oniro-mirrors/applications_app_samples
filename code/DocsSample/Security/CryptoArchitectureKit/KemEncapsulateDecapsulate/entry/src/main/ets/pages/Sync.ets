@@ -19,10 +19,10 @@ import { BusinessError } from '@kit.BasicServicesKit';
 
 namespace Kem {
   export function kemDecapsulateSync() {
-    let asyKeyGenerator = cryptoFramework.createAsyKeyGenerator('ML-KEM-768');
-    let keyPair = asyKeyGenerator.generateKeyPairSync();
-    let kem : cryptoFramework.Kem = cryptoFramework.createKem(cryptoFramework.KemAlgNameId.ML_KEM_768);
     try {
+      let asyKeyGenerator = cryptoFramework.createAsyKeyGenerator('ML-KEM-768');
+      let keyPair = asyKeyGenerator.generateKeyPairSync();
+      let kem : cryptoFramework.Kem = cryptoFramework.createKem(cryptoFramework.KemAlgNameId.ML_KEM_768);
       let encapResult : cryptoFramework.KemEncapResult= kem.encapsulateSync(keyPair.pubKey, null);
       let sharedSecret : Uint8Array = kem.decapsulateSync(keyPair.priKey, encapResult.wrappedKey);
       console.info('decapsulateSync success');

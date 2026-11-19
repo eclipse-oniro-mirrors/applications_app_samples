@@ -186,11 +186,13 @@ entry/src/main/ets/
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568。
 
-2. 本示例为Stage模型，支持API10版本SDK，SDK版本号(API Version 10 Release),镜像版本号(4.0 Release)
+2. 本示例为Stage模型，SDK 版本号 `26.0.0`（OpenHarmony 7.1.0.21，API 26），支持设备：RK3568（32 位用户态）。
 
-3. 本示例需要使用DevEco Studio 版本号(4.0 Release)及以上版本才可编译运行。
+3. 本示例需要使用 DevEco Studio 26.0.0 及以上版本编译运行。
 
-4. 本示例涉及系统接口，需要配置系统应用签名，可以参考[特殊权限配置方法](https://gitee.com/openharmony/docs/blob/master/zh-cn/device-dev/subsystems/subsys-app-privilege-config-guide.md) ，把配置文件中的“app-feature”字段信息改为“hos_system_app”。
+4. 本示例涉及系统接口，需要系统应用签名：签名 profile 的 `apl` 为 `system_basic`、`app-feature` 为 `hos_system_app`，并通过 `acls.allowed-acls` 授予 `ohos.permission.MANAGE_MEDIA_RESOURCES` 与 `ohos.permission.GET_BUNDLE_INFO_PRIVILEGED`。签名材料请使用本机生成的系统应用签名，不要提交到仓库。
+
+5. 本示例不再展示历史会话：页面中的历史区域保持为空，当前会话的展示与控制不受影响。
 
 ### 下载
 

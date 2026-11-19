@@ -58,7 +58,7 @@
     {"name":"task_export_text","value":"导出 TXT"},
     {"name":"task_baseline","value":"性能基线"},
     {"name":"task_save_baseline","value":"设为基线"},
-    {"name":"task_baseline_hint","value":"仅对比设备/API、配置和实际链路一致的报告。API 调用耗时不代表硬件执行时延；对比前请使用相同素材和运行条件。"},
+    {"name":"task_baseline_hint","value":"任务完成后计算素材校验值，再保存基线。仅比较设备、配置和素材一致的已完成任务。"},
     {"name":"task_no_baseline","value":"暂无匹配基线"},
     {"name":"task_capability_matrix","value":"能力快照对比"},
     {"name":"task_capability_save","value":"保存当前快照"},
@@ -99,6 +99,8 @@
     {"name":"rec_stage_camera_release","value":"相机释放"},
     {"name":"rec_result_open","value":"结果"},
     {"name":"rec_result_title","value":"录制结果"},
+    {"name":"recorder_history_unsaved","value":"录制历史尚未保存。当前文件仍可播放，返回录制页后会重试保存。"},
+    {"name":"recorder_close_unconfirmed","value":"无法确认输出文件已关闭。为避免误用文件描述符，请重启应用后再执行媒体任务。"},
     {"name":"rec_result_complete","value":"录制已完成收尾"},
     {"name":"rec_result_partial","value":"请检查结束原因和时间线，文件可能不完整。"},
     {"name":"rec_result_primary","value":"播放主文件"},
@@ -798,6 +800,7 @@
     { "name": "diagnostics_audio_interrupt_idle", "value": "音频中断 %d 次（未中断）" },
     { "name": "diagnostics_background_paused", "value": "后台状态：已暂停，返回前台后自动恢复" },
     { "name": "setting_advanced", "value": "高级设置" },
+    { "name": "setting_resume_last_position", "value": "恢复上次播放位置" },
     { "name": "playback_section_controls", "value": "播放控制" },
     { "name": "playback_previous_frame_short", "value": "上一帧" },
     { "name": "playback_next_frame_short", "value": "下一帧" },
@@ -1105,6 +1108,7 @@
     {"name":"configuration_load_failed","value":"载入配置失败，原设置保持不变"},
     {"name":"playback_failed_hint","value":"播放失败，请查看诊断报告和系统日志"},
     {"name":"playback_cleanup_busy","value":"正在清理 Dump，请稍后再播放"},
+    {"name":"playback_close_unconfirmed","value":"无法确认输入文件已关闭。为避免误用文件描述符，请重启应用后再执行媒体任务。"},
     {"name":"configuration_updated_hint","value":"参数已更新，可点击检查当前组合。API 26 前处理和一入二出仅支持异步 Surface 编码；30 fps 输入不能降至 30 fps。"},
     {"name":"configuration_camera_query_failed","value":"相机能力查询失败，设置未保存；请检查权限后重新应用"},
     {"name":"preprocess_center_crop_prefix","value":"中心裁剪（"},
@@ -1282,6 +1286,9 @@
     {"name":"recorder_resume","value":"继续录制"},
     {"name":"recorder_paused","value":"已暂停"},
     {"name":"recorder_pause_hint","value":"暂停仅支持SDR单路Buffer录制；暂停期间相机预览继续，音视频不写入文件。"},
-    {"name":"recorder_pause_failed","value":"暂停或继续失败，请重试或结束录制"}
+    {"name":"recorder_pause_failed","value":"暂停或继续失败，请重试或结束录制"},
+    {"name":"task_checksum","value":"计算素材校验值"},
+    {"name":"task_checksum_running","value":"正在计算SHA256，大文件需要一些时间。"},
+    {"name":"task_checksum_failed","value":"校验失败。请确认原文件未改动且可访问，待媒体任务结束后重试；文件已变更时请重新运行任务。"}
   ]
 }

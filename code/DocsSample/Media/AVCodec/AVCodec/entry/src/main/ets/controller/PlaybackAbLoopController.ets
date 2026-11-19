@@ -65,10 +65,13 @@ export class PlaybackAbLoopController {
     if (this.model.durationUs <= 0) {
       return;
     }
+    // 重设端点后，旧Seek结果不能清除新循环。
+    ++this.generation;
     this.startUs = this.currentPositionUs();
     this.enabled = false;
     this.endUs = -1;
     this.seekPending = false;
+    this.stopMonitor();
     this.notifyState();
     this.showToast($r('app.string.playback_ab_start_set'));
   }
@@ -83,6 +86,7 @@ export class PlaybackAbLoopController {
       this.showToast($r('app.string.playback_ab_end_invalid'));
       return;
     }
+    ++this.generation;
     this.endUs = positionUs;
     this.enabled = true;
     this.seekPending = false;

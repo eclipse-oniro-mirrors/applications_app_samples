@@ -13,134 +13,111 @@
  * limitations under the License.
  */
 
-import ConfigurationConstant from '@ohos.app.ability.ConfigurationConstant';
-import fs from '@ohos.file.fs';
-import prompt from '@ohos.promptAction';
+import { common, ConfigurationConstant } from '@kit.AbilityKit';
+import { UIContext } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { LANGUAGE_EN_US, LANGUAGE_ZH_CN, SAMPLE_FILE_NAME, TOAST_DURATION } from '../common/AppConstants';
+import {
+  countExisting,
+  createStorageFiles,
+  listStoragePaths,
+  STORAGE_AREAS,
+  StorageOperationResult,
+  StoragePathRecord
+} from '../model/StoragePath';
 import { logger } from '../util/Logger';
 
-const TAG: string = 'EntryAbility';
-const TIME: number = 3000;
+const TAG: string = 'CharacterOperation';
 
+/**
+ * 把“定制应用环境参数”“清理应用数据”两类能力封装在一起。
+ *
+ * 页面负责取 UIContext 并传入，测试侧可以只传 Context（不传 UIContext）：
+ * 此时所有 Toast 都不展示，但返回值、文件副作用照常发生，便于断言。
+ */
 export default class CharacterOperation {
-  private context: Context;
+  private context: common.UIAbilityContext;
+  private uiContext: UIContext | undefined;
 
-  constructor(context: Context) {
+  constructor(context: common.UIAbilityContext, uiContext?: UIContext) {
     this.context = context;
+    this.uiContext = uiContext;
   }
+
   // 设置中文
-  setZHCNLanguage = () => {
-    let applicationContext = this.context.getApplicationContext();
-    applicationContext.setLanguage('zh-cn');
-    logger.info(`${TAG} Chinese success`);
+  setZHCNLanguage(): void {
+    this.context.getApplicationContext().setLanguage(LANGUAGE_ZH_CN);
+    logger.info(`${TAG} set language ${LANGUAGE_ZH_CN}`);
   }
+
   // 设置英文
-  setENUSLanguage = () => {
-    let applicationContext = this.context.getApplicationContext();
-    applicationContext.setLanguage('en-us');
-    logger.info(`${TAG} English success`);
+  setENUSLanguage(): void {
+    this.context.getApplicationContext().setLanguage(LANGUAGE_EN_US);
+    logger.info(`${TAG} set language ${LANGUAGE_EN_US}`);
   }
+
   // 设置深色模式
-  setDarKColorMode = () => {
-    let applicationContext = this.context.getApplicationContext();
-    applicationContext.setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
-    prompt.showToast({
-      message: $r('app.string.switchDarkSuccess'), duration: TIME
-    });
+  setDarkColorMode(): void {
+    this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
+    this.showToast($r('app.string.switchDarkSuccess'));
   }
+
   // 设置浅色模式
-  setLightColorMode = () => {
-    let applicationContext = this.context.getApplicationContext();
-    applicationContext.setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT);
-    prompt.showToast({
-      message: $r('app.string.switchLightSuccess'), duration: TIME
-    });
+  setLightColorMode(): void {
+    this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT);
+    this.showToast($r('app.string.switchLightSuccess'));
   }
-  // 获取缓存路径
-  generateStorageFiles = () => {
-    let context = this.context;
-    let filePathName = '/test.txt';
-    let cacheDirPath = context.cacheDir + filePathName;
-    let filesDirPath = context.filesDir + filePathName;
-    let preferencesDirPath = context.preferencesDir + filePathName;
-    let tempDirPath = context.tempDir + filePathName;
-    let databaseDirPath = context.databaseDir + filePathName;
 
-    return [cacheDirPath, filesDirPath, preferencesDirPath, tempDirPath, databaseDirPath];
+  // 返回 5 个沙箱目录下的占位文件路径
+  generateStorageFiles(fileName: string = SAMPLE_FILE_NAME): string[] {
+    return listStoragePaths(this.context, fileName).map((record: StoragePathRecord) => record.filePath);
   }
+
   // 创建存储数据
-  createStorageData = () => {
-    let context = this.context;
-    let filePathName = '/test.txt';
-    let cacheDirPath = context.cacheDir + filePathName;
-    let filesDirPath = context.filesDir + filePathName;
-    let preferencesDirPath = context.preferencesDir + filePathName;
-    let tempDirPath = context.tempDir + filePathName;
-    let databaseDirPath = context.databaseDir + filePathName;
-    try {
-      let file1 = fs.openSync(cacheDirPath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
-      let file2 = fs.openSync(filesDirPath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
-      let file3 = fs.openSync(preferencesDirPath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
-      let file4 = fs.openSync(tempDirPath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
-      let file5 = fs.openSync(databaseDirPath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
-
-      fs.closeSync(file1);
-      fs.closeSync(file2);
-      fs.closeSync(file3);
-      fs.closeSync(file4);
-      fs.closeSync(file5);
-
-      if (fs.accessSync(cacheDirPath) && fs.accessSync(filesDirPath)
-      && fs.accessSync(preferencesDirPath) && fs.accessSync(tempDirPath)
-      && fs.accessSync(databaseDirPath)) {
-        prompt.showToast({
-          message: $r('app.string.create_File_Success'), duration: TIME
-        });
-      }
-    } catch (error) {
+  createStorageData(fileName: string = SAMPLE_FILE_NAME): StorageOperationResult {
+    const result: StorageOperationResult = createStorageFiles(this.context, fileName);
+    if (result.success) {
+      this.showToast($r('app.string.create_File_Success'));
     }
+    logger.info(`${TAG} createStorageData created=${result.createdCount}, missing=${result.missing.join(',')}`);
+    return result;
   }
-  // 检查文件
-  checkStorageData = () => {
-    let context = this.context;
-    let filePathName = '/test.txt';
-    let cacheDirPath = context.cacheDir + filePathName;
-    let filesDirPath = context.filesDir + filePathName;
-    let preferencesDirPath = context.preferencesDir + filePathName;
-    let tempDirPath = context.tempDir + filePathName;
-    let databaseDirPath = context.databaseDir + filePathName;
-    if (fs.accessSync(cacheDirPath) && fs.accessSync(filesDirPath)
-    && fs.accessSync(preferencesDirPath) && fs.accessSync(tempDirPath) && fs.accessSync(databaseDirPath)) {
-      prompt.showToast({
-        message: $r('app.string.search_File_Success'), duration: TIME
-      });
+
+  // 检查文件：5 个目录都存在才算成功
+  checkStorageData(fileName: string = SAMPLE_FILE_NAME): boolean {
+    const existing: number = countExisting(this.context, fileName);
+    const allExist: boolean = existing === STORAGE_AREAS.length;
+    if (allExist) {
+      this.showToast($r('app.string.search_File_Success'));
     } else {
-      prompt.showToast({
-        message: $r('app.string.search_File_Failed'), duration: TIME
-      });
+      this.showToast($r('app.string.search_File_Failed'));
     }
+    logger.info(`${TAG} checkStorageData existing=${existing}, allExist=${allExist}`);
+    return allExist;
   }
-  // 清理存储数据
-  clearStorageData = () => {
-    let context = this.context;
-    let filePathName = '/test.txt';
-    let cacheDirPath = context.cacheDir + filePathName;
-    let filesDirPath = context.filesDir + filePathName;
-    let preferencesDirPath = context.preferencesDir + filePathName;
-    let tempDirPath = context.tempDir + filePathName;
-    let databaseDirPath = context.databaseDir + filePathName;
-    if (fs.accessSync(cacheDirPath) && fs.accessSync(filesDirPath) && fs.accessSync(preferencesDirPath)
-    && fs.accessSync(tempDirPath) && fs.accessSync(databaseDirPath)) {
-      context.getApplicationContext().clearUpApplicationData((err) => {
-        logger.info(`clearUpApplicationData err:${JSON.stringify(err)}}`);
-        prompt.showToast({
-          message: $r('app.string.clean_Data_Success'), duration: TIME
-        });
-      });
-    } else {
-      // 清理存储数据失败
-      prompt.showToast({
-        message: $r('app.string.clean_Data_Failed'), duration: TIME
-      });
+
+  /**
+   * 清理自身数据。5 个目录都存在时才真正调用 clearUpApplicationData —— 该接口会结束进程，
+   * 因此自动化用例只覆盖“文件不全 → 不清理”这条分支，真正清理由手工用例验证。
+   */
+  clearStorageData(fileName: string = SAMPLE_FILE_NAME): boolean {
+    const existing: number = countExisting(this.context, fileName);
+    if (existing !== STORAGE_AREAS.length) {
+      this.showToast($r('app.string.clean_Data_Failed'));
+      logger.info(`${TAG} clearStorageData skipped, existing=${existing}`);
+      return false;
     }
+    this.context.getApplicationContext().clearUpApplicationData((err: BusinessError) => {
+      logger.info(`${TAG} clearUpApplicationData err: ${JSON.stringify(err)}`);
+      this.showToast($r('app.string.clean_Data_Success'));
+    });
+    return true;
+  }
+
+  private showToast(message: Resource): void {
+    if (this.uiContext === undefined) {
+      return;
+    }
+    this.uiContext.getPromptAction().showToast({ message: message, duration: TOAST_DURATION });
   }
 }

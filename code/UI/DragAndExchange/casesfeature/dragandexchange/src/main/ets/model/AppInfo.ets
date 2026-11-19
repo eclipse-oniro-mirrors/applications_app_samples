@@ -14,7 +14,18 @@
  */
 
 /**
+ * @file src/main/ets/model/AppInfo.ets
+ * 文件职责：AppInfo 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：AppInfo。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
+/**
  * App信息，包括图标、名字、是否可见
+ */
+// @Observed：可观察对象
+/**
+ * AppInfo：类定义，承载本文件对应的逻辑与数据。
  */
 @Observed
 export class AppInfo {
@@ -22,6 +33,7 @@ export class AppInfo {
   name: ResourceStr = ''; // 应用名称
   visible: boolean = true; // 是否可见
 
+  /** 构造 AppInfo 实例。 */
   constructor(icon: ResourceStr = '', name: ResourceStr = '', visible: boolean = true) {
     this.icon = icon;
     this.name = name;

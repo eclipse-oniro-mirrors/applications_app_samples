@@ -37,6 +37,6 @@ entry/src/main/ets/
 
 1.本示例仅支持标准系统上运行，支持设备：RK3568。
 
-2.本示例已适配API version 14版本SDK，版本号：5.0.2.123。
+2.当前工程的编译、兼容和目标 SDK 版本均为 26.0.0（API 26）。
 
-3.本示例需要使用DevEco Studio NEXT Release (Build Version: 5.0.13.200, built on May 13, 2025)及以上版本才可编译运行。
+3.请使用支持上述 SDK 的 DevEco Studio。旧版文档记录的 DevEco Studio NEXT Release (Build Version: 5.0.13.200, built on May 13, 2025) 仅供历史参考，不代表当前工程的最低 IDE 版本。

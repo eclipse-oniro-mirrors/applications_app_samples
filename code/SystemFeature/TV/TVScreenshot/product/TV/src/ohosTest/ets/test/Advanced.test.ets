@@ -15,8 +15,10 @@
 
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium'
 import { Driver, ON } from '@ohos.UiTest'
+import { hilog } from '@kit.PerformanceAnalysisKit'
 import { createReadyDriver } from './TestHelper'
 
+const DOMAIN = 0x55EE
 const TAG = 'AdvancedTest'
 const BUNDLE_NAME = 'com.huawei.screenshot.tv'
 const ABILITY_NAME = 'ServiceExtAbility' // 目标是Service Extension
@@ -68,7 +70,7 @@ export default function advancedTest() {
 
       const testCycles = 50
       for (let i = 0; i < testCycles; i++) {
-        console.info(`${TAG}, Pressure test cycle ${i + 1}/${testCycles}`)
+        hilog.info(DOMAIN, TAG, '%{public}s', `Pressure test cycle ${i + 1}/${testCycles}`)
         expect(testCycles).assertLarger(0)
         expect(LAUNCH_CMD.indexOf('aa start') === 0).assertTrue()
         expect(driver !== undefined).assertTrue()
@@ -90,7 +92,7 @@ export default function advancedTest() {
       const resolutions = ['1280x720', '1920x1080', '3840x2160']
 
       for (const res of resolutions) {
-        console.info(`${TAG}, Testing resolution: ${res}`)
+        hilog.info(DOMAIN, TAG, '%{public}s', `Testing resolution: ${res}`)
         const width = parseInt(res.split('x')[0])
         const height = parseInt(res.split('x')[1])
         expect(width).assertLarger(0)

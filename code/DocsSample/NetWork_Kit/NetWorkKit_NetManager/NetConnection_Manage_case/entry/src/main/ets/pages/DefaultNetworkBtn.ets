@@ -17,6 +17,7 @@
 // 从@kit.NetworkKit中导入connection命名空间。
 import { connection } from '@kit.NetworkKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude get_default_network_methods]
 
 const BUTTON_HEIGHT = 50; // 按钮的高度
@@ -102,13 +103,17 @@ export default struct DefaultNetworkBtn {
                 hilog.info(0x0000, 'testTag', JSON.stringify('NET_CAPABILITY_VALIDATED'));
               }
             }
-          });
+          }).catch((error: BusinessError) => {
+            hilog.error(0x0000, 'testTag', 'getNetCapabilities error: ' + JSON.stringify(error));
+          });    
         // 获取netHandle对应的网络的连接信息。需在获取到有效netHandle后调用。
         connection.getConnectionProperties(netHandleInfo).then((data: connection.ConnectionProperties) => {
           hilog.info(0x0000, 'testTag', 'getConnectionProperties get data: ' + JSON.stringify(data));
         })
       }
-    });
+    }).catch((error: BusinessError) => {
+      hilog.error(0x0000, 'testTag', 'getDefaultNet error: ' + JSON.stringify(error));
+    });    
   // [StartExclude get_default_network_methods]
   }
   // [EndExclude get_default_network_methods]
