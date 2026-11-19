@@ -1798,3 +1798,1232 @@ export default function bundleErrorMatrixTest() {
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
+    it('testBundleNameBraced0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: BundleProbe = await bundleProbeAsync(NAME_BRACED, DEFAULT_FLAGS);
+      logCase('testBundleNameBraced0060', `open=${hasCodeUnit(NAME_BRACED, BRACE_OPEN_CODE)} ` +
+        `close=${hasCodeUnit(NAME_BRACED, BRACE_CLOSE_CODE)} code=${probe.code}`);
+      expect(hasCodeUnit(NAME_BRACED, BRACE_OPEN_CODE)).assertTrue();
+      expect(hasCodeUnit(NAME_BRACED, BRACE_CLOSE_CODE)).assertTrue();
+      expect(editDistance(NAME_BRACED, BUNDLE_NAME)).assertEqual(LENGTH_TWO);
+      expect(probe.code).assertEqual(await pinLookup());
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_6100
+     * @tc.name      testBundleNameJsonText0061
+     * @tc.desc      Ask for a JSON document that carries the real bundle name as a value and check the genuine name is
+     *               contained in it although the whole document is rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testBundleNameJsonText0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: BundleProbe = await bundleProbeAsync(NAME_JSON, DEFAULT_FLAGS);
+      logCase('testBundleNameJsonText0061', `contains=${containsBundle(NAME_JSON)} ` +
+        `keyIndex=${indexOfPart(NAME_JSON, JSON_KEY_MARKER)} length=${NAME_JSON.length} code=${probe.code}`);
+      expect(containsBundle(NAME_JSON)).assertTrue();
+      expect(indexOfPart(NAME_JSON, JSON_KEY_MARKER) > EMPTY_LENGTH).assertTrue();
+      expect(NAME_JSON.length > BUNDLE_NAME.length).assertTrue();
+      expect(probe.code).assertEqual(await pinLookup());
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_6200
+     * @tc.name      testBundleNamePercentSuffix0062
+     * @tc.desc      Terminate the real bundle name with a percent sign and check the last segment and single character
+     *               distance while both entry points reject it
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleNamePercentSuffix0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const asyncProbe: BundleProbe = await bundleProbeAsync(NAME_PERCENT, DEFAULT_FLAGS);
+      const syncProbe: BundleProbe = bundleProbeSync(NAME_PERCENT, DEFAULT_FLAGS);
+      logCase('testBundleNamePercentSuffix0062', `last=${lastSegment(NAME_PERCENT)} ` +
+        `distance=${editDistance(NAME_PERCENT, BUNDLE_NAME)} code=${asyncProbe.code}`);
+      expect(lastSegment(NAME_PERCENT)).assertEqual(SEGMENT_ARKTSGC_PERCENT);
+      expect(editDistance(NAME_PERCENT, BUNDLE_NAME)).assertEqual(LENGTH_ONE);
+      expect(asyncProbe.code).assertEqual(syncProbe.code);
+      expect(asyncProbe.code).assertEqual(await pinLookup());
+      expect(selfIntact()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_6300
+     * @tc.name      testBundleNameReversed0063
+     * @tc.desc      Reverse the segment order of the bundle name and check the first and last segments are exactly
+     *               swapped while the lookup is rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleNameReversed0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: BundleProbe = await bundleProbeAsync(NAME_REVERSED, DEFAULT_FLAGS);
+      logCase('testBundleNameReversed0063', `first=${firstSegment(NAME_REVERSED)} ` +
+        `last=${lastSegment(NAME_REVERSED)} code=${probe.code}`);
+      expect(firstSegment(NAME_REVERSED)).assertEqual(lastSegment(BUNDLE_NAME));
+      expect(lastSegment(NAME_REVERSED)).assertEqual(firstSegment(BUNDLE_NAME));
+      expect(dotTotal(NAME_REVERSED)).assertEqual(TABLE_TWO);
+      expect(probe.code).assertEqual(await pinLookup());
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_6400
+     * @tc.name      testBundleNameDigitTail0064
+     * @tc.desc      Append a digit to the real bundle name and check the last segment shape while the rejection keeps
+     *               the module list untouched
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleNameDigitTail0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: BundleProbe = await bundleProbeAsync(NAME_DIGIT_TAIL, DEFAULT_FLAGS);
+      logCase('testBundleNameDigitTail0064', `last=${lastSegment(NAME_DIGIT_TAIL)} ` +
+        `distance=${editDistance(NAME_DIGIT_TAIL, BUNDLE_NAME)} moduleTotal=${probe.moduleTotal}`);
+      expect(lastSegment(NAME_DIGIT_TAIL)).assertEqual(SEGMENT_ARKTSGC_DIGIT);
+      expect(editDistance(NAME_DIGIT_TAIL, BUNDLE_NAME)).assertEqual(LENGTH_ONE);
+      expect(probe.code).assertEqual(await pinLookup());
+      expect(probe.returned).assertFalse();
+      expect(probe.moduleTotal).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_6500
+     * @tc.name      testBundleNameDigitsOnly0065
+     * @tc.desc      Ask for a five digit string and check it has no dot and no letters before the rejection is
+     *               verified
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testBundleNameDigitsOnly0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: BundleProbe = await bundleProbeAsync(NAME_DIGITS_ONLY, DEFAULT_FLAGS);
+      logCase('testBundleNameDigitsOnly0065', `length=${NAME_DIGITS_ONLY.length} ` +
+        `dots=${dotTotal(NAME_DIGITS_ONLY)} code=${probe.code}`);
+      expect(NAME_DIGITS_ONLY.length).assertEqual(LENGTH_FIVE);
+      expect(dotTotal(NAME_DIGITS_ONLY)).assertEqual(EMPTY_LENGTH);
+      expect(segmentTotal(NAME_DIGITS_ONLY)).assertEqual(LENGTH_ONE);
+      expect(probe.code).assertEqual(await pinLookup());
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_6600
+     * @tc.name      testBundleNameSingleChar0066
+     * @tc.desc      Ask for the one character prefix of the bundle name and check the genuine name starts with it while
+     *               the prefix itself is rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testBundleNameSingleChar0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: BundleProbe = await bundleProbeAsync(NAME_SINGLE_CHAR, DEFAULT_FLAGS);
+      logCase('testBundleNameSingleChar0066', `length=${NAME_SINGLE_CHAR.length} ` +
+        `prefix=${BUNDLE_NAME.startsWith(NAME_SINGLE_CHAR)} code=${probe.code}`);
+      expect(NAME_SINGLE_CHAR.length).assertEqual(LENGTH_ONE);
+      expect(BUNDLE_NAME.startsWith(NAME_SINGLE_CHAR)).assertTrue();
+      expect(probe.code).assertEqual(await pinLookup());
+      expect(probe.returned).assertFalse();
+      expect(selfVersionCode()).assertEqual(VERSION_CODE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_6700
+     * @tc.name      testBundleNameLongSegment0067
+     * @tc.desc      Ask for a bundle name whose last segment is one hundred and eighty characters long and check the
+     *               length arithmetic and the prefix while the lookup is rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testBundleNameLongSegment0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: BundleProbe = await bundleProbeAsync(NAME_LONG_SEGMENT, DEFAULT_FLAGS);
+      const expectedLength: number = PREFIX_TWO_SEGMENT.length + SEGMENT_REPEAT_TOTAL;
+      logCase('testBundleNameLongSegment0067', `length=${NAME_LONG_SEGMENT.length} ` +
+        `expected=${expectedLength} segments=${segmentTotal(NAME_LONG_SEGMENT)} code=${probe.code}`);
+      expect(NAME_LONG_SEGMENT.length).assertEqual(expectedLength);
+      expect(startsWithPart(NAME_LONG_SEGMENT, PREFIX_TWO_SEGMENT)).assertTrue();
+      expect(segmentTotal(NAME_LONG_SEGMENT)).assertEqual(SEGMENT_TOTAL);
+      expect(probe.code).assertEqual(await pinLookup());
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_6800
+     * @tc.name      testLegacyBundleLookupMissing0068
+     * @tc.desc      Send a missing name through the deprecated bundle module and check it pins the same rejection as
+     *               the modern entry point family but reports no payload
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testLegacyBundleLookupMissing0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const probe: BundleProbe = await legacyBundleProbe(NAME_ABSENT_PLAIN, DEFAULT_FLAGS);
+      const pinned: number = await pinLegacy();
+      logCase('testLegacyBundleLookupMissing0068', `code=${probe.code} pinned=${pinned} ` +
+        `name=${probe.name} returned=${probe.returned}`);
+      expect(probe.code).assertEqual(pinned);
+      expect(probe.code === CODE_CLEAN).assertFalse();
+      expect(probe.returned).assertFalse();
+      expect(probe.name).assertEqual(EMPTY_TEXT);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_6900
+     * @tc.name      testLegacyBundleLookupUpper0069
+     * @tc.desc      Send the upper cased name through the deprecated bundle module and check both name families keep
+     *               their own pinned rejection while the payload stays empty
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLegacyBundleLookupUpper0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const legacyProbe: BundleProbe = await legacyBundleProbe(NAME_UPPER, DEFAULT_FLAGS);
+      const modernProbe: BundleProbe = await bundleProbeAsync(NAME_UPPER, DEFAULT_FLAGS);
+      logCase('testLegacyBundleLookupUpper0069', `legacy=${legacyProbe.code} modern=${modernProbe.code} ` +
+        `lowers=${lowersToBundle(NAME_UPPER)}`);
+      expect(lowersToBundle(NAME_UPPER)).assertTrue();
+      expect(legacyProbe.code).assertEqual(await pinLegacy());
+      expect(modernProbe.code).assertEqual(await pinLookup());
+      expect(legacyProbe.returned).assertFalse();
+      expect(legacyProbe.versionCode).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_7000
+     * @tc.name      testLegacyBundleLookupEmpty0070
+     * @tc.desc      Ask the deprecated bundle module for the empty name and check the rejection plus the empty payload
+     *               name field
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLegacyBundleLookupEmpty0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: BundleProbe = await legacyBundleProbe(NAME_EMPTY, DEFAULT_FLAGS);
+      logCase('testLegacyBundleLookupEmpty0070', `length=${NAME_EMPTY.length} code=${probe.code} ` +
+        `payloadName=${probe.name}`);
+      expect(NAME_EMPTY.length).assertEqual(EMPTY_LENGTH);
+      expect(probe.code).assertEqual(await pinLegacy());
+      expect(probe.returned).assertFalse();
+      expect(probe.name).assertEqual(EMPTY_TEXT);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_7100
+     * @tc.name      testLegacyBundleLookupDoubleDot0071
+     * @tc.desc      Send a doubly dotted missing name through the deprecated bundle module and check the dot count and
+     *               the empty segments before the rejection
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLegacyBundleLookupDoubleDot0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: BundleProbe = await legacyBundleProbe(NAME_ABSENT_DOUBLE_DOT, DEFAULT_FLAGS);
+      logCase('testLegacyBundleLookupDoubleDot0071', `dots=${dotTotal(NAME_ABSENT_DOUBLE_DOT)} ` +
+        `empty=${hasEmptySegment(NAME_ABSENT_DOUBLE_DOT)} code=${probe.code}`);
+      expect(dotTotal(NAME_ABSENT_DOUBLE_DOT)).assertEqual(LENGTH_FOUR);
+      expect(hasEmptySegment(NAME_ABSENT_DOUBLE_DOT)).assertTrue();
+      expect(probe.code).assertEqual(await pinLegacy());
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_7200
+     * @tc.name      testLegacyBundleLookupPadded0072
+     * @tc.desc      Send a space padded missing name through the deprecated bundle module and check trim() recovers a
+     *               seventeen character name while the rejection leaves no module list
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testLegacyBundleLookupPadded0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: BundleProbe = await legacyBundleProbe(NAME_ABSENT_PADDED, DEFAULT_FLAGS);
+      logCase('testLegacyBundleLookupPadded0072', `trimmed=${trimTotal(NAME_ABSENT_PADDED)} ` +
+        `code=${probe.code} moduleTotal=${probe.moduleTotal}`);
+      expect(trimTotal(NAME_ABSENT_PADDED)).assertEqual(PADDED_TRIMMED_LENGTH);
+      expect(NAME_ABSENT_PADDED.length).assertEqual(PADDED_TRIMMED_LENGTH + LENGTH_TWO);
+      expect(probe.code).assertEqual(await pinLegacy());
+      expect(probe.returned).assertFalse();
+      expect(probe.moduleTotal).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_7300
+     * @tc.name      testLegacyBundleLookupLongName0073
+     * @tc.desc      Send the very long name through the deprecated bundle module and check the rejection leaves the
+     *               caller bundle readable
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testLegacyBundleLookupLongName0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: BundleProbe = await legacyBundleProbe(NAME_LONG_SEGMENT, DEFAULT_FLAGS);
+      logCase('testLegacyBundleLookupLongName0073', `length=${NAME_LONG_SEGMENT.length} code=${probe.code} ` +
+        `returned=${probe.returned}`);
+      expect(NAME_LONG_SEGMENT.length > BUNDLE_NAME.length).assertTrue();
+      expect(probe.code).assertEqual(await pinLegacy());
+      expect(probe.returned).assertFalse();
+      expect(selfIntact()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_7400
+     * @tc.name      testAppInfoMissingBundle0074
+     * @tc.desc      Ask getApplicationInfo for a missing bundle with the application flag and check the rejection
+     *               leaves the uid field untouched
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppInfoMissingBundle0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const probe: AppInfoProbe = await legacyAppProbe(NAME_ABSENT_PLAIN, APP_FLAGS);
+      logCase('testAppInfoMissingBundle0074', `code=${probe.code} uid=${probe.uidValue} ` +
+        `name=${probe.name} returned=${probe.returned}`);
+      expect(probe.code).assertEqual(await pinLegacy());
+      expect(probe.returned).assertFalse();
+      expect(probe.name).assertEqual(EMPTY_TEXT);
+      expect(probe.uidValue).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_7500
+     * @tc.name      testAppInfoEmptyBundle0075
+     * @tc.desc      Ask getApplicationInfo for the empty name and check the rejection comes without a uid or an
+     *               application name
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppInfoEmptyBundle0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: AppInfoProbe = await legacyAppProbe(NAME_EMPTY, FLAG_ZERO);
+      logCase('testAppInfoEmptyBundle0075', `code=${probe.code} returned=${probe.returned} uid=${probe.uidValue}`);
+      expect(NAME_EMPTY.length).assertEqual(EMPTY_LENGTH);
+      expect(probe.code).assertEqual(await pinLegacy());
+      expect(probe.returned).assertFalse();
+      expect(probe.uidValue).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_7600
+     * @tc.name      testAppInfoUpperBundle0076
+     * @tc.desc      Ask getApplicationInfo for the upper cased name and check that only the case differs while the
+     *               application record is not returned at all
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppInfoUpperBundle0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: AppInfoProbe = await legacyAppProbe(NAME_UPPER, APP_FLAGS);
+      logCase('testAppInfoUpperBundle0076', `lowers=${lowersToBundle(NAME_UPPER)} code=${probe.code} ` +
+        `returned=${probe.returned}`);
+      expect(lowersToBundle(NAME_UPPER)).assertTrue();
+      expect(probe.code).assertEqual(await pinLegacy());
+      expect(probe.returned).assertFalse();
+      expect(probe.uidValue).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_7700
+     * @tc.name      testAppInfoTrailingDot0077
+     * @tc.desc      Ask getApplicationInfo for a missing name with a trailing dot and check the empty last segment
+     *               while the rejection carries no name
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppInfoTrailingDot0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: AppInfoProbe = await legacyAppProbe(NAME_ABSENT_TRAILING_DOT, APP_FLAGS);
+      logCase('testAppInfoTrailingDot0077', `last=${lastSegment(NAME_ABSENT_TRAILING_DOT)} ` +
+        `code=${probe.code} name=${probe.name}`);
+      expect(lastSegment(NAME_ABSENT_TRAILING_DOT)).assertEqual(EMPTY_TEXT);
+      expect(probe.code).assertEqual(await pinLegacy());
+      expect(probe.returned).assertFalse();
+      expect(probe.name).assertEqual(EMPTY_TEXT);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_7800
+     * @tc.name      testAppInfoTabbedName0078
+     * @tc.desc      Ask getApplicationInfo for a missing name with an embedded tab and check the tab code point and
+     *               the two segment shape while the rejection is verified
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testAppInfoTabbedName0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: AppInfoProbe = await legacyAppProbe(NAME_ABSENT_TAB, APP_FLAGS);
+      logCase('testAppInfoTabbedName0078', `tab=${hasCodeUnit(NAME_ABSENT_TAB, TAB_CODE)} ` +
+        `segments=${segmentTotal(NAME_ABSENT_TAB)} code=${probe.code}`);
+      expect(hasCodeUnit(NAME_ABSENT_TAB, TAB_CODE)).assertTrue();
+      expect(segmentTotal(NAME_ABSENT_TAB)).assertEqual(TABLE_TWO);
+      expect(probe.code).assertEqual(await pinLegacy());
+      expect(probe.returned).assertFalse();
+      expect(probe.uidValue).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_7900
+     * @tc.name      testAppInfoZeroFlags0079
+     * @tc.desc      Ask getApplicationInfo for a missing bundle with flag zero and check the flag really has no bit
+     *               set and the rejection is unchanged
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppInfoZeroFlags0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: AppInfoProbe = await legacyAppProbe(NAME_ABSENT_PLAIN, FLAG_ZERO);
+      logCase('testAppInfoZeroFlags0079', `bits=${bitTotal(FLAG_ZERO)} hex=${unsignedHex(FLAG_ZERO)} ` +
+        `code=${probe.code}`);
+      expect(bitTotal(FLAG_ZERO)).assertEqual(EMPTY_LENGTH);
+      expect(unsignedHex(FLAG_ZERO)).assertEqual(HEX_ZERO);
+      expect(probe.code).assertEqual(await pinLegacy());
+      expect(probe.returned).assertFalse();
+      expect(probe.name).assertEqual(EMPTY_TEXT);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_8000
+     * @tc.name      testAppInfoMaxFlags0080
+     * @tc.desc      Ask getApplicationInfo for a missing bundle with all low thirty one bits set and check the bit
+     *               count and the rejection
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppInfoMaxFlags0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: AppInfoProbe = await legacyAppProbe(NAME_ABSENT_PLAIN, FLAG_MAX_POSITIVE);
+      logCase('testAppInfoMaxFlags0080', `bits=${bitTotal(FLAG_MAX_POSITIVE)} ` +
+        `hex=${unsignedHex(FLAG_MAX_POSITIVE)} code=${probe.code}`);
+      expect(bitTotal(FLAG_MAX_POSITIVE)).assertEqual(BITS_MAX_POSITIVE);
+      expect(unsignedHex(FLAG_MAX_POSITIVE)).assertEqual(HEX_MAX_POSITIVE);
+      expect(probe.code).assertEqual(await pinLegacy());
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_8100
+     * @tc.name      testAppInfoSignBitFlags0081
+     * @tc.desc      Ask getApplicationInfo for a missing bundle with only the sign bit set and check the single bit
+     *               count while the uid stays untouched
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testAppInfoSignBitFlags0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: AppInfoProbe = await legacyAppProbe(NAME_ABSENT_PLAIN, FLAG_SIGN_BIT);
+      logCase('testAppInfoSignBitFlags0081', `bits=${bitTotal(FLAG_SIGN_BIT)} hex=${unsignedHex(FLAG_SIGN_BIT)} ` +
+        `code=${probe.code}`);
+      expect(bitTotal(FLAG_SIGN_BIT)).assertEqual(LENGTH_ONE);
+      expect(unsignedHex(FLAG_SIGN_BIT)).assertEqual(HEX_SIGN_BIT);
+      expect(probe.code).assertEqual(await pinLegacy());
+      expect(probe.returned).assertFalse();
+      expect(probe.uidValue).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_8200
+     * @tc.name      testAppInfoValidReadAfterFailure0082
+     * @tc.desc      Fail getApplicationInfo first and then read the caller bundle through the modern synchronous entry
+     *               point to prove the failure left no shared state behind
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppInfoValidReadAfterFailure0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const failed: AppInfoProbe = await legacyAppProbe(NAME_ABSENT_ALT, APP_FLAGS);
+      const after: BundleProbe = bundleProbeSync(BUNDLE_NAME, MODULE_FLAGS);
+      logCase('testAppInfoValidReadAfterFailure0082', `failed=${failed.code} afterCode=${after.code} ` +
+        `afterName=${after.name} modules=${after.moduleTotal}`);
+      expect(failed.code).assertEqual(await pinLegacy());
+      expect(after.code).assertEqual(CODE_CLEAN);
+      expect(after.returned).assertTrue();
+      expect(after.name).assertEqual(BUNDLE_NAME);
+      expect(after.moduleTotal).assertEqual(MODULE_TOTAL_SELF);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_8300
+     * @tc.name      testAbilityMissingOnSelfBundle0083
+     * @tc.desc      Ask getAbilityInfo for a name that does not exist in the caller bundle and check the ability not
+     *               found code with an empty payload
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAbilityMissingOnSelfBundle0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const probe: AbilityProbe = await legacyAbilityProbe(BUNDLE_NAME, NAME_MISSING_ABILITY);
+      logCase('testAbilityMissingOnSelfBundle0083', `code=${probe.code} expected=${ERR_ABILITY_NOT_FOUND} ` +
+        `name=${probe.name} module=${probe.moduleName}`);
+      expect(probe.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(probe.returned).assertFalse();
+      expect(probe.name).assertEqual(EMPTY_TEXT);
+      expect(probe.moduleName).assertEqual(EMPTY_TEXT);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_8400
+     * @tc.name      testAbilityEmptyName0084
+     * @tc.desc      Ask getAbilityInfo for the empty ability name inside the caller bundle and check the rejection is
+     *               the same ability not found code
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAbilityEmptyName0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: AbilityProbe = await legacyAbilityProbe(BUNDLE_NAME, NAME_EMPTY);
+      logCase('testAbilityEmptyName0084', `code=${probe.code} returned=${probe.returned} ` +
+        `length=${NAME_EMPTY.length}`);
+      expect(NAME_EMPTY.length).assertEqual(EMPTY_LENGTH);
+      expect(probe.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(probe.returned).assertFalse();
+      expect(probe.name).assertEqual(EMPTY_TEXT);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_8500
+     * @tc.name      testAbilityLowerCased0085
+     * @tc.desc      Lower case the real ability name and check only the case differs while getAbilityInfo still
+     *               reports the ability not found code
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAbilityLowerCased0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const lowered: string = ENTRY_ABILITY.toLowerCase();
+      const probe: AbilityProbe = await legacyAbilityProbe(BUNDLE_NAME, NAME_ABILITY_LOWER);
+      logCase('testAbilityLowerCased0085', `code=${probe.code} equalsLower=${NAME_ABILITY_LOWER === lowered} ` +
+        `length=${NAME_ABILITY_LOWER.length}`);
+      expect(NAME_ABILITY_LOWER === lowered).assertTrue();
+      expect(NAME_ABILITY_LOWER.length).assertEqual(ENTRY_ABILITY.length);
+      expect(probe.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_8600
+     * @tc.name      testAbilityModuleQualified0086
+     * @tc.desc      Prefix the real ability name with its module name and check the qualified form carries one dot
+     *               while the lookup is rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAbilityModuleQualified0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: AbilityProbe = await legacyAbilityProbe(BUNDLE_NAME, NAME_ABILITY_MODULE_PREFIX);
+      logCase('testAbilityModuleQualified0086', `dots=${dotTotal(NAME_ABILITY_MODULE_PREFIX)} ` +
+        `prefix=${NAME_ABILITY_MODULE_PREFIX.startsWith(ENTRY_MODULE + '.')} code=${probe.code}`);
+      expect(dotTotal(NAME_ABILITY_MODULE_PREFIX)).assertEqual(LENGTH_ONE);
+      expect(NAME_ABILITY_MODULE_PREFIX.startsWith(ENTRY_MODULE + '.')).assertTrue();
+      expect(probe.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_8700
+     * @tc.name      testAbilityTrailingSpace0087
+     * @tc.desc      Append one space to the real ability name and check trim() recovers it while getAbilityInfo
+     *               rejects the padded name
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAbilityTrailingSpace0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: AbilityProbe = await legacyAbilityProbe(BUNDLE_NAME, NAME_ABILITY_SPACED);
+      logCase('testAbilityTrailingSpace0087', `trims=${trimsTo(NAME_ABILITY_SPACED, ENTRY_ABILITY)} ` +
+        `trimmed=${trimTotal(NAME_ABILITY_SPACED)} code=${probe.code}`);
+      expect(trimsTo(NAME_ABILITY_SPACED, ENTRY_ABILITY)).assertTrue();
+      expect(trimTotal(NAME_ABILITY_SPACED)).assertEqual(ENTRY_ABILITY.length);
+      expect(probe.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_8800
+     * @tc.name      testAbilityUnknownBundleFirst0088
+     * @tc.desc      Ask getAbilityInfo for the real ability name inside a missing bundle and check the bundle lookup
+     *               fails first with the legacy family code
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAbilityUnknownBundleFirst0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: AbilityProbe = await legacyAbilityProbe(NAME_ABSENT_PLAIN, ENTRY_ABILITY);
+      logCase('testAbilityUnknownBundleFirst0088', `code=${probe.code} pinned=${await pinLegacy()} ` +
+        `name=${probe.name} module=${probe.moduleName}`);
+      expect(probe.code).assertEqual(await pinLegacy());
+      expect(probe.returned).assertFalse();
+      expect(probe.name).assertEqual(EMPTY_TEXT);
+      expect(probe.moduleName).assertEqual(EMPTY_TEXT);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_8900
+     * @tc.name      testAbilityExtensionName0089
+     * @tc.desc      Ask getAbilityInfo for the backup extension name and check the page ability lookup does not answer
+     *               with the extension record
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testAbilityExtensionName0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: AbilityProbe = await legacyAbilityProbe(BUNDLE_NAME, BACKUP_ABILITY);
+      logCase('testAbilityExtensionName0089', `code=${probe.code} name=${probe.name} ` +
+        `module=${probe.moduleName} returned=${probe.returned}`);
+      expect(BACKUP_ABILITY !== ENTRY_ABILITY).assertTrue();
+      expect(probe.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(probe.returned).assertFalse();
+      expect(probe.moduleName).assertEqual(EMPTY_TEXT);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_9000
+     * @tc.name      testAbilityCyrillicTail0090
+     * @tc.desc      Replace the last letter of the real ability name with a Cyrillic lookalike and check the same
+     *               length but a non ASCII body while the lookup is rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testAbilityCyrillicTail0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: AbilityProbe = await legacyAbilityProbe(BUNDLE_NAME, NAME_ABILITY_CYRILLIC);
+      logCase('testAbilityCyrillicTail0090', `ascii=${isAsciiOnly(NAME_ABILITY_CYRILLIC)} ` +
+        `length=${NAME_ABILITY_CYRILLIC.length} code=${probe.code}`);
+      expect(isAsciiOnly(NAME_ABILITY_CYRILLIC)).assertFalse();
+      expect(NAME_ABILITY_CYRILLIC.length).assertEqual(ENTRY_ABILITY.length);
+      expect(probe.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_9100
+     * @tc.name      testArchiveMissingPath0091
+     * @tc.desc      Ask getBundleArchiveInfo for an absent hap path and check the pinned archive rejection plus the
+     *               untouched module list
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testArchiveMissingPath0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const probe: ArchiveProbe = await archiveProbe(PATH_ABSENT_MODULE, DEFAULT_FLAGS);
+      const pinned: number = await pinArchive();
+      logCase('testArchiveMissingPath0091', `path=${PATH_ABSENT_MODULE} code=${probe.code} pinned=${pinned} ` +
+        `returned=${probe.returned}`);
+      expect(probe.code).assertEqual(pinned);
+      expect(probe.code === CODE_CLEAN).assertFalse();
+      expect(probe.returned).assertFalse();
+      expect(probe.name).assertEqual(EMPTY_TEXT);
+      expect(probe.moduleTotal).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_9200
+     * @tc.name      testArchiveEmptyPath0092
+     * @tc.desc      Ask getBundleArchiveInfo for the empty path and check it has no hap suffix and is rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testArchiveEmptyPath0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: ArchiveProbe = await archiveProbe(PATH_EMPTY, DEFAULT_FLAGS);
+      logCase('testArchiveEmptyPath0092', `length=${PATH_EMPTY.length} hap=${PATH_EMPTY.endsWith(SUFFIX_HAP)} ` +
+        `code=${probe.code}`);
+      expect(PATH_EMPTY.length).assertEqual(EMPTY_LENGTH);
+      expect(PATH_EMPTY.endsWith(SUFFIX_HAP)).assertFalse();
+      expect(probe.code).assertEqual(await pinArchive());
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_9300
+     * @tc.name      testArchiveRelativePath0093
+     * @tc.desc      Ask getBundleArchiveInfo for a relative hap file name and check the suffix is right while the
+     *               rejection is the pinned one
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testArchiveRelativePath0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: ArchiveProbe = await archiveProbe(PATH_RELATIVE, DEFAULT_FLAGS);
+      logCase('testArchiveRelativePath0093', `hap=${PATH_RELATIVE.endsWith(SUFFIX_HAP)} ` +
+        `dots=${dotTotal(PATH_RELATIVE)} code=${probe.code}`);
+      expect(PATH_RELATIVE.endsWith(SUFFIX_HAP)).assertTrue();
+      expect(dotTotal(PATH_RELATIVE)).assertEqual(LENGTH_ONE);
+      expect(probe.code).assertEqual(await pinArchive());
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_9400
+     * @tc.name      testArchiveTraversalPath0094
+     * @tc.desc      Ask getBundleArchiveInfo for a path that climbs out of the haps directory and check the traversal
+     *               marker and the path depth while the lookup is rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testArchiveTraversalPath0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: ArchiveProbe = await archiveProbe(PATH_TRAVERSAL, DEFAULT_FLAGS);
+      logCase('testArchiveTraversalPath0094', `traversal=${containsText(PATH_TRAVERSAL, TRAVERSAL_MARKER)} ` +
+        `volume=${pathSegmentTotal(PATH_TRAVERSAL)} code=${probe.code}`);
+      expect(containsText(PATH_TRAVERSAL, TRAVERSAL_MARKER)).assertTrue();
+      expect(PATH_TRAVERSAL.endsWith(SUFFIX_HAP)).assertTrue();
+      expect(pathSegmentTotal(PATH_TRAVERSAL) > LENGTH_TWO).assertTrue();
+      expect(probe.code).assertEqual(await pinArchive());
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_9500
+     * @tc.name      testArchiveNoExtension0095
+     * @tc.desc      Ask getBundleArchiveInfo for a bare directory path and check the missing hap suffix while the
+     *               module list stays untouched
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testArchiveNoExtension0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: ArchiveProbe = await archiveProbe(PATH_NO_EXTENSION, DEFAULT_FLAGS);
+      logCase('testArchiveNoExtension0095', `hap=${PATH_NO_EXTENSION.endsWith(SUFFIX_HAP)} ` +
+        `code=${probe.code} moduleTotal=${probe.moduleTotal}`);
+      expect(PATH_NO_EXTENSION.endsWith(SUFFIX_HAP)).assertFalse();
+      expect(probe.code).assertEqual(await pinArchive());
+      expect(probe.returned).assertFalse();
+      expect(probe.moduleTotal).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_9600
+     * @tc.name      testArchiveTextFile0096
+     * @tc.desc      Ask getBundleArchiveInfo for a text file and check the extension pair one after the other before
+     *               the rejection is verified
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testArchiveTextFile0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: ArchiveProbe = await archiveProbe(PATH_TEXT_FILE, DEFAULT_FLAGS);
+      logCase('testArchiveTextFile0096', `text=${PATH_TEXT_FILE.endsWith(SUFFIX_TEXT)} ` +
+        `hap=${PATH_TEXT_FILE.endsWith(SUFFIX_HAP)} code=${probe.code}`);
+      expect(PATH_TEXT_FILE.endsWith(SUFFIX_TEXT)).assertTrue();
+      expect(PATH_TEXT_FILE.endsWith(SUFFIX_HAP)).assertFalse();
+      expect(probe.code).assertEqual(await pinArchive());
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_9700
+     * @tc.name      testArchiveSpacedPath0097
+     * @tc.desc      Ask getBundleArchiveInfo for a path with a blank file name and surrounding spaces and check trim()
+     *               shortens it while the lookup is rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testArchiveSpacedPath0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: ArchiveProbe = await archiveProbe(PATH_SPACED, DEFAULT_FLAGS);
+      logCase('testArchiveSpacedPath0097', `length=${PATH_SPACED.length} trimmed=${trimTotal(PATH_SPACED)} ` +
+        `code=${probe.code}`);
+      expect(trimTotal(PATH_SPACED) < PATH_SPACED.length).assertTrue();
+      expect(hasCodeUnit(PATH_SPACED, SPACE_CODE)).assertTrue();
+      expect(probe.code).assertEqual(await pinArchive());
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_9800
+     * @tc.name      testArchiveDeepHapPath0098
+     * @tc.desc      Ask getBundleArchiveInfo for a well formed absolute hap path that does not exist and check the
+     *               shape is right while the rejection carries no bundle name
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testArchiveDeepHapPath0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: ArchiveProbe = await archiveProbe(PATH_DEEP, DEFAULT_FLAGS);
+      logCase('testArchiveDeepHapPath0098', `hap=${PATH_DEEP.endsWith(SUFFIX_HAP)} ` +
+        `base=${PATH_DEEP.startsWith(DATA_STORAGE_PREFIX)} name=${probe.name} code=${probe.code}`);
+      expect(PATH_DEEP.endsWith(SUFFIX_HAP)).assertTrue();
+      expect(PATH_DEEP.startsWith(DATA_STORAGE_PREFIX)).assertTrue();
+      expect(probe.code).assertEqual(await pinArchive());
+      expect(probe.name).assertEqual(EMPTY_TEXT);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_9900
+     * @tc.name      testArchiveDotOnlyPath0099
+     * @tc.desc      Ask getBundleArchiveInfo for a single dot path and check it is one character long with a single
+     *               dot before the rejection is verified
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testArchiveDotOnlyPath0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: ArchiveProbe = await archiveProbe(PATH_DOT_ONLY, DEFAULT_FLAGS);
+      logCase('testArchiveDotOnlyPath0099', `length=${PATH_DOT_ONLY.length} dots=${dotTotal(PATH_DOT_ONLY)} ` +
+        `code=${probe.code}`);
+      expect(PATH_DOT_ONLY.length).assertEqual(LENGTH_ONE);
+      expect(dotTotal(PATH_DOT_ONLY)).assertEqual(LENGTH_ONE);
+      expect(probe.code).assertEqual(await pinArchive());
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_10000
+     * @tc.name      testArchiveDirectoryPath0100
+     * @tc.desc      Ask getBundleArchiveInfo for a directory that ends with a slash and check both suffix probes while
+     *               the caller bundle stays readable
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testArchiveDirectoryPath0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: ArchiveProbe = await archiveProbe(PATH_DIRECTORY, DEFAULT_FLAGS);
+      logCase('testArchiveDirectoryPath0100', `slash=${PATH_DIRECTORY.endsWith('/')} ` +
+        `hap=${PATH_DIRECTORY.endsWith(SUFFIX_HAP)} code=${probe.code}`);
+      expect(PATH_DIRECTORY.endsWith('/')).assertTrue();
+      expect(PATH_DIRECTORY.endsWith(SUFFIX_HAP)).assertFalse();
+      expect(probe.code).assertEqual(await pinArchive());
+      expect(probe.returned).assertFalse();
+      expect(selfIntact()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_10100
+     * @tc.name      testProfileAbilityWithoutMetadata0101
+     * @tc.desc      Ask for a metadata profile on a page ability that declares none and check the no profile code with
+     *               an untouched total
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testProfileAbilityWithoutMetadata0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const probe: ProfileProbe = abilityProfileProbe(ENTRY_MODULE, ENTRY_ABILITY, BACKUP_METADATA);
+      logCase('testProfileAbilityWithoutMetadata0101', `code=${probe.code} expected=${ERR_NO_PROFILE} ` +
+        `total=${probe.total} returned=${probe.returned}`);
+      expect(probe.code).assertEqual(ERR_NO_PROFILE);
+      expect(probe.returned).assertFalse();
+      expect(probe.total).assertEqual(UNTOUCHED);
+      expect(probe.firstLength).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_10200
+     * @tc.name      testProfileMissingModule0102
+     * @tc.desc      Ask for a profile with a module name that does not exist and check the ability not found code is
+     *               reported instead of a profile answer
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testProfileMissingModule0102', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const probe: ProfileProbe = abilityProfileProbe(NAME_MODULE_MISSING, ENTRY_ABILITY, BACKUP_METADATA);
+      logCase('testProfileMissingModule0102', `module=${NAME_MODULE_MISSING} code=${probe.code} ` +
+        `total=${probe.total}`);
+      expect(NAME_MODULE_MISSING !== ENTRY_MODULE).assertTrue();
+      expect(probe.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(probe.returned).assertFalse();
+      expect(probe.total).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_10300
+     * @tc.name      testProfileMissingAbility0103
+     * @tc.desc      Ask for a profile with the ability name missing its last letter and check the single edit distance
+     *               together with the ability not found code
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testProfileMissingAbility0103', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const probe: ProfileProbe = abilityProfileProbe(ENTRY_MODULE, NAME_ABILITY_TRUNCATED, BACKUP_METADATA);
+      logCase('testProfileMissingAbility0103', `ability=${NAME_ABILITY_TRUNCATED} ` +
+        `distance=${editDistance(NAME_ABILITY_TRUNCATED, ENTRY_ABILITY)} code=${probe.code}`);
+      expect(editDistance(NAME_ABILITY_TRUNCATED, ENTRY_ABILITY)).assertEqual(LENGTH_ONE);
+      expect(probe.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(probe.returned).assertFalse();
+      expect(probe.firstLength).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_10400
+     * @tc.name      testProfileModuleSpaced0104
+     * @tc.desc      Ask for a profile with a module name followed by a space and check trim() recovers the real module
+     *               while the call is rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testProfileModuleSpaced0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const probe: ProfileProbe = abilityProfileProbe(NAME_MODULE_SPACED, ENTRY_ABILITY, BACKUP_METADATA);
+      logCase('testProfileModuleSpaced0104', `trims=${trimsTo(NAME_MODULE_SPACED, ENTRY_MODULE)} ` +
+        `trimmed=${trimTotal(NAME_MODULE_SPACED)} code=${probe.code}`);
+      expect(trimsTo(NAME_MODULE_SPACED, ENTRY_MODULE)).assertTrue();
+      expect(trimTotal(NAME_MODULE_SPACED)).assertEqual(ENTRY_MODULE.length);
+      expect(probe.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_10500
+     * @tc.name      testProfileTestModuleExtension0105
+     * @tc.desc      Ask for the backup profile through the test module, which has no extensions at all, and check the
+     *               ability not found code
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testProfileTestModuleExtension0105', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const probe: ProfileProbe = extensionProfileProbe(TEST_MODULE, BACKUP_ABILITY, BACKUP_METADATA);
+      logCase('testProfileTestModuleExtension0105', `module=${TEST_MODULE} distinct=${TEST_MODULE !== ENTRY_MODULE} ` +
+        `code=${probe.code} total=${probe.total}`);
+      expect(TEST_MODULE !== ENTRY_MODULE).assertTrue();
+      expect(probe.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(probe.returned).assertFalse();
+      expect(probe.total).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_10600
+     * @tc.name      testProfileExtensionMissingMetadata0106
+     * @tc.desc      Ask the backup extension for a metadata name it does not declare and check the no profile code
+     *               with an empty result
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testProfileExtensionMissingMetadata0106', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const probe: ProfileProbe = extensionProfileProbe(ENTRY_MODULE, BACKUP_ABILITY, NAME_METADATA_MISSING);
+      logCase('testProfileExtensionMissingMetadata0106', `metadata=${NAME_METADATA_MISSING} ` +
+        `marker=${containsText(NAME_METADATA_MISSING, MISSING_MARKER)} code=${probe.code}`);
+      expect(containsText(NAME_METADATA_MISSING, MISSING_MARKER)).assertTrue();
+      expect(NAME_METADATA_MISSING !== BACKUP_METADATA).assertTrue();
+      expect(probe.code).assertEqual(ERR_NO_PROFILE);
+      expect(probe.returned).assertFalse();
+      expect(probe.firstLength).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_10700
+     * @tc.name      testProfileExtensionTruncatedName0107
+     * @tc.desc      Ask the backup extension with its name missing the last letter and check the single edit distance
+     *               plus the ability not found code
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testProfileExtensionTruncatedName0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      const probe: ProfileProbe = extensionProfileProbe(ENTRY_MODULE, NAME_BACKUP_MISSING, BACKUP_METADATA);
+      logCase('testProfileExtensionTruncatedName0107', `distance=${editDistance(NAME_BACKUP_MISSING, BACKUP_ABILITY)} ` +
+        `code=${probe.code} total=${probe.total}`);
+      expect(editDistance(NAME_BACKUP_MISSING, BACKUP_ABILITY)).assertEqual(LENGTH_ONE);
+      expect(probe.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(probe.returned).assertFalse();
+      expect(probe.total).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_10800
+     * @tc.name      testProfileExtensionLowerCased0108
+     * @tc.desc      Lower case the backup extension name and check the folded form really differs before the ability
+     *               not found code is verified
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testProfileExtensionLowerCased0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      const lowered: string = BACKUP_ABILITY.toLowerCase();
+      const probe: ProfileProbe = extensionProfileProbe(ENTRY_MODULE, lowered, BACKUP_METADATA);
+      logCase('testProfileExtensionLowerCased0108', `lowered=${lowered} code=${probe.code} ` +
+        `firstLength=${probe.firstLength}`);
+      expect(lowered === BACKUP_ABILITY).assertFalse();
+      expect(probe.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(probe.returned).assertFalse();
+      expect(probe.firstLength).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_10900
+     * @tc.name      testProfileExtensionPageAbilityName0109
+     * @tc.desc      Ask the extension profile API for the page ability name with a trailing space and check the page
+     *               ability is not reachable through the extension entry point
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testProfileExtensionPageAbilityName0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      const probe: ProfileProbe = extensionProfileProbe(ENTRY_MODULE, NAME_ABILITY_SPACED, BACKUP_METADATA);
+      logCase('testProfileExtensionPageAbilityName0109', `trims=${trimsTo(NAME_ABILITY_SPACED, ENTRY_ABILITY)} ` +
+        `code=${probe.code} total=${probe.total}`);
+      expect(trimsTo(NAME_ABILITY_SPACED, ENTRY_ABILITY)).assertTrue();
+      expect(probe.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(probe.returned).assertFalse();
+      expect(probe.total).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_11000
+     * @tc.name      testProfilePageApiWithExtensionName0110
+     * @tc.desc      Ask the page ability profile API for the longer backup extension name and check the extension is
+     *               not answered by that entry point
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testProfilePageApiWithExtensionName0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      const probe: ProfileProbe = abilityProfileProbe(ENTRY_MODULE, BACKUP_ABILITY, BACKUP_METADATA);
+      logCase('testProfilePageApiWithExtensionName0110', `longer=${BACKUP_ABILITY.length > ENTRY_ABILITY.length} ` +
+        `code=${probe.code} total=${probe.total}`);
+      expect(BACKUP_ABILITY.length > ENTRY_ABILITY.length).assertTrue();
+      expect(probe.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(probe.returned).assertFalse();
+      expect(probe.total).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_11100
+     * @tc.name      testProfileValidExtensionAfterFailures0111
+     * @tc.desc      Fail the backup extension lookup once and then read the same profile successfully to prove the
+     *               failure did not poison the following call
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testProfileValidExtensionAfterFailures0111', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const failed: ProfileProbe = extensionProfileProbe(ENTRY_MODULE, NAME_BACKUP_MISSING, BACKUP_METADATA);
+      const valid: ProfileProbe = extensionProfileProbe(ENTRY_MODULE, BACKUP_ABILITY, BACKUP_METADATA);
+      logCase('testProfileValidExtensionAfterFailures0111', `failed=${failed.code} valid=${valid.code} ` +
+        `total=${valid.total} firstLength=${valid.firstLength}`);
+      expect(failed.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(valid.code).assertEqual(CODE_CLEAN);
+      expect(valid.returned).assertTrue();
+      expect(valid.total).assertEqual(PROFILE_TOTAL_ONE);
+      expect(valid.firstLength > EMPTY_LENGTH).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_11200
+     * @tc.name      testProfileAbilityMetadataEmpty0112
+     * @tc.desc      Ask the page ability for the empty metadata name and check the no profile code is used because the
+     *               ability declares no metadata at all
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testProfileAbilityMetadataEmpty0112', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      const probe: ProfileProbe = abilityProfileProbe(ENTRY_MODULE, ENTRY_ABILITY, NAME_EMPTY);
+      logCase('testProfileAbilityMetadataEmpty0112', `metadataLength=${NAME_EMPTY.length} code=${probe.code} ` +
+        `total=${probe.total}`);
+      expect(NAME_EMPTY.length).assertEqual(EMPTY_LENGTH);
+      expect(probe.code).assertEqual(ERR_NO_PROFILE);
+      expect(probe.returned).assertFalse();
+      expect(probe.total).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_11300
+     * @tc.name      testLookupZeroFlags0113
+     * @tc.desc      Query a missing name with the zero flag and check the flag has no bit set and the rejection is the
+     *               pinned lookup code
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLookupZeroFlags0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: BundleProbe = await bundleProbeAsync(NAME_ABSENT_PLAIN, FLAG_ZERO);
+      logCase('testLookupZeroFlags0113', `bits=${bitTotal(FLAG_ZERO)} hex=${unsignedHex(FLAG_ZERO)} ` +
+        `code=${probe.code}`);
+      expect(bitTotal(FLAG_ZERO)).assertEqual(EMPTY_LENGTH);
+      expect(unsignedHex(FLAG_ZERO)).assertEqual(HEX_ZERO);
+      expect(probe.code).assertEqual(await pinLookup());
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_11400
+     * @tc.name      testLookupNegativeFlags0114
+     * @tc.desc      Query a missing name with minus one as flags and check all thirty two bits are set while the
+     *               rejection stays the pinned one
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLookupNegativeFlags0114', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const probe: BundleProbe = await bundleProbeAsync(NAME_UPPER, FLAG_NEG_ONE);
+      logCase('testLookupNegativeFlags0114', `bits=${bitTotal(FLAG_NEG_ONE)} hex=${unsignedHex(FLAG_NEG_ONE)} ` +
+        `code=${probe.code} moduleTotal=${probe.moduleTotal}`);
+      expect(bitTotal(FLAG_NEG_ONE)).assertEqual(BITS_ALL);
+      expect(unsignedHex(FLAG_NEG_ONE)).assertEqual(HEX_ALL_BITS);
+      expect(probe.code).assertEqual(await pinLookup());
+      expect(probe.returned).assertFalse();
+      expect(probe.moduleTotal).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_11500
+     * @tc.name      testLookupNegativeMinusTwo0115
+     * @tc.desc      Query a missing name with minus two as flags and check only the lowest bit is clear while the
+     *               synchronous rejection is the pinned one
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testLookupNegativeMinusTwo0115', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const syncProbe: BundleProbe = bundleProbeSync(NAME_LOWER, FLAG_NEG_TWO);
+      logCase('testLookupNegativeMinusTwo0115', `bits=${bitTotal(FLAG_NEG_TWO)} ` +
+        `hex=${unsignedHex(FLAG_NEG_TWO)} code=${syncProbe.code}`);
+      expect(bitTotal(FLAG_NEG_TWO)).assertEqual(BITS_MAX_POSITIVE);
+      expect(unsignedHex(FLAG_NEG_TWO)).assertEqual(HEX_ALL_BUT_ONE);
+      expect(syncProbe.code).assertEqual(await pinLookup());
+      expect(syncProbe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_11600
+     * @tc.name      testLookupMaxFlags0116
+     * @tc.desc      Query a doubly dotted missing name with all low thirty one bits set and check the bit count and the
+     *               empty payload name
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testLookupMaxFlags0116', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: BundleProbe = await bundleProbeAsync(NAME_DOUBLE_DOT, FLAG_MAX_POSITIVE);
+      logCase('testLookupMaxFlags0116', `bits=${bitTotal(FLAG_MAX_POSITIVE)} ` +
+        `dots=${dotTotal(NAME_DOUBLE_DOT)} code=${probe.code}`);
+      expect(bitTotal(FLAG_MAX_POSITIVE)).assertEqual(BITS_MAX_POSITIVE);
+      expect(dotTotal(NAME_DOUBLE_DOT)).assertEqual(TABLE_THREE);
+      expect(probe.code).assertEqual(await pinLookup());
+      expect(probe.returned).assertFalse();
+      expect(probe.name).assertEqual(EMPTY_TEXT);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_11700
+     * @tc.name      testLookupSignBitFlags0117
+     * @tc.desc      Query the long missing name with only the sign bit set and check the single bit and the untouched
+     *               module list
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testLookupSignBitFlags0117', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: BundleProbe = await bundleProbeAsync(NAME_LONG_SEGMENT, FLAG_SIGN_BIT);
+      logCase('testLookupSignBitFlags0117', `bits=${bitTotal(FLAG_SIGN_BIT)} hex=${unsignedHex(FLAG_SIGN_BIT)} ` +
+        `code=${probe.code} moduleTotal=${probe.moduleTotal}`);
+      expect(bitTotal(FLAG_SIGN_BIT)).assertEqual(LENGTH_ONE);
+      expect(unsignedHex(FLAG_SIGN_BIT)).assertEqual(HEX_SIGN_BIT);
+      expect(probe.code).assertEqual(await pinLookup());
+      expect(probe.returned).assertFalse();
+      expect(probe.moduleTotal).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_11800
+     * @tc.name      testLookupUnknownBitFlags0118
+     * @tc.desc      Query a missing name with an undefined flag bit and check the bit is outside the default mask while
+     *               the rejection is unchanged
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testLookupUnknownBitFlags0118', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: BundleProbe = await bundleProbeAsync(NAME_ABSENT_ALT, FLAG_UNKNOWN_BIT);
+      logCase('testLookupUnknownBitFlags0118', `bits=${bitTotal(FLAG_UNKNOWN_BIT)} ` +
+        `outsideMask=${(FLAG_UNKNOWN_BIT & DEFAULT_FLAGS) === EMPTY_LENGTH} code=${probe.code}`);
+      expect(bitTotal(FLAG_UNKNOWN_BIT)).assertEqual(LENGTH_ONE);
+      expect((FLAG_UNKNOWN_BIT & DEFAULT_FLAGS) === EMPTY_LENGTH).assertTrue();
+      expect(probe.code).assertEqual(await pinLookup());
+      expect(probe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_11900
+     * @tc.name      testLookupFlagsDoNotChangeVerdict0119
+     * @tc.desc      Send the same missing name twice with flag zero and with all low bits set and check the two
+     *               rejections are the same number
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLookupFlagsDoNotChangeVerdict0119', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const zeroProbe: BundleProbe = bundleProbeSync(NAME_ABSENT_PLAIN, FLAG_ZERO);
+      const maxProbe: BundleProbe = bundleProbeSync(NAME_ABSENT_PLAIN, FLAG_MAX_POSITIVE);
+      logCase('testLookupFlagsDoNotChangeVerdict0119', `zero=${zeroProbe.code} max=${maxProbe.code} ` +
+        `pinned=${await pinLookup()}`);
+      expect(zeroProbe.code).assertEqual(maxProbe.code);
+      expect(zeroProbe.code).assertEqual(await pinLookup());
+      expect(zeroProbe.returned).assertFalse();
+      expect(maxProbe.returned).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_12000
+     * @tc.name      testArchiveNegativeFlags0120
+     * @tc.desc      Ask getBundleArchiveInfo for an absent hap with minus one as flags and check the pinned archive
+     *               rejection plus the untouched module list
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testArchiveNegativeFlags0120', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, async () => {
+      const probe: ArchiveProbe = await archiveProbe(PATH_ABSENT_MODULE, FLAG_NEG_ONE);
+      logCase('testArchiveNegativeFlags0120', `bits=${bitTotal(FLAG_NEG_ONE)} code=${probe.code} ` +
+        `pinned=${await pinArchive()} moduleTotal=${probe.moduleTotal}`);
+      expect(bitTotal(FLAG_NEG_ONE)).assertEqual(BITS_ALL);
+      expect(probe.code).assertEqual(await pinArchive());
+      expect(probe.returned).assertFalse();
+      expect(probe.moduleTotal).assertEqual(UNTOUCHED);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_12100
+     * @tc.name      testRecoveryAfterMixedFailures0121
+     * @tc.desc      Run one failing call of each family and then read the caller bundle completely to prove none of the
+     *               failures left shared state behind
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testRecoveryAfterMixedFailures0121', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const lookupFail: BundleProbe = bundleProbeSync(NAME_ABSENT_FIRST, DEFAULT_FLAGS);
+      const appFail: AppInfoProbe = await legacyAppProbe(NAME_ABSENT_SECOND, APP_FLAGS);
+      const abilityFail: AbilityProbe = await legacyAbilityProbe(BUNDLE_NAME, NAME_MISSING_ABILITY);
+      const profileFail: ProfileProbe = abilityProfileProbe(ENTRY_MODULE, ENTRY_ABILITY, BACKUP_METADATA);
+      const info: bundleManager.BundleInfo = await selfBundle();
+      logCase('testRecoveryAfterMixedFailures0121', `lookup=${lookupFail.code} app=${appFail.code} ` +
+        `ability=${abilityFail.code} profile=${profileFail.code} self=${info.name}`);
+      expect(lookupFail.code).assertEqual(await pinLookup());
+      expect(appFail.code).assertEqual(await pinLegacy());
+      expect(abilityFail.code).assertEqual(ERR_ABILITY_NOT_FOUND);
+      expect(profileFail.code).assertEqual(ERR_NO_PROFILE);
+      expect(info.name).assertEqual(BUNDLE_NAME);
+      expect(info.hapModulesInfo.length).assertEqual(MODULE_TOTAL_SELF);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_BUNDLEERR_12200
+     * @tc.name      testValidQueriesSurviveRepeatedFailures0122
+     * @tc.desc      Reject five different missing names in a row and then check the caller bundle still answers with the
+     *               full module list
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testValidQueriesSurviveRepeatedFailures0122', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const names: string[] = [NAME_ABSENT_PLAIN, NAME_ABSENT_ALT, NAME_UPPER, NAME_LOWER, NAME_FOUR_SEGMENT];
+      const codes: number[] = names.map((name: string) => bundleProbeSync(name, DEFAULT_FLAGS).code);
+      const pinned: number = await pinLookup();
+      const after: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(SELF_FLAGS);
+      logCase('testValidQueriesSurviveRepeatedFailures0122', `names=${names.length} ` +
+        `rejected=${rejectedTotal(codes, pinned)} allEqual=${allRejected(codes, pinned)} after=${after.name}`);
+      expect(rejectedTotal(codes, pinned)).assertEqual(LENGTH_FIVE);
+      expect(allRejected(codes, pinned)).assertTrue();
+      expect(after.name).assertEqual(BUNDLE_NAME);
+      expect(after.versionCode).assertEqual(VERSION_CODE);
+      expect(after.hapModulesInfo.length).assertEqual(MODULE_TOTAL_SELF);
+    });
+  });
+}

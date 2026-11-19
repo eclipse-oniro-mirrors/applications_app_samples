@@ -1798,3 +1798,454 @@ export default function resourceStringMatrixTest() {
       expect(lowerCode).assertEqual(0);
     });
 
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_7900
+     * @tc.name      testResStringBadName0079
+     * @tc.desc      Ask for App_Name with mixed case and check the lookup stays case sensitive
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadName0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badName: string = 'App_Name';
+      const lowerName: string = badName.toLowerCase();
+      const registered: string = APP_NAME.name;
+      const differs: boolean = badName !== registered;
+      const syncCode: number = errorCode(() => resources().getStringByNameSync(badName));
+      const asyncCode: number = await promiseErrorCode(() => resources().getStringByName(badName));
+      logCase('testResStringBadName0079', `badName=${badName} syncCode=${syncCode} asyncCode=${asyncCode} ` +
+        `lowerName=${lowerName}`);
+      expect(syncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(asyncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(differs).assertTrue();
+      expect(errorCode(() => resources().getStringByNameSync(lowerName))).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_8000
+     * @tc.name      testResStringBadName0080
+     * @tc.desc      Ask for a string with the dotted type prefix string.app_name and check it is rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadName0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badName: string = 'string.app_name';
+      const syncCode: number = errorCode(() => resources().getStringByNameSync(badName));
+      const asyncCode: number = await promiseErrorCode(() => resources().getStringByName(badName));
+      const controlCode: number = errorCode(() => resources().getStringByNameSync(APP_NAME.name));
+      logCase('testResStringBadName0080', `badName=${badName} syncCode=${syncCode} asyncCode=${asyncCode} ` +
+        `controlCode=${controlCode}`);
+      expect(syncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(asyncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(controlCode).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_8100
+     * @tc.name      testResStringBadName0081
+     * @tc.desc      Ask for a fully qualified app.string.app_name name and check the dotted form is rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadName0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badName: string = 'app.string.app_name';
+      const dottedTail: string = badName.substring(badName.lastIndexOf('.') + 1);
+      const syncCode: number = errorCode(() => resources().getStringByNameSync(badName));
+      const asyncCode: number = await promiseErrorCode(() => resources().getStringByName(badName));
+      const tailCode: number = errorCode(() => resources().getStringByNameSync(dottedTail));
+      logCase('testResStringBadName0081', `badName=${badName} syncCode=${syncCode} asyncCode=${asyncCode} ` +
+        `dottedTail=${dottedTail} tailCode=${tailCode}`);
+      expect(syncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(asyncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(tailCode).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_8200
+     * @tc.name      testResStringBadName0082
+     * @tc.desc      Ask for app_name with a trailing space and check the name is not trimmed before the lookup
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadName0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badName: string = 'app_name ';
+      const trimmedName: string = badName.trim();
+      const syncCode: number = errorCode(() => resources().getStringByNameSync(badName));
+      const asyncCode: number = await promiseErrorCode(() => resources().getStringByName(badName));
+      logCase('testResStringBadName0082', `badNameLength=${badName.length} syncCode=${syncCode} ` +
+        `asyncCode=${asyncCode} trimmedName=${trimmedName}`);
+      expect(syncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(asyncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(errorCode(() => resources().getStringByNameSync(trimmedName))).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_8300
+     * @tc.name      testResStringBadName0083
+     * @tc.desc      Ask for app_name with a leading space and check the padded spelling is rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadName0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badName: string = ' app_name';
+      const syncCode: number = errorCode(() => resources().getStringByNameSync(badName));
+      const asyncCode: number = await promiseErrorCode(() => resources().getStringByName(badName));
+      const controlValue: string = resources().getStringByNameSync(APP_NAME.name);
+      logCase('testResStringBadName0083', `badNameLength=${badName.length} syncCode=${syncCode} ` +
+        `asyncCode=${asyncCode} controlValue=${controlValue}`);
+      expect(syncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(asyncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(controlValue).assertEqual(APP_NAME.value);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_8400
+     * @tc.name      testResStringBadName0084
+     * @tc.desc      Ask for index-title written with a hyphen and check only the underscore spelling resolves
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadName0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badName: string = 'index-title';
+      const goodName: string = 'index_title';
+      const syncCode: number = errorCode(() => resources().getStringByNameSync(badName));
+      const asyncCode: number = await promiseErrorCode(() => resources().getStringByName(badName));
+      const goodValue: string = resources().getStringByNameSync(goodName);
+      logCase('testResStringBadName0084', `badName=${badName} syncCode=${syncCode} asyncCode=${asyncCode} ` +
+        `goodValue=${goodValue}`);
+      expect(syncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(asyncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(goodValue).assertEqual(INDEX_TITLE.value);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_8500
+     * @tc.name      testResStringBadName0085
+     * @tc.desc      Ask for a five hundred unit long name and check the over long lookup is rejected quickly
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadName0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badName: string = APP_NAME.name + LONG_NAME_PADDING;
+      const syncCode: number = errorCode(() => resources().getStringByNameSync(badName));
+      const asyncCode: number = await promiseErrorCode(() => resources().getStringByName(badName));
+      const controlCode: number = errorCode(() => resources().getStringByNameSync(HINT_GC_PAGE.name));
+      logCase('testResStringBadName0085', `badNameLength=${badName.length} syncCode=${syncCode} ` +
+        `asyncCode=${asyncCode} controlCode=${controlCode}`);
+      expect(syncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(asyncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(badName.length > LONG_NAME_PADDING.length).assertTrue();
+      expect(controlCode).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_8600
+     * @tc.name      testResStringBadName0086
+     * @tc.desc      Ask for a name with a double underscore prefix and check the prefix is not ignored
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadName0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badName: string = '__app_name';
+      const goodName: string = badName.substring(2);
+      const syncCode: number = errorCode(() => resources().getStringByNameSync(badName));
+      const asyncCode: number = await promiseErrorCode(() => resources().getStringByName(badName));
+      const goodValue: string = resources().getStringByNameSync(goodName);
+      logCase('testResStringBadName0086', `badName=${badName} syncCode=${syncCode} asyncCode=${asyncCode} ` +
+        `goodName=${goodName} goodValue=${goodValue}`);
+      expect(syncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(asyncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(goodValue).assertEqual(APP_NAME.value);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_8700
+     * @tc.name      testResStringBadId0087
+     * @tc.desc      Ask for a string with resource id one and check the id error is reported by both read paths
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadId0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badId: number = BAD_ID_ONE;
+      const syncCode: number = errorCode(() => resources().getStringSync(badId));
+      const valueCode: number = await promiseErrorCode(() => resources().getStringValue(badId));
+      const ids: StringIds = await stringIds();
+      logCase('testResStringBadId0087', `badId=${badId} syncCode=${syncCode} valueCode=${valueCode} ` +
+        `controlId=${ids.appLabel}`);
+      expect(syncCode).assertEqual(ERR_RES_ID_INVALID);
+      expect(valueCode).assertEqual(ERR_RES_ID_INVALID);
+      expect(errorCode(() => resources().getStringSync(ids.appLabel))).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_8800
+     * @tc.name      testResStringBadId0088
+     * @tc.desc      Ask for a string with resource id two through the promise api and check the id error code
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadId0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badId: number = BAD_ID_TWO;
+      const syncCode: number = errorCode(() => resources().getStringSync(badId));
+      const promiseCode: number = await promiseErrorCode(() => resources().getString(badId));
+      const controlCode: number = errorCode(() => resources().getStringSync(badId + 1));
+      logCase('testResStringBadId0088', `badId=${badId} syncCode=${syncCode} promiseCode=${promiseCode} ` +
+        `controlCode=${controlCode}`);
+      expect(syncCode).assertEqual(ERR_RES_ID_INVALID);
+      expect(promiseCode).assertEqual(ERR_RES_ID_INVALID);
+      expect(controlCode).assertEqual(ERR_RES_ID_INVALID);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_8900
+     * @tc.name      testResStringBadId0089
+     * @tc.desc      Ask for a string with the largest media id and check string reads and array reads both fail
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadId0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badId: number = BAD_ID_MEDIA;
+      const syncCode: number = errorCode(() => resources().getStringSync(badId));
+      const arrayCode: number = await arrayErrorCode(() => resources().getStringArrayValue(badId));
+      logCase('testResStringBadId0089', `badId=${badId} syncCode=${syncCode} arrayCode=${arrayCode}`);
+      expect(syncCode).assertEqual(ERR_RES_ID_INVALID);
+      expect(arrayCode).assertEqual(ERR_RES_ID_INVALID);
+      expect(arrayCode).assertEqual(syncCode);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_9000
+     * @tc.name      testResStringBadId0090
+     * @tc.desc      Ask for a string with the maximum signed id and check string, value and plural reads all fail
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadId0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badId: number = BAD_ID_MAX;
+      const syncCode: number = errorCode(() => resources().getStringSync(badId));
+      const valueCode: number = await promiseErrorCode(() => resources().getStringValue(badId));
+      const pluralCode: number = await promiseErrorCode(() => resources().getPluralStringValue(badId, BAD_ID_TWO));
+      logCase('testResStringBadId0090', `badId=${badId} syncCode=${syncCode} valueCode=${valueCode} ` +
+        `pluralCode=${pluralCode}`);
+      expect(syncCode).assertEqual(ERR_RES_ID_INVALID);
+      expect(valueCode).assertEqual(ERR_RES_ID_INVALID);
+      expect(pluralCode).assertEqual(ERR_RES_ID_INVALID);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_9100
+     * @tc.name      testResStringBadId0091
+     * @tc.desc      Ask for a string with id 999999 and check the missing resource is reported as an id error
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadId0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badId: number = BAD_ID_LARGE;
+      const syncCode: number = errorCode(() => resources().getStringSync(badId));
+      const valueCode: number = await promiseErrorCode(() => resources().getStringValue(badId));
+      const ids: StringIds = await stringIds();
+      logCase('testResStringBadId0091', `badId=${badId} syncCode=${syncCode} valueCode=${valueCode} ` +
+        `moduleDescId=${ids.moduleDesc}`);
+      expect(syncCode).assertEqual(ERR_RES_ID_INVALID);
+      expect(valueCode).assertEqual(ERR_RES_ID_INVALID);
+      expect(errorCode(() => resources().getStringSync(ids.moduleDesc))).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_9200
+     * @tc.name      testResStringBadId0092
+     * @tc.desc      Ask for a string with id 123456789 and check nothing is returned for an unused identifier
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadId0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badId: number = BAD_ID_HUGE;
+      const syncCode: number = errorCode(() => resources().getStringSync(badId));
+      const promiseCode: number = await promiseErrorCode(() => resources().getString(badId));
+      const ids: StringIds = await stringIds();
+      logCase('testResStringBadId0092', `badId=${badId} syncCode=${syncCode} promiseCode=${promiseCode} ` +
+        `abilityLabelId=${ids.abilityLabel}`);
+      expect(syncCode).assertEqual(ERR_RES_ID_INVALID);
+      expect(promiseCode).assertEqual(ERR_RES_ID_INVALID);
+      expect(errorCode(() => resources().getStringSync(ids.abilityLabel))).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_9300
+     * @tc.name      testResStringBadId0093
+     * @tc.desc      Ask for a string with id zero and check an identifier of zero is refused instead of resolved
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadId0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badId: number = BAD_ID_ZERO;
+      const syncCode: number = errorCode(() => resources().getStringSync(badId));
+      const valueCode: number = await promiseErrorCode(() => resources().getStringValue(badId));
+      logCase('testResStringBadId0093', `badId=${badId} syncCode=${syncCode} valueCode=${valueCode}`);
+      expect(syncCode !== 0).assertTrue();
+      expect(valueCode !== 0).assertTrue();
+      expect(syncCode > 0).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_9400
+     * @tc.name      testResStringBadId0094
+     * @tc.desc      Ask for a string with a negative id and check the negative identifier is refused
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringBadId0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badId: number = BAD_ID_NEGATIVE;
+      const syncCode: number = errorCode(() => resources().getStringSync(badId));
+      const valueCode: number = await promiseErrorCode(() => resources().getStringValue(badId));
+      const ids: StringIds = await stringIds();
+      logCase('testResStringBadId0094', `badId=${badId} syncCode=${syncCode} valueCode=${valueCode} ` +
+        `abilityDescId=${ids.abilityDesc}`);
+      expect(syncCode !== 0).assertTrue();
+      expect(valueCode !== 0).assertTrue();
+      expect(errorCode(() => resources().getStringSync(ids.abilityDesc))).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_9500
+     * @tc.name      testResStringCollection0095
+     * @tc.desc      Ask for two array names that were never declared and check no string array is resolved
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringCollection0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const firstName: string = 'app_name_list';
+      const secondName: string = 'module_desc_list';
+      const firstCode: number = await arrayErrorCode(() => resources().getStringArrayByName(firstName));
+      const secondCode: number = await arrayErrorCode(() => resources().getStringArrayByName(secondName));
+      logCase('testResStringCollection0095', `firstName=${firstName} secondName=${secondName} ` +
+        `firstCode=${firstCode} secondCode=${secondCode}`);
+      expect(firstCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(secondCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(errorCode(() => resources().getStringByNameSync(firstName))).assertEqual(ERR_RES_NAME_INVALID);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_9600
+     * @tc.name      testResStringCollection0096
+     * @tc.desc      Ask for three more array names and check the project declares no string array resource at all
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringCollection0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const names: string[] = ['string_array_missing', 'gc_list', 'hint_list'];
+      const codes: number[] = [];
+      for (const name of names) {
+        codes.push(await arrayErrorCode(() => resources().getStringArrayByName(name)));
+      }
+      logCase('testResStringCollection0096', `names=${names.join(',')} codes=${codes.join(',')}`);
+      expect(codes.length).assertEqual(names.length);
+      expect(codes.every((code: number) => code === ERR_RES_NAME_INVALID)).assertTrue();
+      expect(codes.indexOf(0)).assertEqual(-1);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_9700
+     * @tc.name      testResStringCollection0097
+     * @tc.desc      Ask for three plural names at four quantities and check every plural lookup is rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringCollection0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const pluralNames: string[] = ['app_count', 'item_plural', 'gc_rounds'];
+      const quantities: number[] = [0, 1, 2, -1];
+      const codes: number[] = [];
+      for (const name of pluralNames) {
+        for (const quantity of quantities) {
+          codes.push(await promiseErrorCode(() => resources().getPluralStringByName(name, quantity)));
+        }
+      }
+      logCase('testResStringCollection0097', `names=${pluralNames.join(',')} quantities=${quantities.join(',')} ` +
+        `codes=${codes.join(',')}`);
+      expect(codes.length).assertEqual(pluralNames.length * quantities.length);
+      expect(codes.every((code: number) => code === ERR_RES_NAME_INVALID)).assertTrue();
+      expect(codes.filter((code: number) => code === 0).length).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_9800
+     * @tc.name      testResStringCollection0098
+     * @tc.desc      Ask for a string array and a plural by id and check both report the id error 9001001
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringCollection0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const badId: number = BAD_ID_MEDIA;
+      const arrayCode: number = await arrayErrorCode(() => resources().getStringArrayValue(badId));
+      const pluralCode: number = await promiseErrorCode(() => resources().getPluralStringValue(badId, BAD_ID_TWO));
+      const ids: StringIds = await stringIds();
+      logCase('testResStringCollection0098', `badId=${badId} arrayCode=${arrayCode} pluralCode=${pluralCode} ` +
+        `appLabelId=${ids.appLabel}`);
+      expect(arrayCode).assertEqual(ERR_RES_ID_INVALID);
+      expect(pluralCode).assertEqual(ERR_RES_ID_INVALID);
+      expect(errorCode(() => resources().getStringSync(ids.appLabel))).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_9900
+     * @tc.name      testResStringCollection0099
+     * @tc.desc      Ask for two string resources through the array api and check the type mismatch is refused
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringCollection0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const firstName: string = APP_NAME.name;
+      const secondName: string = INDEX_TITLE.name;
+      const firstCode: number = await arrayErrorCode(() => resources().getStringArrayByName(firstName));
+      const secondCode: number = await arrayErrorCode(() => resources().getStringArrayByName(secondName));
+      logCase('testResStringCollection0099', `firstName=${firstName} secondName=${secondName} ` +
+        `firstCode=${firstCode} secondCode=${secondCode}`);
+      expect(firstCode !== 0).assertTrue();
+      expect(secondCode !== 0).assertTrue();
+      expect(errorCode(() => resources().getStringByNameSync(firstName))).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESSTRING_10000
+     * @tc.name      testResStringCollection0100
+     * @tc.desc      Ask for a string through the plural api at three quantities and check the mismatch is refused
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testResStringCollection0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const pluralName: string = MODULE_DESC.name;
+      const quantities: number[] = [0, 1, 2];
+      const codes: number[] = [];
+      const pluralManager: resourceManager.ResourceManager = entryContext().resourceManager;
+      for (const quantity of quantities) {
+        codes.push(await promiseErrorCode((): Promise<string> =>
+          pluralManager.getPluralStringByName(pluralName, quantity)));
+      }
+      logCase('testResStringCollection0100', `pluralName=${pluralName} codes=${codes.join(',')}`);
+      expect(codes.length).assertEqual(quantities.length);
+      expect(codes.every((code: number) => code !== 0)).assertTrue();
+      expect(resources().getStringByNameSync(pluralName)).assertEqual(MODULE_DESC.value);
+    });
+  });
+}
