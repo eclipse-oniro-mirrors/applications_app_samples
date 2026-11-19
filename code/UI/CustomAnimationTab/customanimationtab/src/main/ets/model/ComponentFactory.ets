@@ -12,6 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file customanimationtab/src/main/ets/model/ComponentFactory.ets
+ * 文件职责：ComponentFactory 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ComponentFactory。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { TabBarItemInterface } from './TabBarItemInterface';
 import { TabInfo } from './TabInfo';
 
@@ -23,6 +31,7 @@ export class ComponentFactory {
 
   // tabInfo对象集合
   private tabsInfo: Map<string, TabInfo>;
+
   // 注册标题集合
   private keys: string[] = [];
 
