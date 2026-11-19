@@ -1,0 +1,234 @@
+{
+    "string": [
+        {
+            "name": "module_desc",
+            "value": "Entry module of the CustomCommonEventRely sample",
+            "description": "Description of the entry module"
+        },
+        {
+            "name": "EntryAbility_desc",
+            "value": "Custom common event publisher sample",
+            "description": "Description of the entry ability"
+        },
+        {
+            "name": "EntryAbility_label",
+            "value": "CustomCommonEventRely",
+            "description": "Label of the entry ability"
+        },
+        {
+            "name": "EntryFormAbility_desc",
+            "value": "Publishes the custom common event through a service widget",
+            "description": "Description of the form ability"
+        },
+        {
+            "name": "EntryFormAbility_label",
+            "value": "CustomCommonEventRely widget",
+            "description": "Label of the form ability"
+        },
+        {
+            "name": "index_title",
+            "value": "Custom common event publisher",
+            "description": "Home page title"
+        },
+        {
+            "name": "index_description",
+            "value": "Publishes Acts_CommonEvent_Test from a service widget or the page and receives its own events.",
+            "description": "Home page description"
+        },
+        {
+            "name": "info_section_title",
+            "value": "Event information",
+            "description": "Title of the event information section"
+        },
+        {
+            "name": "label_event_name",
+            "value": "Event name",
+            "description": "Label of the event name"
+        },
+        {
+            "name": "label_bundle_name",
+            "value": "Publisher",
+            "description": "Label of the publisher bundle name"
+        },
+        {
+            "name": "label_form_name",
+            "value": "Widget name",
+            "description": "Label of the widget name"
+        },
+        {
+            "name": "label_permission",
+            "value": "Required permission",
+            "description": "Label of the required permission"
+        },
+        {
+            "name": "status_section_title",
+            "value": "Subscription status",
+            "description": "Title of the subscription section"
+        },
+        {
+            "name": "label_subscribe_state",
+            "value": "Subscriber",
+            "description": "Label of the subscriber state"
+        },
+        {
+            "name": "value_subscribed",
+            "value": "Subscribed",
+            "description": "Subscribed state"
+        },
+        {
+            "name": "value_unsubscribed",
+            "value": "Unsubscribed",
+            "description": "Unsubscribed state"
+        },
+        {
+            "name": "label_received_count",
+            "value": "Received",
+            "description": "Label of the received count"
+        },
+        {
+            "name": "label_last_event",
+            "value": "Latest data",
+            "description": "Label of the latest event data"
+        },
+        {
+            "name": "label_source",
+            "value": "Latest source",
+            "description": "Label of the latest event source"
+        },
+        {
+            "name": "value_none",
+            "value": "None",
+            "description": "Placeholder of an empty value"
+        },
+        {
+            "name": "source_form",
+            "value": "Widget",
+            "description": "Source of a widget event"
+        },
+        {
+            "name": "source_page",
+            "value": "Page",
+            "description": "Source of a page event"
+        },
+        {
+            "name": "source_external",
+            "value": "External app",
+            "description": "Source of an event from an external application"
+        },
+        {
+            "name": "subscribe_button",
+            "value": "Subscribe",
+            "description": "Subscribe button"
+        },
+        {
+            "name": "unsubscribe_button",
+            "value": "Unsubscribe",
+            "description": "Unsubscribe button"
+        },
+        {
+            "name": "publish_button",
+            "value": "Publish event",
+            "description": "Publish button"
+        },
+        {
+            "name": "clear_button",
+            "value": "Clear records",
+            "description": "Clear records button"
+        },
+        {
+            "name": "records_section_title",
+            "value": "Received records",
+            "description": "Title of the received records section"
+        },
+        {
+            "name": "empty_records",
+            "value": "No event has been received yet",
+            "description": "Empty state of the record list"
+        },
+        {
+            "name": "status_ready",
+            "value": "Ready",
+            "description": "Initial status"
+        },
+        {
+            "name": "status_subscribed",
+            "value": "Subscribed to Acts_CommonEvent_Test",
+            "description": "Status of a successful subscription"
+        },
+        {
+            "name": "status_unsubscribed",
+            "value": "Unsubscribed",
+            "description": "Status after unsubscribing"
+        },
+        {
+            "name": "status_subscribe_failed",
+            "value": "Failed to subscribe",
+            "description": "Status of a failed subscription"
+        },
+        {
+            "name": "status_publishing",
+            "value": "Publishing the event",
+            "description": "Status while publishing"
+        },
+        {
+            "name": "status_publish_success",
+            "value": "Event published",
+            "description": "Status of a successful publish"
+        },
+        {
+            "name": "status_publish_failed",
+            "value": "Failed to publish the event",
+            "description": "Status of a failed publish"
+        },
+        {
+            "name": "status_event_received",
+            "value": "Common event received",
+            "description": "Status after receiving an event"
+        },
+        {
+            "name": "status_cleared",
+            "value": "Received records cleared",
+            "description": "Status after clearing the records"
+        },
+        {
+            "name": "toast_publish_success",
+            "value": "Custom common event published",
+            "description": "Toast of a successful publish"
+        },
+        {
+            "name": "toast_publish_failed",
+            "value": "Failed to publish the custom common event",
+            "description": "Toast of a failed publish"
+        },
+        {
+            "name": "card_title",
+            "value": "PublishCard (external app)",
+            "description": "Widget title"
+        },
+        {
+            "name": "card_subtitle",
+            "value": "Tap the button to publish Acts_CommonEvent_Test",
+            "description": "Widget description"
+        },
+        {
+            "name": "card_publish_count",
+            "value": "Published %d times from this widget",
+            "description": "Widget publish count"
+        },
+        {
+            "name": "card_button",
+            "value": "Publish",
+            "description": "Widget publish button"
+        },
+        {
+            "name": "card_button_again",
+            "value": "Publish again",
+            "description": "Widget publish again button"
+        },
+        {
+            "name": "form_description",
+            "value": "Service widget that publishes the custom common event",
+            "description": "Description of the service widget"
+        }
+    ]
+}

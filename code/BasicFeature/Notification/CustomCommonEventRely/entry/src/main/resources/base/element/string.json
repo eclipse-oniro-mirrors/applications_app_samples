@@ -2,39 +2,233 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "CustomCommonEventRely"
+      "value": "CustomCommonEventRely 示例入口模块",
+      "description": "入口模块的描述信息"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "CustomCommonEventRely"
+      "value": "自定义公共事件发布方示例",
+      "description": "入口 Ability 的描述信息"
     },
     {
       "name": "EntryAbility_label",
-      "value": "CustomCommonEventRely"
+      "value": "CustomCommonEventRely",
+      "description": "入口 Ability 的标签"
     },
     {
       "name": "EntryFormAbility_desc",
-      "value": "form_description"
+      "value": "通过卡片发布自定义公共事件",
+      "description": "卡片 Ability 的描述信息"
     },
     {
       "name": "EntryFormAbility_label",
-      "value": "form_label"
+      "value": "CustomCommonEventRely 卡片",
+      "description": "卡片 Ability 的标签"
     },
     {
-      "name": "FormTitle",
-      "value": "PublishCard (应用外)"
+      "name": "index_title",
+      "value": "自定义公共事件发布方",
+      "description": "首页标题"
     },
     {
-      "name": "FormThemes",
-      "value": "customcommoneventrely"
+      "name": "index_description",
+      "value": "本示例通过卡片或页面发布自定义公共事件 Acts_CommonEvent_Test，并接收本应用发布的公共事件。",
+      "description": "首页说明"
     },
     {
-      "name": "Topic_Again",
-      "value": "再次发布"
+      "name": "info_section_title",
+      "value": "事件信息",
+      "description": "事件信息分组标题"
     },
     {
-      "name": "Topic",
-      "value": "发布事件"
+      "name": "label_event_name",
+      "value": "事件名称",
+      "description": "事件名称标签"
+    },
+    {
+      "name": "label_bundle_name",
+      "value": "发布方",
+      "description": "发布方标签"
+    },
+    {
+      "name": "label_form_name",
+      "value": "卡片名称",
+      "description": "卡片名称标签"
+    },
+    {
+      "name": "label_permission",
+      "value": "所需权限",
+      "description": "所需权限标签"
+    },
+    {
+      "name": "status_section_title",
+      "value": "订阅状态",
+      "description": "订阅状态分组标题"
+    },
+    {
+      "name": "label_subscribe_state",
+      "value": "订阅状态",
+      "description": "订阅状态标签"
+    },
+    {
+      "name": "value_subscribed",
+      "value": "已订阅",
+      "description": "订阅状态取值"
+    },
+    {
+      "name": "value_unsubscribed",
+      "value": "未订阅",
+      "description": "未订阅状态取值"
+    },
+    {
+      "name": "label_received_count",
+      "value": "接收数量",
+      "description": "接收数量标签"
+    },
+    {
+      "name": "label_last_event",
+      "value": "最近数据",
+      "description": "最近事件数据标签"
+    },
+    {
+      "name": "label_source",
+      "value": "最近来源",
+      "description": "最近事件来源标签"
+    },
+    {
+      "name": "value_none",
+      "value": "无",
+      "description": "空值占位"
+    },
+    {
+      "name": "source_form",
+      "value": "卡片",
+      "description": "卡片来源"
+    },
+    {
+      "name": "source_page",
+      "value": "页面",
+      "description": "页面来源"
+    },
+    {
+      "name": "source_external",
+      "value": "外部应用",
+      "description": "外部应用来源"
+    },
+    {
+      "name": "subscribe_button",
+      "value": "订阅事件",
+      "description": "订阅按钮"
+    },
+    {
+      "name": "unsubscribe_button",
+      "value": "取消订阅",
+      "description": "取消订阅按钮"
+    },
+    {
+      "name": "publish_button",
+      "value": "发布事件",
+      "description": "发布事件按钮"
+    },
+    {
+      "name": "clear_button",
+      "value": "清空接收记录",
+      "description": "清空记录按钮"
+    },
+    {
+      "name": "records_section_title",
+      "value": "接收记录",
+      "description": "接收记录分组标题"
+    },
+    {
+      "name": "empty_records",
+      "value": "暂未接收到公共事件",
+      "description": "记录列表空态"
+    },
+    {
+      "name": "status_ready",
+      "value": "准备就绪",
+      "description": "初始状态"
+    },
+    {
+      "name": "status_subscribed",
+      "value": "已订阅 Acts_CommonEvent_Test",
+      "description": "订阅成功状态"
+    },
+    {
+      "name": "status_unsubscribed",
+      "value": "已取消订阅",
+      "description": "取消订阅状态"
+    },
+    {
+      "name": "status_subscribe_failed",
+      "value": "订阅失败",
+      "description": "订阅失败状态"
+    },
+    {
+      "name": "status_publishing",
+      "value": "正在发布事件",
+      "description": "发布中状态"
+    },
+    {
+      "name": "status_publish_success",
+      "value": "事件发布成功",
+      "description": "发布成功状态"
+    },
+    {
+      "name": "status_publish_failed",
+      "value": "事件发布失败",
+      "description": "发布失败状态"
+    },
+    {
+      "name": "status_event_received",
+      "value": "已接收到公共事件",
+      "description": "接收事件状态"
+    },
+    {
+      "name": "status_cleared",
+      "value": "接收记录已清空",
+      "description": "清空记录状态"
+    },
+    {
+      "name": "toast_publish_success",
+      "value": "自定义公共事件已发布",
+      "description": "发布成功提示"
+    },
+    {
+      "name": "toast_publish_failed",
+      "value": "自定义公共事件发布失败",
+      "description": "发布失败提示"
+    },
+    {
+      "name": "card_title",
+      "value": "PublishCard（应用外）",
+      "description": "卡片标题"
+    },
+    {
+      "name": "card_subtitle",
+      "value": "点击按钮发布 Acts_CommonEvent_Test",
+      "description": "卡片说明"
+    },
+    {
+      "name": "card_publish_count",
+      "value": "本卡片已发布 %d 次",
+      "description": "卡片发布次数"
+    },
+    {
+      "name": "card_button",
+      "value": "发布事件",
+      "description": "卡片发布按钮"
+    },
+    {
+      "name": "card_button_again",
+      "value": "再次发布",
+      "description": "卡片再次发布按钮"
+    },
+    {
+      "name": "form_description",
+      "value": "通过卡片发布自定义公共事件的服务卡片",
+      "description": "服务卡片描述信息"
     }
   ]
 }
