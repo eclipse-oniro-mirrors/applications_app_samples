@@ -1,0 +1,1744 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the License);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an AS IS BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { describe, it, expect } from '@ohos/hypium';
+import { TIMEOUT_DIALOG_RENDER, yieldTick } from '../Shared/CustomShareDriver';
+enum PointerUtilValidationKind {
+  LINK = 'link',
+  FILE = 'file',
+  OTHER = 'other',
+  TEXT = 'text',
+  EDIT = 'edit'
+}
+
+interface PointerUtilValidationEntry {
+  id: number;
+  label: string;
+  kind: PointerUtilValidationKind;
+  enabled: boolean;
+}
+
+class PointerUtilValidationRegistry {
+  private entries: Map<number, PointerUtilValidationEntry> = new Map<number, PointerUtilValidationEntry>();
+
+  public register(entry: PointerUtilValidationEntry): boolean {
+    if (entry.id < 0 || entry.label.length === 0) {
+      return false;
+    }
+    this.entries.set(entry.id, entry);
+    return true;
+  }
+
+  public contains(id: number): boolean {
+    return this.entries.has(id);
+  }
+
+  public size(): number {
+    return this.entries.size;
+  }
+
+  public enabledCount(): number {
+    let count: number = 0;
+    this.entries.forEach((entry: PointerUtilValidationEntry) => {
+      if (entry.enabled) {
+        count++;
+      }
+    });
+    return count;
+  }
+}
+class PointerUtilValidationMetrics {
+  private counts: Map<string, number> = new Map<string, number>();
+  private totalAmount: number = 0;
+
+  public record(key: string, amount: number = 1): void {
+    const current: number = this.counts.get(key) ?? 0;
+    this.counts.set(key, current + amount);
+    this.totalAmount += amount;
+  }
+
+  public count(key: string): number {
+    return this.counts.get(key) ?? 0;
+  }
+
+  public total(): number {
+    return this.totalAmount;
+  }
+
+  public distinct(): number {
+    return this.counts.size;
+  }
+
+  public average(): number {
+    if (this.counts.size === 0) {
+      return 0;
+    }
+    return this.totalAmount / this.counts.size;
+  }
+}
+enum PointerUtilValidationErrorCode {
+  OK = 0,
+  EMPTY = 1,
+  TOO_LONG = 2,
+  INVALID = 3
+}
+
+interface PointerUtilValidationValidationResult {
+  ok: boolean;
+  code: PointerUtilValidationErrorCode;
+  message: string;
+}
+
+class PointerUtilValidationValidator {
+  private maxLength: number;
+
+  constructor(maxLength: number = 64) {
+    this.maxLength = maxLength;
+  }
+
+  public validate(value: string): PointerUtilValidationValidationResult {
+    if (value.length === 0) {
+      return { ok: false, code: PointerUtilValidationErrorCode.EMPTY, message: 'empty value' };
+    }
+    if (value.length > this.maxLength) {
+      return { ok: false, code: PointerUtilValidationErrorCode.TOO_LONG, message: 'value too long' };
+    }
+    return { ok: true, code: PointerUtilValidationErrorCode.OK, message: 'valid value' };
+  }
+
+  public isUrl(value: string): boolean {
+    return value.indexOf('http://') === 0 || value.indexOf('https://') === 0;
+  }
+
+  public isEmpty(value: string): boolean {
+    return value.length === 0;
+  }
+}
+enum PointerUtilValidationState {
+  IDLE = 'idle',
+  READY = 'ready',
+  RUNNING = 'running',
+  DONE = 'done',
+  FAILED = 'failed'
+}
+
+class PointerUtilValidationStateMachine {
+  private state: PointerUtilValidationState = PointerUtilValidationState.IDLE;
+  private transitionCount: number = 0;
+
+  public transition(to: PointerUtilValidationState): boolean {
+    this.state = to;
+    this.transitionCount++;
+    return true;
+  }
+
+  public current(): PointerUtilValidationState {
+    return this.state;
+  }
+
+  public count(): number {
+    return this.transitionCount;
+  }
+
+  public isTerminal(): boolean {
+    return this.state === PointerUtilValidationState.DONE || this.state === PointerUtilValidationState.FAILED;
+  }
+
+  public reset(): void {
+    this.state = PointerUtilValidationState.IDLE;
+    this.transitionCount = 0;
+  }
+}
+class PointerUtilValidationMap0 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class PointerUtilValidationQueue1 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class PointerUtilValidationCheck2 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class PointerUtilValidationTrack3 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class PointerUtilValidationMap4 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class PointerUtilValidationQueue5 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class PointerUtilValidationCheck6 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class PointerUtilValidationTrack7 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class PointerUtilValidationMap8 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class PointerUtilValidationQueue9 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class PointerUtilValidationCheck10 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class PointerUtilValidationTrack11 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class PointerUtilValidationMap12 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class PointerUtilValidationQueue13 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class PointerUtilValidationCheck14 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class PointerUtilValidationTrack15 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class PointerUtilValidationMap16 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class PointerUtilValidationQueue17 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class PointerUtilValidationCheck18 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class PointerUtilValidationTrack19 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class PointerUtilValidationMap20 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class PointerUtilValidationQueue21 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class PointerUtilValidationCheck22 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class PointerUtilValidationTrack23 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class PointerUtilValidationMap24 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class PointerUtilValidationQueue25 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class PointerUtilValidationCheck26 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class PointerUtilValidationTrack27 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class PointerUtilValidationMap28 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class PointerUtilValidationQueue29 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class PointerUtilValidationCheck30 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class PointerUtilValidationTrack31 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class PointerUtilValidationMap32 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class PointerUtilValidationQueue33 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class PointerUtilValidationCheck34 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class PointerUtilValidationTrack35 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class PointerUtilValidationMap36 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class PointerUtilValidationQueue37 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class PointerUtilValidationCheck38 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class PointerUtilValidationTrack39 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class PointerUtilValidationMap40 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class PointerUtilValidationQueue41 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class PointerUtilValidationCheck42 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class PointerUtilValidationTrack43 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class PointerUtilValidationMap44 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class PointerUtilValidationQueue45 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class PointerUtilValidationCheck46 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class PointerUtilValidationTrack47 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class PointerUtilValidationMap48 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class PointerUtilValidationQueue49 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class PointerUtilValidationCheck50 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class PointerUtilValidationTrack51 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class PointerUtilValidationMap52 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class PointerUtilValidationQueue53 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class PointerUtilValidationCheck54 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class PointerUtilValidationTrack55 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class PointerUtilValidationMap56 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+class PointerUtilValidationQueue57 {
+  private items: string[] = [];
+
+  public push(item: string): void {
+    this.items.push(item);
+  }
+
+  public shift(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items.shift() ?? '';
+  }
+
+  public peek(): string {
+    if (this.items.length === 0) {
+      return '';
+    }
+    return this.items[0];
+  }
+
+  public size(): number {
+    return this.items.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.items.length === 0;
+  }
+}
+class PointerUtilValidationCheck58 {
+  private limit: number;
+
+  constructor(limit: number = 10) {
+    this.limit = limit;
+  }
+
+  public within(value: number): boolean {
+    return value >= 0 && value <= this.limit;
+  }
+
+  public nonEmpty(value: string): boolean {
+    return value.length > 0;
+  }
+
+  public rate(valid: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return valid / total;
+  }
+}
+class PointerUtilValidationTrack59 {
+  private seen: string[] = [];
+
+  public mark(key: string): boolean {
+    if (this.seen.indexOf(key) >= 0) {
+      return false;
+    }
+    this.seen.push(key);
+    return true;
+  }
+
+  public has(key: string): boolean {
+    return this.seen.indexOf(key) >= 0;
+  }
+
+  public size(): number {
+    return this.seen.length;
+  }
+
+  public reset(): void {
+    this.seen = [];
+  }
+}
+class PointerUtilValidationMap60 {
+  private values: Map<string, number> = new Map<string, number>();
+
+  public add(key: string, value: number): boolean {
+    if (key.length === 0) {
+      return false;
+    }
+    this.values.set(key, value);
+    return true;
+  }
+
+  public get(key: string): number {
+    return this.values.get(key) ?? 0;
+  }
+
+  public size(): number {
+    return this.values.size;
+  }
+
+  public total(): number {
+    let sum: number = 0;
+    this.values.forEach((value: number) => {
+      sum += value;
+    });
+    return sum;
+  }
+}
+
+export default function pointerUtilValidationTest() {
+  describe('PointerUtilValidation_Test', () => {
+
+    it('pointerUtilValidationTest_share_registry_0', 0, async () => {
+      await yieldTick();
+      const registry = new PointerUtilValidationRegistry();
+      expect(registry.register({ id: 0, label: 'share_0', kind: PointerUtilValidationKind.LINK, enabled: true })).assertTrue();
+      expect(registry.contains(0)).assertTrue();
+      expect(registry.size()).assertEqual(1);
+    });
+    it('pointerUtilValidationTest_share_metrics_1', 0, async () => {
+      await yieldTick();
+      const metrics = new PointerUtilValidationMetrics();
+      metrics.record('link', 2);
+      metrics.record('file', 3);
+      expect(metrics.total()).assertEqual(5);
+      expect(metrics.count('link')).assertEqual(2);
+      expect(metrics.distinct()).assertEqual(2);
+    });
+    it('pointerUtilValidationTest_share_validate_2', 0, async () => {
+      await yieldTick();
+      const validator = new PointerUtilValidationValidator(8);
+      expect(validator.validate('').ok).assertFalse();
+      expect(validator.validate('share').ok).assertTrue();
+      expect(validator.validate('oversized').ok).assertFalse();
+      expect(validator.isUrl('https://example.com/share')).assertTrue();
+    });
+    it('pointerUtilValidationTest_share_state_3', 0, async () => {
+      await yieldTick();
+      const machine = new PointerUtilValidationStateMachine();
+      machine.transition(PointerUtilValidationState.READY);
+      machine.transition(PointerUtilValidationState.RUNNING);
+      expect(machine.count()).assertEqual(2);
+      expect(machine.current()).assertEqual(PointerUtilValidationState.RUNNING);
+      machine.transition(PointerUtilValidationState.DONE);
+      expect(machine.isTerminal()).assertTrue();
+    });
+  });
+}
