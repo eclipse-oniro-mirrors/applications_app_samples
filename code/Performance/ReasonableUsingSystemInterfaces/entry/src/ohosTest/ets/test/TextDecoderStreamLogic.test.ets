@@ -2509,3 +2509,1950 @@ export default function TextDecoderStreamLogic(): void {
         const first: string = decoder.decodeToString(firstBytes, { stream: true });
         InterfaceTestLog.value(name, 'incomplete scalar withheld', firstExpected, first);
         expect(first).assertEqual(firstExpected);
+        const middleEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty streaming chunk preserves pending', '', middleEmpty);
+        expect(middleEmpty).assertEqual('');
+        const otherDecoder: util.TextDecoder = util.TextDecoder.create();
+        const otherText: string = otherDecoder.decodeToString(new Uint8Array([0x58, 0xC2, 0xA2]));
+        InterfaceTestLog.value(name, 'different decoder cannot see pending', 'X\u00A2', otherText);
+        expect(otherText).assertEqual('X\u00A2');
+        const secondExpected: string = '\uDBFF\uDFFF6\u0000';
+        const second: string = decoder.decodeToString(secondBytes, { stream: false });
+        InterfaceTestLog.value(name, 'scalar completed without splitting', secondExpected, second);
+        expect(second).assertEqual(secondExpected);
+        InterfaceTestLog.number(name, 'second scalar count', 3, countScalars(second));
+        expect(countScalars(second)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'complete stream empty flush', '', flush);
+        expect(flush).assertEqual('');
+        const joined: string = first + middleEmpty + second + flush;
+        const joinedExpected: string = 'e\u4E2D\uDBFF\uDFFF6\u0000';
+        InterfaceTestLog.value(name, 'complete stream fixed oracle', joinedExpected, joined);
+        expect(joined).assertEqual(joinedExpected);
+        InterfaceTestLog.flag(name, 'valid input no replacement', joined.indexOf('\uFFFD') < 0);
+        expect(joined.indexOf('\uFFFD') < 0).assertTrue();
+        InterfaceTestLog.value(name, 'first chunk bytes unchanged', firstSnapshot, firstBytes.join(','));
+        expect(firstBytes.join(',')).assertEqual(firstSnapshot);
+        InterfaceTestLog.value(name, 'second chunk bytes unchanged', secondSnapshot, secondBytes.join(','));
+        expect(secondBytes.join(',')).assertEqual(secondSnapshot);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF4, 0x8F, 0xBF, 0xBF, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uDBFF\uDFFF\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0038
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0038
+     * @tc.desc MAX_SCALAR, split 2/4, fatal false
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0038',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0038';
+        InterfaceTestLog.begin(name, 'MAX_SCALAR, split 2/4, fatal false');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'fatal option retained', decoder.fatal === false);
+        expect(decoder.fatal === false).assertTrue();
+        const firstBytes: Uint8Array = new Uint8Array([0x66, 0xE4, 0xB8, 0xAD, 0xF4, 0x8F]);
+        const secondBytes: Uint8Array = new Uint8Array([0xBF, 0xBF, 0x37, 0x00]);
+        const firstSnapshot: string = firstBytes.join(',');
+        const secondSnapshot: string = secondBytes.join(',');
+        const initialEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty stream starts empty', '', initialEmpty);
+        expect(initialEmpty).assertEqual('');
+        const firstExpected: string = 'f\u4E2D';
+        const first: string = decoder.decodeToString(firstBytes, { stream: true });
+        InterfaceTestLog.value(name, 'incomplete scalar withheld', firstExpected, first);
+        expect(first).assertEqual(firstExpected);
+        const middleEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty streaming chunk preserves pending', '', middleEmpty);
+        expect(middleEmpty).assertEqual('');
+        const otherDecoder: util.TextDecoder = util.TextDecoder.create();
+        const otherText: string = otherDecoder.decodeToString(new Uint8Array([0x58, 0xC2, 0xA2]));
+        InterfaceTestLog.value(name, 'different decoder cannot see pending', 'X\u00A2', otherText);
+        expect(otherText).assertEqual('X\u00A2');
+        const secondExpected: string = '\uDBFF\uDFFF7\u0000';
+        const second: string = decoder.decodeToString(secondBytes, { stream: true });
+        InterfaceTestLog.value(name, 'scalar completed without splitting', secondExpected, second);
+        expect(second).assertEqual(secondExpected);
+        InterfaceTestLog.number(name, 'second scalar count', 3, countScalars(second));
+        expect(countScalars(second)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'complete stream empty flush', '', flush);
+        expect(flush).assertEqual('');
+        const joined: string = first + middleEmpty + second + flush;
+        const joinedExpected: string = 'f\u4E2D\uDBFF\uDFFF7\u0000';
+        InterfaceTestLog.value(name, 'complete stream fixed oracle', joinedExpected, joined);
+        expect(joined).assertEqual(joinedExpected);
+        InterfaceTestLog.flag(name, 'valid input no replacement', joined.indexOf('\uFFFD') < 0);
+        expect(joined.indexOf('\uFFFD') < 0).assertTrue();
+        InterfaceTestLog.value(name, 'first chunk bytes unchanged', firstSnapshot, firstBytes.join(','));
+        expect(firstBytes.join(',')).assertEqual(firstSnapshot);
+        InterfaceTestLog.value(name, 'second chunk bytes unchanged', secondSnapshot, secondBytes.join(','));
+        expect(secondBytes.join(',')).assertEqual(secondSnapshot);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF4, 0x8F, 0xBF, 0xBF, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uDBFF\uDFFF\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0039
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0039
+     * @tc.desc MAX_SCALAR, split 3/4, fatal true
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0039',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0039';
+        InterfaceTestLog.begin(name, 'MAX_SCALAR, split 3/4, fatal true');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal option retained', decoder.fatal === true);
+        expect(decoder.fatal === true).assertTrue();
+        const firstBytes: Uint8Array = new Uint8Array([0x67, 0xE4, 0xB8, 0xAD, 0xF4, 0x8F, 0xBF]);
+        const secondBytes: Uint8Array = new Uint8Array([0xBF, 0x38, 0x00]);
+        const firstSnapshot: string = firstBytes.join(',');
+        const secondSnapshot: string = secondBytes.join(',');
+        const initialEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty stream starts empty', '', initialEmpty);
+        expect(initialEmpty).assertEqual('');
+        const firstExpected: string = 'g\u4E2D';
+        const first: string = decoder.decodeToString(firstBytes, { stream: true });
+        InterfaceTestLog.value(name, 'incomplete scalar withheld', firstExpected, first);
+        expect(first).assertEqual(firstExpected);
+        const middleEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty streaming chunk preserves pending', '', middleEmpty);
+        expect(middleEmpty).assertEqual('');
+        const otherDecoder: util.TextDecoder = util.TextDecoder.create();
+        const otherText: string = otherDecoder.decodeToString(new Uint8Array([0x58, 0xC2, 0xA2]));
+        InterfaceTestLog.value(name, 'different decoder cannot see pending', 'X\u00A2', otherText);
+        expect(otherText).assertEqual('X\u00A2');
+        const secondExpected: string = '\uDBFF\uDFFF8\u0000';
+        const second: string = decoder.decodeToString(secondBytes, { stream: true });
+        InterfaceTestLog.value(name, 'scalar completed without splitting', secondExpected, second);
+        expect(second).assertEqual(secondExpected);
+        InterfaceTestLog.number(name, 'second scalar count', 3, countScalars(second));
+        expect(countScalars(second)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'complete stream empty flush', '', flush);
+        expect(flush).assertEqual('');
+        const joined: string = first + middleEmpty + second + flush;
+        const joinedExpected: string = 'g\u4E2D\uDBFF\uDFFF8\u0000';
+        InterfaceTestLog.value(name, 'complete stream fixed oracle', joinedExpected, joined);
+        expect(joined).assertEqual(joinedExpected);
+        InterfaceTestLog.flag(name, 'valid input no replacement', joined.indexOf('\uFFFD') < 0);
+        expect(joined.indexOf('\uFFFD') < 0).assertTrue();
+        InterfaceTestLog.value(name, 'first chunk bytes unchanged', firstSnapshot, firstBytes.join(','));
+        expect(firstBytes.join(',')).assertEqual(firstSnapshot);
+        InterfaceTestLog.value(name, 'second chunk bytes unchanged', secondSnapshot, secondBytes.join(','));
+        expect(secondBytes.join(',')).assertEqual(secondSnapshot);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF4, 0x8F, 0xBF, 0xBF, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uDBFF\uDFFF\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0040
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0040
+     * @tc.desc LAPTOP, split 1/4, fatal false
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0040',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0040';
+        InterfaceTestLog.begin(name, 'LAPTOP, split 1/4, fatal false');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'fatal option retained', decoder.fatal === false);
+        expect(decoder.fatal === false).assertTrue();
+        const firstBytes: Uint8Array = new Uint8Array([0x68, 0xE4, 0xB8, 0xAD, 0xF0]);
+        const secondBytes: Uint8Array = new Uint8Array([0x9F, 0x92, 0xBB, 0x39, 0x00]);
+        const firstSnapshot: string = firstBytes.join(',');
+        const secondSnapshot: string = secondBytes.join(',');
+        const initialEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty stream starts empty', '', initialEmpty);
+        expect(initialEmpty).assertEqual('');
+        const firstExpected: string = 'h\u4E2D';
+        const first: string = decoder.decodeToString(firstBytes, { stream: true });
+        InterfaceTestLog.value(name, 'incomplete scalar withheld', firstExpected, first);
+        expect(first).assertEqual(firstExpected);
+        const middleEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty streaming chunk preserves pending', '', middleEmpty);
+        expect(middleEmpty).assertEqual('');
+        const otherDecoder: util.TextDecoder = util.TextDecoder.create();
+        const otherText: string = otherDecoder.decodeToString(new Uint8Array([0x58, 0xC2, 0xA2]));
+        InterfaceTestLog.value(name, 'different decoder cannot see pending', 'X\u00A2', otherText);
+        expect(otherText).assertEqual('X\u00A2');
+        const secondExpected: string = '\uD83D\uDCBB9\u0000';
+        const second: string = decoder.decodeToString(secondBytes, { stream: false });
+        InterfaceTestLog.value(name, 'scalar completed without splitting', secondExpected, second);
+        expect(second).assertEqual(secondExpected);
+        InterfaceTestLog.number(name, 'second scalar count', 3, countScalars(second));
+        expect(countScalars(second)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'complete stream empty flush', '', flush);
+        expect(flush).assertEqual('');
+        const joined: string = first + middleEmpty + second + flush;
+        const joinedExpected: string = 'h\u4E2D\uD83D\uDCBB9\u0000';
+        InterfaceTestLog.value(name, 'complete stream fixed oracle', joinedExpected, joined);
+        expect(joined).assertEqual(joinedExpected);
+        InterfaceTestLog.flag(name, 'valid input no replacement', joined.indexOf('\uFFFD') < 0);
+        expect(joined.indexOf('\uFFFD') < 0).assertTrue();
+        InterfaceTestLog.value(name, 'first chunk bytes unchanged', firstSnapshot, firstBytes.join(','));
+        expect(firstBytes.join(',')).assertEqual(firstSnapshot);
+        InterfaceTestLog.value(name, 'second chunk bytes unchanged', secondSnapshot, secondBytes.join(','));
+        expect(secondBytes.join(',')).assertEqual(secondSnapshot);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x92, 0xBB, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDCBB\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0041
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0041
+     * @tc.desc LAPTOP, split 2/4, fatal true
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0041',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0041';
+        InterfaceTestLog.begin(name, 'LAPTOP, split 2/4, fatal true');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal option retained', decoder.fatal === true);
+        expect(decoder.fatal === true).assertTrue();
+        const firstBytes: Uint8Array = new Uint8Array([0x69, 0xE4, 0xB8, 0xAD, 0xF0, 0x9F]);
+        const secondBytes: Uint8Array = new Uint8Array([0x92, 0xBB, 0x30, 0x00]);
+        const firstSnapshot: string = firstBytes.join(',');
+        const secondSnapshot: string = secondBytes.join(',');
+        const initialEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty stream starts empty', '', initialEmpty);
+        expect(initialEmpty).assertEqual('');
+        const firstExpected: string = 'i\u4E2D';
+        const first: string = decoder.decodeToString(firstBytes, { stream: true });
+        InterfaceTestLog.value(name, 'incomplete scalar withheld', firstExpected, first);
+        expect(first).assertEqual(firstExpected);
+        const middleEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty streaming chunk preserves pending', '', middleEmpty);
+        expect(middleEmpty).assertEqual('');
+        const otherDecoder: util.TextDecoder = util.TextDecoder.create();
+        const otherText: string = otherDecoder.decodeToString(new Uint8Array([0x58, 0xC2, 0xA2]));
+        InterfaceTestLog.value(name, 'different decoder cannot see pending', 'X\u00A2', otherText);
+        expect(otherText).assertEqual('X\u00A2');
+        const secondExpected: string = '\uD83D\uDCBB0\u0000';
+        const second: string = decoder.decodeToString(secondBytes, { stream: true });
+        InterfaceTestLog.value(name, 'scalar completed without splitting', secondExpected, second);
+        expect(second).assertEqual(secondExpected);
+        InterfaceTestLog.number(name, 'second scalar count', 3, countScalars(second));
+        expect(countScalars(second)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'complete stream empty flush', '', flush);
+        expect(flush).assertEqual('');
+        const joined: string = first + middleEmpty + second + flush;
+        const joinedExpected: string = 'i\u4E2D\uD83D\uDCBB0\u0000';
+        InterfaceTestLog.value(name, 'complete stream fixed oracle', joinedExpected, joined);
+        expect(joined).assertEqual(joinedExpected);
+        InterfaceTestLog.flag(name, 'valid input no replacement', joined.indexOf('\uFFFD') < 0);
+        expect(joined.indexOf('\uFFFD') < 0).assertTrue();
+        InterfaceTestLog.value(name, 'first chunk bytes unchanged', firstSnapshot, firstBytes.join(','));
+        expect(firstBytes.join(',')).assertEqual(firstSnapshot);
+        InterfaceTestLog.value(name, 'second chunk bytes unchanged', secondSnapshot, secondBytes.join(','));
+        expect(secondBytes.join(',')).assertEqual(secondSnapshot);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x92, 0xBB, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDCBB\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0042
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0042
+     * @tc.desc LAPTOP, split 3/4, fatal false
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0042',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0042';
+        InterfaceTestLog.begin(name, 'LAPTOP, split 3/4, fatal false');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'fatal option retained', decoder.fatal === false);
+        expect(decoder.fatal === false).assertTrue();
+        const firstBytes: Uint8Array = new Uint8Array([0x6A, 0xE4, 0xB8, 0xAD, 0xF0, 0x9F, 0x92]);
+        const secondBytes: Uint8Array = new Uint8Array([0xBB, 0x31, 0x00]);
+        const firstSnapshot: string = firstBytes.join(',');
+        const secondSnapshot: string = secondBytes.join(',');
+        const initialEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty stream starts empty', '', initialEmpty);
+        expect(initialEmpty).assertEqual('');
+        const firstExpected: string = 'j\u4E2D';
+        const first: string = decoder.decodeToString(firstBytes, { stream: true });
+        InterfaceTestLog.value(name, 'incomplete scalar withheld', firstExpected, first);
+        expect(first).assertEqual(firstExpected);
+        const middleEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty streaming chunk preserves pending', '', middleEmpty);
+        expect(middleEmpty).assertEqual('');
+        const otherDecoder: util.TextDecoder = util.TextDecoder.create();
+        const otherText: string = otherDecoder.decodeToString(new Uint8Array([0x58, 0xC2, 0xA2]));
+        InterfaceTestLog.value(name, 'different decoder cannot see pending', 'X\u00A2', otherText);
+        expect(otherText).assertEqual('X\u00A2');
+        const secondExpected: string = '\uD83D\uDCBB1\u0000';
+        const second: string = decoder.decodeToString(secondBytes, { stream: true });
+        InterfaceTestLog.value(name, 'scalar completed without splitting', secondExpected, second);
+        expect(second).assertEqual(secondExpected);
+        InterfaceTestLog.number(name, 'second scalar count', 3, countScalars(second));
+        expect(countScalars(second)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'complete stream empty flush', '', flush);
+        expect(flush).assertEqual('');
+        const joined: string = first + middleEmpty + second + flush;
+        const joinedExpected: string = 'j\u4E2D\uD83D\uDCBB1\u0000';
+        InterfaceTestLog.value(name, 'complete stream fixed oracle', joinedExpected, joined);
+        expect(joined).assertEqual(joinedExpected);
+        InterfaceTestLog.flag(name, 'valid input no replacement', joined.indexOf('\uFFFD') < 0);
+        expect(joined.indexOf('\uFFFD') < 0).assertTrue();
+        InterfaceTestLog.value(name, 'first chunk bytes unchanged', firstSnapshot, firstBytes.join(','));
+        expect(firstBytes.join(',')).assertEqual(firstSnapshot);
+        InterfaceTestLog.value(name, 'second chunk bytes unchanged', secondSnapshot, secondBytes.join(','));
+        expect(secondBytes.join(',')).assertEqual(secondSnapshot);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x92, 0xBB, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83D\uDCBB\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0043
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0043
+     * @tc.desc MUSICAL_G_CLEF, split 1/4, fatal true
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0043',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0043';
+        InterfaceTestLog.begin(name, 'MUSICAL_G_CLEF, split 1/4, fatal true');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal option retained', decoder.fatal === true);
+        expect(decoder.fatal === true).assertTrue();
+        const firstBytes: Uint8Array = new Uint8Array([0x6B, 0xE4, 0xB8, 0xAD, 0xF0]);
+        const secondBytes: Uint8Array = new Uint8Array([0x9D, 0x84, 0x9E, 0x32, 0x00]);
+        const firstSnapshot: string = firstBytes.join(',');
+        const secondSnapshot: string = secondBytes.join(',');
+        const initialEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty stream starts empty', '', initialEmpty);
+        expect(initialEmpty).assertEqual('');
+        const firstExpected: string = 'k\u4E2D';
+        const first: string = decoder.decodeToString(firstBytes, { stream: true });
+        InterfaceTestLog.value(name, 'incomplete scalar withheld', firstExpected, first);
+        expect(first).assertEqual(firstExpected);
+        const middleEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty streaming chunk preserves pending', '', middleEmpty);
+        expect(middleEmpty).assertEqual('');
+        const otherDecoder: util.TextDecoder = util.TextDecoder.create();
+        const otherText: string = otherDecoder.decodeToString(new Uint8Array([0x58, 0xC2, 0xA2]));
+        InterfaceTestLog.value(name, 'different decoder cannot see pending', 'X\u00A2', otherText);
+        expect(otherText).assertEqual('X\u00A2');
+        const secondExpected: string = '\uD834\uDD1E2\u0000';
+        const second: string = decoder.decodeToString(secondBytes, { stream: false });
+        InterfaceTestLog.value(name, 'scalar completed without splitting', secondExpected, second);
+        expect(second).assertEqual(secondExpected);
+        InterfaceTestLog.number(name, 'second scalar count', 3, countScalars(second));
+        expect(countScalars(second)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'complete stream empty flush', '', flush);
+        expect(flush).assertEqual('');
+        const joined: string = first + middleEmpty + second + flush;
+        const joinedExpected: string = 'k\u4E2D\uD834\uDD1E2\u0000';
+        InterfaceTestLog.value(name, 'complete stream fixed oracle', joinedExpected, joined);
+        expect(joined).assertEqual(joinedExpected);
+        InterfaceTestLog.flag(name, 'valid input no replacement', joined.indexOf('\uFFFD') < 0);
+        expect(joined.indexOf('\uFFFD') < 0).assertTrue();
+        InterfaceTestLog.value(name, 'first chunk bytes unchanged', firstSnapshot, firstBytes.join(','));
+        expect(firstBytes.join(',')).assertEqual(firstSnapshot);
+        InterfaceTestLog.value(name, 'second chunk bytes unchanged', secondSnapshot, secondBytes.join(','));
+        expect(secondBytes.join(',')).assertEqual(secondSnapshot);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9D, 0x84, 0x9E, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD834\uDD1E\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0044
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0044
+     * @tc.desc MUSICAL_G_CLEF, split 2/4, fatal false
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0044',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0044';
+        InterfaceTestLog.begin(name, 'MUSICAL_G_CLEF, split 2/4, fatal false');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'fatal option retained', decoder.fatal === false);
+        expect(decoder.fatal === false).assertTrue();
+        const firstBytes: Uint8Array = new Uint8Array([0x6C, 0xE4, 0xB8, 0xAD, 0xF0, 0x9D]);
+        const secondBytes: Uint8Array = new Uint8Array([0x84, 0x9E, 0x33, 0x00]);
+        const firstSnapshot: string = firstBytes.join(',');
+        const secondSnapshot: string = secondBytes.join(',');
+        const initialEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty stream starts empty', '', initialEmpty);
+        expect(initialEmpty).assertEqual('');
+        const firstExpected: string = 'l\u4E2D';
+        const first: string = decoder.decodeToString(firstBytes, { stream: true });
+        InterfaceTestLog.value(name, 'incomplete scalar withheld', firstExpected, first);
+        expect(first).assertEqual(firstExpected);
+        const middleEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty streaming chunk preserves pending', '', middleEmpty);
+        expect(middleEmpty).assertEqual('');
+        const otherDecoder: util.TextDecoder = util.TextDecoder.create();
+        const otherText: string = otherDecoder.decodeToString(new Uint8Array([0x58, 0xC2, 0xA2]));
+        InterfaceTestLog.value(name, 'different decoder cannot see pending', 'X\u00A2', otherText);
+        expect(otherText).assertEqual('X\u00A2');
+        const secondExpected: string = '\uD834\uDD1E3\u0000';
+        const second: string = decoder.decodeToString(secondBytes, { stream: true });
+        InterfaceTestLog.value(name, 'scalar completed without splitting', secondExpected, second);
+        expect(second).assertEqual(secondExpected);
+        InterfaceTestLog.number(name, 'second scalar count', 3, countScalars(second));
+        expect(countScalars(second)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'complete stream empty flush', '', flush);
+        expect(flush).assertEqual('');
+        const joined: string = first + middleEmpty + second + flush;
+        const joinedExpected: string = 'l\u4E2D\uD834\uDD1E3\u0000';
+        InterfaceTestLog.value(name, 'complete stream fixed oracle', joinedExpected, joined);
+        expect(joined).assertEqual(joinedExpected);
+        InterfaceTestLog.flag(name, 'valid input no replacement', joined.indexOf('\uFFFD') < 0);
+        expect(joined.indexOf('\uFFFD') < 0).assertTrue();
+        InterfaceTestLog.value(name, 'first chunk bytes unchanged', firstSnapshot, firstBytes.join(','));
+        expect(firstBytes.join(',')).assertEqual(firstSnapshot);
+        InterfaceTestLog.value(name, 'second chunk bytes unchanged', secondSnapshot, secondBytes.join(','));
+        expect(secondBytes.join(',')).assertEqual(secondSnapshot);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9D, 0x84, 0x9E, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD834\uDD1E\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0045
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0045
+     * @tc.desc MUSICAL_G_CLEF, split 3/4, fatal true
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0045',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0045';
+        InterfaceTestLog.begin(name, 'MUSICAL_G_CLEF, split 3/4, fatal true');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal option retained', decoder.fatal === true);
+        expect(decoder.fatal === true).assertTrue();
+        const firstBytes: Uint8Array = new Uint8Array([0x6D, 0xE4, 0xB8, 0xAD, 0xF0, 0x9D, 0x84]);
+        const secondBytes: Uint8Array = new Uint8Array([0x9E, 0x34, 0x00]);
+        const firstSnapshot: string = firstBytes.join(',');
+        const secondSnapshot: string = secondBytes.join(',');
+        const initialEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty stream starts empty', '', initialEmpty);
+        expect(initialEmpty).assertEqual('');
+        const firstExpected: string = 'm\u4E2D';
+        const first: string = decoder.decodeToString(firstBytes, { stream: true });
+        InterfaceTestLog.value(name, 'incomplete scalar withheld', firstExpected, first);
+        expect(first).assertEqual(firstExpected);
+        const middleEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty streaming chunk preserves pending', '', middleEmpty);
+        expect(middleEmpty).assertEqual('');
+        const otherDecoder: util.TextDecoder = util.TextDecoder.create();
+        const otherText: string = otherDecoder.decodeToString(new Uint8Array([0x58, 0xC2, 0xA2]));
+        InterfaceTestLog.value(name, 'different decoder cannot see pending', 'X\u00A2', otherText);
+        expect(otherText).assertEqual('X\u00A2');
+        const secondExpected: string = '\uD834\uDD1E4\u0000';
+        const second: string = decoder.decodeToString(secondBytes, { stream: true });
+        InterfaceTestLog.value(name, 'scalar completed without splitting', secondExpected, second);
+        expect(second).assertEqual(secondExpected);
+        InterfaceTestLog.number(name, 'second scalar count', 3, countScalars(second));
+        expect(countScalars(second)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'complete stream empty flush', '', flush);
+        expect(flush).assertEqual('');
+        const joined: string = first + middleEmpty + second + flush;
+        const joinedExpected: string = 'm\u4E2D\uD834\uDD1E4\u0000';
+        InterfaceTestLog.value(name, 'complete stream fixed oracle', joinedExpected, joined);
+        expect(joined).assertEqual(joinedExpected);
+        InterfaceTestLog.flag(name, 'valid input no replacement', joined.indexOf('\uFFFD') < 0);
+        expect(joined.indexOf('\uFFFD') < 0).assertTrue();
+        InterfaceTestLog.value(name, 'first chunk bytes unchanged', firstSnapshot, firstBytes.join(','));
+        expect(firstBytes.join(',')).assertEqual(firstSnapshot);
+        InterfaceTestLog.value(name, 'second chunk bytes unchanged', secondSnapshot, secondBytes.join(','));
+        expect(secondBytes.join(',')).assertEqual(secondSnapshot);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9D, 0x84, 0x9E, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD834\uDD1E\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0046
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0046
+     * @tc.desc REGIONAL_C, split 1/4, fatal false
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0046',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0046';
+        InterfaceTestLog.begin(name, 'REGIONAL_C, split 1/4, fatal false');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'fatal option retained', decoder.fatal === false);
+        expect(decoder.fatal === false).assertTrue();
+        const firstBytes: Uint8Array = new Uint8Array([0x6E, 0xE4, 0xB8, 0xAD, 0xF0]);
+        const secondBytes: Uint8Array = new Uint8Array([0x9F, 0x87, 0xA8, 0x35, 0x00]);
+        const firstSnapshot: string = firstBytes.join(',');
+        const secondSnapshot: string = secondBytes.join(',');
+        const initialEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty stream starts empty', '', initialEmpty);
+        expect(initialEmpty).assertEqual('');
+        const firstExpected: string = 'n\u4E2D';
+        const first: string = decoder.decodeToString(firstBytes, { stream: true });
+        InterfaceTestLog.value(name, 'incomplete scalar withheld', firstExpected, first);
+        expect(first).assertEqual(firstExpected);
+        const middleEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty streaming chunk preserves pending', '', middleEmpty);
+        expect(middleEmpty).assertEqual('');
+        const otherDecoder: util.TextDecoder = util.TextDecoder.create();
+        const otherText: string = otherDecoder.decodeToString(new Uint8Array([0x58, 0xC2, 0xA2]));
+        InterfaceTestLog.value(name, 'different decoder cannot see pending', 'X\u00A2', otherText);
+        expect(otherText).assertEqual('X\u00A2');
+        const secondExpected: string = '\uD83C\uDDE85\u0000';
+        const second: string = decoder.decodeToString(secondBytes, { stream: false });
+        InterfaceTestLog.value(name, 'scalar completed without splitting', secondExpected, second);
+        expect(second).assertEqual(secondExpected);
+        InterfaceTestLog.number(name, 'second scalar count', 3, countScalars(second));
+        expect(countScalars(second)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'complete stream empty flush', '', flush);
+        expect(flush).assertEqual('');
+        const joined: string = first + middleEmpty + second + flush;
+        const joinedExpected: string = 'n\u4E2D\uD83C\uDDE85\u0000';
+        InterfaceTestLog.value(name, 'complete stream fixed oracle', joinedExpected, joined);
+        expect(joined).assertEqual(joinedExpected);
+        InterfaceTestLog.flag(name, 'valid input no replacement', joined.indexOf('\uFFFD') < 0);
+        expect(joined.indexOf('\uFFFD') < 0).assertTrue();
+        InterfaceTestLog.value(name, 'first chunk bytes unchanged', firstSnapshot, firstBytes.join(','));
+        expect(firstBytes.join(',')).assertEqual(firstSnapshot);
+        InterfaceTestLog.value(name, 'second chunk bytes unchanged', secondSnapshot, secondBytes.join(','));
+        expect(secondBytes.join(',')).assertEqual(secondSnapshot);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x87, 0xA8, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83C\uDDE8\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0047
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0047
+     * @tc.desc REGIONAL_C, split 2/4, fatal true
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0047',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0047';
+        InterfaceTestLog.begin(name, 'REGIONAL_C, split 2/4, fatal true');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'fatal option retained', decoder.fatal === true);
+        expect(decoder.fatal === true).assertTrue();
+        const firstBytes: Uint8Array = new Uint8Array([0x6F, 0xE4, 0xB8, 0xAD, 0xF0, 0x9F]);
+        const secondBytes: Uint8Array = new Uint8Array([0x87, 0xA8, 0x36, 0x00]);
+        const firstSnapshot: string = firstBytes.join(',');
+        const secondSnapshot: string = secondBytes.join(',');
+        const initialEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty stream starts empty', '', initialEmpty);
+        expect(initialEmpty).assertEqual('');
+        const firstExpected: string = 'o\u4E2D';
+        const first: string = decoder.decodeToString(firstBytes, { stream: true });
+        InterfaceTestLog.value(name, 'incomplete scalar withheld', firstExpected, first);
+        expect(first).assertEqual(firstExpected);
+        const middleEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty streaming chunk preserves pending', '', middleEmpty);
+        expect(middleEmpty).assertEqual('');
+        const otherDecoder: util.TextDecoder = util.TextDecoder.create();
+        const otherText: string = otherDecoder.decodeToString(new Uint8Array([0x58, 0xC2, 0xA2]));
+        InterfaceTestLog.value(name, 'different decoder cannot see pending', 'X\u00A2', otherText);
+        expect(otherText).assertEqual('X\u00A2');
+        const secondExpected: string = '\uD83C\uDDE86\u0000';
+        const second: string = decoder.decodeToString(secondBytes, { stream: true });
+        InterfaceTestLog.value(name, 'scalar completed without splitting', secondExpected, second);
+        expect(second).assertEqual(secondExpected);
+        InterfaceTestLog.number(name, 'second scalar count', 3, countScalars(second));
+        expect(countScalars(second)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'complete stream empty flush', '', flush);
+        expect(flush).assertEqual('');
+        const joined: string = first + middleEmpty + second + flush;
+        const joinedExpected: string = 'o\u4E2D\uD83C\uDDE86\u0000';
+        InterfaceTestLog.value(name, 'complete stream fixed oracle', joinedExpected, joined);
+        expect(joined).assertEqual(joinedExpected);
+        InterfaceTestLog.flag(name, 'valid input no replacement', joined.indexOf('\uFFFD') < 0);
+        expect(joined.indexOf('\uFFFD') < 0).assertTrue();
+        InterfaceTestLog.value(name, 'first chunk bytes unchanged', firstSnapshot, firstBytes.join(','));
+        expect(firstBytes.join(',')).assertEqual(firstSnapshot);
+        InterfaceTestLog.value(name, 'second chunk bytes unchanged', secondSnapshot, secondBytes.join(','));
+        expect(secondBytes.join(',')).assertEqual(secondSnapshot);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x87, 0xA8, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83C\uDDE8\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0048
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0048
+     * @tc.desc REGIONAL_C, split 3/4, fatal false
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0048',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0048';
+        InterfaceTestLog.begin(name, 'REGIONAL_C, split 3/4, fatal false');
+        const decoder: util.TextDecoder = util.TextDecoder.create();
+        InterfaceTestLog.flag(name, 'fatal option retained', decoder.fatal === false);
+        expect(decoder.fatal === false).assertTrue();
+        const firstBytes: Uint8Array = new Uint8Array([0x70, 0xE4, 0xB8, 0xAD, 0xF0, 0x9F, 0x87]);
+        const secondBytes: Uint8Array = new Uint8Array([0xA8, 0x37, 0x00]);
+        const firstSnapshot: string = firstBytes.join(',');
+        const secondSnapshot: string = secondBytes.join(',');
+        const initialEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty stream starts empty', '', initialEmpty);
+        expect(initialEmpty).assertEqual('');
+        const firstExpected: string = 'p\u4E2D';
+        const first: string = decoder.decodeToString(firstBytes, { stream: true });
+        InterfaceTestLog.value(name, 'incomplete scalar withheld', firstExpected, first);
+        expect(first).assertEqual(firstExpected);
+        const middleEmpty: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'empty streaming chunk preserves pending', '', middleEmpty);
+        expect(middleEmpty).assertEqual('');
+        const otherDecoder: util.TextDecoder = util.TextDecoder.create();
+        const otherText: string = otherDecoder.decodeToString(new Uint8Array([0x58, 0xC2, 0xA2]));
+        InterfaceTestLog.value(name, 'different decoder cannot see pending', 'X\u00A2', otherText);
+        expect(otherText).assertEqual('X\u00A2');
+        const secondExpected: string = '\uD83C\uDDE87\u0000';
+        const second: string = decoder.decodeToString(secondBytes, { stream: true });
+        InterfaceTestLog.value(name, 'scalar completed without splitting', secondExpected, second);
+        expect(second).assertEqual(secondExpected);
+        InterfaceTestLog.number(name, 'second scalar count', 3, countScalars(second));
+        expect(countScalars(second)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'complete stream empty flush', '', flush);
+        expect(flush).assertEqual('');
+        const joined: string = first + middleEmpty + second + flush;
+        const joinedExpected: string = 'p\u4E2D\uD83C\uDDE87\u0000';
+        InterfaceTestLog.value(name, 'complete stream fixed oracle', joinedExpected, joined);
+        expect(joined).assertEqual(joinedExpected);
+        InterfaceTestLog.flag(name, 'valid input no replacement', joined.indexOf('\uFFFD') < 0);
+        expect(joined.indexOf('\uFFFD') < 0).assertTrue();
+        InterfaceTestLog.value(name, 'first chunk bytes unchanged', firstSnapshot, firstBytes.join(','));
+        expect(firstBytes.join(',')).assertEqual(firstSnapshot);
+        InterfaceTestLog.value(name, 'second chunk bytes unchanged', secondSnapshot, secondBytes.join(','));
+        expect(secondBytes.join(',')).assertEqual(secondSnapshot);
+        const reuseBytes: Uint8Array = new Uint8Array([0x52, 0xF0, 0x9F, 0x87, 0xA8, 0x0A]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = 'R\uD83C\uDDE8\u000A';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0049
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0049
+     * @tc.desc HAN, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0049',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0049';
+        InterfaceTestLog.begin(name, 'HAN, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([97]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'a', lead);
+        expect(lead).assertEqual('a');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xE4]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 228, byte0[0]);
+        expect(byte0[0]).assertEqual(228);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0xB8]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 184, byte1[0]);
+        expect(byte1[0]).assertEqual(184);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0xAD]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '\u4E2D', chunk2);
+        expect(chunk2).assertEqual('\u4E2D');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 173, byte2[0]);
+        expect(byte2[0]).assertEqual(173);
+        joined += chunk2;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'a\u4E2D\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 3, joined.length);
+        expect(joined.length).assertEqual(3);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xE4, 0xB8, 0xAD, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\u4E2D\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0050
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0050
+     * @tc.desc EURO, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0050',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0050';
+        InterfaceTestLog.begin(name, 'EURO, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([98]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'b', lead);
+        expect(lead).assertEqual('b');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xE2]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 226, byte0[0]);
+        expect(byte0[0]).assertEqual(226);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0x82]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 130, byte1[0]);
+        expect(byte1[0]).assertEqual(130);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0xAC]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '\u20AC', chunk2);
+        expect(chunk2).assertEqual('\u20AC');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 172, byte2[0]);
+        expect(byte2[0]).assertEqual(172);
+        joined += chunk2;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'b\u20AC\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 3, joined.length);
+        expect(joined.length).assertEqual(3);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xE2, 0x82, 0xAC, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\u20AC\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0051
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0051
+     * @tc.desc ZERO_WIDTH_SPACE, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0051',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0051';
+        InterfaceTestLog.begin(name, 'ZERO_WIDTH_SPACE, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([99]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'c', lead);
+        expect(lead).assertEqual('c');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xE2]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 226, byte0[0]);
+        expect(byte0[0]).assertEqual(226);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0x80]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 128, byte1[0]);
+        expect(byte1[0]).assertEqual(128);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0x8B]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '\u200B', chunk2);
+        expect(chunk2).assertEqual('\u200B');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 139, byte2[0]);
+        expect(byte2[0]).assertEqual(139);
+        joined += chunk2;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'c\u200B\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 3, joined.length);
+        expect(joined.length).assertEqual(3);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xE2, 0x80, 0x8B, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\u200B\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0052
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0052
+     * @tc.desc ZERO_WIDTH_JOINER, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0052',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0052';
+        InterfaceTestLog.begin(name, 'ZERO_WIDTH_JOINER, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([100]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'd', lead);
+        expect(lead).assertEqual('d');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xE2]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 226, byte0[0]);
+        expect(byte0[0]).assertEqual(226);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0x80]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 128, byte1[0]);
+        expect(byte1[0]).assertEqual(128);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0x8D]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '\u200D', chunk2);
+        expect(chunk2).assertEqual('\u200D');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 141, byte2[0]);
+        expect(byte2[0]).assertEqual(141);
+        joined += chunk2;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'd\u200D\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 3, joined.length);
+        expect(joined.length).assertEqual(3);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xE2, 0x80, 0x8D, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\u200D\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0053
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0053
+     * @tc.desc DEVANAGARI_KA, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0053',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0053';
+        InterfaceTestLog.begin(name, 'DEVANAGARI_KA, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([101]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'e', lead);
+        expect(lead).assertEqual('e');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xE0]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 224, byte0[0]);
+        expect(byte0[0]).assertEqual(224);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0xA4]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 164, byte1[0]);
+        expect(byte1[0]).assertEqual(164);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0x95]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '\u0915', chunk2);
+        expect(chunk2).assertEqual('\u0915');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 149, byte2[0]);
+        expect(byte2[0]).assertEqual(149);
+        joined += chunk2;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'e\u0915\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 3, joined.length);
+        expect(joined.length).assertEqual(3);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xE0, 0xA4, 0x95, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\u0915\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0054
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0054
+     * @tc.desc HANGUL_HAN, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0054',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0054';
+        InterfaceTestLog.begin(name, 'HANGUL_HAN, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([102]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'f', lead);
+        expect(lead).assertEqual('f');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xED]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 237, byte0[0]);
+        expect(byte0[0]).assertEqual(237);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0x95]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 149, byte1[0]);
+        expect(byte1[0]).assertEqual(149);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0x9C]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '\uD55C', chunk2);
+        expect(chunk2).assertEqual('\uD55C');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 156, byte2[0]);
+        expect(byte2[0]).assertEqual(156);
+        joined += chunk2;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'f\uD55C\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 3, joined.length);
+        expect(joined.length).assertEqual(3);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xED, 0x95, 0x9C, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\uD55C\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0055
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0055
+     * @tc.desc MIN_THREE_BYTE, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0055',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0055';
+        InterfaceTestLog.begin(name, 'MIN_THREE_BYTE, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([103]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'g', lead);
+        expect(lead).assertEqual('g');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xE0]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 224, byte0[0]);
+        expect(byte0[0]).assertEqual(224);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0xA0]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 160, byte1[0]);
+        expect(byte1[0]).assertEqual(160);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0x80]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '\u0800', chunk2);
+        expect(chunk2).assertEqual('\u0800');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 128, byte2[0]);
+        expect(byte2[0]).assertEqual(128);
+        joined += chunk2;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'g\u0800\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 3, joined.length);
+        expect(joined.length).assertEqual(3);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xE0, 0xA0, 0x80, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\u0800\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0056
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0056
+     * @tc.desc MAX_BMP, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0056',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0056';
+        InterfaceTestLog.begin(name, 'MAX_BMP, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([104]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'h', lead);
+        expect(lead).assertEqual('h');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xEF]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 239, byte0[0]);
+        expect(byte0[0]).assertEqual(239);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0xBF]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 191, byte1[0]);
+        expect(byte1[0]).assertEqual(191);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0xBF]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '\uFFFF', chunk2);
+        expect(chunk2).assertEqual('\uFFFF');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 191, byte2[0]);
+        expect(byte2[0]).assertEqual(191);
+        joined += chunk2;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'h\uFFFF\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 3, joined.length);
+        expect(joined.length).assertEqual(3);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xEF, 0xBF, 0xBF, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\uFFFF\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0057
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0057
+     * @tc.desc GRIN, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0057',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0057';
+        InterfaceTestLog.begin(name, 'GRIN, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([105]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'i', lead);
+        expect(lead).assertEqual('i');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xF0]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 240, byte0[0]);
+        expect(byte0[0]).assertEqual(240);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0x9F]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 159, byte1[0]);
+        expect(byte1[0]).assertEqual(159);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0x98]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '', chunk2);
+        expect(chunk2).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 152, byte2[0]);
+        expect(byte2[0]).assertEqual(152);
+        joined += chunk2;
+        const gap2: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 3 retains bytes', '', gap2);
+        expect(gap2).assertEqual('');
+        const byte3: Uint8Array = new Uint8Array([0x80]);
+        const chunk3: string = decoder.decodeToString(byte3, { stream: true });
+        InterfaceTestLog.value(name, 'byte 4 fixed output', '\uD83D\uDE00', chunk3);
+        expect(chunk3).assertEqual('\uD83D\uDE00');
+        InterfaceTestLog.number(name, 'byte 4 not mutated', 128, byte3[0]);
+        expect(byte3[0]).assertEqual(128);
+        joined += chunk3;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'i\uD83D\uDE00\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 4, joined.length);
+        expect(joined.length).assertEqual(4);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xF0, 0x9F, 0x98, 0x80, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\uD83D\uDE00\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0058
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0058
+     * @tc.desc ROCKET, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0058',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0058';
+        InterfaceTestLog.begin(name, 'ROCKET, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([106]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'j', lead);
+        expect(lead).assertEqual('j');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xF0]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 240, byte0[0]);
+        expect(byte0[0]).assertEqual(240);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0x9F]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 159, byte1[0]);
+        expect(byte1[0]).assertEqual(159);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0x9A]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '', chunk2);
+        expect(chunk2).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 154, byte2[0]);
+        expect(byte2[0]).assertEqual(154);
+        joined += chunk2;
+        const gap2: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 3 retains bytes', '', gap2);
+        expect(gap2).assertEqual('');
+        const byte3: Uint8Array = new Uint8Array([0x80]);
+        const chunk3: string = decoder.decodeToString(byte3, { stream: true });
+        InterfaceTestLog.value(name, 'byte 4 fixed output', '\uD83D\uDE80', chunk3);
+        expect(chunk3).assertEqual('\uD83D\uDE80');
+        InterfaceTestLog.number(name, 'byte 4 not mutated', 128, byte3[0]);
+        expect(byte3[0]).assertEqual(128);
+        joined += chunk3;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'j\uD83D\uDE80\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 4, joined.length);
+        expect(joined.length).assertEqual(4);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xF0, 0x9F, 0x9A, 0x80, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\uD83D\uDE80\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0059
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0059
+     * @tc.desc DESERET, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0059',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0059';
+        InterfaceTestLog.begin(name, 'DESERET, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([107]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'k', lead);
+        expect(lead).assertEqual('k');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xF0]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 240, byte0[0]);
+        expect(byte0[0]).assertEqual(240);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0x90]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 144, byte1[0]);
+        expect(byte1[0]).assertEqual(144);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0x90]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '', chunk2);
+        expect(chunk2).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 144, byte2[0]);
+        expect(byte2[0]).assertEqual(144);
+        joined += chunk2;
+        const gap2: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 3 retains bytes', '', gap2);
+        expect(gap2).assertEqual('');
+        const byte3: Uint8Array = new Uint8Array([0x80]);
+        const chunk3: string = decoder.decodeToString(byte3, { stream: true });
+        InterfaceTestLog.value(name, 'byte 4 fixed output', '\uD801\uDC00', chunk3);
+        expect(chunk3).assertEqual('\uD801\uDC00');
+        InterfaceTestLog.number(name, 'byte 4 not mutated', 128, byte3[0]);
+        expect(byte3[0]).assertEqual(128);
+        joined += chunk3;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'k\uD801\uDC00\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 4, joined.length);
+        expect(joined.length).assertEqual(4);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xF0, 0x90, 0x90, 0x80, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\uD801\uDC00\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0060
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0060
+     * @tc.desc MIN_SUPPLEMENTARY, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0060',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0060';
+        InterfaceTestLog.begin(name, 'MIN_SUPPLEMENTARY, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([108]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'l', lead);
+        expect(lead).assertEqual('l');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xF0]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 240, byte0[0]);
+        expect(byte0[0]).assertEqual(240);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0x90]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 144, byte1[0]);
+        expect(byte1[0]).assertEqual(144);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0x80]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '', chunk2);
+        expect(chunk2).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 128, byte2[0]);
+        expect(byte2[0]).assertEqual(128);
+        joined += chunk2;
+        const gap2: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 3 retains bytes', '', gap2);
+        expect(gap2).assertEqual('');
+        const byte3: Uint8Array = new Uint8Array([0x80]);
+        const chunk3: string = decoder.decodeToString(byte3, { stream: true });
+        InterfaceTestLog.value(name, 'byte 4 fixed output', '\uD800\uDC00', chunk3);
+        expect(chunk3).assertEqual('\uD800\uDC00');
+        InterfaceTestLog.number(name, 'byte 4 not mutated', 128, byte3[0]);
+        expect(byte3[0]).assertEqual(128);
+        joined += chunk3;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'l\uD800\uDC00\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 4, joined.length);
+        expect(joined.length).assertEqual(4);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xF0, 0x90, 0x80, 0x80, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\uD800\uDC00\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0061
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0061
+     * @tc.desc MAX_SCALAR, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0061',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0061';
+        InterfaceTestLog.begin(name, 'MAX_SCALAR, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([109]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'm', lead);
+        expect(lead).assertEqual('m');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xF4]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 244, byte0[0]);
+        expect(byte0[0]).assertEqual(244);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0x8F]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 143, byte1[0]);
+        expect(byte1[0]).assertEqual(143);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0xBF]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '', chunk2);
+        expect(chunk2).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 191, byte2[0]);
+        expect(byte2[0]).assertEqual(191);
+        joined += chunk2;
+        const gap2: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 3 retains bytes', '', gap2);
+        expect(gap2).assertEqual('');
+        const byte3: Uint8Array = new Uint8Array([0xBF]);
+        const chunk3: string = decoder.decodeToString(byte3, { stream: true });
+        InterfaceTestLog.value(name, 'byte 4 fixed output', '\uDBFF\uDFFF', chunk3);
+        expect(chunk3).assertEqual('\uDBFF\uDFFF');
+        InterfaceTestLog.number(name, 'byte 4 not mutated', 191, byte3[0]);
+        expect(byte3[0]).assertEqual(191);
+        joined += chunk3;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'm\uDBFF\uDFFF\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 4, joined.length);
+        expect(joined.length).assertEqual(4);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xF4, 0x8F, 0xBF, 0xBF, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\uDBFF\uDFFF\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0062
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0062
+     * @tc.desc LAPTOP, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0062',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0062';
+        InterfaceTestLog.begin(name, 'LAPTOP, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([110]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'n', lead);
+        expect(lead).assertEqual('n');
+        let joined: string = lead;
+        const byte0: Uint8Array = new Uint8Array([0xF0]);
+        const chunk0: string = decoder.decodeToString(byte0, { stream: true });
+        InterfaceTestLog.value(name, 'byte 1 fixed output', '', chunk0);
+        expect(chunk0).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 1 not mutated', 240, byte0[0]);
+        expect(byte0[0]).assertEqual(240);
+        joined += chunk0;
+        const gap0: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 1 retains bytes', '', gap0);
+        expect(gap0).assertEqual('');
+        const byte1: Uint8Array = new Uint8Array([0x9F]);
+        const chunk1: string = decoder.decodeToString(byte1, { stream: true });
+        InterfaceTestLog.value(name, 'byte 2 fixed output', '', chunk1);
+        expect(chunk1).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 2 not mutated', 159, byte1[0]);
+        expect(byte1[0]).assertEqual(159);
+        joined += chunk1;
+        const gap1: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 2 retains bytes', '', gap1);
+        expect(gap1).assertEqual('');
+        const byte2: Uint8Array = new Uint8Array([0x92]);
+        const chunk2: string = decoder.decodeToString(byte2, { stream: true });
+        InterfaceTestLog.value(name, 'byte 3 fixed output', '', chunk2);
+        expect(chunk2).assertEqual('');
+        InterfaceTestLog.number(name, 'byte 3 not mutated', 146, byte2[0]);
+        expect(byte2[0]).assertEqual(146);
+        joined += chunk2;
+        const gap2: string = decoder.decodeToString(new Uint8Array(0), { stream: true });
+        InterfaceTestLog.value(name, 'gap 3 retains bytes', '', gap2);
+        expect(gap2).assertEqual('');
+        const byte3: Uint8Array = new Uint8Array([0xBB]);
+        const chunk3: string = decoder.decodeToString(byte3, { stream: true });
+        InterfaceTestLog.value(name, 'byte 4 fixed output', '\uD83D\uDCBB', chunk3);
+        expect(chunk3).assertEqual('\uD83D\uDCBB');
+        InterfaceTestLog.number(name, 'byte 4 not mutated', 187, byte3[0]);
+        expect(byte3[0]).assertEqual(187);
+        joined += chunk3;
+        const tail: string = decoder.decodeToString(new Uint8Array([0x09]), { stream: false });
+        InterfaceTestLog.value(name, 'final ASCII tail', '\u0009', tail);
+        expect(tail).assertEqual('\u0009');
+        joined += tail;
+        const expected: string = 'n\uD83D\uDCBB\u0009';
+        InterfaceTestLog.value(name, 'all byte chunks fixed oracle', expected, joined);
+        expect(joined).assertEqual(expected);
+        InterfaceTestLog.number(name, 'joined UTF16 length', 4, joined.length);
+        expect(joined.length).assertEqual(4);
+        InterfaceTestLog.number(name, 'joined scalar count', 3, countScalars(joined));
+        expect(countScalars(joined)).assertEqual(3);
+        const flush: string = decoder.decodeToString(new Uint8Array(0));
+        InterfaceTestLog.value(name, 'empty final flush', '', flush);
+        expect(flush).assertEqual('');
+        const reuseBytes: Uint8Array = new Uint8Array([0xF0, 0x9F, 0x92, 0xBB, 0x00]);
+        const reuseSnapshot: string = reuseBytes.join(',');
+        const reuseExpected: string = '\uD83D\uDCBB\u0000';
+        const reuseOutput: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'same decoder next session', reuseExpected, reuseOutput);
+        expect(reuseOutput).assertEqual(reuseExpected);
+        InterfaceTestLog.value(name, 'reused input bytes immutable', reuseSnapshot, reuseBytes.join(','));
+        expect(reuseBytes.join(',')).assertEqual(reuseSnapshot);
+        const reuseFlush: string = decoder.decodeToString(new Uint8Array(0), { stream: false });
+        InterfaceTestLog.value(name, 'reused empty flush', '', reuseFlush);
+        expect(reuseFlush).assertEqual('');
+        const reuseAgain: string = decoder.decodeToString(reuseBytes);
+        InterfaceTestLog.value(name, 'repeat decoder session', reuseExpected, reuseAgain);
+        expect(reuseAgain).assertEqual(reuseExpected);
+        InterfaceTestLog.end(name);
+      });
+    /**
+     * @tc.name SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0063
+     * @tc.number SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0063
+     * @tc.desc MUSICAL_G_CLEF, every byte is a chunk, strict UTF8
+     * @tc.type FUNCTION
+     * @tc.size SMALLTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0063',
+      TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, (): void => {
+        const name: string = 'SUB_REASONABLE_SYSTEM_INTERFACE_LOGIC_TEXT_DECODERSTREAM_0063';
+        InterfaceTestLog.begin(name, 'MUSICAL_G_CLEF, every byte is a chunk, strict UTF8');
+        const decoder: util.TextDecoder = util.TextDecoder.create('utf-8', { fatal: true });
+        InterfaceTestLog.flag(name, 'strict decoder option', decoder.fatal);
+        expect(decoder.fatal).assertTrue();
+        const leadBytes: Uint8Array = new Uint8Array([111]);
+        const lead: string = decoder.decodeToString(leadBytes, { stream: true });
+        InterfaceTestLog.value(name, 'ASCII before fragmented scalar', 'o', lead);
+        expect(lead).assertEqual('o');
