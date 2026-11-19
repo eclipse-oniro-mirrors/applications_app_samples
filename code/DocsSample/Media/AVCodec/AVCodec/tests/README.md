@@ -28,9 +28,11 @@
 
 `AudioCapturerInitTest`、`VideoEncoderBufferTest`和`RecorderLifecycleIntegrationTest`分别通过Release配置的ASan与UBSan，共6项；日志为`.validation/warning-173154-address-<测试名>.log`和`warning-173154-undefined-<测试名>.log`。
 
-本次日志为`.validation/warning-173154-host.log`、`warning-173154-native-debug.log`、`warning-173154-native-release.log`、`warning-173154-lint.log`、`warning-173154-build.log`和`warning-173154-device.log`。设备结构化结果为`.validation/device-result.json`。构建仍有存量警告。原告警平台尚未复扫，不能据本地结果宣称平台已清零。
+本次日志为`.validation/warning-173154-host.log`、`warning-173154-native-debug.log`、`warning-173154-native-release.log`、`warning-173154-lint.log`、`warning-173154-build.log`和`warning-173154-device.log`。设备结构化结果为`.validation/device-result.json`。构建仍有存量警告；该轮本地验证不代表平台告警已清零，后续平台复扫情况见下一段。
 
-剩余1条`WordsTool.297`命中下方真实的Ability Assistant测试命令。保留可运行的`aa test`及其用途说明，按误报待平台复核；不拆字符或编造替代命令。
+后续平台复扫报告4条：1条等待谓词跨行缩进、2条复核说明中的重复命令名称，以及1条真实测试命令的词语告警。等待谓词改为先判断停止、暂停和音频中断，再判断音频结束和时序版本变化，保留原有短路顺序；说明段落统一使用Ability Assistant全称。下方可运行命令及用途说明保留，其词语告警按误报待平台复核。
+
+本次复验：17套Host回归及3组验证入口检查通过；PlaybackLifecycleTest、PlayerLifecycleIntegrationTest和NativeCheckTest在Debug、Release配置下均为Pass，失败检查负向控制均按预期退出1。等待谓词的32种状态组合已核对，结果与状态读取顺序保持一致。CodeLinter为245条存量、0条新增，基线未修改；HAP构建及签名Pass。本次未重跑设备用例或检测器，也未再次执行原平台扫描。日志为`.validation/warning-193443-host.log`、`warning-193443-lint.log`、`warning-193443-build.log`和`warning-193443-<debug或release>-<测试名>.log`。
 
 ### PCM队列基准
 

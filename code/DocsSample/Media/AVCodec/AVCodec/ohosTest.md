@@ -789,4 +789,6 @@ Host全量及3组入口检查通过，Native共23项Debug、Release通过，失�
 | WARNING-REGRESSION-003 | 连接设备后运行默认Hypium套件，校验新生成报告的用例数及失败数。 | Pass：13套、49/49 | 0失败、0错误、0忽略；未替代上方预览故障注入的设备验证。 |
 | WARNING-REGRESSION-004 | 对AudioCapturerInitTest、VideoEncoderBufferTest和RecorderLifecycleIntegrationTest分别执行Release配置的ASan与UBSan。 | Pass：6项 | 仅宿主检测，未执行设备检测器。 |
 
-本轮告警报告28条中，27条完成代码或文档修改；真实`aa test`命令的词语命中按误报待平台复核。原平台尚未复扫。命令、日志和回归范围见[验证说明](tests/README.md#告警修复与预览收尾)。
+上一轮28条告警的修改与验证记录见[验证说明](tests/README.md#告警修复与预览收尾)。后续平台复扫报告4条：本次调整等待谓词排版，并将两处复核说明中的命令名称改为Ability Assistant全称；可运行测试命令保留，词语告警按误报待平台复核。本次修改后尚未再次执行平台扫描。
+
+本次4条告警复验：全量Host及3组入口检查、两项播放生命周期测试与NativeCheckTest的Debug和Release构建均通过，负向控制按预期退出1；等待谓词32种状态组合的结果与读取顺序一致。CodeLinter为245条存量、0条新增，HAP构建及签名Pass。本次未重跑设备测试或检测器，历史设备Pass记录不作为本次执行结果。3处告警位置已修改，保留的真实命令仍需平台复核。
