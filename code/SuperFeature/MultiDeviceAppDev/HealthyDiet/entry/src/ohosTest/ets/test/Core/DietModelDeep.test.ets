@@ -3979,3 +3979,710 @@ export default function dietModelDeepSuite() {
       expect(m.getFoodById(1000 + 319) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0320
+     * @tc.name    DietModelDeep320
+     * @tc.desc    Diet add entry weight 321 probe 320
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep320', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(8, 0, 321);
+      expect(entry.weight).assertEqual(321);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 320) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0321
+     * @tc.name    DietModelDeep321
+     * @tc.desc    Diet food lookup for id 9 probe 321
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep321', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 9;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 321) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0322
+     * @tc.name    DietModelDeep322
+     * @tc.desc    Diet add entry weight 323 probe 322
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep322', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(10, 2, 323);
+      expect(entry.weight).assertEqual(323);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 322) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0323
+     * @tc.name    DietModelDeep323
+     * @tc.desc    Diet food lookup for id 11 probe 323
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep323', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 11;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 323) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0324
+     * @tc.name    DietModelDeep324
+     * @tc.desc    Diet add entry weight 325 probe 324
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep324', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(0, 0, 325);
+      expect(entry.weight).assertEqual(325);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 324) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0325
+     * @tc.name    DietModelDeep325
+     * @tc.desc    Diet food lookup for id 1 probe 325
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep325', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 1;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 325) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0326
+     * @tc.name    DietModelDeep326
+     * @tc.desc    Diet add entry weight 327 probe 326
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep326', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(2, 2, 327);
+      expect(entry.weight).assertEqual(327);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 326) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0327
+     * @tc.name    DietModelDeep327
+     * @tc.desc    Diet food lookup for id 3 probe 327
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep327', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 3;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 327) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0328
+     * @tc.name    DietModelDeep328
+     * @tc.desc    Diet add entry weight 329 probe 328
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep328', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(4, 0, 329);
+      expect(entry.weight).assertEqual(329);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 328) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0329
+     * @tc.name    DietModelDeep329
+     * @tc.desc    Diet food lookup for id 5 probe 329
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep329', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 5;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 329) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0330
+     * @tc.name    DietModelDeep330
+     * @tc.desc    Diet add entry weight 331 probe 330
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep330', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(6, 2, 331);
+      expect(entry.weight).assertEqual(331);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 330) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0331
+     * @tc.name    DietModelDeep331
+     * @tc.desc    Diet food lookup for id 7 probe 331
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep331', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 7;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 331) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0332
+     * @tc.name    DietModelDeep332
+     * @tc.desc    Diet add entry weight 333 probe 332
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep332', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(8, 0, 333);
+      expect(entry.weight).assertEqual(333);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 332) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0333
+     * @tc.name    DietModelDeep333
+     * @tc.desc    Diet food lookup for id 9 probe 333
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep333', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 9;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 333) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0334
+     * @tc.name    DietModelDeep334
+     * @tc.desc    Diet add entry weight 335 probe 334
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep334', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(10, 2, 335);
+      expect(entry.weight).assertEqual(335);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 334) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0335
+     * @tc.name    DietModelDeep335
+     * @tc.desc    Diet food lookup for id 11 probe 335
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep335', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 11;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 335) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0336
+     * @tc.name    DietModelDeep336
+     * @tc.desc    Diet add entry weight 337 probe 336
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep336', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(0, 0, 337);
+      expect(entry.weight).assertEqual(337);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 336) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0337
+     * @tc.name    DietModelDeep337
+     * @tc.desc    Diet food lookup for id 1 probe 337
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep337', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 1;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 337) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0338
+     * @tc.name    DietModelDeep338
+     * @tc.desc    Diet add entry weight 339 probe 338
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep338', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(2, 2, 339);
+      expect(entry.weight).assertEqual(339);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 338) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0339
+     * @tc.name    DietModelDeep339
+     * @tc.desc    Diet food lookup for id 3 probe 339
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep339', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 3;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 339) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0340
+     * @tc.name    DietModelDeep340
+     * @tc.desc    Diet add entry weight 341 probe 340
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep340', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(4, 0, 341);
+      expect(entry.weight).assertEqual(341);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 340) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0341
+     * @tc.name    DietModelDeep341
+     * @tc.desc    Diet food lookup for id 5 probe 341
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep341', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 5;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 341) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0342
+     * @tc.name    DietModelDeep342
+     * @tc.desc    Diet add entry weight 343 probe 342
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep342', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(6, 2, 343);
+      expect(entry.weight).assertEqual(343);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 342) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0343
+     * @tc.name    DietModelDeep343
+     * @tc.desc    Diet food lookup for id 7 probe 343
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep343', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 7;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 343) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0344
+     * @tc.name    DietModelDeep344
+     * @tc.desc    Diet add entry weight 345 probe 344
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep344', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(8, 0, 345);
+      expect(entry.weight).assertEqual(345);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 344) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0345
+     * @tc.name    DietModelDeep345
+     * @tc.desc    Diet food lookup for id 9 probe 345
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep345', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 9;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 345) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0346
+     * @tc.name    DietModelDeep346
+     * @tc.desc    Diet add entry weight 347 probe 346
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep346', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(10, 2, 347);
+      expect(entry.weight).assertEqual(347);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 346) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0347
+     * @tc.name    DietModelDeep347
+     * @tc.desc    Diet food lookup for id 11 probe 347
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep347', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 11;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 347) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0348
+     * @tc.name    DietModelDeep348
+     * @tc.desc    Diet add entry weight 349 probe 348
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep348', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(0, 0, 349);
+      expect(entry.weight).assertEqual(349);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 348) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0349
+     * @tc.name    DietModelDeep349
+     * @tc.desc    Diet food lookup for id 1 probe 349
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep349', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 1;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 349) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0350
+     * @tc.name    DietModelDeep350
+     * @tc.desc    Diet add entry weight 351 probe 350
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep350', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(2, 2, 351);
+      expect(entry.weight).assertEqual(351);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 350) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0351
+     * @tc.name    DietModelDeep351
+     * @tc.desc    Diet food lookup for id 3 probe 351
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep351', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 3;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 351) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0352
+     * @tc.name    DietModelDeep352
+     * @tc.desc    Diet add entry weight 353 probe 352
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep352', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(4, 0, 353);
+      expect(entry.weight).assertEqual(353);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 352) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0353
+     * @tc.name    DietModelDeep353
+     * @tc.desc    Diet food lookup for id 5 probe 353
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep353', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 5;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 353) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0354
+     * @tc.name    DietModelDeep354
+     * @tc.desc    Diet add entry weight 355 probe 354
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep354', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(6, 2, 355);
+      expect(entry.weight).assertEqual(355);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 354) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0355
+     * @tc.name    DietModelDeep355
+     * @tc.desc    Diet food lookup for id 7 probe 355
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep355', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const id: number = 7;
+      const food = m.getFoodById(id);
+      expect(food !== undefined).assertEqual(true);
+      expect(food?.id).assertEqual(id);
+      expect(m.getFoodById(1000 + 355) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_DIET_0356
+     * @tc.name    DietModelDeep356
+     * @tc.desc    Diet add entry weight 357 probe 356
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('DietModelDeep356', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const before: number = m.getEntryCount();
+      const entry = m.addEntry(8, 0, 357);
+      expect(entry.weight).assertEqual(357);
+      expect(m.getEntryCount()).assertEqual(before + 1);
+      expect(m.getFoodById(1000 + 356) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
