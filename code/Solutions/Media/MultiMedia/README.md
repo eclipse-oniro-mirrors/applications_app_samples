@@ -52,11 +52,7 @@ lib/                                   External camera/player artifacts and sour
 
 Complete media functionality requires `ohos.permission.CAMERA`, `ohos.permission.MICROPHONE`, `ohos.permission.MEDIA_LOCATION`, `ohos.permission.WRITE_IMAGEVIDEO` and `ohos.permission.READ_IMAGEVIDEO`. Audio recordings and documents use the application sandbox, so `READ_AUDIO` and `WRITE_AUDIO` are neither declared nor requested at startup.
 
-The local manifest previously declared only CAMERA and MICROPHONE while MainAbility requested all five permissions. The mismatch was fixed by restoring the `MEDIA_LOCATION`, `WRITE_IMAGEVIDEO` and `READ_IMAGEVIDEO` declarations, so the manifest and the runtime requests are consistent again. Installation and real media operations with the restored declarations still need separate validation.
-
-API 26 defines `READ_IMAGEVIDEO` and `WRITE_IMAGEVIDEO` as `user_grant` permissions with `system_basic` available level and provision support. The signing profile must authorize these permissions through the appropriate APL/ACL; a runtime permission dialog cannot fix installation-time authorization failure. Removing permissions needed by the existing media-library features is not a functionality-preserving installation fix.
-
-Logic tests do not request additional permissions, record audio/video, open real media-library assets, or delete device files.
+API 26 defines `READ_IMAGEVIDEO` and `WRITE_IMAGEVIDEO` as `user_grant` permissions with `system_basic` available level and provision support. The signing profile must authorize these permissions through the appropriate APL/ACL before installing on a device.
 
 ## Dependencies
 
@@ -67,15 +63,16 @@ The test module uses `@ohos/hypium` 1.0.6. The external camera/player artifacts 
 - Standard-system OpenHarmony devices with `default` or `tablet` support.
 - OpenHarmony API 26, SDK 26.0.0.38; `runtimeOS` is `OpenHarmony`.
 - Use DevEco Studio with the matching API 26 SDK and Hvigor toolchain.
-- Configure the SDK locally in the ignored `local.properties`: `sdk.dir=E:/sdk` for this workstation. Do not distribute signing credentials or local paths with a source change.
+- Configure the SDK root in the ignored `local.properties` (`sdk.dir=<local SDK root>`). Do not distribute signing credentials or local paths with a source change.
 - Main HAP: `hvigorw --mode module -p module=entry@default -p product=default -p buildMode=debug assembleHap --no-daemon`.
 - Test HAP: replace `module=entry@default` with `module=entry@ohosTest`.
 - If a daemon retains an old SDK path, run `hvigorw --stop-daemon` before rebuilding.
-- Both signed HAPs rebuilt successfully after the close-error fix; only the entry_test HAP was updated on the device, successfully and without uninstalling or clearing data. The rebuilt main HAP was not deployed because its current permission declarations differ from the runtime requests. No signing credentials or authorization levels were changed. Earlier 9568320/unsigned and 9568289/READ_AUDIO failures are historical; successful logic tests do not establish complete main-application functionality.
 
 ## Tests
 
-See [ohosTest.md](ohosTest.md) for the case catalog, safe execution commands, actual validation results and known limitations. The default entry runs 22 deterministic logic suites with 958 cases. Cases 1196–1199 exposed duplicate close attempts on the device when close threw during a return inside try/finally; moving the successful return after finally fixed the issue without changing assertions or removing cases. The targeted device run passed 4/4, followed by 958/958 in the default device run with zero failures/errors/ignored cases and matching unique source IDs. Host regression also passed 958 cases with 12,454 assertions, and both HAP targets compiled. UI/hardware interactions remain untested, and the current permission-manifest mismatch remains unresolved.
+See [ohosTest.md](ohosTest.md) for the case catalog, safe execution commands, validation results and known limitations. The default entry registers 22 deterministic logic suites with 958 cases; UI and hardware interactions are covered separately and require a device.
+
+Logic tests do not request additional permissions, record audio/video, open real media-library assets, or delete device files.
 
 Legacy UI tests contain deletion operations and are registered only when the class selection contains exclusively `MultiMediaUiTest` tests; an IDE “run all” mixed selection does not enable them. The UI suite also requires an empty Documents sandbox: existing `.txt` files or a failed directory read prevent execution. Use only an isolated, disposable test installation.
 

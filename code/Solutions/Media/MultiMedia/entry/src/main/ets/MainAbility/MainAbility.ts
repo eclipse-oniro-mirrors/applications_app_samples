@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-import UIAbility from '@ohos.app.ability.UIAbility'
-import abilityAccessCtrl from '@ohos.abilityAccessCtrl'
-import type { Permissions } from '@ohos.abilityAccessCtrl'
-import Logger from '../model/Logger'
+import { UIAbility } from '@kit.AbilityKit';
+import { abilityAccessCtrl } from '@kit.AbilityKit';
+import type { Permissions } from '@kit.AbilityKit';
+import Logger from '../model/Logger';
 
 const TAG: string = 'MainAbility'
 const PERMISSIONS: Array<Permissions> = [

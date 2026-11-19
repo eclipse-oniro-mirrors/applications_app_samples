@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -184,8 +184,9 @@ export default class CameraService {
     this.cameraInput = this.cameraManager.createCameraInput(cameraDevice);
     this.cameraInput.open();
     Logger.info(this.tag, 'createCameraInput');
-    this.cameraOutputCapability = this.cameraManager.getSupportedOutputCapability(cameraDevice, camera.SceneMode.NORMAL_VIDEO);
-    let previewProfile = this.cameraOutputCapability.previewProfiles[0];
+    this.cameraOutputCapability =
+      this.cameraManager.getSupportedOutputCapability(cameraDevice, camera.SceneMode.NORMAL_VIDEO);
+    const previewProfile = this.cameraOutputCapability.previewProfiles[0];
     this.previewSize = previewProfile.size;
     this.previewOutput = this.cameraManager.createPreviewOutput(previewProfile, surfaceId);
     Logger.info(this.tag, 'createPreviewOutput');
