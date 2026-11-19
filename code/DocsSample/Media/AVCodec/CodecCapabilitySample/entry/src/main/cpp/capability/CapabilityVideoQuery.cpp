@@ -462,24 +462,24 @@ std::string CapabilityQuery::FindSecureDecoder()
     // 2. 获取所有视频解码器的能力列表。
     OH_AVCapability **capabilityList = OH_AVCodec_GetCapabilityList(OH_AVCODEC_TYPE_VIDEO_DECODER, &count);
 
-    // 3. 遍历能力列表，筛选目标MIME类型的安全解码器并创建实例。
+    // 3. 遍历能力列表，筛选目标MIME类型的DRM解码器并创建实例。
     OH_AVCodec *secureVideoDec = nullptr;
     for (uint32_t i = 0; capabilityList != nullptr && i < count; i++) {
         OH_AVCapability *cap = capabilityList[i];
-        // 4. 检查是否为目标的MIME类型，且必须是安全解码器。
+        // 4. 检查是否为目标的MIME类型，且必须是DRM解码器。
         if (!OH_AVCapability_CheckMimeType(cap, targetMime) || !OH_AVCapability_IsSecure(cap)) {
             continue;
         }
         // 5. 找到符合条件的解码器，获取其名称用于创建实例。
         secureVideoDec = OH_VideoDecoder_CreateByName(OH_AVCapability_GetName(cap));
         if (secureVideoDec != nullptr) {
-            // 6. 成功创建安全解码器，跳出循环执行后续业务。
+            // 6. 成功创建DRM解码器，跳出循环执行后续业务。
             break;
         }
     }
     // [End capability_secure_decoder]
-    // 说明：示例按文档完成安全解码器的查询与创建，创建的实例由业务方在使用完毕后调用OH_VideoDecoder_Destroy释放。
-    std::string result = "筛选特定MIME类型的安全解码器（DRM播放场景）：";
+    // 说明：示例按文档完成DRM解码器的查询与创建，创建的实例由业务方在使用完毕后调用OH_VideoDecoder_Destroy释放。
+    std::string result = "筛选特定MIME类型的DRM解码器（DRM播放场景）：";
     if (capabilityList == nullptr || count == 0) {
         return result + "未查询到视频解码器能力列表。";
     }
@@ -492,9 +492,9 @@ std::string CapabilityQuery::FindSecureDecoder()
         }
     }
     if (secureName != nullptr) {
-        result += "已找到H.264安全解码器: " + SafeName(secureName);
+        result += "已找到H.264DRM解码器: " + SafeName(secureName);
     } else {
-        result += "当前设备不存在H.264安全解码器（普通设备通常不提供DRM安全解码链路）。";
+        result += "当前设备不存在H.264DRM解码器（普通设备通常不提供DRM安全解码链路）。";
     }
     return result;
 }
