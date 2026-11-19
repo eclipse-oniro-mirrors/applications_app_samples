@@ -4282,3 +4282,1930 @@ export default function AppConfigMatrixTest(): void {
         const paths: string[] = FindingUtils.paths(findings);
         for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
           TestLog.text('testAppMatrixEmptySegmentSpaces', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixEmptySegmentSpaces', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixEmptySegmentSpaces', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixEmptySegmentSpaces', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixEmptySegmentSpaces', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixEmptySegmentSpaces', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixEmptySegmentSpaces', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixEmptySegmentSpaces', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixEmptySegmentSpaces', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixEmptySegmentSpaces', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixEmptySegmentSpaces', 'case end', 'bundle name emptysegment with vendor spaces');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4868
+     * @tc.name      testAppMatrixEmptySegmentIllegalChar
+     * @tc.desc      Checks that the bundle name variant EmptySegment with vendor IllegalChar is reported by
+     * @tc.desc      the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixEmptySegmentIllegalChar',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos..hap.myapplication';
+      config.vendor = 'ex!ample';
+      TestLog.text('testAppMatrixEmptySegmentIllegalChar', 
+        'case begin', 'bundle name emptysegment with vendor illegalchar');
+      TestLog.step('testAppMatrixEmptySegmentIllegalChar', 'bundle name emptysegment with vendor illegalchar');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixEmptySegmentIllegalChar', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_EMPTY_SEGMENT');
+      TestLog.flag('testAppMatrixEmptySegmentIllegalChar', 'has code APP_BUNDLE_NAME_EMPTY_SEGMENT', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VENDOR_ILLEGAL_CHAR');
+      TestLog.flag('testAppMatrixEmptySegmentIllegalChar', 'has code APP_VENDOR_ILLEGAL_CHAR', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixEmptySegmentIllegalChar', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixEmptySegmentIllegalChar', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixEmptySegmentIllegalChar', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixEmptySegmentIllegalChar', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixEmptySegmentIllegalChar', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixEmptySegmentIllegalChar', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixEmptySegmentIllegalChar', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixEmptySegmentIllegalChar', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixEmptySegmentIllegalChar', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixEmptySegmentIllegalChar', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixEmptySegmentIllegalChar', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixEmptySegmentIllegalChar', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixEmptySegmentIllegalChar', 
+        'case end', 'bundle name emptysegment with vendor illegalchar');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4869
+     * @tc.name      testAppMatrixEmptySegmentSpace
+     * @tc.desc      Checks that the bundle name variant EmptySegment with vendor Space is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixEmptySegmentSpace',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos..hap.myapplication';
+      config.vendor = 'ex ample';
+      TestLog.text('testAppMatrixEmptySegmentSpace', 'case begin', 'bundle name emptysegment with vendor space');
+      TestLog.step('testAppMatrixEmptySegmentSpace', 'bundle name emptysegment with vendor space');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixEmptySegmentSpace', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_EMPTY_SEGMENT');
+      TestLog.flag('testAppMatrixEmptySegmentSpace', 'has code APP_BUNDLE_NAME_EMPTY_SEGMENT', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixEmptySegmentSpace', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixEmptySegmentSpace', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixEmptySegmentSpace', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixEmptySegmentSpace', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixEmptySegmentSpace', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixEmptySegmentSpace', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixEmptySegmentSpace', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixEmptySegmentSpace', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixEmptySegmentSpace', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixEmptySegmentSpace', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixEmptySegmentSpace', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixEmptySegmentSpace', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixEmptySegmentSpace', 'case end', 'bundle name emptysegment with vendor space');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4870
+     * @tc.name      testAppMatrixEmptySegmentHyphen
+     * @tc.desc      Checks that the bundle name variant EmptySegment with vendor Hyphen is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixEmptySegmentHyphen',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos..hap.myapplication';
+      config.vendor = 'ex-ample';
+      TestLog.text('testAppMatrixEmptySegmentHyphen', 'case begin', 'bundle name emptysegment with vendor hyphen');
+      TestLog.step('testAppMatrixEmptySegmentHyphen', 'bundle name emptysegment with vendor hyphen');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixEmptySegmentHyphen', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_EMPTY_SEGMENT');
+      TestLog.flag('testAppMatrixEmptySegmentHyphen', 'has code APP_BUNDLE_NAME_EMPTY_SEGMENT', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixEmptySegmentHyphen', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixEmptySegmentHyphen', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixEmptySegmentHyphen', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixEmptySegmentHyphen', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixEmptySegmentHyphen', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixEmptySegmentHyphen', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixEmptySegmentHyphen', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixEmptySegmentHyphen', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixEmptySegmentHyphen', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixEmptySegmentHyphen', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixEmptySegmentHyphen', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixEmptySegmentHyphen', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixEmptySegmentHyphen', 'case end', 'bundle name emptysegment with vendor hyphen');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4871
+     * @tc.name      testAppMatrixEmptySegmentTooLong
+     * @tc.desc      Checks that the bundle name variant EmptySegment with vendor TooLong is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixEmptySegmentTooLong',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos..hap.myapplication';
+      config.vendor = ('a'.repeat(65));
+      TestLog.text('testAppMatrixEmptySegmentTooLong', 'case begin', 'bundle name emptysegment with vendor toolong');
+      TestLog.step('testAppMatrixEmptySegmentTooLong', 'bundle name emptysegment with vendor toolong');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixEmptySegmentTooLong', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_EMPTY_SEGMENT');
+      TestLog.flag('testAppMatrixEmptySegmentTooLong', 'has code APP_BUNDLE_NAME_EMPTY_SEGMENT', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VENDOR_TOO_LONG');
+      TestLog.flag('testAppMatrixEmptySegmentTooLong', 'has code APP_VENDOR_TOO_LONG', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixEmptySegmentTooLong', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixEmptySegmentTooLong', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixEmptySegmentTooLong', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixEmptySegmentTooLong', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixEmptySegmentTooLong', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixEmptySegmentTooLong', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixEmptySegmentTooLong', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixEmptySegmentTooLong', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixEmptySegmentTooLong', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixEmptySegmentTooLong', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixEmptySegmentTooLong', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixEmptySegmentTooLong', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixEmptySegmentTooLong', 'case end', 'bundle name emptysegment with vendor toolong');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4872
+     * @tc.name      testAppMatrixTooFewSegmentsSample
+     * @tc.desc      Checks that the bundle name variant TooFewSegments with vendor Sample is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixTooFewSegmentsSample',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos';
+      config.vendor = 'example';
+      TestLog.text('testAppMatrixTooFewSegmentsSample', 'case begin', 'bundle name toofewsegments with vendor sample');
+      TestLog.step('testAppMatrixTooFewSegmentsSample', 'bundle name toofewsegments with vendor sample');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixTooFewSegmentsSample', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_TOO_FEW_SEGMENTS');
+      TestLog.flag('testAppMatrixTooFewSegmentsSample', 'has code APP_BUNDLE_NAME_TOO_FEW_SEGMENTS', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixTooFewSegmentsSample', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixTooFewSegmentsSample', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixTooFewSegmentsSample', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsSample', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixTooFewSegmentsSample', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixTooFewSegmentsSample', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixTooFewSegmentsSample', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixTooFewSegmentsSample', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixTooFewSegmentsSample', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsSample', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixTooFewSegmentsSample', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixTooFewSegmentsSample', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixTooFewSegmentsSample', 'case end', 'bundle name toofewsegments with vendor sample');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4873
+     * @tc.name      testAppMatrixTooFewSegmentsHuawei
+     * @tc.desc      Checks that the bundle name variant TooFewSegments with vendor Huawei is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixTooFewSegmentsHuawei',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos';
+      config.vendor = 'huawei';
+      TestLog.text('testAppMatrixTooFewSegmentsHuawei', 'case begin', 'bundle name toofewsegments with vendor huawei');
+      TestLog.step('testAppMatrixTooFewSegmentsHuawei', 'bundle name toofewsegments with vendor huawei');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixTooFewSegmentsHuawei', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_TOO_FEW_SEGMENTS');
+      TestLog.flag('testAppMatrixTooFewSegmentsHuawei', 'has code APP_BUNDLE_NAME_TOO_FEW_SEGMENTS', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixTooFewSegmentsHuawei', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixTooFewSegmentsHuawei', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixTooFewSegmentsHuawei', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsHuawei', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixTooFewSegmentsHuawei', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixTooFewSegmentsHuawei', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixTooFewSegmentsHuawei', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixTooFewSegmentsHuawei', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixTooFewSegmentsHuawei', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsHuawei', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixTooFewSegmentsHuawei', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixTooFewSegmentsHuawei', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixTooFewSegmentsHuawei', 'case end', 'bundle name toofewsegments with vendor huawei');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4874
+     * @tc.name      testAppMatrixTooFewSegmentsDigitSuffix
+     * @tc.desc      Checks that the bundle name variant TooFewSegments with vendor DigitSuffix is reported
+     * @tc.desc      by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixTooFewSegmentsDigitSuffix',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos';
+      config.vendor = 'example_2';
+      TestLog.text('testAppMatrixTooFewSegmentsDigitSuffix', 
+        'case begin', 'bundle name toofewsegments with vendor digitsuffix');
+      TestLog.step('testAppMatrixTooFewSegmentsDigitSuffix', 'bundle name toofewsegments with vendor digitsuffix');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixTooFewSegmentsDigitSuffix', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_TOO_FEW_SEGMENTS');
+      TestLog.flag('testAppMatrixTooFewSegmentsDigitSuffix', 'has code APP_BUNDLE_NAME_TOO_FEW_SEGMENTS', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixTooFewSegmentsDigitSuffix', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixTooFewSegmentsDigitSuffix', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixTooFewSegmentsDigitSuffix', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsDigitSuffix', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixTooFewSegmentsDigitSuffix', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixTooFewSegmentsDigitSuffix', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixTooFewSegmentsDigitSuffix', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixTooFewSegmentsDigitSuffix', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixTooFewSegmentsDigitSuffix', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsDigitSuffix', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixTooFewSegmentsDigitSuffix', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixTooFewSegmentsDigitSuffix', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixTooFewSegmentsDigitSuffix', 
+        'case end', 'bundle name toofewsegments with vendor digitsuffix');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4875
+     * @tc.name      testAppMatrixTooFewSegmentsEmpty
+     * @tc.desc      Checks that the bundle name variant TooFewSegments with vendor Empty is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixTooFewSegmentsEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos';
+      config.vendor = '';
+      TestLog.text('testAppMatrixTooFewSegmentsEmpty', 'case begin', 'bundle name toofewsegments with vendor empty');
+      TestLog.step('testAppMatrixTooFewSegmentsEmpty', 'bundle name toofewsegments with vendor empty');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixTooFewSegmentsEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_TOO_FEW_SEGMENTS');
+      TestLog.flag('testAppMatrixTooFewSegmentsEmpty', 'has code APP_BUNDLE_NAME_TOO_FEW_SEGMENTS', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VENDOR_EMPTY');
+      TestLog.flag('testAppMatrixTooFewSegmentsEmpty', 'has code APP_VENDOR_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixTooFewSegmentsEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixTooFewSegmentsEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixTooFewSegmentsEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixTooFewSegmentsEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixTooFewSegmentsEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixTooFewSegmentsEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixTooFewSegmentsEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixTooFewSegmentsEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixTooFewSegmentsEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixTooFewSegmentsEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixTooFewSegmentsEmpty', 'case end', 'bundle name toofewsegments with vendor empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4876
+     * @tc.name      testAppMatrixTooFewSegmentsSpaces
+     * @tc.desc      Checks that the bundle name variant TooFewSegments with vendor Spaces is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixTooFewSegmentsSpaces',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos';
+      config.vendor = '   ';
+      TestLog.text('testAppMatrixTooFewSegmentsSpaces', 'case begin', 'bundle name toofewsegments with vendor spaces');
+      TestLog.step('testAppMatrixTooFewSegmentsSpaces', 'bundle name toofewsegments with vendor spaces');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixTooFewSegmentsSpaces', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_TOO_FEW_SEGMENTS');
+      TestLog.flag('testAppMatrixTooFewSegmentsSpaces', 'has code APP_BUNDLE_NAME_TOO_FEW_SEGMENTS', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VENDOR_EMPTY');
+      TestLog.flag('testAppMatrixTooFewSegmentsSpaces', 'has code APP_VENDOR_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixTooFewSegmentsSpaces', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixTooFewSegmentsSpaces', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixTooFewSegmentsSpaces', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsSpaces', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixTooFewSegmentsSpaces', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixTooFewSegmentsSpaces', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixTooFewSegmentsSpaces', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixTooFewSegmentsSpaces', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixTooFewSegmentsSpaces', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsSpaces', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixTooFewSegmentsSpaces', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixTooFewSegmentsSpaces', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixTooFewSegmentsSpaces', 'case end', 'bundle name toofewsegments with vendor spaces');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4877
+     * @tc.name      testAppMatrixTooFewSegmentsIllegalChar
+     * @tc.desc      Checks that the bundle name variant TooFewSegments with vendor IllegalChar is reported
+     * @tc.desc      by the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixTooFewSegmentsIllegalChar',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos';
+      config.vendor = 'ex!ample';
+      TestLog.text('testAppMatrixTooFewSegmentsIllegalChar', 
+        'case begin', 'bundle name toofewsegments with vendor illegalchar');
+      TestLog.step('testAppMatrixTooFewSegmentsIllegalChar', 'bundle name toofewsegments with vendor illegalchar');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixTooFewSegmentsIllegalChar', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_TOO_FEW_SEGMENTS');
+      TestLog.flag('testAppMatrixTooFewSegmentsIllegalChar', 'has code APP_BUNDLE_NAME_TOO_FEW_SEGMENTS', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VENDOR_ILLEGAL_CHAR');
+      TestLog.flag('testAppMatrixTooFewSegmentsIllegalChar', 'has code APP_VENDOR_ILLEGAL_CHAR', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixTooFewSegmentsIllegalChar', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixTooFewSegmentsIllegalChar', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixTooFewSegmentsIllegalChar', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsIllegalChar', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixTooFewSegmentsIllegalChar', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixTooFewSegmentsIllegalChar', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixTooFewSegmentsIllegalChar', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixTooFewSegmentsIllegalChar', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixTooFewSegmentsIllegalChar', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsIllegalChar', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixTooFewSegmentsIllegalChar', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixTooFewSegmentsIllegalChar', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixTooFewSegmentsIllegalChar', 
+        'case end', 'bundle name toofewsegments with vendor illegalchar');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4878
+     * @tc.name      testAppMatrixTooFewSegmentsSpace
+     * @tc.desc      Checks that the bundle name variant TooFewSegments with vendor Space is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixTooFewSegmentsSpace',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos';
+      config.vendor = 'ex ample';
+      TestLog.text('testAppMatrixTooFewSegmentsSpace', 'case begin', 'bundle name toofewsegments with vendor space');
+      TestLog.step('testAppMatrixTooFewSegmentsSpace', 'bundle name toofewsegments with vendor space');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixTooFewSegmentsSpace', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_TOO_FEW_SEGMENTS');
+      TestLog.flag('testAppMatrixTooFewSegmentsSpace', 'has code APP_BUNDLE_NAME_TOO_FEW_SEGMENTS', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixTooFewSegmentsSpace', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixTooFewSegmentsSpace', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixTooFewSegmentsSpace', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsSpace', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixTooFewSegmentsSpace', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixTooFewSegmentsSpace', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixTooFewSegmentsSpace', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixTooFewSegmentsSpace', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixTooFewSegmentsSpace', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsSpace', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixTooFewSegmentsSpace', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixTooFewSegmentsSpace', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixTooFewSegmentsSpace', 'case end', 'bundle name toofewsegments with vendor space');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4879
+     * @tc.name      testAppMatrixTooFewSegmentsHyphen
+     * @tc.desc      Checks that the bundle name variant TooFewSegments with vendor Hyphen is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixTooFewSegmentsHyphen',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos';
+      config.vendor = 'ex-ample';
+      TestLog.text('testAppMatrixTooFewSegmentsHyphen', 'case begin', 'bundle name toofewsegments with vendor hyphen');
+      TestLog.step('testAppMatrixTooFewSegmentsHyphen', 'bundle name toofewsegments with vendor hyphen');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixTooFewSegmentsHyphen', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_TOO_FEW_SEGMENTS');
+      TestLog.flag('testAppMatrixTooFewSegmentsHyphen', 'has code APP_BUNDLE_NAME_TOO_FEW_SEGMENTS', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixTooFewSegmentsHyphen', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixTooFewSegmentsHyphen', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixTooFewSegmentsHyphen', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsHyphen', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixTooFewSegmentsHyphen', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixTooFewSegmentsHyphen', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixTooFewSegmentsHyphen', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixTooFewSegmentsHyphen', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixTooFewSegmentsHyphen', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsHyphen', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixTooFewSegmentsHyphen', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixTooFewSegmentsHyphen', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixTooFewSegmentsHyphen', 'case end', 'bundle name toofewsegments with vendor hyphen');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4880
+     * @tc.name      testAppMatrixTooFewSegmentsTooLong
+     * @tc.desc      Checks that the bundle name variant TooFewSegments with vendor TooLong is reported by
+     * @tc.desc      the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixTooFewSegmentsTooLong',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos';
+      config.vendor = ('a'.repeat(65));
+      TestLog.text('testAppMatrixTooFewSegmentsTooLong', 
+        'case begin', 'bundle name toofewsegments with vendor toolong');
+      TestLog.step('testAppMatrixTooFewSegmentsTooLong', 'bundle name toofewsegments with vendor toolong');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixTooFewSegmentsTooLong', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_TOO_FEW_SEGMENTS');
+      TestLog.flag('testAppMatrixTooFewSegmentsTooLong', 'has code APP_BUNDLE_NAME_TOO_FEW_SEGMENTS', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VENDOR_TOO_LONG');
+      TestLog.flag('testAppMatrixTooFewSegmentsTooLong', 'has code APP_VENDOR_TOO_LONG', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixTooFewSegmentsTooLong', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixTooFewSegmentsTooLong', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixTooFewSegmentsTooLong', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsTooLong', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixTooFewSegmentsTooLong', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixTooFewSegmentsTooLong', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixTooFewSegmentsTooLong', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixTooFewSegmentsTooLong', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixTooFewSegmentsTooLong', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixTooFewSegmentsTooLong', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixTooFewSegmentsTooLong', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixTooFewSegmentsTooLong', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixTooFewSegmentsTooLong', 'case end', 'bundle name toofewsegments with vendor toolong');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4881
+     * @tc.name      testAppMatrixIllegalCharSample
+     * @tc.desc      Checks that the bundle name variant IllegalChar with vendor Sample is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixIllegalCharSample',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'com.example.my-application';
+      config.vendor = 'example';
+      TestLog.text('testAppMatrixIllegalCharSample', 'case begin', 'bundle name illegalchar with vendor sample');
+      TestLog.step('testAppMatrixIllegalCharSample', 'bundle name illegalchar with vendor sample');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixIllegalCharSample', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_ILLEGAL_CHAR');
+      TestLog.flag('testAppMatrixIllegalCharSample', 'has code APP_BUNDLE_NAME_ILLEGAL_CHAR', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixIllegalCharSample', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixIllegalCharSample', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixIllegalCharSample', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixIllegalCharSample', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixIllegalCharSample', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixIllegalCharSample', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixIllegalCharSample', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixIllegalCharSample', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixIllegalCharSample', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixIllegalCharSample', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixIllegalCharSample', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixIllegalCharSample', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixIllegalCharSample', 'case end', 'bundle name illegalchar with vendor sample');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4882
+     * @tc.name      testAppMatrixIllegalCharHuawei
+     * @tc.desc      Checks that the bundle name variant IllegalChar with vendor Huawei is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixIllegalCharHuawei',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'com.example.my-application';
+      config.vendor = 'huawei';
+      TestLog.text('testAppMatrixIllegalCharHuawei', 'case begin', 'bundle name illegalchar with vendor huawei');
+      TestLog.step('testAppMatrixIllegalCharHuawei', 'bundle name illegalchar with vendor huawei');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixIllegalCharHuawei', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_ILLEGAL_CHAR');
+      TestLog.flag('testAppMatrixIllegalCharHuawei', 'has code APP_BUNDLE_NAME_ILLEGAL_CHAR', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixIllegalCharHuawei', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixIllegalCharHuawei', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixIllegalCharHuawei', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixIllegalCharHuawei', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixIllegalCharHuawei', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixIllegalCharHuawei', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixIllegalCharHuawei', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixIllegalCharHuawei', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixIllegalCharHuawei', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixIllegalCharHuawei', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixIllegalCharHuawei', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixIllegalCharHuawei', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixIllegalCharHuawei', 'case end', 'bundle name illegalchar with vendor huawei');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4883
+     * @tc.name      testAppMatrixIllegalCharDigitSuffix
+     * @tc.desc      Checks that the bundle name variant IllegalChar with vendor DigitSuffix is reported by
+     * @tc.desc      the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixIllegalCharDigitSuffix',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'com.example.my-application';
+      config.vendor = 'example_2';
+      TestLog.text('testAppMatrixIllegalCharDigitSuffix', 
+        'case begin', 'bundle name illegalchar with vendor digitsuffix');
+      TestLog.step('testAppMatrixIllegalCharDigitSuffix', 'bundle name illegalchar with vendor digitsuffix');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixIllegalCharDigitSuffix', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_ILLEGAL_CHAR');
+      TestLog.flag('testAppMatrixIllegalCharDigitSuffix', 'has code APP_BUNDLE_NAME_ILLEGAL_CHAR', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixIllegalCharDigitSuffix', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixIllegalCharDigitSuffix', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixIllegalCharDigitSuffix', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixIllegalCharDigitSuffix', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixIllegalCharDigitSuffix', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixIllegalCharDigitSuffix', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixIllegalCharDigitSuffix', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixIllegalCharDigitSuffix', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixIllegalCharDigitSuffix', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixIllegalCharDigitSuffix', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixIllegalCharDigitSuffix', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixIllegalCharDigitSuffix', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixIllegalCharDigitSuffix', 
+        'case end', 'bundle name illegalchar with vendor digitsuffix');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4884
+     * @tc.name      testAppMatrixIllegalCharEmpty
+     * @tc.desc      Checks that the bundle name variant IllegalChar with vendor Empty is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixIllegalCharEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'com.example.my-application';
+      config.vendor = '';
+      TestLog.text('testAppMatrixIllegalCharEmpty', 'case begin', 'bundle name illegalchar with vendor empty');
+      TestLog.step('testAppMatrixIllegalCharEmpty', 'bundle name illegalchar with vendor empty');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixIllegalCharEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_ILLEGAL_CHAR');
+      TestLog.flag('testAppMatrixIllegalCharEmpty', 'has code APP_BUNDLE_NAME_ILLEGAL_CHAR', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VENDOR_EMPTY');
+      TestLog.flag('testAppMatrixIllegalCharEmpty', 'has code APP_VENDOR_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixIllegalCharEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixIllegalCharEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixIllegalCharEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixIllegalCharEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixIllegalCharEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixIllegalCharEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixIllegalCharEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixIllegalCharEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixIllegalCharEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixIllegalCharEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixIllegalCharEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixIllegalCharEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixIllegalCharEmpty', 'case end', 'bundle name illegalchar with vendor empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4885
+     * @tc.name      testAppMatrixIllegalCharSpaces
+     * @tc.desc      Checks that the bundle name variant IllegalChar with vendor Spaces is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixIllegalCharSpaces',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'com.example.my-application';
+      config.vendor = '   ';
+      TestLog.text('testAppMatrixIllegalCharSpaces', 'case begin', 'bundle name illegalchar with vendor spaces');
+      TestLog.step('testAppMatrixIllegalCharSpaces', 'bundle name illegalchar with vendor spaces');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixIllegalCharSpaces', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_ILLEGAL_CHAR');
+      TestLog.flag('testAppMatrixIllegalCharSpaces', 'has code APP_BUNDLE_NAME_ILLEGAL_CHAR', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VENDOR_EMPTY');
+      TestLog.flag('testAppMatrixIllegalCharSpaces', 'has code APP_VENDOR_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixIllegalCharSpaces', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixIllegalCharSpaces', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixIllegalCharSpaces', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixIllegalCharSpaces', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixIllegalCharSpaces', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixIllegalCharSpaces', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixIllegalCharSpaces', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixIllegalCharSpaces', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixIllegalCharSpaces', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixIllegalCharSpaces', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixIllegalCharSpaces', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixIllegalCharSpaces', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixIllegalCharSpaces', 'case end', 'bundle name illegalchar with vendor spaces');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4886
+     * @tc.name      testAppMatrixIllegalCharIllegalChar
+     * @tc.desc      Checks that the bundle name variant IllegalChar with vendor IllegalChar is reported by
+     * @tc.desc      the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixIllegalCharIllegalChar',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'com.example.my-application';
+      config.vendor = 'ex!ample';
+      TestLog.text('testAppMatrixIllegalCharIllegalChar', 
+        'case begin', 'bundle name illegalchar with vendor illegalchar');
+      TestLog.step('testAppMatrixIllegalCharIllegalChar', 'bundle name illegalchar with vendor illegalchar');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixIllegalCharIllegalChar', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_ILLEGAL_CHAR');
+      TestLog.flag('testAppMatrixIllegalCharIllegalChar', 'has code APP_BUNDLE_NAME_ILLEGAL_CHAR', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VENDOR_ILLEGAL_CHAR');
+      TestLog.flag('testAppMatrixIllegalCharIllegalChar', 'has code APP_VENDOR_ILLEGAL_CHAR', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixIllegalCharIllegalChar', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixIllegalCharIllegalChar', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixIllegalCharIllegalChar', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixIllegalCharIllegalChar', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixIllegalCharIllegalChar', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixIllegalCharIllegalChar', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixIllegalCharIllegalChar', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixIllegalCharIllegalChar', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixIllegalCharIllegalChar', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixIllegalCharIllegalChar', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixIllegalCharIllegalChar', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixIllegalCharIllegalChar', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixIllegalCharIllegalChar', 
+        'case end', 'bundle name illegalchar with vendor illegalchar');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4887
+     * @tc.name      testAppMatrixIllegalCharSpace
+     * @tc.desc      Checks that the bundle name variant IllegalChar with vendor Space is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixIllegalCharSpace',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'com.example.my-application';
+      config.vendor = 'ex ample';
+      TestLog.text('testAppMatrixIllegalCharSpace', 'case begin', 'bundle name illegalchar with vendor space');
+      TestLog.step('testAppMatrixIllegalCharSpace', 'bundle name illegalchar with vendor space');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixIllegalCharSpace', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_ILLEGAL_CHAR');
+      TestLog.flag('testAppMatrixIllegalCharSpace', 'has code APP_BUNDLE_NAME_ILLEGAL_CHAR', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixIllegalCharSpace', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixIllegalCharSpace', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixIllegalCharSpace', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixIllegalCharSpace', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixIllegalCharSpace', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixIllegalCharSpace', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixIllegalCharSpace', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixIllegalCharSpace', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixIllegalCharSpace', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixIllegalCharSpace', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixIllegalCharSpace', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixIllegalCharSpace', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixIllegalCharSpace', 'case end', 'bundle name illegalchar with vendor space');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4888
+     * @tc.name      testAppMatrixIllegalCharHyphen
+     * @tc.desc      Checks that the bundle name variant IllegalChar with vendor Hyphen is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixIllegalCharHyphen',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'com.example.my-application';
+      config.vendor = 'ex-ample';
+      TestLog.text('testAppMatrixIllegalCharHyphen', 'case begin', 'bundle name illegalchar with vendor hyphen');
+      TestLog.step('testAppMatrixIllegalCharHyphen', 'bundle name illegalchar with vendor hyphen');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixIllegalCharHyphen', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_ILLEGAL_CHAR');
+      TestLog.flag('testAppMatrixIllegalCharHyphen', 'has code APP_BUNDLE_NAME_ILLEGAL_CHAR', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixIllegalCharHyphen', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixIllegalCharHyphen', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixIllegalCharHyphen', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixIllegalCharHyphen', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixIllegalCharHyphen', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixIllegalCharHyphen', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixIllegalCharHyphen', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixIllegalCharHyphen', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixIllegalCharHyphen', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixIllegalCharHyphen', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixIllegalCharHyphen', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixIllegalCharHyphen', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixIllegalCharHyphen', 'case end', 'bundle name illegalchar with vendor hyphen');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4889
+     * @tc.name      testAppMatrixIllegalCharTooLong
+     * @tc.desc      Checks that the bundle name variant IllegalChar with vendor TooLong is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixIllegalCharTooLong',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'com.example.my-application';
+      config.vendor = ('a'.repeat(65));
+      TestLog.text('testAppMatrixIllegalCharTooLong', 'case begin', 'bundle name illegalchar with vendor toolong');
+      TestLog.step('testAppMatrixIllegalCharTooLong', 'bundle name illegalchar with vendor toolong');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixIllegalCharTooLong', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_ILLEGAL_CHAR');
+      TestLog.flag('testAppMatrixIllegalCharTooLong', 'has code APP_BUNDLE_NAME_ILLEGAL_CHAR', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VENDOR_TOO_LONG');
+      TestLog.flag('testAppMatrixIllegalCharTooLong', 'has code APP_VENDOR_TOO_LONG', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixIllegalCharTooLong', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixIllegalCharTooLong', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixIllegalCharTooLong', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixIllegalCharTooLong', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixIllegalCharTooLong', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixIllegalCharTooLong', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixIllegalCharTooLong', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixIllegalCharTooLong', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixIllegalCharTooLong', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixIllegalCharTooLong', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixIllegalCharTooLong', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixIllegalCharTooLong', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixIllegalCharTooLong', 'case end', 'bundle name illegalchar with vendor toolong');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4890
+     * @tc.name      testAppMatrixDigitSegmentSample
+     * @tc.desc      Checks that the bundle name variant DigitSegment with vendor Sample is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixDigitSegmentSample',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos.1app.hap.myapplication';
+      config.vendor = 'example';
+      TestLog.text('testAppMatrixDigitSegmentSample', 'case begin', 'bundle name digitsegment with vendor sample');
+      TestLog.step('testAppMatrixDigitSegmentSample', 'bundle name digitsegment with vendor sample');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixDigitSegmentSample', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT');
+      TestLog.flag('testAppMatrixDigitSegmentSample', 'has code APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixDigitSegmentSample', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixDigitSegmentSample', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixDigitSegmentSample', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixDigitSegmentSample', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixDigitSegmentSample', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixDigitSegmentSample', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixDigitSegmentSample', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixDigitSegmentSample', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixDigitSegmentSample', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixDigitSegmentSample', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixDigitSegmentSample', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixDigitSegmentSample', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixDigitSegmentSample', 'case end', 'bundle name digitsegment with vendor sample');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4891
+     * @tc.name      testAppMatrixDigitSegmentHuawei
+     * @tc.desc      Checks that the bundle name variant DigitSegment with vendor Huawei is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixDigitSegmentHuawei',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos.1app.hap.myapplication';
+      config.vendor = 'huawei';
+      TestLog.text('testAppMatrixDigitSegmentHuawei', 'case begin', 'bundle name digitsegment with vendor huawei');
+      TestLog.step('testAppMatrixDigitSegmentHuawei', 'bundle name digitsegment with vendor huawei');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixDigitSegmentHuawei', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT');
+      TestLog.flag('testAppMatrixDigitSegmentHuawei', 'has code APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixDigitSegmentHuawei', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixDigitSegmentHuawei', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixDigitSegmentHuawei', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixDigitSegmentHuawei', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixDigitSegmentHuawei', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixDigitSegmentHuawei', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixDigitSegmentHuawei', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixDigitSegmentHuawei', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixDigitSegmentHuawei', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixDigitSegmentHuawei', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixDigitSegmentHuawei', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixDigitSegmentHuawei', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixDigitSegmentHuawei', 'case end', 'bundle name digitsegment with vendor huawei');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4892
+     * @tc.name      testAppMatrixDigitSegmentDigitSuffix
+     * @tc.desc      Checks that the bundle name variant DigitSegment with vendor DigitSuffix is reported by
+     * @tc.desc      the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixDigitSegmentDigitSuffix',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos.1app.hap.myapplication';
+      config.vendor = 'example_2';
+      TestLog.text('testAppMatrixDigitSegmentDigitSuffix', 
+        'case begin', 'bundle name digitsegment with vendor digitsuffix');
+      TestLog.step('testAppMatrixDigitSegmentDigitSuffix', 'bundle name digitsegment with vendor digitsuffix');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixDigitSegmentDigitSuffix', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT');
+      TestLog.flag('testAppMatrixDigitSegmentDigitSuffix',
+        'has code APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixDigitSegmentDigitSuffix', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixDigitSegmentDigitSuffix', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixDigitSegmentDigitSuffix', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixDigitSegmentDigitSuffix', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixDigitSegmentDigitSuffix', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixDigitSegmentDigitSuffix', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixDigitSegmentDigitSuffix', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixDigitSegmentDigitSuffix', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixDigitSegmentDigitSuffix', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixDigitSegmentDigitSuffix', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixDigitSegmentDigitSuffix', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixDigitSegmentDigitSuffix', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixDigitSegmentDigitSuffix', 
+        'case end', 'bundle name digitsegment with vendor digitsuffix');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4893
+     * @tc.name      testAppMatrixDigitSegmentEmpty
+     * @tc.desc      Checks that the bundle name variant DigitSegment with vendor Empty is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixDigitSegmentEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos.1app.hap.myapplication';
+      config.vendor = '';
+      TestLog.text('testAppMatrixDigitSegmentEmpty', 'case begin', 'bundle name digitsegment with vendor empty');
+      TestLog.step('testAppMatrixDigitSegmentEmpty', 'bundle name digitsegment with vendor empty');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixDigitSegmentEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT');
+      TestLog.flag('testAppMatrixDigitSegmentEmpty', 'has code APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VENDOR_EMPTY');
+      TestLog.flag('testAppMatrixDigitSegmentEmpty', 'has code APP_VENDOR_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixDigitSegmentEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixDigitSegmentEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixDigitSegmentEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixDigitSegmentEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixDigitSegmentEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixDigitSegmentEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixDigitSegmentEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixDigitSegmentEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixDigitSegmentEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixDigitSegmentEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixDigitSegmentEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixDigitSegmentEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixDigitSegmentEmpty', 'case end', 'bundle name digitsegment with vendor empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4894
+     * @tc.name      testAppMatrixDigitSegmentSpaces
+     * @tc.desc      Checks that the bundle name variant DigitSegment with vendor Spaces is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixDigitSegmentSpaces',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos.1app.hap.myapplication';
+      config.vendor = '   ';
+      TestLog.text('testAppMatrixDigitSegmentSpaces', 'case begin', 'bundle name digitsegment with vendor spaces');
+      TestLog.step('testAppMatrixDigitSegmentSpaces', 'bundle name digitsegment with vendor spaces');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixDigitSegmentSpaces', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT');
+      TestLog.flag('testAppMatrixDigitSegmentSpaces', 'has code APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VENDOR_EMPTY');
+      TestLog.flag('testAppMatrixDigitSegmentSpaces', 'has code APP_VENDOR_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixDigitSegmentSpaces', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixDigitSegmentSpaces', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixDigitSegmentSpaces', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixDigitSegmentSpaces', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixDigitSegmentSpaces', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixDigitSegmentSpaces', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixDigitSegmentSpaces', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixDigitSegmentSpaces', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixDigitSegmentSpaces', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixDigitSegmentSpaces', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixDigitSegmentSpaces', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixDigitSegmentSpaces', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixDigitSegmentSpaces', 'case end', 'bundle name digitsegment with vendor spaces');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4895
+     * @tc.name      testAppMatrixDigitSegmentIllegalChar
+     * @tc.desc      Checks that the bundle name variant DigitSegment with vendor IllegalChar is reported by
+     * @tc.desc      the expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixDigitSegmentIllegalChar',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos.1app.hap.myapplication';
+      config.vendor = 'ex!ample';
+      TestLog.text('testAppMatrixDigitSegmentIllegalChar', 
+        'case begin', 'bundle name digitsegment with vendor illegalchar');
+      TestLog.step('testAppMatrixDigitSegmentIllegalChar', 'bundle name digitsegment with vendor illegalchar');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixDigitSegmentIllegalChar', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT');
+      TestLog.flag('testAppMatrixDigitSegmentIllegalChar',
+        'has code APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VENDOR_ILLEGAL_CHAR');
+      TestLog.flag('testAppMatrixDigitSegmentIllegalChar', 'has code APP_VENDOR_ILLEGAL_CHAR', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixDigitSegmentIllegalChar', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixDigitSegmentIllegalChar', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixDigitSegmentIllegalChar', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixDigitSegmentIllegalChar', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixDigitSegmentIllegalChar', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixDigitSegmentIllegalChar', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixDigitSegmentIllegalChar', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAppMatrixDigitSegmentIllegalChar', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAppMatrixDigitSegmentIllegalChar', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAppMatrixDigitSegmentIllegalChar', 'first signature', firstSignature);
+      const repeat: Finding[] = AppConfigValidator.validate(config);
+      TestLog.number('testAppMatrixDigitSegmentIllegalChar', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAppMatrixDigitSegmentIllegalChar', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAppMatrixDigitSegmentIllegalChar', 
+        'case end', 'bundle name digitsegment with vendor illegalchar');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_4896
+     * @tc.name      testAppMatrixDigitSegmentSpace
+     * @tc.desc      Checks that the bundle name variant DigitSegment with vendor Space is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAppMatrixDigitSegmentSpace',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.bundleName = 'ohos.1app.hap.myapplication';
+      config.vendor = 'ex ample';
+      TestLog.text('testAppMatrixDigitSegmentSpace', 'case begin', 'bundle name digitsegment with vendor space');
+      TestLog.step('testAppMatrixDigitSegmentSpace', 'bundle name digitsegment with vendor space');
+      const findings: Finding[] = AppConfigValidator.validate(config);
+      TestLog.findings('testAppMatrixDigitSegmentSpace', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT');
+      TestLog.flag('testAppMatrixDigitSegmentSpace', 'has code APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAppMatrixDigitSegmentSpace', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAppMatrixDigitSegmentSpace', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAppMatrixDigitSegmentSpace', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAppMatrixDigitSegmentSpace', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAppMatrixDigitSegmentSpace', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAppMatrixDigitSegmentSpace', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAppMatrixDigitSegmentSpace', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
