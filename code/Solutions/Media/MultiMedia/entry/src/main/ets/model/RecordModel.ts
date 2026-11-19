@@ -16,6 +16,10 @@ import { media } from '@kit.MediaKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
 import Logger from './Logger';
 
+const AUDIO_BITRATE: number = 48000;
+const AUDIO_CHANNELS: number = 2;
+const AUDIO_SAMPLE_RATE: number = 48000;
+
 export interface AudioRecorderPort {
   onStateChange(callback: (state: string) => void): void;
   onError(callback: (message: string) => void): void;
@@ -189,10 +193,10 @@ export default class RecordModel {
       const config: media.AVRecorderConfig = {
         audioSourceType: media.AudioSourceType.AUDIO_SOURCE_TYPE_MIC,
         profile: {
-          audioBitrate: 48000,
-          audioChannels: 2,
+          audioBitrate: AUDIO_BITRATE,
+          audioChannels: AUDIO_CHANNELS,
           audioCodec: media.CodecMimeType.AUDIO_AAC,
-          audioSampleRate: 48000,
+          audioSampleRate: AUDIO_SAMPLE_RATE,
           fileFormat: media.ContainerFormatType.CFT_MPEG_4A
         },
         url: 'fd://' + fd
