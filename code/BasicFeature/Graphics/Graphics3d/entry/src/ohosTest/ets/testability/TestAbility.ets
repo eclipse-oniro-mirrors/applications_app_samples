@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,50 +15,54 @@
 
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
-import window from '@ohos.window';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_Graphics3d]';
+const ON_DESTROY_ERROR: number = -2;
+/**
+ * 从前台回调返回后再做用例注册。hypium 每注册一条用例都会同步写日志，
+ * 大量套件注册会占用主线程，AAFWK 可能因此判定前台超时并回收测试进程。
+ */
+const REGISTER_DELAY_MS: number = 1000;
 
 export default class TestAbility extends UIAbility {
-    onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onCreate');
-        hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
-        hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:'+ JSON.stringify(launchParam) ?? '');
-        let abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
-        abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
-        let abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs;
-        abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
-        hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
-        Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
-    }
+  private abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
+  private registerScheduled: boolean = false;
 
-    onDestroy() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onDestroy');
-    }
+  constructor() {
+    super();
+    this.abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+  }
 
-    onWindowStageCreate(windowStage: window.WindowStage) {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageCreate');
-        windowStage.loadContent('testability/pages/Index', (err, data) => {
-            if (err.code) {
-                hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
-                return;
-            }
-            hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s',
-                JSON.stringify(data) ?? '');
-        });
-    }
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onCreate');
+  }
 
-    onWindowStageDestroy() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageDestroy');
+  onForeground(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onForeground');
+    if (this.registerScheduled) {
+      return;
     }
+    this.registerScheduled = true;
+    setTimeout(() => {
+      const abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs =
+        abilityDelegatorRegistry.getArguments();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'start run testcase!!!');
+      Hypium.hypiumTest(this.abilityDelegator, abilityDelegatorArguments, testsuite);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility register end');
+    }, REGISTER_DELAY_MS);
+  }
 
-    onForeground() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onForeground');
-    }
+  onDestroy(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onDestroy');
+    this.abilityDelegator.finishTest('TestAbility onDestroy unexpectedly!', ON_DESTROY_ERROR, () => {
+    });
+  }
 
-    onBackground() {
-        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onBackground');
-    }
+  onBackground(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onBackground');
+  }
 }
