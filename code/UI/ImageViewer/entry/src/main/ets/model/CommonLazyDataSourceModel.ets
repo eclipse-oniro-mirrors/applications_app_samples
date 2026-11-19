@@ -13,20 +13,39 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/model/CommonLazyDataSourceModel.ets
+ * 文件职责：CommonLazyDataSourceModel 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：BasicDataSource、CommonLazyDataSourceModel。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 // Basic implementation of IDataSource to handle data listener
+/**
+ * BasicDataSource：类定义，承载本文件对应的逻辑与数据。
+ */
 class BasicDataSource <T> implements IDataSource {
   private listeners: DataChangeListener[] = [];
   private originDataArray: T[] = [];
 
+  /**
+   * totalCount：执行 totalCount 相关逻辑。
+   */
   public totalCount(): number {
     return 0;
   }
 
+  /**
+   * getData：执行 getData 相关逻辑。
+   */
   public getData(index: number): T {
     return this.originDataArray[index];
   }
 
   // 该方法为框架侧调用，为LazyForEach组件向其数据源处添加listener监听
+  /**
+   * registerDataChangeListener：执行 registerDataChangeListener 相关逻辑。
+   */
   registerDataChangeListener(listener: DataChangeListener): void {
     if (this.listeners.indexOf(listener) < 0) {
       console.info('add listener');
@@ -35,6 +54,9 @@ class BasicDataSource <T> implements IDataSource {
   }
 
   // 该方法为框架侧调用，为对应的LazyForEach组件在数据源处去除listener监听
+  /**
+   * unregisterDataChangeListener：执行 unregisterDataChangeListener 相关逻辑。
+   */
   unregisterDataChangeListener(listener: DataChangeListener): void {
     const pos = this.listeners.indexOf(listener);
     if (pos >= 0) {
@@ -44,6 +66,9 @@ class BasicDataSource <T> implements IDataSource {
   }
 
   // 通知LazyForEach组件需要重载所有子组件
+  /**
+   * notifyDataReload：执行 notifyDataReload 相关逻辑。
+   */
   notifyDataReload(): void {
     this.listeners.forEach(listener => {
       listener.onDataReloaded();
@@ -51,6 +76,9 @@ class BasicDataSource <T> implements IDataSource {
   }
 
   // 通知LazyForEach组件需要在index对应索引处添加子组件
+  /**
+   * notifyDataAdd：执行 notifyDataAdd 相关逻辑。
+   */
   notifyDataAdd(index: number): void {
     this.listeners.forEach(listener => {
       listener.onDataAdd(index);
@@ -58,6 +86,9 @@ class BasicDataSource <T> implements IDataSource {
   }
 
   // 通知LazyForEach组件在index对应索引处数据有变化，需要重建该子组件
+  /**
+   * notifyDataChange：执行 notifyDataChange 相关逻辑。
+   */
   notifyDataChange(index: number): void {
     this.listeners.forEach(listener => {
       listener.onDataChange(index);
@@ -65,6 +96,9 @@ class BasicDataSource <T> implements IDataSource {
   }
 
   // 通知LazyForEach组件需要在index对应索引处删除该子组件
+  /**
+   * notifyDataDelete：执行 notifyDataDelete 相关逻辑。
+   */
   notifyDataDelete(index: number): void {
     this.listeners.forEach(listener => {
       listener.onDataDelete(index);
@@ -72,6 +106,9 @@ class BasicDataSource <T> implements IDataSource {
   }
 
   // 通知LazyForEach组件将from索引和to索引处的子组件进行交换
+  /**
+   * notifyDataMove：执行 notifyDataMove 相关逻辑。
+   */
   notifyDataMove(from: number, to: number): void {
     this.listeners.forEach(listener => {
       listener.onDataMove(from, to);
@@ -79,27 +116,45 @@ class BasicDataSource <T> implements IDataSource {
   }
 }
 
+/**
+ * CommonLazyDataSourceModel：类定义，承载本文件对应的逻辑与数据。
+ */
 export class CommonLazyDataSourceModel<T> extends BasicDataSource<T> {
   private dataArray: T[] = [];
 
+  /**
+   * totalCount：执行 totalCount 相关逻辑。
+   */
   public totalCount(): number {
     return this.dataArray.length;
   }
 
+  /**
+   * getData：执行 getData 相关逻辑。
+   */
   public getData(index: number): T {
     return this.dataArray[index];
   }
 
+  /**
+   * addData：执行 addData 相关逻辑。
+   */
   public addData(index: number, data: T): void {
     this.dataArray.splice(index, 0, data);
     this.notifyDataAdd(index);
   }
 
+  /**
+   * pushData：执行 pushData 相关逻辑。
+   */
   public pushData(data: T): void {
     this.dataArray.push(data);
     this.notifyDataAdd(this.dataArray.length - 1);
   }
 
+  /**
+   * clearAndPushAll：执行 clearAndPushAll 相关逻辑。
+   */
   public clearAndPushAll(data: T[]): void {
     this.dataArray = [];
     this.dataArray.push(...data);
