@@ -11,18 +11,6 @@
     {
       "name": "TestAbility_label",
       "value": "test label"
-    },
-    {
-      "name": "show_character_type",
-      "value": "Show character type"
-    },
-    {
-      "name": "text_breakpoint",
-      "value": "Text breakpoint handling"
-    },
-    {
-      "name": "number",
-      "value": "DECIMAL DIGIT NUMBER"
     }
   ]
 }

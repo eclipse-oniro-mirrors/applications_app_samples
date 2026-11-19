@@ -11,7 +11,8 @@
 |-------------------------------|---------------------------------------|-------------------------------------------------------|
 | ![main](sceenshots/main.jpeg) | ![calendar](sceenshots/calendar.jpeg) | ![text_processing1](sceenshots/text_processing1.jpeg) |
 
-使用说明
+### 使用说明
+
 1. 在主界面，可以点击日历、字符文本处理按钮进入对应功能界面；
 2. 在日历界面，点击“<” “>”按钮，可以查看上/下月公历信息；
 3. 在字符、文本处理界面，上方输入框输入一个字符，点击字符类型判断可以查看当前输入的字符类型，下方输入框输入长文本，点击文本断点可以查看文本断点结果，断点处用红色/标记；
@@ -49,8 +50,8 @@ entry/src/main/ets/
 ### 约束与限制
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568；
-2. 本示例已适配API version 10版本SDK，版本号：4.0.10.11，镜像版本号：OpenHarmony 4.0.10.13；
-3. 本示例需要使用DevEco Studio 4.0 Release (Build Version: 4.0.0.600, built on October 17, 2023)及以上版本才可编译运行；
+2. 本示例支持 API 26 版本 SDK（26.0.0），compileSdkVersion、targetSdkVersion、compatibleSdkVersion 均为 26.0.0；
+3. 本示例需要使用 DevEco Studio 26.0.0 Release 及以上版本才可编译运行；
 
 ### 下载
 
