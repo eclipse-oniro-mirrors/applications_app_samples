@@ -12,70 +12,106 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { Want } from '@kit.AbilityKit';
-const DOMAIN_NUMBER = 0xF811;
-const TAG  = '[Sample_AgentExtension]';
 
-export default function abilityTest() {
-  describe('ActsAbilityTest', () => {
-    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
+import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { AgentCallbackFixture } from './Shared/AgentCallbackFixture';
+
+export default function abilityTest(): void {
+  describe('AgentCoreCallbacks', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(resolve, 1);
+      });
+    });
+    afterEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(resolve, 1);
+      });
+    });
     beforeAll(() => {
-      // Presets an action, which is performed only once before all test cases of the test suite start.
-      // This API supports only one parameter: preset action function.
-    })
-    beforeEach(() => {
-      // Presets an action, which is performed before each unit test case starts.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: preset action function.
-    })
-    afterEach(() => {
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
-    })
+      hilog.info(0xF811, 'AgentCore', 'Starting real production callback tests');
+    });
     afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
-    })
-    it('assertContain', 0, () => {
-      // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
-      hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
-      let a = 'abc';
-      let b = 'b';
-      // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
-      expect(a).assertContain(b);
-      expect(a).assertEqual(a);
-    })
-    /**
-     * @tc.number    SUB_AgentExtension1
-     * @tc.name      SUB_AgentExtension1
-     * @tc.desc      test AgentExtension1
-     * @tc.level     Level1
-     * @tc.size      MediumTest
-     * @tc.type      Function
-     */
-    it('SUB_AgentExtension1', 0, async (done: Function) => {
-      hilog.info(DOMAIN_NUMBER, TAG, 'uitest: TestUiExample begin');
+      hilog.info(0xF811, 'AgentCore', 'Completed real production callback tests');
+    });
+    it('authorizesTheHostWithTheSampleFixedResult', 0, () => {
+      const fixture = new AgentCallbackFixture();
+      fixture.connect();
       try {
-        const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-        const want: Want = {
-          deviceId: '',
-          bundleName: 'com.sample.agentExtensionAbility',
-          abilityName: 'EntryAbility'
-        };
-        await delegator.startAbility(want);
-        // const ability: UIAbility = await delegator.getCurrentTopAbility();
-        //await sleep(5000);
-        hilog.info(DOMAIN_NUMBER, TAG, 'get top ability');
-        expect(1).assertEqual(1);
-        done();
-      } catch (error) {
-        hilog.error(DOMAIN_NUMBER, TAG, 'Start Fail: ', error);
-        expect(0).assertEqual(1);
+        fixture.ability.onAuth(fixture.primary, 'weather handshake');
+        expect(fixture.primary.authAttempts).assertEqual(1);
+        expect(fixture.primary.authorizations[0]).assertEqual('auth success');
+        expect(fixture.primary.sendAttempts).assertEqual(0);
+      } finally {
+        fixture.dispose();
       }
     });
-  })
+    it('sendsTheSampleReplyWithoutEchoingTheInput', 0, () => {
+      const fixture = new AgentCallbackFixture();
+      fixture.connect();
+      try {
+        fixture.ability.onData(fixture.primary, 'private weather request');
+        expect(fixture.primary.sendAttempts).assertEqual(1);
+        expect(fixture.primary.data[0]).assertEqual('reply message');
+        expect(fixture.primary.authAttempts).assertEqual(0);
+      } finally {
+        fixture.dispose();
+      }
+    });
+    it('recoversAfterHostSendThrowsBusinessError', 0, () => {
+      const fixture = new AgentCallbackFixture();
+      fixture.connect();
+      try {
+        fixture.primary.sendFailuresRemaining = 1;
+        fixture.ability.onData(fixture.primary, 'first');
+        expect(fixture.primary.data.length).assertEqual(0);
+        fixture.ability.onData(fixture.primary, 'retry');
+        expect(fixture.primary.sendAttempts).assertEqual(2);
+        expect(fixture.primary.data[0]).assertEqual('reply message');
+      } finally {
+        fixture.dispose();
+      }
+    });
+    it('recoversAfterHostAuthorizeThrowsBusinessError', 0, () => {
+      const fixture = new AgentCallbackFixture();
+      fixture.connect();
+      try {
+        fixture.primary.authFailuresRemaining = 1;
+        fixture.ability.onAuth(fixture.primary, 'first');
+        expect(fixture.primary.authorizations.length).assertEqual(0);
+        fixture.ability.onAuth(fixture.primary, 'retry');
+        expect(fixture.primary.authAttempts).assertEqual(2);
+        expect(fixture.primary.authorizations[0]).assertEqual('auth success');
+      } finally {
+        fixture.dispose();
+      }
+    });
+    it('routesResponsesToTheCallbackArgumentProxy', 0, () => {
+      const fixture = new AgentCallbackFixture();
+      fixture.connect();
+      try {
+        fixture.ability.onAuth(fixture.secondary, 'alternate host');
+        fixture.ability.onData(fixture.secondary, 'alternate request');
+        expect(fixture.primary.calls.length).assertEqual(0);
+        expect(fixture.secondary.order()).assertEqual('authorize>sendData');
+        expect(fixture.secondary.authorizations[0]).assertEqual('auth success');
+        expect(fixture.secondary.data[0]).assertEqual('reply message');
+      } finally {
+        fixture.dispose();
+      }
+    });
+    it('doesNotEmitHostRepliesDuringConnectionCallbacks', 0, () => {
+      const fixture = new AgentCallbackFixture();
+      fixture.connect();
+      try {
+        fixture.ability.onDisconnect(fixture.want, fixture.primary);
+        fixture.ability.onConnect(fixture.want, fixture.secondary);
+        expect(fixture.primary.calls.length).assertEqual(0);
+        expect(fixture.secondary.calls.length).assertEqual(0);
+      } finally {
+        fixture.dispose();
+      }
+    });
+  });
 }
