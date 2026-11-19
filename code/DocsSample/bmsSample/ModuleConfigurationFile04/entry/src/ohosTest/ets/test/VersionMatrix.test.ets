@@ -2360,3 +2360,1883 @@ export default function VersionMatrixTest(): void {
       expect(wellFormed).assertTrue();
       if (findings.length > 0) {
         const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixZeroTwoSegments', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixZeroTwoSegments', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixZeroTwoSegments', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixZeroTwoSegments', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixZeroTwoSegments', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixZeroTwoSegments', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixZeroTwoSegments', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixZeroTwoSegments', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixZeroTwoSegments', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixZeroTwoSegments', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixZeroTwoSegments', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixZeroTwoSegments', 'case end', 'version code zero with name twosegments');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5537
+     * @tc.name      testVersionMatrixZeroPrefix
+     * @tc.desc      Checks that version code Zero with version name Prefix is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixZeroPrefix',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 0;
+      config.versionName = 'v1.0.0';
+      TestLog.text('testVersionMatrixZeroPrefix', 'case begin', 'version code zero with name prefix');
+      TestLog.step('testVersionMatrixZeroPrefix', 'version code zero with name prefix');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixZeroPrefix', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_POSITIVE');
+      TestLog.flag('testVersionMatrixZeroPrefix', 'has code APP_VERSION_CODE_NOT_POSITIVE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_NOT_SEMVER');
+      TestLog.flag('testVersionMatrixZeroPrefix', 'has code APP_VERSION_NAME_NOT_SEMVER', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixZeroPrefix', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixZeroPrefix', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixZeroPrefix', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixZeroPrefix', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixZeroPrefix', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixZeroPrefix', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixZeroPrefix', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixZeroPrefix', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixZeroPrefix', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixZeroPrefix', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixZeroPrefix', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixZeroPrefix', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixZeroPrefix', 'case end', 'version code zero with name prefix');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5538
+     * @tc.name      testVersionMatrixZeroPrerelease
+     * @tc.desc      Checks that version code Zero with version name Prerelease is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixZeroPrerelease',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 0;
+      config.versionName = '1.0.0-beta';
+      TestLog.text('testVersionMatrixZeroPrerelease', 'case begin', 'version code zero with name prerelease');
+      TestLog.step('testVersionMatrixZeroPrerelease', 'version code zero with name prerelease');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixZeroPrerelease', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_POSITIVE');
+      TestLog.flag('testVersionMatrixZeroPrerelease', 'has code APP_VERSION_CODE_NOT_POSITIVE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_NOT_SEMVER');
+      TestLog.flag('testVersionMatrixZeroPrerelease', 'has code APP_VERSION_NAME_NOT_SEMVER', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixZeroPrerelease', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixZeroPrerelease', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixZeroPrerelease', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixZeroPrerelease', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixZeroPrerelease', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixZeroPrerelease', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixZeroPrerelease', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixZeroPrerelease', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixZeroPrerelease', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixZeroPrerelease', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixZeroPrerelease', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixZeroPrerelease', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixZeroPrerelease', 'case end', 'version code zero with name prerelease');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5539
+     * @tc.name      testVersionMatrixZeroTooLong
+     * @tc.desc      Checks that version code Zero with version name TooLong is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixZeroTooLong',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 0;
+      config.versionName = ('a'.repeat(65));
+      TestLog.text('testVersionMatrixZeroTooLong', 'case begin', 'version code zero with name toolong');
+      TestLog.step('testVersionMatrixZeroTooLong', 'version code zero with name toolong');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixZeroTooLong', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_POSITIVE');
+      TestLog.flag('testVersionMatrixZeroTooLong', 'has code APP_VERSION_CODE_NOT_POSITIVE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_TOO_LONG');
+      TestLog.flag('testVersionMatrixZeroTooLong', 'has code APP_VERSION_NAME_TOO_LONG', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixZeroTooLong', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixZeroTooLong', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixZeroTooLong', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixZeroTooLong', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixZeroTooLong', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixZeroTooLong', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixZeroTooLong', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixZeroTooLong', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixZeroTooLong', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixZeroTooLong', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixZeroTooLong', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixZeroTooLong', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixZeroTooLong', 'case end', 'version code zero with name toolong');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5540
+     * @tc.name      testVersionMatrixNegativeSample
+     * @tc.desc      Checks that version code Negative with version name Sample is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixNegativeSample',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = -1;
+      config.versionName = '1.0.0';
+      TestLog.text('testVersionMatrixNegativeSample', 'case begin', 'version code negative with name sample');
+      TestLog.step('testVersionMatrixNegativeSample', 'version code negative with name sample');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixNegativeSample', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_POSITIVE');
+      TestLog.flag('testVersionMatrixNegativeSample', 'has code APP_VERSION_CODE_NOT_POSITIVE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixNegativeSample', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixNegativeSample', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixNegativeSample', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixNegativeSample', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixNegativeSample', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixNegativeSample', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixNegativeSample', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixNegativeSample', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixNegativeSample', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixNegativeSample', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixNegativeSample', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixNegativeSample', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixNegativeSample', 'case end', 'version code negative with name sample');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5541
+     * @tc.name      testVersionMatrixNegativeZero
+     * @tc.desc      Checks that version code Negative with version name Zero is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixNegativeZero',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = -1;
+      config.versionName = '0.0.0';
+      TestLog.text('testVersionMatrixNegativeZero', 'case begin', 'version code negative with name zero');
+      TestLog.step('testVersionMatrixNegativeZero', 'version code negative with name zero');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixNegativeZero', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_POSITIVE');
+      TestLog.flag('testVersionMatrixNegativeZero', 'has code APP_VERSION_CODE_NOT_POSITIVE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixNegativeZero', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixNegativeZero', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixNegativeZero', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixNegativeZero', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixNegativeZero', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixNegativeZero', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixNegativeZero', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixNegativeZero', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixNegativeZero', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixNegativeZero', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixNegativeZero', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixNegativeZero', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixNegativeZero', 'case end', 'version code negative with name zero');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5542
+     * @tc.name      testVersionMatrixNegativeLarge
+     * @tc.desc      Checks that version code Negative with version name Large is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixNegativeLarge',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = -1;
+      config.versionName = '12.34.5678';
+      TestLog.text('testVersionMatrixNegativeLarge', 'case begin', 'version code negative with name large');
+      TestLog.step('testVersionMatrixNegativeLarge', 'version code negative with name large');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixNegativeLarge', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_POSITIVE');
+      TestLog.flag('testVersionMatrixNegativeLarge', 'has code APP_VERSION_CODE_NOT_POSITIVE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixNegativeLarge', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixNegativeLarge', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixNegativeLarge', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixNegativeLarge', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixNegativeLarge', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixNegativeLarge', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixNegativeLarge', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixNegativeLarge', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixNegativeLarge', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixNegativeLarge', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixNegativeLarge', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixNegativeLarge', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixNegativeLarge', 'case end', 'version code negative with name large');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5543
+     * @tc.name      testVersionMatrixNegativeEmpty
+     * @tc.desc      Checks that version code Negative with version name Empty is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixNegativeEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = -1;
+      config.versionName = '';
+      TestLog.text('testVersionMatrixNegativeEmpty', 'case begin', 'version code negative with name empty');
+      TestLog.step('testVersionMatrixNegativeEmpty', 'version code negative with name empty');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixNegativeEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_POSITIVE');
+      TestLog.flag('testVersionMatrixNegativeEmpty', 'has code APP_VERSION_CODE_NOT_POSITIVE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_EMPTY');
+      TestLog.flag('testVersionMatrixNegativeEmpty', 'has code APP_VERSION_NAME_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixNegativeEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixNegativeEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixNegativeEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixNegativeEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixNegativeEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixNegativeEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixNegativeEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixNegativeEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixNegativeEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixNegativeEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixNegativeEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixNegativeEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixNegativeEmpty', 'case end', 'version code negative with name empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5544
+     * @tc.name      testVersionMatrixNegativeTwoSegments
+     * @tc.desc      Checks that version code Negative with version name TwoSegments is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixNegativeTwoSegments',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = -1;
+      config.versionName = '1.0';
+      TestLog.text('testVersionMatrixNegativeTwoSegments', 'case begin', 'version code negative with name twosegments');
+      TestLog.step('testVersionMatrixNegativeTwoSegments', 'version code negative with name twosegments');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixNegativeTwoSegments', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_POSITIVE');
+      TestLog.flag('testVersionMatrixNegativeTwoSegments', 'has code APP_VERSION_CODE_NOT_POSITIVE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_NOT_SEMVER');
+      TestLog.flag('testVersionMatrixNegativeTwoSegments', 'has code APP_VERSION_NAME_NOT_SEMVER', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixNegativeTwoSegments', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixNegativeTwoSegments', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixNegativeTwoSegments', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixNegativeTwoSegments', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixNegativeTwoSegments', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixNegativeTwoSegments', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixNegativeTwoSegments', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixNegativeTwoSegments', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixNegativeTwoSegments', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixNegativeTwoSegments', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixNegativeTwoSegments', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixNegativeTwoSegments', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixNegativeTwoSegments', 'case end', 'version code negative with name twosegments');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5545
+     * @tc.name      testVersionMatrixNegativePrefix
+     * @tc.desc      Checks that version code Negative with version name Prefix is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixNegativePrefix',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = -1;
+      config.versionName = 'v1.0.0';
+      TestLog.text('testVersionMatrixNegativePrefix', 'case begin', 'version code negative with name prefix');
+      TestLog.step('testVersionMatrixNegativePrefix', 'version code negative with name prefix');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixNegativePrefix', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_POSITIVE');
+      TestLog.flag('testVersionMatrixNegativePrefix', 'has code APP_VERSION_CODE_NOT_POSITIVE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_NOT_SEMVER');
+      TestLog.flag('testVersionMatrixNegativePrefix', 'has code APP_VERSION_NAME_NOT_SEMVER', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixNegativePrefix', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixNegativePrefix', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixNegativePrefix', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixNegativePrefix', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixNegativePrefix', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixNegativePrefix', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixNegativePrefix', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixNegativePrefix', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixNegativePrefix', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixNegativePrefix', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixNegativePrefix', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixNegativePrefix', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixNegativePrefix', 'case end', 'version code negative with name prefix');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5546
+     * @tc.name      testVersionMatrixNegativePrerelease
+     * @tc.desc      Checks that version code Negative with version name Prerelease is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixNegativePrerelease',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = -1;
+      config.versionName = '1.0.0-beta';
+      TestLog.text('testVersionMatrixNegativePrerelease', 'case begin', 'version code negative with name prerelease');
+      TestLog.step('testVersionMatrixNegativePrerelease', 'version code negative with name prerelease');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixNegativePrerelease', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_POSITIVE');
+      TestLog.flag('testVersionMatrixNegativePrerelease', 'has code APP_VERSION_CODE_NOT_POSITIVE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_NOT_SEMVER');
+      TestLog.flag('testVersionMatrixNegativePrerelease', 'has code APP_VERSION_NAME_NOT_SEMVER', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixNegativePrerelease', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixNegativePrerelease', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixNegativePrerelease', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixNegativePrerelease', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixNegativePrerelease', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixNegativePrerelease', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixNegativePrerelease', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixNegativePrerelease', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixNegativePrerelease', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixNegativePrerelease', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixNegativePrerelease', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixNegativePrerelease', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixNegativePrerelease', 'case end', 'version code negative with name prerelease');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5547
+     * @tc.name      testVersionMatrixNegativeTooLong
+     * @tc.desc      Checks that version code Negative with version name TooLong is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixNegativeTooLong',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = -1;
+      config.versionName = ('a'.repeat(65));
+      TestLog.text('testVersionMatrixNegativeTooLong', 'case begin', 'version code negative with name toolong');
+      TestLog.step('testVersionMatrixNegativeTooLong', 'version code negative with name toolong');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixNegativeTooLong', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_POSITIVE');
+      TestLog.flag('testVersionMatrixNegativeTooLong', 'has code APP_VERSION_CODE_NOT_POSITIVE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_TOO_LONG');
+      TestLog.flag('testVersionMatrixNegativeTooLong', 'has code APP_VERSION_NAME_TOO_LONG', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixNegativeTooLong', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixNegativeTooLong', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixNegativeTooLong', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixNegativeTooLong', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixNegativeTooLong', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixNegativeTooLong', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixNegativeTooLong', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixNegativeTooLong', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixNegativeTooLong', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixNegativeTooLong', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixNegativeTooLong', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixNegativeTooLong', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixNegativeTooLong', 'case end', 'version code negative with name toolong');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5548
+     * @tc.name      testVersionMatrixAboveMaximumSample
+     * @tc.desc      Checks that version code AboveMaximum with version name Sample is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixAboveMaximumSample',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 2147483648;
+      config.versionName = '1.0.0';
+      TestLog.text('testVersionMatrixAboveMaximumSample', 'case begin', 'version code abovemaximum with name sample');
+      TestLog.step('testVersionMatrixAboveMaximumSample', 'version code abovemaximum with name sample');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixAboveMaximumSample', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_OUT_OF_RANGE');
+      TestLog.flag('testVersionMatrixAboveMaximumSample', 'has code APP_VERSION_CODE_OUT_OF_RANGE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixAboveMaximumSample', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixAboveMaximumSample', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixAboveMaximumSample', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixAboveMaximumSample', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixAboveMaximumSample', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixAboveMaximumSample', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixAboveMaximumSample', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixAboveMaximumSample', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixAboveMaximumSample', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixAboveMaximumSample', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixAboveMaximumSample', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixAboveMaximumSample', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixAboveMaximumSample', 'case end', 'version code abovemaximum with name sample');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5549
+     * @tc.name      testVersionMatrixAboveMaximumZero
+     * @tc.desc      Checks that version code AboveMaximum with version name Zero is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixAboveMaximumZero',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 2147483648;
+      config.versionName = '0.0.0';
+      TestLog.text('testVersionMatrixAboveMaximumZero', 'case begin', 'version code abovemaximum with name zero');
+      TestLog.step('testVersionMatrixAboveMaximumZero', 'version code abovemaximum with name zero');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixAboveMaximumZero', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_OUT_OF_RANGE');
+      TestLog.flag('testVersionMatrixAboveMaximumZero', 'has code APP_VERSION_CODE_OUT_OF_RANGE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixAboveMaximumZero', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixAboveMaximumZero', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixAboveMaximumZero', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixAboveMaximumZero', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixAboveMaximumZero', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixAboveMaximumZero', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixAboveMaximumZero', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixAboveMaximumZero', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixAboveMaximumZero', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixAboveMaximumZero', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixAboveMaximumZero', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixAboveMaximumZero', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixAboveMaximumZero', 'case end', 'version code abovemaximum with name zero');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5550
+     * @tc.name      testVersionMatrixAboveMaximumLarge
+     * @tc.desc      Checks that version code AboveMaximum with version name Large is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixAboveMaximumLarge',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 2147483648;
+      config.versionName = '12.34.5678';
+      TestLog.text('testVersionMatrixAboveMaximumLarge', 'case begin', 'version code abovemaximum with name large');
+      TestLog.step('testVersionMatrixAboveMaximumLarge', 'version code abovemaximum with name large');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixAboveMaximumLarge', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_OUT_OF_RANGE');
+      TestLog.flag('testVersionMatrixAboveMaximumLarge', 'has code APP_VERSION_CODE_OUT_OF_RANGE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixAboveMaximumLarge', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixAboveMaximumLarge', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixAboveMaximumLarge', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixAboveMaximumLarge', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixAboveMaximumLarge', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixAboveMaximumLarge', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixAboveMaximumLarge', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixAboveMaximumLarge', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixAboveMaximumLarge', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixAboveMaximumLarge', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixAboveMaximumLarge', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixAboveMaximumLarge', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixAboveMaximumLarge', 'case end', 'version code abovemaximum with name large');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5551
+     * @tc.name      testVersionMatrixAboveMaximumEmpty
+     * @tc.desc      Checks that version code AboveMaximum with version name Empty is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixAboveMaximumEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 2147483648;
+      config.versionName = '';
+      TestLog.text('testVersionMatrixAboveMaximumEmpty', 'case begin', 'version code abovemaximum with name empty');
+      TestLog.step('testVersionMatrixAboveMaximumEmpty', 'version code abovemaximum with name empty');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixAboveMaximumEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_OUT_OF_RANGE');
+      TestLog.flag('testVersionMatrixAboveMaximumEmpty', 'has code APP_VERSION_CODE_OUT_OF_RANGE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_EMPTY');
+      TestLog.flag('testVersionMatrixAboveMaximumEmpty', 'has code APP_VERSION_NAME_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixAboveMaximumEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixAboveMaximumEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixAboveMaximumEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixAboveMaximumEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixAboveMaximumEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixAboveMaximumEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixAboveMaximumEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixAboveMaximumEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixAboveMaximumEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixAboveMaximumEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixAboveMaximumEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixAboveMaximumEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixAboveMaximumEmpty', 'case end', 'version code abovemaximum with name empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5552
+     * @tc.name      testVersionMatrixAboveMaximumTwoSegments
+     * @tc.desc      Checks that version code AboveMaximum with version name TwoSegments is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixAboveMaximumTwoSegments',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 2147483648;
+      config.versionName = '1.0';
+      TestLog.text('testVersionMatrixAboveMaximumTwoSegments', 
+        'case begin', 'version code abovemaximum with name twosegments');
+      TestLog.step('testVersionMatrixAboveMaximumTwoSegments', 'version code abovemaximum with name twosegments');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixAboveMaximumTwoSegments', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_OUT_OF_RANGE');
+      TestLog.flag('testVersionMatrixAboveMaximumTwoSegments', 'has code APP_VERSION_CODE_OUT_OF_RANGE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_NOT_SEMVER');
+      TestLog.flag('testVersionMatrixAboveMaximumTwoSegments', 'has code APP_VERSION_NAME_NOT_SEMVER', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixAboveMaximumTwoSegments', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixAboveMaximumTwoSegments', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixAboveMaximumTwoSegments', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixAboveMaximumTwoSegments', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixAboveMaximumTwoSegments', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixAboveMaximumTwoSegments', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixAboveMaximumTwoSegments', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixAboveMaximumTwoSegments', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixAboveMaximumTwoSegments', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixAboveMaximumTwoSegments', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixAboveMaximumTwoSegments', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixAboveMaximumTwoSegments', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixAboveMaximumTwoSegments', 
+        'case end', 'version code abovemaximum with name twosegments');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5553
+     * @tc.name      testVersionMatrixAboveMaximumPrefix
+     * @tc.desc      Checks that version code AboveMaximum with version name Prefix is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixAboveMaximumPrefix',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 2147483648;
+      config.versionName = 'v1.0.0';
+      TestLog.text('testVersionMatrixAboveMaximumPrefix', 'case begin', 'version code abovemaximum with name prefix');
+      TestLog.step('testVersionMatrixAboveMaximumPrefix', 'version code abovemaximum with name prefix');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixAboveMaximumPrefix', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_OUT_OF_RANGE');
+      TestLog.flag('testVersionMatrixAboveMaximumPrefix', 'has code APP_VERSION_CODE_OUT_OF_RANGE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_NOT_SEMVER');
+      TestLog.flag('testVersionMatrixAboveMaximumPrefix', 'has code APP_VERSION_NAME_NOT_SEMVER', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixAboveMaximumPrefix', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixAboveMaximumPrefix', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixAboveMaximumPrefix', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixAboveMaximumPrefix', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixAboveMaximumPrefix', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixAboveMaximumPrefix', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixAboveMaximumPrefix', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixAboveMaximumPrefix', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixAboveMaximumPrefix', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixAboveMaximumPrefix', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixAboveMaximumPrefix', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixAboveMaximumPrefix', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixAboveMaximumPrefix', 'case end', 'version code abovemaximum with name prefix');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5554
+     * @tc.name      testVersionMatrixAboveMaximumPrerelease
+     * @tc.desc      Checks that version code AboveMaximum with version name Prerelease is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixAboveMaximumPrerelease',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 2147483648;
+      config.versionName = '1.0.0-beta';
+      TestLog.text('testVersionMatrixAboveMaximumPrerelease', 
+        'case begin', 'version code abovemaximum with name prerelease');
+      TestLog.step('testVersionMatrixAboveMaximumPrerelease', 'version code abovemaximum with name prerelease');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixAboveMaximumPrerelease', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_OUT_OF_RANGE');
+      TestLog.flag('testVersionMatrixAboveMaximumPrerelease', 'has code APP_VERSION_CODE_OUT_OF_RANGE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_NOT_SEMVER');
+      TestLog.flag('testVersionMatrixAboveMaximumPrerelease', 'has code APP_VERSION_NAME_NOT_SEMVER', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixAboveMaximumPrerelease', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixAboveMaximumPrerelease', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixAboveMaximumPrerelease', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixAboveMaximumPrerelease', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixAboveMaximumPrerelease', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixAboveMaximumPrerelease', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixAboveMaximumPrerelease', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixAboveMaximumPrerelease', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixAboveMaximumPrerelease', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixAboveMaximumPrerelease', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixAboveMaximumPrerelease', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixAboveMaximumPrerelease', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixAboveMaximumPrerelease', 
+        'case end', 'version code abovemaximum with name prerelease');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5555
+     * @tc.name      testVersionMatrixAboveMaximumTooLong
+     * @tc.desc      Checks that version code AboveMaximum with version name TooLong is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixAboveMaximumTooLong',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 2147483648;
+      config.versionName = ('a'.repeat(65));
+      TestLog.text('testVersionMatrixAboveMaximumTooLong', 'case begin', 'version code abovemaximum with name toolong');
+      TestLog.step('testVersionMatrixAboveMaximumTooLong', 'version code abovemaximum with name toolong');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixAboveMaximumTooLong', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_OUT_OF_RANGE');
+      TestLog.flag('testVersionMatrixAboveMaximumTooLong', 'has code APP_VERSION_CODE_OUT_OF_RANGE', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_TOO_LONG');
+      TestLog.flag('testVersionMatrixAboveMaximumTooLong', 'has code APP_VERSION_NAME_TOO_LONG', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixAboveMaximumTooLong', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixAboveMaximumTooLong', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixAboveMaximumTooLong', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixAboveMaximumTooLong', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixAboveMaximumTooLong', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixAboveMaximumTooLong', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixAboveMaximumTooLong', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixAboveMaximumTooLong', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixAboveMaximumTooLong', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixAboveMaximumTooLong', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixAboveMaximumTooLong', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixAboveMaximumTooLong', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixAboveMaximumTooLong', 'case end', 'version code abovemaximum with name toolong');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5556
+     * @tc.name      testVersionMatrixFractionSample
+     * @tc.desc      Checks that version code Fraction with version name Sample is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixFractionSample',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 1.5;
+      config.versionName = '1.0.0';
+      TestLog.text('testVersionMatrixFractionSample', 'case begin', 'version code fraction with name sample');
+      TestLog.step('testVersionMatrixFractionSample', 'version code fraction with name sample');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixFractionSample', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_INTEGER');
+      TestLog.flag('testVersionMatrixFractionSample', 'has code APP_VERSION_CODE_NOT_INTEGER', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixFractionSample', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixFractionSample', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixFractionSample', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixFractionSample', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixFractionSample', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixFractionSample', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixFractionSample', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixFractionSample', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixFractionSample', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixFractionSample', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixFractionSample', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixFractionSample', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixFractionSample', 'case end', 'version code fraction with name sample');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5557
+     * @tc.name      testVersionMatrixFractionZero
+     * @tc.desc      Checks that version code Fraction with version name Zero is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixFractionZero',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 1.5;
+      config.versionName = '0.0.0';
+      TestLog.text('testVersionMatrixFractionZero', 'case begin', 'version code fraction with name zero');
+      TestLog.step('testVersionMatrixFractionZero', 'version code fraction with name zero');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixFractionZero', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_INTEGER');
+      TestLog.flag('testVersionMatrixFractionZero', 'has code APP_VERSION_CODE_NOT_INTEGER', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixFractionZero', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixFractionZero', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixFractionZero', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixFractionZero', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixFractionZero', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixFractionZero', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixFractionZero', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixFractionZero', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixFractionZero', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixFractionZero', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixFractionZero', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixFractionZero', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixFractionZero', 'case end', 'version code fraction with name zero');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5558
+     * @tc.name      testVersionMatrixFractionLarge
+     * @tc.desc      Checks that version code Fraction with version name Large is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixFractionLarge',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 1.5;
+      config.versionName = '12.34.5678';
+      TestLog.text('testVersionMatrixFractionLarge', 'case begin', 'version code fraction with name large');
+      TestLog.step('testVersionMatrixFractionLarge', 'version code fraction with name large');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixFractionLarge', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_INTEGER');
+      TestLog.flag('testVersionMatrixFractionLarge', 'has code APP_VERSION_CODE_NOT_INTEGER', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixFractionLarge', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixFractionLarge', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixFractionLarge', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixFractionLarge', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixFractionLarge', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixFractionLarge', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixFractionLarge', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixFractionLarge', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixFractionLarge', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixFractionLarge', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixFractionLarge', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixFractionLarge', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixFractionLarge', 'case end', 'version code fraction with name large');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5559
+     * @tc.name      testVersionMatrixFractionEmpty
+     * @tc.desc      Checks that version code Fraction with version name Empty is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixFractionEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 1.5;
+      config.versionName = '';
+      TestLog.text('testVersionMatrixFractionEmpty', 'case begin', 'version code fraction with name empty');
+      TestLog.step('testVersionMatrixFractionEmpty', 'version code fraction with name empty');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixFractionEmpty', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_INTEGER');
+      TestLog.flag('testVersionMatrixFractionEmpty', 'has code APP_VERSION_CODE_NOT_INTEGER', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_EMPTY');
+      TestLog.flag('testVersionMatrixFractionEmpty', 'has code APP_VERSION_NAME_EMPTY', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixFractionEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixFractionEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixFractionEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixFractionEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixFractionEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixFractionEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixFractionEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixFractionEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixFractionEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixFractionEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixFractionEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixFractionEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixFractionEmpty', 'case end', 'version code fraction with name empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5560
+     * @tc.name      testVersionMatrixFractionTwoSegments
+     * @tc.desc      Checks that version code Fraction with version name TwoSegments is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixFractionTwoSegments',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 1.5;
+      config.versionName = '1.0';
+      TestLog.text('testVersionMatrixFractionTwoSegments', 'case begin', 'version code fraction with name twosegments');
+      TestLog.step('testVersionMatrixFractionTwoSegments', 'version code fraction with name twosegments');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixFractionTwoSegments', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_INTEGER');
+      TestLog.flag('testVersionMatrixFractionTwoSegments', 'has code APP_VERSION_CODE_NOT_INTEGER', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_NOT_SEMVER');
+      TestLog.flag('testVersionMatrixFractionTwoSegments', 'has code APP_VERSION_NAME_NOT_SEMVER', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixFractionTwoSegments', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixFractionTwoSegments', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixFractionTwoSegments', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixFractionTwoSegments', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixFractionTwoSegments', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixFractionTwoSegments', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixFractionTwoSegments', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixFractionTwoSegments', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixFractionTwoSegments', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixFractionTwoSegments', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixFractionTwoSegments', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixFractionTwoSegments', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixFractionTwoSegments', 'case end', 'version code fraction with name twosegments');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5561
+     * @tc.name      testVersionMatrixFractionPrefix
+     * @tc.desc      Checks that version code Fraction with version name Prefix is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixFractionPrefix',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 1.5;
+      config.versionName = 'v1.0.0';
+      TestLog.text('testVersionMatrixFractionPrefix', 'case begin', 'version code fraction with name prefix');
+      TestLog.step('testVersionMatrixFractionPrefix', 'version code fraction with name prefix');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixFractionPrefix', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_INTEGER');
+      TestLog.flag('testVersionMatrixFractionPrefix', 'has code APP_VERSION_CODE_NOT_INTEGER', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_NOT_SEMVER');
+      TestLog.flag('testVersionMatrixFractionPrefix', 'has code APP_VERSION_NAME_NOT_SEMVER', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixFractionPrefix', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixFractionPrefix', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixFractionPrefix', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixFractionPrefix', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixFractionPrefix', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixFractionPrefix', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixFractionPrefix', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixFractionPrefix', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixFractionPrefix', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixFractionPrefix', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixFractionPrefix', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixFractionPrefix', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixFractionPrefix', 'case end', 'version code fraction with name prefix');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5562
+     * @tc.name      testVersionMatrixFractionPrerelease
+     * @tc.desc      Checks that version code Fraction with version name Prerelease is reported by the
+     * @tc.desc      expected rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixFractionPrerelease',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 1.5;
+      config.versionName = '1.0.0-beta';
+      TestLog.text('testVersionMatrixFractionPrerelease', 'case begin', 'version code fraction with name prerelease');
+      TestLog.step('testVersionMatrixFractionPrerelease', 'version code fraction with name prerelease');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixFractionPrerelease', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_INTEGER');
+      TestLog.flag('testVersionMatrixFractionPrerelease', 'has code APP_VERSION_CODE_NOT_INTEGER', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_NOT_SEMVER');
+      TestLog.flag('testVersionMatrixFractionPrerelease', 'has code APP_VERSION_NAME_NOT_SEMVER', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixFractionPrerelease', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixFractionPrerelease', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixFractionPrerelease', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixFractionPrerelease', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixFractionPrerelease', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixFractionPrerelease', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixFractionPrerelease', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixFractionPrerelease', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixFractionPrerelease', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixFractionPrerelease', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixFractionPrerelease', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixFractionPrerelease', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixFractionPrerelease', 'case end', 'version code fraction with name prerelease');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_5563
+     * @tc.name      testVersionMatrixFractionTooLong
+     * @tc.desc      Checks that version code Fraction with version name TooLong is reported by the expected
+     * @tc.desc      rules.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testVersionMatrixFractionTooLong',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const config: AppConfig = ConfigFactory.appConfig();
+      config.versionCode = 1.5;
+      config.versionName = ('a'.repeat(65));
+      TestLog.text('testVersionMatrixFractionTooLong', 'case begin', 'version code fraction with name toolong');
+      TestLog.step('testVersionMatrixFractionTooLong', 'version code fraction with name toolong');
+      const findings: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.findings('testVersionMatrixFractionTooLong', 'matrix findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_CODE_NOT_INTEGER');
+      TestLog.flag('testVersionMatrixFractionTooLong', 'has code APP_VERSION_CODE_NOT_INTEGER', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'APP_VERSION_NAME_TOO_LONG');
+      TestLog.flag('testVersionMatrixFractionTooLong', 'has code APP_VERSION_NAME_TOO_LONG', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testVersionMatrixFractionTooLong', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testVersionMatrixFractionTooLong', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testVersionMatrixFractionTooLong', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testVersionMatrixFractionTooLong', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testVersionMatrixFractionTooLong', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testVersionMatrixFractionTooLong', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testVersionMatrixFractionTooLong', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testVersionMatrixFractionTooLong', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testVersionMatrixFractionTooLong', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testVersionMatrixFractionTooLong', 'first signature', firstSignature);
+      const repeat: Finding[] = 
+        AppConfigValidator.validateVersionCode(config).concat(AppConfigValidator.validateVersionName(config));
+      TestLog.number('testVersionMatrixFractionTooLong', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testVersionMatrixFractionTooLong', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testVersionMatrixFractionTooLong', 'case end', 'version code fraction with name toolong');
+    })
+
+  })
+}
