@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file pageloading/src/main/ets/model/CommodityDataSource.ets
+ * 文件职责：CommodityDataSource 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：BasicDataSource、CommodityDataSource。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { logger } from '../utils/logger';
 
 import { CommodityDataModel } from './CommodityDataModel';
@@ -96,6 +103,9 @@ class BasicDataSource<T> implements IDataSource {
   }
 }
 
+/**
+ * CommodityDataSource：类定义，承载本文件对应的逻辑与数据。
+ */
 export class CommodityDataSource extends BasicDataSource<CommodityDataModel> {
   // 懒加载数据
   private commodityList: CommodityDataModel[] = []
