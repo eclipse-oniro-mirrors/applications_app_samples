@@ -13,6 +13,12 @@
  * limitations under the License.
  */
 
+/**
+ * @file casesfeature/keyboardavoid/src/main/ets/basicDataResource/BasicDataSource.ets
+ * 文件职责：BasicDataSource 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：KeyboardDataSource。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
 
 /**
  * 实现页面加载所需要的对象，用于LazyForEach加载数据
@@ -21,6 +27,7 @@ export class KeyboardDataSource {
   private dataArray: string[] = [];
   private listeners: DataChangeListener[] = [];
 
+  /** 构造 BasicDataSource 实例。 */
   constructor(dataArray: string[]) {
     for (let i = 0; i < dataArray.length; i++) {
       this.dataArray.push(dataArray[i]);
