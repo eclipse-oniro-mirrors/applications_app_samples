@@ -2548,3 +2548,1891 @@ export default function RecorderLifecycleLogicTest(): void {
      * @tc.desc Void pause and resume log promise rejections, retain their recorder, and permit later successful
      * commands.
      * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1099';
+        const input: string =
+          'rejectCommands=pause/resume';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        await model.startRecorder(1403);
+        r1.emitState('started');
+        r1.fail('pause', 'pause promise rejected 2');
+        r1.fail('resume', 'resume promise rejected 2');
+        const result0: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'failedVoidResult0', 'undefined', String(result0));
+        expect(String(result0)).assertEqual('undefined');
+        LogicTestLog.number(name, 'noSyntheticCallback0', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const result1: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'failedVoidResult1', 'undefined', String(result1));
+        expect(String(result1)).assertEqual('undefined');
+        LogicTestLog.number(name, 'noSyntheticCallback1', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.pause.enter', 'r1.pause.reject',
+          'r1.resume.enter', 'r1.resume.reject'
+        ];
+        LogicTestLog.value(name, 'handledVoidRejections', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        r1.recover('pause');
+        const recovered0: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'recoveredVoidResult0', 'undefined', String(recovered0));
+        expect(String(recovered0)).assertEqual('undefined');
+        r1.recover('resume');
+        const recovered1: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'recoveredVoidResult1', 'undefined', String(recovered1));
+        expect(String(recovered1)).assertEqual('undefined');
+        r1.emitState('paused');
+        r1.emitState('started');
+        LogicTestLog.number(name, 'realCallbacksAfterRecovery', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        LogicTestLog.value(name, 'descriptorAfterVoidFailures', 'fd://1403', r1.configs[0].url);
+        expect(r1.configs[0].url).assertEqual('fd://1403');
+        await model.finish();
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'callbacksAfterCleanup', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.pause.enter', 'r1.pause.reject',
+          'r1.resume.enter', 'r1.resume.reject', 'r1.pause.enter', 'r1.pause.resolve',
+          'r1.resume.enter', 'r1.resume.resolve', 'r1.stop.enter', 'r1.stop.resolve',
+          'r1.reset.enter', 'r1.reset.resolve', 'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'voidRecoveryAndCleanup', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1100
+     * @tc.name VoidRejection4
+     * @tc.desc Void pause and resume log promise rejections, retain their recorder, and permit later successful
+     * commands.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1100';
+        const input: string =
+          'rejectCommands=pause/pause';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        await model.startRecorder(1404);
+        r1.emitState('started');
+        r1.fail('pause', 'pause promise rejected 3');
+        const result0: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'failedVoidResult0', 'undefined', String(result0));
+        expect(String(result0)).assertEqual('undefined');
+        LogicTestLog.number(name, 'noSyntheticCallback0', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const result1: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'failedVoidResult1', 'undefined', String(result1));
+        expect(String(result1)).assertEqual('undefined');
+        LogicTestLog.number(name, 'noSyntheticCallback1', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.pause.enter', 'r1.pause.reject',
+          'r1.pause.enter', 'r1.pause.reject'
+        ];
+        LogicTestLog.value(name, 'handledVoidRejections', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        r1.recover('pause');
+        const recovered0: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'recoveredVoidResult0', 'undefined', String(recovered0));
+        expect(String(recovered0)).assertEqual('undefined');
+        r1.emitState('paused');
+        r1.emitState('started');
+        LogicTestLog.number(name, 'realCallbacksAfterRecovery', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        LogicTestLog.value(name, 'descriptorAfterVoidFailures', 'fd://1404', r1.configs[0].url);
+        expect(r1.configs[0].url).assertEqual('fd://1404');
+        await model.finish();
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'callbacksAfterCleanup', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.pause.enter', 'r1.pause.reject',
+          'r1.pause.enter', 'r1.pause.reject', 'r1.pause.enter', 'r1.pause.resolve',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'voidRecoveryAndCleanup', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1101
+     * @tc.name VoidRejection5
+     * @tc.desc Void pause and resume log promise rejections, retain their recorder, and permit later successful
+     * commands.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1101';
+        const input: string =
+          'rejectCommands=resume/pause/resume';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        await model.startRecorder(1405);
+        r1.emitState('started');
+        r1.fail('resume', 'resume promise rejected 4');
+        r1.fail('pause', 'pause promise rejected 4');
+        const result0: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'failedVoidResult0', 'undefined', String(result0));
+        expect(String(result0)).assertEqual('undefined');
+        LogicTestLog.number(name, 'noSyntheticCallback0', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const result1: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'failedVoidResult1', 'undefined', String(result1));
+        expect(String(result1)).assertEqual('undefined');
+        LogicTestLog.number(name, 'noSyntheticCallback1', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const result2: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'failedVoidResult2', 'undefined', String(result2));
+        expect(String(result2)).assertEqual('undefined');
+        LogicTestLog.number(name, 'noSyntheticCallback2', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.resume.enter', 'r1.resume.reject',
+          'r1.pause.enter', 'r1.pause.reject', 'r1.resume.enter', 'r1.resume.reject'
+        ];
+        LogicTestLog.value(name, 'handledVoidRejections', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        r1.recover('resume');
+        const recovered0: void = model.resume();
+        await recorderTick();
+        LogicTestLog.value(name, 'recoveredVoidResult0', 'undefined', String(recovered0));
+        expect(String(recovered0)).assertEqual('undefined');
+        r1.recover('pause');
+        const recovered1: void = model.pause();
+        await recorderTick();
+        LogicTestLog.value(name, 'recoveredVoidResult1', 'undefined', String(recovered1));
+        expect(String(recovered1)).assertEqual('undefined');
+        r1.emitState('paused');
+        r1.emitState('started');
+        LogicTestLog.number(name, 'realCallbacksAfterRecovery', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        LogicTestLog.value(name, 'descriptorAfterVoidFailures', 'fd://1405', r1.configs[0].url);
+        expect(r1.configs[0].url).assertEqual('fd://1405');
+        await model.finish();
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'callbacksAfterCleanup', 3, callbacks);
+        expect(callbacks).assertEqual(3);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.prepare.enter', 'r1.prepare.resolve', 'r1.resume.enter', 'r1.resume.reject',
+          'r1.pause.enter', 'r1.pause.reject', 'r1.resume.enter', 'r1.resume.reject',
+          'r1.resume.enter', 'r1.resume.resolve', 'r1.pause.enter', 'r1.pause.resolve',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'voidRecoveryAndCleanup', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1102
+     * @tc.name FinishAwaitsstop
+     * @tc.desc Finish detaches immediately and waits at each port boundary without handling late events.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1102', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1102';
+        const input: string =
+          'blockedFinishMethod=stop';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const r2: RecorderFake = new RecorderFake('r2', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1, r2], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        r1.emitState('started');
+        const gate: RecorderGate = new RecorderGate();
+        r1.defer('stop', gate);
+        let completed: boolean = false;
+        const finishing: Promise<void> = model.finish().then((): void => {
+          completed = true;
+        });
+        await recorderTick();
+        LogicTestLog.flag(name, 'finishPendingExpectedFalse', completed);
+        expect(completed).assertFalse();
+        LogicTestLog.number(name, 'stopEntered', 1, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'resetEnteredOnlyAfterStop', 0, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(0);
+        LogicTestLog.number(name, 'releaseEnteredOnlyAfterReset', 0, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(0);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError', 'r1.stop.enter'
+        ];
+        LogicTestLog.value(name, 'finishBlockedOrdering', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        r1.emitState('prepared');
+        r1.emitState('started');
+        r1.emitState('paused');
+        await recorderTick();
+        LogicTestLog.number(name, 'initialCallbackRetainedOnly', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        LogicTestLog.number(name, 'latePreparedCannotStart', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'noPrepareWhileFinishing', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError', 'r1.stop.enter'
+        ];
+        LogicTestLog.value(name, 'detachedBeforeTeardownCompletes', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        gate.open();
+        await finishing;
+        LogicTestLog.flag(name, 'finishCompletedExpectedTrue', completed);
+        expect(completed).assertTrue();
+        LogicTestLog.number(name, 'stopExactlyOnce', 1, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'resetExactlyOnce', 1, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'releaseExactlyOnce', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        r1.emitState('prepared');
+        r1.emitState('started');
+        r1.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'callbacksAfterFinish', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const expectedHistory3: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'finishSettledAndCleared', expectedHistory3.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory3.join('|'));
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        await model.startRecorder(1501);
+        r2.emitState('started');
+        LogicTestLog.number(name, 'newCallbackAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        LogicTestLog.value(name, 'newDescriptor', 'fd://1501', r2.configs[0].url);
+        expect(r2.configs[0].url).assertEqual('fd://1501');
+        await model.finish();
+        const expectedHistory4: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve', 'factory.2.enter', 'factory.2.resolve',
+          'r2.onStateChange', 'r2.onError', 'r2.prepare.enter', 'r2.prepare.resolve',
+          'r2.stop.enter', 'r2.stop.resolve', 'r2.reset.enter', 'r2.reset.resolve',
+          'r2.release.enter', 'r2.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory4.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory4.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1103
+     * @tc.name FinishAwaitsreset
+     * @tc.desc Finish detaches immediately and waits at each port boundary without handling late events.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1103';
+        const input: string =
+          'blockedFinishMethod=reset';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const r2: RecorderFake = new RecorderFake('r2', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1, r2], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        r1.emitState('started');
+        const gate: RecorderGate = new RecorderGate();
+        r1.defer('reset', gate);
+        let completed: boolean = false;
+        const finishing: Promise<void> = model.finish().then((): void => {
+          completed = true;
+        });
+        await recorderTick();
+        LogicTestLog.flag(name, 'finishPendingExpectedFalse', completed);
+        expect(completed).assertFalse();
+        LogicTestLog.number(name, 'stopEntered', 1, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'resetEnteredOnlyAfterStop', 1, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'releaseEnteredOnlyAfterReset', 0, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(0);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter'
+        ];
+        LogicTestLog.value(name, 'finishBlockedOrdering', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        r1.emitState('prepared');
+        r1.emitState('started');
+        r1.emitState('paused');
+        await recorderTick();
+        LogicTestLog.number(name, 'initialCallbackRetainedOnly', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        LogicTestLog.number(name, 'latePreparedCannotStart', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'noPrepareWhileFinishing', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter'
+        ];
+        LogicTestLog.value(name, 'detachedBeforeTeardownCompletes', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        gate.open();
+        await finishing;
+        LogicTestLog.flag(name, 'finishCompletedExpectedTrue', completed);
+        expect(completed).assertTrue();
+        LogicTestLog.number(name, 'stopExactlyOnce', 1, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'resetExactlyOnce', 1, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'releaseExactlyOnce', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        r1.emitState('prepared');
+        r1.emitState('started');
+        r1.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'callbacksAfterFinish', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const expectedHistory3: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'finishSettledAndCleared', expectedHistory3.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory3.join('|'));
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        await model.startRecorder(1502);
+        r2.emitState('started');
+        LogicTestLog.number(name, 'newCallbackAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        LogicTestLog.value(name, 'newDescriptor', 'fd://1502', r2.configs[0].url);
+        expect(r2.configs[0].url).assertEqual('fd://1502');
+        await model.finish();
+        const expectedHistory4: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve', 'factory.2.enter', 'factory.2.resolve',
+          'r2.onStateChange', 'r2.onError', 'r2.prepare.enter', 'r2.prepare.resolve',
+          'r2.stop.enter', 'r2.stop.resolve', 'r2.reset.enter', 'r2.reset.resolve',
+          'r2.release.enter', 'r2.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory4.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory4.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1104
+     * @tc.name FinishAwaitsrelease
+     * @tc.desc Finish detaches immediately and waits at each port boundary without handling late events.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1104', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1104';
+        const input: string =
+          'blockedFinishMethod=release';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const r2: RecorderFake = new RecorderFake('r2', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1, r2], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        r1.emitState('started');
+        const gate: RecorderGate = new RecorderGate();
+        r1.defer('release', gate);
+        let completed: boolean = false;
+        const finishing: Promise<void> = model.finish().then((): void => {
+          completed = true;
+        });
+        await recorderTick();
+        LogicTestLog.flag(name, 'finishPendingExpectedFalse', completed);
+        expect(completed).assertFalse();
+        LogicTestLog.number(name, 'stopEntered', 1, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'resetEnteredOnlyAfterStop', 1, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'releaseEnteredOnlyAfterReset', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter'
+        ];
+        LogicTestLog.value(name, 'finishBlockedOrdering', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        r1.emitState('prepared');
+        r1.emitState('started');
+        r1.emitState('paused');
+        await recorderTick();
+        LogicTestLog.number(name, 'initialCallbackRetainedOnly', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        LogicTestLog.number(name, 'latePreparedCannotStart', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'noPrepareWhileFinishing', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter'
+        ];
+        LogicTestLog.value(name, 'detachedBeforeTeardownCompletes', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        gate.open();
+        await finishing;
+        LogicTestLog.flag(name, 'finishCompletedExpectedTrue', completed);
+        expect(completed).assertTrue();
+        LogicTestLog.number(name, 'stopExactlyOnce', 1, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'resetExactlyOnce', 1, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'releaseExactlyOnce', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        r1.emitState('prepared');
+        r1.emitState('started');
+        r1.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'callbacksAfterFinish', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const expectedHistory3: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'finishSettledAndCleared', expectedHistory3.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory3.join('|'));
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        await model.startRecorder(1503);
+        r2.emitState('started');
+        LogicTestLog.number(name, 'newCallbackAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        LogicTestLog.value(name, 'newDescriptor', 'fd://1503', r2.configs[0].url);
+        expect(r2.configs[0].url).assertEqual('fd://1503');
+        await model.finish();
+        const expectedHistory4: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve', 'factory.2.enter', 'factory.2.resolve',
+          'r2.onStateChange', 'r2.onError', 'r2.prepare.enter', 'r2.prepare.resolve',
+          'r2.stop.enter', 'r2.stop.resolve', 'r2.reset.enter', 'r2.reset.resolve',
+          'r2.release.enter', 'r2.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory4.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory4.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1105
+     * @tc.name FactoryBlockedThenrelease
+     * @tc.desc Disposal invalidates a blocked factory; its resolved handle is released without installation or
+     * preparation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1105', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1105';
+        const input: string =
+          'factory1=blocked; dispose=release; retry=success';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const r2: RecorderFake = new RecorderFake('r2', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1, r2], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        const gate: RecorderGate = new RecorderGate();
+        factory.defer(1, gate);
+        const initializing: Promise<string> = recorderRejection((): Promise<void> =>
+          model.initAudioRecorder((): void => { callbacks++; }));
+        await recorderTick();
+        LogicTestLog.number(name, 'blockedFactoryEntered', 1, factory.calls);
+        expect(factory.calls).assertEqual(1);
+        const expectedHistory1: string[] = [
+          'factory.1.enter'
+        ];
+        LogicTestLog.value(name, 'factoryStillBlocked', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        const disposalError: string = await recorderRejection((): Promise<void> => model.release());
+        LogicTestLog.value(name, 'disposalWithoutHandleError', '', disposalError);
+        expect(disposalError).assertEqual('');
+        r1.emitState('prepared');
+        r1.emitState('started');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'noBlockedCallback', 0, callbacks);
+        expect(callbacks).assertEqual(0);
+        LogicTestLog.number(name, 'noBlockedPrepare', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'noBlockedStart', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        LogicTestLog.number(name, 'unresolvedHandleNotReleased', 0, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(0);
+        gate.open();
+        const initError: string = await initializing;
+        LogicTestLog.value(name, 'invalidatedInitError', '', initError);
+        expect(initError).assertEqual('');
+        r1.emitState('prepared');
+        r1.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'staleResolvedReleaseOnce', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'staleResolvedNoStop', 0, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(0);
+        LogicTestLog.number(name, 'staleResolvedNoReset', 0, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(0);
+        LogicTestLog.number(name, 'staleResolvedNoCallback', 0, callbacks);
+        expect(callbacks).assertEqual(0);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'staleHandleNeverRegistered', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        LogicTestLog.number(name, 'factoryCountAfterReplacement', 2, factory.calls);
+        expect(factory.calls).assertEqual(2);
+        await model.startRecorder(1601);
+        r2.emitState('prepared');
+        await recorderTick();
+        r2.emitState('started');
+        r1.emitState('prepared');
+        r1.emitState('started');
+        LogicTestLog.number(name, 'latestCallbacksOnly', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        LogicTestLog.number(name, 'oldNeverPrepared', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'oldNeverStarted', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        LogicTestLog.number(name, 'latestPreparedOnce', 1, r2.configs.length);
+        expect(r2.configs.length).assertEqual(1);
+        LogicTestLog.number(name, 'latestStartedOnce', 1, r2.callCount('start'));
+        expect(r2.callCount('start')).assertEqual(1);
+        LogicTestLog.value(name, 'latestDescriptor', 'fd://1601', r2.configs[0].url);
+        expect(r2.configs[0].url).assertEqual('fd://1601');
+        await model.finish();
+        r2.emitState('prepared');
+        r2.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'latestStopOnce', 1, r2.callCount('stop'));
+        expect(r2.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'latestResetOnce', 1, r2.callCount('reset'));
+        expect(r2.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'latestReleaseOnce', 1, r2.callCount('release'));
+        expect(r2.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'latestCallbacksAfterFinish', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const expectedHistory3: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.release.enter', 'r1.release.resolve',
+          'factory.2.enter', 'factory.2.resolve', 'r2.onStateChange', 'r2.onError',
+          'r2.prepare.enter', 'r2.prepare.resolve', 'r2.start.enter', 'r2.start.resolve',
+          'r2.stop.enter', 'r2.stop.resolve', 'r2.reset.enter', 'r2.reset.resolve',
+          'r2.release.enter', 'r2.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory3.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory3.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1106
+     * @tc.name FactoryBlockedThenfinish
+     * @tc.desc Disposal invalidates a blocked factory; its resolved handle is released without installation or
+     * preparation.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1106', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1106';
+        const input: string =
+          'factory1=blocked; dispose=finish; retry=success';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const r2: RecorderFake = new RecorderFake('r2', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1, r2], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        const gate: RecorderGate = new RecorderGate();
+        factory.defer(1, gate);
+        const initializing: Promise<string> = recorderRejection((): Promise<void> =>
+          model.initAudioRecorder((): void => { callbacks++; }));
+        await recorderTick();
+        LogicTestLog.number(name, 'blockedFactoryEntered', 1, factory.calls);
+        expect(factory.calls).assertEqual(1);
+        const expectedHistory1: string[] = [
+          'factory.1.enter'
+        ];
+        LogicTestLog.value(name, 'factoryStillBlocked', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        const disposalError: string = await recorderRejection((): Promise<void> => model.finish());
+        LogicTestLog.value(name, 'disposalWithoutHandleError', '', disposalError);
+        expect(disposalError).assertEqual('');
+        r1.emitState('prepared');
+        r1.emitState('started');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'noBlockedCallback', 0, callbacks);
+        expect(callbacks).assertEqual(0);
+        LogicTestLog.number(name, 'noBlockedPrepare', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'noBlockedStart', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        LogicTestLog.number(name, 'unresolvedHandleNotReleased', 0, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(0);
+        gate.open();
+        const initError: string = await initializing;
+        LogicTestLog.value(name, 'invalidatedInitError', '', initError);
+        expect(initError).assertEqual('');
+        r1.emitState('prepared');
+        r1.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'staleResolvedReleaseOnce', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'staleResolvedNoStop', 0, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(0);
+        LogicTestLog.number(name, 'staleResolvedNoReset', 0, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(0);
+        LogicTestLog.number(name, 'staleResolvedNoCallback', 0, callbacks);
+        expect(callbacks).assertEqual(0);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'staleHandleNeverRegistered', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        LogicTestLog.number(name, 'factoryCountAfterReplacement', 2, factory.calls);
+        expect(factory.calls).assertEqual(2);
+        await model.startRecorder(1602);
+        r2.emitState('prepared');
+        await recorderTick();
+        r2.emitState('started');
+        r1.emitState('prepared');
+        r1.emitState('started');
+        LogicTestLog.number(name, 'latestCallbacksOnly', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        LogicTestLog.number(name, 'oldNeverPrepared', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'oldNeverStarted', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        LogicTestLog.number(name, 'latestPreparedOnce', 1, r2.configs.length);
+        expect(r2.configs.length).assertEqual(1);
+        LogicTestLog.number(name, 'latestStartedOnce', 1, r2.callCount('start'));
+        expect(r2.callCount('start')).assertEqual(1);
+        LogicTestLog.value(name, 'latestDescriptor', 'fd://1602', r2.configs[0].url);
+        expect(r2.configs[0].url).assertEqual('fd://1602');
+        await model.finish();
+        r2.emitState('prepared');
+        r2.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'latestStopOnce', 1, r2.callCount('stop'));
+        expect(r2.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'latestResetOnce', 1, r2.callCount('reset'));
+        expect(r2.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'latestReleaseOnce', 1, r2.callCount('release'));
+        expect(r2.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'latestCallbacksAfterFinish', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        const expectedHistory3: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.release.enter', 'r1.release.resolve',
+          'factory.2.enter', 'factory.2.resolve', 'r2.onStateChange', 'r2.onError',
+          'r2.prepare.enter', 'r2.prepare.resolve', 'r2.start.enter', 'r2.start.resolve',
+          'r2.stop.enter', 'r2.stop.resolve', 'r2.reset.enter', 'r2.reset.resolve',
+          'r2.release.enter', 'r2.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory3.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory3.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1107
+     * @tc.name OverlappingInitReverseResolution
+     * @tc.desc Reverse factory completion cannot replace the newest recorder or attach callbacks to the stale
+     * result.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1107', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1107';
+        const input: string =
+          'factory1=blocked; factory2=resolvesFirst';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const r2: RecorderFake = new RecorderFake('r2', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1, r2], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        const gate: RecorderGate = new RecorderGate();
+        factory.defer(1, gate);
+        const firstInit: Promise<string> = recorderRejection((): Promise<void> =>
+          model.initAudioRecorder((): void => { callbacks++; }));
+        await recorderTick();
+        LogicTestLog.number(name, 'firstFactoryPending', 1, factory.calls);
+        expect(factory.calls).assertEqual(1);
+        let newestCallbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          newestCallbacks++;
+        });
+        LogicTestLog.number(name, 'newestFactoryInstalledFirst', 2, factory.calls);
+        expect(factory.calls).assertEqual(2);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.2.enter', 'factory.2.resolve', 'r2.onStateChange',
+          'r2.onError'
+        ];
+        LogicTestLog.value(name, 'reverseResolutionBeforeOldFactory', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        gate.open();
+        const firstError: string = await firstInit;
+        LogicTestLog.value(name, 'staleInitError', '', firstError);
+        expect(firstError).assertEqual('');
+        r1.emitState('prepared');
+        r1.emitState('started');
+        r1.emitState('paused');
+        LogicTestLog.number(name, 'staleClosureNotCalled', 0, callbacks);
+        expect(callbacks).assertEqual(0);
+        LogicTestLog.number(name, 'staleReleasedExactlyOnce', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'newestNotReleasedByOldInit', 0, r2.callCount('release'));
+        expect(r2.callCount('release')).assertEqual(0);
+        LogicTestLog.number(name, 'factoryCountAfterReplacement', 2, factory.calls);
+        expect(factory.calls).assertEqual(2);
+        await model.startRecorder(1603);
+        r2.emitState('prepared');
+        await recorderTick();
+        r2.emitState('started');
+        r1.emitState('prepared');
+        r1.emitState('started');
+        LogicTestLog.number(name, 'latestCallbacksOnly', 1, newestCallbacks);
+        expect(newestCallbacks).assertEqual(1);
+        LogicTestLog.number(name, 'oldNeverPrepared', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'oldNeverStarted', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        LogicTestLog.number(name, 'latestPreparedOnce', 1, r2.configs.length);
+        expect(r2.configs.length).assertEqual(1);
+        LogicTestLog.number(name, 'latestStartedOnce', 1, r2.callCount('start'));
+        expect(r2.callCount('start')).assertEqual(1);
+        LogicTestLog.value(name, 'latestDescriptor', 'fd://1603', r2.configs[0].url);
+        expect(r2.configs[0].url).assertEqual('fd://1603');
+        await model.finish();
+        r2.emitState('prepared');
+        r2.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'latestStopOnce', 1, r2.callCount('stop'));
+        expect(r2.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'latestResetOnce', 1, r2.callCount('reset'));
+        expect(r2.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'latestReleaseOnce', 1, r2.callCount('release'));
+        expect(r2.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'latestCallbacksAfterFinish', 1, newestCallbacks);
+        expect(newestCallbacks).assertEqual(1);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.2.enter', 'factory.2.resolve', 'r2.onStateChange',
+          'r2.onError', 'factory.1.resolve', 'r1.release.enter', 'r1.release.resolve',
+          'r2.prepare.enter', 'r2.prepare.resolve', 'r2.start.enter', 'r2.start.resolve',
+          'r2.stop.enter', 'r2.stop.resolve', 'r2.reset.enter', 'r2.reset.resolve',
+          'r2.release.enter', 'r2.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.number(name, 'staleClosureStillZero', 0, callbacks);
+        expect(callbacks).assertEqual(0);
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1108
+     * @tc.name DoubleFinishSharesstop
+     * @tc.desc Overlapping finishes and initialization share one teardown and factory creation waits for its
+     * settlement.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1108', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1108';
+        const input: string =
+          'finish1=stop/blocked; finish2=overlap; init=overlap';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const r2: RecorderFake = new RecorderFake('r2', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1, r2], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        r1.emitState('started');
+        const gate: RecorderGate = new RecorderGate();
+        r1.defer('stop', gate);
+        let firstDone: boolean = false;
+        let secondDone: boolean = false;
+        let replacementDone: boolean = false;
+        const firstFinish: Promise<void> = model.finish().then((): void => { firstDone = true; });
+        await recorderTick();
+        const secondFinish: Promise<void> = model.finish().then((): void => { secondDone = true; });
+        const replacing: Promise<void> = model.initAudioRecorder((): void => { callbacks++; })
+          .then((): void => { replacementDone = true; });
+        await recorderTick();
+        LogicTestLog.flag(name, 'firstFinishPending', firstDone);
+        expect(firstDone).assertFalse();
+        LogicTestLog.flag(name, 'secondFinishSharesPendingWork', secondDone);
+        expect(secondDone).assertFalse();
+        LogicTestLog.flag(name, 'replacementWaitsForFinish', replacementDone);
+        expect(replacementDone).assertFalse();
+        LogicTestLog.number(name, 'noEarlyReplacementFactory', 1, factory.calls);
+        expect(factory.calls).assertEqual(1);
+        LogicTestLog.number(name, 'oneStopWhileBlocked', 1, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'resetOnlyAfterStop', 0, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(0);
+        LogicTestLog.number(name, 'releaseOnlyAfterReset', 0, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(0);
+        r1.emitState('prepared');
+        r1.emitState('started');
+        r1.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'oldCallbackDetached', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        LogicTestLog.number(name, 'latePreparedNotStarted', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError', 'r1.stop.enter'
+        ];
+        LogicTestLog.value(name, 'sharedPendingTeardown', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        gate.open();
+        await Promise.all([firstFinish, secondFinish, replacing]);
+        LogicTestLog.flag(name, 'firstFinishCompleted', firstDone);
+        expect(firstDone).assertTrue();
+        LogicTestLog.flag(name, 'secondFinishCompleted', secondDone);
+        expect(secondDone).assertTrue();
+        LogicTestLog.flag(name, 'replacementCompleted', replacementDone);
+        expect(replacementDone).assertTrue();
+        LogicTestLog.number(name, 'oldStopOnce', 1, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'oldResetOnce', 1, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'oldReleaseOnce', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'factoryCountAfterReplacement', 2, factory.calls);
+        expect(factory.calls).assertEqual(2);
+        await model.startRecorder(1604);
+        r2.emitState('prepared');
+        await recorderTick();
+        r2.emitState('started');
+        r1.emitState('prepared');
+        r1.emitState('started');
+        LogicTestLog.number(name, 'latestCallbacksOnly', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        LogicTestLog.number(name, 'oldNeverPrepared', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'oldNeverStarted', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        LogicTestLog.number(name, 'latestPreparedOnce', 1, r2.configs.length);
+        expect(r2.configs.length).assertEqual(1);
+        LogicTestLog.number(name, 'latestStartedOnce', 1, r2.callCount('start'));
+        expect(r2.callCount('start')).assertEqual(1);
+        LogicTestLog.value(name, 'latestDescriptor', 'fd://1604', r2.configs[0].url);
+        expect(r2.configs[0].url).assertEqual('fd://1604');
+        await model.finish();
+        r2.emitState('prepared');
+        r2.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'latestStopOnce', 1, r2.callCount('stop'));
+        expect(r2.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'latestResetOnce', 1, r2.callCount('reset'));
+        expect(r2.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'latestReleaseOnce', 1, r2.callCount('release'));
+        expect(r2.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'latestCallbacksAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve', 'factory.2.enter', 'factory.2.resolve',
+          'r2.onStateChange', 'r2.onError', 'r2.prepare.enter', 'r2.prepare.resolve',
+          'r2.start.enter', 'r2.start.resolve', 'r2.stop.enter', 'r2.stop.resolve',
+          'r2.reset.enter', 'r2.reset.resolve', 'r2.release.enter', 'r2.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1109
+     * @tc.name DoubleFinishSharesreset
+     * @tc.desc Overlapping finishes and initialization share one teardown and factory creation waits for its
+     * settlement.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1109', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1109';
+        const input: string =
+          'finish1=reset/blocked; finish2=overlap; init=overlap';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const r2: RecorderFake = new RecorderFake('r2', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1, r2], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        r1.emitState('started');
+        const gate: RecorderGate = new RecorderGate();
+        r1.defer('reset', gate);
+        let firstDone: boolean = false;
+        let secondDone: boolean = false;
+        let replacementDone: boolean = false;
+        const firstFinish: Promise<void> = model.finish().then((): void => { firstDone = true; });
+        await recorderTick();
+        const secondFinish: Promise<void> = model.finish().then((): void => { secondDone = true; });
+        const replacing: Promise<void> = model.initAudioRecorder((): void => { callbacks++; })
+          .then((): void => { replacementDone = true; });
+        await recorderTick();
+        LogicTestLog.flag(name, 'firstFinishPending', firstDone);
+        expect(firstDone).assertFalse();
+        LogicTestLog.flag(name, 'secondFinishSharesPendingWork', secondDone);
+        expect(secondDone).assertFalse();
+        LogicTestLog.flag(name, 'replacementWaitsForFinish', replacementDone);
+        expect(replacementDone).assertFalse();
+        LogicTestLog.number(name, 'noEarlyReplacementFactory', 1, factory.calls);
+        expect(factory.calls).assertEqual(1);
+        LogicTestLog.number(name, 'oneStopWhileBlocked', 1, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'resetOnlyAfterStop', 1, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'releaseOnlyAfterReset', 0, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(0);
+        r1.emitState('prepared');
+        r1.emitState('started');
+        r1.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'oldCallbackDetached', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        LogicTestLog.number(name, 'latePreparedNotStarted', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter'
+        ];
+        LogicTestLog.value(name, 'sharedPendingTeardown', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        gate.open();
+        await Promise.all([firstFinish, secondFinish, replacing]);
+        LogicTestLog.flag(name, 'firstFinishCompleted', firstDone);
+        expect(firstDone).assertTrue();
+        LogicTestLog.flag(name, 'secondFinishCompleted', secondDone);
+        expect(secondDone).assertTrue();
+        LogicTestLog.flag(name, 'replacementCompleted', replacementDone);
+        expect(replacementDone).assertTrue();
+        LogicTestLog.number(name, 'oldStopOnce', 1, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'oldResetOnce', 1, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'oldReleaseOnce', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'factoryCountAfterReplacement', 2, factory.calls);
+        expect(factory.calls).assertEqual(2);
+        await model.startRecorder(1605);
+        r2.emitState('prepared');
+        await recorderTick();
+        r2.emitState('started');
+        r1.emitState('prepared');
+        r1.emitState('started');
+        LogicTestLog.number(name, 'latestCallbacksOnly', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        LogicTestLog.number(name, 'oldNeverPrepared', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'oldNeverStarted', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        LogicTestLog.number(name, 'latestPreparedOnce', 1, r2.configs.length);
+        expect(r2.configs.length).assertEqual(1);
+        LogicTestLog.number(name, 'latestStartedOnce', 1, r2.callCount('start'));
+        expect(r2.callCount('start')).assertEqual(1);
+        LogicTestLog.value(name, 'latestDescriptor', 'fd://1605', r2.configs[0].url);
+        expect(r2.configs[0].url).assertEqual('fd://1605');
+        await model.finish();
+        r2.emitState('prepared');
+        r2.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'latestStopOnce', 1, r2.callCount('stop'));
+        expect(r2.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'latestResetOnce', 1, r2.callCount('reset'));
+        expect(r2.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'latestReleaseOnce', 1, r2.callCount('release'));
+        expect(r2.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'latestCallbacksAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve', 'factory.2.enter', 'factory.2.resolve',
+          'r2.onStateChange', 'r2.onError', 'r2.prepare.enter', 'r2.prepare.resolve',
+          'r2.start.enter', 'r2.start.resolve', 'r2.stop.enter', 'r2.stop.resolve',
+          'r2.reset.enter', 'r2.reset.resolve', 'r2.release.enter', 'r2.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1110
+     * @tc.name DoubleFinishSharesrelease
+     * @tc.desc Overlapping finishes and initialization share one teardown and factory creation waits for its
+     * settlement.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1110', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1110';
+        const input: string =
+          'finish1=release/blocked; finish2=overlap; init=overlap';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const r2: RecorderFake = new RecorderFake('r2', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1, r2], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        r1.emitState('started');
+        const gate: RecorderGate = new RecorderGate();
+        r1.defer('release', gate);
+        let firstDone: boolean = false;
+        let secondDone: boolean = false;
+        let replacementDone: boolean = false;
+        const firstFinish: Promise<void> = model.finish().then((): void => { firstDone = true; });
+        await recorderTick();
+        const secondFinish: Promise<void> = model.finish().then((): void => { secondDone = true; });
+        const replacing: Promise<void> = model.initAudioRecorder((): void => { callbacks++; })
+          .then((): void => { replacementDone = true; });
+        await recorderTick();
+        LogicTestLog.flag(name, 'firstFinishPending', firstDone);
+        expect(firstDone).assertFalse();
+        LogicTestLog.flag(name, 'secondFinishSharesPendingWork', secondDone);
+        expect(secondDone).assertFalse();
+        LogicTestLog.flag(name, 'replacementWaitsForFinish', replacementDone);
+        expect(replacementDone).assertFalse();
+        LogicTestLog.number(name, 'noEarlyReplacementFactory', 1, factory.calls);
+        expect(factory.calls).assertEqual(1);
+        LogicTestLog.number(name, 'oneStopWhileBlocked', 1, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'resetOnlyAfterStop', 1, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'releaseOnlyAfterReset', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        r1.emitState('prepared');
+        r1.emitState('started');
+        r1.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'oldCallbackDetached', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        LogicTestLog.number(name, 'latePreparedNotStarted', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter'
+        ];
+        LogicTestLog.value(name, 'sharedPendingTeardown', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        gate.open();
+        await Promise.all([firstFinish, secondFinish, replacing]);
+        LogicTestLog.flag(name, 'firstFinishCompleted', firstDone);
+        expect(firstDone).assertTrue();
+        LogicTestLog.flag(name, 'secondFinishCompleted', secondDone);
+        expect(secondDone).assertTrue();
+        LogicTestLog.flag(name, 'replacementCompleted', replacementDone);
+        expect(replacementDone).assertTrue();
+        LogicTestLog.number(name, 'oldStopOnce', 1, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'oldResetOnce', 1, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'oldReleaseOnce', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'factoryCountAfterReplacement', 2, factory.calls);
+        expect(factory.calls).assertEqual(2);
+        await model.startRecorder(1606);
+        r2.emitState('prepared');
+        await recorderTick();
+        r2.emitState('started');
+        r1.emitState('prepared');
+        r1.emitState('started');
+        LogicTestLog.number(name, 'latestCallbacksOnly', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        LogicTestLog.number(name, 'oldNeverPrepared', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'oldNeverStarted', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        LogicTestLog.number(name, 'latestPreparedOnce', 1, r2.configs.length);
+        expect(r2.configs.length).assertEqual(1);
+        LogicTestLog.number(name, 'latestStartedOnce', 1, r2.callCount('start'));
+        expect(r2.callCount('start')).assertEqual(1);
+        LogicTestLog.value(name, 'latestDescriptor', 'fd://1606', r2.configs[0].url);
+        expect(r2.configs[0].url).assertEqual('fd://1606');
+        await model.finish();
+        r2.emitState('prepared');
+        r2.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'latestStopOnce', 1, r2.callCount('stop'));
+        expect(r2.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'latestResetOnce', 1, r2.callCount('reset'));
+        expect(r2.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'latestReleaseOnce', 1, r2.callCount('release'));
+        expect(r2.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'latestCallbacksAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.resolve', 'r1.reset.enter', 'r1.reset.resolve',
+          'r1.release.enter', 'r1.release.resolve', 'factory.2.enter', 'factory.2.resolve',
+          'r2.onStateChange', 'r2.onError', 'r2.prepare.enter', 'r2.prepare.resolve',
+          'r2.start.enter', 'r2.start.resolve', 'r2.stop.enter', 'r2.stop.resolve',
+          'r2.reset.enter', 'r2.reset.resolve', 'r2.release.enter', 'r2.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1111
+     * @tc.name ReleaseSharesRejectedFinish
+     * @tc.desc Release joins a blocked finish, observes the same final release error, and settled failure permits
+     * retry.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1111', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1111';
+        const input: string =
+          'stop=blocked/rejected; release=rejected; retry=success';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const r2: RecorderFake = new RecorderFake('r2', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1, r2], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        r1.emitState('started');
+        const gate: RecorderGate = new RecorderGate();
+        r1.defer('stop', gate);
+        r1.fail('stop', 'Shared stop fault');
+        r1.fail('release', 'Shared final release fault');
+        let releaseDone: boolean = false;
+        const finishing: Promise<string> = recorderRejection((): Promise<void> => model.finish());
+        await recorderTick();
+        const releasing: Promise<string> =
+          recorderRejection((): Promise<void> => model.release()).then((error: string): string => {
+            releaseDone = true;
+            return error;
+          });
+        await recorderTick();
+        LogicTestLog.flag(name, 'overlappingReleaseMustWait', releaseDone);
+        expect(releaseDone).assertFalse();
+        LogicTestLog.number(name, 'singlePendingStop', 1, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'releaseNotStartedBeforeStop', 0, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(0);
+        r1.emitState('prepared');
+        r1.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'callbacksDetachedDuringFailure', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        LogicTestLog.number(name, 'latePreparedIgnoredDuringFailure', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError', 'r1.stop.enter'
+        ];
+        LogicTestLog.value(name, 'sharedFailurePending', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        gate.open();
+        const finishError: string = await finishing;
+        const releaseError: string = await releasing;
+        LogicTestLog.value(name, 'finishFinalError', 'Shared final release fault', finishError);
+        expect(finishError).assertEqual('Shared final release fault');
+        LogicTestLog.value(name, 'overlappingReleaseSameError', 'Shared final release fault', releaseError);
+        expect(releaseError).assertEqual('Shared final release fault');
+        LogicTestLog.flag(name, 'releaseSettledAfterFinish', releaseDone);
+        expect(releaseDone).assertTrue();
+        LogicTestLog.number(name, 'stopRejectedOnce', 1, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'resetSkippedAfterStopFailure', 0, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(0);
+        LogicTestLog.number(name, 'releaseStillAttemptedOnce', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.reject', 'r1.release.enter', 'r1.release.reject'
+        ];
+        LogicTestLog.value(name, 'sharedFailureSettled', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        LogicTestLog.number(name, 'factoryCountAfterReplacement', 2, factory.calls);
+        expect(factory.calls).assertEqual(2);
+        await model.startRecorder(1607);
+        r2.emitState('prepared');
+        await recorderTick();
+        r2.emitState('started');
+        r1.emitState('prepared');
+        r1.emitState('started');
+        LogicTestLog.number(name, 'latestCallbacksOnly', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        LogicTestLog.number(name, 'oldNeverPrepared', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'oldNeverStarted', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        LogicTestLog.number(name, 'latestPreparedOnce', 1, r2.configs.length);
+        expect(r2.configs.length).assertEqual(1);
+        LogicTestLog.number(name, 'latestStartedOnce', 1, r2.callCount('start'));
+        expect(r2.callCount('start')).assertEqual(1);
+        LogicTestLog.value(name, 'latestDescriptor', 'fd://1607', r2.configs[0].url);
+        expect(r2.configs[0].url).assertEqual('fd://1607');
+        await model.finish();
+        r2.emitState('prepared');
+        r2.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'latestStopOnce', 1, r2.callCount('stop'));
+        expect(r2.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'latestResetOnce', 1, r2.callCount('reset'));
+        expect(r2.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'latestReleaseOnce', 1, r2.callCount('release'));
+        expect(r2.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'latestCallbacksAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        const expectedHistory3: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.stop.enter', 'r1.stop.reject', 'r1.release.enter', 'r1.release.reject',
+          'factory.2.enter', 'factory.2.resolve', 'r2.onStateChange', 'r2.onError',
+          'r2.prepare.enter', 'r2.prepare.resolve', 'r2.start.enter', 'r2.start.resolve',
+          'r2.stop.enter', 'r2.stop.resolve', 'r2.reset.enter', 'r2.reset.resolve',
+          'r2.release.enter', 'r2.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory3.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory3.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1112
+     * @tc.name ExternalReleasePendingThenReinit
+     * @tc.desc Initialization waits for an already detached external release without releasing that handle twice.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1112', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1112';
+        const input: string =
+          'externalRelease=blocked; reinit=waits';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const r2: RecorderFake = new RecorderFake('r2', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1, r2], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        r1.emitState('started');
+        const gate: RecorderGate = new RecorderGate();
+        r1.defer('release', gate);
+        let releaseDone: boolean = false;
+        let initDone: boolean = false;
+        const releasing: Promise<void> = model.release().then((): void => { releaseDone = true; });
+        await recorderTick();
+        const replacing: Promise<void> = model.initAudioRecorder((): void => { callbacks++; })
+          .then((): void => { initDone = true; });
+        await recorderTick();
+        LogicTestLog.flag(name, 'externalReleaseStillPending', releaseDone);
+        expect(releaseDone).assertFalse();
+        LogicTestLog.flag(name, 'reinitWaitsForExternalRelease', initDone);
+        expect(initDone).assertFalse();
+        LogicTestLog.number(name, 'factoryNotInvokedDuringExternalRelease', 1, factory.calls);
+        expect(factory.calls).assertEqual(1);
+        LogicTestLog.number(name, 'externalReleaseNotDuplicated', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'externalReleaseDoesNotStop', 0, r1.callCount('stop'));
+        expect(r1.callCount('stop')).assertEqual(0);
+        LogicTestLog.number(name, 'externalReleaseDoesNotReset', 0, r1.callCount('reset'));
+        expect(r1.callCount('reset')).assertEqual(0);
+        r1.emitState('prepared');
+        r1.emitState('started');
+        r1.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'externalReleaseDetachedCallback', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        LogicTestLog.number(name, 'externalReleaseNoLateStart', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.release.enter'
+        ];
+        LogicTestLog.value(name, 'externalReleasePending', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        gate.open();
+        await Promise.all([releasing, replacing]);
+        LogicTestLog.flag(name, 'externalReleaseCompleted', releaseDone);
+        expect(releaseDone).assertTrue();
+        LogicTestLog.flag(name, 'reinitCompletedAfterRelease', initDone);
+        expect(initDone).assertTrue();
+        LogicTestLog.number(name, 'externalReleaseExactlyOnce', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'factoryCountAfterReplacement', 2, factory.calls);
+        expect(factory.calls).assertEqual(2);
+        await model.startRecorder(1608);
+        r2.emitState('prepared');
+        await recorderTick();
+        r2.emitState('started');
+        r1.emitState('prepared');
+        r1.emitState('started');
+        LogicTestLog.number(name, 'latestCallbacksOnly', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        LogicTestLog.number(name, 'oldNeverPrepared', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'oldNeverStarted', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        LogicTestLog.number(name, 'latestPreparedOnce', 1, r2.configs.length);
+        expect(r2.configs.length).assertEqual(1);
+        LogicTestLog.number(name, 'latestStartedOnce', 1, r2.callCount('start'));
+        expect(r2.callCount('start')).assertEqual(1);
+        LogicTestLog.value(name, 'latestDescriptor', 'fd://1608', r2.configs[0].url);
+        expect(r2.configs[0].url).assertEqual('fd://1608');
+        await model.finish();
+        r2.emitState('prepared');
+        r2.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'latestStopOnce', 1, r2.callCount('stop'));
+        expect(r2.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'latestResetOnce', 1, r2.callCount('reset'));
+        expect(r2.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'latestReleaseOnce', 1, r2.callCount('release'));
+        expect(r2.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'latestCallbacksAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.release.enter', 'r1.release.resolve', 'factory.2.enter', 'factory.2.resolve',
+          'r2.onStateChange', 'r2.onError', 'r2.prepare.enter', 'r2.prepare.resolve',
+          'r2.start.enter', 'r2.start.resolve', 'r2.stop.enter', 'r2.stop.resolve',
+          'r2.reset.enter', 'r2.reset.resolve', 'r2.release.enter', 'r2.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1113
+     * @tc.name DisposeWhileReplacingrelease
+     * @tc.desc Disposal invalidates reinitialization waiting on cleanup before it can invoke the replacement
+     * factory.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1113', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1113';
+        const input: string =
+          'oldRelease=blocked; dispose=release; retry=success';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const r2: RecorderFake = new RecorderFake('r2', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1, r2], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        r1.emitState('started');
+        const gate: RecorderGate = new RecorderGate();
+        r1.defer('release', gate);
+        let disposalDone: boolean = false;
+        const replacing: Promise<string> = recorderRejection((): Promise<void> =>
+          model.initAudioRecorder((): void => { callbacks++; }));
+        await recorderTick();
+        const disposing: Promise<string> = recorderRejection((): Promise<void> => model.release())
+          .then((error: string): string => { disposalDone = true; return error; });
+        await recorderTick();
+        LogicTestLog.flag(name, 'disposalSharesReplacementCleanup', disposalDone);
+        expect(disposalDone).assertFalse();
+        LogicTestLog.number(name, 'replacementFactoryNotInvokedYet', 1, factory.calls);
+        expect(factory.calls).assertEqual(1);
+        LogicTestLog.number(name, 'replacementCleanupReleaseOnce', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        r1.emitState('prepared');
+        r1.emitState('started');
+        r1.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'oldCallbackIgnoredAfterDisposal', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        LogicTestLog.number(name, 'oldStartIgnoredAfterDisposal', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.release.enter'
+        ];
+        LogicTestLog.value(name, 'disposedReplacementPending', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        gate.open();
+        const replacementError: string = await replacing;
+        const disposalError: string = await disposing;
+        LogicTestLog.value(name, 'invalidatedReplacementError', '', replacementError);
+        expect(replacementError).assertEqual('');
+        LogicTestLog.value(name, 'sharedDisposalError', '', disposalError);
+        expect(disposalError).assertEqual('');
+        LogicTestLog.flag(name, 'disposalCompleted', disposalDone);
+        expect(disposalDone).assertTrue();
+        LogicTestLog.number(name, 'generationCheckedBeforeFactory', 1, factory.calls);
+        expect(factory.calls).assertEqual(1);
+        LogicTestLog.number(name, 'oldReleasedOnceAfterDisposal', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'disposedOldNeverPrepared', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'disposedCandidateNeverPrepared', 0, r2.configs.length);
+        expect(r2.configs.length).assertEqual(0);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'noInvalidatedFactoryInvocation', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        LogicTestLog.number(name, 'factoryCountAfterReplacement', 2, factory.calls);
+        expect(factory.calls).assertEqual(2);
+        await model.startRecorder(1609);
+        r2.emitState('prepared');
+        await recorderTick();
+        r2.emitState('started');
+        r1.emitState('prepared');
+        r1.emitState('started');
+        LogicTestLog.number(name, 'latestCallbacksOnly', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        LogicTestLog.number(name, 'oldNeverPrepared', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'oldNeverStarted', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        LogicTestLog.number(name, 'latestPreparedOnce', 1, r2.configs.length);
+        expect(r2.configs.length).assertEqual(1);
+        LogicTestLog.number(name, 'latestStartedOnce', 1, r2.callCount('start'));
+        expect(r2.callCount('start')).assertEqual(1);
+        LogicTestLog.value(name, 'latestDescriptor', 'fd://1609', r2.configs[0].url);
+        expect(r2.configs[0].url).assertEqual('fd://1609');
+        await model.finish();
+        r2.emitState('prepared');
+        r2.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'latestStopOnce', 1, r2.callCount('stop'));
+        expect(r2.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'latestResetOnce', 1, r2.callCount('reset'));
+        expect(r2.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'latestReleaseOnce', 1, r2.callCount('release'));
+        expect(r2.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'latestCallbacksAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        const expectedHistory3: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.release.enter', 'r1.release.resolve', 'factory.2.enter', 'factory.2.resolve',
+          'r2.onStateChange', 'r2.onError', 'r2.prepare.enter', 'r2.prepare.resolve',
+          'r2.start.enter', 'r2.start.resolve', 'r2.stop.enter', 'r2.stop.resolve',
+          'r2.reset.enter', 'r2.reset.resolve', 'r2.release.enter', 'r2.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory3.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory3.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1114
+     * @tc.name DisposeWhileReplacingfinish
+     * @tc.desc Disposal invalidates reinitialization waiting on cleanup before it can invoke the replacement
+     * factory.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1114', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1114';
+        const input: string =
+          'oldRelease=blocked; dispose=finish; retry=success';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderFake = new RecorderFake('r1', history);
+        const r2: RecorderFake = new RecorderFake('r2', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1, r2], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        r1.emitState('started');
+        const gate: RecorderGate = new RecorderGate();
+        r1.defer('release', gate);
+        let disposalDone: boolean = false;
+        const replacing: Promise<string> = recorderRejection((): Promise<void> =>
+          model.initAudioRecorder((): void => { callbacks++; }));
+        await recorderTick();
+        const disposing: Promise<string> = recorderRejection((): Promise<void> => model.finish())
+          .then((error: string): string => { disposalDone = true; return error; });
+        await recorderTick();
+        LogicTestLog.flag(name, 'disposalSharesReplacementCleanup', disposalDone);
+        expect(disposalDone).assertFalse();
+        LogicTestLog.number(name, 'replacementFactoryNotInvokedYet', 1, factory.calls);
+        expect(factory.calls).assertEqual(1);
+        LogicTestLog.number(name, 'replacementCleanupReleaseOnce', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        r1.emitState('prepared');
+        r1.emitState('started');
+        r1.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'oldCallbackIgnoredAfterDisposal', 1, callbacks);
+        expect(callbacks).assertEqual(1);
+        LogicTestLog.number(name, 'oldStartIgnoredAfterDisposal', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        const expectedHistory1: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.release.enter'
+        ];
+        LogicTestLog.value(name, 'disposedReplacementPending', expectedHistory1.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory1.join('|'));
+        gate.open();
+        const replacementError: string = await replacing;
+        const disposalError: string = await disposing;
+        LogicTestLog.value(name, 'invalidatedReplacementError', '', replacementError);
+        expect(replacementError).assertEqual('');
+        LogicTestLog.value(name, 'sharedDisposalError', '', disposalError);
+        expect(disposalError).assertEqual('');
+        LogicTestLog.flag(name, 'disposalCompleted', disposalDone);
+        expect(disposalDone).assertTrue();
+        LogicTestLog.number(name, 'generationCheckedBeforeFactory', 1, factory.calls);
+        expect(factory.calls).assertEqual(1);
+        LogicTestLog.number(name, 'oldReleasedOnceAfterDisposal', 1, r1.callCount('release'));
+        expect(r1.callCount('release')).assertEqual(1);
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await recorderTick();
+        LogicTestLog.number(name, 'disposedOldNeverPrepared', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'disposedCandidateNeverPrepared', 0, r2.configs.length);
+        expect(r2.configs.length).assertEqual(0);
+        const expectedHistory2: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.release.enter', 'r1.release.resolve'
+        ];
+        LogicTestLog.value(name, 'noInvalidatedFactoryInvocation', expectedHistory2.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory2.join('|'));
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        LogicTestLog.number(name, 'factoryCountAfterReplacement', 2, factory.calls);
+        expect(factory.calls).assertEqual(2);
+        await model.startRecorder(1610);
+        r2.emitState('prepared');
+        await recorderTick();
+        r2.emitState('started');
+        r1.emitState('prepared');
+        r1.emitState('started');
+        LogicTestLog.number(name, 'latestCallbacksOnly', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        LogicTestLog.number(name, 'oldNeverPrepared', 0, r1.configs.length);
+        expect(r1.configs.length).assertEqual(0);
+        LogicTestLog.number(name, 'oldNeverStarted', 0, r1.callCount('start'));
+        expect(r1.callCount('start')).assertEqual(0);
+        LogicTestLog.number(name, 'latestPreparedOnce', 1, r2.configs.length);
+        expect(r2.configs.length).assertEqual(1);
+        LogicTestLog.number(name, 'latestStartedOnce', 1, r2.callCount('start'));
+        expect(r2.callCount('start')).assertEqual(1);
+        LogicTestLog.value(name, 'latestDescriptor', 'fd://1610', r2.configs[0].url);
+        expect(r2.configs[0].url).assertEqual('fd://1610');
+        await model.finish();
+        r2.emitState('prepared');
+        r2.emitState('paused');
+        await model.startRecorder(81);
+        model.pause();
+        model.resume();
+        await model.finish();
+        await model.release();
+        await recorderTick();
+        LogicTestLog.number(name, 'latestStopOnce', 1, r2.callCount('stop'));
+        expect(r2.callCount('stop')).assertEqual(1);
+        LogicTestLog.number(name, 'latestResetOnce', 1, r2.callCount('reset'));
+        expect(r2.callCount('reset')).assertEqual(1);
+        LogicTestLog.number(name, 'latestReleaseOnce', 1, r2.callCount('release'));
+        expect(r2.callCount('release')).assertEqual(1);
+        LogicTestLog.number(name, 'latestCallbacksAfterFinish', 2, callbacks);
+        expect(callbacks).assertEqual(2);
+        const expectedHistory3: string[] = [
+          'factory.1.enter', 'factory.1.resolve', 'r1.onStateChange', 'r1.onError',
+          'r1.release.enter', 'r1.release.resolve', 'factory.2.enter', 'factory.2.resolve',
+          'r2.onStateChange', 'r2.onError', 'r2.prepare.enter', 'r2.prepare.resolve',
+          'r2.start.enter', 'r2.start.resolve', 'r2.stop.enter', 'r2.stop.resolve',
+          'r2.reset.enter', 'r2.reset.resolve', 'r2.release.enter', 'r2.release.resolve'
+        ];
+        LogicTestLog.value(name, 'orderedCalls', expectedHistory3.join('|'), history.join('|'));
+        expect(history.join('|')).assertEqual(expectedHistory3.join('|'));
+        LogicTestLog.end(name);
+      });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_RECORD_1115
+     * @tc.name LatePreparedWhileFinishBlocked
+     * @tc.desc Prepared and active events on a finishing detached recorder cannot start it or notify its old
+     * callback.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it('SUB_SYS_MULTIMEDIA_RECORD_1115', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const name: string = 'SUB_SYS_MULTIMEDIA_RECORD_1115';
+        const input: string =
+          'state=started; finishStop=blocked; late=prepared';
+        LogicTestLog.begin(name, input);
+        const history: string[] = [];
+        const r1: RecorderContractFake = new RecorderContractFake('r1', history);
+        const r2: RecorderFake = new RecorderFake('r2', history);
+        const factory: RecorderFactoryFake = new RecorderFactoryFake([r1, r2], history);
+        const model: RecordModel = new RecordModel((): Promise<AudioRecorderPort> => factory.create());
+        let callbacks: number = 0;
+        await model.initAudioRecorder((): void => {
+          callbacks++;
+        });
+        r1.emitState('started');
