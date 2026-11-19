@@ -41,7 +41,7 @@ struct SourceFile {
 };
 
 struct ProviderContext {
-    // C 回调可能并发进入，保护按需解压后的内容。
+    // C回调可能并发进入，保护按需解压后的内容。
     std::mutex mutex;
     std::map<std::string, SourceFile> files;
 };
@@ -81,7 +81,7 @@ OH_UDMF_VirtualItem* OnStat(void* opaque, const char* id)
     auto* context = static_cast<ProviderContext*>(opaque);
     std::lock_guard<std::mutex> lock(context->mutex);
     auto source = context->files.find(id);
-    // 返回独立节点，返回后由 UDMF 接管，不能再次销毁该节点。
+    // 返回独立节点，返回后由UDMF接管，不能再次销毁该节点。
     return source == context->files.end() ? nullptr : CreateFileItem(source->second);
 }
 
@@ -92,7 +92,7 @@ int OnRead(void* opaque, const char* id, int64_t offset, uint32_t length,
         offset < 0 || length == 0 || length > MAX_READ) {
         return UDMF_ERR;
     }
-    *bytesRead = 0; // 返回值表示成功或失败，实际读取长度通过 bytesRead 输出。
+    *bytesRead = 0; // 返回值表示成功或失败，实际读取长度通过bytesRead输出。
     auto* context = static_cast<ProviderContext*>(opaque);
     std::lock_guard<std::mutex> lock(context->mutex);
     auto source = context->files.find(id);
@@ -101,7 +101,7 @@ int OnRead(void* opaque, const char* id, int64_t offset, uint32_t length,
     }
     SourceFile& file = source->second;
     if (offset >= file.size) {
-        return UDMF_E_OK; // 成功且 bytesRead 为 0，表示已到文件末尾。
+        return UDMF_E_OK; // 成功且bytesRead为 0，表示已到文件末尾。
     }
     if (!PrepareFileContent(file)) {
         return UDMF_ERR;
@@ -110,7 +110,7 @@ int OnRead(void* opaque, const char* id, int64_t offset, uint32_t length,
     if (static_cast<uint64_t>(offset) + count > file.content.size()) {
         return UDMF_ERR;
     }
-    // data 由 UDMF 提供，本回调只填充数据，不释放、不保存该地址。
+    // data由UDMF提供，本回调只填充数据，不释放、不保存该地址。
     std::copy_n(file.content.data() + offset, count, data);
     *bytesRead = count;
     return UDMF_E_OK;
@@ -118,7 +118,7 @@ int OnRead(void* opaque, const char* id, int64_t offset, uint32_t length,
 
 int OnCancel(void* opaque, const char* const* idList, uint32_t count)
 {
-    // 此示例无异步读取任务；真实提供方可在此停止对应 id 的待处理任务。
+    // 此示例无异步读取任务；真实提供方可在此停止对应id的待处理任务。
     if (opaque == nullptr || (count > 0 && idList == nullptr)) {
         return UDMF_ERR;
     }
@@ -127,7 +127,7 @@ int OnCancel(void* opaque, const char* const* idList, uint32_t count)
 
 void Finalize(void* opaque)
 {
-    // UDMF 最后一个相关引用释放后才调用此函数。
+    // UDMF最后一个相关引用释放后才调用此函数。
     delete static_cast<ProviderContext*>(opaque);
 }
 // [End virtual_drag_c_callbacks]
@@ -159,7 +159,7 @@ bool AddFile(ProviderContext& context, int index, bool compressed)
 bool AddChildAndDestroy(OH_UDMF_VirtualItem* parent, OH_UDMF_VirtualItem* child)
 {
     const bool result = child != nullptr && OH_UDMF_AddVirtualItemChild(parent, child) == UDMF_E_OK;
-    // AddChild 复制节点，调用方仍须释放原节点。
+    // AddChild复制节点，调用方仍须释放原节点。
     OH_UDMF_DestroyVirtualItem(child);
     return result;
 }
@@ -201,7 +201,7 @@ OH_UdmfData* CreateVirtualDragData(bool directory, bool compressed)
     }
     // 1. 声明根文件或目录；每个文件都必须设置准确大小。
     auto* root = CreateRoot(*context, directory);
-    // 2. 将文件信息、回调和业务上下文组合为 VirtualFileInfo。
+    // 2. 将文件信息、回调和业务上下文组合为VirtualFileInfo。
     OH_UDMF_VirtualFileCallbacks callbacks {};
     callbacks.structSize = sizeof(callbacks);
     callbacks.onStat = OnStat;
@@ -210,10 +210,10 @@ OH_UdmfData* CreateVirtualDragData(bool directory, bool compressed)
     auto* info = OH_UDMF_CreateVirtualFileInfo(root, &callbacks, context.get(), Finalize);
     OH_UDMF_DestroyVirtualItem(root);
     if (info == nullptr) {
-        return nullptr; // context 仍由调用方管理。
+        return nullptr; // context仍由调用方管理。
     }
-    context.release(); // 创建成功，交由 UDMF 在最后一个引用释放后调用 Finalize。
-    // 3. 附加到 FileUri，再放入 Record 和 UnifiedData，供起拖事件使用。
+    context.release(); // 创建成功，交由UDMF在最后一个引用释放后调用Finalize。
+    // 3. 附加到FileUri，再放入Record和UnifiedData，供起拖事件使用。
     auto* uri = OH_UdsFileUri_Create();
     auto* record = OH_UdmfRecord_Create();
     auto* data = OH_UdmfData_Create();
@@ -226,8 +226,8 @@ OH_UdmfData* CreateVirtualDragData(bool directory, bool compressed)
             OH_UdmfRecord_AddFileUri(record, uri) == UDMF_E_OK &&
             OH_UdmfData_AddRecord(data, record) == UDMF_E_OK;
     }
-    // 4. Record 已持有独立引用，可释放临时包装对象。
-    // Clear 只解除此临时 FileUri 的附加关系，不清除 Record 中已有的引用。
+    // 4. Record已持有独立引用，可释放临时包装对象。
+    // Clear只解除此临时FileUri的附加关系，不清除Record中已有的引用。
     if (uri != nullptr) {
         OH_UDMF_ClearFileUriVirtualEntry(uri);
     }

@@ -59,7 +59,8 @@ entry/src/ohosTest/ets/
 根据API版本选择导入方式，源码参考：[Index.ets](entry/src/main/ets/pages/Index.ets)
 
 - **API version 21及之前版本**：需要手动导入MovingPhotoViewAttribute
-- **API version 22及之后版本**：编译工具链自动导入MovingPhotoViewAttribute
+- **API version 22至25版本**：编译工具链自动导入MovingPhotoViewAttribute
+- **API version 26及之后版本**：需要手动导入MovingPhotoViewAttribute
 
 ### 2. 加载预置动态照片资源
 
@@ -102,8 +103,8 @@ entry/src/ohosTest/ets/
 ## 约束与限制
 
 1. 本示例仅支持标准系统上运行；
-2. 本示例支持API22版本SDK，版本号：6.0.2；
-3. 本示例需要使用DevEco Studio 6.0.0 Canary1及以上版本才可编译运行。
+2. 本示例支持API 26版本SDK，版本号（API Version 26 Release）；
+3. 本示例需要使用DevEco Studio 6.0.0 Release及以上版本才可编译运行。
 
 ## 下载
 

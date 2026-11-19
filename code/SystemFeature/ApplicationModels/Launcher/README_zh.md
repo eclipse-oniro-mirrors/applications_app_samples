@@ -102,9 +102,9 @@ entry/src/main/ets/
 
 1.本示例仅支持标准系统上运行，支持设备：RK3568。
 
-2.本示例为Stage模型，支持API10版本SDK，SDK版本号(API Version 10 Release)，镜像版本号(4.0 Release)。
+2.本示例为Stage模型，已适配API 26版本SDK，SDK版本号(API Version 26 Release)，镜像版本号(26.0.0 Release)。
 
-3.本示例需要使用DevEco Studio 版本号(4.0 Release)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio 版本号(DevEco Studio 6.0.0 Release)及以上版本才可编译运行。
 
 4.本示例需要使用系统权限的系统接口，需要使用Full SDK编译。使用Full SDK时需要手动从镜像站点获取，并在DevEco Studio中替换，具体操作可参考[替换指南](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/faqs/full-sdk-switch-guide.md)。
 
@@ -121,6 +121,6 @@ entry/src/main/ets/
 git init
 git config core.sparsecheckout true
 echo code/SystemFeature/ApplicationModels/Launcher/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```

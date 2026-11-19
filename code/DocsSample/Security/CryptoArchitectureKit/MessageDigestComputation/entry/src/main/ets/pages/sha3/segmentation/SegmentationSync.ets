@@ -39,6 +39,9 @@ function doLoopMdBySync() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude message_digest_sha3_segmentation_sync]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude message_digest_sha3_segmentation_sync]
   }
 }
 // [End message_digest_sha3_segmentation_sync]

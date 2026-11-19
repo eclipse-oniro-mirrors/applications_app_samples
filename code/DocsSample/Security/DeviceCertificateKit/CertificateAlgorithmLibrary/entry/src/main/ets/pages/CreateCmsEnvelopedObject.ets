@@ -16,6 +16,7 @@
 // [Start create-cms-enveloped-object]
 
 import { cert } from '@kit.DeviceCertificateKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 let eccCertData = '-----BEGIN CERTIFICATE-----\n' +
   'MIICOjCCAd+gAwIBAgIGAXKnJjrAMAoGCCqGSM49BAMCMHkxCzAJBgNVBAYTAmNo\n' +
@@ -104,7 +105,11 @@ async function testGetEncryptedContentData() {
     let data = await cmsGenerator.getEncryptedContentData();
     console.info(`getEncryptedContentData result: success, data = %s`, data);
   } catch (err) {
-    console.error(`testGetEncryptedContentData failed: errCode: ${err.code}, message: ${err.message}`);
+    let e: BusinessError = err as BusinessError;
+    console.error(`testGetEncryptedContentData failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude create-cms-enveloped-object]
+    throw new Error(`testGetEncryptedContentData failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude create-cms-enveloped-object]
   }
 }
 
@@ -121,9 +126,9 @@ struct Index {
         .fontWeight(FontWeight.Bold)
       Button('Call CreateCmsEnvelopedObject')
         .width('70%')
-        .onClick(()=>{
+        .onClick(async ()=>{
           try {
-            testGetEncryptedContentData();
+            await testGetEncryptedContentData();
             this.message = 'Call Success';
           } catch {
             this.message = 'Call Fail';

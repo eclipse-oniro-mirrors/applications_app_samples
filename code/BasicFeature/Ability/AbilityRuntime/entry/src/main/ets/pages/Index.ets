@@ -14,12 +14,12 @@
  */
 
 import { BusinessError } from '@ohos.base';
-import { common } from '@kit.AbilityKit';
+import { common, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import router from '@ohos.router';
 
-const TAG: string = 'Index';
-const DOMAIN: number = 0xFF00;
+const TAG: string = '[Sample_AbilityRuntime]';
+const DOMAIN: number = 0xF811;
 
 @Entry
 @Component

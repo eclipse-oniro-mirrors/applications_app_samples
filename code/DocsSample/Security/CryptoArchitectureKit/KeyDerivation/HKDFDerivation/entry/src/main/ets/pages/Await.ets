@@ -37,6 +37,9 @@ async function kdfAwait() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude use_hkdf_for_key_derivation_await]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude use_hkdf_for_key_derivation_await]
   }
 }
 // [End use_hkdf_for_key_derivation_await]

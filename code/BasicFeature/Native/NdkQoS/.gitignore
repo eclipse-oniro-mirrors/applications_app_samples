@@ -9,3 +9,4 @@ local.properties
 **/.test
 oh-package-lock.json5
 /.hvigor
+wecode-cpp.db*

@@ -13,18 +13,40 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/animations/motionPathSample/MotionPathSample.ets
+ * 文件职责：MotionPathSample 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：MotionPathSample。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { TitleBar } from '../../../common/TitleBar';
 
+/**
+ * MotionPathSample：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct MotionPathSample {
+  // @State toggle：组件内部状态
   @State toggle: boolean = true;
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：高度、宽度、背景色
     Column() {
-      TitleBar({ title: $r('app.string.motion_path') })
+      // TitleBar：TitleBar 自定义组件
+      TitleBar({ title: $r('app.string.motion_path') }).id('motion_path_sample_title_bar_2')
+      // Scroll：滚动容器
       Scroll() {
+        // Column：垂直布局容器
+        // 关键属性：主轴对齐、圆角、背景色、高度、宽度、外边距
         Column() {
+          // Button：按钮
+          // 关键属性：外边距、motionPath
           Button($r('app.string.motion_path_click_me'))
             .margin(50)
             .motionPath({
@@ -39,7 +61,7 @@ struct MotionPathSample {
               })
             })
             .id('motion_click')
-        }
+        }.id('motion_path_sample_column_4')
         .justifyContent(FlexAlign.Center)
         .borderRadius(24)
         .backgroundColor(Color.White)
@@ -47,8 +69,8 @@ struct MotionPathSample {
         .width('100%')
         .margin({ left: 12, right: 12 })
         .alignItems(this.toggle ? HorizontalAlign.Start : HorizontalAlign.Center)
-      }
-    }
+      }.id('motion_path_sample_scroll_3')
+    }.id('motion_path_sample_column_1')
     .height('100%')
     .width('100%')
     .backgroundColor($r('app.color.background_shallow_grey'))

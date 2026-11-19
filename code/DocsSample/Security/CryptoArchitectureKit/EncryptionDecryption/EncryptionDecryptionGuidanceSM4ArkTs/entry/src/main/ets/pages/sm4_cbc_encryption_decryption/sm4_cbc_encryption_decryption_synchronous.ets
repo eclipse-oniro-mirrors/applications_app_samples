@@ -16,6 +16,7 @@
 // [Start sync_symmetry_encrypt_decrypt_sm4_cbc]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function generateRandom(len: number) {
   let rand = cryptoFramework.createRandom();
@@ -71,9 +72,16 @@ function main() {
       console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
     } else {
       console.error('decrypt failed.');
+      // [StartExclude sync_symmetry_encrypt_decrypt_sm4_cbc]
+      throw new Error('decrypt failed.');
+      // [EndExclude sync_symmetry_encrypt_decrypt_sm4_cbc]
     }
   } catch (error) {
-    console.error(`SM4 failed: errCode: ${error.code}, message: ${error.message}`);
+    let e: BusinessError = error as BusinessError;
+    console.error(`SM4 failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude sync_symmetry_encrypt_decrypt_sm4_cbc]
+    throw new Error(`SM4 failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude sync_symmetry_encrypt_decrypt_sm4_cbc]
   }
 }
 // [End sync_symmetry_encrypt_decrypt_sm4_cbc]

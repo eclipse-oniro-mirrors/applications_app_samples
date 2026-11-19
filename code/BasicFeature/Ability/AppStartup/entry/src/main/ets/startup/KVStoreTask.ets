@@ -19,6 +19,8 @@ import common from '@ohos.app.ability.common';
 import { BusinessError } from '@ohos.base';
 import { SingleKVStoreUtil } from '../util/SingleKVStore';
 import distributedKVStore from '@ohos.data.distributedKVStore';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { DOMAIN, LOG_TAG } from '../util/LogConstants';
 
 @Sendable
 export default class KVStoreTask extends StartupTask {
@@ -34,18 +36,20 @@ export default class KVStoreTask extends StartupTask {
           const VALUE_TEST_STRING_ELEMENT = 'value_test_string';
           kvStore.put(KEY_TEST_STRING_ELEMENT, VALUE_TEST_STRING_ELEMENT, (err) => {
             if (err !== undefined) {
-              console.error(`Failed to put data. Code:${err.code},message:${err.message}`);
+              hilog.error(DOMAIN, LOG_TAG, 'Failed to put data, code: %{public}d, message: %{public}s',
+                err.code, err.message);
               return;
             }
-            console.info('Succeeded in putting data.');
+            hilog.info(DOMAIN, LOG_TAG, 'Succeeded in putting data.');
           });
         }).catch((err: BusinessError) => {
-        console.error(`Failed to create KVManager.message:${err}`);
+        hilog.error(DOMAIN, LOG_TAG, 'Failed to create KVManager, message: %{public}s', JSON.stringify(err));
       });
 
     } catch (e) {
       let error = e as BusinessError;
-      console.error(`Failed to create KVManager. Code:${error.code},message:${error.message}`);
+      hilog.error(DOMAIN, LOG_TAG, 'Failed to create KVManager, code: %{public}d, message: %{public}s',
+        error.code, error.message);
     }
   }
 

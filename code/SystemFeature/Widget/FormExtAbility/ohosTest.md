@@ -26,3 +26,35 @@
 |在应用中设置订阅条件 | 仿桌面上已有一张卡片应用的ArkTs卡片 | 点击卡片应用图标，点击"修改订阅条件"，选择城市”杭州“，点击Back键返回；点击“修改发布数据”按钮，选择城市”杭州“，点击“发布数据”，点击Home键返回桌面 | ArkTs卡片中城市信息从”沈阳“更新为”杭州“ |否|Pass|
 |在应用中设置订阅条件 | 仿桌面上已有一张FormProvider应用的Js卡片 | 点击FormProvider应用图标，点击"修改订阅条件"，选择城市”杭州“，点击Back键返回；点击“修改发布数据”按钮，选择城市”杭州“，点击“发布数据”，点击Home键返回桌面 | Js卡片中城市信息从”沈阳“更新为”杭州“ |否|Pass|
 |在应用中设置订阅条件 | 仿桌面上已有一张FormProvider应用的ArkTs卡片 | 点击FormProvider应用图标，点击"修改订阅条件"，选择城市”杭州“，点击Back键返回；点击“修改发布数据”按钮，选择城市”杭州“，点击“发布数据”，点击Home键返回桌面 | ArkTs卡片中城市信息从”沈阳“更新为”杭州“ |否|Pass|
+
+## 逻辑用例（数据驱动）
+
+以下 2272 条用例位于 `entry/src/ohosTest/ets/test/logic`，每条用例记录 begin/end 日志，断言前打印入参与实际值；
+期望值由被测逻辑在对应输入下的确定性结果给出，覆盖典型值、边界值与非法值。
+
+| 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
+| -------- | -------- | ---- | -------- | -------- | -------- |
+| new FormRecord（构造） | 无 | 90 组输入（FormExtAbility_FormRecordCtor_0001~0090） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| getTemperature（函数） | 无 | 208 组输入（FormExtAbility_GetTemperature_0001~0208） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| temperatureTextOf（函数） | 无 | 208 组输入（FormExtAbility_TemperatureTextOf_0001~0208） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| padZero（函数） | 无 | 120 组输入（FormExtAbility_PadZero_0001~0120） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| formatTime（函数） | 无 | 208 组输入（FormExtAbility_FormatTime_0001~0208） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| storedRecordJsonOf（函数） | 无 | 48 组输入（FormExtAbility_StoredRecordJsonOf_0001~0048） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| temporaryFlagOf（函数） | 无 | 50 组输入（FormExtAbility_TemporaryFlagOf_0001~0050） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| castToNormal（函数） | 无 | 4 组输入（FormExtAbility_CastToNormal_0001~0004） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| nextUpdateCountOf（函数） | 无 | 120 组输入（FormExtAbility_NextUpdateCountOf_0001~0120） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| subscriberIdOf（函数） | 无 | 90 组输入（FormExtAbility_SubscriberIdOf_0001~0090） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| templateSqlOf（函数） | 无 | 90 组输入（FormExtAbility_TemplateSqlOf_0001~0090） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| processProxyKeysOf（函数） | 无 | 1 组输入（FormExtAbility_ProcessProxyKeysOf_0001~0001） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| persistentBindingJsonOf（函数） | 无 | 90 组输入（FormExtAbility_PersistentBindingJsonOf_0001~0090） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| isValidConditionRequest（函数） | 无 | 48 组输入（FormExtAbility_IsValidConditionRequest_0001~0048） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| persistedConditionOf（函数） | 无 | 90 组输入（FormExtAbility_PersistedConditionOf_0001~0090） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| conditionFilePathOf（函数） | 无 | 208 组输入（FormExtAbility_ConditionFilePathOf_0001~0208） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| new FormStoreModel（构造） | 无 | 1 组输入（FormExtAbility_FormStoreModelCtor_0001~0001） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| FormStoreModel.add（实例方法） | 无 | 200 组输入（FormExtAbility_FormStoreModelAdd_0001~0200） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| FormStoreModel.update（实例方法） | 无 | 90 组输入（FormExtAbility_FormStoreModelUpdate_0001~0090） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| FormStoreModel.castToNormal（实例方法） | 无 | 30 组输入（FormExtAbility_FormStoreModelCastToNormal_0001~0030） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| FormStoreModel.remove（实例方法） | 无 | 30 组输入（FormExtAbility_FormStoreModelRemove_0001~0030） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| FormStoreModel.countOf（实例方法） | 无 | 30 组输入（FormExtAbility_FormStoreModelCountOf_0001~0030） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| FormStoreModel flow（调用序列） | 无 | 208 组输入（FormExtAbility_FormStoreModelFlow_0001~0208） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| FormExtLogic（常量契约） | 无 | 10 组输入（FormExtAbility_FormExtLogicConstants_0001~0010） | 返回值与状态逐条符合预期 | 是 | 待执行 |

@@ -163,3 +163,44 @@
 | 验证自定义手势判定，响应长按手势	                  | 进入通用tab页，进入自定义手势判定页面                | 	在上部蓝色区域分别点击，长按                                                                                    | 	点击不响应，长按弹出提示"长按上半区蓝色区域，蓝色区域响应"                 | 是    | Pass |
 | 验证自定义手势判定，响应点击手势	                  | 进入通用tab页，进入自定义手势判定页面                | 	在下部黄色区域分别点击，长按                                                                                    | 	点击弹出提示"点击下半区黄色区域，黄色区域响应"，长按不响应                 | 是    | Pass |
 | 验证Text 属性字符串                       | 展开文本与输入，进入Text 属性字符串                     | 依次更改属性字符串                                                                                          | 依次更改对应属性                                        | 是    | Pass |
+
+## 逻辑用例（数据驱动）
+
+以下 1262 条用例位于 `entry/src/ohosTest/ets/test/logic`，每条用例记录 begin/end 日志，断言前打印入参与实际值；
+期望值由被测逻辑在对应输入下的确定性结果给出，覆盖典型值、边界值与非法值。
+
+| 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
+| -------- | -------- | ---- | -------- | -------- | -------- |
+| elevationOf（函数） | 无 | 50 组输入（ComponentCollection_ElevationOf_0001~0050） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| rgbOf（函数） | 无 | 50 组输入（ComponentCollection_RgbOf_0001~0050） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| interpolateColorsOf（函数） | 无 | 50 组输入（ComponentCollection_InterpolateColorsOf_0001~0050） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| rgbArrayOf（函数） | 无 | 50 组输入（ComponentCollection_RgbArrayOf_0001~0050） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| colorStringOf（函数） | 无 | 8 组输入（ComponentCollection_ColorStringOf_0001~0008） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| nextSlideOf（函数） | 无 | 50 组输入（ComponentCollection_NextSlideOf_0001~0050） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| clampSlideOf（函数） | 无 | 50 组输入（ComponentCollection_ClampSlideOf_0001~0050） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| cardScaleOf（函数） | 无 | 50 组输入（ComponentCollection_CardScaleOf_0001~0050） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| cardAngleOf（函数） | 无 | 50 组输入（ComponentCollection_CardAngleOf_0001~0050） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| cardTranslateYOf（函数） | 无 | 50 组输入（ComponentCollection_CardTranslateYOf_0001~0050） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| releaseActionOf（函数） | 无 | 50 组输入（ComponentCollection_ReleaseActionOf_0001~0050） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| isOutsideTransition（函数） | 无 | 50 组输入（ComponentCollection_IsOutsideTransition_0001~0050） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| swiperOpacityOf（函数） | 无 | 49 组输入（ComponentCollection_SwiperOpacityOf_0001~0049） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| swiperScaleOf（函数） | 无 | 49 组输入（ComponentCollection_SwiperScaleOf_0001~0049） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| swiperTranslateOf（函数） | 无 | 49 组输入（ComponentCollection_SwiperTranslateOf_0001~0049） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| waterFlowHeightOf（函数） | 无 | 49 组输入（ComponentCollection_WaterFlowHeightOf_0001~0049） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| waterFlowImageOf（函数） | 无 | 49 组输入（ComponentCollection_WaterFlowImageOf_0001~0049） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| waterFlowTotalHeightOf（函数） | 无 | 49 组输入（ComponentCollection_WaterFlowTotalHeightOf_0001~0049） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| sliderChangeOf（函数） | 无 | 49 组输入（ComponentCollection_SliderChangeOf_0001~0049） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| sliderLabelOf（函数） | 无 | 49 组输入（ComponentCollection_SliderLabelOf_0001~0049） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| isEmptyInput（函数） | 无 | 49 组输入（ComponentCollection_IsEmptyInput_0001~0049） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| checkNeedNumberSpace（函数） | 无 | 49 组输入（ComponentCollection_CheckNeedNumberSpace_0001~0049） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| removeSpace（函数） | 无 | 49 组输入（ComponentCollection_RemoveSpace_0001~0049） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| new MultiplexCardState（构造） | 无 | 1 组输入（ComponentCollection_MultiplexCardStateCtor_0001~0001） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| MultiplexCardState.drag（实例方法） | 无 | 49 组输入（ComponentCollection_MultiplexCardStateDrag_0001~0049） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| MultiplexCardState.release（实例方法） | 无 | 1 组输入（ComponentCollection_MultiplexCardStateRelease_0001~0001） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| MultiplexCardState flow（调用序列） | 无 | 49 组输入（ComponentCollection_MultiplexCardStateFlow_0001~0049） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| new ParticleCamera（构造） | 无 | 49 组输入（ComponentCollection_ParticleCameraCtor_0001~0049） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ParticleCamera.perform（实例方法） | 无 | 1 组输入（ComponentCollection_ParticleCameraPerform_0001~0001） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| CollectionCategory（常量契约） | 无 | 1 组输入（ComponentCollection_CollectionCategoryConstants_0001~0001） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ComponentData（常量契约） | 无 | 5 组输入（ComponentCollection_ComponentDataConstants_0001~0005） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| UniversialData（常量契约） | 无 | 4 组输入（ComponentCollection_UniversialDataConstants_0001~0004） | 返回值与状态逐条符合预期 | 是 | 待执行 |
+| ComponentSampleLogic（常量契约） | 无 | 5 组输入（ComponentCollection_ComponentSampleLogicConstants_0001~0005） | 返回值与状态逐条符合预期 | 是 | 待执行 |

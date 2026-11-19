@@ -16,7 +16,7 @@
 import hilog from '@ohos.hilog';
 
 const DOMAIN: number = 0xF811;
-const PREFIX = 'Sample_AppStartup';
+const PREFIX = '[Sample_AppStartup]';
 const FORMAT = '%{public}s, %{public}s';
 
 class Logger {

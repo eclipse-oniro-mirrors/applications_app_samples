@@ -17,8 +17,8 @@ import { dataUriUtils } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { promptAction } from '@kit.ArkUI';
 
-const TAG: string = 'DataUriUtils';
-const DOMAIN: number = 0xFF00;
+const TAG: string = '[Sample_AbilityRuntime]';
+const DOMAIN: number = 0xF811;
 const ID = 1122;
 
 @Entry

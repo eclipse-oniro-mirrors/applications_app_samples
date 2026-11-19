@@ -100,3 +100,32 @@ hdc shell hilog | grep ComposeList
 - `entry/src/test/` 仅包含模板自带的 1 条本地冒烟用例，功能验证以 `entry/src/ohosTest` 下的 158 条设备侧用例为准；
 - ComposeListItemV2、ComposeTitleBarV2 为 API 26 新增组件，低于 API 26 的设备上 V2 分区不可用，测试环境需使用 API 26 镜像；
 - hilog tag 有 `ComposeListTitle`（LogUtil）与 `ComposeListAndTitle`（EntryAbility）两个，排查日志时使用 `grep ComposeList` 可同时覆盖。
+
+
+## 2026 新增套件
+
+新增 25 个文件 / **858 条 / 25,930 行**，原有用例未修改。全部按联系人数量、场景、搜索关键字、字段组合与工厂配置枚举，不使用 `index % N` 模板轮转；每条新增用例前置 `await delayTick()`。
+
+| 套件 | 覆盖点 | 用例数 | 测试结果 |
+| --- | --- | ---: | --- |
+| ContactSequenceGridMatrixPart1 | add/remove/toggle/clear 操作序列与数量/在线数/id 序列 | 27 | pass |
+| ContactScenarioGridMatrixPart1~13 | 1~25 个联系人 × 20 组移除/切换/搜索场景 | 500 | pass |
+| ContactSearchGridMatrixPart1 | 固定联系人上的空串、大小写、部分匹配与未命中 | 15 | pass |
+| ContactSearchExtraGridMatrixPart1~4 | 10 组联系人数据 × 11 个关键字及逐人精确/大写/部门搜索 | 160 | pass |
+| ContactInputGridMatrixPart1 | 空串、空白、Unicode、长文本、默认在线状态等输入 | 17 | pass |
+| ContactInputExtraGridMatrixPart1 | 特殊字符/换行/emoji 输入、缺失 id、clear 后 id 延续 | 27 | pass |
+| ListConfigV1GridMatrixPart1 | V1 内容项、开关/复选/单选、按钮/文本/图片操作、双图标 | 36 | pass |
+| ListConfigV2GridMatrixPart1 | V2 内容项、toggle/checkbox/button/text、双图标 | 34 | pass |
+| ListConfigFieldGridMatrixPart1 | V1/V2 操作区字段隔离与实例隔离 | 7 | pass |
+| ConfigExtraGridMatrixPart1 | 两行内容、V2 toggle 回调、按钮文本、双图标补充 | 35 | pass |
+| 合计 |  | 858 | 858/858 pass |
+
+新增文件完全重复 body **0 组**；`@tc.desc` 858/858 唯一；`@tc.number` 与 `@tc.name` 序号一一对应。
+
+全量执行结果：
+
+```
+Tests run: 1038, Failure: 0, Error: 0, Pass: 1038
+```
+
+带 `-s class` 全 35 类执行结果相同：`Tests run: 1038, Failure: 0, Error: 0, Pass: 1038`。

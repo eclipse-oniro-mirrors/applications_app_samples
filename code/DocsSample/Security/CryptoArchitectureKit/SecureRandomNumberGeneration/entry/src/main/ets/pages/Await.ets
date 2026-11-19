@@ -28,6 +28,9 @@ async function doRand() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude secure_hard_ware_random_number_generation_await]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude secure_hard_ware_random_number_generation_await]
   }
 }
 // [End secure_hard_ware_random_number_generation_await]

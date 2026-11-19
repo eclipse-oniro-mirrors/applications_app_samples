@@ -14,7 +14,9 @@
 */
 
 import localUnitTest from './LocalUnit.test';
+import { commonLogicMatrixTest } from './CommonLogicMatrix.test';
 
 export default function testsuite() {
   localUnitTest();
+  commonLogicMatrixTest();
 }

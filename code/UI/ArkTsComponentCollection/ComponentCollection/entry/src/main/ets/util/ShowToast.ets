@@ -13,20 +13,39 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/util/ShowToast.ets
+ * 文件职责：ShowToast 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ShowToast。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import prompt from '@ohos.promptAction'
 
+/**
+ * ShowToast：类定义，承载本文件对应的逻辑与数据。
+ */
 class ShowToast {
   private longToastTime: number = 3000
   private shortToastTime: number = 1000
 
+  /**
+   * showToast：执行 showToast 相关逻辑。
+   */
   showToast(message: ResourceStr, duration: number) {
     prompt.showToast({ message: message, duration: duration })
   }
 
+  /**
+   * shortToast：执行 shortToast 相关逻辑。
+   */
   shortToast(message: ResourceStr) {
     this.showToast(message, this.shortToastTime)
   }
 
+  /**
+   * longToast：执行 longToast 相关逻辑。
+   */
   longToast(message: ResourceStr) {
     this.showToast(message, this.longToastTime)
   }

@@ -1,16 +1,51 @@
 # MediaController 测试用例归档
 
-## 用例表
+## 测试环境
 
-|测试功能|预置条件|输入|预期输出|测试结果|
-|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
-|拉起应用| 设备正常运行|		|成功拉起应用|Pass|
-|主页信息展示|	位于主页且MediaProvider位于后台|		|展示当前正在播放的音乐信息|Pass|
-|主页按钮展示|	位于主页且MediaProvider位于后台|		|展示上一首、下一首、播放暂停按钮|Pass|
-|播放|	位于主页且MediaProvider处于未在播放状态|	点击播放按钮|	MediaProvider响应了播放事件，进入播放状态|Pass|
-|暂停|	位于主页且MediaProvider处于已在播放状态|	点击暂停按钮|	MediaProvider响应了暂停事件，进入暂停状态|Pass|
-|上一首|	位于主页且MediaProvider位于后台|   点击上一首按钮|   MediaProvider响应了上一首事件，本应用收到并展示出上一首音乐的信息|Pass|
-|下一首|	位于主页且MediaProvider位于后台|   点击下一首按钮|   MediaProvider响应了下一首事件，本应用收到并展示出下一首音乐的信息|Pass|
-|显示歌词|	位于主页且MediaProvider位于后台|   点击歌词按钮|	屏幕出现媒体提供方提供的歌词|Pass|
-|显示歌曲列表|	位于主页且MediaProvider位于后台|   点击列表按钮|	屏幕出现媒体提供方提供的歌曲列表|Pass|
-|通过歌曲列表切换歌曲|	位于主页且MediaProvider位于后台，歌曲列表被展开|   点击歌曲列表中的歌曲|	开始播放指定的音乐|Pass|
+- 开发板：RK3568，OpenHarmony 7.1.0.21，API 26
+- 测试套件：`MediaControllerTest`，共 2324 条，Level 0/2
+- 测试提供方：由 `ohosTest` 在测试进程中创建 AVSession（audio），激活后发布元数据、播放列表、播放状态与歌词事件
+- 运行方式：DevEco Studio 中选中 entry 模块右键 `Run 'test'`，或命令行：
+
+```bash
+hvigorw --mode module -p module=entry@ohosTest -p product=default test
+```
+
+## 用例清单
+
+| 测试文件 | 用例数 | 说明 |
+|---|---:|---|
+| `Ability.test.ets` | 18 | 页面启动、元数据、播放控制、队列、歌词与状态同步 |
+| `MediaControllerContract.test.ets` | 92 | AVMetadata、AVQueueItem、会话 Map、PlaybackState 枚举与 Logger 契约 |
+| `MediaControllerBulkPart01.test.ets` | 94 | 元数据、队列、会话 Map、LoopMode 与命令载荷批量契约 |
+| `MediaControllerBulkPart02.test.ets` | 93 | 元数据、队列、会话 Map、LoopMode 与命令载荷批量契约 |
+| `MediaControllerBulkPart03.test.ets` | 17 | 元数据、队列、会话 Map、LoopMode 与命令载荷批量契约 |
+| `MediaControllerEdgePart01.test.ets` | 95 | 空值/长文本/边界、无会话控制方法与枚举组合 |
+| `MediaControllerEdgePart02.test.ets` | 94 | 空值/长文本/边界、无会话控制方法与枚举组合 |
+| `MediaControllerEdgePart03.test.ets` | 91 | 空值/长文本/边界、无会话控制方法与枚举组合 |
+| `MediaControllerPlaybackPart01.test.ets` | 70 | AVPlaybackState 组合、播放队列、批量 Map |
+| `MediaControllerPlaybackPart02.test.ets` | 79 | AVPlaybackState 组合、播放队列、批量 Map |
+| `MediaControllerPlaybackPart03.test.ets` | 87 | AVPlaybackState 组合、播放队列、批量 Map |
+| `MediaControllerPlaybackPart04.test.ets` | 64 | AVPlaybackState 组合、播放队列、批量 Map |
+| `MediaControllerSessionPart01.test.ets` | 65 | AVSessionDescriptor、播放时序、批量 Map 与 AppStorage |
+| `MediaControllerSessionPart02.test.ets` | 70 | AVSessionDescriptor、播放时序、批量 Map 与 AppStorage |
+| `MediaControllerSessionPart03.test.ets` | 68 | AVSessionDescriptor、播放时序、批量 Map 与 AppStorage |
+| `MediaControllerSessionPart04.test.ets` | 69 | AVSessionDescriptor、播放时序、批量 Map 与 AppStorage |
+| `MediaControllerSessionPart05.test.ets` | 8 | AVSessionDescriptor、播放时序、批量 Map 与 AppStorage |
+| `MediaControllerMetadataPart01.test.ets` | 63 | AVMetadata 扩展字段、AVMediaDescription、多会话 Map 与 AppStorage 类型 |
+| `MediaControllerMetadataPart02.test.ets` | 66 | AVMetadata 扩展字段、AVMediaDescription、多会话 Map 与 AppStorage 类型 |
+| `MediaControllerMetadataPart03.test.ets` | 21 | AVMetadata 扩展字段、AVMediaDescription、多会话 Map 与 AppStorage 类型 |
+| `MediaControllerSafePart01.test.ets` | 94 | 元数据、队列、Map、PlaybackState/LoopMode 枚举安全契约 |
+| `MediaControllerSafePart02.test.ets` | 92 | 元数据、队列、Map、PlaybackState/LoopMode 枚举安全契约 |
+| `MediaControllerSafePart03.test.ets` | 104 | 元数据、队列、Map、PlaybackState/LoopMode 枚举安全契约 |
+| `MediaControllerSafePart04.test.ets` | 10 | 元数据、队列、Map、PlaybackState/LoopMode 枚举安全契约 |
+| `MediaControllerVolumePart01.test.ets` | 80 | 元数据、多会话 Map 批量用例 |
+| `MediaControllerVolumePart02.test.ets` | 80 | 元数据、多会话 Map 批量用例 |
+| `MediaControllerVolumePart03.test.ets` | 80 | 元数据、多会话 Map 批量用例 |
+| `MediaControllerVolumePart04.test.ets` | 80 | 元数据、多会话 Map 批量用例 |
+| `MediaControllerVolumePart05.test.ets` | 80 | 元数据、多会话 Map 批量用例 |
+| `MediaControllerVolumePart06.test.ets` | 80 | 元数据、多会话 Map 批量用例 |
+| `MediaControllerVolumePart07.test.ets` | 80 | 元数据、多会话 Map 批量用例 |
+| `MediaControllerVolumePart08.test.ets` | 80 | 元数据、多会话 Map 批量用例 |
+| `MediaControllerVolumePart09.test.ets` | 60 | 元数据、多会话 Map 批量用例 |
+| **合计** | **2324** | |

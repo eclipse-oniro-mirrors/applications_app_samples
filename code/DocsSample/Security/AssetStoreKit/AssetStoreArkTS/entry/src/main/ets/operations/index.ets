@@ -30,4 +30,6 @@ export { queryGroupAssetAttribute } from './query_group_attr'
 export { addSyncAsset } from './add_sync';
 export { querySyncResult } from './query_sync_result';
 export { batchAddAssets, batchUpdateAssets, batchRemoveAssets } from './batch_operation';
-export { requestToolTicket } from './request_tool_ticket'
+export { requestToolTicket } from './request_tool_ticket';
+export { queryControlAppStatus } from './query_control_app_status';
+export { requestControlAppPermissionFromUser } from './request_control_app_permission_from_user';

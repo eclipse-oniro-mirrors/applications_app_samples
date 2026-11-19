@@ -13,16 +13,33 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/components/textAndInput/imageSpanSample/ChangePanel.ets
+ * 文件职责：ChangePanel 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ChangeVerticalAlign、ChangeObjectFit。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { CommonItemSlider, CommonItemSelect, CommonItemColorSelect } from '../../../../common/AttributeModificationTool'
 import { selectData } from '../../ComponentData'
 import { getStringArrayData } from '../../../../data/ResourceDataHandle'
 
+/**
+ * ChangeVerticalAlign：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct ChangeVerticalAlign {
+  // @Link imageSpanAlignment：与父组件双向绑定的状态
   @Link imageSpanAlignment: ImageSpanAlignment
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
     Column() {
+      // CommonItemSelect：CommonItemSelect 自定义组件
+      // 关键属性：外边距
       CommonItemSelect({
         testId: 'alignment',
 	name: $r('app.string.image_span_vertical_align'),
@@ -45,17 +62,28 @@ export struct ChangeVerticalAlign {
               this.imageSpanAlignment = ImageSpanAlignment.BOTTOM
           }
         }
-      })
+      }).id('change_panel_common_item_select_2')
         .margin({ top: 12 })
-    }
+    }.id('change_panel_column_1')
   }
 }
+
+/**
+ * ChangeObjectFit：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct ChangeObjectFit {
+  // @Link imageFit：与父组件双向绑定的状态
   @Link imageFit : ImageFit
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
     Column() {
+      // CommonItemSelect：CommonItemSelect 自定义组件
+      // 关键属性：外边距
       CommonItemSelect({
         testId: 'fit',
 	name: $r('app.string.image_span_object_fit'),
@@ -85,8 +113,8 @@ export struct ChangeObjectFit {
               this.imageFit = ImageFit.Cover
           }
         }
-      })
+      }).id('change_panel_common_item_select_4')
         .margin({ top: 12 })
-    }
+    }.id('change_panel_column_3')
   }
 }

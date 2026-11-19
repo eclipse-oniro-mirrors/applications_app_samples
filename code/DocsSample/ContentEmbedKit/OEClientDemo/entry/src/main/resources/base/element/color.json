@@ -1,0 +1,36 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "brand_color",
+      "value": "#FF007DFF"
+    },
+    {
+      "name": "toolbar_background",
+      "value": "#F5F5F5"
+    },
+    {
+      "name": "item_selected_background",
+      "value": "#F0F0F0"
+    },
+    {
+      "name": "item_default_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "card_border",
+      "value": "#E0E0E0"
+    },
+    {
+      "name": "table_divider",
+      "value": "#DDDDDD"
+    },
+    {
+      "name": "button_text_color",
+      "value": "#000000"
+    }
+  ]
+}

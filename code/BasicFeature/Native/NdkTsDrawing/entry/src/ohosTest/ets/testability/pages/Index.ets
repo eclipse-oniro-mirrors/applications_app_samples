@@ -16,7 +16,7 @@
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World';
+  @State message: Resource = $r('app.string.test_page_message');
 
   build() {
     Row() {

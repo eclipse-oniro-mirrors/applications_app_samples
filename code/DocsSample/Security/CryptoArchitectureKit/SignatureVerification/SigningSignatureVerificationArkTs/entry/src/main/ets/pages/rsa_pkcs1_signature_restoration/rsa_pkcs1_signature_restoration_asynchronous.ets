@@ -16,6 +16,7 @@
 // [Start pkcs1_recover_rsa_keypair_sign_async]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 // 完整的明文被拆分为input1和input2
 let input1: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from('This is Sign test plan1', 'utf-8').buffer) };
@@ -37,15 +38,26 @@ async function verifyMessagePromise(signMessageBlob: cryptoFramework.DataBlob, p
 }
 
 async function main() {
-  let keyGenAlg = 'RSA1024';
-  let generator = cryptoFramework.createAsyKeyGenerator(keyGenAlg);
-  let keyPair = await generator.generateKeyPair();
-  let signData = await signMessagePromise(keyPair.priKey);
-  let rawSignData = await verifyMessagePromise(signData, keyPair.pubKey);
-  if (rawSignData != null) {
-    console.info('recover result: ' + rawSignData.data);
-  } else {
-    console.error('get verify recover result: fail!');
+  try {
+    let keyGenAlg = 'RSA1024';
+    let generator = cryptoFramework.createAsyKeyGenerator(keyGenAlg);
+    let keyPair = await generator.generateKeyPair();
+    let signData = await signMessagePromise(keyPair.priKey);
+    let rawSignData = await verifyMessagePromise(signData, keyPair.pubKey);
+    if (rawSignData != null) {
+      console.info('recover result: ' + rawSignData.data);
+    } else {
+      console.error('get verify recover result: fail!');
+      // [StartExclude pkcs1_recover_rsa_keypair_sign_async]
+      throw new Error('get verify recover result: fail!');
+      // [EndExclude pkcs1_recover_rsa_keypair_sign_async]
+    }
+  } catch (error) {
+    let e: BusinessError = error as BusinessError;
+    console.error(`recover failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude pkcs1_recover_rsa_keypair_sign_async]
+    throw new Error(`recover failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude pkcs1_recover_rsa_keypair_sign_async]
   }
 }
 // [End pkcs1_recover_rsa_keypair_sign_async]

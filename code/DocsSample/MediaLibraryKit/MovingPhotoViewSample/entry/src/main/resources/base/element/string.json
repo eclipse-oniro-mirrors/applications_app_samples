@@ -11,6 +11,46 @@
     {
       "name": "EntryAbility_label",
       "value": "MovingPhotoViewSample"
+    },
+    {
+      "name": "loading_moving_photo",
+      "value": "Loading moving photo..."
+    },
+    {
+      "name": "context_undefined",
+      "value": "Failed to get context"
+    },
+    {
+      "name": "moving_photo_loaded",
+      "value": "Moving photo loaded, long press to play"
+    },
+    {
+      "name": "moving_photo_load_failed",
+      "value": "Failed to load moving photo"
+    },
+    {
+      "name": "play_button",
+      "value": "PLAY"
+    },
+    {
+      "name": "stop_button",
+      "value": "STOP"
+    },
+    {
+      "name": "playback_started",
+      "value": "Playback started"
+    },
+    {
+      "name": "playback_stopped",
+      "value": "Playback stopped"
+    },
+    {
+      "name": "mute_button",
+      "value": "Mute"
+    },
+    {
+      "name": "unmute_button",
+      "value": "Unmute"
     }
   ]
 }

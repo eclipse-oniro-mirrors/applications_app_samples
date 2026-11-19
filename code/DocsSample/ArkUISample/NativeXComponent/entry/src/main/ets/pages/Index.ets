@@ -171,6 +171,31 @@ struct Index {
             heightAdaptivePolicy: TextHeightAdaptivePolicy.MIN_FONT_SIZE_FIRST,
             font: { size: 20 }
           }))
+
+        TabContent() {
+          Column() {
+            Button('点击此处进入', { stateEffect: true, type: ButtonType.Capsule })
+              .width('80%')
+              .height(40)
+              .margin(20)
+              .onClick(() => {
+                this.pageInfos.pushPath({ name: 'InspectorTreeGetterNDK' });
+              })
+            Text('  在Native侧创建XComponent作为第三方框架宿主节点，注册/注销InspectorTreeGetter回调，向ArkUI Inspector上报组件树')
+          }
+          .width('100%')
+          .height('100%')
+          .justifyContent(FlexAlign.Start)
+        }
+        .tabBar(SubTabBarStyle.of('InspectorTreeGetter')
+          .labelStyle({
+            overflow: TextOverflow.Clip,
+            maxLines: 2,
+            minFontSize: 10,
+            maxFontSize: 10,
+            heightAdaptivePolicy: TextHeightAdaptivePolicy.MIN_FONT_SIZE_FIRST,
+            font: { size: 20 }
+          }))
       }
     }.title('XComponent')
   }

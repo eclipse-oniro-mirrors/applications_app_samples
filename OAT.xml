@@ -251,6 +251,20 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/Form/FormAddMenuDemo/screenshots/addFormByMenu.png" desc="Provided by code/DocsSample/Form/FormAddMenuDemo."/>
 				<filteritem type="filepath" name="code/DocsSample/Form/FormAddMenuDemo/screenshots/addStaticCard.png" desc="Provided by code/DocsSample/Form/FormAddMenuDemo."/>
 				<filteritem type="filepath" name="code/DocsSample/Form/FormAddMenuDemo/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/Form/FormAddMenuDemo."/>
+				<filteritem type="filepath" name="code/DocsSample/ContentEmbedKit/OEClientDemo/entry/src/main/resources/base/media/logo.png" desc="Provided by code/DocsSample/ContentEmbedKit/OEClientDemo."/>
+				<filteritem type="filepath" name="code/DocsSample/ContentEmbedKit/OEClientDemo/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/ContentEmbedKit/OEClientDemo."/>
+				<filteritem type="filepath" name="code/DocsSample/ContentEmbedKit/OEClientDemo/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/ContentEmbedKit/OEClientDemo."/>
+				<filteritem type="filepath" name="code/DocsSample/ContentEmbedKit/OEClientDemo/AppScope/resources/base/media/background.png" desc="Provided by code/DocsSample/ContentEmbedKit/OEClientDemo."/>
+				<filteritem type="filepath" name="code/DocsSample/ContentEmbedKit/OEClientDemo/screenshots/format_window.jpg" desc="Provided by code/DocsSample/ContentEmbedKit/OEClientDemo."/>
+				<filteritem type="filepath" name="code/DocsSample/ContentEmbedKit/OEClientDemo/screenshots/main.jpg" desc="Provided by code/DocsSample/ContentEmbedKit/OEClientDemo."/>
+				<filteritem type="filepath" name="code/DocsSample/ContentEmbedKit/OEClientDemo/screenshots/query_window.jpg" desc="Provided by code/DocsSample/ContentEmbedKit/OEClientDemo."/>
+				<filteritem type="filepath" name="code/DocsSample/ContentEmbedKit/OEClientDemo/AppScope/resources/base/media/logo.png" desc="Provided by code/DocsSample/ContentEmbedKit/OEClientDemo."/>
+				<filteritem type="filepath" name="code/DocsSample/ContentEmbedKit/OEServerDemo/AppScope/resources/base/media/oe_a_logo.png" desc="Provided by code/DocsSample/ContentEmbedKit/OEServerDemo."/>
+				<filteritem type="filepath" name="code/DocsSample/ContentEmbedKit/OEServerDemo/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/ContentEmbedKit/OEServerDemo."/>
+				<filteritem type="filepath" name="code/DocsSample/ContentEmbedKit/OEServerDemo/AppScope/resources/base/media/background.png" desc="Provided by code/DocsSample/ContentEmbedKit/OEServerDemo."/>
+				<filteritem type="filepath" name="code/DocsSample/ContentEmbedKit/OEServerDemo/entry/src/main/resources/resfile/default_snapshot.png" desc="Provided by code/DocsSample/ContentEmbedKit/OEServerDemo."/>
+				<filteritem type="filepath" name="code/DocsSample/ContentEmbedKit/OEServerDemo/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/ContentEmbedKit/OEServerDemo."/>
+				<filteritem type="filepath" name="code/DocsSample/ContentEmbedKit/OEServerDemo/entry/src/main/resources/base/media/oe_a_logo.png" desc="Provided by code/DocsSample/ContentEmbedKit/OEServerDemo."/>
 				<filteritem type="filepath" name="code/BasicFeature/Connectivity/MultipleFilesDownload/casesfeature/multiplefilesdownload/src/main/resources/base/media/multiple_files_download_stop.png" desc="Provided by code/BasicFeature/Connectivity/MultipleFilesDownload"/>
 				<filteritem type="filepath" name="code/BasicFeature/Connectivity/MultipleFilesDownload/casesfeature/multiplefilesdownload/src/main/resources/base/media/multiple_files_download_start.png" desc="Provided by code/BasicFeature/Connectivity/MultipleFilesDownload"/>
 				<filteritem type="filepath" name="code/BasicFeature/Connectivity/MultipleFilesDownload/casesfeature/multiplefilesdownload/multiple_files_download.gif" desc="Provided by code/BasicFeature/Connectivity/MultipleFilesDownload"/>
@@ -1368,6 +1382,11 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/ConnectivityKit/NearLink/screenshots/main_page.png" desc="Provided by code/DocsSample/ConnectivityKit"/>
 				<filteritem type="filepath" name="code/DocsSample/ConnectivityKit/NearLink/screenshots/manager.png" desc="Provided by code/DocsSample/ConnectivityKit"/>
 				<filteritem type="filepath" name="code/DocsSample/ConnectivityKit/NearLink/screenshots/ssap_client.png" desc="Provided by code/DocsSample/ConnectivityKit"/>
+    <filteritem type="filepath" name="code/DocsSample/LocationKit/AppScope/resources/base/media/app_icon.png" desc="Provided by code/DocsSample/LocationKit"/>
+    <filteritem type="filepath" name="code/DocsSample/LocationKit/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/LocationKit"/>
+    <filteritem type="filepath" name="code/DocsSample/LocationKit/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/LocationKit"/>
+    <filteritem type="filepath" name="code/DocsSample/LocationKit/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/LocationKit"/>
+    <filteritem type="filepath" name="code/DocsSample/LocationKit/entry/src/ohosTest/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/LocationKit"/>
 				<filteritem type="filepath" name="code/DocsSample/EnterpriseAdminExtensionAbility/EnterpriseAdminExtensionAbility/screenshots/device/first.jpg" desc="Provided by code/DocsSample/EnterpriseAdminExtensionAbility"/>
 				<filteritem type="filepath" name="code/DocsSample/EnterpriseAdminExtensionAbility/EnterpriseAdminExtensionAbility/screenshots/device/second.jpg" desc="Provided by code/DocsSample/EnterpriseAdminExtensionAbility"/>
 				<filteritem type="filepath" name="code/DocsSample/EnterpriseAdminExtensionAbility/EnterpriseAdminExtensionAbility/screenshots/device/third.jpg" desc="Provided by code/DocsSample/EnterpriseAdminExtensionAbility"/>
@@ -2644,6 +2663,12 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/BasicFeature/Telephony/VCard"/>
 				<filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/BasicFeature/Telephony/VCard"/>
 				<filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/screenshots/main_page.png" desc="Provided by code/BasicFeature/Telephony/VCard"/>
+				<filteritem type="filepath" name="code/DocsSample/DistributedAppDev/DistributedSoftbusConversationDemo/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/DistributedAppDev/DistributedSoftbusConversationDemo"/>
+				<filteritem type="filepath" name="code/DocsSample/DistributedAppDev/DistributedSoftbusConversationDemo/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/DistributedAppDev/DistributedSoftbusConversationDemo"/>
+				<filteritem type="filepath" name="code/DocsSample/DistributedAppDev/DistributedSoftbusConversationDemo/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/DistributedAppDev/DistributedSoftbusConversationDemo"/>
+				<filteritem type="filepath" name="code/DocsSample/DistributedAppDev/DistributedSoftbusConversationDemo/screenshots/device/index.png" desc="Provided by code/DocsSample/DistributedAppDev/DistributedSoftbusConversationDemo"/>
+				<filteritem type="filepath" name="code/DocsSample/DistributedAppDev/DistributedSoftbusConversationDemo/AppScope/resources/base/media/background.png" desc="Provided by code/DocsSample/DistributedAppDev/DistributedSoftbusConversationDemo"/>
+				<filteritem type="filepath" name="code/DocsSample/DistributedAppDev/DistributedSoftbusConversationDemo/AppScope/resources/base/media/foreground.png" desc="Provided by code/DocsSample/DistributedAppDev/DistributedSoftbusConversationDemo"/>
                 <filteritem type="filepath" name="code/DocsSample/ArkData/Udmf/VirtualFileDrag/entry/src/main/resources/rawfile/documents.zip" desc="Sample-owned ZIP fixture containing one 106-byte text file for deferred decompression; contains no executable or third-party content."/>
 				<filteritem type="filepath" name="code/DocsSample/print/AddPrinterInApp/AppScope/resources/base/media/background.png" desc="Provided by code/DocsSample/print/AddPrinterInApp"/>
 				<filteritem type="filepath" name="code/DocsSample/print/AddPrinterInApp/AppScope/resources/base/media/foreground.png" desc="Provided by code/DocsSample/print/AddPrinterInApp"/>

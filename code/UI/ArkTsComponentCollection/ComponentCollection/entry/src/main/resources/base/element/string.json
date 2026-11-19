@@ -5986,6 +5986,10 @@
     {
       "name": "click_to_see_text_component_change",
       "value": "Click to update the text component construction with the parameter"
+    },
+    {
+      "name": "list_item_delete",
+      "value": "删除"
     }
   ]
 }

@@ -12,37 +12,74 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file entry/src/main/ets/pages/animations/TransitionAnimations/multiplexSample/ScrollItem.ets
+ * 文件职责：ScrollItem 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：ScrollItem。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { MultiplexModel } from './MultiplexModel';
 
+/**
+ * ScrollItem：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct ScrollItem {
   private panOption: PanGestureOptions = new PanGestureOptions({ direction: PanDirection.Vertical, fingers: 1 });
   private resource!: MultiplexModel;
   private onDelete: (id: string) => void = (id: string) => {
   };
+
+  // @StorageProp windowHeight：与 AppStorage 单向绑定
   @StorageProp('windowHeight') windowHeight: number = 720;
+
+  // @State offsetX：组件内部状态
   @State offsetX: number = 0; // X轴滑动距离
+  // @State offsetY：组件内部状态
   @State offsetY: number = 0; // Y轴滑动距离
+  // @State scaleX：组件内部状态
   @State scaleX: number = 1; // 缩放比例
+  // @State angle：组件内部状态
   @State angle: number = 0; // 旋转角度
+  // @State translateY：组件内部状态
   @State translateY: number = 0; // Y轴移动距离
+  // @State sx：组件内部状态
   @State sx: number = 1; // 滑动系数
 
-
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：圆角、主轴对齐、gesture
     Column() {
+      // Stack：层叠布局容器
+      // 关键属性：宽度、高度、缩放
       Stack() {
-        Image(this.resource.getImg())
+        // Image：图片
+        // 关键属性：宽度、高度、圆角、阴影
+        Image(this.resource.getImg()).id('scroll_item_image_3')
+          // width：设置宽度
           .width('100%')
+          // height：设置高度
           .height('100%')
+          // borderRadius：设置圆角
           .borderRadius(20)
+          // shadow：设置阴影
           .shadow({
             radius: 20,
             color: $r('app.color.btn_border_color')
+          // 结束当前组件块
           })
-      }
+      // 结束当前组件块
+      }.id('scroll_item_stack_2')
+      // width：设置宽度
       .width('100%')
+      // height：设置高度
       .height('100%')
+      // scale：设置缩放
       .scale({
         x: this.scaleX,
         y: this.scaleX,
@@ -62,10 +99,12 @@ export struct ScrollItem {
         z: this.translateY
       })
       .opacity(this.sx)
-    }
+    }.id('scroll_item_column_1')
     .borderRadius(20)
     .justifyContent(FlexAlign.Center)
     .gesture(
+      // PanGesture：PanGesture 自定义组件
+      // 关键属性：onActionStart、info
       PanGesture(this.panOption)
         .onActionStart((event: GestureEvent) => {
           console.info('Pan start');
@@ -94,6 +133,9 @@ export struct ScrollItem {
     )
   }
 
+  /**
+   * move：执行 move 相关逻辑。
+   */
   move(sx: number) {
     this.sx = sx > 1 ? 1 : sx < 0 ? 0 : sx;
     this.scaleX = Math.pow(sx, 7) > 1 ? 1 : sx < 0 ? 0 : Math.pow(sx, 7);
@@ -106,7 +148,6 @@ export struct ScrollItem {
     console.info('Pan translateY:' + this.translateY);
     console.info('Pan angle:' + this.angle);
   }
-
 
   /**
    * 还原

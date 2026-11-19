@@ -13,36 +13,73 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/universal/gesture/combinedSample/CombinedSample.ets
+ * 文件职责：CombinedSample 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：CombinedExample。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { IntroductionTitle } from '../../../../common/IntroductionTitle';
 import { TitleBar } from '../../../../common/TitleBar';
 import { getStringData } from '../../../../data/ResourceDataHandle';
 import ShowToast from '../../../../util/ShowToast';
 
 const LEFT_UP_X = -80; // 限定距离
+
 const RIGHT_UP_X = 80;
+
 const LEFT_UP_Y = -130;
+
 const RIGHT_UP_Y = 130;
 
+/**
+ * CombinedExample：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct CombinedExample {
+  // @State count：组件内部状态
   @State count: number = 0;
+
+  // @State offsetX：组件内部状态
   @State offsetX: number = 0;
+
+  // @State offsetY：组件内部状态
   @State offsetY: number = 0;
+
+  // @State positionX：组件内部状态
   @State positionX: number = 0;
+
+  // @State positionY：组件内部状态
   @State positionY: number = 0;
+
+  // @State borderStyles：组件内部状态
   @State borderStyles: BorderStyle = BorderStyle.Solid;
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：高度、宽度、背景色
     Column() {
-      TitleBar({ title: $r('app.string.combined_gestures') })
+      // TitleBar：TitleBar 自定义组件
+      TitleBar({ title: $r('app.string.combined_gestures') }).id('combined_sample_title_bar_2')
+      // IntroductionTitle：IntroductionTitle 自定义组件
       IntroductionTitle({ introduction: $r('app.string.combinded_description') })
+        .id('combined_sample_introduction_title_3')
+      // Row：水平布局容器
+      // 关键属性：主轴对齐、圆角、背景色、高度、宽度、外边距
       Row() {
+        // Column：垂直布局容器
+        // 关键属性：平移、高度、宽度、内边距、外边距、边框
         Column() {
+          // Text：文本
           Text(getStringData($r('app.string.combinded_sequence')) + getStringData($r('app.string.combinded_longPress_onAction')) + this.count
           + getStringData($r('app.string.combinded_x'))
-          + this.offsetX + getStringData($r('app.string.pan_offset_y')) + this.offsetY)
-        }
+          + this.offsetX + getStringData($r('app.string.pan_offset_y')) + this.offsetY).id('combined_sample_text_6')
+        }.id('combined_sample_column_5')
         .translate({ x: this.offsetX, y: this.offsetY, z: 0 })
         .height(150)
         .width(250)
@@ -51,7 +88,11 @@ struct CombinedExample {
         .border({ width: 3, style: this.borderStyles })
         .gesture(
           // 以下组合手势为顺序识别，当长按手势事件未正常触发时则不会触发拖动手势事件
+          // GestureGroup：GestureGroup 自定义组件
+          // 关键属性：onCancel、shortToast
           GestureGroup(GestureMode.Sequence,
+            // LongPressGesture：LongPressGesture 自定义组件
+            // 关键属性：onAction
             LongPressGesture({ repeat: true })
               .onAction((event: GestureEvent) => {
                 if (event.repeat) {
@@ -62,6 +103,8 @@ struct CombinedExample {
               .onActionEnd(() => {
                 ShowToast.shortToast($r('app.string.combinded_longPress_end'));
               }),
+            // PanGesture：PanGesture 自定义组件
+            // 关键属性：onActionStart
             PanGesture()
               .onActionStart(() => {
                 this.borderStyles = BorderStyle.Dashed;
@@ -95,14 +138,14 @@ struct CombinedExample {
               ShowToast.shortToast($r('app.string.time_picker_dialog_cancel'));
             })
         )
-      }
+      }.id('combined_sample_row_4')
       .justifyContent(FlexAlign.Center)
       .borderRadius(24)
       .backgroundColor(Color.White)
       .height('60%')
       .width('100%')
       .margin({ left: 12, right: 12 })
-    }
+    }.id('combined_sample_column_1')
     .height('100%')
     .width('100%')
     .backgroundColor($r('app.color.background_shallow_grey'))

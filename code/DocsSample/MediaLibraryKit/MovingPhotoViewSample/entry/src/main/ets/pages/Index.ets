@@ -18,7 +18,7 @@
 // [End movingphotoview_import_api21]
 
 // [Start movingphotoview_import_api22]
-import { MovingPhotoView, MovingPhotoViewController } from '@kit.MediaLibraryKit';
+import { MovingPhotoView, MovingPhotoViewController, MovingPhotoViewAttribute } from '@kit.MediaLibraryKit';
 // [End movingphotoview_import_api22]
 
 // [StartExclude movingphotoview_component]
@@ -34,8 +34,8 @@ const VIDEO_FILE_NAME = 'moving_photo.mp4';
 // [EndExclude movingphotoview_component]
 
 // [Start movingphotoview_component]
-// API version 21及之前版本导入方式：import { photoAccessHelper, MovingPhotoView, MovingPhotoViewController, MovingPhotoViewAttribute } from '@kit.MediaLibraryKit';
-// API version 22及之后版本导入方式如下：
+// import way for API version 26 and earlier: import { photoAccessHelper, MovingPhotoView, MovingPhotoViewController, MovingPhotoViewAttribute } from '@kit.MediaLibraryKit';
+// import way for API version 22 and later: 
 // import { photoAccessHelper, MovingPhotoView, MovingPhotoViewController } from '@kit.MediaLibraryKit';
 
 @Entry
@@ -45,7 +45,7 @@ struct Index {
   @State src: photoAccessHelper.MovingPhoto | undefined = undefined
   // [End movingphotoview_src]
   // [StartExclude movingphotoview_component]
-  @State message: string = '正在加载动态照片...'
+  @State message: ResourceStr = $r('app.string.loading_moving_photo')
   // [EndExclude movingphotoview_component]
   @State isMuted: boolean = false
   // [Start movingphotoview_controller]
@@ -63,7 +63,7 @@ struct Index {
       
       if (context === undefined) {
         hilog.error(DOMAIN, TAG, 'context is undefined');
-        this.message = '获取上下文失败';
+        this.message = $r('app.string.context_undefined');
         return;
       }
       
@@ -75,11 +75,11 @@ struct Index {
       
       let movingPhoto = await photoAccessHelper.MediaAssetManager.loadMovingPhoto(context, imageFileUri, videoFileUri);
       this.src = movingPhoto;
-      this.message = '动态照片已加载，长按可播放';
+      this.message = $r('app.string.moving_photo_loaded');
       hilog.info(DOMAIN, TAG, 'load moving photo successfully');
     } catch (err) {
       hilog.error(DOMAIN, TAG, 'load moving photo failed: %{public}s', JSON.stringify(err));
-      this.message = '加载动态照片失败';
+      this.message = $r('app.string.moving_photo_load_failed');
     }
   }
 
@@ -106,23 +106,23 @@ struct Index {
         movingPhoto: this.src,
         controller: this.controller
       })
-        // 是否静音播放，此处由按钮控制，默认值为false非静音播放。
+        // muted state controlled by the button, default false means unmuted playback
         .muted(this.isMuted)
-        // 视频显示模式，默认值为Cover。
+        // video display mode, default is Cover
         .objectFit(ImageFit.Cover)
-        // 播放时触发。
+        // triggered when playback starts
         .onStart(() => {
           console.info('onStart');
         })
-        // 播放结束触发。
+        // triggered when playback finishes
         .onFinish(() => {
           console.info('onFinish');
         })
-        // 播放停止触发。
+        // triggered when playback stops
         .onStop(() => {
           console.info('onStop')
         })
-        // 出现错误触发。
+        // triggered when an error occurs
         .onError(() => {
           console.error('onError');
         })
@@ -132,20 +132,22 @@ struct Index {
       // [EndExclude movingphotoview_component]
 
       Row() {
-        // 按钮：开始播放。
-        Button('PLAY')
+        // Button: start playback.
+        Button($r('app.string.play_button'))
           .onClick(() => {
             this.controller.startPlayback()
+            this.message = $r('app.string.playback_started')
           })
           .margin(5)
-        // 按钮：停止播放。
-        Button('STOP')
+        // Button: stop playback.
+        Button($r('app.string.stop_button'))
           .onClick(() => {
             this.controller.stopPlayback()
+            this.message = $r('app.string.playback_stopped')
           })
           .margin(5)
         // [StartExclude movingphotoview_component]
-        Button('静音')
+        Button(this.isMuted ? $r('app.string.unmute_button') : $r('app.string.mute_button'))
           .onClick(() => {
             this.isMuted = !this.isMuted;
           })

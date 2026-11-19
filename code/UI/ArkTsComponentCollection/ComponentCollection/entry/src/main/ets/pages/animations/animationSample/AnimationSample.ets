@@ -13,54 +13,119 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/animations/animationSample/AnimationSample.ets
+ * 文件职责：AnimationSample 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：AnimationSample。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { TitleBar } from '../../../common/TitleBar';
 import ShowToast from '../../../util/ShowToast';
 
+/**
+ * AnimationSample：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct AnimationSample {
+  // @State widthSize：组件内部状态
   @State widthSize: number = 160;
+
+  // @State heightSize：组件内部状态
   @State heightSize: number = 80;
+
+  // @State rotateAngle：组件内部状态
   @State rotateAngle: number = 0;
+
+  // @State rotateAngleCurve：组件内部状态
   @State rotateAngleCurve: number = 0;
+
+  // @State rotateAngleDelay：组件内部状态
   @State rotateAngleDelay: number = 0;
+
+  // @State rotateAngleCount：组件内部状态
   @State rotateAngleCount: number = 0;
+
+  // @State rotateAngleSpeed：组件内部状态
   @State rotateAngleSpeed: number = 0;
+
+  // @State rotateAnglePlayback：组件内部状态
   @State rotateAnglePlayback: number = 0;
+
+  // @State rotateAngleComplete：组件内部状态
   @State rotateAngleComplete: number = 0;
+
+  // @State flag：组件内部状态
   @State flag: boolean = true;
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：高度、宽度、背景色
     Column() {
-      TitleBar({ title: $r('app.string.attribute_animation') })
+      // TitleBar：TitleBar 自定义组件
+      TitleBar({ title: $r('app.string.attribute_animation') }).id('animation_sample_title_bar_2')
+      // Scroll：滚动容器
+      // 关键属性：圆角、背景色、高度、宽度、外边距
       Scroll() {
+        // Column：垂直布局容器
+        // 关键属性：尺寸约束、外边距
         Column() {
-          Button($r('app.string.attribute_animation_change_size'))
+          // Button：按钮
+          // 关键属性：点击事件回调
+          // 交互：可点击交互
+          Button($r('app.string.attribute_animation_change_size')).id('animation_sample_button_5')
+            // onClick：绑定点击事件回调
             .onClick(() => {
+              // 分支：if (this.flag) {
               if (this.flag) {
+                // 处理：this.heightSize = 60;
                 this.heightSize = 60;
+              // 结束当前组件块
               } else {
+                // 处理：this.heightSize = 80;
                 this.heightSize = 80;
+              // 结束当前组件块
               }
+              // 处理：this.flag = !this.flag;
               this.flag = !this.flag;
+            // 结束当前组件块
             })
+            // margin：设置外边距
             .margin(35)
+            // width：设置宽度
             .width(this.widthSize)
+            // height：设置高度
             .height(this.heightSize)
+            // animation：设置属性动画参数
             .animation({
               duration: 2000,
               curve: Curve.EaseOut,
               iterations: 1,
               playMode: PlayMode.Normal
+            // 结束当前组件块
             })
 
-          Button($r('app.string.attribute_animation_change_rotation'))
+          // Button：按钮
+          // 关键属性：点击事件回调
+          // 交互：可点击交互
+          Button($r('app.string.attribute_animation_change_rotation')).id('animation_sample_button_6')
+            // onClick：绑定点击事件回调
             .onClick(() => {
+              // 处理：this.rotateAngle = 90;
               this.rotateAngle = 90;
+            // 结束当前组件块
             })
+            // width：设置宽度
             .width(160)
+            // margin：设置外边距
             .margin(35)
+            // rotate：设置旋转
             .rotate({ angle: this.rotateAngle })
+            // animation：设置属性动画参数
             .animation({
               duration: 1200,
               curve: Curve.Friction,
@@ -68,13 +133,22 @@ struct AnimationSample {
               iterations: 2,
               playMode: PlayMode.Alternate,
               onFinish: () => {
+                // 处理：this.rotateAngle = 0;
                 this.rotateAngle = 0;
+              // 结束当前组件块
               }
+            // 结束当前组件块
             })
 
-          Button($r('app.string.attribute_animation_set_curve'))
+          // Button：按钮
+          // 关键属性：点击事件回调
+          // 交互：可点击交互
+          Button($r('app.string.attribute_animation_set_curve')).id('animation_sample_button_7')
+            // onClick：绑定点击事件回调
             .onClick(() => {
+              // 处理：this.rotateAngleCurve = 90;
               this.rotateAngleCurve = 90;
+            // 结束当前组件块
             })
             .width(160)
             .rotate({ angle: this.rotateAngleCurve })
@@ -90,6 +164,9 @@ struct AnimationSample {
               }
             })
 
+          // Button：按钮
+          // 关键属性：点击事件回调
+          // 交互：可点击交互
           Button($r('app.string.attribute_animation_delay'))
             .onClick(() => {
               this.rotateAngleDelay = 90;
@@ -109,7 +186,10 @@ struct AnimationSample {
             })
             .id('animation_btn_delay')
 
-          Button($r('app.string.attribute_animation_play_count'))
+          // Button：按钮
+          // 关键属性：点击事件回调
+          // 交互：可点击交互
+          Button($r('app.string.attribute_animation_play_count')).id('animation_sample_button_8')
             .onClick(() => {
               this.rotateAngleCount = 90;
             })
@@ -127,7 +207,10 @@ struct AnimationSample {
               }
             })
 
-          Button($r('app.string.attribute_animation_play_speed'))
+          // Button：按钮
+          // 关键属性：点击事件回调
+          // 交互：可点击交互
+          Button($r('app.string.attribute_animation_play_speed')).id('animation_sample_button_9')
             .onClick(() => {
               this.rotateAngleSpeed = 90;
             })
@@ -146,7 +229,10 @@ struct AnimationSample {
               }
             })
 
-          Button($r('app.string.attribute_animation_unlimited_playback'))
+          // Button：按钮
+          // 关键属性：点击事件回调
+          // 交互：可点击交互
+          Button($r('app.string.attribute_animation_unlimited_playback')).id('animation_sample_button_10')
             .onClick(() => {
               this.rotateAnglePlayback = 90;
             })
@@ -162,7 +248,10 @@ struct AnimationSample {
               tempo: 10
             })
 
-          Button($r('app.string.attribute_animation_play_complete'))
+          // Button：按钮
+          // 关键属性：点击事件回调
+          // 交互：可点击交互
+          Button($r('app.string.attribute_animation_play_complete')).id('animation_sample_button_11')
             .onClick(() => {
               this.rotateAngleComplete = 90;
             })
@@ -181,16 +270,16 @@ struct AnimationSample {
                 ShowToast.shortToast($r('app.string.animate_over'));
               }
             })
-        }
+        }.id('animation_sample_column_4')
         .constraintSize({ minHeight: '100%' })
         .margin({ bottom: 20 })
-      }
+      }.id('animation_sample_scroll_3')
       .borderRadius(24)
       .backgroundColor(Color.White)
       .height('90%')
       .width('100%')
       .margin({ left: 12, right: 12 })
-    }
+    }.id('animation_sample_column_1')
     .height('100%')
     .width('100%')
     .backgroundColor($r('app.color.background_shallow_grey'))

@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 export const GetDlpPermissionInfo: () => number;
-export const GetOriginalFileName: () => number;
-export const IsInSandbox: () => boolean;
+export const GetOriginalFileName: () => string | number;
+export const IsInSandbox: () => boolean | number;
 export const SetSandboxAppConfig: () => number;
-export const GetSandboxAppConfig: () => number;
+export const GetSandboxAppConfig: () => string | number;
 export const CleanSandboxAppConfig: () => number;

@@ -2,6 +2,12 @@
   "src": [
     "pages/Index",
     "media/filePage",
-    "media/dlpPage"
+    "media/dlpPage",
+    "pages/SearchPage",
+    "pages/DetailPage",
+    "pages/RecentsPage",
+    "pages/TemplatePage",
+    "pages/SettingsPage",
+    "pages/ErrorCodePage"
   ]
 }

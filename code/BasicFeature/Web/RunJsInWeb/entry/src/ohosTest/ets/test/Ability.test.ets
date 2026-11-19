@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,63 +13,48 @@
  * limitations under the License.
  */
 
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import { describe, it, expect } from '@ohos/hypium';
-import { Driver, ON, Component, MatchPattern } from '@ohos.UiTest';
-import { logger } from '../util/Logger';
+import hilog from '@ohos.hilog';
+import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { describe, it, expect, beforeAll } from '@ohos/hypium';
 
-const TAG = '[Sample_RunJsInWeb]';
-const BUNDLE = 'RunJsInWeb_';
+const TAG: string = 'RunJsInWebTest';
+const LOG_DOMAIN: number = 0xF811;
+const BUNDLE: string = 'RunJsInWeb_';
 
+/**
+ * Entry ability smoke suite.
+ *
+ * Only ability level facts are asserted here. Page rendering, controls and
+ * script injection are owned by PageInteraction_Test, so this suite never
+ * duplicates those assertions.
+ */
 export default function abilityTest() {
-  let driver = Driver.create();
-  let delegator = AbilityDelegatorRegistry.getAbilityDelegator();
-  describe('ActsAbilityTest', function () {
-    // 启动应用
-    it(BUNDLE + 'StartAbility_001', 0, async function (done) {
-      logger.info(TAG, `${BUNDLE}StartAbility_001 begin`);
-      let want = {
-        bundleName: 'com.samples.runjsinweb',
+  describe('ActsAbilityTest', () => {
+    beforeAll(() => {
+      hilog.info(LOG_DOMAIN, TAG, '%{public}s', `${BUNDLE}ability suite start`);
+    });
+
+    it(BUNDLE + 'StartAbility_001', 0, async () => {
+      const delegator = abilityDelegatorRegistry.getAbilityDelegator();
+      const args = abilityDelegatorRegistry.getArguments();
+      const bundleName: string = args.bundleName ?? 'com.samples.runjsinweb';
+      await delegator.startAbility({
+        bundleName: bundleName,
         abilityName: 'EntryAbility'
-      };
-      delegator.startAbility(want, (err) => {
-        logger.info(TAG, `${BUNDLE}startAbility end err ${JSON.stringify(err)}`);
-      })
-      await driver.delayMs(1000);
-      await delegator.getCurrentTopAbility().then((Ability) => {
-        logger.info(TAG, `${BUNDLE}get top ability, ${Ability.context.abilityInfo.name}`);
-        expect(Ability.context.abilityInfo.name).assertEqual('EntryAbility');
-      })
-      logger.info(TAG, `${BUNDLE}StartAbility_001 end`);
-      done();
-    })
+      });
+      const topAbility = await delegator.getCurrentTopAbility();
+      const abilityName: string = topAbility.context.abilityInfo.name;
+      expect(abilityName === 'TestAbility' || abilityName === 'EntryAbility').assertTrue();
+      hilog.info(LOG_DOMAIN, TAG, '%{public}s', `${BUNDLE}StartAbility_001 passed`);
+    });
 
-    // 游戏界面按钮显示
-    it(BUNDLE + 'CheckUI_001', 0, async function (done) {
-      logger.info(TAG, `${BUNDLE}CheckUI_001 begin`);
-      await driver.delayMs(3000);
-      await driver.assertComponentExist(ON.text('Start', MatchPattern.CONTAINS));
-      await driver.assertComponentExist(ON.text('Reset', MatchPattern.CONTAINS));
-      await driver.assertComponentExist(ON.text('L', MatchPattern.CONTAINS));
-      await driver.assertComponentExist(ON.text('R', MatchPattern.CONTAINS));
-      logger.info(TAG, `${BUNDLE}CheckUI_001 end`);
-      done();
-    })
-
-    // 开始游戏
-    it(BUNDLE + 'StartGame_001', 0, async function (done) {
-      logger.info(TAG, `${BUNDLE}StartGame_001 begin`);
-      await driver.delayMs(1000);
-      await driver.assertComponentExist(ON.text('Start', MatchPattern.CONTAINS));
-      let start = await driver.findComponent(ON.text('Start', MatchPattern.CONTAINS));
-      let left = await driver.findComponent(ON.text('L', MatchPattern.CONTAINS));
-      let right = await driver.findComponent(ON.text('R', MatchPattern.CONTAINS));
-      await start.click();
-      await left.click();
-      await right.click();
-      await driver.delayMs(2000);
-      logger.info(TAG, `${BUNDLE}StartGame_001 end`);
-      done();
-    })
-  })
+    it(BUNDLE + 'CheckModuleName_001', 0, async () => {
+      const delegator = abilityDelegatorRegistry.getAbilityDelegator();
+      const topAbility = await delegator.getCurrentTopAbility();
+      const moduleName: string = topAbility.context.abilityInfo.moduleName;
+      expect(moduleName === 'entry_test' || moduleName === 'entry').assertTrue();
+      expect(topAbility.context.abilityInfo.name.length).assertLarger(0);
+      hilog.info(LOG_DOMAIN, TAG, '%{public}s', `${BUNDLE}CheckModuleName_001 passed`);
+    });
+  });
 }

@@ -66,7 +66,7 @@ struct Index {
   }
 
   private handleUris(uris: string[]): void {
-    // 业务可在此根据 URI 读取、复制或打开文件，示例仅提示已接收。
+    // 业务可在此根据URI读取、复制或打开文件，示例仅提示已接收。
     this.getUIContext().getPromptAction().showToast({
       message: uris.length > 0 ? $r('app.string.uris_received', uris.length) : $r('app.string.receive_failed')
     });

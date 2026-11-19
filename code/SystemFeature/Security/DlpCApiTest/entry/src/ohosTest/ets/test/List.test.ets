@@ -13,7 +13,25 @@
  * limitations under the License.
  */
 import abilityTest from './Ability.test';
+import dlpSandboxTest from './DlpSandbox.test';
+import dlpApiContractTest from './DlpApiContract.test';
+import dlpApiReadOnlyPart01Test from './DlpApiReadOnlyPart01.test';
+import dlpApiReadOnlyPart02Test from './DlpApiReadOnlyPart02.test';
+import dlpApiStateTest from './DlpApiState.test';
+import dlpApiFinalTest from './DlpApiFinal.test';
+import dlpApiVolumePart01Test from './DlpApiVolumePart01.test';
+import dlpApiVolumePart02Test from './DlpApiVolumePart02.test';
+import dlpApiVolumePart03Test from './DlpApiVolumePart03.test';
 
 export default function testsuite() {
   abilityTest();
+  dlpSandboxTest();
+  dlpApiContractTest();
+  dlpApiReadOnlyPart01Test();
+  dlpApiReadOnlyPart02Test();
+  dlpApiStateTest();
+  dlpApiFinalTest();
+  dlpApiVolumePart01Test();
+  dlpApiVolumePart02Test();
+  dlpApiVolumePart03Test();
 }

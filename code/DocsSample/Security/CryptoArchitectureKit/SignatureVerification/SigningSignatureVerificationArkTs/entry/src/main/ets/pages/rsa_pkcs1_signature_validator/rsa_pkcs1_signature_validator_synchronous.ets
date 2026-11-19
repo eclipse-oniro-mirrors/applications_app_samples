@@ -16,6 +16,7 @@
 // [Start pkcs1_verify_rsa_keypair_sign_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 // 完整的明文被拆分为input1和input2
 let input1: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from('This is Sign test plan1', 'utf-8').buffer) };
@@ -41,15 +42,26 @@ function verifyMessageSync(signMessageBlob: cryptoFramework.DataBlob, pubKey: cr
 }
 
 function main() {
-  let keyGenAlg = 'RSA1024';
-  let generator = cryptoFramework.createAsyKeyGenerator(keyGenAlg);
-  let keyPair = generator.generateKeyPairSync();
-  let signData = signMessageSync(keyPair.priKey);
-  let verifyResult = verifyMessageSync(signData, keyPair.pubKey);
-  if (verifyResult === true) {
-    console.info('verify result: success.');
-  } else {
-    console.error('verify result: failed.');
+  try {
+    let keyGenAlg = 'RSA1024';
+    let generator = cryptoFramework.createAsyKeyGenerator(keyGenAlg);
+    let keyPair = generator.generateKeyPairSync();
+    let signData = signMessageSync(keyPair.priKey);
+    let verifyResult = verifyMessageSync(signData, keyPair.pubKey);
+    if (verifyResult === true) {
+      console.info('verify result: success.');
+    } else {
+      console.error('verify result: failed.');
+      // [StartExclude pkcs1_verify_rsa_keypair_sign_sync]
+      throw new Error('verify result: failed.');
+      // [EndExclude pkcs1_verify_rsa_keypair_sign_sync]
+    }
+  } catch (error) {
+    let e: BusinessError = error as BusinessError;
+    console.error(`verify failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude pkcs1_verify_rsa_keypair_sign_sync]
+    throw new Error(`verify failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude pkcs1_verify_rsa_keypair_sign_sync]
   }
 }
 // [End pkcs1_verify_rsa_keypair_sign_sync]

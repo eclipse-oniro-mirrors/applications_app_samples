@@ -13,17 +13,34 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/Video.ets
+ * 文件职责：Video 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：VideoPlayer。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { WindowComponent } from "@ohos/window-component";
 
+/**
+ * VideoPlayer：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct VideoPlayer {
+  // @State videoSrc：组件内部状态
   @State videoSrc: Resource = $rawfile('video.mp4')
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：宽度、高度
     Column() {
-      WindowComponent({ videoSrc: $videoSrc })
-    }
+      // WindowComponent：WindowComponent 自定义组件
+      WindowComponent({ videoSrc: $videoSrc }).id('video_window_component_2')
+    }.id('video_column_1')
     .width('100%').height('100%')
   }
 }

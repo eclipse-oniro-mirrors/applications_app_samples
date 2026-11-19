@@ -1,0 +1,19 @@
+{
+  "string": [
+    {
+      "name": "module_test_desc",
+      "value": "LocationKit sample test module.",
+      "description": "Description of the test module."
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "Test ability for UI automation.",
+      "description": "Description of the test ability."
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "LocationKit Test",
+      "description": "Label of the test ability."
+    }
+  ]
+}
