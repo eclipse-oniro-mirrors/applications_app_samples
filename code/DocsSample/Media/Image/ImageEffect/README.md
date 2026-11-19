@@ -76,7 +76,7 @@ entry/src/ohosTest/ets/
 
 ## 相关权限
 
-[ohos.permission.CAMERA](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all-user.md#ohospermissioncamera)
+[ohos.permission.CAMERA](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all-user.md#ohospermissioncamera)
 
 ## 依赖
 
@@ -85,8 +85,8 @@ entry/src/ohosTest/ets/
 ## 约束和限制
 
 1. 本示例支持标准系统上运行，支持设备：RK3568;
-2. 本示例支持API20版本SDK，版本号：6.0.0.47；
-3. 本示例已支持使DevEco Studio 26.0.1 Release (构建版本：261.23567.138.36.2601290)编译运行
+2. 当前工程的编译、兼容和目标 SDK 版本均为 26.0.0（API 26）。
+3. 请使用支持上述 SDK 的 DevEco Studio。旧版文档记录的 DevEco Studio 5.0.1 Release (构建版本：5.0.5.306，构建 2024年12月6日) 仅供历史参考，不代表当前工程的最低 IDE 版本。
 4. 本示例涉及系统相机，由相机功能异常导致的OHNativeWindow场景无画面问题，可通过更换相机功能正常的镜像解决。
 
 ## 下载
@@ -97,6 +97,6 @@ entry/src/ohosTest/ets/
 git init
 git config core.sparsecheckout true
 echo code/DocsSample/Media/Image/ImageEffect/ > .git/info/sparse-checkout
-git remote add origin OpenHarmony/applications_app_samples
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
