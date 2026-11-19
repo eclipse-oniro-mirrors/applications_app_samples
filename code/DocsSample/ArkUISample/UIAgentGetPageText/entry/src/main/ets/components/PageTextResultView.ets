@@ -13,23 +13,11 @@
  * limitations under the License.
  */
 
-import { parsePageText } from '../common/PageText';
-
-interface ResultParams {
-  json: string;
-}
-
-@Entry
 @Component
-struct Result {
-  @State private json: string = '';
-  @State private count: number = 0;
-
-  aboutToAppear(): void {
-    const params = this.getUIContext().getRouter().getParams() as ResultParams;
-    this.json = params.json;
-    this.count = parsePageText(this.json).texts.length;
-  }
+export struct PageTextResultView {
+  @Prop json: string = '';
+  @Prop count: number = 0;
+  onClose: () => void = (): void => {};
 
   build() {
     Column({ space: 16 }) {
@@ -54,7 +42,7 @@ struct Result {
       Button($r('app.string.back'))
         .id('backToSample')
         .width('100%')
-        .onClick(() => { this.getUIContext().getRouter().back(); })
+        .onClick((): void => { this.onClose(); })
     }
     .padding(24)
     .width('100%')

@@ -13,10 +13,11 @@
  * limitations under the License.
  */
 
-import { BusinessError } from '@kit.BasicServicesKit';
+import type { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { getPageText } from 'libpagetext.so';
-import { parsePageText } from '../common/PageText';
+import { collectPageText } from '@sample/uiagentgetpagetext';
+import type { PageTextSnapshot } from '@sample/uiagentgetpagetext';
+import { PageTextResultView } from '../components/PageTextResultView';
 
 @Entry
 @Component
@@ -24,27 +25,43 @@ struct Index {
   @State private changed: boolean = false;
   @State private inputText: string = '';
   @State private errorText: string = '';
+  @State private showingResult: boolean = false;
+  @State private json: string = '';
+  @State private textCount: number = 0;
 
   private collect(): void {
     try {
       // Keep this synchronous: getUIContext() belongs to this page and the call requires the UI thread.
-      const json = getPageText(this.getUIContext());
-      parsePageText(json);
+      const snapshot: PageTextSnapshot = collectPageText(this.getUIContext());
       this.errorText = '';
-      // Navigate only AFTER collection, so the result view is not included in the captured page text.
-      this.getUIContext().getRouter().pushUrl({ url: 'pages/Result', params: { json: json } })
-        .catch((error: BusinessError) => {
-          this.errorText = `${error.code}: ${error.message}`;
-        });
+      this.json = snapshot.json;
+      this.textCount = snapshot.textCount;
+      // Replace the sample view only AFTER collection, excluding the result JSON from the snapshot.
+      this.showingResult = true;
     } catch (error) {
-      const businessError = error as BusinessError;
+      const businessError: BusinessError = error as BusinessError;
       this.errorText = businessError.code === undefined ? businessError.message :
         `${businessError.code}: ${businessError.message}`;
       hilog.error(0xFF00, 'Sample_UIAgentGetPageText', '%{public}s', this.errorText);
     }
   }
 
-  build() {
+  private closeResult(): void {
+    this.showingResult = false;
+    this.json = '';
+    this.textCount = 0;
+  }
+
+  onBackPress(): boolean {
+    if (this.showingResult) {
+      this.closeResult();
+      return true;
+    }
+    return false;
+  }
+
+  @Builder
+  sampleContent() {
     Scroll() {
       Column({ space: 20 }) {
         Text($r('app.string.title'))
@@ -61,18 +78,18 @@ struct Index {
           .borderRadius(12)
         TextInput({ text: this.inputText, placeholder: $r('app.string.input_hint') })
           .id('sampleInput')
-          .onChange((value: string) => { this.inputText = value; })
+          .onChange((value: string): void => { this.inputText = value; })
         Text($r('app.string.unicode_text'))
           .id('unicodeText')
           .fontSize(18)
         Button($r('app.string.update'))
           .id('updateText')
           .width('100%')
-          .onClick(() => { this.changed = !this.changed; })
+          .onClick((): void => { this.changed = !this.changed; })
         Button($r('app.string.collect'))
           .id('collectText')
           .width('100%')
-          .onClick(() => { this.collect(); })
+          .onClick((): void => { this.collect(); })
         if (this.errorText.length > 0) {
           Text(this.errorText)
             .id('collectionError')
@@ -86,5 +103,17 @@ struct Index {
     .width('100%')
     .height('100%')
     .align(Alignment.TopStart)
+  }
+
+  build() {
+    if (this.showingResult) {
+      PageTextResultView({
+        json: this.json,
+        count: this.textCount,
+        onClose: (): void => { this.closeResult(); }
+      })
+    } else {
+      this.sampleContent()
+    }
   }
 }

@@ -13,6 +13,9 @@
  * limitations under the License.
  */
 
+import type { UIContext } from '@kit.ArkUI';
+import { getPageText } from 'libpagetext.so';
+
 // [Start ui_page_text_parse]
 export interface PageTextItem {
   // Native node id; this is different from the ArkTS component's .id('sampleText').
@@ -27,11 +30,24 @@ export interface PageTextResult {
   texts: PageTextItem[];
 }
 
+/** Parse the versioned JSON returned by the native page text API. */
 export function parsePageText(json: string): PageTextResult {
-  const result = JSON.parse(json) as PageTextResult;
+  const result: PageTextResult = JSON.parse(json) as PageTextResult;
   if (result.schemaVersion !== 1 || !Array.isArray(result.texts)) {
     throw new Error('Unsupported page text schema');
   }
   return result;
 }
 // [End ui_page_text_parse]
+
+export interface PageTextSnapshot {
+  json: string;
+  textCount: number;
+}
+
+/** Collect synchronously on the target UI thread before displaying the result. */
+export function collectPageText(context: UIContext): PageTextSnapshot {
+  const json: string = getPageText(context);
+  const result: PageTextResult = parsePageText(json);
+  return { json: json, textCount: result.texts.length };
+}

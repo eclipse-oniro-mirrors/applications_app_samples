@@ -13,84 +13,148 @@
  * limitations under the License.
  */
 import { describe, it, expect, beforeAll } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
-import { PageTextResult } from '../../../main/ets/common/PageText';
+import type { Component as TestComponent } from '@kit.TestKit';
+import type { PageTextItem, PageTextResult } from '@sample/uiagentgetpagetext';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_UIAgentGetPageText]';
+const INPUT_TEXT: string = 'PageTextInput123';
+
+function assertContent(contents: string[], target: string, expected: boolean, label: string): void {
+  const actual: boolean = contents.includes(target);
+  hilog.info(DOMAIN, TAG, 'assert=%{public}s actual=%{public}s expected=%{public}s targetLength=%{public}d',
+    label, String(actual), String(expected), target.length);
+  expect(actual).assertEqual(expected);
+}
 
 export default function pageTextTest(): void {
-  describe('UIAgentGetPageText', () => {
-    const driver = Driver.create();
+  describe('UIAgentGetPageText', (): void => {
+    const driver: Driver = Driver.create();
 
-    const click = async (id: string): Promise<void> => {
-      const component = await driver.findComponent(ON.id(id));
+    const click: (id: string) => Promise<void> = async (id: string): Promise<void> => {
+      const component: TestComponent = await driver.findComponent(ON.id(id));
       await component.click();
       await driver.delayMs(500);
     };
 
-    const collect = async (): Promise<string[]> => {
+    const collect: () => Promise<string[]> = async (): Promise<string[]> => {
       await click('collectText');
-      const result = await driver.findComponent(ON.id('pageTextJson'));
-      const json = await result.getText();
-      // Parse independently so a non-JSON success string cannot pass the test.
-      const parsed = JSON.parse(json) as PageTextResult;
+      const result: TestComponent = await driver.findComponent(ON.id('pageTextJson'));
+      const json: string = await result.getText();
+      // Parse independently of the Library parser to check the API result.
+      const parsed: PageTextResult = JSON.parse(json) as PageTextResult;
+      hilog.info(DOMAIN, TAG, 'schemaVersion=%{public}d expected=1', parsed.schemaVersion);
       expect(parsed.schemaVersion).assertEqual(1);
+      hilog.info(DOMAIN, TAG, 'textCount=%{public}d expectedGreaterThan=0', parsed.texts.length);
       expect(parsed.texts.length > 0).assertTrue();
-      for (const item of parsed.texts) {
-        expect(Number.isInteger(item.id)).assertTrue();
+      for (let index: number = 0; index < parsed.texts.length; index++) {
+        const item: PageTextItem = parsed.texts[index];
+        const validId: boolean = Number.isInteger(item.id);
+        hilog.info(DOMAIN, TAG, 'nodeId=%{public}d isInteger=%{public}s expected=true', item.id, String(validId));
+        expect(validId).assertTrue();
+        hilog.info(DOMAIN, TAG, 'nodeId=%{public}d rectLength=%{public}d expected=4', item.id, item.rect.length);
         expect(item.rect.length).assertEqual(4);
-        for (const coordinate of item.rect) {
-          expect(Number.isFinite(coordinate)).assertTrue();
+        for (let coordinateIndex: number = 0; coordinateIndex < item.rect.length; coordinateIndex++) {
+          const coordinate: number = item.rect[coordinateIndex];
+          const finite: boolean = Number.isFinite(coordinate);
+          hilog.info(DOMAIN, TAG, 'coordinate=%{public}f isFinite=%{public}s expected=true',
+            coordinate, String(finite));
+          expect(finite).assertTrue();
         }
+        hilog.info(DOMAIN, TAG, 'width=%{public}f height=%{public}f expectedNonNegative=true',
+          item.rect[2], item.rect[3]);
         expect(item.rect[2] >= 0 && item.rect[3] >= 0).assertTrue();
       }
       await click('backToSample');
-      return parsed.texts.map(item => item.content);
+      return parsed.texts.map((item: PageTextItem): string => item.content);
     };
 
-    beforeAll(async () => {
-      const delegator = abilityDelegatorRegistry.getAbilityDelegator();
-      const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
+    beforeAll(async (): Promise<void> => {
+      const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+      const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
       await delegator.startAbility({ bundleName: bundleName, abilityName: 'EntryAbility' });
       await driver.delayMs(1000);
     });
 
-    it('initial_text_and_unicode', 0, async () => {
-      const text = await driver.findComponent(ON.id('sampleText'));
-      const expected = await text.getText();
-      const unicode = await driver.findComponent(ON.id('unicodeText'));
-      const expectedUnicode = await unicode.getText();
-      const input = await driver.findComponent(ON.id('sampleInput'));
-      const placeholder = await input.getHint();
-      const json = await collect();
-      expect(json.includes(expected)).assertTrue();
-      expect(json.includes(expectedUnicode)).assertTrue();
-      expect(json.includes(placeholder)).assertTrue();
+    // Verify initial text, Unicode and the visible placeholder.
+    it('UIAgentGetPageText_InitialTextAndUnicode_001', 0, async (): Promise<void> => {
+      const caseName: string = 'UIAgentGetPageText_InitialTextAndUnicode_001';
+      hilog.info(DOMAIN, TAG, '%{public}s begin', caseName);
+      try {
+        const text: TestComponent = await driver.findComponent(ON.id('sampleText'));
+        const expected: string = await text.getText();
+        const unicode: TestComponent = await driver.findComponent(ON.id('unicodeText'));
+        const expectedUnicode: string = await unicode.getText();
+        const input: TestComponent = await driver.findComponent(ON.id('sampleInput'));
+        const placeholder: string = await input.getHint();
+        const contents: string[] = await collect();
+        assertContent(contents, expected, true, 'initialText');
+        assertContent(contents, expectedUnicode, true, 'unicodeText');
+        assertContent(contents, placeholder, true, 'visiblePlaceholder');
+      } finally {
+        hilog.info(DOMAIN, TAG, '%{public}s end', caseName);
+      }
     });
 
-    it('updated_text_replaces_previous_text', 0, async () => {
-      const text = await driver.findComponent(ON.id('sampleText'));
-      const previous = await text.getText();
-      await click('updateText');
-      const updated = await driver.findComponent(ON.id('sampleText'));
-      const expected = await updated.getText();
-      const json = await collect();
-      expect(json.includes(expected)).assertTrue();
-      expect(json.includes(previous)).assertFalse();
+    // Verify that updating the component replaces its previously collected text.
+    it('UIAgentGetPageText_UpdateText_002', 0, async (): Promise<void> => {
+      const caseName: string = 'UIAgentGetPageText_UpdateText_002';
+      hilog.info(DOMAIN, TAG, '%{public}s begin', caseName);
+      try {
+        const text: TestComponent = await driver.findComponent(ON.id('sampleText'));
+        const previous: string = await text.getText();
+        await click('updateText');
+        const updated: TestComponent = await driver.findComponent(ON.id('sampleText'));
+        const expected: string = await updated.getText();
+        const contents: string[] = await collect();
+        assertContent(contents, expected, true, 'updatedText');
+        assertContent(contents, previous, false, 'previousText');
+      } finally {
+        hilog.info(DOMAIN, TAG, '%{public}s end', caseName);
+      }
     });
 
-    it('ordinary_input_text_is_excluded', 0, async () => {
-      const input = await driver.findComponent(ON.id('sampleInput'));
-      await input.inputText('PageTextInput123');
-      await driver.pressBack();
-      await driver.delayMs(500);
-      const json = await collect();
-      expect(json.includes('PageTextInput123')).assertFalse();
+    // Verify that both ordinary input content and its hidden placeholder are excluded.
+    it('UIAgentGetPageText_InputAndPlaceholderExcluded_003', 0, async (): Promise<void> => {
+      const caseName: string = 'UIAgentGetPageText_InputAndPlaceholderExcluded_003';
+      hilog.info(DOMAIN, TAG, '%{public}s begin', caseName);
+      try {
+        const input: TestComponent = await driver.findComponent(ON.id('sampleInput'));
+        const placeholder: string = await input.getHint();
+        await input.inputText(INPUT_TEXT);
+        await driver.pressBack();
+        await driver.delayMs(500);
+        const inputValue: string = await input.getText();
+        const inputApplied: boolean = inputValue === INPUT_TEXT;
+        hilog.info(DOMAIN, TAG, 'inputApplied=%{public}s expected=true', String(inputApplied));
+        expect(inputApplied).assertTrue();
+        const contents: string[] = await collect();
+        assertContent(contents, INPUT_TEXT, false, 'inputContent');
+        assertContent(contents, placeholder, false, 'hiddenPlaceholder');
+      } finally {
+        hilog.info(DOMAIN, TAG, '%{public}s end', caseName);
+      }
     });
 
-    it('repeated_collection_excludes_result_page', 0, async () => {
-      for (let index = 0; index < 5; index++) {
-        const json = await collect();
-        expect(json.some(content => content.includes('Hello ArkUI'))).assertTrue();
-        expect(json.some(content => content.includes('"schemaVersion"'))).assertFalse();
+    // Verify repeated collection after replacing the result component with the sample view.
+    it('UIAgentGetPageText_RepeatedCollection_004', 0, async (): Promise<void> => {
+      const caseName: string = 'UIAgentGetPageText_RepeatedCollection_004';
+      hilog.info(DOMAIN, TAG, '%{public}s begin', caseName);
+      try {
+        for (let index: number = 0; index < 5; index++) {
+          const contents: string[] = await collect();
+          const hasUnicode: boolean = contents.some((content: string): boolean => content.includes('Hello ArkUI'));
+          const hasResult: boolean = contents.some((content: string): boolean => content.includes('"schemaVersion"'));
+          hilog.info(DOMAIN, TAG, 'iteration=%{public}d hasUnicode=%{public}s expected=true',
+            index, String(hasUnicode));
+          expect(hasUnicode).assertTrue();
+          hilog.info(DOMAIN, TAG, 'iteration=%{public}d hasResult=%{public}s expected=false', index, String(hasResult));
+          expect(hasResult).assertFalse();
+        }
+      } finally {
+        hilog.info(DOMAIN, TAG, '%{public}s end', caseName);
       }
     });
   });

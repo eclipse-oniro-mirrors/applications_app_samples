@@ -16,10 +16,11 @@
 import { UIAbility } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import type { BusinessError } from '@kit.BasicServicesKit';
 
 export default class EntryAbility extends UIAbility {
   onWindowStageCreate(windowStage: window.WindowStage): void {
-    windowStage.loadContent('pages/Index', (error) => {
+    windowStage.loadContent('pages/Index', (error: BusinessError): void => {
       if (error.code) {
         hilog.error(0xFF00, 'Sample_UIAgentGetPageText', 'loadContent failed: %{public}d', error.code);
       }

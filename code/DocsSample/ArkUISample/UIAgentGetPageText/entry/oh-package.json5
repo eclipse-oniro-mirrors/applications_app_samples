@@ -19,6 +19,6 @@
   "description": "ArkUI page text sample",
   "license": "Apache-2.0",
   "dependencies": {
-    "libpagetext.so": "file:./src/main/cpp/types/libpagetext"
+    "@sample/uiagentgetpagetext": "file:../Library"
   }
 }
