@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,8 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import prompt from '@ohos.prompt'
-import { MediaData } from './BasicDataSource'
+import { promptAction } from '@kit.ArkUI';
+import { MediaData } from './BasicDataSource';
 
 @CustomDialog
 export struct RenameDialog {
@@ -47,7 +47,7 @@ export struct RenameDialog {
         .margin(5)
         .onClick(() => {
           if (this.selectMedia.displayName === '') {
-            prompt.showToast({ message: 'please input the file name', duration: 1000 })
+            promptAction.showToast({ message: 'please input the file name', duration: 1000 })
             return
           }
           this.action(this.selectMedia)

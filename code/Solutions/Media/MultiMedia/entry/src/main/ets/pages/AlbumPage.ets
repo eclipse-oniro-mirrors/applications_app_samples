@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,17 +13,17 @@
  * limitations under the License.
  */
 
-import { MediaAssetHandle } from '../model/MediaUtils'
-import router from '@ohos.router'
-import Logger from '../model/Logger'
-import MediaUtils, { FileType } from '../model/MediaUtils'
-import MediaDataSource, { MediaData } from '../view/BasicDataSource'
-import { MediaItem } from '../view/MediaItem'
-import { RenameDialog } from '../view/RenameDialog'
-import TitleBar from '../view/TitleBar'
-import { BusinessError } from '@ohos.base'
-import common from '@ohos.app.ability.common'
-import { fileIo } from '@kit.CoreFileKit'
+import { MediaAssetHandle } from '../model/MediaUtils';
+import { router } from '@kit.ArkUI';
+import Logger from '../model/Logger';
+import MediaUtils, { FileType } from '../model/MediaUtils';
+import MediaDataSource, { MediaData } from '../view/BasicDataSource';
+import { MediaItem } from '../view/MediaItem';
+import { RenameDialog } from '../view/RenameDialog';
+import TitleBar from '../view/TitleBar';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { common } from '@kit.AbilityKit';
+import { fileIo } from '@kit.CoreFileKit';
 
 interface RouterParams {
   albumName: string;

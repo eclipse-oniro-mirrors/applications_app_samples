@@ -67,6 +67,14 @@
     {
       "name": "read_permission",
       "value": "允许应用读取用户外部存储中的媒体文件信息"
+    },
+    {
+      "name": "camera_switching",
+      "value": "切换中..."
+    },
+    {
+      "name": "camera_capturing",
+      "value": "拍照中..."
     }
   ]
 }
