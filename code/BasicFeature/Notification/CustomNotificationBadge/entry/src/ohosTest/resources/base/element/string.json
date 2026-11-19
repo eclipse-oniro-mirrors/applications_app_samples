@@ -71,6 +71,10 @@
     {
       "name": "accept",
       "value": "accept"
+    },
+    {
+      "name": "test_page_button",
+      "value": "next page"
     }
   ]
 }

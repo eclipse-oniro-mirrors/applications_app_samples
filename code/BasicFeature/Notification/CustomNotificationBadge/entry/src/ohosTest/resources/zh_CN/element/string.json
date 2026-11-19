@@ -71,6 +71,10 @@
     {
       "name": "accept",
       "value": "允许"
+    },
+    {
+      "name": "test_page_button",
+      "value": "下一页"
     }
   ]
 }
