@@ -73,6 +73,7 @@ export class InputHandler {
     this.mPanel = panel;
   }
 
+  // [Start input_case_detached_refreshSplitHotZone]
   // 按分体面板尺寸刷新左右热区，中间透明区域不接收输入事件
   public refreshSplitHotZone(width: int, height: int): void {
     if (this.mPanel === undefined) {
@@ -98,7 +99,9 @@ export class InputHandler {
       this.addLog(`refreshSplitHotZone catch error: ${error.code} ${error.message}`);
     }
   }
+  // [End input_case_detached_refreshSplitHotZone]
 
+  // [Start input_case_detached_switchToDetachedPanel]
   public switchToDetachedPanel(): void {
     if (this.mPanel === undefined) {
       this.addLog('switchToDetachedPanel panel is undefined');
@@ -152,7 +155,9 @@ export class InputHandler {
     // 将左右两半键盘区域设置为热区，中间透明区域不接收输入事件
     this.refreshSplitHotZone(this.mPanelWidth, detachedHeight);
   }
+  // [End input_case_detached_switchToDetachedPanel]
 
+  // [Start input_case_detached_switchToFixedPanel]
   public switchToFixedPanel(): void {
     if (this.mPanel === undefined) {
       this.addLog('switchToFixedPanel panel is undefined');
@@ -213,7 +218,9 @@ export class InputHandler {
       this.addLog(`switchToFixedPanel updateRegion catch error: ${error.code} ${error.message}`);
     }
   }
+  // [End input_case_detached_switchToFixedPanel]
 
+  // [Start input_case_detached_startMovingPanel]
   public startMovingPanel(): void {
     if (this.mPanel === undefined) {
       this.addLog('startMovingPanel panel is undefined');
@@ -227,6 +234,7 @@ export class InputHandler {
       this.addLog(`startMovingPanel catch error: ${error.code} ${error.message}`);
     }
   }
+  // [End input_case_detached_startMovingPanel]
 
   // 移动键盘位置后刷新热区
   public movePanelByComponentPos(componentX: number, componentY: number): void {

@@ -64,6 +64,7 @@ export struct KeyMenu {
       });
   }
 
+  // [Start input_case_detached_detached_ui]
   // 分体键盘左半部分
   @Builder
   splitLeft(): void {
@@ -281,4 +282,5 @@ export struct KeyMenu {
       .height('100%')
     }
   }
+  // [End input_case_detached_detached_ui]
 }

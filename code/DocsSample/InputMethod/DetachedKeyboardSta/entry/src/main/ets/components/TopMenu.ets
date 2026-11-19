@@ -106,6 +106,7 @@ export struct TopMenu {
   build(): void {
     if (this.isSplitKeyboard) {
       Row() {
+        // [Start input_case_detached_handleDrag]
         Column() {
           this.splitTopLeft()
         }
@@ -139,6 +140,7 @@ export struct TopMenu {
           .onActionEnd((event: GestureEvent) => {
             this.handleDragEnd();
           }))
+        // [End input_case_detached_handleDrag]
       }
       .width('100%')
       .height(this.inputStyle.downMenuHeight)
