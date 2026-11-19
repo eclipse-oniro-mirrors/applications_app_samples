@@ -53,18 +53,18 @@ interface CheckPlayCommandResult {
 
 export class AVPlayerDemo {
   constructor() {}
-  private surfaceID: string = ''; // surfaceID用于播放画面显示，具体的值需要通过Xcomponent接口获取，相关文档链接见上面Xcomponent创建方法
+  private surfaceID: string = ''; // surfaceID用于播放画面显示，具体的值需要通过XComponent接口获取，相关文档链接见上面XComponent创建方法
 
   avPlayer?: media.AVPlayer;
   prepared: boolean = false;
 
   commands: PlayCommand[] = [];
 
-  setSurfaceID(surface_id: string): undefined {
-    console.info(`AVPlayerDemo.setSurfaceID : ${surface_id}`);
-    this.surfaceID = surface_id;
+  setSurfaceID(surfaceId: string): undefined {
+    console.info(`AVPlayerDemo.setSurfaceID: ${surfaceId}`);
+    this.surfaceID = surfaceId;
   }
-  // 注册avplayer回调函数
+  // 注册AVPlayer回调函数
   setAVPlayerCallback(avPlayer?: media.AVPlayer, listener?: AVPlayerListener): undefined {
     // seek操作结果回调函数
     avPlayer?.onSeekDone((seekDoneTime: int):void => {
@@ -87,7 +87,7 @@ export class AVPlayerDemo {
           console.info('AVPlayer state idle called.');
           avPlayer?.release(); // 调用release接口销毁实例对象
           break;
-        case 'initialized': // avplayer 设置播放源后触发该状态上报
+        case 'initialized': // AVPlayer设置播放源后触发该状态上报
           console.info('AVPlayer state initialized called.');
           avPlayer!.surfaceId = this.surfaceID;// 设置显示画面，当播放的资源为纯音频时无需设置
           avPlayer?.prepare();
@@ -125,38 +125,38 @@ export class AVPlayerDemo {
       }
     });
     avPlayer?.onDurationUpdate((duration: int):void => {
-      console.info(`AVPlayer state durationUpdate success,new duration is :${duration}`);
+      console.info(`AVPlayer state durationUpdate success, new duration is ${duration}`);
       listener?.onDurationChanged(duration/1000);
     });
     avPlayer?.onTimeUpdate((time: int):void => {
       listener?.onTimeUpdate(time/1000);
     });
     avPlayer?.onBufferingUpdate((infoType: media.BufferingInfoType, value: int):void => {
-      console.info(`AVPlayer state bufferingUpdate success,and infoType value is:${infoType}, value is : ${value}`);
-      if (infoType == media.BufferingInfoType.BUFFERING_PERCENT) {}
+      console.info(`AVPlayer state bufferingUpdate success, and infoType value is ${infoType}, value is ${value}`);
       listener?.onBufferedTimeChanged(value);
     })
     avPlayer?.onVideoSizeChange((width: int, height: int):void => {
-      console.info(`AVPlayer state videoSizeChange success,and width is:${width}, height is : ${height}`);
+      console.info(`AVPlayer state videoSizeChange success, and width is ${width}, height is ${height}`);
       listener?.onVideoSizeChanged(width, height);
     })
     avPlayer?.onVolumeChange((volume: double):void => {
-      console.info(`AVPlayer state volumeChange success,new volume is :${volume}`);
+      console.info(`AVPlayer state volumeChange success, new volume is ${volume}`);
       listener?.onVolumeChanged(volume);
     });
     avPlayer?.onSpeedDone((speed: int) => {
-      console.info(`AVPlayer state speedDone success,new speed is :${speed}`);
+      console.info(`AVPlayer state speedDone success, new speed is ${speed}`);
       let realSpeed = 0.00;
       if(speed == 0){realSpeed = 0.75;}
       if(speed == 1){realSpeed = 1.00;}
       if(speed == 2){realSpeed = 1.25;}
-      if(speed == 3){realSpeed = 1.50;}
+      if(speed == 3){realSpeed = 1.75;}
+      if(speed == 4){realSpeed = 2.00;}
       listener?.onPlaybackRateChanged(realSpeed);
     })
   }
 
   // 以下示例通过URL设置网络地址来播放直播码流
-  async avPlayerLiveDemo(playerParam: PlayerParam) {
+  async avPlayerLiveDemo(playerParam: PlayerParam): Promise<void> {
     // 创建avPlayer实例对象
     this.avPlayer = await media.createAVPlayer();
     // 创建状态机变化回调函数

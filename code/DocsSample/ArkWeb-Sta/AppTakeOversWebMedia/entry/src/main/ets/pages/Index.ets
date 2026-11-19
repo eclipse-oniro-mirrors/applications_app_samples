@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 // [Start app-takeovers-web-media-index]
 // Index.ets
 import { Observed, State, AppStorage, ObjectLink } from '@ohos.arkui.stateManagement';
-import { XComponent, XComponentType, XComponentController, Text, Alignment, Resource, ForEach, Area, XComponentOptions,
-  TouchEvent, Stack, Entry, Color, Component, Column, Row, Button, VideoController, Builder, ClickEvent, Web, wrapBuilder,
-  FrameNode, NodeContainer, FlexAlign } from "@ohos.arkui.component"
+import { XComponent, XComponentType, XComponentController, Text, Alignment, ForEach, Area, XComponentOptions,
+  TouchEvent, Stack, Entry, Color, Component, Column, Row, Button, Builder, ClickEvent, Web, wrapBuilder,
+  FrameNode, NodeContainer, FlexAlign, CacheMode } from "@ohos.arkui.component"
 import { NodeController, NodeRenderType, BuilderNode } from '@ohos.arkui.node';
 import webview from '@ohos.web.webview';
 import { UIContext } from '@ohos.arkui.UIContext';
@@ -39,7 +38,7 @@ export class NativeMediaPlayerImpl implements webview.NativeMediaPlayerBridge {
   constructor(nativePlayerInfo: NativePlayerInfo, handler: webview.NativeMediaPlayerHandler,
     mediaInfo: webview.MediaInfo, uiContext: UIContext) {
     this.uiContext = uiContext;
-    console.info(`NativeMediaPlayerImpl.constructor, surface_id[${mediaInfo.surfaceInfo.id}]`);
+    console.info(`NativeMediaPlayerImpl.constructor, surfaceId[${mediaInfo.surfaceInfo.id}]`);
     this.nativePlayerInfo = nativePlayerInfo;
     this.mediaHandler = handler;
     this.surfaceId = mediaInfo.surfaceInfo.id;
@@ -146,7 +145,7 @@ class AVPlayerListenerImpl implements AVPlayerListener {
     this.handler.handleEnded();
   }
   onError() {
-    console.error('AVPlayerListenerImpl.onError');
+    console.info('AVPlayerListenerImpl.onError');
     this.component.has_error = true;
     setTimeout(()=>{
       this.handler.handleError(webview.MediaError.NETWORK_ERROR, "Oops!");
@@ -206,9 +205,6 @@ struct NativePlayerComponent {
   @State bgColor: Color = Color.Red;
   mXComponentController: XComponentController = new XComponentController();
 
-  videoController: VideoController = new VideoController();
-  offset_x: number = 0;
-  offset_y: number = 0;
   @State video_width_percent: double = 100;
   @State video_height_percent: double = 100;
   view_width: double = 0;
@@ -216,18 +212,31 @@ struct NativePlayerComponent {
   video_width: double = 0;
   video_height: double = 0;
 
-  fullscreen: boolean = false;
   @State has_error: boolean = false;
 
   @State PlaybackRate_new: number = 1.00;
 
+  // 是否显示全部播控按钮，false 时仅显示开始与暂停按钮，其余按钮存在但不直接显示。
+  @State showAllControls: boolean = false;
+
   onSizeChanged(width: double, height: double) {
     this.video_width = width;
     this.video_height = height;
-    let scale: double = this.view_width / width;
-    let scaled_video_height: double = scale * height;
-    this.video_height_percent = scaled_video_height / this.view_height * 100;
-    console.info(`NativePlayerComponent.onSizeChanged(${width},${height}), video_height_percent[${this.video_height_percent }]`);
+    if (this.view_width <= 0 || this.view_height <= 0 || width <= 0 || height <= 0) {
+      console.info(`NativePlayerComponent.onSizeChanged(${width},${height}), view not ready, skip.`);
+      return;
+    }
+    let scale: double = Math.min(this.view_width / width, this.view_height / height);
+    this.video_width_percent = scale * width / this.view_width * 100;
+    this.video_height_percent = scale * height / this.view_height * 100;
+    console.info(`NativePlayerComponent.onSizeChanged(${width},${height}), percent[${this.video_width_percent}%,${this.video_height_percent}%]`);
+
+    // 根据真实视频宽高自适应节点外框：保持宽度不变，高度按视频宽高比调整。
+    // playerInfo 为 @Observed + @ObjectLink，修改后会触发 NativeMediaPlayerComponent 的 NodeContainer 重排。
+    let info = this.params?.playerInfo;
+    if (info && width > 0 && height > 0 && info.node_width > 0) {
+      info.node_height = info.node_width * height / width;
+    }
   }
   build() {
     Column(undefined) {
@@ -274,47 +283,50 @@ struct NativePlayerComponent {
               .onTouch((event: TouchEvent) => {
                 event.stopPropagation();
               })
-            Button(this.params?.text3 ?? 'error')
-              .border({ width: 2, color: Color.Red })
-              .height(30)
-              .backgroundColor(this.bgColor)
-              .onClick((e: ClickEvent): void => {
-                console.info(`NativePlayerComponent.Button[${this.params?.text3}] is clicked`);
-                this.params?.player?.nativePlayer?.release();
-              })
-              .onTouch((event: TouchEvent) => {
-                event.stopPropagation();
-              })
-            Button(this.params?.text4 ?? 'error')
-              .border({ width: 2, color: Color.Red })
-              .height(30)
-              .backgroundColor(this.bgColor)
-              .onClick((e: ClickEvent): void => {
-                console.info(`NativePlayerComponent.Button[${this.params?.text4}] is clicked`);
-                let time = this.params?.player?.nativePlayer?.avPlayer?.getPlaybackPosition() ?? 1000;
-                time += 1000;
-                this.params?.player?.nativePlayer?.seek(time / 1000);
-              })
-              .onTouch((event: TouchEvent) => {
-                event.stopPropagation();
-              })
-            Button(this.params?.text5 ?? 'error')
-              .border({ width: 2, color: Color.Red })
-              .height(30)
-              .backgroundColor(this.bgColor)
-              .onClick((e: ClickEvent): void => {
-                console.info(`NativePlayerComponent.Button[${this.params?.text5}] is clicked`);
-                let time = this.params?.player?.nativePlayer?.avPlayer?.getPlaybackPosition() ?? 1000;
-                time -= 1000;
-                if (time < 0) {
-                  time = 0;
-                }
-                this.params?.player?.nativePlayer?.seek(time / 1000);
-              })
-              .onTouch((event: TouchEvent) => {
-                event.stopPropagation();
-              })
           }
+          if (this.showAllControls) {
+            Row() {
+              Button(this.params?.text3 ?? 'error')
+                .border({ width: 2, color: Color.Red })
+                .height(30)
+                .backgroundColor(this.bgColor)
+                .onClick((e: ClickEvent): void => {
+                  console.info(`NativePlayerComponent.Button[${this.params?.text3}] is clicked`);
+                  this.params?.player?.nativePlayer?.release();
+                })
+                .onTouch((event: TouchEvent) => {
+                  event.stopPropagation();
+                })
+              Button(this.params?.text4 ?? 'error')
+                .border({ width: 2, color: Color.Red })
+                .height(30)
+                .backgroundColor(this.bgColor)
+                .onClick((e: ClickEvent): void => {
+                  console.info(`NativePlayerComponent.Button[${this.params?.text4}] is clicked`);
+                  let time = this.params?.player?.nativePlayer?.avPlayer?.getPlaybackPosition() ?? 1000;
+                  time += 1000;
+                  this.params?.player?.nativePlayer?.seek(time / 1000);
+                })
+                .onTouch((event: TouchEvent) => {
+                  event.stopPropagation();
+                })
+              Button(this.params?.text5 ?? 'error')
+                .border({ width: 2, color: Color.Red })
+                .height(30)
+                .backgroundColor(this.bgColor)
+                .onClick((e: ClickEvent): void => {
+                  console.info(`NativePlayerComponent.Button[${this.params?.text5}] is clicked`);
+                  let time = this.params?.player?.nativePlayer?.avPlayer?.getPlaybackPosition() ?? 1000;
+                  time -= 1000;
+                  if (time < 0) {
+                    time = 0;
+                  }
+                  this.params?.player?.nativePlayer?.seek(time / 1000);
+                })
+                .onTouch((event: TouchEvent) => {
+                  event.stopPropagation();
+                })
+            }
           Row() {
             Button(this.params?.text6 ?? 'error')
               .border({ width: 2, color: Color.Red })
@@ -370,6 +382,7 @@ struct NativePlayerComponent {
               .onTouch((event: TouchEvent) => {
                 event.stopPropagation();
               })
+            }
           }
         }
         if (this.has_error) {
@@ -400,7 +413,7 @@ function NativePlayerComponentBuilder(params: ComponentParams) {
   NativePlayerComponent({ params: params })
 }
 
-// 通过 NodeController 动态创建自定义的播放器组件， 并将组件内容绘制到 surface 上。
+// 通过 NodeController 动态创建自定义的播放器组件，并将组件内容绘制到内核提供的渲染表面上。
 export class MyNodeController extends NodeController {
   private rootNode: BuilderNode<ComponentParams> | undefined | null = null;
   playerInfo: NativePlayerInfo;
@@ -518,6 +531,9 @@ export struct NativeMediaPlayerComponent {
 
   build(): undefined {
     NodeContainer(this.playerInfo.node_controller as MyNodeController)
+      .position({ x: this.playerInfo.node_pos_x, y: this.playerInfo.node_pos_y })
+      .width(this.playerInfo.node_width)
+      .height(this.playerInfo.node_height)
   }
 
   updateNativePlayerRect(x: number, y: number, width: number, height: number): undefined {
@@ -534,19 +550,12 @@ export struct NativeMediaPlayerComponent {
 export struct WebComponent {
   controller: webview.WebviewController = new webview.WebviewController(undefined);
   @State native_player_info_list: Array<NativePlayerInfo> = Array<NativePlayerInfo>();
-  area?: Area;
 
   build(): undefined {
     Column(undefined) {
       Stack({alignContent: Alignment.TopStart}) {
-        ForEach(this.native_player_info_list, (item: NativePlayerInfo) => {
-          if (item.show_native_media_player) {
-            NativeMediaPlayerComponent({ playerInfo: item })
-          }
-        }, (item: NativePlayerInfo) => {
-          return item.embed_id;
-        })
         Web({ src: 'resource://rawfile/index.html', controller: this.controller })
+          .cacheMode(CacheMode.ONLINE)
           .enableNativeMediaPlayer({ enable: true, shouldOverlay: false })
           .onControllerAttached(():void => {
             this.controller.onCreateNativeMediaPlayer((handler: webview.NativeMediaPlayerHandler,
@@ -564,6 +573,9 @@ export struct WebComponent {
             }
             console.info(`WebComponent.onNativeEmbedGestureEvent, embedId[${event.embedId}]`);
             let native_player_info = this.getNativePlayerInfoByEmbedId(event.embedId ?? '');
+            if (!native_player_info && this.native_player_info_list.length == 1) {
+              native_player_info = this.native_player_info_list[0];
+            }
             if (!native_player_info) {
               console.info(`WebComponent.onNativeEmbedGestureEvent, embedId[${event.embedId}], no native_player_info`);
               event.result?.setGestureEventResult(false);
@@ -580,10 +592,13 @@ export struct WebComponent {
           })
           .width('100%')
           .height('25%')
-          .onAreaChange((oldValue: Area, newValue: Area) => {
-            oldValue;
-            this.area = newValue;
-          })
+        ForEach(this.native_player_info_list, (item: NativePlayerInfo) => {
+          if (item.show_native_media_player) {
+            NativeMediaPlayerComponent({ playerInfo: item })
+          }
+        }, (item: NativePlayerInfo) => {
+          return item.embed_id;
+        })
       }
     }
   }

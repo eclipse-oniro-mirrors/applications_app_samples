@@ -38,7 +38,7 @@ class EntryAbility extends UIAbility {
           hilog.info(0x0000, 'testTag', 'loadContent error');
           return;
         }
-        // 保存 UIContext， 在后续的同层渲染绘制中会用到。
+        // 保存 UIContext，在后续的同层渲染绘制中会用到。
         AppStorage.setOrCreate<UIContext>("UIContext", windowStage.getMainWindowSync().getUIContext());
         hilog.info(0x0000, 'testTag', 'loadContent ok');
       });
