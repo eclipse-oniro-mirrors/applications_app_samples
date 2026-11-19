@@ -28,9 +28,11 @@ import {
   KEY_GC_COUNT,
   linkPair,
   pairIsLinked,
+  PRESSURE_ALLOCATION_LIMIT_BYTES,
   range,
   RingNode,
-  sameNumbers
+  sameNumbers,
+  STAT_READ_ALLOCATION_LIMIT_BYTES
 } from './shared/GcProbe';
 import { paceTurn, sleepMs } from './shared/TestPace';
 import { logCase } from './shared/TestLog';
@@ -3001,8 +3003,11 @@ export default function gcFinalizationRegistryTest() {
       const after: GcSnapshot = new GcSnapshot();
       logCase('testFinalRegPressureHintOnly0001', `rounds=${rounds} count=${ledger.count()} ` +
         `beforeCount=${before.count} afterCount=${after.count} gcNow=${gcStat(KEY_GC_COUNT)}`);
+      // collectUntil runs one allocatePressure per executed round; the two pairs fit the small read budget
+      const pressureRounds: number = rounds > 0 ? rounds : COLLECT_ROUNDS;
       expect(rounds > 0).assertTrue();
-      expect(after.notBefore(before)).assertTrue();
+      expect(after.notBefore(before,
+        pressureRounds * PRESSURE_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
       expect(gcStat(KEY_GC_COUNT) >= before.count).assertTrue();
       expect(ledger.count()).assertEqual(TWO);
     });

@@ -36,6 +36,23 @@ export const KB: number = 1024;
 const COLLECT_WAIT_MS: number = 30;
 const PRESSURE_OBJECTS: number = 20000;
 const PRESSURE_PAYLOAD: number = 16;
+// Medium arrays can reserve a full allocator region beyond their payload.
+const ARRAY_ALLOCATION_UNIT_BYTES: number = 256 * KB;
+const ARRAY_METADATA_LIMIT_BYTES: number = 8 * KB;
+
+// Pressure nodes allocate both a RingNode and its payload array.
+export const PRESSURE_ALLOCATION_LIMIT_BYTES: number = PRESSURE_OBJECTS * 2 * KB;
+export const STAT_READ_ALLOCATION_LIMIT_BYTES: number = 4 * 1024 * 1024;
+
+export function arrayAllocationLimitBytes(count: number, length: number): number {
+  const perArrayBytes: number = length * 8 + ARRAY_METADATA_LIMIT_BYTES;
+  const perArrayLimit: number = Math.ceil(perArrayBytes / ARRAY_ALLOCATION_UNIT_BYTES) * ARRAY_ALLOCATION_UNIT_BYTES;
+  return count * perArrayLimit;
+}
+
+export function arrayPayloadAllocationLimitBytes(payloadBytes: number, count: number): number {
+  return payloadBytes + count * (ARRAY_METADATA_LIMIT_BYTES + ARRAY_ALLOCATION_UNIT_BYTES);
+}
 
 export function hintGC(): void {
   ArkTools.hintGC();
@@ -51,6 +68,20 @@ export function byteCounterDelta(after: number, before: number): number {
   return after >= before ? after - before : after + 0x100000000 - before;
 }
 
+export function byteCounterInWindow(after: number, before: number, maximum: number): boolean {
+  const modulus: number = 0x100000000;
+  if (!Number.isSafeInteger(after) || !Number.isSafeInteger(before) || after < 0 || before < 0 ||
+    !Number.isFinite(maximum) || maximum < 0 || maximum >= modulus) {
+    return false;
+  }
+  const delta: number = byteCounterDelta(after, before);
+  if (delta < 0 || delta > maximum) {
+    return false;
+  }
+  return after >= before || (after < modulus && before < modulus &&
+    before >= modulus - maximum && after <= maximum);
+}
+
 export function statErrorCode(key: string): number {
   try {
     hidebug.getVMRuntimeStat(key);
@@ -61,6 +92,9 @@ export function statErrorCode(key: string): number {
 }
 
 export class GcSnapshot {
+  countAtStart: number;
+  allocatedAtStart: number;
+  objectKb: number;
   count: number;
   time: number;
   allocated: number;
@@ -68,21 +102,38 @@ export class GcSnapshot {
   longFullGc: number;
 
   constructor() {
-    this.count = gcStat(KEY_GC_COUNT);
+    this.countAtStart = gcStat(KEY_GC_COUNT);
+    this.allocatedAtStart = gcStat(KEY_BYTES_ALLOCATED);
+    this.objectKb = Number(hidebug.getAppVMObjectUsedSize());
     this.time = gcStat(KEY_GC_TIME);
     this.allocated = gcStat(KEY_BYTES_ALLOCATED);
     this.freed = gcStat(KEY_BYTES_FREED);
     this.longFullGc = gcStat(KEY_FULL_GC_LONG);
+    this.count = gcStat(KEY_GC_COUNT);
   }
 
   values(): number[] {
     return [this.count, this.time, this.allocated, this.freed, this.longFullGc];
   }
 
-  notBefore(earlier: GcSnapshot): boolean {
-    const now: number[] = this.values();
-    const then: number[] = earlier.values();
-    return now.every((value: number, index: number) => value >= then[index]);
+  bytesInWindow(earlier: GcSnapshot, maximumAllocated: number): boolean {
+    if (!byteCounterInWindow(this.allocatedAtStart, earlier.allocated, maximumAllocated) ||
+      !Number.isFinite(earlier.objectKb) || earlier.objectKb < 0) {
+      return false;
+    }
+    const allocatedDelta: number = byteCounterDelta(this.allocatedAtStart, earlier.allocated);
+    const tailAllocatedDelta: number = byteCounterDelta(this.allocated, this.allocatedAtStart);
+    if (!byteCounterInWindow(this.allocated, this.allocatedAtStart, maximumAllocated - allocatedDelta)) {
+      return false;
+    }
+    const maximumFreed: number = earlier.objectKb * KB + allocatedDelta + tailAllocatedDelta + KB;
+    return byteCounterInWindow(this.freed, earlier.freed, maximumFreed) &&
+      (this.freed >= earlier.freed || this.count > earlier.count);
+  }
+
+  notBefore(earlier: GcSnapshot, maximumAllocated: number): boolean {
+    return this.count >= earlier.count && this.time >= earlier.time &&
+      this.longFullGc >= earlier.longFullGc && this.bytesInWindow(earlier, maximumAllocated);
   }
 }
 

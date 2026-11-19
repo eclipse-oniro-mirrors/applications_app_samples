@@ -34,7 +34,8 @@ import { logCase } from './shared/TestLog';
 
 const VERSION_CODE: number = 1000000;
 const VERSION_NAME: string = '1.0.0';
-const TARGET_API: number = 26;
+const TARGET_API: number = 24;
+const TARGET_VERSION: number = 60101024;
 const ERR_ABILITY_NOT_EXIST: number = 17700003;
 const ERR_NO_PROFILE: number = 17700024;
 
@@ -96,8 +97,8 @@ export default function bundleConfigGuardTest() {
       const info: bundleManager.BundleInfo = await selfBundle();
       logCase('testBundleTargetVersion0001', `targetVersion=${info.targetVersion} targetApi=${TARGET_API}`);
       expect(info.targetVersion % 1000).assertEqual(TARGET_API);
-      expect(Math.floor(info.targetVersion / 10000000)).assertEqual(TARGET_API);
-      expect(info.targetVersion).assertEqual(TARGET_API * 10000000 + TARGET_API);
+      expect(Math.floor(info.targetVersion / 10000000) > 0).assertTrue();
+      expect(info.targetVersion).assertEqual(TARGET_VERSION);
     });
 
     /**

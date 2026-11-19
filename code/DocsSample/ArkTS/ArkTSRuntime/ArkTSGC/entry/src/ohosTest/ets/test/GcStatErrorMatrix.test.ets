@@ -15,6 +15,8 @@
 
 import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
+  byteCounterDelta,
+  byteCounterInWindow,
   ERR_INVALID_PARAM,
   GC_STAT_KEYS,
   gcStat,
@@ -107,8 +109,13 @@ function failureDeltas(keys: string[]): number[] {
     statErrorCode(key);
   });
   const after: GcSnapshot = new GcSnapshot();
-  return [after.count - before.count, after.time - before.time, after.allocated - before.allocated,
-    after.freed - before.freed, after.longFullGc - before.longFullGc];
+  const allocated: number = byteCounterDelta(after.allocated, before.allocated);
+  const maximumFreed: number = before.objectKb * 1024 + allocated + 1024;
+  const bytesOk: boolean = byteCounterInWindow(after.allocated, before.allocated, ALLOCATION_BOUND_BYTES) &&
+    byteCounterInWindow(after.freed, before.freed, maximumFreed) &&
+    (after.freed >= before.freed || after.count > before.countAtStart);
+  return [after.count - before.count, after.time - before.time, allocated,
+    bytesOk ? byteCounterDelta(after.freed, before.freed) : -1, after.longFullGc - before.longFullGc];
 }
 
 function deltasKeptCounters(deltas: number[]): boolean {
@@ -2477,6 +2484,7 @@ export default function gcStatErrorMatrixTest() {
       expect(deltas.length).assertEqual(STAT_COUNT);
       expect(distinct).assertEqual(TABLE_SIZE_FOUR);
       expect(deltasKeptCounters(deltas)).assertTrue();
+      expect(deltaWithinBound(deltas)).assertTrue();
       expect(validValuesOk()).assertTrue();
     });
 
@@ -2612,6 +2620,7 @@ export default function gcStatErrorMatrixTest() {
       expect(distinct).assertEqual(STAT_COUNT);
       expect(matchesAllCodes(codes, family.expected)).assertTrue();
       expect(deltasKeptCounters(deltas)).assertTrue();
+      expect(deltaWithinBound(deltas)).assertTrue();
       expect(validValuesOk()).assertTrue();
     });
   });

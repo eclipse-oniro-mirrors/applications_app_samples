@@ -18,6 +18,7 @@ import {
   allocatePressure,
   allCleared,
   buildRing,
+  byteCounterDelta,
   collectUntil,
   COLLECT_ROUNDS,
   CycleChild,
@@ -30,6 +31,7 @@ import {
   KEY_GC_COUNT,
   linkPair,
   pairIsLinked,
+  PRESSURE_ALLOCATION_LIMIT_BYTES,
   range,
   releasedChild,
   releasedPair,
@@ -39,7 +41,8 @@ import {
   ringIdSum,
   ringLength,
   runGcCycles,
-  sameNumbers
+  sameNumbers,
+  STAT_READ_ALLOCATION_LIMIT_BYTES
 } from './shared/GcProbe';
 import { paceTurn, sleepMs } from './shared/TestPace';
 import { logCase } from './shared/TestLog';
@@ -1069,10 +1072,14 @@ export default function gcWeakRefLifecycleTest() {
       const after: GcSnapshot = new GcSnapshot();
       logCase('testWeakRefReleasedSnapshot0001', `rounds=${rounds} countDelta=${after.count - before.count} ` +
         `freed=${after.freed} allocated=${after.allocated}`);
+      // every collectWeak round runs one allocatePressure, so the executed rounds bound the window
+      const pressureRounds: number = rounds > 0 ? rounds : WEAK_ROUNDS;
+      const ordered: boolean = after.notBefore(before,
+        pressureRounds * PRESSURE_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES);
       expect(rounds > 0).assertTrue();
       expect(after.count > before.count).assertTrue();
-      expect(after.notBefore(before)).assertTrue();
-      expect(after.freed <= after.allocated).assertTrue();
+      expect(ordered).assertTrue();
+      expect(ordered && byteCounterDelta(after.allocated, before.allocated) > 0).assertTrue();
     });
 
     /**
@@ -2266,11 +2273,16 @@ export default function gcWeakRefLifecycleTest() {
       const ref: WeakRef<WeakPoint> = releasedPoint(143);
       const rounds: number = await collectWeak(ref, WEAK_ROUNDS);
       const after: GcSnapshot = new GcSnapshot();
-      logCase('testWeakRefPressureSnapshot0001', `sink=${sink} rounds=${rounds} ` +
-        `allocatedDelta=${after.allocated - before.allocated} countDelta=${after.count - before.count}`);
+      // one direct allocatePressure plus one per executed collectWeak round
+      const pressureRounds: number = 1 + (rounds > 0 ? rounds : WEAK_ROUNDS);
+      const ordered: boolean = after.notBefore(before,
+        pressureRounds * PRESSURE_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES);
+      const allocatedDelta: number = byteCounterDelta(after.allocated, before.allocated);
+      logCase('testWeakRefPressureSnapshot0001', `sink=${sink} rounds=${rounds} ordered=${ordered} ` +
+        `allocatedDelta=${allocatedDelta} countDelta=${after.count - before.count}`);
       expect(sink > 0).assertTrue();
-      expect(after.allocated > before.allocated).assertTrue();
-      expect(after.notBefore(before)).assertTrue();
+      expect(ordered && allocatedDelta > 0).assertTrue();
+      expect(ordered).assertTrue();
       expect(rounds > 0).assertTrue();
       expect(isCleared(ref)).assertTrue();
     });

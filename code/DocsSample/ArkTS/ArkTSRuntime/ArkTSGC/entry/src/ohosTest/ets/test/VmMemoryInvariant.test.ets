@@ -15,8 +15,9 @@
 
 import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
-  allocatePressure, byteCounterDelta, COLLECT_ROUNDS, gcStat, HeapSnapshot, hintGC, KB,
-  KEY_BYTES_ALLOCATED, retainArrays, runGcCycles
+  allocatePressure, allCleared, arrayAllocationLimitBytes, byteCounterDelta, byteCounterInWindow, collectUntil,
+  COLLECT_ROUNDS, gcStat, GcSnapshot, HeapSnapshot, hintGC, KB, KEY_BYTES_ALLOCATED,
+  PRESSURE_ALLOCATION_LIMIT_BYTES, retainArrays, runGcCycles, STAT_READ_ALLOCATION_LIMIT_BYTES
 } from './shared/GcProbe';
 import { paceTurn } from './shared/TestPace';
 import { logCase } from './shared/TestLog';
@@ -62,6 +63,14 @@ async function heapAfterTurns(rounds: number): Promise<HeapSnapshot> {
   return new HeapSnapshot();
 }
 
+function discardArrays(refs: WeakRef<number[]>[]): number {
+  const arrays: number[][] = retainArrays(20, RETAIN_LENGTH);
+  arrays.forEach((array: number[]) => {
+    refs.push(new WeakRef<number[]>(array));
+  });
+  return arrays.length;
+}
+
 export default function vmMemoryInvariantTest() {
   describe('VmMemoryInvariant', () => {
     beforeEach(async () => {
@@ -100,14 +109,18 @@ export default function vmMemoryInvariantTest() {
       const kept: number[][] = retainArrays(200, RETAIN_LENGTH);
       await paceTurn();
       const after: HeapSnapshot = new HeapSnapshot();
-      const allocated: number = byteCounterDelta(gcStat(KEY_BYTES_ALLOCATED), allocatedBefore);
+      const allocatedAfter: number = gcStat(KEY_BYTES_ALLOCATED);
+      const allocated: number = byteCounterDelta(allocatedAfter, allocatedBefore);
+      const maximumAllocated: number = arrayAllocationLimitBytes(200, RETAIN_LENGTH) +
+        STAT_READ_ALLOCATION_LIMIT_BYTES;
       logCase('testVmMemoryRetainGrows0001', `keptLength=${kept.length} lastLength=${kept[199].length} ` +
         `objectKb=${after.objectKb} payloadKb=${retainedKb(200)} allocatedBytes=${allocated} ` +
         `afterUsedKb=${after.usedKb} afterTotalKb=${after.totalKb}`);
       expect(kept[199].length).assertEqual(RETAIN_LENGTH);
       expect(after.objectKb >= retainedKb(200)).assertTrue();
       expect(after.usedKb <= after.totalKb).assertTrue();
-      expect(allocated >= retainedKb(200) * KB).assertTrue();
+      expect(byteCounterInWindow(allocatedAfter, allocatedBefore, maximumAllocated) &&
+        allocated >= retainedKb(200) * KB).assertTrue();
       expect(retainedPayloadHolds(kept, 200)).assertTrue();
     });
 
@@ -163,6 +176,10 @@ export default function vmMemoryInvariantTest() {
       expect(middle.objectKb >= retainedKb(100)).assertTrue();
       expect(top.objectKb >= retainedKb(200)).assertTrue();
       expect(top.totalKb >= top.usedKb).assertTrue();
+      const maximumAllocated: number = arrayAllocationLimitBytes(100, RETAIN_LENGTH) +
+        STAT_READ_ALLOCATION_LIMIT_BYTES;
+      expect(byteCounterInWindow(bytesMiddle, bytesBase, maximumAllocated) &&
+        byteCounterInWindow(bytesTop, bytesMiddle, maximumAllocated)).assertTrue();
       expect(firstAllocated >= retainedKb(100) * KB && secondAllocated >= retainedKb(100) * KB).assertTrue();
       expect(firstIntact && retainedPayloadHolds(first, 100)).assertTrue();
       expect(retainedPayloadHolds(second, 100)).assertTrue();
@@ -171,26 +188,42 @@ export default function vmMemoryInvariantTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_VMMEMORY_0500
      * @tc.name      testVmMemoryGarbageBounded0001
-     * @tc.desc      Allocate garbage that is never kept and check the used heap grows far less than the bytes thrown
-     *               away
+     * @tc.desc      Discard twenty batches of arrays, observe every target array being collected and verify
+     *               allocation and release bytes cover the discarded payload
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testVmMemoryGarbageBounded0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const before: HeapSnapshot = new HeapSnapshot();
+      const before: GcSnapshot = new GcSnapshot();
+      const refs: WeakRef<number[]>[] = [];
       let sink: number = 0;
       for (let round = 0; round < SAMPLE_ROUNDS; round++) {
-        sink += retainArrays(20, RETAIN_LENGTH).length;
+        sink += discardArrays(refs);
         await paceTurn();
       }
-      const after: HeapSnapshot = new HeapSnapshot();
-      const thrownKb: number = retainedKb(20) * SAMPLE_ROUNDS;
-      logCase('testVmMemoryGarbageBounded0001', `sink=${sink} thrownKb=${thrownKb} beforeUsedKb=${before.usedKb} ` +
-        `afterUsedKb=${after.usedKb} afterTotalKb=${after.totalKb}`);
+      const thrownBytes: number = retainedKb(20) * SAMPLE_ROUNDS * KB;
+      const maximumAllocated: number = arrayAllocationLimitBytes(20 * SAMPLE_ROUNDS, RETAIN_LENGTH) +
+        COLLECT_ROUNDS * PRESSURE_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES;
+      let after: GcSnapshot = before;
+      const rounds: number = await collectUntil(() => {
+        after = new GcSnapshot();
+        return allCleared(refs) && after.count > before.count && after.notBefore(before, maximumAllocated) &&
+          byteCounterDelta(after.allocated, before.allocated) >= thrownBytes &&
+          byteCounterDelta(after.freed, before.freed) >= thrownBytes;
+      }, COLLECT_ROUNDS);
+      const afterHeap: HeapSnapshot = new HeapSnapshot();
+      const allocated: number = byteCounterDelta(after.allocated, before.allocated);
+      const freed: number = byteCounterDelta(after.freed, before.freed);
+      logCase('testVmMemoryGarbageBounded0001', `sink=${sink} rounds=${rounds} thrownBytes=${thrownBytes} ` +
+        `cleared=${allCleared(refs)} allocatedBytes=${allocated} freedBytes=${freed}`);
       expect(sink).assertEqual(20 * SAMPLE_ROUNDS);
-      expect(after.usedKb - before.usedKb < thrownKb / 2).assertTrue();
-      expect(after.usedKb <= after.totalKb).assertTrue();
+      expect(rounds > 0 && allCleared(refs)).assertTrue();
+      expect(after.count > before.count).assertTrue();
+      expect(after.notBefore(before, maximumAllocated)).assertTrue();
+      expect(allocated >= thrownBytes).assertTrue();
+      expect(freed >= thrownBytes && freed <= before.objectKb * KB + allocated + KB).assertTrue();
+      expect(afterHeap.usedKb <= afterHeap.totalKb).assertTrue();
     });
   });
 }

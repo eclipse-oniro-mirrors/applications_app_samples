@@ -16,6 +16,10 @@
 import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   allocatePressure,
+  allCleared,
+  arrayAllocationLimitBytes,
+  byteCounterDelta,
+  byteCounterInWindow,
   gcStat,
   GcSnapshot,
   GC_STAT_KEYS,
@@ -25,8 +29,12 @@ import {
   KEY_FULL_GC_LONG,
   KEY_GC_COUNT,
   KEY_GC_TIME,
+  KB,
+  PRESSURE_ALLOCATION_LIMIT_BYTES,
   retainArrays,
-  runGcCycles
+  RingNode,
+  runGcCycles,
+  STAT_READ_ALLOCATION_LIMIT_BYTES
 } from './shared/GcProbe';
 import { paceTurn, sleepMs } from './shared/TestPace';
 import { logCase } from './shared/TestLog';
@@ -79,6 +87,10 @@ const CADENCE_SLACK_MS: number = 6;
 const CADENCE_BUDGET_MS: number = 30000;
 const LARGE_BOUND: number = 1e15;
 const PERCENT_FULL: number = 100;
+const TOUCH_ALLOCATION_LIMIT_BYTES: number = arrayAllocationLimitBytes(LIGHT_TOUCHES, SMALL_PAYLOAD);
+const RETAIN_ALLOCATION_LIMIT_BYTES: number = arrayAllocationLimitBytes(RETAIN_SMALL_COUNT, RETAIN_SMALL_LENGTH);
+const COLLECT_ALLOCATION_LIMIT_BYTES: number = GC_ROUNDS_BUDGET * PRESSURE_ALLOCATION_LIMIT_BYTES +
+  STAT_READ_ALLOCATION_LIMIT_BYTES;
 
 class SampleStep {
   readonly op: number;
@@ -118,14 +130,157 @@ function valueDrops(values: number[]): number[] {
   return drops;
 }
 
-function snapshotDrops(series: GcSnapshot[]): number[] {
-  const drops: number[] = [];
+function stepAllocationLimit(step: SampleStep): number {
+  let workload: number = 0;
+  if (step.op === OP_TOUCH) {
+    workload = step.repeat * TOUCH_ALLOCATION_LIMIT_BYTES;
+  } else if (step.op === OP_RETAIN) {
+    workload = step.repeat * RETAIN_ALLOCATION_LIMIT_BYTES;
+  } else if (step.op === OP_PRESSURE) {
+    workload = step.repeat * PRESSURE_ALLOCATION_LIMIT_BYTES;
+  } else if (step.op === OP_COLLECT) {
+    workload = step.repeat * GC_ROUNDS_BUDGET * PRESSURE_ALLOCATION_LIMIT_BYTES;
+  }
+  return workload + STAT_READ_ALLOCATION_LIMIT_BYTES;
+}
+
+function stepLimits(steps: SampleStep[]): number[] {
+  return steps.map((step: SampleStep) => stepAllocationLimit(step));
+}
+
+function sampleLimits(series: GcSnapshot[], workload: number): number[] {
+  const limits: number[] = [];
   for (let i = 1; i < series.length; i++) {
-    if (!series[i].notBefore(series[i - 1])) {
+    limits.push(workload + STAT_READ_ALLOCATION_LIMIT_BYTES);
+  }
+  return limits;
+}
+
+function byteDomain(value: number): boolean {
+  return Number.isSafeInteger(value) && value >= 0;
+}
+
+function snapshotDrops(series: GcSnapshot[], limits: number[]): number[] {
+  const drops: number[] = [];
+  if (limits.length !== series.length - 1) {
+    throw new Error('Allocation limits must describe every adjacent sample window');
+  }
+  for (let i = 1; i < series.length; i++) {
+    if (!series[i].notBefore(series[i - 1], limits[i - 1])) {
       drops.push(i);
     }
   }
   return drops;
+}
+
+// Validate A independently before using its delta in the physical F bound; never unfold raw drops first.
+function byteFailures(series: GcSnapshot[], limits: number[]): number[] {
+  const failures: number[] = [];
+  if (series.length === 0 || limits.length !== series.length - 1 ||
+    !byteDomain(series[0].allocated) || !byteDomain(series[0].freed)) {
+    failures.push(0);
+    return failures;
+  }
+  for (let i = 1; i < series.length; i++) {
+    if (!series[i].bytesInWindow(series[i - 1], limits[i - 1])) {
+      failures.push(i);
+    }
+  }
+  return failures;
+}
+
+// Returns an empty series when any adjacent window is untrusted, so callers assert the full length.
+function unfoldedBytes(series: GcSnapshot[], limits: number[], freed: boolean): number[] {
+  if (byteFailures(series, limits).length !== EXPECTED_DROPS_NONE) {
+    return [];
+  }
+  const values: number[] = [freed ? series[0].freed : series[0].allocated];
+  for (let i = 1; i < series.length; i++) {
+    const delta: number = freed ? byteCounterDelta(series[i].freed, series[i - 1].freed) :
+      byteCounterDelta(series[i].allocated, series[i - 1].allocated);
+    values.push(values[i - 1] + delta);
+    if (!Number.isSafeInteger(values[i])) {
+      return [];
+    }
+  }
+  return values;
+}
+
+// Raw single-key reads: every adjacent window is checked before its modular delta is unfolded.
+function rawByteFailures(values: number[], maximum: number, wrapAllowed: boolean): number[] {
+  const failures: number[] = [];
+  if (values.length === 0 || !byteDomain(values[0])) {
+    failures.push(0);
+    return failures;
+  }
+  for (let i = 1; i < values.length; i++) {
+    if (!byteCounterInWindow(values[i], values[i - 1], maximum) || (values[i] < values[i - 1] && !wrapAllowed)) {
+      failures.push(i);
+    }
+  }
+  return failures;
+}
+
+function unfoldRawBytes(values: number[], maximum: number, wrapAllowed: boolean): number[] {
+  if (rawByteFailures(values, maximum, wrapAllowed).length !== EXPECTED_DROPS_NONE) {
+    return [];
+  }
+  const out: number[] = [values[0]];
+  for (let i = 1; i < values.length; i++) {
+    out.push(out[i - 1] + byteCounterDelta(values[i], values[i - 1]));
+  }
+  return out;
+}
+
+// Physical F ceiling: live objects at the anchor plus the trusted A delta since the anchor plus one KB rounding.
+function freedCap(anchor: GcSnapshot, laterAllocated: number): number {
+  return anchor.objectKb * KB + byteCounterDelta(laterAllocated, anchor.allocated) + KB;
+}
+
+function spanOf(values: number[]): number {
+  return values.length === 0 ? -1 : values[values.length - 1] - values[0];
+}
+
+// keyValues order is count, time, allocated, freed, long full; anchor is read no later than first.
+function rawPairInWindow(anchor: GcSnapshot, first: number[], second: number[], maximum: number): boolean {
+  const combinedMaximum: number = maximum + STAT_READ_ALLOCATION_LIMIT_BYTES;
+  if (!byteCounterInWindow(first[2], anchor.allocated, STAT_READ_ALLOCATION_LIMIT_BYTES) ||
+    !byteCounterInWindow(second[2], first[2], maximum) ||
+    !byteCounterInWindow(second[2], anchor.allocated, combinedMaximum) ||
+    !Number.isFinite(anchor.objectKb) || anchor.objectKb < 0) {
+    return false;
+  }
+  const firstFreedTrusted: boolean = byteCounterInWindow(first[3], anchor.freed, freedCap(anchor, first[2])) &&
+    (first[3] >= anchor.freed || first[0] > anchor.count);
+  const secondFreedTrusted: boolean = byteCounterInWindow(second[3], first[3], freedCap(anchor, second[2])) &&
+    (second[3] >= first[3] || second[0] > first[0]);
+  const totalFreedTrusted: boolean = byteCounterInWindow(second[3], anchor.freed, freedCap(anchor, second[2])) &&
+    (second[3] >= anchor.freed || second[0] > anchor.count);
+  return firstFreedTrusted && secondFreedTrusted && totalFreedTrusted;
+}
+
+function rawNonByteOrdered(first: number[], second: number[]): boolean {
+  return second[0] >= first[0] && second[1] >= first[1] && second[4] >= first[4];
+}
+
+function retainedIntact(blocks: number[][][], expectedBlocks: number): boolean {
+  return blocks.length === expectedBlocks && blocks.every((block: number[][]) =>
+    block.length === RETAIN_SMALL_COUNT && block.every((row: number[], index: number) =>
+      row.length === RETAIN_SMALL_LENGTH && row[0] === index && row[RETAIN_SMALL_LENGTH - 1] === index));
+}
+
+// Closed form of touchSmall(seed): seed + sum(seed + i) for i in [0, LIGHT_TOUCHES).
+function touchResult(seed: number): number {
+  return (LIGHT_TOUCHES + 1) * seed + LIGHT_TOUCHES * (LIGHT_TOUCHES - 1) / 2;
+}
+
+// Closed form of one OP_TOUCH step, which calls touchSmall(repeat + i).
+function expectedTouchResult(repeat: number): number {
+  let sink: number = 0;
+  for (let i = 0; i < repeat; i++) {
+    sink += touchResult(repeat + i);
+  }
+  return sink;
 }
 
 function counts(series: GcSnapshot[]): number[] {
@@ -136,12 +291,12 @@ function times(series: GcSnapshot[]): number[] {
   return series.map((snap: GcSnapshot) => snap.time);
 }
 
-function allocatedSeries(series: GcSnapshot[]): number[] {
-  return series.map((snap: GcSnapshot) => snap.allocated);
+function allocatedSeries(series: GcSnapshot[], limits: number[]): number[] {
+  return unfoldedBytes(series, limits, false);
 }
 
-function freedSeries(series: GcSnapshot[]): number[] {
-  return series.map((snap: GcSnapshot) => snap.freed);
+function freedSeries(series: GcSnapshot[], limits: number[]): number[] {
+  return unfoldedBytes(series, limits, true);
 }
 
 function longFullSeries(series: GcSnapshot[]): number[] {
@@ -200,7 +355,7 @@ function touchSmall(seed: number): number {
   return sink;
 }
 
-async function runStep(step: SampleStep): Promise<number> {
+async function runStep(step: SampleStep, retained: number[][][], probes: WeakRef<RingNode>[]): Promise<number> {
   let sink: number = 0;
   for (let i = 0; i < step.repeat; i++) {
     if (step.op === OP_TOUCH) {
@@ -211,9 +366,10 @@ async function runStep(step: SampleStep): Promise<number> {
       hintGC();
     } else if (step.op === OP_RETAIN) {
       const kept: number[][] = retainArrays(RETAIN_SMALL_COUNT, RETAIN_SMALL_LENGTH);
+      retained.push(kept);
       sink += kept.length;
     } else if (step.op === OP_COLLECT) {
-      const cycles: number = await runGcCycles(1, GC_ROUNDS_BUDGET);
+      const cycles: number = await runObservedCycles(probes);
       sink += cycles;
     }
   }
@@ -223,10 +379,27 @@ async function runStep(step: SampleStep): Promise<number> {
   return sink;
 }
 
-async function runSteps(steps: SampleStep[]): Promise<GcSnapshot[]> {
+// Observe the existing collection-pressure targets, not a second artificial garbage workload.
+async function runObservedCycles(probes: WeakRef<RingNode>[]): Promise<number> {
+  const start: number = gcStat(KEY_GC_COUNT);
+  for (let round = 0; round < GC_ROUNDS_BUDGET; round++) {
+    await sleepMs(CADENCE_30);
+    hintGC();
+    allocatePressure(round === 0 ? probes : undefined);
+    await sleepMs(CADENCE_30);
+    const cycles: number = gcStat(KEY_GC_COUNT) - start;
+    if (cycles >= 1 && allCleared(probes)) {
+      return cycles;
+    }
+  }
+  return gcStat(KEY_GC_COUNT) - start;
+}
+
+async function runSteps(steps: SampleStep[], retained: number[][][] = [],
+  results: number[] = [], probes: WeakRef<RingNode>[] = []): Promise<GcSnapshot[]> {
   const series: GcSnapshot[] = [new GcSnapshot()];
   for (let i = 0; i < steps.length; i++) {
-    await runStep(steps[i]);
+    results.push(await runStep(steps[i], retained, probes));
     series.push(new GcSnapshot());
   }
   return series;
@@ -381,40 +554,47 @@ export default function gcStatSamplingTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_0300
      * @tc.name      testStatSample0003
-     * @tc.desc      Read the allocated byte key on its own and check it is a positive integer below the sanity bound
+     * @tc.desc      Read the allocated byte key around one light touch and check both reads are safe non negative
+     *               integers whose modular window stays inside the touch plus read budget
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL0
      */
     it('testStatSample0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       const before: number = gcStat(KEY_BYTES_ALLOCATED);
-      touchSmall(1);
+      const touched: number = touchSmall(1);
       const after: number = gcStat(KEY_BYTES_ALLOCATED);
-      const delta: number = after - before;
-      logCase('testStatSample0003', `before=${before} after=${after} delta=${delta}`);
-      expect(before > 0).assertTrue();
-      expect(delta >= 0).assertTrue();
-      expect(Number.isInteger(before) && Number.isInteger(after)).assertTrue();
-      expect(after < LARGE_BOUND).assertTrue();
+      const delta: number = byteCounterDelta(after, before);
+      const maximum: number = TOUCH_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES;
+      logCase('testStatSample0003', `before=${before} after=${after} delta=${delta} maximum=${maximum} ` +
+        `touched=${touched}`);
+      expect(byteDomain(before) && byteDomain(after)).assertTrue();
+      expect(byteCounterInWindow(after, before, maximum)).assertTrue();
+      expect(touched).assertEqual(touchResult(1));
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_0400
      * @tc.name      testStatSample0004
-     * @tc.desc      Read the freed byte key on its own and check it stays below the allocated byte key
+     * @tc.desc      Read the freed byte key on its own between two snapshots and check its windows stay inside the
+     *               object bytes present at the start plus the trusted allocation window
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL0
      */
     it('testStatSample0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const start: GcSnapshot = new GcSnapshot();
       const freed: number = gcStat(KEY_BYTES_FREED);
-      const allocated: number = gcStat(KEY_BYTES_ALLOCATED);
-      const held: number = allocated - freed;
-      logCase('testStatSample0004', `freed=${freed} allocated=${allocated} held=${held}`);
-      expect(isFiniteNonNegative(freed)).assertTrue();
-      expect(freed <= allocated).assertTrue();
-      expect(held > 0).assertTrue();
-      expect(Number.isInteger(freed)).assertTrue();
+      const end: GcSnapshot = new GcSnapshot();
+      const trusted: boolean = end.bytesInWindow(start, STAT_READ_ALLOCATION_LIMIT_BYTES);
+      const cap: number = freedCap(start, end.allocated);
+      const progressed: boolean = end.count > start.countAtStart;
+      logCase('testStatSample0004', `freed=${start.freed}->${freed}->${end.freed} cap=${cap} trusted=${trusted} ` +
+        `objectKb=${start.objectKb}`);
+      expect(byteDomain(freed)).assertTrue();
+      expect(trusted).assertTrue();
+      expect(byteCounterInWindow(freed, start.freed, cap) && (freed >= start.freed || progressed)).assertTrue();
+      expect(byteCounterInWindow(end.freed, freed, cap) && (end.freed >= freed || progressed)).assertTrue();
     });
 
     /**
@@ -481,8 +661,8 @@ export default function gcStatSamplingTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_0800
      * @tc.name      testStatSample0008
-     * @tc.desc      Build one snapshot and compare it field by field with five fresh single key reads taken right
-     *               after it
+     * @tc.desc      Build one snapshot and compare it with five fresh single key reads: count, time and long full stay
+     *               raw monotonic while both byte keys stay inside the read budget window
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -491,31 +671,36 @@ export default function gcStatSamplingTest() {
       const snap: GcSnapshot = new GcSnapshot();
       const base: number[] = snap.values();
       const fresh: number[] = keyValues();
-      const ordered: boolean = fresh.every((value: number, index: number) => value >= base[index]);
-      logCase('testStatSample0008', `base=${base.join(',')} fresh=${fresh.join(',')} ordered=${ordered}`);
+      const ordered: boolean = rawNonByteOrdered(base, fresh);
+      const bytesTrusted: boolean = rawPairInWindow(snap, base, fresh, STAT_READ_ALLOCATION_LIMIT_BYTES);
+      const tail: GcSnapshot = new GcSnapshot();
+      logCase('testStatSample0008', `base=${base.join(',')} fresh=${fresh.join(',')} ordered=${ordered} ` +
+        `bytesTrusted=${bytesTrusted}`);
       expect(fresh.length).assertEqual(base.length);
       expect(ordered).assertTrue();
-      expect(allFiniteNonNegative(fresh)).assertTrue();
-      expect(snapshotDrops([snap, new GcSnapshot()]).length).assertEqual(EXPECTED_DROPS_NONE);
+      expect(bytesTrusted).assertTrue();
+      expect(allFiniteNonNegative(fresh) && byteDomain(fresh[2]) && byteDomain(fresh[3])).assertTrue();
+      expect(snapshotDrops([snap, tail], [STAT_READ_ALLOCATION_LIMIT_BYTES]).length).assertEqual(EXPECTED_DROPS_NONE);
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_0900
      * @tc.name      testStatSample0009
-     * @tc.desc      Check the internal relations of one snapshot: freed below allocated, long full below count and a
-     *               positive allocated total
+     * @tc.desc      Check one snapshot: long full below count, byte keys in the safe non negative integer domain and a
+     *               trusted read window to the next snapshot
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testStatSample0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       const snap: GcSnapshot = new GcSnapshot();
-      const held: number = snap.allocated - snap.freed;
+      const next: GcSnapshot = new GcSnapshot();
+      const freedDelta: number = byteCounterDelta(next.freed, snap.freed);
       logCase('testStatSample0009', `count=${snap.count} allocated=${snap.allocated} freed=${snap.freed} ` +
-        `held=${held} longFull=${snap.longFullGc}`);
-      expect(snap.freed <= snap.allocated).assertTrue();
+        `objectKb=${snap.objectKb} longFull=${snap.longFullGc} freedDelta=${freedDelta}`);
       expect(snap.longFullGc <= snap.count).assertTrue();
-      expect(held > 0).assertTrue();
+      expect(byteDomain(snap.allocated) && byteDomain(snap.freed)).assertTrue();
+      expect(next.notBefore(snap, STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
       expect(allFiniteNonNegative(snap.values())).assertTrue();
     });
 
@@ -588,8 +773,8 @@ export default function gcStatSamplingTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_1300
      * @tc.name      testStatSample0013
-     * @tc.desc      Read the allocated byte key twelve times in a row and check the series is monotonic with a
-     *               positive start
+     * @tc.desc      Read the allocated byte key twelve times and validate every adjacent modular window before
+     *               unfolding the byte deltas
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -599,35 +784,41 @@ export default function gcStatSamplingTest() {
       for (let i = 0; i < REPEAT_READS; i++) {
         values.push(gcStat(KEY_BYTES_ALLOCATED));
       }
-      const drops: number[] = valueDrops(values);
-      const stepTotal: number = total(deltas(values));
-      logCase('testStatSample0013', `reads=${values.length} drops=${drops.join(',')} totalDelta=${stepTotal}`);
+      const unfolded: number[] = unfoldRawBytes(values, STAT_READ_ALLOCATION_LIMIT_BYTES, true);
+      const stepTotal: number = spanOf(unfolded);
+      logCase('testStatSample0013', `reads=${values.length} trusted=${unfolded.length} totalDelta=${stepTotal}`);
       expect(values.length).assertEqual(REPEAT_READS);
-      expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(values[0] > 0).assertTrue();
-      expect(stepTotal >= 0).assertTrue();
+      expect(unfolded.length).assertEqual(REPEAT_READS);
+      expect(values.every((value: number) => byteDomain(value))).assertTrue();
+      expect(stepTotal >= 0 && stepTotal <= (REPEAT_READS - 1) * STAT_READ_ALLOCATION_LIMIT_BYTES).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_1400
      * @tc.name      testStatSample0014
-     * @tc.desc      Read the freed byte key twelve times in a row and check monotonicity and the allocated bound
+     * @tc.desc      Read the freed byte key twelve times between two anchor snapshots and check every adjacent window
+     *               unfolds inside the object bytes at the anchor plus the trusted allocation window
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testStatSample0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const anchor: GcSnapshot = new GcSnapshot();
       const values: number[] = [];
       for (let i = 0; i < REPEAT_READS; i++) {
         values.push(gcStat(KEY_BYTES_FREED));
       }
-      const allocated: number = gcStat(KEY_BYTES_ALLOCATED);
-      const drops: number[] = valueDrops(values);
-      logCase('testStatSample0014', `reads=${values.length} drops=${drops.join(',')} allocated=${allocated} ` +
-        `lastFreed=${values[values.length - 1]}`);
-      expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(values[values.length - 1] <= allocated).assertTrue();
-      expect(allFiniteNonNegative(values)).assertTrue();
+      const end: GcSnapshot = new GcSnapshot();
+      const trusted: boolean = end.bytesInWindow(anchor, STAT_READ_ALLOCATION_LIMIT_BYTES);
+      const cap: number = freedCap(anchor, end.allocated);
+      const unfolded: number[] = unfoldRawBytes([anchor.freed].concat(values).concat([end.freed]), cap,
+        end.count > anchor.countAtStart);
+      logCase('testStatSample0014', `reads=${values.length} trusted=${trusted} unfolded=${unfolded.length} ` +
+        `cap=${cap} freedSpan=${spanOf(unfolded)}`);
+      expect(trusted).assertTrue();
+      expect(unfolded.length).assertEqual(REPEAT_READS + 2);
+      expect(spanOf(unfolded) <= cap).assertTrue();
+      expect(values.every((value: number) => byteDomain(value))).assertTrue();
     });
 
     /**
@@ -656,7 +847,8 @@ export default function gcStatSamplingTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_1600
      * @tc.name      testStatSample0016
-     * @tc.desc      Take one hintGC between two samples and check the count delta is small and every field is ordered
+     * @tc.desc      Take one hintGC between two samples and check the count delta is small, raw counters are ordered
+     *               and both byte keys stay inside the read budget window
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL0
@@ -666,50 +858,55 @@ export default function gcStatSamplingTest() {
       hintGC();
       const after: GcSnapshot = new GcSnapshot();
       const delta: number = after.count - before.count;
-      logCase('testStatSample0016', `countDelta=${delta} beforeCount=${before.count} afterCount=${after.count}`);
-      expect(after.notBefore(before)).assertTrue();
+      const freedDelta: number = byteCounterDelta(after.freed, before.freed);
+      logCase('testStatSample0016', `countDelta=${delta} beforeCount=${before.count} afterCount=${after.count} ` +
+        `freedDelta=${freedDelta} cap=${freedCap(before, after.allocated)}`);
+      expect(after.notBefore(before, STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
       expect(delta >= 0).assertTrue();
       expect(delta <= HINT_COUNT_CAP).assertTrue();
-      expect(after.freed <= after.allocated).assertTrue();
+      expect(after.longFullGc <= after.count).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_1700
      * @tc.name      testStatSample0017
-     * @tc.desc      Run the second hint burst row and check the allocated byte delta and the field ordering
+     * @tc.desc      Run the second hint burst row and check the allocated byte window stays inside the hint plus read
+     *               budget and every adjacent window is ordered
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL0
      */
     it('testStatSample0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       const series: GcSnapshot[] = await runSteps(HINT_STEPS[1]);
-      const allocDelta: number = series[1].allocated - series[0].allocated;
-      const drops: number[] = snapshotDrops(series);
+      const limits: number[] = stepLimits(HINT_STEPS[1]);
+      const allocDelta: number = byteCounterDelta(series[1].allocated, series[0].allocated);
+      const drops: number[] = snapshotDrops(series, limits);
       logCase('testStatSample0017', `steps=${HINT_STEPS[1].length} samples=${series.length} ` +
-        `allocDelta=${allocDelta} drops=${drops.join(',')}`);
+        `allocDelta=${allocDelta} limit=${limits[0]} drops=${drops.join(',')}`);
       expect(series.length).assertEqual(HINT_STEPS[1].length + 1);
       expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(allocDelta >= 0).assertTrue();
+      expect(series[1].bytesInWindow(series[0], limits[0]) && allocDelta <= limits[0]).assertTrue();
       expect(allFiniteNonNegative(series[1].values())).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_1800
      * @tc.name      testStatSample0018
-     * @tc.desc      Run the third hint burst row and check the freed byte delta never runs ahead of the allocated
-     *               delta
+     * @tc.desc      Run the third hint burst row and check the freed byte delta stays below the object bytes at the
+     *               start plus the trusted allocated delta
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testStatSample0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await runSteps(HINT_STEPS[2]);
-      const freedDelta: number = series[1].freed - series[0].freed;
-      const allocDelta: number = series[1].allocated - series[0].allocated;
-      const drops: number[] = snapshotDrops(series);
+      const limits: number[] = stepLimits(HINT_STEPS[2]);
+      const freedDelta: number = byteCounterDelta(series[1].freed, series[0].freed);
+      const allocDelta: number = byteCounterDelta(series[1].allocated, series[0].allocated);
+      const drops: number[] = snapshotDrops(series, limits);
       logCase('testStatSample0018', `freedDelta=${freedDelta} allocDelta=${allocDelta} drops=${drops.join(',')}`);
-      expect(freedDelta >= 0).assertTrue();
-      expect(series[1].freed <= series[1].allocated).assertTrue();
+      expect(series[1].bytesInWindow(series[0], limits[0])).assertTrue();
+      expect(freedDelta <= series[0].objectKb * KB + allocDelta + KB).assertTrue();
       expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
     });
 
@@ -742,8 +939,9 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await runSteps(HINT_STEPS[7]);
+      const limits: number[] = stepLimits(HINT_STEPS[7]);
       const longDelta: number = series[1].longFullGc - series[0].longFullGc;
-      const drops: number[] = snapshotDrops(series);
+      const drops: number[] = snapshotDrops(series, limits);
       logCase('testStatSample0020', `longDelta=${longDelta} longFull=${series[1].longFullGc} ` +
         `count=${series[1].count}`);
       expect(longDelta >= 0).assertTrue();
@@ -761,13 +959,14 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await runSteps(PRESSURE_STEPS[0]);
-      const allocDelta: number = series[1].allocated - series[0].allocated;
+      const limits: number[] = stepLimits(PRESSURE_STEPS[0]);
+      const allocDelta: number = byteCounterDelta(series[1].allocated, series[0].allocated);
       const countDelta: number = series[1].count - series[0].count;
       logCase('testStatSample0021', `allocDelta=${allocDelta} lowerBound=${PRESSURE_MIN_BYTES} ` +
         `countDelta=${countDelta}`);
       expect(allocDelta >= PRESSURE_MIN_BYTES).assertTrue();
       expect(countDelta >= 0).assertTrue();
-      expect(series[1].notBefore(series[0])).assertTrue();
+      expect(series[1].notBefore(series[0], limits[0])).assertTrue();
     });
 
     /**
@@ -781,34 +980,36 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await runSteps(PRESSURE_STEPS[2]);
-      const allocDelta: number = series[1].allocated - series[0].allocated;
-      const freedDelta: number = series[1].freed - series[0].freed;
-      logCase('testStatSample0022', `allocDelta=${allocDelta} freedDelta=${freedDelta} ` +
-        `expectedAtLeast=${PRESSURE_MIN_BYTES * 2}`);
+      const limits: number[] = stepLimits(PRESSURE_STEPS[2]);
+      const allocDelta: number = byteCounterDelta(series[1].allocated, series[0].allocated);
+      const freedDelta: number = byteCounterDelta(series[1].freed, series[0].freed);
+      const cap: number = series[0].objectKb * KB + allocDelta + KB;
+      logCase('testStatSample0022', `allocDelta=${allocDelta} freedDelta=${freedDelta} cap=${cap}`);
+      expect(series[1].bytesInWindow(series[0], limits[0])).assertTrue();
       expect(allocDelta >= PRESSURE_MIN_BYTES * 2).assertTrue();
-      expect(freedDelta >= 0).assertTrue();
-      expect(series[1].allocated - series[1].freed > 0).assertTrue();
-      expect(series[1].freed <= series[1].allocated).assertTrue();
+      expect(freedDelta <= cap).assertTrue();
+      expect(byteDomain(series[1].freed) && byteDomain(series[1].allocated)).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_2300
      * @tc.name      testStatSample0023
-     * @tc.desc      Apply three pressure bursts and check the sample count, the count delta and the held byte total
+     * @tc.desc      Apply three pressure bursts and check the sample count, count delta and trusted allocation growth
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testStatSample0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await runSteps(PRESSURE_STEPS[4]);
+      const limits: number[] = stepLimits(PRESSURE_STEPS[4]);
       const countDelta: number = series[1].count - series[0].count;
-      const held: number = series[1].allocated - series[1].freed;
-      logCase('testStatSample0023', `countDelta=${countDelta} held=${held} ` +
+      const allocDelta: number = byteCounterDelta(series[1].allocated, series[0].allocated);
+      logCase('testStatSample0023', `countDelta=${countDelta} allocDelta=${allocDelta} ` +
         `allocated=${series[1].allocated} freed=${series[1].freed}`);
       expect(series.length).assertEqual(PRESSURE_STEPS[4].length + 1);
       expect(countDelta >= 0).assertTrue();
-      expect(held > 0).assertTrue();
-      expect(snapshotDrops(series).length).assertEqual(EXPECTED_DROPS_NONE);
+      expect(allocDelta >= PRESSURE_MIN_BYTES * 3).assertTrue();
+      expect(snapshotDrops(series, limits).length).assertEqual(EXPECTED_DROPS_NONE);
     });
 
     /**
@@ -822,13 +1023,14 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await runSteps(PRESSURE_STEPS[1]);
-      const allocDelta: number = series[1].allocated - series[0].allocated;
+      const limits: number[] = stepLimits(PRESSURE_STEPS[1]);
+      const allocDelta: number = byteCounterDelta(series[1].allocated, series[0].allocated);
       const timeDelta: number = series[1].time - series[0].time;
       logCase('testStatSample0024', `allocDelta=${allocDelta} timeDelta=${timeDelta} ` +
         `waitMs=${PRESSURE_STEPS[1][0].waitMs}`);
       expect(allocDelta >= PRESSURE_MIN_BYTES).assertTrue();
       expect(timeDelta >= 0).assertTrue();
-      expect(series[1].notBefore(series[0])).assertTrue();
+      expect(series[1].notBefore(series[0], limits[0])).assertTrue();
     });
 
     /**
@@ -842,12 +1044,13 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const series: GcSnapshot[] = await runSteps(PRESSURE_STEPS[5]);
-      const freedDelta: number = series[1].freed - series[0].freed;
-      const allocDelta: number = series[1].allocated - series[0].allocated;
-      logCase('testStatSample0025', `freedDelta=${freedDelta} allocDelta=${allocDelta} ` +
-        `longFullDelta=${series[1].longFullGc - series[0].longFullGc}`);
-      expect(freedDelta >= 0).assertTrue();
-      expect(series[1].freed <= series[1].allocated).assertTrue();
+      const limits: number[] = stepLimits(PRESSURE_STEPS[5]);
+      const freedDelta: number = byteCounterDelta(series[1].freed, series[0].freed);
+      const allocDelta: number = byteCounterDelta(series[1].allocated, series[0].allocated);
+      const cap: number = series[0].objectKb * KB + allocDelta + KB;
+      logCase('testStatSample0025', `freedDelta=${freedDelta} allocDelta=${allocDelta} cap=${cap}`);
+      expect(series[1].bytesInWindow(series[0], limits[0])).assertTrue();
+      expect(freedDelta <= cap).assertTrue();
       expect(series[1].longFullGc <= series[1].count).assertTrue();
       expect(allFiniteNonNegative(series[1].values())).assertTrue();
     });
@@ -862,13 +1065,16 @@ export default function gcStatSamplingTest() {
      * @tc.level     LEVEL1
      */
     it('testStatSample0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const series: GcSnapshot[] = await runSteps(MIXED_STEPS[3]);
-      const allocDelta: number = series[1].allocated - series[0].allocated;
-      const held: number = series[1].allocated - series[1].freed;
-      logCase('testStatSample0026', `allocDelta=${allocDelta} retainedBytes=${RETAIN_SMALL_BYTES} held=${held}`);
+      const retained: number[][][] = [];
+      const series: GcSnapshot[] = await runSteps(MIXED_STEPS[3], retained);
+      const limits: number[] = stepLimits(MIXED_STEPS[3]);
+      const allocDelta: number = byteCounterDelta(series[1].allocated, series[0].allocated);
+      logCase('testStatSample0026', `allocDelta=${allocDelta} retainedBytes=${RETAIN_SMALL_BYTES} ` +
+        `objectBytes=${series[series.length - 1].objectKb * KB}`);
       expect(allocDelta >= RETAIN_HALF_BYTES).assertTrue();
-      expect(held >= RETAIN_HALF_BYTES).assertTrue();
-      expect(series[1].notBefore(series[0])).assertTrue();
+      expect(series[series.length - 1].objectKb * KB >= RETAIN_SMALL_BYTES).assertTrue();
+      expect(retainedIntact(retained, 1)).assertTrue();
+      expect(series[1].notBefore(series[0], limits[0])).assertTrue();
     });
 
     /**
@@ -881,13 +1087,16 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const steps: SampleStep[] = [new SampleStep(OP_RETAIN, 2, 0), new SampleStep(OP_IDLE, 1, 0)];
-      const series: GcSnapshot[] = await runSteps(steps);
-      const allocDelta: number = series[1].allocated - series[0].allocated;
+      const retained: number[][][] = [];
+      const series: GcSnapshot[] = await runSteps(steps, retained);
+      const limits: number[] = stepLimits(steps);
+      const allocDelta: number = byteCounterDelta(series[1].allocated, series[0].allocated);
       logCase('testStatSample0027', `steps=${steps.length} allocDelta=${allocDelta} ` +
-        `oneBlock=${RETAIN_SMALL_BYTES}`);
+        `objectBytes=${series[series.length - 1].objectKb * KB}`);
       expect(allocDelta >= RETAIN_SMALL_BYTES).assertTrue();
-      expect(series[1].freed <= series[1].allocated).assertTrue();
-      expect(snapshotDrops(series).length).assertEqual(EXPECTED_DROPS_NONE);
+      expect(series[series.length - 1].objectKb * KB >= 2 * RETAIN_SMALL_BYTES).assertTrue();
+      expect(retainedIntact(retained, 2)).assertTrue();
+      expect(snapshotDrops(series, limits).length).assertEqual(EXPECTED_DROPS_NONE);
     });
 
     /**
@@ -901,12 +1110,18 @@ export default function gcStatSamplingTest() {
     it('testStatSample0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const steps: SampleStep[] = [new SampleStep(OP_RETAIN, 1, 0), new SampleStep(OP_HINT, 2, 0),
         new SampleStep(OP_IDLE, 1, 0)];
-      const series: GcSnapshot[] = await runSteps(steps);
-      const allocDelta: number = series[2].allocated - series[0].allocated;
-      const drops: number[] = snapshotDrops(series);
+      const retained: number[][][] = [];
+      const series: GcSnapshot[] = await runSteps(steps, retained);
+      const limits: number[] = stepLimits(steps);
+      const firstTwoLimit: number = limits[0] + limits[1];
+      const allocDelta: number = byteCounterDelta(series[2].allocated, series[0].allocated);
+      const drops: number[] = snapshotDrops(series, limits);
       logCase('testStatSample0028', `samples=${series.length} allocDelta=${allocDelta} drops=${drops.join(',')}`);
       expect(series.length).assertEqual(steps.length + 1);
-      expect(allocDelta >= RETAIN_HALF_BYTES).assertTrue();
+      expect(byteCounterInWindow(series[2].allocated, series[0].allocated, firstTwoLimit) &&
+        allocDelta >= RETAIN_HALF_BYTES).assertTrue();
+      expect(retainedIntact(retained, 1)).assertTrue();
+      expect(series[series.length - 1].objectKb * KB >= RETAIN_SMALL_BYTES).assertTrue();
       expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
     });
 
@@ -921,13 +1136,13 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await runSteps(WAIT_STEPS[2]);
+      const limits: number[] = stepLimits(WAIT_STEPS[2]);
       const countDelta: number = series[1].count - series[0].count;
-      const allocDelta: number = series[1].allocated - series[0].allocated;
+      const allocDelta: number = byteCounterDelta(series[1].allocated, series[0].allocated);
       logCase('testStatSample0029', `waitMs=${WAIT_STEPS[2][0].waitMs} countDelta=${countDelta} ` +
         `allocDelta=${allocDelta}`);
       expect(countDelta >= 0).assertTrue();
-      expect(allocDelta >= 0).assertTrue();
-      expect(series[1].notBefore(series[0])).assertTrue();
+      expect(series[1].bytesInWindow(series[0], limits[0])).assertTrue();
       expect(allFiniteNonNegative(series[1].values())).assertTrue();
     });
 
@@ -942,14 +1157,14 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await runSteps(WAIT_STEPS[4]);
-      const freedDelta: number = series[1].freed - series[0].freed;
-      const allocDelta: number = series[1].allocated - series[0].allocated;
-      logCase('testStatSample0030', `waitMs=${WAIT_STEPS[4][0].waitMs} freedDelta=${freedDelta} ` +
-        `allocDelta=${allocDelta}`);
-      expect(freedDelta >= 0).assertTrue();
-      expect(allocDelta >= 0).assertTrue();
-      expect(series[1].freed <= series[1].allocated).assertTrue();
-      expect(series[0].freed <= series[0].allocated).assertTrue();
+      const limits: number[] = stepLimits(WAIT_STEPS[4]);
+      const freedDelta: number = byteCounterDelta(series[1].freed, series[0].freed);
+      const allocDelta: number = byteCounterDelta(series[1].allocated, series[0].allocated);
+      const cap: number = series[0].objectKb * KB + allocDelta + KB;
+      logCase('testStatSample0030', `waitMs=${WAIT_STEPS[4][0].waitMs} freedDelta=${freedDelta} cap=${cap}`);
+      expect(series[1].bytesInWindow(series[0], limits[0])).assertTrue();
+      expect(freedDelta <= cap).assertTrue();
+      expect(byteDomain(series[1].freed) && byteDomain(series[1].allocated)).assertTrue();
     });
 
     /**
@@ -982,15 +1197,17 @@ export default function gcStatSamplingTest() {
      * @tc.level     LEVEL1
      */
     it('testStatSample0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const series: GcSnapshot[] = await runSteps(MIXED_STEPS[5]);
+      const probes: WeakRef<RingNode>[] = [];
+      const results: number[] = [];
+      const series: GcSnapshot[] = await runSteps(MIXED_STEPS[5], [], results, probes);
+      const limits: number[] = stepLimits(MIXED_STEPS[5]);
       const countDelta: number = series[1].count - series[0].count;
-      const freedDelta: number = series[1].freed - series[0].freed;
-      logCase('testStatSample0032', `countDelta=${countDelta} freedDelta=${freedDelta} ` +
-        `allocDelta=${series[1].allocated - series[0].allocated}`);
-      expect(countDelta >= 0).assertTrue();
-      expect(freedDelta >= 0).assertTrue();
-      expect(series[1].notBefore(series[0])).assertTrue();
-      expect(series[1].freed <= series[1].allocated).assertTrue();
+      const freedDelta: number = byteCounterDelta(series[1].freed, series[0].freed);
+      logCase('testStatSample0032', `cycles=${results[0]} countDelta=${countDelta} freedDelta=${freedDelta}`);
+      expect(results[0] >= 1 && countDelta >= results[0]).assertTrue();
+      expect(probes.length > 0 && allCleared(probes)).assertTrue();
+      expect(series[1].bytesInWindow(series[0], limits[0]) && freedDelta > 0).assertTrue();
+      expect(series[1].notBefore(series[0], limits[0])).assertTrue();
     });
 
     /**
@@ -1008,10 +1225,10 @@ export default function gcStatSamplingTest() {
       const after: GcSnapshot = new GcSnapshot();
       const countDelta: number = after.count - before.count;
       logCase('testStatSample0033', `cycles=${cycles} countDelta=${countDelta} budget=${GC_ROUNDS_BUDGET}`);
-      expect(cycles >= 0).assertTrue();
+      expect(cycles >= 1).assertTrue();
       expect(countDelta >= cycles).assertTrue();
       expect(after.time >= before.time).assertTrue();
-      expect(after.freed >= before.freed).assertTrue();
+      expect(after.bytesInWindow(before, COLLECT_ALLOCATION_LIMIT_BYTES)).assertTrue();
     });
 
     /**
@@ -1024,32 +1241,36 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await runSteps(MIXED_STEPS[0]);
-      const allocDelta: number = series[2].allocated - series[0].allocated;
-      const drops: number[] = snapshotDrops(series);
+      const limits: number[] = stepLimits(MIXED_STEPS[0]);
+      const allocDelta: number = byteCounterDelta(series[2].allocated, series[0].allocated);
+      const freedDelta: number = byteCounterDelta(series[2].freed, series[0].freed);
+      const drops: number[] = snapshotDrops(series, limits);
       logCase('testStatSample0034', `samples=${series.length} allocDelta=${allocDelta} drops=${drops.join(',')}`);
       expect(series.length).assertEqual(MIXED_STEPS[0].length + 1);
-      expect(allocDelta >= 0).assertTrue();
+      expect(byteCounterInWindow(series[2].allocated, series[0].allocated, limits[0] + limits[1])).assertTrue();
+      expect(freedDelta <= series[0].objectKb * KB + allocDelta + KB).assertTrue();
       expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(series[2].freed <= series[2].allocated).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_3500
      * @tc.name      testStatSample0035
-     * @tc.desc      Hint first and then apply eight light touches and check the allocated byte delta is positive
+     * @tc.desc      Hint first, apply eight light touches, and validate the touch result and its byte window
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testStatSample0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
-      const series: GcSnapshot[] = await runSteps(MIXED_STEPS[1]);
-      const touchDelta: number = series[1].allocated - series[0].allocated;
-      const countDelta: number = series[1].count - series[0].count;
-      logCase('testStatSample0035', `touchDelta=${touchDelta} countDelta=${countDelta} ` +
-        `held=${series[1].allocated - series[1].freed}`);
-      expect(touchDelta >= 0).assertTrue();
+      const results: number[] = [];
+      const series: GcSnapshot[] = await runSteps(MIXED_STEPS[1], [], results);
+      const limits: number[] = stepLimits(MIXED_STEPS[1]);
+      const touchDelta: number = byteCounterDelta(series[2].allocated, series[1].allocated);
+      const countDelta: number = series[2].count - series[1].count;
+      logCase('testStatSample0035', `touchDelta=${touchDelta} countDelta=${countDelta} result=${results[1]}`);
+      expect(series[2].notBefore(series[1], limits[1])).assertTrue();
+      expect(touchDelta > 0).assertTrue();
+      expect(results[1]).assertEqual(expectedTouchResult(8));
       expect(countDelta >= 0).assertTrue();
-      expect(series[1].notBefore(series[0])).assertTrue();
     });
 
     /**
@@ -1063,8 +1284,9 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0036', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const series: GcSnapshot[] = await runSteps(MIXED_STEPS[2]);
-      const allocDelta: number = series[1].allocated - series[0].allocated;
-      const drops: number[] = snapshotDrops(series);
+      const limits: number[] = stepLimits(MIXED_STEPS[2]);
+      const allocDelta: number = byteCounterDelta(series[1].allocated, series[0].allocated);
+      const drops: number[] = snapshotDrops(series, limits);
       logCase('testStatSample0036', `allocDelta=${allocDelta} countDelta=${series[1].count - series[0].count} ` +
         `drops=${drops.join(',')}`);
       expect(allocDelta >= PRESSURE_MIN_BYTES).assertTrue();
@@ -1082,13 +1304,13 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await runSteps(MIXED_STEPS[4]);
-      const allocDelta: number = series[2].allocated - series[0].allocated;
+      const limits: number[] = stepLimits(MIXED_STEPS[4]);
+      const allocDelta: number = byteCounterDelta(series[2].allocated, series[0].allocated);
       const timeDelta: number = series[2].time - series[0].time;
       logCase('testStatSample0037', `samples=${series.length} allocDelta=${allocDelta} timeDelta=${timeDelta}`);
       expect(series.length).assertEqual(MIXED_STEPS[4].length + 1);
-      expect(allocDelta >= 0).assertTrue();
+      expect(snapshotDrops(series, limits).length).assertEqual(EXPECTED_DROPS_NONE);
       expect(timeDelta >= 0).assertTrue();
-      expect(series[2].notBefore(series[1])).assertTrue();
     });
 
     /**
@@ -1101,12 +1323,14 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       const series: GcSnapshot[] = sampleQuiet(QUIET_STEPS[3].length + 1);
-      const allocDelta: number = series[series.length - 1].allocated - series[0].allocated;
-      const drops: number[] = snapshotDrops(series);
+      const last: GcSnapshot = series[series.length - 1];
+      const allocDelta: number = byteCounterDelta(last.allocated, series[0].allocated);
+      const drops: number[] = snapshotDrops(series, sampleLimits(series, 0));
       logCase('testStatSample0038', `samples=${series.length} allocDelta=${allocDelta} ` +
         `budget=${QUIET_BUDGET_BYTES} drops=${drops.join(',')}`);
       expect(series.length).assertEqual(QUIET_STEPS[3].length + 1);
-      expect(allocDelta >= 0 && allocDelta <= QUIET_BUDGET_BYTES).assertTrue();
+      expect(byteCounterInWindow(last.allocated, series[0].allocated, QUIET_BUDGET_BYTES) &&
+        allocDelta <= QUIET_BUDGET_BYTES).assertTrue();
       expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
     });
 
@@ -1120,14 +1344,16 @@ export default function gcStatSamplingTest() {
      * @tc.level     LEVEL1
      */
     it('testStatSample0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
-      const series: GcSnapshot[] = await runSteps(TOUCH_STEPS[5]);
-      const allocDelta: number = series[1].allocated - series[0].allocated;
-      const countDelta: number = series[1].count - series[0].count;
+      const results: number[] = [];
+      const series: GcSnapshot[] = await runSteps(TOUCH_STEPS[5], [], results);
+      const limits: number[] = stepLimits(TOUCH_STEPS[5]);
+      const allocDelta: number = byteCounterDelta(series[1].allocated, series[0].allocated);
+      const freedDelta: number = byteCounterDelta(series[1].freed, series[0].freed);
       logCase('testStatSample0039', `touches=${TOUCH_STEPS[5][0].repeat} allocDelta=${allocDelta} ` +
-        `countDelta=${countDelta}`);
-      expect(allocDelta > 0).assertTrue();
-      expect(countDelta >= 0).assertTrue();
-      expect(series[1].freed <= series[1].allocated).assertTrue();
+        `result=${results[0]}`);
+      expect(series[1].bytesInWindow(series[0], limits[0]) && allocDelta > 0).assertTrue();
+      expect(results[0]).assertEqual(expectedTouchResult(16));
+      expect(freedDelta <= series[0].objectKb * KB + allocDelta + KB).assertTrue();
     });
 
     /**
@@ -1143,15 +1369,19 @@ export default function gcStatSamplingTest() {
       const steps: SampleStep[] = [new SampleStep(OP_TOUCH, 6, 0), new SampleStep(OP_RETAIN, 1, 0),
         new SampleStep(OP_HINT, 1, CADENCE_10), new SampleStep(OP_WAIT, 1, CADENCE_10),
         new SampleStep(OP_IDLE, 1, 0)];
-      const series: GcSnapshot[] = await runSteps(steps);
-      const drops: number[] = snapshotDrops(series);
-      const allocDelta: number = series[series.length - 1].allocated - series[0].allocated;
+      const retained: number[][][] = [];
+      const series: GcSnapshot[] = await runSteps(steps, retained);
+      const limits: number[] = stepLimits(steps);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const drops: number[] = snapshotDrops(series, limits);
+      const allocDelta: number = spanOf(allocated);
       logCase('testStatSample0040', `steps=${steps.length} samples=${series.length} ` +
         `allocDelta=${allocDelta} drops=${drops.join(',')}`);
       expect(series.length).assertEqual(steps.length + 1);
-      expect(allocDelta >= RETAIN_HALF_BYTES).assertTrue();
+      expect(allocated.length === series.length && allocDelta >= RETAIN_HALF_BYTES).assertTrue();
+      expect(retainedIntact(retained, 1)).assertTrue();
+      expect(series[series.length - 1].objectKb * KB >= RETAIN_SMALL_BYTES).assertTrue();
       expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(series[series.length - 1].count >= series[0].count).assertTrue();
     });
 
     /**
@@ -1164,7 +1394,7 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0041', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const series: GcSnapshot[] = sampleQuiet(SAMPLE_50);
-      const drops: number[] = snapshotDrops(series);
+      const drops: number[] = snapshotDrops(series, sampleLimits(series, 0));
       const finite: boolean = series.every((snap: GcSnapshot) => allFiniteNonNegative(snap.values()));
       logCase('testStatSample0041', `samples=${series.length} drops=${drops.length} finite=${finite} ` +
         `firstCount=${series[0].count} lastCount=${series[SAMPLE_50 - 1].count}`);
@@ -1184,13 +1414,14 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0042', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const series: GcSnapshot[] = sampleQuiet(SAMPLE_120);
-      const allocated: number[] = allocatedSeries(series);
-      const drops: number[] = valueDrops(allocated);
-      logCase('testStatSample0042', `samples=${series.length} drops=${drops.join(',')} ` +
+      const allocated: number[] = allocatedSeries(series, sampleLimits(series, 0));
+      const allocatedSpan: number = spanOf(allocated);
+      logCase('testStatSample0042', `samples=${series.length} span=${allocatedSpan} ` +
         `firstAllocated=${allocated[0]} lastAllocated=${allocated[SAMPLE_120 - 1]}`);
       expect(series.length).assertEqual(SAMPLE_120);
-      expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(minOf(allocated) > 0).assertTrue();
+      expect(allocated.length).assertEqual(SAMPLE_120);
+      expect(allocatedSpan <= (SAMPLE_120 - 1) * STAT_READ_ALLOCATION_LIMIT_BYTES).assertTrue();
+      expect(byteDomain(allocated[0]) && maxOf(allocated) < LARGE_BOUND).assertTrue();
     });
 
     /**
@@ -1224,33 +1455,39 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await sampleWithTouches(SAMPLE_50, 0);
-      const drops: number[] = snapshotDrops(series);
-      const allocDelta: number = series[SAMPLE_50 - 1].allocated - series[0].allocated;
-      logCase('testStatSample0044', `samples=${series.length} drops=${drops.length} allocDelta=${allocDelta}`);
-      expect(series.length).assertEqual(SAMPLE_50);
-      expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
+      const limits: number[] = sampleLimits(series, TOUCH_ALLOCATION_LIMIT_BYTES);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const freed: number[] = freedSeries(series, limits);
+      const allocDelta: number = spanOf(allocated);
+      const freedDelta: number = spanOf(freed);
+      logCase('testStatSample0044', `samples=${series.length} allocDelta=${allocDelta} freedDelta=${freedDelta}`);
+      expect(allocated.length).assertEqual(SAMPLE_50);
+      expect(freed.length).assertEqual(SAMPLE_50);
       expect(allocDelta > 0).assertTrue();
-      expect(series[SAMPLE_50 - 1].freed <= series[SAMPLE_50 - 1].allocated).assertTrue();
+      expect(freedDelta <= series[0].objectKb * KB + allocDelta + KB).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_4500
      * @tc.name      testStatSample0045
-     * @tc.desc      Sample one hundred times with light touches and check the freed bytes never overtake the
-     *               allocated bytes at any sample
+     * @tc.desc      Sample one hundred times with light touches and check unfolded freed bytes stay within the
+     *               start-object plus trusted-allocation ceiling
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testStatSample0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await sampleWithTouches(SAMPLE_100, 0);
-      const drops: number[] = snapshotDrops(series);
-      const bounded: boolean = series.every((snap: GcSnapshot) => snap.freed <= snap.allocated);
-      logCase('testStatSample0045', `samples=${series.length} drops=${drops.length} bounded=${bounded} ` +
-        `held=${series[SAMPLE_100 - 1].allocated - series[SAMPLE_100 - 1].freed}`);
+      const limits: number[] = sampleLimits(series, TOUCH_ALLOCATION_LIMIT_BYTES);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const freed: number[] = freedSeries(series, limits);
+      const allocDelta: number = spanOf(allocated);
+      const freedDelta: number = spanOf(freed);
+      logCase('testStatSample0045', `samples=${series.length} allocDelta=${allocDelta} freedDelta=${freedDelta}`);
       expect(series.length).assertEqual(SAMPLE_100);
-      expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(bounded).assertTrue();
+      expect(allocated.length).assertEqual(SAMPLE_100);
+      expect(freed.length).assertEqual(SAMPLE_100);
+      expect(freedDelta <= series[0].objectKb * KB + allocDelta + KB).assertTrue();
     });
 
     /**
@@ -1263,15 +1500,16 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0046', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const series: GcSnapshot[] = await sampleWithTouches(SAMPLE_150, 0);
+      const limits: number[] = sampleLimits(series, TOUCH_ALLOCATION_LIMIT_BYTES);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const freed: number[] = freedSeries(series, limits);
       const countDrops: number[] = valueDrops(counts(series));
-      const allocDrops: number[] = valueDrops(allocatedSeries(series));
-      const freedDrops: number[] = valueDrops(freedSeries(series));
       logCase('testStatSample0046', `samples=${series.length} countDrops=${countDrops.length} ` +
-        `allocDrops=${allocDrops.length} freedDrops=${freedDrops.length}`);
+        `allocated=${allocated.length} freed=${freed.length}`);
       expect(series.length).assertEqual(SAMPLE_150);
       expect(countDrops.length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(allocDrops.length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(freedDrops.length).assertEqual(EXPECTED_DROPS_NONE);
+      expect(allocated.length).assertEqual(SAMPLE_150);
+      expect(freed.length).assertEqual(SAMPLE_150);
     });
 
     /**
@@ -1305,12 +1543,13 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const series: GcSnapshot[] = await sampleWithTouches(SAMPLE_90, 0);
-      const allocDeltas: number[] = deltas(allocatedSeries(series));
-      const negative: number[] = allocDeltas.filter((value: number) => value < 0);
+      const allocated: number[] = allocatedSeries(series, sampleLimits(series, TOUCH_ALLOCATION_LIMIT_BYTES));
+      const allocDeltas: number[] = deltas(allocated);
       logCase('testStatSample0048', `samples=${series.length} deltas=${allocDeltas.length} ` +
-        `negative=${negative.length} totalDelta=${total(allocDeltas)}`);
+        `totalDelta=${total(allocDeltas)}`);
       expect(series.length).assertEqual(SAMPLE_90);
-      expect(negative.length).assertEqual(EXPECTED_DROPS_NONE);
+      expect(allocated.length).assertEqual(SAMPLE_90);
+      expect(allocDeltas.length).assertEqual(SAMPLE_90 - 1);
       expect(total(allocDeltas) > 0).assertTrue();
     });
 
@@ -1329,14 +1568,17 @@ export default function gcStatSamplingTest() {
         await sleepMs(CADENCE_5);
         series.push(new GcSnapshot());
       }
+      const limits: number[] = sampleLimits(series, PRESSURE_ALLOCATION_LIMIT_BYTES);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const freed: number[] = freedSeries(series, limits);
       const drops: number[] = valueDrops(counts(series));
-      const allocGrowth: number = series[SAMPLE_6 - 1].allocated - series[0].allocated;
+      const allocGrowth: number = spanOf(allocated);
       logCase('testStatSample0049', `samples=${series.length} drops=${drops.join(',')} ` +
         `allocGrowth=${allocGrowth}`);
       expect(series.length).assertEqual(SAMPLE_6);
       expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(allocGrowth > 0).assertTrue();
-      expect(series[SAMPLE_6 - 1].freed <= series[SAMPLE_6 - 1].allocated).assertTrue();
+      expect(allocated.length === SAMPLE_6 && allocGrowth > 0).assertTrue();
+      expect(spanOf(freed) <= series[0].objectKb * KB + allocGrowth + KB).assertTrue();
     });
 
     /**
@@ -1356,14 +1598,17 @@ export default function gcStatSamplingTest() {
         await sleepMs(CADENCE_10);
         series.push(new GcSnapshot());
       }
-      const freedDrops: number[] = valueDrops(freedSeries(series));
+      const limits: number[] = sampleLimits(series, PRESSURE_ALLOCATION_LIMIT_BYTES);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const freed: number[] = freedSeries(series, limits);
       const timeDrops: number[] = valueDrops(times(series));
-      logCase('testStatSample0050', `samples=${series.length} freedDrops=${freedDrops.length} ` +
+      logCase('testStatSample0050', `samples=${series.length} freed=${freed.length} ` +
         `timeDrops=${timeDrops.length}`);
       expect(series.length).assertEqual(SAMPLE_8);
-      expect(freedDrops.length).assertEqual(EXPECTED_DROPS_NONE);
+      expect(allocated.length).assertEqual(SAMPLE_8);
+      expect(freed.length).assertEqual(SAMPLE_8);
       expect(timeDrops.length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(series[SAMPLE_8 - 1].freed <= series[SAMPLE_8 - 1].allocated).assertTrue();
+      expect(spanOf(freed) <= series[0].objectKb * KB + spanOf(allocated) + KB).assertTrue();
     });
 
     /**
@@ -1383,7 +1628,6 @@ export default function gcStatSamplingTest() {
         `min=${minOf(countSeries)} max=${maxOf(countSeries)}`);
       expect(countSeries.length).assertEqual(SAMPLE_200);
       expect(valueDrops(countSeries).length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(stepTotal >= 0).assertTrue();
       expect(allIntegers(countSeries)).assertTrue();
     });
 
@@ -1417,33 +1661,35 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const series: GcSnapshot[] = sampleQuiet(SAMPLE_200);
-      const allocated: number[] = allocatedSeries(series);
-      logCase('testStatSample0053', `samples=${allocated.length} drops=${valueDrops(allocated).length} ` +
+      const allocated: number[] = allocatedSeries(series, sampleLimits(series, 0));
+      const allocatedSpan: number = spanOf(allocated);
+      logCase('testStatSample0053', `samples=${allocated.length} span=${allocatedSpan} ` +
         `stepTotal=${total(deltas(allocated))}`);
       expect(allocated.length).assertEqual(SAMPLE_200);
-      expect(valueDrops(allocated).length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(minOf(allocated) > 0).assertTrue();
+      expect(allocatedSpan <= (SAMPLE_200 - 1) * STAT_READ_ALLOCATION_LIMIT_BYTES).assertTrue();
+      expect(byteDomain(allocated[0])).assertTrue();
       expect(maxOf(allocated) < LARGE_BOUND).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_5400
      * @tc.name      testStatSample0054
-     * @tc.desc      Look only at the freed bytes across two hundred samples and check the series is monotonic and
-     *               stays under the final allocated total
+     * @tc.desc      Look only at freed bytes across two hundred samples and check the unfolded span stays within its
+     *               physical ceiling
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testStatSample0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const series: GcSnapshot[] = sampleQuiet(SAMPLE_200);
-      const freed: number[] = freedSeries(series);
-      const lastAllocated: number = series[SAMPLE_200 - 1].allocated;
-      logCase('testStatSample0054', `samples=${freed.length} drops=${valueDrops(freed).length} ` +
-        `lastFreed=${freed[SAMPLE_200 - 1]} lastAllocated=${lastAllocated}`);
+      const limits: number[] = sampleLimits(series, 0);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const freed: number[] = freedSeries(series, limits);
+      logCase('testStatSample0054', `samples=${freed.length} allocDelta=${spanOf(allocated)} ` +
+        `freedDelta=${spanOf(freed)}`);
+      expect(allocated.length).assertEqual(SAMPLE_200);
       expect(freed.length).assertEqual(SAMPLE_200);
-      expect(valueDrops(freed).length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(freed[SAMPLE_200 - 1] <= lastAllocated).assertTrue();
+      expect(spanOf(freed) <= series[0].objectKb * KB + spanOf(allocated) + KB).assertTrue();
     });
 
     /**
@@ -1486,8 +1732,8 @@ export default function gcStatSamplingTest() {
         series.push(new GcSnapshot());
       }
       const intact: boolean = kept.every((row: number[], index: number) =>
-        row.length === RETAIN_SMALL_LENGTH && row[0] === index);
-      const drops: number[] = snapshotDrops(series);
+        row.length === RETAIN_SMALL_LENGTH && row[0] === index && row[RETAIN_SMALL_LENGTH - 1] === index);
+      const drops: number[] = snapshotDrops(series, sampleLimits(series, 0));
       logCase('testStatSample0056', `kept=${kept.length} intact=${intact} samples=${series.length} ` +
         `drops=${drops.length}`);
       expect(kept.length).assertEqual(RETAIN_BLOCKS);
@@ -1506,10 +1752,13 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await samplePaced(SAMPLE_50, CADENCE_5);
-      const drops: number[] = snapshotDrops(series);
+      const limits: number[] = sampleLimits(series, 0);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const drops: number[] = snapshotDrops(series, limits);
       logCase('testStatSample0057', `samples=${series.length} cadenceMs=${CADENCE_5} drops=${drops.length} ` +
-        `allocDelta=${series[SAMPLE_50 - 1].allocated - series[0].allocated}`);
+        `allocDelta=${spanOf(allocated)}`);
       expect(series.length).assertEqual(SAMPLE_50);
+      expect(allocated.length).assertEqual(SAMPLE_50);
       expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
       expect(series[SAMPLE_50 - 1].count >= series[0].count).assertTrue();
     });
@@ -1517,21 +1766,23 @@ export default function gcStatSamplingTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_5800
      * @tc.name      testStatSample0058
-     * @tc.desc      Take sixty samples on a ten millisecond cadence and check the freed bytes stay bounded by the
-     *               allocated bytes throughout
+     * @tc.desc      Take sixty samples on a ten millisecond cadence and check unfolded freed bytes stay within the
+     *               start-object plus trusted-allocation ceiling
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testStatSample0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const series: GcSnapshot[] = await samplePaced(SAMPLE_60, CADENCE_10);
-      const bounded: boolean = series.every((snap: GcSnapshot) => snap.freed <= snap.allocated);
-      const drops: number[] = snapshotDrops(series);
-      logCase('testStatSample0058', `samples=${series.length} cadenceMs=${CADENCE_10} bounded=${bounded} ` +
-        `drops=${drops.length}`);
+      const limits: number[] = sampleLimits(series, 0);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const freed: number[] = freedSeries(series, limits);
+      logCase('testStatSample0058', `samples=${series.length} cadenceMs=${CADENCE_10} ` +
+        `freedDelta=${spanOf(freed)}`);
       expect(series.length).assertEqual(SAMPLE_60);
-      expect(bounded).assertTrue();
-      expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
+      expect(allocated.length).assertEqual(SAMPLE_60);
+      expect(freed.length).assertEqual(SAMPLE_60);
+      expect(spanOf(freed) <= series[0].objectKb * KB + spanOf(allocated) + KB).assertTrue();
     });
 
     /**
@@ -1547,7 +1798,7 @@ export default function gcStatSamplingTest() {
       const series: GcSnapshot[] = sampleQuiet(SAMPLE_200);
       const fiveField: boolean = series.every((snap: GcSnapshot) => snap.values().length === EXPECTED_KEY_COUNT);
       const finite: boolean = series.every((snap: GcSnapshot) => allFiniteNonNegative(snap.values()));
-      const ordered: boolean = snapshotDrops(series).length === EXPECTED_DROPS_NONE;
+      const ordered: boolean = snapshotDrops(series, sampleLimits(series, 0)).length === EXPECTED_DROPS_NONE;
       logCase('testStatSample0059', `samples=${series.length} fiveField=${fiveField} finite=${finite} ` +
         `ordered=${ordered}`);
       expect(series.length).assertEqual(SAMPLE_200);
@@ -1567,35 +1818,43 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const series: GcSnapshot[] = sampleQuiet(SAMPLE_200);
+      const limits: number[] = sampleLimits(series, 0);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const freed: number[] = freedSeries(series, limits);
       const countDeltas: number[] = deltas(counts(series));
-      const allocDeltas: number[] = deltas(allocatedSeries(series));
-      const freedDeltas: number[] = deltas(freedSeries(series));
       const longDeltas: number[] = deltas(longFullSeries(series));
-      const negative: number = countDeltas.concat(allocDeltas).concat(freedDeltas).concat(longDeltas)
+      const nonByteNegative: number = countDeltas.concat(longDeltas)
         .filter((value: number) => value < 0).length;
       logCase('testStatSample0060', `samples=${series.length} deltasPerField=${countDeltas.length} ` +
-        `negative=${negative}`);
+        `nonByteNegative=${nonByteNegative}`);
       expect(countDeltas.length).assertEqual(SAMPLE_200 - 1);
-      expect(negative).assertEqual(EXPECTED_DROPS_NONE);
-      expect(total(countDeltas) >= 0).assertTrue();
-      expect(total(allocDeltas) >= 0).assertTrue();
+      expect(nonByteNegative).assertEqual(EXPECTED_DROPS_NONE);
+      expect(allocated.length).assertEqual(SAMPLE_200);
+      expect(freed.length).assertEqual(SAMPLE_200);
+      expect(spanOf(allocated) <= (SAMPLE_200 - 1) * STAT_READ_ALLOCATION_LIMIT_BYTES).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_6100
      * @tc.name      testStatSample0061
-     * @tc.desc      Take twenty quiet samples and check freed bytes stay at or below allocated bytes in every one of
-     *               them
+     * @tc.desc      Take twenty quiet samples and check every freed-byte window stays within its physical ceiling
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL0
      */
     it('testStatSample0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       const series: GcSnapshot[] = sampleQuiet(SAMPLE_20);
-      const violations: number[] = series
-        .filter((snap: GcSnapshot) => snap.freed > snap.allocated)
-        .map((snap: GcSnapshot) => snap.freed);
-      const ratios: number[] = series.map((snap: GcSnapshot) => percentOf(snap.freed, snap.allocated));
+      const violations: number[] = [];
+      const ratios: number[] = [];
+      for (let i = 1; i < series.length; i++) {
+        const allocDelta: number = byteCounterDelta(series[i].allocated, series[i - 1].allocated);
+        const freedDelta: number = byteCounterDelta(series[i].freed, series[i - 1].freed);
+        const cap: number = series[i - 1].objectKb * KB + allocDelta + KB;
+        if (!series[i].bytesInWindow(series[i - 1], STAT_READ_ALLOCATION_LIMIT_BYTES) || freedDelta > cap) {
+          violations.push(i);
+        }
+        ratios.push(percentOf(freedDelta, cap));
+      }
       logCase('testStatSample0061', `samples=${series.length} violations=${violations.length} ` +
         `minRatio=${minOf(ratios)} maxRatio=${maxOf(ratios)}`);
       expect(series.length).assertEqual(SAMPLE_20);
@@ -1606,29 +1865,31 @@ export default function gcStatSamplingTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_6200
      * @tc.name      testStatSample0062
-     * @tc.desc      Apply two pressure bursts and check the freed bytes still stay below the allocated bytes
+     * @tc.desc      Apply two pressure bursts and check allocation growth plus the physical freed-byte ceiling
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testStatSample0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const before: GcSnapshot = new GcSnapshot();
       allocatePressure();
       allocatePressure();
-      const snap: GcSnapshot = new GcSnapshot();
-      const held: number = snap.allocated - snap.freed;
-      logCase('testStatSample0062', `allocated=${snap.allocated} freed=${snap.freed} held=${held} ` +
-        `freedShare=${percentOf(snap.freed, snap.allocated)}`);
-      expect(snap.freed <= snap.allocated).assertTrue();
-      expect(held > 0).assertTrue();
-      expect(snap.allocated > PRESSURE_MIN_BYTES).assertTrue();
-      expect(percentOf(snap.freed, snap.allocated) <= PERCENT_FULL).assertTrue();
+      const after: GcSnapshot = new GcSnapshot();
+      const allocDelta: number = byteCounterDelta(after.allocated, before.allocated);
+      const freedDelta: number = byteCounterDelta(after.freed, before.freed);
+      const cap: number = before.objectKb * KB + allocDelta + KB;
+      const budget: number = 2 * PRESSURE_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES;
+      logCase('testStatSample0062', `allocDelta=${allocDelta} freedDelta=${freedDelta} cap=${cap}`);
+      expect(after.bytesInWindow(before, budget)).assertTrue();
+      expect(allocDelta >= PRESSURE_MIN_BYTES * 2).assertTrue();
+      expect(freedDelta <= cap).assertTrue();
+      expect(percentOf(freedDelta, cap) <= PERCENT_FULL).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_6300
      * @tc.name      testStatSample0063
-     * @tc.desc      Keep a retained block alive and check the freed bytes stay below the allocated bytes while the
-     *               block is still reachable
+     * @tc.desc      Keep a retained block alive and check its contents, current object bytes and byte domains
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -1636,32 +1897,33 @@ export default function gcStatSamplingTest() {
     it('testStatSample0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
       const kept: number[][] = retainArrays(RETAIN_SMALL_COUNT, RETAIN_SMALL_LENGTH);
       const snap: GcSnapshot = new GcSnapshot();
-      const intact: boolean = kept.every((row: number[], index: number) => row[RETAIN_SMALL_LENGTH - 1] === index);
-      logCase('testStatSample0063', `kept=${kept.length} intact=${intact} allocated=${snap.allocated} ` +
-        `freed=${snap.freed}`);
+      const intact: boolean = retainedIntact([kept], 1);
+      logCase('testStatSample0063', `kept=${kept.length} intact=${intact} objectBytes=${snap.objectKb * KB}`);
       expect(intact).assertTrue();
-      expect(snap.freed <= snap.allocated).assertTrue();
-      expect(snap.allocated - snap.freed >= RETAIN_HALF_BYTES).assertTrue();
+      expect(snap.objectKb * KB >= RETAIN_HALF_BYTES).assertTrue();
+      expect(byteDomain(snap.allocated) && byteDomain(snap.freed)).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_6400
      * @tc.name      testStatSample0064
-     * @tc.desc      Check the held byte total derived from the two byte counters is positive and below the allocated
-     *               total at rest
+     * @tc.desc      Compare two resting snapshots and check the freed-byte delta stays within its physical ceiling
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testStatSample0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
-      const snap: GcSnapshot = new GcSnapshot();
-      const held: number = snap.allocated - snap.freed;
-      const share: number = percentOf(held, snap.allocated);
-      logCase('testStatSample0064', `held=${held} allocated=${snap.allocated} share=${share}`);
-      expect(held > 0).assertTrue();
-      expect(held <= snap.allocated).assertTrue();
+      const before: GcSnapshot = new GcSnapshot();
+      const after: GcSnapshot = new GcSnapshot();
+      const allocDelta: number = byteCounterDelta(after.allocated, before.allocated);
+      const freedDelta: number = byteCounterDelta(after.freed, before.freed);
+      const cap: number = before.objectKb * KB + allocDelta + KB;
+      const share: number = percentOf(freedDelta, cap);
+      logCase('testStatSample0064', `allocDelta=${allocDelta} freedDelta=${freedDelta} share=${share}`);
+      expect(after.bytesInWindow(before, STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
+      expect(freedDelta <= cap).assertTrue();
       expect(share >= 0 && share <= PERCENT_FULL).assertTrue();
-      expect(Number.isInteger(held)).assertTrue();
+      expect(byteDomain(after.allocated) && byteDomain(after.freed)).assertTrue();
     });
 
     /**
@@ -1677,35 +1939,35 @@ export default function gcStatSamplingTest() {
       const before: GcSnapshot = new GcSnapshot();
       const kept: number[][] = retainArrays(RETAIN_SMALL_COUNT, RETAIN_SMALL_LENGTH);
       const after: GcSnapshot = new GcSnapshot();
-      const allocDelta: number = after.allocated - before.allocated;
+      const allocDelta: number = byteCounterDelta(after.allocated, before.allocated);
+      const budget: number = RETAIN_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES;
       logCase('testStatSample0065', `kept=${kept.length} allocDelta=${allocDelta} ` +
         `retainedBytes=${RETAIN_SMALL_BYTES}`);
-      expect(kept.length).assertEqual(RETAIN_SMALL_COUNT);
+      expect(retainedIntact([kept], 1)).assertTrue();
+      expect(after.bytesInWindow(before, budget)).assertTrue();
       expect(allocDelta >= RETAIN_HALF_BYTES).assertTrue();
-      expect(after.allocated >= before.allocated).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_6600
      * @tc.name      testStatSample0066
-     * @tc.desc      Force collection cycles after dropping garbage and check the freed byte counter advanced without
-     *               passing the allocated counter
+     * @tc.desc      Force collection cycles, observe the original weak targets clear and check trusted freed growth
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testStatSample0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const probes: WeakRef<RingNode>[] = [];
       const before: GcSnapshot = new GcSnapshot();
-      await runGcCycles(1, GC_ROUNDS_BUDGET);
+      const cycles: number = await runObservedCycles(probes);
       const after: GcSnapshot = new GcSnapshot();
-      const freedDelta: number = after.freed - before.freed;
-      const allocDelta: number = after.allocated - before.allocated;
-      logCase('testStatSample0066', `freedDelta=${freedDelta} allocDelta=${allocDelta} ` +
-        `freed=${before.freed}->${after.freed}`);
-      expect(freedDelta >= 0).assertTrue();
-      expect(allocDelta >= 0).assertTrue();
-      expect(before.freed <= before.allocated).assertTrue();
-      expect(after.freed <= after.allocated).assertTrue();
+      const freedDelta: number = byteCounterDelta(after.freed, before.freed);
+      const allocDelta: number = byteCounterDelta(after.allocated, before.allocated);
+      logCase('testStatSample0066', `cycles=${cycles} freedDelta=${freedDelta} allocDelta=${allocDelta}`);
+      expect(cycles >= 1).assertTrue();
+      expect(probes.length > 0 && allCleared(probes)).assertTrue();
+      expect(after.bytesInWindow(before, COLLECT_ALLOCATION_LIMIT_BYTES)).assertTrue();
+      expect(freedDelta > 0).assertTrue();
     });
 
     /**
@@ -1763,13 +2025,15 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await runSteps(PRESSURE_STEPS[3]);
-      const allocDelta: number = series[1].allocated - series[0].allocated;
-      const share: number = percentOf(allocDelta, series[1].allocated);
+      const limits: number[] = stepLimits(PRESSURE_STEPS[3]);
+      const allocDelta: number = byteCounterDelta(series[1].allocated, series[0].allocated);
+      const freedDelta: number = byteCounterDelta(series[1].freed, series[0].freed);
+      const share: number = percentOf(allocDelta, limits[0]);
       logCase('testStatSample0069', `allocDelta=${allocDelta} bound=${PRESSURE_MIN_BYTES} ` +
-        `shareOfTotal=${share}`);
-      expect(allocDelta >= PRESSURE_MIN_BYTES * 2).assertTrue();
-      expect(share > 0).assertTrue();
-      expect(series[1].freed <= series[1].allocated).assertTrue();
+        `shareOfBudget=${share}`);
+      expect(series[1].bytesInWindow(series[0], limits[0])).assertTrue();
+      expect(allocDelta >= PRESSURE_MIN_BYTES * 2 && allocDelta <= limits[0]).assertTrue();
+      expect(freedDelta <= series[0].objectKb * KB + allocDelta + KB).assertTrue();
     });
 
     /**
@@ -1783,21 +2047,22 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const series: GcSnapshot[] = await runSteps(MIXED_STEPS[0]);
-      const last: GcSnapshot = series[series.length - 1];
-      const freedDelta: number = last.freed - series[0].freed;
-      const allocDelta: number = last.allocated - series[0].allocated;
-      logCase('testStatSample0070', `freedDelta=${freedDelta} allocDelta=${allocDelta} ` +
-        `held=${last.allocated - last.freed}`);
-      expect(last.freed <= last.allocated).assertTrue();
-      expect(freedDelta >= 0).assertTrue();
-      expect(last.allocated - last.freed > 0).assertTrue();
+      const limits: number[] = stepLimits(MIXED_STEPS[0]);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const freed: number[] = freedSeries(series, limits);
+      const allocDelta: number = spanOf(allocated);
+      const freedDelta: number = spanOf(freed);
+      logCase('testStatSample0070', `freedDelta=${freedDelta} allocDelta=${allocDelta}`);
+      expect(allocated.length).assertEqual(series.length);
+      expect(freed.length).assertEqual(series.length);
+      expect(freedDelta <= series[0].objectKb * KB + allocDelta + KB).assertTrue();
+      expect(snapshotDrops(series, limits).length).assertEqual(EXPECTED_DROPS_NONE);
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_7100
      * @tc.name      testStatSample0071
-     * @tc.desc      Retain a block, keep it reachable through two samples and check the held byte total covers half of
-     *               the block
+     * @tc.desc      Retain a block and check trusted allocation growth, intact rows and current object bytes
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1807,35 +2072,34 @@ export default function gcStatSamplingTest() {
       const kept: number[][] = retainArrays(RETAIN_SMALL_COUNT, RETAIN_SMALL_LENGTH);
       hintGC();
       const after: GcSnapshot = new GcSnapshot();
-      const heldBefore: number = before.allocated - before.freed;
-      const heldAfter: number = after.allocated - after.freed;
-      logCase('testStatSample0071', `kept=${kept.length} heldBefore=${heldBefore} heldAfter=${heldAfter} ` +
-        `retainedHalf=${RETAIN_HALF_BYTES}`);
-      expect(heldAfter >= RETAIN_HALF_BYTES).assertTrue();
-      expect(heldAfter >= heldBefore - RETAIN_HALF_BYTES).assertTrue();
-      expect(after.freed <= after.allocated).assertTrue();
-      expect(kept[RETAIN_SMALL_COUNT - 1][0]).assertEqual(RETAIN_SMALL_COUNT - 1);
+      const allocDelta: number = byteCounterDelta(after.allocated, before.allocated);
+      const budget: number = RETAIN_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES;
+      logCase('testStatSample0071', `kept=${kept.length} allocDelta=${allocDelta} ` +
+        `objectBytes=${after.objectKb * KB}`);
+      expect(after.bytesInWindow(before, budget) && allocDelta >= RETAIN_HALF_BYTES).assertTrue();
+      expect(retainedIntact([kept], 1)).assertTrue();
+      expect(after.objectKb * KB >= RETAIN_HALF_BYTES).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_7200
      * @tc.name      testStatSample0072
-     * @tc.desc      Read both byte counters after a retention plus a collection and check they still leave room for
-     *               the retained block
+     * @tc.desc      Retain a block through a collection and check cycles, intact rows, object bytes and byte windows
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testStatSample0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const before: GcSnapshot = new GcSnapshot();
       const kept: number[][] = retainArrays(RETAIN_SMALL_COUNT, RETAIN_SMALL_LENGTH);
-      await runGcCycles(1, GC_ROUNDS_BUDGET);
-      const snap: GcSnapshot = new GcSnapshot();
-      const head: number[] = kept[0];
-      logCase('testStatSample0072', `kept=${kept.length} keptFirst=${head.length} allocated=${snap.allocated} ` +
-        `freed=${snap.freed} held=${snap.allocated - snap.freed}`);
-      expect(head.length).assertEqual(RETAIN_SMALL_LENGTH);
-      expect(snap.freed <= snap.allocated).assertTrue();
-      expect(snap.allocated - snap.freed >= RETAIN_HALF_BYTES).assertTrue();
+      const cycles: number = await runGcCycles(1, GC_ROUNDS_BUDGET);
+      const after: GcSnapshot = new GcSnapshot();
+      const budget: number = RETAIN_ALLOCATION_LIMIT_BYTES + COLLECT_ALLOCATION_LIMIT_BYTES;
+      logCase('testStatSample0072', `kept=${kept.length} cycles=${cycles} objectBytes=${after.objectKb * KB}`);
+      expect(cycles >= 1).assertTrue();
+      expect(retainedIntact([kept], 1)).assertTrue();
+      expect(after.objectKb * KB >= RETAIN_SMALL_BYTES).assertTrue();
+      expect(after.bytesInWindow(before, budget)).assertTrue();
     });
 
     /**
@@ -1875,8 +2139,11 @@ export default function gcStatSamplingTest() {
       const after: GcSnapshot = new GcSnapshot();
       logCase('testStatSample0074', `requestedMs=${CADENCE_40} elapsed=${elapsed} ` +
         `count=${before.count}->${after.count}`);
+      const allocDelta: number = byteCounterDelta(after.allocated, before.allocated);
+      const freedDelta: number = byteCounterDelta(after.freed, before.freed);
       expect(elapsed >= CADENCE_40 - CADENCE_SLACK_MS).assertTrue();
-      expect(after.notBefore(before)).assertTrue();
+      expect(after.bytesInWindow(before, STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
+      expect(freedDelta <= before.objectKb * KB + allocDelta + KB).assertTrue();
       expect(elapsed < CADENCE_BUDGET_MS).assertTrue();
     });
 
@@ -1897,8 +2164,8 @@ export default function gcStatSamplingTest() {
       logCase('testStatSample0075', `requestedMs=${CADENCE_60} elapsed=${elapsed} ` +
         `allocated=${before.allocated}->${after.allocated}`);
       expect(elapsed >= CADENCE_60 - CADENCE_SLACK_MS).assertTrue();
-      expect(after.allocated >= before.allocated).assertTrue();
-      expect(after.freed >= before.freed).assertTrue();
+      expect(after.bytesInWindow(before, STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
+      expect(byteDomain(after.allocated) && byteDomain(after.freed)).assertTrue();
     });
 
     /**
@@ -1921,7 +2188,7 @@ export default function gcStatSamplingTest() {
         if (elapsed < waitMs - CADENCE_SLACK_MS) {
           shortfalls.push(row);
         }
-        if (snapshotDrops(series).length !== EXPECTED_DROPS_NONE) {
+        if (snapshotDrops(series, stepLimits(WAIT_STEPS[row])).length !== EXPECTED_DROPS_NONE) {
           shortfalls.push(row + 100);
         }
       }
@@ -1949,7 +2216,7 @@ export default function gcStatSamplingTest() {
       logCase('testStatSample0077', `samples=${series.length} expectedMs=${expectedMs} elapsed=${elapsed}`);
       expect(series.length).assertEqual(SAMPLE_20);
       expect(elapsed >= expectedMs / 2).assertTrue();
-      expect(snapshotDrops(series).length).assertEqual(EXPECTED_DROPS_NONE);
+      expect(snapshotDrops(series, sampleLimits(series, 0)).length).assertEqual(EXPECTED_DROPS_NONE);
       expect(allFiniteNonNegative(series[SAMPLE_20 - 1].values())).assertTrue();
     });
 
@@ -1965,12 +2232,15 @@ export default function gcStatSamplingTest() {
     it('testStatSample0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const series: GcSnapshot[] = await samplePaced(SAMPLE_20, CADENCE_5);
       const countSeries: number[] = counts(series);
-      const last: GcSnapshot = series[SAMPLE_20 - 1];
+      const allocated: number[] = allocatedSeries(series, sampleLimits(series, 0));
+      const allocDelta: number = spanOf(allocated);
       logCase('testStatSample0078', `samples=${series.length} countDrops=${valueDrops(countSeries).length} ` +
-        `count=${countSeries[0]}->${countSeries[SAMPLE_20 - 1]} allocated=${last.allocated}`);
+        `allocDelta=${allocDelta}`);
       expect(countSeries.length).assertEqual(SAMPLE_20);
       expect(valueDrops(countSeries).length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(last.allocated > 0).assertTrue();
+      expect(allocated.length).assertEqual(SAMPLE_20);
+      expect(byteDomain(allocated[0]) && allocDelta >= 0 &&
+        allocDelta <= (SAMPLE_20 - 1) * STAT_READ_ALLOCATION_LIMIT_BYTES).assertTrue();
     });
 
     /**
@@ -2006,10 +2276,12 @@ export default function gcStatSamplingTest() {
       const after: GcSnapshot = new GcSnapshot();
       const elapsedGap: number = after.time - before.time;
       logCase('testStatSample0080', `gapMs=${CADENCE_100} timeDelta=${elapsedGap} ` +
-        `allocDelta=${after.allocated - before.allocated}`);
-      expect(after.notBefore(before)).assertTrue();
+        `allocDelta=${byteCounterDelta(after.allocated, before.allocated)}`);
+      const allocDelta: number = byteCounterDelta(after.allocated, before.allocated);
+      const freedDelta: number = byteCounterDelta(after.freed, before.freed);
+      expect(after.bytesInWindow(before, STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
       expect(elapsedGap >= 0).assertTrue();
-      expect(after.freed <= after.allocated).assertTrue();
+      expect(freedDelta <= before.objectKb * KB + allocDelta + KB).assertTrue();
     });
 
     /**
@@ -2028,12 +2300,15 @@ export default function gcStatSamplingTest() {
         await sleepMs(CADENCE_10);
         series.push(new GcSnapshot());
       }
-      const allocDelta: number = series[SAMPLE_4 - 1].allocated - series[0].allocated;
-      logCase('testStatSample0081', `samples=${series.length} allocDelta=${allocDelta} ` +
-        `drops=${snapshotDrops(series).length}`);
+      const limits: number[] = sampleLimits(series, PRESSURE_ALLOCATION_LIMIT_BYTES);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const freed: number[] = freedSeries(series, limits);
+      const allocDelta: number = spanOf(allocated);
+      logCase('testStatSample0081', `samples=${series.length} allocDelta=${allocDelta} freed=${freed.length}`);
       expect(series.length).assertEqual(SAMPLE_4);
-      expect(allocDelta > 0).assertTrue();
-      expect(snapshotDrops(series).length).assertEqual(EXPECTED_DROPS_NONE);
+      expect(allocated.length === SAMPLE_4 && allocDelta > 0).assertTrue();
+      expect(freed.length).assertEqual(SAMPLE_4);
+      expect(spanOf(freed) <= series[0].objectKb * KB + allocDelta + KB).assertTrue();
     });
 
     /**
@@ -2046,20 +2321,17 @@ export default function gcStatSamplingTest() {
      * @tc.level     LEVEL1
      */
     it('testStatSample0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const anchor: GcSnapshot = new GcSnapshot();
       const first: number[] = keyValues();
       const start: number = Date.now();
       await sleepMs(CADENCE_30);
       const elapsed: number = Date.now() - start;
       const second: number[] = keyValues();
-      const regressions: number[] = second
-        .map((value: number, index: number) => (value < first[index] ? index : -1))
-        .filter((index: number) => index >= 0);
-      logCase('testStatSample0082', `elapsed=${elapsed} regressions=${regressions.join(',')} ` +
-        `pairs=${first.length}`);
+      logCase('testStatSample0082', `elapsed=${elapsed} pairs=${first.length}`);
       expect(elapsed >= CADENCE_30 - CADENCE_SLACK_MS).assertTrue();
-      expect(regressions.length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(allFiniteNonNegative(second)).assertTrue();
-      expect(second.length).assertEqual(EXPECTED_KEY_COUNT);
+      expect(rawNonByteOrdered(first, second)).assertTrue();
+      expect(rawPairInWindow(anchor, first, second, STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
+      expect(allFiniteNonNegative(second) && second.length === EXPECTED_KEY_COUNT).assertTrue();
     });
 
     /**
@@ -2085,41 +2357,46 @@ export default function gcStatSamplingTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_8400
      * @tc.name      testStatSample0084
-     * @tc.desc      Read all five keys right after two pressure bursts and check they stay finite and non negative
+     * @tc.desc      Read all five keys after two pressure bursts and check domains plus trusted byte windows
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testStatSample0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      const anchor: GcSnapshot = new GcSnapshot();
       allocatePressure();
       allocatePressure();
       const values: number[] = keyValues();
-      const nanCount: number = values.filter((value: number) => Number.isNaN(value)).length;
-      logCase('testStatSample0084', `values=${values.join(',')} nan=${nanCount} ` +
-        `allocated=${values[2]} freed=${values[3]}`);
-      expect(nanCount).assertEqual(EXPECTED_DROPS_NONE);
+      const budget: number = 2 * PRESSURE_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES;
+      const allocDelta: number = byteCounterDelta(values[2], anchor.allocated);
+      const freedDelta: number = byteCounterDelta(values[3], anchor.freed);
+      const freedTrusted: boolean = byteCounterInWindow(values[3], anchor.freed, freedCap(anchor, values[2])) &&
+        (values[3] >= anchor.freed || values[0] > anchor.countAtStart);
+      logCase('testStatSample0084', `values=${values.join(',')} allocDelta=${allocDelta} freedDelta=${freedDelta}`);
       expect(allFiniteNonNegative(values)).assertTrue();
-      expect(values[2] > values[3]).assertTrue();
+      expect(byteCounterInWindow(values[2], anchor.allocated, budget) &&
+        allocDelta >= PRESSURE_MIN_BYTES * 2).assertTrue();
+      expect(freedTrusted && freedDelta <= freedCap(anchor, values[2])).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_8500
      * @tc.name      testStatSample0085
-     * @tc.desc      Read all five keys after a forced collection cycle and check they stay finite and ordered against
-     *               the resting relation
+     * @tc.desc      Read all five keys after a forced collection and check raw non-byte order plus trusted byte windows
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testStatSample0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const anchor: GcSnapshot = new GcSnapshot();
       const before: number[] = keyValues();
-      await runGcCycles(1, GC_ROUNDS_BUDGET);
+      const cycles: number = await runGcCycles(1, GC_ROUNDS_BUDGET);
       const after: number[] = keyValues();
-      const ordered: boolean = after.every((value: number, index: number) => value >= before[index]);
-      logCase('testStatSample0085', `before=${before.join(',')} after=${after.join(',')} ordered=${ordered}`);
-      expect(ordered).assertTrue();
+      logCase('testStatSample0085', `before=${before.join(',')} after=${after.join(',')} cycles=${cycles}`);
+      expect(cycles >= 1).assertTrue();
+      expect(rawNonByteOrdered(before, after)).assertTrue();
+      expect(rawPairInWindow(anchor, before, after, COLLECT_ALLOCATION_LIMIT_BYTES)).assertTrue();
       expect(allFiniteNonNegative(after)).assertTrue();
-      expect(after[3] <= after[2]).assertTrue();
     });
 
     /**
@@ -2132,17 +2409,19 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       const series: GcSnapshot[] = sampleQuiet(SAMPLE_20);
+      const limits: number[] = sampleLimits(series, 0);
       const bad: number[] = [];
       series.forEach((snap: GcSnapshot, index: number) => {
-        if (!allFiniteNonNegative(snap.values())) {
+        if (!allFiniteNonNegative(snap.values()) || !byteDomain(snap.allocated) || !byteDomain(snap.freed)) {
           bad.push(index);
         }
       });
       logCase('testStatSample0086', `samples=${series.length} bad=${bad.join(',')} ` +
-        `lastAllocated=${series[SAMPLE_20 - 1].allocated}`);
+        `firstAllocated=${series[0].allocated}`);
       expect(bad.length).assertEqual(EXPECTED_DROPS_NONE);
       expect(series.length).assertEqual(SAMPLE_20);
-      expect(series[SAMPLE_20 - 1].allocated > 0).assertTrue();
+      expect(byteDomain(series[0].allocated)).assertTrue();
+      expect(byteFailures(series, limits).length).assertEqual(EXPECTED_DROPS_NONE);
     });
 
     /**
@@ -2207,7 +2486,7 @@ export default function gcStatSamplingTest() {
         `longFull=${snap.longFullGc} time=${snap.time}`);
       expect(integral).assertTrue();
       expect(timeFinite).assertTrue();
-      expect(snap.allocated >= snap.freed).assertTrue();
+      expect(byteDomain(snap.allocated) && byteDomain(snap.freed)).assertTrue();
     });
 
     /**
@@ -2220,12 +2499,14 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await sampleWithTouches(SAMPLE_50, 0);
-      const allocDeltas: number[] = deltas(allocatedSeries(series));
-      const negative: number[] = allocDeltas.filter((value: number) => value < 0);
+      const limits: number[] = sampleLimits(series, TOUCH_ALLOCATION_LIMIT_BYTES);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const allocDeltas: number[] = deltas(allocated);
       const positive: number[] = allocDeltas.filter((value: number) => value > 0);
       logCase('testStatSample0090', `samples=${series.length} deltas=${allocDeltas.length} ` +
-        `negative=${negative.length} positive=${positive.length}`);
-      expect(negative.length).assertEqual(EXPECTED_DROPS_NONE);
+        `trusted=${allocated.length} positive=${positive.length}`);
+      expect(allocated.length).assertEqual(SAMPLE_50);
+      expect(byteFailures(series, limits).length).assertEqual(EXPECTED_DROPS_NONE);
       expect(positive.length > 0).assertTrue();
       expect(allocDeltas.length).assertEqual(SAMPLE_50 - 1);
     });
@@ -2233,21 +2514,20 @@ export default function gcStatSamplingTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_9100
      * @tc.name      testStatSample0091
-     * @tc.desc      Sample fifty times with touches and check every freed byte delta is non negative while the
-     *               allocated bound holds
+     * @tc.desc      Sample fifty times with touches and check unfolded freed bytes stay within the physical ceiling
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testStatSample0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await sampleWithTouches(SAMPLE_50, 0);
-      const freedDeltas: number[] = deltas(freedSeries(series));
-      const negative: number[] = freedDeltas.filter((value: number) => value < 0);
-      logCase('testStatSample0091', `samples=${series.length} freedDeltas=${freedDeltas.length} ` +
-        `negative=${negative.length} total=${total(freedDeltas)}`);
-      expect(negative.length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(freedDeltas.length).assertEqual(SAMPLE_50 - 1);
-      expect(series[SAMPLE_50 - 1].freed <= series[SAMPLE_50 - 1].allocated).assertTrue();
+      const limits: number[] = sampleLimits(series, TOUCH_ALLOCATION_LIMIT_BYTES);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const freed: number[] = freedSeries(series, limits);
+      logCase('testStatSample0091', `samples=${series.length} freed=${freed.length} total=${spanOf(freed)}`);
+      expect(allocated.length).assertEqual(SAMPLE_50);
+      expect(freed.length).assertEqual(SAMPLE_50);
+      expect(spanOf(freed) <= series[0].objectKb * KB + spanOf(allocated) + KB).assertTrue();
     });
 
     /**
@@ -2283,23 +2563,23 @@ export default function gcStatSamplingTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_9300
      * @tc.name      testStatSample0093
-     * @tc.desc      Read five snapshots back to back with no allocation and check each field delta stays inside the
-     *               quiet budget
+     * @tc.desc      Read five quiet snapshots and check allocation windows, the freed ceiling and raw count order
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testStatSample0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       const series: GcSnapshot[] = sampleQuiet(5);
-      const allocDelta: number = series[4].allocated - series[0].allocated;
-      const freedDelta: number = series[4].freed - series[0].freed;
+      const allocDelta: number = byteCounterDelta(series[4].allocated, series[0].allocated);
+      const freedDelta: number = byteCounterDelta(series[4].freed, series[0].freed);
       const countDelta: number = series[4].count - series[0].count;
+      const cap: number = series[0].objectKb * KB + allocDelta + KB;
       logCase('testStatSample0093', `samples=${series.length} allocDelta=${allocDelta} ` +
         `freedDelta=${freedDelta} countDelta=${countDelta}`);
-      expect(allocDelta >= 0 && allocDelta <= QUIET_BUDGET_BYTES).assertTrue();
-      expect(freedDelta >= 0 && freedDelta <= QUIET_BUDGET_BYTES).assertTrue();
+      expect(series[4].bytesInWindow(series[0], QUIET_BUDGET_BYTES)).assertTrue();
+      expect(freedDelta <= cap).assertTrue();
       expect(countDelta >= 0).assertTrue();
-      expect(snapshotDrops(series).length).assertEqual(EXPECTED_DROPS_NONE);
+      expect(snapshotDrops(series, sampleLimits(series, 0)).length).assertEqual(EXPECTED_DROPS_NONE);
     });
 
     /**
@@ -2338,13 +2618,14 @@ export default function gcStatSamplingTest() {
     it('testStatSample0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       const first: GcSnapshot = new GcSnapshot();
       const second: GcSnapshot = new GcSnapshot();
-      const allocDelta: number = second.allocated - first.allocated;
+      const allocDelta: number = byteCounterDelta(second.allocated, first.allocated);
       const pair: GcSnapshot[] = [first, second];
       logCase('testStatSample0095', `allocDelta=${allocDelta} budget=${QUIET_BUDGET_BYTES} ` +
         `countDelta=${second.count - first.count}`);
-      expect(allocDelta >= 0 && allocDelta <= QUIET_BUDGET_BYTES).assertTrue();
-      expect(snapshotDrops(pair).length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(second.freed <= second.allocated).assertTrue();
+      const freedDelta: number = byteCounterDelta(second.freed, first.freed);
+      expect(allocDelta <= QUIET_BUDGET_BYTES).assertTrue();
+      expect(snapshotDrops(pair, [STAT_READ_ALLOCATION_LIMIT_BYTES]).length).assertEqual(EXPECTED_DROPS_NONE);
+      expect(freedDelta <= first.objectKb * KB + allocDelta + KB).assertTrue();
     });
 
     /**
@@ -2363,7 +2644,7 @@ export default function gcStatSamplingTest() {
       const countDelta: number = second.count - first.count;
       logCase('testStatSample0096', `countDelta=${countDelta} cap=${HINT_COUNT_CAP} ` +
         `longFullDelta=${second.longFullGc - first.longFullGc}`);
-      expect(second.notBefore(first)).assertTrue();
+      expect(second.notBefore(first, STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
       expect(countDelta >= 0 && countDelta <= HINT_COUNT_CAP).assertTrue();
       expect(second.longFullGc - first.longFullGc >= 0).assertTrue();
     });
@@ -2378,17 +2659,21 @@ export default function gcStatSamplingTest() {
      * @tc.level     LEVEL1
      */
     it('testStatSample0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const anchor: GcSnapshot = new GcSnapshot();
       const values: number[] = [];
       for (let i = 0; i < SAMPLE_20; i++) {
         values.push(gcStat(KEY_BYTES_FREED));
       }
-      const spread: number = maxOf(values) - minOf(values);
-      logCase('testStatSample0097', `reads=${values.length} spread=${spread} min=${minOf(values)} ` +
-        `max=${maxOf(values)}`);
+      const end: GcSnapshot = new GcSnapshot();
+      const cap: number = freedCap(anchor, end.allocated);
+      const raw: number[] = [anchor.freed].concat(values).concat([end.freed]);
+      const unfolded: number[] = unfoldRawBytes(raw, cap, end.count > anchor.countAtStart);
+      const spread: number = spanOf(unfolded);
+      logCase('testStatSample0097', `reads=${values.length} spread=${spread} cap=${cap}`);
       expect(values.length).assertEqual(SAMPLE_20);
-      expect(valueDrops(values).length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(allFiniteNonNegative(values)).assertTrue();
-      expect(spread < LARGE_BOUND).assertTrue();
+      expect(byteCounterInWindow(end.allocated, anchor.allocated, STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
+      expect(unfolded.length).assertEqual(SAMPLE_20 + 2);
+      expect(spread >= 0 && spread <= cap).assertTrue();
     });
 
     /**
@@ -2401,15 +2686,17 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       const series: GcSnapshot[] = sampleQuiet(SAMPLE_4 - 1);
-      const allocDeltas: number[] = deltas(allocatedSeries(series));
-      const freedDeltas: number[] = deltas(freedSeries(series));
+      const limits: number[] = [QUIET_BUDGET_BYTES, QUIET_BUDGET_BYTES];
+      const allocated: number[] = allocatedSeries(series, limits);
+      const freed: number[] = freedSeries(series, limits);
+      const allocDeltas: number[] = deltas(allocated);
       const countDeltas: number[] = deltas(counts(series));
-      const bad: number[] = allocDeltas.concat(freedDeltas).filter((value: number) =>
-        value < 0 || value > QUIET_BUDGET_BYTES);
+      const freedCapBytes: number = series[0].objectKb * KB + spanOf(allocated) + KB;
       logCase('testStatSample0098', `allocDeltas=${allocDeltas.join(',')} ` +
-        `freedDeltas=${freedDeltas.join(',')} countDeltas=${countDeltas.join(',')}`);
-      expect(bad.length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(allocDeltas.length).assertEqual(series.length - 1);
+        `freedDelta=${spanOf(freed)} freedCap=${freedCapBytes} countDeltas=${countDeltas.join(',')}`);
+      expect(allocated.length).assertEqual(series.length);
+      expect(freed.length).assertEqual(series.length);
+      expect(spanOf(freed) <= freedCapBytes).assertTrue();
       expect(countDeltas.every((value: number) => value >= 0)).assertTrue();
     });
 
@@ -2423,15 +2710,14 @@ export default function gcStatSamplingTest() {
      * @tc.level     LEVEL2
      */
     it('testStatSample0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const anchor: GcSnapshot = new GcSnapshot();
       const first: number[] = keyValues();
       await sleepMs(CADENCE_30);
       const second: number[] = keyValues();
-      const byteDeltas: number[] = [second[2] - first[2], second[3] - first[3]];
-      const bounded: boolean = byteDeltas.every((value: number) => value >= 0 && value <= QUIET_BUDGET_BYTES);
-      logCase('testStatSample0099', `first=${first.join(',')} second=${second.join(',')} ` +
-        `byteDeltas=${byteDeltas.join(',')}`);
-      expect(bounded).assertTrue();
-      expect(second.every((value: number, index: number) => value >= first[index])).assertTrue();
+      logCase('testStatSample0099', `first=${first.join(',')} second=${second.join(',')}`);
+      expect(rawPairInWindow(anchor, first, second, QUIET_BUDGET_BYTES)).assertTrue();
+      expect(rawNonByteOrdered(first, second)).assertTrue();
+      expect(allFiniteNonNegative(second)).assertTrue();
       expect(second.length).assertEqual(EXPECTED_KEY_COUNT);
     });
 
@@ -2445,13 +2731,14 @@ export default function gcStatSamplingTest() {
      * @tc.level     LEVEL2
      */
     it('testStatSample0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
-      touchSmall(99);
+      const touched: number = touchSmall(99);
       const series: GcSnapshot[] = sampleQuiet(5);
-      const allocDelta: number = series[4].allocated - series[0].allocated;
-      const drops: number[] = snapshotDrops(series);
+      const allocDelta: number = byteCounterDelta(series[4].allocated, series[0].allocated);
+      const drops: number[] = snapshotDrops(series, sampleLimits(series, 0));
       logCase('testStatSample0100', `samples=${series.length} allocDelta=${allocDelta} ` +
         `drops=${drops.length} countDelta=${series[4].count - series[0].count}`);
-      expect(allocDelta >= 0).assertTrue();
+      expect(touched).assertEqual(touchResult(99));
+      expect(byteCounterInWindow(series[4].allocated, series[0].allocated, QUIET_BUDGET_BYTES)).assertTrue();
       expect(allocDelta <= QUIET_BUDGET_BYTES).assertTrue();
       expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
     });
@@ -2466,13 +2753,14 @@ export default function gcStatSamplingTest() {
      */
     it('testStatSample0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       const series: GcSnapshot[] = await runSteps(QUIET_STEPS[0]);
+      const limits: number[] = stepLimits(QUIET_STEPS[0]);
       const last: GcSnapshot = series[series.length - 1];
-      const allocDelta: number = last.allocated - series[0].allocated;
+      const allocDelta: number = byteCounterDelta(last.allocated, series[0].allocated);
       logCase('testStatSample0101', `steps=${QUIET_STEPS[0].length} samples=${series.length} ` +
         `allocDelta=${allocDelta}`);
       expect(series.length).assertEqual(QUIET_STEPS[0].length + 1);
-      expect(allocDelta >= 0).assertTrue();
-      expect(last.notBefore(series[0])).assertTrue();
+      expect(last.notBefore(series[0], total(limits))).assertTrue();
+      expect(byteDomain(last.allocated) && byteDomain(last.freed)).assertTrue();
     });
 
     /**
@@ -2488,11 +2776,13 @@ export default function gcStatSamplingTest() {
       const before: GcSnapshot = new GcSnapshot();
       await sleepMs(CADENCE_20);
       const after: GcSnapshot = new GcSnapshot();
-      const allocDelta: number = after.allocated - before.allocated;
+      const allocDelta: number = byteCounterDelta(after.allocated, before.allocated);
       const timeDelta: number = after.time - before.time;
       logCase('testStatSample0102', `allocDelta=${allocDelta} timeDelta=${timeDelta} ` +
-        `freedDelta=${after.freed - before.freed}`);
-      expect(allocDelta >= 0 && allocDelta <= QUIET_BUDGET_BYTES).assertTrue();
+        `freedDelta=${byteCounterDelta(after.freed, before.freed)}`);
+      const freedDelta: number = byteCounterDelta(after.freed, before.freed);
+      expect(after.bytesInWindow(before, QUIET_BUDGET_BYTES) && allocDelta <= QUIET_BUDGET_BYTES).assertTrue();
+      expect(freedDelta <= before.objectKb * KB + allocDelta + KB).assertTrue();
       expect(timeDelta >= 0).assertTrue();
       expect(after.longFullGc <= after.count).assertTrue();
     });
@@ -2525,34 +2815,40 @@ export default function gcStatSamplingTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_10400
      * @tc.name      testStatSample0104
-     * @tc.desc      Read the allocated and freed keys ten times as a pair and check freed never overtakes allocated
+     * @tc.desc      Read allocated and freed keys ten times and unfold both through independently bounded windows
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testStatSample0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const anchor: GcSnapshot = new GcSnapshot();
       const allocatedSeen: number[] = [];
       const freedSeen: number[] = [];
       for (let i = 0; i < 10; i++) {
         allocatedSeen.push(gcStat(KEY_BYTES_ALLOCATED));
         freedSeen.push(gcStat(KEY_BYTES_FREED));
       }
-      const violations: number[] = allocatedSeen
-        .map((value: number, index: number) => (freedSeen[index] > value ? index : -1))
-        .filter((index: number) => index >= 0);
-      logCase('testStatSample0104', `reads=${allocatedSeen.length} violations=${violations.join(',')} ` +
-        `lastAllocated=${allocatedSeen[9]} lastFreed=${freedSeen[9]}`);
-      expect(violations.length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(valueDrops(allocatedSeen).length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(valueDrops(freedSeen).length).assertEqual(EXPECTED_DROPS_NONE);
-      expect(allocatedSeen[9] > 0).assertTrue();
+      const end: GcSnapshot = new GcSnapshot();
+      const rawAllocated: number[] = [anchor.allocated].concat(allocatedSeen).concat([end.allocated]);
+      const rawFreed: number[] = [anchor.freed].concat(freedSeen).concat([end.freed]);
+      const allocated: number[] = unfoldRawBytes(rawAllocated, STAT_READ_ALLOCATION_LIMIT_BYTES, true);
+      const allocTrusted: boolean = byteCounterInWindow(end.allocated, anchor.allocated,
+        STAT_READ_ALLOCATION_LIMIT_BYTES);
+      const cap: number = allocTrusted ? freedCap(anchor, end.allocated) : 0;
+      const freed: number[] = unfoldRawBytes(rawFreed, cap, end.count > anchor.countAtStart);
+      logCase('testStatSample0104', `reads=${allocatedSeen.length} allocDelta=${spanOf(allocated)} ` +
+        `freedDelta=${spanOf(freed)}`);
+      expect(allocatedSeen.length).assertEqual(10);
+      expect(allocTrusted && allocated.length === 12).assertTrue();
+      expect(freed.length).assertEqual(12);
+      expect(byteDomain(allocatedSeen[0]) && byteDomain(freedSeen[0])).assertTrue();
+      expect(spanOf(freed) <= cap).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATSAMPLE_10500
      * @tc.name      testStatSample0105
-     * @tc.desc      Combine one hundred quiet samples into a final audit and check sample count, ordering, finiteness
-     *               and the held byte total
+     * @tc.desc      Combine one hundred quiet samples and audit count, trusted byte windows, finiteness and freed cap
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -2560,15 +2856,18 @@ export default function gcStatSamplingTest() {
     it('testStatSample0105', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       const series: GcSnapshot[] = sampleQuiet(SAMPLE_100);
       const last: GcSnapshot = series[SAMPLE_100 - 1];
-      const first: GcSnapshot = series[0];
-      const drops: number[] = snapshotDrops(series);
+      const limits: number[] = sampleLimits(series, 0);
+      const allocated: number[] = allocatedSeries(series, limits);
+      const freed: number[] = freedSeries(series, limits);
+      const drops: number[] = snapshotDrops(series, limits);
       const finite: boolean = series.every((snap: GcSnapshot) => allFiniteNonNegative(snap.values()));
       logCase('testStatSample0105', `samples=${series.length} drops=${drops.length} finite=${finite} ` +
-        `allocated=${first.allocated}->${last.allocated} held=${last.allocated - last.freed}`);
+        `allocDelta=${spanOf(allocated)} freedDelta=${spanOf(freed)}`);
       expect(series.length).assertEqual(SAMPLE_100);
+      expect(allocated.length === SAMPLE_100 && freed.length === SAMPLE_100).assertTrue();
       expect(drops.length).assertEqual(EXPECTED_DROPS_NONE);
       expect(finite).assertTrue();
-      expect(last.allocated - last.freed > 0).assertTrue();
+      expect(spanOf(freed) <= series[0].objectKb * KB + spanOf(allocated) + KB).assertTrue();
       expect(last.longFullGc <= last.count).assertTrue();
     });
   });

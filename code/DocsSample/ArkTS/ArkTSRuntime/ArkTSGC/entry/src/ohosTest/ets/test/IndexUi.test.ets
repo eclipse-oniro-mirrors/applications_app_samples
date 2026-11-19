@@ -16,6 +16,7 @@
 import { describe, beforeEach, afterAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { Component, Driver, ON, Rect } from '@kit.TestKit';
 import { launchHome, stopHome } from './shared/AppProbe';
+import { uiDriver } from './shared/UiDriver';
 import { paceTurn, sleepMs } from './shared/TestPace';
 import { logCase } from './shared/TestLog';
 
@@ -26,35 +27,27 @@ const WAIT_SHOW_MS: number = 5000;
 const WAIT_ABSENT_MS: number = 1000;
 const CLICK_SETTLE_MS: number = 500;
 
-let sharedDriver: Driver | null = null;
-
-function driver(): Driver {
-  if (sharedDriver === null) {
-    sharedDriver = Driver.create();
-  }
-  return sharedDriver;
-}
 
 async function openHome(): Promise<Component | null> {
   await launchHome();
-  return await driver().waitForComponent(ON.text(BUTTON_TEXT).type('Button'), WAIT_SHOW_MS);
+  return await uiDriver().waitForComponent(ON.text(BUTTON_TEXT).type('Button'), WAIT_SHOW_MS);
 }
 
 async function clickButton(times: number): Promise<void> {
   for (let i = 0; i < times; i++) {
-    const button: Component = await driver().waitForComponent(ON.text(BUTTON_TEXT).type('Button'), WAIT_SHOW_MS);
+    const button: Component = await uiDriver().waitForComponent(ON.text(BUTTON_TEXT).type('Button'), WAIT_SHOW_MS);
     await button.click();
     await sleepMs(CLICK_SETTLE_MS);
   }
 }
 
 async function shown(content: string, timeoutMs: number): Promise<boolean> {
-  const found: Component | null = await driver().waitForComponent(ON.text(content).type('Text'), timeoutMs);
+  const found: Component | null = await uiDriver().waitForComponent(ON.text(content).type('Text'), timeoutMs);
   return found !== null;
 }
 
 async function messageBounds(content: string): Promise<Rect> {
-  const text: Component = await driver().waitForComponent(ON.text(content).type('Text'), WAIT_SHOW_MS);
+  const text: Component = await uiDriver().waitForComponent(ON.text(content).type('Text'), WAIT_SHOW_MS);
   return await text.getBounds();
 }
 
@@ -100,7 +93,7 @@ export default function indexUiTest() {
       await clickButton(1);
       expect(await shown(CLICKED_TEXT, WAIT_SHOW_MS)).assertTrue();
       expect(await shown(INITIAL_TEXT, WAIT_ABSENT_MS)).assertFalse();
-      expect(await driver().waitForComponent(ON.text(BUTTON_TEXT).type('Button'), WAIT_SHOW_MS) !== null).assertTrue();
+      expect(await uiDriver().waitForComponent(ON.text(BUTTON_TEXT).type('Button'), WAIT_SHOW_MS) !== null).assertTrue();
     });
 
     /**
@@ -124,7 +117,7 @@ export default function indexUiTest() {
       expect(seen.length).assertEqual(5);
       expect(seen.every((value: boolean) => value)).assertTrue();
       expect(await shown(INITIAL_TEXT, WAIT_ABSENT_MS)).assertFalse();
-      expect(await driver().waitForComponent(ON.text(BUTTON_TEXT).type('Button'), WAIT_SHOW_MS) !== null).assertTrue();
+      expect(await uiDriver().waitForComponent(ON.text(BUTTON_TEXT).type('Button'), WAIT_SHOW_MS) !== null).assertTrue();
     });
 
     /**

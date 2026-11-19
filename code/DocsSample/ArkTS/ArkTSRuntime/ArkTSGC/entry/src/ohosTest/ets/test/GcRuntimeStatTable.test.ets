@@ -17,6 +17,9 @@ import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/h
 import { hidebug } from '@kit.PerformanceAnalysisKit';
 import {
   allocatePressure,
+  arrayAllocationLimitBytes,
+  byteCounterDelta,
+  byteCounterInWindow,
   collectUntil,
   COLLECT_ROUNDS,
   ERR_INVALID_PARAM,
@@ -25,6 +28,8 @@ import {
   GcSnapshot,
   KEY_BYTES_ALLOCATED,
   KEY_GC_COUNT,
+  PRESSURE_ALLOCATION_LIMIT_BYTES,
+  STAT_READ_ALLOCATION_LIMIT_BYTES,
   retainArrays,
   statErrorCode
 } from './shared/GcProbe';
@@ -102,8 +107,11 @@ export default function gcRuntimeStatTableTest() {
       logCase('testGcStatMapConsistent0001', `count=${count} beforeCount=${before.count} afterCount=${after.count} ` +
         `allocated=${allocated} beforeAllocated=${before.allocated} afterAllocated=${after.allocated}`);
       expect(count >= before.count && count <= after.count).assertTrue();
-      expect(allocated >= before.allocated && allocated <= after.allocated).assertTrue();
-      expect(after.notBefore(before)).assertTrue();
+      expect(byteCounterInWindow(allocated, before.allocated, STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
+      expect(byteCounterInWindow(after.allocated, allocated, STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
+      expect(after.notBefore(before, 2 * STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
+      expect(byteCounterDelta(allocated, before.allocated) + byteCounterDelta(after.allocated, allocated))
+        .assertEqual(byteCounterDelta(after.allocated, before.allocated));
     });
 
     /**
@@ -120,7 +128,7 @@ export default function gcRuntimeStatTableTest() {
       const codes: number[] = MALFORMED_KEYS.map((key: string) => statErrorCode(key));
       logCase('testGcStatInvalidKeys0001', `keyCount=${MALFORMED_KEYS.length} beforeCount=${before.count} ` +
         `codes=${codes.join(',')}`);
-      expect(new GcSnapshot().notBefore(before)).assertTrue();
+      expect(new GcSnapshot().notBefore(before, STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
       expect(codes.every((code: number) => code === ERR_INVALID_PARAM)).assertTrue();
       expect(statErrorCode(KEY_GC_COUNT)).assertEqual(0);
     });
@@ -148,20 +156,28 @@ export default function gcRuntimeStatTableTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_STATTABLE_0600
      * @tc.name      testGcStatBounds0001
-     * @tc.desc      Check freed bytes never exceed allocated bytes and long full GC count never exceeds the total GC
-     *               count
+     * @tc.desc      Check bounded allocation of reachable arrays and heap payload while long full GC count stays
+     *               within the final total GC count
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testGcStatBounds0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const before: GcSnapshot = new GcSnapshot();
       allocatePressure();
+      const kept: number[][] = retainArrays(4, 1024);
+      const payloadBytes: number = 4 * 1024 * DOUBLE_BYTES;
+      const maximumAllocated: number = arrayAllocationLimitBytes(4, 1024) + PRESSURE_ALLOCATION_LIMIT_BYTES +
+        STAT_READ_ALLOCATION_LIMIT_BYTES;
       const snapshot: GcSnapshot = new GcSnapshot();
       logCase('testGcStatBounds0001', `freed=${snapshot.freed} allocated=${snapshot.allocated} ` +
-        `longFullGc=${snapshot.longFullGc} count=${snapshot.count}`);
-      expect(snapshot.freed <= snapshot.allocated).assertTrue();
+        `longFullGc=${snapshot.longFullGc} count=${snapshot.count} objectKb=${snapshot.objectKb}`);
+      expect(snapshot.notBefore(before, maximumAllocated)).assertTrue();
+      expect(kept.length === 4 && kept.every((row: number[], index: number) =>
+        row.length === 1024 && row.every((value: number) => value === index))).assertTrue();
+      expect(snapshot.objectKb * 1024 >= payloadBytes).assertTrue();
       expect(snapshot.longFullGc <= snapshot.count).assertTrue();
-      expect(snapshot.allocated > 0).assertTrue();
+      expect(byteCounterDelta(snapshot.allocated, before.allocated) >= payloadBytes).assertTrue();
     });
 
     /**
@@ -180,16 +196,19 @@ export default function gcRuntimeStatTableTest() {
         series.push(new GcSnapshot());
       }
       const drops: number[] = [];
+      let allocatedTotal: number = 0;
       for (let i = 1; i < series.length; i++) {
-        if (!series[i].notBefore(series[i - 1])) {
+        if (!series[i].notBefore(series[i - 1], PRESSURE_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES)) {
           drops.push(i);
+        } else {
+          allocatedTotal += byteCounterDelta(series[i].allocated, series[i - 1].allocated);
         }
       }
       logCase('testGcStatMonotonic0001', `seriesLength=${series.length} drops=${drops.join(',')} ` +
         `firstAllocated=${series[0].allocated} lastAllocated=${series[series.length - 1].allocated}`);
       expect(series.length).assertEqual(MONOTONIC_ROUNDS + 1);
       expect(drops.length).assertEqual(0);
-      expect(series[MONOTONIC_ROUNDS].allocated > series[0].allocated).assertTrue();
+      expect(allocatedTotal > 0).assertTrue();
     });
 
     /**
@@ -210,8 +229,11 @@ export default function gcRuntimeStatTableTest() {
       logCase('testGcStatAllocatedGrows0001', `keptLength=${kept.length} beforeAllocated=${before.allocated} ` +
         `afterAllocated=${after.allocated} expectedBytes=${expectedBytes}`);
       expect(kept.length).assertEqual(RETAIN_COUNT);
-      expect(kept[RETAIN_COUNT - 1][RETAIN_LENGTH - 1]).assertEqual(RETAIN_COUNT - 1);
-      expect(after.allocated - before.allocated >= expectedBytes / 2).assertTrue();
+      expect(kept.every((row: number[], index: number) => row.length === RETAIN_LENGTH &&
+        row.every((value: number) => value === index))).assertTrue();
+      expect(after.notBefore(before,
+        arrayAllocationLimitBytes(RETAIN_COUNT, RETAIN_LENGTH) + STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
+      expect(byteCounterDelta(after.allocated, before.allocated) >= expectedBytes / 2).assertTrue();
     });
 
     /**
@@ -233,14 +255,17 @@ export default function gcRuntimeStatTableTest() {
       expect(rounds > 0).assertTrue();
       expect(after.count - before.count >= 3).assertTrue();
       expect(after.time >= before.time).assertTrue();
-      expect(after.allocated > before.allocated && after.freed > before.freed).assertTrue();
+      expect(after.notBefore(before,
+        COLLECT_ROUNDS * PRESSURE_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
+      expect(byteCounterDelta(after.allocated, before.allocated) > 0 &&
+        byteCounterDelta(after.freed, before.freed) > 0).assertTrue();
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_STATTABLE_1000
      * @tc.name      testGcStatRetainedNotFreed0001
      * @tc.desc      Keep sixteen megabytes reachable while two collections run and check the arrays stay intact and
-     *               allocated minus freed bytes still cover them
+     *               the trusted allocation delta and live object heap still cover their payload
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -254,15 +279,16 @@ export default function gcRuntimeStatTableTest() {
       const retainedBytes: number = RETAIN_COUNT * 2 * RETAIN_LENGTH * DOUBLE_BYTES;
       const intact: boolean = kept.every((row: number[], index: number) =>
         row.length === RETAIN_LENGTH && row[0] === index && row[RETAIN_LENGTH - 1] === index);
-      const allocatedDelta: number = after.allocated - before.allocated;
-      // freed deltas also count garbage left by earlier cases, so check what the heap still holds instead
-      const heldBytes: number = after.allocated - after.freed;
+      const maximumAllocated: number = arrayAllocationLimitBytes(RETAIN_COUNT * 2, RETAIN_LENGTH) +
+        COLLECT_ROUNDS * PRESSURE_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES;
+      const allocatedDelta: number = byteCounterDelta(after.allocated, before.allocated);
       logCase('testGcStatRetainedNotFreed0001', `rounds=${rounds} count=${before.count}->${after.count} ` +
-        `intact=${intact} allocatedDelta=${allocatedDelta} heldBytes=${heldBytes} retainedBytes=${retainedBytes}`);
+        `intact=${intact} allocatedDelta=${allocatedDelta} objectKb=${after.objectKb} retainedBytes=${retainedBytes}`);
       expect(rounds > 0 && after.count - before.count >= HELD_CYCLES).assertTrue();
       expect(intact).assertTrue();
+      expect(after.notBefore(before, maximumAllocated)).assertTrue();
       expect(allocatedDelta >= retainedBytes).assertTrue();
-      expect(heldBytes >= retainedBytes).assertTrue();
+      expect(after.objectKb * 1024 >= retainedBytes).assertTrue();
     });
   });
 }

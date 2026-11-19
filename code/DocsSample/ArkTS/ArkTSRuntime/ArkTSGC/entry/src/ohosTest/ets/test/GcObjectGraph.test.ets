@@ -17,6 +17,7 @@ import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/h
 import {
   allocatePressure,
   buildRing,
+  byteCounterDelta,
   COLLECT_ROUNDS,
   CycleChild,
   CycleParent,
@@ -25,12 +26,14 @@ import {
   hintGC,
   linkPair,
   pairIsLinked,
+  PRESSURE_ALLOCATION_LIMIT_BYTES,
   range,
   RingNode,
   ringIdSum,
   ringLength,
   runGcCycles,
-  sameNumbers
+  sameNumbers,
+  STAT_READ_ALLOCATION_LIMIT_BYTES
 } from './shared/GcProbe';
 import { paceTurn } from './shared/TestPace';
 import { logCase } from './shared/TestLog';
@@ -963,7 +966,7 @@ export default function gcObjectGraphTest() {
           linked++;
         }
       }
-      const ordered: boolean = after.notBefore(before);
+      const ordered: boolean = after.notBefore(before, STAT_READ_ALLOCATION_LIMIT_BYTES);
       logCase('testGraphCycle0004', `linked=${linked} ordered=${ordered} countDelta=${after.count - before.count} ` +
         `freed=${after.freed} allocated=${after.allocated}`);
       expect(linked).assertEqual(50);
@@ -1056,12 +1059,13 @@ export default function gcObjectGraphTest() {
           linked++;
         }
       }
-      logCase('testGraphCycle0007', `sink=${sink} linked=${linked} allocatedDelta=${after.allocated - before.allocated} ` +
-        `freed=${after.freed}`);
+      logCase('testGraphCycle0007', `sink=${sink} linked=${linked} ` +
+        `allocatedDelta=${byteCounterDelta(after.allocated, before.allocated)} freed=${after.freed}`);
       expect(sink > 0).assertTrue();
       expect(linked).assertEqual(30);
-      expect(after.allocated > before.allocated).assertTrue();
-      expect(after.freed <= after.allocated).assertTrue();
+      expect(after.notBefore(before,
+        3 * PRESSURE_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
+      expect(byteCounterDelta(after.allocated, before.allocated) > 0).assertTrue();
     });
 
     /**
@@ -1373,7 +1377,7 @@ export default function gcObjectGraphTest() {
         sumsOk = sumsOk && chainIdSum(head, 200) === expectedIdSum(0, 200);
       }
       const after: GcSnapshot = new GcSnapshot();
-      const ordered: boolean = after.notBefore(before);
+      const ordered: boolean = after.notBefore(before, STAT_READ_ALLOCATION_LIMIT_BYTES);
       logCase('testGraphChain0011', `walked=${walked} sumsOk=${sumsOk} ordered=${ordered} ` +
         `countDelta=${after.count - before.count}`);
       expect(walked).assertEqual(200);
@@ -1424,11 +1428,12 @@ export default function gcObjectGraphTest() {
       const tail: ChainNode | null = chainTail(head, WALK_LIMIT);
       const tailId: number = tail === null ? -1 : tail.id;
       logCase('testGraphChain0013', `sink=${sink} walked=${walked} tailId=${tailId} ` +
-        `allocatedDelta=${after.allocated - before.allocated}`);
+        `allocatedDelta=${byteCounterDelta(after.allocated, before.allocated)}`);
       expect(sink > 0).assertTrue();
       expect(walked).assertEqual(90);
       expect(tailId).assertEqual(489);
-      expect(after.notBefore(before)).assertTrue();
+      expect(after.notBefore(before,
+        PRESSURE_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
     });
 
     /**
@@ -1833,12 +1838,13 @@ export default function gcObjectGraphTest() {
         sumsOk = sumsOk && ringIdSum(head, 4000) === expectedIdSum(0, 4000);
       }
       const after: GcSnapshot = new GcSnapshot();
-      logCase('testGraphRing0016', `closed=${closed} sumsOk=${sumsOk} ordered=${after.notBefore(before)} ` +
+      const ordered: boolean = after.notBefore(before, STAT_READ_ALLOCATION_LIMIT_BYTES);
+      logCase('testGraphRing0016', `closed=${closed} sumsOk=${sumsOk} ordered=${ordered} ` +
         `countDelta=${after.count - before.count}`);
       expect(closed).assertEqual(HINT_REPEATS);
       expect(sumsOk).assertTrue();
-      expect(after.notBefore(before)).assertTrue();
-      expect(after.freed <= after.allocated).assertTrue();
+      expect(ordered).assertTrue();
+      expect(byteCounterDelta(after.allocated, before.allocated) < STAT_READ_ALLOCATION_LIMIT_BYTES).assertTrue();
     });
 
     /**
@@ -2792,13 +2798,16 @@ export default function gcObjectGraphTest() {
         sumsOk = sumsOk && doubleIdSum(head, 400) === expectedIdSum(0, 400);
       }
       const after: GcSnapshot = new GcSnapshot();
+      // runGcCycles performs at most one pressure allocation per collection round
+      const ordered: boolean = after.notBefore(before,
+        COLLECT_ROUNDS * PRESSURE_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES);
       logCase('testGraphList0012', `cycles=${cycles} lengths=${lengths} sumsOk=${sumsOk} ` +
-        `backLinks=${doubleBackLinksOk(head, 400)} ordered=${after.notBefore(before)}`);
+        `backLinks=${doubleBackLinksOk(head, 400)} ordered=${ordered}`);
       expect(cycles >= 2).assertTrue();
       expect(lengths).assertEqual(400);
       expect(sumsOk).assertTrue();
       expect(doubleBackLinksOk(head, 400)).assertTrue();
-      expect(after.notBefore(before)).assertTrue();
+      expect(ordered).assertTrue();
     });
 
     /**
@@ -3579,11 +3588,12 @@ export default function gcObjectGraphTest() {
         }
       }
       const after: GcSnapshot = new GcSnapshot();
+      const ordered: boolean = after.notBefore(before, STAT_READ_ALLOCATION_LIMIT_BYTES);
       logCase('testGraphMix0006', `chainClosed=${chainClosed} ringClosed=${ringClosed} ` +
-        `ordered=${after.notBefore(before)}`);
+        `ordered=${ordered}`);
       expect(chainClosed).assertEqual(HINT_REPEATS);
       expect(ringClosed).assertEqual(HINT_REPEATS);
-      expect(after.notBefore(before)).assertTrue();
+      expect(ordered).assertTrue();
       expect(chainIdSum(head, 150)).assertEqual(ringIdSum(ring, 150));
     });
 
@@ -3649,12 +3659,13 @@ export default function gcObjectGraphTest() {
       checks.push(sharedEdgeTotal(owners) === 9);
       checks.push(diamondReachCount(diamond) === 4);
       const allOk: boolean = checks.every((ok: boolean) => ok);
+      const ordered: boolean = after.notBefore(before, STAT_READ_ALLOCATION_LIMIT_BYTES);
       logCase('testGraphMix0008', `checks=${checks.length} allOk=${allOk} ` +
-        `ordered=${after.notBefore(before)} freed=${after.freed} allocated=${after.allocated}`);
+        `ordered=${ordered} freed=${after.freed} allocated=${after.allocated}`);
       expect(checks.length).assertEqual(8);
       expect(allOk).assertTrue();
-      expect(after.notBefore(before)).assertTrue();
-      expect(after.freed <= after.allocated).assertTrue();
+      expect(ordered).assertTrue();
+      expect(byteCounterDelta(after.allocated, before.allocated) < STAT_READ_ALLOCATION_LIMIT_BYTES).assertTrue();
       expect(branchPayloadOk(tree)).assertTrue();
     });
   });

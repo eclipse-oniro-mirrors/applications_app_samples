@@ -17,6 +17,7 @@ import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/h
 import {
   allocatePressure,
   buildRing,
+  byteCounterDelta,
   collectUntil,
   COLLECT_ROUNDS,
   CycleChild,
@@ -30,6 +31,7 @@ import {
   KEY_GC_COUNT,
   linkPair,
   pairIsLinked,
+  PRESSURE_ALLOCATION_LIMIT_BYTES,
   range,
   releasedChild,
   releasedPair,
@@ -37,7 +39,8 @@ import {
   ringIdSum,
   ringLength,
   runGcCycles,
-  sameNumbers
+  sameNumbers,
+  STAT_READ_ALLOCATION_LIMIT_BYTES
 } from './shared/GcProbe';
 import { paceTurn } from './shared/TestPace';
 import { logCase } from './shared/TestLog';
@@ -85,7 +88,7 @@ export default function hintGcGuardTest() {
       const after: GcSnapshot = new GcSnapshot();
       logCase('testHintGcCall0001', `thrown=${thrown} beforeCount=${before.count} afterCount=${after.count}`);
       expect(thrown).assertFalse();
-      expect(after.notBefore(before)).assertTrue();
+      expect(after.notBefore(before, STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
       expect(after.values().every((value: number) => Number.isFinite(value) && value >= 0)).assertTrue();
     });
 
@@ -108,9 +111,9 @@ export default function hintGcGuardTest() {
       logCase('testHintGcRepeat0001', `elapsed=${elapsed} countDelta=${after.count - before.count} ` +
         `freed=${after.freed} allocated=${after.allocated}`);
       expect(elapsed < REPEAT_BUDGET_MS).assertTrue();
-      expect(after.notBefore(before)).assertTrue();
+      expect(after.notBefore(before, STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
       expect(after.count - before.count <= REPEAT_HINTS).assertTrue();
-      expect(after.freed <= after.allocated).assertTrue();
+      expect(byteCounterDelta(after.allocated, before.allocated) < STAT_READ_ALLOCATION_LIMIT_BYTES).assertTrue();
     });
 
     /**
@@ -169,8 +172,8 @@ export default function hintGcGuardTest() {
       logCase('testHintGcTimerCallback0001', `results=${results.join(',')} beforeCount=${before.count} ` +
         `afterCount=${after.count} freed=${after.freed} allocated=${after.allocated}`);
       expect(sameNumbers(results, [2, 4, 6])).assertTrue();
-      expect(after.notBefore(before)).assertTrue();
-      expect(after.freed <= after.allocated).assertTrue();
+      expect(after.notBefore(before, STAT_READ_ALLOCATION_LIMIT_BYTES)).assertTrue();
+      expect(byteCounterDelta(after.allocated, before.allocated) < STAT_READ_ALLOCATION_LIMIT_BYTES).assertTrue();
     });
 
     /**
@@ -255,14 +258,20 @@ export default function hintGcGuardTest() {
         await paceTurn();
       }
       let ordered: boolean = true;
+      let allocatedTotal: number = 0;
       for (let i = 1; i < snapshots.length; i++) {
-        ordered = ordered && snapshots[i].notBefore(snapshots[i - 1]);
+        const inWindow: boolean = snapshots[i].notBefore(snapshots[i - 1],
+          PRESSURE_ALLOCATION_LIMIT_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES);
+        ordered = ordered && inWindow;
+        if (inWindow) {
+          allocatedTotal += byteCounterDelta(snapshots[i].allocated, snapshots[i - 1].allocated);
+        }
       }
       logCase('testHintGcInterleave0001', `ordered=${ordered} snapshots=${snapshots.length} sink=${sink} ` +
-        `firstAllocated=${snapshots[0].allocated} lastAllocated=${snapshots[INTERLEAVE_ROUNDS].allocated}`);
+        `firstAllocated=${snapshots[0].allocated} allocatedTotal=${allocatedTotal}`);
       expect(ordered).assertTrue();
       expect(snapshots.length).assertEqual(INTERLEAVE_ROUNDS + 1);
-      expect(snapshots[INTERLEAVE_ROUNDS].allocated > snapshots[0].allocated).assertTrue();
+      expect(allocatedTotal > 0).assertTrue();
       expect(sink > 0).assertTrue();
     });
 

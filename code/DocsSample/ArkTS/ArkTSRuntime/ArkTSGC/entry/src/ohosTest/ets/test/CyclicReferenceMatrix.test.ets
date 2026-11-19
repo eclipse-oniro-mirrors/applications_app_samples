@@ -16,6 +16,8 @@
 import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import {
   allCleared,
+  arrayAllocationLimitBytes,
+  byteCounterDelta,
   collectUntil,
   COLLECT_ROUNDS,
   CycleChild,
@@ -25,10 +27,13 @@ import {
   GcSnapshot,
   isCleared,
   linkPair,
+  PRESSURE_ALLOCATION_LIMIT_BYTES,
   range,
   releasedRing,
+  RingNode,
   RingProbe,
-  sameNumbers
+  sameNumbers,
+  STAT_READ_ALLOCATION_LIMIT_BYTES
 } from './shared/GcProbe';
 import { paceTurn } from './shared/TestPace';
 import { logCase } from './shared/TestLog';
@@ -42,6 +47,9 @@ const MANY_PAIRS: number = 1000;
 const CHURN_ROUNDS: number = 8;
 const CHURN_RINGS: number = 200;
 const CHURN_RING_SIZE: number = 50;
+const CHURN_PAYLOAD: number = 8;
+// independent per node allowance for object header, fields, WeakRef and probe
+const NODE_SHELL_BYTES: number = 512;
 
 class MeshNode {
   id: number;
@@ -213,12 +221,21 @@ function exactPairRefs(tag: number): WeakRef<Object>[] {
   return [new WeakRef<Object>(parent), new WeakRef<Object>(child)];
 }
 
-function churnRings(count: number, size: number): number {
+// keeps the WeakRef of the first and last real churn ring of every batch so their release can be observed
+function churnRings(count: number, size: number, probes: WeakRef<RingNode>[]): number {
   let built: number = 0;
   for (let i = 0; i < count; i++) {
-    built += releasedRing(size, 8, i).length;
+    const probe: RingProbe = releasedRing(size, CHURN_PAYLOAD, i);
+    if (i === 0 || i === count - 1) {
+      probes.push(probe.ref);
+    }
+    built += probe.length;
   }
   return built;
+}
+
+function pressureRoundsOf(rounds: number): number {
+  return rounds > 0 ? rounds : COLLECT_ROUNDS;
 }
 
 export default function cyclicReferenceMatrixTest() {
@@ -306,10 +323,18 @@ export default function cyclicReferenceMatrixTest() {
         lengths.push(probe.length);
         collected.push(await collectUntil(() => isCleared(probe.ref), COLLECT_ROUNDS));
       }
+      const after: GcSnapshot = new GcSnapshot();
+      let maximumAllocated: number = STAT_READ_ALLOCATION_LIMIT_BYTES;
+      for (let i = 0; i < PAYLOAD_LENGTHS.length; i++) {
+        maximumAllocated += arrayAllocationLimitBytes(PAYLOAD_RING_SIZE, PAYLOAD_LENGTHS[i]) +
+          PAYLOAD_RING_SIZE * NODE_SHELL_BYTES + pressureRoundsOf(collected[i]) * PRESSURE_ALLOCATION_LIMIT_BYTES;
+      }
+      const trusted: boolean = after.bytesInWindow(before, maximumAllocated);
+      const freedDelta: number = byteCounterDelta(after.freed, before.freed);
       logCase('testCyclicPayloadSizes0001', `lengths=${lengths.join(',')} collected=${collected.join(',')} ` +
-        `beforeFreed=${before.freed}`);
+        `beforeFreed=${before.freed} trusted=${trusted} freedDelta=${freedDelta} maximum=${maximumAllocated}`);
       expect(lengths.every((length: number) => length === PAYLOAD_RING_SIZE)).assertTrue();
-      expect(new GcSnapshot().freed > before.freed).assertTrue();
+      expect(trusted && freedDelta > 0).assertTrue();
       expect(collected.every((rounds: number) => rounds > 0)).assertTrue();
     });
 
@@ -415,29 +440,54 @@ export default function cyclicReferenceMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_CYCLICMATRIX_1000
      * @tc.name      testCyclicFreedBytes0001
-     * @tc.desc      Keep creating and dropping rings and check the freed byte counter covers at least half of the bytes
-     *               allocated
+     * @tc.desc      Keep creating and dropping rings, check sampled churn rings are reclaimed and the trusted freed
+     *               byte delta covers at least half of the trusted allocated delta
      * @tc.size      LARGETEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testCyclicFreedBytes0001', TestType.FUNCTION | Size.LARGETEST | Level.LEVEL1, async () => {
       const before: GcSnapshot = new GcSnapshot();
+      const probes: WeakRef<RingNode>[] = [];
+      const churnNodes: number = CHURN_RINGS * CHURN_RING_SIZE;
+      const churnLimit: number = arrayAllocationLimitBytes(churnNodes, CHURN_PAYLOAD) +
+        churnNodes * NODE_SHELL_BYTES + STAT_READ_ALLOCATION_LIMIT_BYTES;
+      let anchor: GcSnapshot = before;
       let built: number = 0;
+      let trusted: boolean = true;
+      let allocatedDelta: number = 0;
+      let freedDelta: number = 0;
       for (let round = 0; round < CHURN_ROUNDS; round++) {
-        built += churnRings(CHURN_RINGS, CHURN_RING_SIZE);
+        built += churnRings(CHURN_RINGS, CHURN_RING_SIZE, probes);
         await paceTurn();
+        const current: GcSnapshot = new GcSnapshot();
+        const windowTrusted: boolean = current.bytesInWindow(anchor, churnLimit);
+        trusted = trusted && windowTrusted;
+        if (windowTrusted) {
+          allocatedDelta += byteCounterDelta(current.allocated, anchor.allocated);
+          freedDelta += byteCounterDelta(current.freed, anchor.freed);
+        }
+        anchor = current;
       }
-      await collectUntil(() => new GcSnapshot().count - before.count >= 2, COLLECT_ROUNDS);
+      const rounds: number = await collectUntil(() => new GcSnapshot().count - before.count >= 2 &&
+        allCleared(probes), COLLECT_ROUNDS);
       const after: GcSnapshot = new GcSnapshot();
-      const allocatedDelta: number = after.allocated - before.allocated;
-      const freedDelta: number = after.freed - before.freed;
-      logCase('testCyclicFreedBytes0001', `built=${built} countDelta=${after.count - before.count} ` +
+      const collectLimit: number = pressureRoundsOf(rounds) * PRESSURE_ALLOCATION_LIMIT_BYTES +
+        STAT_READ_ALLOCATION_LIMIT_BYTES;
+      const collectionTrusted: boolean = after.bytesInWindow(anchor, collectLimit);
+      trusted = trusted && collectionTrusted;
+      if (collectionTrusted) {
+        allocatedDelta += byteCounterDelta(after.allocated, anchor.allocated);
+        freedDelta += byteCounterDelta(after.freed, anchor.freed);
+      }
+      logCase('testCyclicFreedBytes0001', `built=${built} rounds=${rounds} countDelta=${after.count - before.count} ` +
+        `probes=${probes.length} trusted=${trusted} churnLimit=${churnLimit} collectLimit=${collectLimit} ` +
         `allocatedDelta=${allocatedDelta} freedDelta=${freedDelta}`);
       expect(built).assertEqual(CHURN_ROUNDS * CHURN_RINGS * CHURN_RING_SIZE);
-      expect(after.count - before.count >= 2).assertTrue();
-      expect(allocatedDelta > 0).assertTrue();
-      expect(freedDelta * 2 >= allocatedDelta).assertTrue();
+      expect(rounds > 0 && after.count - before.count >= 2).assertTrue();
+      expect(probes.length === CHURN_ROUNDS * 2 && allCleared(probes)).assertTrue();
+      expect(trusted && allocatedDelta > 0).assertTrue();
+      expect(trusted && freedDelta > 0 && freedDelta * 2 >= allocatedDelta).assertTrue();
     });
 
     /**

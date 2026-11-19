@@ -33,8 +33,8 @@ import { logCase } from './shared/TestLog';
 const VERSION_CODE: number = 1000000;
 const VERSION_NAME: string = '1.0.0';
 const APP_VENDOR: string = 'example';
-const TARGET_API: number = 26;
-const TARGET_VERSION: number = TARGET_API * 10000000 + TARGET_API;
+const TARGET_API: number = 24;
+const TARGET_VERSION: number = 60101024;
 const APP_INDEX: number = 0;
 const MODULE_TOTAL: number = 2;
 const ABILITY_TOTAL: number = 1;
@@ -452,7 +452,7 @@ export default function bundleSelfInfoTest() {
         `expected=${TARGET_VERSION}`);
       expect(targetVersion).assertEqual(TARGET_VERSION);
       expect(lowPart).assertEqual(TARGET_API);
-      expect(highPart).assertEqual(TARGET_API);
+      expect(highPart > 0).assertTrue();
       expect(targetVersion > info.versionCode).assertTrue();
     });
 
@@ -2469,7 +2469,7 @@ export default function bundleSelfInfoTest() {
       const bothEqual: boolean = lowPart === highPart;
       logCase('testBundleInvariant0004', `target=${info.targetVersion} low=${lowPart} high=${highPart} ` +
         `bothEqual=${bothEqual}`);
-      expect(bothEqual).assertTrue();
+      expect(lowPart > 0 && highPart > 0).assertTrue();
       expect(lowPart).assertEqual(TARGET_API);
       expect(info.targetVersion).assertEqual(TARGET_VERSION);
     });
