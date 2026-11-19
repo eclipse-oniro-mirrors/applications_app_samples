@@ -33,12 +33,6 @@
 #define LOG_DOMAIN 0xF811  // Global domain macro, identifies the business area
 #define LOG_TAG "[Sample_OEServerDemo]"   // Global tag macro, identifies the module log tag
 
-constexpr const char* DOC_STREAM_NAME = "aaa";
-// OH_AbilityBase_CreateWant stores the char* pointer (no deep copy); the buffer
-// supplied via AbilityBase_Element.bundleName must outlive every later use of the
-// Want (e.g. ContextStartSelfUIAbility). Keep it on NativeOnDoEdit's stack frame.
-constexpr uint32_t BUNDLE_NAME_BUFFER_SIZE = 100;
-
 // [Start content_embed_server_global_variable]
 static ContentEmbed_ExtensionInstanceHandle g_instance = nullptr;
 // [End content_embed_server_global_variable]
@@ -153,7 +147,7 @@ static void NativeOnGetSnapshot(ContentEmbed_ObjectHandle object)
         return;
     }
     int fd = fileno(srcFile);
-    // 创建ImageSource实例。
+    // 创建ImageSource实例
     OH_ImageSourceNative *source = nullptr;
     Image_ErrorCode errCode = OH_ImageSourceNative_CreateFromFd(fd, &source);
     if (errCode != IMAGE_SUCCESS) {
@@ -163,13 +157,13 @@ static void NativeOnGetSnapshot(ContentEmbed_ObjectHandle object)
         }
         return;
     }
-    // 通过图片解码参数创建PixelMap对象。
+    // 通过图片解码参数创建PixelMap对象
     OH_DecodingOptions *ops = nullptr;
     OH_DecodingOptions_Create(&ops);
-    // 设置为AUTO会根据图片资源格式解码，如果图片资源为HDR资源则会解码为HDR的pixelmap。
+    // 设置为AUTO会根据图片资源格式解码，如果图片资源为HDR资源则会解码为HDR的pixelmap
     OH_DecodingOptions_SetDesiredDynamicRange(ops, IMAGE_DYNAMIC_RANGE_AUTO);
     OH_PixelmapNative *resPixMap = nullptr;
-    // ops参数支持传入nullptr, 当不需要设置解码参数时，不用创建。
+    // ops参数支持传入nullptr, 当不需要设置解码参数时，不用创建
     errCode = OH_ImageSourceNative_CreatePixelmap(source, ops, &resPixMap);
     OH_DecodingOptions_Release(ops);
     if (errCode != IMAGE_SUCCESS) {
@@ -182,7 +176,7 @@ static void NativeOnGetSnapshot(ContentEmbed_ObjectHandle object)
     }
     // 设置快照
     ContentEmbed_ErrorCode ret = OH_ContentEmbed_Extension_SetSnapshot(object, resPixMap);
-    // 释放ImageSource实例。
+    // 释放ImageSource实例
     OH_ImageSourceNative_Release(source);
     OH_PixelmapNative_Release(resPixMap);
     if (fclose(srcFile) != 0) {
@@ -191,9 +185,13 @@ static void NativeOnGetSnapshot(ContentEmbed_ObjectHandle object)
 }
 // [End content_embed_server_on_get_snapshot]
 
+// [Start content_embed_server_on_do_edit]
 constexpr const char* TEMP_CACHE_PATH_PREFIX = "/data/storage/el2/base/cache/temp_";
+constexpr const char* DOC_STREAM_NAME = "aaa";
+constexpr uint32_t BUNDLE_NAME_BUFFER_SIZE = 100;
 static void SetTempWantUri(AbilityBase_Want *want, const std::string &objectKey)
 {
+    // 设置文件路径
     std::string tempPath = std::string(TEMP_CACHE_PATH_PREFIX) + objectKey + ".aaa";
     char *tempFileUri = nullptr;
     OH_FileUri_GetUriFromPath(tempPath.c_str(), tempPath.size(), &tempFileUri);
@@ -208,9 +206,11 @@ static void SetTempWantUri(AbilityBase_Want *want, const std::string &objectKey)
 static AbilityBase_Want* PrepareDoEditWant(ContentEmbed_Document* ceDocument, const std::string& objectKey,
                                            char* bundleNameBuffer, uint32_t bundleNameBufferSize)
 {
-    char oeid[MAX_OEID_LENGTH];
+    // [StartExclude content_embed_server_on_do_edit]
+    char oeid[MAX_OEID_LENGTH] = {0};
     ContentEmbed_ErrorCode ret = OH_ContentEmbed_Document_GetOEid(ceDocument, oeid);
     OH_LOG_INFO(LOG_APP, "Document_GetOEid ret: %{public}d, oeid: %{public}s", ret, oeid);
+    // [EndExclude content_embed_server_on_do_edit]
     int32_t writeLen = 0;
     AbilityRuntime_ErrorCode abilityCode =
         OH_AbilityRuntime_ApplicationContextGetBundleName(bundleNameBuffer, bundleNameBufferSize, &writeLen);
@@ -230,9 +230,11 @@ static AbilityBase_Want* PrepareDoEditWant(ContentEmbed_Document* ceDocument, co
         OH_LOG_ERROR(LOG_APP, "NativeOnDoEdit CreateWant failed");
         return nullptr;
     }
+    // [StartExclude content_embed_server_on_do_edit]
     OH_AbilityBase_SetWantBoolParam(want, "isContentEmbed", true);
     OH_AbilityBase_SetWantCharParam(want, "id", objectKey.c_str());
     OH_AbilityBase_SetWantCharParam(want, "specifiedFlag", objectKey.c_str());
+    // [EndExclude content_embed_server_on_do_edit]
     return want;
 }
 
@@ -270,6 +272,7 @@ static bool WriteEmbeddedDocToTemp(ContentEmbed_Stream* childStream, AbilityBase
     return true;
 }
 
+// [StartExclude content_embed_server_on_do_edit]
 static void WriteLinkingDocToTemp(ContentEmbed_Document* ceDocument, AbilityBase_Want* want,
                                   const std::string& objectKey)
 {
@@ -302,15 +305,13 @@ static void WriteLinkingDocToTemp(ContentEmbed_Document* ceDocument, AbilityBase
         OH_LOG_ERROR(LOG_APP, "linking doc cannot open output file.");
     }
 }
+// [EndExclude content_embed_server_on_do_edit]
 
 static bool AcquireDoEditResources(ContentEmbed_ObjectHandle object, const std::string& objectKey,
                                    ContentEmbed_Document** doc, ContentEmbed_ExtensionContextHandle* ctx,
                                    AbilityBase_Want** want, char* bundleNameBuffer,
                                    uint32_t bundleNameBufferSize)
 {
-    *doc = nullptr;
-    *ctx = nullptr;
-    *want = nullptr;
     ContentEmbed_ErrorCode ret = OH_ContentEmbed_Extension_GetContentEmbedDocument(object, doc);
     if (ret != CE_ERR_OK) {
         OH_LOG_ERROR(LOG_APP, "OH_ContentEmbed_Extension_GetContentEmbedDocument failed, errCode: %{public}d.", ret);
@@ -325,60 +326,63 @@ static bool AcquireDoEditResources(ContentEmbed_ObjectHandle object, const std::
     return *want != nullptr;
 }
 
-// [Start content_embed_server_on_do_edit]
+static void ReleaseDoEditResources(AbilityBase_Want* want, ContentEmbed_Stream* childStream,
+                                   ContentEmbed_Storage* rootStorage)
+{
+    if (want != nullptr) {
+        OH_AbilityBase_DestroyWant(want);
+    }
+    if (childStream != nullptr) {
+        OH_ContentEmbed_DestroyStream(childStream);
+    }
+    if (rootStorage != nullptr) {
+        OH_ContentEmbed_DestroyStorage(rootStorage);
+    }
+}
+
 static void NativeOnDoEdit(ContentEmbed_ObjectHandle object)
 {
     // [StartExclude content_embed_server_on_do_edit]
     OH_LOG_INFO(LOG_APP, "enter NativeOnDoEdit object %{public}p", object);
+    // [EndExclude content_embed_server_on_do_edit]
     std::string objectKey = std::to_string(reinterpret_cast<uintptr_t>(object));
     char bundleNameBuffer[BUNDLE_NAME_BUFFER_SIZE] = {};
-    // [EndExclude content_embed_server_on_do_edit]
     ContentEmbed_Document* ceDocument = nullptr;
     ContentEmbed_ExtensionContextHandle context = nullptr;
     AbilityBase_Want* want = nullptr;
     // 获取ceDocument、context、设置want
-    // [StartExclude content_embed_server_on_do_edit]
     if (!AcquireDoEditResources(object, objectKey, &ceDocument, &context, &want,
                                  bundleNameBuffer, BUNDLE_NAME_BUFFER_SIZE)) {
         return;
     }
     ContentEmbed_ErrorCode ret = CE_ERR_OK;
     ContentEmbed_Storage* rootStorage = nullptr;
+    ContentEmbed_Stream* childStream = nullptr;
     ret = OH_ContentEmbed_Document_GetRootStorage(ceDocument, &rootStorage);
     if (ret != CE_ERR_OK) {
         OH_LOG_ERROR(LOG_APP, "OH_ContentEmbed_Document_GetRootStorage failed, errCode: %{public}d.", ret);
-        OH_AbilityBase_DestroyWant(want);
+        ReleaseDoEditResources(want, childStream, rootStorage);
         return;
     }
-    ContentEmbed_Stream* childStream = nullptr;
     ret = OH_ContentEmbed_Storage_GetStream(rootStorage, DOC_STREAM_NAME, &childStream);
     if (ret == CE_ERR_OK) {
         if (!WriteEmbeddedDocToTemp(childStream, want, objectKey)) {
-            OH_AbilityBase_DestroyWant(want);
-            OH_ContentEmbed_DestroyStream(childStream);
-            OH_ContentEmbed_DestroyStorage(rootStorage);
+            ReleaseDoEditResources(want, childStream, rootStorage);
             return;
         }
     } else {
+        // [StartExclude content_embed_server_on_do_edit]
         WriteLinkingDocToTemp(ceDocument, want, objectKey);
+        // [EndExclude content_embed_server_on_do_edit]
     }
-    // [EndExclude content_embed_server_on_do_edit]
     // 启动UIAbility 对文档进行编辑操作
     ret = OH_ContentEmbed_Extension_ContextStartSelfUIAbility(context, want);
     if (ret != CE_ERR_OK) {
         OH_LOG_ERROR(LOG_APP, "OH_ContentEmbed_Extension_ContextStartSelfUIAbility failed, errCode: %{public}d.", ret);
-        OH_AbilityBase_DestroyWant(want);
-        OH_ContentEmbed_DestroyStorage(rootStorage);
-        if (childStream != nullptr) {
-            OH_ContentEmbed_DestroyStream(childStream);
-        }
+        ReleaseDoEditResources(want, childStream, rootStorage);
         return;
     }
-    OH_AbilityBase_DestroyWant(want);
-    OH_ContentEmbed_DestroyStorage(rootStorage);
-    if (childStream != nullptr) {
-        OH_ContentEmbed_DestroyStream(childStream);
-    }
+    ReleaseDoEditResources(want, childStream, rootStorage);
     // [StartExclude content_embed_server_on_do_edit]
     g_editState[object].isEditing = true;
     OH_LOG_INFO(LOG_APP, "ContextStartSelfUIAbility ret: %{public}d", ret);
@@ -563,7 +567,7 @@ extern "C" int32_t NAPI_DocumentSave(const char *id)
         return CE_ERR_PARAM_INVALID;
     }
     // 链接式文档无嵌入 stream，FlushDocumentToStream 会失败并误报保存错误；其源
-    // 文件已由 UIAbility 的 handleSaveFile 直接落回，此处只需通知客户端更新。
+    // 文件已由 UIAbility 的 handleSaveFile 直接落回，此处只需通知客户端更新
     if (!IsLinkingDocument(handle)) {
         ContentEmbed_ErrorCode ret = FlushDocumentToStream(handle, objectKey);
         if (ret != CE_ERR_OK) {
@@ -625,7 +629,7 @@ extern "C" int32_t NAPI_DocumentStop(const char *id)
         return CE_ERR_PARAM_INVALID;
     }
     // 与 NAPI_DocumentSave 一致：链接式文档无嵌入 stream，跳过 FlushDocumentToStream
-    // 避免 35300005 误报。源文件已由 UIAbility 直接落回，直接通知编辑结束即可。
+    // 避免 35300005 误报。源文件已由 UIAbility 直接落回，直接通知编辑结束即可
     if (!IsLinkingDocument(handle)) {
         FlushDocumentToStream(handle, objectKey);
     }
@@ -639,7 +643,7 @@ extern "C" int32_t NAPI_DocumentStop(const char *id)
 // RegisterOnObjectDetachFunc，该回调从 g_objectByKey 移除 objectKey，此后
 // NAPI_IsObjectAlive 返回 0（已 detach）。UIAbility 据此自行 terminateSelfAbility，
 // 使 UIAbility 生命周期与 OE 对象绑定，避免客户端关掉 proxy 后服务端 UIAbility
-// 残留、进而顶住服务端进程无法退出。
+// 残留、进而顶住服务端进程无法退出
 extern "C" int32_t NAPI_IsObjectAlive(const char *id)
 {
     if (id == nullptr) {

@@ -243,7 +243,7 @@ ContentEmbed_ErrorCode QueryAllFormat(const std::string &locale)
             OH_LOG_ERROR(LOG_APP, "OH_ContentEmbed_GetIconFromFormat failed, errCode: %{public}d.", errCode);
             continue;
         }
-        // pixelMap 不使用时需要释放掉
+        // pixelMap不使用时需要释放掉
         if (pixelMap != nullptr) {
             OH_PixelmapNative_Destroy(&pixelMap);
         }
@@ -433,7 +433,7 @@ void CreateProxy(void* contextPtr, ContentEmbed_Document *oeDocument)
         OH_LOG_ERROR(LOG_APP, "OH_ContentEmbed_CreateExtensionProxy failed, errCode: %{public}d.", errCode);
         return;
     }
-    // 注册回调：注册文档更新、错误、编辑结束等回调函数，回调函数注册顺序无要求，但不能遗漏。
+    // 注册回调：注册文档更新、错误、编辑结束等回调函数，回调函数注册顺序无要求，但不能遗漏
     // 注册OE文档更新回调
     errCode = OH_ContentEmbed_Proxy_RegisterOnUpdateFunc(proxy, ClientCallBack_OnUpdateFunc);
     if (errCode != CE_ERR_OK) {
@@ -575,7 +575,6 @@ static void HandleProxy(ContentEmbed_ExtensionProxy* proxy)
         // 获取OE文档快照
         errCode = OH_ContentEmbed_Proxy_GetSnapshot(proxy, &pixelMap);
         if (errCode == CE_ERR_OK && pixelMap != nullptr) {
-            // Caller releases the snapshot reference obtained from GetSnapshot.
             OH_PixelmapNative_Release(pixelMap);
         }
     }
@@ -1325,7 +1324,7 @@ napi_value content_embed::CreateFromLocal(napi_env env, napi_callback_info info)
         }
     }
     // 基于文件创建OE文档
-    // 是否以链接形式创建OE文档，当isLinking为true时，表示以链接方式创建OE文档；当isLinking为false时，表示以嵌入方式创建OE文档。
+    // 是否以链接形式创建OE文档，当isLinking为true时，表示以链接方式创建OE文档；当isLinking为false时，表示以嵌入方式创建OE文档
     ContentEmbed_Document* doc = nullptr;
     ContentEmbed_ErrorCode errCode =
         OH_ContentEmbed_CreateDocumentByFile(srcPath.c_str(), srcPath.size(), isLinking, &doc);
