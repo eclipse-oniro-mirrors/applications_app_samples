@@ -21,8 +21,8 @@
  * feature area without opening the runner output.
  */
 
-// Suites of the app.test.ets area.
-import appTest from './app.test';
+// Suites of the AppEntry.test.ets area.
+import appEntryTest from './AppEntry.test';
 
 // Suites of the Browser area.
 import browserConcurrencyTest from './Browser/BrowserConcurrency.test';
@@ -120,8 +120,8 @@ import resourceLoaderValidationTest from './Validation/ResourceLoaderValidation.
 
 /** Registers every browser suite of this module. */
 export default function testsuite(): void {
-  // app.test.ets
-  appTest();
+  // AppEntry.test.ets
+  appEntryTest();
   // Browser
   browserConcurrencyTest();
   browserConsistencyTest();

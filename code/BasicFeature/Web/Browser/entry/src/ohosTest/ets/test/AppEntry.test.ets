@@ -45,8 +45,8 @@ async function targetSpecialPage() {
   }
 }
 
-export default function appTest() {
-  describe('appTest', () => {
+export default function appEntryTest() {
+  describe('appEntryTest', () => {
     // 打开应用
     it('Brower_StartAbility', 0, async (done: Function) => {
       Logger.info(TAG, 'StartAbility start');

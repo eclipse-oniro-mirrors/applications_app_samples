@@ -38,7 +38,7 @@
 
 关键场景不只测试单点，而是采用组合矩阵扩展覆盖：
 
-- 分类矩阵：`Browser` 16、`BrowserValidation` 8、`Integration` 9、`Interaction` 14、`LifecycleState` 10、`PerformanceStability` 7、`Security` 3、`Validation` 11，共 78 个业务套件（另有 `app.test.ets` 冒烟套件，`List.test.ets` 共注册 79 个套件）
+- 分类矩阵：`Browser` 16、`BrowserValidation` 8、`Integration` 9、`Interaction` 14、`LifecycleState` 10、`PerformanceStability` 7、`Security` 3、`Validation` 11，共 78 个业务套件（另有 `AppEntry.test.ets` 冒烟套件，`List.test.ets` 共注册 79 个套件）
 - 页签矩阵（`TabItemModel`、`TabOperations`、`TabOperationCatalog`：1~10 个页签 × 首/中/尾位置 × 新增/删除/切换/重编号 × 非法索引）
 - URL 矩阵（`UrlOperationFlow`、`BrowserModelDeep`：裸域名/带 scheme/带路径/空串/超长地址 × 归一化 × 加载成功/失败）
 - 按键矩阵（`KeyEventValidation`、`FocusNavigation`、`FocusRingBehavior`：方向键、ENTER、BACK、HOME 与非法键值的合法/非法组合）
@@ -202,7 +202,7 @@
 | 分组 | 数量 | 代表套件与职责 |
 |---|---|---|
 | 共享驱动 | 3 | `Shared/BrowserTestKit.ets`、`Shared/BrowserMock.ets`、`Shared/TestLogger.ets`：串行 UI 队列、超时保护、组件轮询与按键模拟、确定性模型与网络/时钟替身、hilog 日志与步骤计数 |
-| 冒烟 `appTest` | 1 | `app.test.ets`：拉起应用、输入网址跳转、前进/后退、主页返回与新增页签 |
+| 冒烟 `appEntryTest` | 1 | `AppEntry.test.ets`：拉起应用、输入网址跳转、前进/后退、主页返回与新增页签 |
 | 浏览器主流程 `Browser` | 16 | `BrowserUI`、`BrowserEndToEnd`、`BrowserOperationWorkflow`、`BrowserConsistency`、`BrowserConcurrency`、`BrowserStress`、`BrowserErrorRecovery`、`BrowserLifecycle`、`BrowserStateManagement`、`BrowserInputInteraction`、`BrowserMenuConfiguration`、`BrowserModelDeep`、`TabItemModel`、`TabOperations`、`TabOperationCatalog`、`UrlOperationFlow`：主流程回归、页签模型与操作、URL 流、菜单与输入、并发与异常恢复 |
 | 浏览器专项校验 `BrowserValidation` | 8 | `AppVersionValidation`、`AuthSessionValidation`、`DataSourceValidation`、`EventToolValidation`、`InterruptionRecovery`、`NotificationValidation`、`OfflineNetwork`、`SessionValidation`：版本信息、鉴权会话、数据源与缓存、事件工具、中断恢复、通知、离线与会话 |
 | 集成与场景 `Integration` | 9 | `SystemIntegration`、`DeviceCompatibility`、`BrowserCompatibility`、`NetworkConnectivity`、`LocalizationTesting`、`UserScenarios`、`AdvancedScenarios`、`IntegrationTesting`、`ComprehensiveRegression`：系统集成、设备与版本兼容、网络连通、本地化、用户场景与综合回归 |
