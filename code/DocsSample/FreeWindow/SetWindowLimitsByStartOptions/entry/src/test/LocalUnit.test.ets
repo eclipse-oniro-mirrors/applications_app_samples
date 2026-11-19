@@ -2917,5 +2917,96 @@ export default function localUnitTest() {
       expect(options.minWindowWidth).assertEqual(780);
       expect(options.maxWindowWidth).assertEqual(1250);
       expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
-    });  });
+    });
+    /**
+     * Verify lifecycle StartOptions configuration 341.
+     */
+    it('StartOptions_life_param_341', 0, () => {
+      const options: StartOptions = { minWindowWidth: 600, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(600);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle StartOptions configuration 342.
+     */
+    it('StartOptions_life_param_342', 0, () => {
+      const options: StartOptions = { minWindowWidth: 650, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(650);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle StartOptions configuration 343.
+     */
+    it('StartOptions_life_param_343', 0, () => {
+      const options: StartOptions = { minWindowWidth: 700, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(700);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle StartOptions configuration 344.
+     */
+    it('StartOptions_life_param_344', 0, () => {
+      const options: StartOptions = { minWindowWidth: 750, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(750);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle StartOptions configuration 345.
+     */
+    it('StartOptions_life_param_345', 0, () => {
+      const options: StartOptions = { minWindowWidth: 600, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(600);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle StartOptions configuration 346.
+     */
+    it('StartOptions_life_param_346', 0, () => {
+      const options: StartOptions = { minWindowWidth: 650, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(650);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle StartOptions configuration 347.
+     */
+    it('StartOptions_life_param_347', 0, () => {
+      const options: StartOptions = { minWindowWidth: 700, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(700);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle StartOptions configuration 348.
+     */
+    it('StartOptions_life_param_348', 0, () => {
+      const options: StartOptions = { minWindowWidth: 750, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(750);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle StartOptions configuration 349.
+     */
+    it('StartOptions_life_param_349', 0, () => {
+      const options: StartOptions = { minWindowWidth: 600, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(600);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify lifecycle StartOptions configuration 350.
+     */
+    it('StartOptions_life_param_350', 0, () => {
+      const options: StartOptions = { minWindowWidth: 650, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(650);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+  });
 }

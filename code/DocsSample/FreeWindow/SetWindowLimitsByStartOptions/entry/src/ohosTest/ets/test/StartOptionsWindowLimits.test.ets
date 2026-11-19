@@ -4120,6 +4120,291 @@ export default function startOptionsWindowLimitsTest(): void {
           await closeTarget();
         }
       });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_980
+     * @tc.name      testStartLifeCycle980
+     * @tc.desc      Start with limits and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle980',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 600, maxWindowWidth: 1200 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_981
+     * @tc.name      testStartLifeCycle981
+     * @tc.desc      Start with displayId and limits and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle981',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ displayId: 0, minWindowWidth: 650, maxWindowWidth: 1300 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_982
+     * @tc.name      testStartLifeCycle982
+     * @tc.desc      Start twice in sequence and verify both requests.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle982',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const first: number = await startTarget({ minWindowWidth: 700, maxWindowWidth: 1400 });
+        const second: number = await startTarget({ minWindowHeight: 500, maxWindowHeight: 1000 });
+        expect(first === 0 || ACCEPTABLE_START_CODES.includes(first)).assertTrue();
+        expect(second === 0 || ACCEPTABLE_START_CODES.includes(second)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_983
+     * @tc.name      testStartLifeCycle983
+     * @tc.desc      Start, close and restore the layout by starting again.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle983',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 750, maxWindowWidth: 1200 });
+        await closeTarget();
+        const again: number = await startTarget({ minWindowWidth: 600, maxWindowWidth: 1500 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        expect(again === 0 || ACCEPTABLE_START_CODES.includes(again)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_984
+     * @tc.name      testStartLifeCycle984
+     * @tc.desc      Start with limits and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle984',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 600, maxWindowWidth: 1300 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_985
+     * @tc.name      testStartLifeCycle985
+     * @tc.desc      Start with displayId and limits and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle985',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ displayId: 0, minWindowWidth: 650, maxWindowWidth: 1400 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_986
+     * @tc.name      testStartLifeCycle986
+     * @tc.desc      Start twice in sequence and verify both requests.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle986',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const first: number = await startTarget({ minWindowWidth: 700, maxWindowWidth: 1200 });
+        const second: number = await startTarget({ minWindowHeight: 500, maxWindowHeight: 1000 });
+        expect(first === 0 || ACCEPTABLE_START_CODES.includes(first)).assertTrue();
+        expect(second === 0 || ACCEPTABLE_START_CODES.includes(second)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_987
+     * @tc.name      testStartLifeCycle987
+     * @tc.desc      Start, close and restore the layout by starting again.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle987',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 750, maxWindowWidth: 1300 });
+        await closeTarget();
+        const again: number = await startTarget({ minWindowWidth: 600, maxWindowWidth: 1500 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        expect(again === 0 || ACCEPTABLE_START_CODES.includes(again)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_988
+     * @tc.name      testStartLifeCycle988
+     * @tc.desc      Start with limits and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle988',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 600, maxWindowWidth: 1400 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_989
+     * @tc.name      testStartLifeCycle989
+     * @tc.desc      Start with displayId and limits and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle989',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ displayId: 0, minWindowWidth: 650, maxWindowWidth: 1200 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_990
+     * @tc.name      testStartLifeCycle990
+     * @tc.desc      Start twice in sequence and verify both requests.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle990',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const first: number = await startTarget({ minWindowWidth: 700, maxWindowWidth: 1300 });
+        const second: number = await startTarget({ minWindowHeight: 500, maxWindowHeight: 1000 });
+        expect(first === 0 || ACCEPTABLE_START_CODES.includes(first)).assertTrue();
+        expect(second === 0 || ACCEPTABLE_START_CODES.includes(second)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_991
+     * @tc.name      testStartLifeCycle991
+     * @tc.desc      Start, close and restore the layout by starting again.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle991',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 750, maxWindowWidth: 1400 });
+        await closeTarget();
+        const again: number = await startTarget({ minWindowWidth: 600, maxWindowWidth: 1500 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        expect(again === 0 || ACCEPTABLE_START_CODES.includes(again)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_992
+     * @tc.name      testStartLifeCycle992
+     * @tc.desc      Start with limits and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle992',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 600, maxWindowWidth: 1200 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_993
+     * @tc.name      testStartLifeCycle993
+     * @tc.desc      Start with displayId and limits and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle993',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ displayId: 0, minWindowWidth: 650, maxWindowWidth: 1300 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_994
+     * @tc.name      testStartLifeCycle994
+     * @tc.desc      Start twice in sequence and verify both requests.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle994',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const first: number = await startTarget({ minWindowWidth: 700, maxWindowWidth: 1400 });
+        const second: number = await startTarget({ minWindowHeight: 500, maxWindowHeight: 1000 });
+        expect(first === 0 || ACCEPTABLE_START_CODES.includes(first)).assertTrue();
+        expect(second === 0 || ACCEPTABLE_START_CODES.includes(second)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_995
+     * @tc.name      testStartLifeCycle995
+     * @tc.desc      Start, close and restore the layout by starting again.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle995',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 750, maxWindowWidth: 1200 });
+        await closeTarget();
+        const again: number = await startTarget({ minWindowWidth: 600, maxWindowWidth: 1500 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        expect(again === 0 || ACCEPTABLE_START_CODES.includes(again)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_996
+     * @tc.name      testStartLifeCycle996
+     * @tc.desc      Start with limits and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle996',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 600, maxWindowWidth: 1300 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_997
+     * @tc.name      testStartLifeCycle997
+     * @tc.desc      Start with displayId and limits and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle997',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ displayId: 0, minWindowWidth: 650, maxWindowWidth: 1400 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_998
+     * @tc.name      testStartLifeCycle998
+     * @tc.desc      Start twice in sequence and verify both requests.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle998',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const first: number = await startTarget({ minWindowWidth: 700, maxWindowWidth: 1200 });
+        const second: number = await startTarget({ minWindowHeight: 500, maxWindowHeight: 1000 });
+        expect(first === 0 || ACCEPTABLE_START_CODES.includes(first)).assertTrue();
+        expect(second === 0 || ACCEPTABLE_START_CODES.includes(second)).assertTrue();
+        await closeTarget();
+      });
+    /**
+     * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_999
+     * @tc.name      testStartLifeCycle999
+     * @tc.desc      Start, close and restore the layout by starting again.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */    it('testStartLifeCycle999',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const code: number = await startTarget({ minWindowWidth: 750, maxWindowWidth: 1300 });
+        await closeTarget();
+        const again: number = await startTarget({ minWindowWidth: 600, maxWindowWidth: 1500 });
+        expect(code === 0 || ACCEPTABLE_START_CODES.includes(code)).assertTrue();
+        expect(again === 0 || ACCEPTABLE_START_CODES.includes(again)).assertTrue();
+        await closeTarget();
+      });
     START_CASES.forEach((startCase: StartCase) => {
       /**
        * @tc.number    SUB_FREEWINDOW_SET_WINDOW_LIMITS_START_OPTIONS_0600-0699
