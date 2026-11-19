@@ -204,16 +204,16 @@ export default function eventRecorderMatrixTest(): void {
 
     it('recorder_all_types_once', 0, async () => {
       const recorder = new CollabEventRecorder();
-      recorder.record(CollabEventType.CREATE, 0, 'd0');
-      recorder.record(CollabEventType.ACCEPT, 1, 'd1');
-      recorder.record(CollabEventType.CONNECT, 2, 'd2');
-      recorder.record(CollabEventType.DISCONNECT, 3, 'd3');
-      recorder.record(CollabEventType.DESTROY, 4, 'd4');
-      recorder.record(CollabEventType.SEND_MESSAGE, 5, 'd5');
-      recorder.record(CollabEventType.SEND_DATA, 6, 'd6');
-      recorder.record(CollabEventType.RECEIVE_MESSAGE, 7, 'd7');
-      recorder.record(CollabEventType.RECEIVE_DATA, 8, 'd8');
-      recorder.record(CollabEventType.ERROR, 9, 'd9');
+      recorder.record(CollabEventType.CREATE, 0, 'createDetail');
+      recorder.record(CollabEventType.ACCEPT, 1, 'acceptDetail');
+      recorder.record(CollabEventType.CONNECT, 2, 'connectDetail');
+      recorder.record(CollabEventType.DISCONNECT, 3, 'disconnectDetail');
+      recorder.record(CollabEventType.DESTROY, 4, 'destroyDetail');
+      recorder.record(CollabEventType.SEND_MESSAGE, 5, 'sendMessageDetail');
+      recorder.record(CollabEventType.SEND_DATA, 6, 'sendDataDetail');
+      recorder.record(CollabEventType.RECEIVE_MESSAGE, 7, 'receiveMessageDetail');
+      recorder.record(CollabEventType.RECEIVE_DATA, 8, 'receiveDataDetail');
+      recorder.record(CollabEventType.ERROR, 9, 'errorDetail');
       expect(recorder.size()).assertEqual(10);
       expect(recorder.countOf(CollabEventType.CREATE)).assertEqual(1);
       expect(recorder.countOf(CollabEventType.ACCEPT)).assertEqual(1);
@@ -241,8 +241,8 @@ export default function eventRecorderMatrixTest(): void {
 
     it('recorder_repeat_2', 0, async () => {
       const recorder = new CollabEventRecorder();
-      recorder.record(CollabEventType.CONNECT, 0, 'c0');
-      recorder.record(CollabEventType.CONNECT, 1, 'c1');
+      recorder.record(CollabEventType.CONNECT, 0, 'chunk0');
+      recorder.record(CollabEventType.CONNECT, 1, 'chunk1');
       expect(recorder.size()).assertEqual(2);
       expect(recorder.countOf(CollabEventType.CONNECT)).assertEqual(2);
       expect(recorder.countOf(CollabEventType.DISCONNECT)).assertEqual(0);
@@ -256,9 +256,9 @@ export default function eventRecorderMatrixTest(): void {
 
     it('recorder_repeat_3', 0, async () => {
       const recorder = new CollabEventRecorder();
-      recorder.record(CollabEventType.CONNECT, 0, 'c0');
-      recorder.record(CollabEventType.CONNECT, 1, 'c1');
-      recorder.record(CollabEventType.CONNECT, 2, 'c2');
+      recorder.record(CollabEventType.CONNECT, 0, 'chunk0');
+      recorder.record(CollabEventType.CONNECT, 1, 'chunk1');
+      recorder.record(CollabEventType.CONNECT, 2, 'chunk2');
       expect(recorder.size()).assertEqual(3);
       expect(recorder.countOf(CollabEventType.CONNECT)).assertEqual(3);
       expect(recorder.countOf(CollabEventType.DISCONNECT)).assertEqual(0);
@@ -272,11 +272,11 @@ export default function eventRecorderMatrixTest(): void {
 
     it('recorder_repeat_5', 0, async () => {
       const recorder = new CollabEventRecorder();
-      recorder.record(CollabEventType.CONNECT, 0, 'c0');
-      recorder.record(CollabEventType.CONNECT, 1, 'c1');
-      recorder.record(CollabEventType.CONNECT, 2, 'c2');
-      recorder.record(CollabEventType.CONNECT, 3, 'c3');
-      recorder.record(CollabEventType.CONNECT, 4, 'c4');
+      recorder.record(CollabEventType.CONNECT, 0, 'chunk0');
+      recorder.record(CollabEventType.CONNECT, 1, 'chunk1');
+      recorder.record(CollabEventType.CONNECT, 2, 'chunk2');
+      recorder.record(CollabEventType.CONNECT, 3, 'chunk3');
+      recorder.record(CollabEventType.CONNECT, 4, 'chunk4');
       expect(recorder.size()).assertEqual(5);
       expect(recorder.countOf(CollabEventType.CONNECT)).assertEqual(5);
       expect(recorder.countOf(CollabEventType.DISCONNECT)).assertEqual(0);
@@ -290,14 +290,14 @@ export default function eventRecorderMatrixTest(): void {
 
     it('recorder_repeat_8', 0, async () => {
       const recorder = new CollabEventRecorder();
-      recorder.record(CollabEventType.CONNECT, 0, 'c0');
-      recorder.record(CollabEventType.CONNECT, 1, 'c1');
-      recorder.record(CollabEventType.CONNECT, 2, 'c2');
-      recorder.record(CollabEventType.CONNECT, 3, 'c3');
-      recorder.record(CollabEventType.CONNECT, 4, 'c4');
-      recorder.record(CollabEventType.CONNECT, 5, 'c5');
-      recorder.record(CollabEventType.CONNECT, 6, 'c6');
-      recorder.record(CollabEventType.CONNECT, 7, 'c7');
+      recorder.record(CollabEventType.CONNECT, 0, 'chunk0');
+      recorder.record(CollabEventType.CONNECT, 1, 'chunk1');
+      recorder.record(CollabEventType.CONNECT, 2, 'chunk2');
+      recorder.record(CollabEventType.CONNECT, 3, 'chunk3');
+      recorder.record(CollabEventType.CONNECT, 4, 'chunk4');
+      recorder.record(CollabEventType.CONNECT, 5, 'chunk5');
+      recorder.record(CollabEventType.CONNECT, 6, 'chunk6');
+      recorder.record(CollabEventType.CONNECT, 7, 'chunk7');
       expect(recorder.size()).assertEqual(8);
       expect(recorder.countOf(CollabEventType.CONNECT)).assertEqual(8);
       expect(recorder.countOf(CollabEventType.DISCONNECT)).assertEqual(0);

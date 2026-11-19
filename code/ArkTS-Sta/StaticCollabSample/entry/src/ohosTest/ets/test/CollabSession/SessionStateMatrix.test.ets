@@ -561,9 +561,9 @@ export default function sessionStateMatrixTest(): void {
 
     it('session_receive_does_not_require_connected', 0, async () => {
       const session = new MockCollabSession(7, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
-      session.receiveMessage('m1');
-      session.receiveMessage('m2');
-      session.receiveData(encodeUtf8('d1'));
+      session.receiveMessage('messageOne');
+      session.receiveMessage('messageTwo');
+      session.receiveData(encodeUtf8('samplePayload'));
       expect(session.getState()).assertEqual(SessionState.CREATED);
       expect(session.getMessageCount()).assertEqual(2);
       expect(session.getDataCount()).assertEqual(1);
@@ -584,7 +584,7 @@ export default function sessionStateMatrixTest(): void {
       const session = new MockCollabSession(9, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
       session.connect();
       session.sendMessage('m');
-      session.sendData(encodeUtf8('d'));
+      session.sendData(encodeUtf8('samplePayload'));
       const snap = session.snapshot();
       expect(snap.sessionId).assertEqual(9);
       expect(snap.sessionName).assertEqual(COLLAB_SESSION_NAME);
@@ -600,8 +600,8 @@ export default function sessionStateMatrixTest(): void {
     it('session_destroy_clears_payload', 0, async () => {
       const session = new MockCollabSession(10, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
       session.connect();
-      session.sendMessage('m1');
-      session.sendData(encodeUtf8('d1'));
+      session.sendMessage('messageOne');
+      session.sendData(encodeUtf8('samplePayload'));
       expect(session.getMessageCount()).assertEqual(1);
       expect(session.getDataCount()).assertEqual(1);
       expect(session.destroy()).assertTrue();
