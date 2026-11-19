@@ -1948,3 +1948,1953 @@ export default function sessionStateMatrixTest(): void {
       expect(session.getState()).assertEqual(SessionState.CREATED);
       expect(session.getErrorCount()).assertEqual(2);
       const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_046', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_047', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_048', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.connect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_049', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_050', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_051', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_052', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_053', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_054', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.connect();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_055', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_056', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_057', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_058', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_059', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_060', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.connect();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_061', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_062', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_063', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_064', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_065', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_066', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.connect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_067', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DISCONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_068', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_069', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(1);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_070', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(1);
+    });
+
+    it('session_seq3_071', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.disconnect();
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_072', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.connect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.connect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_073', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.connect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_074', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.connect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_075', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.connect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_076', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.connect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_077', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.connect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_078', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.connect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_079', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_080', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_081', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_082', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_083', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_084', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.connect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_085', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_086', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_087', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_088', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_089', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_090', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.connect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_091', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_092', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_093', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_094', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_095', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_096', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.connect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_097', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_098', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_099', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_100', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_101', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_102', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.connect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_103', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_104', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_105', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_106', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_107', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.destroy();
+      expect(r0).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(0);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_108', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.connect();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.connect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_109', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.connect();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DISCONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_110', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.connect();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_111', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.connect();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(1);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_112', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.connect();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(1);
+    });
+
+    it('session_seq3_113', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.connect();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_114', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.connect();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_115', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_116', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_117', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_118', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_119', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_120', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.connect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_121', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_122', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_123', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_124', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_125', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.destroy();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_126', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.connect();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_127', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_128', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_129', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_130', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_131', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendMessage('hi');
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_132', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.connect();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_133', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_134', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_135', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_136', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_137', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.sendData(encodeUtf8('x'));
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_138', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.connect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_139', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DISCONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_140', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_141', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(1);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_142', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(1);
+    });
+
+    it('session_seq3_143', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendMessage('hi');
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.acceptConnect('tok');
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_144', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendData(encodeUtf8('x'));
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.connect();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.connect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_145', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendData(encodeUtf8('x'));
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.connect();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DISCONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_146', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendData(encodeUtf8('x'));
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.connect();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_147', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendData(encodeUtf8('x'));
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.connect();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(1);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_148', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendData(encodeUtf8('x'));
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.connect();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.sendData(encodeUtf8('x'));
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(1);
+    });
+
+    it('session_seq3_149', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendData(encodeUtf8('x'));
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.connect();
+      expect(r1).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r2 = session.acceptConnect('tok');
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(1);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_150', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendData(encodeUtf8('x'));
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.connect();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.CONNECTED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_151', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendData(encodeUtf8('x'));
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.disconnect();
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_152', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendData(encodeUtf8('x'));
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.destroy();
+      expect(r2).assertEqual(true);
+      expect(session.getState()).assertEqual(SessionState.DESTROYED);
+      expect(session.getErrorCount()).assertEqual(2);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
+
+    it('session_seq3_153', 0, async () => {
+      const session = new MockCollabSession(1, COLLAB_SESSION_NAME, buildPeerInfo('dev'), buildConnectOptions(true));
+      const r0 = session.sendData(encodeUtf8('x'));
+      expect(r0).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(1);
+      const r1 = session.disconnect();
+      expect(r1).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(2);
+      const r2 = session.sendMessage('hi');
+      expect(r2).assertEqual(false);
+      expect(session.getState()).assertEqual(SessionState.CREATED);
+      expect(session.getErrorCount()).assertEqual(3);
+      expect(session.getMessageCount()).assertEqual(0);
+      expect(session.getDataCount()).assertEqual(0);
+    });
