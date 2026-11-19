@@ -31,6 +31,10 @@ export interface PlayOptions {
   dumpMaxMiB?: number;
   /** Dump 写入时长上限（秒）；0 表示不限。 */
   dumpMaxSeconds?: number;
+  /** 网络或本地URI输入（可选）；提供时优先于fd，需申请ohos.permission.INTERNET权限。 */
+  inputUri?: string;
+  /** 沙箱文件路径输入（可选），走自定义数据源；提供时优先于fd。 */
+  inputFilePath?: string;
   inputFileFd: number;
   inputFileOffset: number;
   inputFileSize: number;
