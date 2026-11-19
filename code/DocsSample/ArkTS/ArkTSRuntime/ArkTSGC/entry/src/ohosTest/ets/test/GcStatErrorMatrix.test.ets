@@ -1798,3 +1798,821 @@ export default function gcStatErrorMatrixTest() {
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL3
+     */
+    it('testStatBidiMark0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      const keys: string[] = BIDI_MARK_KEYS;
+      const codes: number[] = codesOf(keys);
+      const distinct: number = distinctCount(keys);
+      const includesValid: boolean = includesValidKey(keys);
+      logCase('testStatBidiMark0063', `keyCount=${keys.length} distinct=${distinct} ` +
+        `includesValid=${includesValid} codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_THREE);
+      expect(distinct).assertEqual(TABLE_SIZE_THREE);
+      expect(includesValid).assertFalse();
+      expect(matchesAllCodes(codes, INVALID_CODE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_6400
+     * @tc.name      testStatSurrogateEdge0064
+     * @tc.desc      Put a lone surrogate at the head or tail of each key and check malformed text is still refused
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testStatSurrogateEdge0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      const keys: string[] = SURROGATE_EDGE_KEYS;
+      const codes: number[] = codesOf(keys);
+      const distinct: number = distinctCount(keys);
+      const rejected: number = countsOf(codes, INVALID_CODE);
+      logCase('testStatSurrogateEdge0064', `keyCount=${keys.length} distinct=${distinct} rejected=${rejected} ` +
+        `lengths=${describeKeys(keys)} codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_THREE);
+      expect(distinct).assertEqual(TABLE_SIZE_THREE);
+      expect(rejected).assertEqual(TABLE_SIZE_THREE);
+      expect(matchesAllCodes(codes, INVALID_CODE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_6500
+     * @tc.name      testStatLongFill0065
+     * @tc.desc      Ask for four thousand byte buffers of one repeated letter and check the long filler is refused
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatLongFill0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const keys: string[] = LONG_FILL_KEYS;
+      const codes: number[] = codesOf(keys);
+      const floorLength: number = 1000;
+      const shortest: number = shortestLength(keys);
+      const longest: number = longestLength(keys);
+      logCase('testStatLongFill0065', `keyCount=${keys.length} shortest=${shortest} longest=${longest} ` +
+        `codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FOUR);
+      expect(shortest).assertEqual(floorLength);
+      expect(longest).assertEqual(floorLength);
+      expect(matchesAllCodes(codes, INVALID_CODE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_6600
+     * @tc.name      testStatLongerFill0066
+     * @tc.desc      Ask for two to three and a half thousand byte buffers and check growing length changes nothing
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatLongerFill0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const keys: string[] = LONGER_FILL_KEYS;
+      const codes: number[] = codesOf(keys);
+      const floorLength: number = 2000;
+      const shortest: number = shortestLength(keys);
+      const longest: number = longestLength(keys);
+      const rejected: number = countsOf(codes, INVALID_CODE);
+      logCase('testStatLongerFill0066', `keyCount=${keys.length} shortest=${shortest} longest=${longest} ` +
+        `rejected=${rejected} codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FOUR);
+      expect(shortest >= floorLength).assertTrue();
+      expect(longest > shortest).assertTrue();
+      expect(rejected).assertEqual(TABLE_SIZE_FOUR);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_6700
+     * @tc.name      testStatHugeFill0067
+     * @tc.desc      Ask for buffers up to eight thousand characters and check the parser does not accept a slice of
+     *               them
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatHugeFill0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const keys: string[] = HUGE_FILL_KEYS;
+      const codes: number[] = codesOf(keys);
+      const ceilingLength: number = 8000;
+      const longest: number = longestLength(keys);
+      const total: number = totalLength(keys);
+      logCase('testStatHugeFill0067', `keyCount=${keys.length} longest=${longest} total=${total} ` +
+        `codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FOUR);
+      expect(longest).assertEqual(ceilingLength);
+      expect(total > ceilingLength).assertTrue();
+      expect(matchesAllCodes(codes, INVALID_CODE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_6800
+     * @tc.name      testStatLongValidPrefix0068
+     * @tc.desc      Append five hundred filler characters to every documented key and check the padded names are
+     *               refused
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatLongValidPrefix0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const keys: string[] = LONG_VALID_PREFIX_KEYS;
+      const codes: number[] = codesOf(keys);
+      const floorLength: number = 512;
+      const shortest: number = shortestLength(keys);
+      const rejected: number = countsOf(codes, INVALID_CODE);
+      const includesValid: boolean = includesValidKey(keys);
+      logCase('testStatLongValidPrefix0068', `keyCount=${keys.length} shortest=${shortest} rejected=${rejected} ` +
+        `includesValid=${includesValid} codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(STAT_COUNT);
+      expect(shortest > floorLength).assertTrue();
+      expect(rejected).assertEqual(STAT_COUNT);
+      expect(includesValid).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_6900
+     * @tc.name      testStatLongSegment0069
+     * @tc.desc      Repeat the leaf name thirty two times with dots and check the deep repetition is unknown
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testStatLongSegment0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3, () => {
+      const keys: string[] = LONG_SEGMENT_KEYS;
+      const codes: number[] = codesOf(keys);
+      const floorLength: number = 128;
+      const shortest: number = shortestLength(keys);
+      const distinct: number = distinctCount(keys);
+      logCase('testStatLongSegment0069', `keyCount=${keys.length} shortest=${shortest} distinct=${distinct} ` +
+        `lengths=${describeKeys(keys)} codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(STAT_COUNT);
+      expect(shortest > floorLength).assertTrue();
+      expect(distinct).assertEqual(STAT_COUNT);
+      expect(matchesAllCodes(codes, INVALID_CODE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_7000
+     * @tc.name      testStatLongArkChain0070
+     * @tc.desc      Build long dot separated ark chains and check a chain of three hundred segments is refused
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testStatLongArkChain0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL3, () => {
+      const keys: string[] = LONG_ARK_CHAIN_KEYS;
+      const codes: number[] = codesOf(keys);
+      const floorLength: number = 1000;
+      const shortest: number = shortestLength(keys);
+      const longest: number = longestLength(keys);
+      logCase('testStatLongArkChain0070', `keyCount=${keys.length} shortest=${shortest} longest=${longest} ` +
+        `codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FOUR);
+      expect(shortest > floorLength).assertTrue();
+      expect(longest > shortest).assertTrue();
+      expect(matchesAllCodes(codes, INVALID_CODE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_7100
+     * @tc.name      testStatRepeatedPunctuation0071
+     * @tc.desc      Ask for long runs of dots, hyphens and underscores and check punctuation only keys are refused
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatRepeatedPunctuation0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const keys: string[] = REPEATED_PUNCTUATION_KEYS;
+      const codes: number[] = codesOf(keys);
+      const floorLength: number = 1000;
+      const shortest: number = shortestLength(keys);
+      const rejected: number = countsOf(codes, INVALID_CODE);
+      logCase('testStatRepeatedPunctuation0071', `keyCount=${keys.length} shortest=${shortest} ` +
+        `rejected=${rejected} lengths=${describeKeys(keys)} codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FOUR);
+      expect(shortest).assertEqual(floorLength);
+      expect(rejected).assertEqual(TABLE_SIZE_FOUR);
+      expect(matchesAllCodes(codes, INVALID_CODE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_7200
+     * @tc.name      testStatSmallNumber0072
+     * @tc.desc      Ask for one digit strings and check a numeric key is never read as a statistic index
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatSmallNumber0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const keys: string[] = SMALL_NUMBER_KEYS;
+      const codes: number[] = codesOf(keys);
+      const distinct: number = distinctCount(keys);
+      const shortest: number = shortestLength(keys);
+      const rejected: number = countsOf(codes, INVALID_CODE);
+      logCase('testStatSmallNumber0072', `keyCount=${keys.length} distinct=${distinct} shortest=${shortest} ` +
+        `rejected=${rejected} codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FIVE);
+      expect(distinct).assertEqual(TABLE_SIZE_FIVE);
+      expect(shortest).assertEqual(TABLE_SIZE_ONE);
+      expect(rejected).assertEqual(TABLE_SIZE_FIVE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_7300
+     * @tc.name      testStatSignedNumber0073
+     * @tc.desc      Ask for signed numeric strings and check the sign is not stripped into a plain digit string
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatSignedNumber0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const keys: string[] = SIGNED_NUMBER_KEYS;
+      const codes: number[] = codesOf(keys);
+      const distinct: number = distinctCount(keys);
+      const filled: number = nonEmptyCount(keys);
+      logCase('testStatSignedNumber0073', `keyCount=${keys.length} distinct=${distinct} filled=${filled} ` +
+        `codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FIVE);
+      expect(distinct).assertEqual(TABLE_SIZE_FIVE);
+      expect(filled).assertEqual(TABLE_SIZE_FIVE);
+      expect(matchesAllCodes(codes, INVALID_CODE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_7400
+     * @tc.name      testStatDecimalNumber0074
+     * @tc.desc      Ask for decimal strings with and without leading digits and check the decimal forms are refused
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatDecimalNumber0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const keys: string[] = DECIMAL_NUMBER_KEYS;
+      const codes: number[] = codesOf(keys);
+      const rejected: number = countsOf(codes, INVALID_CODE);
+      const distinct: number = distinctCount(keys);
+      logCase('testStatDecimalNumber0074', `keyCount=${keys.length} rejected=${rejected} distinct=${distinct} ` +
+        `lengths=${describeKeys(keys)} codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FIVE);
+      expect(rejected).assertEqual(TABLE_SIZE_FIVE);
+      expect(distinct).assertEqual(TABLE_SIZE_FIVE);
+      expect(matchesAllCodes(codes, INVALID_CODE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_7500
+     * @tc.name      testStatExponentNumber0075
+     * @tc.desc      Ask for exponential notation strings and check the exponent form does not resolve to a key
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatExponentNumber0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const keys: string[] = EXPONENT_NUMBER_KEYS;
+      const codes: number[] = codesOf(keys);
+      const distinct: number = distinctCount(keys);
+      const rejected: number = countsOf(codes, INVALID_CODE);
+      logCase('testStatExponentNumber0075', `keyCount=${keys.length} distinct=${distinct} rejected=${rejected} ` +
+        `codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FIVE);
+      expect(distinct).assertEqual(TABLE_SIZE_FIVE);
+      expect(rejected).assertEqual(TABLE_SIZE_FIVE);
+      expect(matchesAllCodes(codes, INVALID_CODE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_7600
+     * @tc.name      testStatNonNumericToken0076
+     * @tc.desc      Ask for special numeric tokens such as NaN and Infinity and check they are refused as keys
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatNonNumericToken0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const keys: string[] = NON_NUMERIC_TOKEN_KEYS;
+      const codes: number[] = codesOf(keys);
+      const distinct: number = distinctCount(keys);
+      const includesValid: boolean = includesValidKey(keys);
+      const rejected: number = countsOf(codes, INVALID_CODE);
+      logCase('testStatNonNumericToken0076', `keyCount=${keys.length} distinct=${distinct} rejected=${rejected} ` +
+        `includesValid=${includesValid} codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FIVE);
+      expect(distinct).assertEqual(TABLE_SIZE_FIVE);
+      expect(rejected).assertEqual(TABLE_SIZE_FIVE);
+      expect(includesValid).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_7700
+     * @tc.name      testStatBaseLiteral0077
+     * @tc.desc      Ask for hexadecimal, binary, octal and grouped literals and check none is parsed into a key
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatBaseLiteral0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const keys: string[] = BASE_LITERAL_KEYS;
+      const codes: number[] = codesOf(keys);
+      const distinct: number = distinctCount(keys);
+      const filled: number = nonEmptyCount(keys);
+      logCase('testStatBaseLiteral0077', `keyCount=${keys.length} distinct=${distinct} filled=${filled} ` +
+        `lengths=${describeKeys(keys)} codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FIVE);
+      expect(distinct).assertEqual(TABLE_SIZE_FIVE);
+      expect(filled).assertEqual(TABLE_SIZE_FIVE);
+      expect(matchesAllCodes(codes, INVALID_CODE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_7800
+     * @tc.name      testStatStatus401Code0078
+     * @tc.desc      Ask for keys that are the documented 401 code written as a number and check the code matches
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testStatStatus401Code0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const keys: string[] = STATUS_CODE_KEYS;
+      const codes: number[] = codesOf(keys);
+      const documented: number = DOCUMENTED_INVALID_CODE;
+      const observed: number = INVALID_CODE;
+      logCase('testStatStatus401Code0078', `keyCount=${keys.length} documented=${documented} observed=${observed} ` +
+        `codes=${codes.join(',')}`);
+      expect(observed).assertEqual(documented);
+      expect(codes.length).assertEqual(TABLE_SIZE_FIVE);
+      expect(countsOf(codes, observed)).assertEqual(TABLE_SIZE_FIVE);
+      expect(codes.every((code: number) => Number.isInteger(code))).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_7900
+     * @tc.name      testStatStatus401Text0079
+     * @tc.desc      Ask for keys that embed the 401 text and check the error code is unchanged by the wording
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatStatus401Text0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const keys: string[] = STATUS_CODE_TEXT_KEYS;
+      const codes: number[] = codesOf(keys);
+      const documented: number = DOCUMENTED_INVALID_CODE;
+      const rejected: number = countsOf(codes, documented);
+      logCase('testStatStatus401Text0079', `keyCount=${keys.length} documented=${documented} rejected=${rejected} ` +
+        `codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_THREE);
+      expect(rejected).assertEqual(TABLE_SIZE_THREE);
+      expect(matchesAllCodes(codes, documented)).assertTrue();
+      expect(countsOf(codes, SUCCESS_CODE)).assertEqual(ZERO_DELTA);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_8000
+     * @tc.name      testStatDocumentedFamily0080
+     * @tc.desc      Embed the 401 code inside dotted keys and check the documented error code still comes back
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatDocumentedFamily0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const keys: string[] = DOCUMENTED_FAMILY_KEYS;
+      const codes: number[] = codesOf(keys);
+      const documented: number = DOCUMENTED_INVALID_CODE;
+      const distinct: number = distinctCount(keys);
+      logCase('testStatDocumentedFamily0080', `keyCount=${keys.length} documented=${documented} ` +
+        `distinct=${distinct} codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FOUR);
+      expect(distinct).assertEqual(TABLE_SIZE_FOUR);
+      expect(matchesAllCodes(codes, documented)).assertTrue();
+      expect(includesValidKey(keys)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_8100
+     * @tc.name      testStatMixedFamily0081
+     * @tc.desc      Mix a code lookalike, a unicode space and a hash suffix in one table and check every entry reports
+     *               401
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatMixedFamily0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const keys: string[] = MIXED_FAMILY_KEYS;
+      const codes: number[] = codesOf(keys);
+      const documented: number = DOCUMENTED_INVALID_CODE;
+      const rejected: number = countsOf(codes, documented);
+      logCase('testStatMixedFamily0081', `keyCount=${keys.length} documented=${documented} rejected=${rejected} ` +
+        `lengths=${describeKeys(keys)} codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FOUR);
+      expect(rejected).assertEqual(TABLE_SIZE_FOUR);
+      expect(matchesAllCodes(codes, documented)).assertTrue();
+      expect(distinctCount(keys)).assertEqual(TABLE_SIZE_FOUR);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_8200
+     * @tc.name      testStatErrorCodeType0082
+     * @tc.desc      Ask for keys that spell the word error and check the thrown code is a number not a string
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testStatErrorCodeType0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const keys: string[] = ERROR_CODE_TYPE_KEYS;
+      const codes: number[] = codesOf(keys);
+      const numeric: number = codes.filter((code: number) => typeof code === 'number').length;
+      const documented: number = DOCUMENTED_INVALID_CODE;
+      logCase('testStatErrorCodeType0082', `keyCount=${keys.length} numeric=${numeric} documented=${documented} ` +
+        `codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FIVE);
+      expect(numeric).assertEqual(TABLE_SIZE_FIVE);
+      expect(codes.every((code: number) => typeof code === 'number')).assertTrue();
+      expect(countsOf(codes, documented)).assertEqual(TABLE_SIZE_FIVE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_8300
+     * @tc.name      testStatErrorCodeInteger0083
+     * @tc.desc      Ask for keys written as fractional numbers and check the returned code is an integer 401
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatErrorCodeInteger0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const keys: string[] = ERROR_CODE_INTEGER_KEYS;
+      const codes: number[] = codesOf(keys);
+      const documented: number = DOCUMENTED_INVALID_CODE;
+      const integral: number = codes.filter((code: number) => Number.isInteger(code)).length;
+      logCase('testStatErrorCodeInteger0083', `keyCount=${keys.length} integral=${integral} ` +
+        `documented=${documented} codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FIVE);
+      expect(integral).assertEqual(TABLE_SIZE_FIVE);
+      expect(codes.every((code: number) => Number.isInteger(code))).assertTrue();
+      expect(countsOf(codes, documented)).assertEqual(TABLE_SIZE_FIVE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_8400
+     * @tc.name      testStatErrorCodeNotSuccess0084
+     * @tc.desc      Ask for ordinary words that are not statistic names and check the code is never the zero success
+     *               code
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testStatErrorCodeNotSuccess0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const keys: string[] = ERROR_CODE_DISTINCT_KEYS;
+      const codes: number[] = codesOf(keys);
+      const success: number = SUCCESS_CODE;
+      const invalid: number = INVALID_CODE;
+      const rejected: number = countsOf(codes, invalid);
+      logCase('testStatErrorCodeNotSuccess0084', `keyCount=${keys.length} success=${success} invalid=${invalid} ` +
+        `rejected=${rejected} codes=${codes.join(',')}`);
+      expect(codes.length).assertEqual(TABLE_SIZE_FIVE);
+      expect(countsOf(codes, success)).assertEqual(ZERO_DELTA);
+      expect(rejected).assertEqual(TABLE_SIZE_FIVE);
+      expect(codes.some((code: number) => code === success)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_8500
+     * @tc.name      testStatErrorCodeStable0085
+     * @tc.desc      Ask for leaf names without their namespace and check every one reports the same 401 code
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testStatErrorCodeStable0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const keys: string[] = ERROR_CODE_REPEAT_KEYS;
+      const codes: number[] = codesOf(keys);
+      const distinctCodes: number = distinctCount(codes.map((code: number) => String(code)));
+      const documented: number = DOCUMENTED_INVALID_CODE;
+      logCase('testStatErrorCodeStable0085', `keyCount=${keys.length} distinctCodes=${distinctCodes} ` +
+        `documented=${documented} codes=${codes.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FOUR);
+      expect(distinctCodes).assertEqual(TABLE_SIZE_ONE);
+      expect(countsOf(codes, documented)).assertEqual(TABLE_SIZE_FOUR);
+      expect(matchesAllCodes(codes, documented)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_8600
+     * @tc.name      testStatRecoverAfterBlank0086
+     * @tc.desc      Reject eleven character blank runs and then read every documented key again to prove the reader
+     *               recovered
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testStatRecoverAfterBlank0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const keys: string[] = RECOVERY_BLANK_KEYS;
+      const first: number[] = codesOf(keys);
+      const after: number[] = validCodesAfter(keys);
+      logCase('testStatRecoverAfterBlank0086', `keyCount=${keys.length} first=${first.join(',')} ` +
+        `after=${after.join(',')}`);
+      expect(matchesAllCodes(first, INVALID_CODE)).assertTrue();
+      expect(after.length).assertEqual(STAT_COUNT);
+      expect(matchesAllCodes(after, SUCCESS_CODE)).assertTrue();
+      expect(validValuesOk()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_8700
+     * @tc.name      testStatRecoverAfterCase0087
+     * @tc.desc      Reject keys with a capital in the middle and then read every documented key again to prove the
+     *               reader recovered
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testStatRecoverAfterCase0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const keys: string[] = RECOVERY_CASE_KEYS;
+      const first: number[] = codesOf(keys);
+      const after: number[] = validCodesAfter(keys);
+      const rejected: number = countsOf(first, INVALID_CODE);
+      logCase('testStatRecoverAfterCase0087', `keyCount=${keys.length} rejected=${rejected} ` +
+        `after=${after.join(',')}`);
+      expect(rejected).assertEqual(STAT_COUNT);
+      expect(after.length).assertEqual(STAT_COUNT);
+      expect(countsOf(after, SUCCESS_CODE)).assertEqual(STAT_COUNT);
+      expect(validValuesOk()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_8800
+     * @tc.name      testStatRecoverAfterLong0088
+     * @tc.desc      Reject keys padded with seven hundred characters and then read every documented key again
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatRecoverAfterLong0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const keys: string[] = RECOVERY_LONG_KEYS;
+      const floorLength: number = 700;
+      const first: number[] = codesOf(keys);
+      const after: number[] = validCodesAfter(keys);
+      const shortest: number = shortestLength(keys);
+      logCase('testStatRecoverAfterLong0088', `keyCount=${keys.length} shortest=${shortest} ` +
+        `first=${first.join(',')} after=${after.join(',')}`);
+      expect(shortest > floorLength).assertTrue();
+      expect(matchesAllCodes(first, INVALID_CODE)).assertTrue();
+      expect(matchesAllCodes(after, SUCCESS_CODE)).assertTrue();
+      expect(validValuesOk()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_8900
+     * @tc.name      testStatRecoverAfterUnicode0089
+     * @tc.desc      Reject keys prefixed with a modifier letter and then read every documented key again
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testStatRecoverAfterUnicode0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      const keys: string[] = RECOVERY_UNICODE_KEYS;
+      const first: number[] = codesOf(keys);
+      const after: number[] = validCodesAfter(keys);
+      const distinct: number = distinctCount(keys);
+      logCase('testStatRecoverAfterUnicode0089', `keyCount=${keys.length} distinct=${distinct} ` +
+        `first=${first.join(',')} after=${after.join(',')}`);
+      expect(distinct).assertEqual(STAT_COUNT);
+      expect(matchesAllCodes(first, INVALID_CODE)).assertTrue();
+      expect(after.length).assertEqual(STAT_COUNT);
+      expect(matchesAllCodes(after, SUCCESS_CODE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_9000
+     * @tc.name      testStatRecoverAfterMixed0090
+     * @tc.desc      Reject keys that use pipes as separators and then read every documented key again
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatRecoverAfterMixed0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const keys: string[] = RECOVERY_MIXED_KEYS;
+      const first: number[] = codesOf(keys);
+      const after: number[] = validCodesAfter(keys);
+      const distinct: number = distinctCount(keys);
+      const rejected: number = countsOf(first, INVALID_CODE);
+      logCase('testStatRecoverAfterMixed0090', `keyCount=${keys.length} distinct=${distinct} ` +
+        `rejected=${rejected} after=${after.join(',')}`);
+      expect(distinct).assertEqual(STAT_COUNT);
+      expect(rejected).assertEqual(STAT_COUNT);
+      expect(matchesAllCodes(after, SUCCESS_CODE)).assertTrue();
+      expect(countsOf(after, SUCCESS_CODE)).assertEqual(STAT_COUNT);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_9100
+     * @tc.name      testStatStableAfterBlank0091
+     * @tc.desc      Take a snapshot around twelve character blank rejections and check no counter was reset or
+     *               decreased
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testStatStableAfterBlank0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const keys: string[] = STABLE_BLANK_KEYS;
+      const deltas: number[] = failureDeltas(keys);
+      const kept: boolean = deltasKeptCounters(deltas);
+      logCase('testStatStableAfterBlank0091', `keyCount=${keys.length} deltas=${deltas.join(',')} kept=${kept}`);
+      expect(deltas.length).assertEqual(STAT_COUNT);
+      expect(kept).assertTrue();
+      expect(deltaWithinBound(deltas)).assertTrue();
+      expect(validValuesOk()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_9200
+     * @tc.name      testStatStableAfterSuffix0092
+     * @tc.desc      Take a snapshot around rejections of keys with sixty four filler characters and check the
+     *               counters only move forward
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatStableAfterSuffix0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const keys: string[] = STABLE_SUFFIX_KEYS;
+      const deltas: number[] = failureDeltas(keys);
+      const allocated: number = deltas[ALLOCATED_INDEX];
+      const bound: number = ALLOCATION_BOUND_BYTES;
+      logCase('testStatStableAfterSuffix0092', `keyCount=${keys.length} deltas=${deltas.join(',')} ` +
+        `allocated=${allocated} bound=${bound}`);
+      expect(deltas.length).assertEqual(STAT_COUNT);
+      expect(deltasKeptCounters(deltas)).assertTrue();
+      expect(allocated < bound).assertTrue();
+      expect(deltas.every((value: number) => Number.isFinite(value))).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_9300
+     * @tc.name      testStatStableAfterDots0093
+     * @tc.desc      Take a snapshot around rejections of doubled dot keys and check the counters are never cleared
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatStableAfterDots0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const keys: string[] = STABLE_DOTS_KEYS;
+      const deltas: number[] = failureDeltas(keys);
+      const rejected: number[] = codesOf(keys);
+      logCase('testStatStableAfterDots0093', `keyCount=${keys.length} deltas=${deltas.join(',')} ` +
+        `rejected=${rejected.join(',')}`);
+      expect(deltas.length).assertEqual(STAT_COUNT);
+      expect(deltasKeptCounters(deltas)).assertTrue();
+      expect(deltaWithinBound(deltas)).assertTrue();
+      expect(matchesAllCodes(rejected, INVALID_CODE)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_9400
+     * @tc.name      testStatStableAfterNumber0094
+     * @tc.desc      Take a snapshot around rejections of two digit numeric strings and check the counters survive
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatStableAfterNumber0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const keys: string[] = STABLE_NUMBER_KEYS;
+      const deltas: number[] = failureDeltas(keys);
+      const distinct: number = distinctCount(keys);
+      logCase('testStatStableAfterNumber0094', `keyCount=${keys.length} distinct=${distinct} ` +
+        `deltas=${deltas.join(',')}`);
+      expect(deltas.length).assertEqual(STAT_COUNT);
+      expect(distinct).assertEqual(TABLE_SIZE_FOUR);
+      expect(deltasKeptCounters(deltas)).assertTrue();
+      expect(validValuesOk()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_9500
+     * @tc.name      testStatStableAfterUnicode0095
+     * @tc.desc      Take a snapshot around rejections of keys with an acute accent suffix and check the counters
+     *               only move forward
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testStatStableAfterUnicode0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      const keys: string[] = STABLE_UNICODE_KEYS;
+      const deltas: number[] = failureDeltas(keys);
+      const shortest: number = shortestLength(keys);
+      const kept: boolean = deltasKeptCounters(deltas);
+      logCase('testStatStableAfterUnicode0095', `keyCount=${keys.length} shortest=${shortest} ` +
+        `deltas=${deltas.join(',')} kept=${kept}`);
+      expect(deltas.length).assertEqual(STAT_COUNT);
+      expect(kept).assertTrue();
+      expect(shortest > TABLE_SIZE_TEN).assertTrue();
+      expect(deltaWithinBound(deltas)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_9600
+     * @tc.name      testStatCompositeMix0096
+     * @tc.desc      Reject one key of each earlier family in a single table and check the reader still answers the
+     *               documented keys
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatCompositeMix0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const keys: string[] = COMPOSITE_MIX_KEYS;
+      const codes: number[] = codesOf(keys);
+      const after: number[] = validCodesAfter(keys);
+      const shortest: number = shortestLength(keys);
+      const longest: number = longestLength(keys);
+      logCase('testStatCompositeMix0096', `keyCount=${keys.length} shortest=${shortest} longest=${longest} ` +
+        `codes=${codes.join(',')} after=${after.join(',')}`);
+      expect(keys.length).assertEqual(TABLE_SIZE_FOUR);
+      expect(matchesAllCodes(codes, INVALID_CODE)).assertTrue();
+      expect(matchesAllCodes(after, SUCCESS_CODE)).assertTrue();
+      expect(longest > shortest).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_9700
+     * @tc.name      testStatCompositeFamily0097
+     * @tc.desc      Wrap control character keys in a family object and check the family reports the 401 code for
+     *               every member
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatCompositeFamily0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const keys: string[] = COMPOSITE_FAMILY_A_KEYS;
+      const family: KeyFamily = new KeyFamilyData('control-prefix', keys, INVALID_CODE) as KeyFamily;
+      const codes: number[] = familyCodes(family);
+      const rejected: boolean = familyRejected(family);
+      logCase('testStatCompositeFamily0097', `label=${family.label} keyCount=${family.keys.length} ` +
+        `codes=${codes.join(',')} rejected=${rejected}`);
+      expect(family.keys.length).assertEqual(TABLE_SIZE_FOUR);
+      expect(matchesAllCodes(codes, family.expected)).assertTrue();
+      expect(rejected).assertTrue();
+      expect(family.expected).assertEqual(INVALID_CODE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_9800
+     * @tc.name      testStatCompositeFamily0098
+     * @tc.desc      Wrap keys with the first two characters removed in a family object and check the shortened
+     *               namespace is refused
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatCompositeFamily0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const keys: string[] = COMPOSITE_FAMILY_B_KEYS;
+      const family: KeyFamily = new KeyFamilyData('short-namespace', keys, INVALID_CODE) as KeyFamily;
+      const codes: number[] = familyCodes(family);
+      const filled: number = nonEmptyCount(family.keys);
+      logCase('testStatCompositeFamily0098', `label=${family.label} keyCount=${family.keys.length} ` +
+        `filled=${filled} codes=${codes.join(',')}`);
+      expect(family.keys.length).assertEqual(STAT_COUNT);
+      expect(filled).assertEqual(STAT_COUNT);
+      expect(countsOf(codes, family.expected)).assertEqual(STAT_COUNT);
+      expect(familyRejected(family)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_9900
+     * @tc.name      testStatCompositeFamily0099
+     * @tc.desc      Wrap inner windows cut out of each documented key in a family object and check every window is
+     *               refused
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL3
+     */
+    it('testStatCompositeFamily0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL3, () => {
+      const keys: string[] = COMPOSITE_FAMILY_C_KEYS;
+      const family: KeyFamily = new KeyFamilyData('inner-window', keys, INVALID_CODE) as KeyFamily;
+      const codes: number[] = familyCodes(family);
+      const distinct: number = distinctCount(family.keys);
+      logCase('testStatCompositeFamily0099', `label=${family.label} keyCount=${family.keys.length} ` +
+        `distinct=${distinct} codes=${codes.join(',')}`);
+      expect(family.keys.length).assertEqual(STAT_COUNT);
+      expect(distinct).assertEqual(STAT_COUNT);
+      expect(matchesAllCodes(codes, family.expected)).assertTrue();
+      expect(countsOf(codes, SUCCESS_CODE)).assertEqual(ZERO_DELTA);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_STATERROR_10000
+     * @tc.name      testStatCompositeFamily0100
+     * @tc.desc      Wrap keys with the second dot pair swapped in a family object and check the transposed segment
+     *               is refused while the counters stay stable
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatCompositeFamily0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const keys: string[] = SWAPPED_MIDDLE_KEYS;
+      const family: KeyFamily = new KeyFamilyData('swapped-middle', keys, INVALID_CODE) as KeyFamily;
+      const codes: number[] = familyCodes(family);
+      const deltas: number[] = failureDeltas(keys);
+      const distinct: number = distinctCount(family.keys);
+      logCase('testStatCompositeFamily0100', `label=${family.label} keyCount=${family.keys.length} ` +
+        `distinct=${distinct} codes=${codes.join(',')} deltas=${deltas.join(',')}`);
+      expect(family.keys.length).assertEqual(STAT_COUNT);
+      expect(distinct).assertEqual(STAT_COUNT);
+      expect(matchesAllCodes(codes, family.expected)).assertTrue();
+      expect(deltasKeptCounters(deltas)).assertTrue();
+      expect(validValuesOk()).assertTrue();
+    });
+  });
+}

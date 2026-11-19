@@ -1798,3 +1798,1065 @@ export default function appContextMatrixTest() {
       writeTextFile(cachePath, PAYLOAD_IOTA);
       const filesBytes: Uint8Array = readFileBytes(filesPath);
       const cacheBytes: Uint8Array = readFileBytes(cachePath);
+      logCase('testAppCtxWritableSpace0006', `files=${filesBytes.length} cache=${cacheBytes.length} ` +
+        `equal=${bytesEqual(filesBytes, cacheBytes)}`);
+      expect(bytesEqual(filesBytes, cacheBytes)).assertTrue();
+      expect(filesBytes.length).assertEqual(PAYLOAD_IOTA.length);
+      expect(probeSize(cachePath)).assertEqual(PAYLOAD_IOTA.length);
+      expect(dropFile(filesPath)).assertTrue();
+      expect(dropFile(cachePath)).assertTrue();
+      expect(filesDir === cacheDir).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_6100
+     * @tc.name      testAppCtxWritableSpace0007
+     * @tc.desc      Track the probe folder listing around one write and one delete and check the count returns to the
+     *               baseline it started from
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxWritableSpace0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const context: common.Context = entryContext();
+      const dir: string = prepareProbe(context.filesDir, 'listing_files');
+      const baseline: number = entriesOf(dir).length;
+      const path: string = joinPath(dir, 'tracked.txt');
+      writeTextFile(path, PAYLOAD_DELTA);
+      const afterWrite: number = entriesOf(dir).length;
+      const deleted: boolean = dropFile(path);
+      const afterDelete: number = entriesOf(dir).length;
+      logCase('testAppCtxWritableSpace0007', `baseline=${baseline} afterWrite=${afterWrite} ` +
+        `afterDelete=${afterDelete}`);
+      expect(afterWrite).assertEqual(baseline + ONE);
+      expect(deleted).assertTrue();
+      expect(afterDelete).assertEqual(baseline);
+      expect(probeExists(path)).assertFalse();
+      expect(cleanProbe(context.filesDir, 'listing_files')).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_6200
+     * @tc.name      testAppCtxUnknownModule0001
+     * @tc.desc      Check asking for a context of an uninstalled module is answered without an exception and keeps the
+     *               bundle identity of the caller
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxUnknownModule0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const guarded: GuardedContext = captureModule(UNKNOWN_MODULE);
+      logCase('testAppCtxUnknownModule0001', `threw=${guarded.threw} code=${guarded.code} ` +
+        `appName=${guarded.appName} filesDir=${guarded.filesDir}`);
+      expect(guarded.threw).assertFalse();
+      expect(guarded.code).assertEqual(ZERO);
+      expect(guarded.appName).assertEqual(BUNDLE_NAME);
+      expect(guarded.uid).assertEqual(process.uid);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_6300
+     * @tc.name      testAppCtxUnknownModule0002
+     * @tc.desc      Check an unknown module name built from the entry name with a leading capital is matched case
+     *               sensitively, so its directories never coincide with the entry ones
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxUnknownModule0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const entry: common.Context = entryContext();
+      const guarded: GuardedContext = captureModule(UNKNOWN_CASED);
+      const dirShape: boolean = guarded.filesDir.length === EMPTY_LENGTH || isAbsolutePath(guarded.filesDir);
+      logCase('testAppCtxUnknownModule0002', `threw=${guarded.threw} filesDir=${guarded.filesDir} ` +
+        `entryFiles=${entry.filesDir}`);
+      expect(guarded.threw).assertFalse();
+      expect(guarded.filesDir === entry.filesDir).assertFalse();
+      expect(dirShape).assertTrue();
+      expect(guarded.appName).assertEqual(BUNDLE_NAME);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_6400
+     * @tc.name      testAppCtxUnknownModule0003
+     * @tc.desc      Check a module name padded with a trailing blank is refused as a directory owner, so the returned
+     *               files directory stays away from the entry directory
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxUnknownModule0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const entry: common.Context = entryContext();
+      const guarded: GuardedContext = captureModule(UNKNOWN_SPACED);
+      logCase('testAppCtxUnknownModule0003', `threw=${guarded.threw} filesDir=${guarded.filesDir} ` +
+        `entryFiles=${entry.filesDir}`);
+      expect(guarded.threw).assertFalse();
+      expect(guarded.appName).assertEqual(BUNDLE_NAME);
+      expect(guarded.filesDir === entry.filesDir).assertFalse();
+      expect(guarded.cacheDir === entry.cacheDir).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_6500
+     * @tc.name      testAppCtxUnknownModule0004
+     * @tc.desc      Check two independent contexts for the same uninstalled module report the same uid and the same
+     *               files directory
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxUnknownModule0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const first: GuardedContext = captureModule(UNKNOWN_MODULE);
+      const second: GuardedContext = captureModule(UNKNOWN_MODULE);
+      logCase('testAppCtxUnknownModule0004', `first=${first.filesDir} second=${second.filesDir} ` +
+        `uid=${first.uid}`);
+      expect(first.threw).assertFalse();
+      expect(second.threw).assertFalse();
+      expect(first.uid).assertEqual(second.uid);
+      expect(first.filesDir).assertEqual(second.filesDir);
+      expect(first.appName).assertEqual(second.appName);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_6600
+     * @tc.name      testAppCtxUnknownModule0005
+     * @tc.desc      Check the resource manager of a context created for an uninstalled module still resolves the
+     *               application label string
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxUnknownModule0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const guarded: GuardedContext = captureModule(UNKNOWN_MODULE);
+      const context: common.Context | undefined = guarded.context;
+      let label: string = '';
+      if (context !== undefined) {
+        label = stringByName(context.resourceManager, 'app_name');
+      }
+      logCase('testAppCtxUnknownModule0005', `threw=${guarded.threw} label=${label} ` +
+        `processName=${guarded.processName}`);
+      expect(guarded.threw).assertFalse();
+      expect(context !== undefined).assertTrue();
+      expect(label).assertEqual(APP_NAME_TEXT);
+      expect(guarded.processName).assertEqual(BUNDLE_NAME);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_6700
+     * @tc.name      testAppCtxAreaIdentity0001
+     * @tc.desc      Check the area mode of the module context is one of the two documented data partitions, matches
+     *               the application context and survives a repeated read
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testAppCtxAreaIdentity0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const context: common.Context = entryContext();
+      const first: number = Number(context.area);
+      const second: number = Number(context.area);
+      logCase('testAppCtxAreaIdentity0001', `area=${context.area} first=${first} second=${second} ` +
+        `applicationArea=${appContext().area}`);
+      expect(areaKnown(context)).assertTrue();
+      expect(first).assertEqual(second);
+      expect(context.area).assertEqual(appContext().area);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_6800
+     * @tc.name      testAppCtxAreaIdentity0002
+     * @tc.desc      Check the ordinary module context lives in the EL1 partition, whose numeric value is the smaller
+     *               of the two documented area values
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxAreaIdentity0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const area: contextConstant.AreaMode = entryContext().area;
+      const el1: number = Number(contextConstant.AreaMode.EL1);
+      const el2: number = Number(contextConstant.AreaMode.EL2);
+      logCase('testAppCtxAreaIdentity0002', `area=${area} el1=${el1} el2=${el2}`);
+      expect(area).assertEqual(contextConstant.AreaMode.EL1);
+      expect(el1 < el2).assertTrue();
+      expect(Number(area)).assertEqual(ZERO);
+      expect(Number(appContext().area)).assertEqual(el1);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_6900
+     * @tc.name      testAppCtxAreaIdentity0003
+     * @tc.desc      Check a context created for an uninstalled module inherits the area mode of the caller instead of
+     *               inventing a new partition
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxAreaIdentity0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const guarded: GuardedContext = captureModule(UNKNOWN_MODULE);
+      const entryArea: number = Number(entryContext().area);
+      logCase('testAppCtxAreaIdentity0003', `threw=${guarded.threw} unknownArea=${guarded.area} ` +
+        `entryArea=${entryArea}`);
+      expect(guarded.threw).assertFalse();
+      expect(guarded.area).assertEqual(entryArea);
+      expect(guarded.area).assertEqual(Number(contextConstant.AreaMode.EL1));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_7000
+     * @tc.name      testAppCtxAreaIdentity0004
+     * @tc.desc      Check the resource manager and the event hub of one module context are the same objects on every
+     *               property access, so identity comparisons are meaningful
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxAreaIdentity0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const context: common.Context = entryContext();
+      const managerFirst: resourceManager.ResourceManager = context.resourceManager;
+      const managerSecond: resourceManager.ResourceManager = context.resourceManager;
+      logCase('testAppCtxAreaIdentity0004', `managerSame=${managerFirst === managerSecond} ` +
+        `hubSame=${context.eventHub === context.eventHub}`);
+      expect(managerFirst !== undefined).assertTrue();
+      expect(managerFirst === managerSecond).assertTrue();
+      expect(context.eventHub === context.eventHub).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_7100
+     * @tc.name      testAppCtxAreaIdentity0005
+     * @tc.desc      Check the resource managers of two separately created module contexts resolve the same module
+     *               scoped strings without any failure
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxAreaIdentity0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const first: resourceManager.ResourceManager = moduleContext(ENTRY_MODULE).resourceManager;
+      const second: resourceManager.ResourceManager = moduleContext(ENTRY_MODULE).resourceManager;
+      const descFirst: string = stringByName(first, 'module_desc');
+      const descSecond: string = stringByName(second, 'module_desc');
+      const labelFirst: string = stringByName(first, 'EntryAbility_label');
+      const labelSecond: string = stringByName(second, 'EntryAbility_label');
+      logCase('testAppCtxAreaIdentity0005', `desc=${descFirst} labelFirst=${labelFirst} ` +
+        `labelSecond=${labelSecond}`);
+      expect(descFirst).assertEqual(descSecond);
+      expect(labelFirst).assertEqual(labelSecond);
+      expect(descFirst).assertEqual(MODULE_DESC_TEXT);
+      expect(labelFirst).assertEqual(APP_NAME_TEXT);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_7200
+     * @tc.name      testAppCtxAreaIdentity0006
+     * @tc.desc      Check the label and description identifiers published by the bundle manager resolve through the
+     *               module resource manager to the declared texts
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxAreaIdentity0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const app: bundleManager.ApplicationInfo = info.appInfo;
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const manager: resourceManager.ResourceManager = entryContext().resourceManager;
+      const label: string = stringById(manager, app.labelId);
+      const moduleDescription: string = stringById(manager, entry.descriptionId);
+      logCase('testAppCtxAreaIdentity0006', `labelId=${app.labelId} label=${label} ` +
+        `descriptionId=${entry.descriptionId} description=${moduleDescription}`);
+      expect(label).assertEqual(APP_NAME_TEXT);
+      expect(moduleDescription).assertEqual(MODULE_DESC_TEXT);
+      expect(moduleDescription.length).assertEqual(MODULE_DESC_UNITS);
+      expect(app.labelId > ZERO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_7300
+     * @tc.name      testAppCtxAreaIdentity0007
+     * @tc.desc      Check the module resource manager still answers a resource name that the module does not declare
+     *               with the documented invalid name code
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxAreaIdentity0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const manager: resourceManager.ResourceManager = entryContext().resourceManager;
+      const missing: number = resourceError(manager, MISSING_RESOURCE);
+      const known: number = resourceError(manager, 'module_desc');
+      logCase('testAppCtxAreaIdentity0007', `missing=${missing} known=${known} ` +
+        `expected=${ERR_RES_NAME_INVALID}`);
+      expect(missing).assertEqual(ERR_RES_NAME_INVALID);
+      expect(known).assertEqual(ZERO);
+      expect(missing > ZERO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_7400
+     * @tc.name      testAppCtxAppInfoFields0001
+     * @tc.desc      Check four identity fields of the context application info match the application info published by
+     *               the bundle manager
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testAppCtxAppInfoFields0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const contextInfo: bundleManager.ApplicationInfo = entryContext().applicationInfo;
+      const bundleInfo: bundleManager.ApplicationInfo = (await selfBundle()).appInfo;
+      logCase('testAppCtxAppInfoFields0001', `name=${contextInfo.name} uid=${contextInfo.uid} ` +
+        `token=${contextInfo.accessTokenId} process=${contextInfo.process}`);
+      expect(contextInfo.name).assertEqual(bundleInfo.name);
+      expect(contextInfo.uid).assertEqual(bundleInfo.uid);
+      expect(contextInfo.process).assertEqual(bundleInfo.process);
+      expect(contextInfo.accessTokenId).assertEqual(bundleInfo.accessTokenId);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_7500
+     * @tc.name      testAppCtxAppInfoFields0002
+     * @tc.desc      Check the context application info describes a removable third party application running as the
+     *               primary app instance
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxAppInfoFields0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.ApplicationInfo = entryContext().applicationInfo;
+      logCase('testAppCtxAppInfoFields0002', `bundleType=${info.bundleType} systemApp=${info.systemApp} ` +
+        `removable=${info.removable} appIndex=${info.appIndex}`);
+      expect(info.bundleType).assertEqual(bundleManager.BundleType.APP);
+      expect(info.systemApp).assertFalse();
+      expect(info.removable).assertTrue();
+      expect(info.appIndex).assertEqual(PRIMARY_APP_INDEX);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_7600
+     * @tc.name      testAppCtxAppInfoFields0003
+     * @tc.desc      Check the context application info is enabled, holds a positive token identifier and a process name
+     *               without surrounding blanks
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxAppInfoFields0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.ApplicationInfo = entryContext().applicationInfo;
+      const processName: string = textOrEmpty(info.process);
+      logCase('testAppCtxAppInfoFields0003', `enabled=${info.enabled} token=${info.accessTokenId} ` +
+        `process=${processName}`);
+      expect(info.enabled).assertTrue();
+      expect(info.accessTokenId > ZERO).assertTrue();
+      expect(processName.length > EMPTY_LENGTH).assertTrue();
+      expect(processName === processName.trim()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_7700
+     * @tc.name      testAppCtxAppInfoFields0004
+     * @tc.desc      Check the resource references of the context application info are the declared label and icon and
+     *               that both carry positive identifiers
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxAppInfoFields0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.ApplicationInfo = entryContext().applicationInfo;
+      logCase('testAppCtxAppInfoFields0004', `label=${info.label} icon=${info.icon} labelId=${info.labelId} ` +
+        `iconId=${info.iconId}`);
+      expect(info.label).assertEqual(APP_LABEL_RES);
+      expect(info.icon).assertEqual(APP_ICON_RES);
+      expect(info.labelId > ZERO).assertTrue();
+      expect(info.iconId > ZERO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_7800
+     * @tc.name      testAppCtxAppInfoFields0005
+     * @tc.desc      Check the label resource of the context application info identifies the own bundle and the same
+     *               resource id the label text is resolved from
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxAppInfoFields0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.ApplicationInfo = entryContext().applicationInfo;
+      const label: string = stringById(entryContext().resourceManager, info.labelResource.id);
+      logCase('testAppCtxAppInfoFields0005', `bundle=${info.labelResource.bundleName} ` +
+        `resourceId=${info.labelResource.id} label=${label}`);
+      expect(info.labelResource.bundleName).assertEqual(BUNDLE_NAME);
+      expect(info.labelResource.id).assertEqual(info.labelId);
+      expect(label).assertEqual(APP_NAME_TEXT);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_7900
+     * @tc.name      testAppCtxAppInfoFields0006
+     * @tc.desc      Check the installation code path of the context application info is absolute, matches the bundle
+     *               manager and is shallower than the module files directory
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxAppInfoFields0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const context: common.Context = entryContext();
+      const codePath: string = textOrEmpty(context.applicationInfo.codePath);
+      const bundleCodePath: string = textOrEmpty((await selfBundle()).appInfo.codePath);
+      logCase('testAppCtxAppInfoFields0006', `codePath=${codePath} bundleCodePath=${bundleCodePath} ` +
+        `depth=${depthOf(codePath)}`);
+      expect(codePath.length > EMPTY_LENGTH).assertTrue();
+      expect(isAbsolutePath(codePath)).assertTrue();
+      expect(codePath).assertEqual(bundleCodePath);
+      expect(depthOf(codePath) < depthOf(context.filesDir)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_8000
+     * @tc.name      testAppCtxAppInfoFields0007
+     * @tc.desc      Check the module context and the application context publish the same four identity fields of the
+     *               application info block
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxAppInfoFields0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const moduleInfo: bundleManager.ApplicationInfo = entryContext().applicationInfo;
+      const applicationInfo: bundleManager.ApplicationInfo = appContext().applicationInfo;
+      const sameName: boolean = moduleInfo.name === applicationInfo.name;
+      const sameProcess: boolean = moduleInfo.process === applicationInfo.process;
+      logCase('testAppCtxAppInfoFields0007', `sameName=${sameName} sameProcess=${sameProcess} ` +
+        `moduleUid=${moduleInfo.uid} applicationUid=${applicationInfo.uid}`);
+      expect(sameName).assertTrue();
+      expect(sameProcess).assertTrue();
+      expect(moduleInfo.uid).assertEqual(applicationInfo.uid);
+      expect(moduleInfo.accessTokenId).assertEqual(applicationInfo.accessTokenId);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_8100
+     * @tc.name      testAppCtxAppInfoFields0008
+     * @tc.desc      Check the entry and the test module contexts describe the same application although they serve
+     *               different HAP modules
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxAppInfoFields0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const entryInfo: bundleManager.ApplicationInfo = moduleContext(ENTRY_MODULE).applicationInfo;
+      const testInfo: bundleManager.ApplicationInfo = moduleContext(TEST_MODULE).applicationInfo;
+      logCase('testAppCtxAppInfoFields0008', `entryName=${entryInfo.name} testName=${testInfo.name} ` +
+        `entryType=${entryInfo.bundleType} testType=${testInfo.bundleType}`);
+      expect(entryInfo.name).assertEqual(testInfo.name);
+      expect(entryInfo.bundleType).assertEqual(testInfo.bundleType);
+      expect(entryInfo.uid).assertEqual(testInfo.uid);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_8200
+     * @tc.name      testAppCtxAppInfoFields0009
+     * @tc.desc      Check a scalar projection of the context application info is identical for two independently built
+     *               module contexts
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxAppInfoFields0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const first: bundleManager.ApplicationInfo = entryContext().applicationInfo;
+      const second: bundleManager.ApplicationInfo = moduleContext(ENTRY_MODULE).applicationInfo;
+      const firstKey: string = first.name + PIPE + first.uid + PIPE + first.process + PIPE + first.accessTokenId +
+        PIPE + first.appIndex;
+      const secondKey: string = second.name + PIPE + second.uid + PIPE + second.process + PIPE +
+        second.accessTokenId + PIPE + second.appIndex;
+      logCase('testAppCtxAppInfoFields0009', `first=${firstKey} second=${secondKey}`);
+      expect(firstKey).assertEqual(secondKey);
+      expect(firstKey.length > EMPTY_LENGTH).assertTrue();
+      expect(firstKey.indexOf(BUNDLE_NAME) >= ZERO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_8300
+     * @tc.name      testAppCtxProcessName0001
+     * @tc.desc      Check the module process name equals the bundle name and is a plain ASCII identifier of the same
+     *               length
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testAppCtxProcessName0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const processName: string = entryContext().processName;
+      logCase('testAppCtxProcessName0001', `processName=${processName} length=${processName.length}`);
+      expect(processName.length > EMPTY_LENGTH).assertTrue();
+      expect(processName).assertEqual(BUNDLE_NAME);
+      expect(asciiOnly(processName)).assertTrue();
+      expect(processName.length).assertEqual(BUNDLE_NAME.length);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_8400
+     * @tc.name      testAppCtxProcessName0002
+     * @tc.desc      Check the module process name agrees with the application info process and with the process the
+     *               bundle manager publishes, without embedded blanks
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxProcessName0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const context: common.Context = entryContext();
+      const bundleProcess: string = textOrEmpty((await selfBundle()).appInfo.process);
+      logCase('testAppCtxProcessName0002', `context=${context.processName} info=${context.applicationInfo.process} ` +
+        `bundle=${bundleProcess}`);
+      expect(context.processName).assertEqual(context.applicationInfo.process);
+      expect(context.processName).assertEqual(bundleProcess);
+      expect(hasBlank(context.processName)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_8500
+     * @tc.name      testAppCtxProcessName0003
+     * @tc.desc      Check the process name is one single value when read from the entry module, the test module and the
+     *               application context
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxProcessName0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const readings: string[] = [
+        moduleContext(ENTRY_MODULE).processName,
+        moduleContext(TEST_MODULE).processName,
+        appContext().processName
+      ];
+      logCase('testAppCtxProcessName0003', `readings=${readings.join(PIPE)} distinct=${distinctCount(readings)}`);
+      expect(readings.length).assertEqual(THREE);
+      expect(distinctCount(readings)).assertEqual(ONE);
+      expect(readings[ZERO]).assertEqual(BUNDLE_NAME);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_8600
+     * @tc.name      testAppCtxProcessName0004
+     * @tc.desc      Check the test module context runs in the same process as the entry module context and reports it
+     *               through both the context and its application info
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxProcessName0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const entryProcess: string = moduleContext(ENTRY_MODULE).processName;
+      const test: common.Context = moduleContext(TEST_MODULE);
+      logCase('testAppCtxProcessName0004', `entry=${entryProcess} test=${test.processName} ` +
+        `testInfo=${test.applicationInfo.process}`);
+      expect(test.processName).assertEqual(entryProcess);
+      expect(test.processName).assertEqual(test.applicationInfo.process);
+      expect(test.processName === test.processName.trim()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_8700
+     * @tc.name      testAppCtxBundleCodePath0001
+     * @tc.desc      Check the installation code directory of the module context is a populated absolute path without a
+     *               trailing separator
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testAppCtxBundleCodePath0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const path: string = entryContext().bundleCodeDir;
+      logCase('testAppCtxBundleCodePath0001', `path=${path} depth=${depthOf(path)}`);
+      expect(path.length > EMPTY_LENGTH).assertTrue();
+      expect(isAbsolutePath(path)).assertTrue();
+      expect(hasTrailingSlash(path)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_8800
+     * @tc.name      testAppCtxBundleCodePath0002
+     * @tc.desc      Check the installation code directory exists as a folder and its path has no doubled separators or
+     *               blanks
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxBundleCodePath0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const path: string = entryContext().bundleCodeDir;
+      logCase('testAppCtxBundleCodePath0002', `exists=${probeExists(path)} isDir=${probeIsDir(path)}`);
+      expect(probeExists(path)).assertTrue();
+      expect(probeIsDir(path)).assertTrue();
+      expect(hasDoubleSlash(path)).assertFalse();
+      expect(hasBlank(path)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_8900
+     * @tc.name      testAppCtxBundleCodePath0003
+     * @tc.desc      Check the installation code directory is separate from and shallower than the module files
+     *               directory, so code and data never share a root
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxBundleCodePath0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const context: common.Context = entryContext();
+      logCase('testAppCtxBundleCodePath0003', `code=${context.bundleCodeDir} files=${context.filesDir} ` +
+        `codeDepth=${depthOf(context.bundleCodeDir)}`);
+      expect(prefixFree(context.bundleCodeDir, context.filesDir)).assertTrue();
+      expect(depthOf(context.bundleCodeDir) < depthOf(context.filesDir)).assertTrue();
+      expect(context.bundleCodeDir === context.filesDir).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_9000
+     * @tc.name      testAppCtxBundleCodePath0004
+     * @tc.desc      Check the installation code directory ends on the bundle segment and that the segment is plain
+     *               lower case ASCII
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxBundleCodePath0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const path: string = entryContext().bundleCodeDir;
+      const tail: string = tailSegment(path);
+      logCase('testAppCtxBundleCodePath0004', `tail=${tail} endsWithSuffix=${path.endsWith(BUNDLE_CODE_SUFFIX)}`);
+      expect(path.endsWith(BUNDLE_CODE_SUFFIX)).assertTrue();
+      expect(tail).assertEqual(BUNDLE_CODE_TAIL);
+      expect(asciiOnly(tail)).assertTrue();
+      expect(tail).assertEqual(tail.toLowerCase());
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_9100
+     * @tc.name      testAppCtxBundleCodePath0005
+     * @tc.desc      Check the installation code directory is identical for two module contexts and stable in depth
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxBundleCodePath0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const first: string = moduleContext(ENTRY_MODULE).bundleCodeDir;
+      const second: string = moduleContext(ENTRY_MODULE).bundleCodeDir;
+      logCase('testAppCtxBundleCodePath0005', `first=${first} second=${second} ` +
+        `sameDepth=${depthOf(first) === depthOf(second)}`);
+      expect(first).assertEqual(second);
+      expect(first.length > EMPTY_LENGTH).assertTrue();
+      expect(depthOf(first)).assertEqual(depthOf(second));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_9200
+     * @tc.name      testAppCtxBundleCodePath0006
+     * @tc.desc      Check the installed HAP module list holds exactly the entry and the test feature module with their
+     *               declared module types
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxBundleCodePath0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const names: string = info.hapModulesInfo.map((item: bundleManager.HapModuleInfo) => item.name).sort().join(',');
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const test: bundleManager.HapModuleInfo = findModule(info, TEST_MODULE);
+      logCase('testAppCtxBundleCodePath0006', `names=${names} entryType=${entry.type} testType=${test.type}`);
+      expect(info.hapModulesInfo.length).assertEqual(MODULE_TOTAL);
+      expect(names).assertEqual(ENTRY_MODULE + ',' + TEST_MODULE);
+      expect(entry.type).assertEqual(bundleManager.ModuleType.ENTRY);
+      expect(test.type).assertEqual(bundleManager.ModuleType.FEATURE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_9300
+     * @tc.name      testAppCtxBundleCodePath0007
+     * @tc.desc      Check the HAP module names behind the two module contexts are the declared ones and differ from the
+     *               bundle name
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxBundleCodePath0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entryName: string = findModule(info, ENTRY_MODULE).name;
+      const testName: string = findModule(info, TEST_MODULE).name;
+      logCase('testAppCtxBundleCodePath0007', `entryName=${entryName} testName=${testName} ` +
+        `bundle=${BUNDLE_NAME}`);
+      expect(entryName).assertEqual(ENTRY_MODULE);
+      expect(testName).assertEqual(TEST_MODULE);
+      expect(entryName === testName).assertFalse();
+      expect(entryName === BUNDLE_NAME).assertFalse();
+      expect(asciiOnly(entryName)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_9400
+     * @tc.name      testAppCtxResourceText0001
+     * @tc.desc      Check the module resource manager resolves the application label by name to the declared text with
+     *               its declared length and without blanks
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testAppCtxResourceText0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const manager: resourceManager.ResourceManager = entryContext().resourceManager;
+      const label: string = stringByName(manager, 'app_name');
+      const abilityLabel: string = stringByName(manager, 'EntryAbility_label');
+      logCase('testAppCtxResourceText0001', `label=${label} abilityLabel=${abilityLabel} ` +
+        `units=${label.length}`);
+      expect(label).assertEqual(APP_NAME_TEXT);
+      expect(label.length).assertEqual(APP_NAME_UNITS);
+      expect(abilityLabel).assertEqual(label);
+      expect(hasBlank(label)).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_9500
+     * @tc.name      testAppCtxResourceText0002
+     * @tc.desc      Check the module description resource resolves to the declared sentence with one blank and its
+     *               declared length, and is not equal to the application label
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxResourceText0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const description: string = stringByName(entryContext().resourceManager, 'module_desc');
+      logCase('testAppCtxResourceText0002', `description=${description} units=${description.length}`);
+      expect(description).assertEqual(MODULE_DESC_TEXT);
+      expect(description.length).assertEqual(MODULE_DESC_UNITS);
+      expect(hasBlank(description)).assertTrue();
+      expect(description === APP_NAME_TEXT).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_9600
+     * @tc.name      testAppCtxResourceText0003
+     * @tc.desc      Check the ability description resource resolves to its declared single word with the declared
+     *               length and differs from both other strings of the module
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxResourceText0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const description: string = stringByName(entryContext().resourceManager, 'EntryAbility_desc');
+      logCase('testAppCtxResourceText0003', `description=${description} units=${description.length}`);
+      expect(description).assertEqual(ABILITY_DESC_TEXT);
+      expect(description.length).assertEqual(ABILITY_DESC_UNITS);
+      expect(description === APP_NAME_TEXT).assertFalse();
+      expect(description === MODULE_DESC_TEXT).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_9700
+     * @tc.name      testAppCtxResourceText0004
+     * @tc.desc      Check the module and the application resource managers resolve the published label and description
+     *               identifiers to the same texts
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxResourceText0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const app: bundleManager.ApplicationInfo = info.appInfo;
+      const entry: bundleManager.HapModuleInfo = findModule(info, ENTRY_MODULE);
+      const moduleText: string = stringById(entryContext().resourceManager, app.labelId);
+      const applicationText: string = stringById(appContext().resourceManager, app.labelId);
+      const moduleDescription: string = stringById(entryContext().resourceManager, entry.descriptionId);
+      logCase('testAppCtxResourceText0004', `module=${moduleText} application=${applicationText} ` +
+        `description=${moduleDescription}`);
+      expect(moduleText).assertEqual(applicationText);
+      expect(moduleText).assertEqual(APP_NAME_TEXT);
+      expect(moduleDescription).assertEqual(MODULE_DESC_TEXT);
+      expect(applicationText.length).assertEqual(APP_NAME_UNITS);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_9800
+     * @tc.name      testAppCtxResourceText0005
+     * @tc.desc      Check two different module scoped resource names come back identical from the module and the
+     *               application resource managers
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxResourceText0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const moduleManager: resourceManager.ResourceManager = entryContext().resourceManager;
+      const applicationManager: resourceManager.ResourceManager = appContext().resourceManager;
+      const moduleDesc: string = stringByName(moduleManager, 'module_desc');
+      const applicationDesc: string = stringByName(applicationManager, 'module_desc');
+      const moduleAbilityDesc: string = stringByName(moduleManager, 'EntryAbility_desc');
+      const applicationAbilityDesc: string = stringByName(applicationManager, 'EntryAbility_desc');
+      logCase('testAppCtxResourceText0005', `desc=${moduleDesc} abilityDesc=${moduleAbilityDesc}`);
+      expect(moduleDesc).assertEqual(applicationDesc);
+      expect(moduleAbilityDesc).assertEqual(applicationAbilityDesc);
+      expect(moduleDesc.length > EMPTY_LENGTH).assertTrue();
+      expect(moduleAbilityDesc.length > EMPTY_LENGTH).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_9900
+     * @tc.name      testAppCtxResourceText0006
+     * @tc.desc      Check the invalid name code reported by the module resource manager differs from the success code
+     *               and is reproduced by the application resource manager
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxResourceText0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const moduleManager: resourceManager.ResourceManager = entryContext().resourceManager;
+      const applicationManager: resourceManager.ResourceManager = appContext().resourceManager;
+      const moduleMissing: number = resourceError(moduleManager, MISSING_RESOURCE);
+      const applicationMissing: number = resourceError(applicationManager, MISSING_RESOURCE);
+      logCase('testAppCtxResourceText0006', `moduleMissing=${moduleMissing} ` +
+        `applicationMissing=${applicationMissing} success=${ZERO}`);
+      expect(moduleMissing).assertEqual(applicationMissing);
+      expect(moduleMissing).assertEqual(ERR_RES_NAME_INVALID);
+      expect(moduleMissing === ZERO).assertFalse();
+      expect(ERR_RES_NAME_INVALID > ZERO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_10000
+     * @tc.name      testAppCtxStability0001
+     * @tc.desc      Check the files and cache directories and the full directory key repeat exactly between two
+     *               independent module contexts
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testAppCtxStability0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const first: common.Context = moduleContext(ENTRY_MODULE);
+      const second: common.Context = moduleContext(ENTRY_MODULE);
+      logCase('testAppCtxStability0001', `files=${first.filesDir} cache=${first.cacheDir} ` +
+        `sameKey=${dirKey(first) === dirKey(second)}`);
+      expect(first.filesDir).assertEqual(second.filesDir);
+      expect(first.cacheDir).assertEqual(second.cacheDir);
+      expect(dirKey(first)).assertEqual(dirKey(second));
+      expect(dirKey(first).length > EMPTY_LENGTH).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_10100
+     * @tc.name      testAppCtxStability0002
+     * @tc.desc      Check five back to back module contexts all produce the same directory key, leaving one single
+     *               distinct value across the rounds
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxStability0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const keys: string[] = [];
+      for (let round: number = ZERO; round < ROUND_TOTAL; round += ONE) {
+        keys.push(dirKey(moduleContext(ENTRY_MODULE)));
+      }
+      logCase('testAppCtxStability0002', `rounds=${keys.length} distinct=${distinctCount(keys)} ` +
+        `first=${keys[ZERO]}`);
+      expect(keys.length).assertEqual(ROUND_TOTAL);
+      expect(distinctCount(keys)).assertEqual(ONE);
+      expect(keys[ROUND_TOTAL - ONE]).assertEqual(keys[ZERO]);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_10200
+     * @tc.name      testAppCtxStability0003
+     * @tc.desc      Check the area mode, process name and application uid are identical in two module contexts created
+     *               one after the other
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxStability0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const first: common.Context = moduleContext(ENTRY_MODULE);
+      const second: common.Context = moduleContext(ENTRY_MODULE);
+      const firstKey: string = identityKey(first);
+      const secondKey: string = identityKey(second);
+      logCase('testAppCtxStability0003', `first=${firstKey} second=${secondKey}`);
+      expect(Number(first.area)).assertEqual(Number(second.area));
+      expect(first.processName).assertEqual(second.processName);
+      expect(first.applicationInfo.uid).assertEqual(second.applicationInfo.uid);
+      expect(identityKey(second)).assertEqual(firstKey);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_10300
+     * @tc.name      testAppCtxStability0004
+     * @tc.desc      Check two consecutive reads of the application context agree on the bundle name, the uid and the
+     *               whole directory key
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxStability0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const first: common.Context = appContext();
+      const second: common.Context = appContext();
+      logCase('testAppCtxStability0004', `firstKey=${dirKey(first)} secondKey=${dirKey(second)}`);
+      expect(first.applicationInfo.name).assertEqual(second.applicationInfo.name);
+      expect(first.applicationInfo.uid).assertEqual(second.applicationInfo.uid);
+      expect(dirKey(first)).assertEqual(dirKey(second));
+      expect(second.filesDir).assertEqual(first.filesDir);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_10400
+     * @tc.name      testAppCtxStability0005
+     * @tc.desc      Check a write and a delete inside the files directory never move the directory profile of the
+     *               module context
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxStability0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const context: common.Context = entryContext();
+      const before: string = dirKey(context);
+      const dir: string = prepareProbe(context.filesDir, 'stable_profile');
+      const path: string = joinPath(dir, 'touch.txt');
+      writeTextFile(path, PAYLOAD_ALPHA);
+      const written: boolean = probeExists(path);
+      const removed: boolean = dropFile(path);
+      const after: string = dirKey(moduleContext(ENTRY_MODULE));
+      logCase('testAppCtxStability0005', `written=${written} removed=${removed} same=${before === after}`);
+      expect(written).assertTrue();
+      expect(removed).assertTrue();
+      expect(after).assertEqual(before);
+      expect(probeIsDir(context.filesDir)).assertTrue();
+      expect(cleanProbe(context.filesDir, 'stable_profile')).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_10500
+     * @tc.name      testAppCtxStability0006
+     * @tc.desc      Check creating a test module context in between does not change the directory profile of the entry
+     *               module context
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxStability0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const before: string = dirKey(moduleContext(ENTRY_MODULE));
+      const testKey: string = dirKey(moduleContext(TEST_MODULE));
+      const after: string = dirKey(moduleContext(ENTRY_MODULE));
+      logCase('testAppCtxStability0006', `before=${before} after=${after} test=${testKey}`);
+      expect(after).assertEqual(before);
+      expect(before === testKey).assertFalse();
+      expect(after === testKey).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_10600
+     * @tc.name      testAppCtxStability0007
+     * @tc.desc      Check three successive resource lookups and three successive uid reads return one single value each
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxStability0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const texts: string[] = [];
+      const uids: string[] = [];
+      for (let round: number = ZERO; round < THREE; round += ONE) {
+        const context: common.Context = moduleContext(ENTRY_MODULE);
+        texts.push(stringByName(context.resourceManager, 'app_name'));
+        uids.push(context.applicationInfo.uid.toString());
+      }
+      logCase('testAppCtxStability0007', `texts=${texts.join(PIPE)} uids=${uids.join(PIPE)}`);
+      expect(distinctCount(texts)).assertEqual(ONE);
+      expect(distinctCount(uids)).assertEqual(ONE);
+      expect(texts[ZERO]).assertEqual(APP_NAME_TEXT);
+      expect(Number(uids[ZERO])).assertEqual(process.uid);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_10700
+     * @tc.name      testAppCtxStability0008
+     * @tc.desc      Check two module contexts built from the own bundle name report the same files directory and the
+     *               same bundle identity
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxStability0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const first: GuardedContext = captureBundle(BUNDLE_NAME);
+      const second: GuardedContext = captureBundle(BUNDLE_NAME);
+      logCase('testAppCtxStability0008', `first=${first.filesDir} second=${second.filesDir} ` +
+        `appName=${first.appName}`);
+      expect(first.threw).assertFalse();
+      expect(second.threw).assertFalse();
+      expect(first.filesDir).assertEqual(second.filesDir);
+      expect(first.appName).assertEqual(second.appName);
+      expect(isAbsolutePath(second.filesDir)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_10800
+     * @tc.name      testAppCtxAreaModeContext0001
+     * @tc.desc      Check an EL2 area mode context built from the module context reports the EL2 partition and a data
+     *               directory different from the EL1 one
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxAreaModeContext0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const guarded: GuardedContext = captureArea(contextConstant.AreaMode.EL2);
+      const el1Files: string = entryContext().filesDir;
+      logCase('testAppCtxAreaModeContext0001', `threw=${guarded.threw} code=${guarded.code} ` +
+        `area=${guarded.area} filesDir=${guarded.filesDir}`);
+      expect(guarded.threw).assertFalse();
+      expect(guarded.area).assertEqual(Number(contextConstant.AreaMode.EL2));
+      expect(isAbsolutePath(guarded.filesDir)).assertTrue();
+      expect(guarded.filesDir === el1Files).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_10900
+     * @tc.name      testAppCtxAreaModeContext0002
+     * @tc.desc      Check an EL1 area mode context resolves to the very files directory of the module context and that
+     *               the directory is present
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAppCtxAreaModeContext0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const guarded: GuardedContext = captureArea(contextConstant.AreaMode.EL1);
+      const plain: common.Context = entryContext();
+      logCase('testAppCtxAreaModeContext0002', `area=${guarded.area} filesDir=${guarded.filesDir} ` +
+        `plainFiles=${plain.filesDir}`);
+      expect(guarded.threw).assertFalse();
+      expect(guarded.area).assertEqual(Number(contextConstant.AreaMode.EL1));
+      expect(guarded.filesDir).assertEqual(plain.filesDir);
+      expect(probeIsDir(guarded.filesDir)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_11000
+     * @tc.name      testAppCtxAreaModeContext0003
+     * @tc.desc      Check the EL2 and EL1 area mode contexts still describe the same application identity while living
+     *               in different partitions
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxAreaModeContext0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const second: GuardedContext = captureArea(contextConstant.AreaMode.EL2);
+      const first: GuardedContext = captureArea(contextConstant.AreaMode.EL1);
+      logCase('testAppCtxAreaModeContext0003', `firstUid=${first.uid} secondUid=${second.uid} ` +
+        `firstArea=${first.area} secondArea=${second.area}`);
+      expect(first.threw).assertFalse();
+      expect(second.threw).assertFalse();
+      expect(second.uid).assertEqual(first.uid);
+      expect(second.processName).assertEqual(first.processName);
+      expect(second.appName).assertEqual(BUNDLE_NAME);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_APPCONTEXT_11100
+     * @tc.name      testAppCtxAreaModeContext0004
+     * @tc.desc      Check an undocumented area value is refused with a positive business code while the documented EL1
+     *               value keeps working
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAppCtxAreaModeContext0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const invalid: GuardedContext = captureArea(INVALID_AREA as contextConstant.AreaMode);
+      const valid: GuardedContext = captureArea(contextConstant.AreaMode.EL1);
+      const plain: common.Context = entryContext();
+      logCase('testAppCtxAreaModeContext0004', `invalidThrew=${invalid.threw} invalidCode=${invalid.code} ` +
+        `invalidArea=${invalid.area} validArea=${valid.area}`);
+      expect(invalid.threw || invalid.appName === BUNDLE_NAME).assertTrue();
+      expect(invalid.threw ? invalid.code > ZERO : invalid.filesDir.length > ZERO).assertTrue();
+      expect(valid.threw).assertFalse();
+      expect(valid.code).assertEqual(ZERO);
+      expect(valid.area).assertEqual(contextConstant.AreaMode.EL1);
+      expect(valid.filesDir).assertEqual(plain.filesDir);
+    });
+
+  });
+}
