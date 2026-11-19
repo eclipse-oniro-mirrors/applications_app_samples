@@ -2498,3 +2498,477 @@ export default function MediaDescriptorsDeletionLogic(): void {
     /**
      * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1133
      * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1133
+     * @tc.nameDesc Descriptor errors propagate without changing handle metadata: Verify injected error identity, no
+     * unintended cleanup or refetch, unchanged handle state and explicit retry.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1133", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1133";
+      LogicTestLog.begin(name, "FileType.VIDEO; open failure");
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/descriptor-failure-1", photoAccessHelper.PhotoType.VIDEO, "failure-1.mp4");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/descriptor-failure-1";
+      library.results = [fetch];
+      const handle: MediaAssetHandle = await media.createAndGetUri(FileType.VIDEO);
+      trace.clear();
+      files.openError = "synthetic descriptor open denied 1";
+      let message: string = '';
+      try {
+        await media.getFdPath(handle);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "Exact descriptor error message", "synthetic descriptor open denied 1", message);
+      expect(message).assertEqual("synthetic descriptor open denied 1");
+      LogicTestLog.number(name, "One open request before retry", 1, files.opens.length);
+      expect(files.opens.length).assertEqual(1);
+      LogicTestLog.value(name, "Failed workflow URI", "fake://media/descriptor-failure-1", files.opens[0].path);
+      expect(files.opens[0].path).assertEqual("fake://media/descriptor-failure-1");
+      LogicTestLog.number(name, "Failed workflow mode", fileIo.OpenMode.READ_WRITE, files.opens[0].mode);
+      expect(files.opens[0].mode).assertEqual(fileIo.OpenMode.READ_WRITE);
+      LogicTestLog.number(name, "Descriptor allocation follows open outcome", 0, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(0);
+      LogicTestLog.number(name, "Only caller close is attempted", 0, files.closes.length);
+      expect(files.closes.length).assertEqual(0);
+      LogicTestLog.value(name, "URI unchanged after descriptor error", "fake://media/descriptor-failure-1", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/descriptor-failure-1");
+      LogicTestLog.value(name, "Display name unchanged after descriptor error", "failure-1.mp4", handle.displayName);
+      expect(handle.displayName).assertEqual("failure-1.mp4");
+      LogicTestLog.number(name, "Media type unchanged after descriptor error", 2, handle.mediaType);
+      expect(handle.mediaType).assertEqual(2);
+      LogicTestLog.number(name, "No unlink on descriptor error", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No rename on descriptor error", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No extra media fetch", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      files.openError = '';
+      files.closeError = '';
+      const retryFd: number = await media.getFdPath(handle);
+      await handle.close(retryFd);
+      LogicTestLog.number(name, "Retry fd", 710, retryFd);
+      expect(retryFd).assertEqual(710);
+      LogicTestLog.number(name, "Retry opens once more", 2, files.opens.length);
+      expect(files.opens.length).assertEqual(2);
+      LogicTestLog.number(name, "Retry has one successful explicit close", 1, files.closes.length);
+      expect(files.closes.length).assertEqual(1);
+      LogicTestLog.number(name, "Last closed fd", 710, files.closes[0]);
+      expect(files.closes[0]).assertEqual(710);
+      LogicTestLog.value(name, "Descriptor retry call order", "files.open|files.open|files.close",
+        trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("files.open|files.open|files.close");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1134
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1134
+     * @tc.nameDesc Descriptor errors propagate without changing handle metadata: Verify injected error identity, no
+     * unintended cleanup or refetch, unchanged handle state and explicit retry.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1134", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1134";
+      LogicTestLog.begin(name, "FileType.AUDIO; open failure");
+      const handle: MediaAssetHandle = await media.createAndGetUri(FileType.AUDIO);
+      trace.clear();
+      files.openError = "synthetic descriptor open denied 2";
+      let message: string = '';
+      try {
+        await media.getFdPath(handle);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "Exact descriptor error message", "synthetic descriptor open denied 2", message);
+      expect(message).assertEqual("synthetic descriptor open denied 2");
+      LogicTestLog.number(name, "One open request before retry", 1, files.opens.length);
+      expect(files.opens.length).assertEqual(1);
+      LogicTestLog.value(name, "Failed workflow URI", "/synthetic/media/alpha/AUD_20261119_080910.mp3",
+        files.opens[0].path);
+      expect(files.opens[0].path).assertEqual("/synthetic/media/alpha/AUD_20261119_080910.mp3");
+      LogicTestLog.number(name, "Failed workflow mode", fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE,
+        files.opens[0].mode);
+      expect(files.opens[0].mode).assertEqual(fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
+      LogicTestLog.number(name, "Descriptor allocation follows open outcome", 0, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(0);
+      LogicTestLog.number(name, "Only caller close is attempted", 0, files.closes.length);
+      expect(files.closes.length).assertEqual(0);
+      LogicTestLog.value(name, "URI unchanged after descriptor error",
+        "/synthetic/media/alpha/AUD_20261119_080910.mp3", handle.uri);
+      expect(handle.uri).assertEqual("/synthetic/media/alpha/AUD_20261119_080910.mp3");
+      LogicTestLog.value(name, "Display name unchanged after descriptor error", "AUD_20261119_080910.mp3",
+        handle.displayName);
+      expect(handle.displayName).assertEqual("AUD_20261119_080910.mp3");
+      LogicTestLog.number(name, "Media type unchanged after descriptor error", 3, handle.mediaType);
+      expect(handle.mediaType).assertEqual(3);
+      LogicTestLog.number(name, "No unlink on descriptor error", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No rename on descriptor error", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No extra media fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      files.openError = '';
+      files.closeError = '';
+      const retryFd: number = await media.getFdPath(handle);
+      await handle.close(retryFd);
+      LogicTestLog.number(name, "Retry fd", 710, retryFd);
+      expect(retryFd).assertEqual(710);
+      LogicTestLog.number(name, "Retry opens once more", 2, files.opens.length);
+      expect(files.opens.length).assertEqual(2);
+      LogicTestLog.number(name, "Retry has one successful explicit close", 1, files.closes.length);
+      expect(files.closes.length).assertEqual(1);
+      LogicTestLog.number(name, "Last closed fd", 710, files.closes[0]);
+      expect(files.closes[0]).assertEqual(710);
+      LogicTestLog.value(name, "Descriptor retry call order", "files.open|files.open|files.close",
+        trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("files.open|files.open|files.close");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1135
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1135
+     * @tc.nameDesc Descriptor errors propagate without changing handle metadata: Verify injected error identity, no
+     * unintended cleanup or refetch, unchanged handle state and explicit retry.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1135", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1135";
+      LogicTestLog.begin(name, "FileType.FILE; open failure");
+      const handle: MediaAssetHandle = await media.createAndGetUri(FileType.FILE);
+      trace.clear();
+      files.openError = "synthetic descriptor open denied 3";
+      let message: string = '';
+      try {
+        await media.getFdPath(handle);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "Exact descriptor error message", "synthetic descriptor open denied 3", message);
+      expect(message).assertEqual("synthetic descriptor open denied 3");
+      LogicTestLog.number(name, "One open request before retry", 1, files.opens.length);
+      expect(files.opens.length).assertEqual(1);
+      LogicTestLog.value(name, "Failed workflow URI", "/synthetic/media/alpha/FILE_20261119_080910.txt",
+        files.opens[0].path);
+      expect(files.opens[0].path).assertEqual("/synthetic/media/alpha/FILE_20261119_080910.txt");
+      LogicTestLog.number(name, "Failed workflow mode", fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE,
+        files.opens[0].mode);
+      expect(files.opens[0].mode).assertEqual(fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
+      LogicTestLog.number(name, "Descriptor allocation follows open outcome", 0, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(0);
+      LogicTestLog.number(name, "Only caller close is attempted", 0, files.closes.length);
+      expect(files.closes.length).assertEqual(0);
+      LogicTestLog.value(name, "URI unchanged after descriptor error",
+        "/synthetic/media/alpha/FILE_20261119_080910.txt", handle.uri);
+      expect(handle.uri).assertEqual("/synthetic/media/alpha/FILE_20261119_080910.txt");
+      LogicTestLog.value(name, "Display name unchanged after descriptor error", "FILE_20261119_080910.txt",
+        handle.displayName);
+      expect(handle.displayName).assertEqual("FILE_20261119_080910.txt");
+      LogicTestLog.number(name, "Media type unchanged after descriptor error", 4, handle.mediaType);
+      expect(handle.mediaType).assertEqual(4);
+      LogicTestLog.number(name, "No unlink on descriptor error", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No rename on descriptor error", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No extra media fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      files.openError = '';
+      files.closeError = '';
+      const retryFd: number = await media.getFdPath(handle);
+      await handle.close(retryFd);
+      LogicTestLog.number(name, "Retry fd", 710, retryFd);
+      expect(retryFd).assertEqual(710);
+      LogicTestLog.number(name, "Retry opens once more", 2, files.opens.length);
+      expect(files.opens.length).assertEqual(2);
+      LogicTestLog.number(name, "Retry has one successful explicit close", 1, files.closes.length);
+      expect(files.closes.length).assertEqual(1);
+      LogicTestLog.number(name, "Last closed fd", 710, files.closes[0]);
+      expect(files.closes[0]).assertEqual(710);
+      LogicTestLog.value(name, "Descriptor retry call order", "files.open|files.open|files.close",
+        trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("files.open|files.open|files.close");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1136
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1136
+     * @tc.nameDesc Descriptor errors propagate without changing handle metadata: Verify injected error identity, no
+     * unintended cleanup or refetch, unchanged handle state and explicit retry.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1136", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1136";
+      LogicTestLog.begin(name, "FileType.IMAGE; close failure");
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/descriptor-failure-4", photoAccessHelper.PhotoType.IMAGE, "failure-4.jpg");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/descriptor-failure-4";
+      library.results = [fetch];
+      const handle: MediaAssetHandle = await media.createAndGetUri(FileType.IMAGE);
+      trace.clear();
+      const opened: number = await handle.open('Rw');
+      files.closeError = "synthetic descriptor close denied 4";
+      let message: string = '';
+      try {
+        await handle.close(opened);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "Exact descriptor error message", "synthetic descriptor close denied 4", message);
+      expect(message).assertEqual("synthetic descriptor close denied 4");
+      LogicTestLog.number(name, "One open request before retry", 1, files.opens.length);
+      expect(files.opens.length).assertEqual(1);
+      LogicTestLog.value(name, "Failed workflow URI", "fake://media/descriptor-failure-4", files.opens[0].path);
+      expect(files.opens[0].path).assertEqual("fake://media/descriptor-failure-4");
+      LogicTestLog.number(name, "Failed workflow mode", fileIo.OpenMode.READ_WRITE, files.opens[0].mode);
+      expect(files.opens[0].mode).assertEqual(fileIo.OpenMode.READ_WRITE);
+      LogicTestLog.number(name, "Descriptor allocation follows open outcome", 1, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(1);
+      LogicTestLog.number(name, "Only caller close is attempted", 1, files.closes.length);
+      expect(files.closes.length).assertEqual(1);
+      LogicTestLog.value(name, "URI unchanged after descriptor error", "fake://media/descriptor-failure-4", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/descriptor-failure-4");
+      LogicTestLog.value(name, "Display name unchanged after descriptor error", "failure-4.jpg", handle.displayName);
+      expect(handle.displayName).assertEqual("failure-4.jpg");
+      LogicTestLog.number(name, "Media type unchanged after descriptor error", 1, handle.mediaType);
+      expect(handle.mediaType).assertEqual(1);
+      LogicTestLog.number(name, "No unlink on descriptor error", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No rename on descriptor error", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No extra media fetch", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      files.openError = '';
+      files.closeError = '';
+      const retryFd: number = await media.getFdPath(handle);
+      await handle.close(retryFd);
+      LogicTestLog.number(name, "Retry fd", 711, retryFd);
+      expect(retryFd).assertEqual(711);
+      LogicTestLog.number(name, "Retry opens once more", 2, files.opens.length);
+      expect(files.opens.length).assertEqual(2);
+      LogicTestLog.number(name, "Retry has one successful explicit close", 2, files.closes.length);
+      expect(files.closes.length).assertEqual(2);
+      LogicTestLog.number(name, "Last closed fd", 711, files.closes[1]);
+      expect(files.closes[1]).assertEqual(711);
+      LogicTestLog.value(name, "Descriptor retry call order", "files.open|files.close|files.open|files.close",
+        trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("files.open|files.close|files.open|files.close");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1137
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1137
+     * @tc.nameDesc Descriptor errors propagate without changing handle metadata: Verify injected error identity, no
+     * unintended cleanup or refetch, unchanged handle state and explicit retry.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1137", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1137";
+      LogicTestLog.begin(name, "FileType.VIDEO; close failure");
+      const photo: FakeMediaPhoto = new FakeMediaPhoto(trace,
+        "fake://media/descriptor-failure-5", photoAccessHelper.PhotoType.VIDEO, "failure-5.mp4");
+      const fetch: FakeMediaFetch = new FakeMediaFetch(trace, [photo]);
+      library.createdUri = "fake://media/descriptor-failure-5";
+      library.results = [fetch];
+      const handle: MediaAssetHandle = await media.createAndGetUri(FileType.VIDEO);
+      trace.clear();
+      const opened: number = await handle.open('Rw');
+      files.closeError = "synthetic descriptor close denied 5";
+      let message: string = '';
+      try {
+        await handle.close(opened);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "Exact descriptor error message", "synthetic descriptor close denied 5", message);
+      expect(message).assertEqual("synthetic descriptor close denied 5");
+      LogicTestLog.number(name, "One open request before retry", 1, files.opens.length);
+      expect(files.opens.length).assertEqual(1);
+      LogicTestLog.value(name, "Failed workflow URI", "fake://media/descriptor-failure-5", files.opens[0].path);
+      expect(files.opens[0].path).assertEqual("fake://media/descriptor-failure-5");
+      LogicTestLog.number(name, "Failed workflow mode", fileIo.OpenMode.READ_WRITE, files.opens[0].mode);
+      expect(files.opens[0].mode).assertEqual(fileIo.OpenMode.READ_WRITE);
+      LogicTestLog.number(name, "Descriptor allocation follows open outcome", 1, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(1);
+      LogicTestLog.number(name, "Only caller close is attempted", 1, files.closes.length);
+      expect(files.closes.length).assertEqual(1);
+      LogicTestLog.value(name, "URI unchanged after descriptor error", "fake://media/descriptor-failure-5", handle.uri);
+      expect(handle.uri).assertEqual("fake://media/descriptor-failure-5");
+      LogicTestLog.value(name, "Display name unchanged after descriptor error", "failure-5.mp4", handle.displayName);
+      expect(handle.displayName).assertEqual("failure-5.mp4");
+      LogicTestLog.number(name, "Media type unchanged after descriptor error", 2, handle.mediaType);
+      expect(handle.mediaType).assertEqual(2);
+      LogicTestLog.number(name, "No unlink on descriptor error", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No rename on descriptor error", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No extra media fetch", 1, library.fetches.length);
+      expect(library.fetches.length).assertEqual(1);
+      files.openError = '';
+      files.closeError = '';
+      const retryFd: number = await media.getFdPath(handle);
+      await handle.close(retryFd);
+      LogicTestLog.number(name, "Retry fd", 711, retryFd);
+      expect(retryFd).assertEqual(711);
+      LogicTestLog.number(name, "Retry opens once more", 2, files.opens.length);
+      expect(files.opens.length).assertEqual(2);
+      LogicTestLog.number(name, "Retry has one successful explicit close", 2, files.closes.length);
+      expect(files.closes.length).assertEqual(2);
+      LogicTestLog.number(name, "Last closed fd", 711, files.closes[1]);
+      expect(files.closes[1]).assertEqual(711);
+      LogicTestLog.value(name, "Descriptor retry call order", "files.open|files.close|files.open|files.close",
+        trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("files.open|files.close|files.open|files.close");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1138
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1138
+     * @tc.nameDesc Descriptor errors propagate without changing handle metadata: Verify injected error identity, no
+     * unintended cleanup or refetch, unchanged handle state and explicit retry.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1138", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1138";
+      LogicTestLog.begin(name, "FileType.AUDIO; close failure");
+      const handle: MediaAssetHandle = await media.createAndGetUri(FileType.AUDIO);
+      trace.clear();
+      const opened: number = await handle.open('Rw');
+      files.closeError = "synthetic descriptor close denied 6";
+      let message: string = '';
+      try {
+        await handle.close(opened);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "Exact descriptor error message", "synthetic descriptor close denied 6", message);
+      expect(message).assertEqual("synthetic descriptor close denied 6");
+      LogicTestLog.number(name, "One open request before retry", 1, files.opens.length);
+      expect(files.opens.length).assertEqual(1);
+      LogicTestLog.value(name, "Failed workflow URI", "/synthetic/media/alpha/AUD_20261119_080910.mp3",
+        files.opens[0].path);
+      expect(files.opens[0].path).assertEqual("/synthetic/media/alpha/AUD_20261119_080910.mp3");
+      LogicTestLog.number(name, "Failed workflow mode", fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE,
+        files.opens[0].mode);
+      expect(files.opens[0].mode).assertEqual(fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
+      LogicTestLog.number(name, "Descriptor allocation follows open outcome", 1, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(1);
+      LogicTestLog.number(name, "Only caller close is attempted", 1, files.closes.length);
+      expect(files.closes.length).assertEqual(1);
+      LogicTestLog.value(name, "URI unchanged after descriptor error",
+        "/synthetic/media/alpha/AUD_20261119_080910.mp3", handle.uri);
+      expect(handle.uri).assertEqual("/synthetic/media/alpha/AUD_20261119_080910.mp3");
+      LogicTestLog.value(name, "Display name unchanged after descriptor error", "AUD_20261119_080910.mp3",
+        handle.displayName);
+      expect(handle.displayName).assertEqual("AUD_20261119_080910.mp3");
+      LogicTestLog.number(name, "Media type unchanged after descriptor error", 3, handle.mediaType);
+      expect(handle.mediaType).assertEqual(3);
+      LogicTestLog.number(name, "No unlink on descriptor error", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No rename on descriptor error", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No extra media fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      files.openError = '';
+      files.closeError = '';
+      const retryFd: number = await media.getFdPath(handle);
+      await handle.close(retryFd);
+      LogicTestLog.number(name, "Retry fd", 711, retryFd);
+      expect(retryFd).assertEqual(711);
+      LogicTestLog.number(name, "Retry opens once more", 2, files.opens.length);
+      expect(files.opens.length).assertEqual(2);
+      LogicTestLog.number(name, "Retry has one successful explicit close", 2, files.closes.length);
+      expect(files.closes.length).assertEqual(2);
+      LogicTestLog.number(name, "Last closed fd", 711, files.closes[1]);
+      expect(files.closes[1]).assertEqual(711);
+      LogicTestLog.value(name, "Descriptor retry call order", "files.open|files.close|files.open|files.close",
+        trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("files.open|files.close|files.open|files.close");
+      LogicTestLog.end(name);
+    });
+
+    /**
+     * @tc.number SUB_SYS_MULTIMEDIA_MEDIA_1139
+     * @tc.name SUB_SYS_MULTIMEDIA_MEDIA_1139
+     * @tc.nameDesc Descriptor errors propagate without changing handle metadata: Verify injected error identity, no
+     * unintended cleanup or refetch, unchanged handle state and explicit retry.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL0
+     */
+    it("SUB_SYS_MULTIMEDIA_MEDIA_1139", 0, async () => {
+      const name: string = "SUB_SYS_MULTIMEDIA_MEDIA_1139";
+      LogicTestLog.begin(name, "FileType.FILE; close failure");
+      const handle: MediaAssetHandle = await media.createAndGetUri(FileType.FILE);
+      trace.clear();
+      const opened: number = await handle.open('Rw');
+      files.closeError = "synthetic descriptor close denied 7";
+      let message: string = '';
+      try {
+        await handle.close(opened);
+      } catch (error) {
+        message = (error as Error).message;
+      }
+      LogicTestLog.value(name, "Exact descriptor error message", "synthetic descriptor close denied 7", message);
+      expect(message).assertEqual("synthetic descriptor close denied 7");
+      LogicTestLog.number(name, "One open request before retry", 1, files.opens.length);
+      expect(files.opens.length).assertEqual(1);
+      LogicTestLog.value(name, "Failed workflow URI", "/synthetic/media/alpha/FILE_20261119_080910.txt",
+        files.opens[0].path);
+      expect(files.opens[0].path).assertEqual("/synthetic/media/alpha/FILE_20261119_080910.txt");
+      LogicTestLog.number(name, "Failed workflow mode", fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE,
+        files.opens[0].mode);
+      expect(files.opens[0].mode).assertEqual(fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
+      LogicTestLog.number(name, "Descriptor allocation follows open outcome", 1, files.descriptors.length);
+      expect(files.descriptors.length).assertEqual(1);
+      LogicTestLog.number(name, "Only caller close is attempted", 1, files.closes.length);
+      expect(files.closes.length).assertEqual(1);
+      LogicTestLog.value(name, "URI unchanged after descriptor error",
+        "/synthetic/media/alpha/FILE_20261119_080910.txt", handle.uri);
+      expect(handle.uri).assertEqual("/synthetic/media/alpha/FILE_20261119_080910.txt");
+      LogicTestLog.value(name, "Display name unchanged after descriptor error", "FILE_20261119_080910.txt",
+        handle.displayName);
+      expect(handle.displayName).assertEqual("FILE_20261119_080910.txt");
+      LogicTestLog.number(name, "Media type unchanged after descriptor error", 4, handle.mediaType);
+      expect(handle.mediaType).assertEqual(4);
+      LogicTestLog.number(name, "No unlink on descriptor error", 0, files.unlinks.length);
+      expect(files.unlinks.length).assertEqual(0);
+      LogicTestLog.number(name, "No rename on descriptor error", 0, files.renames.length);
+      expect(files.renames.length).assertEqual(0);
+      LogicTestLog.number(name, "No extra media fetch", 0, library.fetches.length);
+      expect(library.fetches.length).assertEqual(0);
+      files.openError = '';
+      files.closeError = '';
+      const retryFd: number = await media.getFdPath(handle);
+      await handle.close(retryFd);
+      LogicTestLog.number(name, "Retry fd", 711, retryFd);
+      expect(retryFd).assertEqual(711);
+      LogicTestLog.number(name, "Retry opens once more", 2, files.opens.length);
+      expect(files.opens.length).assertEqual(2);
+      LogicTestLog.number(name, "Retry has one successful explicit close", 2, files.closes.length);
+      expect(files.closes.length).assertEqual(2);
+      LogicTestLog.number(name, "Last closed fd", 711, files.closes[1]);
+      expect(files.closes[1]).assertEqual(711);
+      LogicTestLog.value(name, "Descriptor retry call order", "files.open|files.close|files.open|files.close",
+        trace.events.join("|"));
+      expect(trace.events.join("|")).assertEqual("files.open|files.close|files.open|files.close");
+      LogicTestLog.end(name);
+    });
+  });
+}
