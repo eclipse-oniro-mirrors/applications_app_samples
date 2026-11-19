@@ -53,9 +53,6 @@ const CUSTOM_SEGMENT_BUTTON_MONTH_WIDTH: number = 30;
 const FONT_WEIGHT_FOUR_HUNDRED: number = 400;
 
 const FONT_WEIGHT_FIVE_HUNDRED: number = 500;
-// 月份数组
-const MONTHS: string[] =
-  ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
 // 年月信息标题字体大小
 const FONT_SIZE: number = 18;
 
@@ -229,8 +226,9 @@ export struct CustomCalendarSamplePage {
     Row() {
       // Text：文本
       // 关键属性：字号、字重
-      Text(`${this.currentShowYear}年 ${this.tabSelectedIndex === CalendarViewType.YEAR ? '' :
-      MONTHS[this.currentShowMonth-1]}`)
+      Text(this.tabSelectedIndex === CalendarViewType.YEAR ?
+        $r('app.string.calendar_switch_year', this.currentShowYear) :
+        $r('app.string.calendar_switch_year_month', this.currentShowYear, this.currentShowMonth))
         .fontSize(FONT_SIZE * TEXT_SCALING)
         .fontWeight(FONT_WEIGHT_FIVE_HUNDRED)
         .id('yearMonthTitle')
