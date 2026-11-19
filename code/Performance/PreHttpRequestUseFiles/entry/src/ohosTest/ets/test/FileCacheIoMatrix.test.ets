@@ -4838,3 +4838,1653 @@ export default function fileCacheIoMatrixTest() {
         const rewritten: number = fs.writeSync(second.fd, content);
         fs.closeSync(second);
         expect(rewritten).assertEqual(20);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(20);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0132_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0132_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0133
+     * @tc.name      testFileCache0133
+     * @tc.desc      Truncate and rewrite 14 bytes of cacheitem_0133
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0133', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0133.webp');
+      const content: string = 'payload-0133-r';
+      logCase('testFileCache0133', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0133');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(14);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(14);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0133_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0133_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0134
+     * @tc.name      testFileCache0134
+     * @tc.desc      Truncate and rewrite 15 bytes of cacheitem_0134
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0134', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0134.webp');
+      const content: string = 'payload-0134-qr';
+      logCase('testFileCache0134', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0134');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(15);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(15);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0134_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0134_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0135
+     * @tc.name      testFileCache0135
+     * @tc.desc      Truncate and rewrite 16 bytes of cacheitem_0135
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0135', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0135.webp');
+      const content: string = 'payload-0135-qqr';
+      logCase('testFileCache0135', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0135');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(16);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(16);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0135_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0135_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0136
+     * @tc.name      testFileCache0136
+     * @tc.desc      Truncate and rewrite 18 bytes of cacheitem_0136
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0136', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0136.webp');
+      const content: string = 'payload-0136-qqqrr';
+      logCase('testFileCache0136', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0136');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(18);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(18);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0136_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0136_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0137
+     * @tc.name      testFileCache0137
+     * @tc.desc      Truncate and rewrite 19 bytes of cacheitem_0137
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0137', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0137.webp');
+      const content: string = 'payload-0137-qqqqrr';
+      logCase('testFileCache0137', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0137');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(19);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(19);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0137_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0137_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0138
+     * @tc.name      testFileCache0138
+     * @tc.desc      Truncate and rewrite 20 bytes of cacheitem_0138
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0138', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0138.webp');
+      const content: string = 'payload-0138-qqqqqrr';
+      logCase('testFileCache0138', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0138');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(20);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(20);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0138_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0138_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0139
+     * @tc.name      testFileCache0139
+     * @tc.desc      Truncate and rewrite 21 bytes of cacheitem_0139
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0139', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0139.webp');
+      const content: string = 'payload-0139-qqqqqqrr';
+      logCase('testFileCache0139', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0139');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(21);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(21);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0139_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0139_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0140
+     * @tc.name      testFileCache0140
+     * @tc.desc      Truncate and rewrite 16 bytes of cacheitem_0140
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0140', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0140.webp');
+      const content: string = 'payload-0140-rrr';
+      logCase('testFileCache0140', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0140');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(16);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(16);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0140_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0140_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0141
+     * @tc.name      testFileCache0141
+     * @tc.desc      Truncate and rewrite 17 bytes of cacheitem_0141
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0141', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0141.webp');
+      const content: string = 'payload-0141-qrrr';
+      logCase('testFileCache0141', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0141');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(17);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(17);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0141_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0141_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0142
+     * @tc.name      testFileCache0142
+     * @tc.desc      Truncate and rewrite 18 bytes of cacheitem_0142
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0142', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0142.webp');
+      const content: string = 'payload-0142-qqrrr';
+      logCase('testFileCache0142', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0142');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(18);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(18);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0142_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0142_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0143
+     * @tc.name      testFileCache0143
+     * @tc.desc      Truncate and rewrite 19 bytes of cacheitem_0143
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0143', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0143.webp');
+      const content: string = 'payload-0143-qqqrrr';
+      logCase('testFileCache0143', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0143');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(19);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(19);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0143_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0143_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0144
+     * @tc.name      testFileCache0144
+     * @tc.desc      Truncate and rewrite 17 bytes of cacheitem_0144
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0144', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0144.webp');
+      const content: string = 'payload-0144-qqqq';
+      logCase('testFileCache0144', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0144');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(17);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(17);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0144_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0144_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0145
+     * @tc.name      testFileCache0145
+     * @tc.desc      Truncate and rewrite 18 bytes of cacheitem_0145
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0145', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0145.webp');
+      const content: string = 'payload-0145-qqqqq';
+      logCase('testFileCache0145', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0145');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(18);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(18);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0145_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0145_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0146
+     * @tc.name      testFileCache0146
+     * @tc.desc      Truncate and rewrite 19 bytes of cacheitem_0146
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0146', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0146.webp');
+      const content: string = 'payload-0146-qqqqqq';
+      logCase('testFileCache0146', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0146');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(19);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(19);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0146_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0146_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0147
+     * @tc.name      testFileCache0147
+     * @tc.desc      Truncate and rewrite 13 bytes of cacheitem_0147
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0147', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0147.webp');
+      const content: string = 'payload-0147-';
+      logCase('testFileCache0147', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0147');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(13);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(13);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0147_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0147_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0148
+     * @tc.name      testFileCache0148
+     * @tc.desc      Truncate and rewrite 15 bytes of cacheitem_0148
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0148', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0148.webp');
+      const content: string = 'payload-0148-qr';
+      logCase('testFileCache0148', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0148');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(15);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(15);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0148_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0148_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0149
+     * @tc.name      testFileCache0149
+     * @tc.desc      Truncate and rewrite 16 bytes of cacheitem_0149
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0149', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0149.webp');
+      const content: string = 'payload-0149-qqr';
+      logCase('testFileCache0149', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0149');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(16);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(16);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0149_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0149_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0150
+     * @tc.name      testFileCache0150
+     * @tc.desc      Truncate and rewrite 17 bytes of cacheitem_0150
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0150', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0150.webp');
+      const content: string = 'payload-0150-qqqr';
+      logCase('testFileCache0150', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0150');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(17);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(17);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0150_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0150_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0151
+     * @tc.name      testFileCache0151
+     * @tc.desc      Truncate and rewrite 18 bytes of cacheitem_0151
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0151', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0151.webp');
+      const content: string = 'payload-0151-qqqqr';
+      logCase('testFileCache0151', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0151');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(18);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(18);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0151_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0151_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0152
+     * @tc.name      testFileCache0152
+     * @tc.desc      Truncate and rewrite 20 bytes of cacheitem_0152
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0152', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0152.webp');
+      const content: string = 'payload-0152-qqqqqrr';
+      logCase('testFileCache0152', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0152');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(20);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(20);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0152_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0152_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0153
+     * @tc.name      testFileCache0153
+     * @tc.desc      Truncate and rewrite 21 bytes of cacheitem_0153
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0153', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0153.webp');
+      const content: string = 'payload-0153-qqqqqqrr';
+      logCase('testFileCache0153', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0153');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(21);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(21);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0153_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0153_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0154
+     * @tc.name      testFileCache0154
+     * @tc.desc      Truncate and rewrite 15 bytes of cacheitem_0154
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0154', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0154.webp');
+      const content: string = 'payload-0154-rr';
+      logCase('testFileCache0154', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0154');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(15);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(15);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0154_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0154_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0155
+     * @tc.name      testFileCache0155
+     * @tc.desc      Truncate and rewrite 16 bytes of cacheitem_0155
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0155', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0155.webp');
+      const content: string = 'payload-0155-qrr';
+      logCase('testFileCache0155', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0155');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(16);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(16);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0155_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0155_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0156
+     * @tc.name      testFileCache0156
+     * @tc.desc      Truncate and rewrite 18 bytes of cacheitem_0156
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0156', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0156.webp');
+      const content: string = 'payload-0156-qqrrr';
+      logCase('testFileCache0156', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0156');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(18);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(18);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0156_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0156_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0157
+     * @tc.name      testFileCache0157
+     * @tc.desc      Truncate and rewrite 19 bytes of cacheitem_0157
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0157', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0157.webp');
+      const content: string = 'payload-0157-qqqrrr';
+      logCase('testFileCache0157', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0157');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(19);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(19);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0157_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0157_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0158
+     * @tc.name      testFileCache0158
+     * @tc.desc      Truncate and rewrite 20 bytes of cacheitem_0158
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0158', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0158.webp');
+      const content: string = 'payload-0158-qqqqrrr';
+      logCase('testFileCache0158', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0158');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(20);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(20);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0158_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0158_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0159
+     * @tc.name      testFileCache0159
+     * @tc.desc      Truncate and rewrite 21 bytes of cacheitem_0159
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0159', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0159.webp');
+      const content: string = 'payload-0159-qqqqqrrr';
+      logCase('testFileCache0159', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0159');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(21);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(21);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0159_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0159_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0160
+     * @tc.name      testFileCache0160
+     * @tc.desc      Truncate and rewrite 19 bytes of cacheitem_0160
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0160', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0160.webp');
+      const content: string = 'payload-0160-qqqqqq';
+      logCase('testFileCache0160', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0160');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(19);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(19);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0160_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0160_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0161
+     * @tc.name      testFileCache0161
+     * @tc.desc      Truncate and rewrite 13 bytes of cacheitem_0161
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0161', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0161.webp');
+      const content: string = 'payload-0161-';
+      logCase('testFileCache0161', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0161');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(13);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(13);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0161_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0161_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0162
+     * @tc.name      testFileCache0162
+     * @tc.desc      Truncate and rewrite 14 bytes of cacheitem_0162
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0162', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0162.webp');
+      const content: string = 'payload-0162-q';
+      logCase('testFileCache0162', `path=${path} bytes=${content.length}`);
+      try {
+        const first: fs.File = fs.openSync(path, fs.OpenMode.CREATE | fs.OpenMode.READ_WRITE | fs.OpenMode.TRUNC);
+        fs.writeSync(first.fd, 'stale-head-0162');
+        fs.closeSync(first);
+        const second: fs.File = fs.openSync(path, fs.OpenMode.TRUNC | fs.OpenMode.READ_WRITE);
+        const rewritten: number = fs.writeSync(second.fd, content);
+        fs.closeSync(second);
+        expect(rewritten).assertEqual(14);
+        expect(fs.readTextSync(path)).assertEqual(content);
+        expect(fs.statSync(path).size).assertEqual(14);      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0162_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0162_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0163
+     * @tc.name      testFileCache0163
+     * @tc.desc      Copy cacheitem_0163 and compare 15 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0163', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0163.cache');
+      const content: string = 'payload-0163-qq';
+      logCase('testFileCache0163', `path=${path} bytes=${content.length}`);
+      try {
+        writeText(path, content);
+        fs.copyFileSync(path, path + '.copy');
+        expect(fs.readTextSync(path + '.copy')).assertEqual(content);
+        expect(fs.statSync(path + '.copy').size).assertEqual(15);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.accessSync(path + '.copy')).assertTrue();      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0163_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0163_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0164
+     * @tc.name      testFileCache0164
+     * @tc.desc      Copy cacheitem_0164 and compare 17 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0164', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0164.cache');
+      const content: string = 'payload-0164-qqqr';
+      logCase('testFileCache0164', `path=${path} bytes=${content.length}`);
+      try {
+        writeText(path, content);
+        fs.copyFileSync(path, path + '.copy');
+        expect(fs.readTextSync(path + '.copy')).assertEqual(content);
+        expect(fs.statSync(path + '.copy').size).assertEqual(17);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.accessSync(path + '.copy')).assertTrue();      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0164_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0164_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0165
+     * @tc.name      testFileCache0165
+     * @tc.desc      Copy cacheitem_0165 and compare 18 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0165', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0165.cache');
+      const content: string = 'payload-0165-qqqqr';
+      logCase('testFileCache0165', `path=${path} bytes=${content.length}`);
+      try {
+        writeText(path, content);
+        fs.copyFileSync(path, path + '.copy');
+        expect(fs.readTextSync(path + '.copy')).assertEqual(content);
+        expect(fs.statSync(path + '.copy').size).assertEqual(18);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.accessSync(path + '.copy')).assertTrue();      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0165_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0165_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0166
+     * @tc.name      testFileCache0166
+     * @tc.desc      Copy cacheitem_0166 and compare 19 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0166', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0166.cache');
+      const content: string = 'payload-0166-qqqqqr';
+      logCase('testFileCache0166', `path=${path} bytes=${content.length}`);
+      try {
+        writeText(path, content);
+        fs.copyFileSync(path, path + '.copy');
+        expect(fs.readTextSync(path + '.copy')).assertEqual(content);
+        expect(fs.statSync(path + '.copy').size).assertEqual(19);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.accessSync(path + '.copy')).assertTrue();      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0166_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0166_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0167
+     * @tc.name      testFileCache0167
+     * @tc.desc      Copy cacheitem_0167 and compare 20 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0167', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0167.cache');
+      const content: string = 'payload-0167-qqqqqqr';
+      logCase('testFileCache0167', `path=${path} bytes=${content.length}`);
+      try {
+        writeText(path, content);
+        fs.copyFileSync(path, path + '.copy');
+        expect(fs.readTextSync(path + '.copy')).assertEqual(content);
+        expect(fs.statSync(path + '.copy').size).assertEqual(20);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.accessSync(path + '.copy')).assertTrue();      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0167_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0167_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0168
+     * @tc.name      testFileCache0168
+     * @tc.desc      Copy cacheitem_0168 and compare 15 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0168', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0168.cache');
+      const content: string = 'payload-0168-rr';
+      logCase('testFileCache0168', `path=${path} bytes=${content.length}`);
+      try {
+        writeText(path, content);
+        fs.copyFileSync(path, path + '.copy');
+        expect(fs.readTextSync(path + '.copy')).assertEqual(content);
+        expect(fs.statSync(path + '.copy').size).assertEqual(15);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.accessSync(path + '.copy')).assertTrue();      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0168_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0168_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0169
+     * @tc.name      testFileCache0169
+     * @tc.desc      Copy cacheitem_0169 and compare 16 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0169', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0169.cache');
+      const content: string = 'payload-0169-qrr';
+      logCase('testFileCache0169', `path=${path} bytes=${content.length}`);
+      try {
+        writeText(path, content);
+        fs.copyFileSync(path, path + '.copy');
+        expect(fs.readTextSync(path + '.copy')).assertEqual(content);
+        expect(fs.statSync(path + '.copy').size).assertEqual(16);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.accessSync(path + '.copy')).assertTrue();      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0169_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0169_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0170
+     * @tc.name      testFileCache0170
+     * @tc.desc      Copy cacheitem_0170 and compare 17 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0170', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0170.cache');
+      const content: string = 'payload-0170-qqrr';
+      logCase('testFileCache0170', `path=${path} bytes=${content.length}`);
+      try {
+        writeText(path, content);
+        fs.copyFileSync(path, path + '.copy');
+        expect(fs.readTextSync(path + '.copy')).assertEqual(content);
+        expect(fs.statSync(path + '.copy').size).assertEqual(17);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.accessSync(path + '.copy')).assertTrue();      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0170_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0170_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0171
+     * @tc.name      testFileCache0171
+     * @tc.desc      Copy cacheitem_0171 and compare 18 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0171', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0171.cache');
+      const content: string = 'payload-0171-qqqrr';
+      logCase('testFileCache0171', `path=${path} bytes=${content.length}`);
+      try {
+        writeText(path, content);
+        fs.copyFileSync(path, path + '.copy');
+        expect(fs.readTextSync(path + '.copy')).assertEqual(content);
+        expect(fs.statSync(path + '.copy').size).assertEqual(18);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.accessSync(path + '.copy')).assertTrue();      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0171_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0171_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0172
+     * @tc.name      testFileCache0172
+     * @tc.desc      Copy cacheitem_0172 and compare 20 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0172', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0172.cache');
+      const content: string = 'payload-0172-qqqqrrr';
+      logCase('testFileCache0172', `path=${path} bytes=${content.length}`);
+      try {
+        writeText(path, content);
+        fs.copyFileSync(path, path + '.copy');
+        expect(fs.readTextSync(path + '.copy')).assertEqual(content);
+        expect(fs.statSync(path + '.copy').size).assertEqual(20);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.accessSync(path + '.copy')).assertTrue();      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0172_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0172_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0173
+     * @tc.name      testFileCache0173
+     * @tc.desc      Copy cacheitem_0173 and compare 21 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0173', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0173.cache');
+      const content: string = 'payload-0173-qqqqqrrr';
+      logCase('testFileCache0173', `path=${path} bytes=${content.length}`);
+      try {
+        writeText(path, content);
+        fs.copyFileSync(path, path + '.copy');
+        expect(fs.readTextSync(path + '.copy')).assertEqual(content);
+        expect(fs.statSync(path + '.copy').size).assertEqual(21);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.accessSync(path + '.copy')).assertTrue();      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0173_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0173_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0174
+     * @tc.name      testFileCache0174
+     * @tc.desc      Copy cacheitem_0174 and compare 22 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0174', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0174.cache');
+      const content: string = 'payload-0174-qqqqqqrrr';
+      logCase('testFileCache0174', `path=${path} bytes=${content.length}`);
+      try {
+        writeText(path, content);
+        fs.copyFileSync(path, path + '.copy');
+        expect(fs.readTextSync(path + '.copy')).assertEqual(content);
+        expect(fs.statSync(path + '.copy').size).assertEqual(22);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.accessSync(path + '.copy')).assertTrue();      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0174_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0174_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0175
+     * @tc.name      testFileCache0175
+     * @tc.desc      Copy cacheitem_0175 and compare 16 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0175', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0175.cache');
+      const content: string = 'payload-0175-rrr';
+      logCase('testFileCache0175', `path=${path} bytes=${content.length}`);
+      try {
+        writeText(path, content);
+        fs.copyFileSync(path, path + '.copy');
+        expect(fs.readTextSync(path + '.copy')).assertEqual(content);
+        expect(fs.statSync(path + '.copy').size).assertEqual(16);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.accessSync(path + '.copy')).assertTrue();      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0175_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0175_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0176
+     * @tc.name      testFileCache0176
+     * @tc.desc      Copy cacheitem_0176 and compare 14 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0176', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0176.cache');
+      const content: string = 'payload-0176-q';
+      logCase('testFileCache0176', `path=${path} bytes=${content.length}`);
+      try {
+        writeText(path, content);
+        fs.copyFileSync(path, path + '.copy');
+        expect(fs.readTextSync(path + '.copy')).assertEqual(content);
+        expect(fs.statSync(path + '.copy').size).assertEqual(14);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.accessSync(path + '.copy')).assertTrue();      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0176_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0176_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0177
+     * @tc.name      testFileCache0177
+     * @tc.desc      Copy cacheitem_0177 and compare 15 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0177', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0177.cache');
+      const content: string = 'payload-0177-qq';
+      logCase('testFileCache0177', `path=${path} bytes=${content.length}`);
+      try {
+        writeText(path, content);
+        fs.copyFileSync(path, path + '.copy');
+        expect(fs.readTextSync(path + '.copy')).assertEqual(content);
+        expect(fs.statSync(path + '.copy').size).assertEqual(15);
+        expect(fs.accessSync(path)).assertTrue();
+        expect(fs.accessSync(path + '.copy')).assertTrue();      } finally {
+        const leftovers: string[] = [path, path + '.copy', path + '.moved',
+          dirPath('cacheitem_0177_dir') + '/inner.dat'];
+        leftovers.forEach((item: string) => {
+          if (fs.accessSync(item)) {
+            fs.unlinkSync(item);
+          }
+        });
+        const folder: string = dirPath('cacheitem_0177_dir');
+        if (fs.accessSync(folder)) {
+          fs.rmdirSync(folder);
+        }
+      }
+      expect(fs.accessSync(path)).assertFalse();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_FILECACHE_0178
+     * @tc.name      testFileCache0178
+     * @tc.desc      Copy cacheitem_0178 and compare 16 bytes in the clone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileCache0178', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ctx: common.Context = appContext();
+      const path: string = testPath('cacheitem_0178.cache');
+      const content: string = 'payload-0178-qqq';
+      logCase('testFileCache0178', `path=${path} bytes=${content.length}`);
+      try {
