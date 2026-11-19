@@ -1798,3 +1798,1300 @@ export default function resourceMediaMatrixTest() {
       logCase('testRepeatIdReadsStable0001', `copies=${copies.length} drifted=${drifted.join(',')} ` +
         `first=${copies[0].length}`);
       expect(copies.length).assertEqual(4);
+      expect(drifted.length).assertEqual(0);
+      expect(copies[0].length).assertEqual(mediaBytes(LAYERED_NAME).length);
+      expect(PngOracle.hasSignature(copies[3])).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_6200
+     * @tc.name      testRepeatAfterAllocation0001
+     * @tc.desc      Keep a background copy alive, allocate five thousand throwaway strings and check the kept copy
+     *               and a fresh background read are still byte identical
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testRepeatAfterAllocation0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const kept: Uint8Array = mediaBytes(BACKGROUND_NAME);
+      const layeredKept: string = mediaText(LAYERED_NAME);
+      const garbage: string[] = [];
+      for (let index = 0; index < HEAVY_GARBAGE_COUNT; index++) {
+        garbage.push('media-churn-' + index.toString());
+      }
+      const fresh: Uint8Array = mediaBytes(BACKGROUND_NAME);
+      const layeredFresh: string = mediaText(LAYERED_NAME);
+      logCase('testRepeatAfterAllocation0001', `garbage=${garbage.length} kept=${kept.length} ` +
+        `fresh=${fresh.length} layeredStable=${layeredKept === layeredFresh}`);
+      expect(garbage.length).assertEqual(HEAVY_GARBAGE_COUNT);
+      expect(sameBytes(kept, fresh)).assertTrue();
+      expect(layeredKept === layeredFresh).assertTrue();
+      expect(fresh.length >= BACKGROUND_MIN_BYTES).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_6300
+     * @tc.name      testRepeatAfterReferenceDrop0001
+     * @tc.desc      Drop the local reference to a background payload, then read it again and check the new copy has
+     *               the length remembered before the drop
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testRepeatAfterReferenceDrop0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      let held: Uint8Array = mediaBytes(BACKGROUND_NAME);
+      const remembered: number = held.length;
+      const rememberedHead: Uint8Array = prefixBytes(held, 8);
+      held = new Uint8Array(0);
+      const reread: Uint8Array = mediaBytes(BACKGROUND_NAME);
+      logCase('testRepeatAfterReferenceDrop0001', `remembered=${remembered} reread=${reread.length} ` +
+        `dropped=${held.length}`);
+      expect(held.length).assertEqual(0);
+      expect(reread.length).assertEqual(remembered);
+      expect(sameBytes(prefixBytes(reread, 8), rememberedHead)).assertTrue();
+      expect(PngOracle.hasSignature(reread)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_6400
+     * @tc.name      testRepeatThreeRounds0001
+     * @tc.desc      Read the three png media in three consecutive rounds and check the round wise length vectors are
+     *               equal element by element
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testRepeatThreeRounds0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const names: string[] = [START_ICON_NAME, BACKGROUND_NAME, FOREGROUND_NAME];
+      const rounds: string[] = [];
+      for (let round = 0; round < 3; round++) {
+        rounds.push(names.map((name: string) => mediaBytes(name).length).join('-'));
+      }
+      const differing: number = rounds.filter((entry: string) => entry !== rounds[0]).length;
+      logCase('testRepeatThreeRounds0001', `rounds=${rounds.join('|')} differing=${differing}`);
+      expect(rounds.length).assertEqual(3);
+      expect(differing).assertEqual(0);
+      expect(rounds[0].split('-').length).assertEqual(names.length);
+      expect(rounds[2]).assertEqual(rounds[0]);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_6500
+     * @tc.name      testRepeatIconIdThreeReads0001
+     * @tc.desc      Read the layered description three times through the ability icon id and check payload, decoded
+     *               text and member count agree with the name based read
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testRepeatIconIdThreeReads0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const ability: bundleManager.AbilityInfo = await entryAbilityInfo();
+      const texts: string[] = [];
+      for (let round = 0; round < 3; round++) {
+        const bytes: Uint8Array = resources().getMediaContentSync(ability.iconId);
+        texts.push(util.TextDecoder.create('utf-8').decodeToString(bytes));
+      }
+      const nameText: string = mediaText(LAYERED_NAME);
+      const sizes: string = texts.map((text: string) => text.length).join(',');
+      logCase('testRepeatIconIdThreeReads0001', `rounds=${texts.length} sizes=${sizes} ` +
+        `matchesName=${texts[0] === nameText}`);
+      expect(new Set<string>(texts).size).assertEqual(1);
+      expect(texts[0] === nameText).assertTrue();
+      expect(scanPairs(texts[2]).length).assertEqual(scanPairs(nameText).length);
+      expect(texts[1].charAt(0)).assertEqual(BRACE_OPEN);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_6600
+     * @tc.name      testRepeatBackgroundDigest0001
+     * @tc.desc      Fold the whole background payload into a small byte sum three times and check the digest, the
+     *               length and the first byte never change
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testRepeatBackgroundDigest0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const digests: number[] = [];
+      const lengths: number[] = [];
+      for (let round = 0; round < 3; round++) {
+        const bytes: Uint8Array = mediaBytes(BACKGROUND_NAME);
+        let fold: number = 0;
+        for (let index = 0; index < bytes.length; index++) {
+          fold = (fold + bytes[index]) % 65536;
+        }
+        digests.push(fold);
+        lengths.push(bytes.length);
+      }
+      logCase('testRepeatBackgroundDigest0001', `digests=${digests.join(',')} lengths=${lengths.join(',')}`);
+      expect(new Set<number>(digests).size).assertEqual(1);
+      expect(new Set<number>(lengths).size).assertEqual(1);
+      expect(digests[0] > 0).assertTrue();
+      expect(lengths[0] >= BACKGROUND_MIN_BYTES).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_6700
+     * @tc.name      testAsyncStartIconParity0001
+     * @tc.desc      Resolve the start window icon through the promise api and check the payload equals the
+     *               synchronous read including the chunk order
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAsyncStartIconParity0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const asyncBytes: Uint8Array = await resources().getMediaByName(START_ICON_NAME);
+      const syncBytes: Uint8Array = mediaBytes(START_ICON_NAME);
+      logCase('testAsyncStartIconParity0001', `asyncLength=${asyncBytes.length} ` +
+        `syncLength=${syncBytes.length} asyncChunks=${chunkTypes(asyncBytes).length}`);
+      expect(sameBytes(asyncBytes, syncBytes)).assertTrue();
+      expect(asyncBytes.length).assertEqual(START_ICON_BYTES);
+      expect(chunkTypes(asyncBytes).join(',')).assertEqual(chunkTypes(syncBytes).join(','));
+      expect(PngOracle.hasSignature(asyncBytes)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_6800
+     * @tc.name      testAsyncBackgroundParity0001
+     * @tc.desc      Resolve the background layer through the promise api and check header geometry and the leading
+     *               bytes match the synchronous read
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAsyncBackgroundParity0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const asyncBytes: Uint8Array = await resources().getMediaByName(BACKGROUND_NAME);
+      const syncBytes: Uint8Array = mediaBytes(BACKGROUND_NAME);
+      logCase('testAsyncBackgroundParity0001', `asyncWidth=${PngOracle.width(asyncBytes)} ` +
+        `syncWidth=${PngOracle.width(syncBytes)} asyncLength=${asyncBytes.length}`);
+      expect(asyncBytes.length).assertEqual(syncBytes.length);
+      expect(sameBytes(prefixBytes(asyncBytes, 32), prefixBytes(syncBytes, 32))).assertTrue();
+      expect(PngOracle.width(asyncBytes)).assertEqual(SIDE_LAYER);
+      expect(PngOracle.height(asyncBytes)).assertEqual(SIDE_LAYER);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_6900
+     * @tc.name      testAsyncForegroundIdParity0001
+     * @tc.desc      Compare the promise read of the foreground with the synchronous read through the layered image
+     *               reference and check the pixel format of both
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAsyncForegroundIdParity0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const asyncBytes: Uint8Array = await resources().getMediaByName(FOREGROUND_NAME);
+      const byRef: Uint8Array = layerBytes(layeredReference(FOREGROUND_NAME));
+      logCase('testAsyncForegroundIdParity0001', `asyncLength=${asyncBytes.length} refLength=${byRef.length} ` +
+        `colorType=${PngOracle.colorType(asyncBytes)}`);
+      expect(sameBytes(asyncBytes, byRef)).assertTrue();
+      expect(asyncBytes.length).assertEqual(byRef.length);
+      expect(PngOracle.colorType(asyncBytes)).assertEqual(COLOR_TYPE_RGBA);
+      expect(PngOracle.bitDepth(asyncBytes)).assertEqual(BIT_DEPTH_8);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_7000
+     * @tc.name      testAsyncLayeredParity0001
+     * @tc.desc      Resolve the layered description through the promise api and check the decoded text, its size and
+     *               its member count match the synchronous path
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAsyncLayeredParity0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const asyncBytes: Uint8Array = await resources().getMediaByName(LAYERED_NAME);
+      const asyncText: string = util.TextDecoder.create('utf-8').decodeToString(asyncBytes);
+      const syncText: string = mediaText(LAYERED_NAME);
+      logCase('testAsyncLayeredParity0001', `asyncBytes=${asyncBytes.length} asyncText=${asyncText.length} ` +
+        `pairs=${scanPairs(asyncText).length}`);
+      expect(asyncText === syncText).assertTrue();
+      expect(asyncText.length >= LAYER_MIN_BYTES).assertTrue();
+      expect(scanPairs(asyncText).length).assertEqual(scanPairs(syncText).length);
+      expect(asyncText.charAt(0)).assertEqual(BRACE_OPEN);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_7100
+     * @tc.name      testAsyncConcurrentReads0001
+     * @tc.desc      Request the three png media concurrently and check each resolved payload matches its own
+     *               synchronous read and the packed icon length
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAsyncConcurrentReads0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const pending: Promise<Uint8Array>[] = [
+        resources().getMediaByName(START_ICON_NAME),
+        resources().getMediaByName(BACKGROUND_NAME),
+        resources().getMediaByName(FOREGROUND_NAME)
+      ];
+      const resolved: Uint8Array[] = await Promise.all(pending);
+      const syncLengths: number[] = [START_ICON_NAME, BACKGROUND_NAME, FOREGROUND_NAME]
+        .map((name: string) => mediaBytes(name).length);
+      logCase('testAsyncConcurrentReads0001', `resolved=${resolved.length} ` +
+        `asyncLengths=${resolved.map((bytes: Uint8Array) => bytes.length).join(',')} ` +
+        `syncLengths=${syncLengths.join(',')}`);
+      expect(resolved.length).assertEqual(pending.length);
+      expect(resolved.map((bytes: Uint8Array) => bytes.length).join(',')).assertEqual(syncLengths.join(','));
+      expect(resolved.every((bytes: Uint8Array) => PngOracle.hasSignature(bytes))).assertTrue();
+      expect(resolved[0].length).assertEqual(START_ICON_BYTES);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_7200
+     * @tc.name      testAsyncUnknownNameRejected0001
+     * @tc.desc      Ask the promise api for a media name that carries a file suffix and check the rejection code
+     *               equals the one of the synchronous api while the plain name still resolves
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAsyncUnknownNameRejected0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const asyncCode: number = await asyncMediaErrorCode('startIcon.png');
+      const syncCode: number = errorCode(() => mediaBytes('startIcon.png'));
+      const controlCode: number = await asyncMediaErrorCode(START_ICON_NAME);
+      logCase('testAsyncUnknownNameRejected0001', `asyncCode=${asyncCode} syncCode=${syncCode} ` +
+        `controlCode=${controlCode} expected=${ERR_RES_NAME_INVALID}`);
+      expect(asyncCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(syncCode).assertEqual(asyncCode);
+      expect(controlCode).assertEqual(NO_ERROR);
+      expect(asyncCode !== ERR_RES_ID_INVALID).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_7300
+     * @tc.name      testNameWithPngSuffix0001
+     * @tc.desc      Ask for a media resource with the physical file name including the png suffix and check the name
+     *               is rejected while the resource name resolves
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNameWithPngSuffix0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const suffixed: number = errorCode(() => mediaBytes(BACKGROUND_NAME + '.png'));
+      const plain: number = errorCode(() => mediaBytes(BACKGROUND_NAME));
+      const headless: number = errorCode(() => mediaBytes('.png'));
+      logCase('testNameWithPngSuffix0001', `suffixed=${suffixed} plain=${plain} headless=${headless}`);
+      expect(suffixed).assertEqual(ERR_RES_NAME_INVALID);
+      expect(plain).assertEqual(NO_ERROR);
+      expect(headless).assertEqual(ERR_RES_NAME_INVALID);
+      expect(suffixed !== plain).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_7400
+     * @tc.name      testNameCaseSensitivity0001
+     * @tc.desc      Check media name lookup is case sensitive: upper cased variants are rejected while the lower
+     *               camel and lower flat spellings resolve
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNameCaseSensitivity0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const upperCamel: number = errorCode(() => mediaBytes('StartIcon'));
+      const upperFlat: number = errorCode(() => mediaBytes('BACKGROUND'));
+      const lowerCamel: number = errorCode(() => mediaBytes(START_ICON_NAME));
+      const lowerFlat: number = errorCode(() => mediaBytes(BACKGROUND_NAME));
+      logCase('testNameCaseSensitivity0001', `upperCamel=${upperCamel} upperFlat=${upperFlat} ` +
+        `lowerCamel=${lowerCamel} lowerFlat=${lowerFlat}`);
+      expect(upperCamel).assertEqual(ERR_RES_NAME_INVALID);
+      expect(upperFlat).assertEqual(ERR_RES_NAME_INVALID);
+      expect(lowerCamel).assertEqual(NO_ERROR);
+      expect(lowerFlat).assertEqual(NO_ERROR);
+      expect(upperCamel === upperFlat).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_7500
+     * @tc.name      testNameTrailingSpace0001
+     * @tc.desc      Check that surrounding whitespace is not trimmed by the media lookup: both a trailing and a
+     *               leading space are rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNameTrailingSpace0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const trailing: number = errorCode(() => mediaBytes(FOREGROUND_NAME + SPACE));
+      const leading: number = errorCode(() => mediaBytes(SPACE + FOREGROUND_NAME));
+      const inner: number = errorCode(() => mediaBytes('fore ground'));
+      const exact: number = errorCode(() => mediaBytes(FOREGROUND_NAME));
+      logCase('testNameTrailingSpace0001', `trailing=${trailing} leading=${leading} inner=${inner} ` +
+        `exact=${exact}`);
+      expect(trailing).assertEqual(ERR_RES_NAME_INVALID);
+      expect(leading).assertEqual(ERR_RES_NAME_INVALID);
+      expect(inner).assertEqual(ERR_RES_NAME_INVALID);
+      expect(exact).assertEqual(NO_ERROR);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_7600
+     * @tc.name      testNameHyphenated0001
+     * @tc.desc      Swap the underscore of the layered description name for the hyphen used inside its content and
+     *               check only the underscore spelling is a resource
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNameHyphenated0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const hyphenName: string = 'layered' + '-' + 'image';
+      const hyphenMedia: number = errorCode(() => mediaBytes(hyphenName));
+      const hyphenString: number = errorCode(() => resources().getStringByNameSync(hyphenName));
+      const underscore: number = errorCode(() => mediaBytes(LAYERED_NAME));
+      logCase('testNameHyphenated0001', `hyphenName=${hyphenName} hyphenMedia=${hyphenMedia} ` +
+        `hyphenString=${hyphenString} underscore=${underscore}`);
+      expect(hyphenMedia).assertEqual(ERR_RES_NAME_INVALID);
+      expect(hyphenString).assertEqual(ERR_RES_NAME_INVALID);
+      expect(underscore).assertEqual(NO_ERROR);
+      expect(mediaText(LAYERED_NAME).indexOf(LAYER_KEY) >= 0).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_7700
+     * @tc.name      testNameWithJsonSuffix0001
+     * @tc.desc      Ask for the layered description and for the pages profile with their json suffix and check the
+     *               media lookup rejects the suffixed forms
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNameWithJsonSuffix0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const layeredSuffixed: number = errorCode(() => mediaBytes(LAYERED_NAME + '.json'));
+      const pagesAsMedia: number = errorCode(() => mediaBytes('main_pages'));
+      const layeredPlain: number = errorCode(() => mediaBytes(LAYERED_NAME));
+      logCase('testNameWithJsonSuffix0001', `layeredSuffixed=${layeredSuffixed} pagesAsMedia=${pagesAsMedia} ` +
+        `layeredPlain=${layeredPlain}`);
+      expect(layeredSuffixed).assertEqual(ERR_RES_NAME_INVALID);
+      expect(pagesAsMedia).assertEqual(ERR_RES_NAME_INVALID);
+      expect(layeredPlain).assertEqual(NO_ERROR);
+      expect(layeredSuffixed === pagesAsMedia).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_7800
+     * @tc.name      testNameDottedForm0001
+     * @tc.desc      Check the qualified and already prefixed spellings of a media name are not accepted: neither the
+     *               module qualified form nor the raw media reference resolves through the per name api
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNameDottedForm0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const dotted: number = errorCode(() => mediaBytes('media.' + START_ICON_NAME));
+      const moduleScoped: number = errorCode(() => mediaBytes(ENTRY_MODULE + '.media.' + START_ICON_NAME));
+      const prefixed: number = errorCode(() => mediaBytes(MEDIA_PREFIX + START_ICON_NAME));
+      const plain: number = errorCode(() => mediaBytes(START_ICON_NAME));
+      logCase('testNameDottedForm0001', `dotted=${dotted} moduleScoped=${moduleScoped} prefixed=${prefixed} ` +
+        `plain=${plain}`);
+      expect(dotted).assertEqual(ERR_RES_NAME_INVALID);
+      expect(moduleScoped).assertEqual(ERR_RES_NAME_INVALID);
+      expect(prefixed).assertEqual(ERR_RES_NAME_INVALID);
+      expect(plain).assertEqual(NO_ERROR);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_7900
+     * @tc.name      testNameEmptyAndBlank0001
+     * @tc.desc      Ask for media with the empty name and with a single space and check both are rejected with the
+     *               same name error a valid lookup avoids
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNameEmptyAndBlank0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const empty: number = errorCode(() => mediaBytes(EMPTY_TEXT));
+      const blank: number = errorCode(() => mediaBytes(SPACE));
+      const blankCount: number = errorCode(() => mediaBytes(SPACE + SPACE + SPACE));
+      const valid: number = errorCode(() => mediaBytes(LAYERED_NAME));
+      logCase('testNameEmptyAndBlank0001', `empty=${empty} blank=${blank} blankCount=${blankCount} ` +
+        `valid=${valid}`);
+      expect(empty).assertEqual(ERR_RES_NAME_INVALID);
+      expect(blank).assertEqual(ERR_RES_NAME_INVALID);
+      expect(blankCount).assertEqual(ERR_RES_NAME_INVALID);
+      expect(valid).assertEqual(NO_ERROR);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_8000
+     * @tc.name      testStringResourceAsMedia0001
+     * @tc.desc      Ask for two string resources through the media api and check the type mismatch is reported while
+     *               the same names still read as strings
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStringResourceAsMedia0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const labelAsMedia: number = errorCode(() => mediaBytes('app_name'));
+      const descAsMedia: number = errorCode(() => mediaBytes('module_desc'));
+      const labelText: string = resources().getStringByNameSync('app_name');
+      logCase('testStringResourceAsMedia0001', `labelAsMedia=${labelAsMedia} descAsMedia=${descAsMedia} ` +
+        `labelLength=${labelText.length}`);
+      expect(labelAsMedia).assertEqual(ERR_RES_NAME_INVALID);
+      expect(descAsMedia).assertEqual(ERR_RES_NAME_INVALID);
+      expect(labelText.length > 0).assertTrue();
+      expect(labelAsMedia === descAsMedia).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_8100
+     * @tc.name      testColorResourceAsMedia0001
+     * @tc.desc      Cross the media and color resource spaces: the start window background colour is not a media
+     *               resource and the start window icon is not a colour
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testColorResourceAsMedia0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const colorAsMedia: number = errorCode(() => mediaBytes('start_window_background'));
+      const iconAsColor: number = errorCode(() => resources().getColorByNameSync(START_ICON_NAME));
+      const color: number = resources().getColorByNameSync('start_window_background');
+      logCase('testColorResourceAsMedia0001', `colorAsMedia=${colorAsMedia} iconAsColor=${iconAsColor} ` +
+        `color=${color}`);
+      expect(colorAsMedia).assertEqual(ERR_RES_NAME_INVALID);
+      expect(iconAsColor).assertEqual(ERR_RES_NAME_INVALID);
+      expect(color >>> 24).assertEqual(0xFF);
+      expect(colorAsMedia === iconAsColor).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_8200
+     * @tc.name      testNamePaddedLength0001
+     * @tc.desc      Ask for media with a five hundred and twelve character name and with that padding glued in front
+     *               of a real name, checking both padded spellings are rejected
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNamePaddedLength0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const padded: number = errorCode(() => mediaBytes(LONG_NAME));
+      const glued: number = errorCode(() => mediaBytes(LONG_NAME + START_ICON_NAME));
+      const realLength: number = START_ICON_NAME.length;
+      logCase('testNamePaddedLength0001', `padded=${padded} glued=${glued} paddedLength=${LONG_NAME.length} ` +
+        `realLength=${realLength}`);
+      expect(padded).assertEqual(ERR_RES_NAME_INVALID);
+      expect(glued).assertEqual(ERR_RES_NAME_INVALID);
+      expect(LONG_NAME.length > realLength * 10).assertTrue();
+      expect(errorCode(() => mediaBytes(START_ICON_NAME))).assertEqual(NO_ERROR);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_8300
+     * @tc.name      testNameNonAsciiRejected0001
+     * @tc.desc      Ask for media and for a string with a resource name built from two non ascii code points and
+     *               check the lookup reports the name error instead of crashing
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNameNonAsciiRejected0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const mediaCode: number = errorCode(() => mediaBytes(CJK_NAME));
+      const stringCode: number = errorCode(() => resources().getStringByNameSync(CJK_NAME));
+      const codes: number[] = [CJK_NAME.charCodeAt(0), CJK_NAME.charCodeAt(1)];
+      logCase('testNameNonAsciiRejected0001', `mediaCode=${mediaCode} stringCode=${stringCode} ` +
+        `codes=${codes.join(',')}`);
+      expect(mediaCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(stringCode).assertEqual(ERR_RES_NAME_INVALID);
+      expect(codes.every((code: number) => code > 0x7F)).assertTrue();
+      expect(mediaCode === stringCode).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_8400
+     * @tc.name      testNameUpperCaseLayered0001
+     * @tc.desc      Check the layered description name is not reachable through upper cased or mixed cased
+     *               spellings and that the lowercase name is rejected by the string api
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNameUpperCaseLayered0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const upper: number = errorCode(() => mediaBytes('LAYERED_IMAGE'));
+      const mixed: number = errorCode(() => mediaBytes('layered_Image'));
+      const asString: number = errorCode(() => resources().getStringByNameSync(LAYERED_NAME));
+      logCase('testNameUpperCaseLayered0001', `upper=${upper} mixed=${mixed} asString=${asString}`);
+      expect(upper).assertEqual(ERR_RES_NAME_INVALID);
+      expect(mixed).assertEqual(ERR_RES_NAME_INVALID);
+      expect(asString).assertEqual(ERR_RES_NAME_INVALID);
+      expect(errorCode(() => mediaBytes(LAYERED_NAME))).assertEqual(NO_ERROR);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_8500
+     * @tc.name      testIdZeroRejected0001
+     * @tc.desc      Ask for media content with id zero and check the id error is reported, then confirm a published
+     *               id still returns bytes
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIdZeroRejected0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const ability: bundleManager.AbilityInfo = await entryAbilityInfo();
+      const zero: number = errorCode(() => resources().getMediaContentSync(BAD_ID_ZERO));
+      const twice: number = errorCode(() => resources().getMediaContentSync(BAD_ID_ZERO));
+      const valid: number = errorCode(() => resources().getMediaContentSync(ability.iconId));
+      logCase('testIdZeroRejected0001', `zero=${zero} twice=${twice} valid=${valid} ` +
+        `iconId=${ability.iconId}`);
+      expect(zero).assertEqual(ERR_RES_ID_INVALID);
+      expect(twice).assertEqual(zero);
+      expect(valid).assertEqual(NO_ERROR);
+      expect(zero !== valid).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_8600
+     * @tc.name      testIdOneRejected0001
+     * @tc.desc      Ask for media content with id one and check the exact error code, its stability and the
+     *               distinction from the name error code
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIdOneRejected0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const one: number = errorCode(() => resources().getMediaContentSync(BAD_ID_ONE));
+      const again: number = errorCode(() => resources().getMediaContentSync(BAD_ID_ONE));
+      logCase('testIdOneRejected0001', `one=${one} again=${again} expected=${ERR_RES_ID_INVALID}`);
+      expect(one).assertEqual(ERR_RES_ID_INVALID);
+      expect(again).assertEqual(one);
+      expect(one !== ERR_RES_NAME_INVALID).assertTrue();
+      expect(one < ERR_RES_NAME_INVALID).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_8700
+     * @tc.name      testIdMaxMediaRejected0001
+     * @tc.desc      Ask for media content with the largest value the media id space can hold and check the id error
+     *               is reported instead of an empty payload
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIdMaxMediaRejected0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const maxId: number = errorCode(() => resources().getMediaContentSync(BAD_ID_MEDIA_MAX));
+      const nearMax: number = errorCode(() => resources().getMediaContentSync(BAD_ID_MEDIA_MAX - 1));
+      const nameFailure: number = errorCode(() => mediaBytes(BACKGROUND_NAME + '.png'));
+      logCase('testIdMaxMediaRejected0001', `maxId=${maxId} nearMax=${nearMax} nameFailure=${nameFailure} ` +
+        `value=${BAD_ID_MEDIA_MAX}`);
+      expect(maxId).assertEqual(ERR_RES_ID_INVALID);
+      expect(nearMax).assertEqual(ERR_RES_ID_INVALID);
+      expect(nameFailure).assertEqual(ERR_RES_NAME_INVALID);
+      expect(maxId !== nameFailure).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_8800
+     * @tc.name      testIdIntMaxRejected0001
+     * @tc.desc      Ask for media content with the largest positive 32 bit value and with its predecessor, checking
+     *               both overflow free rejections carry the id error
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIdIntMaxRejected0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const intMax: number = errorCode(() => resources().getMediaContentSync(BAD_ID_INT_MAX));
+      const belowIntMax: number = errorCode(() => resources().getMediaContentSync(BAD_ID_INT_MAX - 1));
+      logCase('testIdIntMaxRejected0001', `intMax=${intMax} belowIntMax=${belowIntMax} value=${BAD_ID_INT_MAX}`);
+      expect(intMax).assertEqual(ERR_RES_ID_INVALID);
+      expect(belowIntMax).assertEqual(ERR_RES_ID_INVALID);
+      expect(intMax === belowIntMax).assertTrue();
+      expect(BAD_ID_INT_MAX > BAD_ID_MEDIA_MAX).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_8900
+     * @tc.name      testIdLargeRejected0001
+     * @tc.desc      Ask for media content with a nine digit id and with twice that id and check both are rejected
+     *               with the id error while the published icon id still resolves
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIdLargeRejected0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const ability: bundleManager.AbilityInfo = await entryAbilityInfo();
+      const large: number = errorCode(() => resources().getMediaContentSync(BAD_ID_LARGE));
+      const doubled: number = errorCode(() => resources().getMediaContentSync(BAD_ID_LARGE * 2));
+      const valid: number = errorCode(() => resources().getMediaContentSync(ability.iconId));
+      logCase('testIdLargeRejected0001', `large=${large} doubled=${doubled} valid=${valid} ` +
+        `value=${BAD_ID_LARGE}`);
+      expect(large).assertEqual(ERR_RES_ID_INVALID);
+      expect(doubled).assertEqual(ERR_RES_ID_INVALID);
+      expect(valid).assertEqual(NO_ERROR);
+      expect(large === doubled).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_9000
+     * @tc.name      testIdArbitraryRejected0001
+     * @tc.desc      Probe three ids around an arbitrary six digit value and check every probe reports the id error
+     *               exactly once
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIdArbitraryRejected0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const probes: number[] = [BAD_ID_ARBITRARY - 100, BAD_ID_ARBITRARY, BAD_ID_ARBITRARY + 100];
+      const codes: number[] = probes.map((id: number) => errorCode(() => resources().getMediaContentSync(id)));
+      const rejected: number = codes.filter((code: number) => code === ERR_RES_ID_INVALID).length;
+      logCase('testIdArbitraryRejected0001', `probes=${probes.join(',')} codes=${codes.join(',')} ` +
+        `rejected=${rejected}`);
+      expect(codes.length).assertEqual(probes.length);
+      expect(rejected).assertEqual(probes.length);
+      expect(new Set<number>(codes).size).assertEqual(1);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_9100
+     * @tc.name      testIdBatchCodes0001
+     * @tc.desc      Feed five unusable ids to the media content api in one batch and check the code vector equals the
+     *               id error vector
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIdBatchCodes0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const ids: number[] = [BAD_ID_ZERO, BAD_ID_ONE, BAD_ID_ARBITRARY, BAD_ID_LARGE, BAD_ID_INT_MAX];
+      const codes: number[] = ids.map((id: number) => errorCode(() => resources().getMediaContentSync(id)));
+      const expected: number[] = ids.map(() => ERR_RES_ID_INVALID);
+      logCase('testIdBatchCodes0001', `ids=${ids.join(',')} codes=${codes.join(',')}`);
+      expect(codes.join(',')).assertEqual(expected.join(','));
+      expect(codes.length).assertEqual(ids.length);
+      expect(codes.every((code: number) => code !== NO_ERROR)).assertTrue();
+      expect(ids.every((id: number) => id >= BAD_ID_ZERO)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_9200
+     * @tc.name      testIdValidInvalidValid0001
+     * @tc.desc      Read a valid icon id, then a broken id, then the valid id again and check the failure neither
+     *               clears nor shortens the following valid payload
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testIdValidInvalidValid0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const ability: bundleManager.AbilityInfo = await entryAbilityInfo();
+      const before: Uint8Array = resources().getMediaContentSync(ability.iconId);
+      const broken: number = errorCode(() => resources().getMediaContentSync(BAD_ID_MEDIA_MAX));
+      const after: Uint8Array = resources().getMediaContentSync(ability.iconId);
+      logCase('testIdValidInvalidValid0001', `before=${before.length} broken=${broken} after=${after.length}`);
+      expect(broken).assertEqual(ERR_RES_ID_INVALID);
+      expect(after.length).assertEqual(before.length);
+      expect(sameBytes(before, after)).assertTrue();
+      expect(after.length).assertEqual(mediaBytes(LAYERED_NAME).length);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_9300
+     * @tc.name      testLabelIdAsMedia0001
+     * @tc.desc      Use the string id of the ability label as a media id and check the media api rejects it while the
+     *               string api resolves the same id
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLabelIdAsMedia0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const ability: bundleManager.AbilityInfo = await entryAbilityInfo();
+      const asMedia: number = errorCode(() => resources().getMediaContentSync(ability.labelId));
+      const asString: string = resources().getStringSync(ability.labelId);
+      const invalid: number = errorCode(() => resources().getMediaContentSync(BAD_ID_ARBITRARY));
+      logCase('testLabelIdAsMedia0001', `labelId=${ability.labelId} asMedia=${asMedia} ` +
+        `labelLength=${asString.length} invalid=${invalid}`);
+      expect(asMedia !== NO_ERROR).assertTrue();
+      expect(asString.length > 0).assertTrue();
+      expect(ability.labelId !== ability.iconId).assertTrue();
+      expect(invalid).assertEqual(ERR_RES_ID_INVALID);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_9400
+     * @tc.name      testNameAndIdErrorSplit0001
+     * @tc.desc      Check the two lookup failures use two different codes: an unknown name reports the name error and
+     *               an unknown id reports the id error, neither ever collides with success
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNameAndIdErrorSplit0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const nameFailure: number = errorCode(() => mediaBytes('missing_media_icon'));
+      const idFailure: number = errorCode(() => resources().getMediaContentSync(BAD_ID_ARBITRARY));
+      const success: number = errorCode(() => mediaBytes(FOREGROUND_NAME));
+      logCase('testNameAndIdErrorSplit0001', `nameFailure=${nameFailure} idFailure=${idFailure} ` +
+        `success=${success}`);
+      expect(nameFailure).assertEqual(ERR_RES_NAME_INVALID);
+      expect(idFailure).assertEqual(ERR_RES_ID_INVALID);
+      expect(nameFailure === idFailure).assertFalse();
+      expect(success).assertEqual(NO_ERROR);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_9500
+     * @tc.name      testStartIconIndependentWidth0001
+     * @tc.desc      Decode the start window icon width with the multiplication based decoder and check the low order
+     *               header bytes a 144 px canvas must carry
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testStartIconIndependentWidth0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = mediaBytes(START_ICON_NAME);
+      const headerLength: number = bigEndian32(bytes, PngOracle.SIGNATURE.length);
+      const side: number = bigEndian32(bytes, 16);
+      const crcField: number = bigEndian32(bytes, PngOracle.SIGNATURE.length + 8 + IHDR_DATA_BYTES);
+      const header: PngChunk | undefined = firstChunk(bytes);
+      logCase('testStartIconIndependentWidth0001', `headerLength=${headerLength} side=${side} ` +
+        `crcField=${crcField} stored=${header === undefined ? -1 : chunkStoredCrc(bytes, header)}`);
+      expect(headerLength).assertEqual(IHDR_DATA_BYTES);
+      expect(side).assertEqual(SIDE_START_ICON);
+      expect(crcField).assertEqual(header === undefined ? -1 : chunkStoredCrc(bytes, header));
+      expect(side).assertEqual(bigEndian32(bytes, 20));
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_9600
+     * @tc.name      testPngHeaderCrcSweep0001
+     * @tc.desc      Recompute the header crc of all three png media and check none is corrupt while the icon header
+     *               crc differs from the layer header crc because the canvases differ
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testPngHeaderCrcSweep0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const names: string[] = [START_ICON_NAME, BACKGROUND_NAME, FOREGROUND_NAME];
+      const stored: number[] = names.map((name: string) => {
+        const bytes: Uint8Array = mediaBytes(name);
+        const header: PngChunk | undefined = firstChunk(bytes);
+        return header === undefined ? -1 : chunkStoredCrc(bytes, header);
+      });
+      const corrupt: number = names.filter((name: string) => {
+        const bytes: Uint8Array = mediaBytes(name);
+        const header: PngChunk | undefined = firstChunk(bytes);
+        return header === undefined || chunkStoredCrc(bytes, header) !== chunkComputedCrc(bytes, header);
+      }).length;
+      logCase('testPngHeaderCrcSweep0001', `stored=${stored.join(',')} corrupt=${corrupt}`);
+      expect(corrupt).assertEqual(0);
+      expect(new Set<number>(stored).size > 1).assertTrue();
+      expect(stored.every((value: number) => value > 0)).assertTrue();
+      expect(stored[0] !== stored[1]).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_9700
+     * @tc.name      testPngHeaderUniformity0001
+     * @tc.desc      Check all three png media agree on the header layout: thirteen payload bytes, zero compression,
+     *               zero filter and zero interlace markers
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testPngHeaderUniformity0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const names: string[] = [START_ICON_NAME, BACKGROUND_NAME, FOREGROUND_NAME];
+      const payloads: number[] = names.map((name: string) => {
+        const bytes: Uint8Array = mediaBytes(name);
+        return PngOracle.readUint32(bytes, PngOracle.SIGNATURE.length);
+      });
+      const oddFlags: number = names.filter((name: string) => {
+        const bytes: Uint8Array = mediaBytes(name);
+        return bytes[26] !== 0 || bytes[27] !== 0 || bytes[28] !== 0;
+      }).length;
+      logCase('testPngHeaderUniformity0001', `payloads=${payloads.join(',')} oddFlags=${oddFlags}`);
+      expect(payloads.every((value: number) => value === IHDR_DATA_BYTES)).assertTrue();
+      expect(oddFlags).assertEqual(0);
+      expect(new Set<number>(payloads).size).assertEqual(1);
+      expect(payloads.length).assertEqual(names.length);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_9800
+     * @tc.name      testPngSignatureSweep0001
+     * @tc.desc      Compare the eight leading bytes of every png media against the signature table entry by entry and
+     *               check no byte deviates
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testPngSignatureSweep0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const names: string[] = [START_ICON_NAME, BACKGROUND_NAME, FOREGROUND_NAME];
+      let deviations: number = 0;
+      let compared: number = 0;
+      for (const name of names) {
+        const bytes: Uint8Array = mediaBytes(name);
+        for (let index = 0; index < PngOracle.SIGNATURE.length; index++) {
+          compared = compared + 1;
+          if (bytes[index] !== PngOracle.SIGNATURE[index]) {
+            deviations = deviations + 1;
+          }
+        }
+      }
+      logCase('testPngSignatureSweep0001', `compared=${compared} deviations=${deviations}`);
+      expect(compared).assertEqual(names.length * PngOracle.SIGNATURE.length);
+      expect(deviations).assertEqual(0);
+      expect(PngOracle.SIGNATURE.length).assertEqual(8);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_9900
+     * @tc.name      testPngGeometryRelations0001
+     * @tc.desc      Check the layered canvas is much larger than the start window canvas: its area exceeds ten times
+     *               the icon area and its side is larger as well
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testPngGeometryRelations0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const icon: Uint8Array = mediaBytes(START_ICON_NAME);
+      const layer: Uint8Array = mediaBytes(BACKGROUND_NAME);
+      const iconArea: number = PngOracle.width(icon) * PngOracle.height(icon);
+      const layerArea: number = PngOracle.width(layer) * PngOracle.height(layer);
+      logCase('testPngGeometryRelations0001', `iconSide=${PngOracle.width(icon)} ` +
+        `layerSide=${PngOracle.width(layer)} iconArea=${iconArea} layerArea=${layerArea}`);
+      expect(PngOracle.width(layer) > PngOracle.width(icon)).assertTrue();
+      expect(layerArea > iconArea * 10).assertTrue();
+      expect(iconArea).assertEqual(SIDE_START_ICON * SIDE_START_ICON);
+      expect(layerArea).assertEqual(SIDE_LAYER * SIDE_LAYER);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_10000
+     * @tc.name      testPngBoundaryChunks0001
+     * @tc.desc      Check every png media opens with IHDR and closes with IEND and that the opening header always
+     *               carries thirteen payload bytes
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testPngBoundaryChunks0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const names: string[] = [START_ICON_NAME, BACKGROUND_NAME, FOREGROUND_NAME];
+      const boundaries: string[] = names.map((name: string) => {
+        const types: string[] = chunkTypes(mediaBytes(name));
+        return types.length === 0 ? 'empty' : types[0] + '-' + types[types.length - 1];
+      });
+      const headerSizes: number[] = names.map((name: string) => {
+        const header: PngChunk | undefined = firstChunk(mediaBytes(name));
+        return header === undefined ? -1 : header.dataLength;
+      });
+      logCase('testPngBoundaryChunks0001', `boundaries=${boundaries.join(',')} headerSizes=${headerSizes.join(',')}`);
+      expect(boundaries.every((pair: string) => pair === IHDR_TYPE + '-' + IEND_TYPE)).assertTrue();
+      expect(headerSizes.every((size: number) => size === IHDR_DATA_BYTES)).assertTrue();
+      expect(boundaries.length).assertEqual(names.length);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_10100
+     * @tc.name      testPngFormatUniformity0001
+     * @tc.desc      Check the three png media share one pixel format, one bit depth and exactly one header chunk
+     *               each, so a renderer can treat them alike
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testPngFormatUniformity0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const names: string[] = [START_ICON_NAME, BACKGROUND_NAME, FOREGROUND_NAME];
+      const depths: number[] = names.map((name: string) => PngOracle.bitDepth(mediaBytes(name)));
+      const types: number[] = names.map((name: string) => PngOracle.colorType(mediaBytes(name)));
+      const headerCounts: number[] = names.map((name: string) => chunkTypeCount(mediaBytes(name), IHDR_TYPE));
+      logCase('testPngFormatUniformity0001', `depths=${depths.join(',')} types=${types.join(',')} ` +
+        `headerCounts=${headerCounts.join(',')}`);
+      expect(new Set<number>(depths).size).assertEqual(1);
+      expect(new Set<number>(types).size).assertEqual(1);
+      expect(depths[0]).assertEqual(BIT_DEPTH_8);
+      expect(types[2]).assertEqual(COLOR_TYPE_RGBA);
+      expect(headerCounts.every((count: number) => count === 1)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_10200
+     * @tc.name      testPngRawSizeBound0001
+     * @tc.desc      Check no png media exceeds the uncompressed rgba bound of its own canvas and each payload clears
+     *               a one kilobyte floor
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testPngRawSizeBound0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const names: string[] = [START_ICON_NAME, BACKGROUND_NAME, FOREGROUND_NAME];
+      const overBound: number = names.filter((name: string) => {
+        const bytes: Uint8Array = mediaBytes(name);
+        return bytes.length >= PngOracle.width(bytes) * PngOracle.height(bytes) * 4 + PNG_OVERHEAD_SLACK;
+      }).length;
+      const lengths: number[] = names.map((name: string) => mediaBytes(name).length);
+      logCase('testPngRawSizeBound0001', `lengths=${lengths.join(',')} overBound=${overBound}`);
+      expect(overBound).assertEqual(0);
+      expect(lengths.every((size: number) => size > FOREGROUND_MIN_BYTES)).assertTrue();
+      expect(lengths.every((size: number) => size > PNG_OVERHEAD_SLACK)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_10300
+     * @tc.name      testFileSizeStartIcon0001
+     * @tc.desc      Write the start window icon into the cache directory and check the file size reported by fileIo
+     *               equals the in memory byte count and the head still carries the signature
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileSizeStartIcon0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = mediaBytes(START_ICON_NAME);
+      const written: TempWrite = writeTempMedia(TEMP_START_ICON, bytes);
+      try {
+        const head: Uint8Array = readTempHead(written.path, PngOracle.SIGNATURE.length);
+        logCase('testFileSizeStartIcon0001', `memory=${bytes.length} file=${written.size} headLength=${head.length}`);
+        expect(written.size).assertEqual(bytes.length);
+        expect(written.size).assertEqual(START_ICON_BYTES);
+        expect(sameBytes(head, prefixBytes(bytes, PngOracle.SIGNATURE.length))).assertTrue();
+        expect(fileIo.accessSync(written.path)).assertTrue();
+      } finally {
+        removeTemp(written.path);
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_10400
+     * @tc.name      testFileSizeBackground0001
+     * @tc.desc      Write the background layer to disk and check the on disk size matches the resource length and the
+     *               first thirty two bytes survive the round trip
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileSizeBackground0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = mediaBytes(BACKGROUND_NAME);
+      const written: TempWrite = writeTempMedia(TEMP_BACKGROUND, bytes);
+      try {
+        const head: Uint8Array = readTempHead(written.path, 32);
+        logCase('testFileSizeBackground0001', `memory=${bytes.length} file=${written.size} head=${head.length}`);
+        expect(written.size).assertEqual(bytes.length);
+        expect(sameBytes(head, prefixBytes(bytes, 32))).assertTrue();
+        expect(bytes.length > head.length).assertTrue();
+        expect(written.size >= BACKGROUND_MIN_BYTES).assertTrue();
+      } finally {
+        removeTemp(written.path);
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_10500
+     * @tc.name      testFileSizeForeground0001
+     * @tc.desc      Write the foreground layer to disk and check the file size and the twenty five header bytes that
+     *               carry signature and IHDR
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileSizeForeground0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = mediaBytes(FOREGROUND_NAME);
+      const headerBytes: number = PngOracle.SIGNATURE.length + CHUNK_OVERHEAD + IHDR_DATA_BYTES;
+      const written: TempWrite = writeTempMedia(TEMP_FOREGROUND, bytes);
+      try {
+        const head: Uint8Array = readTempHead(written.path, headerBytes);
+        logCase('testFileSizeForeground0001', `memory=${bytes.length} file=${written.size} ` +
+          `headerBytes=${headerBytes}`);
+        expect(written.size).assertEqual(bytes.length);
+        expect(head.length).assertEqual(headerBytes);
+        expect(sameBytes(head, prefixBytes(bytes, headerBytes))).assertTrue();
+        expect(PngOracle.hasSignature(head)).assertTrue();
+      } finally {
+        removeTemp(written.path);
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_10600
+     * @tc.name      testFileSizeLayeredJson0001
+     * @tc.desc      Write the layered description to disk and check the on disk size equals the resource length while
+     *               the read back text still carries the wrapper key and no png signature
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testFileSizeLayeredJson0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const bytes: Uint8Array = mediaBytes(LAYERED_NAME);
+      const written: TempWrite = writeTempMedia(TEMP_LAYERED, bytes);
+      try {
+        const copy: Uint8Array = readTempHead(written.path, bytes.length);
+        const text: string = util.TextDecoder.create('utf-8').decodeToString(copy);
+        logCase('testFileSizeLayeredJson0001', `memory=${bytes.length} file=${written.size} ` +
+          `text=${text.length}`);
+        expect(written.size).assertEqual(bytes.length);
+        expect(text.length).assertEqual(mediaText(LAYERED_NAME).length);
+        expect(text.indexOf(LAYER_KEY) >= 0).assertTrue();
+        expect(PngOracle.hasSignature(copy)).assertFalse();
+      } finally {
+        removeTemp(written.path);
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_10700
+     * @tc.name      testFileSizeSequentialWrites0001
+     * @tc.desc      Overwrite one cache file with the three png payloads in turn and check each reported size matches
+     *               the payload just written, so truncation never leaks the previous length
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFileSizeSequentialWrites0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const names: string[] = [START_ICON_NAME, BACKGROUND_NAME, FOREGROUND_NAME];
+      const expected: number[] = names.map((name: string) => mediaBytes(name).length);
+      const observed: number[] = [];
+      const first: TempWrite = writeTempMedia(TEMP_SEQUENCE, mediaBytes(names[0]));
+      try {
+        observed.push(first.size);
+        observed.push(writeTempMedia(TEMP_SEQUENCE, mediaBytes(names[1])).size);
+        observed.push(writeTempMedia(TEMP_SEQUENCE, mediaBytes(names[2])).size);
+        logCase('testFileSizeSequentialWrites0001', `expected=${expected.join(',')} observed=${observed.join(',')}`);
+        expect(observed.join(',')).assertEqual(expected.join(','));
+        expect(new Set<number>(observed).size).assertEqual(names.length);
+        expect(observed[0]).assertEqual(START_ICON_BYTES);
+      } finally {
+        removeTemp(first.path);
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_10800
+     * @tc.name      testFileSizeTwoFiles0001
+     * @tc.desc      Write two different media payloads to two cache files and check both sizes match their own
+     *               resource length and differ from each other
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testFileSizeTwoFiles0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const iconBytes: Uint8Array = mediaBytes(START_ICON_NAME);
+      const foregroundBytes: Uint8Array = mediaBytes(FOREGROUND_NAME);
+      const iconFile: TempWrite = writeTempMedia(TEMP_PAIR_FIRST, iconBytes);
+      try {
+        const foregroundFile: TempWrite = writeTempMedia(TEMP_PAIR_SECOND, foregroundBytes);
+        try {
+          logCase('testFileSizeTwoFiles0001', `icon=${iconFile.size} foreground=${foregroundFile.size} ` +
+            `memoryIcon=${iconBytes.length} memoryForeground=${foregroundBytes.length}`);
+          expect(iconFile.size).assertEqual(iconBytes.length);
+          expect(foregroundFile.size).assertEqual(foregroundBytes.length);
+          expect(iconFile.size !== foregroundFile.size).assertTrue();
+          expect(iconFile.path !== foregroundFile.path).assertTrue();
+        } finally {
+          removeTemp(foregroundFile.path);
+        }
+      } finally {
+        removeTemp(iconFile.path);
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_10900
+     * @tc.name      testBackupProfileTextShape0001
+     * @tc.desc      Read the backup profile as text and check there is exactly one document, that it is an object
+     *               delimited by braces and long enough to hold its single member
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testBackupProfileTextShape0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      const profiles: string[] = backupProfileTexts();
+      const text: string = profiles.length === 1 ? profiles[0] : EMPTY_TEXT;
+      logCase('testBackupProfileTextShape0001', `profiles=${profiles.length} length=${text.length} ` +
+        `head=${text.length > 0 ? text.charAt(0) : 'none'}`);
+      expect(profiles.length).assertEqual(1);
+      expect(text.length > BACKUP_KEY.length).assertTrue();
+      expect(text.charAt(0)).assertEqual(BRACE_OPEN);
+      expect(text.charAt(text.length - 1)).assertEqual(BRACE_CLOSE);
+      expect(countChar(text, QUOTE) % 2).assertEqual(0);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_11000
+     * @tc.name      testBackupProfileFlagValue0001
+     * @tc.desc      Scan the backup profile members and check the restore flag is the single boolean member and its
+     *               literal token reads true
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBackupProfileFlagValue0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      const profiles: string[] = backupProfileTexts();
+      const pairs: JsonPair[] = profiles.length === 1 ? scanPairs(profiles[0]) : [];
+      const flag: string = pairValue(pairs, BACKUP_KEY);
+      logCase('testBackupProfileFlagValue0001', `members=${pairs.length} flag=${flag} ` +
+        `flagCount=${pairCount(pairs, BACKUP_KEY)}`);
+      expect(pairs.length).assertEqual(1);
+      expect(flag).assertEqual(BACKUP_TRUE);
+      expect(pairCount(pairs, BACKUP_KEY)).assertEqual(1);
+      expect(flag !== 'false').assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_11100
+     * @tc.name      testBackupMetadataLink0001
+     * @tc.desc      Check the backup extension publishes exactly one metadata entry whose resource reference is the
+     *               backup profile that the bundle manager then returns
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBackupMetadataLink0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const extension: bundleManager.ExtensionAbilityInfo = findModule(info, ENTRY_MODULE).extensionAbilitiesInfo[0];
+      const profiles: string[] = backupProfileTexts();
+      logCase('testBackupMetadataLink0001', `metadata=${extension.metadata.length} ` +
+        `name=${extension.metadata[0].name} resource=${extension.metadata[0].resource} ` +
+        `profiles=${profiles.length}`);
+      expect(extension.name).assertEqual(BACKUP_ABILITY);
+      expect(extension.metadata.length).assertEqual(1);
+      expect(extension.metadata[0].name).assertEqual(BACKUP_METADATA);
+      expect(extension.metadata[0].resource).assertEqual(BACKUP_RESOURCE_REF);
+      expect(profiles.length).assertEqual(1);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_11200
+     * @tc.name      testBackupProfileModuleError0001
+     * @tc.desc      Ask for the backup profile through an unknown module and through a module name with trailing
+     *               whitespace and check both report the missing ability error while the real module works
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBackupProfileModuleError0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const missing: number = profileErrorCode('entry_missing', BACKUP_ABILITY, BACKUP_METADATA);
+      const padded: number = profileErrorCode(ENTRY_MODULE + SPACE, BACKUP_ABILITY, BACKUP_METADATA);
+      const real: number = profileErrorCode(ENTRY_MODULE, BACKUP_ABILITY, BACKUP_METADATA);
+      logCase('testBackupProfileModuleError0001', `missing=${missing} padded=${padded} real=${real} ` +
+        `expected=${ERR_ABILITY_NOT_EXIST}`);
+      expect(missing).assertEqual(ERR_ABILITY_NOT_EXIST);
+      expect(padded).assertEqual(ERR_ABILITY_NOT_EXIST);
+      expect(real).assertEqual(NO_ERROR);
+      expect(missing !== ERR_NO_PROFILE).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_11300
+     * @tc.name      testBackupProfileMetadataError0001
+     * @tc.desc      Ask the backup extension for a metadata entry it never declares and for an extension that does
+     *               not exist, distinguishing the no profile error from the missing ability error
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBackupProfileMetadataError0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      const unknownMetadata: number = profileErrorCode(ENTRY_MODULE, BACKUP_ABILITY, 'ohos.extension.absent');
+      const unknownAbility: number = profileErrorCode(ENTRY_MODULE, 'AbsentBackupAbility', BACKUP_METADATA);
+      const profiles: string[] = backupProfileTexts();
+      const members: number = profiles.length === 1 ? scanPairs(profiles[0]).length : 0;
+      logCase('testBackupProfileMetadataError0001', `unknownMetadata=${unknownMetadata} ` +
+        `unknownAbility=${unknownAbility} members=${members}`);
+      expect(unknownMetadata).assertEqual(ERR_NO_PROFILE);
+      expect(unknownAbility).assertEqual(ERR_ABILITY_NOT_EXIST);
+      expect(members).assertEqual(1);
+      expect(unknownMetadata !== unknownAbility).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_11400
+     * @tc.name      testMainPagesText0001
+     * @tc.desc      Read the main element the module publishes for its page host and check it names the entry
+     *               ability without whitespace, path separators or trailing separators
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testMainPagesText0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const mainElement: string = await entryMainElementName();
+      logCase('testMainPagesText0001', `mainElement=${mainElement} length=${mainElement.length}`);
+      expect(mainElement.length > 0).assertTrue();
+      expect(mainElement).assertEqual(ENTRY_ABILITY);
+      expect(countChar(mainElement, SPACE)).assertEqual(0);
+      expect(countChar(mainElement, '/')).assertEqual(0);
+      expect(mainElement.charAt(mainElement.length - 1) !== ',').assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_11500
+     * @tc.name      testMainPagesEntryForm0001
+     * @tc.desc      Check the published page host is a plain ability identifier: a single segment without a path
+     *               separator, file suffix or resource prefix, matching the exported entry ability
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testMainPagesEntryForm0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const mainElement: string = await entryMainElementName();
+      const ability: bundleManager.AbilityInfo = await entryAbilityInfo();
+      const segments: string[] = mainElement.split('/');
+      logCase('testMainPagesEntryForm0001', `mainElement=${mainElement} segments=${segments.length} ` +
+        `ability=${ability.name}`);
+      expect(segments.length).assertEqual(1);
+      expect(mainElement.indexOf('.') < 0).assertTrue();
+      expect(isAsciiLetter(mainElement.charAt(0))).assertTrue();
+      expect(mainElement).assertEqual(ability.name);
+      expect(ability.exported).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_11600
+     * @tc.name      testMainPagesStableRead0001
+     * @tc.desc      Read the entry module twice and check the published main element name and the module identity
+     *               stay identical between the two bundle queries
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testMainPagesStableRead0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const firstInfo: bundleManager.BundleInfo = await selfBundle();
+      const secondInfo: bundleManager.BundleInfo = await selfBundle();
+      const firstModule: bundleManager.HapModuleInfo = findModule(firstInfo, ENTRY_MODULE);
+      const secondModule: bundleManager.HapModuleInfo = findModule(secondInfo, ENTRY_MODULE);
+      logCase('testMainPagesStableRead0001', `first=${firstModule.mainElementName} ` +
+        `second=${secondModule.mainElementName} moduleName=${firstModule.name}`);
+      expect(firstModule.mainElementName).assertEqual(secondModule.mainElementName);
+      expect(firstModule.name).assertEqual(ENTRY_MODULE);
+      expect(secondModule.name).assertEqual(firstModule.name);
+      expect(firstModule.mainElementName).assertEqual(ENTRY_ABILITY);
+      expect(firstModule.mainElementName.length > 0).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_11700
+     * @tc.name      testAbilityProfileAbsence0001
+     * @tc.desc      Check the page ability declares no metadata and that asking the bundle manager for a profile
+     *               through it reports the no profile error rather than returning text
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAbilityProfileAbsence0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
+      const ability: bundleManager.AbilityInfo = await entryAbilityInfo();
+      const code: number = errorCode(() => {
+        bundleManager.getProfileByAbilitySync(ENTRY_MODULE, ENTRY_ABILITY, BACKUP_METADATA);
+      });
+      const declared: number = profileErrorCode(ENTRY_MODULE, BACKUP_ABILITY, BACKUP_METADATA);
+      logCase('testAbilityProfileAbsence0001', `metadata=${ability.metadata.length} code=${code} ` +
+        `expected=${ERR_NO_PROFILE} declared=${declared}`);
+      expect(ability.metadata.length).assertEqual(0);
+      expect(code).assertEqual(ERR_NO_PROFILE);
+      expect(declared).assertEqual(NO_ERROR);
+      expect(ability.name).assertEqual(ENTRY_ABILITY);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_RESMEDIA_11800
+     * @tc.name      testProfileContentSeparation0001
+     * @tc.desc      Check the backup profile and the module main element carry different content: the backup
+     *               document is brace delimited and holds the restore flag while the main element is a bare name
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testProfileContentSeparation0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const backup: string[] = backupProfileTexts();
+      const backupText: string = backup.length === 1 ? backup[0] : EMPTY_TEXT;
+      const mainElement: string = await entryMainElementName();
+      logCase('testProfileContentSeparation0001', `backupLength=${backupText.length} mainElement=${mainElement} ` +
+        `backupHasFlag=${backupText.indexOf(BACKUP_KEY) >= 0} ` +
+        `mainHasFlag=${mainElement.indexOf(BACKUP_KEY) >= 0}`);
+      expect(backupText.indexOf(BACKUP_KEY) >= 0).assertTrue();
+      expect(mainElement.indexOf(BACKUP_KEY) < 0).assertTrue();
+      expect(countChar(mainElement, BRACE_OPEN)).assertEqual(0);
+      expect(backupText.charAt(0)).assertEqual(BRACE_OPEN);
+      expect(mainElement).assertEqual(ENTRY_ABILITY);
+    });
+
+  });
+}
