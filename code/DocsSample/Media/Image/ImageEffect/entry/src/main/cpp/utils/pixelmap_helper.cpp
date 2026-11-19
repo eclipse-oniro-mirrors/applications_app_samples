@@ -33,9 +33,6 @@ std::shared_ptr<OH_DecodingOptions> CreateDecodingOptions()
         OH_DecodingOptions_Release(options);
     });
 
-    // 统一解码成RGBA8888格式，便于纹理输入场景直接将像素数据上传为纹理。
-    OH_DecodingOptions_SetPixelFormat(optionsPtr.get(), PIXEL_FORMAT_RGBA_8888);
-
     return optionsPtr;
 }
 
