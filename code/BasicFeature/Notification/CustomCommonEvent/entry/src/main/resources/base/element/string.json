@@ -14,7 +14,7 @@
     },
     {
       "name": "LauncherAbility_desc",
-      "value": "description"
+      "value": "公共事件订阅与发布示例"
     },
     {
       "name": "LauncherAbility_label",
@@ -118,15 +118,15 @@
     },
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "公共事件订阅与发布示例"
     },
     {
       "name": "FeatureAbility_desc",
-      "value": "description"
+      "value": "公共事件订阅与发布示例"
     },
     {
       "name": "FeatureAbility_label",
-      "value": "label"
+      "value": "公共事件示例"
     },
     {
       "name": "SubscribeEvent",
@@ -182,19 +182,19 @@
     },
     {
       "name": "SecondAbility_desc",
-      "value": "description"
+      "value": "公共事件订阅与发布示例"
     },
     {
       "name": "SecondAbility_label",
-      "value": "label"
+      "value": "公共事件示例"
     },
     {
       "name": "EntryFormAbility_desc",
-      "value": "form_description"
+      "value": "自定义事件发布卡片"
     },
     {
       "name": "EntryFormAbility_label",
-      "value": "form_label"
+      "value": "发布事件卡片"
     },
     {
       "name": "EventText",

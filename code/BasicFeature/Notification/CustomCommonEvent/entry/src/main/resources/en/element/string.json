@@ -1,0 +1,204 @@
+{
+  "string": [
+    {
+      "name": "entry_desc",
+      "value": "CustomCommonEvent"
+    },
+    {
+      "name": "MainAbility_desc",
+      "value": "CustomCommonEvent"
+    },
+    {
+      "name": "MainAbility_label",
+      "value": "CustomCommonEvent"
+    },
+    {
+      "name": "LauncherAbility_desc",
+      "value": "Sample for subscribing to and publishing common events"
+    },
+    {
+      "name": "LauncherAbility_label",
+      "value": "CustomCommonEvent"
+    },
+    {
+      "name": "always",
+      "value": "Always"
+    },
+    {
+      "name": "once",
+      "value": "This time only"
+    },
+    {
+      "name": "never",
+      "value": "Never"
+    },
+    {
+      "name": "sample_version",
+      "value": "version 0.0.1"
+    },
+    {
+      "name": "sample_desc",
+      "value": "This sample demonstrates how to subscribe to and publish common events. Because the app publishes sticky events, which is a system capability, the sample is released as a system app; third-party apps cannot use this capability."
+    },
+    {
+      "name": "once_tips",
+      "value": "The following events take effect only in this run:"
+    },
+    {
+      "name": "screen_on_tips",
+      "value": "Do not use the phone, screen-on detected"
+    },
+    {
+      "name": "screen_off_tips",
+      "value": "Do not use the phone, screen-off detected"
+    },
+    {
+      "name": "wifi_tips",
+      "value": "Do not use the phone, Wi-Fi connected or disconnected"
+    },
+    {
+      "name": "screen_lock_tips",
+      "value": "Do not use the phone, screen locked"
+    },
+    {
+      "name": "screen_unlock_tips",
+      "value": "Do not use the phone, screen unlocked"
+    },
+    {
+      "name": "total_time_tips",
+      "value": "Monitoring duration:"
+    },
+    {
+      "name": "total_interrupt_tips",
+      "value": "Interruptions during monitoring:"
+    },
+    {
+      "name": "current_listen_tips",
+      "value": "Current listening state:"
+    },
+    {
+      "name": "no_interrupt_tips",
+      "value": "No interruption"
+    },
+    {
+      "name": "enable_screen_on",
+      "value": "Record screen-on events"
+    },
+    {
+      "name": "enable_screen_locked",
+      "value": "Record screen-locked events"
+    },
+    {
+      "name": "enable_screen_unlocked",
+      "value": "Record screen-unlocked events"
+    },
+    {
+      "name": "enable_screen_off",
+      "value": "Record screen-off events"
+    },
+    {
+      "name": "enable_wifi",
+      "value": "Record network change events"
+    },
+    {
+      "name": "start_time",
+      "value": "Start:"
+    },
+    {
+      "name": "end_time",
+      "value": "End:"
+    },
+    {
+      "name": "total_time",
+      "value": "Duration:"
+    },
+    {
+      "name": "total_interrupt",
+      "value": "Interruptions:"
+    },
+    {
+      "name": "module_desc",
+      "value": "Sample for subscribing to and publishing common events"
+    },
+    {
+      "name": "FeatureAbility_desc",
+      "value": "Sample for subscribing to and publishing common events"
+    },
+    {
+      "name": "FeatureAbility_label",
+      "value": "Common event sample"
+    },
+    {
+      "name": "SubscribeEvent",
+      "value": "Targeted subscription to custom events"
+    },
+    {
+      "name": "EventReceive",
+      "value": "Received an event from a non-targeted app"
+    },
+    {
+      "name": "BundleNameEventReceive",
+      "value": "Received events from targeted and non-targeted apps"
+    },
+    {
+      "name": "Text_First",
+      "value": "Subscribe to events"
+    },
+    {
+      "name": "Text_Second",
+      "value": "Non-targeted app event / targeted app event"
+    },
+    {
+      "name": "SubscribeEventText",
+      "value": "Subscribed to events from targeted and non-targeted apps"
+    },
+    {
+      "name": "UnSubscribeEventText",
+      "value": "Unsubscribed"
+    },
+    {
+      "name": "FormTitle",
+      "value": "PublishCard (in-app)"
+    },
+    {
+      "name": "FormThemes",
+      "value": "customcommonevent"
+    },
+    {
+      "name": "Topic",
+      "value": "Publish event"
+    },
+    {
+      "name": "Topic_Again",
+      "value": "Publish again"
+    },
+    {
+      "name": "UnSubscribeEvent",
+      "value": "Unsubscribe"
+    },
+    {
+      "name": "SubscribeEventOn",
+      "value": "Subscribe"
+    },
+    {
+      "name": "SecondAbility_desc",
+      "value": "Sample for subscribing to and publishing common events"
+    },
+    {
+      "name": "SecondAbility_label",
+      "value": "Common event sample"
+    },
+    {
+      "name": "EntryFormAbility_desc",
+      "value": "Card for publishing custom events"
+    },
+    {
+      "name": "EntryFormAbility_label",
+      "value": "Publish event card"
+    },
+    {
+      "name": "EventText",
+      "value": "Targeted subscription to custom events"
+    }
+  ]
+}
