@@ -42,4 +42,4 @@ class Logger {
   }
 }
 
-export const logger = new Logger('Sample_CustomCommonEvent_Test');
+export const logger: Logger = new Logger('Sample_CustomCommonEvent_Test');

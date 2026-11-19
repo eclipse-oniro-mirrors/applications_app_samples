@@ -16,16 +16,15 @@
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import type TestRunner from '@ohos.application.testRunner';
 import { logger } from '../util/Logger';
+import { BusinessError } from '@kit.BasicServicesKit';
 
-let abilityDelegator = undefined;
-let abilityDelegatorArguments = undefined;
-const TAG: string = 'OpenHarmonyTestRunner';
+const TAG: string = '[Sample_CustomCommonEvent]';
 
-async function onAbilityCreateCallback() {
+async function onAbilityCreateCallback(): Promise<void> {
   logger.info(TAG, 'onAbilityCreateCallback');
 }
 
-async function addAbilityMonitorCallback(err: any) {
+async function addAbilityMonitorCallback(err: BusinessError): Promise<void> {
   logger.info(TAG, `addAbilityMonitorCallback : ${JSON.stringify(err) ?? ''} `);
 }
 
@@ -33,24 +32,35 @@ export default class OpenHarmonyTestRunner implements TestRunner {
   constructor() {
   }
 
-  onPrepare() {
+  onPrepare(): void {
     logger.info(TAG, 'OpenHarmonyTestRunner OnPrepare ');
   }
 
-  async onRun() {
+  async onRun(): Promise<void> {
     logger.info(TAG, 'OpenHarmonyTestRunner onRun run');
-    abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-    abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let testAbilityName = abilityDelegatorArguments.bundleName + '.TestAbility';
-    let lMonitor = {
+    const abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator =
+      AbilityDelegatorRegistry.getAbilityDelegator();
+    const abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs =
+      AbilityDelegatorRegistry.getArguments();
+    let testAbilityName: string = abilityDelegatorArguments.bundleName + '.TestAbility';
+    let lMonitor: AbilityDelegatorRegistry.AbilityMonitor = {
       abilityName: testAbilityName,
       onAbilityCreate: onAbilityCreateCallback,
     };
     abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback);
-    let cmd = 'aa start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName;
-    let debug = abilityDelegatorArguments.parameters['-D'];
-    if (debug == 'true') {
+    let cmd: string = 'aa start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName;
+    let debug: string = abilityDelegatorArguments.parameters['-D'];
+    if (debug === 'true') {
       cmd += ' -D';
+    }
+    // 透传用例筛选参数，否则按 class 过滤执行时会静默失效
+    let forwardKeys: Array<string> = ['class', 'suite', 'it', 'level', 'size', 'timeout'];
+    for (let index = 0; index < forwardKeys.length; index++) {
+      let key: string = forwardKeys[index];
+      let value: string = abilityDelegatorArguments.parameters[key];
+      if (value !== undefined && value !== null && value !== '') {
+        cmd += ' -s ' + key + ' ' + value;
+      }
     }
     logger.info(TAG, `cmd : ${cmd}`);
     abilityDelegator.executeShellCommand(cmd,

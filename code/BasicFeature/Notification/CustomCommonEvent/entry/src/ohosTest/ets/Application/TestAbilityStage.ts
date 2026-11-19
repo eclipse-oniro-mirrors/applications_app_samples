@@ -17,7 +17,7 @@ import AbilityStage from '@ohos.app.ability.AbilityStage';
 import { logger } from '../util/Logger';
 
 export default class TestAbilityStage extends AbilityStage {
-  onCreate() {
+  onCreate(): void {
     logger.info('TestAbilityStage onCreate');
   }
 }

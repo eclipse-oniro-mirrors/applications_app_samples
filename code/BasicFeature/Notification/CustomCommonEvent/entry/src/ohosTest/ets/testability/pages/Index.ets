@@ -16,7 +16,7 @@
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World';
+  @State message: ResourceStr = $r('app.string.test_page_message');
 
   build() {
     Row() {
@@ -25,7 +25,7 @@ struct Index {
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
         Button() {
-          Text('next page')
+          Text($r('app.string.test_page_next'))
             .fontSize(20)
             .fontWeight(FontWeight.Bold)
         }
@@ -33,7 +33,7 @@ struct Index {
         .margin({
           top: 20
         })
-        .backgroundColor('#0D9FFB')
+        .backgroundColor($r('app.color.test_next_button_background'))
         .width('35%')
         .height('5%')
         .onClick(() => {

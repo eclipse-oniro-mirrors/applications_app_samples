@@ -22,15 +22,15 @@ import { logger } from '../util/Logger';
 import Want from '@ohos.app.ability.Want';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 
-const TAG: string = 'TestAbility';
+const TAG: string = '[Sample_CustomCommonEvent]';
 
 export default class TestAbility extends UIAbility {
+  private testStarted: boolean = false;
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     logger.info(TAG, `TestAbility onCreate, want param: ${JSON.stringify(want)},launchParam: ${JSON.stringify(launchParam)}`);
-    let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-    logger.info(TAG, 'start run testcase!!!');
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+    // 用例需通过 settings/preferences 驱动被测逻辑，先把本 Ability 的上下文暴露给用例
+    AppStorage.setOrCreate('testAbilityContext', this.context);
   }
 
   onDestroy(): void {
@@ -54,6 +54,19 @@ export default class TestAbility extends UIAbility {
 
   onForeground(): void {
     logger.info(TAG, 'TestAbility onForeground');
+    // 用例规模上千，延后到前台再注册，避免 onCreate 同步建套件触发 LIFECYCLE_TIMEOUT
+    if (this.testStarted) {
+      return;
+    }
+    this.testStarted = true;
+    setTimeout(() => {
+      const abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator =
+        AbilityDelegatorRegistry.getAbilityDelegator();
+      const abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs =
+        AbilityDelegatorRegistry.getArguments();
+      logger.info(TAG, 'start run testcase!!!');
+      Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+    }, 300);
   }
 
   onBackground(): void {
