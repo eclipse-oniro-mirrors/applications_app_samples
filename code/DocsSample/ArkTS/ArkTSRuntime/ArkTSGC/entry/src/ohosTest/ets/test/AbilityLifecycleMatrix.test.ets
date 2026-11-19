@@ -1798,3 +1798,1287 @@ export default function abilityLifecycleMatrixTest() {
      * @tc.desc      Observe a running EntryAbility for a full settle window and check no teardown callback is
      *               delivered while the ability stays in the foreground
      * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testNoDestroyWhileRunning0054', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      tap.start();
+      try {
+        await sleepMs(TWO * SETTLE_MS);
+        logCase('testNoDestroyWhileRunning0054', `recorded=${tap.size()} ` +
+          `hasDestroy=${tap.has(EVENT_DESTROY)} foreground=${isForeground(ability)}`);
+        expect(tap.size()).assertEqual(ZERO);
+        expect(tap.has(EVENT_WINDOW_STAGE_DESTROY)).assertFalse();
+        expect(tap.has(EVENT_DESTROY)).assertFalse();
+        expect(isForeground(ability)).assertTrue();
+      } finally {
+        tap.stop();
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_5500
+     * @tc.name      testWindowStageDestroyAfterBackground0055
+     * @tc.desc      Background EntryAbility, terminate it from the background and check the background callback
+     *               precedes the window stage destroy callback
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowStageDestroyAfterBackground0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      tap.start();
+      try {
+        await moveToBackground(ability);
+        await waitTapEvent(tap, EVENT_BACKGROUND, EVENT_WAIT_MS);
+        await ability.context.terminateSelf();
+        await waitTapEvent(tap, EVENT_DESTROY, EVENT_WAIT_MS);
+        await sleepMs(SETTLE_MS);
+        const afterTop: UIAbility | undefined = await topAbility();
+        logCase('testWindowStageDestroyAfterBackground0055', `events=${tap.text()} ` +
+          `topIsAbility=${afterTop === ability} creates=${tap.countOf(EVENT_CREATE)}`);
+        expect(tap.countOf(EVENT_CREATE)).assertEqual(ZERO);
+        expect(tap.firstIndex(EVENT_BACKGROUND) < tap.firstIndex(EVENT_WINDOW_STAGE_DESTROY)).assertTrue();
+        expect(tap.lastIndex(EVENT_DESTROY)).assertEqual(tap.size() - ONE);
+        expect(afterTop === ability).assertFalse();
+      } finally {
+        tap.stop();
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_5600
+     * @tc.name      testWindowStageDestroyWithoutBackground0056
+     * @tc.desc      Terminate EntryAbility directly from the foreground and check the window stage destroy callback
+     *               sits immediately before the final destroy callback
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowStageDestroyWithoutBackground0056', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      await terminateWithTap(tap, ability);
+      const stageIndex: number = tap.firstIndex(EVENT_WINDOW_STAGE_DESTROY);
+      logCase('testWindowStageDestroyWithoutBackground0056', `events=${tap.text()} stageIndex=${stageIndex} ` +
+        `size=${tap.size()}`);
+      expect(tap.lastIndex(EVENT_WINDOW_STAGE_DESTROY) + ONE).assertEqual(tap.lastIndex(EVENT_DESTROY));
+      expect(tap.lastEvent()).assertEqual(EVENT_DESTROY);
+      expect(tap.countOf(EVENT_DESTROY)).assertEqual(ONE);
+      expect(tap.countOf(EVENT_WINDOW_STAGE_DESTROY)).assertEqual(ONE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_5700
+     * @tc.name      testDoubleTerminateSingleDestroy0057
+     * @tc.desc      Terminate the same EntryAbility twice and check the second request does not produce a second
+     *               destroy callback
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testDoubleTerminateSingleDestroy0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      tap.start();
+      try {
+        await ability.context.terminateSelf();
+        await waitTapEvent(tap, EVENT_DESTROY, EVENT_WAIT_MS);
+        try {
+          await ability.context.terminateSelf();
+        } catch (error) {
+          logCase('testDoubleTerminateSingleDestroy0057', `secondCode=${Number((error as BusinessError).code)}`);
+        }
+        await sleepMs(TWO * SETTLE_MS);
+        logCase('testDoubleTerminateSingleDestroy0057', `destroys=${tap.countOf(EVENT_DESTROY)} ` +
+          `size=${tap.size()} events=${tap.text()}`);
+        expect(tap.countOf(EVENT_DESTROY)).assertEqual(ONE);
+        expect(tap.countOf(EVENT_WINDOW_STAGE_DESTROY)).assertEqual(ONE);
+        expect(tap.countOf(EVENT_CREATE)).assertEqual(ZERO);
+        expect(tap.countOf(EVENT_FOREGROUND)).assertEqual(ZERO);
+      } finally {
+        tap.stop();
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_5800
+     * @tc.name      testTopAbsentAfterDestroy0058
+     * @tc.desc      Terminate EntryAbility, check it no longer owns the top slot nor reports the foreground state,
+     *               then check a new launch takes the foreground
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testTopAbsentAfterDestroy0058', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ability: UIAbility = await launchHome();
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      await terminateWithTap(tap, ability);
+      const afterTop: UIAbility | undefined = await topAbility();
+      const state: abilityDelegatorRegistry.AbilityLifecycleState = stateOrUninitialized(ability);
+      const fresh: UIAbility = await launchHome();
+      logCase('testTopAbsentAfterDestroy0058', `topIsAbility=${afterTop === ability} state=${state} ` +
+        `freshIsAbility=${fresh === ability} freshForeground=${isForeground(fresh)}`);
+      expect(afterTop === ability).assertFalse();
+      expect(state === abilityDelegatorRegistry.AbilityLifecycleState.FOREGROUND).assertFalse();
+      expect(fresh === ability).assertFalse();
+      expect(isForeground(fresh)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_5900
+     * @tc.name      testStageInstanceHeldUntilDestroy0059
+     * @tc.desc      Capture the window stage at create time, terminate the ability under a second tap and check the
+     *               captured stage belonged to the terminated instance and the teardown callbacks arrived
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStageInstanceHeldUntilDestroy0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const createTap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      const ability: UIAbility = await coldStart(createTap);
+      const staged: UIAbility | undefined = createTap.stagedInstance;
+      const endTap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      await terminateWithTap(endTap, ability);
+      logCase('testStageInstanceHeldUntilDestroy0059', `stagedIsAbility=${staged === ability} ` +
+        `stageDefined=${createTap.stage !== undefined} endEvents=${endTap.text()}`);
+      expect(staged === ability).assertTrue();
+      expect(createTap.stage !== undefined).assertTrue();
+      expect(endTap.has(EVENT_WINDOW_STAGE_DESTROY)).assertTrue();
+      expect(endTap.has(EVENT_DESTROY)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6000
+     * @tc.name      testTwoCycleDestroyOrder0060
+     * @tc.desc      Observe two cycles with one tap each and check every cycle opens with create and closes with
+     *               destroy while the two cycles produce different instances
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testTwoCycleDestroyOrder0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const startTap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      const first: UIAbility = await coldStart(startTap);
+      const firstEndTap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      await terminateWithTap(firstEndTap, first);
+      const secondTap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      const second: UIAbility = await coldStart(secondTap);
+      const secondEndTap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      await terminateWithTap(secondEndTap, second);
+      logCase('testTwoCycleDestroyOrder0060', `firstStart=${startTap.text()} firstEnd=${firstEndTap.text()} ` +
+        `secondStart=${secondTap.text()} secondEnd=${secondEndTap.text()} same=${second === first}`);
+      expect(startTap.firstEvent()).assertEqual(EVENT_CREATE);
+      expect(firstEndTap.lastEvent()).assertEqual(EVENT_DESTROY);
+      expect(secondTap.firstEvent()).assertEqual(EVENT_CREATE);
+      expect(secondEndTap.lastEvent()).assertEqual(EVENT_DESTROY);
+      expect(second === first).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6100
+     * @tc.name      testTapStoppedBeforeTerminate0061
+     * @tc.desc      Unregister the tap before terminating EntryAbility and check the termination is silent for the
+     *               tap while the ability still leaves the top slot
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testTapStoppedBeforeTerminate0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      tap.start();
+      tap.stop();
+      await ability.context.terminateSelf();
+      await sleepMs(TWO * SETTLE_MS);
+      const top: UIAbility | undefined = await topAbility();
+      const fresh: UIAbility = await launchHome();
+      logCase('testTapStoppedBeforeTerminate0061', `recorded=${tap.size()} topIsAbility=${top === ability} ` +
+        `freshForeground=${isForeground(fresh)}`);
+      expect(tap.size()).assertEqual(ZERO);
+      expect(top === ability).assertFalse();
+      expect(isForeground(fresh)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6200
+     * @tc.name      testLaunchAfterDestroyEvent0062
+     * @tc.desc      Wait for the destroy callback of the first instance and relaunch immediately, then check the new
+     *               instance is different and owns the top slot
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testLaunchAfterDestroyEvent0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const first: UIAbility = await launchHome();
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      await terminateWithTap(tap, first);
+      const destroyedSeen: boolean = tap.has(EVENT_DESTROY);
+      const second: UIAbility = await launchHome();
+      const top: UIAbility | undefined = await topAbility();
+      logCase('testLaunchAfterDestroyEvent0062', `destroyedSeen=${destroyedSeen} same=${second === first} ` +
+        `topIsSecond=${top === second} module=${second.context.abilityInfo.moduleName}`);
+      expect(destroyedSeen).assertTrue();
+      expect(second === first).assertFalse();
+      expect(top === second).assertTrue();
+      expect(second.context.abilityInfo.moduleName).assertEqual(ENTRY_MODULE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6300
+     * @tc.name      testTopAbilityInfoContract0063
+     * @tc.desc      Read the ability info of the current top ability and check it names the EntryAbility of the
+     *               entry module of the sample bundle
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testTopAbilityInfoContract0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      await launchHome();
+      const top: UIAbility | undefined = await topAbility();
+      const info: bundleManager.AbilityInfo = (top as UIAbility).context.abilityInfo;
+      logCase('testTopAbilityInfoContract0063', `topDefined=${top !== undefined} name=${info.name} ` +
+        `module=${info.moduleName} bundle=${info.bundleName}`);
+      expect(top !== undefined).assertTrue();
+      expect(info.name).assertEqual(ENTRY_ABILITY);
+      expect(info.moduleName).assertEqual(ENTRY_MODULE);
+      expect(info.bundleName).assertEqual(BUNDLE_NAME);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6400
+     * @tc.name      testTopApplicationInfoFields0064
+     * @tc.desc      Read the application info behind a fresh EntryAbility and check the bundle identity, a non empty
+     *               version name and a positive application uid
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testTopApplicationInfoFields0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ability: UIAbility = await launchHome();
+      const appInfo: bundleManager.ApplicationInfo = ability.context.applicationInfo;
+      const bundle: bundleManager.BundleInfo = await selfBundle();
+      const uid: number = Number(appInfo.uid);
+      const versionName: string = bundle.versionName;
+      logCase('testTopApplicationInfoFields0064', `name=${appInfo.name} bundle=${bundle.name} ` +
+        `version=${versionName} uid=${uid}`);
+      expect(appInfo.name).assertEqual(BUNDLE_NAME);
+      expect(bundle.name).assertEqual(BUNDLE_NAME);
+      expect(versionName.length > ZERO).assertTrue();
+      expect(uid > ZERO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6500
+     * @tc.name      testContextResourceColorMode0065
+     * @tc.desc      Compare the colour mode reported by the ability configuration with the one of the resource
+     *               manager and check both agree on a concrete dark or light mode
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextResourceColorMode0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ability: UIAbility = await launchHome();
+      const abilityMode: number = Number(ability.context.config.colorMode);
+      const resourceMode: number = Number(ability.context.resourceManager.getConfigurationSync().colorMode);
+      logCase('testContextResourceColorMode0065', `abilityMode=${abilityMode} resourceMode=${resourceMode}`);
+      expect(abilityMode === COLOR_MODE_NOT_SET).assertFalse();
+      expect(abilityMode === COLOR_MODE_DARK || abilityMode === COLOR_MODE_LIGHT).assertTrue();
+      expect(abilityMode).assertEqual(resourceMode);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6600
+     * @tc.name      testAbilityInfoLaunchType0066
+     * @tc.desc      Check a fresh EntryAbility reports the singleton launch type and the bundle name declared by the
+     *               sample; the ability type enum is FA model only and is therefore not read in Stage mode
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testAbilityInfoLaunchType0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ability: UIAbility = await launchHome();
+      const info: bundleManager.AbilityInfo = ability.context.abilityInfo;
+      logCase('testAbilityInfoLaunchType0066', `launchType=${info.launchType} bundle=${info.bundleName} ` +
+        `name=${info.name}`);
+      expect(info.launchType).assertEqual(bundleManager.LaunchType.SINGLETON);
+      expect(info.bundleName).assertEqual(BUNDLE_NAME);
+      expect(info.name).assertEqual(ENTRY_ABILITY);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6700
+     * @tc.name      testAbilityInfoExportedEnabled0067
+     * @tc.desc      Check the runtime ability info marks EntryAbility exported and enabled and carries a non empty
+     *               label describing the ability
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAbilityInfoExportedEnabled0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      const info: bundleManager.AbilityInfo = ability.context.abilityInfo;
+      logCase('testAbilityInfoExportedEnabled0067', `exported=${info.exported} enabled=${info.enabled} ` +
+        `labelLength=${info.label.length}`);
+      expect(info.exported).assertTrue();
+      expect(info.enabled).assertTrue();
+      expect(info.label.length > ZERO).assertTrue();
+      expect(info.moduleName).assertEqual(ENTRY_MODULE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6800
+     * @tc.name      testDeclaredRuntimeInfoAgree0068
+     * @tc.desc      Compare the launch type, the exported flag and the name of the manifest declaration with the
+     *               ones the running EntryAbility reports
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDeclaredRuntimeInfoAgree0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ability: UIAbility = await launchHome();
+      const declared: bundleManager.AbilityInfo = await declaredEntryAbility();
+      const runtime: bundleManager.AbilityInfo = ability.context.abilityInfo;
+      logCase('testDeclaredRuntimeInfoAgree0068', `declaredName=${declared.name} runtimeName=${runtime.name} ` +
+        `declaredExported=${declared.exported} runtimeExported=${runtime.exported}`);
+      expect(runtime.name).assertEqual(declared.name);
+      expect(runtime.launchType).assertEqual(declared.launchType);
+      expect(runtime.exported).assertEqual(declared.exported);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6900
+     * @tc.name      testDeclaredBundleFieldsMatch0069
+     * @tc.desc      Check the manifest declaration of EntryAbility carries the sample bundle name, the entry module
+     *               name and that the entry module declares exactly one ability
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testDeclaredBundleFieldsMatch0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const declared: bundleManager.AbilityInfo = await declaredEntryAbility();
+      const module: bundleManager.HapModuleInfo = await entryModuleInfo();
+      logCase('testDeclaredBundleFieldsMatch0069', `bundle=${declared.bundleName} module=${declared.moduleName} ` +
+        `abilities=${module.abilitiesInfo.length}`);
+      expect(declared.bundleName).assertEqual(BUNDLE_NAME);
+      expect(declared.moduleName).assertEqual(ENTRY_MODULE);
+      expect(module.abilitiesInfo.length).assertEqual(ONE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7000
+     * @tc.name      testDeclaredHomeSkill0070
+     * @tc.desc      Check the manifest declaration of EntryAbility carries the home action and the system home
+     *               entity so the ability can be started as the launcher entry
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testDeclaredHomeSkill0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const declared: bundleManager.AbilityInfo = await declaredEntryAbility();
+      const hasSkill: boolean = declaresHomeSkill(declared);
+      logCase('testDeclaredHomeSkill0070', `skills=${declared.skills.length} hasHomeSkill=${hasSkill} ` +
+        `name=${declared.name}`);
+      expect(hasSkill).assertTrue();
+      expect(declared.skills.length >= ONE).assertTrue();
+      expect(declared.name).assertEqual(ENTRY_ABILITY);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7100
+     * @tc.name      testDeclaredEntryAbilityFirst0071
+     * @tc.desc      Check the manifest declaration of EntryAbility is the first ability of the entry module and that
+     *               the declared record is exported and enabled
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testDeclaredEntryAbilityFirst0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const declared: bundleManager.AbilityInfo = await declaredEntryAbility();
+      const module: bundleManager.HapModuleInfo = await entryModuleInfo();
+      const firstDeclared: string = module.abilitiesInfo[ZERO].name;
+      logCase('testDeclaredEntryAbilityFirst0071', `declared=${declared.name} first=${firstDeclared} ` +
+        `exported=${declared.exported} enabled=${declared.enabled}`);
+      expect(declared.name).assertEqual(ENTRY_ABILITY);
+      expect(firstDeclared).assertEqual(ENTRY_ABILITY);
+      expect(declared.exported).assertTrue();
+      expect(declared.enabled).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7200
+     * @tc.name      testDeclaredDeviceTypes0072
+     * @tc.desc      Check the manifest declaration of EntryAbility lists the phone device type used by this sample
+     *               and that the runtime instance agrees on the ability name
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testDeclaredDeviceTypes0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      const declared: bundleManager.AbilityInfo = await declaredEntryAbility();
+      logCase('testDeclaredDeviceTypes0072', `deviceTypes=${declared.deviceTypes.join(SEPARATOR)} ` +
+        `hasPhone=${declaresDevice(declared, PHONE_DEVICE)} runtime=${ability.context.abilityInfo.name}`);
+      expect(declaresDevice(declared, PHONE_DEVICE)).assertTrue();
+      expect(declared.deviceTypes.length >= ONE).assertTrue();
+      expect(ability.context.abilityInfo.name).assertEqual(declared.name);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7300
+     * @tc.name      testApplicationInfoChain0073
+     * @tc.desc      Compare the runtime application info reached through the ability context with the application
+     *               record of the installed bundle and check the uid and the bundle name agree while the version code
+     *               and the token stay positive
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testApplicationInfoChain0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      const bundle: bundleManager.BundleInfo = await selfBundle();
+      const runtimeApp: bundleManager.ApplicationInfo = ability.context.abilityInfo.applicationInfo;
+      const bundleApp: bundleManager.ApplicationInfo = bundle.appInfo;
+      const versionCode: number = bundle.versionCode;
+      logCase('testApplicationInfoChain0073', `runtimeUid=${runtimeApp.uid} bundleUid=${bundleApp.uid} ` +
+        `bundle=${bundle.name} versionCode=${versionCode}`);
+      expect(Number(runtimeApp.uid)).assertEqual(Number(bundleApp.uid));
+      expect(runtimeApp.name).assertEqual(bundle.name);
+      expect(versionCode > ZERO).assertTrue();
+      expect(Number(runtimeApp.accessTokenId) > ZERO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7400
+     * @tc.name      testAbilityInfoProcessField0074
+     * @tc.desc      Check the process field of the runtime ability info is not empty and matches the process declared
+     *               for EntryAbility in the module manifest
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAbilityInfoProcessField0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      const declared: bundleManager.AbilityInfo = await declaredEntryAbility();
+      const process: string = ability.context.abilityInfo.process;
+      logCase('testAbilityInfoProcessField0074', `process=${process} declaredProcess=${declared.process} ` +
+        `length=${process.length}`);
+      expect(process.length > ZERO).assertTrue();
+      expect(process).assertEqual(declared.process);
+      expect(ability.context.abilityInfo.name).assertEqual(ENTRY_ABILITY);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7500
+     * @tc.name      testWindowShowingAfterLaunch0075
+     * @tc.desc      Check the main window of a fresh EntryAbility is showing and its area stays within the area of
+     *               the default display
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testWindowShowingAfterLaunch0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const ability: UIAbility = await launchHome();
+      const main: window.Window = await mainWindowOf(ability);
+      const area: number = areaOf(main);
+      const screen: display.Display = screenOf();
+      const screenArea: number = screen.width * screen.height;
+      logCase('testWindowShowingAfterLaunch0075', `showing=${main.isWindowShowing()} area=${area} ` +
+        `screenArea=${screenArea}`);
+      expect(main.isWindowShowing()).assertTrue();
+      expect(area > ZERO).assertTrue();
+      expect(area <= screenArea).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7600
+     * @tc.name      testWindowRectWithinScreen0076
+     * @tc.desc      Read the window rectangle of a fresh EntryAbility and check it has a positive size that fits
+     *               inside the default display bounds
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowRectWithinScreen0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ability: UIAbility = await launchHome();
+      const rect: window.Rect = rectOf(await mainWindowOf(ability));
+      const screen: display.Display = screenOf();
+      logCase('testWindowRectWithinScreen0076', `rect=${rect.width}x${rect.height} ` +
+        `screen=${screen.width}x${screen.height}`);
+      expect(rect.width > ZERO).assertTrue();
+      expect(rect.height > ZERO).assertTrue();
+      expect(rect.width <= screen.width).assertTrue();
+      expect(rect.height <= screen.height).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7700
+     * @tc.name      testWindowStageRecordedAtCreate0077
+     * @tc.desc      Check the window stage create callback is the second callback of a cold start, right after
+     *               create, and that it hands back the launched ability instance
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowStageRecordedAtCreate0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      const ability: UIAbility = await coldStart(tap);
+      const stageIndex: number = tap.firstIndex(EVENT_WINDOW_STAGE_CREATE);
+      const staged: UIAbility | undefined = tap.stagedInstance;
+      logCase('testWindowStageRecordedAtCreate0077', `stageIndex=${stageIndex} events=${tap.text()} ` +
+        `stagedIsAbility=${staged === ability}`);
+      expect(stageIndex).assertEqual(ONE);
+      expect(staged === ability).assertTrue();
+      expect(tap.stage !== undefined).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7800
+     * @tc.name      testWindowRectStableAcrossReads0078
+     * @tc.desc      Read the main window rectangle of one EntryAbility twice with a settle gap and check width,
+     *               height and area are unchanged
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowRectStableAcrossReads0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ability: UIAbility = await launchHome();
+      const firstRect: window.Rect = rectOf(await mainWindowOf(ability));
+      const firstArea: number = firstRect.width * firstRect.height;
+      await sleepMs(SETTLE_MS);
+      const secondRect: window.Rect = rectOf(await mainWindowOf(ability));
+      const secondArea: number = secondRect.width * secondRect.height;
+      logCase('testWindowRectStableAcrossReads0078', `first=${firstRect.width}x${firstRect.height} ` +
+        `second=${secondRect.width}x${secondRect.height} areas=${firstArea}/${secondArea}`);
+      expect(firstRect.width).assertEqual(secondRect.width);
+      expect(firstRect.height).assertEqual(secondRect.height);
+      expect(firstArea).assertEqual(secondArea);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7900
+     * @tc.name      testWindowShowingAfterRoundTrip0079
+     * @tc.desc      Park EntryAbility in the background, bring it back and check its main window is showing again
+     *               with a positive area
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowShowingAfterRoundTrip0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      try {
+        await moveToBackground(ability);
+        await waitBackground(ability, EVENT_WAIT_MS);
+        await startHomeAndSettle();
+        const main: window.Window = await mainWindowOf(ability);
+        logCase('testWindowShowingAfterRoundTrip0079', `showing=${main.isWindowShowing()} ` +
+          `area=${areaOf(main)} foreground=${isForeground(ability)}`);
+        expect(main.isWindowShowing()).assertTrue();
+        expect(areaOf(main) > ZERO).assertTrue();
+        expect(isForeground(ability)).assertTrue();
+      } finally {
+        await terminateQuietly(ability);
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8000
+     * @tc.name      testWindowRectStableAcrossBackground0080
+     * @tc.desc      Compare the main window rectangle before and after a background round trip and check the size of
+     *               the window is preserved
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowRectStableAcrossBackground0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      try {
+        const before: window.Rect = rectOf(await mainWindowOf(ability));
+        await moveToBackground(ability);
+        await waitBackground(ability, EVENT_WAIT_MS);
+        await startHomeAndSettle();
+        const after: window.Rect = rectOf(await mainWindowOf(ability));
+        logCase('testWindowRectStableAcrossBackground0080', `before=${before.width}x${before.height} ` +
+          `after=${after.width}x${after.height}`);
+        expect(after.width).assertEqual(before.width);
+        expect(after.height).assertEqual(before.height);
+        expect(isForeground(ability)).assertTrue();
+      } finally {
+        await terminateQuietly(ability);
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8100
+     * @tc.name      testWindowAreaProduct0081
+     * @tc.desc      Check the window area helper agrees with the product of the reported rectangle edges and that
+     *               the window is showing
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testWindowAreaProduct0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ability: UIAbility = await launchHome();
+      const main: window.Window = await mainWindowOf(ability);
+      const rect: window.Rect = rectOf(main);
+      const expected: number = rect.width * rect.height;
+      const measured: number = areaOf(main);
+      logCase('testWindowAreaProduct0081', `expected=${expected} measured=${measured} ` +
+        `edges=${rect.width}x${rect.height}`);
+      expect(measured).assertEqual(expected);
+      expect(measured > ZERO).assertTrue();
+      expect(main.isWindowShowing()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8200
+     * @tc.name      testScreenBoundsPositive0082
+     * @tc.desc      Check the default display reports positive width, height and density, and that the entry window
+     *               does not exceed the display area
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testScreenBoundsPositive0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      const screen: display.Display = screenOf();
+      const windowArea: number = areaOf(await mainWindowOf(ability));
+      logCase('testScreenBoundsPositive0082', `screen=${screen.width}x${screen.height} ` +
+        `density=${screen.densityPixels} windowArea=${windowArea}`);
+      expect(screen.width > ZERO).assertTrue();
+      expect(screen.height > ZERO).assertTrue();
+      expect(screen.densityPixels > ZERO).assertTrue();
+      expect(windowArea <= screen.width * screen.height).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8300
+     * @tc.name      testWindowShownOnSecondLaunch0083
+     * @tc.desc      Launch EntryAbility twice and check each of the two distinct instances drives a showing window
+     *               with a positive area
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowShownOnSecondLaunch0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const first: UIAbility = await launchHome();
+      const firstArea: number = areaOf(await mainWindowOf(first));
+      const second: UIAbility = await launchHome();
+      const secondWindow: window.Window = await mainWindowOf(second);
+      const secondArea: number = areaOf(secondWindow);
+      logCase('testWindowShownOnSecondLaunch0083', `firstArea=${firstArea} secondArea=${secondArea} ` +
+        `same=${second === first} showing=${secondWindow.isWindowShowing()}`);
+      expect(firstArea > ZERO).assertTrue();
+      expect(secondArea > ZERO).assertTrue();
+      expect(second === first).assertFalse();
+      expect(secondWindow.isWindowShowing()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8400
+     * @tc.name      testWindowStageNonEmptyAtForeground0084
+     * @tc.desc      Check that at the moment the foreground callback arrives the recorded window stage exists and
+     *               the ability window already has a positive area
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowStageNonEmptyAtForeground0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      const ability: UIAbility = await coldStart(tap);
+      const stageIndex: number = tap.firstIndex(EVENT_WINDOW_STAGE_CREATE);
+      const foregroundIndex: number = tap.firstIndex(EVENT_FOREGROUND);
+      const area: number = areaOf(await mainWindowOf(ability));
+      logCase('testWindowStageNonEmptyAtForeground0084', `stageIndex=${stageIndex} ` +
+        `foregroundIndex=${foregroundIndex} area=${area} stageDefined=${tap.stage !== undefined}`);
+      expect(tap.stage !== undefined).assertTrue();
+      expect(foregroundIndex > stageIndex).assertTrue();
+      expect(area > ZERO).assertTrue();
+      expect(tap.size() >= COLD_START_MIN_EVENTS).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8500
+     * @tc.name      testStateForegroundEnumExact0085
+     * @tc.desc      Check a freshly created EntryAbility reports exactly the foreground lifecycle enum and neither
+     *               the create nor the destroy enum
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL0
+     */
+    it('testStateForegroundEnumExact0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      const ability: UIAbility = await coldStart(tap);
+      const state: abilityDelegatorRegistry.AbilityLifecycleState = stateOf(ability);
+      logCase('testStateForegroundEnumExact0085', `state=${state} events=${tap.text()} ` +
+        `name=${ability.context.abilityInfo.name}`);
+      expect(state).assertEqual(abilityDelegatorRegistry.AbilityLifecycleState.FOREGROUND);
+      expect(state === abilityDelegatorRegistry.AbilityLifecycleState.CREATE).assertFalse();
+      expect(state === abilityDelegatorRegistry.AbilityLifecycleState.DESTROY).assertFalse();
+      expect(ability.context.abilityInfo.name).assertEqual(ENTRY_ABILITY);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8600
+     * @tc.name      testStateTripletAcrossRoundTrip0086
+     * @tc.desc      Collect the lifecycle state before, during and after a background round trip and check the three
+     *               values alternate foreground, background, foreground
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testStateTripletAcrossRoundTrip0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ability: UIAbility = await launchHome();
+      try {
+        const firstState: abilityDelegatorRegistry.AbilityLifecycleState = stateOf(ability);
+        await moveToBackground(ability);
+        await waitBackground(ability, EVENT_WAIT_MS);
+        const middleState: abilityDelegatorRegistry.AbilityLifecycleState = stateOf(ability);
+        await startHomeAndSettle();
+        const finalState: abilityDelegatorRegistry.AbilityLifecycleState = stateOf(ability);
+        logCase('testStateTripletAcrossRoundTrip0086', `first=${firstState} middle=${middleState} ` +
+          `final=${finalState}`);
+        expect(firstState).assertEqual(abilityDelegatorRegistry.AbilityLifecycleState.FOREGROUND);
+        expect(middleState).assertEqual(abilityDelegatorRegistry.AbilityLifecycleState.BACKGROUND);
+        expect(finalState).assertEqual(abilityDelegatorRegistry.AbilityLifecycleState.FOREGROUND);
+      } finally {
+        await terminateQuietly(ability);
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8700
+     * @tc.name      testStateAfterResumeIsForeground0087
+     * @tc.desc      Resume a backgrounded EntryAbility and check it is back on top with the foreground state and not
+     *               left in the uninitialized state
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testStateAfterResumeIsForeground0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ability: UIAbility = await launchHome();
+      try {
+        await moveToBackground(ability);
+        await waitBackground(ability, EVENT_WAIT_MS);
+        await startHomeAndSettle();
+        const state: abilityDelegatorRegistry.AbilityLifecycleState = stateOf(ability);
+        const top: UIAbility | undefined = await topAbility();
+        logCase('testStateAfterResumeIsForeground0087', `state=${state} topIsAbility=${top === ability}`);
+        expect(state).assertEqual(abilityDelegatorRegistry.AbilityLifecycleState.FOREGROUND);
+        expect(state === abilityDelegatorRegistry.AbilityLifecycleState.UNINITIALIZED).assertFalse();
+        expect(top === ability).assertTrue();
+      } finally {
+        await terminateQuietly(ability);
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8800
+     * @tc.name      testStateUninitializedAfterDestroyFallback0088
+     * @tc.desc      Terminate EntryAbility and check the state read falls back to a non foreground value while the
+     *               instance no longer holds the top slot
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStateUninitializedAfterDestroyFallback0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async () => {
+      const ability: UIAbility = await launchHome();
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      await terminateWithTap(tap, ability);
+      const state: abilityDelegatorRegistry.AbilityLifecycleState = stateOrUninitialized(ability);
+      const top: UIAbility | undefined = await topAbility();
+      logCase('testStateUninitializedAfterDestroyFallback0088', `state=${state} topIsAbility=${top === ability} ` +
+        `events=${tap.text()}`);
+      expect(state === abilityDelegatorRegistry.AbilityLifecycleState.FOREGROUND).assertFalse();
+      expect(state === abilityDelegatorRegistry.AbilityLifecycleState.UNINITIALIZED ||
+        state === abilityDelegatorRegistry.AbilityLifecycleState.DESTROY).assertTrue();
+      expect(top === ability).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8900
+     * @tc.name      testTapRanksMonotoneColdStart0089
+     * @tc.desc      Convert the cold start callback log into lifecycle ranks and check the ranks start at create,
+     *               end at foreground and never step backwards
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testTapRanksMonotoneColdStart0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      await coldStart(tap);
+      const ranks: number[] = ranksOf(tap.events);
+      logCase('testTapRanksMonotoneColdStart0089', `ranks=${ranks.join(SEPARATOR)} events=${tap.text()}`);
+      expect(ranksAscending(ranks)).assertTrue();
+      expect(ranks[ZERO]).assertEqual(RANK_CREATE);
+      expect(ranks[ranks.length - ONE]).assertEqual(RANK_FOREGROUND);
+      expect(ranks.indexOf(RANK_UNKNOWN)).assertEqual(MISSING_INDEX);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9000
+     * @tc.name      testStatsMonotoneAcrossLaunch0090
+     * @tc.desc      Sample the gc counters before and after a cold launch and check the count, the gc time and the
+     *               allocated bytes did not decrease
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testStatsMonotoneAcrossLaunch0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const before: GcSnapshot = snapshot();
+      const ability: UIAbility = await launchHome();
+      const after: GcSnapshot = snapshot();
+      logCase('testStatsMonotoneAcrossLaunch0090', `deltas=${deltaText(before, after)} ` +
+        `name=${ability.context.abilityInfo.name}`);
+      expect(statsMonotone(before, after)).assertTrue();
+      expect(countDelta(before, after) >= ZERO).assertTrue();
+      expect(timeDelta(before, after) >= ZERO).assertTrue();
+      expect(allocatedDelta(before, after) >= ZERO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9100
+     * @tc.name      testStatsMonotoneAcrossTerminate0091
+     * @tc.desc      Sample the gc counters around a termination and check the freed bytes and the allocated bytes
+     *               both stayed cumulative
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatsMonotoneAcrossTerminate0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      const before: GcSnapshot = snapshot();
+      await terminateQuietly(ability);
+      const after: GcSnapshot = snapshot();
+      logCase('testStatsMonotoneAcrossTerminate0091', `deltas=${deltaText(before, after)} ` +
+        `freed=${before.freed}->${after.freed}`);
+      expect(statsMonotone(before, after)).assertTrue();
+      expect(freedDelta(before, after) >= ZERO).assertTrue();
+      expect(after.allocated >= before.allocated).assertTrue();
+      expect(after.count >= before.count).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9200
+     * @tc.name      testStatsMonotoneAcrossStopHome0092
+     * @tc.desc      Sample the gc counters before and after two repeated stop requests and check every counter of the
+     *               snapshot pair is non decreasing
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatsMonotoneAcrossStopHome0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      await launchHome();
+      const before: GcSnapshot = snapshot();
+      await stopHome();
+      await stopHome();
+      const after: GcSnapshot = snapshot();
+      logCase('testStatsMonotoneAcrossStopHome0092', `deltas=${deltaText(before, after)} ` +
+        `longFullGc=${before.longFullGc}->${after.longFullGc}`);
+      expect(statsMonotone(before, after)).assertTrue();
+      expect(allNonNegative(deltasOf(before, after))).assertTrue();
+      expect(after.freed >= before.freed).assertTrue();
+      expect(longFullGcDelta(before, after) >= ZERO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9300
+     * @tc.name      testStatsThreeStepChain0093
+     * @tc.desc      Chain three snapshots across a launch, a stop request and a second launch, and check the chain is
+     *               monotone end to end while the relaunch hands back a new instance
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatsThreeStepChain0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const opening: GcSnapshot = snapshot();
+      const first: UIAbility = await launchHome();
+      const middle: GcSnapshot = snapshot();
+      await stopHome();
+      const closing: GcSnapshot = snapshot();
+      const second: UIAbility = await launchHome();
+      const resumed: GcSnapshot = snapshot();
+      logCase('testStatsThreeStepChain0093', `openingToMiddle=${deltaText(opening, middle)} ` +
+        `middleToClosing=${deltaText(middle, closing)} closingToResumed=${deltaText(closing, resumed)} ` +
+        `same=${second === first}`);
+      expect(statsMonotone(opening, middle)).assertTrue();
+      expect(statsMonotone(middle, closing)).assertTrue();
+      expect(statsMonotone(closing, resumed)).assertTrue();
+      expect(second === first).assertFalse();
+      expect(allocatedDelta(opening, resumed) >= ZERO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9400
+     * @tc.name      testStatsFourSnapshotsTwoCycles0094
+     * @tc.desc      Take four counter snapshots across two launch and terminate cycles and check every consecutive
+     *               pair is monotone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatsFourSnapshotsTwoCycles0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const beforeAll: GcSnapshot = snapshot();
+      const first: UIAbility = await launchHome();
+      const afterFirstLaunch: GcSnapshot = snapshot();
+      await terminateQuietly(first);
+      const afterFirstTerminate: GcSnapshot = snapshot();
+      const second: UIAbility = await launchHome();
+      const afterSecondLaunch: GcSnapshot = snapshot();
+      logCase('testStatsFourSnapshotsTwoCycles0094', `a=${deltaText(beforeAll, afterFirstLaunch)} ` +
+        `b=${deltaText(afterFirstLaunch, afterFirstTerminate)} ` +
+        `c=${deltaText(afterFirstTerminate, afterSecondLaunch)} same=${second === first}`);
+      expect(statsMonotone(beforeAll, afterFirstLaunch)).assertTrue();
+      expect(statsMonotone(afterFirstLaunch, afterFirstTerminate)).assertTrue();
+      expect(statsMonotone(afterFirstTerminate, afterSecondLaunch)).assertTrue();
+      expect(second === first).assertFalse();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9500
+     * @tc.name      testStatsCountNeverDecreases0095
+     * @tc.desc      Read the gc count counter three times around a launch and a terminate and check the middle and
+     *               the last read are never smaller than the earlier ones
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatsCountNeverDecreases0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const start: number = gcStat(KEY_GC_COUNT);
+      const ability: UIAbility = await launchHome();
+      const middle: number = gcStat(KEY_GC_COUNT);
+      await terminateQuietly(ability);
+      const end: number = gcStat(KEY_GC_COUNT);
+      logCase('testStatsCountNeverDecreases0095', `start=${start} middle=${middle} end=${end}`);
+      expect(middle >= start).assertTrue();
+      expect(end >= middle).assertTrue();
+      expect(end >= start).assertTrue();
+      expect(Number.isFinite(end)).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9600
+     * @tc.name      testStatsAfterHintGc0096
+     * @tc.desc      Force collection hints before and after a lifecycle step and check the snapshots taken around the
+     *               hints remain monotone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatsAfterHintGc0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const beforeHint: GcSnapshot = snapshot();
+      hintGC();
+      await sleepMs(SETTLE_MS);
+      const afterHint: GcSnapshot = snapshot();
+      const ability: UIAbility = await launchHome();
+      hintGC();
+      await sleepMs(SETTLE_MS);
+      const afterLaunch: GcSnapshot = snapshot();
+      logCase('testStatsAfterHintGc0096', `hint=${deltaText(beforeHint, afterHint)} ` +
+        `launch=${deltaText(afterHint, afterLaunch)} name=${ability.context.abilityInfo.name}`);
+      expect(statsMonotone(beforeHint, afterHint)).assertTrue();
+      expect(statsMonotone(afterHint, afterLaunch)).assertTrue();
+      expect(freedDelta(beforeHint, afterHint) >= ZERO).assertTrue();
+      expect(countDelta(afterHint, afterLaunch) >= ZERO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9700
+     * @tc.name      testStatsFreedWithinAllocated0097
+     * @tc.desc      Check the freed byte counter never exceeds the allocated byte counter and that both are finite
+     *               positive cumulative values after a launch
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatsFreedWithinAllocated0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      await launchHome();
+      const stats: GcSnapshot = snapshot();
+      logCase('testStatsFreedWithinAllocated0097', `allocated=${stats.allocated} freed=${stats.freed} ` +
+        `count=${stats.count}`);
+      expect(stats.freed <= stats.allocated).assertTrue();
+      expect(stats.allocated > ZERO).assertTrue();
+      expect(Number.isFinite(stats.freed)).assertTrue();
+      expect(stats.count >= ZERO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9800
+     * @tc.name      testStatsKeysReadableDuringChurn0098
+     * @tc.desc      Read the gc count and gc time keys directly around ability churn and check both stay readable and
+     *               non decreasing while the ability is created and destroyed
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatsKeysReadableDuringChurn0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const countStart: number = gcStat(KEY_GC_COUNT);
+      const timeStart: number = gcStat(KEY_GC_TIME);
+      const ability: UIAbility = await launchHome();
+      await terminateQuietly(ability);
+      const countEnd: number = gcStat(KEY_GC_COUNT);
+      const timeEnd: number = gcStat(KEY_GC_TIME);
+      logCase('testStatsKeysReadableDuringChurn0098', `count=${countStart}->${countEnd} ` +
+        `time=${timeStart}->${timeEnd}`);
+      expect(countEnd >= countStart).assertTrue();
+      expect(timeEnd >= timeStart).assertTrue();
+      expect(timeEnd > ZERO).assertTrue();
+      expect(countEnd >= ZERO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9900
+     * @tc.name      testStatsAndStateAfterRepeatedStops0099
+     * @tc.desc      Run three launch and stop cycles, check the counters only grow, the final instance is foreground
+     *               and the three instances differ
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatsAndStateAfterRepeatedStops0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const start: GcSnapshot = snapshot();
+      const first: UIAbility = await launchHome();
+      await stopHome();
+      const second: UIAbility = await launchHome();
+      await stopHome();
+      const third: UIAbility = await launchHome();
+      const end: GcSnapshot = snapshot();
+      const cycle: UIAbility[] = [first, second, third];
+      logCase('testStatsAndStateAfterRepeatedStops0099', `deltas=${deltaText(start, end)} ` +
+        `state=${stateOf(third)} distinct=${distinctInstances(cycle)}`);
+      expect(statsMonotone(start, end)).assertTrue();
+      expect(allNonNegative(deltasOf(start, end))).assertTrue();
+      expect(stateOf(third)).assertEqual(abilityDelegatorRegistry.AbilityLifecycleState.FOREGROUND);
+      expect(distinctInstances(cycle)).assertEqual(THREE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10000
+     * @tc.name      testColdStartForegroundBeforeSecondCycle0100
+     * @tc.desc      Observe two successive launch and terminate cycles with one tap and check the first foreground
+     *               callback precedes the create callback of the second cycle
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testColdStartForegroundBeforeSecondCycle0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      await stopHome();
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      tap.start();
+      try {
+        const first: UIAbility = await startObserved(tap);
+        await first.context.terminateSelf();
+        await waitTapEvent(tap, EVENT_DESTROY, EVENT_WAIT_MS);
+        await sleepMs(SETTLE_MS);
+        await startObserved(tap);
+        logCase('testColdStartForegroundBeforeSecondCycle0100', `events=${tap.text()} ` +
+          `firstForeground=${tap.firstIndex(EVENT_FOREGROUND)} lastCreate=${tap.lastIndex(EVENT_CREATE)}`);
+        expect(tap.firstIndex(EVENT_FOREGROUND) < tap.lastIndex(EVENT_CREATE)).assertTrue();
+        expect(tap.firstIndex(EVENT_DESTROY) < tap.lastIndex(EVENT_CREATE)).assertTrue();
+        expect(tap.countOf(EVENT_CREATE)).assertEqual(TWO);
+        expect(tap.lastEvent()).assertEqual(EVENT_FOREGROUND);
+      } finally {
+        tap.stop();
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10100
+     * @tc.name      testTopAbilityChangesWhenBackground0101
+     * @tc.desc      Track the top ability across a background move and the following resume and check the ability
+     *               owns the top slot before and after but not while it is parked
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testTopAbilityChangesWhenBackground0101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      try {
+        const before: UIAbility | undefined = await topAbility();
+        await moveToBackground(ability);
+        await waitBackground(ability, EVENT_WAIT_MS);
+        const during: UIAbility | undefined = await topAbility();
+        await startHomeAndSettle();
+        const after: UIAbility | undefined = await topAbility();
+        logCase('testTopAbilityChangesWhenBackground0101', `before=${before === ability} ` +
+          `during=${during === ability} after=${after === ability}`);
+        expect(before === ability).assertTrue();
+        expect(during === ability).assertFalse();
+        expect(after === ability).assertTrue();
+      } finally {
+        await terminateQuietly(ability);
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10200
+     * @tc.name      testWindowStageFreshAfterRelaunch0102
+     * @tc.desc      Terminate EntryAbility, relaunch it under a new tap and check the new instance owns a recorded
+     *               window stage and a showing window
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testWindowStageFreshAfterRelaunch0102', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const first: UIAbility = await launchHome();
+      await terminateQuietly(first);
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      const second: UIAbility = await coldStart(tap);
+      const main: window.Window = await mainWindowOf(second);
+      logCase('testWindowStageFreshAfterRelaunch0102', `same=${second === first} ` +
+        `stageDefined=${tap.stage !== undefined} showing=${main.isWindowShowing()}`);
+      expect(second === first).assertFalse();
+      expect(tap.stage !== undefined).assertTrue();
+      expect(tap.has(EVENT_WINDOW_STAGE_CREATE)).assertTrue();
+      expect(main.isWindowShowing()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10300
+     * @tc.name      testContextModuleMatchesDeclared0103
+     * @tc.desc      Check the module of the runtime ability info matches the module that declares EntryAbility and
+     *               that the module holds the ability entry for it
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testContextModuleMatchesDeclared0103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const ability: UIAbility = await launchHome();
+      const module: bundleManager.HapModuleInfo = await entryModuleInfo();
+      const declared: bundleManager.AbilityInfo = await declaredEntryAbility();
+      logCase('testContextModuleMatchesDeclared0103', `runtime=${ability.context.abilityInfo.moduleName} ` +
+        `declared=${declared.moduleName} module=${module.name}`);
+      expect(ability.context.abilityInfo.moduleName).assertEqual(declared.moduleName);
+      expect(module.name).assertEqual(ENTRY_MODULE);
+      expect(module.abilitiesInfo.length).assertEqual(ONE);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10400
+     * @tc.name      testAbilityInfoIconLabelNonEmpty0104
+     * @tc.desc      Check the runtime ability info of EntryAbility carries a non empty icon, label and description so
+     *               the launcher entry is fully described
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testAbilityInfoIconLabelNonEmpty0104', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      const info: bundleManager.AbilityInfo = ability.context.abilityInfo;
+      logCase('testAbilityInfoIconLabelNonEmpty0104', `iconLength=${info.icon.length} ` +
+        `labelLength=${info.label.length} descriptionLength=${info.description.length}`);
+      expect(info.icon.length > ZERO).assertTrue();
+      expect(info.label.length > ZERO).assertTrue();
+      expect(info.description.length > ZERO).assertTrue();
+      expect(info.name).assertEqual(ENTRY_ABILITY);
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10500
+     * @tc.name      testStatsTimeNeverDecreases0105
+     * @tc.desc      Read the gc time counter at three points of a background round trip and check the accumulated gc
+     *               time grows monotonically with the lifecycle work
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testStatsTimeNeverDecreases0105', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const ability: UIAbility = await launchHome();
+      try {
+        const beforeMove: number = gcStat(KEY_GC_TIME);
+        await moveToBackground(ability);
+        await waitBackground(ability, EVENT_WAIT_MS);
+        const inBackground: number = gcStat(KEY_GC_TIME);
+        await startHomeAndSettle();
+        hintGC();
+        await sleepMs(SETTLE_MS);
+        const afterResume: number = gcStat(KEY_GC_TIME);
+        logCase('testStatsTimeNeverDecreases0105', `before=${beforeMove} background=${inBackground} ` +
+          `resumed=${afterResume}`);
+        expect(inBackground >= beforeMove).assertTrue();
+        expect(afterResume >= inBackground).assertTrue();
+        expect(afterResume >= beforeMove).assertTrue();
+      } finally {
+        await terminateQuietly(ability);
+      }
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10600
+     * @tc.name      testCycleWindowAreaStable0106
+     * @tc.desc      Compare the window size of two successive EntryAbility instances and check width, height and area
+     *               are identical across the two launches
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testCycleWindowAreaStable0106', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const first: UIAbility = await launchHome();
+      const firstRect: window.Rect = rectOf(await mainWindowOf(first));
+      const second: UIAbility = await launchHome();
+      const secondRect: window.Rect = rectOf(await mainWindowOf(second));
+      logCase('testCycleWindowAreaStable0106', `first=${firstRect.width}x${firstRect.height} ` +
+        `second=${secondRect.width}x${secondRect.height}`);
+      expect(firstRect.width).assertEqual(secondRect.width);
+      expect(firstRect.height).assertEqual(secondRect.height);
+      expect(firstRect.width * firstRect.height > ZERO).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10700
+     * @tc.name      testForegroundAfterFullChurn0107
+     * @tc.desc      Drive EntryAbility through launch, background, resume, terminate and relaunch, then check the final
+     *               instance is a new foreground ability while the counters stayed monotone
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testForegroundAfterFullChurn0107', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const start: GcSnapshot = snapshot();
+      const ability: UIAbility = await launchHome();
+      await moveToBackground(ability);
+      await waitBackground(ability, EVENT_WAIT_MS);
+      await startHomeAndSettle();
+      await terminateQuietly(ability);
+      const finalAbility: UIAbility = await launchHome();
+      const end: GcSnapshot = snapshot();
+      const main: window.Window = await mainWindowOf(finalAbility);
+      logCase('testForegroundAfterFullChurn0107', `same=${finalAbility === ability} ` +
+        `state=${stateOf(finalAbility)} deltas=${deltaText(start, end)}`);
+      expect(finalAbility === ability).assertFalse();
+      expect(isForeground(finalAbility)).assertTrue();
+      expect(statsMonotone(start, end)).assertTrue();
+      expect(main.isWindowShowing()).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10800
+     * @tc.name      testCompositeLifecycleInvariant0108
+     * @tc.desc      Combine the lifecycle invariants of a full observed run: foreground state, ordered cold start,
+     *               recorded window stage, showing window, declared name and monotone counters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testCompositeLifecycleInvariant0108', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const start: GcSnapshot = snapshot();
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      const ability: UIAbility = await coldStart(tap);
+      const end: GcSnapshot = snapshot();
+      const main: window.Window = await mainWindowOf(ability);
+      logCase('testCompositeLifecycleInvariant0108', `events=${tap.text()} state=${stateOf(ability)} ` +
+        `stageDefined=${tap.stage !== undefined} showing=${main.isWindowShowing()} ` +
+        `deltas=${deltaText(start, end)}`);
+      expect(isForeground(ability)).assertTrue();
+      expect(tap.ordered()).assertTrue();
+      expect(tap.stage !== undefined).assertTrue();
+      expect(main.isWindowShowing()).assertTrue();
+      expect(ability.context.abilityInfo.name).assertEqual(ENTRY_ABILITY);
+      expect(statsMonotone(start, end)).assertTrue();
+    });
+  });
+}
