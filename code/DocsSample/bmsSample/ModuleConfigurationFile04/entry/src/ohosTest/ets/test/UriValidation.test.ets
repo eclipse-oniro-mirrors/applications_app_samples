@@ -2020,3 +2020,184 @@ export default function UriValidationTest(): void {
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
+     */
+    it('testUriFullSample',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const uri: UriConfig = ConfigFactory.emptyUri();
+      uri.scheme = 'https';
+      uri.host = 'www.example.com';
+      uri.path = '/index';
+      TestLog.text('testUriFullSample', 'case begin', 'full sample uri check');
+      TestLog.step('testUriFullSample', 'full sample uri check');
+      const findings: Finding[] = ModuleConfigValidator.validateUri(uri, 'module.abilities[0].skills[0].uris[0]');
+      TestLog.findings('testUriFullSample', 'uri findings', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testUriFullSample', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testUriFullSample', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testUriFullSample', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testUriFullSample', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testUriFullSample', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testUriFullSample', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testUriFullSample', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testUriFullSample', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testUriFullSample', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateUri(uri, 'module.abilities[0].skills[0].uris[0]');
+      TestLog.number('testUriFullSample', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testUriFullSample', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testUriFullSample', 'case end', 'full sample uri check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_3302
+     * @tc.name      testUriAllFieldsInvalid
+     * @tc.desc      Checks that all invalid uri fields are reported together.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testUriAllFieldsInvalid',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const uri: UriConfig = ConfigFactory.emptyUri();
+      uri.scheme = 'https';
+      uri.scheme = 'HTTPS';
+      uri.host = 'example .com';
+      uri.path = 'index';
+      TestLog.text('testUriAllFieldsInvalid', 'case begin', 'combined uri check');
+      TestLog.step('testUriAllFieldsInvalid', 'combined uri check');
+      const findings: Finding[] = ModuleConfigValidator.validateUri(uri, 'module.abilities[0].skills[0].uris[0]');
+      TestLog.findings('testUriAllFieldsInvalid', 'uri findings', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected1: boolean = FindingUtils.hasCode(findings, 'MODULE_SKILL_URI_SCHEME_ILLEGAL');
+      TestLog.flag('testUriAllFieldsInvalid', 'has code MODULE_SKILL_URI_SCHEME_ILLEGAL', hasExpected1);
+      expect(hasExpected1).assertTrue();
+      const hasExpected2: boolean = FindingUtils.hasCode(findings, 'MODULE_SKILL_URI_HOST_WHITESPACE');
+      TestLog.flag('testUriAllFieldsInvalid', 'has code MODULE_SKILL_URI_HOST_WHITESPACE', hasExpected2);
+      expect(hasExpected2).assertTrue();
+      const hasExpected3: boolean = FindingUtils.hasCode(findings, 'MODULE_SKILL_URI_PATH_PREFIX');
+      TestLog.flag('testUriAllFieldsInvalid', 'has code MODULE_SKILL_URI_PATH_PREFIX', hasExpected3);
+      expect(hasExpected3).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testUriAllFieldsInvalid', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testUriAllFieldsInvalid', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testUriAllFieldsInvalid', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testUriAllFieldsInvalid', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testUriAllFieldsInvalid', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testUriAllFieldsInvalid', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testUriAllFieldsInvalid', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testUriAllFieldsInvalid', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testUriAllFieldsInvalid', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testUriAllFieldsInvalid', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateUri(uri, 'module.abilities[0].skills[0].uris[0]');
+      TestLog.number('testUriAllFieldsInvalid', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testUriAllFieldsInvalid', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testUriAllFieldsInvalid', 'case end', 'combined uri check');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_3303
+     * @tc.name      testUriTrimmedScheme
+     * @tc.desc      Checks that a scheme with surrounding whitespace is trimmed before validation.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testUriTrimmedScheme',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const uri: UriConfig = ConfigFactory.emptyUri();
+      uri.scheme = 'https';
+      uri.scheme = ' https ';
+      TestLog.text('testUriTrimmedScheme', 'case begin', 'trimmed scheme check');
+      TestLog.step('testUriTrimmedScheme', 'trimmed scheme check');
+      const findings: Finding[] = ModuleConfigValidator.validateUri(uri, 'module.abilities[0].skills[0].uris[0]');
+      TestLog.findings('testUriTrimmedScheme', 'uri findings', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testUriTrimmedScheme', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testUriTrimmedScheme', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testUriTrimmedScheme', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testUriTrimmedScheme', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testUriTrimmedScheme', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testUriTrimmedScheme', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testUriTrimmedScheme', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testUriTrimmedScheme', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testUriTrimmedScheme', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateUri(uri, 'module.abilities[0].skills[0].uris[0]');
+      TestLog.number('testUriTrimmedScheme', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testUriTrimmedScheme', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testUriTrimmedScheme', 'case end', 'trimmed scheme check');
+    })
+
+  })
+}
