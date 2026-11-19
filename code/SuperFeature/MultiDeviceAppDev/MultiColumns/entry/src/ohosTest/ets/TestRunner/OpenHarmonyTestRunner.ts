@@ -13,19 +13,19 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
-import TestRunner from '@ohos.application.testRunner';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { TestRunner, abilityDelegatorRegistry as AbilityDelegatorRegistry } from '@kit.TestKit';
 
-let abilityDelegator = undefined;
-let abilityDelegatorArguments = undefined;
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[MultiColumns]';
 
 async function onAbilityCreateCallback() {
-  hilog.info(0x0000, 'testTag', '%{public}s', 'onAbilityCreateCallback');
+  hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'onAbilityCreateCallback');
 }
 
-async function addAbilityMonitorCallback(err: any) {
-  hilog.info(0x0000, 'testTag', 'addAbilityMonitorCallback : %{public}s', JSON.stringify(err) ?? '');
+async function addAbilityMonitorCallback(err: BusinessError) {
+  hilog.info(LOG_DOMAIN, LOG_TAG, 'addAbilityMonitorCallback : %{public}s', JSON.stringify(err));
 }
 
 export default class OpenHarmonyTestRunner implements TestRunner {
@@ -33,31 +33,33 @@ export default class OpenHarmonyTestRunner implements TestRunner {
   }
 
   onPrepare() {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner OnPrepare ');
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'OpenHarmonyTestRunner OnPrepare ');
   }
 
   async onRun() {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner onRun run');
-    abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
-    abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
-    let testAbilityName = abilityDelegatorArguments.bundleName + '.TestAbility';
-    let lMonitor = {
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'OpenHarmonyTestRunner onRun start');
+    const abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs =
+      AbilityDelegatorRegistry.getArguments();
+    const abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator =
+      AbilityDelegatorRegistry.getAbilityDelegator();
+    const testAbilityName: string = `${abilityDelegatorArguments.bundleName}.TestAbility`;
+    const monitor: AbilityDelegatorRegistry.AbilityMonitor = {
       abilityName: testAbilityName,
       onAbilityCreate: onAbilityCreateCallback,
     };
-    abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback)
-    let cmd = 'aa start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName;
-    let debug = abilityDelegatorArguments.parameters['-D'];
+    abilityDelegator.addAbilityMonitor(monitor, addAbilityMonitorCallback);
+    let cmd: string = `aa start -d 0 -a TestAbility -b ${abilityDelegatorArguments.bundleName}`;
+    const debug: string = abilityDelegatorArguments.parameters['-D'];
     if (debug === 'true') {
-      cmd += ' -D'
+      cmd += ' -D';
     }
-    hilog.info(0x0000, 'testTag', 'cmd : %{public}s', cmd);
+    hilog.info(LOG_DOMAIN, LOG_TAG, 'cmd : %{public}s', cmd);
     abilityDelegator.executeShellCommand(cmd,
-      (err: any, d: any) => {
-        hilog.info(0x0000, 'testTag', 'executeShellCommand : err : %{public}s', JSON.stringify(err) ?? '');
-        hilog.info(0x0000, 'testTag', 'executeShellCommand : data : %{public}s', d.stdResult ?? '');
-        hilog.info(0x0000, 'testTag', 'executeShellCommand : data : %{public}s', d.exitCode ?? '');
-      })
-    hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner onRun end');
+      (err: BusinessError, result: AbilityDelegatorRegistry.ShellCmdResult) => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'executeShellCommand : err : %{public}s', JSON.stringify(err));
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'executeShellCommand : stdResult : %{public}s', result.stdResult);
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'executeShellCommand : exitCode : %{public}d', result.exitCode);
+      });
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'OpenHarmonyTestRunner onRun end');
   }
 }

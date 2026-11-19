@@ -13,33 +13,39 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[MultiColumns]';
+// 测试承载页专用字号，避免与 main 模块样式令牌耦合
+const TEST_PAGE_TITLE_FONT: number = 50;
+const TEST_PAGE_BUTTON_FONT: number = 20;
 
 @Entry
 @Component
 struct Index {
   aboutToAppear() {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility index aboutToAppear');
+    hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'TestAbility index aboutToAppear');
   }
 
-  @State message: string = 'Hello World'
+  @State message: Resource = $r('app.string.test_page_message');
 
   build() {
     Row() {
       Column() {
         Text(this.message)
-          .fontSize(50)
+          .fontSize(TEST_PAGE_TITLE_FONT)
           .fontWeight(FontWeight.Bold)
         Button() {
-          Text('next page')
-            .fontSize(20)
+          Text($r('app.string.test_page_next'))
+            .fontSize(TEST_PAGE_BUTTON_FONT)
             .fontWeight(FontWeight.Bold)
         }
         .type(ButtonType.Capsule)
         .margin({
           top: 20
         })
-        .backgroundColor('#0D9FFB')
+        .backgroundColor($r('app.color.activity_button_background'))
         .width('35%')
         .height('5%')
         .onClick(() => {
