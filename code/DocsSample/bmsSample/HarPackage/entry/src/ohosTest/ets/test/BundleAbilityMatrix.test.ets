@@ -644,3 +644,695 @@ export default function bundleAbilityMatrixTest() {
      * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0049
      * @tc.name      testBundleAbility0049
      * @tc.desc      Extension metadata name ends with backup
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0049', 'bundle ability case 49');
+      expect(extension.metadata[0].name.endsWith('backup')).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0050', 'bundle ability case 50');
+      expect(ability.label === ability.description).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0051
+     * @tc.name      testBundleAbility0051
+     * @tc.desc      Ability label id and description id are different
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0051', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0051', 'bundle ability case 51');
+      expect(ability.labelId === ability.descriptionId).assertFalse();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0052', 'bundle ability case 52');
+      expect(ability.iconId === ability.labelId).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0053
+     * @tc.name      testBundleAbility0053
+     * @tc.desc      Ability exported differs from extension exported
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0053', 'bundle ability case 53');
+      expect(ability.exported === extension.exported).assertFalse();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0054', 'bundle ability case 54');
+      const again: bundleManager.AbilityInfo = await entryAbility();
+      expect(again.name).assertEqual(ability.name);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0055
+     * @tc.name      testBundleAbility0055
+     * @tc.desc      Ability read twice has the same label id
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0055', 'bundle ability case 55');
+      const again: bundleManager.AbilityInfo = await entryAbility();
+      expect(again.labelId).assertEqual(ability.labelId);
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0056', 'bundle ability case 56');
+      const again: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      expect(again.name).assertEqual(extension.name);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0057
+     * @tc.name      testBundleAbility0057
+     * @tc.desc      Extension read twice has the same type name
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0057', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0057', 'bundle ability case 57');
+      const again: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      expect(again.extensionAbilityTypeName).assertEqual(extension.extensionAbilityTypeName);
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0058', 'bundle ability case 58');
+      const again: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      expect(again.metadata.length).assertEqual(extension.metadata.length);
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0059
+     * @tc.name      testBundleAbility0059
+     * @tc.desc      Main element resolves to the first ability
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0059', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0059', 'bundle ability case 59');
+      expect(moduleInfo.mainElementName).assertEqual(moduleInfo.abilitiesInfo[0].name);
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0060', 'bundle ability case 60');
+      expect(moduleInfo.mainElementName === extension.name).assertFalse();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0061
+     * @tc.name      testBundleAbility0061
+     * @tc.desc      Ability label stays at least 1 character long
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0061', 'bundle ability case 61');
+      expect(ability.label.length >= 1).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0062', 'bundle ability case 62');
+      expect(ability.label.length >= 2).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0063
+     * @tc.name      testBundleAbility0063
+     * @tc.desc      Ability label stays at least 3 character long
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0063', 'bundle ability case 63');
+      expect(ability.label.length >= 3).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0064', 'bundle ability case 64');
+      expect(ability.label.length >= 4).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0065
+     * @tc.name      testBundleAbility0065
+     * @tc.desc      Ability label stays at least 5 character long
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0065', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0065', 'bundle ability case 65');
+      expect(ability.label.length >= 5).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0066', 'bundle ability case 66');
+      expect(ability.description.length >= 1).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0067
+     * @tc.name      testBundleAbility0067
+     * @tc.desc      Ability description stays at least 2 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0067', 'bundle ability case 67');
+      expect(ability.description.length >= 2).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0068', 'bundle ability case 68');
+      expect(ability.description.length >= 3).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0069
+     * @tc.name      testBundleAbility0069
+     * @tc.desc      Ability description stays at least 4 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0069', 'bundle ability case 69');
+      expect(ability.description.length >= 4).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0070', 'bundle ability case 70');
+      expect(ability.description.length >= 5).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0071
+     * @tc.name      testBundleAbility0071
+     * @tc.desc      Ability description stays at least 6 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0071', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0071', 'bundle ability case 71');
+      expect(ability.description.length >= 6).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0072', 'bundle ability case 72');
+      expect(ability.description.length >= 7).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0073
+     * @tc.name      testBundleAbility0073
+     * @tc.desc      Ability description stays at least 8 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0073', 'bundle ability case 73');
+      expect(ability.description.length >= 8).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0074', 'bundle ability case 74');
+      expect(ability.description.length >= 9).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0075
+     * @tc.name      testBundleAbility0075
+     * @tc.desc      Ability description stays at least 10 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0075', 'bundle ability case 75');
+      expect(ability.description.length >= 10).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0076', 'bundle ability case 76');
+      expect(ability.description.length >= 11).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0077
+     * @tc.name      testBundleAbility0077
+     * @tc.desc      Extension metadata resource stays at least 6 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0077', 'bundle ability case 77');
+      expect(extension.metadata[0].resource.length >= 6).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0078', 'bundle ability case 78');
+      expect(extension.metadata[0].resource.length >= 7).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0079
+     * @tc.name      testBundleAbility0079
+     * @tc.desc      Extension metadata resource stays at least 8 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0079', 'bundle ability case 79');
+      expect(extension.metadata[0].resource.length >= 8).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0080', 'bundle ability case 80');
+      expect(extension.metadata[0].resource.length >= 9).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0081
+     * @tc.name      testBundleAbility0081
+     * @tc.desc      Extension metadata resource stays at least 10 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0081', 'bundle ability case 81');
+      expect(extension.metadata[0].resource.length >= 10).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0082', 'bundle ability case 82');
+      expect(extension.metadata[0].resource.length >= 11).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0083
+     * @tc.name      testBundleAbility0083
+     * @tc.desc      Extension metadata resource stays at least 12 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0083', 'bundle ability case 83');
+      expect(extension.metadata[0].resource.length >= 12).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0084', 'bundle ability case 84');
+      expect(extension.metadata[0].resource.length >= 13).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0085
+     * @tc.name      testBundleAbility0085
+     * @tc.desc      Extension metadata resource stays at least 14 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0085', 'bundle ability case 85');
+      expect(extension.metadata[0].resource.length >= 14).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0086', 'bundle ability case 86');
+      expect(extension.metadata[0].resource.length >= 15).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0087
+     * @tc.name      testBundleAbility0087
+     * @tc.desc      Extension metadata resource stays at least 16 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0087', 'bundle ability case 87');
+      expect(extension.metadata[0].resource.length >= 16).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0088', 'bundle ability case 88');
+      expect(extension.metadata[0].resource.length >= 17).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0089
+     * @tc.name      testBundleAbility0089
+     * @tc.desc      Extension metadata resource stays at least 18 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0089', 'bundle ability case 89');
+      expect(extension.metadata[0].resource.length >= 18).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0090', 'bundle ability case 90');
+      expect(extension.metadata[0].resource.length >= 19).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0091
+     * @tc.name      testBundleAbility0091
+     * @tc.desc      Extension metadata resource stays at least 20 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0091', 'bundle ability case 91');
+      expect(extension.metadata[0].resource.length >= 20).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0092', 'bundle ability case 92');
+      expect(ability.name.length >= 5).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0093
+     * @tc.name      testBundleAbility0093
+     * @tc.desc      Ability name stays at least 6 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0093', 'bundle ability case 93');
+      expect(ability.name.length >= 6).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0094', 'bundle ability case 94');
+      expect(ability.name.length >= 7).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0095
+     * @tc.name      testBundleAbility0095
+     * @tc.desc      Ability name stays at least 8 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testBundleAbility0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0095', 'bundle ability case 95');
+      expect(ability.name.length >= 8).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0096', 'bundle ability case 96');
+      expect(ability.name.length >= 9).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0097
+     * @tc.name      testBundleAbility0097
+     * @tc.desc      Ability name stays at least 10 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleAbility0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0097', 'bundle ability case 97');
+      expect(ability.name.length >= 10).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0098', 'bundle ability case 98');
+      expect(ability.name.length >= 11).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0099
+     * @tc.name      testBundleAbility0099
+     * @tc.desc      Ability name stays at least 12 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleAbility0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0099', 'bundle ability case 99');
+      expect(ability.name.length >= 12).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0100', 'bundle ability case 100');
+      expect(extension.name.length >= 13).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0101
+     * @tc.name      testBundleAbility0101
+     * @tc.desc      Extension name stays at least 14 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleAbility0101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0101', 'bundle ability case 101');
+      expect(extension.name.length >= 14).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0102', 'bundle ability case 102');
+      expect(extension.name.length >= 15).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0103
+     * @tc.name      testBundleAbility0103
+     * @tc.desc      Extension name stays at least 16 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleAbility0103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0103', 'bundle ability case 103');
+      expect(extension.name.length >= 16).assertTrue();
+      {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0104', 'bundle ability case 104');
+      expect(extension.name.length >= 17).assertTrue();
+      }
+    })
+    /**
+     * @tc.number    SUB_HARPACKAGE_BUNDLEABI_0105
+     * @tc.name      testBundleAbility0105
+     * @tc.desc      Extension name stays at least 18 characters
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testBundleAbility0105', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await bundle();
+      const moduleInfo: bundleManager.HapModuleInfo = await entryModule();
+      const ability: bundleManager.AbilityInfo = await entryAbility();
+      const extension: bundleManager.ExtensionAbilityInfo = await backupAbility();
+      logCase('testBundleAbility0105', 'bundle ability case 105');
+      expect(extension.name.length >= 18).assertTrue();
+    });
+
+  });
+}
