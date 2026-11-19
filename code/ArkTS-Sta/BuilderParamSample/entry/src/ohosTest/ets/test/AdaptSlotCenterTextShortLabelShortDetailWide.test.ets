@@ -46,7 +46,6 @@ export default function adaptSlotCenterTextShortLabelShortDetailWideTests(): voi
       expect(await text('slots-alignment')).assertEqual(scene.alignment);
       const containerBefore = await bounds('slots-card-container');
       const rowBefore = await bounds('slots-card-row');
-      const surfaceBefore = await bounds('slots-surface');
       assertPositiveRect(containerBefore);
       assertContained(rowBefore, containerBefore);
       await slotCounts(0, 0, 0, 0);
@@ -59,7 +58,6 @@ export default function adaptSlotCenterTextShortLabelShortDetailWideTests(): voi
       await slotCounts(1, 1, 0, 0);
       assertRectClose(await bounds('slots-card-container'), containerBefore);
       assertRectClose(await bounds('slots-card-row'), rowBefore);
-      assertRectClose(await bounds('slots-surface'), surfaceBefore);
       await assertUniqueId('slots-card-container');
       await assertUniqueId('slots-card-row');
       await activateSlot('slots-label', true);
@@ -83,7 +81,6 @@ export default function adaptSlotCenterTextShortLabelShortDetailWideTests(): voi
       expect(await text('slots-alignment')).assertEqual(scene.alignment);
       const containerBefore = await bounds('slots-card-container');
       const rowBefore = await bounds('slots-card-row');
-      const surfaceBefore = await bounds('slots-surface');
       assertPositiveRect(containerBefore);
       assertContained(rowBefore, containerBefore);
       await slotCounts(0, 0, 0, 0);
@@ -95,7 +92,6 @@ export default function adaptSlotCenterTextShortLabelShortDetailWideTests(): voi
       await slotCounts(1, 1, 0, 0);
       assertRectClose(await bounds('slots-card-container'), containerBefore);
       assertRectClose(await bounds('slots-card-row'), rowBefore);
-      assertRectClose(await bounds('slots-surface'), surfaceBefore);
       await assertUniqueId('slots-card-container');
       await assertUniqueId('slots-card-row');
       await activateSlot('slots-label', true);

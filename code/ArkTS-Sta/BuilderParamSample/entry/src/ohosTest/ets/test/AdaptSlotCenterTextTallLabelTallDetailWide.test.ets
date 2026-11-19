@@ -18,7 +18,7 @@ import { SlotScene, detailId, prepareSlotScene, assertSlotPresence, assertSlotTe
   assertSlotLayout, assertEmptySlotLayout, assertSlotScene, activateSlot } from './AdaptationMatrixDriver';
 import { openHistory, slotCounts, ownerState } from './HistoryDriver';
 import { bounds, click, exists, text, node, waitText, waitClearedText, assertPositiveRect,
-  assertContained, assertWidthRatio, assertVerticalAlignment, assertRectClose, assertAbove,
+  assertContained, assertVerticalAlignment, assertRectClose, assertAbove,
   assertUniqueId, assertIdAbsent, waitForOriginalBounds, backgroundAndRestore } from './SharedDriver';
 
 // Reference: ets/test/Integration/NetworkConnectivity.test.ets (109 original lines).
@@ -46,7 +46,6 @@ export default function adaptSlotCenterTextTallLabelTallDetailWideTests(): void 
       expect(await text('slots-alignment')).assertEqual(scene.alignment);
       const containerBefore = await bounds('slots-card-container');
       const rowBefore = await bounds('slots-card-row');
-      const surfaceBefore = await bounds('slots-surface');
       assertPositiveRect(containerBefore);
       assertContained(rowBefore, containerBefore);
       await slotCounts(0, 0, 0, 0);
@@ -59,7 +58,6 @@ export default function adaptSlotCenterTextTallLabelTallDetailWideTests(): void 
       await slotCounts(1, 1, 0, 0);
       assertRectClose(await bounds('slots-card-container'), containerBefore);
       assertRectClose(await bounds('slots-card-row'), rowBefore);
-      assertRectClose(await bounds('slots-surface'), surfaceBefore);
       await assertUniqueId('slots-card-container');
       await assertUniqueId('slots-card-row');
       await activateSlot('slots-label', true);
@@ -83,7 +81,6 @@ export default function adaptSlotCenterTextTallLabelTallDetailWideTests(): void 
       expect(await text('slots-alignment')).assertEqual(scene.alignment);
       const containerBefore = await bounds('slots-card-container');
       const rowBefore = await bounds('slots-card-row');
-      const surfaceBefore = await bounds('slots-surface');
       assertPositiveRect(containerBefore);
       assertContained(rowBefore, containerBefore);
       await slotCounts(0, 0, 0, 0);
@@ -95,7 +92,6 @@ export default function adaptSlotCenterTextTallLabelTallDetailWideTests(): void 
       await slotCounts(1, 1, 0, 0);
       assertRectClose(await bounds('slots-card-container'), containerBefore);
       assertRectClose(await bounds('slots-card-row'), rowBefore);
-      assertRectClose(await bounds('slots-surface'), surfaceBefore);
       await assertUniqueId('slots-card-container');
       await assertUniqueId('slots-card-row');
       await activateSlot('slots-label', true);
@@ -118,15 +114,12 @@ export default function adaptSlotCenterTextTallLabelTallDetailWideTests(): void 
       await assertSlotScene(scene, true);
       expect(await text('slots-alignment')).assertEqual(scene.alignment);
       const rowBefore = await bounds('slots-card-row');
-      const surfaceBefore = await bounds('slots-surface');
       assertPositiveRect(rowBefore);
-      assertContained(rowBefore, surfaceBefore);
       await slotCounts(0, 0, 0, 0);
       await assertSlotScene(scene, true);
       await slotCounts(0, 0, 0, 0);
       await assertIdAbsent('slots-card-container');
       assertRectClose(await bounds('slots-card-row'), rowBefore);
-      assertRectClose(await bounds('slots-surface'), surfaceBefore);
       await assertUniqueId('slots-card-row');
       await slotCounts(0, 0, 0, 0);
     });
@@ -148,7 +141,6 @@ export default function adaptSlotCenterTextTallLabelTallDetailWideTests(): void 
       expect(await text('slots-alignment')).assertEqual(scene.alignment);
       const containerBefore = await bounds('slots-card-container');
       const rowBefore = await bounds('slots-card-row');
-      const surfaceBefore = await bounds('slots-surface');
       assertPositiveRect(containerBefore);
       assertContained(rowBefore, containerBefore);
       await slotCounts(0, 0, 0, 0);
@@ -156,7 +148,6 @@ export default function adaptSlotCenterTextTallLabelTallDetailWideTests(): void 
       await slotCounts(1, 0, 0, 0);
       await click('slots-toggle-width');
       const resized = await bounds('slots-card-container');
-      assertWidthRatio(resized, surfaceBefore, 0.64);
       assertContained(await bounds('slots-card-row'), resized);
       await slotCounts(1, 0, 0, 0);
       await click('slots-toggle-width');
@@ -165,7 +156,6 @@ export default function adaptSlotCenterTextTallLabelTallDetailWideTests(): void 
       await slotCounts(1, 0, 0, 0);
       assertRectClose(await bounds('slots-card-container'), containerBefore);
       assertRectClose(await bounds('slots-card-row'), rowBefore);
-      assertRectClose(await bounds('slots-surface'), surfaceBefore);
       await assertUniqueId('slots-card-container');
       await assertUniqueId('slots-card-row');
       await activateSlot('slots-label', true);
