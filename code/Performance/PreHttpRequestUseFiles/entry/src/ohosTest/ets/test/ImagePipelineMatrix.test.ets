@@ -3678,3 +3678,1773 @@ export default function imagePipelineMatrixTest() {
       expect(row >= info.size.width * 4).assertTrue();
       expect(total >= row * info.size.height).assertTrue();
       expect(row >= 4).assertTrue();
+      logCase('testImagePipeline0094', `media=background div=5 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0095
+     * @tc.name      testImagePipeline0095
+     * @tc.desc      background decodes at 1/5 scale, row aligns to four bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('background');
+      expect(facts.bytes.length).assertEqual(57364);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 57, height: 57 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(row % 4).assertEqual(0);
+      logCase('testImagePipeline0095', `media=background div=5 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0096
+     * @tc.name      testImagePipeline0096
+     * @tc.desc      background decodes at 1/5 scale, total span holds at least four bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('background');
+      expect(facts.bytes.length).assertEqual(57364);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 57, height: 57 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(total >= 4).assertTrue();
+      logCase('testImagePipeline0096', `media=background div=5 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0097
+     * @tc.name      testImagePipeline0097
+     * @tc.desc      background decodes at 1/5 scale, pixel format stays RGBA
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('background');
+      expect(facts.bytes.length).assertEqual(57364);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 57, height: 57 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(info.pixelFormat === image.PixelMapFormat.RGBA_8888).assertTrue();
+      logCase('testImagePipeline0097', `media=background div=5 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0098
+     * @tc.name      testImagePipeline0098
+     * @tc.desc      background decodes at 1/5 scale, decoded width fits source width
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('background');
+      expect(facts.bytes.length).assertEqual(57364);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 57, height: 57 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(meta.size.width >= info.size.width).assertTrue();
+      logCase('testImagePipeline0098', `media=background div=5 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0099
+     * @tc.name      testImagePipeline0099
+     * @tc.desc      background decodes at 1/5 scale, decoded height fits source height
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('background');
+      expect(facts.bytes.length).assertEqual(57364);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 57, height: 57 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(meta.size.height >= info.size.height).assertTrue();
+      logCase('testImagePipeline0099', `media=background div=5 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0100
+     * @tc.name      testImagePipeline0100
+     * @tc.desc      background decodes at 1/5 scale, packed bytes exceed one thousand
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0100', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('background');
+      expect(facts.bytes.length).assertEqual(57364);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 57, height: 57 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(facts.bytes.length > 1000).assertTrue();
+      logCase('testImagePipeline0100', `media=background div=5 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0101
+     * @tc.name      testImagePipeline0101
+     * @tc.desc      foreground decodes at 1/1 scale, area is positive
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0101', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 288, height: 288 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width).assertEqual(meta.size.width);
+      expect(info.size.height).assertEqual(meta.size.height);
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(info.size.width * info.size.height > 0).assertTrue();
+      logCase('testImagePipeline0101', `media=foreground div=1 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0102
+     * @tc.name      testImagePipeline0102
+     * @tc.desc      foreground decodes at 1/1 scale, repeated height stays stable
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0102', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 288, height: 288 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width).assertEqual(meta.size.width);
+      expect(info.size.height).assertEqual(meta.size.height);
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(pixelMap.getImageInfoSync().size.height).assertEqual(info.size.height);
+      logCase('testImagePipeline0102', `media=foreground div=1 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0103
+     * @tc.name      testImagePipeline0103
+     * @tc.desc      foreground decodes at 1/1 scale, repeated width stays stable
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0103', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 288, height: 288 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width).assertEqual(meta.size.width);
+      expect(info.size.height).assertEqual(meta.size.height);
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(pixelMap.getImageInfoSync().size.width).assertEqual(info.size.width);
+      logCase('testImagePipeline0103', `media=foreground div=1 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0104
+     * @tc.name      testImagePipeline0104
+     * @tc.desc      foreground decodes at 1/1 scale, row holds at least four bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0104', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 288, height: 288 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width).assertEqual(meta.size.width);
+      expect(info.size.height).assertEqual(meta.size.height);
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(row >= 4).assertTrue();
+      logCase('testImagePipeline0104', `media=foreground div=1 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0105
+     * @tc.name      testImagePipeline0105
+     * @tc.desc      foreground decodes at 1/1 scale, row aligns to four bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0105', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 288, height: 288 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width).assertEqual(meta.size.width);
+      expect(info.size.height).assertEqual(meta.size.height);
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(row % 4).assertEqual(0);
+      logCase('testImagePipeline0105', `media=foreground div=1 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0106
+     * @tc.name      testImagePipeline0106
+     * @tc.desc      foreground decodes at 1/1 scale, total span holds at least four bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0106', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 288, height: 288 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width).assertEqual(meta.size.width);
+      expect(info.size.height).assertEqual(meta.size.height);
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(total >= 4).assertTrue();
+      logCase('testImagePipeline0106', `media=foreground div=1 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0107
+     * @tc.name      testImagePipeline0107
+     * @tc.desc      foreground decodes at 1/1 scale, pixel format stays RGBA
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0107', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 288, height: 288 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width).assertEqual(meta.size.width);
+      expect(info.size.height).assertEqual(meta.size.height);
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(info.pixelFormat === image.PixelMapFormat.RGBA_8888).assertTrue();
+      logCase('testImagePipeline0107', `media=foreground div=1 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0108
+     * @tc.name      testImagePipeline0108
+     * @tc.desc      foreground decodes at 1/1 scale, decoded width fits source width
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0108', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 288, height: 288 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width).assertEqual(meta.size.width);
+      expect(info.size.height).assertEqual(meta.size.height);
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(meta.size.width >= info.size.width).assertTrue();
+      logCase('testImagePipeline0108', `media=foreground div=1 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0109
+     * @tc.name      testImagePipeline0109
+     * @tc.desc      foreground decodes at 1/1 scale, decoded height fits source height
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0109', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 288, height: 288 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width).assertEqual(meta.size.width);
+      expect(info.size.height).assertEqual(meta.size.height);
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(meta.size.height >= info.size.height).assertTrue();
+      logCase('testImagePipeline0109', `media=foreground div=1 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0110
+     * @tc.name      testImagePipeline0110
+     * @tc.desc      foreground decodes at 1/1 scale, packed bytes exceed one thousand
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0110', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 288, height: 288 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width).assertEqual(meta.size.width);
+      expect(info.size.height).assertEqual(meta.size.height);
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(facts.bytes.length > 1000).assertTrue();
+      logCase('testImagePipeline0110', `media=foreground div=1 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0111
+     * @tc.name      testImagePipeline0111
+     * @tc.desc      foreground decodes at 1/2 scale, area is positive
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0111', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 144, height: 144 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(info.size.width * info.size.height > 0).assertTrue();
+      logCase('testImagePipeline0111', `media=foreground div=2 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0112
+     * @tc.name      testImagePipeline0112
+     * @tc.desc      foreground decodes at 1/2 scale, repeated height stays stable
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0112', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 144, height: 144 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(pixelMap.getImageInfoSync().size.height).assertEqual(info.size.height);
+      logCase('testImagePipeline0112', `media=foreground div=2 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0113
+     * @tc.name      testImagePipeline0113
+     * @tc.desc      foreground decodes at 1/2 scale, repeated width stays stable
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0113', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 144, height: 144 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(pixelMap.getImageInfoSync().size.width).assertEqual(info.size.width);
+      logCase('testImagePipeline0113', `media=foreground div=2 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0114
+     * @tc.name      testImagePipeline0114
+     * @tc.desc      foreground decodes at 1/2 scale, row holds at least four bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0114', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 144, height: 144 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(row >= 4).assertTrue();
+      logCase('testImagePipeline0114', `media=foreground div=2 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0115
+     * @tc.name      testImagePipeline0115
+     * @tc.desc      foreground decodes at 1/2 scale, row aligns to four bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0115', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 144, height: 144 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(row % 4).assertEqual(0);
+      logCase('testImagePipeline0115', `media=foreground div=2 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0116
+     * @tc.name      testImagePipeline0116
+     * @tc.desc      foreground decodes at 1/2 scale, total span holds at least four bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0116', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 144, height: 144 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(total >= 4).assertTrue();
+      logCase('testImagePipeline0116', `media=foreground div=2 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0117
+     * @tc.name      testImagePipeline0117
+     * @tc.desc      foreground decodes at 1/2 scale, pixel format stays RGBA
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0117', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 144, height: 144 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(info.pixelFormat === image.PixelMapFormat.RGBA_8888).assertTrue();
+      logCase('testImagePipeline0117', `media=foreground div=2 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0118
+     * @tc.name      testImagePipeline0118
+     * @tc.desc      foreground decodes at 1/2 scale, decoded width fits source width
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0118', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 144, height: 144 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(meta.size.width >= info.size.width).assertTrue();
+      logCase('testImagePipeline0118', `media=foreground div=2 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0119
+     * @tc.name      testImagePipeline0119
+     * @tc.desc      foreground decodes at 1/2 scale, decoded height fits source height
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0119', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 144, height: 144 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(meta.size.height >= info.size.height).assertTrue();
+      logCase('testImagePipeline0119', `media=foreground div=2 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0120
+     * @tc.name      testImagePipeline0120
+     * @tc.desc      foreground decodes at 1/2 scale, packed bytes exceed one thousand
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0120', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 144, height: 144 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(facts.bytes.length > 1000).assertTrue();
+      logCase('testImagePipeline0120', `media=foreground div=2 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0121
+     * @tc.name      testImagePipeline0121
+     * @tc.desc      foreground decodes at 1/3 scale, area is positive
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0121', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 96, height: 96 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(info.size.width * info.size.height > 0).assertTrue();
+      logCase('testImagePipeline0121', `media=foreground div=3 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0122
+     * @tc.name      testImagePipeline0122
+     * @tc.desc      foreground decodes at 1/3 scale, repeated height stays stable
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0122', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 96, height: 96 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(pixelMap.getImageInfoSync().size.height).assertEqual(info.size.height);
+      logCase('testImagePipeline0122', `media=foreground div=3 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0123
+     * @tc.name      testImagePipeline0123
+     * @tc.desc      foreground decodes at 1/3 scale, repeated width stays stable
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0123', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 96, height: 96 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(pixelMap.getImageInfoSync().size.width).assertEqual(info.size.width);
+      logCase('testImagePipeline0123', `media=foreground div=3 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0124
+     * @tc.name      testImagePipeline0124
+     * @tc.desc      foreground decodes at 1/3 scale, row holds at least four bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0124', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 96, height: 96 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(row >= 4).assertTrue();
+      logCase('testImagePipeline0124', `media=foreground div=3 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0125
+     * @tc.name      testImagePipeline0125
+     * @tc.desc      foreground decodes at 1/3 scale, row aligns to four bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0125', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 96, height: 96 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(row % 4).assertEqual(0);
+      logCase('testImagePipeline0125', `media=foreground div=3 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0126
+     * @tc.name      testImagePipeline0126
+     * @tc.desc      foreground decodes at 1/3 scale, total span holds at least four bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0126', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 96, height: 96 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(total >= 4).assertTrue();
+      logCase('testImagePipeline0126', `media=foreground div=3 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0127
+     * @tc.name      testImagePipeline0127
+     * @tc.desc      foreground decodes at 1/3 scale, pixel format stays RGBA
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0127', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 96, height: 96 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(info.pixelFormat === image.PixelMapFormat.RGBA_8888).assertTrue();
+      logCase('testImagePipeline0127', `media=foreground div=3 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0128
+     * @tc.name      testImagePipeline0128
+     * @tc.desc      foreground decodes at 1/3 scale, decoded width fits source width
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0128', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 96, height: 96 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(meta.size.width >= info.size.width).assertTrue();
+      logCase('testImagePipeline0128', `media=foreground div=3 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0129
+     * @tc.name      testImagePipeline0129
+     * @tc.desc      foreground decodes at 1/3 scale, decoded height fits source height
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0129', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 96, height: 96 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(meta.size.height >= info.size.height).assertTrue();
+      logCase('testImagePipeline0129', `media=foreground div=3 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0130
+     * @tc.name      testImagePipeline0130
+     * @tc.desc      foreground decodes at 1/3 scale, packed bytes exceed one thousand
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0130', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 96, height: 96 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(facts.bytes.length > 1000).assertTrue();
+      logCase('testImagePipeline0130', `media=foreground div=3 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0131
+     * @tc.name      testImagePipeline0131
+     * @tc.desc      foreground decodes at 1/4 scale, area is positive
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0131', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 72, height: 72 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(info.size.width * info.size.height > 0).assertTrue();
+      logCase('testImagePipeline0131', `media=foreground div=4 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0132
+     * @tc.name      testImagePipeline0132
+     * @tc.desc      foreground decodes at 1/4 scale, repeated height stays stable
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0132', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 72, height: 72 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(pixelMap.getImageInfoSync().size.height).assertEqual(info.size.height);
+      logCase('testImagePipeline0132', `media=foreground div=4 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0133
+     * @tc.name      testImagePipeline0133
+     * @tc.desc      foreground decodes at 1/4 scale, repeated width stays stable
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0133', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 72, height: 72 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(pixelMap.getImageInfoSync().size.width).assertEqual(info.size.width);
+      logCase('testImagePipeline0133', `media=foreground div=4 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0134
+     * @tc.name      testImagePipeline0134
+     * @tc.desc      foreground decodes at 1/4 scale, row holds at least four bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0134', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 72, height: 72 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(row >= 4).assertTrue();
+      logCase('testImagePipeline0134', `media=foreground div=4 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0135
+     * @tc.name      testImagePipeline0135
+     * @tc.desc      foreground decodes at 1/4 scale, row aligns to four bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0135', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 72, height: 72 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(row % 4).assertEqual(0);
+      logCase('testImagePipeline0135', `media=foreground div=4 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0136
+     * @tc.name      testImagePipeline0136
+     * @tc.desc      foreground decodes at 1/4 scale, total span holds at least four bytes
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0136', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 72, height: 72 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(total >= 4).assertTrue();
+      logCase('testImagePipeline0136', `media=foreground div=4 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0137
+     * @tc.name      testImagePipeline0137
+     * @tc.desc      foreground decodes at 1/4 scale, pixel format stays RGBA
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0137', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 72, height: 72 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(info.pixelFormat === image.PixelMapFormat.RGBA_8888).assertTrue();
+      logCase('testImagePipeline0137', `media=foreground div=4 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0138
+     * @tc.name      testImagePipeline0138
+     * @tc.desc      foreground decodes at 1/4 scale, decoded width fits source width
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0138', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 72, height: 72 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(meta.size.width >= info.size.width).assertTrue();
+      logCase('testImagePipeline0138', `media=foreground div=4 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0139
+     * @tc.name      testImagePipeline0139
+     * @tc.desc      foreground decodes at 1/4 scale, decoded height fits source height
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0139', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 72, height: 72 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
+      const total: number = pixelMap.getPixelBytesNumber();
+      expect(row >= info.size.width * 4).assertTrue();
+      expect(total >= row * info.size.height).assertTrue();
+      expect(meta.size.height >= info.size.height).assertTrue();
+      logCase('testImagePipeline0139', `media=foreground div=4 width=${info.size.width}`);
+      await pixelMap.release();
+      await source.release();
+    });
+    /**
+     * @tc.number    SUB_PREHTTP_IMAGE_0140
+     * @tc.name      testImagePipeline0140
+     * @tc.desc      foreground decodes at 1/4 scale, packed bytes exceed one thousand
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testImagePipeline0140', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const facts: MediaFacts = mediaFacts('foreground');
+      expect(facts.bytes.length).assertEqual(12430);
+      expect(facts.width).assertEqual(288);
+      expect(facts.height).assertEqual(288);
+      const source: image.ImageSource = image.createImageSource(facts.bytes.buffer as ArrayBuffer);
+      const meta: image.ImageInfo = source.getImageInfoSync();
+      expect(meta.size.width).assertEqual(facts.width);
+      expect(meta.size.height).assertEqual(facts.height);
+      const options: image.DecodingOptions = {
+        editable: false,
+        desiredSize: { width: 72, height: 72 },
+        desiredPixelFormat: image.PixelMapFormat.RGBA_8888
+      };
+      const pixelMap: image.PixelMap = await source.createPixelMap(options);
+      const info: image.ImageInfo = pixelMap.getImageInfoSync();
+      expect(info.size.width > 0).assertTrue();
+      expect(info.size.height > 0).assertTrue();
+      expect(info.size.width <= meta.size.width).assertTrue();
+      expect(info.size.height <= meta.size.height).assertTrue();
+      expect(info.pixelFormat).assertEqual(image.PixelMapFormat.RGBA_8888);
+      expect(pixelMap.isEditable).assertFalse();
+      const row: number = pixelMap.getBytesNumberPerRow();
