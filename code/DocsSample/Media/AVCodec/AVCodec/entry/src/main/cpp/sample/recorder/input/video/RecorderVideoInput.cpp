@@ -187,7 +187,7 @@ void Recorder::VideoEncInputAsyncThread()
         if (bufferInfo == nullptr || bufferInfo->buffer == nullptr) {
             continue;
         }
-         /**
+        /**
          * // 示例：读取输入文件数据，将数据写入buffer，设置属性后送入编码器。
          * // 输入文件配置。
          * std::string_view inputFilePath = "/*yourpath*.yuv";
