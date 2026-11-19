@@ -78,7 +78,7 @@ bool NotifyUris(const std::vector<std::string>& uris)
     }
     if (delivered) {
         napi_get_undefined(g_env, &receiver);
-        // 将 URI 数组交给业务回调，读取、复制或打开由业务决定。
+        // 将URI数组交给业务回调，读取、复制或打开由业务决定。
         delivered = napi_call_function(g_env, receiver, callback, 1, &array, &result) == napi_ok;
     }
     napi_close_handle_scope(g_env, scope);
@@ -93,7 +93,7 @@ void OnDrop(ArkUI_DragEvent* event)
     }
     std::vector<std::string> uris;
     const bool received = GetDroppedFileUris(event, uris);
-    const bool delivered = NotifyUris(uris); // 将 URI 列表交给业务回调。
+    const bool delivered = NotifyUris(uris); // 将URI列表交给业务回调。
     OH_ArkUI_DragEvent_SetDragResult(event,
         received && delivered ? ARKUI_DRAG_RESULT_SUCCESSFUL : ARKUI_DRAG_RESULT_FAILED);
 }
@@ -125,7 +125,7 @@ void OnNodeEvent(ArkUI_NodeEvent* event)
         return;
     }
     const int result = OH_ArkUI_DragEvent_SetData(drag, data);
-    // ArkUI 暂存此指针，必须保留到拖拽结束；随后会话中的回调引用由 UDMF 管理。
+    // ArkUI暂存此指针，必须保留到拖拽结束；随后会话中的回调引用由UDMF管理。
     if (result == 0) {
         g_dragData = data;
     } else {
@@ -164,7 +164,7 @@ bool CheckNodeResult(int32_t result, const char* operation, std::string& error)
 bool ConfigureDropTarget(std::string& error)
 {
     ArkUI_AttributeItem text {};
-    // 本地化文字由 ArkTS 资源传入，原生节点不硬编码界面文字。
+    // 本地化文字由ArkTS资源传入，原生节点不硬编码界面文字。
     text.string = g_dropText.c_str();
     if (!CheckNodeResult(g_nodeApi->setAttribute(g_drop, NODE_TEXT_CONTENT, &text), "Set drop text", error)) {
         return false;
@@ -214,7 +214,7 @@ bool CreateDragNodes(std::string& error)
         CheckNodeResult(OH_ArkUI_NodeContent_AddNode(g_content, g_root), "Attach content", error);
 }
 
-// 获取资源字符串，限制长度并为 UTF-8 终止符保留空间。
+// 获取资源字符串，限制长度并为UTF-8终止符保留空间。
 bool GetLabel(napi_env env, napi_value value, std::string& label)
 {
     size_t size = 0;

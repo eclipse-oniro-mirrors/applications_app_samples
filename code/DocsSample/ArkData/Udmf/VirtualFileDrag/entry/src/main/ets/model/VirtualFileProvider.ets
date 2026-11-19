@@ -23,10 +23,10 @@ import { logSampleError } from './SampleError';
 const MAX_READ_LENGTH: number = 5 * 1024 * 1024;
 const DIRECTORY_FILE_COUNT: number = 3;
 const ARCHIVE_FILE_NAME: string = 'archive-note.txt';
-// 来自示例 ZIP 的已知文件信息，拖拽前即可声明，不需要先解压文件。
+// 来自示例ZIP的已知文件信息，拖拽前即可声明，不需要先解压文件。
 const ARCHIVE_FILE_SIZE: number = 106;
 
-// 示例数据源：文件信息用于声明节点，content 或 archivePath 用于按需提供内容。
+// 示例数据源：文件信息用于声明节点，content或archivePath用于按需提供内容。
 class SourceFile {
   public metadata: uniformDataStruct.VirtualFileItem;
   public content: Uint8Array;
@@ -57,18 +57,18 @@ export class VirtualFileProvider {
   }
 
 // [Start virtual_drag_js_provider]
-  // 创建文件树及内容回调，供 FileUri.virtualEntry 使用。
+  // 创建文件树及内容回调，供FileUri.virtualEntry使用。
   public createVirtualEntry(): uniformDataStruct.VirtualFileInfo {
     const rootItem: uniformDataStruct.VirtualItemType | undefined = this.rootItem;
     if (!rootItem) {
       throw new Error('Prepare a file before dragging');
     }
     return {
-      // itemInfo 是根文件或根目录；目录通过 subItems 描述子节点。
+      // itemInfo是根文件或根目录；目录通过subItems描述子节点。
       itemInfo: rootItem,
-      // 可选：按文件 id 返回文件信息。
+      // 可选：按文件id返回文件信息。
       onStat: async (id: string): Promise<uniformDataStruct.VirtualFileItem> => this.getSourceFile(id).metadata,
-      // 必选：从 offset 开始提供最多 length 字节；失败时抛出异常。
+      // 必选：从offset开始提供最多length字节；失败时抛出异常。
       onRead: async (id: string, offset: number, length: number): Promise<Uint8Array> => {
         const file: SourceFile = this.getSourceFile(id);
         if (!Number.isSafeInteger(offset) || offset < 0 || !Number.isInteger(length) ||
@@ -77,17 +77,17 @@ export class VirtualFileProvider {
         }
         const count: number = Math.min(length, Math.max(0, file.metadata.size - offset));
         if (count === 0) {
-          return new Uint8Array(0); // offset 已到文件末尾。
+          return new Uint8Array(0); // offset已到文件末尾。
         }
         if (file.archivePath.length > 0) {
           return this.readArchive(file, offset, count);
         }
         return file.content.slice(offset, offset + count);
       },
-      // 可选：取消对应 id 当前待处理的任务。
+      // 可选：取消对应id当前待处理的任务。
       onCancel: async (_ids: string[]): Promise<void> => {
-        // 本地读取没有额外的可取消任务。实际提供方可在此停止对应 id 的待处理任务。
-        // 取消通知不表示永久禁用这些 id，也不应影响其后续读取。
+        // 本地读取没有额外的可取消任务。实际提供方可在此停止对应id的待处理任务。
+        // 取消通知不表示永久禁用这些id，也不应影响其后续读取。
       }
     };
   }
@@ -111,7 +111,7 @@ export class VirtualFileProvider {
       this.rootItem = files[0];
       return;
     }
-    // 目录本身不提供读取回调，目录内的每个文件通过 id 找到其数据源。
+    // 目录本身不提供读取回调，目录内的每个文件通过id找到其数据源。
     const rootItem: uniformDataStruct.VirtualDirItem = {
       name: 'exported-documents', type: 'dir', modifyTime: Date.now(),
       subItems: [files[0], { name: 'attachments', type: 'dir', modifyTime: Date.now(), subItems: files.slice(1) }]
@@ -119,7 +119,7 @@ export class VirtualFileProvider {
     this.rootItem = rootItem;
   }
 
-  // 复用自带 ZIP 的受控数据源，直到目标第一次读取时才解压。
+  // 复用自带ZIP的受控数据源，直到目标第一次读取时才解压。
   public async prepareArchive(context: common.UIAbilityContext): Promise<void> {
     if (!VirtualFileProvider.archiveTask) {
       VirtualFileProvider.archiveTask = VirtualFileProvider.prepareArchiveSource(context);
@@ -139,7 +139,7 @@ export class VirtualFileProvider {
 
   private static async prepareArchiveSource(context: common.UIAbilityContext): Promise<SourceFile> {
     const directory: string = `${context.filesDir}/virtual-file-drag-archive`;
-    // 仅首次准备或尚未发布数据源的失败重试可进入此处，不影响活跃 Provider。
+    // 仅首次准备或尚未发布数据源的失败重试可进入此处，不影响活跃Provider。
     if (fs.accessSync(directory)) {
       fs.rmdirSync(directory);
     }

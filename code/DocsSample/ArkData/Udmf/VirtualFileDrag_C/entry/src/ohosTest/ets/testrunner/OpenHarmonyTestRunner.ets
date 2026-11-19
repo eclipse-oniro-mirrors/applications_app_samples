@@ -24,7 +24,7 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     console.info('Virtual file drag tests prepared');
   }
 
-  // 交由 Hypium 执行本工程注册的用例集。
+  // 交由Hypium执行本工程注册的用例集。
   onRun(): void {
     Hypium.hypiumTest(abilityDelegatorRegistry.getAbilityDelegator(),
       abilityDelegatorRegistry.getArguments(), testsuite);
