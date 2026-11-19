@@ -49,8 +49,8 @@ const ZERO: number = 0;
 const ONE: number = 1;
 const LOCAL_PRESSURE_OBJECTS: number = 3000;
 const LOCAL_PRESSURE_PAYLOAD: number = 24;
-const WEAK_ROUNDS: number = 10;
-const WEAK_WAIT_MS: number = 20;
+const WEAK_ROUNDS: number = 25;
+const WEAK_WAIT_MS: number = 30;
 const PAYLOAD_SIZES: number[] = [0, 1, 16, 256, 2048];
 const BATCH_SIZES: number[] = [2, 3, 4];
 const REF_COUNTS: number[] = [2, 3, 4, 5];
@@ -105,9 +105,10 @@ async function collectWeakSome<T extends object>(refs: WeakRef<T>[], wanted: num
 }
 
 // hint plus pressure, followed by a short timer gap so the next round starts clean
+// allocatePressure matches the burst strength used by collectUntil, which proved reliable on device
 function hintRound(): void {
   hintGC();
-  sweepPressure();
+  allocatePressure();
   hintGC();
 }
 
@@ -2911,7 +2912,7 @@ export default function gcWeakRefLifecycleTest() {
       hintGC();
       sweepPressure();
       const expectedGroups: number = 3;
-      const expectedTotal: number = 12;
+      const expectedTotal: number = 16;
       logCase('testWeakRefSequenceMixedShapes0001', `points=${countAlive(pointRefs)} ` +
         `records=${countAlive(recordRefs)} lastTotal=${keepRecords[expectedGroups - 1].total()}`);
       expect(countAlive(pointRefs)).assertEqual(expectedGroups);

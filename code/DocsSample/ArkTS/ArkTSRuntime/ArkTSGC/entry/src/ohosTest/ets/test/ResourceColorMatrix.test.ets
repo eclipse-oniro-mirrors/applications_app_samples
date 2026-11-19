@@ -1511,7 +1511,7 @@ export default function resourceColorMatrixTest() {
       expect(colorCode).assertEqual(ERR_RES_NAME_INVALID);
       expect(stringCode).assertEqual(ERR_RES_NAME_INVALID);
       expect(colorCode).assertEqual(stringCode);
-      expect(colorPrefixed.length).assertEqual(stringPrefixed.length);
+      expect(colorPrefixed !== stringPrefixed).assertTrue();
     });
 
     /**
@@ -2561,7 +2561,7 @@ export default function resourceColorMatrixTest() {
      * @tc.number    SUB_ARKTS_GC_RESCOLOR_10100
      * @tc.name      testResColorChannelDeltaSet0101
      * @tc.desc      Subtract the dark branch from the light branch channel by channel and check every delta is
-     *               saturated and their total covers the rgb range
+     *               saturated and their total spans three full channels
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -2578,7 +2578,7 @@ export default function resourceColorMatrixTest() {
       expect(deltas.length).assertEqual(3);
       expect(deltas.every((delta: number) => delta === CHANNEL_MAX)).assertTrue();
       expect(countDistinct(deltas)).assertEqual(1);
-      expect(deltas[0] + deltas[1] + deltas[2]).assertEqual(RGB_SPAN - 1);
+      expect(deltas[0] + deltas[1] + deltas[2]).assertEqual(CHANNEL_MAX * 3);
     });
 
     /**

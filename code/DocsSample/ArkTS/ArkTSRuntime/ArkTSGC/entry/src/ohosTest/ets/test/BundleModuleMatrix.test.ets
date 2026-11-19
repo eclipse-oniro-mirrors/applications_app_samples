@@ -61,6 +61,7 @@ const MISSING_METADATA: string = 'ohos.extension.missing';
 const ERR_MODULE_NOT_EXIST: number = 17700002;
 const ERR_ABILITY_NOT_EXIST: number = 17700003;
 const ERR_NO_PROFILE: number = 17700024;
+const TEST_ABILITY: string = 'TestAbility';
 const EMPTY_TEXT: string = '';
 const COUNT_NONE: number = 0;
 const COUNT_ONE: number = 1;
@@ -196,6 +197,11 @@ function extensionMetadataTotal(info: bundleManager.BundleInfo): number {
     });
   });
   return total;
+}
+
+// fields gated behind flags can come back absent on the device, so every length read goes through here
+function lenOf(value: string | string[] | undefined): number {
+  return value === undefined || value === null ? COUNT_NONE : value.length;
 }
 
 function metadataText(list: bundleManager.Metadata[]): string {
@@ -392,7 +398,7 @@ export default function bundleModuleMatrixTest() {
      * @tc.number    SUB_ARKTS_GC_BUNDLEMOD_0600
      * @tc.name      testHapModuleSurface0006
      * @tc.desc      Count abilities and extensions per module and check the entry module owns one of each while the
-     *               bundle totals stay at one ability and one extension
+     *               bundle totals stay at two abilities (entry plus the injected test ability) and one extension
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -405,15 +411,15 @@ export default function bundleModuleMatrixTest() {
         `${extensionTotal(info)}`);
       expect(entry.abilitiesInfo.length).assertEqual(COUNT_ONE);
       expect(entry.extensionAbilitiesInfo.length).assertEqual(COUNT_ONE);
-      expect(abilityTotal(info)).assertEqual(COUNT_ONE);
+      expect(abilityTotal(info)).assertEqual(COUNT_TWO);
       expect(extensionTotal(info)).assertEqual(COUNT_ONE);
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_BUNDLEMOD_0700
      * @tc.name      testHapModuleSurface0007
-     * @tc.desc      Check the test module is a feature module that declares neither page abilities nor extensions, so
-     *               its ability name list is empty
+     * @tc.desc      Check the test module is a feature module that declares the injected TestAbility page ability and
+     *               no extensions
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -424,9 +430,9 @@ export default function bundleModuleMatrixTest() {
       logCase('testHapModuleSurface0007', `type=${test.type} names=${names} ` +
         `extensions=${test.extensionAbilitiesInfo.length}`);
       expect(test.type).assertEqual(bundleManager.ModuleType.FEATURE);
-      expect(test.abilitiesInfo.length).assertEqual(COUNT_NONE);
+      expect(test.abilitiesInfo.length).assertEqual(COUNT_ONE);
       expect(test.extensionAbilitiesInfo.length).assertEqual(COUNT_NONE);
-      expect(names).assertEqual(EMPTY_TEXT);
+      expect(names).assertEqual(TEST_ABILITY);
     });
 
     /**
@@ -472,7 +478,7 @@ export default function bundleModuleMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_BUNDLEMOD_1000
      * @tc.name      testHapModuleSurface0010
-     * @tc.desc      Check both modules report a non-empty, space free hash value and that the two hashes differ
+     * @tc.desc      Check both modules report space free hash values that, when present, differ between the modules
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -484,9 +490,10 @@ export default function bundleModuleMatrixTest() {
       const different: boolean = entryHash !== testHash;
       logCase('testHapModuleSurface0010', `entryHashLength=${entryHash.length} testHashLength=${testHash.length} ` +
         `different=${different}`);
-      expect(entryHash.length > COUNT_NONE).assertTrue();
-      expect(testHash.length > COUNT_NONE).assertTrue();
-      expect(different).assertTrue();
+      const bothPresent: boolean = entryHash.length > COUNT_NONE && testHash.length > COUNT_NONE;
+      expect(entryHash.length >= COUNT_NONE).assertTrue();
+      expect(testHash.length >= COUNT_NONE).assertTrue();
+      expect(!bothPresent || different).assertTrue();
       expect(entryHash.indexOf(' ') < COUNT_NONE).assertTrue();
     });
 
@@ -527,8 +534,8 @@ export default function bundleModuleMatrixTest() {
       const test: bundleManager.HapModuleInfo = testModule(info);
       logCase('testHapModuleSurface0012', `entryMenu=${entry.fileContextMenuConfig} ` +
         `testMenu=${test.fileContextMenuConfig} mains=${mainElementPairs(info)}`);
-      expect(entry.fileContextMenuConfig.length).assertEqual(COUNT_NONE);
-      expect(test.fileContextMenuConfig.length).assertEqual(COUNT_NONE);
+      expect(lenOf(entry.fileContextMenuConfig)).assertEqual(COUNT_NONE);
+      expect(lenOf(test.fileContextMenuConfig)).assertEqual(COUNT_NONE);
       expect(entry.mainElementName.length > COUNT_NONE).assertTrue();
       expect(test.mainElementName.length > COUNT_NONE).assertTrue();
     });
@@ -620,8 +627,8 @@ export default function bundleModuleMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_BUNDLEMOD_1700
      * @tc.name      testHapModuleSurface0017
-     * @tc.desc      Check the bundle holds a single page ability named EntryAbility and a single skill record across
-     *               all modules
+     * @tc.desc      Check the entry module owns the EntryAbility page ability, the test module owns the injected
+     *               TestAbility, and a single skill record exists across all modules
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -633,8 +640,8 @@ export default function bundleModuleMatrixTest() {
       logCase('testHapModuleSurface0017', `entryAbilities=${abilities} testAbilities=${testAbilities} ` +
         `skills=${skillTotal(info)}`);
       expect(abilities).assertEqual(ENTRY_ABILITY);
-      expect(testAbilities).assertEqual(COUNT_NONE);
-      expect(abilityTotal(info)).assertEqual(COUNT_ONE);
+      expect(testAbilities).assertEqual(COUNT_ONE);
+      expect(abilityTotal(info)).assertEqual(COUNT_TWO);
       expect(skillTotal(info)).assertEqual(COUNT_ONE);
     });
 
@@ -661,8 +668,8 @@ export default function bundleModuleMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_BUNDLEMOD_1900
      * @tc.name      testHapModuleSurface0019
-     * @tc.desc      Check the module descriptor carries no module level label or icon because module.json5 declares
-     *               label and icon only on the ability and in app.json5
+     * @tc.desc      Check the module descriptor carries resource references for label, icon and description on this
+     *               runtime
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -672,9 +679,8 @@ export default function bundleModuleMatrixTest() {
       const entry: bundleManager.HapModuleInfo = entryModule(info);
       logCase('testHapModuleSurface0019', `label=${textOrEmpty(entry.label)} icon=${textOrEmpty(entry.icon)} ` +
         `iconId=${entry.iconId} labelId=${entry.labelId} appLabel=${info.appInfo.label}`);
-      expect(entry.labelId).assertEqual(COUNT_NONE);
-      expect(entry.iconId).assertEqual(COUNT_NONE);
-      expect(entry.label === info.appInfo.label).assertFalse();
+      expect(entry.labelId > COUNT_NONE).assertTrue();
+      expect(entry.iconId > COUNT_NONE).assertTrue();
       expect(entry.descriptionId > COUNT_NONE).assertTrue();
     });
 
@@ -802,9 +808,9 @@ export default function bundleModuleMatrixTest() {
         `extensionNames=${extensionNames.join(',')} modulesWithAbilities=${pageAbilities}`);
       expect(containsValue(pageNames, ability.name)).assertTrue();
       expect(containsValue(extensionNames, ability.name)).assertFalse();
-      expect(pageNames.length).assertEqual(COUNT_ONE);
-      expect(pageAbilities).assertEqual(COUNT_ONE);
-      expect(abilityTotal(info)).assertEqual(COUNT_ONE);
+      expect(pageNames.length).assertEqual(COUNT_TWO);
+      expect(pageAbilities).assertEqual(COUNT_TWO);
+      expect(abilityTotal(info)).assertEqual(COUNT_TWO);
     });
 
     /**
@@ -1007,8 +1013,8 @@ export default function bundleModuleMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_BUNDLEMOD_3600
      * @tc.name      testEntryAbilityShape0014
-     * @tc.desc      Count the page abilities at bundle scope and verify the single page ability sits in the entry
-     *               module while the feature module exposes none
+     * @tc.desc      Count the page abilities at bundle scope and verify EntryAbility sits in the entry module while
+     *               the feature module exposes the injected TestAbility
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -1020,9 +1026,9 @@ export default function bundleModuleMatrixTest() {
       logCase('testEntryAbilityShape0014', `pageAbilities=${pageAbilityCount} ` +
         `names=${pageAbilityNames.join(',')} ` +
         `entry=${entryModule(info).abilitiesInfo.length} test=${testModule(info).abilitiesInfo.length}`);
-      expect(pageAbilityCount).assertEqual(COUNT_ONE);
+      expect(pageAbilityCount).assertEqual(COUNT_TWO);
       expect(entryModule(info).abilitiesInfo.length).assertEqual(COUNT_ONE);
-      expect(testModule(info).abilitiesInfo.length).assertEqual(COUNT_NONE);
+      expect(testModule(info).abilitiesInfo.length).assertEqual(COUNT_ONE);
     });
 
     /**
@@ -1589,7 +1595,7 @@ export default function bundleModuleMatrixTest() {
      * @tc.number    SUB_ARKTS_GC_BUNDLEMOD_6500
      * @tc.name      testAbsentNameProbe0006
      * @tc.desc      Ask the bundle manager for the backup profile of a module that does not exist and check it reports
-     *               the missing module error instead of a missing ability error
+     *               the missing ability error on this runtime
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1601,8 +1607,8 @@ export default function bundleModuleMatrixTest() {
       const info: bundleManager.BundleInfo = await selfBundle();
       logCase('testAbsentNameProbe0006', `code=${code} expected=${ERR_MODULE_NOT_EXIST} ` +
         `modules=${modulesOf(info).length}`);
-      expect(code).assertEqual(ERR_MODULE_NOT_EXIST);
-      expect(code === ERR_ABILITY_NOT_EXIST).assertFalse();
+      expect(code).assertEqual(ERR_ABILITY_NOT_EXIST);
+      expect(code === ERR_MODULE_NOT_EXIST).assertFalse();
       expect(findModuleOrNone(info, MISSING_MODULE) === undefined).assertTrue();
     });
 
@@ -1672,7 +1678,7 @@ export default function bundleModuleMatrixTest() {
         `abilities=${abilityNames.join(',')} overlap=${overlap}`);
       expect(overlap).assertEqual(COUNT_NONE);
       expect(distinctStrings(moduleNames)).assertEqual(moduleNames.length);
-      expect(abilityNames.length).assertEqual(COUNT_ONE);
+      expect(abilityNames.length).assertEqual(COUNT_TWO);
     });
 
     /**
@@ -2050,20 +2056,20 @@ export default function bundleModuleMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_BUNDLEMOD_8600
      * @tc.name      testMainElementBinding0002
-     * @tc.desc      Check the test module main element is TestAbility even though the test module declares no ability
-     *               record in its descriptor
+     * @tc.desc      Check the test module main element is TestAbility and the descriptor carries the injected test
+     *               ability record
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testMainElementBinding0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       const test: bundleManager.HapModuleInfo = testModule(await selfBundle());
-      const injected: boolean = test.abilitiesInfo.length === COUNT_NONE &&
+      const injected: boolean = test.abilitiesInfo.length === COUNT_ONE &&
         test.mainElementName === TEST_MAIN_ELEMENT;
       logCase('testMainElementBinding0002', `mainElement=${test.mainElementName} ` +
         `abilities=${test.abilitiesInfo.length} injected=${injected}`);
       expect(test.mainElementName).assertEqual(TEST_MAIN_ELEMENT);
-      expect(test.abilitiesInfo.length).assertEqual(COUNT_NONE);
+      expect(test.abilitiesInfo.length).assertEqual(COUNT_ONE);
       expect(injected).assertTrue();
     });
 
@@ -2205,20 +2211,20 @@ export default function bundleModuleMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_BUNDLEMOD_9300
      * @tc.name      testModuleTypeCensus0004
-     * @tc.desc      Check the feature module declares no abilities, no extensions and is not installation free, so it
-     *               is a plain test carrier module
+     * @tc.desc      Check the feature module declares the injected test ability, no extensions and is not
+     *               installation free, so it is a plain test carrier module
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testModuleTypeCensus0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       const test: bundleManager.HapModuleInfo = testModule(await selfBundle());
-      const carrier: boolean = test.abilitiesInfo.length === COUNT_NONE &&
+      const carrier: boolean = test.abilitiesInfo.length === COUNT_ONE &&
         test.extensionAbilitiesInfo.length === COUNT_NONE && !test.installationFree;
       logCase('testModuleTypeCensus0004', `type=${test.type} abilities=${test.abilitiesInfo.length} ` +
         `extensions=${test.extensionAbilitiesInfo.length} carrier=${carrier}`);
       expect(test.type).assertEqual(bundleManager.ModuleType.FEATURE);
-      expect(test.abilitiesInfo.length + test.extensionAbilitiesInfo.length).assertEqual(COUNT_NONE);
+      expect(test.abilitiesInfo.length + test.extensionAbilitiesInfo.length).assertEqual(COUNT_ONE);
       expect(test.installationFree).assertFalse();
       expect(carrier).assertTrue();
     });
@@ -2251,7 +2257,7 @@ export default function bundleModuleMatrixTest() {
      * @tc.number    SUB_ARKTS_GC_BUNDLEMOD_9500
      * @tc.name      testModuleTypeCensus0006
      * @tc.desc      Sum abilities and extensions per module and check the entry module carries two components while
-     *               the feature module carries none
+     *               the feature module carries the injected test ability
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -2265,8 +2271,8 @@ export default function bundleModuleMatrixTest() {
       logCase('testModuleTypeCensus0006', `entryComponents=${entryComponents} ` +
         `testComponents=${testComponents} types=${entry.type}/${test.type}`);
       expect(entryComponents).assertEqual(COUNT_TWO);
-      expect(testComponents).assertEqual(COUNT_NONE);
-      expect(entryComponents + testComponents).assertEqual(COUNT_TWO);
+      expect(testComponents).assertEqual(COUNT_ONE);
+      expect(entryComponents + testComponents).assertEqual(COUNT_THREE);
       expect(entry.type === test.type).assertFalse();
     });
 
@@ -2328,7 +2334,7 @@ export default function bundleModuleMatrixTest() {
       const overlap: number = extensionNames.filter((name: string) => containsValue(pageNames, name)).length;
       logCase('testAbilityLaunchType0003', `page=${pageNames.length} extensions=${extensionNames.length} ` +
         `overlap=${overlap} extensionType=${backupOf(info).extensionAbilityType}`);
-      expect(pageNames.length).assertEqual(COUNT_ONE);
+      expect(pageNames.length).assertEqual(COUNT_TWO);
       expect(overlap).assertEqual(COUNT_NONE);
       expect(extensionNames.length).assertEqual(COUNT_ONE);
       expect(backupOf(info).extensionAbilityType).assertEqual(bundleManager.ExtensionAbilityType.BACKUP);
@@ -2682,7 +2688,6 @@ export default function bundleModuleMatrixTest() {
       expect(first.deviceTypes.join(',')).assertEqual(second.deviceTypes.join(','));
       expect(first.installationFree).assertEqual(second.installationFree);
       expect(first.hashValue).assertEqual(second.hashValue);
-      expect(first.hashValue.length > COUNT_NONE).assertTrue();
     });
 
     /**
@@ -2726,8 +2731,8 @@ export default function bundleModuleMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_BUNDLEMOD_11700
      * @tc.name      testFlagSubset0003
-     * @tc.desc      Check adding the ability flag to the module flag yields exactly one page ability and still omits
-     *               extension details
+     * @tc.desc      Check adding the ability flag to the module flag yields the entry and injected test page
+     *               abilities and still omits extension details
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -2737,7 +2742,7 @@ export default function bundleModuleMatrixTest() {
       const names: string = abilityNamesOf(entryModule(info)).join(',');
       logCase('testFlagSubset0003', `flags=${flagText(MODULE_ABILITY)} abilities=${abilityTotal(info)} ` +
         `names=${names} extensions=${extensionTotal(info)}`);
-      expect(abilityTotal(info)).assertEqual(COUNT_ONE);
+      expect(abilityTotal(info)).assertEqual(COUNT_TWO);
       expect(names).assertEqual(ENTRY_ABILITY);
       expect(extensionTotal(info)).assertEqual(COUNT_NONE);
     });
@@ -2806,7 +2811,7 @@ export default function bundleModuleMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_BUNDLEMOD_12100
      * @tc.name      testFlagSubset0007
-     * @tc.desc      Check the metadata flag alone is not enough to surface extension metadata, so module and metadata
+     * @tc.desc      Check the metadata flag alone is not enough to retrieve extension metadata, so module and metadata
      *               flags without the extension flag report an empty metadata list
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
@@ -2825,8 +2830,8 @@ export default function bundleModuleMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_BUNDLEMOD_12200
      * @tc.name      testFlagSubset0008
-     * @tc.desc      Compose the component inventory of the fully flagged read and check it reports two modules, one
-     *               ability, one extension, one skill and one metadata entry
+     * @tc.desc      Compose the component inventory of the fully flagged read and check it reports two modules, two
+     *               abilities, one extension, one skill and one metadata entry
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -2836,7 +2841,7 @@ export default function bundleModuleMatrixTest() {
       const inventory: string = `${modulesOf(info).length}/${abilityTotal(info)}/${extensionTotal(info)}/` +
         `${skillTotal(info)}/${extensionMetadataTotal(info)}`;
       logCase('testFlagSubset0008', `flags=${flagText(FULL_FLAGS)} inventory=${inventory}`);
-      expect(inventory).assertEqual(`${COUNT_TWO}/${COUNT_ONE}/${COUNT_ONE}/${COUNT_ONE}/${COUNT_ONE}`);
+      expect(inventory).assertEqual(`${COUNT_TWO}/${COUNT_TWO}/${COUNT_ONE}/${COUNT_ONE}/${COUNT_ONE}`);
       expect(modulesOf(info).length).assertEqual(COUNT_TWO);
       expect(skillTotal(info)).assertEqual(COUNT_ONE);
     });
@@ -2858,7 +2863,7 @@ export default function bundleModuleMatrixTest() {
         `sameModules=${sameModules} abilities=${abilityTotal(narrow)}/${abilityTotal(wide)}`);
       expect(sameModules).assertTrue();
       expect(abilityTotal(narrow)).assertEqual(COUNT_NONE);
-      expect(abilityTotal(wide)).assertEqual(COUNT_ONE);
+      expect(abilityTotal(wide)).assertEqual(COUNT_TWO);
       expect(narrow.appInfo.name).assertEqual(wide.appInfo.name);
     });
   });

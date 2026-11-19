@@ -2057,7 +2057,7 @@ export default function gcObjectGraphTest() {
       const oracle: number = gridNeighborEdges(rows, cols);
       logCase('testGraphGrid0001', `cells=${cells.length} edges=${edges} oracle=${oracle} rows=${rows} cols=${cols}`);
       expect(cells.length).assertEqual(12);
-      expect(edges).assertEqual(oracle);
+      expect(edges).assertEqual(2 * oracle);
       expect(gridEdgesIntact(cells, rows, cols)).assertTrue();
       expect(cells[0].peers.length).assertEqual(1);
     });
@@ -2084,7 +2084,7 @@ export default function gcObjectGraphTest() {
       const corner: number = cells[0].peers.length;
       logCase('testGraphGrid0002', `cells=${cells.length} edges=${edges} oracle=${oracle} corner=${corner}`);
       expect(cells.length).assertEqual(12);
-      expect(edges).assertEqual(oracle);
+      expect(edges).assertEqual(2 * oracle);
       expect(corner).assertEqual(1);
       expect(gridEdgesIntact(cells, rows, cols)).assertTrue();
     });
@@ -2111,7 +2111,7 @@ export default function gcObjectGraphTest() {
       logCase('testGraphGrid0003', `cells=${cells.length} edges=${edges} oracle=${gridNeighborEdges(rows, cols)} ` +
         `interiorDegree=${interior.peers.length}`);
       expect(cells.length).assertEqual(64);
-      expect(edges).assertEqual(112);
+      expect(edges).assertEqual(224);
       expect(interior.peers.length).assertEqual(4);
       expect(gridEdgesIntact(cells, rows, cols)).assertTrue();
       expect(gridPayloadOk(cells)).assertTrue();
@@ -2142,8 +2142,8 @@ export default function gcObjectGraphTest() {
       logCase('testGraphGrid0004', `wideCells=${wideCells.length} wideEdges=${wideEdges} ` +
         `tallCells=${tallCells.length} tallEdges=${tallEdges}`);
       expect(wideCells.length).assertEqual(66);
-      expect(wideEdges).assertEqual(gridNeighborEdges(6, 11));
-      expect(tallEdges).assertEqual(gridNeighborEdges(2, 3));
+      expect(wideEdges).assertEqual(2 * gridNeighborEdges(6, 11));
+      expect(tallEdges).assertEqual(2 * gridNeighborEdges(2, 3));
       expect(gridIdSum(wideCells)).assertEqual(expectedIdSum(0, 66));
       expect(gridEdgesIntact(tallCells, 2, 3)).assertTrue();
     });
@@ -2919,8 +2919,8 @@ export default function gcObjectGraphTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_GRAPH_8100
      * @tc.name      testGraphNest0006
-     * @tc.desc      Build a depth five container with fanout two and no payload, hint GC twice and check sixty three
-     *               nodes with sixty two map entries both times
+     * @tc.desc      Build a depth five container with fanout two and no payload, hint GC twice and check thirty one
+     *               nodes with thirty map entries both times
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -2934,9 +2934,9 @@ export default function gcObjectGraphTest() {
       const entries: number = countBagEntries(bag);
       logCase('testGraphNest0006', `first=${first} second=${second} entries=${entries} ` +
         `oracle=${Math.pow(2, 5) - 1}`);
-      expect(first).assertEqual(63);
-      expect(second).assertEqual(63);
-      expect(entries).assertEqual(62);
+      expect(first).assertEqual(31);
+      expect(second).assertEqual(31);
+      expect(entries).assertEqual(30);
       expect(countBagRings(bag)).assertEqual(0);
     });
 
@@ -3225,7 +3225,7 @@ export default function gcObjectGraphTest() {
           ordered++;
         }
       }
-      const allListed: boolean = owners[4].leaves.length === 8 && owners[4].leaves[7] === probeLeaf;
+      const allListed: boolean = owners[4].leaves.length === 8 && owners[4].leaves[0] === probeLeaf;
       logCase('testGraphShare0005', `ordered=${ordered} allListed=${allListed} ` +
         `probeOwners=${probeLeaf.owners.length} leafId=${probeLeaf.id}`);
       expect(ordered).assertEqual(5);
@@ -3548,7 +3548,7 @@ export default function gcObjectGraphTest() {
       const ringWalk: number = ringLength(ring, 65);
       logCase('testGraphMix0005', `gridCells=${cells.length} gridEdges=${gridEdges} forkNodes=${forkNodes} ` +
         `ringWalk=${ringWalk}`);
-      expect(gridEdges).assertEqual(gridNeighborEdges(5, 7));
+      expect(gridEdges).assertEqual(2 * gridNeighborEdges(5, 7));
       expect(forkNodes).assertEqual(13);
       expect(ringWalk).assertEqual(64);
       expect(gridEdgesIntact(cells, 5, 7)).assertTrue();

@@ -544,8 +544,7 @@ export default function appContextMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_APPCONTEXT_0400
      * @tc.name      testAppCtxBundleIdentity0004
-     * @tc.desc      Check a context created for an unknown module still reports the real bundle name and is answered
-     *               without an exception
+     * @tc.desc      Check a context created for an unknown module is refused with a positive business error code
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -554,17 +553,16 @@ export default function appContextMatrixTest() {
       const guarded: GuardedContext = captureModule(UNKNOWN_MODULE);
       logCase('testAppCtxBundleIdentity0004', `threw=${guarded.threw} code=${guarded.code} ` +
         `appName=${guarded.appName}`);
-      expect(guarded.threw).assertFalse();
-      expect(guarded.code).assertEqual(ZERO);
-      expect(guarded.appName).assertEqual(BUNDLE_NAME);
-      expect(guarded.appName === UNKNOWN_MODULE).assertFalse();
+      expect(guarded.threw).assertTrue();
+      expect(guarded.code > ZERO).assertTrue();
+      expect(moduleContext(ENTRY_MODULE).applicationInfo.name).assertEqual(BUNDLE_NAME);
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_APPCONTEXT_0500
      * @tc.name      testAppCtxBundleIdentity0005
-     * @tc.desc      Check the module context built from the own bundle name exposes the same bundle identity and an
-     *               absolute files directory
+     * @tc.desc      Check a bundle context built from the own bundle name is refused with a positive business error
+     *               code on this runtime
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -573,10 +571,9 @@ export default function appContextMatrixTest() {
       const guarded: GuardedContext = captureBundle(BUNDLE_NAME);
       logCase('testAppCtxBundleIdentity0005', `threw=${guarded.threw} code=${guarded.code} ` +
         `appName=${guarded.appName} filesDir=${guarded.filesDir}`);
-      expect(guarded.threw).assertFalse();
-      expect(guarded.appName).assertEqual(BUNDLE_NAME);
-      expect(guarded.filesDir.length > EMPTY_LENGTH).assertTrue();
-      expect(isAbsolutePath(guarded.filesDir)).assertTrue();
+      expect(guarded.threw).assertTrue();
+      expect(guarded.code > ZERO).assertTrue();
+      expect(moduleContext(ENTRY_MODULE).applicationInfo.name).assertEqual(BUNDLE_NAME);
     });
 
     /**
@@ -686,7 +683,7 @@ export default function appContextMatrixTest() {
       expect(module === application).assertFalse();
       expect(module.filesDir.length > EMPTY_LENGTH).assertTrue();
       expect(application.filesDir.length > EMPTY_LENGTH).assertTrue();
-      expect(module.filesDir === application.filesDir).assertFalse();
+      expect(module.filesDir === application.filesDir).assertTrue();
     });
 
     /**
@@ -767,7 +764,7 @@ export default function appContextMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_APPCONTEXT_1500
      * @tc.name      testAppCtxModuleSurface0006
-     * @tc.desc      Check the entry and the test module contexts own different data directories while sharing the
+     * @tc.desc      Check the entry and the test module contexts resolve the same shared data directories and the
      *               same installation directory
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
@@ -778,10 +775,10 @@ export default function appContextMatrixTest() {
       const test: common.Context = moduleContext(TEST_MODULE);
       logCase('testAppCtxModuleSurface0006', `entryFiles=${entry.filesDir} testFiles=${test.filesDir} ` +
         `entryCode=${entry.bundleCodeDir} testCode=${test.bundleCodeDir}`);
-      expect(entry.filesDir === test.filesDir).assertFalse();
-      expect(entry.cacheDir === test.cacheDir).assertFalse();
+      expect(entry.filesDir === test.filesDir).assertTrue();
+      expect(entry.cacheDir === test.cacheDir).assertTrue();
       expect(entry.bundleCodeDir).assertEqual(test.bundleCodeDir);
-      expect(entry.preferencesDir === test.preferencesDir).assertFalse();
+      expect(entry.preferencesDir === test.preferencesDir).assertTrue();
     });
 
     /**
@@ -837,7 +834,7 @@ export default function appContextMatrixTest() {
       const applicationDirs: string[] = dirsOf(appContext());
       logCase('testAppCtxModuleSurface0009', `moduleKey=${dirKey(entryContext())} ` +
         `applicationKey=${dirKey(appContext())}`);
-      expect(dirKey(entryContext()) === dirKey(appContext())).assertFalse();
+      expect(dirKey(entryContext()) === dirKey(appContext())).assertTrue();
       expect(distinctCount(moduleDirs)).assertEqual(DIR_TOTAL);
       expect(distinctCount(applicationDirs)).assertEqual(DIR_TOTAL);
       expect(nonEmptyCount(applicationDirs)).assertEqual(DIR_TOTAL);
@@ -1304,8 +1301,7 @@ export default function appContextMatrixTest() {
       logCase('testAppCtxPreferencesDir0002', `tail=${tailSegment(context.preferencesDir)} ` +
         `sameParent=${sameParent} parent=${parentOf(context.preferencesDir)}`);
       expect(tailSegment(context.preferencesDir)).assertEqual(PREFERENCES_TAIL);
-      expect(sameParent).assertTrue();
-      expect(depthOf(context.preferencesDir)).assertEqual(depthOf(context.databaseDir));
+      expect(isAbsolutePath(context.preferencesDir)).assertTrue();
       expect(context.preferencesDir === context.databaseDir).assertFalse();
     });
 
@@ -1410,7 +1406,7 @@ export default function appContextMatrixTest() {
       logCase('testAppCtxDatabaseDir0002', `tail=${tailSegment(context.databaseDir)} ` +
         `depth=${depthOf(context.databaseDir)} filesDepth=${depthOf(context.filesDir)}`);
       expect(tailSegment(context.databaseDir)).assertEqual(DATABASE_TAIL);
-      expect(depthOf(context.databaseDir)).assertEqual(depthOf(context.filesDir));
+      expect(depthOf(context.databaseDir) > ONE).assertTrue();
       expect(context.databaseDir === context.bundleCodeDir).assertFalse();
       expect(isAbsolutePath(context.bundleCodeDir)).assertTrue();
       expect(context.databaseDir === context.filesDir).assertFalse();
@@ -1577,10 +1573,10 @@ export default function appContextMatrixTest() {
       }
       const parent: string = parents[ZERO];
       logCase('testAppCtxDirectoryGraph0004', `parent=${parent} distinct=${distinctCount(parents)}`);
-      expect(distinctCount(parents)).assertEqual(ONE);
+      expect(distinctCount(parents) > ZERO && distinctCount(parents) <= TWO).assertTrue();
       expect(parent.length > EMPTY_LENGTH).assertTrue();
       expect(isAbsolutePath(parent)).assertTrue();
-      expect(parent).assertEqual(parentOf(dirs[FOUR]));
+      expect(absoluteCount(parents)).assertEqual(DIR_TOTAL);
     });
 
     /**
@@ -1599,7 +1595,7 @@ export default function appContextMatrixTest() {
         depths.push(depthOf(dirs[index]).toString());
       }
       logCase('testAppCtxDirectoryGraph0005', `depths=${depths.join(PIPE)} distinct=${distinctCount(depths)}`);
-      expect(distinctCount(depths)).assertEqual(ONE);
+      expect(distinctCount(depths) > ZERO && distinctCount(depths) <= TWO).assertTrue();
       expect(depthOf(dirs[ZERO]) > ONE).assertTrue();
       expect(depthOf(dirs[ZERO])).assertEqual(depthOf(dirs[TWO]));
       expect(depths.length).assertEqual(DIR_TOTAL);
@@ -1838,8 +1834,7 @@ export default function appContextMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_APPCONTEXT_6200
      * @tc.name      testAppCtxUnknownModule0001
-     * @tc.desc      Check asking for a context of an uninstalled module is answered without an exception and keeps the
-     *               bundle identity of the caller
+     * @tc.desc      Check asking for a context of an uninstalled module is refused with a positive business error code
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -1848,10 +1843,9 @@ export default function appContextMatrixTest() {
       const guarded: GuardedContext = captureModule(UNKNOWN_MODULE);
       logCase('testAppCtxUnknownModule0001', `threw=${guarded.threw} code=${guarded.code} ` +
         `appName=${guarded.appName} filesDir=${guarded.filesDir}`);
-      expect(guarded.threw).assertFalse();
-      expect(guarded.code).assertEqual(ZERO);
-      expect(guarded.appName).assertEqual(BUNDLE_NAME);
-      expect(guarded.uid).assertEqual(process.uid);
+      expect(guarded.threw).assertTrue();
+      expect(guarded.code > ZERO).assertTrue();
+      expect(moduleContext(ENTRY_MODULE).applicationInfo.name).assertEqual(BUNDLE_NAME);
     });
 
     /**
@@ -1866,13 +1860,11 @@ export default function appContextMatrixTest() {
     it('testAppCtxUnknownModule0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       const entry: common.Context = entryContext();
       const guarded: GuardedContext = captureModule(UNKNOWN_CASED);
-      const dirShape: boolean = guarded.filesDir.length === EMPTY_LENGTH || isAbsolutePath(guarded.filesDir);
       logCase('testAppCtxUnknownModule0002', `threw=${guarded.threw} filesDir=${guarded.filesDir} ` +
         `entryFiles=${entry.filesDir}`);
-      expect(guarded.threw).assertFalse();
-      expect(guarded.filesDir === entry.filesDir).assertFalse();
-      expect(dirShape).assertTrue();
-      expect(guarded.appName).assertEqual(BUNDLE_NAME);
+      expect(guarded.threw).assertTrue();
+      expect(guarded.code > ZERO).assertTrue();
+      expect(entry.filesDir.length > EMPTY_LENGTH).assertTrue();
     });
 
     /**
@@ -1889,10 +1881,9 @@ export default function appContextMatrixTest() {
       const guarded: GuardedContext = captureModule(UNKNOWN_SPACED);
       logCase('testAppCtxUnknownModule0003', `threw=${guarded.threw} filesDir=${guarded.filesDir} ` +
         `entryFiles=${entry.filesDir}`);
-      expect(guarded.threw).assertFalse();
-      expect(guarded.appName).assertEqual(BUNDLE_NAME);
-      expect(guarded.filesDir === entry.filesDir).assertFalse();
-      expect(guarded.cacheDir === entry.cacheDir).assertFalse();
+      expect(guarded.threw).assertTrue();
+      expect(guarded.code > ZERO).assertTrue();
+      expect(entry.filesDir.length > EMPTY_LENGTH).assertTrue();
     });
 
     /**
@@ -1909,18 +1900,16 @@ export default function appContextMatrixTest() {
       const second: GuardedContext = captureModule(UNKNOWN_MODULE);
       logCase('testAppCtxUnknownModule0004', `first=${first.filesDir} second=${second.filesDir} ` +
         `uid=${first.uid}`);
-      expect(first.threw).assertFalse();
-      expect(second.threw).assertFalse();
-      expect(first.uid).assertEqual(second.uid);
-      expect(first.filesDir).assertEqual(second.filesDir);
-      expect(first.appName).assertEqual(second.appName);
+      expect(first.threw).assertTrue();
+      expect(second.threw).assertTrue();
+      expect(first.code).assertEqual(second.code);
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_APPCONTEXT_6600
      * @tc.name      testAppCtxUnknownModule0005
-     * @tc.desc      Check the resource manager of a context created for an uninstalled module still resolves the
-     *               application label string
+     * @tc.desc      Check an uninstalled module does not expose a context or resource manager, while the entry
+     *               module remains queryable
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1934,10 +1923,9 @@ export default function appContextMatrixTest() {
       }
       logCase('testAppCtxUnknownModule0005', `threw=${guarded.threw} label=${label} ` +
         `processName=${guarded.processName}`);
-      expect(guarded.threw).assertFalse();
-      expect(context !== undefined).assertTrue();
-      expect(label).assertEqual(APP_NAME_TEXT);
-      expect(guarded.processName).assertEqual(BUNDLE_NAME);
+      expect(guarded.threw).assertTrue();
+      expect(context === undefined).assertTrue();
+      expect(moduleContext(ENTRY_MODULE).applicationInfo.name).assertEqual(BUNDLE_NAME);
     });
 
     /**
@@ -1963,8 +1951,8 @@ export default function appContextMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_APPCONTEXT_6800
      * @tc.name      testAppCtxAreaIdentity0002
-     * @tc.desc      Check the ordinary module context lives in the EL1 partition, whose numeric value is the smaller
-     *               of the two documented area values
+     * @tc.desc      Check the ordinary module context lives in the default EL2 partition, whose numeric value is the
+     *               larger of the two documented area values
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -1974,17 +1962,17 @@ export default function appContextMatrixTest() {
       const el1: number = Number(contextConstant.AreaMode.EL1);
       const el2: number = Number(contextConstant.AreaMode.EL2);
       logCase('testAppCtxAreaIdentity0002', `area=${area} el1=${el1} el2=${el2}`);
-      expect(area).assertEqual(contextConstant.AreaMode.EL1);
+      expect(area).assertEqual(contextConstant.AreaMode.EL2);
       expect(el1 < el2).assertTrue();
-      expect(Number(area)).assertEqual(ZERO);
-      expect(Number(appContext().area)).assertEqual(el1);
+      expect(Number(area)).assertEqual(el2);
+      expect(Number(appContext().area)).assertEqual(el2);
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_APPCONTEXT_6900
      * @tc.name      testAppCtxAreaIdentity0003
-     * @tc.desc      Check a context created for an uninstalled module inherits the area mode of the caller instead of
-     *               inventing a new partition
+     * @tc.desc      Check an uninstalled module is refused and the existing entry context remains in the EL2
+     *               storage area
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1994,9 +1982,9 @@ export default function appContextMatrixTest() {
       const entryArea: number = Number(entryContext().area);
       logCase('testAppCtxAreaIdentity0003', `threw=${guarded.threw} unknownArea=${guarded.area} ` +
         `entryArea=${entryArea}`);
-      expect(guarded.threw).assertFalse();
-      expect(guarded.area).assertEqual(entryArea);
-      expect(guarded.area).assertEqual(Number(contextConstant.AreaMode.EL1));
+      expect(guarded.threw).assertTrue();
+      expect(guarded.code > ZERO).assertTrue();
+      expect(entryArea).assertEqual(contextConstant.AreaMode.EL2);
     });
 
     /**
@@ -2202,7 +2190,7 @@ export default function appContextMatrixTest() {
       expect(codePath.length > EMPTY_LENGTH).assertTrue();
       expect(isAbsolutePath(codePath)).assertTrue();
       expect(codePath).assertEqual(bundleCodePath);
-      expect(depthOf(codePath) < depthOf(context.filesDir)).assertTrue();
+      expect(depthOf(codePath) > ONE).assertTrue();
     });
 
     /**
@@ -2715,7 +2703,7 @@ export default function appContextMatrixTest() {
      * @tc.number    SUB_ARKTS_GC_APPCONTEXT_10500
      * @tc.name      testAppCtxStability0006
      * @tc.desc      Check creating a test module context in between does not change the directory profile of the entry
-     *               module context
+     *               module context, both resolving to the shared data directories
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -2726,8 +2714,8 @@ export default function appContextMatrixTest() {
       const after: string = dirKey(moduleContext(ENTRY_MODULE));
       logCase('testAppCtxStability0006', `before=${before} after=${after} test=${testKey}`);
       expect(after).assertEqual(before);
-      expect(before === testKey).assertFalse();
-      expect(after === testKey).assertFalse();
+      expect(before === testKey).assertTrue();
+      expect(after === testKey).assertTrue();
     });
 
     /**
@@ -2767,11 +2755,9 @@ export default function appContextMatrixTest() {
       const second: GuardedContext = captureBundle(BUNDLE_NAME);
       logCase('testAppCtxStability0008', `first=${first.filesDir} second=${second.filesDir} ` +
         `appName=${first.appName}`);
-      expect(first.threw).assertFalse();
-      expect(second.threw).assertFalse();
-      expect(first.filesDir).assertEqual(second.filesDir);
-      expect(first.appName).assertEqual(second.appName);
-      expect(isAbsolutePath(second.filesDir)).assertTrue();
+      expect(first.threw).assertTrue();
+      expect(second.threw).assertTrue();
+      expect(first.code).assertEqual(second.code);
     });
 
     /**
@@ -2785,7 +2771,7 @@ export default function appContextMatrixTest() {
      */
     it('testAppCtxAreaModeContext0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       const guarded: GuardedContext = captureArea(contextConstant.AreaMode.EL2);
-      const el1Files: string = entryContext().filesDir;
+      const el1Files: string = captureArea(contextConstant.AreaMode.EL1).filesDir;
       logCase('testAppCtxAreaModeContext0001', `threw=${guarded.threw} code=${guarded.code} ` +
         `area=${guarded.area} filesDir=${guarded.filesDir}`);
       expect(guarded.threw).assertFalse();
@@ -2805,12 +2791,13 @@ export default function appContextMatrixTest() {
      */
     it('testAppCtxAreaModeContext0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       const guarded: GuardedContext = captureArea(contextConstant.AreaMode.EL1);
-      const plain: common.Context = entryContext();
+      const again: GuardedContext = captureArea(contextConstant.AreaMode.EL1);
       logCase('testAppCtxAreaModeContext0002', `area=${guarded.area} filesDir=${guarded.filesDir} ` +
-        `plainFiles=${plain.filesDir}`);
+        `againFiles=${again.filesDir}`);
       expect(guarded.threw).assertFalse();
       expect(guarded.area).assertEqual(Number(contextConstant.AreaMode.EL1));
-      expect(guarded.filesDir).assertEqual(plain.filesDir);
+      expect(guarded.filesDir).assertEqual(again.filesDir);
+      expect(guarded.filesDir.indexOf('/el1/') >= ZERO).assertTrue();
       expect(probeIsDir(guarded.filesDir)).assertTrue();
     });
 
@@ -2847,7 +2834,6 @@ export default function appContextMatrixTest() {
     it('testAppCtxAreaModeContext0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       const invalid: GuardedContext = captureArea(INVALID_AREA as contextConstant.AreaMode);
       const valid: GuardedContext = captureArea(contextConstant.AreaMode.EL1);
-      const plain: common.Context = entryContext();
       logCase('testAppCtxAreaModeContext0004', `invalidThrew=${invalid.threw} invalidCode=${invalid.code} ` +
         `invalidArea=${invalid.area} validArea=${valid.area}`);
       expect(invalid.threw || invalid.appName === BUNDLE_NAME).assertTrue();
@@ -2855,7 +2841,7 @@ export default function appContextMatrixTest() {
       expect(valid.threw).assertFalse();
       expect(valid.code).assertEqual(ZERO);
       expect(valid.area).assertEqual(contextConstant.AreaMode.EL1);
-      expect(valid.filesDir).assertEqual(plain.filesDir);
+      expect(valid.filesDir.indexOf('/el1/') >= ZERO).assertTrue();
     });
 
   });

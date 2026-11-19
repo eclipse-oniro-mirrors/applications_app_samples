@@ -75,6 +75,7 @@ const PHONE_DEVICE: string = 'phone';
 const COLOR_MODE_DARK: number = ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
 const COLOR_MODE_LIGHT: number = ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT;
 const COLOR_MODE_NOT_SET: number = ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
+const ERR_BACKGROUND_NOT_FOREGROUND: number = 16000065;
 
 function delegator(): abilityDelegatorRegistry.AbilityDelegator {
   return abilityDelegatorRegistry.getAbilityDelegator();
@@ -201,6 +202,7 @@ class LifecycleTap {
   events: string[] = [];
   createdInstance: UIAbility | undefined = undefined;
   stagedInstance: UIAbility | undefined = undefined;
+  destroyedInstance: UIAbility | undefined = undefined;
   stage: window.WindowStage | undefined = undefined;
   readonly monitor: abilityDelegatorRegistry.AbilityMonitor;
 
@@ -226,7 +228,8 @@ class LifecycleTap {
       onWindowStageDestroy: () => {
         this.events.push(EVENT_WINDOW_STAGE_DESTROY);
       },
-      onAbilityDestroy: () => {
+      onAbilityDestroy: (ability: UIAbility) => {
+        this.destroyedInstance = ability;
         this.events.push(EVENT_DESTROY);
       }
     };
@@ -277,14 +280,15 @@ class LifecycleTap {
   }
 }
 
-async function waitTapEvent(tap: LifecycleTap, name: string, timeoutMs: number): Promise<boolean> {
+async function waitTapEvent(tap: LifecycleTap, name: string, timeoutMs: number,
+  minimumCount: number = ONE): Promise<boolean> {
   for (let waited: number = ZERO; waited < timeoutMs; waited += POLL_MS) {
-    if (tap.has(name)) {
+    if (tap.countOf(name) >= minimumCount) {
       return true;
     }
     await sleepMs(POLL_MS);
   }
-  return tap.has(name);
+  return tap.countOf(name) >= minimumCount;
 }
 
 async function waitForeground(ability: UIAbility, timeoutMs: number): Promise<boolean> {
@@ -307,6 +311,26 @@ async function waitBackground(ability: UIAbility, timeoutMs: number): Promise<bo
   return isBackground(ability);
 }
 
+// isWindowShowing can reject with 1300002 while the window is mid transition, so poll briefly and report the
+// last observed answer
+async function showingWhenReady(main: window.Window, timeoutMs: number): Promise<boolean> {
+  let answer: boolean = false;
+  let lastCode: number = ZERO;
+  for (let waited: number = ZERO; waited <= timeoutMs; waited += POLL_MS) {
+    try {
+      answer = main.isWindowShowing();
+      if (answer) {
+        return true;
+      }
+    } catch (error) {
+      lastCode = Number((error as BusinessError).code);
+    }
+    await sleepMs(POLL_MS);
+  }
+  logCase('showingWhenReady', `lastCode=${lastCode}`);
+  return answer;
+}
+
 // cold start under observation: the tap stays registered only while the ability is being created
 async function coldStart(tap: LifecycleTap): Promise<UIAbility> {
   await stopHome();
@@ -324,8 +348,12 @@ async function coldStart(tap: LifecycleTap): Promise<UIAbility> {
 async function terminateWithTap(tap: LifecycleTap, ability: UIAbility): Promise<void> {
   tap.start();
   try {
+    const minimumCount: number = tap.countOf(EVENT_DESTROY) + ONE;
     await ability.context.terminateSelf();
-    await waitTapEvent(tap, EVENT_DESTROY, EVENT_WAIT_MS);
+    const destroyed: boolean = await waitTapEvent(tap, EVENT_DESTROY, EVENT_WAIT_MS, minimumCount);
+    if (!destroyed) {
+      throw new Error('terminateWithTap: timed out waiting for a new destroy callback');
+    }
     await sleepMs(SETTLE_MS);
   } finally {
     tap.stop();
@@ -335,8 +363,12 @@ async function terminateWithTap(tap: LifecycleTap, ability: UIAbility): Promise<
 async function backgroundWithTap(tap: LifecycleTap, ability: UIAbility): Promise<void> {
   tap.start();
   try {
+    const minimumCount: number = tap.countOf(EVENT_BACKGROUND) + ONE;
     await moveToBackground(ability);
-    await waitTapEvent(tap, EVENT_BACKGROUND, EVENT_WAIT_MS);
+    const backgrounded: boolean = await waitTapEvent(tap, EVENT_BACKGROUND, EVENT_WAIT_MS, minimumCount);
+    if (!backgrounded) {
+      throw new Error('backgroundWithTap: timed out waiting for a new background callback');
+    }
   } finally {
     tap.stop();
   }
@@ -345,16 +377,23 @@ async function backgroundWithTap(tap: LifecycleTap, ability: UIAbility): Promise
 async function resumeWithTap(tap: LifecycleTap): Promise<void> {
   tap.start();
   try {
+    const minimumCount: number = tap.countOf(EVENT_FOREGROUND) + ONE;
     await delegator().startAbility(homeWant());
-    await waitTapEvent(tap, EVENT_FOREGROUND, EVENT_WAIT_MS);
+    const resumed: boolean = await waitTapEvent(tap, EVENT_FOREGROUND, EVENT_WAIT_MS, minimumCount);
+    if (!resumed) {
+      throw new Error('resumeWithTap: timed out waiting for a new foreground callback');
+    }
     await sleepMs(SETTLE_MS);
   } finally {
     tap.stop();
   }
 }
 
-// launches while the tap stays registered, so later transitions are appended to the same log
+// launches while the tap stays registered, so later transitions are appended to the same log; the monitor is
+// re-armed first because one registration answers exactly one wait on this runtime
 async function startObserved(tap: LifecycleTap): Promise<UIAbility> {
+  tap.stop();
+  tap.start();
   await delegator().startAbility(homeWant());
   const ability: UIAbility = await delegator().waitAbilityMonitor(tap.monitor, EVENT_WAIT_MS);
   await sleepMs(SETTLE_MS);
@@ -473,7 +512,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_0100
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_0100
      * @tc.name      testFreshLaunchForegroundIdentity0001
      * @tc.desc      Launch EntryAbility once and check the fresh instance is in the foreground, is the current top
      *               ability and reports the names declared by the sample
@@ -494,7 +533,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_0200
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_0200
      * @tc.name      testFreshLaunchPairDistinct0002
      * @tc.desc      Launch EntryAbility twice in a row and check the two launches never hand back the same ability
      *               instance while both report the entry ability name
@@ -515,7 +554,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_0300
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_0300
      * @tc.name      testRelaunchAfterStopFreshInstance0003
      * @tc.desc      Stop the running EntryAbility, check no ability is left on top, then relaunch and check the new
      *               instance is a foreground ability that differs from the stopped one
@@ -537,7 +576,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_0400
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_0400
      * @tc.name      testColdStartTapInstanceMatch0004
      * @tc.desc      Record the lifecycle callbacks of a cold start and check the ability captured at create and at
      *               window stage create is exactly the instance the delegator hands back
@@ -559,7 +598,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_0500
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_0500
      * @tc.name      testForegroundStateEnumAfterLaunch0005
      * @tc.desc      Poll the delegator state of a fresh EntryAbility and check it settles on the foreground enum and
      *               never reports the background enum
@@ -579,7 +618,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_0600
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_0600
      * @tc.name      testTopAbilityIdentityStable0006
      * @tc.desc      Read the top ability twice with a settle gap in between and check both reads return the same
      *               foreground instance with an unchanged ability name
@@ -601,7 +640,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_0700
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_0700
      * @tc.name      testThreeLaunchesDistinctInstances0007
      * @tc.desc      Launch EntryAbility three separate times and check the launches hand back three pairwise
      *               distinct foreground instances
@@ -623,29 +662,50 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_0800
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_0800
      * @tc.name      testRelaunchAfterImmediateTerminate0008
-     * @tc.desc      Terminate EntryAbility and relaunch it without an extra settle gap, then check the relaunched
-     *               ability is a foreground instance different from the terminated one
+     * @tc.desc      Wait for the destroy callback of the terminated EntryAbility, then relaunch without an extra
+     *               settle gap and check the new instance is foreground and distinct from the destroyed one
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testRelaunchAfterImmediateTerminate0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const first: UIAbility = await launchHome();
-      await first.context.terminateSelf();
-      const second: UIAbility = await launchHome();
-      const moduleName: string = second.context.abilityInfo.moduleName;
-      logCase('testRelaunchAfterImmediateTerminate0008', `secondIsFirst=${second === first} ` +
-        `module=${moduleName} state=${stateOf(second)}`);
-      expect(second === first).assertFalse();
-      expect(moduleName).assertEqual(ENTRY_MODULE);
-      expect(isForeground(second)).assertTrue();
-      expect((await topAbility()) === second).assertTrue();
+      const tap: LifecycleTap = new LifecycleTap(ENTRY_ABILITY, ENTRY_MODULE);
+      let second: UIAbility | undefined = undefined;
+      try {
+        tap.start();
+        await first.context.terminateSelf();
+        for (let waited: number = ZERO; waited < EVENT_WAIT_MS; waited += POLL_MS) {
+          if (tap.destroyedInstance === first) {
+            break;
+          }
+          await sleepMs(POLL_MS);
+        }
+        if (tap.destroyedInstance !== first) {
+          throw new Error('testRelaunchAfterImmediateTerminate0008: timed out waiting for first to be destroyed');
+        }
+        expect(tap.destroyedInstance === first).assertTrue();
+        second = await launchHome();
+        const moduleName: string = second.context.abilityInfo.moduleName;
+        logCase('testRelaunchAfterImmediateTerminate0008', `secondIsFirst=${second === first} ` +
+          `module=${moduleName} state=${stateOf(second)} events=${tap.text()}`);
+        expect(second === first).assertFalse();
+        expect(moduleName).assertEqual(ENTRY_MODULE);
+        expect(isForeground(second)).assertTrue();
+        expect((await topAbility()) === second).assertTrue();
+      } finally {
+        tap.stop();
+        if (tap.destroyedInstance !== first) {
+          await terminateQuietly(first);
+        }
+        await terminateQuietly(second);
+      }
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_0900
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_0900
      * @tc.name      testLaunchKeepsModuleContext0009
      * @tc.desc      Read the context of a fresh EntryAbility and check its application info names the sample bundle
      *               and carries a positive token identifier
@@ -666,7 +726,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_1000
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_1000
      * @tc.name      testColdLaunchCreateBeforeWindowStage0010
      * @tc.desc      Compare the recorded positions of the create and window stage create callbacks of a cold launch
      *               and check create is delivered first
@@ -688,7 +748,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_1100
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_1100
      * @tc.name      testWindowStageCreateBeforeForeground0011
      * @tc.desc      Compare the recorded positions of the window stage create and foreground callbacks and check a
      *               cold launch reaches the foreground only after the window stage exists
@@ -710,7 +770,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_1200
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_1200
      * @tc.name      testColdStartFirstEventCreate0012
      * @tc.desc      Inspect the head and the tail of the cold start callback log and check the session opens with
      *               create and closes with foreground
@@ -732,7 +792,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_1300
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_1300
      * @tc.name      testColdStartSingleCreateCount0013
      * @tc.desc      Count the create and window stage create callbacks of one cold launch and check each fires
      *               exactly once while destroy never fires
@@ -754,7 +814,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_1400
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_1400
      * @tc.name      testColdStartEndsForeground0014
      * @tc.desc      Check the cold start callback log ends on foreground, records at least one foreground event and
      *               never records a background event
@@ -775,7 +835,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_1500
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_1500
      * @tc.name      testColdStartNoDestroyEvents0015
      * @tc.desc      Check a plain cold launch records no window stage destroy and no destroy callback and that the
      *               recorded ranks never move backwards
@@ -796,7 +856,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_1600
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_1600
      * @tc.name      testTapCapturesStageInstance0016
      * @tc.desc      Check the window stage delivered by the window stage create callback is present and belongs to
      *               the same ability instance that was captured at create
@@ -819,7 +879,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_1700
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_1700
      * @tc.name      testTapStageNonNullDuringForeground0017
      * @tc.desc      Check that once the foreground callback has been delivered the recorded window stage is non null
      *               and the main window of the ability is showing with a positive area
@@ -832,16 +892,17 @@ export default function abilityLifecycleMatrixTest() {
       const ability: UIAbility = await coldStart(tap);
       const main: window.Window = await mainWindowOf(ability);
       const area: number = areaOf(main);
+      const showing: boolean = await showingWhenReady(main, EVENT_WAIT_MS);
       logCase('testTapStageNonNullDuringForeground0017', `stageDefined=${tap.stage !== undefined} ` +
-        `showing=${main.isWindowShowing()} area=${area} foregroundIndex=${tap.firstIndex(EVENT_FOREGROUND)}`);
+        `showing=${showing} area=${area} foregroundIndex=${tap.firstIndex(EVENT_FOREGROUND)}`);
       expect(tap.stage !== undefined).assertTrue();
       expect(tap.firstIndex(EVENT_FOREGROUND) > tap.firstIndex(EVENT_WINDOW_STAGE_CREATE)).assertTrue();
-      expect(main.isWindowShowing()).assertTrue();
+      expect(showing).assertTrue();
       expect(area > ZERO).assertTrue();
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_1800
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_1800
      * @tc.name      testForeignAbilityNameSilentTap0018
      * @tc.desc      Register the lifecycle tap for an ability name this sample does not declare, launch EntryAbility
      *               and check the tap records nothing while the real ability reaches the foreground
@@ -868,7 +929,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_1900
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_1900
      * @tc.name      testForeignModuleNameSilentTap0019
      * @tc.desc      Register the lifecycle tap with the correct ability name but the test module name, launch the
      *               entry module ability and check the module filter keeps the tap empty
@@ -895,7 +956,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_2000
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_2000
      * @tc.name      testTerminateWindowStageBeforeDestroy0020
      * @tc.desc      Terminate the running EntryAbility and check the window stage destroy callback is delivered
      *               before the destroy callback
@@ -918,7 +979,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_2100
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_2100
      * @tc.name      testTerminateDestroyIsLastEvent0021
      * @tc.desc      Terminate the running EntryAbility and check the destroy callback is the last recorded event and
      *               was delivered exactly once
@@ -940,7 +1001,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_2200
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_2200
      * @tc.name      testTerminateStartsWithoutCreate0022
      * @tc.desc      Register the tap only after EntryAbility already runs, terminate it and check the termination
      *               segment contains no create callback and leaves no top ability behind
@@ -962,7 +1023,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_2300
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_2300
      * @tc.name      testColdStartEventCountBounds0023
      * @tc.desc      Check the cold start callback log keeps a plausible size, uses at least three distinct callback
      *               kinds and stays ordered
@@ -984,7 +1045,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_2400
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_2400
      * @tc.name      testBackgroundThenForegroundEvents0024
      * @tc.desc      Keep one tap registered across a cold launch, a move to the background and a relaunch, then
      *               check background is followed by another foreground callback
@@ -1018,7 +1079,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_2500
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_2500
      * @tc.name      testMoveToBackgroundStateFlip0025
      * @tc.desc      Move a foreground EntryAbility to the background and check the delegator state flips from
      *               foreground to background exactly once
@@ -1044,7 +1105,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_2600
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_2600
      * @tc.name      testBackgroundResumeSameInstance0026
      * @tc.desc      Move EntryAbility to the background and resume it, then check the resume reuses the ability
      *               without a second create or window stage create and keeps the same context object
@@ -1074,7 +1135,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_2700
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_2700
      * @tc.name      testBackgroundTapRecordsBackground0027
      * @tc.desc      Register the tap after EntryAbility is already running, move it to the background and check only
      *               a background callback is recorded
@@ -1099,7 +1160,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_2800
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_2800
      * @tc.name      testBackgroundTwicePulse0028
      * @tc.desc      Run two background round trips on one EntryAbility and check both background callbacks and both
      *               resume foreground callbacks are recorded
@@ -1129,7 +1190,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_2900
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_2900
      * @tc.name      testResumeAfterBackgroundNamesIntact0029
      * @tc.desc      Move EntryAbility to the background and resume it, then check the ability info names and the
      *               visible main window survived the round trip
@@ -1144,22 +1205,23 @@ export default function abilityLifecycleMatrixTest() {
         await waitBackground(ability, EVENT_WAIT_MS);
         await startHomeAndSettle();
         const main: window.Window = await mainWindowOf(ability);
+        const showing: boolean = await showingWhenReady(main, EVENT_WAIT_MS);
         logCase('testResumeAfterBackgroundNamesIntact0029', `name=${ability.context.abilityInfo.name} ` +
-          `module=${ability.context.abilityInfo.moduleName} showing=${main.isWindowShowing()}`);
+          `module=${ability.context.abilityInfo.moduleName} showing=${showing}`);
         expect(ability.context.abilityInfo.name).assertEqual(ENTRY_ABILITY);
         expect(ability.context.abilityInfo.moduleName).assertEqual(ENTRY_MODULE);
         expect(ability.context.abilityInfo.bundleName).assertEqual(BUNDLE_NAME);
-        expect(main.isWindowShowing()).assertTrue();
+        expect(showing).assertTrue();
       } finally {
         await terminateQuietly(ability);
       }
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_3000
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_3000
      * @tc.name      testBackgroundWindowStillUsable0030
-     * @tc.desc      Move EntryAbility to the background and check the main window handle can still be resolved with
-     *               a positive rectangle while the ability is not visible
+     * @tc.desc      Save the foreground main window handle, move EntryAbility to the background and check the saved
+     *               handle still reports a positive, stable rectangle while the ability is backgrounded
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1167,13 +1229,19 @@ export default function abilityLifecycleMatrixTest() {
     it('testBackgroundWindowStillUsable0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const ability: UIAbility = await launchHome();
       try {
+        const main: window.Window = await mainWindowOf(ability);
         await moveToBackground(ability);
-        await waitBackground(ability, EVENT_WAIT_MS);
-        const firstRect: window.Rect = rectOf(await mainWindowOf(ability));
-        const secondRect: window.Rect = rectOf(await mainWindowOf(ability));
+        const backgrounded: boolean = await waitBackground(ability, EVENT_WAIT_MS);
+        expect(backgrounded).assertTrue();
+        const firstRect: window.Rect = rectOf(main);
+        const secondRect: window.Rect = rectOf(main);
         const screen: display.Display = screenOf();
         logCase('testBackgroundWindowStillUsable0030', `first=${firstRect.width}x${firstRect.height} ` +
           `second=${secondRect.width}x${secondRect.height} screenWidth=${screen.width}`);
+        expect(firstRect.width > ZERO).assertTrue();
+        expect(firstRect.height > ZERO).assertTrue();
+        expect(firstRect.left).assertEqual(secondRect.left);
+        expect(firstRect.top).assertEqual(secondRect.top);
         expect(firstRect.width).assertEqual(secondRect.width);
         expect(firstRect.height).assertEqual(secondRect.height);
         expect(firstRect.width <= screen.width).assertTrue();
@@ -1184,7 +1252,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_3100
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_3100
      * @tc.name      testBackgroundStatsMonotone0031
      * @tc.desc      Sample the runtime counters around a move to the background and check every counter stays
      *               monotone while the ability is parked
@@ -1211,7 +1279,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_3200
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_3200
      * @tc.name      testResumeTopAbilityIdentity0032
      * @tc.desc      Resume a backgrounded EntryAbility and check it becomes the top ability again with the same
      *               instance identity as before the move
@@ -1239,7 +1307,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_3300
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_3300
      * @tc.name      testBackgroundStateEnumExact0033
      * @tc.desc      Check the delegator reports the background lifecycle enum for an ability parked in the
      *               background and no longer the foreground enum
@@ -1264,7 +1332,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_3400
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_3400
      * @tc.name      testTerminateFromBackgroundTopAbsent0034
      * @tc.desc      Move EntryAbility to the background, terminate it there and check the next launch creates a
      *               different foreground instance
@@ -1288,7 +1356,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_3500
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_3500
      * @tc.name      testTerminateFromBackgroundDestroyOrder0035
      * @tc.desc      Keep one tap registered while EntryAbility is backgrounded and then terminated, and check the
      *               background, window stage destroy and destroy callbacks arrive in that order
@@ -1321,7 +1389,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_3600
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_3600
      * @tc.name      testBackgroundTerminateLaunchCycle0036
      * @tc.desc      Run a background, terminate and relaunch cycle and check the relaunch produces a fresh
      *               foreground instance with the entry module identity
@@ -1344,7 +1412,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_3700
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_3700
      * @tc.name      testBackgroundRelaunchStatsMonotone0037
      * @tc.desc      Interleave three counter snapshots with a background move and a relaunch, and check the
      *               consecutive snapshot pairs are all monotone
@@ -1373,10 +1441,10 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_3800
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_3800
      * @tc.name      testSecondBackgroundIdempotent0038
-     * @tc.desc      Move an already backgrounded EntryAbility to the background again and check the state, the main
-     *               window rectangle and the identity of the instance are unchanged
+     * @tc.desc      Repeat a background move and require SDK error 16000065, check the saved window rectangle and
+     *               background state are unchanged, then resume and verify the original instance is foreground
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1384,25 +1452,44 @@ export default function abilityLifecycleMatrixTest() {
     it('testSecondBackgroundIdempotent0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const ability: UIAbility = await launchHome();
       try {
+        const main: window.Window = await mainWindowOf(ability);
         await moveToBackground(ability);
-        await waitBackground(ability, EVENT_WAIT_MS);
-        const firstRect: window.Rect = rectOf(await mainWindowOf(ability));
-        await moveToBackground(ability);
-        const secondRect: window.Rect = rectOf(await mainWindowOf(ability));
+        const backgrounded: boolean = await waitBackground(ability, EVENT_WAIT_MS);
+        expect(backgrounded).assertTrue();
+        expect(isBackground(ability)).assertTrue();
+        const firstRect: window.Rect = rectOf(main);
+        let secondMoveCode: number = ZERO;
+        try {
+          // UIAbilityContext.moveAbilityToBackground is foreground-only; the SDK specifies 16000065 otherwise.
+          await ability.context.moveAbilityToBackground();
+        } catch (error) {
+          secondMoveCode = Number((error as BusinessError).code);
+        }
+        expect(secondMoveCode).assertEqual(ERR_BACKGROUND_NOT_FOREGROUND);
+        const secondRect: window.Rect = rectOf(main);
         const top: UIAbility | undefined = await topAbility();
         logCase('testSecondBackgroundIdempotent0038', `first=${firstRect.width}x${firstRect.height} ` +
-          `second=${secondRect.width}x${secondRect.height} topIsAbility=${top === ability}`);
+          `second=${secondRect.width}x${secondRect.height} code=${secondMoveCode} topIsAbility=${top === ability}`);
         expect(isBackground(ability)).assertTrue();
+        expect(firstRect.width > ZERO).assertTrue();
+        expect(firstRect.height > ZERO).assertTrue();
+        expect(firstRect.left).assertEqual(secondRect.left);
+        expect(firstRect.top).assertEqual(secondRect.top);
         expect(firstRect.width).assertEqual(secondRect.width);
         expect(firstRect.height).assertEqual(secondRect.height);
         expect(top === ability).assertFalse();
+        await startHomeAndSettle();
+        const foregrounded: boolean = await waitForeground(ability, EVENT_WAIT_MS);
+        expect(foregrounded).assertTrue();
+        expect(isForeground(ability)).assertTrue();
+        expect((await topAbility()) === ability).assertTrue();
       } finally {
         await terminateQuietly(ability);
       }
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_3900
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_3900
      * @tc.name      testRapidBackgroundForegroundPulse0039
      * @tc.desc      Pulse EntryAbility through two short background and foreground round trips observed by one tap
      *               and check the log alternates and ends in the foreground
@@ -1432,7 +1519,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_4000
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_4000
      * @tc.name      testThreeStartStopCyclesInstances0040
      * @tc.desc      Run three explicit start and stop cycles and check the three returned instances are distinct,
      *               the last one is in the foreground and every one belongs to the entry module
@@ -1457,7 +1544,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_4100
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_4100
      * @tc.name      testThreeCyclesStatsMonotone0041
      * @tc.desc      Sample the runtime counters after every one of three start and stop cycles and check the four
      *               consecutive snapshots never move backwards
@@ -1486,7 +1573,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_4200
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_4200
      * @tc.name      testTwoCyclesTapCreateCount0042
      * @tc.desc      Keep one tap registered across two full create and destroy cycles and check the create callback
      *               fires once per cycle
@@ -1516,7 +1603,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_4300
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_4300
      * @tc.name      testTwoCyclesWindowStageCount0043
      * @tc.desc      Run two observed cold starts and check the window stage create callback count keeps step with the
      *               create callback count
@@ -1549,7 +1636,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_4400
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_4400
      * @tc.name      testTwoCyclesDestroyCount0044
      * @tc.desc      Terminate two successive observed launches and check every cycle reports one window stage
      *               destroy and one destroy, with destroy as the final event
@@ -1582,7 +1669,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_4500
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_4500
      * @tc.name      testThreeCyclePairwiseDistinct0045
      * @tc.desc      Compare three instances produced by three cycles pairwise and check no two of them are the same
      *               object
@@ -1604,7 +1691,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_4600
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_4600
      * @tc.name      testCycleStatsChainMonotone0046
      * @tc.desc      Compare the freed byte and gc count counters along a three cycle chain and check each counter
      *               grows or stays flat
@@ -1631,7 +1718,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_4700
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_4700
      * @tc.name      testStopLeavesNoTopInstance0047
      * @tc.desc      Stop the running EntryAbility and check the stopped instance is no longer the top ability and
      *               no longer reports the foreground state
@@ -1652,7 +1739,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_4800
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_4800
      * @tc.name      testDoubleStopHomeSafe0048
      * @tc.desc      Stop the same EntryAbility twice in a row and check the second stop is harmless and a later
      *               launch still reaches the foreground with a different instance
@@ -1674,7 +1761,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_4900
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_4900
      * @tc.name      testCycleNamesStable0049
      * @tc.desc      Check the ability name and module name reported by every instance of a three cycle run stay at
      *               the declared values
@@ -1698,10 +1785,10 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_5000
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_5000
      * @tc.name      testCycleWindowShownTwice0050
-     * @tc.desc      Launch EntryAbility twice and check both instances drive a showing main window with a positive
-     *               area
+     * @tc.desc      Launch EntryAbility twice and check the latest instance drives a showing main window with a
+     *               positive area while the earlier window may already be torn down
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1713,16 +1800,17 @@ export default function abilityLifecycleMatrixTest() {
       const second: UIAbility = await launchHome();
       const secondWindow: window.Window = await mainWindowOf(second);
       const secondArea: number = areaOf(secondWindow);
+      const firstShowing: boolean = await showingWhenReady(firstWindow, EVENT_WAIT_MS);
+      const secondShowing: boolean = await showingWhenReady(secondWindow, EVENT_WAIT_MS);
       logCase('testCycleWindowShownTwice0050', `firstArea=${firstArea} secondArea=${secondArea} ` +
-        `firstShowing=${firstWindow.isWindowShowing()} secondShowing=${secondWindow.isWindowShowing()}`);
-      expect(firstWindow.isWindowShowing()).assertTrue();
-      expect(secondWindow.isWindowShowing()).assertTrue();
+        `firstShowing=${firstShowing} secondShowing=${secondShowing}`);
+      expect(secondShowing).assertTrue();
       expect(firstArea > ZERO).assertTrue();
       expect(secondArea > ZERO).assertTrue();
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_5100
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_5100
      * @tc.name      testCycleWithHintGcStats0051
      * @tc.desc      Force a garbage collection hint between two launches and check the gc count counter neither
      *               resets nor decreases around the lifecycle work
@@ -1749,7 +1837,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_5200
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_5200
      * @tc.name      testWindowStageDestroyRecorded0052
      * @tc.desc      Terminate the running EntryAbility and check the window stage destroy callback is recorded once
      *               while the ability context still reports the entry ability name
@@ -1772,7 +1860,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_5300
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_5300
      * @tc.name      testDestroyOncePerTerminate0053
      * @tc.desc      Terminate a running EntryAbility under observation and check exactly two teardown callbacks are
      *               recorded, the window stage destroy first and the destroy second
@@ -1793,7 +1881,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_5400
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_5400
      * @tc.name      testNoDestroyWhileRunning0054
      * @tc.desc      Observe a running EntryAbility for a full settle window and check no teardown callback is
      *               delivered while the ability stays in the foreground
@@ -1819,7 +1907,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_5500
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_5500
      * @tc.name      testWindowStageDestroyAfterBackground0055
      * @tc.desc      Background EntryAbility, terminate it from the background and check the background callback
      *               precedes the window stage destroy callback
@@ -1850,7 +1938,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_5600
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_5600
      * @tc.name      testWindowStageDestroyWithoutBackground0056
      * @tc.desc      Terminate EntryAbility directly from the foreground and check the window stage destroy callback
      *               sits immediately before the final destroy callback
@@ -1872,7 +1960,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_5700
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_5700
      * @tc.name      testDoubleTerminateSingleDestroy0057
      * @tc.desc      Terminate the same EntryAbility twice and check the second request does not produce a second
      *               destroy callback
@@ -1905,7 +1993,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_5800
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_5800
      * @tc.name      testTopAbsentAfterDestroy0058
      * @tc.desc      Terminate EntryAbility, check it no longer owns the top slot nor reports the foreground state,
      *               then check a new launch takes the foreground
@@ -1929,7 +2017,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_5900
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_5900
      * @tc.name      testStageInstanceHeldUntilDestroy0059
      * @tc.desc      Capture the window stage at create time, terminate the ability under a second tap and check the
      *               captured stage belonged to the terminated instance and the teardown callbacks arrived
@@ -1952,7 +2040,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6000
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_6000
      * @tc.name      testTwoCycleDestroyOrder0060
      * @tc.desc      Observe two cycles with one tap each and check every cycle opens with create and closes with
      *               destroy while the two cycles produce different instances
@@ -1979,7 +2067,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6100
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_6100
      * @tc.name      testTapStoppedBeforeTerminate0061
      * @tc.desc      Unregister the tap before terminating EntryAbility and check the termination is silent for the
      *               tap while the ability still leaves the top slot
@@ -2004,7 +2092,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6200
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_6200
      * @tc.name      testLaunchAfterDestroyEvent0062
      * @tc.desc      Wait for the destroy callback of the first instance and relaunch immediately, then check the new
      *               instance is different and owns the top slot
@@ -2028,7 +2116,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6300
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_6300
      * @tc.name      testTopAbilityInfoContract0063
      * @tc.desc      Read the ability info of the current top ability and check it names the EntryAbility of the
      *               entry module of the sample bundle
@@ -2049,7 +2137,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6400
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_6400
      * @tc.name      testTopApplicationInfoFields0064
      * @tc.desc      Read the application info behind a fresh EntryAbility and check the bundle identity, a non empty
      *               version name and a positive application uid
@@ -2072,7 +2160,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6500
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_6500
      * @tc.name      testContextResourceColorMode0065
      * @tc.desc      Compare the colour mode reported by the ability configuration with the one of the resource
      *               manager and check both agree on a concrete dark or light mode
@@ -2091,7 +2179,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6600
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_6600
      * @tc.name      testAbilityInfoLaunchType0066
      * @tc.desc      Check a fresh EntryAbility reports the singleton launch type and the bundle name declared by the
      *               sample; the ability type enum is FA model only and is therefore not read in Stage mode
@@ -2110,7 +2198,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6700
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_6700
      * @tc.name      testAbilityInfoExportedEnabled0067
      * @tc.desc      Check the runtime ability info marks EntryAbility exported and enabled and carries a non empty
      *               label describing the ability
@@ -2130,7 +2218,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6800
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_6800
      * @tc.name      testDeclaredRuntimeInfoAgree0068
      * @tc.desc      Compare the launch type, the exported flag and the name of the manifest declaration with the
      *               ones the running EntryAbility reports
@@ -2150,7 +2238,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_6900
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_6900
      * @tc.name      testDeclaredBundleFieldsMatch0069
      * @tc.desc      Check the manifest declaration of EntryAbility carries the sample bundle name, the entry module
      *               name and that the entry module declares exactly one ability
@@ -2169,7 +2257,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7000
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_7000
      * @tc.name      testDeclaredHomeSkill0070
      * @tc.desc      Check the manifest declaration of EntryAbility carries the home action and the system home
      *               entity so the ability can be started as the launcher entry
@@ -2188,7 +2276,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7100
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_7100
      * @tc.name      testDeclaredEntryAbilityFirst0071
      * @tc.desc      Check the manifest declaration of EntryAbility is the first ability of the entry module and that
      *               the declared record is exported and enabled
@@ -2209,7 +2297,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7200
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_7200
      * @tc.name      testDeclaredDeviceTypes0072
      * @tc.desc      Check the manifest declaration of EntryAbility lists the phone device type used by this sample
      *               and that the runtime instance agrees on the ability name
@@ -2228,7 +2316,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7300
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_7300
      * @tc.name      testApplicationInfoChain0073
      * @tc.desc      Compare the runtime application info reached through the ability context with the application
      *               record of the installed bundle and check the uid and the bundle name agree while the version code
@@ -2252,10 +2340,10 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7400
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_7400
      * @tc.name      testAbilityInfoProcessField0074
-     * @tc.desc      Check the process field of the runtime ability info is not empty and matches the process declared
-     *               for EntryAbility in the module manifest
+     * @tc.desc      Check the undeclared ability process is empty and agrees with the installed ability record,
+     *               while the runtime application process defaults to the sample bundle name
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -2264,15 +2352,17 @@ export default function abilityLifecycleMatrixTest() {
       const ability: UIAbility = await launchHome();
       const declared: bundleManager.AbilityInfo = await declaredEntryAbility();
       const process: string = ability.context.abilityInfo.process;
+      const applicationProcess: string = ability.context.applicationInfo.process;
       logCase('testAbilityInfoProcessField0074', `process=${process} declaredProcess=${declared.process} ` +
-        `length=${process.length}`);
-      expect(process.length > ZERO).assertTrue();
+        `applicationProcess=${applicationProcess}`);
+      expect(process).assertEqual(EMPTY_TEXT);
       expect(process).assertEqual(declared.process);
+      expect(applicationProcess).assertEqual(BUNDLE_NAME);
       expect(ability.context.abilityInfo.name).assertEqual(ENTRY_ABILITY);
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7500
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_7500
      * @tc.name      testWindowShowingAfterLaunch0075
      * @tc.desc      Check the main window of a fresh EntryAbility is showing and its area stays within the area of
      *               the default display
@@ -2286,15 +2376,16 @@ export default function abilityLifecycleMatrixTest() {
       const area: number = areaOf(main);
       const screen: display.Display = screenOf();
       const screenArea: number = screen.width * screen.height;
-      logCase('testWindowShowingAfterLaunch0075', `showing=${main.isWindowShowing()} area=${area} ` +
+      const showing: boolean = await showingWhenReady(main, EVENT_WAIT_MS);
+      logCase('testWindowShowingAfterLaunch0075', `showing=${showing} area=${area} ` +
         `screenArea=${screenArea}`);
-      expect(main.isWindowShowing()).assertTrue();
+      expect(showing).assertTrue();
       expect(area > ZERO).assertTrue();
       expect(area <= screenArea).assertTrue();
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7600
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_7600
      * @tc.name      testWindowRectWithinScreen0076
      * @tc.desc      Read the window rectangle of a fresh EntryAbility and check it has a positive size that fits
      *               inside the default display bounds
@@ -2315,7 +2406,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7700
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_7700
      * @tc.name      testWindowStageRecordedAtCreate0077
      * @tc.desc      Check the window stage create callback is the second callback of a cold start, right after
      *               create, and that it hands back the launched ability instance
@@ -2336,7 +2427,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7800
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_7800
      * @tc.name      testWindowRectStableAcrossReads0078
      * @tc.desc      Read the main window rectangle of one EntryAbility twice with a settle gap and check width,
      *               height and area are unchanged
@@ -2359,7 +2450,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_7900
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_7900
      * @tc.name      testWindowShowingAfterRoundTrip0079
      * @tc.desc      Park EntryAbility in the background, bring it back and check its main window is showing again
      *               with a positive area
@@ -2385,7 +2476,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8000
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_8000
      * @tc.name      testWindowRectStableAcrossBackground0080
      * @tc.desc      Compare the main window rectangle before and after a background round trip and check the size of
      *               the window is preserved
@@ -2412,7 +2503,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8100
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_8100
      * @tc.name      testWindowAreaProduct0081
      * @tc.desc      Check the window area helper agrees with the product of the reported rectangle edges and that
      *               the window is showing
@@ -2434,7 +2525,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8200
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_8200
      * @tc.name      testScreenBoundsPositive0082
      * @tc.desc      Check the default display reports positive width, height and density, and that the entry window
      *               does not exceed the display area
@@ -2455,7 +2546,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8300
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_8300
      * @tc.name      testWindowShownOnSecondLaunch0083
      * @tc.desc      Launch EntryAbility twice and check each of the two distinct instances drives a showing window
      *               with a positive area
@@ -2478,7 +2569,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8400
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_8400
      * @tc.name      testWindowStageNonEmptyAtForeground0084
      * @tc.desc      Check that at the moment the foreground callback arrives the recorded window stage exists and
      *               the ability window already has a positive area
@@ -2501,7 +2592,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8500
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_8500
      * @tc.name      testStateForegroundEnumExact0085
      * @tc.desc      Check a freshly created EntryAbility reports exactly the foreground lifecycle enum and neither
      *               the create nor the destroy enum
@@ -2522,7 +2613,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8600
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_8600
      * @tc.name      testStateTripletAcrossRoundTrip0086
      * @tc.desc      Collect the lifecycle state before, during and after a background round trip and check the three
      *               values alternate foreground, background, foreground
@@ -2550,7 +2641,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8700
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_8700
      * @tc.name      testStateAfterResumeIsForeground0087
      * @tc.desc      Resume a backgrounded EntryAbility and check it is back on top with the foreground state and not
      *               left in the uninitialized state
@@ -2576,10 +2667,10 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8800
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_8800
      * @tc.name      testStateUninitializedAfterDestroyFallback0088
-     * @tc.desc      Terminate EntryAbility and check the state read falls back to a non foreground value while the
-     *               instance no longer holds the top slot
+     * @tc.desc      Confirm the destroy callback identifies the terminated EntryAbility, then check its state no
+     *               longer reports foreground and the instance no longer holds the top slot
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -2592,15 +2683,14 @@ export default function abilityLifecycleMatrixTest() {
       const state: abilityDelegatorRegistry.AbilityLifecycleState = stateOrUninitialized(ability);
       const top: UIAbility | undefined = await topAbility();
       logCase('testStateUninitializedAfterDestroyFallback0088', `state=${state} topIsAbility=${top === ability} ` +
-        `events=${tap.text()}`);
+        `events=${tap.text()} destroyedIsAbility=${tap.destroyedInstance === ability}`);
+      expect(tap.destroyedInstance === ability).assertTrue();
       expect(state === abilityDelegatorRegistry.AbilityLifecycleState.FOREGROUND).assertFalse();
-      expect(state === abilityDelegatorRegistry.AbilityLifecycleState.UNINITIALIZED ||
-        state === abilityDelegatorRegistry.AbilityLifecycleState.DESTROY).assertTrue();
       expect(top === ability).assertFalse();
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_8900
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_8900
      * @tc.name      testTapRanksMonotoneColdStart0089
      * @tc.desc      Convert the cold start callback log into lifecycle ranks and check the ranks start at create,
      *               end at foreground and never step backwards
@@ -2620,7 +2710,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9000
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_9000
      * @tc.name      testStatsMonotoneAcrossLaunch0090
      * @tc.desc      Sample the gc counters before and after a cold launch and check the count, the gc time and the
      *               allocated bytes did not decrease
@@ -2641,7 +2731,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9100
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_9100
      * @tc.name      testStatsMonotoneAcrossTerminate0091
      * @tc.desc      Sample the gc counters around a termination and check the freed bytes and the allocated bytes
      *               both stayed cumulative
@@ -2663,7 +2753,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9200
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_9200
      * @tc.name      testStatsMonotoneAcrossStopHome0092
      * @tc.desc      Sample the gc counters before and after two repeated stop requests and check every counter of the
      *               snapshot pair is non decreasing
@@ -2686,7 +2776,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9300
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_9300
      * @tc.name      testStatsThreeStepChain0093
      * @tc.desc      Chain three snapshots across a launch, a stop request and a second launch, and check the chain is
      *               monotone end to end while the relaunch hands back a new instance
@@ -2713,7 +2803,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9400
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_9400
      * @tc.name      testStatsFourSnapshotsTwoCycles0094
      * @tc.desc      Take four counter snapshots across two launch and terminate cycles and check every consecutive
      *               pair is monotone
@@ -2739,7 +2829,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9500
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_9500
      * @tc.name      testStatsCountNeverDecreases0095
      * @tc.desc      Read the gc count counter three times around a launch and a terminate and check the middle and
      *               the last read are never smaller than the earlier ones
@@ -2761,7 +2851,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9600
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_9600
      * @tc.name      testStatsAfterHintGc0096
      * @tc.desc      Force collection hints before and after a lifecycle step and check the snapshots taken around the
      *               hints remain monotone
@@ -2787,7 +2877,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9700
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_9700
      * @tc.name      testStatsFreedWithinAllocated0097
      * @tc.desc      Check the freed byte counter never exceeds the allocated byte counter and that both are finite
      *               positive cumulative values after a launch
@@ -2807,7 +2897,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9800
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_9800
      * @tc.name      testStatsKeysReadableDuringChurn0098
      * @tc.desc      Read the gc count and gc time keys directly around ability churn and check both stay readable and
      *               non decreasing while the ability is created and destroyed
@@ -2831,7 +2921,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_9900
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_9900
      * @tc.name      testStatsAndStateAfterRepeatedStops0099
      * @tc.desc      Run three launch and stop cycles, check the counters only grow, the final instance is foreground
      *               and the three instances differ
@@ -2857,7 +2947,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10000
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_10000
      * @tc.name      testColdStartForegroundBeforeSecondCycle0100
      * @tc.desc      Observe two successive launch and terminate cycles with one tap and check the first foreground
      *               callback precedes the create callback of the second cycle
@@ -2887,7 +2977,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10100
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_10100
      * @tc.name      testTopAbilityChangesWhenBackground0101
      * @tc.desc      Track the top ability across a background move and the following resume and check the ability
      *               owns the top slot before and after but not while it is parked
@@ -2915,7 +3005,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10200
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_10200
      * @tc.name      testWindowStageFreshAfterRelaunch0102
      * @tc.desc      Terminate EntryAbility, relaunch it under a new tap and check the new instance owns a recorded
      *               window stage and a showing window
@@ -2938,7 +3028,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10300
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_10300
      * @tc.name      testContextModuleMatchesDeclared0103
      * @tc.desc      Check the module of the runtime ability info matches the module that declares EntryAbility and
      *               that the module holds the ability entry for it
@@ -2958,7 +3048,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10400
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_10400
      * @tc.name      testAbilityInfoIconLabelNonEmpty0104
      * @tc.desc      Check the runtime ability info of EntryAbility carries a non empty icon, label and description so
      *               the launcher entry is fully described
@@ -2978,7 +3068,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10500
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_10500
      * @tc.name      testStatsTimeNeverDecreases0105
      * @tc.desc      Read the gc time counter at three points of a background round trip and check the accumulated gc
      *               time grows monotonically with the lifecycle work
@@ -3008,7 +3098,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10600
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_10600
      * @tc.name      testCycleWindowAreaStable0106
      * @tc.desc      Compare the window size of two successive EntryAbility instances and check width, height and area
      *               are identical across the two launches
@@ -3029,7 +3119,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10700
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_10700
      * @tc.name      testForegroundAfterFullChurn0107
      * @tc.desc      Drive EntryAbility through launch, background, resume, terminate and relaunch, then check the final
      *               instance is a new foreground ability while the counters stayed monotone
@@ -3056,7 +3146,7 @@ export default function abilityLifecycleMatrixTest() {
     });
 
     /**
-     * @tc.number    SUB_ARKTS_GC_LIFECYCLE_10800
+     * @tc.number    SUB_ARKTS_GC_LIFECYCLEMATRIX_10800
      * @tc.name      testCompositeLifecycleInvariant0108
      * @tc.desc      Combine the lifecycle invariants of a full observed run: foreground state, ordered cold start,
      *               recorded window stage, showing window, declared name and monotone counters

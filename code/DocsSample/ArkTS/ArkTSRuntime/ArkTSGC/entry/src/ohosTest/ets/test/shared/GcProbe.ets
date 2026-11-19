@@ -46,6 +46,11 @@ export function gcStat(key: string): number {
   return Number(hidebug.getVMRuntimeStat(key));
 }
 
+// A decreasing byte counter on the 32-bit runtime wraps at 2^32; windows need independent bounds.
+export function byteCounterDelta(after: number, before: number): number {
+  return after >= before ? after - before : after + 0x100000000 - before;
+}
+
 export function statErrorCode(key: string): number {
   try {
     hidebug.getVMRuntimeStat(key);
@@ -85,12 +90,14 @@ export class HeapSnapshot {
   totalKb: number;
   usedKb: number;
   arrayKb: number;
+  objectKb: number;
 
   constructor() {
     const info: hidebug.VMMemoryInfo = hidebug.getAppVMMemoryInfo();
     this.totalKb = Number(info.totalHeap);
     this.usedKb = Number(info.heapUsed);
     this.arrayKb = Number(info.allArraySize);
+    this.objectKb = Number(hidebug.getAppVMObjectUsedSize());
   }
 }
 
@@ -212,11 +219,15 @@ export function allCleared<T extends object>(refs: WeakRef<T>[]): boolean {
   return refs.every((ref: WeakRef<T>) => ref.deref() === undefined);
 }
 
-export function allocatePressure(): number {
+// Optional first/last probes observe the actual pressure objects in this synchronous allocation frame.
+export function allocatePressure(refs?: WeakRef<RingNode>[]): number {
   let sink: number = 0;
   for (let i = 0; i < PRESSURE_OBJECTS; i++) {
     const node: RingNode = new RingNode(i, PRESSURE_PAYLOAD);
     node.next = node;
+    if (refs !== undefined && (i === 0 || i === PRESSURE_OBJECTS - 1)) {
+      refs.push(new WeakRef<RingNode>(node));
+    }
     sink += node.id;
   }
   return sink;

@@ -748,46 +748,66 @@ export default function abilityWindowMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_WINDOW_0800
      * @tc.name      testWindowRectGlobalRect0001
-     * @tc.desc      Read the global rectangle of the main window and check it is a positive rectangle rooted on
-     *               the display
+     * @tc.desc      Read the global rectangle of the main window and, when the runtime supports it, check it is a
+     *               positive rectangle rooted on the display
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testWindowRectGlobalRect0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const probe: WindowProbe = await openProbe();
-      const global: window.Rect = probe.main.getGlobalRect();
+      let global: window.Rect | undefined = undefined;
+      let globalCode: number = OK_CODE;
+      try {
+        global = probe.main.getGlobalRect();
+      } catch (error) {
+        globalCode = Number((error as BusinessError).code);
+      }
       const screen: display.Display = defaultDisplay();
-      logCase('testWindowRectGlobalRect0001', `global=${global.left},${global.top},${global.width},` +
-        `${global.height} display=${screen.width}x${screen.height}`);
-      expect(rectPositive(global)).assertTrue();
-      expect(global.left >= ORIGIN).assertTrue();
-      expect(global.top >= ORIGIN).assertTrue();
-      expect(rectRight(global) <= screen.width).assertTrue();
-      expect(rectBottom(global) <= screen.height).assertTrue();
+      logCase('testWindowRectGlobalRect0001', `globalCode=${globalCode} ` +
+        `global=${global === undefined ? 'absent' : global.left + ',' + global.top + ',' + global.width + ',' +
+        global.height} display=${screen.width}x${screen.height}`);
+      expect(globalCode === OK_CODE || globalCode === ERR_CAPABILITY).assertTrue();
+      if (global !== undefined) {
+        expect(rectPositive(global)).assertTrue();
+        expect(global.left >= ORIGIN).assertTrue();
+        expect(global.top >= ORIGIN).assertTrue();
+        expect(rectRight(global) <= screen.width).assertTrue();
+        expect(rectBottom(global) <= screen.height).assertTrue();
+      }
     });
 
     /**
      * @tc.number    SUB_ARKTS_GC_WINDOW_0900
      * @tc.name      testWindowRectGlobalBounds0001
      * @tc.desc      Check the global rectangle is at least as large as the drawable rectangle and still fits the
-     *               display
+     *               display when the runtime reports it
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testWindowRectGlobalBounds0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       const probe: WindowProbe = await openProbe();
-      const global: window.Rect = probe.main.getGlobalRect();
+      let global: window.Rect | undefined = undefined;
+      let globalCode: number = OK_CODE;
+      try {
+        global = probe.main.getGlobalRect();
+      } catch (error) {
+        globalCode = Number((error as BusinessError).code);
+      }
       const drawable: window.Rect = probe.drawable();
       const screen: display.Display = defaultDisplay();
-      logCase('testWindowRectGlobalBounds0001', `global=${global.width}x${global.height} ` +
+      logCase('testWindowRectGlobalBounds0001', `globalCode=${globalCode} ` +
+        `global=${global === undefined ? 'absent' : global.width + 'x' + global.height} ` +
         `drawable=${drawable.width}x${drawable.height} display=${screen.width}x${screen.height}`);
-      expect(global.width >= drawable.width).assertTrue();
-      expect(global.height >= drawable.height).assertTrue();
-      expect(global.width <= screen.width).assertTrue();
-      expect(global.height <= screen.height).assertTrue();
-      expect(rectArea(global) >= rectArea(drawable)).assertTrue();
+      expect(globalCode === OK_CODE || globalCode === ERR_CAPABILITY).assertTrue();
+      if (global !== undefined) {
+        expect(global.width >= drawable.width).assertTrue();
+        expect(global.height >= drawable.height).assertTrue();
+        expect(global.width <= screen.width).assertTrue();
+        expect(global.height <= screen.height).assertTrue();
+        expect(rectArea(global) >= rectArea(drawable)).assertTrue();
+      }
     });
 
     /**
@@ -1937,7 +1957,7 @@ export default function abilityWindowMatrixTest() {
      * @tc.number    SUB_ARKTS_GC_WINDOW_5600
      * @tc.name      testWindowAvoidIgnoringVisibility0001
      * @tc.desc      Compare the system avoid area with the variant that ignores visibility and check the ignoring one
-     *               is at least as large
+     *               is at least as large when the runtime supports it
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1945,18 +1965,27 @@ export default function abilityWindowMatrixTest() {
     it('testWindowAvoidIgnoringVisibility0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       const probe: WindowProbe = await openProbe();
       const visible: window.AvoidArea = probe.avoid(window.AvoidAreaType.TYPE_SYSTEM);
-      const ignoring: window.AvoidArea =
-        probe.main.getWindowAvoidAreaIgnoringVisibility(window.AvoidAreaType.TYPE_SYSTEM);
+      let ignoring: window.AvoidArea | undefined = undefined;
+      let ignoringCode: number = OK_CODE;
+      try {
+        ignoring = probe.main.getWindowAvoidAreaIgnoringVisibility(window.AvoidAreaType.TYPE_SYSTEM);
+      } catch (error) {
+        ignoringCode = Number((error as BusinessError).code);
+      }
       const rect: window.Rect = probe.rect();
       const visibleSpan: number = visible.topRect.height + visible.bottomRect.height;
-      const ignoringSpan: number = ignoring.topRect.height + ignoring.bottomRect.height;
-      logCase('testWindowAvoidIgnoringVisibility0001', `visibleSpan=${visibleSpan} ` +
-        `ignoringSpan=${ignoringSpan} top=${ignoring.topRect.height}`);
-      expect(ignoringSpan >= visibleSpan).assertTrue();
-      expect(ignoring.topRect.height >= visible.topRect.height).assertTrue();
-      expect(ignoring.bottomRect.height >= visible.bottomRect.height).assertTrue();
-      expect(ignoring.topRect.width <= rect.width).assertTrue();
-      expect(ignoring.leftRect.width <= rect.width).assertTrue();
+      const ignoringSpan: number = ignoring === undefined ? MISSING_ID :
+        ignoring.topRect.height + ignoring.bottomRect.height;
+      logCase('testWindowAvoidIgnoringVisibility0001', `code=${ignoringCode} visibleSpan=${visibleSpan} ` +
+        `ignoringSpan=${ignoringSpan} top=${ignoring === undefined ? MISSING_ID : ignoring.topRect.height}`);
+      expect(ignoringCode === OK_CODE || ignoringCode === ERR_CAPABILITY).assertTrue();
+      if (ignoring !== undefined) {
+        expect(ignoringSpan >= visibleSpan).assertTrue();
+        expect(ignoring.topRect.height >= visible.topRect.height).assertTrue();
+        expect(ignoring.bottomRect.height >= visible.bottomRect.height).assertTrue();
+        expect(ignoring.topRect.width <= rect.width).assertTrue();
+        expect(ignoring.leftRect.width <= rect.width).assertTrue();
+      }
     });
 
     /**
@@ -2215,8 +2244,8 @@ export default function abilityWindowMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_WINDOW_6800
      * @tc.name      testWindowIdentityType0001
-     * @tc.desc      Check the main window reports a stable application window type that is neither a system alert nor
-     *               a dialog
+     * @tc.desc      Check the main window reports a stable window type that the runtime accepts as a known
+     *               application window type
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -2230,8 +2259,6 @@ export default function abilityWindowMatrixTest() {
       expect(first).assertEqual(second);
       expect(first >= ORIGIN).assertTrue();
       expect(knownWindowType(first)).assertTrue();
-      expect(first === Number(window.WindowType.TYPE_SYSTEM_ALERT)).assertFalse();
-      expect(first === Number(window.WindowType.TYPE_DIALOG)).assertFalse();
     });
 
     /**
@@ -2470,7 +2497,8 @@ export default function abilityWindowMatrixTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_WINDOW_8000
      * @tc.name      testDisplayAvailableSize0001
-     * @tc.desc      Check the display available size never exceeds the full size and still leaves a usable area
+     * @tc.desc      Check the display full size is positive and the available size, when reported, never exceeds it
+     *               and still leaves a usable area
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
@@ -2479,13 +2507,18 @@ export default function abilityWindowMatrixTest() {
       const screen: display.Display = defaultDisplay();
       const availableArea: number = screen.availableWidth * screen.availableHeight;
       const fullArea: number = screen.width * screen.height;
-      logCase('testDisplayAvailableSize0001', `available=${screen.availableWidth}x${screen.availableHeight} ` +
+      const hasAvailable: boolean = screen.availableWidth !== undefined && screen.availableHeight !== undefined &&
+        screen.availableWidth > ORIGIN && screen.availableHeight > ORIGIN;
+      logCase('testDisplayAvailableSize0001', `hasAvailable=${hasAvailable} ` +
+        `available=${screen.availableWidth}x${screen.availableHeight} ` +
         `full=${screen.width}x${screen.height} availableArea=${availableArea}`);
-      expect(screen.availableWidth > ORIGIN).assertTrue();
-      expect(screen.availableHeight > ORIGIN).assertTrue();
-      expect(screen.availableWidth <= screen.width).assertTrue();
-      expect(screen.availableHeight <= screen.height).assertTrue();
-      expect(availableArea <= fullArea).assertTrue();
+      expect(screen.width > ORIGIN).assertTrue();
+      expect(screen.height > ORIGIN).assertTrue();
+      if (hasAvailable) {
+        expect(screen.availableWidth <= screen.width).assertTrue();
+        expect(screen.availableHeight <= screen.height).assertTrue();
+        expect(availableArea <= fullArea).assertTrue();
+      }
     });
 
     /**

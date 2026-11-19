@@ -17,6 +17,7 @@ import { bundleManager, common, UIAbility, Want } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { sleepMs } from './TestPace';
+import { logCase } from './TestLog';
 
 export const BUNDLE_NAME: string = 'com.sample.ArkTSGC';
 export const ENTRY_MODULE: string = 'entry';
@@ -28,7 +29,8 @@ export const ERR_RES_NAME_INVALID: number = 9001003;
 export const ERR_RES_ID_INVALID: number = 9001001;
 
 const LAUNCH_WAIT_MS: number = 5000;
-const SETTLE_MS: number = 800;
+const POLL_MS: number = 100;
+const ERR_TOP_UNAVAILABLE: number = 16000100;
 
 export const SELF_FLAGS: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION |
   bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE |
@@ -106,15 +108,45 @@ export async function topAbility(): Promise<UIAbility | undefined> {
   try {
     return await abilityDelegatorRegistry.getAbilityDelegator().getCurrentTopAbility();
   } catch (error) {
+    const failure: BusinessError = error as BusinessError;
+    logCase('topAbility', `code=${failure.code} message=${failure.message}`);
+    if (failure.code !== ERR_TOP_UNAVAILABLE) {
+      throw new Error(`getCurrentTopAbility failed: ${failure.code} ${failure.message}`);
+    }
     return undefined;
   }
 }
 
 export async function stopHome(): Promise<void> {
   const top: UIAbility | undefined = await topAbility();
-  if (top !== undefined && top.context.abilityInfo.name === ENTRY_ABILITY) {
+  if (top === undefined || top.context.abilityInfo.name !== ENTRY_ABILITY) {
+    return;
+  }
+  const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+  let destroyed: boolean = false;
+  const monitor: abilityDelegatorRegistry.AbilityMonitor = {
+    abilityName: ENTRY_ABILITY,
+    moduleName: ENTRY_MODULE,
+    onAbilityDestroy: (ability: UIAbility) => {
+      if (ability === top) {
+        destroyed = true;
+      }
+    }
+  };
+  delegator.addAbilityMonitorSync(monitor);
+  try {
     await top.context.terminateSelf();
-    await sleepMs(SETTLE_MS);
+    for (let waited: number = 0; waited < LAUNCH_WAIT_MS; waited += POLL_MS) {
+      if (destroyed) {
+        return;
+      }
+      await sleepMs(POLL_MS);
+    }
+    if (!destroyed) {
+      throw new Error('stopHome: timed out waiting for the EntryAbility destroy callback');
+    }
+  } finally {
+    delegator.removeAbilityMonitorSync(monitor);
   }
 }
 
@@ -126,20 +158,30 @@ export function homeWant(): Want {
   };
 }
 
-// always gives a freshly created ability so page state from earlier cases never leaks in
 export async function launchHome(): Promise<UIAbility> {
   await stopHome();
   const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+  let foreground: UIAbility | undefined = undefined;
   const monitor: abilityDelegatorRegistry.AbilityMonitor = {
     abilityName: ENTRY_ABILITY,
-    moduleName: ENTRY_MODULE
+    moduleName: ENTRY_MODULE,
+    onAbilityForeground: (ability: UIAbility) => {
+      foreground = ability;
+    }
   };
   delegator.addAbilityMonitorSync(monitor);
   try {
     await delegator.startAbility(homeWant());
     const ability: UIAbility = await delegator.waitAbilityMonitor(monitor, LAUNCH_WAIT_MS);
-    await sleepMs(SETTLE_MS);
-    return ability;
+    for (let waited: number = 0; waited < LAUNCH_WAIT_MS; waited += POLL_MS) {
+      if (foreground === ability &&
+        delegator.getAbilityState(ability) === abilityDelegatorRegistry.AbilityLifecycleState.FOREGROUND &&
+        (await topAbility()) === ability) {
+        return ability;
+      }
+      await sleepMs(POLL_MS);
+    }
+    throw new Error('launchHome: timed out waiting for the created EntryAbility to become foreground');
   } finally {
     delegator.removeAbilityMonitorSync(monitor);
   }

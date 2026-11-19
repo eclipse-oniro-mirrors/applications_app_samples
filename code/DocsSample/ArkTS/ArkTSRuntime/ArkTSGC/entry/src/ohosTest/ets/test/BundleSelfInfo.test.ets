@@ -97,6 +97,11 @@ function textOrEmpty(value: string | undefined): string {
   return value === undefined ? '' : value;
 }
 
+// collections gated behind flags can come back absent, so every length read goes through here
+function lenOf<T>(items: T[] | undefined): number {
+  return items === undefined || items === null ? EMPTY_LENGTH : items.length;
+}
+
 function countModules(info: bundleManager.BundleInfo): number {
   return info.hapModulesInfo.length;
 }
@@ -139,10 +144,10 @@ function countSkills(info: bundleManager.BundleInfo): number {
   let total: number = 0;
   info.hapModulesInfo.forEach((item: bundleManager.HapModuleInfo) => {
     item.abilitiesInfo.forEach((ability: bundleManager.AbilityInfo) => {
-      total += ability.skills.length;
+      total += lenOf<bundleManager.Skill>(ability.skills);
     });
     item.extensionAbilitiesInfo.forEach((extension: bundleManager.ExtensionAbilityInfo) => {
-      total += extension.skills.length;
+      total += lenOf<bundleManager.Skill>(extension.skills);
     });
   });
   return total;
@@ -245,8 +250,8 @@ class FlagShape {
     this.moduleMetadataCount = countModuleMetadata(info);
     this.extensionMetadataCount = countExtensionMetadata(info);
     this.skillCount = countSkills(info);
-    this.appName = textOrEmpty(info.appInfo.name);
-    this.permissionCount = info.reqPermissionDetails.length;
+    this.appName = info.appInfo === undefined || info.appInfo === null ? '' : textOrEmpty(info.appInfo.name);
+    this.permissionCount = lenOf<bundleManager.ReqPermissionDetail>(info.reqPermissionDetails);
   }
 
   key(): string {
@@ -622,23 +627,25 @@ export default function bundleSelfInfoTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_BUNDLEINFO_1500
      * @tc.name      testBundleIdentity0015
-     * @tc.desc      Check the optional first install time is either absent or a positive value not later than the
-     *               current install time
+     * @tc.desc      Check two independent bundle queries report stable installation timestamps, with a positive
+     *               integer first install time when present and a nonnegative integer current install time
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testBundleIdentity0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       const info: bundleManager.BundleInfo = await infoWith(FLAG_DEFAULT);
+      const second: bundleManager.BundleInfo = await infoWith(FLAG_DEFAULT);
       const firstInstall: number | undefined = info.firstInstallTime;
-      const positive: boolean = firstInstall === undefined ? true : firstInstall > 0;
-      const notLater: boolean = firstInstall === undefined ? true : firstInstall <= info.installTime;
       const firstText: string = firstInstall === undefined ? 'absent' : firstInstall.toString();
-      logCase('testBundleIdentity0015', `firstInstallTime=${firstText} positive=${positive} ` +
-        `notLater=${notLater} installTime=${info.installTime}`);
-      expect(positive).assertTrue();
-      expect(notLater).assertTrue();
-      expect(info.installTime > 0).assertTrue();
+      logCase('testBundleIdentity0015', `firstInstallTime=${firstText} installTime=${info.installTime} ` +
+        `secondInstallTime=${second.installTime}`);
+      expect(firstInstall).assertEqual(second.firstInstallTime);
+      expect(info.installTime).assertEqual(second.installTime);
+      expect(Number.isInteger(info.installTime) && info.installTime >= 0).assertTrue();
+      if (firstInstall !== undefined) {
+        expect(Number.isInteger(firstInstall) && firstInstall > 0).assertTrue();
+      }
     });
 
     /**

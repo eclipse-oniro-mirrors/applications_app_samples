@@ -14,7 +14,10 @@
  */
 
 import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
-import { allocatePressure, COLLECT_ROUNDS, HeapSnapshot, KB, retainArrays, runGcCycles } from './shared/GcProbe';
+import {
+  allocatePressure, byteCounterDelta, COLLECT_ROUNDS, gcStat, HeapSnapshot, hintGC, KB,
+  KEY_BYTES_ALLOCATED, retainArrays, runGcCycles
+} from './shared/GcProbe';
 import { paceTurn } from './shared/TestPace';
 import { logCase } from './shared/TestLog';
 
@@ -24,6 +27,39 @@ const SAMPLE_ROUNDS: number = 20;
 
 function retainedKb(count: number): number {
   return count * RETAIN_LENGTH * DOUBLE_BYTES / KB;
+}
+
+// tiny allocation nudge so hintGC has young garbage to collect without adding megabytes
+function nudgeVm(): number {
+  let sink: number = 0;
+  for (let i = 0; i < 200; i++) {
+    const junk: number[] = new Array<number>(8).fill(i);
+    sink += junk[7];
+  }
+  return sink;
+}
+
+// drop leftover garbage from earlier cases so growth checks start quiet
+async function settleVmHeap(rounds: number): Promise<void> {
+  for (let i = 0; i < rounds; i++) {
+    hintGC();
+    nudgeVm();
+    await paceTurn();
+  }
+}
+
+// Check every array's shape and both end values, not just the outer holder length.
+function retainedPayloadHolds(kept: number[][], count: number): boolean {
+  return kept.length === count && kept.every((values: number[], index: number) =>
+    values.length === RETAIN_LENGTH && values[0] === index && values[RETAIN_LENGTH - 1] === index);
+}
+
+// Use the current object reading after the same paced sampling turns, without selecting a net heap peak.
+async function heapAfterTurns(rounds: number): Promise<HeapSnapshot> {
+  for (let i = 0; i < rounds; i++) {
+    await paceTurn();
+  }
+  return new HeapSnapshot();
 }
 
 export default function vmMemoryInvariantTest() {
@@ -51,24 +87,28 @@ export default function vmMemoryInvariantTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_VMMEMORY_0200
      * @tc.name      testVmMemoryRetainGrows0001
-     * @tc.desc      Keep about sixteen megabytes of number arrays and check the used heap grows by at least half of
-     *               that
+     * @tc.desc      Keep two hundred number arrays and verify full retained payload through current object bytes,
+     *               the allocation delta and every array's shape and end values
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testVmMemoryRetainGrows0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      // collect leftovers of earlier cases first so releasing them hides less of the growth
-      await runGcCycles(1, COLLECT_ROUNDS);
-      const before: HeapSnapshot = new HeapSnapshot();
+      const initialCycles: number = await runGcCycles(2, COLLECT_ROUNDS);
+      expect(initialCycles >= 2).assertTrue();
+      const allocatedBefore: number = gcStat(KEY_BYTES_ALLOCATED);
       const kept: number[][] = retainArrays(200, RETAIN_LENGTH);
       await paceTurn();
       const after: HeapSnapshot = new HeapSnapshot();
+      const allocated: number = byteCounterDelta(gcStat(KEY_BYTES_ALLOCATED), allocatedBefore);
       logCase('testVmMemoryRetainGrows0001', `keptLength=${kept.length} lastLength=${kept[199].length} ` +
-        `beforeUsedKb=${before.usedKb} afterUsedKb=${after.usedKb} afterTotalKb=${after.totalKb}`);
+        `objectKb=${after.objectKb} payloadKb=${retainedKb(200)} allocatedBytes=${allocated} ` +
+        `afterUsedKb=${after.usedKb} afterTotalKb=${after.totalKb}`);
       expect(kept[199].length).assertEqual(RETAIN_LENGTH);
-      expect(after.usedKb - before.usedKb >= retainedKb(200) / 2).assertTrue();
+      expect(after.objectKb >= retainedKb(200)).assertTrue();
       expect(after.usedKb <= after.totalKb).assertTrue();
+      expect(allocated >= retainedKb(200) * KB).assertTrue();
+      expect(retainedPayloadHolds(kept, 200)).assertTrue();
     });
 
     /**
@@ -96,27 +136,36 @@ export default function vmMemoryInvariantTest() {
     /**
      * @tc.number    SUB_ARKTS_GC_VMMEMORY_0400
      * @tc.name      testVmMemoryScaled0001
-     * @tc.desc      Keep eight then sixteen megabytes and check the heap grows at each step and by at least half of the
-     *               total
+     * @tc.desc      Keep one hundred then two hundred arrays and verify current object bytes cover all retained
+     *               payload at each stage, stage allocation deltas cover each batch and all end values survive
      * @tc.size      MEDIUMTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testVmMemoryScaled0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      await runGcCycles(1, COLLECT_ROUNDS);
-      const base: HeapSnapshot = new HeapSnapshot();
+      const initialCycles: number = await runGcCycles(2, 25);
+      expect(initialCycles >= 2).assertTrue();
+      await settleVmHeap(4);
+      const bytesBase: number = gcStat(KEY_BYTES_ALLOCATED);
       const first: number[][] = retainArrays(100, RETAIN_LENGTH);
-      await paceTurn();
-      const middle: HeapSnapshot = new HeapSnapshot();
+      const middle: HeapSnapshot = await heapAfterTurns(4);
+      const bytesMiddle: number = gcStat(KEY_BYTES_ALLOCATED);
+      const firstIntact: boolean = retainedPayloadHolds(first, 100);
       const second: number[][] = retainArrays(100, RETAIN_LENGTH);
-      await paceTurn();
-      const top: HeapSnapshot = new HeapSnapshot();
+      const top: HeapSnapshot = await heapAfterTurns(4);
+      const bytesTop: number = gcStat(KEY_BYTES_ALLOCATED);
+      const firstAllocated: number = byteCounterDelta(bytesMiddle, bytesBase);
+      const secondAllocated: number = byteCounterDelta(bytesTop, bytesMiddle);
       logCase('testVmMemoryScaled0001', `firstLength=${first.length} secondLength=${second.length} ` +
-        `usedKb=${base.usedKb}/${middle.usedKb}/${top.usedKb} topTotalKb=${top.totalKb}`);
+        `objectKb=${middle.objectKb}/${top.objectKb} payloadKb=${retainedKb(100)}/${retainedKb(200)} ` +
+        `allocatedBytes=${firstAllocated}/${secondAllocated} topUsedKb=${top.usedKb} topTotalKb=${top.totalKb}`);
       expect(first.length + second.length).assertEqual(200);
-      expect(middle.usedKb - base.usedKb >= retainedKb(100) / 4).assertTrue();
-      expect(top.usedKb - base.usedKb >= retainedKb(200) / 2).assertTrue();
-      expect(top.usedKb > middle.usedKb && top.totalKb >= top.usedKb).assertTrue();
+      expect(middle.objectKb >= retainedKb(100)).assertTrue();
+      expect(top.objectKb >= retainedKb(200)).assertTrue();
+      expect(top.totalKb >= top.usedKb).assertTrue();
+      expect(firstAllocated >= retainedKb(100) * KB && secondAllocated >= retainedKb(100) * KB).assertTrue();
+      expect(firstIntact && retainedPayloadHolds(first, 100)).assertTrue();
+      expect(retainedPayloadHolds(second, 100)).assertTrue();
     });
 
     /**

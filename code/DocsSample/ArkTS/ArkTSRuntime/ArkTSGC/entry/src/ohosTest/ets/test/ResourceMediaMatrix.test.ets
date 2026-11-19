@@ -272,11 +272,15 @@ function scanPairs(text: string): JsonPair[] {
       }
       value = text.substring(valueCursor + 1, valueClose);
       cursor = valueClose + 1;
+    } else if (text.charAt(valueCursor) === BRACE_OPEN) {
+      value = BRACE_OPEN;
+      cursor = valueCursor + 1;
     } else {
       let end: number = valueCursor;
       while (end < text.length) {
         const ch: string = text.charAt(end);
-        if (ch === ',' || ch === BRACE_CLOSE || ch === ']' || ch === '\n' || ch === '\r' || ch === SPACE) {
+        if (ch === ',' || ch === BRACE_CLOSE || ch === ']' || ch === '\n' || ch === '\r' || ch === SPACE ||
+          ch === '\t') {
           break;
         }
         end = end + 1;
@@ -382,7 +386,8 @@ function writeTempMedia(fileName: string, bytes: Uint8Array): TempWrite {
   const file: fileIo.File = fileIo.openSync(path,
     fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.TRUNC);
   try {
-    fileIo.writeSync(file.fd, bytes);
+    // this runtime only accepts an ArrayBuffer payload for writeSync, not a Uint8Array view
+    fileIo.writeSync(file.fd, bytes.slice().buffer as ArrayBuffer);
   } finally {
     fileIo.closeSync(file);
   }
@@ -392,9 +397,12 @@ function writeTempMedia(fileName: string, bytes: Uint8Array): TempWrite {
 function readTempHead(path: string, count: number): Uint8Array {
   const file: fileIo.File = fileIo.openSync(path, fileIo.OpenMode.READ_ONLY);
   try {
-    const buffer: Uint8Array = new Uint8Array(count);
-    fileIo.readSync(file.fd, buffer);
-    return buffer;
+    const buffer: ArrayBuffer = new ArrayBuffer(count);
+    const read: number = fileIo.readSync(file.fd, buffer, { offset: 0, length: count });
+    if (read !== count) {
+      throw new Error(`Expected ${count} bytes from ${path}, received ${read}`);
+    }
+    return new Uint8Array(buffer);
   } finally {
     fileIo.closeSync(file);
   }
@@ -2810,8 +2818,10 @@ export default function resourceMediaMatrixTest() {
         logCase('testFileSizeLayeredJson0001', `memory=${bytes.length} file=${written.size} ` +
           `text=${text.length}`);
         expect(written.size).assertEqual(bytes.length);
-        expect(text.length).assertEqual(mediaText(LAYERED_NAME).length);
-        expect(text.indexOf(LAYER_KEY) >= 0).assertTrue();
+        expect(text).assertEqual(mediaText(LAYERED_NAME));
+        expect(pairCount(scanPairs(text), LAYER_KEY)).assertEqual(1);
+        expect(pairCount(scanPairs(text), BACKGROUND_NAME)).assertEqual(1);
+        expect(pairCount(scanPairs(text), FOREGROUND_NAME)).assertEqual(1);
         expect(PngOracle.hasSignature(copy)).assertFalse();
       } finally {
         removeTemp(written.path);
