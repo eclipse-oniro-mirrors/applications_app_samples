@@ -23,10 +23,6 @@
       - 当设备`sdkApiVersion >= 23`时，日志应显示走静态实现。
       - 当设备`sdkApiVersion < 23`时，日志应显示走动态实现。
 
-当前工程的编译、目标和最低兼容 SDK 均配置为 `26.0.0`，本机连接的设备 API 为 `26`，
-因此本次设备验证实际执行静态分支。上述 API 23 判断是源码中的分发规则，
-不表示当前构建配置可以直接安装到低于 API 23 的设备。
-
 ### 工程目录
 
 ```text
@@ -52,14 +48,6 @@ library/src/main/ets/
 |   |---sta_wrapper
 |   |   |---DataParserStaW.ts           // 静态适配动态的实现层，解决静态实现适配动态接口的数据格式转换问题
 |   |---Index.ets                       // library 统一出口，对外导出 dyn 公共类型与接口
-entry/src/ohosTest/
-|---ets/test/List.test.ets              // 注册全部 96 个套件、1,782 条用例
-|---ets/test/                          // Models、Parser、Interop、Registry、DataSource、Integration、UI、Workload
-|---ets/testability/                   // 测试宿主与页面准备
-|---ets/testrunner/                    // OpenHarmonyTestRunner
-script/
-|---run-device-tests.sh                // 构建、安装、设备运行与完整性核验
-ohosTest.md                            // 基础功能用例与自动化覆盖表
 ```
 
 ### 具体实现
@@ -77,21 +65,15 @@ ohosTest.md                            // 基础功能用例与自动化覆盖�
 
 不涉及。
 
+### 依赖
 
-### 自动化测试覆盖与结果
-
-测试覆盖数据模型、动态解析器、静态包装器、注册表、数据源、计算工作负载、
-真实静态链路及页面渲染、交互和前后台切换，共 **96 个套件、1,782 条用例**。
-完整套件名称、覆盖点和逐项用例数见 [ohosTest.md](ohosTest.md)。
-
-2026-11-14 已完成设备全量回归：**1,782 条全部通过，Failure / Error / Ignore 均为 0**，
-总测试时间 359,848 毫秒，最长单条 7,996 毫秒，15 秒配置未修改。
+不涉及。
 
 ### 约束与限制
 
 1.  本示例仅支持在标准系统上运行。
-2.  当前工程使用 OpenHarmony API 26 / SDK `26.0.0` 构建，最低兼容版本同为 `26.0.0`。
-3.  本机已验证 DevEco Studio `26.0.0`、上述工程内 Hvigor 和 API 26 真机；测试需连接并解锁设备。
+2.  本示例推荐使用当前最新版本的API和SDK编译运行。
+3.  本示例推荐使用当前最新版本的DevEco Studio。
 4.  业务扩展说明：若新增业务卡片类型，需在`ResolverRegistry`注册新类型并补充相应的解析逻辑，同时务必保持ArkTS-Dyn和ArkTS-Sta两侧能力的一致性。
 
 ### 下载
