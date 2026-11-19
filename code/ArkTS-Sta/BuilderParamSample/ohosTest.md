@@ -15,7 +15,7 @@
 | 多 BuilderParam 与布局 | 真实主页面就绪 | 查询标签、详情、标题、说明和分隔线边界 | 标签在详情左侧，标题在说明上方，分隔线在行下方，卡片宽度正确 | 是 | Pass（历史全量） |
 | 尾随闭包与默认对齐 | Fixture 中创建生产 Card | 三槽显式传参，或向前两槽传参并以尾随闭包传 labelContent；省略 verticalAlign | 各槽内容正确，尾随内容归属 labelContent，省略属性时按 Center 对齐 | 是 | Pass（历史全量） |
 | 插槽动态拓扑 | Fixture 页面就绪 | 移除/恢复槽位，切换 Text、Button、嵌套 Card 和底部多根内容 | 无旧节点残留，存在性、文字、布局和回调与当前槽位一致 | 是 | Pass（历史全量） |
-| 属性绑定与兄弟隔离 | 真实 CustomCard 实例已显示 | 更新 title、description、symbol 或 testId，清空再恢复 | 目标实例更新，其他字段与兄弟实例保持，节点身份与布局正确 | 是 | Pass（历史全量） |
+| 属性绑定与兄弟隔离 | 真实 CustomCard 实例已显示 | 更新 title、description、symbol 或 testId，清空再恢复 | 目标实例更新，别的字段与兄弟实例保持，节点身份与布局正确 | 是 | Pass（历史全量） |
 | Builder owner 与事件 | 已挂载不同 owner 的 Builder | 交错点击、更新、隐藏、卸载再挂载 | Builder 读取所属 owner 状态，回调计数和事件不串到兄弟或旧实例 | 是 | Pass（历史全量） |
 | 宽度和对齐历史 | 已显示不同高度的槽内容 | 100%/64% 往返，切换 Top/Center/Bottom | 实际宽度和垂直对齐正确，恢复后几何满足原约束 | 是 | Pass（历史全量） |
 | 前后台与主页面隔离 | 业务页或 fixture 已有状态 | Home、恢复、重复启动同一 Ability | 生命周期与实例状态符合预期，fixture 不污染真实行程页面 | 是 | Pass（历史全量） |
