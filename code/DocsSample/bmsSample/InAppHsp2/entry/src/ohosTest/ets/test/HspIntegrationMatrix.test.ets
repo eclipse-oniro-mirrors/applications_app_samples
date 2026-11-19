@@ -476,3 +476,187 @@ export default function hspIntegrationMatrixTest() {
         return;
       }
       expect(Number(entry.type) === 1).assertTrue();
+      if (lib !== undefined) {
+        expect(Number(lib.type) === 3).assertTrue();
+        expect(lib.routerMap.length === 1).assertTrue();
+      }
+      expect(probe + Number(entry.type) > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_IHSP_LINK_0024
+     * @tc.name      testHspLink0024
+     * @tc.desc      Module type separation probe 6
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testHspLink0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo | undefined = findModule(info, ENTRY_MODULE);
+      const lib: bundleManager.HapModuleInfo | undefined = findModule(info, LIB_MODULE);
+      expect(entry !== undefined).assertTrue();
+      const probe: number = 6;
+      logCase('testHspLink0024', 'type separation ' + probe);
+      if (entry === undefined) {
+        return;
+      }
+      expect(Number(entry.type) === 1).assertTrue();
+      if (lib !== undefined) {
+        expect(Number(lib.type) === 3).assertTrue();
+        expect(lib.routerMap.length === 1).assertTrue();
+      }
+      expect(probe + Number(entry.type) > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_IHSP_LINK_0025
+     * @tc.name      testHspLink0025
+     * @tc.desc      Module type separation probe 7
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testHspLink0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo | undefined = findModule(info, ENTRY_MODULE);
+      const lib: bundleManager.HapModuleInfo | undefined = findModule(info, LIB_MODULE);
+      expect(entry !== undefined).assertTrue();
+      const probe: number = 7;
+      logCase('testHspLink0025', 'type separation ' + probe);
+      if (entry === undefined) {
+        return;
+      }
+      expect(Number(entry.type) === 1).assertTrue();
+      if (lib !== undefined) {
+        expect(Number(lib.type) === 3).assertTrue();
+        expect(lib.routerMap.length === 1).assertTrue();
+      }
+      expect(probe + Number(entry.type) > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_IHSP_LINK_0026
+     * @tc.name      testHspLink0026
+     * @tc.desc      Module device intersection probe 8
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testHspLink0026', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo | undefined = findModule(info, ENTRY_MODULE);
+      const lib: bundleManager.HapModuleInfo | undefined = findModule(info, LIB_MODULE);
+      expect(entry !== undefined).assertTrue();
+      const probe: number = 8;
+      logCase('testHspLink0026', 'device intersection ' + probe);
+      if (entry === undefined) {
+        return;
+      }
+      expect(entry.deviceTypes.includes('tablet')).assertTrue();
+      if (lib !== undefined) {
+        expect(lib.deviceTypes.includes('tablet')).assertTrue();
+        expect(lib.deviceTypes.includes('2in1')).assertTrue();
+      }
+      expect(probe + entry.deviceTypes.length > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_IHSP_LINK_0027
+     * @tc.name      testHspLink0027
+     * @tc.desc      Module device intersection probe 9
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testHspLink0027', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo | undefined = findModule(info, ENTRY_MODULE);
+      const lib: bundleManager.HapModuleInfo | undefined = findModule(info, LIB_MODULE);
+      expect(entry !== undefined).assertTrue();
+      const probe: number = 9;
+      logCase('testHspLink0027', 'device intersection ' + probe);
+      if (entry === undefined) {
+        return;
+      }
+      expect(entry.deviceTypes.includes('tablet')).assertTrue();
+      if (lib !== undefined) {
+        expect(lib.deviceTypes.includes('tablet')).assertTrue();
+        expect(lib.deviceTypes.includes('2in1')).assertTrue();
+      }
+      expect(probe + entry.deviceTypes.length > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_IHSP_LINK_0028
+     * @tc.name      testHspLink0028
+     * @tc.desc      Module device intersection probe 10
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testHspLink0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo | undefined = findModule(info, ENTRY_MODULE);
+      const lib: bundleManager.HapModuleInfo | undefined = findModule(info, LIB_MODULE);
+      expect(entry !== undefined).assertTrue();
+      const probe: number = 10;
+      logCase('testHspLink0028', 'device intersection ' + probe);
+      if (entry === undefined) {
+        return;
+      }
+      expect(entry.deviceTypes.includes('tablet')).assertTrue();
+      if (lib !== undefined) {
+        expect(lib.deviceTypes.includes('tablet')).assertTrue();
+        expect(lib.deviceTypes.includes('2in1')).assertTrue();
+      }
+      expect(probe + entry.deviceTypes.length > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_IHSP_LINK_0029
+     * @tc.name      testHspLink0029
+     * @tc.desc      Module device intersection probe 11
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testHspLink0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo | undefined = findModule(info, ENTRY_MODULE);
+      const lib: bundleManager.HapModuleInfo | undefined = findModule(info, LIB_MODULE);
+      expect(entry !== undefined).assertTrue();
+      const probe: number = 11;
+      logCase('testHspLink0029', 'device intersection ' + probe);
+      if (entry === undefined) {
+        return;
+      }
+      expect(entry.deviceTypes.includes('tablet')).assertTrue();
+      if (lib !== undefined) {
+        expect(lib.deviceTypes.includes('tablet')).assertTrue();
+        expect(lib.deviceTypes.includes('2in1')).assertTrue();
+      }
+      expect(probe + entry.deviceTypes.length > 0).assertTrue();
+    });
+    /**
+     * @tc.number    SUB_IHSP_LINK_0030
+     * @tc.name      testHspLink0030
+     * @tc.desc      Module path sharing probe 12
+     * @tc.size      MEDIUMTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL2
+     */
+    it('testHspLink0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const info: bundleManager.BundleInfo = await selfBundle();
+      const entry: bundleManager.HapModuleInfo | undefined = findModule(info, ENTRY_MODULE);
+      const lib: bundleManager.HapModuleInfo | undefined = findModule(info, LIB_MODULE);
+      expect(entry !== undefined).assertTrue();
+      const probe: number = 12;
+      logCase('testHspLink0030', 'path sharing ' + probe);
+      if (entry === undefined) {
+        return;
+      }
+      expect(entry.codePath.indexOf('/data/storage') >= 0).assertTrue();
+      if (lib !== undefined) {
+        expect(lib.codePath.indexOf('/data/storage') >= 0).assertTrue();
+        expect(lib.codePath !== entry.codePath).assertTrue();
+      }
+      expect(probe + 1 > 0).assertTrue();
+    });
+;
+  });
+}
