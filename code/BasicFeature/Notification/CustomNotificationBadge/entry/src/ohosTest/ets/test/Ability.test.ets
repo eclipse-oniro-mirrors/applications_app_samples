@@ -13,16 +13,17 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import { Driver, ON } from '@ohos.UiTest';
-import UIAbility from '@ohos.app.ability.UIAbility';
-import Base from '@ohos.base';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { describe, it, expect } from '@ohos/hypium';
+import { Driver, ON, Component, abilityDelegatorRegistry as AbilityDelegatorRegistry } from '@kit.TestKit';
+import { UIAbility } from '@kit.AbilityKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { resourceManager } from '@kit.LocalizationKit';
 
-const TAG: string = '[Samples_Badge]';
-const DOMAIN = 0xF811;
-const BUNDLE = 'Badge_';
+const TAG: string = '[Sample_CustomNotificationBadge]';
+const DOMAIN: number = 0xF811;
+const BUNDLE: string = 'Badge_';
+
 let ability: UIAbility;
 
 export default function abilityTest() {
@@ -32,19 +33,19 @@ export default function abilityTest() {
      */
     it(BUNDLE + 'StartAbility_001', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001 begin');
-      let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
       try {
-        await abilityDelegator.startAbility({
+        await AbilityDelegatorRegistry.getAbilityDelegator().startAbility({
           bundleName: 'com.samples.customnotificationbadge',
           abilityName: 'EntryAbility'
         });
         done();
       } catch (expection) {
-        hilog.info(DOMAIN, TAG, 'StartAbility end err:' + JSON.stringify(expection as Base.BusinessError));
+        hilog.info(DOMAIN, TAG,
+          'StartAbility end err: ' + JSON.stringify(expection as BusinessError));
         expect(0).assertEqual(expection.code);
         done();
       }
-      ability = await abilityDelegator.getCurrentTopAbility();
+      ability = await AbilityDelegatorRegistry.getAbilityDelegator().getCurrentTopAbility();
       hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001 end');
     })
     /**
@@ -52,13 +53,13 @@ export default function abilityTest() {
      */
     it(BUNDLE + 'RequestPermissionFunction_001', 1, async () => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'RequestPermissionFunction_001 begin');
-      let driver = Driver.create();
+      let driver: Driver = Driver.create();
       await driver.delayMs(1000);
-      // 获取允许
       hilog.info(DOMAIN, TAG, BUNDLE + 'RequestPermissionFunction_001 requestPermission');
-      let resourceManager = ability.context.resourceManager;
-      await driver.assertComponentExist(ON.text(await resourceManager.getStringValue($r('app.string.accept'))));
-      let btnAccept = await driver.findComponent(ON.text(await resourceManager.getStringValue($r('app.string.accept'))));
+      let resMgr: resourceManager.ResourceManager = ability.context.resourceManager;
+      let acceptText: string = await resMgr.getStringValue($r('app.string.accept'));
+      await driver.assertComponentExist(ON.text(acceptText));
+      let btnAccept: Component = await driver.findComponent(ON.text(acceptText));
       await driver.delayMs(200);
       await btnAccept.click();
       await driver.delayMs(200);
@@ -69,20 +70,21 @@ export default function abilityTest() {
      */
     it(BUNDLE + 'BasicNotification_001', 1, async () => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'BasicNotification_001 begin');
-      let driver = Driver.create();
+      let driver: Driver = Driver.create();
       await driver.delayMs(1000);
-      let resourceManager = ability.context.resourceManager;
+      let resMgr: resourceManager.ResourceManager = ability.context.resourceManager;
       await driver.assertComponentExist(ON.id('tabBar0'));
       await driver.assertComponentExist(ON.id('tabBar1'));
-      let messages = await driver.findComponent(ON.id('tabBar0'));
-      let notification = await driver.findComponent(ON.id('tabBar1'));
+      let messages: Component = await driver.findComponent(ON.id('tabBar0'));
+      let notification: Component = await driver.findComponent(ON.id('tabBar1'));
 
       await driver.delayMs(200);
       await notification.click();
       await driver.delayMs(200);
 
-      await driver.assertComponentExist(ON.text(await resourceManager.getStringValue($r('app.string.basic_notification'))));
-      let btnAccept = await driver.findComponent(ON.text(await resourceManager.getStringValue($r('app.string.basic_notification'))));
+      let buttonText: string = await resMgr.getStringValue($r('app.string.basic_notification'));
+      await driver.assertComponentExist(ON.text(buttonText));
+      let btnAccept: Component = await driver.findComponent(ON.text(buttonText));
       await driver.delayMs(200);
       await btnAccept.click();
       await driver.delayMs(200);
@@ -95,23 +97,23 @@ export default function abilityTest() {
      */
     it(BUNDLE + 'LongTextNotification_001', 1, async () => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'LongTextNotification_001 begin');
-      let driver = Driver.create();
+      let driver: Driver = Driver.create();
       await driver.delayMs(1000);
-      let resourceManager = ability.context.resourceManager;
+      let resMgr: resourceManager.ResourceManager = ability.context.resourceManager;
       await driver.assertComponentExist(ON.id('tabBar0'));
       await driver.assertComponentExist(ON.id('tabBar1'));
-      let messages = await driver.findComponent(ON.id('tabBar0'));
-      let notification = await driver.findComponent(ON.id('tabBar1'));
+      let messages: Component = await driver.findComponent(ON.id('tabBar0'));
+      let notification: Component = await driver.findComponent(ON.id('tabBar1'));
 
       await driver.delayMs(200);
       await notification.click();
       await driver.delayMs(200);
 
-      await driver.assertComponentExist(ON.text(await resourceManager.getStringValue($r('app.string.long_text_notification'))));
-      let btnAccept = await driver.findComponent(ON.text(await resourceManager.getStringValue($r('app.string.long_text_notification'))));
+      let buttonText: string = await resMgr.getStringValue($r('app.string.long_text_notification'));
+      await driver.assertComponentExist(ON.text(buttonText));
+      let btnAccept: Component = await driver.findComponent(ON.text(buttonText));
       await driver.delayMs(200);
       await btnAccept.click();
-      await driver.delayMs(200);
       await driver.delayMs(200);
       await messages.click();
       await driver.delayMs(2000);
@@ -122,20 +124,21 @@ export default function abilityTest() {
      */
     it(BUNDLE + 'MultilineNotification_001', 1, async () => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'MultilineNotification_001 begin');
-      let driver = Driver.create();
+      let driver: Driver = Driver.create();
       await driver.delayMs(1000);
-      let resourceManager = ability.context.resourceManager;
+      let resMgr: resourceManager.ResourceManager = ability.context.resourceManager;
       await driver.assertComponentExist(ON.id('tabBar0'));
       await driver.assertComponentExist(ON.id('tabBar1'));
-      let messages = await driver.findComponent(ON.id('tabBar0'));
-      let notification = await driver.findComponent(ON.id('tabBar1'));
+      let messages: Component = await driver.findComponent(ON.id('tabBar0'));
+      let notification: Component = await driver.findComponent(ON.id('tabBar1'));
 
       await driver.delayMs(200);
       await notification.click();
       await driver.delayMs(200);
 
-      await driver.assertComponentExist(ON.text(await resourceManager.getStringValue($r('app.string.multiline_notification'))));
-      let btnAccept = await driver.findComponent(ON.text(await resourceManager.getStringValue($r('app.string.multiline_notification'))));
+      let buttonText: string = await resMgr.getStringValue($r('app.string.multiline_notification'));
+      await driver.assertComponentExist(ON.text(buttonText));
+      let btnAccept: Component = await driver.findComponent(ON.text(buttonText));
       await driver.delayMs(200);
       await btnAccept.click();
       await driver.delayMs(200);
@@ -148,23 +151,23 @@ export default function abilityTest() {
      */
     it(BUNDLE + 'PictureNotification_001', 1, async () => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'PictureNotification_001 begin');
-      let driver = Driver.create();
+      let driver: Driver = Driver.create();
       await driver.delayMs(1000);
-      let resourceManager = ability.context.resourceManager;
+      let resMgr: resourceManager.ResourceManager = ability.context.resourceManager;
       await driver.assertComponentExist(ON.id('tabBar0'));
       await driver.assertComponentExist(ON.id('tabBar1'));
-      let messages = await driver.findComponent(ON.id('tabBar0'));
-      let notification = await driver.findComponent(ON.id('tabBar1'));
+      let messages: Component = await driver.findComponent(ON.id('tabBar0'));
+      let notification: Component = await driver.findComponent(ON.id('tabBar1'));
 
       await driver.delayMs(200);
       await notification.click();
       await driver.delayMs(200);
 
-      await driver.assertComponentExist(ON.text(await resourceManager.getStringValue($r('app.string.picture_notification'))));
-      let btnAccept = await driver.findComponent(ON.text(await resourceManager.getStringValue($r('app.string.picture_notification'))));
+      let buttonText: string = await resMgr.getStringValue($r('app.string.picture_notification'));
+      await driver.assertComponentExist(ON.text(buttonText));
+      let btnAccept: Component = await driver.findComponent(ON.text(buttonText));
       await driver.delayMs(200);
       await btnAccept.click();
-      await driver.delayMs(200);
       await driver.delayMs(200);
       await messages.click();
       await driver.delayMs(2000);
