@@ -2589,3 +2589,1930 @@ export default function AbilityValidationTest(): void {
       const highest: Severity = FindingUtils.maxSeverity(findings);
       TestLog.number('testAbilityIconEmptyRef', 'highest severity', highest);
       expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityIconEmptyRef', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityIconEmptyRef', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityIconEmptyRef', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityIconEmptyRef', 'case end', 'ability.icon input emptyref');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2305
+     * @tc.name      testAbilityIconStringRef
+     * @tc.desc      Checks that the stringref value is reported with RESOURCE_REF_KIND_MISMATCH by the
+     * @tc.desc      ability.icon rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityIconStringRef',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.icon = '$string:layered_image';
+      TestLog.text('testAbilityIconStringRef', 'case begin', 'ability.icon input stringref');
+      TestLog.step('testAbilityIconStringRef', 'ability.icon input stringref');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityIconStringRef', 'ability.icon', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testAbilityIconStringRef', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityIconStringRef', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityIconStringRef', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityIconStringRef', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityIconStringRef', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityIconStringRef', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityIconStringRef', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityIconStringRef', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityIconStringRef', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityIconStringRef', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityIconStringRef', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityIconStringRef', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityIconStringRef', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityIconStringRef', 'case end', 'ability.icon input stringref');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2306
+     * @tc.name      testAbilityIconColorRef
+     * @tc.desc      Checks that the colorref value is reported with RESOURCE_REF_KIND_MISMATCH by the
+     * @tc.desc      ability.icon rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityIconColorRef',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.icon = '$color:start';
+      TestLog.text('testAbilityIconColorRef', 'case begin', 'ability.icon input colorref');
+      TestLog.step('testAbilityIconColorRef', 'ability.icon input colorref');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityIconColorRef', 'ability.icon', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testAbilityIconColorRef', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityIconColorRef', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityIconColorRef', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityIconColorRef', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityIconColorRef', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityIconColorRef', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityIconColorRef', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityIconColorRef', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityIconColorRef', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityIconColorRef', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityIconColorRef', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityIconColorRef', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityIconColorRef', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityIconColorRef', 'case end', 'ability.icon input colorref');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2320
+     * @tc.name      testAbilityLabelSampleRef
+     * @tc.desc      Checks that the sampleref value is accepted by the ability.label rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityLabelSampleRef',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.label = '$string:EntryAbility_label';
+      TestLog.text('testAbilityLabelSampleRef', 'case begin', 'ability.label input sampleref');
+      TestLog.step('testAbilityLabelSampleRef', 'ability.label input sampleref');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityLabelSampleRef', 'ability.label', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testAbilityLabelSampleRef', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityLabelSampleRef', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityLabelSampleRef', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityLabelSampleRef', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityLabelSampleRef', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityLabelSampleRef', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityLabelSampleRef', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityLabelSampleRef', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityLabelSampleRef', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityLabelSampleRef', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityLabelSampleRef', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityLabelSampleRef', 'case end', 'ability.label input sampleref');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2321
+     * @tc.name      testAbilityLabelFeatureRef
+     * @tc.desc      Checks that the featureref value is accepted by the ability.label rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityLabelFeatureRef',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.label = '$string:feature_label';
+      TestLog.text('testAbilityLabelFeatureRef', 'case begin', 'ability.label input featureref');
+      TestLog.step('testAbilityLabelFeatureRef', 'ability.label input featureref');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityLabelFeatureRef', 'ability.label', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testAbilityLabelFeatureRef', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityLabelFeatureRef', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityLabelFeatureRef', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityLabelFeatureRef', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityLabelFeatureRef', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityLabelFeatureRef', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityLabelFeatureRef', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityLabelFeatureRef', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityLabelFeatureRef', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityLabelFeatureRef', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityLabelFeatureRef', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityLabelFeatureRef', 'case end', 'ability.label input featureref');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2322
+     * @tc.name      testAbilityLabelEmpty
+     * @tc.desc      Checks that the empty value is reported with RESOURCE_REF_EMPTY by the ability.label
+     * @tc.desc      rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityLabelEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.label = '';
+      TestLog.text('testAbilityLabelEmpty', 'case begin', 'ability.label input empty');
+      TestLog.step('testAbilityLabelEmpty', 'ability.label input empty');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityLabelEmpty', 'ability.label', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY');
+      TestLog.flag('testAbilityLabelEmpty', 'has code RESOURCE_REF_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityLabelEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityLabelEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityLabelEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityLabelEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityLabelEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityLabelEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityLabelEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityLabelEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityLabelEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityLabelEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityLabelEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityLabelEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityLabelEmpty', 'case end', 'ability.label input empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2323
+     * @tc.name      testAbilityLabelPlain
+     * @tc.desc      Checks that the plain value is reported with RESOURCE_REF_NO_DOLLAR by the ability.label
+     * @tc.desc      rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityLabelPlain',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.label = 'EntryAbility';
+      TestLog.text('testAbilityLabelPlain', 'case begin', 'ability.label input plain');
+      TestLog.step('testAbilityLabelPlain', 'ability.label input plain');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityLabelPlain', 'ability.label', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_NO_DOLLAR');
+      TestLog.flag('testAbilityLabelPlain', 'has code RESOURCE_REF_NO_DOLLAR', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityLabelPlain', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityLabelPlain', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityLabelPlain', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityLabelPlain', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityLabelPlain', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityLabelPlain', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityLabelPlain', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityLabelPlain', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityLabelPlain', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityLabelPlain', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityLabelPlain', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityLabelPlain', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityLabelPlain', 'case end', 'ability.label input plain');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2324
+     * @tc.name      testAbilityLabelEmptyRef
+     * @tc.desc      Checks that the emptyref value is reported with RESOURCE_REF_EMPTY_NAME by the
+     * @tc.desc      ability.label rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityLabelEmptyRef',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.label = '$string:';
+      TestLog.text('testAbilityLabelEmptyRef', 'case begin', 'ability.label input emptyref');
+      TestLog.step('testAbilityLabelEmptyRef', 'ability.label input emptyref');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityLabelEmptyRef', 'ability.label', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY_NAME');
+      TestLog.flag('testAbilityLabelEmptyRef', 'has code RESOURCE_REF_EMPTY_NAME', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityLabelEmptyRef', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityLabelEmptyRef', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityLabelEmptyRef', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityLabelEmptyRef', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityLabelEmptyRef', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityLabelEmptyRef', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityLabelEmptyRef', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityLabelEmptyRef', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityLabelEmptyRef', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityLabelEmptyRef', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityLabelEmptyRef', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityLabelEmptyRef', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityLabelEmptyRef', 'case end', 'ability.label input emptyref');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2325
+     * @tc.name      testAbilityLabelSpaceRef
+     * @tc.desc      Checks that the spaceref value is reported with RESOURCE_REF_WHITESPACE by the
+     * @tc.desc      ability.label rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityLabelSpaceRef',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.label = ' $string:EntryAbility_label';
+      TestLog.text('testAbilityLabelSpaceRef', 'case begin', 'ability.label input spaceref');
+      TestLog.step('testAbilityLabelSpaceRef', 'ability.label input spaceref');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityLabelSpaceRef', 'ability.label', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_WHITESPACE');
+      TestLog.flag('testAbilityLabelSpaceRef', 'has code RESOURCE_REF_WHITESPACE', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityLabelSpaceRef', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityLabelSpaceRef', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityLabelSpaceRef', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityLabelSpaceRef', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityLabelSpaceRef', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityLabelSpaceRef', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityLabelSpaceRef', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityLabelSpaceRef', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityLabelSpaceRef', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityLabelSpaceRef', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityLabelSpaceRef', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityLabelSpaceRef', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityLabelSpaceRef', 'case end', 'ability.label input spaceref');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2340
+     * @tc.name      testAbilityStartWindowIconSampleRef
+     * @tc.desc      Checks that the sampleref value is accepted by the ability.startWindowIcon rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityStartWindowIconSampleRef',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.startWindowIcon = '$media:startIcon';
+      TestLog.text('testAbilityStartWindowIconSampleRef', 'case begin', 'ability.startWindowIcon input sampleref');
+      TestLog.step('testAbilityStartWindowIconSampleRef', 'ability.startWindowIcon input sampleref');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityStartWindowIconSampleRef', 'ability.startWindowIcon', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testAbilityStartWindowIconSampleRef', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityStartWindowIconSampleRef', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityStartWindowIconSampleRef', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityStartWindowIconSampleRef', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityStartWindowIconSampleRef', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityStartWindowIconSampleRef', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityStartWindowIconSampleRef', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityStartWindowIconSampleRef', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityStartWindowIconSampleRef', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityStartWindowIconSampleRef', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityStartWindowIconSampleRef', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityStartWindowIconSampleRef', 'case end', 'ability.startWindowIcon input sampleref');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2341
+     * @tc.name      testAbilityStartWindowIconIconRef
+     * @tc.desc      Checks that the iconref value is accepted by the ability.startWindowIcon rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityStartWindowIconIconRef',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.startWindowIcon = '$media:icon';
+      TestLog.text('testAbilityStartWindowIconIconRef', 'case begin', 'ability.startWindowIcon input iconref');
+      TestLog.step('testAbilityStartWindowIconIconRef', 'ability.startWindowIcon input iconref');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityStartWindowIconIconRef', 'ability.startWindowIcon', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testAbilityStartWindowIconIconRef', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityStartWindowIconIconRef', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityStartWindowIconIconRef', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityStartWindowIconIconRef', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityStartWindowIconIconRef', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityStartWindowIconIconRef', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityStartWindowIconIconRef', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityStartWindowIconIconRef', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityStartWindowIconIconRef', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityStartWindowIconIconRef', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityStartWindowIconIconRef', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityStartWindowIconIconRef', 'case end', 'ability.startWindowIcon input iconref');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2342
+     * @tc.name      testAbilityStartWindowIconEmpty
+     * @tc.desc      Checks that the empty value is reported with RESOURCE_REF_EMPTY by the
+     * @tc.desc      ability.startWindowIcon rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityStartWindowIconEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.startWindowIcon = '';
+      TestLog.text('testAbilityStartWindowIconEmpty', 'case begin', 'ability.startWindowIcon input empty');
+      TestLog.step('testAbilityStartWindowIconEmpty', 'ability.startWindowIcon input empty');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityStartWindowIconEmpty', 'ability.startWindowIcon', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY');
+      TestLog.flag('testAbilityStartWindowIconEmpty', 'has code RESOURCE_REF_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityStartWindowIconEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityStartWindowIconEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityStartWindowIconEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityStartWindowIconEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityStartWindowIconEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityStartWindowIconEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityStartWindowIconEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityStartWindowIconEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityStartWindowIconEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityStartWindowIconEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityStartWindowIconEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityStartWindowIconEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityStartWindowIconEmpty', 'case end', 'ability.startWindowIcon input empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2343
+     * @tc.name      testAbilityStartWindowIconPlain
+     * @tc.desc      Checks that the plain value is reported with RESOURCE_REF_NO_DOLLAR by the
+     * @tc.desc      ability.startWindowIcon rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityStartWindowIconPlain',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.startWindowIcon = 'startIcon.png';
+      TestLog.text('testAbilityStartWindowIconPlain', 'case begin', 'ability.startWindowIcon input plain');
+      TestLog.step('testAbilityStartWindowIconPlain', 'ability.startWindowIcon input plain');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityStartWindowIconPlain', 'ability.startWindowIcon', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_NO_DOLLAR');
+      TestLog.flag('testAbilityStartWindowIconPlain', 'has code RESOURCE_REF_NO_DOLLAR', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityStartWindowIconPlain', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityStartWindowIconPlain', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityStartWindowIconPlain', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityStartWindowIconPlain', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityStartWindowIconPlain', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityStartWindowIconPlain', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityStartWindowIconPlain', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityStartWindowIconPlain', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityStartWindowIconPlain', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityStartWindowIconPlain', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityStartWindowIconPlain', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityStartWindowIconPlain', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityStartWindowIconPlain', 'case end', 'ability.startWindowIcon input plain');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2344
+     * @tc.name      testAbilityStartWindowIconEmptyRef
+     * @tc.desc      Checks that the emptyref value is reported with RESOURCE_REF_EMPTY_NAME by the
+     * @tc.desc      ability.startWindowIcon rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityStartWindowIconEmptyRef',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.startWindowIcon = '$media:';
+      TestLog.text('testAbilityStartWindowIconEmptyRef', 'case begin', 'ability.startWindowIcon input emptyref');
+      TestLog.step('testAbilityStartWindowIconEmptyRef', 'ability.startWindowIcon input emptyref');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityStartWindowIconEmptyRef', 'ability.startWindowIcon', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY_NAME');
+      TestLog.flag('testAbilityStartWindowIconEmptyRef', 'has code RESOURCE_REF_EMPTY_NAME', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityStartWindowIconEmptyRef', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityStartWindowIconEmptyRef', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityStartWindowIconEmptyRef', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityStartWindowIconEmptyRef', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityStartWindowIconEmptyRef', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityStartWindowIconEmptyRef', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityStartWindowIconEmptyRef', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityStartWindowIconEmptyRef', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityStartWindowIconEmptyRef', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityStartWindowIconEmptyRef', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityStartWindowIconEmptyRef', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityStartWindowIconEmptyRef', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityStartWindowIconEmptyRef', 'case end', 'ability.startWindowIcon input emptyref');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2345
+     * @tc.name      testAbilityStartWindowIconColorRef
+     * @tc.desc      Checks that the colorref value is reported with RESOURCE_REF_KIND_MISMATCH by the
+     * @tc.desc      ability.startWindowIcon rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityStartWindowIconColorRef',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.startWindowIcon = '$color:start';
+      TestLog.text('testAbilityStartWindowIconColorRef', 'case begin', 'ability.startWindowIcon input colorref');
+      TestLog.step('testAbilityStartWindowIconColorRef', 'ability.startWindowIcon input colorref');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityStartWindowIconColorRef', 'ability.startWindowIcon', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testAbilityStartWindowIconColorRef', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityStartWindowIconColorRef', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityStartWindowIconColorRef', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityStartWindowIconColorRef', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityStartWindowIconColorRef', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityStartWindowIconColorRef', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityStartWindowIconColorRef', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityStartWindowIconColorRef', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityStartWindowIconColorRef', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityStartWindowIconColorRef', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityStartWindowIconColorRef', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityStartWindowIconColorRef', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityStartWindowIconColorRef', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityStartWindowIconColorRef', 'case end', 'ability.startWindowIcon input colorref');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2360
+     * @tc.name      testAbilityStartWindowBackgroundSampleRef
+     * @tc.desc      Checks that the sampleref value is accepted by the ability.startWindowBackground rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityStartWindowBackgroundSampleRef',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.startWindowBackground = '$color:start_window_background';
+      TestLog.text('testAbilityStartWindowBackgroundSampleRef', 
+        'case begin', 'ability.startWindowBackground input sampleref');
+      TestLog.step('testAbilityStartWindowBackgroundSampleRef', 'ability.startWindowBackground input sampleref');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityStartWindowBackgroundSampleRef', 'ability.startWindowBackground', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testAbilityStartWindowBackgroundSampleRef', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityStartWindowBackgroundSampleRef', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityStartWindowBackgroundSampleRef', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityStartWindowBackgroundSampleRef', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityStartWindowBackgroundSampleRef', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityStartWindowBackgroundSampleRef', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityStartWindowBackgroundSampleRef', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityStartWindowBackgroundSampleRef', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityStartWindowBackgroundSampleRef', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityStartWindowBackgroundSampleRef', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityStartWindowBackgroundSampleRef', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityStartWindowBackgroundSampleRef', 
+        'case end', 'ability.startWindowBackground input sampleref');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2361
+     * @tc.name      testAbilityStartWindowBackgroundWhite
+     * @tc.desc      Checks that the white value is accepted by the ability.startWindowBackground rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityStartWindowBackgroundWhite',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.startWindowBackground = '$color:white';
+      TestLog.text('testAbilityStartWindowBackgroundWhite', 'case begin', 'ability.startWindowBackground input white');
+      TestLog.step('testAbilityStartWindowBackgroundWhite', 'ability.startWindowBackground input white');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityStartWindowBackgroundWhite', 'ability.startWindowBackground', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testAbilityStartWindowBackgroundWhite', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityStartWindowBackgroundWhite', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityStartWindowBackgroundWhite', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityStartWindowBackgroundWhite', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityStartWindowBackgroundWhite', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityStartWindowBackgroundWhite', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityStartWindowBackgroundWhite', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityStartWindowBackgroundWhite', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityStartWindowBackgroundWhite', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityStartWindowBackgroundWhite', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityStartWindowBackgroundWhite', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityStartWindowBackgroundWhite', 'case end', 'ability.startWindowBackground input white');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2362
+     * @tc.name      testAbilityStartWindowBackgroundEmpty
+     * @tc.desc      Checks that the empty value is reported with RESOURCE_REF_EMPTY by the
+     * @tc.desc      ability.startWindowBackground rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityStartWindowBackgroundEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.startWindowBackground = '';
+      TestLog.text('testAbilityStartWindowBackgroundEmpty', 'case begin', 'ability.startWindowBackground input empty');
+      TestLog.step('testAbilityStartWindowBackgroundEmpty', 'ability.startWindowBackground input empty');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityStartWindowBackgroundEmpty', 'ability.startWindowBackground', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY');
+      TestLog.flag('testAbilityStartWindowBackgroundEmpty', 'has code RESOURCE_REF_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityStartWindowBackgroundEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityStartWindowBackgroundEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityStartWindowBackgroundEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityStartWindowBackgroundEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityStartWindowBackgroundEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityStartWindowBackgroundEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityStartWindowBackgroundEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityStartWindowBackgroundEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityStartWindowBackgroundEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityStartWindowBackgroundEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityStartWindowBackgroundEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityStartWindowBackgroundEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityStartWindowBackgroundEmpty', 'case end', 'ability.startWindowBackground input empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2363
+     * @tc.name      testAbilityStartWindowBackgroundPlain
+     * @tc.desc      Checks that the plain value is reported with RESOURCE_REF_NO_DOLLAR by the
+     * @tc.desc      ability.startWindowBackground rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityStartWindowBackgroundPlain',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.startWindowBackground = 'white';
+      TestLog.text('testAbilityStartWindowBackgroundPlain', 'case begin', 'ability.startWindowBackground input plain');
+      TestLog.step('testAbilityStartWindowBackgroundPlain', 'ability.startWindowBackground input plain');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityStartWindowBackgroundPlain', 'ability.startWindowBackground', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_NO_DOLLAR');
+      TestLog.flag('testAbilityStartWindowBackgroundPlain', 'has code RESOURCE_REF_NO_DOLLAR', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityStartWindowBackgroundPlain', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityStartWindowBackgroundPlain', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityStartWindowBackgroundPlain', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityStartWindowBackgroundPlain', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityStartWindowBackgroundPlain', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityStartWindowBackgroundPlain', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityStartWindowBackgroundPlain', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityStartWindowBackgroundPlain', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityStartWindowBackgroundPlain', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityStartWindowBackgroundPlain', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityStartWindowBackgroundPlain', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityStartWindowBackgroundPlain', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityStartWindowBackgroundPlain', 'case end', 'ability.startWindowBackground input plain');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2364
+     * @tc.name      testAbilityStartWindowBackgroundEmptyRef
+     * @tc.desc      Checks that the emptyref value is reported with RESOURCE_REF_EMPTY_NAME by the
+     * @tc.desc      ability.startWindowBackground rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityStartWindowBackgroundEmptyRef',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.startWindowBackground = '$color:';
+      TestLog.text('testAbilityStartWindowBackgroundEmptyRef', 
+        'case begin', 'ability.startWindowBackground input emptyref');
+      TestLog.step('testAbilityStartWindowBackgroundEmptyRef', 'ability.startWindowBackground input emptyref');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityStartWindowBackgroundEmptyRef', 'ability.startWindowBackground', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_EMPTY_NAME');
+      TestLog.flag('testAbilityStartWindowBackgroundEmptyRef', 'has code RESOURCE_REF_EMPTY_NAME', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityStartWindowBackgroundEmptyRef', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityStartWindowBackgroundEmptyRef', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityStartWindowBackgroundEmptyRef', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityStartWindowBackgroundEmptyRef', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityStartWindowBackgroundEmptyRef', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityStartWindowBackgroundEmptyRef', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityStartWindowBackgroundEmptyRef', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityStartWindowBackgroundEmptyRef', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityStartWindowBackgroundEmptyRef', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityStartWindowBackgroundEmptyRef', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityStartWindowBackgroundEmptyRef', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityStartWindowBackgroundEmptyRef', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityStartWindowBackgroundEmptyRef', 
+        'case end', 'ability.startWindowBackground input emptyref');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2365
+     * @tc.name      testAbilityStartWindowBackgroundMediaRef
+     * @tc.desc      Checks that the mediaref value is reported with RESOURCE_REF_KIND_MISMATCH by the
+     * @tc.desc      ability.startWindowBackground rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityStartWindowBackgroundMediaRef',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.startWindowBackground = '$media:startIcon';
+      TestLog.text('testAbilityStartWindowBackgroundMediaRef', 
+        'case begin', 'ability.startWindowBackground input mediaref');
+      TestLog.step('testAbilityStartWindowBackgroundMediaRef', 'ability.startWindowBackground input mediaref');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityStartWindowBackgroundMediaRef', 'ability.startWindowBackground', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'RESOURCE_REF_KIND_MISMATCH');
+      TestLog.flag('testAbilityStartWindowBackgroundMediaRef', 'has code RESOURCE_REF_KIND_MISMATCH', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityStartWindowBackgroundMediaRef', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityStartWindowBackgroundMediaRef', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityStartWindowBackgroundMediaRef', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityStartWindowBackgroundMediaRef', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityStartWindowBackgroundMediaRef', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityStartWindowBackgroundMediaRef', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityStartWindowBackgroundMediaRef', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityStartWindowBackgroundMediaRef', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityStartWindowBackgroundMediaRef', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityStartWindowBackgroundMediaRef', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityStartWindowBackgroundMediaRef', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityStartWindowBackgroundMediaRef', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityStartWindowBackgroundMediaRef', 
+        'case end', 'ability.startWindowBackground input mediaref');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2380
+     * @tc.name      testAbilityLaunchTypeSingleton
+     * @tc.desc      Checks that the singleton value is accepted by the ability.launchType rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityLaunchTypeSingleton',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.launchType = 'singleton';
+      TestLog.text('testAbilityLaunchTypeSingleton', 'case begin', 'ability.launchType input singleton');
+      TestLog.step('testAbilityLaunchTypeSingleton', 'ability.launchType input singleton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityLaunchTypeSingleton', 'ability.launchType', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testAbilityLaunchTypeSingleton', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityLaunchTypeSingleton', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityLaunchTypeSingleton', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityLaunchTypeSingleton', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityLaunchTypeSingleton', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityLaunchTypeSingleton', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityLaunchTypeSingleton', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityLaunchTypeSingleton', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityLaunchTypeSingleton', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityLaunchTypeSingleton', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityLaunchTypeSingleton', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityLaunchTypeSingleton', 'case end', 'ability.launchType input singleton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2381
+     * @tc.name      testAbilityLaunchTypeMultiton
+     * @tc.desc      Checks that the multiton value is accepted by the ability.launchType rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityLaunchTypeMultiton',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.launchType = 'multiton';
+      TestLog.text('testAbilityLaunchTypeMultiton', 'case begin', 'ability.launchType input multiton');
+      TestLog.step('testAbilityLaunchTypeMultiton', 'ability.launchType input multiton');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityLaunchTypeMultiton', 'ability.launchType', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testAbilityLaunchTypeMultiton', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityLaunchTypeMultiton', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityLaunchTypeMultiton', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityLaunchTypeMultiton', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityLaunchTypeMultiton', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityLaunchTypeMultiton', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityLaunchTypeMultiton', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityLaunchTypeMultiton', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityLaunchTypeMultiton', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityLaunchTypeMultiton', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityLaunchTypeMultiton', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityLaunchTypeMultiton', 'case end', 'ability.launchType input multiton');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2382
+     * @tc.name      testAbilityLaunchTypeSpecified
+     * @tc.desc      Checks that the specified value is accepted by the ability.launchType rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityLaunchTypeSpecified',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.launchType = 'specified';
+      TestLog.text('testAbilityLaunchTypeSpecified', 'case begin', 'ability.launchType input specified');
+      TestLog.step('testAbilityLaunchTypeSpecified', 'ability.launchType input specified');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityLaunchTypeSpecified', 'ability.launchType', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testAbilityLaunchTypeSpecified', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityLaunchTypeSpecified', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityLaunchTypeSpecified', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityLaunchTypeSpecified', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityLaunchTypeSpecified', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityLaunchTypeSpecified', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityLaunchTypeSpecified', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityLaunchTypeSpecified', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityLaunchTypeSpecified', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityLaunchTypeSpecified', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityLaunchTypeSpecified', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityLaunchTypeSpecified', 'case end', 'ability.launchType input specified');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2383
+     * @tc.name      testAbilityLaunchTypeEmpty
+     * @tc.desc      Checks that the empty value is reported with MODULE_LAUNCH_TYPE_EMPTY by the
+     * @tc.desc      ability.launchType rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityLaunchTypeEmpty',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.launchType = '';
+      TestLog.text('testAbilityLaunchTypeEmpty', 'case begin', 'ability.launchType input empty');
+      TestLog.step('testAbilityLaunchTypeEmpty', 'ability.launchType input empty');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityLaunchTypeEmpty', 'ability.launchType', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_LAUNCH_TYPE_EMPTY');
+      TestLog.flag('testAbilityLaunchTypeEmpty', 'has code MODULE_LAUNCH_TYPE_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityLaunchTypeEmpty', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityLaunchTypeEmpty', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityLaunchTypeEmpty', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityLaunchTypeEmpty', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityLaunchTypeEmpty', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityLaunchTypeEmpty', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityLaunchTypeEmpty', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityLaunchTypeEmpty', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityLaunchTypeEmpty', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityLaunchTypeEmpty', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityLaunchTypeEmpty', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityLaunchTypeEmpty', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityLaunchTypeEmpty', 'case end', 'ability.launchType input empty');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2384
+     * @tc.name      testAbilityLaunchTypeSpaces
+     * @tc.desc      Checks that the spaces value is reported with MODULE_LAUNCH_TYPE_EMPTY by the
+     * @tc.desc      ability.launchType rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityLaunchTypeSpaces',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.launchType = '  ';
+      TestLog.text('testAbilityLaunchTypeSpaces', 'case begin', 'ability.launchType input spaces');
+      TestLog.step('testAbilityLaunchTypeSpaces', 'ability.launchType input spaces');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityLaunchTypeSpaces', 'ability.launchType', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_LAUNCH_TYPE_EMPTY');
+      TestLog.flag('testAbilityLaunchTypeSpaces', 'has code MODULE_LAUNCH_TYPE_EMPTY', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityLaunchTypeSpaces', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityLaunchTypeSpaces', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityLaunchTypeSpaces', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityLaunchTypeSpaces', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityLaunchTypeSpaces', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityLaunchTypeSpaces', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityLaunchTypeSpaces', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityLaunchTypeSpaces', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityLaunchTypeSpaces', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityLaunchTypeSpaces', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityLaunchTypeSpaces', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityLaunchTypeSpaces', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityLaunchTypeSpaces', 'case end', 'ability.launchType input spaces');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2385
+     * @tc.name      testAbilityLaunchTypeSingle
+     * @tc.desc      Checks that the single value is reported with MODULE_LAUNCH_TYPE_UNKNOWN by the
+     * @tc.desc      ability.launchType rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityLaunchTypeSingle',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.launchType = 'single';
+      TestLog.text('testAbilityLaunchTypeSingle', 'case begin', 'ability.launchType input single');
+      TestLog.step('testAbilityLaunchTypeSingle', 'ability.launchType input single');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityLaunchTypeSingle', 'ability.launchType', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_LAUNCH_TYPE_UNKNOWN');
+      TestLog.flag('testAbilityLaunchTypeSingle', 'has code MODULE_LAUNCH_TYPE_UNKNOWN', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityLaunchTypeSingle', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityLaunchTypeSingle', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityLaunchTypeSingle', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityLaunchTypeSingle', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityLaunchTypeSingle', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityLaunchTypeSingle', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityLaunchTypeSingle', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityLaunchTypeSingle', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityLaunchTypeSingle', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityLaunchTypeSingle', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityLaunchTypeSingle', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityLaunchTypeSingle', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityLaunchTypeSingle', 'case end', 'ability.launchType input single');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2386
+     * @tc.name      testAbilityLaunchTypeUpperFirst
+     * @tc.desc      Checks that the upperfirst value is reported with MODULE_LAUNCH_TYPE_UNKNOWN by the
+     * @tc.desc      ability.launchType rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityLaunchTypeUpperFirst',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.launchType = 'Singleton';
+      TestLog.text('testAbilityLaunchTypeUpperFirst', 'case begin', 'ability.launchType input upperfirst');
+      TestLog.step('testAbilityLaunchTypeUpperFirst', 'ability.launchType input upperfirst');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityLaunchTypeUpperFirst', 'ability.launchType', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_LAUNCH_TYPE_UNKNOWN');
+      TestLog.flag('testAbilityLaunchTypeUpperFirst', 'has code MODULE_LAUNCH_TYPE_UNKNOWN', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityLaunchTypeUpperFirst', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityLaunchTypeUpperFirst', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityLaunchTypeUpperFirst', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityLaunchTypeUpperFirst', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityLaunchTypeUpperFirst', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityLaunchTypeUpperFirst', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityLaunchTypeUpperFirst', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityLaunchTypeUpperFirst', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityLaunchTypeUpperFirst', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityLaunchTypeUpperFirst', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityLaunchTypeUpperFirst', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityLaunchTypeUpperFirst', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityLaunchTypeUpperFirst', 'case end', 'ability.launchType input upperfirst');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2387
+     * @tc.name      testAbilityLaunchTypeStandard
+     * @tc.desc      Checks that the standard value is reported with MODULE_LAUNCH_TYPE_UNKNOWN by the
+     * @tc.desc      ability.launchType rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityLaunchTypeStandard',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.launchType = 'standard';
+      TestLog.text('testAbilityLaunchTypeStandard', 'case begin', 'ability.launchType input standard');
+      TestLog.step('testAbilityLaunchTypeStandard', 'ability.launchType input standard');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityLaunchTypeStandard', 'ability.launchType', findings);
+      expect(findings.length > 0).assertTrue();
+      const hasExpected: boolean = FindingUtils.hasCode(findings, 'MODULE_LAUNCH_TYPE_UNKNOWN');
+      TestLog.flag('testAbilityLaunchTypeStandard', 'has code MODULE_LAUNCH_TYPE_UNKNOWN', hasExpected);
+      expect(hasExpected).assertTrue();
+      const wellFormed: boolean = FindingUtils.allWellFormed(findings);
+      TestLog.flag('testAbilityLaunchTypeStandard', 'findings well formed', wellFormed);
+      expect(wellFormed).assertTrue();
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityLaunchTypeStandard', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityLaunchTypeStandard', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityLaunchTypeStandard', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityLaunchTypeStandard', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityLaunchTypeStandard', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityLaunchTypeStandard', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityLaunchTypeStandard', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const highest: Severity = FindingUtils.maxSeverity(findings);
+      TestLog.number('testAbilityLaunchTypeStandard', 'highest severity', highest);
+      expect(highest).assertEqual(Severity.ERROR);
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityLaunchTypeStandard', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityLaunchTypeStandard', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityLaunchTypeStandard', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityLaunchTypeStandard', 'case end', 'ability.launchType input standard');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2420
+     * @tc.name      testAbilityOrientationUnspecified
+     * @tc.desc      Checks that the unspecified value is accepted by the ability.orientation rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityOrientationUnspecified',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.orientation = 'unspecified';
+      TestLog.text('testAbilityOrientationUnspecified', 'case begin', 'ability.orientation input unspecified');
+      TestLog.step('testAbilityOrientationUnspecified', 'ability.orientation input unspecified');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityOrientationUnspecified', 'ability.orientation', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testAbilityOrientationUnspecified', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityOrientationUnspecified', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityOrientationUnspecified', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityOrientationUnspecified', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityOrientationUnspecified', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityOrientationUnspecified', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityOrientationUnspecified', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityOrientationUnspecified', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityOrientationUnspecified', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityOrientationUnspecified', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityOrientationUnspecified', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityOrientationUnspecified', 'case end', 'ability.orientation input unspecified');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2421
+     * @tc.name      testAbilityOrientationPortrait
+     * @tc.desc      Checks that the portrait value is accepted by the ability.orientation rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityOrientationPortrait',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.orientation = 'portrait';
+      TestLog.text('testAbilityOrientationPortrait', 'case begin', 'ability.orientation input portrait');
+      TestLog.step('testAbilityOrientationPortrait', 'ability.orientation input portrait');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityOrientationPortrait', 'ability.orientation', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testAbilityOrientationPortrait', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityOrientationPortrait', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityOrientationPortrait', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityOrientationPortrait', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityOrientationPortrait', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityOrientationPortrait', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityOrientationPortrait', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityOrientationPortrait', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityOrientationPortrait', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityOrientationPortrait', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityOrientationPortrait', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityOrientationPortrait', 'case end', 'ability.orientation input portrait');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2422
+     * @tc.name      testAbilityOrientationLandscape
+     * @tc.desc      Checks that the landscape value is accepted by the ability.orientation rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityOrientationLandscape',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+      const moduleConfig: ModuleConfig = ConfigFactory.entryModule();
+      const ability: AbilityConfig = moduleConfig.abilities[0];
+      ability.orientation = 'landscape';
+      TestLog.text('testAbilityOrientationLandscape', 'case begin', 'ability.orientation input landscape');
+      TestLog.step('testAbilityOrientationLandscape', 'ability.orientation input landscape');
+      const findings: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.findings('testAbilityOrientationLandscape', 'ability.orientation', findings);
+      expect(findings.length).assertEqual(0);
+      const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
+      TestLog.number('testAbilityOrientationLandscape', 'error count', errorCount);
+      expect(errorCount).assertEqual(0);
+      if (findings.length > 0) {
+        const firstPath: string = findings[0].path;
+        TestLog.text('testAbilityOrientationLandscape', 'first finding path', firstPath);
+        expect(firstPath.length > 0).assertTrue();
+        const paths: string[] = FindingUtils.paths(findings);
+        for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
+          TestLog.text('testAbilityOrientationLandscape', 'finding path', paths[pathIndex]);
+          expect(paths[pathIndex].length > 0).assertTrue();
+        }
+      }
+      const report: FindingReport = new FindingReport(findings);
+      TestLog.text('testAbilityOrientationLandscape', 'report summary', report.summary());
+      const reportCount: number = report.count();
+      TestLog.number('testAbilityOrientationLandscape', 'report count', reportCount);
+      expect(reportCount).assertEqual(findings.length);
+      const severityTotal: number =
+        report.errorCount() + report.warningCount() + report.infoCount();
+      TestLog.number('testAbilityOrientationLandscape', 'severity total', severityTotal);
+      expect(severityTotal).assertEqual(findings.length);
+      const ordered: boolean = report.isSeverityOrdered();
+      TestLog.flag('testAbilityOrientationLandscape', 'severity ordered', ordered);
+      expect(ordered).assertTrue();
+      const reportWellFormed: boolean = report.allWellFormed();
+      TestLog.flag('testAbilityOrientationLandscape', 'report well formed', reportWellFormed);
+      expect(reportWellFormed).assertTrue();
+      const firstSignature: string = FindingUtils.signatureList(findings);
+      TestLog.text('testAbilityOrientationLandscape', 'first signature', firstSignature);
+      const repeat: Finding[] = ModuleConfigValidator.validateAbility(moduleConfig, ability, 0);
+      TestLog.number('testAbilityOrientationLandscape', 'repeat count', repeat.length);
+      expect(repeat.length).assertEqual(findings.length);
+      const repeatSignature: string = FindingUtils.signatureList(repeat);
+      TestLog.text('testAbilityOrientationLandscape', 'repeat signature', repeatSignature);
+      expect(repeatSignature).assertEqual(firstSignature);
+      TestLog.text('testAbilityOrientationLandscape', 'case end', 'ability.orientation input landscape');
+    })
+
+    /**
+     * @tc.number    SUB_SYS_MODULE_CONFIG_2423
+     * @tc.name      testAbilityOrientationAutoRotation
+     * @tc.desc      Checks that the autorotation value is accepted by the ability.orientation rule.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testAbilityOrientationAutoRotation',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
