@@ -90,60 +90,60 @@ export default function AppConfigMatrixTest(): void {
 
     /**
      * @tc.number    SUB_SYS_MODULE_CONFIG_4801
-     * @tc.name      testAppMatrixSampleHuawei
-     * @tc.desc      Checks that the bundle name variant Sample with vendor Huawei is reported by the
+     * @tc.name      testAppMatrixSampleGeneric
+     * @tc.desc      Checks that the bundle name variant Sample with vendor Generic is reported by the
      * @tc.desc      expected rules.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testAppMatrixSampleHuawei',
+    it('testAppMatrixSampleGeneric',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const config: AppConfig = ConfigFactory.appConfig();
       config.bundleName = 'com.example.myapplication';
-      config.vendor = 'huawei';
-      TestLog.text('testAppMatrixSampleHuawei', 'case begin', 'bundle name sample with vendor huawei');
-      TestLog.step('testAppMatrixSampleHuawei', 'bundle name sample with vendor huawei');
+      config.vendor = 'generic';
+      TestLog.text('testAppMatrixSampleGeneric', 'case begin', 'bundle name sample with vendor generic');
+      TestLog.step('testAppMatrixSampleGeneric', 'bundle name sample with vendor generic');
       const findings: Finding[] = AppConfigValidator.validate(config);
-      TestLog.findings('testAppMatrixSampleHuawei', 'matrix findings', findings);
+      TestLog.findings('testAppMatrixSampleGeneric', 'matrix findings', findings);
       expect(findings.length).assertEqual(0);
       const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
-      TestLog.number('testAppMatrixSampleHuawei', 'error count', errorCount);
+      TestLog.number('testAppMatrixSampleGeneric', 'error count', errorCount);
       expect(errorCount).assertEqual(0);
       if (findings.length > 0) {
         const firstPath: string = findings[0].path;
-        TestLog.text('testAppMatrixSampleHuawei', 'first finding path', firstPath);
+        TestLog.text('testAppMatrixSampleGeneric', 'first finding path', firstPath);
         expect(firstPath.length > 0).assertTrue();
         const paths: string[] = FindingUtils.paths(findings);
         for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
-          TestLog.text('testAppMatrixSampleHuawei', 'finding path', paths[pathIndex]);
+          TestLog.text('testAppMatrixSampleGeneric', 'finding path', paths[pathIndex]);
           expect(paths[pathIndex].length > 0).assertTrue();
         }
       }
       const report: FindingReport = new FindingReport(findings);
-      TestLog.text('testAppMatrixSampleHuawei', 'report summary', report.summary());
+      TestLog.text('testAppMatrixSampleGeneric', 'report summary', report.summary());
       const reportCount: number = report.count();
-      TestLog.number('testAppMatrixSampleHuawei', 'report count', reportCount);
+      TestLog.number('testAppMatrixSampleGeneric', 'report count', reportCount);
       expect(reportCount).assertEqual(findings.length);
       const severityTotal: number =
         report.errorCount() + report.warningCount() + report.infoCount();
-      TestLog.number('testAppMatrixSampleHuawei', 'severity total', severityTotal);
+      TestLog.number('testAppMatrixSampleGeneric', 'severity total', severityTotal);
       expect(severityTotal).assertEqual(findings.length);
       const ordered: boolean = report.isSeverityOrdered();
-      TestLog.flag('testAppMatrixSampleHuawei', 'severity ordered', ordered);
+      TestLog.flag('testAppMatrixSampleGeneric', 'severity ordered', ordered);
       expect(ordered).assertTrue();
       const reportWellFormed: boolean = report.allWellFormed();
-      TestLog.flag('testAppMatrixSampleHuawei', 'report well formed', reportWellFormed);
+      TestLog.flag('testAppMatrixSampleGeneric', 'report well formed', reportWellFormed);
       expect(reportWellFormed).assertTrue();
       const firstSignature: string = FindingUtils.signatureList(findings);
-      TestLog.text('testAppMatrixSampleHuawei', 'first signature', firstSignature);
+      TestLog.text('testAppMatrixSampleGeneric', 'first signature', firstSignature);
       const repeat: Finding[] = AppConfigValidator.validate(config);
-      TestLog.number('testAppMatrixSampleHuawei', 'repeat count', repeat.length);
+      TestLog.number('testAppMatrixSampleGeneric', 'repeat count', repeat.length);
       expect(repeat.length).assertEqual(findings.length);
       const repeatSignature: string = FindingUtils.signatureList(repeat);
-      TestLog.text('testAppMatrixSampleHuawei', 'repeat signature', repeatSignature);
+      TestLog.text('testAppMatrixSampleGeneric', 'repeat signature', repeatSignature);
       expect(repeatSignature).assertEqual(firstSignature);
-      TestLog.text('testAppMatrixSampleHuawei', 'case end', 'bundle name sample with vendor huawei');
+      TestLog.text('testAppMatrixSampleGeneric', 'case end', 'bundle name sample with vendor generic');
     })
 
     /**
@@ -636,60 +636,60 @@ export default function AppConfigMatrixTest(): void {
 
     /**
      * @tc.number    SUB_SYS_MODULE_CONFIG_4810
-     * @tc.name      testAppMatrixDigitSuffixHuawei
-     * @tc.desc      Checks that the bundle name variant DigitSuffix with vendor Huawei is reported by the
+     * @tc.name      testAppMatrixDigitSuffixGeneric
+     * @tc.desc      Checks that the bundle name variant DigitSuffix with vendor Generic is reported by the
      * @tc.desc      expected rules.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testAppMatrixDigitSuffixHuawei',
+    it('testAppMatrixDigitSuffixGeneric',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const config: AppConfig = ConfigFactory.appConfig();
       config.bundleName = 'com.example.myapplication2';
-      config.vendor = 'huawei';
-      TestLog.text('testAppMatrixDigitSuffixHuawei', 'case begin', 'bundle name digitsuffix with vendor huawei');
-      TestLog.step('testAppMatrixDigitSuffixHuawei', 'bundle name digitsuffix with vendor huawei');
+      config.vendor = 'generic';
+      TestLog.text('testAppMatrixDigitSuffixGeneric', 'case begin', 'bundle name digitsuffix with vendor generic');
+      TestLog.step('testAppMatrixDigitSuffixGeneric', 'bundle name digitsuffix with vendor generic');
       const findings: Finding[] = AppConfigValidator.validate(config);
-      TestLog.findings('testAppMatrixDigitSuffixHuawei', 'matrix findings', findings);
+      TestLog.findings('testAppMatrixDigitSuffixGeneric', 'matrix findings', findings);
       expect(findings.length).assertEqual(0);
       const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
-      TestLog.number('testAppMatrixDigitSuffixHuawei', 'error count', errorCount);
+      TestLog.number('testAppMatrixDigitSuffixGeneric', 'error count', errorCount);
       expect(errorCount).assertEqual(0);
       if (findings.length > 0) {
         const firstPath: string = findings[0].path;
-        TestLog.text('testAppMatrixDigitSuffixHuawei', 'first finding path', firstPath);
+        TestLog.text('testAppMatrixDigitSuffixGeneric', 'first finding path', firstPath);
         expect(firstPath.length > 0).assertTrue();
         const paths: string[] = FindingUtils.paths(findings);
         for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
-          TestLog.text('testAppMatrixDigitSuffixHuawei', 'finding path', paths[pathIndex]);
+          TestLog.text('testAppMatrixDigitSuffixGeneric', 'finding path', paths[pathIndex]);
           expect(paths[pathIndex].length > 0).assertTrue();
         }
       }
       const report: FindingReport = new FindingReport(findings);
-      TestLog.text('testAppMatrixDigitSuffixHuawei', 'report summary', report.summary());
+      TestLog.text('testAppMatrixDigitSuffixGeneric', 'report summary', report.summary());
       const reportCount: number = report.count();
-      TestLog.number('testAppMatrixDigitSuffixHuawei', 'report count', reportCount);
+      TestLog.number('testAppMatrixDigitSuffixGeneric', 'report count', reportCount);
       expect(reportCount).assertEqual(findings.length);
       const severityTotal: number =
         report.errorCount() + report.warningCount() + report.infoCount();
-      TestLog.number('testAppMatrixDigitSuffixHuawei', 'severity total', severityTotal);
+      TestLog.number('testAppMatrixDigitSuffixGeneric', 'severity total', severityTotal);
       expect(severityTotal).assertEqual(findings.length);
       const ordered: boolean = report.isSeverityOrdered();
-      TestLog.flag('testAppMatrixDigitSuffixHuawei', 'severity ordered', ordered);
+      TestLog.flag('testAppMatrixDigitSuffixGeneric', 'severity ordered', ordered);
       expect(ordered).assertTrue();
       const reportWellFormed: boolean = report.allWellFormed();
-      TestLog.flag('testAppMatrixDigitSuffixHuawei', 'report well formed', reportWellFormed);
+      TestLog.flag('testAppMatrixDigitSuffixGeneric', 'report well formed', reportWellFormed);
       expect(reportWellFormed).assertTrue();
       const firstSignature: string = FindingUtils.signatureList(findings);
-      TestLog.text('testAppMatrixDigitSuffixHuawei', 'first signature', firstSignature);
+      TestLog.text('testAppMatrixDigitSuffixGeneric', 'first signature', firstSignature);
       const repeat: Finding[] = AppConfigValidator.validate(config);
-      TestLog.number('testAppMatrixDigitSuffixHuawei', 'repeat count', repeat.length);
+      TestLog.number('testAppMatrixDigitSuffixGeneric', 'repeat count', repeat.length);
       expect(repeat.length).assertEqual(findings.length);
       const repeatSignature: string = FindingUtils.signatureList(repeat);
-      TestLog.text('testAppMatrixDigitSuffixHuawei', 'repeat signature', repeatSignature);
+      TestLog.text('testAppMatrixDigitSuffixGeneric', 'repeat signature', repeatSignature);
       expect(repeatSignature).assertEqual(firstSignature);
-      TestLog.text('testAppMatrixDigitSuffixHuawei', 'case end', 'bundle name digitsuffix with vendor huawei');
+      TestLog.text('testAppMatrixDigitSuffixGeneric', 'case end', 'bundle name digitsuffix with vendor generic');
     })
 
     /**
@@ -1186,60 +1186,60 @@ export default function AppConfigMatrixTest(): void {
 
     /**
      * @tc.number    SUB_SYS_MODULE_CONFIG_4819
-     * @tc.name      testAppMatrixComExampleHuawei
-     * @tc.desc      Checks that the bundle name variant ComExample with vendor Huawei is reported by the
+     * @tc.name      testAppMatrixComExampleGeneric
+     * @tc.desc      Checks that the bundle name variant ComExample with vendor Generic is reported by the
      * @tc.desc      expected rules.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testAppMatrixComExampleHuawei',
+    it('testAppMatrixComExampleGeneric',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const config: AppConfig = ConfigFactory.appConfig();
       config.bundleName = 'com.example.moduleapp';
-      config.vendor = 'huawei';
-      TestLog.text('testAppMatrixComExampleHuawei', 'case begin', 'bundle name comexample with vendor huawei');
-      TestLog.step('testAppMatrixComExampleHuawei', 'bundle name comexample with vendor huawei');
+      config.vendor = 'generic';
+      TestLog.text('testAppMatrixComExampleGeneric', 'case begin', 'bundle name comexample with vendor generic');
+      TestLog.step('testAppMatrixComExampleGeneric', 'bundle name comexample with vendor generic');
       const findings: Finding[] = AppConfigValidator.validate(config);
-      TestLog.findings('testAppMatrixComExampleHuawei', 'matrix findings', findings);
+      TestLog.findings('testAppMatrixComExampleGeneric', 'matrix findings', findings);
       expect(findings.length).assertEqual(0);
       const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
-      TestLog.number('testAppMatrixComExampleHuawei', 'error count', errorCount);
+      TestLog.number('testAppMatrixComExampleGeneric', 'error count', errorCount);
       expect(errorCount).assertEqual(0);
       if (findings.length > 0) {
         const firstPath: string = findings[0].path;
-        TestLog.text('testAppMatrixComExampleHuawei', 'first finding path', firstPath);
+        TestLog.text('testAppMatrixComExampleGeneric', 'first finding path', firstPath);
         expect(firstPath.length > 0).assertTrue();
         const paths: string[] = FindingUtils.paths(findings);
         for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
-          TestLog.text('testAppMatrixComExampleHuawei', 'finding path', paths[pathIndex]);
+          TestLog.text('testAppMatrixComExampleGeneric', 'finding path', paths[pathIndex]);
           expect(paths[pathIndex].length > 0).assertTrue();
         }
       }
       const report: FindingReport = new FindingReport(findings);
-      TestLog.text('testAppMatrixComExampleHuawei', 'report summary', report.summary());
+      TestLog.text('testAppMatrixComExampleGeneric', 'report summary', report.summary());
       const reportCount: number = report.count();
-      TestLog.number('testAppMatrixComExampleHuawei', 'report count', reportCount);
+      TestLog.number('testAppMatrixComExampleGeneric', 'report count', reportCount);
       expect(reportCount).assertEqual(findings.length);
       const severityTotal: number =
         report.errorCount() + report.warningCount() + report.infoCount();
-      TestLog.number('testAppMatrixComExampleHuawei', 'severity total', severityTotal);
+      TestLog.number('testAppMatrixComExampleGeneric', 'severity total', severityTotal);
       expect(severityTotal).assertEqual(findings.length);
       const ordered: boolean = report.isSeverityOrdered();
-      TestLog.flag('testAppMatrixComExampleHuawei', 'severity ordered', ordered);
+      TestLog.flag('testAppMatrixComExampleGeneric', 'severity ordered', ordered);
       expect(ordered).assertTrue();
       const reportWellFormed: boolean = report.allWellFormed();
-      TestLog.flag('testAppMatrixComExampleHuawei', 'report well formed', reportWellFormed);
+      TestLog.flag('testAppMatrixComExampleGeneric', 'report well formed', reportWellFormed);
       expect(reportWellFormed).assertTrue();
       const firstSignature: string = FindingUtils.signatureList(findings);
-      TestLog.text('testAppMatrixComExampleHuawei', 'first signature', firstSignature);
+      TestLog.text('testAppMatrixComExampleGeneric', 'first signature', firstSignature);
       const repeat: Finding[] = AppConfigValidator.validate(config);
-      TestLog.number('testAppMatrixComExampleHuawei', 'repeat count', repeat.length);
+      TestLog.number('testAppMatrixComExampleGeneric', 'repeat count', repeat.length);
       expect(repeat.length).assertEqual(findings.length);
       const repeatSignature: string = FindingUtils.signatureList(repeat);
-      TestLog.text('testAppMatrixComExampleHuawei', 'repeat signature', repeatSignature);
+      TestLog.text('testAppMatrixComExampleGeneric', 'repeat signature', repeatSignature);
       expect(repeatSignature).assertEqual(firstSignature);
-      TestLog.text('testAppMatrixComExampleHuawei', 'case end', 'bundle name comexample with vendor huawei');
+      TestLog.text('testAppMatrixComExampleGeneric', 'case end', 'bundle name comexample with vendor generic');
     })
 
     /**
@@ -1734,60 +1734,60 @@ export default function AppConfigMatrixTest(): void {
 
     /**
      * @tc.number    SUB_SYS_MODULE_CONFIG_4828
-     * @tc.name      testAppMatrixSnakeHuawei
-     * @tc.desc      Checks that the bundle name variant Snake with vendor Huawei is reported by the expected
+     * @tc.name      testAppMatrixSnakeGeneric
+     * @tc.desc      Checks that the bundle name variant Snake with vendor Generic is reported by the expected
      * @tc.desc      rules.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testAppMatrixSnakeHuawei',
+    it('testAppMatrixSnakeGeneric',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const config: AppConfig = ConfigFactory.appConfig();
       config.bundleName = 'com.example.my_app';
-      config.vendor = 'huawei';
-      TestLog.text('testAppMatrixSnakeHuawei', 'case begin', 'bundle name snake with vendor huawei');
-      TestLog.step('testAppMatrixSnakeHuawei', 'bundle name snake with vendor huawei');
+      config.vendor = 'generic';
+      TestLog.text('testAppMatrixSnakeGeneric', 'case begin', 'bundle name snake with vendor generic');
+      TestLog.step('testAppMatrixSnakeGeneric', 'bundle name snake with vendor generic');
       const findings: Finding[] = AppConfigValidator.validate(config);
-      TestLog.findings('testAppMatrixSnakeHuawei', 'matrix findings', findings);
+      TestLog.findings('testAppMatrixSnakeGeneric', 'matrix findings', findings);
       expect(findings.length).assertEqual(0);
       const errorCount: number = FindingUtils.filterBySeverity(findings, Severity.ERROR).length;
-      TestLog.number('testAppMatrixSnakeHuawei', 'error count', errorCount);
+      TestLog.number('testAppMatrixSnakeGeneric', 'error count', errorCount);
       expect(errorCount).assertEqual(0);
       if (findings.length > 0) {
         const firstPath: string = findings[0].path;
-        TestLog.text('testAppMatrixSnakeHuawei', 'first finding path', firstPath);
+        TestLog.text('testAppMatrixSnakeGeneric', 'first finding path', firstPath);
         expect(firstPath.length > 0).assertTrue();
         const paths: string[] = FindingUtils.paths(findings);
         for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
-          TestLog.text('testAppMatrixSnakeHuawei', 'finding path', paths[pathIndex]);
+          TestLog.text('testAppMatrixSnakeGeneric', 'finding path', paths[pathIndex]);
           expect(paths[pathIndex].length > 0).assertTrue();
         }
       }
       const report: FindingReport = new FindingReport(findings);
-      TestLog.text('testAppMatrixSnakeHuawei', 'report summary', report.summary());
+      TestLog.text('testAppMatrixSnakeGeneric', 'report summary', report.summary());
       const reportCount: number = report.count();
-      TestLog.number('testAppMatrixSnakeHuawei', 'report count', reportCount);
+      TestLog.number('testAppMatrixSnakeGeneric', 'report count', reportCount);
       expect(reportCount).assertEqual(findings.length);
       const severityTotal: number =
         report.errorCount() + report.warningCount() + report.infoCount();
-      TestLog.number('testAppMatrixSnakeHuawei', 'severity total', severityTotal);
+      TestLog.number('testAppMatrixSnakeGeneric', 'severity total', severityTotal);
       expect(severityTotal).assertEqual(findings.length);
       const ordered: boolean = report.isSeverityOrdered();
-      TestLog.flag('testAppMatrixSnakeHuawei', 'severity ordered', ordered);
+      TestLog.flag('testAppMatrixSnakeGeneric', 'severity ordered', ordered);
       expect(ordered).assertTrue();
       const reportWellFormed: boolean = report.allWellFormed();
-      TestLog.flag('testAppMatrixSnakeHuawei', 'report well formed', reportWellFormed);
+      TestLog.flag('testAppMatrixSnakeGeneric', 'report well formed', reportWellFormed);
       expect(reportWellFormed).assertTrue();
       const firstSignature: string = FindingUtils.signatureList(findings);
-      TestLog.text('testAppMatrixSnakeHuawei', 'first signature', firstSignature);
+      TestLog.text('testAppMatrixSnakeGeneric', 'first signature', firstSignature);
       const repeat: Finding[] = AppConfigValidator.validate(config);
-      TestLog.number('testAppMatrixSnakeHuawei', 'repeat count', repeat.length);
+      TestLog.number('testAppMatrixSnakeGeneric', 'repeat count', repeat.length);
       expect(repeat.length).assertEqual(findings.length);
       const repeatSignature: string = FindingUtils.signatureList(repeat);
-      TestLog.text('testAppMatrixSnakeHuawei', 'repeat signature', repeatSignature);
+      TestLog.text('testAppMatrixSnakeGeneric', 'repeat signature', repeatSignature);
       expect(repeatSignature).assertEqual(firstSignature);
-      TestLog.text('testAppMatrixSnakeHuawei', 'case end', 'bundle name snake with vendor huawei');
+      TestLog.text('testAppMatrixSnakeGeneric', 'case end', 'bundle name snake with vendor generic');
     })
 
     /**
@@ -2286,66 +2286,66 @@ export default function AppConfigMatrixTest(): void {
 
     /**
      * @tc.number    SUB_SYS_MODULE_CONFIG_4837
-     * @tc.name      testAppMatrixEmptyHuawei
-     * @tc.desc      Checks that the bundle name variant Empty with vendor Huawei is reported by the expected
+     * @tc.name      testAppMatrixEmptyGeneric
+     * @tc.desc      Checks that the bundle name variant Empty with vendor Generic is reported by the expected
      * @tc.desc      rules.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testAppMatrixEmptyHuawei',
+    it('testAppMatrixEmptyGeneric',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const config: AppConfig = ConfigFactory.appConfig();
       config.bundleName = '';
-      config.vendor = 'huawei';
-      TestLog.text('testAppMatrixEmptyHuawei', 'case begin', 'bundle name empty with vendor huawei');
-      TestLog.step('testAppMatrixEmptyHuawei', 'bundle name empty with vendor huawei');
+      config.vendor = 'generic';
+      TestLog.text('testAppMatrixEmptyGeneric', 'case begin', 'bundle name empty with vendor generic');
+      TestLog.step('testAppMatrixEmptyGeneric', 'bundle name empty with vendor generic');
       const findings: Finding[] = AppConfigValidator.validate(config);
-      TestLog.findings('testAppMatrixEmptyHuawei', 'matrix findings', findings);
+      TestLog.findings('testAppMatrixEmptyGeneric', 'matrix findings', findings);
       expect(findings.length > 0).assertTrue();
       const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_EMPTY');
-      TestLog.flag('testAppMatrixEmptyHuawei', 'has code APP_BUNDLE_NAME_EMPTY', hasExpected);
+      TestLog.flag('testAppMatrixEmptyGeneric', 'has code APP_BUNDLE_NAME_EMPTY', hasExpected);
       expect(hasExpected).assertTrue();
       const wellFormed: boolean = FindingUtils.allWellFormed(findings);
-      TestLog.flag('testAppMatrixEmptyHuawei', 'findings well formed', wellFormed);
+      TestLog.flag('testAppMatrixEmptyGeneric', 'findings well formed', wellFormed);
       expect(wellFormed).assertTrue();
       if (findings.length > 0) {
         const firstPath: string = findings[0].path;
-        TestLog.text('testAppMatrixEmptyHuawei', 'first finding path', firstPath);
+        TestLog.text('testAppMatrixEmptyGeneric', 'first finding path', firstPath);
         expect(firstPath.length > 0).assertTrue();
         const paths: string[] = FindingUtils.paths(findings);
         for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
-          TestLog.text('testAppMatrixEmptyHuawei', 'finding path', paths[pathIndex]);
+          TestLog.text('testAppMatrixEmptyGeneric', 'finding path', paths[pathIndex]);
           expect(paths[pathIndex].length > 0).assertTrue();
         }
       }
       const report: FindingReport = new FindingReport(findings);
-      TestLog.text('testAppMatrixEmptyHuawei', 'report summary', report.summary());
+      TestLog.text('testAppMatrixEmptyGeneric', 'report summary', report.summary());
       const reportCount: number = report.count();
-      TestLog.number('testAppMatrixEmptyHuawei', 'report count', reportCount);
+      TestLog.number('testAppMatrixEmptyGeneric', 'report count', reportCount);
       expect(reportCount).assertEqual(findings.length);
       const severityTotal: number =
         report.errorCount() + report.warningCount() + report.infoCount();
-      TestLog.number('testAppMatrixEmptyHuawei', 'severity total', severityTotal);
+      TestLog.number('testAppMatrixEmptyGeneric', 'severity total', severityTotal);
       expect(severityTotal).assertEqual(findings.length);
       const ordered: boolean = report.isSeverityOrdered();
-      TestLog.flag('testAppMatrixEmptyHuawei', 'severity ordered', ordered);
+      TestLog.flag('testAppMatrixEmptyGeneric', 'severity ordered', ordered);
       expect(ordered).assertTrue();
       const reportWellFormed: boolean = report.allWellFormed();
-      TestLog.flag('testAppMatrixEmptyHuawei', 'report well formed', reportWellFormed);
+      TestLog.flag('testAppMatrixEmptyGeneric', 'report well formed', reportWellFormed);
       expect(reportWellFormed).assertTrue();
       const highest: Severity = FindingUtils.maxSeverity(findings);
-      TestLog.number('testAppMatrixEmptyHuawei', 'highest severity', highest);
+      TestLog.number('testAppMatrixEmptyGeneric', 'highest severity', highest);
       expect(highest).assertEqual(Severity.ERROR);
       const firstSignature: string = FindingUtils.signatureList(findings);
-      TestLog.text('testAppMatrixEmptyHuawei', 'first signature', firstSignature);
+      TestLog.text('testAppMatrixEmptyGeneric', 'first signature', firstSignature);
       const repeat: Finding[] = AppConfigValidator.validate(config);
-      TestLog.number('testAppMatrixEmptyHuawei', 'repeat count', repeat.length);
+      TestLog.number('testAppMatrixEmptyGeneric', 'repeat count', repeat.length);
       expect(repeat.length).assertEqual(findings.length);
       const repeatSignature: string = FindingUtils.signatureList(repeat);
-      TestLog.text('testAppMatrixEmptyHuawei', 'repeat signature', repeatSignature);
+      TestLog.text('testAppMatrixEmptyGeneric', 'repeat signature', repeatSignature);
       expect(repeatSignature).assertEqual(firstSignature);
-      TestLog.text('testAppMatrixEmptyHuawei', 'case end', 'bundle name empty with vendor huawei');
+      TestLog.text('testAppMatrixEmptyGeneric', 'case end', 'bundle name empty with vendor generic');
     })
 
     /**
@@ -2874,66 +2874,66 @@ export default function AppConfigMatrixTest(): void {
 
     /**
      * @tc.number    SUB_SYS_MODULE_CONFIG_4846
-     * @tc.name      testAppMatrixUpperHuawei
-     * @tc.desc      Checks that the bundle name variant Upper with vendor Huawei is reported by the expected
+     * @tc.name      testAppMatrixUpperGeneric
+     * @tc.desc      Checks that the bundle name variant Upper with vendor Generic is reported by the expected
      * @tc.desc      rules.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testAppMatrixUpperHuawei',
+    it('testAppMatrixUpperGeneric',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const config: AppConfig = ConfigFactory.appConfig();
       config.bundleName = 'Ohos.app.hap.myapplication';
-      config.vendor = 'huawei';
-      TestLog.text('testAppMatrixUpperHuawei', 'case begin', 'bundle name upper with vendor huawei');
-      TestLog.step('testAppMatrixUpperHuawei', 'bundle name upper with vendor huawei');
+      config.vendor = 'generic';
+      TestLog.text('testAppMatrixUpperGeneric', 'case begin', 'bundle name upper with vendor generic');
+      TestLog.step('testAppMatrixUpperGeneric', 'bundle name upper with vendor generic');
       const findings: Finding[] = AppConfigValidator.validate(config);
-      TestLog.findings('testAppMatrixUpperHuawei', 'matrix findings', findings);
+      TestLog.findings('testAppMatrixUpperGeneric', 'matrix findings', findings);
       expect(findings.length > 0).assertTrue();
       const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_UPPERCASE');
-      TestLog.flag('testAppMatrixUpperHuawei', 'has code APP_BUNDLE_NAME_UPPERCASE', hasExpected);
+      TestLog.flag('testAppMatrixUpperGeneric', 'has code APP_BUNDLE_NAME_UPPERCASE', hasExpected);
       expect(hasExpected).assertTrue();
       const wellFormed: boolean = FindingUtils.allWellFormed(findings);
-      TestLog.flag('testAppMatrixUpperHuawei', 'findings well formed', wellFormed);
+      TestLog.flag('testAppMatrixUpperGeneric', 'findings well formed', wellFormed);
       expect(wellFormed).assertTrue();
       if (findings.length > 0) {
         const firstPath: string = findings[0].path;
-        TestLog.text('testAppMatrixUpperHuawei', 'first finding path', firstPath);
+        TestLog.text('testAppMatrixUpperGeneric', 'first finding path', firstPath);
         expect(firstPath.length > 0).assertTrue();
         const paths: string[] = FindingUtils.paths(findings);
         for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
-          TestLog.text('testAppMatrixUpperHuawei', 'finding path', paths[pathIndex]);
+          TestLog.text('testAppMatrixUpperGeneric', 'finding path', paths[pathIndex]);
           expect(paths[pathIndex].length > 0).assertTrue();
         }
       }
       const report: FindingReport = new FindingReport(findings);
-      TestLog.text('testAppMatrixUpperHuawei', 'report summary', report.summary());
+      TestLog.text('testAppMatrixUpperGeneric', 'report summary', report.summary());
       const reportCount: number = report.count();
-      TestLog.number('testAppMatrixUpperHuawei', 'report count', reportCount);
+      TestLog.number('testAppMatrixUpperGeneric', 'report count', reportCount);
       expect(reportCount).assertEqual(findings.length);
       const severityTotal: number =
         report.errorCount() + report.warningCount() + report.infoCount();
-      TestLog.number('testAppMatrixUpperHuawei', 'severity total', severityTotal);
+      TestLog.number('testAppMatrixUpperGeneric', 'severity total', severityTotal);
       expect(severityTotal).assertEqual(findings.length);
       const ordered: boolean = report.isSeverityOrdered();
-      TestLog.flag('testAppMatrixUpperHuawei', 'severity ordered', ordered);
+      TestLog.flag('testAppMatrixUpperGeneric', 'severity ordered', ordered);
       expect(ordered).assertTrue();
       const reportWellFormed: boolean = report.allWellFormed();
-      TestLog.flag('testAppMatrixUpperHuawei', 'report well formed', reportWellFormed);
+      TestLog.flag('testAppMatrixUpperGeneric', 'report well formed', reportWellFormed);
       expect(reportWellFormed).assertTrue();
       const highest: Severity = FindingUtils.maxSeverity(findings);
-      TestLog.number('testAppMatrixUpperHuawei', 'highest severity', highest);
+      TestLog.number('testAppMatrixUpperGeneric', 'highest severity', highest);
       expect(highest).assertEqual(Severity.ERROR);
       const firstSignature: string = FindingUtils.signatureList(findings);
-      TestLog.text('testAppMatrixUpperHuawei', 'first signature', firstSignature);
+      TestLog.text('testAppMatrixUpperGeneric', 'first signature', firstSignature);
       const repeat: Finding[] = AppConfigValidator.validate(config);
-      TestLog.number('testAppMatrixUpperHuawei', 'repeat count', repeat.length);
+      TestLog.number('testAppMatrixUpperGeneric', 'repeat count', repeat.length);
       expect(repeat.length).assertEqual(findings.length);
       const repeatSignature: string = FindingUtils.signatureList(repeat);
-      TestLog.text('testAppMatrixUpperHuawei', 'repeat signature', repeatSignature);
+      TestLog.text('testAppMatrixUpperGeneric', 'repeat signature', repeatSignature);
       expect(repeatSignature).assertEqual(firstSignature);
-      TestLog.text('testAppMatrixUpperHuawei', 'case end', 'bundle name upper with vendor huawei');
+      TestLog.text('testAppMatrixUpperGeneric', 'case end', 'bundle name upper with vendor generic');
     })
 
     /**
@@ -3462,66 +3462,66 @@ export default function AppConfigMatrixTest(): void {
 
     /**
      * @tc.number    SUB_SYS_MODULE_CONFIG_4855
-     * @tc.name      testAppMatrixWhitespaceHuawei
-     * @tc.desc      Checks that the bundle name variant Whitespace with vendor Huawei is reported by the
+     * @tc.name      testAppMatrixWhitespaceGeneric
+     * @tc.desc      Checks that the bundle name variant Whitespace with vendor Generic is reported by the
      * @tc.desc      expected rules.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testAppMatrixWhitespaceHuawei',
+    it('testAppMatrixWhitespaceGeneric',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const config: AppConfig = ConfigFactory.appConfig();
       config.bundleName = 'ohos app.hap.myapplication';
-      config.vendor = 'huawei';
-      TestLog.text('testAppMatrixWhitespaceHuawei', 'case begin', 'bundle name whitespace with vendor huawei');
-      TestLog.step('testAppMatrixWhitespaceHuawei', 'bundle name whitespace with vendor huawei');
+      config.vendor = 'generic';
+      TestLog.text('testAppMatrixWhitespaceGeneric', 'case begin', 'bundle name whitespace with vendor generic');
+      TestLog.step('testAppMatrixWhitespaceGeneric', 'bundle name whitespace with vendor generic');
       const findings: Finding[] = AppConfigValidator.validate(config);
-      TestLog.findings('testAppMatrixWhitespaceHuawei', 'matrix findings', findings);
+      TestLog.findings('testAppMatrixWhitespaceGeneric', 'matrix findings', findings);
       expect(findings.length > 0).assertTrue();
       const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_WHITESPACE');
-      TestLog.flag('testAppMatrixWhitespaceHuawei', 'has code APP_BUNDLE_NAME_WHITESPACE', hasExpected);
+      TestLog.flag('testAppMatrixWhitespaceGeneric', 'has code APP_BUNDLE_NAME_WHITESPACE', hasExpected);
       expect(hasExpected).assertTrue();
       const wellFormed: boolean = FindingUtils.allWellFormed(findings);
-      TestLog.flag('testAppMatrixWhitespaceHuawei', 'findings well formed', wellFormed);
+      TestLog.flag('testAppMatrixWhitespaceGeneric', 'findings well formed', wellFormed);
       expect(wellFormed).assertTrue();
       if (findings.length > 0) {
         const firstPath: string = findings[0].path;
-        TestLog.text('testAppMatrixWhitespaceHuawei', 'first finding path', firstPath);
+        TestLog.text('testAppMatrixWhitespaceGeneric', 'first finding path', firstPath);
         expect(firstPath.length > 0).assertTrue();
         const paths: string[] = FindingUtils.paths(findings);
         for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
-          TestLog.text('testAppMatrixWhitespaceHuawei', 'finding path', paths[pathIndex]);
+          TestLog.text('testAppMatrixWhitespaceGeneric', 'finding path', paths[pathIndex]);
           expect(paths[pathIndex].length > 0).assertTrue();
         }
       }
       const report: FindingReport = new FindingReport(findings);
-      TestLog.text('testAppMatrixWhitespaceHuawei', 'report summary', report.summary());
+      TestLog.text('testAppMatrixWhitespaceGeneric', 'report summary', report.summary());
       const reportCount: number = report.count();
-      TestLog.number('testAppMatrixWhitespaceHuawei', 'report count', reportCount);
+      TestLog.number('testAppMatrixWhitespaceGeneric', 'report count', reportCount);
       expect(reportCount).assertEqual(findings.length);
       const severityTotal: number =
         report.errorCount() + report.warningCount() + report.infoCount();
-      TestLog.number('testAppMatrixWhitespaceHuawei', 'severity total', severityTotal);
+      TestLog.number('testAppMatrixWhitespaceGeneric', 'severity total', severityTotal);
       expect(severityTotal).assertEqual(findings.length);
       const ordered: boolean = report.isSeverityOrdered();
-      TestLog.flag('testAppMatrixWhitespaceHuawei', 'severity ordered', ordered);
+      TestLog.flag('testAppMatrixWhitespaceGeneric', 'severity ordered', ordered);
       expect(ordered).assertTrue();
       const reportWellFormed: boolean = report.allWellFormed();
-      TestLog.flag('testAppMatrixWhitespaceHuawei', 'report well formed', reportWellFormed);
+      TestLog.flag('testAppMatrixWhitespaceGeneric', 'report well formed', reportWellFormed);
       expect(reportWellFormed).assertTrue();
       const highest: Severity = FindingUtils.maxSeverity(findings);
-      TestLog.number('testAppMatrixWhitespaceHuawei', 'highest severity', highest);
+      TestLog.number('testAppMatrixWhitespaceGeneric', 'highest severity', highest);
       expect(highest).assertEqual(Severity.ERROR);
       const firstSignature: string = FindingUtils.signatureList(findings);
-      TestLog.text('testAppMatrixWhitespaceHuawei', 'first signature', firstSignature);
+      TestLog.text('testAppMatrixWhitespaceGeneric', 'first signature', firstSignature);
       const repeat: Finding[] = AppConfigValidator.validate(config);
-      TestLog.number('testAppMatrixWhitespaceHuawei', 'repeat count', repeat.length);
+      TestLog.number('testAppMatrixWhitespaceGeneric', 'repeat count', repeat.length);
       expect(repeat.length).assertEqual(findings.length);
       const repeatSignature: string = FindingUtils.signatureList(repeat);
-      TestLog.text('testAppMatrixWhitespaceHuawei', 'repeat signature', repeatSignature);
+      TestLog.text('testAppMatrixWhitespaceGeneric', 'repeat signature', repeatSignature);
       expect(repeatSignature).assertEqual(firstSignature);
-      TestLog.text('testAppMatrixWhitespaceHuawei', 'case end', 'bundle name whitespace with vendor huawei');
+      TestLog.text('testAppMatrixWhitespaceGeneric', 'case end', 'bundle name whitespace with vendor generic');
     })
 
     /**
@@ -4052,66 +4052,66 @@ export default function AppConfigMatrixTest(): void {
 
     /**
      * @tc.number    SUB_SYS_MODULE_CONFIG_4864
-     * @tc.name      testAppMatrixEmptySegmentHuawei
-     * @tc.desc      Checks that the bundle name variant EmptySegment with vendor Huawei is reported by the
+     * @tc.name      testAppMatrixEmptySegmentGeneric
+     * @tc.desc      Checks that the bundle name variant EmptySegment with vendor Generic is reported by the
      * @tc.desc      expected rules.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testAppMatrixEmptySegmentHuawei',
+    it('testAppMatrixEmptySegmentGeneric',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const config: AppConfig = ConfigFactory.appConfig();
       config.bundleName = 'ohos..hap.myapplication';
-      config.vendor = 'huawei';
-      TestLog.text('testAppMatrixEmptySegmentHuawei', 'case begin', 'bundle name emptysegment with vendor huawei');
-      TestLog.step('testAppMatrixEmptySegmentHuawei', 'bundle name emptysegment with vendor huawei');
+      config.vendor = 'generic';
+      TestLog.text('testAppMatrixEmptySegmentGeneric', 'case begin', 'bundle name emptysegment with vendor generic');
+      TestLog.step('testAppMatrixEmptySegmentGeneric', 'bundle name emptysegment with vendor generic');
       const findings: Finding[] = AppConfigValidator.validate(config);
-      TestLog.findings('testAppMatrixEmptySegmentHuawei', 'matrix findings', findings);
+      TestLog.findings('testAppMatrixEmptySegmentGeneric', 'matrix findings', findings);
       expect(findings.length > 0).assertTrue();
       const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_EMPTY_SEGMENT');
-      TestLog.flag('testAppMatrixEmptySegmentHuawei', 'has code APP_BUNDLE_NAME_EMPTY_SEGMENT', hasExpected);
+      TestLog.flag('testAppMatrixEmptySegmentGeneric', 'has code APP_BUNDLE_NAME_EMPTY_SEGMENT', hasExpected);
       expect(hasExpected).assertTrue();
       const wellFormed: boolean = FindingUtils.allWellFormed(findings);
-      TestLog.flag('testAppMatrixEmptySegmentHuawei', 'findings well formed', wellFormed);
+      TestLog.flag('testAppMatrixEmptySegmentGeneric', 'findings well formed', wellFormed);
       expect(wellFormed).assertTrue();
       if (findings.length > 0) {
         const firstPath: string = findings[0].path;
-        TestLog.text('testAppMatrixEmptySegmentHuawei', 'first finding path', firstPath);
+        TestLog.text('testAppMatrixEmptySegmentGeneric', 'first finding path', firstPath);
         expect(firstPath.length > 0).assertTrue();
         const paths: string[] = FindingUtils.paths(findings);
         for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
-          TestLog.text('testAppMatrixEmptySegmentHuawei', 'finding path', paths[pathIndex]);
+          TestLog.text('testAppMatrixEmptySegmentGeneric', 'finding path', paths[pathIndex]);
           expect(paths[pathIndex].length > 0).assertTrue();
         }
       }
       const report: FindingReport = new FindingReport(findings);
-      TestLog.text('testAppMatrixEmptySegmentHuawei', 'report summary', report.summary());
+      TestLog.text('testAppMatrixEmptySegmentGeneric', 'report summary', report.summary());
       const reportCount: number = report.count();
-      TestLog.number('testAppMatrixEmptySegmentHuawei', 'report count', reportCount);
+      TestLog.number('testAppMatrixEmptySegmentGeneric', 'report count', reportCount);
       expect(reportCount).assertEqual(findings.length);
       const severityTotal: number =
         report.errorCount() + report.warningCount() + report.infoCount();
-      TestLog.number('testAppMatrixEmptySegmentHuawei', 'severity total', severityTotal);
+      TestLog.number('testAppMatrixEmptySegmentGeneric', 'severity total', severityTotal);
       expect(severityTotal).assertEqual(findings.length);
       const ordered: boolean = report.isSeverityOrdered();
-      TestLog.flag('testAppMatrixEmptySegmentHuawei', 'severity ordered', ordered);
+      TestLog.flag('testAppMatrixEmptySegmentGeneric', 'severity ordered', ordered);
       expect(ordered).assertTrue();
       const reportWellFormed: boolean = report.allWellFormed();
-      TestLog.flag('testAppMatrixEmptySegmentHuawei', 'report well formed', reportWellFormed);
+      TestLog.flag('testAppMatrixEmptySegmentGeneric', 'report well formed', reportWellFormed);
       expect(reportWellFormed).assertTrue();
       const highest: Severity = FindingUtils.maxSeverity(findings);
-      TestLog.number('testAppMatrixEmptySegmentHuawei', 'highest severity', highest);
+      TestLog.number('testAppMatrixEmptySegmentGeneric', 'highest severity', highest);
       expect(highest).assertEqual(Severity.ERROR);
       const firstSignature: string = FindingUtils.signatureList(findings);
-      TestLog.text('testAppMatrixEmptySegmentHuawei', 'first signature', firstSignature);
+      TestLog.text('testAppMatrixEmptySegmentGeneric', 'first signature', firstSignature);
       const repeat: Finding[] = AppConfigValidator.validate(config);
-      TestLog.number('testAppMatrixEmptySegmentHuawei', 'repeat count', repeat.length);
+      TestLog.number('testAppMatrixEmptySegmentGeneric', 'repeat count', repeat.length);
       expect(repeat.length).assertEqual(findings.length);
       const repeatSignature: string = FindingUtils.signatureList(repeat);
-      TestLog.text('testAppMatrixEmptySegmentHuawei', 'repeat signature', repeatSignature);
+      TestLog.text('testAppMatrixEmptySegmentGeneric', 'repeat signature', repeatSignature);
       expect(repeatSignature).assertEqual(firstSignature);
-      TestLog.text('testAppMatrixEmptySegmentHuawei', 'case end', 'bundle name emptysegment with vendor huawei');
+      TestLog.text('testAppMatrixEmptySegmentGeneric', 'case end', 'bundle name emptysegment with vendor generic');
     })
 
     /**
@@ -4644,66 +4644,66 @@ export default function AppConfigMatrixTest(): void {
 
     /**
      * @tc.number    SUB_SYS_MODULE_CONFIG_4873
-     * @tc.name      testAppMatrixTooFewSegmentsHuawei
-     * @tc.desc      Checks that the bundle name variant TooFewSegments with vendor Huawei is reported by the
+     * @tc.name      testAppMatrixTooFewSegmentsGeneric
+     * @tc.desc      Checks that the bundle name variant TooFewSegments with vendor Generic is reported by the
      * @tc.desc      expected rules.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testAppMatrixTooFewSegmentsHuawei',
+    it('testAppMatrixTooFewSegmentsGeneric',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const config: AppConfig = ConfigFactory.appConfig();
       config.bundleName = 'ohos';
-      config.vendor = 'huawei';
-      TestLog.text('testAppMatrixTooFewSegmentsHuawei', 'case begin', 'bundle name toofewsegments with vendor huawei');
-      TestLog.step('testAppMatrixTooFewSegmentsHuawei', 'bundle name toofewsegments with vendor huawei');
+      config.vendor = 'generic';
+      TestLog.text('testAppMatrixTooFewSegmentsGeneric', 'case begin', 'bundle name toofewsegments with vendor generic');
+      TestLog.step('testAppMatrixTooFewSegmentsGeneric', 'bundle name toofewsegments with vendor generic');
       const findings: Finding[] = AppConfigValidator.validate(config);
-      TestLog.findings('testAppMatrixTooFewSegmentsHuawei', 'matrix findings', findings);
+      TestLog.findings('testAppMatrixTooFewSegmentsGeneric', 'matrix findings', findings);
       expect(findings.length > 0).assertTrue();
       const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_TOO_FEW_SEGMENTS');
-      TestLog.flag('testAppMatrixTooFewSegmentsHuawei', 'has code APP_BUNDLE_NAME_TOO_FEW_SEGMENTS', hasExpected);
+      TestLog.flag('testAppMatrixTooFewSegmentsGeneric', 'has code APP_BUNDLE_NAME_TOO_FEW_SEGMENTS', hasExpected);
       expect(hasExpected).assertTrue();
       const wellFormed: boolean = FindingUtils.allWellFormed(findings);
-      TestLog.flag('testAppMatrixTooFewSegmentsHuawei', 'findings well formed', wellFormed);
+      TestLog.flag('testAppMatrixTooFewSegmentsGeneric', 'findings well formed', wellFormed);
       expect(wellFormed).assertTrue();
       if (findings.length > 0) {
         const firstPath: string = findings[0].path;
-        TestLog.text('testAppMatrixTooFewSegmentsHuawei', 'first finding path', firstPath);
+        TestLog.text('testAppMatrixTooFewSegmentsGeneric', 'first finding path', firstPath);
         expect(firstPath.length > 0).assertTrue();
         const paths: string[] = FindingUtils.paths(findings);
         for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
-          TestLog.text('testAppMatrixTooFewSegmentsHuawei', 'finding path', paths[pathIndex]);
+          TestLog.text('testAppMatrixTooFewSegmentsGeneric', 'finding path', paths[pathIndex]);
           expect(paths[pathIndex].length > 0).assertTrue();
         }
       }
       const report: FindingReport = new FindingReport(findings);
-      TestLog.text('testAppMatrixTooFewSegmentsHuawei', 'report summary', report.summary());
+      TestLog.text('testAppMatrixTooFewSegmentsGeneric', 'report summary', report.summary());
       const reportCount: number = report.count();
-      TestLog.number('testAppMatrixTooFewSegmentsHuawei', 'report count', reportCount);
+      TestLog.number('testAppMatrixTooFewSegmentsGeneric', 'report count', reportCount);
       expect(reportCount).assertEqual(findings.length);
       const severityTotal: number =
         report.errorCount() + report.warningCount() + report.infoCount();
-      TestLog.number('testAppMatrixTooFewSegmentsHuawei', 'severity total', severityTotal);
+      TestLog.number('testAppMatrixTooFewSegmentsGeneric', 'severity total', severityTotal);
       expect(severityTotal).assertEqual(findings.length);
       const ordered: boolean = report.isSeverityOrdered();
-      TestLog.flag('testAppMatrixTooFewSegmentsHuawei', 'severity ordered', ordered);
+      TestLog.flag('testAppMatrixTooFewSegmentsGeneric', 'severity ordered', ordered);
       expect(ordered).assertTrue();
       const reportWellFormed: boolean = report.allWellFormed();
-      TestLog.flag('testAppMatrixTooFewSegmentsHuawei', 'report well formed', reportWellFormed);
+      TestLog.flag('testAppMatrixTooFewSegmentsGeneric', 'report well formed', reportWellFormed);
       expect(reportWellFormed).assertTrue();
       const highest: Severity = FindingUtils.maxSeverity(findings);
-      TestLog.number('testAppMatrixTooFewSegmentsHuawei', 'highest severity', highest);
+      TestLog.number('testAppMatrixTooFewSegmentsGeneric', 'highest severity', highest);
       expect(highest).assertEqual(Severity.ERROR);
       const firstSignature: string = FindingUtils.signatureList(findings);
-      TestLog.text('testAppMatrixTooFewSegmentsHuawei', 'first signature', firstSignature);
+      TestLog.text('testAppMatrixTooFewSegmentsGeneric', 'first signature', firstSignature);
       const repeat: Finding[] = AppConfigValidator.validate(config);
-      TestLog.number('testAppMatrixTooFewSegmentsHuawei', 'repeat count', repeat.length);
+      TestLog.number('testAppMatrixTooFewSegmentsGeneric', 'repeat count', repeat.length);
       expect(repeat.length).assertEqual(findings.length);
       const repeatSignature: string = FindingUtils.signatureList(repeat);
-      TestLog.text('testAppMatrixTooFewSegmentsHuawei', 'repeat signature', repeatSignature);
+      TestLog.text('testAppMatrixTooFewSegmentsGeneric', 'repeat signature', repeatSignature);
       expect(repeatSignature).assertEqual(firstSignature);
-      TestLog.text('testAppMatrixTooFewSegmentsHuawei', 'case end', 'bundle name toofewsegments with vendor huawei');
+      TestLog.text('testAppMatrixTooFewSegmentsGeneric', 'case end', 'bundle name toofewsegments with vendor generic');
     })
 
     /**
@@ -5237,66 +5237,66 @@ export default function AppConfigMatrixTest(): void {
 
     /**
      * @tc.number    SUB_SYS_MODULE_CONFIG_4882
-     * @tc.name      testAppMatrixIllegalCharHuawei
-     * @tc.desc      Checks that the bundle name variant IllegalChar with vendor Huawei is reported by the
+     * @tc.name      testAppMatrixIllegalCharGeneric
+     * @tc.desc      Checks that the bundle name variant IllegalChar with vendor Generic is reported by the
      * @tc.desc      expected rules.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testAppMatrixIllegalCharHuawei',
+    it('testAppMatrixIllegalCharGeneric',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const config: AppConfig = ConfigFactory.appConfig();
       config.bundleName = 'com.example.my-application';
-      config.vendor = 'huawei';
-      TestLog.text('testAppMatrixIllegalCharHuawei', 'case begin', 'bundle name illegalchar with vendor huawei');
-      TestLog.step('testAppMatrixIllegalCharHuawei', 'bundle name illegalchar with vendor huawei');
+      config.vendor = 'generic';
+      TestLog.text('testAppMatrixIllegalCharGeneric', 'case begin', 'bundle name illegalchar with vendor generic');
+      TestLog.step('testAppMatrixIllegalCharGeneric', 'bundle name illegalchar with vendor generic');
       const findings: Finding[] = AppConfigValidator.validate(config);
-      TestLog.findings('testAppMatrixIllegalCharHuawei', 'matrix findings', findings);
+      TestLog.findings('testAppMatrixIllegalCharGeneric', 'matrix findings', findings);
       expect(findings.length > 0).assertTrue();
       const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_ILLEGAL_CHAR');
-      TestLog.flag('testAppMatrixIllegalCharHuawei', 'has code APP_BUNDLE_NAME_ILLEGAL_CHAR', hasExpected);
+      TestLog.flag('testAppMatrixIllegalCharGeneric', 'has code APP_BUNDLE_NAME_ILLEGAL_CHAR', hasExpected);
       expect(hasExpected).assertTrue();
       const wellFormed: boolean = FindingUtils.allWellFormed(findings);
-      TestLog.flag('testAppMatrixIllegalCharHuawei', 'findings well formed', wellFormed);
+      TestLog.flag('testAppMatrixIllegalCharGeneric', 'findings well formed', wellFormed);
       expect(wellFormed).assertTrue();
       if (findings.length > 0) {
         const firstPath: string = findings[0].path;
-        TestLog.text('testAppMatrixIllegalCharHuawei', 'first finding path', firstPath);
+        TestLog.text('testAppMatrixIllegalCharGeneric', 'first finding path', firstPath);
         expect(firstPath.length > 0).assertTrue();
         const paths: string[] = FindingUtils.paths(findings);
         for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
-          TestLog.text('testAppMatrixIllegalCharHuawei', 'finding path', paths[pathIndex]);
+          TestLog.text('testAppMatrixIllegalCharGeneric', 'finding path', paths[pathIndex]);
           expect(paths[pathIndex].length > 0).assertTrue();
         }
       }
       const report: FindingReport = new FindingReport(findings);
-      TestLog.text('testAppMatrixIllegalCharHuawei', 'report summary', report.summary());
+      TestLog.text('testAppMatrixIllegalCharGeneric', 'report summary', report.summary());
       const reportCount: number = report.count();
-      TestLog.number('testAppMatrixIllegalCharHuawei', 'report count', reportCount);
+      TestLog.number('testAppMatrixIllegalCharGeneric', 'report count', reportCount);
       expect(reportCount).assertEqual(findings.length);
       const severityTotal: number =
         report.errorCount() + report.warningCount() + report.infoCount();
-      TestLog.number('testAppMatrixIllegalCharHuawei', 'severity total', severityTotal);
+      TestLog.number('testAppMatrixIllegalCharGeneric', 'severity total', severityTotal);
       expect(severityTotal).assertEqual(findings.length);
       const ordered: boolean = report.isSeverityOrdered();
-      TestLog.flag('testAppMatrixIllegalCharHuawei', 'severity ordered', ordered);
+      TestLog.flag('testAppMatrixIllegalCharGeneric', 'severity ordered', ordered);
       expect(ordered).assertTrue();
       const reportWellFormed: boolean = report.allWellFormed();
-      TestLog.flag('testAppMatrixIllegalCharHuawei', 'report well formed', reportWellFormed);
+      TestLog.flag('testAppMatrixIllegalCharGeneric', 'report well formed', reportWellFormed);
       expect(reportWellFormed).assertTrue();
       const highest: Severity = FindingUtils.maxSeverity(findings);
-      TestLog.number('testAppMatrixIllegalCharHuawei', 'highest severity', highest);
+      TestLog.number('testAppMatrixIllegalCharGeneric', 'highest severity', highest);
       expect(highest).assertEqual(Severity.ERROR);
       const firstSignature: string = FindingUtils.signatureList(findings);
-      TestLog.text('testAppMatrixIllegalCharHuawei', 'first signature', firstSignature);
+      TestLog.text('testAppMatrixIllegalCharGeneric', 'first signature', firstSignature);
       const repeat: Finding[] = AppConfigValidator.validate(config);
-      TestLog.number('testAppMatrixIllegalCharHuawei', 'repeat count', repeat.length);
+      TestLog.number('testAppMatrixIllegalCharGeneric', 'repeat count', repeat.length);
       expect(repeat.length).assertEqual(findings.length);
       const repeatSignature: string = FindingUtils.signatureList(repeat);
-      TestLog.text('testAppMatrixIllegalCharHuawei', 'repeat signature', repeatSignature);
+      TestLog.text('testAppMatrixIllegalCharGeneric', 'repeat signature', repeatSignature);
       expect(repeatSignature).assertEqual(firstSignature);
-      TestLog.text('testAppMatrixIllegalCharHuawei', 'case end', 'bundle name illegalchar with vendor huawei');
+      TestLog.text('testAppMatrixIllegalCharGeneric', 'case end', 'bundle name illegalchar with vendor generic');
     })
 
     /**
@@ -5829,66 +5829,66 @@ export default function AppConfigMatrixTest(): void {
 
     /**
      * @tc.number    SUB_SYS_MODULE_CONFIG_4891
-     * @tc.name      testAppMatrixDigitSegmentHuawei
-     * @tc.desc      Checks that the bundle name variant DigitSegment with vendor Huawei is reported by the
+     * @tc.name      testAppMatrixDigitSegmentGeneric
+     * @tc.desc      Checks that the bundle name variant DigitSegment with vendor Generic is reported by the
      * @tc.desc      expected rules.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testAppMatrixDigitSegmentHuawei',
+    it('testAppMatrixDigitSegmentGeneric',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const config: AppConfig = ConfigFactory.appConfig();
       config.bundleName = 'ohos.1app.hap.myapplication';
-      config.vendor = 'huawei';
-      TestLog.text('testAppMatrixDigitSegmentHuawei', 'case begin', 'bundle name digitsegment with vendor huawei');
-      TestLog.step('testAppMatrixDigitSegmentHuawei', 'bundle name digitsegment with vendor huawei');
+      config.vendor = 'generic';
+      TestLog.text('testAppMatrixDigitSegmentGeneric', 'case begin', 'bundle name digitsegment with vendor generic');
+      TestLog.step('testAppMatrixDigitSegmentGeneric', 'bundle name digitsegment with vendor generic');
       const findings: Finding[] = AppConfigValidator.validate(config);
-      TestLog.findings('testAppMatrixDigitSegmentHuawei', 'matrix findings', findings);
+      TestLog.findings('testAppMatrixDigitSegmentGeneric', 'matrix findings', findings);
       expect(findings.length > 0).assertTrue();
       const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT');
-      TestLog.flag('testAppMatrixDigitSegmentHuawei', 'has code APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT', hasExpected);
+      TestLog.flag('testAppMatrixDigitSegmentGeneric', 'has code APP_BUNDLE_NAME_SEGMENT_LEADING_DIGIT', hasExpected);
       expect(hasExpected).assertTrue();
       const wellFormed: boolean = FindingUtils.allWellFormed(findings);
-      TestLog.flag('testAppMatrixDigitSegmentHuawei', 'findings well formed', wellFormed);
+      TestLog.flag('testAppMatrixDigitSegmentGeneric', 'findings well formed', wellFormed);
       expect(wellFormed).assertTrue();
       if (findings.length > 0) {
         const firstPath: string = findings[0].path;
-        TestLog.text('testAppMatrixDigitSegmentHuawei', 'first finding path', firstPath);
+        TestLog.text('testAppMatrixDigitSegmentGeneric', 'first finding path', firstPath);
         expect(firstPath.length > 0).assertTrue();
         const paths: string[] = FindingUtils.paths(findings);
         for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
-          TestLog.text('testAppMatrixDigitSegmentHuawei', 'finding path', paths[pathIndex]);
+          TestLog.text('testAppMatrixDigitSegmentGeneric', 'finding path', paths[pathIndex]);
           expect(paths[pathIndex].length > 0).assertTrue();
         }
       }
       const report: FindingReport = new FindingReport(findings);
-      TestLog.text('testAppMatrixDigitSegmentHuawei', 'report summary', report.summary());
+      TestLog.text('testAppMatrixDigitSegmentGeneric', 'report summary', report.summary());
       const reportCount: number = report.count();
-      TestLog.number('testAppMatrixDigitSegmentHuawei', 'report count', reportCount);
+      TestLog.number('testAppMatrixDigitSegmentGeneric', 'report count', reportCount);
       expect(reportCount).assertEqual(findings.length);
       const severityTotal: number =
         report.errorCount() + report.warningCount() + report.infoCount();
-      TestLog.number('testAppMatrixDigitSegmentHuawei', 'severity total', severityTotal);
+      TestLog.number('testAppMatrixDigitSegmentGeneric', 'severity total', severityTotal);
       expect(severityTotal).assertEqual(findings.length);
       const ordered: boolean = report.isSeverityOrdered();
-      TestLog.flag('testAppMatrixDigitSegmentHuawei', 'severity ordered', ordered);
+      TestLog.flag('testAppMatrixDigitSegmentGeneric', 'severity ordered', ordered);
       expect(ordered).assertTrue();
       const reportWellFormed: boolean = report.allWellFormed();
-      TestLog.flag('testAppMatrixDigitSegmentHuawei', 'report well formed', reportWellFormed);
+      TestLog.flag('testAppMatrixDigitSegmentGeneric', 'report well formed', reportWellFormed);
       expect(reportWellFormed).assertTrue();
       const highest: Severity = FindingUtils.maxSeverity(findings);
-      TestLog.number('testAppMatrixDigitSegmentHuawei', 'highest severity', highest);
+      TestLog.number('testAppMatrixDigitSegmentGeneric', 'highest severity', highest);
       expect(highest).assertEqual(Severity.ERROR);
       const firstSignature: string = FindingUtils.signatureList(findings);
-      TestLog.text('testAppMatrixDigitSegmentHuawei', 'first signature', firstSignature);
+      TestLog.text('testAppMatrixDigitSegmentGeneric', 'first signature', firstSignature);
       const repeat: Finding[] = AppConfigValidator.validate(config);
-      TestLog.number('testAppMatrixDigitSegmentHuawei', 'repeat count', repeat.length);
+      TestLog.number('testAppMatrixDigitSegmentGeneric', 'repeat count', repeat.length);
       expect(repeat.length).assertEqual(findings.length);
       const repeatSignature: string = FindingUtils.signatureList(repeat);
-      TestLog.text('testAppMatrixDigitSegmentHuawei', 'repeat signature', repeatSignature);
+      TestLog.text('testAppMatrixDigitSegmentGeneric', 'repeat signature', repeatSignature);
       expect(repeatSignature).assertEqual(firstSignature);
-      TestLog.text('testAppMatrixDigitSegmentHuawei', 'case end', 'bundle name digitsegment with vendor huawei');
+      TestLog.text('testAppMatrixDigitSegmentGeneric', 'case end', 'bundle name digitsegment with vendor generic');
     })
 
     /**
@@ -6423,66 +6423,66 @@ export default function AppConfigMatrixTest(): void {
 
     /**
      * @tc.number    SUB_SYS_MODULE_CONFIG_4900
-     * @tc.name      testAppMatrixTooLongHuawei
-     * @tc.desc      Checks that the bundle name variant TooLong with vendor Huawei is reported by the
+     * @tc.name      testAppMatrixTooLongGeneric
+     * @tc.desc      Checks that the bundle name variant TooLong with vendor Generic is reported by the
      * @tc.desc      expected rules.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
      */
-    it('testAppMatrixTooLongHuawei',
+    it('testAppMatrixTooLongGeneric',
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       const config: AppConfig = ConfigFactory.appConfig();
       config.bundleName = ('a'.repeat(125) + '.app');
-      config.vendor = 'huawei';
-      TestLog.text('testAppMatrixTooLongHuawei', 'case begin', 'bundle name toolong with vendor huawei');
-      TestLog.step('testAppMatrixTooLongHuawei', 'bundle name toolong with vendor huawei');
+      config.vendor = 'generic';
+      TestLog.text('testAppMatrixTooLongGeneric', 'case begin', 'bundle name toolong with vendor generic');
+      TestLog.step('testAppMatrixTooLongGeneric', 'bundle name toolong with vendor generic');
       const findings: Finding[] = AppConfigValidator.validate(config);
-      TestLog.findings('testAppMatrixTooLongHuawei', 'matrix findings', findings);
+      TestLog.findings('testAppMatrixTooLongGeneric', 'matrix findings', findings);
       expect(findings.length > 0).assertTrue();
       const hasExpected: boolean = FindingUtils.hasCode(findings, 'APP_BUNDLE_NAME_TOO_LONG');
-      TestLog.flag('testAppMatrixTooLongHuawei', 'has code APP_BUNDLE_NAME_TOO_LONG', hasExpected);
+      TestLog.flag('testAppMatrixTooLongGeneric', 'has code APP_BUNDLE_NAME_TOO_LONG', hasExpected);
       expect(hasExpected).assertTrue();
       const wellFormed: boolean = FindingUtils.allWellFormed(findings);
-      TestLog.flag('testAppMatrixTooLongHuawei', 'findings well formed', wellFormed);
+      TestLog.flag('testAppMatrixTooLongGeneric', 'findings well formed', wellFormed);
       expect(wellFormed).assertTrue();
       if (findings.length > 0) {
         const firstPath: string = findings[0].path;
-        TestLog.text('testAppMatrixTooLongHuawei', 'first finding path', firstPath);
+        TestLog.text('testAppMatrixTooLongGeneric', 'first finding path', firstPath);
         expect(firstPath.length > 0).assertTrue();
         const paths: string[] = FindingUtils.paths(findings);
         for (let pathIndex: number = 0; pathIndex < paths.length; pathIndex++) {
-          TestLog.text('testAppMatrixTooLongHuawei', 'finding path', paths[pathIndex]);
+          TestLog.text('testAppMatrixTooLongGeneric', 'finding path', paths[pathIndex]);
           expect(paths[pathIndex].length > 0).assertTrue();
         }
       }
       const report: FindingReport = new FindingReport(findings);
-      TestLog.text('testAppMatrixTooLongHuawei', 'report summary', report.summary());
+      TestLog.text('testAppMatrixTooLongGeneric', 'report summary', report.summary());
       const reportCount: number = report.count();
-      TestLog.number('testAppMatrixTooLongHuawei', 'report count', reportCount);
+      TestLog.number('testAppMatrixTooLongGeneric', 'report count', reportCount);
       expect(reportCount).assertEqual(findings.length);
       const severityTotal: number =
         report.errorCount() + report.warningCount() + report.infoCount();
-      TestLog.number('testAppMatrixTooLongHuawei', 'severity total', severityTotal);
+      TestLog.number('testAppMatrixTooLongGeneric', 'severity total', severityTotal);
       expect(severityTotal).assertEqual(findings.length);
       const ordered: boolean = report.isSeverityOrdered();
-      TestLog.flag('testAppMatrixTooLongHuawei', 'severity ordered', ordered);
+      TestLog.flag('testAppMatrixTooLongGeneric', 'severity ordered', ordered);
       expect(ordered).assertTrue();
       const reportWellFormed: boolean = report.allWellFormed();
-      TestLog.flag('testAppMatrixTooLongHuawei', 'report well formed', reportWellFormed);
+      TestLog.flag('testAppMatrixTooLongGeneric', 'report well formed', reportWellFormed);
       expect(reportWellFormed).assertTrue();
       const highest: Severity = FindingUtils.maxSeverity(findings);
-      TestLog.number('testAppMatrixTooLongHuawei', 'highest severity', highest);
+      TestLog.number('testAppMatrixTooLongGeneric', 'highest severity', highest);
       expect(highest).assertEqual(Severity.ERROR);
       const firstSignature: string = FindingUtils.signatureList(findings);
-      TestLog.text('testAppMatrixTooLongHuawei', 'first signature', firstSignature);
+      TestLog.text('testAppMatrixTooLongGeneric', 'first signature', firstSignature);
       const repeat: Finding[] = AppConfigValidator.validate(config);
-      TestLog.number('testAppMatrixTooLongHuawei', 'repeat count', repeat.length);
+      TestLog.number('testAppMatrixTooLongGeneric', 'repeat count', repeat.length);
       expect(repeat.length).assertEqual(findings.length);
       const repeatSignature: string = FindingUtils.signatureList(repeat);
-      TestLog.text('testAppMatrixTooLongHuawei', 'repeat signature', repeatSignature);
+      TestLog.text('testAppMatrixTooLongGeneric', 'repeat signature', repeatSignature);
       expect(repeatSignature).assertEqual(firstSignature);
-      TestLog.text('testAppMatrixTooLongHuawei', 'case end', 'bundle name toolong with vendor huawei');
+      TestLog.text('testAppMatrixTooLongGeneric', 'case end', 'bundle name toolong with vendor generic');
     })
 
     /**
