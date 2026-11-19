@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,38 +13,107 @@
  * limitations under the License.
  */
 
+import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { bundleManager } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 
-export default function abilityTest() {
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_Eraser]';
+const delegator = abilityDelegatorRegistry.getAbilityDelegator();
+
+export default function abilityTest(): void {
   describe('ActsAbilityTest', () => {
-    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
-    beforeAll(() => {
-      // Presets an action, which is performed only once before all test cases of the test suite start.
-      // This API supports only one parameter: preset action function.
+    /**
+     * @tc.number    ERASER_ABILITY_0001
+     * @tc.name      eraser_context_001
+     * @tc.desc      应用上下文与沙箱目录自检
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('eraser_context_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'eraser_context_001 begin');
+      const context = delegator.getAppContext();
+      expect(context.applicationInfo.name).assertEqual('com.samples.eraser');
+      expect(context.filesDir.length > 0).assertTrue();
+      expect(typeof context.applicationInfo.releaseType).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'eraser_context_001 end');
     })
-    beforeEach(() => {
-      // Presets an action, which is performed before each unit test case starts.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: preset action function.
+
+    /**
+     * @tc.number    ERASER_ABILITY_0002
+     * @tc.name      eraser_bundle_001
+     * @tc.desc      包信息版本与令牌自检
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('eraser_bundle_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'eraser_bundle_001 begin');
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION;
+      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+      expect(info.name).assertEqual('com.samples.eraser');
+      expect(info.versionCode > 0).assertTrue();
+      expect(info.appInfo.accessTokenId > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'eraser_bundle_001 end');
     })
-    afterEach(() => {
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
+
+    /**
+     * @tc.number    ERASER_ABILITY_0003
+     * @tc.name      eraser_module_001
+     * @tc.desc      模块入口能力自检
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('eraser_module_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'eraser_module_001 begin');
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE;
+      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+      const module: bundleManager.HapModuleInfo = info.hapModulesInfo[0];
+      expect(module.mainElementName).assertEqual('EntryAbility');
+      expect(module.name.length > 0).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'eraser_module_001 end');
     })
-    afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
+
+    /**
+     * @tc.number    ERASER_ABILITY_0004
+     * @tc.name      eraser_ability_001
+     * @tc.desc      模块能力列表自检
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('eraser_ability_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'eraser_ability_001 begin');
+      const flags: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE |
+        bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_ABILITY;
+      const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+      const module: bundleManager.HapModuleInfo = info.hapModulesInfo[0];
+      expect(module.abilitiesInfo.length > 0).assertTrue();
+      expect(module.abilitiesInfo[0].name.length > 0).assertTrue();
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'eraser_ability_001 end');
     })
-    it('assertContain', 0, () => {
-      // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
-      hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
-      let a = 'abc';
-      let b = 'b';
-      // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
-      expect(a).assertContain(b);
-      expect(a).assertEqual(a);
+
+    /**
+     * @tc.number    ERASER_ABILITY_0005
+     * @tc.name      eraser_appcontext_001
+     * @tc.desc      应用级上下文目录一致性自检
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('eraser_appcontext_001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'eraser_appcontext_001 begin');
+      const appContext = delegator.getAppContext();
+      const appLevel = appContext.getApplicationContext();
+      expect(appLevel !== null && appLevel !== undefined).assertTrue();
+      expect(appLevel.filesDir.length > 0).assertTrue();
+      expect(appLevel.applicationInfo.name).assertEqual('com.samples.eraser');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'eraser_appcontext_001 end');
     })
-  })
+  });
 }
