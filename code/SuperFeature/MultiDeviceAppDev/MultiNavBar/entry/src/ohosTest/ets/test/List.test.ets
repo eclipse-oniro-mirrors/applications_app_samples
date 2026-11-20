@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,8 +13,30 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test'
+import abilityTest from './Ability.test';
+import navAppOperationWorkflowSuite from './Core/NavAppOperationWorkflow.test';
+import navAppStateManagementSuite from './Core/NavAppStateManagement.test';
+import navAppAnimationControllerValidationSuite from './Validation/NavAppAnimationControllerValidation.test';
+import navAppPointerUtilValidationSuite from './Validation/NavAppPointerUtilValidation.test';
+import navAppResourceLoaderValidationSuite from './Validation/NavAppResourceLoaderValidation.test';
+import navAppStyleResolutionSuite from './Validation/NavAppStyleResolution.test';
+import navAppFocusNavigationSuite from './Interaction/NavAppFocusNavigation.test';
+import navAppSystemIntegrationSuite from './Integration/NavAppSystemIntegration.test';
+import navAppStateStoreSuite from './LifecycleState/NavAppStateStore.test';
+import navAppConcurrencyControlSuite from './PerformanceStability/NavAppConcurrencyControl.test';
+import navBarExtensionSuite from './NavBarExtension.test';
 
 export default function testsuite() {
   abilityTest();
+  navAppOperationWorkflowSuite();
+  navAppStateManagementSuite();
+  navAppAnimationControllerValidationSuite();
+  navAppPointerUtilValidationSuite();
+  navAppResourceLoaderValidationSuite();
+  navAppStyleResolutionSuite();
+  navAppFocusNavigationSuite();
+  navAppSystemIntegrationSuite();
+  navAppStateStoreSuite();
+  navAppConcurrencyControlSuite();
+  navBarExtensionSuite();
 }
