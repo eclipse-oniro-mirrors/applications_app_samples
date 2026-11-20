@@ -28,15 +28,15 @@ entry/src/main/
 ├─ets
 │  ├─entryability
 │  ├─graphics3d
+│  │   ├─container.ets                  // 子节点操作
+│  │   ├─node_base.ets                  // 节点基础属性
+│  │   ├─node_camera.ets                // 相机
+│  │   ├─node_light.ets                 // 光源
+│  │   ├─scene_animation.ets            // 动画
+│  │   ├─scene_environment.ets          // 环境
+│  │   └─scene_shader.ets               // 材质
 │  └─pages
-│      ├─container.ets                  // Child node operations
-│      ├─Index.ets                      // Main page
-│      ├─node_base.ets                  // Basic node attributes
-│      ├─node_camera.ets                // Camera
-│      ├─node_light.ets                 // Light
-│      ├─scene_animation.ets            // Animation
-│      ├─scene_environment.ets          // Background
-│      └─scene_shader.ets               // Texture
+│      └─Index.ets                      // 主页
 └─resources
     ├─base
     │  ├─element
@@ -116,6 +116,10 @@ None.
 ### Dependencies
 
 None.
+
+### Tests
+
+The latest RK3568 run passed all 2851 cases (Failure/Error/Ignore: 0). Two smoke cases load the business GLB, query the model and an attached camera, read/write camera properties, and exercise real node append/insertAfter/remove/clear operations. Scenes are destroyed in finally blocks. Arithmetic matrices and API reachability do not prove GPU visual correctness. See [test coverage and execution](ohosTest.md). Local signing material is excluded from repository changes.
 
 ### Constraints and Limitations
 

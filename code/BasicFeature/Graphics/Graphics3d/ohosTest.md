@@ -1,10 +1,12 @@
 # Graphics3d 测试用例
 
-Graphics3d 三维渲染样例的测试归档，自动化部分覆盖相机球坐标解算、透视投影视锥、网格索引与三角面、向量运算、几何推算与页面路由等维度。
+Graphics3d 三维渲染样例的测试归档，真实 API 冒烟覆盖业务 GLB 加载、场景节点与相机属性、节点容器操作；既有矩阵保留相机球坐标、投影视锥、网格与向量等计算检查。
 
 ## 自动化用例
 
-用例位于 `entry/src/ohosTest/ets/test`，由 `test/List.test.ets` 统一注册，共 41 个套件文件 2844 条；`test/Ability.test.ets` 另有 5 条环境自检，合计 2849 条，已在 RK3568 真机上分批执行通过。
+用例位于 `entry/src/ohosTest/ets/test`，由 `test/List.test.ets` 统一注册，共 42 个业务套件文件 2846 条；`test/Ability.test.ets` 另有 5 条环境自检，合计 2851 条。本轮主包、测试包编译、签名、安装及 RK3568 真机全量完成，2851/2851 通过，Failure/Error/Ignore 均为 0。
+
+其中 `G3dApiSmoke` 的 2 条用例实际调用 ArkGraphics3D API，使用业务资源与真实场景对象。既有算术及路由字符串矩阵不证明场景 API 可达、页面实际跳转或 GPU 画面正确。
 
 用例写法与元数据约定如下：
 
@@ -12,13 +14,14 @@ Graphics3d 三维渲染样例的测试归档，自动化部分覆盖相机球坐
 - `it(name, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, fn)`，每条用例首尾各打一行 `hilog` begin/end；
 - 断言前声明本条用例的入参（如 `distance = 1`、`yaw = 0 * Math.PI / 180`、`pitch = 0 * Math.PI / 180`），期望值全部写成字面量，浮点比较统一用 `Math.abs(actual - expected) < 0.01`；
 - 日志统一使用 `DOMAIN = 0xF811`、`TAG = '[Sample_Graphics3d]'`，可用 `hilog -x -D 0xF811` 过滤；
-- 每个套件通过 `beforeEachIt` 调用 `util/TestTick.ets` 的 `tick()`，用例末尾再次调用，每 10 条用例让出一次主线程；
+- 矩阵套件通过 `beforeEachIt` 调用 `util/TestTick.ets` 的 `tick()`，用例末尾再次调用，每 10 条用例让出一次主线程；真实冒烟使用异步系统 API，并在 `finally` 中销毁场景；
 - 单个套件文件不超过 2000 行，大主题按 `Matrix1` .. `MatrixN` 拆分。
 
 ### 套件清单
 
 | 套件 | 文件 | 用例数 | 覆盖内容 |
 | ---- | ---- | ------ | -------- |
+| G3dApiSmoke | G3dApiSmoke.test.ets | 2 | 实际加载 DamagedHelmet.glb 并查询业务模型；创建并挂接相机，读写 position/fov/nearPlane/farPlane/enabled，按父子完整路径反查；真实 children 执行 append/insertAfter/remove/clear；finally 调用 Scene.destroy |
 | G3dCameraMatrix1 .. 31 | G3dCameraMatrixN.test.ets | 2250 | 相机距离 1 / 2 / 3 / 4 / 5 / 6 / 8 / 10 / 12 / 16 / 20 / 24 / 32 / 48 / 64 × 偏航 0 ~ 330 度 × 俯仰 0 ~ 180 度组成的 31 组参数，按球坐标公式推算笛卡尔位置 x / y / z，并校验模长与设定距离一致 |
 | G3dProjectionMatrix1 .. 4 | G3dProjectionMatrixN.test.ets | 288 | 视场角 30 / 60 / 90 / 110 度 × 近平面 0.1 / 0.2 × 远平面 10 ~ 2000 组成的 4 组参数，推算近远平面处的视锥宽高、纵横比与深度比 |
 | G3dMeshMatrix1 .. 3 | G3dMeshMatrixN.test.ets | 180 | 8 / 96 / 3072 顶点、2 维与 3 维网格在 0.5 / 1 / 2 / 3 / 4 / 8 倍缩放下，推算顶点坐标、索引数量与三角面片数 |
@@ -36,6 +39,8 @@ Graphics3d 三维渲染样例的测试归档，自动化部分覆盖相机球坐
 - `main/ets/util/Logger.ts`：样例侧日志封装，沿用同一 `DOMAIN` / `TAG`。
 
 ## 手工用例
+
+下表保留既有手工测试记录，Pass 不代表本轮重新逐项操作验证；本轮新增冒烟与全量成绩仅对应上文自动化范围。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 | -------- | -------- | ---- | -------- | -------- | -------- |
@@ -95,7 +100,7 @@ Graphics3d 三维渲染样例的测试归档，自动化部分覆盖相机球坐
 | 材质覆盖 | 位于 scene_shader | 点击 material override | 画面呈现 shader 变化 | 否 | Pass |
 | 返回主页 | 位于 scene_shader | 点击 back | 回到主页 | 否 | Pass |
 
-手工用例的原因：样例的渲染效果依赖 GPU 与屏幕的实际绘制结果，自动化无法对三维画面做稳定断言，因此改为对相机球坐标、透视投影视锥、网格索引与三角面、向量运算等可计算的中间量做参数化推算；页面跳转与按钮交互仍在真机上逐项手工验证。
+覆盖边界：真实冒烟验证场景加载、节点可达及属性和容器操作，不比较屏幕渲染结果。GPU 视觉效果、页面跳转、按钮交互仍需独立验证；算术矩阵仅检查计算关系，不能替代这些业务行为的验证。
 
 ## 运行方式
 
@@ -106,7 +111,7 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 
 安装完成后，通过 `hdc shell` 调用测试执行器拉起 `entry_test` 模块：`-b com.samples.graphics3d` 指定应用包名，`-m entry_test` 指定测试模块，`-s unittest /ets/testrunner/OpenHarmonyTestRunner` 指定执行器入口（路径区分大小写），`-s timeout 30000` 指定超时时间。
 
-安装后也可在 DevEco Studio 中右键 `entry/src/ohosTest` 运行。仓库内 `build-profile.json5` 的 `signingConfigs` 为空，运行前需在 DevEco Studio 的 Signing Configs 中配置自动签名；更换证书后先 `hdc uninstall` 再安装，否则报 `install sign info inconsistent`。
+安装后也可在 DevEco Studio 中右键 `entry/src/ohosTest` 运行。上库版本的 `build-profile.json5` 必须保持 `signingConfigs` 为空且无产品签名引用，运行前在本地配置签名。证书、密钥、口令和 Token 仅保留本地，不进入上库仓或 Git 对象；更换签名可能报 `install sign info inconsistent`，重新安装前确认应用数据影响。
 
 ## 真机实测约束
 
@@ -115,4 +120,5 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 3. `-s unittest` 的入口路径必须写成小写的 `/ets/testrunner/OpenHarmonyTestRunner`，设备端大小写敏感，写成 `TestRunner` 会报 `Cannot find module`。
 4. 开发者模式未解锁屏幕时，启动应用命令返回 `10106102`，`OpenHarmonyTestRunner` 会以 -3 直接结束测试，跑测前先解锁屏幕。
 5. hilog 的 tag 超过 31 字节会截断，所有套件只使用一个短 tag `[Sample_Graphics3d]`，用例归属靠日志正文中的 `it` 名称区分。
-6. 相机、投影、网格等用例涉及三角函数与开方，浮点断言统一使用 `Math.abs(actual - expected) < 0.01`；修改距离、偏航角、俯仰角、视场角等参数后必须同步更新对应套件。
+6. 相机、投影、网格矩阵涉及三角函数与开方，使用浮点容差；真实相机 fov、nearPlane 的读回容差为 0.0001。浮点日志使用 `String(value)` 与 `%{public}s`，避免本机 `%{public}f` 输出残片。
+7. 本轮设备创建并挂接相机后，`camera.path` 仍返回根路径，不能用该值反查叶节点。冒烟先验证 parent，再按 `root.name + '/' + camera.name` 查询目标；这只是本轮设备行为，不推断所有 SDK 版本均相同。
