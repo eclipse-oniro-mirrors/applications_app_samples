@@ -1,0 +1,1877 @@
+{
+  "project": "ComponentSample",
+  "mode": "finite-real-production-contracts",
+  "referenceRoot": "/Users/niannian/OhProject/applications_app_samples/code/DocsSample/BackGroundTasksKit/ReminderAgentManager/entry/src/ohosTest/ets/test",
+  "referenceStyles": {
+    "Contract.test.ets": "Direct production exports with explicit behavior assertions",
+    "Boundary.test.ets": "Named finite boundary scenarios and fixed expected values",
+    "QualityApi.test.ets": "Readable per-case metadata and direct Hypium assertions",
+    "TestRuntime.ets": "Shared runtime helper pattern, adapted to a typed DataChangeListener recorder"
+  },
+  "oracle": "Python calendar.Calendar(firstweekday=6) supplies independent fixed grids; other expected values are explicit production-contract fixtures.",
+  "files": [
+    {
+      "file": "ets/test/CalendarGrid.test.ets",
+      "cases": 13,
+      "physicalLines": 263,
+      "codeLines": 129
+    },
+    {
+      "file": "ets/test/DateModel.test.ets",
+      "cases": 4,
+      "physicalLines": 109,
+      "codeLines": 56
+    },
+    {
+      "file": "ets/test/CalendarMonthSource.test.ets",
+      "cases": 10,
+      "physicalLines": 240,
+      "codeLines": 133
+    },
+    {
+      "file": "ets/test/LoadedMonthSource.test.ets",
+      "cases": 8,
+      "physicalLines": 193,
+      "codeLines": 104
+    },
+    {
+      "file": "ets/test/StringDataSource.test.ets",
+      "cases": 12,
+      "physicalLines": 270,
+      "codeLines": 145
+    },
+    {
+      "file": "ets/test/LinkageDataSource.test.ets",
+      "cases": 10,
+      "physicalLines": 282,
+      "codeLines": 175
+    },
+    {
+      "file": "ets/test/ExportContracts.test.ets",
+      "cases": 3,
+      "physicalLines": 82,
+      "codeLines": 38
+    }
+  ],
+  "cases": [
+    {
+      "name": "nonLeapCenturyFebruary",
+      "description": "Century divisible by 100 but not 400",
+      "inputs": {
+        "year": 1900,
+        "month": 2
+      },
+      "expected": {
+        "grid": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          0,
+          0,
+          0
+        ],
+        "rows": 5
+      },
+      "productionSource": [
+        "entry/src/main/ets/pages/CustomCalendar/components/GetDate.ets#getMonthDate",
+        "entry/src/main/ets/pages/HighlyLoaded/GetDate.ets#getMonthDate"
+      ],
+      "number": "SUB_COMPONENT_0001",
+      "file": "ets/test/CalendarGrid.test.ets",
+      "expectedAssertions": [
+        "expect(custom.length).assertEqual(35)",
+        "expect(loaded.length).assertEqual(35)",
+        "expect(custom).assertDeepEquals(expected)",
+        "expect(loaded).assertDeepEquals(expected)"
+      ]
+    },
+    {
+      "name": "leapCenturyFebruary",
+      "description": "Century divisible by 400",
+      "inputs": {
+        "year": 2000,
+        "month": 2
+      },
+      "expected": {
+        "grid": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          0,
+          0,
+          0,
+          0
+        ],
+        "rows": 5
+      },
+      "productionSource": [
+        "entry/src/main/ets/pages/CustomCalendar/components/GetDate.ets#getMonthDate",
+        "entry/src/main/ets/pages/HighlyLoaded/GetDate.ets#getMonthDate"
+      ],
+      "number": "SUB_COMPONENT_0002",
+      "file": "ets/test/CalendarGrid.test.ets",
+      "expectedAssertions": [
+        "expect(custom.length).assertEqual(35)",
+        "expect(loaded.length).assertEqual(35)",
+        "expect(custom).assertDeepEquals(expected)",
+        "expect(loaded).assertDeepEquals(expected)"
+      ]
+    },
+    {
+      "name": "leapYearFebruary",
+      "description": "Ordinary leap year",
+      "inputs": {
+        "year": 2024,
+        "month": 2
+      },
+      "expected": {
+        "grid": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          0,
+          0
+        ],
+        "rows": 5
+      },
+      "productionSource": [
+        "entry/src/main/ets/pages/CustomCalendar/components/GetDate.ets#getMonthDate",
+        "entry/src/main/ets/pages/HighlyLoaded/GetDate.ets#getMonthDate"
+      ],
+      "number": "SUB_COMPONENT_0003",
+      "file": "ets/test/CalendarGrid.test.ets",
+      "expectedAssertions": [
+        "expect(custom.length).assertEqual(35)",
+        "expect(loaded.length).assertEqual(35)",
+        "expect(custom).assertDeepEquals(expected)",
+        "expect(loaded).assertDeepEquals(expected)"
+      ]
+    },
+    {
+      "name": "fourWeekFebruary",
+      "description": "Sunday-first 28-day month needs four rows",
+      "inputs": {
+        "year": 2026,
+        "month": 2
+      },
+      "expected": {
+        "grid": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28
+        ],
+        "rows": 4
+      },
+      "productionSource": [
+        "entry/src/main/ets/pages/CustomCalendar/components/GetDate.ets#getMonthDate",
+        "entry/src/main/ets/pages/HighlyLoaded/GetDate.ets#getMonthDate"
+      ],
+      "number": "SUB_COMPONENT_0004",
+      "file": "ets/test/CalendarGrid.test.ets",
+      "expectedAssertions": [
+        "expect(custom.length).assertEqual(28)",
+        "expect(loaded.length).assertEqual(28)",
+        "expect(custom).assertDeepEquals(expected)",
+        "expect(loaded).assertDeepEquals(expected)"
+      ]
+    },
+    {
+      "name": "mondayFirstFebruary",
+      "description": "Monday-first 28-day month needs leading padding",
+      "inputs": {
+        "year": 2021,
+        "month": 2
+      },
+      "expected": {
+        "grid": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "rows": 5
+      },
+      "productionSource": [
+        "entry/src/main/ets/pages/CustomCalendar/components/GetDate.ets#getMonthDate",
+        "entry/src/main/ets/pages/HighlyLoaded/GetDate.ets#getMonthDate"
+      ],
+      "number": "SUB_COMPONENT_0005",
+      "file": "ets/test/CalendarGrid.test.ets",
+      "expectedAssertions": [
+        "expect(custom.length).assertEqual(35)",
+        "expect(loaded.length).assertEqual(35)",
+        "expect(custom).assertDeepEquals(expected)",
+        "expect(loaded).assertDeepEquals(expected)"
+      ]
+    },
+    {
+      "name": "sundayFirstJune",
+      "description": "Month begins on Sunday",
+      "inputs": {
+        "year": 2025,
+        "month": 6
+      },
+      "expected": {
+        "grid": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "rows": 5
+      },
+      "productionSource": [
+        "entry/src/main/ets/pages/CustomCalendar/components/GetDate.ets#getMonthDate",
+        "entry/src/main/ets/pages/HighlyLoaded/GetDate.ets#getMonthDate"
+      ],
+      "number": "SUB_COMPONENT_0006",
+      "file": "ets/test/CalendarGrid.test.ets",
+      "expectedAssertions": [
+        "expect(custom.length).assertEqual(35)",
+        "expect(loaded.length).assertEqual(35)",
+        "expect(custom).assertDeepEquals(expected)",
+        "expect(loaded).assertDeepEquals(expected)"
+      ]
+    },
+    {
+      "name": "saturdayLastMay",
+      "description": "Month ends on Saturday",
+      "inputs": {
+        "year": 2025,
+        "month": 5
+      },
+      "expected": {
+        "grid": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "rows": 5
+      },
+      "productionSource": [
+        "entry/src/main/ets/pages/CustomCalendar/components/GetDate.ets#getMonthDate",
+        "entry/src/main/ets/pages/HighlyLoaded/GetDate.ets#getMonthDate"
+      ],
+      "number": "SUB_COMPONENT_0007",
+      "file": "ets/test/CalendarGrid.test.ets",
+      "expectedAssertions": [
+        "expect(custom.length).assertEqual(35)",
+        "expect(loaded.length).assertEqual(35)",
+        "expect(custom).assertDeepEquals(expected)",
+        "expect(loaded).assertDeepEquals(expected)"
+      ]
+    },
+    {
+      "name": "sixWeekAugust",
+      "description": "31-day month spans six calendar rows",
+      "inputs": {
+        "year": 2025,
+        "month": 8
+      },
+      "expected": {
+        "grid": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "rows": 6
+      },
+      "productionSource": [
+        "entry/src/main/ets/pages/CustomCalendar/components/GetDate.ets#getMonthDate",
+        "entry/src/main/ets/pages/HighlyLoaded/GetDate.ets#getMonthDate"
+      ],
+      "number": "SUB_COMPONENT_0008",
+      "file": "ets/test/CalendarGrid.test.ets",
+      "expectedAssertions": [
+        "expect(custom.length).assertEqual(42)",
+        "expect(loaded.length).assertEqual(42)",
+        "expect(custom).assertDeepEquals(expected)",
+        "expect(loaded).assertDeepEquals(expected)"
+      ]
+    },
+    {
+      "name": "decemberYearEnd",
+      "description": "December year boundary",
+      "inputs": {
+        "year": 2025,
+        "month": 12
+      },
+      "expected": {
+        "grid": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          0,
+          0,
+          0
+        ],
+        "rows": 5
+      },
+      "productionSource": [
+        "entry/src/main/ets/pages/CustomCalendar/components/GetDate.ets#getMonthDate",
+        "entry/src/main/ets/pages/HighlyLoaded/GetDate.ets#getMonthDate"
+      ],
+      "number": "SUB_COMPONENT_0009",
+      "file": "ets/test/CalendarGrid.test.ets",
+      "expectedAssertions": [
+        "expect(custom.length).assertEqual(35)",
+        "expect(loaded.length).assertEqual(35)",
+        "expect(custom).assertDeepEquals(expected)",
+        "expect(loaded).assertDeepEquals(expected)"
+      ]
+    },
+    {
+      "name": "januaryYearStart",
+      "description": "January year boundary",
+      "inputs": {
+        "year": 2026,
+        "month": 1
+      },
+      "expected": {
+        "grid": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "rows": 5
+      },
+      "productionSource": [
+        "entry/src/main/ets/pages/CustomCalendar/components/GetDate.ets#getMonthDate",
+        "entry/src/main/ets/pages/HighlyLoaded/GetDate.ets#getMonthDate"
+      ],
+      "number": "SUB_COMPONENT_0010",
+      "file": "ets/test/CalendarGrid.test.ets",
+      "expectedAssertions": [
+        "expect(custom.length).assertEqual(35)",
+        "expect(loaded.length).assertEqual(35)",
+        "expect(custom).assertDeepEquals(expected)",
+        "expect(loaded).assertDeepEquals(expected)"
+      ]
+    },
+    {
+      "name": "zeroMonthNormalizesDecember",
+      "description": "Month zero normalizes to previous December",
+      "inputs": {
+        "year": 2025,
+        "month": 0
+      },
+      "expected": {
+        "grid": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          0,
+          0,
+          0,
+          0
+        ],
+        "rows": 5
+      },
+      "productionSource": [
+        "entry/src/main/ets/pages/CustomCalendar/components/GetDate.ets#getMonthDate",
+        "entry/src/main/ets/pages/HighlyLoaded/GetDate.ets#getMonthDate"
+      ],
+      "number": "SUB_COMPONENT_0011",
+      "file": "ets/test/CalendarGrid.test.ets",
+      "expectedAssertions": [
+        "expect(custom.length).assertEqual(35)",
+        "expect(loaded.length).assertEqual(35)",
+        "expect(custom).assertDeepEquals(expected)",
+        "expect(loaded).assertDeepEquals(expected)"
+      ]
+    },
+    {
+      "name": "thirteenthMonthNormalizesJanuary",
+      "description": "Month thirteen normalizes to next January",
+      "inputs": {
+        "year": 2025,
+        "month": 13
+      },
+      "expected": {
+        "grid": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "rows": 5
+      },
+      "productionSource": [
+        "entry/src/main/ets/pages/CustomCalendar/components/GetDate.ets#getMonthDate",
+        "entry/src/main/ets/pages/HighlyLoaded/GetDate.ets#getMonthDate"
+      ],
+      "number": "SUB_COMPONENT_0012",
+      "file": "ets/test/CalendarGrid.test.ets",
+      "expectedAssertions": [
+        "expect(custom.length).assertEqual(35)",
+        "expect(loaded.length).assertEqual(35)",
+        "expect(custom).assertDeepEquals(expected)",
+        "expect(loaded).assertDeepEquals(expected)"
+      ]
+    },
+    {
+      "name": "calendarResultsAreIndependent",
+      "description": "A caller mutation cannot contaminate a subsequent calendar result",
+      "inputs": {
+        "year": 2024,
+        "month": 2,
+        "mutatedCell": 4
+      },
+      "expected": {
+        "freshCell": 1,
+        "independentArrays": true
+      },
+      "productionSource": [
+        "entry/src/main/ets/pages/CustomCalendar/components/GetDate.ets#getMonthDate",
+        "entry/src/main/ets/pages/HighlyLoaded/GetDate.ets#getMonthDate"
+      ],
+      "number": "SUB_COMPONENT_0013",
+      "file": "ets/test/CalendarGrid.test.ets",
+      "expectedAssertions": [
+        "expect(first[4]).assertEqual(99)",
+        "expect(second[4]).assertEqual(1)",
+        "expect(first === second).assertFalse()",
+        "expect(loadedSecond[4]).assertEqual(1)",
+        "expect(loadedFirst === loadedSecond).assertFalse()"
+      ]
+    },
+    {
+      "name": "constructorPreservesCalendarFields",
+      "description": "DateModel preserves a normal calendar date and weekday",
+      "inputs": {
+        "day": 19,
+        "week": 4,
+        "month": 11,
+        "year": 2026
+      },
+      "expected": {
+        "day": 19,
+        "week": 4,
+        "month": 11,
+        "year": 2026
+      },
+      "productionSource": "entry/src/main/ets/pages/CustomCalendar/components/DateModel.ets#DateModel",
+      "number": "SUB_COMPONENT_0014",
+      "file": "ets/test/DateModel.test.ets",
+      "expectedAssertions": [
+        "expect(model.day).assertEqual(19)",
+        "expect(model.week).assertEqual(4)",
+        "expect(model.month).assertEqual(11)",
+        "expect(model.year).assertEqual(2026)"
+      ]
+    },
+    {
+      "name": "zeroInitializationCanBeFilled",
+      "description": "Zero placeholder fields can be populated independently",
+      "inputs": {
+        "initial": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "replacement": [
+          31,
+          6,
+          12,
+          2028
+        ]
+      },
+      "expected": {
+        "final": [
+          31,
+          6,
+          12,
+          2028
+        ]
+      },
+      "productionSource": "entry/src/main/ets/pages/CustomCalendar/components/DateModel.ets#DateModel",
+      "number": "SUB_COMPONENT_0015",
+      "file": "ets/test/DateModel.test.ets",
+      "expectedAssertions": [
+        "expect(model.day).assertEqual(0)",
+        "expect(model.week).assertEqual(0)",
+        "expect(model.month).assertEqual(0)",
+        "expect(model.year).assertEqual(0)",
+        "expect(model.day).assertEqual(31)",
+        "expect(model.week).assertEqual(6)",
+        "expect(model.month).assertEqual(12)",
+        "expect(model.year).assertEqual(2028)"
+      ]
+    },
+    {
+      "name": "instancesDoNotShareMutableFields",
+      "description": "Mutating one DateModel leaves a second instance intact",
+      "inputs": {
+        "first": [
+          1,
+          0,
+          3,
+          2026
+        ],
+        "second": [
+          2,
+          1,
+          3,
+          2026
+        ]
+      },
+      "expected": {
+        "secondUnchanged": [
+          2,
+          1,
+          3,
+          2026
+        ]
+      },
+      "productionSource": "entry/src/main/ets/pages/CustomCalendar/components/DateModel.ets#DateModel",
+      "number": "SUB_COMPONENT_0016",
+      "file": "ets/test/DateModel.test.ets",
+      "expectedAssertions": [
+        "expect(second.day).assertEqual(2)",
+        "expect(second.week).assertEqual(1)",
+        "expect(second.month).assertEqual(3)",
+        "expect(second.year).assertEqual(2026)",
+        "expect(first === second).assertFalse()"
+      ]
+    },
+    {
+      "name": "realtimeSnapshotMatchesCallWindow",
+      "description": "Real-time calendar fields match either side of the call even across midnight",
+      "inputs": {
+        "clockWindow": "immediately before and after getRealTimeDate"
+      },
+      "expected": {
+        "matchesBeforeOrAfter": true
+      },
+      "productionSource": "entry/src/main/ets/pages/CustomCalendar/components/GetDate.ets#getRealTimeDate",
+      "number": "SUB_COMPONENT_0017",
+      "file": "ets/test/DateModel.test.ets",
+      "expectedAssertions": [
+        "expect(key === beforeKey || key === afterKey).assertTrue()",
+        "expect(actual.month).assertLargerOrEqual(1)",
+        "expect(actual.month).assertLessOrEqual(12)",
+        "expect(actual.week).assertLargerOrEqual(0)",
+        "expect(actual.week).assertLessOrEqual(6)"
+      ]
+    },
+    {
+      "name": "newCalendarSourceIsEmpty",
+      "description": "A fresh calendar data source starts with zero records",
+      "inputs": {},
+      "expected": {
+        "count": 0
+      },
+      "productionSource": "entry/src/main/ets/pages/CustomCalendar/components/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0018",
+      "file": "ets/test/CalendarMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(0)",
+        "expect(source.dataArray.length).assertEqual(0)"
+      ]
+    },
+    {
+      "name": "pushKeepsMonthAndDays",
+      "description": "Pushing a month preserves its name number and day array",
+      "inputs": {
+        "month": "2026-11",
+        "num": 11,
+        "days": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": {
+        "count": 1,
+        "storedByReference": true
+      },
+      "productionSource": "entry/src/main/ets/pages/CustomCalendar/components/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0019",
+      "file": "ets/test/CalendarMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(1)",
+        "expect(actual.month).assertEqual('2026-11')",
+        "expect(actual.num).assertEqual(11)",
+        "expect(actual.days).assertDeepEquals([0, 1, 2, 3])",
+        "expect(actual === month).assertTrue()"
+      ]
+    },
+    {
+      "name": "pushNotifiesAfterStorage",
+      "description": "Append callbacks observe the updated count and zero-based index",
+      "inputs": {
+        "months": [
+          "first",
+          "second"
+        ]
+      },
+      "expected": {
+        "indices": [
+          0,
+          1
+        ],
+        "countsAtCallback": [
+          1,
+          2
+        ]
+      },
+      "productionSource": "entry/src/main/ets/pages/CustomCalendar/components/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0020",
+      "file": "ets/test/CalendarMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.getData(0).month).assertEqual('first')",
+        "expect(source.getData(1).month).assertEqual('second')",
+        "expect(listener.eventTypes).assertDeepEquals(['add', 'add'])",
+        "expect(listener.indices).assertDeepEquals([0, 1])",
+        "expect(listener.sourceCounts).assertDeepEquals([1, 2])"
+      ]
+    },
+    {
+      "name": "insertAtStart",
+      "description": "Calendar insertion at 0 preserves explicit order and reports converted event index",
+      "inputs": {
+        "index": 0,
+        "initial": [
+          "first",
+          "second"
+        ]
+      },
+      "expected": {
+        "order": [
+          "inserted",
+          "first",
+          "second"
+        ],
+        "eventIndex": 0
+      },
+      "productionSource": "entry/src/main/ets/pages/CustomCalendar/components/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0021",
+      "file": "ets/test/CalendarMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(3)",
+        "expect(source.getData(0).month).assertEqual('inserted')",
+        "expect(source.getData(1).month).assertEqual('first')",
+        "expect(source.getData(2).month).assertEqual('second')",
+        "expect(listener.eventTypes).assertDeepEquals(['add'])",
+        "expect(listener.indices).assertDeepEquals([0])"
+      ]
+    },
+    {
+      "name": "insertInMiddle",
+      "description": "Calendar insertion at 1 preserves explicit order and reports converted event index",
+      "inputs": {
+        "index": 1,
+        "initial": [
+          "first",
+          "second"
+        ]
+      },
+      "expected": {
+        "order": [
+          "first",
+          "inserted",
+          "second"
+        ],
+        "eventIndex": 1
+      },
+      "productionSource": "entry/src/main/ets/pages/CustomCalendar/components/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0022",
+      "file": "ets/test/CalendarMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(3)",
+        "expect(source.getData(0).month).assertEqual('first')",
+        "expect(source.getData(1).month).assertEqual('inserted')",
+        "expect(source.getData(2).month).assertEqual('second')",
+        "expect(listener.eventTypes).assertDeepEquals(['add'])",
+        "expect(listener.indices).assertDeepEquals([1])"
+      ]
+    },
+    {
+      "name": "insertAtEnd",
+      "description": "Calendar insertion at 2 preserves explicit order and reports converted event index",
+      "inputs": {
+        "index": 2,
+        "initial": [
+          "first",
+          "second"
+        ]
+      },
+      "expected": {
+        "order": [
+          "first",
+          "second",
+          "inserted"
+        ],
+        "eventIndex": 2
+      },
+      "productionSource": "entry/src/main/ets/pages/CustomCalendar/components/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0023",
+      "file": "ets/test/CalendarMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(3)",
+        "expect(source.getData(0).month).assertEqual('first')",
+        "expect(source.getData(1).month).assertEqual('second')",
+        "expect(source.getData(2).month).assertEqual('inserted')",
+        "expect(listener.eventTypes).assertDeepEquals(['add'])",
+        "expect(listener.indices).assertDeepEquals([2])"
+      ]
+    },
+    {
+      "name": "negativeIndexInsertsBeforeLast",
+      "description": "Calendar insertion at -1 preserves explicit order and reports converted event index",
+      "inputs": {
+        "index": -1,
+        "initial": [
+          "first",
+          "second"
+        ]
+      },
+      "expected": {
+        "order": [
+          "first",
+          "inserted",
+          "second"
+        ],
+        "eventIndex": -1
+      },
+      "productionSource": "entry/src/main/ets/pages/CustomCalendar/components/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0024",
+      "file": "ets/test/CalendarMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(3)",
+        "expect(source.getData(0).month).assertEqual('first')",
+        "expect(source.getData(1).month).assertEqual('inserted')",
+        "expect(source.getData(2).month).assertEqual('second')",
+        "expect(listener.eventTypes).assertDeepEquals(['add'])",
+        "expect(listener.indices).assertDeepEquals([-1])"
+      ]
+    },
+    {
+      "name": "oversizedIndexAppends",
+      "description": "Calendar insertion at 99 preserves explicit order and reports converted event index",
+      "inputs": {
+        "index": 99,
+        "initial": [
+          "first",
+          "second"
+        ]
+      },
+      "expected": {
+        "order": [
+          "first",
+          "second",
+          "inserted"
+        ],
+        "eventIndex": 99
+      },
+      "productionSource": "entry/src/main/ets/pages/CustomCalendar/components/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0025",
+      "file": "ets/test/CalendarMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(3)",
+        "expect(source.getData(0).month).assertEqual('first')",
+        "expect(source.getData(1).month).assertEqual('second')",
+        "expect(source.getData(2).month).assertEqual('inserted')",
+        "expect(listener.eventTypes).assertDeepEquals(['add'])",
+        "expect(listener.indices).assertDeepEquals([99])"
+      ]
+    },
+    {
+      "name": "fractionalIndexTruncates",
+      "description": "Calendar insertion at 1.9 preserves explicit order and reports converted event index",
+      "inputs": {
+        "index": 1.9,
+        "initial": [
+          "first",
+          "second"
+        ]
+      },
+      "expected": {
+        "order": [
+          "first",
+          "inserted",
+          "second"
+        ],
+        "eventIndex": 1
+      },
+      "productionSource": "entry/src/main/ets/pages/CustomCalendar/components/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0026",
+      "file": "ets/test/CalendarMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(3)",
+        "expect(source.getData(0).month).assertEqual('first')",
+        "expect(source.getData(1).month).assertEqual('inserted')",
+        "expect(source.getData(2).month).assertEqual('second')",
+        "expect(listener.eventTypes).assertDeepEquals(['add'])",
+        "expect(listener.indices).assertDeepEquals([1])"
+      ]
+    },
+    {
+      "name": "calendarListenersDeduplicateAndUnregister",
+      "description": "Duplicate registration notifies once and unregister prevents later callbacks",
+      "inputs": {
+        "registerSameListener": 2,
+        "unregisterSameListener": 2
+      },
+      "expected": {
+        "events": [
+          "add"
+        ],
+        "count": 2
+      },
+      "productionSource": "entry/src/main/ets/pages/CustomCalendar/components/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0027",
+      "file": "ets/test/CalendarMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(listener.eventTypes.length).assertEqual(1)",
+        "expect(source.totalCount()).assertEqual(2)",
+        "expect(listener.eventTypes).assertDeepEquals(['add'])"
+      ]
+    },
+    {
+      "name": "loadedMonthPreservesYear",
+      "description": "Loaded month records preserve year across December and January",
+      "inputs": {
+        "years": [
+          2026,
+          2027
+        ],
+        "months": [
+          12,
+          1
+        ]
+      },
+      "expected": {
+        "count": 2,
+        "years": [
+          2026,
+          2027
+        ]
+      },
+      "productionSource": "entry/src/main/ets/pages/HighlyLoaded/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0028",
+      "file": "ets/test/LoadedMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(2)",
+        "expect(source.getData(0).year).assertEqual(2026)",
+        "expect(source.getData(0).days).assertDeepEquals([31])",
+        "expect(source.getData(1).year).assertEqual(2027)",
+        "expect(source.getData(1).num).assertEqual(1)"
+      ]
+    },
+    {
+      "name": "loadedReloadDoesNotReplaceRecords",
+      "description": "Reload notification preserves data and reports the stored count",
+      "inputs": {
+        "month": "reload",
+        "notify": "reload"
+      },
+      "expected": {
+        "events": [
+          "reload"
+        ],
+        "count": 1
+      },
+      "productionSource": "entry/src/main/ets/pages/HighlyLoaded/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0029",
+      "file": "ets/test/LoadedMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(1)",
+        "expect(source.getData(0).month).assertEqual('reload')",
+        "expect(listener.eventTypes).assertDeepEquals(['reload'])",
+        "expect(listener.indices).assertDeepEquals([-1])",
+        "expect(listener.sourceCounts).assertDeepEquals([1])"
+      ]
+    },
+    {
+      "name": "loadedFractionalInsertReportsInteger",
+      "description": "Loaded insertion truncates fractional index before mutation and notification",
+      "inputs": {
+        "index": 1.75,
+        "initial": [
+          "one",
+          "two"
+        ]
+      },
+      "expected": {
+        "order": [
+          "one",
+          "middle",
+          "two"
+        ],
+        "eventIndex": 1
+      },
+      "productionSource": "entry/src/main/ets/pages/HighlyLoaded/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0030",
+      "file": "ets/test/LoadedMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.getData(0).month).assertEqual('one')",
+        "expect(source.getData(1).month).assertEqual('middle')",
+        "expect(source.getData(1).year).assertEqual(2027)",
+        "expect(source.getData(2).month).assertEqual('two')",
+        "expect(listener.indices).assertDeepEquals([1])"
+      ]
+    },
+    {
+      "name": "loadedNegativeFractionUsesTruncation",
+      "description": "Negative fractional insertion truncates toward zero then counts from the tail",
+      "inputs": {
+        "index": -1.8,
+        "initial": [
+          "left",
+          "right"
+        ]
+      },
+      "expected": {
+        "order": [
+          "left",
+          "between",
+          "right"
+        ],
+        "eventIndex": -1
+      },
+      "productionSource": "entry/src/main/ets/pages/HighlyLoaded/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0031",
+      "file": "ets/test/LoadedMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.getData(0).month).assertEqual('left')",
+        "expect(source.getData(1).month).assertEqual('between')",
+        "expect(source.getData(2).month).assertEqual('right')",
+        "expect(listener.indices).assertDeepEquals([-1])"
+      ]
+    },
+    {
+      "name": "loadedNotificationOrderKeepsStorage",
+      "description": "Explicit change delete move and reload notifications do not mutate records",
+      "inputs": {
+        "change": 2.9,
+        "delete": -2.9,
+        "move": [
+          3.9,
+          1.2
+        ]
+      },
+      "expected": {
+        "eventTypes": [
+          "change",
+          "delete",
+          "move",
+          "reload"
+        ],
+        "count": 1
+      },
+      "productionSource": "entry/src/main/ets/pages/HighlyLoaded/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0032",
+      "file": "ets/test/LoadedMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(listener.eventTypes).assertDeepEquals(['change', 'delete', 'move', 'reload'])",
+        "expect(listener.indices).assertDeepEquals([2, -2, -1, -1])",
+        "expect(listener.fromIndices).assertDeepEquals([-1, -1, 3, -1])",
+        "expect(listener.toIndices).assertDeepEquals([-1, -1, 1, -1])",
+        "expect(source.totalCount()).assertEqual(1)",
+        "expect(source.getData(0).month).assertEqual('stable')"
+      ]
+    },
+    {
+      "name": "loadedUnregisterKeepsOtherListener",
+      "description": "Removing one subscriber preserves the second subscriber",
+      "inputs": {
+        "listeners": 2,
+        "removed": "first",
+        "duplicate": "second"
+      },
+      "expected": {
+        "removedEvents": [],
+        "retainedEvents": [
+          "add"
+        ]
+      },
+      "productionSource": "entry/src/main/ets/pages/HighlyLoaded/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0033",
+      "file": "ets/test/LoadedMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(removed.eventTypes.length).assertEqual(0)",
+        "expect(retained.eventTypes).assertDeepEquals(['add'])",
+        "expect(retained.indices).assertDeepEquals([0])"
+      ]
+    },
+    {
+      "name": "loadedSourcesHaveIndependentStorage",
+      "description": "Two loaded sources isolate records and subscribers",
+      "inputs": {
+        "writeTarget": "second",
+        "listenTarget": "first"
+      },
+      "expected": {
+        "firstCount": 0,
+        "secondCount": 1,
+        "events": []
+      },
+      "productionSource": "entry/src/main/ets/pages/HighlyLoaded/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0034",
+      "file": "ets/test/LoadedMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(first.totalCount()).assertEqual(0)",
+        "expect(second.totalCount()).assertEqual(1)",
+        "expect(listener.eventTypes.length).assertEqual(0)",
+        "expect(second.getData(0).year).assertEqual(2030)"
+      ]
+    },
+    {
+      "name": "loadedPushCallbackSeesUpdatedCount",
+      "description": "Loaded append publishes its index after committing the record",
+      "inputs": {
+        "month": "observed",
+        "year": 2040
+      },
+      "expected": {
+        "countAtCallback": 1,
+        "eventIndex": 0
+      },
+      "productionSource": "entry/src/main/ets/pages/HighlyLoaded/MonthDataSource.ets#MonthDataSource",
+      "number": "SUB_COMPONENT_0035",
+      "file": "ets/test/LoadedMonthSource.test.ets",
+      "expectedAssertions": [
+        "expect(listener.sourceCounts).assertDeepEquals([1])",
+        "expect(listener.indices).assertDeepEquals([0])",
+        "expect(source.getData(0).year).assertEqual(2040)"
+      ]
+    },
+    {
+      "name": "newStringSourceIsEmpty",
+      "description": "Dynamic string source begins with empty public storage",
+      "inputs": {},
+      "expected": {
+        "count": 0
+      },
+      "productionSource": "entry/src/main/ets/pages/DynamicAttributes/common/LazyForEach.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0036",
+      "file": "ets/test/StringDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(0)",
+        "expect(source.dataArray.length).assertEqual(0)"
+      ]
+    },
+    {
+      "name": "stringsPreserveEmptyUnicodeAndWhitespace",
+      "description": "Empty Unicode whitespace and punctuation labels survive append unchanged",
+      "inputs": {
+        "labels": [
+          "",
+          "中文😀",
+          " leading and trailing ",
+          "quote\"slash/"
+        ]
+      },
+      "expected": {
+        "count": 4,
+        "valuesPreserved": true
+      },
+      "productionSource": "entry/src/main/ets/pages/DynamicAttributes/common/LazyForEach.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0037",
+      "file": "ets/test/StringDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(4)",
+        "expect(source.getData(0)).assertEqual('')",
+        "expect(source.getData(1)).assertEqual('中文😀')",
+        "expect(source.getData(2)).assertEqual(' leading and trailing ')",
+        "expect(source.getData(3)).assertEqual('quote\"slash/')"
+      ]
+    },
+    {
+      "name": "stringInsertBeginning",
+      "description": "String insert at 0 keeps normalized splice order and unbounded event index",
+      "inputs": {
+        "index": 0,
+        "initial": [
+          "a",
+          "b"
+        ],
+        "insert": "x"
+      },
+      "expected": {
+        "order": [
+          "x",
+          "a",
+          "b"
+        ],
+        "eventIndex": 0
+      },
+      "productionSource": "entry/src/main/ets/pages/DynamicAttributes/common/LazyForEach.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0038",
+      "file": "ets/test/StringDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(3)",
+        "expect(source.dataArray).assertDeepEquals([\"x\", \"a\", \"b\"])",
+        "expect(listener.eventTypes).assertDeepEquals(['add'])",
+        "expect(listener.indices).assertDeepEquals([0])"
+      ]
+    },
+    {
+      "name": "stringInsertMiddle",
+      "description": "String insert at 1 keeps normalized splice order and unbounded event index",
+      "inputs": {
+        "index": 1,
+        "initial": [
+          "a",
+          "b"
+        ],
+        "insert": "x"
+      },
+      "expected": {
+        "order": [
+          "a",
+          "x",
+          "b"
+        ],
+        "eventIndex": 1
+      },
+      "productionSource": "entry/src/main/ets/pages/DynamicAttributes/common/LazyForEach.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0039",
+      "file": "ets/test/StringDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(3)",
+        "expect(source.dataArray).assertDeepEquals([\"a\", \"x\", \"b\"])",
+        "expect(listener.eventTypes).assertDeepEquals(['add'])",
+        "expect(listener.indices).assertDeepEquals([1])"
+      ]
+    },
+    {
+      "name": "stringInsertBeyondEnd",
+      "description": "String insert at 50 keeps normalized splice order and unbounded event index",
+      "inputs": {
+        "index": 50,
+        "initial": [
+          "a",
+          "b"
+        ],
+        "insert": "x"
+      },
+      "expected": {
+        "order": [
+          "a",
+          "b",
+          "x"
+        ],
+        "eventIndex": 50
+      },
+      "productionSource": "entry/src/main/ets/pages/DynamicAttributes/common/LazyForEach.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0040",
+      "file": "ets/test/StringDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(3)",
+        "expect(source.dataArray).assertDeepEquals([\"a\", \"b\", \"x\"])",
+        "expect(listener.eventTypes).assertDeepEquals(['add'])",
+        "expect(listener.indices).assertDeepEquals([50])"
+      ]
+    },
+    {
+      "name": "stringInsertNegativeBeyondStart",
+      "description": "String insert at -50 keeps normalized splice order and unbounded event index",
+      "inputs": {
+        "index": -50,
+        "initial": [
+          "a",
+          "b"
+        ],
+        "insert": "x"
+      },
+      "expected": {
+        "order": [
+          "x",
+          "a",
+          "b"
+        ],
+        "eventIndex": -50
+      },
+      "productionSource": "entry/src/main/ets/pages/DynamicAttributes/common/LazyForEach.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0041",
+      "file": "ets/test/StringDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(3)",
+        "expect(source.dataArray).assertDeepEquals([\"x\", \"a\", \"b\"])",
+        "expect(listener.eventTypes).assertDeepEquals(['add'])",
+        "expect(listener.indices).assertDeepEquals([-50])"
+      ]
+    },
+    {
+      "name": "stringInsertPositiveFraction",
+      "description": "String insert at 1.99 keeps normalized splice order and unbounded event index",
+      "inputs": {
+        "index": 1.99,
+        "initial": [
+          "a",
+          "b"
+        ],
+        "insert": "x"
+      },
+      "expected": {
+        "order": [
+          "a",
+          "x",
+          "b"
+        ],
+        "eventIndex": 1
+      },
+      "productionSource": "entry/src/main/ets/pages/DynamicAttributes/common/LazyForEach.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0042",
+      "file": "ets/test/StringDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(3)",
+        "expect(source.dataArray).assertDeepEquals([\"a\", \"x\", \"b\"])",
+        "expect(listener.eventTypes).assertDeepEquals(['add'])",
+        "expect(listener.indices).assertDeepEquals([1])"
+      ]
+    },
+    {
+      "name": "stringInsertNegativeFraction",
+      "description": "String insert at -1.99 keeps normalized splice order and unbounded event index",
+      "inputs": {
+        "index": -1.99,
+        "initial": [
+          "a",
+          "b"
+        ],
+        "insert": "x"
+      },
+      "expected": {
+        "order": [
+          "a",
+          "x",
+          "b"
+        ],
+        "eventIndex": -1
+      },
+      "productionSource": "entry/src/main/ets/pages/DynamicAttributes/common/LazyForEach.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0043",
+      "file": "ets/test/StringDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(3)",
+        "expect(source.dataArray).assertDeepEquals([\"a\", \"x\", \"b\"])",
+        "expect(listener.eventTypes).assertDeepEquals(['add'])",
+        "expect(listener.indices).assertDeepEquals([-1])"
+      ]
+    },
+    {
+      "name": "stringEventSequenceDoesNotEditRecords",
+      "description": "Manual add change delete move events preserve the existing string records",
+      "inputs": {
+        "add": 7.9,
+        "change": 2.1,
+        "delete": 4.8,
+        "move": [
+          5.9,
+          0.4
+        ]
+      },
+      "expected": {
+        "events": [
+          "add",
+          "change",
+          "delete",
+          "move"
+        ],
+        "storage": [
+          "keep"
+        ]
+      },
+      "productionSource": "entry/src/main/ets/pages/DynamicAttributes/common/LazyForEach.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0044",
+      "file": "ets/test/StringDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(listener.eventTypes).assertDeepEquals(['add', 'change', 'delete', 'move'])",
+        "expect(listener.indices).assertDeepEquals([7, 2, 4, -1])",
+        "expect(listener.fromIndices).assertDeepEquals([-1, -1, -1, 5])",
+        "expect(listener.toIndices).assertDeepEquals([-1, -1, -1, 0])",
+        "expect(source.dataArray).assertDeepEquals(['keep'])"
+      ]
+    },
+    {
+      "name": "stringListenerDuplicateRegistration",
+      "description": "A repeated string-source subscriber receives one event per append",
+      "inputs": {
+        "registerSame": 2,
+        "values": [
+          "once",
+          "twice"
+        ]
+      },
+      "expected": {
+        "events": [
+          "add",
+          "add"
+        ],
+        "indices": [
+          0,
+          1
+        ]
+      },
+      "productionSource": "entry/src/main/ets/pages/DynamicAttributes/common/LazyForEach.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0045",
+      "file": "ets/test/StringDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(listener.eventTypes).assertDeepEquals(['add', 'add'])",
+        "expect(listener.indices).assertDeepEquals([0, 1])"
+      ]
+    },
+    {
+      "name": "stringUnknownUnregisterKeepsSubscriber",
+      "description": "Unregistering an absent listener leaves a registered listener active",
+      "inputs": {
+        "remove": "unregistered listener"
+      },
+      "expected": {
+        "registeredEvents": [
+          "add"
+        ],
+        "absentEvents": []
+      },
+      "productionSource": "entry/src/main/ets/pages/DynamicAttributes/common/LazyForEach.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0046",
+      "file": "ets/test/StringDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(registered.eventTypes).assertDeepEquals(['add'])",
+        "expect(absent.eventTypes.length).assertEqual(0)"
+      ]
+    },
+    {
+      "name": "stringReregisterAfterRemoval",
+      "description": "A removed subscriber can register again without receiving missed events",
+      "inputs": {
+        "values": [
+          "before",
+          "missed",
+          "after"
+        ],
+        "removedDuringIndex": 1
+      },
+      "expected": {
+        "indices": [
+          0,
+          2
+        ],
+        "count": 3
+      },
+      "productionSource": "entry/src/main/ets/pages/DynamicAttributes/common/LazyForEach.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0047",
+      "file": "ets/test/StringDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(listener.eventTypes).assertDeepEquals(['add', 'add'])",
+        "expect(listener.indices).assertDeepEquals([0, 2])",
+        "expect(source.totalCount()).assertEqual(3)"
+      ]
+    },
+    {
+      "name": "linkageTenRowsKeepCategoryOrder",
+      "description": "One ten-row linkage group preserves descriptions and category tags",
+      "inputs": {
+        "rows": [
+          "row0",
+          "row1",
+          "row2",
+          "row3",
+          "row4",
+          "row5",
+          "row6",
+          "row7",
+          "row8",
+          "row9"
+        ],
+        "tags": [
+          "A",
+          "A",
+          "A",
+          "A",
+          "A",
+          "B",
+          "B",
+          "B",
+          "B",
+          "B"
+        ]
+      },
+      "expected": {
+        "count": 10,
+        "last": "row9"
+      },
+      "productionSource": "entry/src/main/ets/pages/SecondaryLinkage/DataType.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0048",
+      "file": "ets/test/LinkageDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(10)",
+        "expect(source.getData(0).desc).assertEqual('row0')",
+        "expect(source.getData(4).tag).assertEqual('A')",
+        "expect(source.getData(5).tag).assertEqual('B')",
+        "expect(source.getData(9).desc).assertEqual('row9')"
+      ]
+    },
+    {
+      "name": "linkageIgnoresEleventhRow",
+      "description": "Production batch capacity is ten even when input has an eleventh record",
+      "inputs": {
+        "inputCount": 11,
+        "rows": "capacity0 through capacity10"
+      },
+      "expected": {
+        "storedCount": 10,
+        "last": "capacity9"
+      },
+      "productionSource": "entry/src/main/ets/pages/SecondaryLinkage/DataType.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0049",
+      "file": "ets/test/LinkageDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(10)",
+        "expect(source.getData(9).desc).assertEqual('capacity9')",
+        "expect(source.dataArray.length).assertEqual(10)"
+      ]
+    },
+    {
+      "name": "linkageBatchNotifiesOnceAfterTenWrites",
+      "description": "A ten-row append emits one event for index nine after the group is stored",
+      "inputs": {
+        "batchSize": 10
+      },
+      "expected": {
+        "events": [
+          "add"
+        ],
+        "indices": [
+          9
+        ],
+        "counts": [
+          10
+        ]
+      },
+      "productionSource": "entry/src/main/ets/pages/SecondaryLinkage/DataType.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0050",
+      "file": "ets/test/LinkageDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(listener.eventTypes).assertDeepEquals(['add'])",
+        "expect(listener.indices).assertDeepEquals([9])",
+        "expect(listener.sourceCounts).assertDeepEquals([10])"
+      ]
+    }
+  ],
+  "suiteCount": 7,
+  "generatedCases": 50,
+  "productionSources": {
+    "entry/src/main/ets/entryability/EntryAbility.ets": "b4e78aa674592c0ea95b6c0572faf6d75862bd68451b512a51f4db62e2b5cdf4",
+    "entry/src/main/ets/entryability/GlobalContext.ets": "654bd3077d2d667c13ccaa52c851ea3826981fc63105343e10e6cb009351cbe7",
+    "entry/src/main/ets/pages/CustomCalendar/CustomCalendar.ets": "3d153a9e4a20d09b6a865d52d02341a551fbed674db35548fd5a2c62a073baee",
+    "entry/src/main/ets/pages/CustomCalendar/components/DateModel.ets": "b76893fa8dadc46a53b782fc65a2dcde41dbcfb81a23a6aae22f102e9d592e67",
+    "entry/src/main/ets/pages/CustomCalendar/components/GetDate.ets": "1b5c7992bf6f4ce90376a6f43cbb7c594ae5fbabf9bb1bc4796c7fd56df8c9fb",
+    "entry/src/main/ets/pages/CustomCalendar/components/MonthDataSource.ets": "9644ea347a2e16c15cfcdf4b5f59ff56446c332b3497169f59e2e78616d7ca32",
+    "entry/src/main/ets/pages/CustomCalendar/view/CalendarView.ets": "18df7d7a4fd1dbec86106afc13b24f9cae1630c39bb8cd9ba87c8fe17de0e9a8",
+    "entry/src/main/ets/pages/DynamicAttributes/DynamicAttributes.ets": "e0294a2e7c6ac39d8a10e1d5e09220044de414360ae8b35ea8c71ee1a8afc27a",
+    "entry/src/main/ets/pages/DynamicAttributes/common/CommonText.ets": "8ea52c449a6516515642a62753c839467c06020dde6fccef92534bb19a632147",
+    "entry/src/main/ets/pages/DynamicAttributes/common/LazyForEach.ets": "a857bf35a0ba38ef6739f4ac42edf1880f9c51e1edc847b90b8d118ad6764778",
+    "entry/src/main/ets/pages/DynamicAttributes/view/Details.ets": "e89fc671285a6bfda78a73b06b2158a19f7c3eedf425382b9a95edc1da87aea5",
+    "entry/src/main/ets/pages/DynamicAttributes/view/ShoppingCart.ets": "813b76b6026f84b330c529b5eccbce756cad5566f37a89ff1352005f7e38a419",
+    "entry/src/main/ets/pages/HighlyLoaded/GetDate.ets": "245fa474b3cdf688e5ef14d43d7bc1671b3887c72be640767663b15e9aa4b7aa",
+    "entry/src/main/ets/pages/HighlyLoaded/HighlyLoaded.ets": "9cabf36af4a43e9cde298c45bd4c1107d38783f09693ebbf2aff1c8da45ebbe6",
+    "entry/src/main/ets/pages/HighlyLoaded/MonthDataSource.ets": "5de5c61128514c923b7255af453254334ecec83581cf38ba64288e2295cbd189",
+    "entry/src/main/ets/pages/HighlyLoaded/ReusePage.ets": "947d762574b0282ad8d801e2f8b581ef12d33e27fbb4ca59aedaec80185280a5",
+    "entry/src/main/ets/pages/Index.ets": "dabbf8ab366bd8ee847973153efee30145efa0416021d42a76735706e972df2a",
+    "entry/src/main/ets/pages/SecondaryLinkage/DataType.ets": "9a57967884502e99a5613a7c7a96cc36b508f7fd83f3bb02f125fe84320a03e0",
+    "entry/src/main/ets/pages/SecondaryLinkage/SecondaryLinkExample.ets": "ba1cd8d9e03531b116a9e969ebe944794844e09e69ccc749540078dc02b9425b",
+    "entry/src/main/ets/pages/SecondaryLinkage/SecondaryLinkage.ets": "e4f626428ba55d3e866ca2bb92f1c3bfc28dfd14d0d44179879f922a1e18d930",
+    "entry/src/main/module.json5": "4dee80cda5d20b761465202fdd7a1ab5512ab16ec8a870f2346aaba4cf7caa56",
+    "entry/src/main/resources/base/element/color.json": "91fa28aefba8ae9601895a2d01519082cc8d5ce205380034c318b58c8ccd40d6",
+    "entry/src/main/resources/base/element/float.json": "673648b720c0b9815836f7697b0a93695516e54d332840d297868164cbf389ce",
+    "entry/src/main/resources/base/element/integer.json": "efe42b71082008f3a93ff7f8776bec99e43dc0581747013d36215936ea138cad",
+    "entry/src/main/resources/base/element/string.json": "4ac264dfd7f5e9feb1423ea2fa6d4df463ab59d6643f8b28ea8890728c4a25a5",
+    "entry/src/main/resources/base/media/background.png": "497edeafc51af043c73e72ee8c4fbac4663357ef1ba275c0289f31a366b26239",
+    "entry/src/main/resources/base/media/example1.PNG": "f36d006a2865363f77a7041fbce717d5d20749231708f1951e68a6b10ce67e0a",
+    "entry/src/main/resources/base/media/example2.PNG": "6c34f20ff9c0fb22f0fdf942602e96bed0e4e015afb2e4e9170cbf8d8bf070ed",
+    "entry/src/main/resources/base/media/example3.PNG": "79eb784f25b48bd56928f0efcd84c72c7cea160a0a9ab78634b5275088cbd59b",
+    "entry/src/main/resources/base/media/example4.PNG": "ae6ce536b5b32b3c354cda1789785c401b0bcb0d9469e1dd611ffa0699aee65f",
+    "entry/src/main/resources/base/media/foreground.png": "57e549283f255505a649042f36a1d6793c307a69a94c9fa7e27a38af38ddbe8c",
+    "entry/src/main/resources/base/media/icon.png": "f6ba3ab03c9ceba247d684bd249a65e8ff40560016eaa0a2ca1d39861a7e2037",
+    "entry/src/main/resources/base/media/layered_image.json": "3d18dcd7ed9e7d3d2c54c20cb80a44eb4877c661131c68a46e20b6e19d0bb476",
+    "entry/src/main/resources/base/media/main.png": "2b7eef860fd57e2b0d0e877250b42550edcf3fb0584ddcaeb0b5cb949a4152ca",
+    "entry/src/main/resources/base/media/startIcon.png": "567c7c0c7a321ca180e010ad880f0f7519f6d351ac2b9665e2ee710e7cfe7778",
+    "entry/src/main/resources/base/media/train_icon.png": "1bc91338ac8e78d174ac69b80daa59f8969d74bb7aaa14ab93aa4dc58b42067c",
+    "entry/src/main/resources/base/profile/backup_config.json": "467a97321341fba6872a6c79a25d89b16eded554c94dae3d4a2faa0d99e59358",
+    "entry/src/main/resources/base/profile/main_pages.json": "a94694cea6a5469532aad912d6f8e6b938a18e695f72f2a52c048c339382fc6f",
+    "entry/src/main/resources/dark/element/color.json": "f26f3f1e47165ae79ebe6f295a3e12593f01e90079d03fc7ff61e47ce0b366a6"
+  },
+  "scopeLimits": [
+    "No UI mounting, gestures, focus, animation, device calls, build, or test execution.",
+    "GlobalContext success path requires a real UIAbilityContext and is excluded.",
+    "HighlyLoaded.MonthDataSource.setData has an empty production body and is excluded.",
+    "SecondaryLinkage short batches below ten are excluded because production reads ten entries without bounds checks.",
+    "Production modules contain existing console.info calls; test code introduces no console logging."
+  ],
+  "verification": {
+    "sourceAudit": "/Users/niannian/OhProject/ArkTS-Sta/docs/four-sample-test-adaptation/source-audit.json",
+    "testExecution": "not performed",
+    "build": "not performed"
+  }
+}
