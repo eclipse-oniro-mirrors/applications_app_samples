@@ -67,12 +67,9 @@ export default function searchPageStateInputTest(): void {
       expect(subject.results.length).assertEqual(4);
       logInfo(`input(value="x") state: subject.results[0]=${subject.results[0]}`);
       expect(subject.results[0]).assertEqual('XComponent + Vsync \u5b9e\u73b0\u81ea\u5b9a\u4e49\u52a8\u753b');
-      logInfo(`input(value="x") state: subject.results[2].length=${subject.results[2].length}`);
-      expect(subject.results[2].length).assertEqual(18);
-      logInfo(`input(value="x") state: subject.results[2].substring(0, 11)=${subject.results[2].substring(0, 11)}`);
-      expect(subject.results[2].substring(0, 11)).assertEqual('Text\u5b9e\u73b0\u90e8\u5206\u6587\u672c\u9ad8');
-      logInfo(`input(value="x") state: subject.results[2].substring(12)=${subject.results[2].substring(12)}`);
-      expect(subject.results[2].substring(12)).assertEqual('\u548c\u8d85\u94fe\u63a5\u6837\u5f0f');
+      logInfo(`input(value="x") state: subject.results[2]=${subject.results[2]}`);
+      expect(subject.results[2])
+        .assertEqual('Text\u5b9e\u73b0\u90e8\u5206\u6587\u672c\u9ad8\u4eae\u548c\u8d85\u94fe\u63a5\u6837\u5f0f');
       logInfo(`${BUNDLE}SearchPageStateInput_0002 end`);
     });
 
