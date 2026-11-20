@@ -16,6 +16,7 @@
 import hilog from '@ohos.hilog';
 import { describe, it, expect } from '@ohos/hypium';
 import model from '../Shared/AdaptiveModel';
+import { registerStateHistoryWindowExtra2 } from './StateHistoryWindow.testCases2';
 
 const DOMAIN = 0xF811;
 const TAG = '[Sample_jsAdaptiveCapabilities]';
@@ -1571,36 +1572,1176 @@ function StateHistoryWindowPart029() {
     });
 }
 
+function StateHistoryWindowPart030() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2719
+     * @tc.name    JsHistory059
+     * @tc.desc    History limit 7 after 9 pushes keeps 7 seed 59
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory059', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v59_0', 7)).assertEqual(1);
+      expect(model.historyPush(history, 'v59_1', 7)).assertEqual(2);
+      expect(model.historyPush(history, 'v59_2', 7)).assertEqual(3);
+      expect(model.historyPush(history, 'v59_3', 7)).assertEqual(4);
+      expect(model.historyPush(history, 'v59_4', 7)).assertEqual(5);
+      expect(model.historyPush(history, 'v59_5', 7)).assertEqual(6);
+      expect(model.historyPush(history, 'v59_6', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v59_7', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v59_8', 7)).assertEqual(7);
+      expect(history.length).assertEqual(7);
+      expect(history[0]).assertEqual('v59_2');
+      expect(history[history.length - 1]).assertEqual('v59_8');
+      expect(history.join('|')).assertEqual('v59_2|v59_3|v59_4|v59_5|v59_6|v59_7|v59_8');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory059 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2720
+     * @tc.name    JsHistory060
+     * @tc.desc    History limit 3 after 5 pushes keeps 3 seed 60
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory060', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v60_0', 3)).assertEqual(1);
+      expect(model.historyPush(history, 'v60_1', 3)).assertEqual(2);
+      expect(model.historyPush(history, 'v60_2', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v60_3', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v60_4', 3)).assertEqual(3);
+      expect(history.length).assertEqual(3);
+      expect(history[0]).assertEqual('v60_2');
+      expect(history[history.length - 1]).assertEqual('v60_4');
+      expect(history.join('|')).assertEqual('v60_2|v60_3|v60_4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory060 done');
+    });
+}
+
+function StateHistoryWindowPart031() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2721
+     * @tc.name    JsHistory061
+     * @tc.desc    History limit 4 after 12 pushes keeps 4 seed 61
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory061', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v61_0', 4)).assertEqual(1);
+      expect(model.historyPush(history, 'v61_1', 4)).assertEqual(2);
+      expect(model.historyPush(history, 'v61_2', 4)).assertEqual(3);
+      expect(model.historyPush(history, 'v61_3', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v61_4', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v61_5', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v61_6', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v61_7', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v61_8', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v61_9', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v61_10', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v61_11', 4)).assertEqual(4);
+      expect(history.length).assertEqual(4);
+      expect(history[0]).assertEqual('v61_8');
+      expect(history[history.length - 1]).assertEqual('v61_11');
+      expect(history.join('|')).assertEqual('v61_8|v61_9|v61_10|v61_11');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory061 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2722
+     * @tc.name    JsHistory062
+     * @tc.desc    History limit 5 after 8 pushes keeps 5 seed 62
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory062', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v62_0', 5)).assertEqual(1);
+      expect(model.historyPush(history, 'v62_1', 5)).assertEqual(2);
+      expect(model.historyPush(history, 'v62_2', 5)).assertEqual(3);
+      expect(model.historyPush(history, 'v62_3', 5)).assertEqual(4);
+      expect(model.historyPush(history, 'v62_4', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v62_5', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v62_6', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v62_7', 5)).assertEqual(5);
+      expect(history.length).assertEqual(5);
+      expect(history[0]).assertEqual('v62_3');
+      expect(history[history.length - 1]).assertEqual('v62_7');
+      expect(history.join('|')).assertEqual('v62_3|v62_4|v62_5|v62_6|v62_7');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory062 done');
+    });
+}
+
+function StateHistoryWindowPart032() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2723
+     * @tc.name    JsHistory063
+     * @tc.desc    History limit 6 after 4 pushes keeps 4 seed 63
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory063', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v63_0', 6)).assertEqual(1);
+      expect(model.historyPush(history, 'v63_1', 6)).assertEqual(2);
+      expect(model.historyPush(history, 'v63_2', 6)).assertEqual(3);
+      expect(model.historyPush(history, 'v63_3', 6)).assertEqual(4);
+      expect(history.length).assertEqual(4);
+      expect(history[0]).assertEqual('v63_0');
+      expect(history[history.length - 1]).assertEqual('v63_3');
+      expect(history.join('|')).assertEqual('v63_0|v63_1|v63_2|v63_3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory063 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2724
+     * @tc.name    JsHistory064
+     * @tc.desc    History limit 7 after 11 pushes keeps 7 seed 64
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory064', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v64_0', 7)).assertEqual(1);
+      expect(model.historyPush(history, 'v64_1', 7)).assertEqual(2);
+      expect(model.historyPush(history, 'v64_2', 7)).assertEqual(3);
+      expect(model.historyPush(history, 'v64_3', 7)).assertEqual(4);
+      expect(model.historyPush(history, 'v64_4', 7)).assertEqual(5);
+      expect(model.historyPush(history, 'v64_5', 7)).assertEqual(6);
+      expect(model.historyPush(history, 'v64_6', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v64_7', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v64_8', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v64_9', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v64_10', 7)).assertEqual(7);
+      expect(history.length).assertEqual(7);
+      expect(history[0]).assertEqual('v64_4');
+      expect(history[history.length - 1]).assertEqual('v64_10');
+      expect(history.join('|')).assertEqual('v64_4|v64_5|v64_6|v64_7|v64_8|v64_9|v64_10');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory064 done');
+    });
+}
+
+function StateHistoryWindowPart033() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2725
+     * @tc.name    JsHistory065
+     * @tc.desc    History limit 3 after 7 pushes keeps 3 seed 65
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory065', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v65_0', 3)).assertEqual(1);
+      expect(model.historyPush(history, 'v65_1', 3)).assertEqual(2);
+      expect(model.historyPush(history, 'v65_2', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v65_3', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v65_4', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v65_5', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v65_6', 3)).assertEqual(3);
+      expect(history.length).assertEqual(3);
+      expect(history[0]).assertEqual('v65_4');
+      expect(history[history.length - 1]).assertEqual('v65_6');
+      expect(history.join('|')).assertEqual('v65_4|v65_5|v65_6');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory065 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2726
+     * @tc.name    JsHistory066
+     * @tc.desc    History limit 4 after 3 pushes keeps 3 seed 66
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory066', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v66_0', 4)).assertEqual(1);
+      expect(model.historyPush(history, 'v66_1', 4)).assertEqual(2);
+      expect(model.historyPush(history, 'v66_2', 4)).assertEqual(3);
+      expect(history.length).assertEqual(3);
+      expect(history[0]).assertEqual('v66_0');
+      expect(history[history.length - 1]).assertEqual('v66_2');
+      expect(history.join('|')).assertEqual('v66_0|v66_1|v66_2');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory066 done');
+    });
+}
+
+function StateHistoryWindowPart034() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2727
+     * @tc.name    JsHistory067
+     * @tc.desc    History limit 5 after 10 pushes keeps 5 seed 67
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory067', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v67_0', 5)).assertEqual(1);
+      expect(model.historyPush(history, 'v67_1', 5)).assertEqual(2);
+      expect(model.historyPush(history, 'v67_2', 5)).assertEqual(3);
+      expect(model.historyPush(history, 'v67_3', 5)).assertEqual(4);
+      expect(model.historyPush(history, 'v67_4', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v67_5', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v67_6', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v67_7', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v67_8', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v67_9', 5)).assertEqual(5);
+      expect(history.length).assertEqual(5);
+      expect(history[0]).assertEqual('v67_5');
+      expect(history[history.length - 1]).assertEqual('v67_9');
+      expect(history.join('|')).assertEqual('v67_5|v67_6|v67_7|v67_8|v67_9');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory067 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2728
+     * @tc.name    JsHistory068
+     * @tc.desc    History limit 6 after 6 pushes keeps 6 seed 68
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory068', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v68_0', 6)).assertEqual(1);
+      expect(model.historyPush(history, 'v68_1', 6)).assertEqual(2);
+      expect(model.historyPush(history, 'v68_2', 6)).assertEqual(3);
+      expect(model.historyPush(history, 'v68_3', 6)).assertEqual(4);
+      expect(model.historyPush(history, 'v68_4', 6)).assertEqual(5);
+      expect(model.historyPush(history, 'v68_5', 6)).assertEqual(6);
+      expect(history.length).assertEqual(6);
+      expect(history[0]).assertEqual('v68_0');
+      expect(history[history.length - 1]).assertEqual('v68_5');
+      expect(history.join('|')).assertEqual('v68_0|v68_1|v68_2|v68_3|v68_4|v68_5');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory068 done');
+    });
+}
+
+function StateHistoryWindowPart035() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2729
+     * @tc.name    JsHistory069
+     * @tc.desc    History limit 7 after 13 pushes keeps 7 seed 69
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory069', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v69_0', 7)).assertEqual(1);
+      expect(model.historyPush(history, 'v69_1', 7)).assertEqual(2);
+      expect(model.historyPush(history, 'v69_2', 7)).assertEqual(3);
+      expect(model.historyPush(history, 'v69_3', 7)).assertEqual(4);
+      expect(model.historyPush(history, 'v69_4', 7)).assertEqual(5);
+      expect(model.historyPush(history, 'v69_5', 7)).assertEqual(6);
+      expect(model.historyPush(history, 'v69_6', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v69_7', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v69_8', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v69_9', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v69_10', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v69_11', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v69_12', 7)).assertEqual(7);
+      expect(history.length).assertEqual(7);
+      expect(history[0]).assertEqual('v69_6');
+      expect(history[history.length - 1]).assertEqual('v69_12');
+      expect(history.join('|')).assertEqual('v69_6|v69_7|v69_8|v69_9|v69_10|v69_11|v69_12');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory069 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2730
+     * @tc.name    JsHistory070
+     * @tc.desc    History limit 3 after 9 pushes keeps 3 seed 70
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory070', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v70_0', 3)).assertEqual(1);
+      expect(model.historyPush(history, 'v70_1', 3)).assertEqual(2);
+      expect(model.historyPush(history, 'v70_2', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v70_3', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v70_4', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v70_5', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v70_6', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v70_7', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v70_8', 3)).assertEqual(3);
+      expect(history.length).assertEqual(3);
+      expect(history[0]).assertEqual('v70_6');
+      expect(history[history.length - 1]).assertEqual('v70_8');
+      expect(history.join('|')).assertEqual('v70_6|v70_7|v70_8');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory070 done');
+    });
+}
+
+function StateHistoryWindowPart036() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2731
+     * @tc.name    JsHistory071
+     * @tc.desc    History limit 4 after 5 pushes keeps 4 seed 71
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory071', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v71_0', 4)).assertEqual(1);
+      expect(model.historyPush(history, 'v71_1', 4)).assertEqual(2);
+      expect(model.historyPush(history, 'v71_2', 4)).assertEqual(3);
+      expect(model.historyPush(history, 'v71_3', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v71_4', 4)).assertEqual(4);
+      expect(history.length).assertEqual(4);
+      expect(history[0]).assertEqual('v71_1');
+      expect(history[history.length - 1]).assertEqual('v71_4');
+      expect(history.join('|')).assertEqual('v71_1|v71_2|v71_3|v71_4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory071 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2732
+     * @tc.name    JsHistory072
+     * @tc.desc    History limit 5 after 12 pushes keeps 5 seed 72
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory072', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v72_0', 5)).assertEqual(1);
+      expect(model.historyPush(history, 'v72_1', 5)).assertEqual(2);
+      expect(model.historyPush(history, 'v72_2', 5)).assertEqual(3);
+      expect(model.historyPush(history, 'v72_3', 5)).assertEqual(4);
+      expect(model.historyPush(history, 'v72_4', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v72_5', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v72_6', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v72_7', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v72_8', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v72_9', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v72_10', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v72_11', 5)).assertEqual(5);
+      expect(history.length).assertEqual(5);
+      expect(history[0]).assertEqual('v72_7');
+      expect(history[history.length - 1]).assertEqual('v72_11');
+      expect(history.join('|')).assertEqual('v72_7|v72_8|v72_9|v72_10|v72_11');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory072 done');
+    });
+}
+
+function StateHistoryWindowPart037() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2733
+     * @tc.name    JsHistory073
+     * @tc.desc    History limit 6 after 8 pushes keeps 6 seed 73
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory073', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v73_0', 6)).assertEqual(1);
+      expect(model.historyPush(history, 'v73_1', 6)).assertEqual(2);
+      expect(model.historyPush(history, 'v73_2', 6)).assertEqual(3);
+      expect(model.historyPush(history, 'v73_3', 6)).assertEqual(4);
+      expect(model.historyPush(history, 'v73_4', 6)).assertEqual(5);
+      expect(model.historyPush(history, 'v73_5', 6)).assertEqual(6);
+      expect(model.historyPush(history, 'v73_6', 6)).assertEqual(6);
+      expect(model.historyPush(history, 'v73_7', 6)).assertEqual(6);
+      expect(history.length).assertEqual(6);
+      expect(history[0]).assertEqual('v73_2');
+      expect(history[history.length - 1]).assertEqual('v73_7');
+      expect(history.join('|')).assertEqual('v73_2|v73_3|v73_4|v73_5|v73_6|v73_7');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory073 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2734
+     * @tc.name    JsHistory074
+     * @tc.desc    History limit 7 after 4 pushes keeps 4 seed 74
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory074', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v74_0', 7)).assertEqual(1);
+      expect(model.historyPush(history, 'v74_1', 7)).assertEqual(2);
+      expect(model.historyPush(history, 'v74_2', 7)).assertEqual(3);
+      expect(model.historyPush(history, 'v74_3', 7)).assertEqual(4);
+      expect(history.length).assertEqual(4);
+      expect(history[0]).assertEqual('v74_0');
+      expect(history[history.length - 1]).assertEqual('v74_3');
+      expect(history.join('|')).assertEqual('v74_0|v74_1|v74_2|v74_3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory074 done');
+    });
+}
+
+function StateHistoryWindowPart038() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2735
+     * @tc.name    JsHistory075
+     * @tc.desc    History limit 3 after 11 pushes keeps 3 seed 75
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory075', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v75_0', 3)).assertEqual(1);
+      expect(model.historyPush(history, 'v75_1', 3)).assertEqual(2);
+      expect(model.historyPush(history, 'v75_2', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v75_3', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v75_4', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v75_5', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v75_6', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v75_7', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v75_8', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v75_9', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v75_10', 3)).assertEqual(3);
+      expect(history.length).assertEqual(3);
+      expect(history[0]).assertEqual('v75_8');
+      expect(history[history.length - 1]).assertEqual('v75_10');
+      expect(history.join('|')).assertEqual('v75_8|v75_9|v75_10');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory075 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2736
+     * @tc.name    JsHistory076
+     * @tc.desc    History limit 4 after 7 pushes keeps 4 seed 76
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory076', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v76_0', 4)).assertEqual(1);
+      expect(model.historyPush(history, 'v76_1', 4)).assertEqual(2);
+      expect(model.historyPush(history, 'v76_2', 4)).assertEqual(3);
+      expect(model.historyPush(history, 'v76_3', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v76_4', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v76_5', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v76_6', 4)).assertEqual(4);
+      expect(history.length).assertEqual(4);
+      expect(history[0]).assertEqual('v76_3');
+      expect(history[history.length - 1]).assertEqual('v76_6');
+      expect(history.join('|')).assertEqual('v76_3|v76_4|v76_5|v76_6');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory076 done');
+    });
+}
+
+function StateHistoryWindowPart039() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2737
+     * @tc.name    JsHistory077
+     * @tc.desc    History limit 5 after 3 pushes keeps 3 seed 77
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory077', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v77_0', 5)).assertEqual(1);
+      expect(model.historyPush(history, 'v77_1', 5)).assertEqual(2);
+      expect(model.historyPush(history, 'v77_2', 5)).assertEqual(3);
+      expect(history.length).assertEqual(3);
+      expect(history[0]).assertEqual('v77_0');
+      expect(history[history.length - 1]).assertEqual('v77_2');
+      expect(history.join('|')).assertEqual('v77_0|v77_1|v77_2');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory077 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2738
+     * @tc.name    JsHistory078
+     * @tc.desc    History limit 6 after 10 pushes keeps 6 seed 78
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory078', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v78_0', 6)).assertEqual(1);
+      expect(model.historyPush(history, 'v78_1', 6)).assertEqual(2);
+      expect(model.historyPush(history, 'v78_2', 6)).assertEqual(3);
+      expect(model.historyPush(history, 'v78_3', 6)).assertEqual(4);
+      expect(model.historyPush(history, 'v78_4', 6)).assertEqual(5);
+      expect(model.historyPush(history, 'v78_5', 6)).assertEqual(6);
+      expect(model.historyPush(history, 'v78_6', 6)).assertEqual(6);
+      expect(model.historyPush(history, 'v78_7', 6)).assertEqual(6);
+      expect(model.historyPush(history, 'v78_8', 6)).assertEqual(6);
+      expect(model.historyPush(history, 'v78_9', 6)).assertEqual(6);
+      expect(history.length).assertEqual(6);
+      expect(history[0]).assertEqual('v78_4');
+      expect(history[history.length - 1]).assertEqual('v78_9');
+      expect(history.join('|')).assertEqual('v78_4|v78_5|v78_6|v78_7|v78_8|v78_9');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory078 done');
+    });
+}
+
+function StateHistoryWindowPart040() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2739
+     * @tc.name    JsHistory079
+     * @tc.desc    History limit 7 after 6 pushes keeps 6 seed 79
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory079', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v79_0', 7)).assertEqual(1);
+      expect(model.historyPush(history, 'v79_1', 7)).assertEqual(2);
+      expect(model.historyPush(history, 'v79_2', 7)).assertEqual(3);
+      expect(model.historyPush(history, 'v79_3', 7)).assertEqual(4);
+      expect(model.historyPush(history, 'v79_4', 7)).assertEqual(5);
+      expect(model.historyPush(history, 'v79_5', 7)).assertEqual(6);
+      expect(history.length).assertEqual(6);
+      expect(history[0]).assertEqual('v79_0');
+      expect(history[history.length - 1]).assertEqual('v79_5');
+      expect(history.join('|')).assertEqual('v79_0|v79_1|v79_2|v79_3|v79_4|v79_5');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory079 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2740
+     * @tc.name    JsHistory080
+     * @tc.desc    History limit 3 after 13 pushes keeps 3 seed 80
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory080', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'q80_0', 3)).assertEqual(1);
+      expect(model.historyPush(history, 'q80_1', 3)).assertEqual(2);
+      expect(model.historyPush(history, 'q80_2', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'q80_3', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'q80_4', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'q80_5', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'q80_6', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'q80_7', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'q80_8', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'q80_9', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'q80_10', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'q80_11', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'q80_12', 3)).assertEqual(3);
+      expect(history.length).assertEqual(3);
+      expect(history[0]).assertEqual('q80_10');
+      expect(history[history.length - 1]).assertEqual('q80_12');
+      expect(history.join('|')).assertEqual('q80_10|q80_11|q80_12');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory080 done');
+    });
+}
+
+function StateHistoryWindowPart041() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2741
+     * @tc.name    JsHistory081
+     * @tc.desc    History limit 4 after 9 pushes keeps 4 seed 81
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory081', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'q81_0', 4)).assertEqual(1);
+      expect(model.historyPush(history, 'q81_1', 4)).assertEqual(2);
+      expect(model.historyPush(history, 'q81_2', 4)).assertEqual(3);
+      expect(model.historyPush(history, 'q81_3', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'q81_4', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'q81_5', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'q81_6', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'q81_7', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'q81_8', 4)).assertEqual(4);
+      expect(history.length).assertEqual(4);
+      expect(history[0]).assertEqual('q81_5');
+      expect(history[history.length - 1]).assertEqual('q81_8');
+      expect(history.join('|')).assertEqual('q81_5|q81_6|q81_7|q81_8');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory081 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2742
+     * @tc.name    JsHistory082
+     * @tc.desc    History limit 5 after 5 pushes keeps 5 seed 82
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory082', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'q82_0', 5)).assertEqual(1);
+      expect(model.historyPush(history, 'q82_1', 5)).assertEqual(2);
+      expect(model.historyPush(history, 'q82_2', 5)).assertEqual(3);
+      expect(model.historyPush(history, 'q82_3', 5)).assertEqual(4);
+      expect(model.historyPush(history, 'q82_4', 5)).assertEqual(5);
+      expect(history.length).assertEqual(5);
+      expect(history[0]).assertEqual('q82_0');
+      expect(history[history.length - 1]).assertEqual('q82_4');
+      expect(history.join('|')).assertEqual('q82_0|q82_1|q82_2|q82_3|q82_4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory082 done');
+    });
+}
+
+function StateHistoryWindowPart042() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2743
+     * @tc.name    JsHistory083
+     * @tc.desc    History limit 6 after 12 pushes keeps 6 seed 83
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory083', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'q83_0', 6)).assertEqual(1);
+      expect(model.historyPush(history, 'q83_1', 6)).assertEqual(2);
+      expect(model.historyPush(history, 'q83_2', 6)).assertEqual(3);
+      expect(model.historyPush(history, 'q83_3', 6)).assertEqual(4);
+      expect(model.historyPush(history, 'q83_4', 6)).assertEqual(5);
+      expect(model.historyPush(history, 'q83_5', 6)).assertEqual(6);
+      expect(model.historyPush(history, 'q83_6', 6)).assertEqual(6);
+      expect(model.historyPush(history, 'q83_7', 6)).assertEqual(6);
+      expect(model.historyPush(history, 'q83_8', 6)).assertEqual(6);
+      expect(model.historyPush(history, 'q83_9', 6)).assertEqual(6);
+      expect(model.historyPush(history, 'q83_10', 6)).assertEqual(6);
+      expect(model.historyPush(history, 'q83_11', 6)).assertEqual(6);
+      expect(history.length).assertEqual(6);
+      expect(history[0]).assertEqual('q83_6');
+      expect(history[history.length - 1]).assertEqual('q83_11');
+      expect(history.join('|')).assertEqual('q83_6|q83_7|q83_8|q83_9|q83_10|q83_11');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory083 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2744
+     * @tc.name    JsHistory084
+     * @tc.desc    History limit 7 after 8 pushes keeps 7 seed 84
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory084', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'q84_0', 7)).assertEqual(1);
+      expect(model.historyPush(history, 'q84_1', 7)).assertEqual(2);
+      expect(model.historyPush(history, 'q84_2', 7)).assertEqual(3);
+      expect(model.historyPush(history, 'q84_3', 7)).assertEqual(4);
+      expect(model.historyPush(history, 'q84_4', 7)).assertEqual(5);
+      expect(model.historyPush(history, 'q84_5', 7)).assertEqual(6);
+      expect(model.historyPush(history, 'q84_6', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'q84_7', 7)).assertEqual(7);
+      expect(history.length).assertEqual(7);
+      expect(history[0]).assertEqual('q84_1');
+      expect(history[history.length - 1]).assertEqual('q84_7');
+      expect(history.join('|')).assertEqual('q84_1|q84_2|q84_3|q84_4|q84_5|q84_6|q84_7');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory084 done');
+    });
+}
+
+function StateHistoryWindowPart043() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2745
+     * @tc.name    JsHistory085
+     * @tc.desc    History limit 3 after 4 pushes keeps 3 seed 85
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory085', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'q85_0', 3)).assertEqual(1);
+      expect(model.historyPush(history, 'q85_1', 3)).assertEqual(2);
+      expect(model.historyPush(history, 'q85_2', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'q85_3', 3)).assertEqual(3);
+      expect(history.length).assertEqual(3);
+      expect(history[0]).assertEqual('q85_1');
+      expect(history[history.length - 1]).assertEqual('q85_3');
+      expect(history.join('|')).assertEqual('q85_1|q85_2|q85_3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory085 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2746
+     * @tc.name    JsHistory086
+     * @tc.desc    History limit 4 after 11 pushes keeps 4 seed 86
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory086', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'q86_0', 4)).assertEqual(1);
+      expect(model.historyPush(history, 'q86_1', 4)).assertEqual(2);
+      expect(model.historyPush(history, 'q86_2', 4)).assertEqual(3);
+      expect(model.historyPush(history, 'q86_3', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'q86_4', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'q86_5', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'q86_6', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'q86_7', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'q86_8', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'q86_9', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'q86_10', 4)).assertEqual(4);
+      expect(history.length).assertEqual(4);
+      expect(history[0]).assertEqual('q86_7');
+      expect(history[history.length - 1]).assertEqual('q86_10');
+      expect(history.join('|')).assertEqual('q86_7|q86_8|q86_9|q86_10');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory086 done');
+    });
+}
+
+function StateHistoryWindowPart044() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2747
+     * @tc.name    JsHistory087
+     * @tc.desc    History limit 5 after 7 pushes keeps 5 seed 87
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory087', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'q87_0', 5)).assertEqual(1);
+      expect(model.historyPush(history, 'q87_1', 5)).assertEqual(2);
+      expect(model.historyPush(history, 'q87_2', 5)).assertEqual(3);
+      expect(model.historyPush(history, 'q87_3', 5)).assertEqual(4);
+      expect(model.historyPush(history, 'q87_4', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'q87_5', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'q87_6', 5)).assertEqual(5);
+      expect(history.length).assertEqual(5);
+      expect(history[0]).assertEqual('q87_2');
+      expect(history[history.length - 1]).assertEqual('q87_6');
+      expect(history.join('|')).assertEqual('q87_2|q87_3|q87_4|q87_5|q87_6');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory087 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2748
+     * @tc.name    JsHistory088
+     * @tc.desc    History limit 6 after 3 pushes keeps 3 seed 88
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory088', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'q88_0', 6)).assertEqual(1);
+      expect(model.historyPush(history, 'q88_1', 6)).assertEqual(2);
+      expect(model.historyPush(history, 'q88_2', 6)).assertEqual(3);
+      expect(history.length).assertEqual(3);
+      expect(history[0]).assertEqual('q88_0');
+      expect(history[history.length - 1]).assertEqual('q88_2');
+      expect(history.join('|')).assertEqual('q88_0|q88_1|q88_2');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory088 done');
+    });
+}
+
+function StateHistoryWindowPart045() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2749
+     * @tc.name    JsHistory089
+     * @tc.desc    History limit 7 after 10 pushes keeps 7 seed 89
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory089', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'q89_0', 7)).assertEqual(1);
+      expect(model.historyPush(history, 'q89_1', 7)).assertEqual(2);
+      expect(model.historyPush(history, 'q89_2', 7)).assertEqual(3);
+      expect(model.historyPush(history, 'q89_3', 7)).assertEqual(4);
+      expect(model.historyPush(history, 'q89_4', 7)).assertEqual(5);
+      expect(model.historyPush(history, 'q89_5', 7)).assertEqual(6);
+      expect(model.historyPush(history, 'q89_6', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'q89_7', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'q89_8', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'q89_9', 7)).assertEqual(7);
+      expect(history.length).assertEqual(7);
+      expect(history[0]).assertEqual('q89_3');
+      expect(history[history.length - 1]).assertEqual('q89_9');
+      expect(history.join('|')).assertEqual('q89_3|q89_4|q89_5|q89_6|q89_7|q89_8|q89_9');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory089 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2750
+     * @tc.name    JsHistory090
+     * @tc.desc    History limit 3 after 6 pushes keeps 3 seed 90
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory090', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v90_0', 3)).assertEqual(1);
+      expect(model.historyPush(history, 'v90_1', 3)).assertEqual(2);
+      expect(model.historyPush(history, 'v90_2', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v90_3', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v90_4', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v90_5', 3)).assertEqual(3);
+      expect(history.length).assertEqual(3);
+      expect(history[0]).assertEqual('v90_3');
+      expect(history[history.length - 1]).assertEqual('v90_5');
+      expect(history.join('|')).assertEqual('v90_3|v90_4|v90_5');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory090 done');
+    });
+}
+
+function StateHistoryWindowPart046() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2751
+     * @tc.name    JsHistory091
+     * @tc.desc    History limit 4 after 13 pushes keeps 4 seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory091', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v91_0', 4)).assertEqual(1);
+      expect(model.historyPush(history, 'v91_1', 4)).assertEqual(2);
+      expect(model.historyPush(history, 'v91_2', 4)).assertEqual(3);
+      expect(model.historyPush(history, 'v91_3', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v91_4', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v91_5', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v91_6', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v91_7', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v91_8', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v91_9', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v91_10', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v91_11', 4)).assertEqual(4);
+      expect(model.historyPush(history, 'v91_12', 4)).assertEqual(4);
+      expect(history.length).assertEqual(4);
+      expect(history[0]).assertEqual('v91_9');
+      expect(history[history.length - 1]).assertEqual('v91_12');
+      expect(history.join('|')).assertEqual('v91_9|v91_10|v91_11|v91_12');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2752
+     * @tc.name    JsHistory092
+     * @tc.desc    History limit 5 after 9 pushes keeps 5 seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory092', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v92_0', 5)).assertEqual(1);
+      expect(model.historyPush(history, 'v92_1', 5)).assertEqual(2);
+      expect(model.historyPush(history, 'v92_2', 5)).assertEqual(3);
+      expect(model.historyPush(history, 'v92_3', 5)).assertEqual(4);
+      expect(model.historyPush(history, 'v92_4', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v92_5', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v92_6', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v92_7', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v92_8', 5)).assertEqual(5);
+      expect(history.length).assertEqual(5);
+      expect(history[0]).assertEqual('v92_4');
+      expect(history[history.length - 1]).assertEqual('v92_8');
+      expect(history.join('|')).assertEqual('v92_4|v92_5|v92_6|v92_7|v92_8');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory092 done');
+    });
+}
+
+function StateHistoryWindowPart047() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2753
+     * @tc.name    JsHistory093
+     * @tc.desc    History limit 6 after 5 pushes keeps 5 seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory093', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v93_0', 6)).assertEqual(1);
+      expect(model.historyPush(history, 'v93_1', 6)).assertEqual(2);
+      expect(model.historyPush(history, 'v93_2', 6)).assertEqual(3);
+      expect(model.historyPush(history, 'v93_3', 6)).assertEqual(4);
+      expect(model.historyPush(history, 'v93_4', 6)).assertEqual(5);
+      expect(history.length).assertEqual(5);
+      expect(history[0]).assertEqual('v93_0');
+      expect(history[history.length - 1]).assertEqual('v93_4');
+      expect(history.join('|')).assertEqual('v93_0|v93_1|v93_2|v93_3|v93_4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory093 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2754
+     * @tc.name    JsHistory094
+     * @tc.desc    History limit 7 after 12 pushes keeps 7 seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory094', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v94_0', 7)).assertEqual(1);
+      expect(model.historyPush(history, 'v94_1', 7)).assertEqual(2);
+      expect(model.historyPush(history, 'v94_2', 7)).assertEqual(3);
+      expect(model.historyPush(history, 'v94_3', 7)).assertEqual(4);
+      expect(model.historyPush(history, 'v94_4', 7)).assertEqual(5);
+      expect(model.historyPush(history, 'v94_5', 7)).assertEqual(6);
+      expect(model.historyPush(history, 'v94_6', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v94_7', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v94_8', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v94_9', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v94_10', 7)).assertEqual(7);
+      expect(model.historyPush(history, 'v94_11', 7)).assertEqual(7);
+      expect(history.length).assertEqual(7);
+      expect(history[0]).assertEqual('v94_5');
+      expect(history[history.length - 1]).assertEqual('v94_11');
+      expect(history.join('|')).assertEqual('v94_5|v94_6|v94_7|v94_8|v94_9|v94_10|v94_11');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory094 done');
+    });
+}
+
+function StateHistoryWindowPart048() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2755
+     * @tc.name    JsHistory095
+     * @tc.desc    History limit 3 after 8 pushes keeps 3 seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory095', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v95_0', 3)).assertEqual(1);
+      expect(model.historyPush(history, 'v95_1', 3)).assertEqual(2);
+      expect(model.historyPush(history, 'v95_2', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v95_3', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v95_4', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v95_5', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v95_6', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v95_7', 3)).assertEqual(3);
+      expect(history.length).assertEqual(3);
+      expect(history[0]).assertEqual('v95_5');
+      expect(history[history.length - 1]).assertEqual('v95_7');
+      expect(history.join('|')).assertEqual('v95_5|v95_6|v95_7');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory095 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2756
+     * @tc.name    JsHistory096
+     * @tc.desc    History limit 4 after 4 pushes keeps 4 seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory096', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v96_0', 4)).assertEqual(1);
+      expect(model.historyPush(history, 'v96_1', 4)).assertEqual(2);
+      expect(model.historyPush(history, 'v96_2', 4)).assertEqual(3);
+      expect(model.historyPush(history, 'v96_3', 4)).assertEqual(4);
+      expect(history.length).assertEqual(4);
+      expect(history[0]).assertEqual('v96_0');
+      expect(history[history.length - 1]).assertEqual('v96_3');
+      expect(history.join('|')).assertEqual('v96_0|v96_1|v96_2|v96_3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory096 done');
+    });
+}
+
+function StateHistoryWindowPart049() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2757
+     * @tc.name    JsHistory097
+     * @tc.desc    History limit 5 after 11 pushes keeps 5 seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory097', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v97_0', 5)).assertEqual(1);
+      expect(model.historyPush(history, 'v97_1', 5)).assertEqual(2);
+      expect(model.historyPush(history, 'v97_2', 5)).assertEqual(3);
+      expect(model.historyPush(history, 'v97_3', 5)).assertEqual(4);
+      expect(model.historyPush(history, 'v97_4', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v97_5', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v97_6', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v97_7', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v97_8', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v97_9', 5)).assertEqual(5);
+      expect(model.historyPush(history, 'v97_10', 5)).assertEqual(5);
+      expect(history.length).assertEqual(5);
+      expect(history[0]).assertEqual('v97_6');
+      expect(history[history.length - 1]).assertEqual('v97_10');
+      expect(history.join('|')).assertEqual('v97_6|v97_7|v97_8|v97_9|v97_10');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2758
+     * @tc.name    JsHistory098
+     * @tc.desc    History limit 6 after 7 pushes keeps 6 seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory098', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v98_0', 6)).assertEqual(1);
+      expect(model.historyPush(history, 'v98_1', 6)).assertEqual(2);
+      expect(model.historyPush(history, 'v98_2', 6)).assertEqual(3);
+      expect(model.historyPush(history, 'v98_3', 6)).assertEqual(4);
+      expect(model.historyPush(history, 'v98_4', 6)).assertEqual(5);
+      expect(model.historyPush(history, 'v98_5', 6)).assertEqual(6);
+      expect(model.historyPush(history, 'v98_6', 6)).assertEqual(6);
+      expect(history.length).assertEqual(6);
+      expect(history[0]).assertEqual('v98_1');
+      expect(history[history.length - 1]).assertEqual('v98_6');
+      expect(history.join('|')).assertEqual('v98_1|v98_2|v98_3|v98_4|v98_5|v98_6');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory098 done');
+    });
+}
+
+function StateHistoryWindowPart050() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2759
+     * @tc.name    JsHistory099
+     * @tc.desc    History limit 7 after 3 pushes keeps 3 seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory099', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v99_0', 7)).assertEqual(1);
+      expect(model.historyPush(history, 'v99_1', 7)).assertEqual(2);
+      expect(model.historyPush(history, 'v99_2', 7)).assertEqual(3);
+      expect(history.length).assertEqual(3);
+      expect(history[0]).assertEqual('v99_0');
+      expect(history[history.length - 1]).assertEqual('v99_2');
+      expect(history.join('|')).assertEqual('v99_0|v99_1|v99_2');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory099 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_2760
+     * @tc.name    JsHistory100
+     * @tc.desc    History limit 3 after 10 pushes keeps 3 seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsHistory100', 0, async function () {
+      await yieldThread();
+      const history = [];
+      expect(model.historyPush(history, 'v100_0', 3)).assertEqual(1);
+      expect(model.historyPush(history, 'v100_1', 3)).assertEqual(2);
+      expect(model.historyPush(history, 'v100_2', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v100_3', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v100_4', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v100_5', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v100_6', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v100_7', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v100_8', 3)).assertEqual(3);
+      expect(model.historyPush(history, 'v100_9', 3)).assertEqual(3);
+      expect(history.length).assertEqual(3);
+      expect(history[0]).assertEqual('v100_7');
+      expect(history[history.length - 1]).assertEqual('v100_9');
+      expect(history.join('|')).assertEqual('v100_7|v100_8|v100_9');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsHistory100 done');
+    });
+}
+
+function StateHistoryWindowGroup001() {
+  StateHistoryWindowPart001();
+  StateHistoryWindowPart002();
+  StateHistoryWindowPart003();
+  StateHistoryWindowPart004();
+  StateHistoryWindowPart005();
+  StateHistoryWindowPart006();
+  StateHistoryWindowPart007();
+  StateHistoryWindowPart008();
+  StateHistoryWindowPart009();
+  StateHistoryWindowPart010();
+  StateHistoryWindowPart011();
+  StateHistoryWindowPart012();
+  StateHistoryWindowPart013();
+  StateHistoryWindowPart014();
+  StateHistoryWindowPart015();
+  StateHistoryWindowPart016();
+  StateHistoryWindowPart017();
+  StateHistoryWindowPart018();
+  StateHistoryWindowPart019();
+  StateHistoryWindowPart020();
+  StateHistoryWindowPart021();
+  StateHistoryWindowPart022();
+  StateHistoryWindowPart023();
+  StateHistoryWindowPart024();
+  StateHistoryWindowPart025();
+  StateHistoryWindowPart026();
+  StateHistoryWindowPart027();
+  StateHistoryWindowPart028();
+  StateHistoryWindowPart029();
+  StateHistoryWindowPart030();
+  StateHistoryWindowPart031();
+  StateHistoryWindowPart032();
+  StateHistoryWindowPart033();
+  StateHistoryWindowPart034();
+  StateHistoryWindowPart035();
+  StateHistoryWindowPart036();
+  StateHistoryWindowPart037();
+  StateHistoryWindowPart038();
+  StateHistoryWindowPart039();
+  StateHistoryWindowPart040();
+}
+
+function StateHistoryWindowGroup002() {
+  StateHistoryWindowPart041();
+  StateHistoryWindowPart042();
+  StateHistoryWindowPart043();
+  StateHistoryWindowPart044();
+  StateHistoryWindowPart045();
+  StateHistoryWindowPart046();
+  StateHistoryWindowPart047();
+  StateHistoryWindowPart048();
+  StateHistoryWindowPart049();
+  StateHistoryWindowPart050();
+}
+
 export default function stateHistoryWindowSuite() {
   describe('StateHistoryWindowSuite', function () {
-    StateHistoryWindowPart001();
-    StateHistoryWindowPart002();
-    StateHistoryWindowPart003();
-    StateHistoryWindowPart004();
-    StateHistoryWindowPart005();
-    StateHistoryWindowPart006();
-    StateHistoryWindowPart007();
-    StateHistoryWindowPart008();
-    StateHistoryWindowPart009();
-    StateHistoryWindowPart010();
-    StateHistoryWindowPart011();
-    StateHistoryWindowPart012();
-    StateHistoryWindowPart013();
-    StateHistoryWindowPart014();
-    StateHistoryWindowPart015();
-    StateHistoryWindowPart016();
-    StateHistoryWindowPart017();
-    StateHistoryWindowPart018();
-    StateHistoryWindowPart019();
-    StateHistoryWindowPart020();
-    StateHistoryWindowPart021();
-    StateHistoryWindowPart022();
-    StateHistoryWindowPart023();
-    StateHistoryWindowPart024();
-    StateHistoryWindowPart025();
-    StateHistoryWindowPart026();
-    StateHistoryWindowPart027();
-    StateHistoryWindowPart028();
-    StateHistoryWindowPart029();
+    StateHistoryWindowGroup001();
+    StateHistoryWindowGroup002();
+    registerStateHistoryWindowExtra2();
   });
 }
