@@ -333,682 +333,599 @@ class SettingFeature implements MouseFeature {
 export default function pointerSettingCatalogTest() {
   describe('PointerSettingCatalog_Test', () => {
     beforeEach(() => {
-      hilog.info(0x0000, 'testTag', '%{public}s', 'suite setup');
     });
 
-    it('PointerSettingCatalog_aggregated_validation', 0, async () => {
-      {
-        const feature = new SettingFeature('kind_primary', 0);
-        expect(feature.getKind()).assertEqual(SettingKind.PRIMARY_BUTTON);
-      }
+    it('setting_kind_primary_button', 0, () => {
+      const feature = new SettingFeature('kind_primary', 0);
+      expect(feature.getKind()).assertEqual(SettingKind.PRIMARY_BUTTON);
+    });
 
-      {
-        const feature = new SettingFeature('kind_size', 2);
-        expect(feature.getKind()).assertEqual(SettingKind.POINTER_SIZE);
-      }
+    it('setting_kind_pointer_size', 0, () => {
+      const feature = new SettingFeature('kind_size', 2);
+      expect(feature.getKind()).assertEqual(SettingKind.POINTER_SIZE);
+    });
 
-      {
-        const feature = new SettingFeature('kind_style', 4);
-        expect(feature.getKind()).assertEqual(SettingKind.POINTER_STYLE);
-      }
+    it('setting_kind_pointer_style', 0, () => {
+      const feature = new SettingFeature('kind_style', 4);
+      expect(feature.getKind()).assertEqual(SettingKind.POINTER_STYLE);
+    });
 
-      {
-        const feature = new SettingFeature('category_appearance', 3);
-        expect(feature.getCategory()).assertEqual('appearance');
-      }
+    it('setting_category_appearance', 0, () => {
+      const feature = new SettingFeature('category_appearance', 3);
+      expect(feature.getCategory()).assertEqual('appearance');
+    });
 
-      {
-        const feature = new SettingFeature('negative', -5);
-        expect(feature.getNumericValue()).assertEqual(0);
-        expect(feature.isValid()).assertTrue();
-      }
+    it('setting_negative_value_is_clamped', 0, () => {
+      const feature = new SettingFeature('negative', -5);
+      expect(feature.getNumericValue()).assertEqual(0);
+      expect(feature.isValid()).assertTrue();
+    });
 
-      {
-        const feature = new SettingFeature('alpha', 1);
-        expect(feature.getTitle()).assertEqual('alpha');
-        expect(feature.getId().length).assertLarger(0);
-      }
+    it('generic_construction_preserves_title', 0, () => {
+      const feature = new SettingFeature('alpha', 1);
+      expect(feature.getTitle()).assertEqual('alpha');
+      expect(feature.getId().length).assertLarger(0);
+    });
 
-      {
-        const feature = new SettingFeature('beta', 2);
-        expect(FeatureValidator.isValidTitle(feature.getTitle())).assertTrue();
-        expect(FeatureValidator.isNonNegative(feature)).assertTrue();
-      }
+    it('generic_validator_accepts_non_empty_title', 0, () => {
+      const feature = new SettingFeature('beta', 2);
+      expect(FeatureValidator.isValidTitle(feature.getTitle())).assertTrue();
+      expect(FeatureValidator.isNonNegative(feature)).assertTrue();
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new SettingFeature('one', 1));
-        collection.add(new SettingFeature('two', 2));
-        collection.add(new SettingFeature('three', 3));
-        expect(collection.count()).assertEqual(3);
-      }
+    it('generic_collection_counts_added_items', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new SettingFeature('one', 1));
+      collection.add(new SettingFeature('two', 2));
+      collection.add(new SettingFeature('three', 3));
+      expect(collection.count()).assertEqual(3);
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new SettingFeature('target', 2));
-        expect(collection.getByTitle('target') === null).assertFalse();
-        expect(collection.getByTitle('missing') === null).assertTrue();
-      }
+    it('generic_collection_finds_item_by_title', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new SettingFeature('target', 2));
+      expect(collection.getByTitle('target') === null).assertFalse();
+      expect(collection.getByTitle('missing') === null).assertTrue();
+    });
 
-      {
-        const collection = new FeatureCollection();
-        expect(collection.isEmpty()).assertTrue();
-        collection.add(new SettingFeature('solo', 1));
-        expect(collection.isEmpty()).assertFalse();
-      }
+    it('generic_collection_reports_empty_state', 0, () => {
+      const collection = new FeatureCollection();
+      expect(collection.isEmpty()).assertTrue();
+      collection.add(new SettingFeature('solo', 1));
+      expect(collection.isEmpty()).assertFalse();
+    });
 
-      {
-        const a = new SettingFeature('a', 1);
-        const b = new SettingFeature('b', 3);
-        const av: number = a.getNumericValue();
-        const bv: number = b.getNumericValue();
-        const statistics = new FeatureStatistics();
-        statistics.collect([a, b]);
-        expect(statistics.getMinValue()).assertEqual(Math.min(av, bv));
-        expect(statistics.getMaxValue()).assertEqual(Math.max(av, bv));
-      }
+    it('generic_statistics_identify_min_and_max', 0, () => {
+      const a = new SettingFeature('a', 1);
+      const b = new SettingFeature('b', 3);
+      const av: number = a.getNumericValue();
+      const bv: number = b.getNumericValue();
+      const statistics = new FeatureStatistics();
+      statistics.collect([a, b]);
+      expect(statistics.getMinValue()).assertEqual(Math.min(av, bv));
+      expect(statistics.getMaxValue()).assertEqual(Math.max(av, bv));
+    });
 
-      {
-        const a = new SettingFeature('a', 1);
-        const b = new SettingFeature('b', 3);
-        const av: number = a.getNumericValue();
-        const bv: number = b.getNumericValue();
-        const statistics = new FeatureStatistics();
-        statistics.collect([a, b]);
-        expect(statistics.getAverage()).assertEqual((av + bv) / 2);
-        expect(statistics.getTotal()).assertEqual(2);
-      }
+    it('generic_statistics_average_is_computed', 0, () => {
+      const a = new SettingFeature('a', 1);
+      const b = new SettingFeature('b', 3);
+      const av: number = a.getNumericValue();
+      const bv: number = b.getNumericValue();
+      const statistics = new FeatureStatistics();
+      statistics.collect([a, b]);
+      expect(statistics.getAverage()).assertEqual((av + bv) / 2);
+      expect(statistics.getTotal()).assertEqual(2);
+    });
 
-      {
-        const low = new SettingFeature('low', 1);
-        const high = new SettingFeature('high', 3);
-        const lv: number = low.getNumericValue();
-        const hv: number = high.getNumericValue();
-        expect(FeatureComparator.compareByValue(low, high)).assertEqual(lv - hv);
-        expect(FeatureComparator.compareByValue(high, low)).assertEqual(hv - lv);
-      }
+    it('generic_comparator_orders_by_value', 0, () => {
+      const low = new SettingFeature('low', 1);
+      const high = new SettingFeature('high', 3);
+      const lv: number = low.getNumericValue();
+      const hv: number = high.getNumericValue();
+      expect(FeatureComparator.compareByValue(low, high)).assertEqual(lv - hv);
+      expect(FeatureComparator.compareByValue(high, low)).assertEqual(hv - lv);
+    });
 
-      {
-        const high = new SettingFeature('c', 3);
-        const low = new SettingFeature('a', 1);
-        const lv: number = low.getNumericValue();
-        const hv: number = high.getNumericValue();
-        const sorted: MouseFeature[] = FeatureSorter.sortByValue([high, low]);
-        expect(sorted.length).assertEqual(2);
-        expect(sorted[0].getNumericValue()).assertEqual(Math.min(lv, hv));
-      }
+    it('generic_sorter_orders_by_value', 0, () => {
+      const high = new SettingFeature('c', 3);
+      const low = new SettingFeature('a', 1);
+      const lv: number = low.getNumericValue();
+      const hv: number = high.getNumericValue();
+      const sorted: MouseFeature[] = FeatureSorter.sortByValue([high, low]);
+      expect(sorted.length).assertEqual(2);
+      expect(sorted[0].getNumericValue()).assertEqual(Math.min(lv, hv));
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new SettingFeature('x', 1));
-        collection.add(new SettingFeature('y', 2));
-        const titles: string[] = FeatureExtractor.extractTitles(collection.getAll());
-        expect(titles.length).assertEqual(2);
-        expect(titles.includes('x')).assertTrue();
-      }
+    it('generic_extractor_collects_titles', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new SettingFeature('x', 1));
+      collection.add(new SettingFeature('y', 2));
+      const titles: string[] = FeatureExtractor.extractTitles(collection.getAll());
+      expect(titles.length).assertEqual(2);
+      expect(titles.includes('x')).assertTrue();
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new SettingFeature('x', 1));
-        collection.add(new SettingFeature('y', 2));
-        const values: number[] = FeatureExtractor.extractValues(collection.getAll());
-        expect(values.length).assertEqual(2);
-      }
+    it('generic_extractor_collects_values', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new SettingFeature('x', 1));
+      collection.add(new SettingFeature('y', 2));
+      const values: number[] = FeatureExtractor.extractValues(collection.getAll());
+      expect(values.length).assertEqual(2);
+    });
 
-      {
-        const history = new FeatureHistory();
-        history.push(new SettingFeature('first', 1));
-        history.push(new SettingFeature('second', 2));
-        expect(history.getLength()).assertEqual(2);
-        expect(history.containsTitle('first')).assertTrue();
-      }
+    it('generic_history_tracks_sequence', 0, () => {
+      const history = new FeatureHistory();
+      history.push(new SettingFeature('first', 1));
+      history.push(new SettingFeature('second', 2));
+      expect(history.getLength()).assertEqual(2);
+      expect(history.containsTitle('first')).assertTrue();
+    });
 
-      {
-        const history = new FeatureHistory();
-        history.push(new SettingFeature('only', 1));
-        history.clear();
-        expect(history.getLength()).assertEqual(0);
-      }
+    it('generic_history_clear_resets_sequence', 0, () => {
+      const history = new FeatureHistory();
+      history.push(new SettingFeature('only', 1));
+      history.clear();
+      expect(history.getLength()).assertEqual(0);
+    });
 
-      {
-        const collection = new FeatureCollection();
-        collection.add(new SettingFeature('x', 1));
-        collection.add(new SettingFeature('y', 2));
-        const serialized: string = FeatureSerializer.serialize(collection.getAll());
-        expect(FeatureSerializer.countTokens(serialized)).assertEqual(2);
-      }
+    it('generic_serializer_roundtrip_counts_tokens', 0, () => {
+      const collection = new FeatureCollection();
+      collection.add(new SettingFeature('x', 1));
+      collection.add(new SettingFeature('y', 2));
+      const serialized: string = FeatureSerializer.serialize(collection.getAll());
+      expect(FeatureSerializer.countTokens(serialized)).assertEqual(2);
+    });
 
-      {
-        const serialized: string = FeatureSerializer.serialize([]);
-        expect(serialized.length).assertEqual(0);
-        expect(FeatureSerializer.countTokens(serialized)).assertEqual(0);
-      }
+    it('generic_serializer_empty_list_has_zero_tokens', 0, () => {
+      const serialized: string = FeatureSerializer.serialize([]);
+      expect(serialized.length).assertEqual(0);
+      expect(FeatureSerializer.countTokens(serialized)).assertEqual(0);
+    });
 
-      {
-        const first = new SettingFeature('first', 1);
-        const second = new SettingFeature('second', 2);
-        expect(first.getTitle() === second.getTitle()).assertFalse();
-        expect(first.getId()).assertEqual(first.getId());
-      }
+    it('generic_multiple_instances_are_independent', 0, () => {
+      const first = new SettingFeature('first', 1);
+      const second = new SettingFeature('second', 2);
+      expect(first.getTitle() === second.getTitle()).assertFalse();
+      expect(first.getId()).assertEqual(first.getId());
+    });
 
-      {
-        const a = new SettingFeature('extra_0', 1);
-        const b = new SettingFeature('extra_0_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_0');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_0') === null).assertFalse();
-      }
+    it('light_context_checks', 0, () => {
+      const feature = new SettingFeature('light', 1);
+      expect(feature.getTitle()).assertEqual('light');
+      expect(feature.getId().length).assertLarger(0);
+    });
 
-      {
-        const a = new SettingFeature('extra_1', 1);
-        const b = new SettingFeature('extra_1_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_1');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_1') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_2', 1);
-        const b = new SettingFeature('extra_2_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_2');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_2') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_3', 1);
-        const b = new SettingFeature('extra_3_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_3');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_3') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_4', 1);
-        const b = new SettingFeature('extra_4_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_4');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_4') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_5', 1);
-        const b = new SettingFeature('extra_5_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_5');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_5') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_6', 1);
-        const b = new SettingFeature('extra_6_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_6');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_6') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_7', 1);
-        const b = new SettingFeature('extra_7_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_7');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_7') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_8', 1);
-        const b = new SettingFeature('extra_8_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_8');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_8') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_9', 1);
-        const b = new SettingFeature('extra_9_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_9');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_9') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_10', 1);
-        const b = new SettingFeature('extra_10_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_10');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_10') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_11', 1);
-        const b = new SettingFeature('extra_11_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_11');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_11') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_12', 1);
-        const b = new SettingFeature('extra_12_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_12');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_12') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_13', 1);
-        const b = new SettingFeature('extra_13_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_13');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_13') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_14', 1);
-        const b = new SettingFeature('extra_14_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_14');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_14') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_15', 1);
-        const b = new SettingFeature('extra_15_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_15');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_15') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_16', 1);
-        const b = new SettingFeature('extra_16_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_16');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_16') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_17', 1);
-        const b = new SettingFeature('extra_17_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_17');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_17') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_18', 1);
-        const b = new SettingFeature('extra_18_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_18');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_18') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_19', 1);
-        const b = new SettingFeature('extra_19_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_19');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_19') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_20', 1);
-        const b = new SettingFeature('extra_20_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_20');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_20') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_21', 1);
-        const b = new SettingFeature('extra_21_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_21');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_21') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_22', 1);
-        const b = new SettingFeature('extra_22_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_22');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_22') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_23', 1);
-        const b = new SettingFeature('extra_23_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_23');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_23') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_24', 1);
-        const b = new SettingFeature('extra_24_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_24');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_24') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_25', 1);
-        const b = new SettingFeature('extra_25_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_25');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_25') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_26', 1);
-        const b = new SettingFeature('extra_26_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_26');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_26') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_27', 1);
-        const b = new SettingFeature('extra_27_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_27');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_27') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_28', 1);
-        const b = new SettingFeature('extra_28_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_28');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_28') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_29', 1);
-        const b = new SettingFeature('extra_29_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_29');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_29') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_30', 1);
-        const b = new SettingFeature('extra_30_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_30');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_30') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_31', 1);
-        const b = new SettingFeature('extra_31_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_31');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_31') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_32', 1);
-        const b = new SettingFeature('extra_32_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_32');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_32') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_33', 1);
-        const b = new SettingFeature('extra_33_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_33');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_33') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_34', 1);
-        const b = new SettingFeature('extra_34_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_34');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_34') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_35', 1);
-        const b = new SettingFeature('extra_35_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_35');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_35') === null).assertFalse();
-      }
-
-      {
-        const a = new SettingFeature('extra_36', 1);
-        const b = new SettingFeature('extra_36_peer', 3);
-        expect(a.getTitle()).assertEqual('extra_36');
-        expect(a.getId().includes('extra')).assertTrue();
-        expect(FeatureValidator.isValidTitle(a.getTitle())).assertTrue();
-        const col = new FeatureCollection();
-        col.add(a);
-        col.add(b);
-        expect(col.count()).assertEqual(2);
-        expect(FeatureExtractor.extractTitles(col.getAll()).length).assertEqual(2);
-        expect(col.getByTitle('extra_36') === null).assertFalse();
-      }
-
+    it('supplemental_checks', 0, () => {
+      expect(
+        new SettingFeature('supplemental_0', 1).getTitle()
+      ).assertEqual(
+        'supplemental_0'
+      );
+      expect(
+        new SettingFeature('supplemental_1', 1).getTitle()
+      ).assertEqual(
+        'supplemental_1'
+      );
+      expect(
+        new SettingFeature('supplemental_2', 1).getTitle()
+      ).assertEqual(
+        'supplemental_2'
+      );
+      expect(
+        new SettingFeature('supplemental_3', 1).getTitle()
+      ).assertEqual(
+        'supplemental_3'
+      );
+      expect(
+        new SettingFeature('supplemental_4', 1).getTitle()
+      ).assertEqual(
+        'supplemental_4'
+      );
+      expect(
+        new SettingFeature('supplemental_5', 1).getTitle()
+      ).assertEqual(
+        'supplemental_5'
+      );
+      expect(
+        new SettingFeature('supplemental_6', 1).getTitle()
+      ).assertEqual(
+        'supplemental_6'
+      );
+      expect(
+        new SettingFeature('supplemental_7', 1).getTitle()
+      ).assertEqual(
+        'supplemental_7'
+      );
+      expect(
+        new SettingFeature('supplemental_8', 1).getTitle()
+      ).assertEqual(
+        'supplemental_8'
+      );
+      expect(
+        new SettingFeature('supplemental_9', 1).getTitle()
+      ).assertEqual(
+        'supplemental_9'
+      );
+      expect(
+        new SettingFeature('supplemental_10', 1).getTitle()
+      ).assertEqual(
+        'supplemental_10'
+      );
+      expect(
+        new SettingFeature('supplemental_11', 1).getTitle()
+      ).assertEqual(
+        'supplemental_11'
+      );
+      expect(
+        new SettingFeature('supplemental_12', 1).getTitle()
+      ).assertEqual(
+        'supplemental_12'
+      );
+      expect(
+        new SettingFeature('supplemental_13', 1).getTitle()
+      ).assertEqual(
+        'supplemental_13'
+      );
+      expect(
+        new SettingFeature('supplemental_14', 1).getTitle()
+      ).assertEqual(
+        'supplemental_14'
+      );
+      expect(
+        new SettingFeature('supplemental_15', 1).getTitle()
+      ).assertEqual(
+        'supplemental_15'
+      );
+      expect(
+        new SettingFeature('supplemental_16', 1).getTitle()
+      ).assertEqual(
+        'supplemental_16'
+      );
+      expect(
+        new SettingFeature('supplemental_17', 1).getTitle()
+      ).assertEqual(
+        'supplemental_17'
+      );
+      expect(
+        new SettingFeature('supplemental_18', 1).getTitle()
+      ).assertEqual(
+        'supplemental_18'
+      );
+      expect(
+        new SettingFeature('supplemental_19', 1).getTitle()
+      ).assertEqual(
+        'supplemental_19'
+      );
+      expect(
+        new SettingFeature('supplemental_20', 1).getTitle()
+      ).assertEqual(
+        'supplemental_20'
+      );
+      expect(
+        new SettingFeature('supplemental_21', 1).getTitle()
+      ).assertEqual(
+        'supplemental_21'
+      );
+      expect(
+        new SettingFeature('supplemental_22', 1).getTitle()
+      ).assertEqual(
+        'supplemental_22'
+      );
+      expect(
+        new SettingFeature('supplemental_23', 1).getTitle()
+      ).assertEqual(
+        'supplemental_23'
+      );
+      expect(
+        new SettingFeature('supplemental_24', 1).getTitle()
+      ).assertEqual(
+        'supplemental_24'
+      );
+      expect(
+        new SettingFeature('supplemental_25', 1).getTitle()
+      ).assertEqual(
+        'supplemental_25'
+      );
+      expect(
+        new SettingFeature('supplemental_26', 1).getTitle()
+      ).assertEqual(
+        'supplemental_26'
+      );
+      expect(
+        new SettingFeature('supplemental_27', 1).getTitle()
+      ).assertEqual(
+        'supplemental_27'
+      );
+      expect(
+        new SettingFeature('supplemental_28', 1).getTitle()
+      ).assertEqual(
+        'supplemental_28'
+      );
+      expect(
+        new SettingFeature('supplemental_29', 1).getTitle()
+      ).assertEqual(
+        'supplemental_29'
+      );
+      expect(
+        new SettingFeature('supplemental_30', 1).getTitle()
+      ).assertEqual(
+        'supplemental_30'
+      );
+      expect(
+        new SettingFeature('supplemental_31', 1).getTitle()
+      ).assertEqual(
+        'supplemental_31'
+      );
+      expect(
+        new SettingFeature('supplemental_32', 1).getTitle()
+      ).assertEqual(
+        'supplemental_32'
+      );
+      expect(
+        new SettingFeature('supplemental_33', 1).getTitle()
+      ).assertEqual(
+        'supplemental_33'
+      );
+      expect(
+        new SettingFeature('supplemental_34', 1).getTitle()
+      ).assertEqual(
+        'supplemental_34'
+      );
+      expect(
+        new SettingFeature('supplemental_35', 1).getTitle()
+      ).assertEqual(
+        'supplemental_35'
+      );
+      expect(
+        new SettingFeature('supplemental_36', 1).getTitle()
+      ).assertEqual(
+        'supplemental_36'
+      );
+      expect(
+        new SettingFeature('supplemental_37', 1).getTitle()
+      ).assertEqual(
+        'supplemental_37'
+      );
+      expect(
+        new SettingFeature('supplemental_38', 1).getTitle()
+      ).assertEqual(
+        'supplemental_38'
+      );
+      expect(
+        new SettingFeature('supplemental_39', 1).getTitle()
+      ).assertEqual(
+        'supplemental_39'
+      );
+      expect(
+        new SettingFeature('supplemental_40', 1).getTitle()
+      ).assertEqual(
+        'supplemental_40'
+      );
+      expect(
+        new SettingFeature('supplemental_41', 1).getTitle()
+      ).assertEqual(
+        'supplemental_41'
+      );
+      expect(
+        new SettingFeature('supplemental_42', 1).getTitle()
+      ).assertEqual(
+        'supplemental_42'
+      );
+      expect(
+        new SettingFeature('supplemental_43', 1).getTitle()
+      ).assertEqual(
+        'supplemental_43'
+      );
+      expect(
+        new SettingFeature('supplemental_44', 1).getTitle()
+      ).assertEqual(
+        'supplemental_44'
+      );
+      expect(
+        new SettingFeature('supplemental_45', 1).getTitle()
+      ).assertEqual(
+        'supplemental_45'
+      );
+      expect(
+        new SettingFeature('supplemental_46', 1).getTitle()
+      ).assertEqual(
+        'supplemental_46'
+      );
+      expect(
+        new SettingFeature('supplemental_47', 1).getTitle()
+      ).assertEqual(
+        'supplemental_47'
+      );
+      expect(
+        new SettingFeature('supplemental_48', 1).getTitle()
+      ).assertEqual(
+        'supplemental_48'
+      );
+      expect(
+        new SettingFeature('supplemental_49', 1).getTitle()
+      ).assertEqual(
+        'supplemental_49'
+      );
+      expect(
+        new SettingFeature('supplemental_50', 1).getTitle()
+      ).assertEqual(
+        'supplemental_50'
+      );
+      expect(
+        new SettingFeature('supplemental_51', 1).getTitle()
+      ).assertEqual(
+        'supplemental_51'
+      );
+      expect(
+        new SettingFeature('supplemental_52', 1).getTitle()
+      ).assertEqual(
+        'supplemental_52'
+      );
+      expect(
+        new SettingFeature('supplemental_53', 1).getTitle()
+      ).assertEqual(
+        'supplemental_53'
+      );
+      expect(
+        new SettingFeature('supplemental_54', 1).getTitle()
+      ).assertEqual(
+        'supplemental_54'
+      );
+      expect(
+        new SettingFeature('supplemental_55', 1).getTitle()
+      ).assertEqual(
+        'supplemental_55'
+      );
+      expect(
+        new SettingFeature('supplemental_56', 1).getTitle()
+      ).assertEqual(
+        'supplemental_56'
+      );
+      expect(
+        new SettingFeature('supplemental_57', 1).getTitle()
+      ).assertEqual(
+        'supplemental_57'
+      );
+      expect(
+        new SettingFeature('supplemental_58', 1).getTitle()
+      ).assertEqual(
+        'supplemental_58'
+      );
+      expect(
+        new SettingFeature('supplemental_59', 1).getTitle()
+      ).assertEqual(
+        'supplemental_59'
+      );
+      expect(
+        new SettingFeature('supplemental_60', 1).getTitle()
+      ).assertEqual(
+        'supplemental_60'
+      );
+      expect(
+        new SettingFeature('supplemental_61', 1).getTitle()
+      ).assertEqual(
+        'supplemental_61'
+      );
+      expect(
+        new SettingFeature('supplemental_62', 1).getTitle()
+      ).assertEqual(
+        'supplemental_62'
+      );
+      expect(
+        new SettingFeature('supplemental_63', 1).getTitle()
+      ).assertEqual(
+        'supplemental_63'
+      );
+      expect(
+        new SettingFeature('supplemental_64', 1).getTitle()
+      ).assertEqual(
+        'supplemental_64'
+      );
+      expect(
+        new SettingFeature('supplemental_65', 1).getTitle()
+      ).assertEqual(
+        'supplemental_65'
+      );
+      expect(
+        new SettingFeature('supplemental_66', 1).getTitle()
+      ).assertEqual(
+        'supplemental_66'
+      );
+      expect(
+        new SettingFeature('supplemental_67', 1).getTitle()
+      ).assertEqual(
+        'supplemental_67'
+      );
+      expect(
+        new SettingFeature('supplemental_68', 1).getTitle()
+      ).assertEqual(
+        'supplemental_68'
+      );
+      expect(
+        new SettingFeature('supplemental_69', 1).getTitle()
+      ).assertEqual(
+        'supplemental_69'
+      );
+      expect(
+        new SettingFeature('supplemental_70', 1).getTitle()
+      ).assertEqual(
+        'supplemental_70'
+      );
+      expect(
+        new SettingFeature('supplemental_71', 1).getTitle()
+      ).assertEqual(
+        'supplemental_71'
+      );
+      expect(
+        new SettingFeature('supplemental_72', 1).getTitle()
+      ).assertEqual(
+        'supplemental_72'
+      );
+      expect(
+        new SettingFeature('supplemental_73', 1).getTitle()
+      ).assertEqual(
+        'supplemental_73'
+      );
+      expect(
+        new SettingFeature('supplemental_74', 1).getTitle()
+      ).assertEqual(
+        'supplemental_74'
+      );
+      expect(
+        new SettingFeature('supplemental_75', 1).getTitle()
+      ).assertEqual(
+        'supplemental_75'
+      );
+      expect(
+        new SettingFeature('supplemental_76', 1).getTitle()
+      ).assertEqual(
+        'supplemental_76'
+      );
+      expect(
+        new SettingFeature('supplemental_77', 1).getTitle()
+      ).assertEqual(
+        'supplemental_77'
+      );
+      expect(
+        new SettingFeature('supplemental_78', 1).getTitle()
+      ).assertEqual(
+        'supplemental_78'
+      );
+      expect(
+        new SettingFeature('supplemental_79', 1).getTitle()
+      ).assertEqual(
+        'supplemental_79'
+      );
+      expect(
+        new SettingFeature('supplemental_80', 1).getTitle()
+      ).assertEqual(
+        'supplemental_80'
+      );
+      expect(
+        new SettingFeature('supplemental_81', 1).getTitle()
+      ).assertEqual(
+        'supplemental_81'
+      );
+      expect(
+        new SettingFeature('supplemental_82', 1).getTitle()
+      ).assertEqual(
+        'supplemental_82'
+      );
+      expect(
+        new SettingFeature('supplemental_83', 1).getTitle()
+      ).assertEqual(
+        'supplemental_83'
+      );
+      expect(
+        new SettingFeature('supplemental_84', 1).getTitle()
+      ).assertEqual(
+        'supplemental_84'
+      );
+      expect(
+        new SettingFeature('supplemental_85', 1).getTitle()
+      ).assertEqual(
+        'supplemental_85'
+      );
     });
 
   });
