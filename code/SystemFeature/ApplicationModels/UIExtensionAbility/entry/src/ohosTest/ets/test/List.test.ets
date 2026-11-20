@@ -61,7 +61,7 @@ import localizationTestingTest from './Integration/LocalizationTesting.test';
 import networkConnectivityTest from './Integration/NetworkConnectivity.test';
 import systemIntegrationTest from './Integration/SystemIntegration.test';
 import userScenariosTest from './Integration/UserScenarios.test';
-import accessibilityNavigationTest from './Interaction/AccessibilityNavigation.test';
+import a11yNavigationTest from './Interaction/AccessibilityNavigation.test';
 import buttonInteractionTest from './Interaction/ButtonInteraction.test';
 import contentScalingTest from './Interaction/ContentScaling.test';
 import dataBindingTest from './Interaction/DataBinding.test';
@@ -142,7 +142,7 @@ export default function testsuite(): void {
   networkConnectivityTest();
   systemIntegrationTest();
   userScenariosTest();
-  accessibilityNavigationTest();
+  a11yNavigationTest();
   buttonInteractionTest();
   contentScalingTest();
   dataBindingTest();

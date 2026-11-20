@@ -414,7 +414,7 @@ class ExtensionTestModel {
   }
 }
 
-export default function accessibilityNavigationTest(): void {
+export default function a11yNavigationTest(): void {
   describe('AccessibilityNavigation_Test', () => {
     let model: ExtensionTestModel;
 

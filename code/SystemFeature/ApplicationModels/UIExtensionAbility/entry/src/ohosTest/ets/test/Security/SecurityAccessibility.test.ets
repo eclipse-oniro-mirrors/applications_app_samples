@@ -483,12 +483,12 @@ export default function securityAccessibilityTest(): void {
       expect(model.getPermissionCount()).assertEqual(2);
     });
 
-    it('accessibility_should_expose_message_text_8', 0, async () => {
+    it('usability_should_expose_message_text_8', 0, async () => {
       model.onReceive('UIExtension provider 8');
       expect(model.getLastMessage().indexOf('UIExtension provider')).assertEqual(0);
     });
 
-    it('accessibility_should_keep_focus_index_bounded_9', 0, async () => {
+    it('focus_should_keep_index_bounded_9', 0, async () => {
       const index: number = clampValue(9, 0, 3);
       expect(index >= 0).assertTrue();
       expect(index <= 3).assertTrue();

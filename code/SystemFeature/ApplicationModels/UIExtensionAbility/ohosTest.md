@@ -197,8 +197,9 @@
 hvigorw.bat --mode module -p product=default -p module=entry@default,entry@ohosTest assembleHap
 hdc -t <serial> install entry/build/default/outputs/default/entry-default-signed.hap
 hdc -t <serial> install entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc -t <serial> shell "aa test -b com.samples.uiextensionability -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000"
 ```
+
+测试通过 `OpenHarmonyTestRunner` 在 `entry_test` 模块中运行。
 
 实测结果：
 

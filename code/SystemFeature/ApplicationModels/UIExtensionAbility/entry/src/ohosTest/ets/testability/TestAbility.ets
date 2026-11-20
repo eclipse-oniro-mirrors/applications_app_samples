@@ -39,7 +39,13 @@ function logLifecycle(event: string): void {
  * undefined when the framework starts it directly, so the helper guards it.
  */
 function logWant(want: Want): void {
-  const wantText: string = want === undefined ? '{}' : JSON.stringify(want);
+  let wantText: string = '{}';
+  try {
+    const serialized: string | undefined = JSON.stringify(want);
+    wantText = serialized === undefined ? '{}' : serialized;
+  } catch (error) {
+    wantText = '{}';
+  }
   hilog.info(DOMAIN, TAG, FORMAT, 'want param: ' + wantText);
 }
 
@@ -48,7 +54,13 @@ function logWant(want: Want): void {
  * separate makes the onCreate flow easier to follow in the hilog stream.
  */
 function logLaunchParam(launchParam: AbilityConstant.LaunchParam): void {
-  const paramText: string = launchParam === undefined ? '{}' : JSON.stringify(launchParam);
+  let paramText: string = '{}';
+  try {
+    const serialized: string | undefined = JSON.stringify(launchParam);
+    paramText = serialized === undefined ? '{}' : serialized;
+  } catch (error) {
+    paramText = '{}';
+  }
   hilog.info(DOMAIN, TAG, FORMAT, 'launch param: ' + paramText);
 }
 
@@ -59,10 +71,24 @@ function logLaunchParam(launchParam: AbilityConstant.LaunchParam): void {
 function loadTestContent(windowStage: window.WindowStage): void {
   windowStage.loadContent('testability/pages/Index', (err, data) => {
     if (err.code) {
-      hilog.error(DOMAIN, TAG, FORMAT, 'Failed to load the content: ' + JSON.stringify(err));
+      let errText: string = '{}';
+      try {
+        const serializedErr: string | undefined = JSON.stringify(err);
+        errText = serializedErr === undefined ? '{}' : serializedErr;
+      } catch (error) {
+        errText = '{}';
+      }
+      hilog.error(DOMAIN, TAG, FORMAT, 'Failed to load the content: ' + errText);
       return;
     }
-    hilog.info(DOMAIN, TAG, FORMAT, 'Succeeded in loading the content: ' + JSON.stringify(data));
+    let dataText: string = '{}';
+    try {
+      const serializedData: string | undefined = JSON.stringify(data);
+      dataText = serializedData === undefined ? '{}' : serializedData;
+    } catch (error) {
+      dataText = '{}';
+    }
+    hilog.info(DOMAIN, TAG, FORMAT, 'Succeeded in loading the content: ' + dataText);
   });
 }
 
