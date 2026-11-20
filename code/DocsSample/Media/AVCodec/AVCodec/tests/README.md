@@ -32,7 +32,7 @@ Native保留跨播放任务的应用前后台状态，后台事件先写入原�
 | Native | 23项Debug、Release全量Pass，Release使用`-O2 -DNDEBUG`，失败检查负向控制按预期退出1。最后调整后台事件记录顺序后，`PlayerLifecycleIntegrationTest`再次通过Debug、Release、ASan和UBSan；覆盖排队起播、READY后起播、重播、前后台恢复、许可开关和手动暂停。Native使用OHOS接口替身。 |
 | CodeLinter与构建 | 245条存量结果、0条新增，基线未修改。SDK 26.0.0的HAP构建及签名Pass，保留存量ArkTS警告；最后代码版本也通过设备测试前的构建和签名。 |
 | 默认设备套件 | 13套、49/49 Pass，0失败、0错误、0忽略。 |
-| 显式轮询基准 | 空闲、播放、暂停3/3 Pass，断言参数日志正常。本轮仅执行1轮，不替换上表历史3轮、9项的性能记录。首次两次运行因素材未复制到目标文件位置而失败，改用绝对文件路径并校正属主后重跑通过。 |
+| 显式轮询基准 | 空闲、播放、暂停3/3 Pass，断言参数日志正常。本轮仅执行1轮，不替换上表历史3轮、9项的性能记录。前两次运行因素材未复制到目标文件位置而失败，改用以根目录为起点的完整文件路径，并校正属主后重跑通过。 |
 
 日志保存在本机`%TEMP%/codex-pr12197-fix-20261119/`：`host-final.log`、`native-debug.log`、`native-release.log`、`final-debug.log`、`final-release.log`、`final-address.log`、`final-undefined.log`、`lint-final.log`、`build.log`、`device-final.log`、`device-benchmark-final.log`和`device-benchmark-final-hilog.log`。默认设备套件与显式基准分别运行，测试结果及范围见[本轮测试记录](../ohosTest.md#pr检视修复回归)。
 
