@@ -13,20 +13,22 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const TAG: string = '[Sample_ScanNapiInterfaceDemo]';
 
 export class ScanLog {
-  private static readonly SETTING_DOMAIN:number = 0x0000;
-  static debug(msg) :void {
-    hilog.debug(ScanLog.SETTING_DOMAIN, 'scanDemo',msg);
+  private static readonly SETTING_DOMAIN: number = 0xF811;
+  static debug(msg: string): void {
+    hilog.debug(ScanLog.SETTING_DOMAIN, TAG, '%{public}s', msg);
   }
-  static info(msg) :void {
-    hilog.info(ScanLog.SETTING_DOMAIN,'scanDemo',msg);
+  static info(msg: string): void {
+    hilog.info(ScanLog.SETTING_DOMAIN, TAG, '%{public}s', msg);
   }
-  static warn(msg) :void{
-    hilog.warn(ScanLog.SETTING_DOMAIN,'scanDemo',msg);
+  static warn(msg: string): void {
+    hilog.warn(ScanLog.SETTING_DOMAIN, TAG, '%{public}s', msg);
   }
-  static fatal(msg) :void{
-    hilog.fatal(ScanLog.SETTING_DOMAIN,'scanDemo',msg);
+  static fatal(msg: string): void {
+    hilog.fatal(ScanLog.SETTING_DOMAIN, TAG, '%{public}s', msg);
   }
 }
