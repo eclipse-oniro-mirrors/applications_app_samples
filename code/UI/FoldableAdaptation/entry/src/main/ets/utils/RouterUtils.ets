@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/utils/RouterUtils.ets
+ * 文件职责：RouterUtils 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：RouterUtils、NavMode。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { logger } from './Logger';
 import { emitter } from '@kit.BasicServicesKit';
 import { display, window } from '@kit.ArkUI';
@@ -21,17 +28,27 @@ import { DEFAULT_WINDOW_SIZE } from '../constants/Constants';
 // 路由跳转延时
 const DELAY_TIME: number = 20;
 
+/**
+ * RouterUtils：类定义，承载本文件对应的逻辑与数据。
+ */
 export class RouterUtils {
   public static pageStack: NavPathStack = new NavPathStack();
+
   // 全屏子路由
   private static fullScreenRouter: string[] = [];
   private static timer: number = 0;
 
+  /**
+   * setFullScreenRouter：执行 setFullScreenRouter 相关逻辑。
+   */
   public static setFullScreenRouter(fullScreenRouter: string[]) {
     RouterUtils.fullScreenRouter = fullScreenRouter;
   }
 
   // 通过获取页面栈并pop
+  /**
+   * popAppRouter：执行 popAppRouter 相关逻辑。
+   */
   public static popAppRouter(): void {
 
     if (RouterUtils.pageStack.getAllPathName().length > 1) {
@@ -113,8 +130,10 @@ export class RouterUtils {
   }
 }
 
-
 // 设置导航栏显示改变模式枚举值
+/**
+ * NavMode：枚举定义，承载本文件对应的逻辑与数据。
+ */
 export enum NavMode {
   DefaultMode, // 默认模式
   FoldMode, // 折叠模式
