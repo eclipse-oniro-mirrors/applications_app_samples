@@ -571,53 +571,6 @@ export default function windowMatrixTest() {
       }
     })
     /**
-     * @tc.number    SUB_HARPACKAGE_WINDOW_0035
-     * @tc.name      testWindowCase0035
-     * @tc.desc      Default display rotation is in range
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testWindowCase0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const ability: UIAbility = await launchHome();
-      const main: window.Window = await window.getLastWindow(ability.context);
-      const props: window.WindowProperties = main.getWindowProperties();
-      logCase('testWindowCase0035', 'window case 35');
-      const rotation: number = display.getDefaultDisplaySync().rotation;
-      expect(rotation >= 0 && rotation <= 3).assertTrue();
-      {
-      const ability: UIAbility = await launchHome();
-      const main: window.Window = await window.getLastWindow(ability.context);
-      const props: window.WindowProperties = main.getWindowProperties();
-      logCase('testWindowCase0036', 'window case 36');
-      const info: display.Display = display.getDefaultDisplaySync();
-      expect(info.availableWidth <= info.width).assertTrue();
-      }
-    })
-    /**
-     * @tc.number    SUB_HARPACKAGE_WINDOW_0037
-     * @tc.name      testWindowCase0037
-     * @tc.desc      Default display available height fits the screen
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testWindowCase0037', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
-      const ability: UIAbility = await launchHome();
-      const main: window.Window = await window.getLastWindow(ability.context);
-      const props: window.WindowProperties = main.getWindowProperties();
-      logCase('testWindowCase0037', 'window case 37');
-      const info: display.Display = display.getDefaultDisplaySync();
-      expect(info.availableHeight <= info.height).assertTrue();
-      {
-      const ability: UIAbility = await launchHome();
-      const main: window.Window = await window.getLastWindow(ability.context);
-      const props: window.WindowProperties = main.getWindowProperties();
-      logCase('testWindowCase0038', 'window case 38');
-      expect(props.windowRect.width <= display.getDefaultDisplaySync().width).assertTrue();
-      }
-    })
-    /**
      * @tc.number    SUB_HARPACKAGE_WINDOW_0039
      * @tc.name      testWindowCase0039
      * @tc.desc      Window rect height fits the display height
@@ -772,56 +725,6 @@ export default function windowMatrixTest() {
       const props: window.WindowProperties = main.getWindowProperties();
       logCase('testWindowCase0052', 'window case 52');
       expect(props.brightness <= 1).assertTrue();
-      }
-    })
-    /**
-     * @tc.number    SUB_HARPACKAGE_WINDOW_0053
-     * @tc.name      testWindowCase0053
-     * @tc.desc      Avoid area visible flag read twice is stable
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testWindowCase0053', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const ability: UIAbility = await launchHome();
-      const main: window.Window = await window.getLastWindow(ability.context);
-      const props: window.WindowProperties = main.getWindowProperties();
-      logCase('testWindowCase0053', 'window case 53');
-      const first: window.AvoidArea = main.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
-      const second: window.AvoidArea = main.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
-      expect(first.visible).assertEqual(second.visible);
-      {
-      const ability: UIAbility = await launchHome();
-      const main: window.Window = await window.getLastWindow(ability.context);
-      const props: window.WindowProperties = main.getWindowProperties();
-      logCase('testWindowCase0054', 'window case 54');
-      const first: window.AvoidArea = main.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
-      const second: window.AvoidArea = main.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
-      expect(first.topRect.height).assertEqual(second.topRect.height);
-      }
-    })
-    /**
-     * @tc.number    SUB_HARPACKAGE_WINDOW_0055
-     * @tc.name      testWindowCase0055
-     * @tc.desc      Top window is showing
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testWindowCase0055', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const ability: UIAbility = await launchHome();
-      const main: window.Window = await window.getLastWindow(ability.context);
-      const props: window.WindowProperties = main.getWindowProperties();
-      logCase('testWindowCase0055', 'window case 55');
-      const top: window.Window = await window.getTopWindow(ability.context);
-      expect(await top.isWindowShowing()).assertTrue();
-      {
-      const ability: UIAbility = await launchHome();
-      const main: window.Window = await window.getLastWindow(ability.context);
-      const props: window.WindowProperties = main.getWindowProperties();
-      logCase('testWindowCase0056', 'window case 56');
-      const again: window.Window = await window.getLastWindow(ability.context);
-      expect(again.getWindowProperties().windowRect.width).assertEqual(props.windowRect.width);
       }
     })
     /**

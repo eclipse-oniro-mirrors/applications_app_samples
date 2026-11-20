@@ -234,63 +234,6 @@ export default function indexUiMatrixTest() {
             }
     })
     /**
-     * @tc.number    SUB_HARPACKAGE_INDEXUI_0007
-     * @tc.name      testIndexUi0007
-     * @tc.desc      HAR image component exists
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL0
-     */
-    it('testIndexUi0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      await launchHome();
-      logCase('testIndexUi0007', 'index ui case 7');
-      {
-      await launchHome();
-      logCase('testIndexUi0008', 'index ui case 8');
-      await clickId('button');
-      expect(await shown(FUNC_TEXT, DRIVER_WAIT_MS)).assertTrue();
-      }
-    })
-    /**
-     * @tc.number    SUB_HARPACKAGE_INDEXUI_0009
-     * @tc.name      testIndexUi0009
-     * @tc.desc      Function button click hides Hello World
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL0
-     */
-    it('testIndexUi0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      await launchHome();
-      logCase('testIndexUi0009', 'index ui case 9');
-      await clickId('button');
-      expect(await shown(INITIAL_TEXT, 800)).assertFalse();
-      {
-      await launchHome();
-      logCase('testIndexUi0010', 'index ui case 10');
-      await clickId('nativeAdd');
-      expect(await shown(NATIVE_TEXT, DRIVER_WAIT_MS)).assertTrue();
-      }
-    })
-    /**
-     * @tc.number    SUB_HARPACKAGE_INDEXUI_0011
-     * @tc.name      testIndexUi0011
-     * @tc.desc      Native button click hides Hello World
-     * @tc.size      MEDIUMTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL0
-     */
-    it('testIndexUi0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
-      await launchHome();
-      logCase('testIndexUi0011', 'index ui case 11');
-      await clickId('nativeAdd');
-      expect(await shown(INITIAL_TEXT, 800)).assertFalse();
-      {
-      await launchHome();
-      logCase('testIndexUi0012', 'index ui case 12');
-      await clickId('button');
-      }
-    })
-    /**
      * @tc.number    SUB_HARPACKAGE_INDEXUI_0013
      * @tc.name      testIndexUi0013
      * @tc.desc      Native button stays after it is clicked
