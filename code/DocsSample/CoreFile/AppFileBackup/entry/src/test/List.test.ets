@@ -15,6 +15,7 @@
 
 import localUnitTest from './LocalUnit.test';
 
-export default function testsuite() {
+/** Registers the production transfer scenarios with Hypium. */
+export default function testsuite(): void {
   localUnitTest();
 }
