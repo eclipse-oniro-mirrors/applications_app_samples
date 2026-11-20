@@ -3779,5 +3779,69 @@ export default function BindingContractTest(): void {
       expect(binding.store).assertEqual('abc');
     });
 
+    /**
+     * @tc.name BindingContractTest_case_0209
+     * @tc.desc binding-contract: counting binding keeps read/write accounting for han.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0209', 0, () => {
+      const binding: CountingBinding = new CountingBinding();
+      binding.write('\u65b0');
+      expect(binding.read()).assertEqual('\u65b0');
+      expect(binding.read()).assertEqual('\u65b0');
+      expect(binding.writes).assertEqual(1);
+      expect(binding.reads).assertEqual(2);
+      expect(binding.store).assertEqual('\u65b0');
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0210
+     * @tc.desc binding-contract: counting binding keeps read/write accounting for han2.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0210', 0, () => {
+      const binding: CountingBinding = new CountingBinding();
+      binding.write('\u65b0\u5e74');
+      expect(binding.read()).assertEqual('\u65b0\u5e74');
+      expect(binding.read()).assertEqual('\u65b0\u5e74');
+      expect(binding.writes).assertEqual(1);
+      expect(binding.reads).assertEqual(2);
+      expect(binding.store).assertEqual('\u65b0\u5e74');
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0211
+     * @tc.desc binding-contract: counting binding keeps read/write accounting for wish.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0211', 0, () => {
+      const binding: CountingBinding = new CountingBinding();
+      binding.write('\u65b0\u5e74\u5feb\u4e50!');
+      expect(binding.read()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(binding.read()).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+      expect(binding.writes).assertEqual(1);
+      expect(binding.reads).assertEqual(2);
+      expect(binding.store).assertEqual('\u65b0\u5e74\u5feb\u4e50!');
+    });
+
+    /**
+     * @tc.name BindingContractTest_case_0212
+     * @tc.desc binding-contract: counting binding keeps read/write accounting for placeholder.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('BindingContractTest_case_0212', 0, () => {
+      const binding: CountingBinding = new CountingBinding();
+      binding.write('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(binding.read()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(binding.read()).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+      expect(binding.writes).assertEqual(1);
+      expect(binding.reads).assertEqual(2);
+      expect(binding.store).assertEqual('\u8bf7\u8f93\u5165\u4f60\u7684\u65b0\u5e74\u613f\u671b...');
+    });
+
   });
 }
