@@ -4,6 +4,10 @@
       "name": "eat_apple",
       "value": [
         {
+          "quantity": "zero",
+          "value": "%d apples"
+        },
+        {
           "quantity": "one",
           "value": "%d apple"
         },

@@ -2,8 +2,8 @@
 
 ### 介绍
 
-本工程使用[@ohos.app.ability.common](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-common.md)
-接口中的AbilityContext类，获取资源管理器resourceManager，使用[@ohos.resourceManager.d.ts](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-localization-kit/js-apis-resource-manager.md)
+本工程使用[@ohos.app.ability.common](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-common.md)
+接口中的AbilityContext类，获取资源管理器resourceManager，使用[@ohos.resourceManager.d.ts](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-localization-kit/js-apis-resource-manager.md)
 中的接口，展示了格式化字符串查询、基于指定屏幕分辨率查询媒体资源、获取系统资源管理对象等基础功能，以及展示了资源静态overlay以及运行时overlay的特性功能。
 
 ### 效果预览
@@ -66,13 +66,19 @@
 
 ```
 entry/src/main/ets/
-|---entryability
+|---entryability                        // 应用入口
 |---pages
 |   |---Index.ets                     // 场景首页
 |   |---BasicResources.ets            // 基础资源场景
 |   |---Overlay.ets                   // overlay场景      
-|---libraryOverlay                    // 静态overlay
-|---libraryRuntimeOverlay             // 运行时overlay
+|---utils
+|   |---ResourceUtils.ets             // 密度归一化、字节数格式化、Base64长度换算、复数分支等纯函数
+|   |---RouteTable.ets                // 页面注册表与路由地址解析
+|---service
+|   |---ResourceAccessService.ets     // resourceManager 访问封装
+|   |---OverlayController.ets         // overlay 按钮动作判定与状态机
+libraryOverlay                        // 静态overlay模块（工程根目录）
+libraryRuntimeOverlay                 // 运行时overlay模块（工程根目录）
 ```
 
 ### 具体实现
@@ -88,25 +94,33 @@ entry/src/main/ets/
 
 2、导包resourceManager，使用resourceManager.getSystemResourceManager()获取系统资源管理对象，然后获取系统资源。
 
-源码参考：[资源API调用示例](entry/src/main/ets/pages/BasicResources.ets)
+3、页面将资源读取委托给ResourceAccessService，由该类封装resourceManager的调用；其中的密度归一化、Base64长度换算、复数分支判定和资源键清理由ResourceUtils的静态方法实现。
+
+源码参考：[资源API调用示例](entry/src/main/ets/pages/BasicResources.ets)与[资源工具类](entry/src/main/ets/utils/ResourceUtils.ets)
+
+#### 首页路由的具体实现：
+
+Index.ets通过RouteTable声明的页面顺序校验和解析页面地址，未注册的地址回退到首页，并携带表中声明的resources事件名跳转到资源API示例页面。
+
+源码参考：[首页](entry/src/main/ets/pages/Index.ets)与[路由表](entry/src/main/ets/utils/RouteTable.ets)
 
 #### overlay场景的具体实现：
 
-1、静态overlay主要是通过加载overly中的资源实现资源覆盖，需要在对应的module.json中添加"targetModuleName":"entry"， 表示覆盖entry中的资源，默认使能，也可调用包管理接口进行使能和去使能。
+1、静态overlay主要是通过加载overlay中的资源实现资源覆盖，需要在对应的module.json中添加"targetModuleName":"entry"， 表示覆盖entry中的资源，默认使能，也可调用包管理接口进行使能和去使能。
 
-使用步骤为：在安装完entry的hap后，需要把library模块生成的library-default-signed.hsp推送到/data/test下，使用bm install命令进行安装。
+使用步骤为：在安装完entry的hap后，需要把libraryOverlay模块生成的libraryOverlay-default-signed.hsp推送到/data/test下，使用bm install命令进行安装。
 
 脚本语言如下：
 
-hdc_std shell mount -o remount,rw /
+hdc shell mount -o remount,rw /
 
-hdc_std install ./entry-default-signed.hap
+hdc install ./entry-default-signed.hap
 
-hdc_std shell mkdir /data/test
+hdc shell mkdir /data/test
 
-hdc_std file send ./libraryOverlay-default-signed.hsp /data/test
+hdc file send ./libraryOverlay-default-signed.hsp /data/test
 
-hdc_std shell bm install -p "/data/test/libraryOverlay-default-signed.hsp"
+hdc shell bm install -p "/data/test/libraryOverlay-default-signed.hsp"
 
 pause
 
@@ -116,15 +130,17 @@ pause
 
 脚本语言如下：
 
-hdc_std shell mount -o remount,rw /
+hdc shell mount -o remount,rw /
 
-hdc_std install ./entry-default-signed.hap
+hdc install ./entry-default-signed.hap
 
-hdc_std file send ./libraryRuntimeOverlay-default-signed.hsp /data/app/el1/bundle/public/ohos.samples.resourcemanager
+hdc file send ./libraryRuntimeOverlay-default-signed.hsp /data/app/el1/bundle/public/ohos.samples.resourcemanager
 
 pause
 
-源码参考：[Overlay示例](entry/src/main/ets/pages/Overlay.ets)
+3、页面通过OverlayController判定按钮动作、维护overlay状态迁移并选择提示文案对应的资源键，Overlay.ets只按判定结果刷新界面。
+
+源码参考：[Overlay示例](entry/src/main/ets/pages/Overlay.ets)与[overlay控制类](entry/src/main/ets/service/OverlayController.ets)
 
 
 ### 相关权限
@@ -139,9 +155,13 @@ pause
 
 1. 本工程示例仅支持标准系统上运行。
 
-2. 本工程仅支持API10版本SDK，SDK版本号(API Version 10 Release),镜像版本号(4.0Release)。
+2. 本工程仅支持API26版本SDK，SDK版本号(API Version 26.0.0)，镜像版本号(7.1.0.21)。
 
-3. 本工程示例需要使用DevEco Studio 版本号(4.0Release)及以上版本才可编译运行。
+3. 本工程示例需要使用DevEco Studio 26及以上版本才可编译运行。
+
+### 测试
+
+本工程提供ohosTest自动化用例（56个测试套件、3628条用例），其中ui/下5个套件共128条为UiTest界面用例，appres/下2个套件共60条读取被测模块的真实资源。全部套件已在API 26真机上按describe分批执行通过。执行步骤与测试产物路径见[ohosTest.md](ohosTest.md)。
 
 ### 下载
 
@@ -151,7 +171,7 @@ pause
 git init
 git config core.sparsecheckout true
 echo code/BasicFeature/Resource/ResourceManager/ > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
 
