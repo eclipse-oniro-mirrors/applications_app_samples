@@ -23,11 +23,11 @@ struct Index {
 
   build() {
     Column({ space: 16 }) {
-      Text('注入手势命令示例')
+      Text($r('app.string.title'))
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
 
-      Button('目标组件')
+      Button($r('app.string.target_button'))
         .width('90%')
         .onAreaChange((_oldArea: Area, newArea: Area) => {
           // 记录目标组件中心点，转换为相对窗口的物理像素（px），供注入命令使用。
@@ -39,10 +39,10 @@ struct Index {
           this.clickCount += 1;
         })
 
-      Text(`目标组件被点击 ${this.clickCount} 次`)
+      Text($r('app.string.click_count', this.clickCount))
         .fontSize(16)
 
-      Button('注入点击命令')
+      Button($r('app.string.inject_button'))
         .width('90%')
         .onClick(() => {
           nativeInject.injectClick(this.getUIContext(), this.targetX, this.targetY);
