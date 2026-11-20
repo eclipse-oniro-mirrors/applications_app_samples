@@ -13,41 +13,41 @@
  * limitations under the License.
  */
 
-import { hilog } from '@kit.PerformanceAnalysisKit'
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 class Logger {
-  private domain: number
-  private prefix: string
-  private format: string = '%{public}s, %{public}s'
+  private domain: number;
+  private prefix: string;
+  private format: string = '%{public}s, %{public}s';
 
   constructor(prefix: string) {
-    this.prefix = prefix
-    this.domain = 0xF811
+    this.prefix = prefix;
+    this.domain = 0xF811;
   }
 
   public debug(...args: string[]): void {
-    hilog.debug(this.domain, this.prefix, this.format, args)
+    hilog.debug(this.domain, this.prefix, this.format, args);
   }
 
   public info(...args: string[]): void {
-    hilog.info(this.domain, this.prefix, this.format, args)
+    hilog.info(this.domain, this.prefix, this.format, args);
   }
 
   public warn(...args: string[]): void {
-    hilog.warn(this.domain, this.prefix, this.format, args)
+    hilog.warn(this.domain, this.prefix, this.format, args);
   }
 
   public error(...args: string[]): void {
-    hilog.error(this.domain, this.prefix, this.format, args)
+    hilog.error(this.domain, this.prefix, this.format, args);
   }
 
   public fatal(...args: string[]): void {
-    hilog.fatal(this.domain, this.prefix, this.format, args)
+    hilog.fatal(this.domain, this.prefix, this.format, args);
   }
 
   public isLoggable(level: number): void {
-    hilog.isLoggable(this.domain, this.prefix, level)
+    hilog.isLoggable(this.domain, this.prefix, level);
   }
 }
 
-export default new Logger('[Sample_Cipher]')
+export default new Logger('[Sample_Cipher]');
