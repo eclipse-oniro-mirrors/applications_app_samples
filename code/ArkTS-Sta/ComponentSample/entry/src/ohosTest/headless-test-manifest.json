@@ -1817,10 +1817,257 @@
         "expect(listener.indices).assertDeepEquals([9])",
         "expect(listener.sourceCounts).assertDeepEquals([10])"
       ]
+    },
+    {
+      "name": "linkageTwoBatchesAppendWithoutReplacement",
+      "description": "Successive linkage groups append and advance final notification index",
+      "inputs": {
+        "groups": [
+          "first0..first9",
+          "second0..second9"
+        ]
+      },
+      "expected": {
+        "count": 20,
+        "eventIndices": [
+          9,
+          19
+        ]
+      },
+      "productionSource": "entry/src/main/ets/pages/SecondaryLinkage/DataType.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0051",
+      "file": "ets/test/LinkageDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(20)",
+        "expect(source.getData(0).desc).assertEqual('first0')",
+        "expect(source.getData(9).desc).assertEqual('first9')",
+        "expect(source.getData(10).desc).assertEqual('second0')",
+        "expect(source.getData(19).desc).assertEqual('second9')",
+        "expect(listener.indices).assertDeepEquals([9, 19])"
+      ]
+    },
+    {
+      "name": "linkageSingleInsertWorksOnEmptySource",
+      "description": "Single-record insert can initialize an empty linkage source",
+      "inputs": {
+        "index": 0,
+        "row": {
+          "desc": "single",
+          "tag": "new"
+        }
+      },
+      "expected": {
+        "count": 1,
+        "eventIndex": 0
+      },
+      "productionSource": "entry/src/main/ets/pages/SecondaryLinkage/DataType.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0052",
+      "file": "ets/test/LinkageDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.totalCount()).assertEqual(1)",
+        "expect(source.getData(0).desc).assertEqual('single')",
+        "expect(source.getData(0).tag).assertEqual('new')",
+        "expect(listener.indices).assertDeepEquals([0])"
+      ]
+    },
+    {
+      "name": "linkageFractionalInsertRetainsTags",
+      "description": "Fractional linkage insertion keeps adjacent categories and integer event index",
+      "inputs": {
+        "initialTags": [
+          "A",
+          "B"
+        ],
+        "index": 1.6,
+        "insertedTag": "C"
+      },
+      "expected": {
+        "tags": [
+          "A",
+          "C",
+          "B"
+        ],
+        "eventIndex": 1
+      },
+      "productionSource": "entry/src/main/ets/pages/SecondaryLinkage/DataType.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0053",
+      "file": "ets/test/LinkageDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.getData(0).tag).assertEqual('A')",
+        "expect(source.getData(1).tag).assertEqual('C')",
+        "expect(source.getData(2).tag).assertEqual('B')",
+        "expect(listener.indices).assertDeepEquals([1])"
+      ]
+    },
+    {
+      "name": "linkageListenerDeduplication",
+      "description": "Linkage duplicate listener registration emits one single-insert event",
+      "inputs": {
+        "registerSame": 2,
+        "operation": "addData"
+      },
+      "expected": {
+        "events": [
+          "add"
+        ]
+      },
+      "productionSource": "entry/src/main/ets/pages/SecondaryLinkage/DataType.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0054",
+      "file": "ets/test/LinkageDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(listener.eventTypes).assertDeepEquals(['add'])",
+        "expect(listener.indices).assertDeepEquals([0])"
+      ]
+    },
+    {
+      "name": "linkageUnregisterStopsOnlyRemovedListener",
+      "description": "Removing one linkage listener preserves the remaining listener",
+      "inputs": {
+        "subscribers": 2,
+        "removed": "first"
+      },
+      "expected": {
+        "firstEvents": [],
+        "secondEvents": [
+          "add"
+        ]
+      },
+      "productionSource": "entry/src/main/ets/pages/SecondaryLinkage/DataType.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0055",
+      "file": "ets/test/LinkageDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(first.eventTypes.length).assertEqual(0)",
+        "expect(second.eventTypes).assertDeepEquals(['add'])"
+      ]
+    },
+    {
+      "name": "linkageRecordsRetainReferenceIdentity",
+      "description": "A single inserted linkage record keeps reference identity for later edits",
+      "inputs": {
+        "row": {
+          "desc": "before edit",
+          "tag": "A"
+        },
+        "edit": "after edit"
+      },
+      "expected": {
+        "sameReference": true,
+        "storedDesc": "after edit"
+      },
+      "productionSource": "entry/src/main/ets/pages/SecondaryLinkage/DataType.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0056",
+      "file": "ets/test/LinkageDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(source.getData(0) === row).assertTrue()",
+        "expect(source.getData(0).desc).assertEqual('after edit')",
+        "expect(source.getData(0).tag).assertEqual('A')"
+      ]
+    },
+    {
+      "name": "linkageMoveNotificationLeavesOrderIntact",
+      "description": "Move notification reports truncated indices without moving stored rows",
+      "inputs": {
+        "move": [
+          0.9,
+          1.9
+        ],
+        "change": 1.2,
+        "delete": 0.8
+      },
+      "expected": {
+        "order": [
+          "first",
+          "second"
+        ],
+        "events": [
+          "move",
+          "change",
+          "delete"
+        ]
+      },
+      "productionSource": "entry/src/main/ets/pages/SecondaryLinkage/DataType.ets#MyDataSource",
+      "number": "SUB_COMPONENT_0057",
+      "file": "ets/test/LinkageDataSource.test.ets",
+      "expectedAssertions": [
+        "expect(listener.eventTypes).assertDeepEquals(['move', 'change', 'delete'])",
+        "expect(listener.fromIndices).assertDeepEquals([0, -1, -1])",
+        "expect(listener.toIndices).assertDeepEquals([1, -1, -1])",
+        "expect(listener.indices).assertDeepEquals([-1, 1, 0])",
+        "expect(source.getData(0).desc).assertEqual('first')",
+        "expect(source.getData(1).desc).assertEqual('second')",
+        "expect(source.totalCount()).assertEqual(2)"
+      ]
+    },
+    {
+      "name": "componentStyleMatchesCardLayoutContract",
+      "description": "Exported style values preserve the linkage card layout dimensions",
+      "inputs": {
+        "export": "ComponentStyle"
+      },
+      "expected": {
+        "ITEM_GUTTER": 12,
+        "TAG_TEXT_HEIGHT": 75,
+        "SUB_ITEM_GUTTER": 7,
+        "SUB_ITEM_HEIGHT": 96,
+        "SUB_ITEM_TEXT_WIDTH_TITLE": 56,
+        "SUB_ITEM_TEXT_HEIGHT": 12,
+        "SUB_ITEM_TEXT_WIDTH_BODY": 120,
+        "BOTTOM_TOAST_TEXT_MAX_HEIGHT": 200
+      },
+      "productionSource": "entry/src/main/ets/pages/SecondaryLinkage/DataType.ets#ComponentStyle",
+      "number": "SUB_COMPONENT_0058",
+      "file": "ets/test/ExportContracts.test.ets",
+      "expectedAssertions": [
+        "expect(ComponentStyle.ITEM_GUTTER).assertEqual(12)",
+        "expect(ComponentStyle.TAG_TEXT_HEIGHT).assertEqual(75)",
+        "expect(ComponentStyle.SUB_ITEM_GUTTER).assertEqual(7)",
+        "expect(ComponentStyle.SUB_ITEM_HEIGHT).assertEqual(96)",
+        "expect(ComponentStyle.SUB_ITEM_TEXT_WIDTH_TITLE).assertEqual(56)",
+        "expect(ComponentStyle.SUB_ITEM_TEXT_HEIGHT).assertEqual(12)",
+        "expect(ComponentStyle.SUB_ITEM_TEXT_WIDTH_BODY).assertEqual(120)",
+        "expect(ComponentStyle.BOTTOM_TOAST_TEXT_MAX_HEIGHT).assertEqual(200)"
+      ]
+    },
+    {
+      "name": "barTypeKeepsShoppingAndDetailsOrdinals",
+      "description": "Shopping cart and details retain distinct public enum values",
+      "inputs": {
+        "export": "BarType"
+      },
+      "expected": {
+        "SHOPPING_CART": 0,
+        "DETAILS": 1
+      },
+      "productionSource": "entry/src/main/ets/pages/DynamicAttributes/common/CommonText.ets#BarType",
+      "number": "SUB_COMPONENT_0059",
+      "file": "ets/test/ExportContracts.test.ets",
+      "expectedAssertions": [
+        "expect(shopping).assertEqual(0)",
+        "expect(details).assertEqual(1)",
+        "expect(shopping === details).assertFalse()"
+      ]
+    },
+    {
+      "name": "uninitializedContextThrowsDocumentedError",
+      "description": "A fresh context rejects access until an ability context is injected",
+      "inputs": {
+        "abilityContext": "not set"
+      },
+      "expected": {
+        "throws": true,
+        "message": "AbilityContext"
+      },
+      "productionSource": "entry/src/main/ets/entryability/GlobalContext.ets#getAbilityContext",
+      "number": "SUB_COMPONENT_0060",
+      "file": "ets/test/ExportContracts.test.ets",
+      "expectedAssertions": [
+        "expect(failure.message).assertEqual('AbilityContext')",
+        "expect(caught).assertTrue()"
+      ]
     }
   ],
   "suiteCount": 7,
-  "generatedCases": 50,
+  "generatedCases": 60,
   "productionSources": {
     "entry/src/main/ets/entryability/EntryAbility.ets": "b4e78aa674592c0ea95b6c0572faf6d75862bd68451b512a51f4db62e2b5cdf4",
     "entry/src/main/ets/entryability/GlobalContext.ets": "654bd3077d2d667c13ccaa52c851ea3826981fc63105343e10e6cb009351cbe7",
