@@ -487,3 +487,1156 @@ export default function calendarPermissionRoutingTest(): void {
      * @tc.desc Route deferred write/read order with authResults [0, -1] to exactly one denied callback with original
      * object identity.
      * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0011', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [0, -1]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const pending: Pending<PermissionRequestResult> = new Pending<PermissionRequestResult>();
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return pending.promise;
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      pending.resolve(result);
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_1200
+     * @tc.name CalendarEventPermissionRouting_0012
+     * @tc.desc Route resolved write/read order with authResults [-1, 0] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0012', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [-1, 0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(result);
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_1300
+     * @tc.name CalendarEventPermissionRouting_0013
+     * @tc.desc Route deferred write/read order with authResults [0, 1] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0013', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [0, 1]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const pending: Pending<PermissionRequestResult> = new Pending<PermissionRequestResult>();
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return pending.promise;
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      pending.resolve(result);
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_1400
+     * @tc.name CalendarEventPermissionRouting_0014
+     * @tc.desc Route resolved write/read order with authResults [2, 0] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0014', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [2, 0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(result);
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_1500
+     * @tc.name CalendarEventPermissionRouting_0015
+     * @tc.desc Route deferred write/read order with authResults [0, 2147483647] to exactly one denied callback with
+     * original object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0015', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [0, 2147483647]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const pending: Pending<PermissionRequestResult> = new Pending<PermissionRequestResult>();
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return pending.promise;
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      pending.resolve(result);
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_1600
+     * @tc.name CalendarEventPermissionRouting_0016
+     * @tc.desc Route resolved write/read order with authResults [-2147483648, 0] to exactly one denied callback with
+     * original object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0016', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [-2147483648, 0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(result);
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_1700
+     * @tc.name CalendarEventPermissionRouting_0017
+     * @tc.desc Route deferred write/read order with authResults [0] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0017', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const pending: Pending<PermissionRequestResult> = new Pending<PermissionRequestResult>();
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return pending.promise;
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      pending.resolve(result);
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_1800
+     * @tc.name CalendarEventPermissionRouting_0018
+     * @tc.desc Route resolved write/read order with authResults [0, 0, 0] to exactly one denied callback with
+     * original object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0018', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [0, 0, 0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(result);
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_1900
+     * @tc.name CalendarEventPermissionRouting_0019
+     * @tc.desc Route deferred empty permissions with authResults [0, 0] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0019', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+        ],
+        authResults: [0, 0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const pending: Pending<PermissionRequestResult> = new Pending<PermissionRequestResult>();
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return pending.promise;
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      pending.resolve(result);
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_2000
+     * @tc.name CalendarEventPermissionRouting_0020
+     * @tc.desc Route resolved read only with authResults [0, 0] to exactly one denied callback with original object
+     * identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0020', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [0, 0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(result);
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_2100
+     * @tc.name CalendarEventPermissionRouting_0021
+     * @tc.desc Route deferred write only with authResults [0, 0] to exactly one denied callback with original object
+     * identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0021', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.WRITE_CALENDAR'
+        ],
+        authResults: [0, 0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const pending: Pending<PermissionRequestResult> = new Pending<PermissionRequestResult>();
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return pending.promise;
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      pending.resolve(result);
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_2200
+     * @tc.name CalendarEventPermissionRouting_0022
+     * @tc.desc Route resolved duplicate reads with authResults [0, 0] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0022', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR',
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [0, 0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(result);
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_2300
+     * @tc.name CalendarEventPermissionRouting_0023
+     * @tc.desc Route deferred duplicate reads with authResults [0, -1] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0023', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR',
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [0, -1]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const pending: Pending<PermissionRequestResult> = new Pending<PermissionRequestResult>();
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return pending.promise;
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      pending.resolve(result);
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_2400
+     * @tc.name CalendarEventPermissionRouting_0024
+     * @tc.desc Route resolved duplicate writes with authResults [0, 0] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0024', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.WRITE_CALENDAR'
+        ],
+        authResults: [0, 0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(result);
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_2500
+     * @tc.name CalendarEventPermissionRouting_0025
+     * @tc.desc Route deferred duplicate writes with authResults [0, -1] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0025', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.WRITE_CALENDAR'
+        ],
+        authResults: [0, -1]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const pending: Pending<PermissionRequestResult> = new Pending<PermissionRequestResult>();
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return pending.promise;
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      pending.resolve(result);
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_2600
+     * @tc.name CalendarEventPermissionRouting_0026
+     * @tc.desc Route resolved read then unknown with authResults [0, 0] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0026', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR',
+          'ohos.permission.UNKNOWN_CALENDAR'
+        ],
+        authResults: [0, 0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(result);
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_2700
+     * @tc.name CalendarEventPermissionRouting_0027
+     * @tc.desc Route deferred read then unknown with authResults [0, -1] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0027', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR',
+          'ohos.permission.UNKNOWN_CALENDAR'
+        ],
+        authResults: [0, -1]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const pending: Pending<PermissionRequestResult> = new Pending<PermissionRequestResult>();
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return pending.promise;
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      pending.resolve(result);
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_2800
+     * @tc.name CalendarEventPermissionRouting_0028
+     * @tc.desc Route resolved unknown then write with authResults [0, 0] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0028', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.UNKNOWN_CALENDAR',
+          'ohos.permission.WRITE_CALENDAR'
+        ],
+        authResults: [0, 0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(result);
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_2900
+     * @tc.name CalendarEventPermissionRouting_0029
+     * @tc.desc Route deferred unknown then write with authResults [0, -1] to exactly one denied callback with
+     * original object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0029', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.UNKNOWN_CALENDAR',
+          'ohos.permission.WRITE_CALENDAR'
+        ],
+        authResults: [0, -1]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const pending: Pending<PermissionRequestResult> = new Pending<PermissionRequestResult>();
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return pending.promise;
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      pending.resolve(result);
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_3000
+     * @tc.name CalendarEventPermissionRouting_0030
+     * @tc.desc Route resolved write then unknown with authResults [0, 0] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0030', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.UNKNOWN_CALENDAR'
+        ],
+        authResults: [0, 0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(result);
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_3100
+     * @tc.name CalendarEventPermissionRouting_0031
+     * @tc.desc Route deferred write then unknown with authResults [0, -1] to exactly one denied callback with
+     * original object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0031', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.UNKNOWN_CALENDAR'
+        ],
+        authResults: [0, -1]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const pending: Pending<PermissionRequestResult> = new Pending<PermissionRequestResult>();
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return pending.promise;
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      pending.resolve(result);
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_3200
+     * @tc.name CalendarEventPermissionRouting_0032
+     * @tc.desc Route resolved extra unknown with authResults [0, 0] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0032', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR',
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.UNKNOWN_CALENDAR'
+        ],
+        authResults: [0, 0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(result);
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_3300
+     * @tc.name CalendarEventPermissionRouting_0033
+     * @tc.desc Route deferred empty permissions with authResults [] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0033', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+        ],
+        authResults: []
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const pending: Pending<PermissionRequestResult> = new Pending<PermissionRequestResult>();
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return pending.promise;
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      pending.resolve(result);
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_3400
+     * @tc.name CalendarEventPermissionRouting_0034
+     * @tc.desc Route resolved read only with authResults [0] to exactly one denied callback with original object
+     * identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0034', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(result);
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_3500
+     * @tc.name CalendarEventPermissionRouting_0035
+     * @tc.desc Route deferred write only with authResults [0] to exactly one denied callback with original object
+     * identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0035', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.WRITE_CALENDAR'
+        ],
+        authResults: [0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const pending: Pending<PermissionRequestResult> = new Pending<PermissionRequestResult>();
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return pending.promise;
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      pending.resolve(result);
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_3600
+     * @tc.name CalendarEventPermissionRouting_0036
+     * @tc.desc Route resolved extra unknown with authResults [0, 0, 0] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0036', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR',
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.UNKNOWN_CALENDAR'
+        ],
+        authResults: [0, 0, 0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(result);
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_ROUTING_3700
+     * @tc.name CalendarEventPermissionRouting_0037
+     * @tc.desc Route deferred extra duplicate with authResults [0, 0, 0] to exactly one denied callback with original
+     * object identity.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionRouting_0037', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('route', trace);
+      const result: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR',
+          'ohos.permission.WRITE_CALENDAR',
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [0, 0, 0]
+      };
+      const permissions: string[] = result.permissions;
+      const statuses: number[] = result.authResults;
+      const permissionText: string = permissions.join('|');
+      const statusText: string = statuses.join('|');
+      let requests: number = 0;
+      const pending: Pending<PermissionRequestResult> = new Pending<PermissionRequestResult>();
+      const waiting: Promise<PermissionRequestResult> = gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return pending.promise;
+      }, handlers);
+      expect(requests).assertEqual(1);
+      expect(trace.join(',')).assertEqual('');
+      pending.resolve(result);
+      const returned: PermissionRequestResult = await waiting;
+      expect(returned === result).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === result).assertEqual(true);
+      expect(trace.join(',')).assertEqual('route:denied');
+      expect(returned.permissions === permissions).assertEqual(true);
+      expect(returned.authResults === statuses).assertEqual(true);
+      expect(permissions.join('|')).assertEqual(permissionText);
+      expect(statuses.join('|')).assertEqual(statusText);
+    });
+  });
+}
