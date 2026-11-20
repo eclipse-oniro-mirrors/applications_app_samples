@@ -605,3 +605,358 @@ export default function harMediaMatrixTest() {
    * @tc.size      MEDIUMTEST
    * @tc.type      FUNCTION
    * @tc.level     LEVEL0
+   */
+  it('testHarMedia0060', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testHarMedia0060', 'startIcon offset 23');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const bytes: Uint8Array = res.getMediaByNameSync('startIcon');
+    expect(bytes.length).assertEqual(20093);
+    expect(bytes[23]).assertEqual(144);
+    expect(PngOracle.hasSignature(bytes)).assertTrue();
+    expect(PngOracle.firstChunkType(bytes)).assertEqual('IHDR');
+    expect(PngOracle.width(bytes)).assertEqual(144);
+    expect(PngOracle.height(bytes)).assertEqual(144);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0061
+   * @tc.name      testHarMedia0061
+   * @tc.desc      Media background keeps size repeats
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testHarMedia0061', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testHarMedia0061', 'background size repeats');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const first: Uint8Array = res.getMediaByNameSync('background');
+    const second: Uint8Array = res.getMediaByNameSync('background');
+    expect(second.length).assertEqual(first.length);
+    expect(first[0]).assertEqual(second[0]);
+    expect(first[first.length - 1]).assertEqual(second[first.length - 1]);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0062
+   * @tc.name      testHarMedia0062
+   * @tc.desc      Media background keeps squared canvas
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testHarMedia0062', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testHarMedia0062', 'background squared canvas');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const bytes: Uint8Array = res.getMediaByNameSync('background');
+    expect(PngOracle.width(bytes)).assertEqual(PngOracle.height(bytes));
+    expect(PngOracle.width(bytes)).assertEqual(1024);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0063
+   * @tc.name      testHarMedia0063
+   * @tc.desc      Media background keeps positive canvas
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testHarMedia0063', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testHarMedia0063', 'background positive canvas');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const bytes: Uint8Array = res.getMediaByNameSync('background');
+    expect(PngOracle.width(bytes) > 0).assertTrue();
+    expect(PngOracle.height(bytes) > 0).assertTrue();
+    expect(PngOracle.width(bytes) <= 2048).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0064
+   * @tc.name      testHarMedia0064
+   * @tc.desc      Media background keeps chunk sits early
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testHarMedia0064', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testHarMedia0064', 'background chunk sits early');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const bytes: Uint8Array = res.getMediaByNameSync('background');
+    expect(String.fromCharCode(bytes[8], bytes[9], bytes[10], bytes[11])).assertEqual(String.fromCharCode(0, 0, 0, 13));
+    expect(bytes.length > 100).assertTrue();
+  });
+
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0066
+   * @tc.name      testHarMedia0066
+   * @tc.desc      Media background keeps two calls equal
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testHarMedia0066', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testHarMedia0066', 'background two calls equal');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const left: Uint8Array = res.getMediaByNameSync('background');
+    const right: Uint8Array = res.getMediaByNameSync('background');
+    expect(left.length === right.length).assertTrue();
+    expect(left[16] === right[16] && left[20] === right[20]).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0067
+   * @tc.name      testHarMedia0067
+   * @tc.desc      Media foreground keeps size repeats
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testHarMedia0067', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testHarMedia0067', 'foreground size repeats');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const first: Uint8Array = res.getMediaByNameSync('foreground');
+    const second: Uint8Array = res.getMediaByNameSync('foreground');
+    expect(second.length).assertEqual(first.length);
+    expect(first[0]).assertEqual(second[0]);
+    expect(first[first.length - 1]).assertEqual(second[first.length - 1]);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0068
+   * @tc.name      testHarMedia0068
+   * @tc.desc      Media foreground keeps squared canvas
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testHarMedia0068', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testHarMedia0068', 'foreground squared canvas');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const bytes: Uint8Array = res.getMediaByNameSync('foreground');
+    expect(PngOracle.width(bytes)).assertEqual(PngOracle.height(bytes));
+    expect(PngOracle.width(bytes)).assertEqual(1024);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0069
+   * @tc.name      testHarMedia0069
+   * @tc.desc      Media foreground keeps positive canvas
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testHarMedia0069', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testHarMedia0069', 'foreground positive canvas');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const bytes: Uint8Array = res.getMediaByNameSync('foreground');
+    expect(PngOracle.width(bytes) > 0).assertTrue();
+    expect(PngOracle.height(bytes) > 0).assertTrue();
+    expect(PngOracle.width(bytes) <= 2048).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0070
+   * @tc.name      testHarMedia0070
+   * @tc.desc      Media foreground keeps chunk sits early
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testHarMedia0070', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testHarMedia0070', 'foreground chunk sits early');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const bytes: Uint8Array = res.getMediaByNameSync('foreground');
+    expect(String.fromCharCode(bytes[8], bytes[9], bytes[10], bytes[11])).assertEqual(String.fromCharCode(0, 0, 0, 13));
+    expect(bytes.length > 100).assertTrue();
+  });
+
+
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0072
+   * @tc.name      testHarMedia0072
+   * @tc.desc      Media foreground keeps two calls equal
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testHarMedia0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testHarMedia0072', 'foreground two calls equal');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const left: Uint8Array = res.getMediaByNameSync('foreground');
+    const right: Uint8Array = res.getMediaByNameSync('foreground');
+    expect(left.length === right.length).assertTrue();
+    expect(left[16] === right[16] && left[20] === right[20]).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0073
+   * @tc.name      testHarMedia0073
+   * @tc.desc      Media startIcon keeps size repeats
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testHarMedia0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testHarMedia0073', 'startIcon size repeats');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const first: Uint8Array = res.getMediaByNameSync('startIcon');
+    const second: Uint8Array = res.getMediaByNameSync('startIcon');
+    expect(second.length).assertEqual(first.length);
+    expect(first[0]).assertEqual(second[0]);
+    expect(first[first.length - 1]).assertEqual(second[first.length - 1]);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0074
+   * @tc.name      testHarMedia0074
+   * @tc.desc      Media startIcon keeps squared canvas
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testHarMedia0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testHarMedia0074', 'startIcon squared canvas');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const bytes: Uint8Array = res.getMediaByNameSync('startIcon');
+    expect(PngOracle.width(bytes)).assertEqual(PngOracle.height(bytes));
+    expect(PngOracle.width(bytes)).assertEqual(144);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0075
+   * @tc.name      testHarMedia0075
+   * @tc.desc      Media startIcon keeps positive canvas
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testHarMedia0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testHarMedia0075', 'startIcon positive canvas');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const bytes: Uint8Array = res.getMediaByNameSync('startIcon');
+    expect(PngOracle.width(bytes) > 0).assertTrue();
+    expect(PngOracle.height(bytes) > 0).assertTrue();
+    expect(PngOracle.width(bytes) <= 2048).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0076
+   * @tc.name      testHarMedia0076
+   * @tc.desc      Media startIcon keeps chunk sits early
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testHarMedia0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testHarMedia0076', 'startIcon chunk sits early');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const bytes: Uint8Array = res.getMediaByNameSync('startIcon');
+    expect(String.fromCharCode(bytes[8], bytes[9], bytes[10], bytes[11])).assertEqual(String.fromCharCode(0, 0, 0, 13));
+    expect(bytes.length > 100).assertTrue();
+  });
+
+
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0078
+   * @tc.name      testHarMedia0078
+   * @tc.desc      Media startIcon keeps two calls equal
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testHarMedia0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testHarMedia0078', 'startIcon two calls equal');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const left: Uint8Array = res.getMediaByNameSync('startIcon');
+    const right: Uint8Array = res.getMediaByNameSync('startIcon');
+    expect(left.length === right.length).assertTrue();
+    expect(left[16] === right[16] && left[20] === right[20]).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0079
+   * @tc.name      testHarMedia0079
+   * @tc.desc      Layered icon layered file parses
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testHarMedia0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testHarMedia0079', 'layered layered file parses');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = bytesToText(res.getMediaByNameSync('layered_image'));
+    const doc: object = JSON.parse(text) as object;
+    expect(doc !== undefined).assertTrue();
+  });
+
+
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0081
+   * @tc.name      testHarMedia0081
+   * @tc.desc      Layered icon layered json braces balance
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testHarMedia0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testHarMedia0081', 'layered layered json braces balance');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = bytesToText(res.getMediaByNameSync('layered_image'));
+    expect(text.split('{').length).assertEqual(3);
+    expect(text.split('}').length).assertEqual(3);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0082
+   * @tc.name      testHarMedia0082
+   * @tc.desc      Layered icon layered ordering
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL1
+   */
+  it('testHarMedia0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+    logCase('testHarMedia0082', 'layered layered ordering');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = bytesToText(res.getMediaByNameSync('layered_image'));
+    expect(text.indexOf('background') < text.indexOf('foreground')).assertTrue();
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0083
+   * @tc.name      testHarMedia0083
+   * @tc.desc      Layered icon layered quotes balanced
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL2
+   */
+  it('testHarMedia0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+    logCase('testHarMedia0083', 'layered layered quotes balanced');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = bytesToText(res.getMediaByNameSync('layered_image'));
+    expect(text.split('"').length % 2).assertEqual(1);
+  });
+
+  /**
+   * @tc.number    SUB_BMS_HAPTOHAR_HARMED_0084
+   * @tc.name      testHarMedia0084
+   * @tc.desc      Layered icon layered no trailing comma
+   * @tc.size      MEDIUMTEST
+   * @tc.type      FUNCTION
+   * @tc.level     LEVEL0
+   */
+  it('testHarMedia0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+    logCase('testHarMedia0084', 'layered layered no trailing comma');
+    const res: resourceManager.ResourceManager = entryContext().resourceManager;
+    const decoder: util.TextDecoder = new util.TextDecoder('utf-8');
+    const text: string = bytesToText(res.getMediaByNameSync('layered_image'));
+    expect(text.trim().endsWith('}')).assertTrue();
+  });
+  });
+}
