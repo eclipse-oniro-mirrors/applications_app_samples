@@ -1934,3 +1934,1007 @@ export default function storageRoutingSuite01Test(): void {
         logCase(name, 'begin');
         try {
           const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 0;
+          const actualBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "FREE_SYNC expected bytes=0; returned bytes", actualBytes, 0);
+          expect(actualBytes).assertEqual(0);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; selected dependency and exclusive call record", actualCalls, "freeSync");
+          expect(actualCalls).assertEqual("freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_VALID_FREE_SYNC_G1_0200
+     * @tc.name AppFsSpace_Routing_0072
+     * @tc.desc Verify FREE_SYNC delegates signed zero (-0) without changing the byte count.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0072', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0072';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = -0;
+          const actualBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "FREE_SYNC expected bytes=0; returned bytes", actualBytes, 0);
+          expect(actualBytes).assertEqual(0);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; selected dependency and exclusive call record", actualCalls, "freeSync");
+          expect(actualCalls).assertEqual("freeSync");
+          const actualSignedZero: boolean = 1 / actualBytes === Number.NEGATIVE_INFINITY;
+          logAssertion(name, "FREE_SYNC bytes=-0; sign is preserved without coercion", actualSignedZero, true);
+          expect(actualSignedZero).assertEqual(true);
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_VALID_FREE_SYNC_G1_0300
+     * @tc.name AppFsSpace_Routing_0073
+     * @tc.desc Verify FREE_SYNC delegates one byte (1) without changing the byte count.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0073', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0073';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1;
+          const actualBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "FREE_SYNC expected bytes=1; returned bytes", actualBytes, 1);
+          expect(actualBytes).assertEqual(1);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; selected dependency and exclusive call record", actualCalls, "freeSync");
+          expect(actualCalls).assertEqual("freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_VALID_FREE_SYNC_G1_0400
+     * @tc.name AppFsSpace_Routing_0074
+     * @tc.desc Verify FREE_SYNC delegates last byte below KiB (1023) without changing the byte count.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0074', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0074';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1023;
+          const actualBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "FREE_SYNC expected bytes=1023; returned bytes", actualBytes, 1023);
+          expect(actualBytes).assertEqual(1023);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; selected dependency and exclusive call record", actualCalls, "freeSync");
+          expect(actualCalls).assertEqual("freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_VALID_FREE_SYNC_G1_0500
+     * @tc.name AppFsSpace_Routing_0075
+     * @tc.desc Verify FREE_SYNC delegates KiB boundary (1024) without changing the byte count.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0075', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0075';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1024;
+          const actualBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "FREE_SYNC expected bytes=1024; returned bytes", actualBytes, 1024);
+          expect(actualBytes).assertEqual(1024);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; selected dependency and exclusive call record", actualCalls, "freeSync");
+          expect(actualCalls).assertEqual("freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_VALID_FREE_SYNC_G1_0600
+     * @tc.name AppFsSpace_Routing_0076
+     * @tc.desc Verify FREE_SYNC delegates first byte above KiB (1025) without changing the byte count.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0076', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0076';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1025;
+          const actualBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "FREE_SYNC expected bytes=1025; returned bytes", actualBytes, 1025);
+          expect(actualBytes).assertEqual(1025);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; selected dependency and exclusive call record", actualCalls, "freeSync");
+          expect(actualCalls).assertEqual("freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_VALID_FREE_SYNC_G1_0700
+     * @tc.name AppFsSpace_Routing_0077
+     * @tc.desc Verify FREE_SYNC delegates last byte below MiB (1048575) without changing the byte count.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0077', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0077';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1048575;
+          const actualBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "FREE_SYNC expected bytes=1048575; returned bytes", actualBytes, 1048575);
+          expect(actualBytes).assertEqual(1048575);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; selected dependency and exclusive call record", actualCalls, "freeSync");
+          expect(actualCalls).assertEqual("freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_VALID_FREE_SYNC_G1_0800
+     * @tc.name AppFsSpace_Routing_0078
+     * @tc.desc Verify FREE_SYNC delegates MiB boundary (1048576) without changing the byte count.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0078', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0078';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1048576;
+          const actualBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "FREE_SYNC expected bytes=1048576; returned bytes", actualBytes, 1048576);
+          expect(actualBytes).assertEqual(1048576);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; selected dependency and exclusive call record", actualCalls, "freeSync");
+          expect(actualCalls).assertEqual("freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_VALID_FREE_SYNC_G1_0900
+     * @tc.name AppFsSpace_Routing_0079
+     * @tc.desc Verify FREE_SYNC delegates last byte below GiB (1073741823) without changing the byte count.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0079', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0079';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1073741823;
+          const actualBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "FREE_SYNC expected bytes=1073741823; returned bytes", actualBytes, 1073741823);
+          expect(actualBytes).assertEqual(1073741823);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; selected dependency and exclusive call record", actualCalls, "freeSync");
+          expect(actualCalls).assertEqual("freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_VALID_FREE_SYNC_G1_1000
+     * @tc.name AppFsSpace_Routing_0080
+     * @tc.desc Verify FREE_SYNC delegates GiB boundary (1073741824) without changing the byte count.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0080', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0080';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1073741824;
+          const actualBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "FREE_SYNC expected bytes=1073741824; returned bytes", actualBytes, 1073741824);
+          expect(actualBytes).assertEqual(1073741824);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; selected dependency and exclusive call record", actualCalls, "freeSync");
+          expect(actualCalls).assertEqual("freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_VALID_FREE_SYNC_G1_1100
+     * @tc.name AppFsSpace_Routing_0081
+     * @tc.desc Verify FREE_SYNC delegates TiB boundary (1099511627776) without changing the byte count.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0081', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0081';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1099511627776;
+          const actualBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name, "FREE_SYNC expected bytes=1099511627776; returned bytes", actualBytes, 1099511627776);
+          expect(actualBytes).assertEqual(1099511627776);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; selected dependency and exclusive call record", actualCalls, "freeSync");
+          expect(actualCalls).assertEqual("freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_VALID_FREE_SYNC_G1_1200
+     * @tc.name AppFsSpace_Routing_0082
+     * @tc.desc Verify FREE_SYNC delegates PiB boundary (1125899906842624) without changing the byte count.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0082', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0082';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 1125899906842624;
+          const actualBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name,
+            "FREE_SYNC expected bytes=1125899906842624; returned bytes", actualBytes, 1125899906842624);
+          expect(actualBytes).assertEqual(1125899906842624);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; selected dependency and exclusive call record", actualCalls, "freeSync");
+          expect(actualCalls).assertEqual("freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_VALID_FREE_SYNC_G1_1300
+     * @tc.name AppFsSpace_Routing_0083
+     * @tc.desc Verify FREE_SYNC delegates penultimate safe integer (9007199254740990) without changing the byte count.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0083', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0083';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 9007199254740990;
+          const actualBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name,
+            "FREE_SYNC expected bytes=9007199254740990; returned bytes", actualBytes, 9007199254740990);
+          expect(actualBytes).assertEqual(9007199254740990);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; selected dependency and exclusive call record", actualCalls, "freeSync");
+          expect(actualCalls).assertEqual("freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_VALID_FREE_SYNC_G1_1400
+     * @tc.name AppFsSpace_Routing_0084
+     * @tc.desc Verify FREE_SYNC delegates maximum safe integer (9007199254740991) without changing the byte count.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0084', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0084';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.freeSyncBytes = 9007199254740991;
+          const actualBytes: number =
+            await queryStorage(StorageOperation.FREE_SYNC, "/data/storage/el2/base/files", api);
+          logAssertion(name,
+            "FREE_SYNC expected bytes=9007199254740991; returned bytes", actualBytes, 9007199254740991);
+          expect(actualBytes).assertEqual(9007199254740991);
+          const actualCalls: string = api.events.join('|');
+          logAssertion(name, "FREE_SYNC; selected dependency and exclusive call record", actualCalls, "freeSync");
+          expect(actualCalls).assertEqual("freeSync");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_INVALID_BUNDLE_G1_0100
+     * @tc.name AppFsSpace_Routing_0085
+     * @tc.desc Verify BUNDLE rejects negative byte count (-1) after only its own dependency call.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0085', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0085';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = -1;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'BUNDLE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'BUNDLE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'BUNDLE; captured error message',
+            failureMessage, "Bundle app size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Bundle app size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "BUNDLE; error does not fall through to another method", failureCalls, "bundle");
+          expect(failureCalls).assertEqual("bundle");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_INVALID_BUNDLE_G1_0200
+     * @tc.name AppFsSpace_Routing_0086
+     * @tc.desc Verify BUNDLE rejects negative fractional bytes (-0.5) after only its own dependency call.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0086', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0086';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = -0.5;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'BUNDLE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'BUNDLE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'BUNDLE; captured error message',
+            failureMessage, "Bundle app size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Bundle app size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "BUNDLE; error does not fall through to another method", failureCalls, "bundle");
+          expect(failureCalls).assertEqual("bundle");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_INVALID_BUNDLE_G1_0300
+     * @tc.name AppFsSpace_Routing_0087
+     * @tc.desc Verify BUNDLE rejects fractional bytes below one (0.5) after only its own dependency call.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0087', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0087';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = 0.5;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'BUNDLE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'BUNDLE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'BUNDLE; captured error message',
+            failureMessage, "Bundle app size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Bundle app size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "BUNDLE; error does not fall through to another method", failureCalls, "bundle");
+          expect(failureCalls).assertEqual("bundle");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_INVALID_BUNDLE_G1_0400
+     * @tc.name AppFsSpace_Routing_0088
+     * @tc.desc Verify BUNDLE rejects fractional bytes below KiB (1023.5) after only its own dependency call.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0088', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0088';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = 1023.5;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'BUNDLE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'BUNDLE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'BUNDLE; captured error message',
+            failureMessage, "Bundle app size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Bundle app size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "BUNDLE; error does not fall through to another method", failureCalls, "bundle");
+          expect(failureCalls).assertEqual("bundle");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_INVALID_BUNDLE_G1_0500
+     * @tc.name AppFsSpace_Routing_0089
+     * @tc.desc Verify BUNDLE rejects NaN byte count (Number.NaN) after only its own dependency call.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0089', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0089';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = Number.NaN;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'BUNDLE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'BUNDLE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'BUNDLE; captured error message',
+            failureMessage, "Bundle app size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Bundle app size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "BUNDLE; error does not fall through to another method", failureCalls, "bundle");
+          expect(failureCalls).assertEqual("bundle");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_INVALID_BUNDLE_G1_0600
+     * @tc.name AppFsSpace_Routing_0090
+     * @tc.desc Verify BUNDLE rejects positive infinite bytes (Number.POSITIVE_INFINITY) after only its own dependency
+     * call.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0090', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0090';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = Number.POSITIVE_INFINITY;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'BUNDLE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'BUNDLE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'BUNDLE; captured error message',
+            failureMessage, "Bundle app size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Bundle app size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "BUNDLE; error does not fall through to another method", failureCalls, "bundle");
+          expect(failureCalls).assertEqual("bundle");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_INVALID_BUNDLE_G1_0700
+     * @tc.name AppFsSpace_Routing_0091
+     * @tc.desc Verify BUNDLE rejects negative infinite bytes (Number.NEGATIVE_INFINITY) after only its own dependency
+     * call.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0091', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0091';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = Number.NEGATIVE_INFINITY;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'BUNDLE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'BUNDLE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'BUNDLE; captured error message',
+            failureMessage, "Bundle app size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Bundle app size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "BUNDLE; error does not fall through to another method", failureCalls, "bundle");
+          expect(failureCalls).assertEqual("bundle");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_INVALID_BUNDLE_G1_0800
+     * @tc.name AppFsSpace_Routing_0092
+     * @tc.desc Verify BUNDLE rejects first unsafe integer (9007199254740992) after only its own dependency call.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0092', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0092';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.bundleStats.appSize = 9007199254740992;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.BUNDLE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'BUNDLE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'BUNDLE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'BUNDLE; captured error message',
+            failureMessage, "Bundle app size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Bundle app size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name, "BUNDLE; error does not fall through to another method", failureCalls, "bundle");
+          expect(failureCalls).assertEqual("bundle");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_INVALID_FILESYSTEM_FREE_G1_0100
+     * @tc.name AppFsSpace_Routing_0093
+     * @tc.desc Verify FILESYSTEM_FREE rejects negative byte count (-1) after only its own dependency call.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0093', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0093';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = -1;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Filesystem free size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_INVALID_FILESYSTEM_FREE_G1_0200
+     * @tc.name AppFsSpace_Routing_0094
+     * @tc.desc Verify FILESYSTEM_FREE rejects negative fractional bytes (-0.5) after only its own dependency call.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0094', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0094';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = -0.5;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Filesystem free size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_INVALID_FILESYSTEM_FREE_G1_0300
+     * @tc.name AppFsSpace_Routing_0095
+     * @tc.desc Verify FILESYSTEM_FREE rejects fractional bytes below one (0.5) after only its own dependency call.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0095', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0095';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = 0.5;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Filesystem free size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_INVALID_FILESYSTEM_FREE_G1_0400
+     * @tc.name AppFsSpace_Routing_0096
+     * @tc.desc Verify FILESYSTEM_FREE rejects fractional bytes below KiB (1023.5) after only its own dependency call.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0096', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0096';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = 1023.5;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Filesystem free size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_INVALID_FILESYSTEM_FREE_G1_0500
+     * @tc.name AppFsSpace_Routing_0097
+     * @tc.desc Verify FILESYSTEM_FREE rejects NaN byte count (Number.NaN) after only its own dependency call.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0097', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0097';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = Number.NaN;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Filesystem free size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_INVALID_FILESYSTEM_FREE_G1_0600
+     * @tc.name AppFsSpace_Routing_0098
+     * @tc.desc Verify FILESYSTEM_FREE rejects positive infinite bytes (Number.POSITIVE_INFINITY) after only its own
+     * dependency call.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0098', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0098';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = Number.POSITIVE_INFINITY;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Filesystem free size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+
+    /**
+     * @tc.number SUB_CORE_FILE_STORAGE_ROUTING_INVALID_FILESYSTEM_FREE_G1_0700
+     * @tc.name AppFsSpace_Routing_0099
+     * @tc.desc Verify FILESYSTEM_FREE rejects negative infinite bytes (Number.NEGATIVE_INFINITY) after only its own
+     * dependency call.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 2
+     */
+    it('AppFsSpace_Routing_0099', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2,
+      async (): Promise<void> => {
+        const name: string = 'AppFsSpace_Routing_0099';
+        logCase(name, 'begin');
+        try {
+          const api: StorageQueryProbe = new StorageQueryProbe();
+          api.filesystemBytes = Number.NEGATIVE_INFINITY;
+          let failureCaught: boolean = false;
+          let failureName: string = '';
+          let failureMessage: string = '';
+          try {
+            await queryStorage(StorageOperation.FILESYSTEM_FREE, "/data/storage/el2/base/files", api);
+          } catch (error) {
+            const caughtError: Error = error as Error;
+            failureCaught = true;
+            failureName = caughtError.name;
+            failureMessage = caughtError.message;
+          }
+          logAssertion(name, 'FILESYSTEM_FREE; rejection must occur', failureCaught, true);
+          expect(failureCaught).assertEqual(true);
+          logAssertion(name, 'FILESYSTEM_FREE; captured error name', failureName, "InvalidStorageValueError");
+          expect(failureName).assertEqual("InvalidStorageValueError");
+          logAssertion(name, 'FILESYSTEM_FREE; captured error message',
+            failureMessage, "Filesystem free size must be a nonnegative safe integer");
+          expect(failureMessage).assertEqual("Filesystem free size must be a nonnegative safe integer");
+          const failureCalls: string = api.events.join('|');
+          logAssertion(name,
+            "FILESYSTEM_FREE; error does not fall through to another method",
+            failureCalls, "filesystem:/data/storage/el2/base/files");
+          expect(failureCalls).assertEqual("filesystem:/data/storage/el2/base/files");
+        } finally {
+          logCase(name, 'end');
+        }
+      });
+  });
+}
