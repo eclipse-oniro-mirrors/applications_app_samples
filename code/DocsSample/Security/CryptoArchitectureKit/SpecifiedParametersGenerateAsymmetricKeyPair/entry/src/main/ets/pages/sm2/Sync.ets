@@ -15,6 +15,7 @@
 
 // [Start specify_parameter_generate_sm2_keypair_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function genSM2KeyPairSpec() {
   let sm2CommonParamsSpec = cryptoFramework.ECCKeyUtil.genECCCommonParamsSpec('NID_sm2');
@@ -45,7 +46,8 @@ function sm2TestSync() {
       throw new Error('get key pair result: fail!');
       // [EndExclude specify_parameter_generate_sm2_keypair_sync]
     }
-  } catch (e) {
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
     console.error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
     // [StartExclude specify_parameter_generate_sm2_keypair_sync]
     throw new Error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);

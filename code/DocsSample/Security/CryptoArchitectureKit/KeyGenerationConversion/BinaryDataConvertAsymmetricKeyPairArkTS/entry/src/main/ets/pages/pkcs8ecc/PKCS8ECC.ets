@@ -33,9 +33,10 @@ async function main() {
     await new Promise<void>((resolve, reject) => {
       generator.convertKey(pubBlob, skBlob, (error, _keyPair) => {
         if (error) {
-          console.error(`convertKey failed: errCode: ${error.code}, message: ${error.message}`);
+          let e: BusinessError = error as BusinessError;
+          console.error(`convertKey failed: errCode: ${e.code}, message: ${e.message}`);
           // [StartExclude pkcs8_convert_ecc_pri_keypair]
-          reject(new Error(`convertKey failed: errCode: ${error.code}, message: ${error.message}`));
+          reject(new Error(`convertKey failed: errCode: ${e.code}, message: ${e.message}`));
           // [EndExclude pkcs8_convert_ecc_pri_keypair]
           return;
         }

@@ -17,7 +17,7 @@
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
-let priKeyPkcs1EncodingStr : string =
+let priKeyPkcs1EncodingStr: string =
 '-----BEGIN RSA PRIVATE KEY-----\n'+
   'Proc-Type: 4,ENCRYPTED\n'+
   'DEK-Info: AES-128-CBC,815A066131BF05CF87CE610A59CC69AE\n\n'+

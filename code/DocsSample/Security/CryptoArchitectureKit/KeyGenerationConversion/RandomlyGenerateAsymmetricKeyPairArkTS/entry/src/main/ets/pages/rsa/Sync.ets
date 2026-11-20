@@ -15,6 +15,7 @@
 
 // [Start generate_rsa_keypair_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function generateAsyKeySync() {
   // 创建一个AsyKeyGenerator实例
@@ -36,7 +37,8 @@ function generateAsyKeySync() {
       throw new Error('[Sync]: get key pair result: fail!');
       // [EndExclude generate_rsa_keypair_sync]
     }
-  } catch (e) {
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
     console.error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
     // [StartExclude generate_rsa_keypair_sync]
     throw new Error(`get key pair failed: errCode: ${e.code}, message: ${e.message}`);
