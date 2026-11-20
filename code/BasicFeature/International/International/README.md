@@ -47,6 +47,10 @@ None.
 
 None.
 
+### Tests
+
+The latest RK3568 run passed all 2985 cases (Failure/Error/Ignore: 0). Four smoke cases call real Calendar, Unicode.getType and line-break APIs to verify February/year boundaries, character categories, increasing break positions, complete text reconstruction and iterator reuse with empty input. Only test Calendar objects use UTC; system time, language and time zone are unchanged. These tests do not verify numeric/currency formatting or page interactions. See [test coverage and execution](ohosTest.md). Local signing material is excluded from repository changes.
+
 ### Constraints and Limitations
 
 1. This sample can run only on standard-system devices and has been verified on an RK3568 board.
