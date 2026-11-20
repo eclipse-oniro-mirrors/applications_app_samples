@@ -1,6 +1,6 @@
 {
   "scope": "Comment model and Constants only; no UI or capture callback execution",
-  "caseCount": 521,
+  "caseCount": 632,
   "files": [
     {
       "reference": "ets/test/Integration/AdvancedScenarios.test.ets",
@@ -9418,6 +9418,1893 @@
           "file://capture/session-0521/photo-1.jpg",
           "file://capture/session-0521/photo-2.jpg",
           "file://capture/session-0521/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case017",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "  leading and trailing  ",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0522/photo-1.jpg",
+          "file://capture/session-0522/photo-2.jpg",
+          "file://capture/session-0522/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case018",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "  leading and trailing  ",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0523/photo-1.jpg",
+          "file://capture/session-0523/photo-2.jpg",
+          "file://capture/session-0523/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case019",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "  leading and trailing  ",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0524/photo-1.jpg",
+          "file://capture/session-0524/photo-2.jpg",
+          "file://capture/session-0524/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case020",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "  leading and trailing  ",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0525/photo-1.jpg",
+          "file://capture/session-0525/photo-2.jpg",
+          "file://capture/session-0525/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case021",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "  leading and trailing  ",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0526/photo-1.jpg",
+          "file://capture/session-0526/photo-2.jpg",
+          "file://capture/session-0526/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case022",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "  leading and trailing  ",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0527/photo-1.jpg",
+          "file://capture/session-0527/photo-2.jpg",
+          "file://capture/session-0527/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case023",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "  leading and trailing  ",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0528/photo-1.jpg",
+          "file://capture/session-0528/photo-2.jpg",
+          "file://capture/session-0528/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case024",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "  leading and trailing  ",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0529/photo-1.jpg",
+          "file://capture/session-0529/photo-2.jpg",
+          "file://capture/session-0529/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case025",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "\\tinput\\t",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0530/photo-1.jpg",
+          "file://capture/session-0530/photo-2.jpg",
+          "file://capture/session-0530/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case026",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "\\tinput\\t",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0531/photo-1.jpg",
+          "file://capture/session-0531/photo-2.jpg",
+          "file://capture/session-0531/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case027",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "\\tinput\\t",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0532/photo-1.jpg",
+          "file://capture/session-0532/photo-2.jpg",
+          "file://capture/session-0532/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case028",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "\\tinput\\t",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0533/photo-1.jpg",
+          "file://capture/session-0533/photo-2.jpg",
+          "file://capture/session-0533/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case029",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "\\tinput\\t",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0534/photo-1.jpg",
+          "file://capture/session-0534/photo-2.jpg",
+          "file://capture/session-0534/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case030",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "\\tinput\\t",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0535/photo-1.jpg",
+          "file://capture/session-0535/photo-2.jpg",
+          "file://capture/session-0535/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case031",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "\\tinput\\t",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0536/photo-1.jpg",
+          "file://capture/session-0536/photo-2.jpg",
+          "file://capture/session-0536/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case032",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "\\tinput\\t",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0537/photo-1.jpg",
+          "file://capture/session-0537/photo-2.jpg",
+          "file://capture/session-0537/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case033",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "\\tinput\\t",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0538/photo-1.jpg",
+          "file://capture/session-0538/photo-2.jpg",
+          "file://capture/session-0538/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart27Case034",
+      "file": "ets/test/CommentModel/CommentModelPart27Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "\\tinput\\t",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0539/photo-1.jpg",
+          "file://capture/session-0539/photo-2.jpg",
+          "file://capture/session-0539/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case001",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "line one\\nline two",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0540/photo-1.jpg",
+          "file://capture/session-0540/photo-2.jpg",
+          "file://capture/session-0540/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case002",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "line one\\nline two",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0541/photo-1.jpg",
+          "file://capture/session-0541/photo-2.jpg",
+          "file://capture/session-0541/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case003",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "line one\\nline two",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0542/photo-1.jpg",
+          "file://capture/session-0542/photo-2.jpg",
+          "file://capture/session-0542/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case004",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "line one\\nline two",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0543/photo-1.jpg",
+          "file://capture/session-0543/photo-2.jpg",
+          "file://capture/session-0543/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case005",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "line one\\nline two",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0544/photo-1.jpg",
+          "file://capture/session-0544/photo-2.jpg",
+          "file://capture/session-0544/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case006",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "line one\\nline two",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0545/photo-1.jpg",
+          "file://capture/session-0545/photo-2.jpg",
+          "file://capture/session-0545/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case007",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "line one\\nline two",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0546/photo-1.jpg",
+          "file://capture/session-0546/photo-2.jpg",
+          "file://capture/session-0546/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case008",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "line one\\nline two",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0547/photo-1.jpg",
+          "file://capture/session-0547/photo-2.jpg",
+          "file://capture/session-0547/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case009",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "line one\\nline two",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0548/photo-1.jpg",
+          "file://capture/session-0548/photo-2.jpg",
+          "file://capture/session-0548/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case010",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "line one\\nline two",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-1",
+        "timestamp": "",
+        "imageUris": [
+          "file://capture/session-0549/photo-1.jpg",
+          "file://capture/session-0549/photo-2.jpg",
+          "file://capture/session-0549/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case011",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "camera,photo;comment:ready!",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "2147483647",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0550/photo-1.jpg",
+          "file://capture/session-0550/photo-2.jpg",
+          "file://capture/session-0550/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case012",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "camera,photo;comment:ready!",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "2147483647",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0551/photo-1.jpg",
+          "file://capture/session-0551/photo-2.jpg",
+          "file://capture/session-0551/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case013",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "camera,photo;comment:ready!",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "2147483647",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0552/photo-1.jpg",
+          "file://capture/session-0552/photo-2.jpg",
+          "file://capture/session-0552/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case014",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "camera,photo;comment:ready!",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "2147483647",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0553/photo-1.jpg",
+          "file://capture/session-0553/photo-2.jpg",
+          "file://capture/session-0553/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case015",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "camera,photo;comment:ready!",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "2147483647",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0554/photo-1.jpg",
+          "file://capture/session-0554/photo-2.jpg",
+          "file://capture/session-0554/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case016",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "camera,photo;comment:ready!",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "2147483647",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0555/photo-1.jpg",
+          "file://capture/session-0555/photo-2.jpg",
+          "file://capture/session-0555/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case017",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "camera,photo;comment:ready!",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "2147483647",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0556/photo-1.jpg",
+          "file://capture/session-0556/photo-2.jpg",
+          "file://capture/session-0556/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case018",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "camera,photo;comment:ready!",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "2147483647",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0557/photo-1.jpg",
+          "file://capture/session-0557/photo-2.jpg",
+          "file://capture/session-0557/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case019",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "camera,photo;comment:ready!",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "2147483647",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0558/photo-1.jpg",
+          "file://capture/session-0558/photo-2.jpg",
+          "file://capture/session-0558/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case020",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "camera,photo;comment:ready!",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "2147483647",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0559/photo-1.jpg",
+          "file://capture/session-0559/photo-2.jpg",
+          "file://capture/session-0559/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case021",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "O'Brien \"camera\"",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-2147483648",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0560/photo-1.jpg",
+          "file://capture/session-0560/photo-2.jpg",
+          "file://capture/session-0560/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case022",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "O'Brien \"camera\"",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-2147483648",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0561/photo-1.jpg",
+          "file://capture/session-0561/photo-2.jpg",
+          "file://capture/session-0561/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case023",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "O'Brien \"camera\"",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-2147483648",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0562/photo-1.jpg",
+          "file://capture/session-0562/photo-2.jpg",
+          "file://capture/session-0562/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case024",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "O'Brien \"camera\"",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-2147483648",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0563/photo-1.jpg",
+          "file://capture/session-0563/photo-2.jpg",
+          "file://capture/session-0563/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case025",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "O'Brien \"camera\"",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-2147483648",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0564/photo-1.jpg",
+          "file://capture/session-0564/photo-2.jpg",
+          "file://capture/session-0564/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case026",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "O'Brien \"camera\"",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-2147483648",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0565/photo-1.jpg",
+          "file://capture/session-0565/photo-2.jpg",
+          "file://capture/session-0565/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case027",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "O'Brien \"camera\"",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-2147483648",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0566/photo-1.jpg",
+          "file://capture/session-0566/photo-2.jpg",
+          "file://capture/session-0566/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case028",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "O'Brien \"camera\"",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-2147483648",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0567/photo-1.jpg",
+          "file://capture/session-0567/photo-2.jpg",
+          "file://capture/session-0567/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case029",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "O'Brien \"camera\"",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-2147483648",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0568/photo-1.jpg",
+          "file://capture/session-0568/photo-2.jpg",
+          "file://capture/session-0568/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case030",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "O'Brien \"camera\"",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-2147483648",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0569/photo-1.jpg",
+          "file://capture/session-0569/photo-2.jpg",
+          "file://capture/session-0569/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case031",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "100% captured / path?",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "4294967295",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0570/photo-1.jpg",
+          "file://capture/session-0570/photo-2.jpg",
+          "file://capture/session-0570/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case032",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "100% captured / path?",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "4294967295",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0571/photo-1.jpg",
+          "file://capture/session-0571/photo-2.jpg",
+          "file://capture/session-0571/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart28Case033",
+      "file": "ets/test/CommentModel/CommentModelPart28Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "100% captured / path?",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "4294967295",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0572/photo-1.jpg",
+          "file://capture/session-0572/photo-2.jpg",
+          "file://capture/session-0572/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case001",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "100% captured / path?",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "4294967295",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0573/photo-1.jpg",
+          "file://capture/session-0573/photo-2.jpg",
+          "file://capture/session-0573/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case002",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "100% captured / path?",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "4294967295",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0574/photo-1.jpg",
+          "file://capture/session-0574/photo-2.jpg",
+          "file://capture/session-0574/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case003",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "100% captured / path?",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "4294967295",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0575/photo-1.jpg",
+          "file://capture/session-0575/photo-2.jpg",
+          "file://capture/session-0575/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case004",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "100% captured / path?",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "4294967295",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0576/photo-1.jpg",
+          "file://capture/session-0576/photo-2.jpg",
+          "file://capture/session-0576/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case005",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "100% captured / path?",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "4294967295",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0577/photo-1.jpg",
+          "file://capture/session-0577/photo-2.jpg",
+          "file://capture/session-0577/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case006",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "100% captured / path?",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "4294967295",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0578/photo-1.jpg",
+          "file://capture/session-0578/photo-2.jpg",
+          "file://capture/session-0578/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case007",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "100% captured / path?",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "4294967295",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0579/photo-1.jpg",
+          "file://capture/session-0579/photo-2.jpg",
+          "file://capture/session-0579/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case008",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "你好，鸿蒙",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0580/photo-1.jpg",
+          "file://capture/session-0580/photo-2.jpg",
+          "file://capture/session-0580/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case009",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "你好，鸿蒙",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0581/photo-1.jpg",
+          "file://capture/session-0581/photo-2.jpg",
+          "file://capture/session-0581/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case010",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "你好，鸿蒙",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0582/photo-1.jpg",
+          "file://capture/session-0582/photo-2.jpg",
+          "file://capture/session-0582/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case011",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "你好，鸿蒙",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0583/photo-1.jpg",
+          "file://capture/session-0583/photo-2.jpg",
+          "file://capture/session-0583/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case012",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "你好，鸿蒙",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0584/photo-1.jpg",
+          "file://capture/session-0584/photo-2.jpg",
+          "file://capture/session-0584/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case013",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "你好，鸿蒙",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0585/photo-1.jpg",
+          "file://capture/session-0585/photo-2.jpg",
+          "file://capture/session-0585/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case014",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "你好，鸿蒙",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0586/photo-1.jpg",
+          "file://capture/session-0586/photo-2.jpg",
+          "file://capture/session-0586/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case015",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "你好，鸿蒙",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0587/photo-1.jpg",
+          "file://capture/session-0587/photo-2.jpg",
+          "file://capture/session-0587/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case016",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "你好，鸿蒙",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0588/photo-1.jpg",
+          "file://capture/session-0588/photo-2.jpg",
+          "file://capture/session-0588/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case017",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "你好，鸿蒙",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0589/photo-1.jpg",
+          "file://capture/session-0589/photo-2.jpg",
+          "file://capture/session-0589/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case018",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "カメラの写真",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0590/photo-1.jpg",
+          "file://capture/session-0590/photo-2.jpg",
+          "file://capture/session-0590/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case019",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "カメラの写真",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0591/photo-1.jpg",
+          "file://capture/session-0591/photo-2.jpg",
+          "file://capture/session-0591/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case020",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "カメラの写真",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0592/photo-1.jpg",
+          "file://capture/session-0592/photo-2.jpg",
+          "file://capture/session-0592/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case021",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "カメラの写真",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0593/photo-1.jpg",
+          "file://capture/session-0593/photo-2.jpg",
+          "file://capture/session-0593/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case022",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "カメラの写真",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0594/photo-1.jpg",
+          "file://capture/session-0594/photo-2.jpg",
+          "file://capture/session-0594/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart29Case023",
+      "file": "ets/test/CommentModel/CommentModelPart29Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "カメラの写真",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0595/photo-1.jpg",
+          "file://capture/session-0595/photo-2.jpg",
+          "file://capture/session-0595/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart30Case001",
+      "file": "ets/test/CommentModel/CommentModelPart30Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "カメラの写真",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0596/photo-1.jpg",
+          "file://capture/session-0596/photo-2.jpg",
+          "file://capture/session-0596/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart30Case002",
+      "file": "ets/test/CommentModel/CommentModelPart30Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "カメラの写真",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0597/photo-1.jpg",
+          "file://capture/session-0597/photo-2.jpg",
+          "file://capture/session-0597/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart30Case003",
+      "file": "ets/test/CommentModel/CommentModelPart30Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "カメラの写真",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0598/photo-1.jpg",
+          "file://capture/session-0598/photo-2.jpg",
+          "file://capture/session-0598/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart30Case004",
+      "file": "ets/test/CommentModel/CommentModelPart30Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "カメラの写真",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-0.5",
+        "timestamp": "2026-11-17 00:00",
+        "imageUris": [
+          "file://capture/session-0599/photo-1.jpg",
+          "file://capture/session-0599/photo-2.jpg",
+          "file://capture/session-0599/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart30Case005",
+      "file": "ets/test/CommentModel/CommentModelPart30Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "صورة الكاميرا",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0600/photo-1.jpg",
+          "file://capture/session-0600/photo-2.jpg",
+          "file://capture/session-0600/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart30Case006",
+      "file": "ets/test/CommentModel/CommentModelPart30Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "صورة الكاميرا",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0601/photo-1.jpg",
+          "file://capture/session-0601/photo-2.jpg",
+          "file://capture/session-0601/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart30Case007",
+      "file": "ets/test/CommentModel/CommentModelPart30Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "صورة الكاميرا",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0602/photo-1.jpg",
+          "file://capture/session-0602/photo-2.jpg",
+          "file://capture/session-0602/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart30Case008",
+      "file": "ets/test/CommentModel/CommentModelPart30Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "صورة الكاميرا",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0603/photo-1.jpg",
+          "file://capture/session-0603/photo-2.jpg",
+          "file://capture/session-0603/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart30Case009",
+      "file": "ets/test/CommentModel/CommentModelPart30Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "صورة الكاميرا",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0604/photo-1.jpg",
+          "file://capture/session-0604/photo-2.jpg",
+          "file://capture/session-0604/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart30Case010",
+      "file": "ets/test/CommentModel/CommentModelPart30Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "صورة الكاميرا",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0605/photo-1.jpg",
+          "file://capture/session-0605/photo-2.jpg",
+          "file://capture/session-0605/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart30Case011",
+      "file": "ets/test/CommentModel/CommentModelPart30Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "صورة الكاميرا",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0606/photo-1.jpg",
+          "file://capture/session-0606/photo-2.jpg",
+          "file://capture/session-0606/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart30Case012",
+      "file": "ets/test/CommentModel/CommentModelPart30Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "صورة الكاميرا",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0607/photo-1.jpg",
+          "file://capture/session-0607/photo-2.jpg",
+          "file://capture/session-0607/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart30Case013",
+      "file": "ets/test/CommentModel/CommentModelPart30Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "صورة الكاميرا",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0608/photo-1.jpg",
+          "file://capture/session-0608/photo-2.jpg",
+          "file://capture/session-0608/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart31Case001",
+      "file": "ets/test/CommentModel/CommentModelPart31Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "صورة الكاميرا",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0609/photo-1.jpg",
+          "file://capture/session-0609/photo-2.jpg",
+          "file://capture/session-0609/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart31Case002",
+      "file": "ets/test/CommentModel/CommentModelPart31Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "café naïve résumé",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0610/photo-1.jpg",
+          "file://capture/session-0610/photo-2.jpg",
+          "file://capture/session-0610/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart31Case003",
+      "file": "ets/test/CommentModel/CommentModelPart31Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "café naïve résumé",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0611/photo-1.jpg",
+          "file://capture/session-0611/photo-2.jpg",
+          "file://capture/session-0611/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart31Case004",
+      "file": "ets/test/CommentModel/CommentModelPart31Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "café naïve résumé",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0612/photo-1.jpg",
+          "file://capture/session-0612/photo-2.jpg",
+          "file://capture/session-0612/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart31Case005",
+      "file": "ets/test/CommentModel/CommentModelPart31Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "café naïve résumé",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0613/photo-1.jpg",
+          "file://capture/session-0613/photo-2.jpg",
+          "file://capture/session-0613/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart31Case006",
+      "file": "ets/test/CommentModel/CommentModelPart31Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "café naïve résumé",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0614/photo-1.jpg",
+          "file://capture/session-0614/photo-2.jpg",
+          "file://capture/session-0614/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart31Case007",
+      "file": "ets/test/CommentModel/CommentModelPart31Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "café naïve résumé",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0615/photo-1.jpg",
+          "file://capture/session-0615/photo-2.jpg",
+          "file://capture/session-0615/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart31Case008",
+      "file": "ets/test/CommentModel/CommentModelPart31Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "café naïve résumé",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0616/photo-1.jpg",
+          "file://capture/session-0616/photo-2.jpg",
+          "file://capture/session-0616/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart31Case009",
+      "file": "ets/test/CommentModel/CommentModelPart31Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "café naïve résumé",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0617/photo-1.jpg",
+          "file://capture/session-0617/photo-2.jpg",
+          "file://capture/session-0617/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart31Case010",
+      "file": "ets/test/CommentModel/CommentModelPart31Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "café naïve résumé",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0618/photo-1.jpg",
+          "file://capture/session-0618/photo-2.jpg",
+          "file://capture/session-0618/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart31Case011",
+      "file": "ets/test/CommentModel/CommentModelPart31Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "café naïve résumé",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-9007199254740991",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0619/photo-1.jpg",
+          "file://capture/session-0619/photo-2.jpg",
+          "file://capture/session-0619/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart31Case012",
+      "file": "ets/test/CommentModel/CommentModelPart31Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "emoji 📷 🌈",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1024",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0620/photo-1.jpg",
+          "file://capture/session-0620/photo-2.jpg",
+          "file://capture/session-0620/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart31Case013",
+      "file": "ets/test/CommentModel/CommentModelPart31Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "emoji 📷 🌈",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1024",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0621/photo-1.jpg",
+          "file://capture/session-0621/photo-2.jpg",
+          "file://capture/session-0621/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart31Case014",
+      "file": "ets/test/CommentModel/CommentModelPart31Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "emoji 📷 🌈",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1024",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0622/photo-1.jpg",
+          "file://capture/session-0622/photo-2.jpg",
+          "file://capture/session-0622/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart32Case001",
+      "file": "ets/test/CommentModel/CommentModelPart32Test.test.ets",
+      "scenario": "Verify Comment string fields preserve whitespace punctuation and Unicode payloads",
+      "inputs": {
+        "mode": 3,
+        "nameText": "emoji 📷 🌈",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1024",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0623/photo-1.jpg",
+          "file://capture/session-0623/photo-2.jpg",
+          "file://capture/session-0623/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart32Case002",
+      "file": "ets/test/CommentModel/CommentModelPart32Test.test.ets",
+      "scenario": "Verify Comment id accepts numeric boundary values without modifying text fields",
+      "inputs": {
+        "mode": 4,
+        "nameText": "emoji 📷 🌈",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1024",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0624/photo-1.jpg",
+          "file://capture/session-0624/photo-2.jpg",
+          "file://capture/session-0624/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart32Case003",
+      "file": "ets/test/CommentModel/CommentModelPart32Test.test.ets",
+      "scenario": "Verify Comment image copy mutation remains isolated from its source array",
+      "inputs": {
+        "mode": 5,
+        "nameText": "emoji 📷 🌈",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1024",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0625/photo-1.jpg",
+          "file://capture/session-0625/photo-2.jpg",
+          "file://capture/session-0625/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart32Case004",
+      "file": "ets/test/CommentModel/CommentModelPart32Test.test.ets",
+      "scenario": "Verify Comment reset assignments restore empty strings and empty image arrays",
+      "inputs": {
+        "mode": 6,
+        "nameText": "emoji 📷 🌈",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1024",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0626/photo-1.jpg",
+          "file://capture/session-0626/photo-2.jpg",
+          "file://capture/session-0626/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart32Case005",
+      "file": "ets/test/CommentModel/CommentModelPart32Test.test.ets",
+      "scenario": "Verify Comment shared image array aliasing follows direct field assignment",
+      "inputs": {
+        "mode": 7,
+        "nameText": "emoji 📷 🌈",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1024",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0627/photo-1.jpg",
+          "file://capture/session-0627/photo-2.jpg",
+          "file://capture/session-0627/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart32Case006",
+      "file": "ets/test/CommentModel/CommentModelPart32Test.test.ets",
+      "scenario": "Verify Constants capture action and result key remain exact contract strings",
+      "inputs": {
+        "mode": 8,
+        "nameText": "emoji 📷 🌈",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1024",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0628/photo-1.jpg",
+          "file://capture/session-0628/photo-2.jpg",
+          "file://capture/session-0628/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart32Case007",
+      "file": "ets/test/CommentModel/CommentModelPart32Test.test.ets",
+      "scenario": "Verify Comment image removal preserves retained data and unrelated fields",
+      "inputs": {
+        "mode": 9,
+        "nameText": "emoji 📷 🌈",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "1024",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0629/photo-1.jpg",
+          "file://capture/session-0629/photo-2.jpg",
+          "file://capture/session-0629/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart32Case008",
+      "file": "ets/test/CommentModel/CommentModelPart32Test.test.ets",
+      "scenario": "Verify Comment preserves every assigned field and ordered image data",
+      "inputs": {
+        "mode": 0,
+        "nameText": "zero\\u0000inside",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-1024",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0630/photo-1.jpg",
+          "file://capture/session-0630/photo-2.jpg",
+          "file://capture/session-0630/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart32Case009",
+      "file": "ets/test/CommentModel/CommentModelPart32Test.test.ets",
+      "scenario": "Verify Comment instances keep independent image arrays and scalar fields",
+      "inputs": {
+        "mode": 1,
+        "nameText": "zero\\u0000inside",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-1024",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0631/photo-1.jpg",
+          "file://capture/session-0631/photo-2.jpg",
+          "file://capture/session-0631/photo-3.jpg"
+        ]
+      }
+    },
+    {
+      "name": "commentModelPart32Case010",
+      "file": "ets/test/CommentModel/CommentModelPart32Test.test.ets",
+      "scenario": "Verify Comment images retain append insertion and replacement order",
+      "inputs": {
+        "mode": 2,
+        "nameText": "zero\\u0000inside",
+        "commentText": "  leading and trailing  ",
+        "idLiteral": "-1024",
+        "timestamp": "2026-11-17 23:59",
+        "imageUris": [
+          "file://capture/session-0632/photo-1.jpg",
+          "file://capture/session-0632/photo-2.jpg",
+          "file://capture/session-0632/photo-3.jpg"
         ]
       }
     }
