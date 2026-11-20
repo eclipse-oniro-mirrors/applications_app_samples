@@ -433,12 +433,26 @@ export default function memoryLeakDetectionTest(): void {
       hilog.info(0x0000, 'testTag', '%{public}s', 'MemoryLeakDetection afterAll');
     });
 
+    // Coverage case: performance_should_record_latency_0
+    // Suite: MemoryLeakDetection
+    // Category: PerformanceStability
+    // Objective: validate performancestability behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('performance_should_record_latency_0', 0, async () => {
       model.recordLatency(10);
       expect(model.getAverageLatency()).assertEqual(10);
       expect(model.getMaxLatency() >= 0).assertTrue();
     });
 
+    // Coverage case: performance_should_average_batches_1
+    // Suite: MemoryLeakDetection
+    // Category: PerformanceStability
+    // Objective: validate performancestability behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('performance_should_average_batches_1', 0, async () => {
       for (let index = 0; index < 6; index++) {
         model.recordLatency(index * 2);
@@ -447,6 +461,13 @@ export default function memoryLeakDetectionTest(): void {
       expect(model.getAverageLatency()).assertLessOrEqual(10);
     });
 
+    // Coverage case: performance_should_bound_latency_input_2
+    // Suite: MemoryLeakDetection
+    // Category: PerformanceStability
+    // Objective: validate performancestability behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('performance_should_bound_latency_input_2', 0, async () => {
       model.recordLatency(-100);
       expect(model.getMaxLatency()).assertEqual(0);
@@ -454,29 +475,64 @@ export default function memoryLeakDetectionTest(): void {
       expect(model.getMaxLatency()).assertEqual(600000);
     });
 
+    // Coverage case: stability_should_detect_memory_growth_3
+    // Suite: MemoryLeakDetection
+    // Category: PerformanceStability
+    // Objective: validate performancestability behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('stability_should_detect_memory_growth_3', 0, async () => {
       model.recordMemory(103);
       model.recordMemory(203);
       expect(model.getMemoryGrowth()).assertEqual(100);
     });
 
+    // Coverage case: stability_should_keep_memory_flat_4
+    // Suite: MemoryLeakDetection
+    // Category: PerformanceStability
+    // Objective: validate performancestability behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('stability_should_keep_memory_flat_4', 0, async () => {
       model.recordMemory(516);
       model.recordMemory(516);
       expect(model.getMemoryGrowth()).assertEqual(0);
     });
 
+    // Coverage case: performance_should_compute_success_rate_5
+    // Suite: MemoryLeakDetection
+    // Category: PerformanceStability
+    // Objective: validate performancestability behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('performance_should_compute_success_rate_5', 0, async () => {
       const rate: number = model.computeRate(5, 10);
       expect(rate).assertLessOrEqual(1);
       expect(rate >= 0).assertTrue();
     });
 
+    // Coverage case: performance_should_handle_zero_total_6
+    // Suite: MemoryLeakDetection
+    // Category: PerformanceStability
+    // Objective: validate performancestability behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('performance_should_handle_zero_total_6', 0, async () => {
       expect(model.computeRate(0, 0)).assertEqual(0);
       expect(model.computeRate(5, 0)).assertEqual(0);
     });
 
+    // Coverage case: stress_should_handle_repeated_sessions_7
+    // Suite: MemoryLeakDetection
+    // Category: PerformanceStability
+    // Objective: validate performancestability behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('stress_should_handle_repeated_sessions_7', 0, async () => {
       for (let index = 0; index < 17; index++) {
         model.onSessionCreate('stress_7_' + index, 'com.samples.uiextensionability',
@@ -485,6 +541,13 @@ export default function memoryLeakDetectionTest(): void {
       expect(model.getSessionCount()).assertEqual(17);
     });
 
+    // Coverage case: concurrency_should_serialize_counters_8
+    // Suite: MemoryLeakDetection
+    // Category: PerformanceStability
+    // Objective: validate performancestability behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('concurrency_should_serialize_counters_8', 0, async () => {
       for (let index = 0; index < 13; index++) {
         model.onRemoteReady();
@@ -492,6 +555,13 @@ export default function memoryLeakDetectionTest(): void {
       expect(model.getEventCount(ProxyEventType.REMOTE_READY)).assertEqual(13);
     });
 
+    // Coverage case: stress_should_reset_between_rounds_9
+    // Suite: MemoryLeakDetection
+    // Category: PerformanceStability
+    // Objective: validate performancestability behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('stress_should_reset_between_rounds_9', 0, async () => {
       model.onRemoteReady();
       model.reset();

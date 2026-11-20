@@ -433,6 +433,14 @@ export default function configurationChangesTest(): void {
       hilog.info(0x0000, 'testTag', '%{public}s', 'ConfigurationChanges afterAll');
     });
 
+    // Coverage case: lifecycle_should_follow_create_foreground_0
+    // Suite: ConfigurationChanges
+    // Category: Lifecycle
+    // Objective: validate lifecycle behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
+    // Isolation: the case does not depend on state left by previous cases.
     it('lifecycle_should_follow_create_foreground_0', 0, async () => {
       model.onCreate();
       model.onForeground();
@@ -441,6 +449,14 @@ export default function configurationChangesTest(): void {
       expect(model.getPhaseCount()).assertEqual(2);
     });
 
+    // Coverage case: lifecycle_should_return_to_background_1
+    // Suite: ConfigurationChanges
+    // Category: Lifecycle
+    // Objective: validate lifecycle behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
+    // Isolation: the case does not depend on state left by previous cases.
     it('lifecycle_should_return_to_background_1', 0, async () => {
       model.onForeground();
       model.onBackground();
@@ -448,6 +464,14 @@ export default function configurationChangesTest(): void {
       expect(model.getPhaseAt(1)).assertEqual('background');
     });
 
+    // Coverage case: lifecycle_should_destroy_after_session_2
+    // Suite: ConfigurationChanges
+    // Category: Lifecycle
+    // Objective: validate lifecycle behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
+    // Isolation: the case does not depend on state left by previous cases.
     it('lifecycle_should_destroy_after_session_2', 0, async () => {
       model.onSessionCreate('life_2', 'com.samples.uiextensionability',
         'UIExtensionProvider', 'entry', 'sys/commonUI');
@@ -456,6 +480,14 @@ export default function configurationChangesTest(): void {
       expect(model.getSessionCount()).assertEqual(1);
     });
 
+    // Coverage case: lifecycle_should_track_phase_count_3
+    // Suite: ConfigurationChanges
+    // Category: Lifecycle
+    // Objective: validate lifecycle behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
+    // Isolation: the case does not depend on state left by previous cases.
     it('lifecycle_should_track_phase_count_3', 0, async () => {
       model.onCreate();
       model.onForeground();
@@ -464,6 +496,14 @@ export default function configurationChangesTest(): void {
       expect(model.getPhaseCount()).assertEqual(4);
     });
 
+    // Coverage case: state_should_persist_message_across_phases_4
+    // Suite: ConfigurationChanges
+    // Category: Lifecycle
+    // Objective: validate lifecycle behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
+    // Isolation: the case does not depend on state left by previous cases.
     it('state_should_persist_message_across_phases_4', 0, async () => {
       const storage: ExtensionStorage = model.getStorage();
       storage.setOrCreate('message', 'persisted_4');
@@ -472,6 +512,14 @@ export default function configurationChangesTest(): void {
       expect(storage.get('message')).assertEqual('persisted_4');
     });
 
+    // Coverage case: state_should_recover_after_reset_5
+    // Suite: ConfigurationChanges
+    // Category: Lifecycle
+    // Objective: validate lifecycle behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
+    // Isolation: the case does not depend on state left by previous cases.
     it('state_should_recover_after_reset_5', 0, async () => {
       model.onCreate();
       model.getStorage().setOrCreate('k', 'v_5');
@@ -480,6 +528,14 @@ export default function configurationChangesTest(): void {
       expect(model.getStorage().size()).assertEqual(0);
     });
 
+    // Coverage case: state_should_count_session_lifecycles_6
+    // Suite: ConfigurationChanges
+    // Category: Lifecycle
+    // Objective: validate lifecycle behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
+    // Isolation: the case does not depend on state left by previous cases.
     it('state_should_count_session_lifecycles_6', 0, async () => {
       model.onSessionCreate('s_6', 'com.samples.uiextensionability',
         'UIExtensionProvider', 'entry', 'sys/commonUI');
@@ -488,6 +544,14 @@ export default function configurationChangesTest(): void {
       expect(model.getCounter('sessionDestroy')).assertEqual(1);
     });
 
+    // Coverage case: lifecycle_should_handle_config_change_state_7
+    // Suite: ConfigurationChanges
+    // Category: Lifecycle
+    // Objective: validate lifecycle behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
+    // Isolation: the case does not depend on state left by previous cases.
     it('lifecycle_should_handle_config_change_state_7', 0, async () => {
       model.onCreate();
       model.onForeground();
@@ -497,11 +561,27 @@ export default function configurationChangesTest(): void {
       expect(model.isDestroyed()).assertFalse();
     });
 
+    // Coverage case: lifecycle_should_validate_session_id_8
+    // Suite: ConfigurationChanges
+    // Category: Lifecycle
+    // Objective: validate lifecycle behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
+    // Isolation: the case does not depend on state left by previous cases.
     it('lifecycle_should_validate_session_id_8', 0, async () => {
       expect(model.validateSessionId('session_8')).assertTrue();
       expect(model.validateSessionId('')).assertFalse();
     });
 
+    // Coverage case: lifecycle_should_store_recovery_marker_9
+    // Suite: ConfigurationChanges
+    // Category: Lifecycle
+    // Objective: validate lifecycle behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
+    // Isolation: the case does not depend on state left by previous cases.
     it('lifecycle_should_store_recovery_marker_9', 0, async () => {
       model.getStorage().setOrCreate('recovered', 'true_9');
       expect(model.getStorage().has('recovered')).assertTrue();

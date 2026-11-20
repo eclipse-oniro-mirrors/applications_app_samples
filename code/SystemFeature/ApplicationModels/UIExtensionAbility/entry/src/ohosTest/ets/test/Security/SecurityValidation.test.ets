@@ -433,12 +433,26 @@ export default function securityValidationTest(): void {
       hilog.info(0x0000, 'testTag', '%{public}s', 'SecurityValidation afterAll');
     });
 
+    // Coverage case: security_should_grant_permission_0
+    // Suite: SecurityValidation
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_grant_permission_0', 0, async () => {
       model.grant('ohos.permission.INTERNET');
       expect(model.hasPermission('ohos.permission.INTERNET')).assertTrue();
       expect(model.getPermissionCount()).assertEqual(1);
     });
 
+    // Coverage case: security_should_revoke_permission_1
+    // Suite: SecurityValidation
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_revoke_permission_1', 0, async () => {
       model.grant('ohos.permission.INTERNET');
       model.revoke('ohos.permission.INTERNET');
@@ -446,6 +460,13 @@ export default function securityValidationTest(): void {
       expect(model.getPermissionCount()).assertEqual(0);
     });
 
+    // Coverage case: security_should_not_duplicate_permission_2
+    // Suite: SecurityValidation
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_not_duplicate_permission_2', 0, async () => {
       for (let index = 0; index < 4; index++) {
         model.grant('ohos.permission.GET_NETWORK_INFO');
@@ -453,16 +474,37 @@ export default function securityValidationTest(): void {
       expect(model.getPermissionCount()).assertEqual(1);
     });
 
+    // Coverage case: security_should_reject_unknown_permission_revoke_3
+    // Suite: SecurityValidation
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_reject_unknown_permission_revoke_3', 0, async () => {
       model.revoke('ohos.permission.UNKNOWN_3');
       expect(model.getPermissionCount()).assertEqual(0);
     });
 
+    // Coverage case: security_should_validate_exported_want_4
+    // Suite: SecurityValidation
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_validate_exported_want_4', 0, async () => {
       expect(model.validateWant('com.samples.uiextensionability', 'UIExtensionProvider')).assertTrue();
       expect(model.validateWant('', 'UIExtensionProvider_4')).assertFalse();
     });
 
+    // Coverage case: security_should_verify_session_identity_5
+    // Suite: SecurityValidation
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_verify_session_identity_5', 0, async () => {
       model.onSessionCreate('secure_5', 'com.samples.uiextensionability',
         'UIExtensionProvider', 'entry', 'sys/commonUI');
@@ -470,11 +512,25 @@ export default function securityValidationTest(): void {
       expect(model.getActiveSessionCount()).assertEqual(1);
     });
 
+    // Coverage case: security_should_reject_empty_bundle_6
+    // Suite: SecurityValidation
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_reject_empty_bundle_6', 0, async () => {
       expect(model.validateWant('', '')).assertFalse();
       expect(model.validateWant('com.samples.uiextensionability', '')).assertFalse();
     });
 
+    // Coverage case: security_should_keep_permission_order_7
+    // Suite: SecurityValidation
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('security_should_keep_permission_order_7', 0, async () => {
       model.grant('perm_a_7');
       model.grant('perm_b_7');
@@ -483,11 +539,25 @@ export default function securityValidationTest(): void {
       expect(model.getPermissionCount()).assertEqual(2);
     });
 
+    // Coverage case: usability_should_expose_message_text_8
+    // Suite: SecurityValidation
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('usability_should_expose_message_text_8', 0, async () => {
       model.onReceive('UIExtension provider 8');
       expect(model.getLastMessage().indexOf('UIExtension provider')).assertEqual(0);
     });
 
+    // Coverage case: focus_should_keep_index_bounded_9
+    // Suite: SecurityValidation
+    // Category: Security
+    // Objective: validate security behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('focus_should_keep_index_bounded_9', 0, async () => {
       const index: number = clampValue(9, 0, 3);
       expect(index >= 0).assertTrue();

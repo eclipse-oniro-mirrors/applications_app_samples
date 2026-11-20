@@ -433,6 +433,13 @@ export default function uIExtensionEndToEndTest(): void {
       hilog.info(0x0000, 'testTag', '%{public}s', 'UIExtensionEndToEnd afterAll');
     });
 
+    // Coverage case: integration_should_complete_full_flow_0
+    // Suite: UIExtensionEndToEnd
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('integration_should_complete_full_flow_0', 0, async () => {
       model.onCreate();
       model.onSessionCreate('flow_0', 'com.samples.uiextensionability',
@@ -444,6 +451,13 @@ export default function uIExtensionEndToEndTest(): void {
       expect(model.isForeground()).assertTrue();
     });
 
+    // Coverage case: integration_should_propagate_proxy_data_1
+    // Suite: UIExtensionEndToEnd
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('integration_should_propagate_proxy_data_1', 0, async () => {
       model.onRemoteReady();
       model.onReceive('remote_1');
@@ -453,6 +467,13 @@ export default function uIExtensionEndToEndTest(): void {
       expect(model.isProxyReleased()).assertTrue();
     });
 
+    // Coverage case: integration_should_share_local_storage_2
+    // Suite: UIExtensionEndToEnd
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('integration_should_share_local_storage_2', 0, async () => {
       const writer: ExtensionStorage = model.getStorage();
       writer.setOrCreate('session', 'shared_2');
@@ -460,6 +481,13 @@ export default function uIExtensionEndToEndTest(): void {
       expect(writer.keys().length).assertEqual(1);
     });
 
+    // Coverage case: integration_should_recover_after_destroy_3
+    // Suite: UIExtensionEndToEnd
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('integration_should_recover_after_destroy_3', 0, async () => {
       model.onSessionCreate('recover_3', 'com.samples.uiextensionability',
         'UIExtensionProvider', 'entry', 'sys/commonUI');
@@ -469,6 +497,13 @@ export default function uIExtensionEndToEndTest(): void {
         'UIExtensionProvider', 'entry', 'sys/commonUI')).assertTrue();
     });
 
+    // Coverage case: integration_should_handle_multiple_sessions_4
+    // Suite: UIExtensionEndToEnd
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('integration_should_handle_multiple_sessions_4', 0, async () => {
       for (let index = 0; index < 6; index++) {
         model.onSessionCreate('multi_4_' + index, 'com.samples.uiextensionability',
@@ -477,12 +512,26 @@ export default function uIExtensionEndToEndTest(): void {
       expect(model.getSessionCount()).assertEqual(6);
     });
 
+    // Coverage case: integration_should_support_localization_message_5
+    // Suite: UIExtensionEndToEnd
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('integration_should_support_localization_message_5', 0, async () => {
       model.getStorage().setOrCreate('locale', 'en_US_5');
       expect(model.getStorage().get('locale')).assertEqual('en_US_5');
       expect(model.getStorage().has('locale')).assertTrue();
     });
 
+    // Coverage case: integration_should_handle_offline_state_6
+    // Suite: UIExtensionEndToEnd
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('integration_should_handle_offline_state_6', 0, async () => {
       model.grant('ohos.permission.INTERNET');
       model.revoke('ohos.permission.INTERNET');
@@ -490,6 +539,13 @@ export default function uIExtensionEndToEndTest(): void {
       expect(model.getPermissionCount()).assertEqual(0);
     });
 
+    // Coverage case: integration_should_track_end_to_end_latency_7
+    // Suite: UIExtensionEndToEnd
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('integration_should_track_end_to_end_latency_7', 0, async () => {
       model.recordLatency(27);
       model.recordLatency(37);
@@ -497,6 +553,13 @@ export default function uIExtensionEndToEndTest(): void {
       expect(model.getMaxLatency()).assertLessOrEqual(600000);
     });
 
+    // Coverage case: integration_should_keep_consistency_across_events_8
+    // Suite: UIExtensionEndToEnd
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('integration_should_keep_consistency_across_events_8', 0, async () => {
       model.onRemoteReady();
       model.onReceive('consistent_8');
@@ -504,6 +567,13 @@ export default function uIExtensionEndToEndTest(): void {
       expect(model.getLastMessage()).assertEqual('consistent_8');
     });
 
+    // Coverage case: integration_should_validate_workflow_versions_9
+    // Suite: UIExtensionEndToEnd
+    // Category: UIExtension
+    // Objective: validate uiextension behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
     it('integration_should_validate_workflow_versions_9', 0, async () => {
       expect(model.validateSessionId('version_9')).assertTrue();
       expect(model.computeRate(9, 10)).assertLessOrEqual(1);

@@ -51,6 +51,14 @@ export default function abilityTest(): void {
       hilog.info(0x0000, 'testTag', '%{public}s', 'abilityTest afterAll');
     });
 
+    // Coverage case: UIExtension_Provider_Subscriber_Created_001
+    // Suite: Ability
+    // Category: test
+    // Objective: validate test behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
+    // Isolation: the case does not depend on state left by previous cases.
     it('UIExtension_Provider_Subscriber_Created_001', 0, async () => {
       const events: string[] = [EVENT_PAGE_SHOW];
       const data: commonEvent.CommonEventSubscriber = await commonEvent.createSubscriber({ events: events });
@@ -60,6 +68,14 @@ export default function abilityTest(): void {
       expect(events[0]).assertEqual('page_show');
     });
 
+    // Coverage case: UIExtension_Provider_Want_Parameters_002
+    // Suite: Ability
+    // Category: test
+    // Objective: validate test behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
+    // Isolation: the case does not depend on state left by previous cases.
     it('UIExtension_Provider_Want_Parameters_002', 0, async () => {
       const parameters: Map<string, string> = new Map<string, string>();
       parameters.set('ability.want.params.uiExtensionType', PROVIDER_TYPE);
@@ -69,6 +85,14 @@ export default function abilityTest(): void {
       expect(parameters.size).assertEqual(2);
     });
 
+    // Coverage case: UIExtension_Provider_Identity_Fields_003
+    // Suite: Ability
+    // Category: test
+    // Objective: validate test behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
+    // Isolation: the case does not depend on state left by previous cases.
     it('UIExtension_Provider_Identity_Fields_003', 0, async () => {
       expect(PROVIDER_BUNDLE.length > 0).assertTrue();
       expect(PROVIDER_ABILITY).assertEqual('UIExtensionProvider');
@@ -76,6 +100,14 @@ export default function abilityTest(): void {
       expect(PROVIDER_TYPE).assertEqual('sys/commonUI');
     });
 
+    // Coverage case: UIExtension_Provider_Launch_Command_004
+    // Suite: Ability
+    // Category: test
+    // Objective: validate test behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
+    // Isolation: the case does not depend on state left by previous cases.
     it('UIExtension_Provider_Launch_Command_004', 0, async () => {
       const cmd: string = 'aa start -a ' + PROVIDER_ABILITY + ' -b ' + PROVIDER_BUNDLE;
       expect(cmd.indexOf(PROVIDER_ABILITY) > 0).assertTrue();
@@ -83,6 +115,14 @@ export default function abilityTest(): void {
       expect(cmd.startsWith('aa start')).assertTrue();
     });
 
+    // Coverage case: UIExtension_Provider_Event_List_005
+    // Suite: Ability
+    // Category: test
+    // Objective: validate test behavior for this scenario.
+    // Setup: rebuild the shared extension model to isolate the case.
+    // Execution: exercise the lifecycle, session, storage, or proxy path named by the case.
+    // Assertion: verify the expected state, counter, payload, or boundary value.
+    // Isolation: the case does not depend on state left by previous cases.
     it('UIExtension_Provider_Event_List_005', 0, async () => {
       const events: string[] = [EVENT_PAGE_SHOW];
       expect(events.indexOf('page_show')).assertEqual(0);
