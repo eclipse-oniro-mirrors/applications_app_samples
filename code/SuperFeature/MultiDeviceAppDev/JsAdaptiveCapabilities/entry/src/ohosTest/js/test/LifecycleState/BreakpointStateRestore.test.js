@@ -16,6 +16,7 @@
 import hilog from '@ohos.hilog';
 import { describe, it, expect } from '@ohos/hypium';
 import model from '../Shared/AdaptiveModel';
+import { registerBreakpointStateRestoreExtra2 } from './BreakpointStateRestore.testCases2';
 
 const DOMAIN = 0xF811;
 const TAG = '[Sample_jsAdaptiveCapabilities]';
@@ -1541,36 +1542,1105 @@ function BreakpointStateRestorePart029() {
     });
 }
 
+function BreakpointStateRestorePart030() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0892
+     * @tc.name    JsState052
+     * @tc.desc    Restore state and history cycle with 6 pushes seed 52
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState052', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 764, columns: 3 };
+      const snapshot = model.copyState(state);
+      state.width = 804;
+      expect(state.width).assertEqual(804);
+      expect(snapshot.width).assertEqual(764);
+      expect(snapshot.columns).assertEqual(3);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp0');
+      expect(history[0]).assertEqual('bp1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState052 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0893
+     * @tc.name    JsState053
+     * @tc.desc    Restore state and history cycle with 7 pushes seed 53
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState053', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 771, columns: 3 };
+      const snapshot = model.copyState(state);
+      state.width = 811;
+      expect(state.width).assertEqual(811);
+      expect(snapshot.width).assertEqual(771);
+      expect(snapshot.columns).assertEqual(3);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp1');
+      expect(history[0]).assertEqual('bp2');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState053 done');
+    });
+}
+
+function BreakpointStateRestorePart031() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0894
+     * @tc.name    JsState054
+     * @tc.desc    Restore state and history cycle with 8 pushes seed 54
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState054', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 778, columns: 3 };
+      const snapshot = model.copyState(state);
+      state.width = 818;
+      expect(state.width).assertEqual(818);
+      expect(snapshot.width).assertEqual(778);
+      expect(snapshot.columns).assertEqual(3);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp2');
+      expect(history[0]).assertEqual('bp3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState054 done');
+    });
+}
+
+function BreakpointStateRestorePart032() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0895
+     * @tc.name    JsState055
+     * @tc.desc    Restore state and history cycle with 9 pushes seed 55
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState055', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 785, columns: 3 };
+      const snapshot = model.copyState(state);
+      state.width = 825;
+      expect(state.width).assertEqual(825);
+      expect(snapshot.width).assertEqual(785);
+      expect(snapshot.columns).assertEqual(3);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp3');
+      expect(history[0]).assertEqual('bp4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState055 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0896
+     * @tc.name    JsState056
+     * @tc.desc    Restore state and history cycle with 3 pushes seed 56
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState056', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 792, columns: 3 };
+      const snapshot = model.copyState(state);
+      state.width = 832;
+      expect(state.width).assertEqual(832);
+      expect(snapshot.width).assertEqual(792);
+      expect(snapshot.columns).assertEqual(3);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      expect(history.length).assertEqual(3);
+      expect(history[history.length - 1]).assertEqual('bp2');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState056 done');
+    });
+}
+
+function BreakpointStateRestorePart033() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0897
+     * @tc.name    JsState057
+     * @tc.desc    Restore state and history cycle with 4 pushes seed 57
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState057', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 799, columns: 3 };
+      const snapshot = model.copyState(state);
+      state.width = 839;
+      expect(state.width).assertEqual(839);
+      expect(snapshot.width).assertEqual(799);
+      expect(snapshot.columns).assertEqual(3);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      expect(history.length).assertEqual(4);
+      expect(history[history.length - 1]).assertEqual('bp3');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState057 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0898
+     * @tc.name    JsState058
+     * @tc.desc    Restore state and history cycle with 5 pushes seed 58
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState058', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 806, columns: 3 };
+      const snapshot = model.copyState(state);
+      state.width = 846;
+      expect(state.width).assertEqual(846);
+      expect(snapshot.width).assertEqual(806);
+      expect(snapshot.columns).assertEqual(3);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp4');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState058 done');
+    });
+}
+
+function BreakpointStateRestorePart034() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0899
+     * @tc.name    JsState059
+     * @tc.desc    Restore state and history cycle with 6 pushes seed 59
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState059', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 813, columns: 3 };
+      const snapshot = model.copyState(state);
+      state.width = 853;
+      expect(state.width).assertEqual(853);
+      expect(snapshot.width).assertEqual(813);
+      expect(snapshot.columns).assertEqual(3);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp0');
+      expect(history[0]).assertEqual('bp1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState059 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0900
+     * @tc.name    JsState060
+     * @tc.desc    Restore state and history cycle with 7 pushes seed 60
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState060', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 820, columns: 3 };
+      const snapshot = model.copyState(state);
+      state.width = 860;
+      expect(state.width).assertEqual(860);
+      expect(snapshot.width).assertEqual(820);
+      expect(snapshot.columns).assertEqual(3);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp1');
+      expect(history[0]).assertEqual('bp2');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState060 done');
+    });
+}
+
+function BreakpointStateRestorePart035() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0901
+     * @tc.name    JsState061
+     * @tc.desc    Restore state and history cycle with 8 pushes seed 61
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState061', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 827, columns: 3 };
+      const snapshot = model.copyState(state);
+      state.width = 867;
+      expect(state.width).assertEqual(867);
+      expect(snapshot.width).assertEqual(827);
+      expect(snapshot.columns).assertEqual(3);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp2');
+      expect(history[0]).assertEqual('bp3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState061 done');
+    });
+}
+
+function BreakpointStateRestorePart036() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0902
+     * @tc.name    JsState062
+     * @tc.desc    Restore state and history cycle with 9 pushes seed 62
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState062', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 834, columns: 3 };
+      const snapshot = model.copyState(state);
+      state.width = 874;
+      expect(state.width).assertEqual(874);
+      expect(snapshot.width).assertEqual(834);
+      expect(snapshot.columns).assertEqual(3);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp3');
+      expect(history[0]).assertEqual('bp4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState062 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0903
+     * @tc.name    JsState063
+     * @tc.desc    Restore state and history cycle with 3 pushes seed 63
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState063', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 841, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 881;
+      expect(state.width).assertEqual(881);
+      expect(snapshot.width).assertEqual(841);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      expect(history.length).assertEqual(3);
+      expect(history[history.length - 1]).assertEqual('bp2');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState063 done');
+    });
+}
+
+function BreakpointStateRestorePart037() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0904
+     * @tc.name    JsState064
+     * @tc.desc    Restore state and history cycle with 4 pushes seed 64
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState064', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 848, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 888;
+      expect(state.width).assertEqual(888);
+      expect(snapshot.width).assertEqual(848);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      expect(history.length).assertEqual(4);
+      expect(history[history.length - 1]).assertEqual('bp3');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState064 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0905
+     * @tc.name    JsState065
+     * @tc.desc    Restore state and history cycle with 5 pushes seed 65
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState065', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 855, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 895;
+      expect(state.width).assertEqual(895);
+      expect(snapshot.width).assertEqual(855);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp4');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState065 done');
+    });
+}
+
+function BreakpointStateRestorePart038() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0906
+     * @tc.name    JsState066
+     * @tc.desc    Restore state and history cycle with 6 pushes seed 66
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState066', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 862, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 902;
+      expect(state.width).assertEqual(902);
+      expect(snapshot.width).assertEqual(862);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp0');
+      expect(history[0]).assertEqual('bp1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState066 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0907
+     * @tc.name    JsState067
+     * @tc.desc    Restore state and history cycle with 7 pushes seed 67
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState067', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 869, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 909;
+      expect(state.width).assertEqual(909);
+      expect(snapshot.width).assertEqual(869);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp1');
+      expect(history[0]).assertEqual('bp2');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState067 done');
+    });
+}
+
+function BreakpointStateRestorePart039() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0908
+     * @tc.name    JsState068
+     * @tc.desc    Restore state and history cycle with 8 pushes seed 68
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState068', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 876, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 916;
+      expect(state.width).assertEqual(916);
+      expect(snapshot.width).assertEqual(876);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp2');
+      expect(history[0]).assertEqual('bp3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState068 done');
+    });
+}
+
+function BreakpointStateRestorePart040() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0909
+     * @tc.name    JsState069
+     * @tc.desc    Restore state and history cycle with 9 pushes seed 69
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState069', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 883, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 923;
+      expect(state.width).assertEqual(923);
+      expect(snapshot.width).assertEqual(883);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp3');
+      expect(history[0]).assertEqual('bp4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState069 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0910
+     * @tc.name    JsState070
+     * @tc.desc    Restore state and history cycle with 3 pushes seed 70
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState070', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 890, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 930;
+      expect(state.width).assertEqual(930);
+      expect(snapshot.width).assertEqual(890);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      expect(history.length).assertEqual(3);
+      expect(history[history.length - 1]).assertEqual('bp2');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState070 done');
+    });
+}
+
+function BreakpointStateRestorePart041() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0911
+     * @tc.name    JsState071
+     * @tc.desc    Restore state and history cycle with 4 pushes seed 71
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState071', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 897, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 937;
+      expect(state.width).assertEqual(937);
+      expect(snapshot.width).assertEqual(897);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      expect(history.length).assertEqual(4);
+      expect(history[history.length - 1]).assertEqual('bp3');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState071 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0912
+     * @tc.name    JsState072
+     * @tc.desc    Restore state and history cycle with 5 pushes seed 72
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState072', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 904, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 944;
+      expect(state.width).assertEqual(944);
+      expect(snapshot.width).assertEqual(904);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp4');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState072 done');
+    });
+}
+
+function BreakpointStateRestorePart042() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0913
+     * @tc.name    JsState073
+     * @tc.desc    Restore state and history cycle with 6 pushes seed 73
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState073', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 911, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 951;
+      expect(state.width).assertEqual(951);
+      expect(snapshot.width).assertEqual(911);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp0');
+      expect(history[0]).assertEqual('bp1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState073 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0914
+     * @tc.name    JsState074
+     * @tc.desc    Restore state and history cycle with 7 pushes seed 74
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState074', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 918, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 958;
+      expect(state.width).assertEqual(958);
+      expect(snapshot.width).assertEqual(918);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp1');
+      expect(history[0]).assertEqual('bp2');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState074 done');
+    });
+}
+
+function BreakpointStateRestorePart043() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0915
+     * @tc.name    JsState075
+     * @tc.desc    Restore state and history cycle with 8 pushes seed 75
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState075', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 925, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 965;
+      expect(state.width).assertEqual(965);
+      expect(snapshot.width).assertEqual(925);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp2');
+      expect(history[0]).assertEqual('bp3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState075 done');
+    });
+}
+
+function BreakpointStateRestorePart044() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0916
+     * @tc.name    JsState076
+     * @tc.desc    Restore state and history cycle with 9 pushes seed 76
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState076', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 932, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 972;
+      expect(state.width).assertEqual(972);
+      expect(snapshot.width).assertEqual(932);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp3');
+      expect(history[0]).assertEqual('bp4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState076 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0917
+     * @tc.name    JsState077
+     * @tc.desc    Restore state and history cycle with 3 pushes seed 77
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState077', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 939, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 979;
+      expect(state.width).assertEqual(979);
+      expect(snapshot.width).assertEqual(939);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      expect(history.length).assertEqual(3);
+      expect(history[history.length - 1]).assertEqual('bp2');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState077 done');
+    });
+}
+
+function BreakpointStateRestorePart045() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0918
+     * @tc.name    JsState078
+     * @tc.desc    Restore state and history cycle with 4 pushes seed 78
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState078', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 946, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 986;
+      expect(state.width).assertEqual(986);
+      expect(snapshot.width).assertEqual(946);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      expect(history.length).assertEqual(4);
+      expect(history[history.length - 1]).assertEqual('bp3');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState078 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0919
+     * @tc.name    JsState079
+     * @tc.desc    Restore state and history cycle with 5 pushes seed 79
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState079', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 953, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 993;
+      expect(state.width).assertEqual(993);
+      expect(snapshot.width).assertEqual(953);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp4');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState079 done');
+    });
+}
+
+function BreakpointStateRestorePart046() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0920
+     * @tc.name    JsState080
+     * @tc.desc    Restore state and history cycle with 6 pushes seed 80
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState080', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 960, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 1000;
+      expect(state.width).assertEqual(1000);
+      expect(snapshot.width).assertEqual(960);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp0');
+      expect(history[0]).assertEqual('bp1');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState080 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0921
+     * @tc.name    JsState081
+     * @tc.desc    Restore state and history cycle with 7 pushes seed 81
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState081', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 967, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 1007;
+      expect(state.width).assertEqual(1007);
+      expect(snapshot.width).assertEqual(967);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp1');
+      expect(history[0]).assertEqual('bp2');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState081 done');
+    });
+}
+
+function BreakpointStateRestorePart047() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0922
+     * @tc.name    JsState082
+     * @tc.desc    Restore state and history cycle with 8 pushes seed 82
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState082', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 974, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 1014;
+      expect(state.width).assertEqual(1014);
+      expect(snapshot.width).assertEqual(974);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp2');
+      expect(history[0]).assertEqual('bp3');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState082 done');
+    });
+}
+
+function BreakpointStateRestorePart048() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0923
+     * @tc.name    JsState083
+     * @tc.desc    Restore state and history cycle with 9 pushes seed 83
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState083', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 981, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 1021;
+      expect(state.width).assertEqual(1021);
+      expect(snapshot.width).assertEqual(981);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp3');
+      expect(history[0]).assertEqual('bp4');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState083 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0924
+     * @tc.name    JsState084
+     * @tc.desc    Restore state and history cycle with 3 pushes seed 84
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState084', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 988, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 1028;
+      expect(state.width).assertEqual(1028);
+      expect(snapshot.width).assertEqual(988);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      expect(history.length).assertEqual(3);
+      expect(history[history.length - 1]).assertEqual('bp2');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState084 done');
+    });
+}
+
+function BreakpointStateRestorePart049() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0925
+     * @tc.name    JsState085
+     * @tc.desc    Restore state and history cycle with 4 pushes seed 85
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState085', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 995, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 1035;
+      expect(state.width).assertEqual(1035);
+      expect(snapshot.width).assertEqual(995);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      expect(history.length).assertEqual(4);
+      expect(history[history.length - 1]).assertEqual('bp3');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState085 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0926
+     * @tc.name    JsState086
+     * @tc.desc    Restore state and history cycle with 5 pushes seed 86
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsState086', 0, async function () {
+      await yieldThread();
+      const state = { bp: 'md', width: 1002, columns: 4 };
+      const snapshot = model.copyState(state);
+      state.width = 1042;
+      expect(state.width).assertEqual(1042);
+      expect(snapshot.width).assertEqual(1002);
+      expect(snapshot.columns).assertEqual(4);
+      const history = [];
+      model.historyPush(history, 'bp0', 5);
+      model.historyPush(history, 'bp1', 5);
+      model.historyPush(history, 'bp2', 5);
+      model.historyPush(history, 'bp3', 5);
+      model.historyPush(history, 'bp4', 5);
+      expect(history.length).assertEqual(5);
+      expect(history[history.length - 1]).assertEqual('bp4');
+      expect(history[0]).assertEqual('bp0');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsState086 done');
+    });
+}
+
+function BreakpointStateRestoreGroup001() {
+  BreakpointStateRestorePart001();
+  BreakpointStateRestorePart002();
+  BreakpointStateRestorePart003();
+  BreakpointStateRestorePart004();
+  BreakpointStateRestorePart005();
+  BreakpointStateRestorePart006();
+  BreakpointStateRestorePart007();
+  BreakpointStateRestorePart008();
+  BreakpointStateRestorePart009();
+  BreakpointStateRestorePart010();
+  BreakpointStateRestorePart011();
+  BreakpointStateRestorePart012();
+  BreakpointStateRestorePart013();
+  BreakpointStateRestorePart014();
+  BreakpointStateRestorePart015();
+  BreakpointStateRestorePart016();
+  BreakpointStateRestorePart017();
+  BreakpointStateRestorePart018();
+  BreakpointStateRestorePart019();
+  BreakpointStateRestorePart020();
+  BreakpointStateRestorePart021();
+  BreakpointStateRestorePart022();
+  BreakpointStateRestorePart023();
+  BreakpointStateRestorePart024();
+  BreakpointStateRestorePart025();
+  BreakpointStateRestorePart026();
+  BreakpointStateRestorePart027();
+  BreakpointStateRestorePart028();
+  BreakpointStateRestorePart029();
+  BreakpointStateRestorePart030();
+  BreakpointStateRestorePart031();
+  BreakpointStateRestorePart032();
+  BreakpointStateRestorePart033();
+  BreakpointStateRestorePart034();
+  BreakpointStateRestorePart035();
+  BreakpointStateRestorePart036();
+  BreakpointStateRestorePart037();
+  BreakpointStateRestorePart038();
+  BreakpointStateRestorePart039();
+  BreakpointStateRestorePart040();
+}
+
+function BreakpointStateRestoreGroup002() {
+  BreakpointStateRestorePart041();
+  BreakpointStateRestorePart042();
+  BreakpointStateRestorePart043();
+  BreakpointStateRestorePart044();
+  BreakpointStateRestorePart045();
+  BreakpointStateRestorePart046();
+  BreakpointStateRestorePart047();
+  BreakpointStateRestorePart048();
+  BreakpointStateRestorePart049();
+}
+
 export default function breakpointStateRestoreSuite() {
   describe('BreakpointStateRestoreSuite', function () {
-    BreakpointStateRestorePart001();
-    BreakpointStateRestorePart002();
-    BreakpointStateRestorePart003();
-    BreakpointStateRestorePart004();
-    BreakpointStateRestorePart005();
-    BreakpointStateRestorePart006();
-    BreakpointStateRestorePart007();
-    BreakpointStateRestorePart008();
-    BreakpointStateRestorePart009();
-    BreakpointStateRestorePart010();
-    BreakpointStateRestorePart011();
-    BreakpointStateRestorePart012();
-    BreakpointStateRestorePart013();
-    BreakpointStateRestorePart014();
-    BreakpointStateRestorePart015();
-    BreakpointStateRestorePart016();
-    BreakpointStateRestorePart017();
-    BreakpointStateRestorePart018();
-    BreakpointStateRestorePart019();
-    BreakpointStateRestorePart020();
-    BreakpointStateRestorePart021();
-    BreakpointStateRestorePart022();
-    BreakpointStateRestorePart023();
-    BreakpointStateRestorePart024();
-    BreakpointStateRestorePart025();
-    BreakpointStateRestorePart026();
-    BreakpointStateRestorePart027();
-    BreakpointStateRestorePart028();
-    BreakpointStateRestorePart029();
+    BreakpointStateRestoreGroup001();
+    BreakpointStateRestoreGroup002();
+    registerBreakpointStateRestoreExtra2();
   });
 }
