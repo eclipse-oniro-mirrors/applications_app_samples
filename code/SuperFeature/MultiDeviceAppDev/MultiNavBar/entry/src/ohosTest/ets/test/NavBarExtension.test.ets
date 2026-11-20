@@ -5961,3 +5961,661 @@ export default function navBarExtensionSuite() {
       });
       expect(model.getTotalSubCount()).assertEqual(0);
     })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1810
+     * @tc.name    NavBarExtension1810
+     * @tc.desc    Appending 1 nodes raises the top count to 6
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5push01', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      for (let i = 0; i < 1; i++) {
+        model.getNodes().push({ name: 'extra' + String(i), subCount: 1, isVisible: true, parentNode: -1 });
+      }
+      expect(model.getTopCount()).assertEqual(6);
+      expect(model.getVisibleCount()).assertEqual(6);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1811
+     * @tc.name    NavBarExtension1811
+     * @tc.desc    Appending 2 nodes raises the top count to 7
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5push02', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      for (let i = 0; i < 2; i++) {
+        model.getNodes().push({ name: 'extra' + String(i), subCount: 1, isVisible: true, parentNode: -1 });
+      }
+      expect(model.getTopCount()).assertEqual(7);
+      expect(model.getVisibleCount()).assertEqual(7);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1812
+     * @tc.name    NavBarExtension1812
+     * @tc.desc    Appending 3 nodes raises the top count to 8
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5push03', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      for (let i = 0; i < 3; i++) {
+        model.getNodes().push({ name: 'extra' + String(i), subCount: 1, isVisible: true, parentNode: -1 });
+      }
+      expect(model.getTopCount()).assertEqual(8);
+      expect(model.getVisibleCount()).assertEqual(8);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1813
+     * @tc.name    NavBarExtension1813
+     * @tc.desc    Popping 1 nodes lowers the top count to 4
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pop01', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      for (let i = 0; i < 1; i++) {
+        model.getNodes().pop();
+      }
+      expect(model.getTopCount()).assertEqual(4);
+      expect(model.getNode(4) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1814
+     * @tc.name    NavBarExtension1814
+     * @tc.desc    Popping 2 nodes lowers the top count to 3
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pop02', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      for (let i = 0; i < 2; i++) {
+        model.getNodes().pop();
+      }
+      expect(model.getTopCount()).assertEqual(3);
+      expect(model.getNode(3) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1815
+     * @tc.name    NavBarExtension1815
+     * @tc.desc    Popping 3 nodes lowers the top count to 2
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5pop03', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      for (let i = 0; i < 3; i++) {
+        model.getNodes().pop();
+      }
+      expect(model.getTopCount()).assertEqual(2);
+      expect(model.getNode(2) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1816
+     * @tc.name    NavBarExtension1816
+     * @tc.desc    Popping every node leaves an empty menu
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5popall', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      for (let i = 0; i < NAV_TOP_COUNT; i++) {
+        model.getNodes().pop();
+      }
+      expect(model.getTopCount()).assertEqual(0);
+      expect(model.getTotalSubCount()).assertEqual(0);
+      expect(model.getVisibleCount()).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1817
+     * @tc.name    NavBarExtension1817
+     * @tc.desc    Breakpoint type number resolves the three size keys
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5btnum', 0, () => {
+      const type: BreakpointType<number> = new BreakpointType<number>(0, -1, 2.5);
+      expect(type.GetValue('sm')).assertEqual(0);
+      expect(type.GetValue('md')).assertEqual(-1);
+      expect(type.GetValue('lg')).assertEqual(2.5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1818
+     * @tc.name    NavBarExtension1818
+     * @tc.desc    Breakpoint type string resolves the three size keys
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5btstr', 0, () => {
+      const type: BreakpointType<string> = new BreakpointType<string>('', 'b', 'c');
+      expect(type.GetValue('sm')).assertEqual('');
+      expect(type.GetValue('md')).assertEqual('b');
+      expect(type.GetValue('lg')).assertEqual('c');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1819
+     * @tc.name    NavBarExtension1819
+     * @tc.desc    Breakpoint type boolean resolves the three size keys
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5btbool', 0, () => {
+      const type: BreakpointType<boolean> = new BreakpointType<boolean>(true, false, true);
+      expect(type.GetValue('sm')).assertEqual(true);
+      expect(type.GetValue('md')).assertEqual(false);
+      expect(type.GetValue('lg')).assertEqual(true);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1820
+     * @tc.name    NavBarExtension1820
+     * @tc.desc    Breakpoint type rejects an unknown alias key
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5btkey0', 0, () => {
+      const type: BreakpointType<number> = new BreakpointType<number>(1, 2, 3);
+      expect(type.GetValue('SM') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1821
+     * @tc.name    NavBarExtension1821
+     * @tc.desc    Breakpoint type rejects an unknown alias key
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5btkey1', 0, () => {
+      const type: BreakpointType<number> = new BreakpointType<number>(1, 2, 3);
+      expect(type.GetValue('Md') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1822
+     * @tc.name    NavBarExtension1822
+     * @tc.desc    Breakpoint type rejects an unknown alias key
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5btkey2', 0, () => {
+      const type: BreakpointType<number> = new BreakpointType<number>(1, 2, 3);
+      expect(type.GetValue('xlg') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1823
+     * @tc.name    NavBarExtension1823
+     * @tc.desc    Breakpoint type rejects the empty key
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5btkey3', 0, () => {
+      const type: BreakpointType<number> = new BreakpointType<number>(1, 2, 3);
+      expect(type.GetValue('') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1824
+     * @tc.name    NavBarExtension1824
+     * @tc.desc    Side bar mode zero resolves list and tabs
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5modezero', 0, () => {
+      const mode: SideBarMode<number> = new SideBarMode<number>(0, 0);
+      expect(mode.GetValue('list')).assertEqual(0);
+      expect(mode.GetValue('tabs')).assertEqual( 0);
+      expect(mode.GetValue('grid') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1825
+     * @tc.name    NavBarExtension1825
+     * @tc.desc    Side bar mode neg resolves list and tabs
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5modeneg', 0, () => {
+      const mode: SideBarMode<number> = new SideBarMode<number>(-1, -2);
+      expect(mode.GetValue('list')).assertEqual(-1);
+      expect(mode.GetValue('tabs')).assertEqual( -2);
+      expect(mode.GetValue('grid') === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1826
+     * @tc.name    NavBarExtension1826
+     * @tc.desc    A default custom length starts at zero
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5lenDefault', 0, () => {
+      const len: CustomLength = new CustomLength();
+      expect(len.left).assertEqual(0);
+      expect(len.right).assertEqual(0);
+      expect(len.width).assertEqual(0);
+      expect(len.height).assertEqual(0);
+      expect(len.top).assertEqual(0);
+      expect(len.bottom).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1827
+     * @tc.name    NavBarExtension1827
+     * @tc.desc    Two custom lengths keep independent fields
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5lenMutate', 0, () => {
+      const first: CustomLength = new CustomLength();
+      const second: CustomLength = new CustomLength();
+      first.left = 8;
+      first.top = 4;
+      expect(second.left).assertEqual(0);
+      expect(second.top).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1828
+     * @tc.name    NavBarExtension1828
+     * @tc.desc    A default custom font style starts empty
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5fontDefault', 0, () => {
+      const style: CustomFontStyle = new CustomFontStyle();
+      expect(style.fillColor).assertEqual('');
+      expect(style.fontColor).assertEqual('');
+      expect(style.fontSize).assertEqual(0);
+      expect(style.backgroundColor).assertEqual('');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1829
+     * @tc.name    NavBarExtension1829
+     * @tc.desc    Two custom font styles keep independent colours
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5fontMutate', 0, () => {
+      const first: CustomFontStyle = new CustomFontStyle();
+      const second: CustomFontStyle = new CustomFontStyle();
+      first.fontColor = '#000';
+      expect(second.fontColor).assertEqual('');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1830
+     * @tc.name    NavBarExtension1830
+     * @tc.desc    A default breakpoint style keeps empty defaults
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5bpsDefault', 0, () => {
+      const style: CustomBreakPointStyle = new CustomBreakPointStyle();
+      expect(style.sideBarPrimaryNavListHeight).assertEqual('');
+      expect(style.sideBarPrimaryNavListMargin).assertEqual(0);
+      expect(style.mainTabsBcColor).assertEqual('');
+      expect(style.controlButtonStyle.left).assertEqual(0);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1831
+     * @tc.name    NavBarExtension1831
+     * @tc.desc    A default sub tabs style keeps empty defaults
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5subDefault', 0, () => {
+      const style: SubTabsControllerStyle = new SubTabsControllerStyle();
+      expect(style.secondMenuListSpace).assertEqual(0);
+      expect(style.secondMenuListItemHeight).assertEqual(0);
+      expect(style.isShowPageTitle).assertFalse();
+      expect(style.isShowSecondMenu).assertFalse();
+      expect(style.secondMenuListItemWidth).assertEqual('');
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1832
+     * @tc.name    NavBarExtension1832
+     * @tc.desc    The side list holds five top level entries
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sideLen', 0, () => {
+      expect(sideListData.length).assertEqual(5);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1833
+     * @tc.name    NavBarExtension1833
+     * @tc.desc    Side list entry 0 exposes 3 second level entries
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5side0', 0, () => {
+      const item: MenuType = sideListData[0];
+      const sub: MenuType[] = item.subTitleList ?? [];
+      expect(sub.length).assertEqual(3);
+      expect(item.name.id > 0).assertTrue();
+      expect((item.icon as Resource).id > 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1834
+     * @tc.name    NavBarExtension1834
+     * @tc.desc    Side list entry 1 exposes 2 second level entries
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5side1', 0, () => {
+      const item: MenuType = sideListData[1];
+      const sub: MenuType[] = item.subTitleList ?? [];
+      expect(sub.length).assertEqual(2);
+      expect(item.name.id > 0).assertTrue();
+      expect((item.icon as Resource).id > 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1835
+     * @tc.name    NavBarExtension1835
+     * @tc.desc    Side list entry 2 exposes 2 second level entries
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5side2', 0, () => {
+      const item: MenuType = sideListData[2];
+      const sub: MenuType[] = item.subTitleList ?? [];
+      expect(sub.length).assertEqual(2);
+      expect(item.name.id > 0).assertTrue();
+      expect((item.icon as Resource).id > 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1836
+     * @tc.name    NavBarExtension1836
+     * @tc.desc    Side list entry 3 exposes 2 second level entries
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5side3', 0, () => {
+      const item: MenuType = sideListData[3];
+      const sub: MenuType[] = item.subTitleList ?? [];
+      expect(sub.length).assertEqual(2);
+      expect(item.name.id > 0).assertTrue();
+      expect((item.icon as Resource).id > 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1837
+     * @tc.name    NavBarExtension1837
+     * @tc.desc    Side list entry 4 exposes 2 second level entries
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5side4', 0, () => {
+      const item: MenuType = sideListData[4];
+      const sub: MenuType[] = item.subTitleList ?? [];
+      expect(sub.length).assertEqual(2);
+      expect(item.name.id > 0).assertTrue();
+      expect((item.icon as Resource).id > 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1838
+     * @tc.name    NavBarExtension1838
+     * @tc.desc    Side list child names of entry 0 are positive resources
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sidechild0', 0, () => {
+      const sub: MenuType[] = sideListData[0].subTitleList ?? [];
+      expect(sub[0].name.id > 0).assertTrue();
+      expect(sub[0].name.id === sub[1].name.id).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1839
+     * @tc.name    NavBarExtension1839
+     * @tc.desc    Side list child names of entry 1 are positive resources
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sidechild1', 0, () => {
+      const sub: MenuType[] = sideListData[1].subTitleList ?? [];
+      expect(sub[0].name.id > 0).assertTrue();
+      expect(sub[0].name.id === sub[1].name.id).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1840
+     * @tc.name    NavBarExtension1840
+     * @tc.desc    Side list child names of entry 2 are positive resources
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sidechild2', 0, () => {
+      const sub: MenuType[] = sideListData[2].subTitleList ?? [];
+      expect(sub[0].name.id > 0).assertTrue();
+      expect(sub[0].name.id === sub[1].name.id).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1841
+     * @tc.name    NavBarExtension1841
+     * @tc.desc    Side list child names of entry 3 are positive resources
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sidechild3', 0, () => {
+      const sub: MenuType[] = sideListData[3].subTitleList ?? [];
+      expect(sub[0].name.id > 0).assertTrue();
+      expect(sub[0].name.id === sub[1].name.id).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1842
+     * @tc.name    NavBarExtension1842
+     * @tc.desc    Side list child names of entry 4 are positive resources
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sidechild4', 0, () => {
+      const sub: MenuType[] = sideListData[4].subTitleList ?? [];
+      expect(sub[0].name.id > 0).assertTrue();
+      expect(sub[0].name.id === sub[1].name.id).assertFalse();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1843
+     * @tc.name    NavBarExtension1843
+     * @tc.desc    Top level node 1 keeps its seeded name and sub count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5topnode0', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getNodes()[0].name).assertEqual('nav0');
+      expect(model.getNodes()[0].subCount).assertEqual(NAV_SUB_COUNTS[0]);
+      expect(model.getNodes()[0].isVisible).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1844
+     * @tc.name    NavBarExtension1844
+     * @tc.desc    Top level node 2 keeps its seeded name and sub count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5topnode1', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getNodes()[1].name).assertEqual('nav1');
+      expect(model.getNodes()[1].subCount).assertEqual(NAV_SUB_COUNTS[1]);
+      expect(model.getNodes()[1].isVisible).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1845
+     * @tc.name    NavBarExtension1845
+     * @tc.desc    Top level node 3 keeps its seeded name and sub count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5topnode2', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getNodes()[2].name).assertEqual('nav2');
+      expect(model.getNodes()[2].subCount).assertEqual(NAV_SUB_COUNTS[2]);
+      expect(model.getNodes()[2].isVisible).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1846
+     * @tc.name    NavBarExtension1846
+     * @tc.desc    Top level node 4 keeps its seeded name and sub count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5topnode3', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getNodes()[3].name).assertEqual('nav3');
+      expect(model.getNodes()[3].subCount).assertEqual(NAV_SUB_COUNTS[3]);
+      expect(model.getNodes()[3].isVisible).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1847
+     * @tc.name    NavBarExtension1847
+     * @tc.desc    Top level node 5 keeps its seeded name and sub count
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5topnode4', 0, () => {
+      const model: NavBarModel = new NavBarModel();
+      expect(model.getNodes()[4].name).assertEqual('nav4');
+      expect(model.getNodes()[4].subCount).assertEqual(NAV_SUB_COUNTS[4]);
+      expect(model.getNodes()[4].isVisible).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1848
+     * @tc.name    NavBarExtension1848
+     * @tc.desc    The first side entry keeps three children with positive ids
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5sidefirst', 0, () => {
+      const sub: MenuType[] = sideListData[0].subTitleList ?? [];
+      expect(sub.length).assertEqual(3);
+      expect(sub[2].name.id > 0).assertTrue();
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1849
+     * @tc.name    NavBarExtension1849
+     * @tc.desc    Breakpoint style 1 exposes a non empty control button
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleobj0', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('sm');
+      expect(style.controlButtonStyle.width).assertEqual(24);
+      expect(style.controlButtonStyle.height).assertEqual(24);
+      expect(style.controlButtonStyle.left).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1850
+     * @tc.name    NavBarExtension1850
+     * @tc.desc    Breakpoint style 2 exposes a non empty control button
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleobj1', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('md');
+      expect(style.controlButtonStyle.width).assertEqual(24);
+      expect(style.controlButtonStyle.height).assertEqual(24);
+      expect(style.controlButtonStyle.left).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1851
+     * @tc.name    NavBarExtension1851
+     * @tc.desc    Breakpoint style 3 exposes a non empty control button
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5styleobj2', 0, () => {
+      const style: CustomBreakPointStyle = StyleConfiguration.getBreakpointStyle('lg');
+      expect(style.controlButtonStyle.width).assertEqual(24);
+      expect(style.controlButtonStyle.height).assertEqual(24);
+      expect(style.controlButtonStyle.left).assertEqual(24);
+    })
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_NAVBAR_1852
+     * @tc.name    NavBarExtension1852
+     * @tc.desc    Compact sub tabs always show the second menu
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level1
+     */
+    it(DATASET + 'b5subshow', 0, () => {
+      const style: SubTabsControllerStyle = StyleConfiguration.getSubTabsControllerStyle('sm', 'tabs');
+      expect(style.isShowSecondMenu).assertTrue();
+      expect(style.isShowPageTitle).assertFalse();
+    })
+  })
+}
