@@ -1156,3 +1156,346 @@ export default function calendarPermissionFailuresTest(): void {
         authResults: [0, -1]
       };
       const returned: PermissionRequestResult = await gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(recovery);
+      }, recovered);
+      expect(returned === recovery).assertEqual(true);
+      expect(requests).assertEqual(2);
+      expect(recovered.grants).assertEqual(0);
+      expect(recovered.denials).assertEqual(1);
+      expect(recovered.failures).assertEqual(0);
+      expect(recovered.grantedResult === undefined).assertEqual(true);
+      expect(recovered.deniedResult === recovery).assertEqual(true);
+      expect(failed.failures).assertEqual(1);
+      expect(trace.join(',')).assertEqual('failed:failed,retry:denied');
+      expect(hasCalendarPermissions(returned)).assertEqual(false);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_FAILURES_2400
+     * @tc.name CalendarEventPermissionFailures_0024
+     * @tc.desc Preserve original Error on asynchronous rejection; retry duplicate read after 0 invalidation and route
+     * only the recovery denied callback.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionFailures_0024', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const failed: PermissionRecorder = new PermissionRecorder('failed', trace);
+      const recovered: PermissionRecorder = new PermissionRecorder('retry', trace);
+      const original: Error = new Error('permission request failed');
+      let requests: number = 0;
+      const error: Error | undefined = await captureFailure(() =>
+        gate.request((): Promise<PermissionRequestResult> => {
+          requests++;
+          return Promise.reject(original);
+        }, failed));
+      expect(error?.message).assertEqual('permission request failed');
+      expect(error === original).assertEqual(true);
+      expect(requests).assertEqual(1);
+      expect(failed.grants).assertEqual(0);
+      expect(failed.denials).assertEqual(0);
+      expect(failed.failures).assertEqual(1);
+      expect(failed.grantedResult === undefined).assertEqual(true);
+      expect(failed.deniedResult === undefined).assertEqual(true);
+      const recovery: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR',
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [0, 0]
+      };
+      const returned: PermissionRequestResult = await gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(recovery);
+      }, recovered);
+      expect(returned === recovery).assertEqual(true);
+      expect(requests).assertEqual(2);
+      expect(recovered.grants).assertEqual(0);
+      expect(recovered.denials).assertEqual(1);
+      expect(recovered.failures).assertEqual(0);
+      expect(recovered.grantedResult === undefined).assertEqual(true);
+      expect(recovered.deniedResult === recovery).assertEqual(true);
+      expect(failed.failures).assertEqual(1);
+      expect(trace.join(',')).assertEqual('failed:failed,retry:denied');
+      expect(hasCalendarPermissions(returned)).assertEqual(false);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_FAILURES_2500
+     * @tc.name CalendarEventPermissionFailures_0025
+     * @tc.desc Preserve original Error on asynchronous rejection; retry duplicate read after 1 invalidation and route
+     * only the recovery denied callback.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionFailures_0025', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const failed: PermissionRecorder = new PermissionRecorder('failed', trace);
+      const recovered: PermissionRecorder = new PermissionRecorder('retry', trace);
+      const original: Error = new Error('permission request failed');
+      let requests: number = 0;
+      const error: Error | undefined = await captureFailure(() =>
+        gate.request((): Promise<PermissionRequestResult> => {
+          requests++;
+          return Promise.reject(original);
+        }, failed));
+      expect(error?.message).assertEqual('permission request failed');
+      expect(error === original).assertEqual(true);
+      expect(requests).assertEqual(1);
+      expect(failed.grants).assertEqual(0);
+      expect(failed.denials).assertEqual(0);
+      expect(failed.failures).assertEqual(1);
+      expect(failed.grantedResult === undefined).assertEqual(true);
+      expect(failed.deniedResult === undefined).assertEqual(true);
+      gate.invalidate();
+      const recovery: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR',
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [0, 0]
+      };
+      const returned: PermissionRequestResult = await gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(recovery);
+      }, recovered);
+      expect(returned === recovery).assertEqual(true);
+      expect(requests).assertEqual(2);
+      expect(recovered.grants).assertEqual(0);
+      expect(recovered.denials).assertEqual(1);
+      expect(recovered.failures).assertEqual(0);
+      expect(recovered.grantedResult === undefined).assertEqual(true);
+      expect(recovered.deniedResult === recovery).assertEqual(true);
+      expect(failed.failures).assertEqual(1);
+      expect(trace.join(',')).assertEqual('failed:failed,retry:denied');
+      expect(hasCalendarPermissions(returned)).assertEqual(false);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_FAILURES_2600
+     * @tc.name CalendarEventPermissionFailures_0026
+     * @tc.desc Preserve original Error on asynchronous rejection; retry short authorization after 0 invalidation and
+     * route only the recovery denied callback.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionFailures_0026', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const failed: PermissionRecorder = new PermissionRecorder('failed', trace);
+      const recovered: PermissionRecorder = new PermissionRecorder('retry', trace);
+      const original: Error = new Error('permission request failed');
+      let requests: number = 0;
+      const error: Error | undefined = await captureFailure(() =>
+        gate.request((): Promise<PermissionRequestResult> => {
+          requests++;
+          return Promise.reject(original);
+        }, failed));
+      expect(error?.message).assertEqual('permission request failed');
+      expect(error === original).assertEqual(true);
+      expect(requests).assertEqual(1);
+      expect(failed.grants).assertEqual(0);
+      expect(failed.denials).assertEqual(0);
+      expect(failed.failures).assertEqual(1);
+      expect(failed.grantedResult === undefined).assertEqual(true);
+      expect(failed.deniedResult === undefined).assertEqual(true);
+      const recovery: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR',
+          'ohos.permission.WRITE_CALENDAR'
+        ],
+        authResults: [0]
+      };
+      const returned: PermissionRequestResult = await gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(recovery);
+      }, recovered);
+      expect(returned === recovery).assertEqual(true);
+      expect(requests).assertEqual(2);
+      expect(recovered.grants).assertEqual(0);
+      expect(recovered.denials).assertEqual(1);
+      expect(recovered.failures).assertEqual(0);
+      expect(recovered.grantedResult === undefined).assertEqual(true);
+      expect(recovered.deniedResult === recovery).assertEqual(true);
+      expect(failed.failures).assertEqual(1);
+      expect(trace.join(',')).assertEqual('failed:failed,retry:denied');
+      expect(hasCalendarPermissions(returned)).assertEqual(false);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_FAILURES_2700
+     * @tc.name CalendarEventPermissionFailures_0027
+     * @tc.desc Preserve original Error on asynchronous rejection; retry short authorization after 1 invalidation and
+     * route only the recovery denied callback.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionFailures_0027', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const failed: PermissionRecorder = new PermissionRecorder('failed', trace);
+      const recovered: PermissionRecorder = new PermissionRecorder('retry', trace);
+      const original: Error = new Error('permission request failed');
+      let requests: number = 0;
+      const error: Error | undefined = await captureFailure(() =>
+        gate.request((): Promise<PermissionRequestResult> => {
+          requests++;
+          return Promise.reject(original);
+        }, failed));
+      expect(error?.message).assertEqual('permission request failed');
+      expect(error === original).assertEqual(true);
+      expect(requests).assertEqual(1);
+      expect(failed.grants).assertEqual(0);
+      expect(failed.denials).assertEqual(0);
+      expect(failed.failures).assertEqual(1);
+      expect(failed.grantedResult === undefined).assertEqual(true);
+      expect(failed.deniedResult === undefined).assertEqual(true);
+      gate.invalidate();
+      const recovery: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR',
+          'ohos.permission.WRITE_CALENDAR'
+        ],
+        authResults: [0]
+      };
+      const returned: PermissionRequestResult = await gate.request((): Promise<PermissionRequestResult> => {
+        requests++;
+        return Promise.resolve(recovery);
+      }, recovered);
+      expect(returned === recovery).assertEqual(true);
+      expect(requests).assertEqual(2);
+      expect(recovered.grants).assertEqual(0);
+      expect(recovered.denials).assertEqual(1);
+      expect(recovered.failures).assertEqual(0);
+      expect(recovered.grantedResult === undefined).assertEqual(true);
+      expect(recovered.deniedResult === recovery).assertEqual(true);
+      expect(failed.failures).assertEqual(1);
+      expect(trace.join(',')).assertEqual('failed:failed,retry:denied');
+      expect(hasCalendarPermissions(returned)).assertEqual(false);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_FAILURES_2800
+     * @tc.name CalendarEventPermissionFailures_0028
+     * @tc.desc Keep settled forward grant callback identity when the next requester produces asynchronous rejection;
+     * propagate the new Error and do not replay success callbacks.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionFailures_0028', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('shared', trace);
+      const prior: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR',
+          'ohos.permission.WRITE_CALENDAR'
+        ],
+        authResults: [0, 0]
+      };
+      const returned: PermissionRequestResult = await gate.request(() => Promise.resolve(prior), handlers);
+      expect(returned === prior).assertEqual(true);
+      expect(handlers.grants).assertEqual(1);
+      expect(handlers.denials).assertEqual(0);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === prior).assertEqual(true);
+      expect(handlers.deniedResult === undefined).assertEqual(true);
+      const original: Error = new Error('next request failed');
+      let requests: number = 0;
+      const error: Error | undefined = await captureFailure(() =>
+        gate.request((): Promise<PermissionRequestResult> => {
+          requests++;
+          return Promise.reject(original);
+        }, handlers));
+      expect(error?.message).assertEqual('next request failed');
+      expect(error === original).assertEqual(true);
+      expect(requests).assertEqual(1);
+      expect(handlers.grants).assertEqual(1);
+      expect(handlers.denials).assertEqual(0);
+      expect(handlers.failures).assertEqual(1);
+      expect(handlers.grantedResult === prior).assertEqual(true);
+      expect(handlers.deniedResult === undefined).assertEqual(true);
+      expect(trace.join(',')).assertEqual('shared:granted,shared:failed');
+      expect(hasCalendarPermissions(prior)).assertEqual(true);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_FAILURES_2900
+     * @tc.name CalendarEventPermissionFailures_0029
+     * @tc.desc Keep settled write denial callback identity when the next requester produces asynchronous rejection;
+     * propagate the new Error and do not replay success callbacks.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionFailures_0029', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('shared', trace);
+      const prior: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR',
+          'ohos.permission.WRITE_CALENDAR'
+        ],
+        authResults: [0, -1]
+      };
+      const returned: PermissionRequestResult = await gate.request(() => Promise.resolve(prior), handlers);
+      expect(returned === prior).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === prior).assertEqual(true);
+      const original: Error = new Error('next request failed');
+      let requests: number = 0;
+      const error: Error | undefined = await captureFailure(() =>
+        gate.request((): Promise<PermissionRequestResult> => {
+          requests++;
+          return Promise.reject(original);
+        }, handlers));
+      expect(error?.message).assertEqual('next request failed');
+      expect(error === original).assertEqual(true);
+      expect(requests).assertEqual(1);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(1);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === prior).assertEqual(true);
+      expect(trace.join(',')).assertEqual('shared:denied,shared:failed');
+      expect(hasCalendarPermissions(prior)).assertEqual(false);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_PERMISSION_FAILURES_3000
+     * @tc.name CalendarEventPermissionFailures_0030
+     * @tc.desc Keep settled duplicate read callback identity when the next requester produces asynchronous rejection;
+     * propagate the new Error and do not replay success callbacks.
+     * @tc.type FUNC
+     */
+    it('CalendarEventPermissionFailures_0030', 0, async (): Promise<void> => {
+      const gate: CalendarPermissionGate = new CalendarPermissionGate();
+      const trace: string[] = [];
+      const handlers: PermissionRecorder = new PermissionRecorder('shared', trace);
+      const prior: PermissionRequestResult = {
+        permissions: [
+          'ohos.permission.READ_CALENDAR',
+          'ohos.permission.READ_CALENDAR'
+        ],
+        authResults: [0, 0]
+      };
+      const returned: PermissionRequestResult = await gate.request(() => Promise.resolve(prior), handlers);
+      expect(returned === prior).assertEqual(true);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(0);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === prior).assertEqual(true);
+      const original: Error = new Error('next request failed');
+      let requests: number = 0;
+      const error: Error | undefined = await captureFailure(() =>
+        gate.request((): Promise<PermissionRequestResult> => {
+          requests++;
+          return Promise.reject(original);
+        }, handlers));
+      expect(error?.message).assertEqual('next request failed');
+      expect(error === original).assertEqual(true);
+      expect(requests).assertEqual(1);
+      expect(handlers.grants).assertEqual(0);
+      expect(handlers.denials).assertEqual(1);
+      expect(handlers.failures).assertEqual(1);
+      expect(handlers.grantedResult === undefined).assertEqual(true);
+      expect(handlers.deniedResult === prior).assertEqual(true);
+      expect(trace.join(',')).assertEqual('shared:denied,shared:failed');
+      expect(hasCalendarPermissions(prior)).assertEqual(false);
+    });
+  });
+}
