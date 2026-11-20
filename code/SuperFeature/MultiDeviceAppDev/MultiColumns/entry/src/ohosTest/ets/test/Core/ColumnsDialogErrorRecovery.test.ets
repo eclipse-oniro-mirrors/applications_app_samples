@@ -1984,3 +1984,349 @@ export default function columnsDialogErrorRecoverySuite() {
       expect(m.getMailByType('nohit103') === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0104
+     * @tc.name    ColumnsDialogErrorRecovery104
+     * @tc.desc    Columns navbar width for 424 probe 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery104', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 424;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit104') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0105
+     * @tc.name    ColumnsDialogErrorRecovery105
+     * @tc.desc    Columns navbar width for 425 probe 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery105', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 425;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit105') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0106
+     * @tc.name    ColumnsDialogErrorRecovery106
+     * @tc.desc    Columns navbar width for 426 probe 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery106', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 426;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit106') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0107
+     * @tc.name    ColumnsDialogErrorRecovery107
+     * @tc.desc    Columns navbar width for 427 probe 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery107', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 427;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit107') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0108
+     * @tc.name    ColumnsDialogErrorRecovery108
+     * @tc.desc    Columns navbar width for 428 probe 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery108', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 428;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit108') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0109
+     * @tc.name    ColumnsDialogErrorRecovery109
+     * @tc.desc    Columns navbar width for 429 probe 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery109', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 429;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit109') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0110
+     * @tc.name    ColumnsDialogErrorRecovery110
+     * @tc.desc    Columns navbar width for 430 probe 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery110', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 430;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit110') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0111
+     * @tc.name    ColumnsDialogErrorRecovery111
+     * @tc.desc    Columns navbar width for 431 probe 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery111', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 431;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit111') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0112
+     * @tc.name    ColumnsDialogErrorRecovery112
+     * @tc.desc    Columns navbar width for 432 probe 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery112', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 432;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit112') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0113
+     * @tc.name    ColumnsDialogErrorRecovery113
+     * @tc.desc    Columns navbar width for 433 probe 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery113', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 433;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit113') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0114
+     * @tc.name    ColumnsDialogErrorRecovery114
+     * @tc.desc    Columns navbar width for 434 probe 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery114', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 434;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit114') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0115
+     * @tc.name    ColumnsDialogErrorRecovery115
+     * @tc.desc    Columns navbar width for 435 probe 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery115', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 435;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit115') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0116
+     * @tc.name    ColumnsDialogErrorRecovery116
+     * @tc.desc    Columns navbar width for 436 probe 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery116', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 436;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit116') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0117
+     * @tc.name    ColumnsDialogErrorRecovery117
+     * @tc.desc    Columns navbar width for 437 probe 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery117', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 437;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit117') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0118
+     * @tc.name    ColumnsDialogErrorRecovery118
+     * @tc.desc    Columns navbar width for 438 probe 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery118', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 438;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit118') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0119
+     * @tc.name    ColumnsDialogErrorRecovery119
+     * @tc.desc    Columns navbar width for 439 probe 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery119', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 439;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit119') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0120
+     * @tc.name    ColumnsDialogErrorRecovery120
+     * @tc.desc    Columns navbar width for 440 probe 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery120', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 440;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit120') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_0121
+     * @tc.name    ColumnsDialogErrorRecovery121
+     * @tc.desc    Columns navbar width for 441 probe 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsDialogErrorRecovery121', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 441;
+      const nav = m.navbarWidth(width);
+      expect(Math.abs(nav - 0.4 * width) < 0.0001).assertEqual(true);
+      expect(Math.abs(nav + m.contentWidth(width) - width) < 0.0001).assertEqual(true);
+      expect(m.getMailByType('nohit121') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
