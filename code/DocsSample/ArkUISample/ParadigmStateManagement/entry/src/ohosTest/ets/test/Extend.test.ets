@@ -221,5 +221,31 @@ export default function extendTest() {
       hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
       done();
     })
+
+    /**
+     * @tc.number     : extend_ExtendNested
+     * @tc.name       : extend_ExtendNested
+     * @tc.desc       : extend
+     * @tc.level      : Level 1
+     * @tc.size       : MediumTest
+     * @tc.type       : Function
+     */
+    it('extend_ExtendNested', 0, async (done: Function) => {
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: TestRuntimeTask begin');
+      const driver = Driver.create();
+      await driver.delayMs(1000);
+      const text = await driver.findComponent(ON.text(await getResourceString('extend')));
+      await text.click();
+      await driver.delayMs(1000);
+      const text1 =
+        await driver.findComponent(ON.text(await getResourceString('extend_nested')));
+      await text1.click();
+      await driver.delayMs(1000);
+      await driver.pressBack();
+      await driver.delayMs(500);
+      await driver.pressBack();
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'uitest: testArcListArcIndexerBar end');
+      done();
+    })
   })
 }
