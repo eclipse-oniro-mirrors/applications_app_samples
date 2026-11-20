@@ -1173,3 +1173,693 @@ export default function calendarFailureMatrix05Test(): void {
       const editCalendarGuard: Error | undefined = await captureFailure(() => session.addEvent());
       expect(editCalendarGuard?.message).assertEqual('Calendar is not ready');
       expect(manager.accounts.length).assertEqual(0);
+      const beforeRetry: number = manager.calendar.trace.length;
+      const editsBeforeRetry: number = manager.edits.length;
+      expect(await session.editEvent()).assertEqual(manager.editId);
+      expect(manager.calendar.trace.slice(beforeRetry).join(",")).assertEqual('');
+      expect(manager.edits.length).assertEqual(editsBeforeRetry + 1);
+      await session.createCalendar();
+      const afterEditupdateGuard: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(afterEditupdateGuard?.message).assertEqual('Event has not been created');
+      const afterEditqueryGuard: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(afterEditqueryGuard?.message).assertEqual('Event has not been created');
+      const afterEditdeleteGuard: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(afterEditdeleteGuard?.message).assertEqual('Event has not been created');
+    });
+    /**
+     * @tc.number SUB_CALENDAR_FAILURE_FAILUREMATRIX05_2700
+     * @tc.name CalendarEventFailureMatrix05_0027
+     * @tc.desc edit rejects asynchronously; service text; selected zero ID; error identity and retry.
+     * @tc.type FUNC
+     */
+    it('CalendarEventFailureMatrix05_0027', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 0;
+      expect(await session.addEvent()).assertEqual(0);
+      const message: string = '16000050: Calendar service unavailable';
+      const original: Error = new Error(message);
+      manager.error = original;
+      const traceOffset: number = manager.calendar.trace.length;
+      const accountsOffset: number = manager.accounts.length;
+      const editsOffset: number = manager.edits.length;
+      const pending: Pending<number> = new Pending<number>();
+      manager.editQueue.push(pending);
+      const captured: Promise<Error | undefined> = captureFailure(() => session.editEvent());
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.editQueue.length).assertEqual(0);
+      pending.reject(original);
+      const failure: Error | undefined = await captured;
+      expect(failure === original).assertTrue();
+      expect(failure?.message).assertEqual(message);
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.accounts.length).assertEqual(accountsOffset + 0);
+      expect(manager.edits.length).assertEqual(editsOffset + 1);
+      manager.failMethod = '';
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(0);
+      const beforeRetry: number = manager.calendar.trace.length;
+      const editsBeforeRetry: number = manager.edits.length;
+      expect(await session.editEvent()).assertEqual(manager.editId);
+      expect(manager.calendar.trace.slice(beforeRetry).join(",")).assertEqual('');
+      expect(manager.edits.length).assertEqual(editsBeforeRetry + 1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(0);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_FAILURE_FAILUREMATRIX05_2800
+     * @tc.name CalendarEventFailureMatrix05_0028
+     * @tc.desc edit rejects asynchronously; service text; clear/rebuilt with int32 maximum ID; error identity and
+     * retry.
+     * @tc.type FUNC
+     */
+    it('CalendarEventFailureMatrix05_0028', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 0;
+      expect(await session.addEvent()).assertEqual(0);
+      const oldCalendar: CalendarProbe = manager.calendar;
+      const oldTrace: string = oldCalendar.trace.join(",");
+      session.clear();
+      expect(oldCalendar.trace.join(",")).assertEqual(oldTrace);
+      expect(oldCalendar.deletions.length).assertEqual(0);
+      manager.calendar = new CalendarProbe();
+      await session.createCalendar();
+      manager.calendar.nextId = 2147483647;
+      expect(await session.addEvent()).assertEqual(2147483647);
+      const message: string = '16000050: Calendar service unavailable';
+      const original: Error = new Error(message);
+      manager.error = original;
+      const traceOffset: number = manager.calendar.trace.length;
+      const accountsOffset: number = manager.accounts.length;
+      const editsOffset: number = manager.edits.length;
+      const pending: Pending<number> = new Pending<number>();
+      manager.editQueue.push(pending);
+      const captured: Promise<Error | undefined> = captureFailure(() => session.editEvent());
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.editQueue.length).assertEqual(0);
+      pending.reject(original);
+      const failure: Error | undefined = await captured;
+      expect(failure === original).assertTrue();
+      expect(failure?.message).assertEqual(message);
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.accounts.length).assertEqual(accountsOffset + 0);
+      expect(manager.edits.length).assertEqual(editsOffset + 1);
+      manager.failMethod = '';
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(2147483647);
+      const beforeRetry: number = manager.calendar.trace.length;
+      const editsBeforeRetry: number = manager.edits.length;
+      expect(await session.editEvent()).assertEqual(manager.editId);
+      expect(manager.calendar.trace.slice(beforeRetry).join(",")).assertEqual('');
+      expect(manager.edits.length).assertEqual(editsBeforeRetry + 1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(2147483647);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_FAILURE_FAILUREMATRIX05_2900
+     * @tc.name CalendarEventFailureMatrix05_0029
+     * @tc.desc edit rejects asynchronously; service text; repeat failure with safe-integer maximum ID; error identity
+     * and retry.
+     * @tc.type FUNC
+     */
+    it('CalendarEventFailureMatrix05_0029', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 9007199254740991;
+      expect(await session.addEvent()).assertEqual(9007199254740991);
+      const message: string = '16000050: Calendar service unavailable';
+      const original: Error = new Error(message);
+      manager.error = original;
+      manager.failMethod = 'edit';
+      manager.synchronous = false;
+      const previous: Error | undefined = await captureFailure(() => session.editEvent());
+      expect(previous === original).assertTrue();
+      expect(previous?.message).assertEqual(message);
+      manager.failMethod = '';
+      const traceOffset: number = manager.calendar.trace.length;
+      const accountsOffset: number = manager.accounts.length;
+      const editsOffset: number = manager.edits.length;
+      const pending: Pending<number> = new Pending<number>();
+      manager.editQueue.push(pending);
+      const captured: Promise<Error | undefined> = captureFailure(() => session.editEvent());
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.editQueue.length).assertEqual(0);
+      pending.reject(original);
+      const failure: Error | undefined = await captured;
+      expect(failure === original).assertTrue();
+      expect(failure?.message).assertEqual(message);
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.accounts.length).assertEqual(accountsOffset + 0);
+      expect(manager.edits.length).assertEqual(editsOffset + 1);
+      manager.failMethod = '';
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(9007199254740991);
+      const beforeRetry: number = manager.calendar.trace.length;
+      const editsBeforeRetry: number = manager.edits.length;
+      expect(await session.editEvent()).assertEqual(manager.editId);
+      expect(manager.calendar.trace.slice(beforeRetry).join(",")).assertEqual('');
+      expect(manager.edits.length).assertEqual(editsBeforeRetry + 1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(9007199254740991);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_FAILURE_FAILUREMATRIX05_3000
+     * @tc.name CalendarEventFailureMatrix05_0030
+     * @tc.desc create throws synchronously; permission text; first opening; error identity and retry.
+     * @tc.type FUNC
+     */
+    it('CalendarEventFailureMatrix05_0030', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      const message: string = '201: Permission denied';
+      const original: Error = new Error(message);
+      manager.error = original;
+      const traceOffset: number = manager.calendar.trace.length;
+      const accountsOffset: number = manager.accounts.length;
+      const editsOffset: number = manager.edits.length;
+      manager.failMethod = 'create';
+      manager.synchronous = true;
+      const failure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(failure === original).assertTrue();
+      expect(failure?.message).assertEqual(message);
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.accounts.length).assertEqual(accountsOffset + 1);
+      expect(manager.edits.length).assertEqual(editsOffset + 0);
+      manager.failMethod = '';
+      const readinessFailure: Error | undefined = await captureFailure(() => session.addEvent());
+      expect(readinessFailure?.message).assertEqual('Calendar is not ready');
+      const beforeRetry: number = manager.calendar.trace.length;
+      const accountsBeforeRetry: number = manager.accounts.length;
+      await session.createCalendar();
+      expect(manager.calendar.trace.slice(beforeRetry).join(",")).assertEqual("config");
+      expect(manager.accounts.length).assertEqual(accountsBeforeRetry + 1);
+      const afterOpenupdateGuard: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(afterOpenupdateGuard?.message).assertEqual('Event has not been created');
+      const afterOpenqueryGuard: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(afterOpenqueryGuard?.message).assertEqual('Event has not been created');
+      const afterOpendeleteGuard: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(afterOpendeleteGuard?.message).assertEqual('Event has not been created');
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_FAILURE_FAILUREMATRIX05_3100
+     * @tc.name CalendarEventFailureMatrix05_0031
+     * @tc.desc create throws synchronously; permission text; reopen after clearing zero ID; error identity and retry.
+     * @tc.type FUNC
+     */
+    it('CalendarEventFailureMatrix05_0031', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 0;
+      expect(await session.addEvent()).assertEqual(0);
+      const traceBeforeClear: string = manager.calendar.trace.join(",");
+      session.clear();
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBeforeClear);
+      expect(manager.calendar.deletions.length).assertEqual(0);
+      const message: string = '201: Permission denied';
+      const original: Error = new Error(message);
+      manager.error = original;
+      const traceOffset: number = manager.calendar.trace.length;
+      const accountsOffset: number = manager.accounts.length;
+      const editsOffset: number = manager.edits.length;
+      manager.failMethod = 'create';
+      manager.synchronous = true;
+      const failure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(failure === original).assertTrue();
+      expect(failure?.message).assertEqual(message);
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.accounts.length).assertEqual(accountsOffset + 1);
+      expect(manager.edits.length).assertEqual(editsOffset + 0);
+      manager.failMethod = '';
+      const readinessFailure: Error | undefined = await captureFailure(() => session.addEvent());
+      expect(readinessFailure?.message).assertEqual('Calendar is not ready');
+      const beforeRetry: number = manager.calendar.trace.length;
+      const accountsBeforeRetry: number = manager.accounts.length;
+      await session.createCalendar();
+      expect(manager.calendar.trace.slice(beforeRetry).join(",")).assertEqual("config");
+      expect(manager.accounts.length).assertEqual(accountsBeforeRetry + 1);
+      const afterOpenupdateGuard: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(afterOpenupdateGuard?.message).assertEqual('Event has not been created');
+      const afterOpenqueryGuard: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(afterOpenqueryGuard?.message).assertEqual('Event has not been created');
+      const afterOpendeleteGuard: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(afterOpendeleteGuard?.message).assertEqual('Event has not been created');
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_FAILURE_FAILUREMATRIX05_3200
+     * @tc.name CalendarEventFailureMatrix05_0032
+     * @tc.desc create throws synchronously; permission text; reopen after clearing int32 maximum ID; error identity and
+     * retry.
+     * @tc.type FUNC
+     */
+    it('CalendarEventFailureMatrix05_0032', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 2147483647;
+      expect(await session.addEvent()).assertEqual(2147483647);
+      const traceBeforeClear: string = manager.calendar.trace.join(",");
+      session.clear();
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBeforeClear);
+      expect(manager.calendar.deletions.length).assertEqual(0);
+      const message: string = '201: Permission denied';
+      const original: Error = new Error(message);
+      manager.error = original;
+      const traceOffset: number = manager.calendar.trace.length;
+      const accountsOffset: number = manager.accounts.length;
+      const editsOffset: number = manager.edits.length;
+      manager.failMethod = 'create';
+      manager.synchronous = true;
+      const failure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(failure === original).assertTrue();
+      expect(failure?.message).assertEqual(message);
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.accounts.length).assertEqual(accountsOffset + 1);
+      expect(manager.edits.length).assertEqual(editsOffset + 0);
+      manager.failMethod = '';
+      const readinessFailure: Error | undefined = await captureFailure(() => session.addEvent());
+      expect(readinessFailure?.message).assertEqual('Calendar is not ready');
+      const beforeRetry: number = manager.calendar.trace.length;
+      const accountsBeforeRetry: number = manager.accounts.length;
+      await session.createCalendar();
+      expect(manager.calendar.trace.slice(beforeRetry).join(",")).assertEqual("config");
+      expect(manager.accounts.length).assertEqual(accountsBeforeRetry + 1);
+      const afterOpenupdateGuard: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(afterOpenupdateGuard?.message).assertEqual('Event has not been created');
+      const afterOpenqueryGuard: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(afterOpenqueryGuard?.message).assertEqual('Event has not been created');
+      const afterOpendeleteGuard: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(afterOpendeleteGuard?.message).assertEqual('Event has not been created');
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_FAILURE_FAILUREMATRIX05_3300
+     * @tc.name CalendarEventFailureMatrix05_0033
+     * @tc.desc create throws synchronously; permission text; failed reopen retry after clearing safe-integer ID; error
+     * identity and retry.
+     * @tc.type FUNC
+     */
+    it('CalendarEventFailureMatrix05_0033', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 9007199254740991;
+      expect(await session.addEvent()).assertEqual(9007199254740991);
+      const traceBeforeClear: string = manager.calendar.trace.join(",");
+      session.clear();
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBeforeClear);
+      expect(manager.calendar.deletions.length).assertEqual(0);
+      const message: string = '201: Permission denied';
+      const original: Error = new Error(message);
+      manager.error = original;
+      manager.failMethod = 'create';
+      manager.synchronous = true;
+      const previous: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(previous === original).assertTrue();
+      expect(previous?.message).assertEqual(message);
+      manager.failMethod = '';
+      const traceOffset: number = manager.calendar.trace.length;
+      const accountsOffset: number = manager.accounts.length;
+      const editsOffset: number = manager.edits.length;
+      manager.failMethod = 'create';
+      manager.synchronous = true;
+      const failure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(failure === original).assertTrue();
+      expect(failure?.message).assertEqual(message);
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.accounts.length).assertEqual(accountsOffset + 1);
+      expect(manager.edits.length).assertEqual(editsOffset + 0);
+      manager.failMethod = '';
+      const readinessFailure: Error | undefined = await captureFailure(() => session.addEvent());
+      expect(readinessFailure?.message).assertEqual('Calendar is not ready');
+      const beforeRetry: number = manager.calendar.trace.length;
+      const accountsBeforeRetry: number = manager.accounts.length;
+      await session.createCalendar();
+      expect(manager.calendar.trace.slice(beforeRetry).join(",")).assertEqual("config");
+      expect(manager.accounts.length).assertEqual(accountsBeforeRetry + 1);
+      const afterOpenupdateGuard: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(afterOpenupdateGuard?.message).assertEqual('Event has not been created');
+      const afterOpenqueryGuard: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(afterOpenqueryGuard?.message).assertEqual('Event has not been created');
+      const afterOpendeleteGuard: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(afterOpendeleteGuard?.message).assertEqual('Event has not been created');
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_FAILURE_FAILUREMATRIX05_3400
+     * @tc.name CalendarEventFailureMatrix05_0034
+     * @tc.desc create throws synchronously; parameter text; first opening; error identity and retry.
+     * @tc.type FUNC
+     */
+    it('CalendarEventFailureMatrix05_0034', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      const message: string = '401: Invalid parameter';
+      const original: Error = new Error(message);
+      manager.error = original;
+      const traceOffset: number = manager.calendar.trace.length;
+      const accountsOffset: number = manager.accounts.length;
+      const editsOffset: number = manager.edits.length;
+      manager.failMethod = 'create';
+      manager.synchronous = true;
+      const failure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(failure === original).assertTrue();
+      expect(failure?.message).assertEqual(message);
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.accounts.length).assertEqual(accountsOffset + 1);
+      expect(manager.edits.length).assertEqual(editsOffset + 0);
+      manager.failMethod = '';
+      const readinessFailure: Error | undefined = await captureFailure(() => session.addEvent());
+      expect(readinessFailure?.message).assertEqual('Calendar is not ready');
+      const beforeRetry: number = manager.calendar.trace.length;
+      const accountsBeforeRetry: number = manager.accounts.length;
+      await session.createCalendar();
+      expect(manager.calendar.trace.slice(beforeRetry).join(",")).assertEqual("config");
+      expect(manager.accounts.length).assertEqual(accountsBeforeRetry + 1);
+      const afterOpenupdateGuard: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(afterOpenupdateGuard?.message).assertEqual('Event has not been created');
+      const afterOpenqueryGuard: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(afterOpenqueryGuard?.message).assertEqual('Event has not been created');
+      const afterOpendeleteGuard: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(afterOpendeleteGuard?.message).assertEqual('Event has not been created');
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_FAILURE_FAILUREMATRIX05_3500
+     * @tc.name CalendarEventFailureMatrix05_0035
+     * @tc.desc create throws synchronously; parameter text; reopen after clearing zero ID; error identity and retry.
+     * @tc.type FUNC
+     */
+    it('CalendarEventFailureMatrix05_0035', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 0;
+      expect(await session.addEvent()).assertEqual(0);
+      const traceBeforeClear: string = manager.calendar.trace.join(",");
+      session.clear();
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBeforeClear);
+      expect(manager.calendar.deletions.length).assertEqual(0);
+      const message: string = '401: Invalid parameter';
+      const original: Error = new Error(message);
+      manager.error = original;
+      const traceOffset: number = manager.calendar.trace.length;
+      const accountsOffset: number = manager.accounts.length;
+      const editsOffset: number = manager.edits.length;
+      manager.failMethod = 'create';
+      manager.synchronous = true;
+      const failure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(failure === original).assertTrue();
+      expect(failure?.message).assertEqual(message);
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.accounts.length).assertEqual(accountsOffset + 1);
+      expect(manager.edits.length).assertEqual(editsOffset + 0);
+      manager.failMethod = '';
+      const readinessFailure: Error | undefined = await captureFailure(() => session.addEvent());
+      expect(readinessFailure?.message).assertEqual('Calendar is not ready');
+      const beforeRetry: number = manager.calendar.trace.length;
+      const accountsBeforeRetry: number = manager.accounts.length;
+      await session.createCalendar();
+      expect(manager.calendar.trace.slice(beforeRetry).join(",")).assertEqual("config");
+      expect(manager.accounts.length).assertEqual(accountsBeforeRetry + 1);
+      const afterOpenupdateGuard: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(afterOpenupdateGuard?.message).assertEqual('Event has not been created');
+      const afterOpenqueryGuard: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(afterOpenqueryGuard?.message).assertEqual('Event has not been created');
+      const afterOpendeleteGuard: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(afterOpendeleteGuard?.message).assertEqual('Event has not been created');
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_FAILURE_FAILUREMATRIX05_3600
+     * @tc.name CalendarEventFailureMatrix05_0036
+     * @tc.desc create throws synchronously; parameter text; reopen after clearing int32 maximum ID; error identity and
+     * retry.
+     * @tc.type FUNC
+     */
+    it('CalendarEventFailureMatrix05_0036', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 2147483647;
+      expect(await session.addEvent()).assertEqual(2147483647);
+      const traceBeforeClear: string = manager.calendar.trace.join(",");
+      session.clear();
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBeforeClear);
+      expect(manager.calendar.deletions.length).assertEqual(0);
+      const message: string = '401: Invalid parameter';
+      const original: Error = new Error(message);
+      manager.error = original;
+      const traceOffset: number = manager.calendar.trace.length;
+      const accountsOffset: number = manager.accounts.length;
+      const editsOffset: number = manager.edits.length;
+      manager.failMethod = 'create';
+      manager.synchronous = true;
+      const failure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(failure === original).assertTrue();
+      expect(failure?.message).assertEqual(message);
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.accounts.length).assertEqual(accountsOffset + 1);
+      expect(manager.edits.length).assertEqual(editsOffset + 0);
+      manager.failMethod = '';
+      const readinessFailure: Error | undefined = await captureFailure(() => session.addEvent());
+      expect(readinessFailure?.message).assertEqual('Calendar is not ready');
+      const beforeRetry: number = manager.calendar.trace.length;
+      const accountsBeforeRetry: number = manager.accounts.length;
+      await session.createCalendar();
+      expect(manager.calendar.trace.slice(beforeRetry).join(",")).assertEqual("config");
+      expect(manager.accounts.length).assertEqual(accountsBeforeRetry + 1);
+      const afterOpenupdateGuard: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(afterOpenupdateGuard?.message).assertEqual('Event has not been created');
+      const afterOpenqueryGuard: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(afterOpenqueryGuard?.message).assertEqual('Event has not been created');
+      const afterOpendeleteGuard: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(afterOpendeleteGuard?.message).assertEqual('Event has not been created');
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_FAILURE_FAILUREMATRIX05_3700
+     * @tc.name CalendarEventFailureMatrix05_0037
+     * @tc.desc create throws synchronously; parameter text; failed reopen retry after clearing safe-integer ID; error
+     * identity and retry.
+     * @tc.type FUNC
+     */
+    it('CalendarEventFailureMatrix05_0037', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 9007199254740991;
+      expect(await session.addEvent()).assertEqual(9007199254740991);
+      const traceBeforeClear: string = manager.calendar.trace.join(",");
+      session.clear();
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBeforeClear);
+      expect(manager.calendar.deletions.length).assertEqual(0);
+      const message: string = '401: Invalid parameter';
+      const original: Error = new Error(message);
+      manager.error = original;
+      manager.failMethod = 'create';
+      manager.synchronous = true;
+      const previous: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(previous === original).assertTrue();
+      expect(previous?.message).assertEqual(message);
+      manager.failMethod = '';
+      const traceOffset: number = manager.calendar.trace.length;
+      const accountsOffset: number = manager.accounts.length;
+      const editsOffset: number = manager.edits.length;
+      manager.failMethod = 'create';
+      manager.synchronous = true;
+      const failure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(failure === original).assertTrue();
+      expect(failure?.message).assertEqual(message);
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.accounts.length).assertEqual(accountsOffset + 1);
+      expect(manager.edits.length).assertEqual(editsOffset + 0);
+      manager.failMethod = '';
+      const readinessFailure: Error | undefined = await captureFailure(() => session.addEvent());
+      expect(readinessFailure?.message).assertEqual('Calendar is not ready');
+      const beforeRetry: number = manager.calendar.trace.length;
+      const accountsBeforeRetry: number = manager.accounts.length;
+      await session.createCalendar();
+      expect(manager.calendar.trace.slice(beforeRetry).join(",")).assertEqual("config");
+      expect(manager.accounts.length).assertEqual(accountsBeforeRetry + 1);
+      const afterOpenupdateGuard: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(afterOpenupdateGuard?.message).assertEqual('Event has not been created');
+      const afterOpenqueryGuard: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(afterOpenqueryGuard?.message).assertEqual('Event has not been created');
+      const afterOpendeleteGuard: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(afterOpendeleteGuard?.message).assertEqual('Event has not been created');
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_FAILURE_FAILUREMATRIX05_3800
+     * @tc.name CalendarEventFailureMatrix05_0038
+     * @tc.desc create throws synchronously; service text; first opening; error identity and retry.
+     * @tc.type FUNC
+     */
+    it('CalendarEventFailureMatrix05_0038', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      const message: string = '16000050: Calendar service unavailable';
+      const original: Error = new Error(message);
+      manager.error = original;
+      const traceOffset: number = manager.calendar.trace.length;
+      const accountsOffset: number = manager.accounts.length;
+      const editsOffset: number = manager.edits.length;
+      manager.failMethod = 'create';
+      manager.synchronous = true;
+      const failure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(failure === original).assertTrue();
+      expect(failure?.message).assertEqual(message);
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.accounts.length).assertEqual(accountsOffset + 1);
+      expect(manager.edits.length).assertEqual(editsOffset + 0);
+      manager.failMethod = '';
+      const readinessFailure: Error | undefined = await captureFailure(() => session.addEvent());
+      expect(readinessFailure?.message).assertEqual('Calendar is not ready');
+      const beforeRetry: number = manager.calendar.trace.length;
+      const accountsBeforeRetry: number = manager.accounts.length;
+      await session.createCalendar();
+      expect(manager.calendar.trace.slice(beforeRetry).join(",")).assertEqual("config");
+      expect(manager.accounts.length).assertEqual(accountsBeforeRetry + 1);
+      const afterOpenupdateGuard: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(afterOpenupdateGuard?.message).assertEqual('Event has not been created');
+      const afterOpenqueryGuard: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(afterOpenqueryGuard?.message).assertEqual('Event has not been created');
+      const afterOpendeleteGuard: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(afterOpendeleteGuard?.message).assertEqual('Event has not been created');
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_FAILURE_FAILUREMATRIX05_3900
+     * @tc.name CalendarEventFailureMatrix05_0039
+     * @tc.desc create throws synchronously; service text; reopen after clearing zero ID; error identity and retry.
+     * @tc.type FUNC
+     */
+    it('CalendarEventFailureMatrix05_0039', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 0;
+      expect(await session.addEvent()).assertEqual(0);
+      const traceBeforeClear: string = manager.calendar.trace.join(",");
+      session.clear();
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBeforeClear);
+      expect(manager.calendar.deletions.length).assertEqual(0);
+      const message: string = '16000050: Calendar service unavailable';
+      const original: Error = new Error(message);
+      manager.error = original;
+      const traceOffset: number = manager.calendar.trace.length;
+      const accountsOffset: number = manager.accounts.length;
+      const editsOffset: number = manager.edits.length;
+      manager.failMethod = 'create';
+      manager.synchronous = true;
+      const failure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(failure === original).assertTrue();
+      expect(failure?.message).assertEqual(message);
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.accounts.length).assertEqual(accountsOffset + 1);
+      expect(manager.edits.length).assertEqual(editsOffset + 0);
+      manager.failMethod = '';
+      const readinessFailure: Error | undefined = await captureFailure(() => session.addEvent());
+      expect(readinessFailure?.message).assertEqual('Calendar is not ready');
+      const beforeRetry: number = manager.calendar.trace.length;
+      const accountsBeforeRetry: number = manager.accounts.length;
+      await session.createCalendar();
+      expect(manager.calendar.trace.slice(beforeRetry).join(",")).assertEqual("config");
+      expect(manager.accounts.length).assertEqual(accountsBeforeRetry + 1);
+      const afterOpenupdateGuard: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(afterOpenupdateGuard?.message).assertEqual('Event has not been created');
+      const afterOpenqueryGuard: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(afterOpenqueryGuard?.message).assertEqual('Event has not been created');
+      const afterOpendeleteGuard: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(afterOpendeleteGuard?.message).assertEqual('Event has not been created');
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+    });
+    /**
+     * @tc.number SUB_CALENDAR_FAILURE_FAILUREMATRIX05_4000
+     * @tc.name CalendarEventFailureMatrix05_0040
+     * @tc.desc create throws synchronously; service text; reopen after clearing int32 maximum ID; error identity and
+     * retry.
+     * @tc.type FUNC
+     */
+    it('CalendarEventFailureMatrix05_0040', 0, async (): Promise<void> => {
+      const manager: ManagerProbe = new ManagerProbe();
+      const session: CalendarEventSession = new CalendarEventSession(manager, 1000);
+      await session.createCalendar();
+      manager.calendar.nextId = 2147483647;
+      expect(await session.addEvent()).assertEqual(2147483647);
+      const traceBeforeClear: string = manager.calendar.trace.join(",");
+      session.clear();
+      expect(manager.calendar.trace.join(",")).assertEqual(traceBeforeClear);
+      expect(manager.calendar.deletions.length).assertEqual(0);
+      const message: string = '16000050: Calendar service unavailable';
+      const original: Error = new Error(message);
+      manager.error = original;
+      const traceOffset: number = manager.calendar.trace.length;
+      const accountsOffset: number = manager.accounts.length;
+      const editsOffset: number = manager.edits.length;
+      manager.failMethod = 'create';
+      manager.synchronous = true;
+      const failure: Error | undefined = await captureFailure(() => session.createCalendar());
+      expect(failure === original).assertTrue();
+      expect(failure?.message).assertEqual(message);
+      expect(manager.calendar.trace.slice(traceOffset).join(",")).assertEqual('');
+      expect(manager.accounts.length).assertEqual(accountsOffset + 1);
+      expect(manager.edits.length).assertEqual(editsOffset + 0);
+      manager.failMethod = '';
+      const readinessFailure: Error | undefined = await captureFailure(() => session.addEvent());
+      expect(readinessFailure?.message).assertEqual('Calendar is not ready');
+      const beforeRetry: number = manager.calendar.trace.length;
+      const accountsBeforeRetry: number = manager.accounts.length;
+      await session.createCalendar();
+      expect(manager.calendar.trace.slice(beforeRetry).join(",")).assertEqual("config");
+      expect(manager.accounts.length).assertEqual(accountsBeforeRetry + 1);
+      const afterOpenupdateGuard: Error | undefined = await captureFailure(() => session.updateEvent());
+      expect(afterOpenupdateGuard?.message).assertEqual('Event has not been created');
+      const afterOpenqueryGuard: Error | undefined = await captureFailure(() => session.getEvent());
+      expect(afterOpenqueryGuard?.message).assertEqual('Event has not been created');
+      const afterOpendeleteGuard: Error | undefined = await captureFailure(() => session.deleteEvent());
+      expect(afterOpendeleteGuard?.message).assertEqual('Event has not been created');
+      manager.calendar.nextId = 1;
+      expect(await session.addEvent()).assertEqual(1);
+      await session.updateEvent();
+      expect(manager.calendar.updates[manager.calendar.updates.length - 1].id).assertEqual(1);
+    });
+  });
+}
