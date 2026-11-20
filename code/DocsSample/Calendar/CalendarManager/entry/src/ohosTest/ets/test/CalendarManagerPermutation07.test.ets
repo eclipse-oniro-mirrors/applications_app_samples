@@ -1266,3 +1266,233 @@ export default function calendarManagerPermutation07Test(): void {
               authResults: [0, 0]
             };
             const error0: Error = new Error('request 0 rejected');
+            const pending0: MatrixPending<PermissionRequestResult> = scope.pending(input0);
+            const request0: Promise<MatrixOutcome<PermissionRequestResult>> =
+              scope.observe(gate.request((): Promise<PermissionRequestResult> => pending0.promise, recorder));
+            const input1: PermissionRequestResult = {
+              permissions: ['ohos.permission.WRITE_CALENDAR',
+                'ohos.permission.READ_CALENDAR'],
+              authResults: [0, 0]
+            };
+            const error1: Error = new Error('request 1 rejected');
+            const pending1: MatrixPending<PermissionRequestResult> = scope.pending(input1);
+            const request1: Promise<MatrixOutcome<PermissionRequestResult>> =
+              scope.observe(gate.request((): Promise<PermissionRequestResult> => pending1.promise, recorder));
+            const input2: PermissionRequestResult = {
+              permissions: ['ohos.permission.READ_CALENDAR',
+                'ohos.permission.WRITE_CALENDAR'],
+              authResults: [0, 0]
+            };
+            const error2: Error = new Error('request 2 rejected');
+            const pending2: MatrixPending<PermissionRequestResult> = scope.pending(input2);
+            const request2: Promise<MatrixOutcome<PermissionRequestResult>> =
+              scope.observe(gate.request((): Promise<PermissionRequestResult> => pending2.promise, recorder));
+            expect(recorder.trace.join(',')).assertEqual('');
+            gate.invalidate();
+            pending1.reject(error1);
+            const outcome1: MatrixOutcome<PermissionRequestResult> = await request1;
+            expect(outcome1.error === error1).assertEqual(true);
+            expect(outcome1.error?.message).assertEqual('request 1 rejected');
+            expect(outcome1.value === undefined).assertEqual(true);
+            expect(recorder.trace.join(',')).assertEqual('');
+            pending2.reject(error2);
+            const outcome2: MatrixOutcome<PermissionRequestResult> = await request2;
+            expect(outcome2.error === error2).assertEqual(true);
+            expect(outcome2.error?.message).assertEqual('request 2 rejected');
+            expect(outcome2.value === undefined).assertEqual(true);
+            expect(recorder.trace.join(',')).assertEqual('');
+            pending0.reject(error0);
+            const outcome0: MatrixOutcome<PermissionRequestResult> = await request0;
+            expect(outcome0.error === error0).assertEqual(true);
+            expect(outcome0.error?.message).assertEqual('request 0 rejected');
+            expect(outcome0.value === undefined).assertEqual(true);
+            expect(recorder.trace.join(',')).assertEqual('');
+            expect(recorder.granted.length).assertEqual(0);
+            expect(recorder.denied.length).assertEqual(0);
+            expect(recorder.failures).assertEqual(0);
+            const fresh: PermissionRequestResult = {
+              permissions: ['ohos.permission.READ_CALENDAR', 'ohos.permission.WRITE_CALENDAR'],
+              authResults: [0, 0]
+            };
+            const returned: PermissionRequestResult = await gate.request(
+              (): Promise<PermissionRequestResult> => Promise.resolve(fresh), recorder);
+            expect(returned === fresh).assertEqual(true);
+            expect(recorder.trace.join(',')).assertEqual('granted');
+            expect(recorder.granted[0] === fresh).assertEqual(true);
+          } finally {
+            await scope.close();
+          }
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_CALENDAR_MANAGER_PERMUTATION_07_1700
+     * @tc.name testCalendarManagerPermutation070017
+     * @tc.desc RRR, finish 201, invalidate; latest callback only and fresh request recovery.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testCalendarManagerPermutation070017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testCalendarManagerPermutation070017';
+        console.info(`${TAG} start`);
+        try {
+          const gate: CalendarPermissionGate = new CalendarPermissionGate();
+          const scope: MatrixScope = new MatrixScope();
+          const recorder: MatrixPermissionRecorder = new MatrixPermissionRecorder();
+          try {
+            const input0: PermissionRequestResult = {
+              permissions: ['ohos.permission.READ_CALENDAR',
+                'ohos.permission.WRITE_CALENDAR'],
+              authResults: [0, 0]
+            };
+            const error0: Error = new Error('request 0 rejected');
+            const pending0: MatrixPending<PermissionRequestResult> = scope.pending(input0);
+            const request0: Promise<MatrixOutcome<PermissionRequestResult>> =
+              scope.observe(gate.request((): Promise<PermissionRequestResult> => pending0.promise, recorder));
+            const input1: PermissionRequestResult = {
+              permissions: ['ohos.permission.WRITE_CALENDAR',
+                'ohos.permission.READ_CALENDAR'],
+              authResults: [0, 0]
+            };
+            const error1: Error = new Error('request 1 rejected');
+            const pending1: MatrixPending<PermissionRequestResult> = scope.pending(input1);
+            const request1: Promise<MatrixOutcome<PermissionRequestResult>> =
+              scope.observe(gate.request((): Promise<PermissionRequestResult> => pending1.promise, recorder));
+            const input2: PermissionRequestResult = {
+              permissions: ['ohos.permission.READ_CALENDAR',
+                'ohos.permission.WRITE_CALENDAR'],
+              authResults: [0, 0]
+            };
+            const error2: Error = new Error('request 2 rejected');
+            const pending2: MatrixPending<PermissionRequestResult> = scope.pending(input2);
+            const request2: Promise<MatrixOutcome<PermissionRequestResult>> =
+              scope.observe(gate.request((): Promise<PermissionRequestResult> => pending2.promise, recorder));
+            expect(recorder.trace.join(',')).assertEqual('');
+            gate.invalidate();
+            pending2.reject(error2);
+            const outcome2: MatrixOutcome<PermissionRequestResult> = await request2;
+            expect(outcome2.error === error2).assertEqual(true);
+            expect(outcome2.error?.message).assertEqual('request 2 rejected');
+            expect(outcome2.value === undefined).assertEqual(true);
+            expect(recorder.trace.join(',')).assertEqual('');
+            pending0.reject(error0);
+            const outcome0: MatrixOutcome<PermissionRequestResult> = await request0;
+            expect(outcome0.error === error0).assertEqual(true);
+            expect(outcome0.error?.message).assertEqual('request 0 rejected');
+            expect(outcome0.value === undefined).assertEqual(true);
+            expect(recorder.trace.join(',')).assertEqual('');
+            pending1.reject(error1);
+            const outcome1: MatrixOutcome<PermissionRequestResult> = await request1;
+            expect(outcome1.error === error1).assertEqual(true);
+            expect(outcome1.error?.message).assertEqual('request 1 rejected');
+            expect(outcome1.value === undefined).assertEqual(true);
+            expect(recorder.trace.join(',')).assertEqual('');
+            expect(recorder.granted.length).assertEqual(0);
+            expect(recorder.denied.length).assertEqual(0);
+            expect(recorder.failures).assertEqual(0);
+            const fresh: PermissionRequestResult = {
+              permissions: ['ohos.permission.READ_CALENDAR', 'ohos.permission.WRITE_CALENDAR'],
+              authResults: [0, 0]
+            };
+            const returned: PermissionRequestResult = await gate.request(
+              (): Promise<PermissionRequestResult> => Promise.resolve(fresh), recorder);
+            expect(returned === fresh).assertEqual(true);
+            expect(recorder.trace.join(',')).assertEqual('granted');
+            expect(recorder.granted[0] === fresh).assertEqual(true);
+          } finally {
+            await scope.close();
+          }
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+
+    /**
+     * @tc.number SUB_CALENDAR_MANAGER_PERMUTATION_07_1800
+     * @tc.name testCalendarManagerPermutation070018
+     * @tc.desc RRR, finish 210, invalidate; latest callback only and fresh request recovery.
+     * @tc.size MediumTest
+     * @tc.type Function
+     * @tc.level Level 0
+     */
+    it('testCalendarManagerPermutation070018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testCalendarManagerPermutation070018';
+        console.info(`${TAG} start`);
+        try {
+          const gate: CalendarPermissionGate = new CalendarPermissionGate();
+          const scope: MatrixScope = new MatrixScope();
+          const recorder: MatrixPermissionRecorder = new MatrixPermissionRecorder();
+          try {
+            const input0: PermissionRequestResult = {
+              permissions: ['ohos.permission.READ_CALENDAR',
+                'ohos.permission.WRITE_CALENDAR'],
+              authResults: [0, 0]
+            };
+            const error0: Error = new Error('request 0 rejected');
+            const pending0: MatrixPending<PermissionRequestResult> = scope.pending(input0);
+            const request0: Promise<MatrixOutcome<PermissionRequestResult>> =
+              scope.observe(gate.request((): Promise<PermissionRequestResult> => pending0.promise, recorder));
+            const input1: PermissionRequestResult = {
+              permissions: ['ohos.permission.WRITE_CALENDAR',
+                'ohos.permission.READ_CALENDAR'],
+              authResults: [0, 0]
+            };
+            const error1: Error = new Error('request 1 rejected');
+            const pending1: MatrixPending<PermissionRequestResult> = scope.pending(input1);
+            const request1: Promise<MatrixOutcome<PermissionRequestResult>> =
+              scope.observe(gate.request((): Promise<PermissionRequestResult> => pending1.promise, recorder));
+            const input2: PermissionRequestResult = {
+              permissions: ['ohos.permission.READ_CALENDAR',
+                'ohos.permission.WRITE_CALENDAR'],
+              authResults: [0, 0]
+            };
+            const error2: Error = new Error('request 2 rejected');
+            const pending2: MatrixPending<PermissionRequestResult> = scope.pending(input2);
+            const request2: Promise<MatrixOutcome<PermissionRequestResult>> =
+              scope.observe(gate.request((): Promise<PermissionRequestResult> => pending2.promise, recorder));
+            expect(recorder.trace.join(',')).assertEqual('');
+            gate.invalidate();
+            pending2.reject(error2);
+            const outcome2: MatrixOutcome<PermissionRequestResult> = await request2;
+            expect(outcome2.error === error2).assertEqual(true);
+            expect(outcome2.error?.message).assertEqual('request 2 rejected');
+            expect(outcome2.value === undefined).assertEqual(true);
+            expect(recorder.trace.join(',')).assertEqual('');
+            pending1.reject(error1);
+            const outcome1: MatrixOutcome<PermissionRequestResult> = await request1;
+            expect(outcome1.error === error1).assertEqual(true);
+            expect(outcome1.error?.message).assertEqual('request 1 rejected');
+            expect(outcome1.value === undefined).assertEqual(true);
+            expect(recorder.trace.join(',')).assertEqual('');
+            pending0.reject(error0);
+            const outcome0: MatrixOutcome<PermissionRequestResult> = await request0;
+            expect(outcome0.error === error0).assertEqual(true);
+            expect(outcome0.error?.message).assertEqual('request 0 rejected');
+            expect(outcome0.value === undefined).assertEqual(true);
+            expect(recorder.trace.join(',')).assertEqual('');
+            expect(recorder.granted.length).assertEqual(0);
+            expect(recorder.denied.length).assertEqual(0);
+            expect(recorder.failures).assertEqual(0);
+            const fresh: PermissionRequestResult = {
+              permissions: ['ohos.permission.READ_CALENDAR', 'ohos.permission.WRITE_CALENDAR'],
+              authResults: [0, 0]
+            };
+            const returned: PermissionRequestResult = await gate.request(
+              (): Promise<PermissionRequestResult> => Promise.resolve(fresh), recorder);
+            expect(returned === fresh).assertEqual(true);
+            expect(recorder.trace.join(',')).assertEqual('granted');
+            expect(recorder.granted[0] === fresh).assertEqual(true);
+          } finally {
+            await scope.close();
+          }
+        } finally {
+          console.info(`${TAG} end`);
+        }
+      });
+  });
+}
