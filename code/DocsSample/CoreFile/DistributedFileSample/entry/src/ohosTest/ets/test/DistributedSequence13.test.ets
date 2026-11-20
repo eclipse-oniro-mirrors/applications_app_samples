@@ -2082,3 +2082,63 @@ export default function distributedSequence13Test(): void {
      * @tc.type Function
      * @tc.level Level 0
      */
+    it('testDistributedFileSequence130018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0,
+      async (): Promise<void> => {
+        const TAG: string = 'testDistributedFileSequence130018';
+        console.info(`${TAG} start`);
+        try {
+          const api: RecordingDistributedApi = new RecordingDistributedApi();
+          const step1Request: DistributedCopyRequest = distributedRequest(1);
+          const step1Error: Error = new Error('connect step 1');
+          const step1ReleaseError: Error = new Error('release step 1');
+          api.uriCalls = 0;
+          api.uriErrorAt = 0;
+          api.uriError = undefined;
+          api.connectError = step1Error;
+          api.copyError = undefined;
+          api.unlinkError = undefined;
+          api.disconnectError = undefined;
+          const step1EventCount: number = api.events.length;
+          const step1UriCount: number = api.uriPaths.length;
+          const step1NetworkCount: number = api.networks.length;
+          const step1CopyCount: number = api.sources.length;
+          const step1RemovedCount: number = api.removed.length;
+          const step1ReleaseCount: number = api.disconnected.length;
+          const step1Outcome: DistributedOutcome = await captureDistributed(
+            (): Promise<void> => copyFromDistributed(step1Request, api));
+          expect(step1Outcome.threw).assertEqual(true);
+          expect(step1Outcome.error).assertEqual(step1Error);
+          expect(api.events.slice(step1EventCount).join('|')).assertEqual('uri|uri|connect');
+          expect(api.uriPaths.length - step1UriCount).assertEqual(2);
+          expect(api.uriPaths[step1UriCount]).assertEqual('/distributed/source-1.txt');
+          expect(api.networks.length - step1NetworkCount).assertEqual(1);
+          expect(api.sources.length - step1CopyCount).assertEqual(0);
+          expect(api.removed.length - step1RemovedCount).assertEqual(0);
+          expect(api.disconnected.length - step1ReleaseCount).assertEqual(0);
+          expect(api.uriPaths[step1UriCount + 1]).assertEqual('/sandbox/destination-1.txt');
+          expect(api.networks[step1NetworkCount]).assertEqual('peer-1');
+          expect(api.listeners[step1NetworkCount] === step1Request.listeners).assertEqual(false);
+          expect(api.listeners[step1NetworkCount].onStatus).assertEqual(step1Request.listeners.onStatus);
+          const step2Request: DistributedCopyRequest = distributedRequest(2);
+          const step2Error: Error = new Error('unlink step 2');
+          const step2ReleaseError: Error = new Error('release step 2');
+          api.uriCalls = 0;
+          api.uriErrorAt = 0;
+          api.uriError = undefined;
+          api.connectError = undefined;
+          api.copyError = undefined;
+          api.unlinkError = step2Error;
+          api.disconnectError = undefined;
+          const step2EventCount: number = api.events.length;
+          const step2UriCount: number = api.uriPaths.length;
+          const step2NetworkCount: number = api.networks.length;
+          const step2CopyCount: number = api.sources.length;
+          const step2RemovedCount: number = api.removed.length;
+          const step2ReleaseCount: number = api.disconnected.length;
+          const step2Outcome: DistributedOutcome = await captureDistributed(
+            (): Promise<void> => copyFromDistributed(step2Request, api));
+          expect(step2Outcome.threw).assertEqual(true);
+          expect(step2Outcome.error).assertEqual(step2Error);
+          expect(api.events.slice(step2EventCount).join('|')).assertEqual('uri|uri|connect|copy|unlink|disconnect');
+          expect(api.uriPaths.length - step2UriCount).assertEqual(2);
+          expect(api.uriPaths[step2UriCount]).assertEqual('/distributed/source-2.txt');
