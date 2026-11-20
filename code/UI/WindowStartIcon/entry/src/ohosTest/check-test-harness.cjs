@@ -69,9 +69,9 @@ const runnerSource = read(path.join(__dirname, 'ets', 'testrunner', 'OpenHarmony
 const initializationOrder = [
   'abilityDelegatorRegistry.getArguments()',
   'abilityDelegatorRegistry.getAbilityDelegator()',
-  'coverageGlobal.__savePath__',
-  'coverageGlobal.__readPath__',
-  'coverageGlobal.__testMode__',
+  'coverageGlobal[savePath]',
+  'coverageGlobal[readPath]',
+  'coverageGlobal[testMode]',
   '.createModuleContext(moduleName)',
   'await checkMock(',
   "await import('../test/List.test')",

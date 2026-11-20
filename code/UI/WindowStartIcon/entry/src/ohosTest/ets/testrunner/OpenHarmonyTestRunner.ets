@@ -20,19 +20,13 @@ import { resourceManager } from '@kit.LocalizationKit';
 import { util } from '@kit.ArkTS';
 import { Hypium } from '@ohos/hypium';
 
-interface CoverageGlobal {
-  __savePath__: string;
-  __readPath__: string;
-  __testMode__: string;
-}
-
 interface MockItem {
   source: string;
 }
 
 let abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
 let abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs;
-const coverageGlobal: CoverageGlobal = new Function('return this')();
+const coverageGlobal: Record<string, string> = new Function('return this')();
 const JSON_PATH: string = 'mock/mock-config.json';
 const DOMAIN: number = 0x0000;
 const TAG: string = 'testTag';
@@ -49,9 +43,12 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     const moduleName: string = abilityDelegatorArguments.parameters['-m'];
     const uid: number = Math.floor(abilityDelegator.getAppContext().applicationInfo.uid / 200000);
     const bundleName: string = abilityDelegatorArguments.bundleName;
-    coverageGlobal.__savePath__ = '/data/storage/el2/base/js_coverage.json';
-    coverageGlobal.__readPath__ = '/data/app/el2/' + uid + '/base/' + bundleName + '/js_coverage.json';
-    coverageGlobal.__testMode__ = 'ohostest';
+    const savePath: string = '__savePath__';
+    const readPath: string = '__readPath__';
+    const testMode: string = '__testMode__';
+    coverageGlobal[savePath] = '/data/storage/el2/base/js_coverage.json';
+    coverageGlobal[readPath] = '/data/app/el2/' + uid + '/base/' + bundleName + '/js_coverage.json';
+    coverageGlobal[testMode] = 'ohostest';
 
     const context: common.Context = abilityDelegator.getAppContext().getApplicationContext()
       .createModuleContext(moduleName);
