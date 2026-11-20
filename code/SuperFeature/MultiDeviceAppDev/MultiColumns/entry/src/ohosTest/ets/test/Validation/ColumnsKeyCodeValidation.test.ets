@@ -3971,3 +3971,1758 @@ export default function columnsKeyCodeValidationSuite() {
       expect(m.getMailByType('nohit1065') === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1066
+     * @tc.name    ColumnsKeyCodeValidation1066
+     * @tc.desc    Columns split mode at 66 probe 1066
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1066', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 66;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1066') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1067
+     * @tc.name    ColumnsKeyCodeValidation1067
+     * @tc.desc    Columns split mode at 67 probe 1067
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1067', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 67;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1067') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1068
+     * @tc.name    ColumnsKeyCodeValidation1068
+     * @tc.desc    Columns split mode at 68 probe 1068
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1068', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 68;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1068') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1069
+     * @tc.name    ColumnsKeyCodeValidation1069
+     * @tc.desc    Columns split mode at 69 probe 1069
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1069', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 69;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1069') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1070
+     * @tc.name    ColumnsKeyCodeValidation1070
+     * @tc.desc    Columns split mode at 70 probe 1070
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1070', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 70;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1070') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1071
+     * @tc.name    ColumnsKeyCodeValidation1071
+     * @tc.desc    Columns split mode at 71 probe 1071
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1071', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 71;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1071') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1072
+     * @tc.name    ColumnsKeyCodeValidation1072
+     * @tc.desc    Columns split mode at 72 probe 1072
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1072', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 72;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1072') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1073
+     * @tc.name    ColumnsKeyCodeValidation1073
+     * @tc.desc    Columns split mode at 73 probe 1073
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1073', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 73;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1073') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1074
+     * @tc.name    ColumnsKeyCodeValidation1074
+     * @tc.desc    Columns split mode at 74 probe 1074
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1074', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 74;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1074') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1075
+     * @tc.name    ColumnsKeyCodeValidation1075
+     * @tc.desc    Columns split mode at 75 probe 1075
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1075', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 75;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1075') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1076
+     * @tc.name    ColumnsKeyCodeValidation1076
+     * @tc.desc    Columns split mode at 76 probe 1076
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1076', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 76;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1076') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1077
+     * @tc.name    ColumnsKeyCodeValidation1077
+     * @tc.desc    Columns split mode at 77 probe 1077
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1077', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 77;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1077') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1078
+     * @tc.name    ColumnsKeyCodeValidation1078
+     * @tc.desc    Columns split mode at 78 probe 1078
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1078', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 78;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1078') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1079
+     * @tc.name    ColumnsKeyCodeValidation1079
+     * @tc.desc    Columns split mode at 79 probe 1079
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1079', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 79;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1079') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1080
+     * @tc.name    ColumnsKeyCodeValidation1080
+     * @tc.desc    Columns split mode at 80 probe 1080
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1080', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 80;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1080') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1081
+     * @tc.name    ColumnsKeyCodeValidation1081
+     * @tc.desc    Columns split mode at 81 probe 1081
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1081', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 81;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1081') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1082
+     * @tc.name    ColumnsKeyCodeValidation1082
+     * @tc.desc    Columns split mode at 82 probe 1082
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1082', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 82;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1082') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1083
+     * @tc.name    ColumnsKeyCodeValidation1083
+     * @tc.desc    Columns split mode at 83 probe 1083
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1083', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 83;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1083') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1084
+     * @tc.name    ColumnsKeyCodeValidation1084
+     * @tc.desc    Columns split mode at 84 probe 1084
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1084', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 84;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1084') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1085
+     * @tc.name    ColumnsKeyCodeValidation1085
+     * @tc.desc    Columns split mode at 85 probe 1085
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1085', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 85;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1085') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1086
+     * @tc.name    ColumnsKeyCodeValidation1086
+     * @tc.desc    Columns split mode at 86 probe 1086
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1086', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 86;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1086') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1087
+     * @tc.name    ColumnsKeyCodeValidation1087
+     * @tc.desc    Columns split mode at 87 probe 1087
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1087', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 87;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1087') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1088
+     * @tc.name    ColumnsKeyCodeValidation1088
+     * @tc.desc    Columns split mode at 88 probe 1088
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1088', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 88;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1088') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1089
+     * @tc.name    ColumnsKeyCodeValidation1089
+     * @tc.desc    Columns split mode at 89 probe 1089
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1089', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 89;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1089') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1090
+     * @tc.name    ColumnsKeyCodeValidation1090
+     * @tc.desc    Columns split mode at 90 probe 1090
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1090', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 90;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1090') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1091
+     * @tc.name    ColumnsKeyCodeValidation1091
+     * @tc.desc    Columns split mode at 91 probe 1091
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1091', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 91;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1091') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1092
+     * @tc.name    ColumnsKeyCodeValidation1092
+     * @tc.desc    Columns split mode at 92 probe 1092
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1092', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 92;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1092') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1093
+     * @tc.name    ColumnsKeyCodeValidation1093
+     * @tc.desc    Columns split mode at 93 probe 1093
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1093', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 93;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1093') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1094
+     * @tc.name    ColumnsKeyCodeValidation1094
+     * @tc.desc    Columns split mode at 94 probe 1094
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1094', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 94;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1094') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1095
+     * @tc.name    ColumnsKeyCodeValidation1095
+     * @tc.desc    Columns split mode at 95 probe 1095
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1095', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 95;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1095') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1096
+     * @tc.name    ColumnsKeyCodeValidation1096
+     * @tc.desc    Columns split mode at 96 probe 1096
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1096', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 96;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1096') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1097
+     * @tc.name    ColumnsKeyCodeValidation1097
+     * @tc.desc    Columns split mode at 97 probe 1097
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1097', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 97;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1097') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1098
+     * @tc.name    ColumnsKeyCodeValidation1098
+     * @tc.desc    Columns split mode at 98 probe 1098
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1098', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 98;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1098') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1099
+     * @tc.name    ColumnsKeyCodeValidation1099
+     * @tc.desc    Columns split mode at 99 probe 1099
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1099', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 99;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1099') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1100
+     * @tc.name    ColumnsKeyCodeValidation1100
+     * @tc.desc    Columns split mode at 100 probe 1100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1100', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 100;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1100') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1101
+     * @tc.name    ColumnsKeyCodeValidation1101
+     * @tc.desc    Columns split mode at 101 probe 1101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1101', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 101;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1101') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1102
+     * @tc.name    ColumnsKeyCodeValidation1102
+     * @tc.desc    Columns split mode at 102 probe 1102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1102', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 102;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1102') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1103
+     * @tc.name    ColumnsKeyCodeValidation1103
+     * @tc.desc    Columns split mode at 103 probe 1103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1103', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 103;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1103') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1104
+     * @tc.name    ColumnsKeyCodeValidation1104
+     * @tc.desc    Columns split mode at 104 probe 1104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1104', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 104;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1104') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1105
+     * @tc.name    ColumnsKeyCodeValidation1105
+     * @tc.desc    Columns split mode at 105 probe 1105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1105', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 105;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1105') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1106
+     * @tc.name    ColumnsKeyCodeValidation1106
+     * @tc.desc    Columns split mode at 106 probe 1106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1106', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 106;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1106') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1107
+     * @tc.name    ColumnsKeyCodeValidation1107
+     * @tc.desc    Columns split mode at 107 probe 1107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1107', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 107;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1107') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1108
+     * @tc.name    ColumnsKeyCodeValidation1108
+     * @tc.desc    Columns split mode at 108 probe 1108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1108', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 108;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1108') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1109
+     * @tc.name    ColumnsKeyCodeValidation1109
+     * @tc.desc    Columns split mode at 109 probe 1109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1109', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 109;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1109') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1110
+     * @tc.name    ColumnsKeyCodeValidation1110
+     * @tc.desc    Columns split mode at 110 probe 1110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1110', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 110;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1110') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1111
+     * @tc.name    ColumnsKeyCodeValidation1111
+     * @tc.desc    Columns split mode at 111 probe 1111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1111', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 111;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1111') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1112
+     * @tc.name    ColumnsKeyCodeValidation1112
+     * @tc.desc    Columns split mode at 112 probe 1112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1112', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 112;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1112') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1113
+     * @tc.name    ColumnsKeyCodeValidation1113
+     * @tc.desc    Columns split mode at 113 probe 1113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1113', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 113;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1113') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1114
+     * @tc.name    ColumnsKeyCodeValidation1114
+     * @tc.desc    Columns split mode at 114 probe 1114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1114', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 114;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1114') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1115
+     * @tc.name    ColumnsKeyCodeValidation1115
+     * @tc.desc    Columns split mode at 115 probe 1115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1115', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 115;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1115') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1116
+     * @tc.name    ColumnsKeyCodeValidation1116
+     * @tc.desc    Columns split mode at 116 probe 1116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1116', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 116;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1116') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1117
+     * @tc.name    ColumnsKeyCodeValidation1117
+     * @tc.desc    Columns split mode at 117 probe 1117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1117', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 117;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1117') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1118
+     * @tc.name    ColumnsKeyCodeValidation1118
+     * @tc.desc    Columns split mode at 118 probe 1118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1118', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 118;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1118') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1119
+     * @tc.name    ColumnsKeyCodeValidation1119
+     * @tc.desc    Columns split mode at 119 probe 1119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1119', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 119;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1119') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1120
+     * @tc.name    ColumnsKeyCodeValidation1120
+     * @tc.desc    Columns split mode at 120 probe 1120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1120', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 120;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1120') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1121
+     * @tc.name    ColumnsKeyCodeValidation1121
+     * @tc.desc    Columns split mode at 121 probe 1121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1121', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 121;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1121') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1122
+     * @tc.name    ColumnsKeyCodeValidation1122
+     * @tc.desc    Columns split mode at 122 probe 1122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1122', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 122;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1122') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1123
+     * @tc.name    ColumnsKeyCodeValidation1123
+     * @tc.desc    Columns split mode at 123 probe 1123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1123', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 123;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1123') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1124
+     * @tc.name    ColumnsKeyCodeValidation1124
+     * @tc.desc    Columns split mode at 124 probe 1124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1124', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 124;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1124') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1125
+     * @tc.name    ColumnsKeyCodeValidation1125
+     * @tc.desc    Columns split mode at 125 probe 1125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1125', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 125;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1125') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1126
+     * @tc.name    ColumnsKeyCodeValidation1126
+     * @tc.desc    Columns split mode at 126 probe 1126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1126', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 126;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1126') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1127
+     * @tc.name    ColumnsKeyCodeValidation1127
+     * @tc.desc    Columns split mode at 127 probe 1127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1127', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 127;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1127') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1128
+     * @tc.name    ColumnsKeyCodeValidation1128
+     * @tc.desc    Columns split mode at 128 probe 1128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1128', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 128;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1128') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1129
+     * @tc.name    ColumnsKeyCodeValidation1129
+     * @tc.desc    Columns split mode at 129 probe 1129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1129', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 129;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1129') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1130
+     * @tc.name    ColumnsKeyCodeValidation1130
+     * @tc.desc    Columns split mode at 130 probe 1130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1130', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 130;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1130') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1131
+     * @tc.name    ColumnsKeyCodeValidation1131
+     * @tc.desc    Columns split mode at 131 probe 1131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1131', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 131;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1131') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1132
+     * @tc.name    ColumnsKeyCodeValidation1132
+     * @tc.desc    Columns split mode at 132 probe 1132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1132', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 132;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1132') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1133
+     * @tc.name    ColumnsKeyCodeValidation1133
+     * @tc.desc    Columns split mode at 133 probe 1133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1133', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 133;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1133') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1134
+     * @tc.name    ColumnsKeyCodeValidation1134
+     * @tc.desc    Columns split mode at 134 probe 1134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1134', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 134;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1134') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1135
+     * @tc.name    ColumnsKeyCodeValidation1135
+     * @tc.desc    Columns split mode at 135 probe 1135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1135', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 135;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1135') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1136
+     * @tc.name    ColumnsKeyCodeValidation1136
+     * @tc.desc    Columns split mode at 136 probe 1136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1136', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 136;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1136') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1137
+     * @tc.name    ColumnsKeyCodeValidation1137
+     * @tc.desc    Columns split mode at 137 probe 1137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1137', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 137;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1137') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1138
+     * @tc.name    ColumnsKeyCodeValidation1138
+     * @tc.desc    Columns split mode at 138 probe 1138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1138', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 138;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1138') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1139
+     * @tc.name    ColumnsKeyCodeValidation1139
+     * @tc.desc    Columns split mode at 139 probe 1139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1139', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 139;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1139') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1140
+     * @tc.name    ColumnsKeyCodeValidation1140
+     * @tc.desc    Columns split mode at 140 probe 1140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1140', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 140;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1140') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1141
+     * @tc.name    ColumnsKeyCodeValidation1141
+     * @tc.desc    Columns split mode at 141 probe 1141
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1141', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 141;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1141') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1142
+     * @tc.name    ColumnsKeyCodeValidation1142
+     * @tc.desc    Columns split mode at 142 probe 1142
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1142', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 142;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1142') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1143
+     * @tc.name    ColumnsKeyCodeValidation1143
+     * @tc.desc    Columns split mode at 143 probe 1143
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1143', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 143;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1143') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1144
+     * @tc.name    ColumnsKeyCodeValidation1144
+     * @tc.desc    Columns split mode at 144 probe 1144
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1144', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 144;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1144') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1145
+     * @tc.name    ColumnsKeyCodeValidation1145
+     * @tc.desc    Columns split mode at 145 probe 1145
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1145', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 145;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1145') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1146
+     * @tc.name    ColumnsKeyCodeValidation1146
+     * @tc.desc    Columns split mode at 146 probe 1146
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1146', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 146;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1146') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1147
+     * @tc.name    ColumnsKeyCodeValidation1147
+     * @tc.desc    Columns split mode at 147 probe 1147
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1147', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 147;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1147') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1148
+     * @tc.name    ColumnsKeyCodeValidation1148
+     * @tc.desc    Columns split mode at 148 probe 1148
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1148', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 148;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1148') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1149
+     * @tc.name    ColumnsKeyCodeValidation1149
+     * @tc.desc    Columns split mode at 149 probe 1149
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1149', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 149;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1149') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1150
+     * @tc.name    ColumnsKeyCodeValidation1150
+     * @tc.desc    Columns split mode at 150 probe 1150
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1150', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 150;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1150') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1151
+     * @tc.name    ColumnsKeyCodeValidation1151
+     * @tc.desc    Columns split mode at 151 probe 1151
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1151', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 151;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1151') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1152
+     * @tc.name    ColumnsKeyCodeValidation1152
+     * @tc.desc    Columns split mode at 152 probe 1152
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1152', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 152;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1152') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1153
+     * @tc.name    ColumnsKeyCodeValidation1153
+     * @tc.desc    Columns split mode at 153 probe 1153
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1153', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 153;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1153') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1154
+     * @tc.name    ColumnsKeyCodeValidation1154
+     * @tc.desc    Columns split mode at 154 probe 1154
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1154', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 154;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1154') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1155
+     * @tc.name    ColumnsKeyCodeValidation1155
+     * @tc.desc    Columns split mode at 155 probe 1155
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1155', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 155;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1155') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1156
+     * @tc.name    ColumnsKeyCodeValidation1156
+     * @tc.desc    Columns split mode at 156 probe 1156
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1156', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 156;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1156') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1157
+     * @tc.name    ColumnsKeyCodeValidation1157
+     * @tc.desc    Columns split mode at 157 probe 1157
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1157', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 157;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1157') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1158
+     * @tc.name    ColumnsKeyCodeValidation1158
+     * @tc.desc    Columns split mode at 158 probe 1158
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1158', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 158;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1158') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1159
+     * @tc.name    ColumnsKeyCodeValidation1159
+     * @tc.desc    Columns split mode at 159 probe 1159
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1159', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 159;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1159') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1160
+     * @tc.name    ColumnsKeyCodeValidation1160
+     * @tc.desc    Columns split mode at 160 probe 1160
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1160', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 160;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1160') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1161
+     * @tc.name    ColumnsKeyCodeValidation1161
+     * @tc.desc    Columns split mode at 161 probe 1161
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1161', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 161;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1161') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1162
+     * @tc.name    ColumnsKeyCodeValidation1162
+     * @tc.desc    Columns split mode at 162 probe 1162
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1162', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 162;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1162') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1163
+     * @tc.name    ColumnsKeyCodeValidation1163
+     * @tc.desc    Columns split mode at 163 probe 1163
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1163', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 163;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1163') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1164
+     * @tc.name    ColumnsKeyCodeValidation1164
+     * @tc.desc    Columns split mode at 164 probe 1164
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1164', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 164;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1164') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1165
+     * @tc.name    ColumnsKeyCodeValidation1165
+     * @tc.desc    Columns split mode at 165 probe 1165
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1165', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 165;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1165') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1166
+     * @tc.name    ColumnsKeyCodeValidation1166
+     * @tc.desc    Columns split mode at 166 probe 1166
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1166', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 166;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1166') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1167
+     * @tc.name    ColumnsKeyCodeValidation1167
+     * @tc.desc    Columns split mode at 167 probe 1167
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1167', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 167;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1167') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_COLUMNS_1168
+     * @tc.name    ColumnsKeyCodeValidation1168
+     * @tc.desc    Columns split mode at 168 probe 1168
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('ColumnsKeyCodeValidation1168', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const width: number = 168;
+      expect(m.isSplitMode(width)).assertEqual(width >= 600);
+      expect(m.getMailByType('nohit1168') === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
