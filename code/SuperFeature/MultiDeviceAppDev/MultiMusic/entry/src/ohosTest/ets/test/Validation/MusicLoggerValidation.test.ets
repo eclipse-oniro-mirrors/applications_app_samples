@@ -1988,3 +1988,1635 @@ export default function musicLoggerValidationSuite() {
       expect(m.getPlaylistByIndex(1000 + 1095) === undefined).assertEqual(true);
       hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
     });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1096
+     * @tc.name    MusicLoggerValidation1096
+     * @tc.desc    Music offset clamp within 97 probe 1096
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1096', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 97;
+      const clamped = m.clampOffset(m.makeOffset(-17, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1096) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1097
+     * @tc.name    MusicLoggerValidation1097
+     * @tc.desc    Music padding validity 197 probe 1097
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1097', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(197, 97);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1097) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1098
+     * @tc.name    MusicLoggerValidation1098
+     * @tc.desc    Music offset clamp within 99 probe 1098
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1098', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 99;
+      const clamped = m.clampOffset(m.makeOffset(-19, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1098) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1099
+     * @tc.name    MusicLoggerValidation1099
+     * @tc.desc    Music padding validity 199 probe 1099
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1099', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(199, 99);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1099) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1100
+     * @tc.name    MusicLoggerValidation1100
+     * @tc.desc    Music offset clamp within 101 probe 1100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1100', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 101;
+      const clamped = m.clampOffset(m.makeOffset(-21, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1100) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1101
+     * @tc.name    MusicLoggerValidation1101
+     * @tc.desc    Music padding validity 201 probe 1101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1101', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(201, 101);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1101) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1102
+     * @tc.name    MusicLoggerValidation1102
+     * @tc.desc    Music offset clamp within 103 probe 1102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1102', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 103;
+      const clamped = m.clampOffset(m.makeOffset(-23, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1102) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1103
+     * @tc.name    MusicLoggerValidation1103
+     * @tc.desc    Music padding validity 203 probe 1103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1103', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(203, 103);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1103) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1104
+     * @tc.name    MusicLoggerValidation1104
+     * @tc.desc    Music offset clamp within 105 probe 1104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1104', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 105;
+      const clamped = m.clampOffset(m.makeOffset(-25, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1104) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1105
+     * @tc.name    MusicLoggerValidation1105
+     * @tc.desc    Music padding validity 205 probe 1105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1105', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(205, 105);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1105) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1106
+     * @tc.name    MusicLoggerValidation1106
+     * @tc.desc    Music offset clamp within 107 probe 1106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1106', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 107;
+      const clamped = m.clampOffset(m.makeOffset(-27, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1106) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1107
+     * @tc.name    MusicLoggerValidation1107
+     * @tc.desc    Music padding validity 207 probe 1107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1107', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(207, 107);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1107) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1108
+     * @tc.name    MusicLoggerValidation1108
+     * @tc.desc    Music offset clamp within 109 probe 1108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1108', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 109;
+      const clamped = m.clampOffset(m.makeOffset(-29, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1108) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1109
+     * @tc.name    MusicLoggerValidation1109
+     * @tc.desc    Music padding validity 209 probe 1109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1109', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(209, 109);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1109) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1110
+     * @tc.name    MusicLoggerValidation1110
+     * @tc.desc    Music offset clamp within 111 probe 1110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1110', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 111;
+      const clamped = m.clampOffset(m.makeOffset(-31, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1110) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1111
+     * @tc.name    MusicLoggerValidation1111
+     * @tc.desc    Music padding validity 211 probe 1111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1111', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(211, 111);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1111) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1112
+     * @tc.name    MusicLoggerValidation1112
+     * @tc.desc    Music offset clamp within 113 probe 1112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1112', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 113;
+      const clamped = m.clampOffset(m.makeOffset(-33, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1112) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1113
+     * @tc.name    MusicLoggerValidation1113
+     * @tc.desc    Music padding validity 213 probe 1113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1113', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(213, 113);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1113) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1114
+     * @tc.name    MusicLoggerValidation1114
+     * @tc.desc    Music offset clamp within 115 probe 1114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1114', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 115;
+      const clamped = m.clampOffset(m.makeOffset(-35, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1114) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1115
+     * @tc.name    MusicLoggerValidation1115
+     * @tc.desc    Music padding validity 215 probe 1115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1115', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(215, 115);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1115) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1116
+     * @tc.name    MusicLoggerValidation1116
+     * @tc.desc    Music offset clamp within 117 probe 1116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1116', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 117;
+      const clamped = m.clampOffset(m.makeOffset(-37, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1116) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1117
+     * @tc.name    MusicLoggerValidation1117
+     * @tc.desc    Music padding validity 217 probe 1117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1117', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(217, 117);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1117) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1118
+     * @tc.name    MusicLoggerValidation1118
+     * @tc.desc    Music offset clamp within 119 probe 1118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1118', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 119;
+      const clamped = m.clampOffset(m.makeOffset(-39, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1118) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1119
+     * @tc.name    MusicLoggerValidation1119
+     * @tc.desc    Music padding validity 219 probe 1119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1119', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(219, 119);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1119) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1120
+     * @tc.name    MusicLoggerValidation1120
+     * @tc.desc    Music offset clamp within 121 probe 1120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1120', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 121;
+      const clamped = m.clampOffset(m.makeOffset(-41, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1120) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1121
+     * @tc.name    MusicLoggerValidation1121
+     * @tc.desc    Music padding validity 221 probe 1121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1121', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(221, 121);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1121) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1122
+     * @tc.name    MusicLoggerValidation1122
+     * @tc.desc    Music offset clamp within 123 probe 1122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1122', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 123;
+      const clamped = m.clampOffset(m.makeOffset(-43, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1122) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1123
+     * @tc.name    MusicLoggerValidation1123
+     * @tc.desc    Music padding validity 223 probe 1123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1123', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(223, 123);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1123) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1124
+     * @tc.name    MusicLoggerValidation1124
+     * @tc.desc    Music offset clamp within 125 probe 1124
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1124', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 125;
+      const clamped = m.clampOffset(m.makeOffset(-45, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1124) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1125
+     * @tc.name    MusicLoggerValidation1125
+     * @tc.desc    Music padding validity 225 probe 1125
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1125', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(225, 125);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1125) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1126
+     * @tc.name    MusicLoggerValidation1126
+     * @tc.desc    Music offset clamp within 127 probe 1126
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1126', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 127;
+      const clamped = m.clampOffset(m.makeOffset(-47, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1126) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1127
+     * @tc.name    MusicLoggerValidation1127
+     * @tc.desc    Music padding validity 227 probe 1127
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1127', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(227, 127);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1127) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1128
+     * @tc.name    MusicLoggerValidation1128
+     * @tc.desc    Music offset clamp within 129 probe 1128
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1128', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 129;
+      const clamped = m.clampOffset(m.makeOffset(-49, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1128) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1129
+     * @tc.name    MusicLoggerValidation1129
+     * @tc.desc    Music padding validity 229 probe 1129
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1129', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(229, 129);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1129) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1130
+     * @tc.name    MusicLoggerValidation1130
+     * @tc.desc    Music offset clamp within 131 probe 1130
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1130', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 131;
+      const clamped = m.clampOffset(m.makeOffset(-51, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1130) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1131
+     * @tc.name    MusicLoggerValidation1131
+     * @tc.desc    Music padding validity 231 probe 1131
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1131', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(231, 131);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1131) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1132
+     * @tc.name    MusicLoggerValidation1132
+     * @tc.desc    Music offset clamp within 133 probe 1132
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1132', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 133;
+      const clamped = m.clampOffset(m.makeOffset(-53, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1132) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1133
+     * @tc.name    MusicLoggerValidation1133
+     * @tc.desc    Music padding validity 233 probe 1133
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1133', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(233, 133);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1133) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1134
+     * @tc.name    MusicLoggerValidation1134
+     * @tc.desc    Music offset clamp within 135 probe 1134
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1134', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 135;
+      const clamped = m.clampOffset(m.makeOffset(-55, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1134) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1135
+     * @tc.name    MusicLoggerValidation1135
+     * @tc.desc    Music padding validity 235 probe 1135
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1135', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(235, 135);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1135) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1136
+     * @tc.name    MusicLoggerValidation1136
+     * @tc.desc    Music offset clamp within 137 probe 1136
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1136', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 137;
+      const clamped = m.clampOffset(m.makeOffset(-57, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1136) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1137
+     * @tc.name    MusicLoggerValidation1137
+     * @tc.desc    Music padding validity 237 probe 1137
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1137', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(237, 137);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1137) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1138
+     * @tc.name    MusicLoggerValidation1138
+     * @tc.desc    Music offset clamp within 139 probe 1138
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1138', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 139;
+      const clamped = m.clampOffset(m.makeOffset(-59, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1138) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1139
+     * @tc.name    MusicLoggerValidation1139
+     * @tc.desc    Music padding validity 239 probe 1139
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1139', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(239, 139);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1139) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1140
+     * @tc.name    MusicLoggerValidation1140
+     * @tc.desc    Music offset clamp within 141 probe 1140
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1140', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 141;
+      const clamped = m.clampOffset(m.makeOffset(-61, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1140) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1141
+     * @tc.name    MusicLoggerValidation1141
+     * @tc.desc    Music padding validity 241 probe 1141
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1141', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(241, 141);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1141) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1142
+     * @tc.name    MusicLoggerValidation1142
+     * @tc.desc    Music offset clamp within 143 probe 1142
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1142', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 143;
+      const clamped = m.clampOffset(m.makeOffset(-63, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1142) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1143
+     * @tc.name    MusicLoggerValidation1143
+     * @tc.desc    Music padding validity 243 probe 1143
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1143', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(243, 143);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1143) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1144
+     * @tc.name    MusicLoggerValidation1144
+     * @tc.desc    Music offset clamp within 145 probe 1144
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1144', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 145;
+      const clamped = m.clampOffset(m.makeOffset(-65, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1144) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1145
+     * @tc.name    MusicLoggerValidation1145
+     * @tc.desc    Music padding validity 245 probe 1145
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1145', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(245, 145);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1145) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1146
+     * @tc.name    MusicLoggerValidation1146
+     * @tc.desc    Music offset clamp within 147 probe 1146
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1146', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 147;
+      const clamped = m.clampOffset(m.makeOffset(-67, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1146) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1147
+     * @tc.name    MusicLoggerValidation1147
+     * @tc.desc    Music padding validity 247 probe 1147
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1147', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(247, 147);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1147) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1148
+     * @tc.name    MusicLoggerValidation1148
+     * @tc.desc    Music offset clamp within 149 probe 1148
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1148', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 149;
+      const clamped = m.clampOffset(m.makeOffset(-69, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1148) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1149
+     * @tc.name    MusicLoggerValidation1149
+     * @tc.desc    Music padding validity 249 probe 1149
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1149', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(249, 149);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1149) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1150
+     * @tc.name    MusicLoggerValidation1150
+     * @tc.desc    Music offset clamp within 151 probe 1150
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1150', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 151;
+      const clamped = m.clampOffset(m.makeOffset(-71, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1150) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1151
+     * @tc.name    MusicLoggerValidation1151
+     * @tc.desc    Music padding validity 251 probe 1151
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1151', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(251, 151);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1151) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1152
+     * @tc.name    MusicLoggerValidation1152
+     * @tc.desc    Music offset clamp within 153 probe 1152
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1152', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 153;
+      const clamped = m.clampOffset(m.makeOffset(-73, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1152) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1153
+     * @tc.name    MusicLoggerValidation1153
+     * @tc.desc    Music padding validity 253 probe 1153
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1153', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(253, 153);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1153) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1154
+     * @tc.name    MusicLoggerValidation1154
+     * @tc.desc    Music offset clamp within 155 probe 1154
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1154', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 155;
+      const clamped = m.clampOffset(m.makeOffset(-75, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1154) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1155
+     * @tc.name    MusicLoggerValidation1155
+     * @tc.desc    Music padding validity 255 probe 1155
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1155', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(255, 155);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1155) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1156
+     * @tc.name    MusicLoggerValidation1156
+     * @tc.desc    Music offset clamp within 157 probe 1156
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1156', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 157;
+      const clamped = m.clampOffset(m.makeOffset(-77, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1156) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1157
+     * @tc.name    MusicLoggerValidation1157
+     * @tc.desc    Music padding validity 257 probe 1157
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1157', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(257, 157);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1157) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1158
+     * @tc.name    MusicLoggerValidation1158
+     * @tc.desc    Music offset clamp within 159 probe 1158
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1158', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 159;
+      const clamped = m.clampOffset(m.makeOffset(-79, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1158) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1159
+     * @tc.name    MusicLoggerValidation1159
+     * @tc.desc    Music padding validity 259 probe 1159
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1159', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(259, 159);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1159) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1160
+     * @tc.name    MusicLoggerValidation1160
+     * @tc.desc    Music offset clamp within 161 probe 1160
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1160', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 161;
+      const clamped = m.clampOffset(m.makeOffset(-81, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1160) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1161
+     * @tc.name    MusicLoggerValidation1161
+     * @tc.desc    Music padding validity 261 probe 1161
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1161', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(261, 161);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1161) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1162
+     * @tc.name    MusicLoggerValidation1162
+     * @tc.desc    Music offset clamp within 163 probe 1162
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1162', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 163;
+      const clamped = m.clampOffset(m.makeOffset(-83, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1162) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1163
+     * @tc.name    MusicLoggerValidation1163
+     * @tc.desc    Music padding validity 263 probe 1163
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1163', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(263, 163);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1163) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1164
+     * @tc.name    MusicLoggerValidation1164
+     * @tc.desc    Music offset clamp within 165 probe 1164
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1164', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 165;
+      const clamped = m.clampOffset(m.makeOffset(-85, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1164) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1165
+     * @tc.name    MusicLoggerValidation1165
+     * @tc.desc    Music padding validity 265 probe 1165
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1165', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(265, 165);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1165) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1166
+     * @tc.name    MusicLoggerValidation1166
+     * @tc.desc    Music offset clamp within 167 probe 1166
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1166', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 167;
+      const clamped = m.clampOffset(m.makeOffset(-87, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1166) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1167
+     * @tc.name    MusicLoggerValidation1167
+     * @tc.desc    Music padding validity 267 probe 1167
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1167', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(267, 167);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1167) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1168
+     * @tc.name    MusicLoggerValidation1168
+     * @tc.desc    Music offset clamp within 169 probe 1168
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1168', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 169;
+      const clamped = m.clampOffset(m.makeOffset(-89, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1168) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1169
+     * @tc.name    MusicLoggerValidation1169
+     * @tc.desc    Music padding validity 269 probe 1169
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1169', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(269, 169);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1169) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1170
+     * @tc.name    MusicLoggerValidation1170
+     * @tc.desc    Music offset clamp within 171 probe 1170
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1170', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 171;
+      const clamped = m.clampOffset(m.makeOffset(-1, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1170) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1171
+     * @tc.name    MusicLoggerValidation1171
+     * @tc.desc    Music padding validity 271 probe 1171
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1171', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(271, 171);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1171) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1172
+     * @tc.name    MusicLoggerValidation1172
+     * @tc.desc    Music offset clamp within 173 probe 1172
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1172', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 173;
+      const clamped = m.clampOffset(m.makeOffset(-3, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1172) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1173
+     * @tc.name    MusicLoggerValidation1173
+     * @tc.desc    Music padding validity 273 probe 1173
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1173', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(273, 173);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1173) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1174
+     * @tc.name    MusicLoggerValidation1174
+     * @tc.desc    Music offset clamp within 175 probe 1174
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1174', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 175;
+      const clamped = m.clampOffset(m.makeOffset(-5, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1174) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1175
+     * @tc.name    MusicLoggerValidation1175
+     * @tc.desc    Music padding validity 275 probe 1175
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1175', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(275, 175);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1175) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1176
+     * @tc.name    MusicLoggerValidation1176
+     * @tc.desc    Music offset clamp within 177 probe 1176
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1176', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 177;
+      const clamped = m.clampOffset(m.makeOffset(-7, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1176) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1177
+     * @tc.name    MusicLoggerValidation1177
+     * @tc.desc    Music padding validity 277 probe 1177
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1177', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(277, 177);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1177) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1178
+     * @tc.name    MusicLoggerValidation1178
+     * @tc.desc    Music offset clamp within 179 probe 1178
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1178', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 179;
+      const clamped = m.clampOffset(m.makeOffset(-9, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1178) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1179
+     * @tc.name    MusicLoggerValidation1179
+     * @tc.desc    Music padding validity 279 probe 1179
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1179', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(279, 179);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1179) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1180
+     * @tc.name    MusicLoggerValidation1180
+     * @tc.desc    Music offset clamp within 181 probe 1180
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1180', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 181;
+      const clamped = m.clampOffset(m.makeOffset(-11, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1180) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1181
+     * @tc.name    MusicLoggerValidation1181
+     * @tc.desc    Music padding validity 281 probe 1181
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1181', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(281, 181);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1181) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1182
+     * @tc.name    MusicLoggerValidation1182
+     * @tc.desc    Music offset clamp within 183 probe 1182
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1182', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const maxX: number = 183;
+      const clamped = m.clampOffset(m.makeOffset(-13, 9999), maxX, maxX);
+      expect(clamped.x >= 0 && clamped.x <= maxX).assertEqual(true);
+      expect(clamped.y >= 0 && clamped.y <= maxX).assertEqual(true);
+      expect(m.getPlaylistByIndex(1000 + 1182) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+    /**
+     * @tc.number  SUB_MULTIDEVICE_MUSIC_1183
+     * @tc.name    MusicLoggerValidation1183
+     * @tc.desc    Music padding validity 283 probe 1183
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('MusicLoggerValidation1183', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case begin');
+      await new Promise<void>((resolve: (value: void | PromiseLike<void>) => void) => { setTimeout(() => resolve(), 10); });
+      const padding = m.makePadding(283, 183);
+      expect(m.horizontalPadding(padding)).assertEqual(padding.left + padding.right);
+      expect(m.isValidPadding(padding)).assertEqual(padding.left >= 0 && padding.right >= 0);
+      expect(m.getPlaylistByIndex(1000 + 1183) === undefined).assertEqual(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'case end');
+    });
+
+  });
+}
+
