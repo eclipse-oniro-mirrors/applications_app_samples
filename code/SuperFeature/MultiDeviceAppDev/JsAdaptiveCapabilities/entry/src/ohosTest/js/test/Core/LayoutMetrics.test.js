@@ -16,6 +16,7 @@
 import hilog from '@ohos.hilog';
 import { describe, it, expect } from '@ohos/hypium';
 import model from '../Shared/AdaptiveModel';
+import { registerLayoutMetricsExtra2 } from './LayoutMetrics.testCases2';
 
 const DOMAIN = 0xF811;
 const TAG = '[Sample_jsAdaptiveCapabilities]';
@@ -1547,29 +1548,1368 @@ function LayoutMetricsPart022() {
     });
 }
 
+function LayoutMetricsPart023() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0207
+     * @tc.name    JsLayout067
+     * @tc.desc    Width 511 item 233 aspect 511 ratio 5:5 seed 67
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout067', 0, async function () {
+      await yieldThread();
+      const width = 511;
+      const columns = 2;
+      const gutter = 12;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(479);
+      expect(itemWidth).assertEqual(233);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 5, 5)).assertEqual(511);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout067 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0208
+     * @tc.name    JsLayout068
+     * @tc.desc    Width 564 item 260 aspect 188 ratio 6:2 seed 68
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout068', 0, async function () {
+      await yieldThread();
+      const width = 564;
+      const columns = 2;
+      const gutter = 12;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(532);
+      expect(itemWidth).assertEqual(260);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 6, 2)).assertEqual(188);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout068 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0209
+     * @tc.name    JsLayout069
+     * @tc.desc    Width 617 item 168 aspect 264 ratio 7:3 seed 69
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout069', 0, async function () {
+      await yieldThread();
+      const width = 617;
+      const columns = 3;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(553);
+      expect(itemWidth).assertEqual(168);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 7, 3)).assertEqual(264);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout069 done');
+    });
+}
+
+function LayoutMetricsPart024() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0210
+     * @tc.name    JsLayout070
+     * @tc.desc    Width 670 item 186 aspect 893 ratio 3:4 seed 70
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout070', 0, async function () {
+      await yieldThread();
+      const width = 670;
+      const columns = 3;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(606);
+      expect(itemWidth).assertEqual(186);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 3, 4)).assertEqual(893);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout070 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0211
+     * @tc.name    JsLayout071
+     * @tc.desc    Width 723 item 203 aspect 904 ratio 4:5 seed 71
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout071', 0, async function () {
+      await yieldThread();
+      const width = 723;
+      const columns = 3;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(659);
+      expect(itemWidth).assertEqual(203);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 4, 5)).assertEqual(904);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout071 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0212
+     * @tc.name    JsLayout072
+     * @tc.desc    Width 776 item 221 aspect 310 ratio 5:2 seed 72
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout072', 0, async function () {
+      await yieldThread();
+      const width = 776;
+      const columns = 3;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(712);
+      expect(itemWidth).assertEqual(221);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 5, 2)).assertEqual(310);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout072 done');
+    });
+}
+
+function LayoutMetricsPart025() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0213
+     * @tc.name    JsLayout073
+     * @tc.desc    Width 829 item 239 aspect 415 ratio 6:3 seed 73
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout073', 0, async function () {
+      await yieldThread();
+      const width = 829;
+      const columns = 3;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(765);
+      expect(itemWidth).assertEqual(239);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 6, 3)).assertEqual(415);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout073 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0214
+     * @tc.name    JsLayout074
+     * @tc.desc    Width 882 item 186 aspect 504 ratio 7:4 seed 74
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout074', 0, async function () {
+      await yieldThread();
+      const width = 882;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(818);
+      expect(itemWidth).assertEqual(186);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 7, 4)).assertEqual(504);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout074 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0215
+     * @tc.name    JsLayout075
+     * @tc.desc    Width 935 item 199 aspect 1558 ratio 3:5 seed 75
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout075', 0, async function () {
+      await yieldThread();
+      const width = 935;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(871);
+      expect(itemWidth).assertEqual(199);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 3, 5)).assertEqual(1558);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout075 done');
+    });
+}
+
+function LayoutMetricsPart026() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0216
+     * @tc.name    JsLayout076
+     * @tc.desc    Width 988 item 213 aspect 494 ratio 4:2 seed 76
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout076', 0, async function () {
+      await yieldThread();
+      const width = 988;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(924);
+      expect(itemWidth).assertEqual(213);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 4, 2)).assertEqual(494);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout076 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0217
+     * @tc.name    JsLayout077
+     * @tc.desc    Width 1041 item 226 aspect 625 ratio 5:3 seed 77
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout077', 0, async function () {
+      await yieldThread();
+      const width = 1041;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(977);
+      expect(itemWidth).assertEqual(226);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 5, 3)).assertEqual(625);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout077 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0218
+     * @tc.name    JsLayout078
+     * @tc.desc    Width 1094 item 239 aspect 729 ratio 6:4 seed 78
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout078', 0, async function () {
+      await yieldThread();
+      const width = 1094;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1030);
+      expect(itemWidth).assertEqual(239);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 6, 4)).assertEqual(729);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout078 done');
+    });
+}
+
+function LayoutMetricsPart027() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0219
+     * @tc.name    JsLayout079
+     * @tc.desc    Width 1147 item 252 aspect 819 ratio 7:5 seed 79
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout079', 0, async function () {
+      await yieldThread();
+      const width = 1147;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1083);
+      expect(itemWidth).assertEqual(252);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 7, 5)).assertEqual(819);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout079 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0220
+     * @tc.name    JsLayout080
+     * @tc.desc    Width 1200 item 266 aspect 800 ratio 3:2 seed 80
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout080', 0, async function () {
+      await yieldThread();
+      const width = 1200;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1136);
+      expect(itemWidth).assertEqual(266);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 3, 2)).assertEqual(800);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout080 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0221
+     * @tc.name    JsLayout081
+     * @tc.desc    Width 1253 item 279 aspect 940 ratio 4:3 seed 81
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout081', 0, async function () {
+      await yieldThread();
+      const width = 1253;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1189);
+      expect(itemWidth).assertEqual(279);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 4, 3)).assertEqual(940);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout081 done');
+    });
+}
+
+function LayoutMetricsPart028() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0222
+     * @tc.name    JsLayout082
+     * @tc.desc    Width 1306 item 292 aspect 1045 ratio 5:4 seed 82
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout082', 0, async function () {
+      await yieldThread();
+      const width = 1306;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1242);
+      expect(itemWidth).assertEqual(292);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 5, 4)).assertEqual(1045);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout082 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0223
+     * @tc.name    JsLayout083
+     * @tc.desc    Width 1359 item 305 aspect 1133 ratio 6:5 seed 83
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout083', 0, async function () {
+      await yieldThread();
+      const width = 1359;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1295);
+      expect(itemWidth).assertEqual(305);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 6, 5)).assertEqual(1133);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout083 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0224
+     * @tc.name    JsLayout084
+     * @tc.desc    Width 1412 item 319 aspect 403 ratio 7:2 seed 84
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout084', 0, async function () {
+      await yieldThread();
+      const width = 1412;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1348);
+      expect(itemWidth).assertEqual(319);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 7, 2)).assertEqual(403);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout084 done');
+    });
+}
+
+function LayoutMetricsPart029() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0225
+     * @tc.name    JsLayout085
+     * @tc.desc    Width 345 item 150 aspect 345 ratio 3:3 seed 85
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout085', 0, async function () {
+      await yieldThread();
+      const width = 345;
+      const columns = 2;
+      const gutter = 12;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(313);
+      expect(itemWidth).assertEqual(150);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 3, 3)).assertEqual(345);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout085 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0226
+     * @tc.name    JsLayout086
+     * @tc.desc    Width 398 item 177 aspect 398 ratio 4:4 seed 86
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout086', 0, async function () {
+      await yieldThread();
+      const width = 398;
+      const columns = 2;
+      const gutter = 12;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(366);
+      expect(itemWidth).assertEqual(177);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 4, 4)).assertEqual(398);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout086 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0227
+     * @tc.name    JsLayout087
+     * @tc.desc    Width 451 item 203 aspect 451 ratio 5:5 seed 87
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout087', 0, async function () {
+      await yieldThread();
+      const width = 451;
+      const columns = 2;
+      const gutter = 12;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(419);
+      expect(itemWidth).assertEqual(203);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 5, 5)).assertEqual(451);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout087 done');
+    });
+}
+
+function LayoutMetricsPart030() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0228
+     * @tc.name    JsLayout088
+     * @tc.desc    Width 504 item 230 aspect 168 ratio 6:2 seed 88
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout088', 0, async function () {
+      await yieldThread();
+      const width = 504;
+      const columns = 2;
+      const gutter = 12;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(472);
+      expect(itemWidth).assertEqual(230);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 6, 2)).assertEqual(168);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout088 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0229
+     * @tc.name    JsLayout089
+     * @tc.desc    Width 557 item 256 aspect 239 ratio 7:3 seed 89
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout089', 0, async function () {
+      await yieldThread();
+      const width = 557;
+      const columns = 2;
+      const gutter = 12;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(525);
+      expect(itemWidth).assertEqual(256);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 7, 3)).assertEqual(239);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout089 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0230
+     * @tc.name    JsLayout090
+     * @tc.desc    Width 610 item 166 aspect 813 ratio 3:4 seed 90
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout090', 0, async function () {
+      await yieldThread();
+      const width = 610;
+      const columns = 3;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(546);
+      expect(itemWidth).assertEqual(166);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 3, 4)).assertEqual(813);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout090 done');
+    });
+}
+
+function LayoutMetricsPart031() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0231
+     * @tc.name    JsLayout091
+     * @tc.desc    Width 663 item 183 aspect 829 ratio 4:5 seed 91
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout091', 0, async function () {
+      await yieldThread();
+      const width = 663;
+      const columns = 3;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(599);
+      expect(itemWidth).assertEqual(183);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 4, 5)).assertEqual(829);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout091 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0232
+     * @tc.name    JsLayout092
+     * @tc.desc    Width 716 item 201 aspect 286 ratio 5:2 seed 92
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout092', 0, async function () {
+      await yieldThread();
+      const width = 716;
+      const columns = 3;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(652);
+      expect(itemWidth).assertEqual(201);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 5, 2)).assertEqual(286);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout092 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0233
+     * @tc.name    JsLayout093
+     * @tc.desc    Width 769 item 219 aspect 385 ratio 6:3 seed 93
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout093', 0, async function () {
+      await yieldThread();
+      const width = 769;
+      const columns = 3;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(705);
+      expect(itemWidth).assertEqual(219);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 6, 3)).assertEqual(385);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout093 done');
+    });
+}
+
+function LayoutMetricsPart032() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0234
+     * @tc.name    JsLayout094
+     * @tc.desc    Width 822 item 236 aspect 470 ratio 7:4 seed 94
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout094', 0, async function () {
+      await yieldThread();
+      const width = 822;
+      const columns = 3;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(758);
+      expect(itemWidth).assertEqual(236);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 7, 4)).assertEqual(470);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout094 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0235
+     * @tc.name    JsLayout095
+     * @tc.desc    Width 875 item 184 aspect 1458 ratio 3:5 seed 95
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout095', 0, async function () {
+      await yieldThread();
+      const width = 875;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(811);
+      expect(itemWidth).assertEqual(184);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 3, 5)).assertEqual(1458);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout095 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0236
+     * @tc.name    JsLayout096
+     * @tc.desc    Width 928 item 198 aspect 464 ratio 4:2 seed 96
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout096', 0, async function () {
+      await yieldThread();
+      const width = 928;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(864);
+      expect(itemWidth).assertEqual(198);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 4, 2)).assertEqual(464);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout096 done');
+    });
+}
+
+function LayoutMetricsPart033() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0237
+     * @tc.name    JsLayout097
+     * @tc.desc    Width 981 item 211 aspect 589 ratio 5:3 seed 97
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout097', 0, async function () {
+      await yieldThread();
+      const width = 981;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(917);
+      expect(itemWidth).assertEqual(211);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 5, 3)).assertEqual(589);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout097 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0238
+     * @tc.name    JsLayout098
+     * @tc.desc    Width 1034 item 224 aspect 689 ratio 6:4 seed 98
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout098', 0, async function () {
+      await yieldThread();
+      const width = 1034;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(970);
+      expect(itemWidth).assertEqual(224);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 6, 4)).assertEqual(689);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout098 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0239
+     * @tc.name    JsLayout099
+     * @tc.desc    Width 1087 item 237 aspect 776 ratio 7:5 seed 99
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout099', 0, async function () {
+      await yieldThread();
+      const width = 1087;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1023);
+      expect(itemWidth).assertEqual(237);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 7, 5)).assertEqual(776);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout099 done');
+    });
+}
+
+function LayoutMetricsPart034() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0240
+     * @tc.name    JsLayout100
+     * @tc.desc    Width 1140 item 251 aspect 760 ratio 3:2 seed 100
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout100', 0, async function () {
+      await yieldThread();
+      const width = 1140;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1076);
+      expect(itemWidth).assertEqual(251);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 3, 2)).assertEqual(760);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout100 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0241
+     * @tc.name    JsLayout101
+     * @tc.desc    Width 1193 item 264 aspect 895 ratio 4:3 seed 101
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout101', 0, async function () {
+      await yieldThread();
+      const width = 1193;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1129);
+      expect(itemWidth).assertEqual(264);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 4, 3)).assertEqual(895);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout101 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0242
+     * @tc.name    JsLayout102
+     * @tc.desc    Width 1246 item 277 aspect 997 ratio 5:4 seed 102
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout102', 0, async function () {
+      await yieldThread();
+      const width = 1246;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1182);
+      expect(itemWidth).assertEqual(277);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 5, 4)).assertEqual(997);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout102 done');
+    });
+}
+
+function LayoutMetricsPart035() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0243
+     * @tc.name    JsLayout103
+     * @tc.desc    Width 1299 item 290 aspect 1083 ratio 6:5 seed 103
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout103', 0, async function () {
+      await yieldThread();
+      const width = 1299;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1235);
+      expect(itemWidth).assertEqual(290);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 6, 5)).assertEqual(1083);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout103 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0244
+     * @tc.name    JsLayout104
+     * @tc.desc    Width 1352 item 304 aspect 386 ratio 7:2 seed 104
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout104', 0, async function () {
+      await yieldThread();
+      const width = 1352;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1288);
+      expect(itemWidth).assertEqual(304);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 7, 2)).assertEqual(386);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout104 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0245
+     * @tc.name    JsLayout105
+     * @tc.desc    Width 1405 item 317 aspect 1405 ratio 3:3 seed 105
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout105', 0, async function () {
+      await yieldThread();
+      const width = 1405;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1341);
+      expect(itemWidth).assertEqual(317);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 3, 3)).assertEqual(1405);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout105 done');
+    });
+}
+
+function LayoutMetricsPart036() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0246
+     * @tc.name    JsLayout106
+     * @tc.desc    Width 338 item 147 aspect 338 ratio 4:4 seed 106
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout106', 0, async function () {
+      await yieldThread();
+      const width = 338;
+      const columns = 2;
+      const gutter = 12;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(306);
+      expect(itemWidth).assertEqual(147);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 4, 4)).assertEqual(338);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout106 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0247
+     * @tc.name    JsLayout107
+     * @tc.desc    Width 391 item 173 aspect 391 ratio 5:5 seed 107
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout107', 0, async function () {
+      await yieldThread();
+      const width = 391;
+      const columns = 2;
+      const gutter = 12;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(359);
+      expect(itemWidth).assertEqual(173);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 5, 5)).assertEqual(391);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout107 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0248
+     * @tc.name    JsLayout108
+     * @tc.desc    Width 444 item 200 aspect 148 ratio 6:2 seed 108
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout108', 0, async function () {
+      await yieldThread();
+      const width = 444;
+      const columns = 2;
+      const gutter = 12;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(412);
+      expect(itemWidth).assertEqual(200);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 6, 2)).assertEqual(148);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout108 done');
+    });
+}
+
+function LayoutMetricsPart037() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0249
+     * @tc.name    JsLayout109
+     * @tc.desc    Width 497 item 226 aspect 213 ratio 7:3 seed 109
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout109', 0, async function () {
+      await yieldThread();
+      const width = 497;
+      const columns = 2;
+      const gutter = 12;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(465);
+      expect(itemWidth).assertEqual(226);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 7, 3)).assertEqual(213);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout109 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0250
+     * @tc.name    JsLayout110
+     * @tc.desc    Width 550 item 253 aspect 733 ratio 3:4 seed 110
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout110', 0, async function () {
+      await yieldThread();
+      const width = 550;
+      const columns = 2;
+      const gutter = 12;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(518);
+      expect(itemWidth).assertEqual(253);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 3, 4)).assertEqual(733);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout110 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0251
+     * @tc.name    JsLayout111
+     * @tc.desc    Width 603 item 163 aspect 754 ratio 4:5 seed 111
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout111', 0, async function () {
+      await yieldThread();
+      const width = 603;
+      const columns = 3;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(539);
+      expect(itemWidth).assertEqual(163);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 4, 5)).assertEqual(754);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout111 done');
+    });
+}
+
+function LayoutMetricsPart038() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0252
+     * @tc.name    JsLayout112
+     * @tc.desc    Width 656 item 181 aspect 262 ratio 5:2 seed 112
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout112', 0, async function () {
+      await yieldThread();
+      const width = 656;
+      const columns = 3;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(592);
+      expect(itemWidth).assertEqual(181);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 5, 2)).assertEqual(262);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout112 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0253
+     * @tc.name    JsLayout113
+     * @tc.desc    Width 709 item 199 aspect 355 ratio 6:3 seed 113
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout113', 0, async function () {
+      await yieldThread();
+      const width = 709;
+      const columns = 3;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(645);
+      expect(itemWidth).assertEqual(199);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 6, 3)).assertEqual(355);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout113 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0254
+     * @tc.name    JsLayout114
+     * @tc.desc    Width 762 item 216 aspect 435 ratio 7:4 seed 114
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout114', 0, async function () {
+      await yieldThread();
+      const width = 762;
+      const columns = 3;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(698);
+      expect(itemWidth).assertEqual(216);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 7, 4)).assertEqual(435);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout114 done');
+    });
+}
+
+function LayoutMetricsPart039() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0255
+     * @tc.name    JsLayout115
+     * @tc.desc    Width 815 item 234 aspect 1358 ratio 3:5 seed 115
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout115', 0, async function () {
+      await yieldThread();
+      const width = 815;
+      const columns = 3;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(751);
+      expect(itemWidth).assertEqual(234);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 3, 5)).assertEqual(1358);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout115 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0256
+     * @tc.name    JsLayout116
+     * @tc.desc    Width 868 item 183 aspect 434 ratio 4:2 seed 116
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout116', 0, async function () {
+      await yieldThread();
+      const width = 868;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(804);
+      expect(itemWidth).assertEqual(183);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 4, 2)).assertEqual(434);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout116 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0257
+     * @tc.name    JsLayout117
+     * @tc.desc    Width 921 item 196 aspect 553 ratio 5:3 seed 117
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout117', 0, async function () {
+      await yieldThread();
+      const width = 921;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(857);
+      expect(itemWidth).assertEqual(196);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 5, 3)).assertEqual(553);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout117 done');
+    });
+}
+
+function LayoutMetricsPart040() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0258
+     * @tc.name    JsLayout118
+     * @tc.desc    Width 974 item 209 aspect 649 ratio 6:4 seed 118
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout118', 0, async function () {
+      await yieldThread();
+      const width = 974;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(910);
+      expect(itemWidth).assertEqual(209);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 6, 4)).assertEqual(649);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout118 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0259
+     * @tc.name    JsLayout119
+     * @tc.desc    Width 1027 item 222 aspect 734 ratio 7:5 seed 119
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout119', 0, async function () {
+      await yieldThread();
+      const width = 1027;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(963);
+      expect(itemWidth).assertEqual(222);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 7, 5)).assertEqual(734);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout119 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0260
+     * @tc.name    JsLayout120
+     * @tc.desc    Width 1080 item 236 aspect 720 ratio 3:2 seed 120
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout120', 0, async function () {
+      await yieldThread();
+      const width = 1080;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1016);
+      expect(itemWidth).assertEqual(236);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 3, 2)).assertEqual(720);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout120 done');
+    });
+}
+
+function LayoutMetricsPart041() {
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0261
+     * @tc.name    JsLayout121
+     * @tc.desc    Width 1133 item 249 aspect 850 ratio 4:3 seed 121
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout121', 0, async function () {
+      await yieldThread();
+      const width = 1133;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1069);
+      expect(itemWidth).assertEqual(249);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 4, 3)).assertEqual(850);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout121 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0262
+     * @tc.name    JsLayout122
+     * @tc.desc    Width 1186 item 262 aspect 949 ratio 5:4 seed 122
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout122', 0, async function () {
+      await yieldThread();
+      const width = 1186;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1122);
+      expect(itemWidth).assertEqual(262);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 5, 4)).assertEqual(949);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout122 done');
+    });
+    /**
+     * @tc.number  SUB_MULTIDEVICE_JSADAPTIVE_0263
+     * @tc.name    JsLayout123
+     * @tc.desc    Width 1239 item 275 aspect 1033 ratio 6:5 seed 123
+     * @tc.size    MediumTest
+     * @tc.type    Function
+     * @tc.level   Level0
+     */
+    it('JsLayout123', 0, async function () {
+      await yieldThread();
+      const width = 1239;
+      const columns = 4;
+      const gutter = 24;
+      const content = model.contentWidthOf(width);
+      const itemWidth = model.itemWidthOf(width);
+      expect(content).assertEqual(1175);
+      expect(itemWidth).assertEqual(275);
+      expect(itemWidth * columns + (columns - 1) * gutter <= content).assertEqual(true);
+      expect(model.aspectHeightOf(width, 6, 5)).assertEqual(1033);
+      expect(model.columnsForWidth(width)).assertEqual(columns);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'JsLayout123 done');
+    });
+}
+
+function LayoutMetricsGroup001() {
+  LayoutMetricsPart001();
+  LayoutMetricsPart002();
+  LayoutMetricsPart003();
+  LayoutMetricsPart004();
+  LayoutMetricsPart005();
+  LayoutMetricsPart006();
+  LayoutMetricsPart007();
+  LayoutMetricsPart008();
+  LayoutMetricsPart009();
+  LayoutMetricsPart010();
+  LayoutMetricsPart011();
+  LayoutMetricsPart012();
+  LayoutMetricsPart013();
+  LayoutMetricsPart014();
+  LayoutMetricsPart015();
+  LayoutMetricsPart016();
+  LayoutMetricsPart017();
+  LayoutMetricsPart018();
+  LayoutMetricsPart019();
+  LayoutMetricsPart020();
+  LayoutMetricsPart021();
+  LayoutMetricsPart022();
+  LayoutMetricsPart023();
+  LayoutMetricsPart024();
+  LayoutMetricsPart025();
+  LayoutMetricsPart026();
+  LayoutMetricsPart027();
+  LayoutMetricsPart028();
+  LayoutMetricsPart029();
+  LayoutMetricsPart030();
+  LayoutMetricsPart031();
+  LayoutMetricsPart032();
+  LayoutMetricsPart033();
+  LayoutMetricsPart034();
+  LayoutMetricsPart035();
+  LayoutMetricsPart036();
+  LayoutMetricsPart037();
+  LayoutMetricsPart038();
+  LayoutMetricsPart039();
+  LayoutMetricsPart040();
+}
+
+function LayoutMetricsGroup002() {
+  LayoutMetricsPart041();
+}
+
 export default function layoutMetricsSuite() {
   describe('LayoutMetricsSuite', function () {
-    LayoutMetricsPart001();
-    LayoutMetricsPart002();
-    LayoutMetricsPart003();
-    LayoutMetricsPart004();
-    LayoutMetricsPart005();
-    LayoutMetricsPart006();
-    LayoutMetricsPart007();
-    LayoutMetricsPart008();
-    LayoutMetricsPart009();
-    LayoutMetricsPart010();
-    LayoutMetricsPart011();
-    LayoutMetricsPart012();
-    LayoutMetricsPart013();
-    LayoutMetricsPart014();
-    LayoutMetricsPart015();
-    LayoutMetricsPart016();
-    LayoutMetricsPart017();
-    LayoutMetricsPart018();
-    LayoutMetricsPart019();
-    LayoutMetricsPart020();
-    LayoutMetricsPart021();
-    LayoutMetricsPart022();
+    LayoutMetricsGroup001();
+    LayoutMetricsGroup002();
+    registerLayoutMetricsExtra2();
   });
 }
